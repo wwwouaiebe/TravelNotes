@@ -44,6 +44,7 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
+import theConfig from '../data/Config.js';
 import {
 	KeyboardKeydownEL,
 	CancelButtonClickEL,
@@ -54,8 +55,25 @@ import {
 	ContainerMouseEnterEL
 } from '../contextMenus/BaseContextMenuEventListeners.js';
 
-import { NOT_FOUND, ZERO, ONE, TWO } from '../main/Constants.js';
-import theConfig from '../data/Config.js';
+import { NOT_FOUND, ZERO, ONE } from '../main/Constants.js';
+
+/* eslint-disable no-magic-numbers */
+
+/**
+Enum for Item changes from the keyboard
+@readonly
+@enum {number}
+@private
+ */
+
+const KEYBOARD_ITEM_CHANGE = {
+	previousItem : -1,
+	firstItem : 0,
+	nextItem : 1,
+	lastItem : 2
+};
+
+/* eslint-enable no-magic-numbers */
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
@@ -92,11 +110,11 @@ class BaseContextMenuOperator {
 	};
 
 	/**
-	The index of the selected menuItem by the keyboard
+	The index of the selected by the keyboard menuItem
 	@private
 	*/
 
-	#keyboardSelectedItem = NOT_FOUND;
+	#keybordSelectedItemObjId = NOT_FOUND;
 
 	/**
 	TimerId for the mouseleave container action
@@ -106,7 +124,7 @@ class BaseContextMenuOperator {
 	#timerId = null;
 
 	/**
-	Remove the class on all items
+	Remove the css class on all items
 	@private
 	*/
 
@@ -118,44 +136,49 @@ class BaseContextMenuOperator {
 
 	/**
 	Selected item change by the keyboard
+	@param {!number} changeValue
 	@private
 	*/
 
-	#changeKeyboardSelectedItem ( changeValue ) {
+	#changeKeyboardSelectedItemObjId ( changeValue ) {
 
 		this.#unselectItems ( );
 
 		// change the selected item
 		switch ( changeValue ) {
-		case NOT_FOUND :
-		case ONE :
-			this.#keyboardSelectedItem += changeValue;
-			if ( NOT_FOUND === this.#keyboardSelectedItem ) {
-				this.#keyboardSelectedItem = this.#contextMenu.htmlElements.menuItemHTMLElements.length - ONE;
+		case KEYBOARD_ITEM_CHANGE.previousItem :
+		case KEYBOARD_ITEM_CHANGE.nextItem :
+			this.#keybordSelectedItemObjId += changeValue;
+			if ( NOT_FOUND === this.#keybordSelectedItemObjId ) {
+				this.#keybordSelectedItemObjId = this.#contextMenu.htmlElements.menuItemHTMLElements.length - ONE;
 			}
-			if ( this.#contextMenu.htmlElements.menuItemHTMLElements.length === this.#keyboardSelectedItem ) {
-				this.#keyboardSelectedItem = ZERO;
+			if ( this.#contextMenu.htmlElements.menuItemHTMLElements.length === this.#keybordSelectedItemObjId ) {
+				this.#keybordSelectedItemObjId = ZERO;
 			}
 			break;
 		case ZERO :
-			this.#keyboardSelectedItem = ZERO;
+			this.#keybordSelectedItemObjId = ZERO;
+			break;
+		case KEYBOARD_ITEM_CHANGE.lastItem :
+			this.#keybordSelectedItemObjId = this.#contextMenu.htmlElements.menuItemHTMLElements.length - ONE;
 			break;
 		default :
-			this.#keyboardSelectedItem = this.#contextMenu.htmlElements.menuItemHTMLElements.length - ONE;
 			break;
 		}
 
-		// add class
-		this.#contextMenu.htmlElements.menuItemHTMLElements [ this.#keyboardSelectedItem ]
+		// add css class
+		this.#contextMenu.htmlElements.menuItemHTMLElements [ this.#keybordSelectedItemObjId ]
 			.classList.add ( 'TravelNotes-ContextMenu-ItemSelected' );
 	}
 
 	/*
 	constructor
-	@param {Event} contextMenu. The ContextMenu for witch the operator is made
+	@param {Object} contextMenu. The ContextMenu for witch the operator is made
 	*/
 
 	constructor ( contextMenu ) {
+
+		Object.freeze ( this );
 
 		// saving the reference to the menu
 		this.#contextMenu = contextMenu;
@@ -181,7 +204,6 @@ class BaseContextMenuOperator {
 				menuItemHTMLElement.addEventListener ( 'mouseenter', this.#eventListeners.onMouseEnterMenuItem );
 			}
 		);
-		Object.freeze ( this );
 	}
 
 	destructor ( ) {
@@ -247,6 +269,7 @@ class BaseContextMenuOperator {
 
 	/**
 	Keydown on the keyboard action
+	@param {string} key The pressed keyboard key
 	*/
 
 	onKeydownKeyboard ( key ) {
@@ -258,29 +281,29 @@ class BaseContextMenuOperator {
 		case 'ArrowDown' :
 		case 'ArrowRight' :
 		case 'Tab' :
-			this.#changeKeyboardSelectedItem ( ONE );
+			this.#changeKeyboardSelectedItemObjId ( KEYBOARD_ITEM_CHANGE.nextItem );
 			break;
 		case 'ArrowUp' :
 		case 'ArrowLeft' :
-			this.#changeKeyboardSelectedItem ( NOT_FOUND );
+			this.#changeKeyboardSelectedItemObjId ( KEYBOARD_ITEM_CHANGE.previousItem );
 			break;
 		case 'Home' :
-			this.#changeKeyboardSelectedItem ( ZERO );
+			this.#changeKeyboardSelectedItemObjId ( KEYBOARD_ITEM_CHANGE.firstItem );
 			break;
 		case 'End' :
-			this.#changeKeyboardSelectedItem ( TWO );
+			this.#changeKeyboardSelectedItemObjId ( KEYBOARD_ITEM_CHANGE.lastItem );
 			break;
 		case 'Enter' :
 			if (
-				( NOT_FOUND === this.#keyboardSelectedItem )
+				( NOT_FOUND === this.#keybordSelectedItemObjId )
 				||
-				( this.#contextMenu.htmlElements.menuItemHTMLElements [ this.#keyboardSelectedItem ]
+				( this.#contextMenu.htmlElements.menuItemHTMLElements [ this.#keybordSelectedItemObjId ]
 					.classList.contains ( 'TravelNotes-ContextMenu-ItemDisabled' )
 				)
 			) {
 				return;
 			}
-			this.#contextMenu.onOk ( this.#keyboardSelectedItem );
+			this.#contextMenu.onOk ( this.#keybordSelectedItemObjId );
 			break;
 		default :
 			break;
@@ -297,6 +320,7 @@ class BaseContextMenuOperator {
 
 	/**
 	Select item action
+	@param {!number} itemObjId The id of the selected item
 	*/
 
 	selectItem ( itemObjId ) {
@@ -311,6 +335,7 @@ class BaseContextMenuOperator {
 
 	/**
 	Mouse leave item action
+	@param {HTMLElement} menuItem The targeted item
 	*/
 
 	onMouseLeaveMenuItem ( menuItem ) {
@@ -319,11 +344,12 @@ class BaseContextMenuOperator {
 
 	/**
 	Mouse enter item action
+	@param {HTMLElement} menuItem The targeted item
 	*/
 
 	onMouseEnterMenuItem ( menuItem ) {
 		this.#unselectItems ( );
-		this.#keyboardSelectedItem = Number.parseInt ( menuItem.dataset.tanObjId );
+		this.#keybordSelectedItemObjId = Number.parseInt ( menuItem.dataset.tanObjId );
 		menuItem.classList.add ( 'TravelNotes-ContextMenu-ItemSelected' );
 	}
 }

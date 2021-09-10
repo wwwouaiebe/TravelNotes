@@ -88,6 +88,11 @@ class OsmSearchContextMenu extends BaseContextMenu {
 
 	/* eslint-disable no-magic-numbers */
 
+	/**
+	Perform the action selected by the user. Implementation of the base class doAction method
+	@param {!number} selectedItemObjId The id of the item selected by the user
+	*/
+
 	doAction ( selectedItemObjId ) {
 		switch ( selectedItemObjId ) {
 		case 0 :
@@ -122,6 +127,11 @@ class OsmSearchContextMenu extends BaseContextMenu {
 	}
 
 	/* eslint-enable no-magic-numbers */
+
+	/**
+	menuItems getter. Implementation of the base class menuItem getter
+	@readonly
+	*/
 
 	get menuItems ( ) {
 		return [

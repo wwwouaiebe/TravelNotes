@@ -41,7 +41,7 @@ Tests ...
 @typedef {Object} MenuItem
 @desc An object with data used to display the menu
 @property {string} itemText The text to display in the menu
-@property {boolean} doAction When true the menu item is selectable
+@property {boolean} isActive When true the menu item is selectable
 @public
 
 @------------------------------------------------------------------------------------------------------------------------------
@@ -62,13 +62,18 @@ import BaseContextMenuOperator from '../contextMenus/BaseContextMenuOperator.js'
 
 import { ZERO, INVALID_OBJ_ID, LAT_LNG } from '../main/Constants.js';
 
+/**
+The min margin between the screen borders and the menu in pixels
+@private
+*/
+
 const OUR_MENU_MARGIN = 20;
 
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
 @class BaseContextMenu
-@classdesc Base class used to show context menus
+@classdesc Base class used to create context menus
 @abstract
 @hideconstructor
 
@@ -80,17 +85,24 @@ class BaseContextMenu {
 	/**
 	The active menu container. Needed to close the menu when
 	a second menu is loaded
+	@static
 	@private
 	*/
 
 	static #currentMenu = null;
 
 	/**
-	The promise ok and error handler
+	The promise ok handler
 	@private
 	*/
 
 	#onPromiseOk = null;
+
+	/**
+	The promise error handler
+	@private
+	*/
+
 	#onPromiseError = null;
 
 	/**
@@ -104,6 +116,11 @@ class BaseContextMenu {
 		cancelButton : null,
 		menuItemHTMLElements : []
 	};
+
+	/**
+	Data shared with the derived classes
+	@private
+	*/
 
 	#eventData = {
 		clientX : ZERO,
@@ -159,7 +176,7 @@ class BaseContextMenu {
 	*/
 
 	#createMenuItemsHTMLElements ( ) {
-		let menuItemCounter = 0;
+		let menuItemCounter = ZERO;
 		this.menuItems.forEach (
 			menuItem => {
 				let menuItemHTMLElement = theHTMLElementsFactory.create (
@@ -186,18 +203,14 @@ class BaseContextMenu {
 
 	#moveContainer ( ) {
 
-		// Searching the screen width and height
-		let screenWidth = theTravelNotesData.map.getContainer ( ).clientWidth;
-		let screenHeight = theTravelNotesData.map.getContainer ( ).clientHeight;
-
 		// the menu is positionned ( = top left where the user have clicked but the menu must be completely in the window...
-		let menuTop = Math.min (
+		const menuTop = Math.min (
 			this.#eventData.clientY,
-			screenHeight - this.#htmlElements.container.clientHeight - OUR_MENU_MARGIN
+			theTravelNotesData.map.getContainer ( ).clientHeight - this.#htmlElements.container.clientHeight - OUR_MENU_MARGIN
 		);
-		let menuLeft = Math.min (
+		const menuLeft = Math.min (
 			this.#eventData.clientX,
-			screenWidth - this.#htmlElements.container.clientWidth - OUR_MENU_MARGIN
+			theTravelNotesData.map.getContainer ( ).clientWidth - this.#htmlElements.container.clientWidth - OUR_MENU_MARGIN
 		);
 		this.#htmlElements.container.style.top = String ( menuTop ) + 'px';
 		if ( this.#eventData.haveParentNode ) {
@@ -209,7 +222,9 @@ class BaseContextMenu {
 	}
 
 	/**
-	Create and show the menu
+	Create and show the menu. This method is called by the Promise
+	@param {function} onPromiseOk The Promise Ok handler
+	@param {function} onPromiseError The Promise Error handler
 	@private
 	*/
 
@@ -232,6 +247,8 @@ class BaseContextMenu {
 
 	constructor ( contextMenuEvent, parentNode ) {
 
+		Object.freeze ( this );
+
 		if ( BaseContextMenu.#currentMenu ) {
 
 			// the menu is already opened, so we suppose the user will close the menu by clicking outside...
@@ -239,6 +256,7 @@ class BaseContextMenu {
 			return;
 		}
 
+		// Saving data from the contextMenuEvent
 		this.#eventData.clientX = contextMenuEvent.clientX || contextMenuEvent.originalEvent.clientX || ZERO;
 		this.#eventData.clientY = contextMenuEvent.clientY || contextMenuEvent.originalEvent.clientY || ZERO;
 		this.#eventData.lat = contextMenuEvent.latlng ? contextMenuEvent.latlng.lat : LAT_LNG.defaultValue;
@@ -263,21 +281,21 @@ class BaseContextMenu {
 		this.#htmlElements.parentNode = parentNode || document.body;
 
 		BaseContextMenu.#currentMenu = this;
-		Object.freeze ( this );
 	}
 
 	/**
-	onOk method used by the menu operator
+	onOk method used by the menu operator. Clean the variables and call the Promise Ok handler
+	@param {!number} selectedItemObjId The id of the item selected by the user
 	*/
 
-	onOk ( selectedItem ) {
+	onOk ( selectedItemObjId ) {
 		this.#menuOperator.destructor ( );
 		BaseContextMenu.#currentMenu = null;
-		this.#onPromiseOk ( selectedItem );
+		this.#onPromiseOk ( selectedItemObjId );
 	}
 
 	/**
-	onCancel method used by the menu operator
+	onCancel method used by the menu operator. Clean the variables and call the Promise Error handler
 	*/
 
 	onCancel ( ) {
@@ -297,7 +315,7 @@ class BaseContextMenu {
 		new Promise (
 			( onPromiseOk, onPromiseError ) => { this.#createMenu ( onPromiseOk, onPromiseError ); }
 		)
-			.then ( selection => this.doAction ( selection ) )
+			.then ( selectedItemObjId => this.doAction ( selectedItemObjId ) )
 			.catch (
 				err => {
 					if ( err ) {
@@ -307,19 +325,36 @@ class BaseContextMenu {
 			);
 	}
 
+	/* eslint-disable no-unused-vars */
+
 	/**
-	Return the menuItems. Must be implemented in the derived classes
+	Perform the action selected by the user. Must be implemented in the derived classes
+	@param {!number} selectedItemObjId The id of the item selected by the user
+	*/
+
+	doAction ( selectedItemObjId ) {
+	}
+
+	/* eslint-enable no-unused-vars */
+
+	/**
+	menuItems getter. Must be implemented in the derived classes
 	@readonly
 	*/
 
 	get menuItems ( ) { return []; }
 
 	/**
-	Get the html elements of the menu
+	html elements getter for the menuOperator
 	@readonly
 	*/
 
 	get htmlElements ( ) { return this.#htmlElements; }
+
+	/**
+	event data getter
+	@readonly
+	*/
 
 	get eventData ( ) { return this.#eventData; }
 

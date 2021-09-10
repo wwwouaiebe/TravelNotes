@@ -56,16 +56,35 @@ Tests ...
 
 class KeyboardKeydownEL {
 
+	/**
+	A reference to the menuOperator Object
+	@private
+	*/
+
 	#menuOperator = null;
 
+	/*
+	constructor
+	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
+	*/
+
 	constructor ( menuOperator ) {
-		this.#menuOperator = menuOperator;
 		Object.freeze ( this );
+		this.#menuOperator = menuOperator;
 	}
+
+	/**
+	Clean the reference to the menuOperator
+	*/
 
 	destructor ( ) {
 		this.#menuOperator = null;
 	}
+
+	/**
+	Event listener method
+	@param {EVvent} keydownEvent The triggerd event
+	*/
 
 	handleEvent ( keydownEvent ) {
 		keydownEvent.stopPropagation ( );
@@ -85,16 +104,35 @@ class KeyboardKeydownEL {
 
 class CancelButtonClickEL {
 
+	/**
+	A reference to the menuOperator Object
+	@private
+	*/
+
 	#menuOperator = null;
 
+	/*
+	constructor
+	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
+	*/
+
 	constructor ( menuOperator ) {
-		this.#menuOperator = menuOperator;
 		Object.freeze ( this );
+		this.#menuOperator = menuOperator;
 	}
+
+	/**
+	Clean the reference to the menuOperator
+	*/
 
 	destructor ( ) {
 		this.#menuOperator = null;
 	}
+
+	/**
+	Event listener method
+	@param {EVvent} clickEvent The triggerd event
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -114,20 +152,39 @@ class CancelButtonClickEL {
 
 class MenuItemMouseLeaveEL {
 
+	/**
+	A reference to the menuOperator Object
+	@private
+	*/
+
 	#menuOperator = null;
 
+	/*
+	constructor
+	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
+	*/
+
 	constructor ( menuOperator ) {
-		this.#menuOperator = menuOperator;
 		Object.freeze ( this );
+		this.#menuOperator = menuOperator;
 	}
+
+	/**
+	Clean the reference to the menuOperator
+	*/
 
 	destructor ( ) {
 		this.#menuOperator = null;
 	}
 
+	/**
+	Event listener method
+	@param {EVvent} mouseLeaveEvent The triggerd event
+	*/
+
 	handleEvent ( mouseLeaveEvent ) {
 		mouseLeaveEvent.stopPropagation ( );
-		this.#menuOperator.onMouseLeaveMenuItem ( mouseLeaveEvent.target );
+		this.#menuOperator.onMouseLeaveMenuItem ( mouseLeaveEvent.currentTarget );
 	}
 }
 
@@ -143,20 +200,39 @@ class MenuItemMouseLeaveEL {
 
 class MenuItemMouseEnterEL {
 
+	/**
+	A reference to the menuOperator Object
+	@private
+	*/
+
 	#menuOperator = null;
 
+	/*
+	constructor
+	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
+	*/
+
 	constructor ( menuOperator ) {
-		this.#menuOperator = menuOperator;
 		Object.freeze ( this );
+		this.#menuOperator = menuOperator;
 	}
+
+	/**
+	Clean the reference to the menuOperator
+	*/
 
 	destructor ( ) {
 		this.#menuOperator = null;
 	}
 
+	/**
+	Event listener method
+	@param {EVvent} mouseEnterEvent The triggerd event
+	*/
+
 	handleEvent ( mouseEnterEvent ) {
 		mouseEnterEvent.stopPropagation ( );
-		this.#menuOperator.onMouseEnterMenuItem ( mouseEnterEvent.target );
+		this.#menuOperator.onMouseEnterMenuItem ( mouseEnterEvent.currentTarget );
 	}
 }
 
@@ -172,20 +248,39 @@ class MenuItemMouseEnterEL {
 
 class MenuItemClickEL {
 
+	/**
+	A reference to the menuOperator Object
+	@private
+	*/
+
 	#menuOperator = null;
 
+	/*
+	constructor
+	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
+	*/
+
 	constructor ( menuOperator ) {
-		this.#menuOperator = menuOperator;
 		Object.freeze ( this );
+		this.#menuOperator = menuOperator;
 	}
+
+	/**
+	Clean the reference to the menuOperator
+	*/
 
 	destructor ( ) {
 		this.#menuOperator = null;
 	}
 
+	/**
+	Event listener method
+	@param {EVvent} clickEvent The triggerd event
+	*/
+
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		this.#menuOperator.selectItem ( Number.parseInt ( clickEvent.target.dataset.tanObjId ) );
+		this.#menuOperator.selectItem ( Number.parseInt ( clickEvent.currentTarget.dataset.tanObjId ) );
 	}
 }
 
@@ -201,16 +296,35 @@ class MenuItemClickEL {
 
 class ContainerMouseLeaveEL {
 
+	/**
+	A reference to the menuOperator Object
+	@private
+	*/
+
 	#menuOperator = null;
 
+	/*
+	constructor
+	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
+	*/
+
 	constructor ( menuOperator ) {
-		this.#menuOperator = menuOperator;
 		Object.freeze ( this );
+		this.#menuOperator = menuOperator;
 	}
+
+	/**
+	Clean the reference to the menuOperator
+	*/
 
 	destructor ( ) {
 		this.#menuOperator = null;
 	}
+
+	/**
+	Event listener method
+	@param {EVvent} mouseLeaveEvent The triggerd event
+	*/
 
 	handleEvent ( mouseLeaveEvent ) {
 		mouseLeaveEvent.stopPropagation ( );
@@ -230,16 +344,35 @@ class ContainerMouseLeaveEL {
 
 class ContainerMouseEnterEL {
 
+	/**
+	A reference to the menuOperator Object
+	@private
+	*/
+
 	#menuOperator = null;
 
+	/*
+	constructor
+	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
+	*/
+
 	constructor ( menuOperator ) {
-		this.#menuOperator = menuOperator;
 		Object.freeze ( this );
+		this.#menuOperator = menuOperator;
 	}
+
+	/**
+	Clean the reference to the menuOperator
+	*/
 
 	destructor ( ) {
 		this.#menuOperator = null;
 	}
+
+	/**
+	Event listener method
+	@param {EVvent} mouseEnterEvent The triggerd event
+	*/
 
 	handleEvent ( mouseEnterEvent ) {
 		mouseEnterEvent.stopPropagation ( );
