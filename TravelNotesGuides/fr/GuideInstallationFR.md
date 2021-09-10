@@ -28,7 +28,7 @@ Voir https://www.mozilla.org/en-US/security/advisories/mfsa2019-21/#CVE-2019-117
 Pas de grandes connaissances informatiques? Si la démo vous convient, vous pouvez télécharger celle-ci 
 en vous rendant dans la branche gh-pages.
 Encore trop compliqué? suivez directement ce 
-[lien](https://github.com/wwwouaiebe/leaflet.TravelNotes/archive/gh-pages.zip)
+[lien](https://github.com/wwwouaiebe/TravelNotes/archive/gh-pages.zip)
  qui vous permet de télécharger la démo. Ouvrez le fichier zip et installez son contenu dans 
  un répertoire sur votre serveur et ouvrez le fichier index.html. That's all :-).
 
@@ -80,7 +80,7 @@ Travel & Notes créera automatiquement la carte et tous les contrôles nécessai
 <a id="MoreOnJS"></a>
 ### Quelques explications complémentaires sur le Javascript
 
-Voyez la [documentation du code JS](https://github.com/wwwouaiebe/leaflet.TravelNotes/blob/gh-pages/TechDoc/index.html )
+Voyez la [documentation du code JS](https://github.com/wwwouaiebe/TravelNotes/blob/gh-pages/TechDoc/index.html )
 pour plus d'informations.
 
 Notez cependant que seul l'objet TravelNotes est accessible depuis du code JS additionnel 
@@ -221,7 +221,7 @@ Attention: les valeurs contenues dans ce tableau sont des valeurs numériques et
 - __travelNotes.autoLoad__ : quand cette valeur est true, la carte et tous les contrôles sont construits automatiquement au chargement du javascript de Travel & Notes ( valeur par défaut : true )
 - __travelNotes.haveBeforeUnloadWarning__ : quand cette valeur est true, un message de confirmation est affiché chaque fois que le voyage en cours d'édition va être effacé ( valeur par défaut : true )
 - __travelNotes.language__ : la langue utilisée par Travel& Notes, sauf si une autre langue est précisée dans l'url ( valeur par défaut : "fr" )
-- __travelNotesToolbarUI.contactMail.url__ : l'adresse mail utilisée dans le bouton contact ( valeur par défaut : "https://github.com/wwwouaiebe/leaflet.TravelNotes/issues" )
+- __travelNotesToolbarUI.contactMail.url__ : l'adresse mail utilisée dans le bouton contact ( valeur par défaut : "https://github.com/wwwouaiebe/TravelNotes/issues" )
 - __wayPoint.reverseGeocoding__ : quand cette valeur est true, les coordonnées des points de passage sont remplacées par une adresse ( valeur par défaut : true )
 - __wayPoint.geocodingIncludeName__ : quand cette valeur est true, un nom est si possible ajouté à l'adresse ( valeur par défaut : true )
 
@@ -429,7 +429,7 @@ Travel & Notes est traduit en 'fr' et en 'en'. Si vous désirez traduire Travel 
 langue, copiez le fichier TravelNotesEN.json et renommez-le en fonction de la langue utilisée. Ensuite,
 éditez ce fichier et traduisez toutes les lignes msgstr dans la langue souhaitée.
 Pour charger Travel & Notes dans une autre langue, ajoutez à l'url lng= et la langue à utiliser 
-(exemple pour utiliser Travel & Notes en en: https://wwwouaiebe.github.io/leaflet.TravelNotes/?lng=en.
+(exemple pour utiliser Travel & Notes en en: https://wwwouaiebe.github.io/TravelNotes/?lng=en.
 
 L'organisation de ces fichiers est la plus proche possible de celle de 
 [GNU getText](https://en.wikipedia.org/wiki/Gettext)

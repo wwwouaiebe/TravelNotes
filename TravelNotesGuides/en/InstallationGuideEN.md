@@ -26,7 +26,7 @@ See https://www.mozilla.org/en-US/security/advisories/mfsa2019-21/#CVE-2019-1173
 
 No great computer skills? If the demo suits you, you can download it by going to the gh-pages branch.
 Still too complicated? follow this 
-[link](https://github.com/wwwouaiebe/leaflet.TravelNotes/archive/gh-pages.zip)  directly
+[link](https://github.com/wwwouaiebe/TravelNotes/archive/gh-pages.zip)  directly
 which allows you to download the demo.
 Open the zip file and install its contents in a directory on your server and open the 
 index.html file. That's all :-).
@@ -79,7 +79,7 @@ Travel & Notes will automatically create the map and all necessary controls.
 <a id="MoreOnJS"></a>
 ### Some additional explanations on Javascript
 
-See the [JS code documentation](https://github.com/wwwouaiebe/leaflet.TravelNotes/blob/gh-pages/TechDoc/index.html )
+See the [JS code documentation](https://github.com/wwwouaiebe/TravelNotes/blob/gh-pages/TechDoc/index.html )
 for more information.
 
 Note, however, that only the TravelNotes object is accessible from additional JS code 
@@ -221,7 +221,7 @@ Warning: the values in this array are numerical values and will be multiplied by
 - __travelNotes.autoLoad__ : when this value is true, the map and all the controls are built automatically when the Travel & Notes javascript is loaded( default value : true )
 - __travelNotes.haveBeforeUnloadWarning__ : when this value is true, a confirmation message is displayed each time the travel being edited is going to be deleted ( default value : true )
 - __travelNotes.language__ : the language used by Travel & Notes, unless another language is specified in the url ( default value : "fr" )
-- __travelNotesToolbarUI.contactMail.url__ : the email address used in the contact button ( default value : "https://github.com/wwwouaiebe/leaflet.TravelNotes/issues" )
+- __travelNotesToolbarUI.contactMail.url__ : the email address used in the contact button ( default value : "https://github.com/wwwouaiebe/TravelNotes/issues" )
 - __wayPoint.reverseGeocoding__ : when this value is true, the coordinates of the waypoints are replaced by an address ( default value : true )
 - __wayPoint.geocodingIncludeName__ : when this value is true, a name is if possible added to the address ( default value : true )
 
@@ -427,7 +427,7 @@ Travel & Notes is translated into 'fr' and 'en'. If you want to translate Travel
 another language, copy the TravelNotesEN.json file and rename it according to the language used. Then,
 edit this file and translate all the lines in the desired language.
 To load Travel & Notes in another language, add to the url lng = and the language to use 
-(example to use Travel & Notes in english: https://wwwouaiebe.github.io/leaflet.TravelNotes/?lng=en.)
+(example to use Travel & Notes in english: https://wwwouaiebe.github.io/TravelNotes/?lng=en.)
 
 The organization of these files is as close as possible to that of 
 [GNU getText](https://en.wikipedia.org/wiki/Gettext)

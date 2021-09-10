@@ -91,8 +91,8 @@ class AboutDialog extends BaseDialog {
 				'or any later version.</p>' +
 				'<p>Copyright - 2017 2021 - wwwouaiebe</p>' +
 				'<p>Contact : <a href="https://www.ouaie.be/pages/Contact" target="_blank">https://www.ouaie.be/</a></p>' +
-				'<p>GitHub : <a href="https://github.com/wwwouaiebe/leaflet.TravelNotes" target="_blank">' +
-				'https://github.com/wwwouaiebe/leaflet.TravelNotes</a></p>' +
+				'<p>GitHub : <a href="https://github.com/wwwouaiebe/TravelNotes" target="_blank">' +
+				'https://github.com/wwwouaiebe/TravelNotes</a></p>' +
 				'<p>Version : ' + theAppVersion + '.' +
 				'<p>This program uses:' +
 				' <a href="https://leafletjs.com/" target="_blank">leaflet</a>,' +

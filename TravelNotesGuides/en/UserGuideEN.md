@@ -98,7 +98,7 @@ __**ATTENTION : It is not possible to open with version 1.x.x a file saved with 
 You may still need the older version to make corrections in the notes.
 You can do two installations of Travel & Notes without any problem. You just have to place them 
 in different directories. You can also use the demo of version v2.0.0 installed on 
-[https://wwwouaiebe.github.io/leaflet.TravelNotes/?lng=en](https://wwwouaiebe.github.io/leaflet.TravelNotes/?lng=en).
+[https://wwwouaiebe.github.io/TravelNotes/?lng=en](https://wwwouaiebe.github.io/TravelNotes/?lng=en).
 
 - **Make a backup copy of your travel files**.
 - Open Travel & Notes v2.0.0 and also open the browser's web console.
@@ -216,9 +216,9 @@ Move the mouse over this rectangle to see the complete interface:
 At the top of the interface is a first toolbar:
 - the button 🏠 redirects to your home page
 - the button ? redirects to
-[the Travel & Notes help page on Github](https://github.com/wwwouaiebe/leaflet.TravelNotes/tree/gh-pages/TravelNotesGuides)
+[the Travel & Notes help page on Github](https://github.com/wwwouaiebe/TravelNotes/tree/gh-pages/TravelNotesGuides)
 - the @ button redirects to a contact page. By default it is
-[the Travel & Notes issues page on Github](https://github.com/wwwouaiebe/leaflet.TravelNotes/issues).
+[the Travel & Notes issues page on Github](https://github.com/wwwouaiebe/TravelNotes/issues).
 the url can be modified via the TravelNotes Config.json file (travelNotesToolbarUI.contactMail.url)
 - the button 🔑 displays the dialog box of the access keys
 - the button 🌐 enables or disables localization.
@@ -427,7 +427,7 @@ It is possible to move a profile on the screen by dragging and dropping with the
 <a id="TrainItinerary"></a>
 ### Train route
 
-- select leaflet.TravelNotesPublicTransport as the route provider by clicking on the <img src="PublicTransportButton.PNG" /> icon at the bottom of the interface
+- select TravelNotesPublicTransport as the route provider by clicking on the <img src="PublicTransportButton.PNG" /> icon at the bottom of the interface
 - right click on the map near the departure station and choose "Select this point as the start point" from the context menu.
 - right click on the map near the destination station and choose "Select this point as end point" from the context menu.
 - after a few moments, a list of all the trains connecting the two stations is displayed.
@@ -824,7 +824,7 @@ To consult the travel, you must call TravelNotes by giving it as a parameter in 
 of the file converted to base64. And remember that you can only convert ascii characters to base64 ...
 
 ```
-https://wwwouaiebe.github.io/leaflet.TravelNotes/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==
+https://wwwouaiebe.github.io/TravelNotes/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==
 ```
 
 aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg== 
@@ -832,7 +832,7 @@ is
 https://wwwouaiebe.github.io/samples/Liege/StationToYouthHostel.trv
 base64 encoded
 
-See the sample on the [demo](https://wwwouaiebe.github.io/leaflet.TravelNotes/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==&lng=en)
+See the sample on the [demo](https://wwwouaiebe.github.io/TravelNotes/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==&lng=en)
 
 When such a file is displayed, it is not possible to modify it. The TravelNotes interface is not 
 visible and all context menus are disabled.
@@ -845,7 +845,7 @@ JavaScript code. In this case, you can try a simplified version of Travel & Note
 you to view the files. The url must be completed in the same way as for the normal version:
 
 ```
-https://wwwouaiebe.github.io/leaflet.TravelNotes/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==
+https://wwwouaiebe.github.io/TravelNotes/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==
 ```
 
 You can however add &lay at the end of the url to also display a toolbar showing the background maps 
@@ -861,18 +861,18 @@ You can also use the keyboard for a few commands:
 TravelNotesLayers.json file - Only maps that do not require access keys can be displayed, the viewer does not manage the access keys).
 
 ```
-https://wwwouaiebe.github.io/leaflet.TravelNotes/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==&lay
+https://wwwouaiebe.github.io/TravelNotes/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==&lay
 ```
 
 See the sample on the
-[demo](https://wwwouaiebe.github.io/leaflet.TravelNotes/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==&lay)
+[demo](https://wwwouaiebe.github.io/TravelNotes/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==&lay)
 
 Other samples:
 
-[An excerpt from my last bike trip from Dover to Chester](https://wwwouaiebe.github.io/leaflet.TravelNotes/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL1VLMjAxOS9VSzIwMTkudHJ2) 
+[An excerpt from my last bike trip from Dover to Chester](https://wwwouaiebe.github.io/TravelNotes/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL1VLMjAxOS9VSzIwMTkudHJ2) 
 
 [The maps for the first route of Dover to Chester](https://wwwouaiebe.github.io/samples/UK2019/UK2019.pdf)
 
-[A train, bus and bicycle trip from Liège to Tromsø](https://wwwouaiebe.github.io/leaflet.TravelNotes/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlLVRyb21zby9zdW9taTIwMTgwNjA4LnRydg==)
+[A train, bus and bicycle trip from Liège to Tromsø](https://wwwouaiebe.github.io/TravelNotes/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlLVRyb21zby9zdW9taTIwMTgwNjA4LnRydg==)
 
 [And the roadbook from Liège to Tromsø](https://wwwouaiebe.github.io/samples/Liege-Tromso/suomi20180608-Roadbook.pdf)

@@ -102,7 +102,7 @@ __**ATTENTION : Il n'est pas possible d'ouvrir avec une version 1.x.x un fichier
 Il est possible que vous ayez encore besoin de la version antérieure pour faire des corrections dans les notes.
 Vous pouvez faire deux installations de Travel & Notes sans problème. Il suffit de les placer dans des répertoires
 différents. Vous pouvez aussi utiliser la démo de la version v2.0.0 installée sur 
-[https://wwwouaiebe.github.io/leaflet.TravelNotes/](https://wwwouaiebe.github.io/leaflet.TravelNotes/).
+[https://wwwouaiebe.github.io/TravelNotes/](https://wwwouaiebe.github.io/TravelNotes/).
 
 - **Faites une copie de sauvegarde de vos fichiers de voyage**
 - Ouvrez Travel & Notes v2.0.0 et ouvrez également la console web du navigateur.
@@ -229,8 +229,8 @@ Déplacez la souris sur ce rectangle pour voir l'interface complète:
 
 En haut de l'interface se trouve une première barre d'outils:
 - le bouton 🏠 redirige vers votre page d'accueil
-- le bouton ? redirige vers [la page d'aide sur Github](https://github.com/wwwouaiebe/leaflet.TravelNotes/tree/gh-pages/TravelNotesGuides)
-- le bouton @ redirige vers une page de contact. Par défaut, c'est [la page des issues de Travel & Notes sur Github](https://github.com/wwwouaiebe/leaflet.TravelNotes/issues).
+- le bouton ? redirige vers [la page d'aide sur Github](https://github.com/wwwouaiebe/TravelNotes/tree/gh-pages/TravelNotesGuides)
+- le bouton @ redirige vers une page de contact. Par défaut, c'est [la page des issues de Travel & Notes sur Github](https://github.com/wwwouaiebe/TravelNotes/issues).
 L'url peut être modifiée via le fichier TravelNotesConfig.json (travelNotesToolbarUI.contactMail.url)
 - le bouton 🔑 affiche la boite de dialogue des clefs d'accès
 - le bouton 🌐 active ou désactive la localisation. 
@@ -446,7 +446,7 @@ Il est possible de déplacer un profil sur l'écran en faisant un glisser/dépos
 <a id="TrainItinerary"></a>
 ### Trajet en train
 
-- sélectionnez leaflet.TravelNotesPublicTransport comme fournisseur de trajet en cliquant sur l'icône <img src="PublicTransportButton.PNG" /> dans le bas de l'interface
+- sélectionnez TravelNotesPublicTransport comme fournisseur de trajet en cliquant sur l'icône <img src="PublicTransportButton.PNG" /> dans le bas de l'interface
 - faites un clic droit sur la carte à proximité de la gare de départ et choisissez "Sélectionner cet endroit comme point de départ" dans le menu contextuel.
 - faites un clic droit sur la carte à proximité de la gare de destination et choisissez "Sélectionner cet endroit comme point de fin" dans le menu contextuel.
 - après quelques instants, une liste de tous les trains reliant les deux gares est affichée 
@@ -854,14 +854,14 @@ du fichier convertie en base64. Et rappelez-vous que l'on ne peut convertir en b
 ascii...
 
 ```
-https://wwwouaiebe.github.io/leaflet.TravelNotes/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==
+https://wwwouaiebe.github.io/TravelNotes/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==
 ```
 
 aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg== 
 est l'équivalent de
 https://wwwouaiebe.github.io/samples/Liege/StationToYouthHostel.trv encodé en base64
 
-Voir l'exemple sur la [démo](https://wwwouaiebe.github.io/leaflet.TravelNotes/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==)
+Voir l'exemple sur la [démo](https://wwwouaiebe.github.io/TravelNotes/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==)
 
 Quand un tel fichier est affiché, il n'est pas possible de modifier celui-ci. Le contrôle n'est pas 
 visible et tous les menus contextuels sont désactivés.
@@ -875,7 +875,7 @@ juste la visualisation des fichiers. L'url doit être complétée de la même fa
 la version normale:
 
 ```
-https://wwwouaiebe.github.io/leaflet.TravelNotes/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==
+https://wwwouaiebe.github.io/TravelNotes/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==
 ```
 
 Vous pouvez cependant ajouter &lay à la fin de l'url pour afficher également une barre d'outils 
@@ -891,18 +891,18 @@ Vous pouvez également utiliser le clavier pour quelques commandes:
 les cartes ne nécessitant pas de clefs d'accès peuvent être affichées, le viewer ne gérant pas les clefs d'accès ).
 
 ```
-https://wwwouaiebe.github.io/leaflet.TravelNotes/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==&lay
+https://wwwouaiebe.github.io/TravelNotes/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==&lay
 ```
 
 Voir l'exemple sur la 
-[démo](https://wwwouaiebe.github.io/leaflet.TravelNotes/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==&lay)
+[démo](https://wwwouaiebe.github.io/TravelNotes/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==&lay)
 
 D'autres exemples:
 
-[Un extrait de mon dernier voyage en vélo de Dover à Chester](https://wwwouaiebe.github.io/leaflet.TravelNotes/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL1VLMjAxOS9VSzIwMTkudHJ2) 
+[Un extrait de mon dernier voyage en vélo de Dover à Chester](https://wwwouaiebe.github.io/TravelNotes/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL1VLMjAxOS9VSzIwMTkudHJ2) 
 
 [Les cartes du premier trajet de Dover à Chester](https://wwwouaiebe.github.io/samples/UK2019/UK2019.pdf)
 
-[Un voyage en train, bus et vélo de Liège à Tromsø](https://wwwouaiebe.github.io/leaflet.TravelNotes/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlLVRyb21zby9zdW9taTIwMTgwNjA4LnRydg==)
+[Un voyage en train, bus et vélo de Liège à Tromsø](https://wwwouaiebe.github.io/TravelNotes/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9zYW1wbGVzL0xpZWdlLVRyb21zby9zdW9taTIwMTgwNjA4LnRydg==)
 
 [Et le livre de voyage de Liège à Tromsø](https://wwwouaiebe.github.io/samples/Liege-Tromso/suomi20180608-Roadbook.pdf)

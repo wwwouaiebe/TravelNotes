@@ -17,9 +17,9 @@ Many technical modifications have also been made:
 ### What's new in release 1.7.0
 
 - When OpenRouteService or GraphHopper are used as route providers, it is also possible to display the route profile.
-- When a route between two points is made with leaflet.TravelNotesPolyline this route is no longer represented as a straight line,
-but in the form of a segment of a great circle. See [leaflet.TravelNotesPolyline](https://github.com/wwwouaiebe/leaflet.TravelNotesPolyline/blob/master/README.md) documentation.
-- It is also possible to draw circles with leaflet.TravelNotesPolyline. See [leaflet.TravelNotesPolyline](https://github.com/wwwouaiebe/leaflet.TravelNotesPolyline/blob/master/README.md) documentation.
+- When a route between two points is made with TravelNotesPolyline this route is no longer represented as a straight line,
+but in the form of a segment of a great circle. See [TravelNotesPolyline](https://github.com/wwwouaiebe/TravelNotesPolyline/blob/master/README.md) documentation.
+- It is also possible to draw circles with TravelNotesPolyline. See [TravelNotesPolyline](https://github.com/wwwouaiebe/TravelNotesPolyline/blob/master/README.md) documentation.
 
 ### What's new in release 1.8.0
 
@@ -45,10 +45,10 @@ but in the form of a segment of a great circle. See [leaflet.TravelNotesPolyline
 
 ###  What's new in release 1.12.0
 
-- The user interface has been changed. Consult the [User guide - en ](https://github.com/wwwouaiebe/leaflet.TravelNotes/blob/gh-pages/TravelNotesGuides/en/UserGuideEN.md).
+- The user interface has been changed. Consult the [User guide - en ](https://github.com/wwwouaiebe/TravelNotes/blob/gh-pages/TravelNotesGuides/en/UserGuideEN.md).
 - All commands are standardized. Each object (map, route, note, waypoint, maneuver) is created, modified or deleted via commands in context menus that are available on the map or in the user interface.
 - Performance is improved. Memory usage has been greatly reduced and load times reduced. This is particularly noticeable for long travels.
-- [All code is documented](https://wwwouaiebe.github.io/leaflet.TravelNotes/TechDoc/)
+- [All code is documented](https://wwwouaiebe.github.io/TravelNotes/TechDoc/)
 
 ###  What's new in release 1.13.0
 
@@ -67,7 +67,7 @@ Thanks to this, it is no longer possible to run javascript from a site other tha
 to run scripts inline in the html or to download images or files from another site.
 If you have the possibility, however, it is preferable to activate Content Securty Policy via a header installed by the server rather than via a&lt;meta&gt; tag.
 - the html tags that can be used when creating notes are restricted, as are the attributes attached to these html tags.
-Consult the [User guide - en ](https://github.com/wwwouaiebe/leaflet.TravelNotes/blob/gh-pages/TravelNotesGuides/en/UserGuideEN.md#AddHtmltext).
+Consult the [User guide - en ](https://github.com/wwwouaiebe/TravelNotes/blob/gh-pages/TravelNotesGuides/en/UserGuideEN.md#AddHtmltext).
 - when opening a travel file made with an earlier version, all unauthorized tags and attributes are deleted.
 - in order to avoid an xss attack via a link sent by email, it is no longer possible to automatically open a travel file 
 via the app url when this travel file comes from another site, even if Content Security Policy is completely disabled.
@@ -108,7 +108,7 @@ for map presentations on the Internet
 - the css have been reorganized and revised. Many small presentation bugs related to CSS have been fixed.
 - it is possible to zoom and pan on the map when a dialog is displayed.
 - it is possible to use the keyboard for the viewer commands. See the 
- [user guide - en ](https://github.com/wwwouaiebe/leaflet.TravelNotes/blob/gh-pages/TravelNotesGuides/en/UserGuideEN.md#Viewer)
+ [user guide - en ](https://github.com/wwwouaiebe/TravelNotes/blob/gh-pages/TravelNotesGuides/en/UserGuideEN.md#Viewer)
 - and many purely technical modifications as well as the correction of many small bugs.
 
 ### What's new in release 2.3.0

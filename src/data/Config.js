@@ -302,7 +302,7 @@ let theConfig = {
 	travelNotesToolbarUI :
 	{
 		contactMail : {
-			url : 'https://github.com/wwwouaiebe/leaflet.TravelNotes/issues'
+			url : 'https://github.com/wwwouaiebe/TravelNotes/issues'
 		}
 	},
 	wayPoint : {

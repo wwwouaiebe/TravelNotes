@@ -19,9 +19,9 @@ les dépendances dans le code.
 ### Quoi de neuf dans la version 1.7.0
 
 - Lorsque OpenRouteService ou GraphHopper sont utilisés comme fournisseurs d'itinéraire, il est également possible d'afficher le profil de la route.
-- Lorsque un trajet entre deux points est fait avec leaflet.TravelNotesPolyline ce trajet n'est plus représente sous forme de ligne droite,
-mais bien sous forme d'un segment de grand cercle. Voir la documentation de [leaflet.TravelNotesPolyline](https://github.com/wwwouaiebe/leaflet.TravelNotesPolyline/blob/master/README.md)
-- Il est également possible de tracer des cercles avec leaflet.TravelNotesPolyline. Voir la documentation de [leaflet.TravelNotesPolyline](https://github.com/wwwouaiebe/leaflet.TravelNotesPolyline/blob/master/README.md)
+- Lorsque un trajet entre deux points est fait avec TravelNotesPolyline ce trajet n'est plus représente sous forme de ligne droite,
+mais bien sous forme d'un segment de grand cercle. Voir la documentation de [TravelNotesPolyline](https://github.com/wwwouaiebe/TravelNotesPolyline/blob/master/README.md)
+- Il est également possible de tracer des cercles avec TravelNotesPolyline. Voir la documentation de [TravelNotesPolyline](https://github.com/wwwouaiebe/TravelNotesPolyline/blob/master/README.md)
 
 ### Quoi de neuf dans la version 1.8.0
 
@@ -48,11 +48,11 @@ En faisant ensuite un glisser / déposer de celui-ci, le point de passage est aj
 
 ### Quoi de neuf dans la version 1.12.0
 
-- L'interface utilisateur a été modifiée. Consultez le [guide pour les utilisateurs - fr ](https://github.com/wwwouaiebe/leaflet.TravelNotes/blob/gh-pages/TravelNotesGuides/fr/GuideUtilisateurFR.md).
+- L'interface utilisateur a été modifiée. Consultez le [guide pour les utilisateurs - fr ](https://github.com/wwwouaiebe/TravelNotes/blob/gh-pages/TravelNotesGuides/fr/GuideUtilisateurFR.md).
 - Toutes les commandes sont uniformisées. Chaque objet (carte, route, note, point de passage, manoeuvre) est créé, modifié ou supprimé via des commandes
 dans des menus contextuels qui sont disponibles sur la carte ou dans l'interface utilisateur.
 - Les performances sont améliorées. L'utilisation de la mémoire a fortement diminué et les temps de chargement réduits. Cela est particulièrement sensible pour de longs voyages.
-- [Tout le code est documenté](https://wwwouaiebe.github.io/leaflet.TravelNotes/TechDoc/)
+- [Tout le code est documenté](https://wwwouaiebe.github.io/TravelNotes/TechDoc/)
 
 ### Quoi de neuf dans la version 1.13.0
 
@@ -71,7 +71,7 @@ Grâce à cela, il n'est plus possible d'exécuter du javascript depuis un autre
 dans le html ni de télécharger des images ou des fichiers depuis un autre site.
 Si vous en avez la possibilité, il est cependant préférable d'activer Content Securty Policy via un header installé par le serveur plutôt que via une balise &lt;meta&gt;.
 - les balises html pouvant être utilisées lors de la création des notes sont restreintes, de même que les attributs attachés à ces balises html.
-Consultez le [guide pour les utilisateurs - fr ](https://github.com/wwwouaiebe/leaflet.TravelNotes/blob/gh-pages/TravelNotesGuides/fr/GuideUtilisateurFR.md#AddHtmltext).
+Consultez le [guide pour les utilisateurs - fr ](https://github.com/wwwouaiebe/TravelNotes/blob/gh-pages/TravelNotesGuides/fr/GuideUtilisateurFR.md#AddHtmltext).
 - lors de l'ouverture d'un fichier de voyage réalisé avec une version antérieure, toutes les balises et les attributs non autorisés sont effacé·e·s.
 - afin d'éviter une attaque xss via un lien envoyé par mail, il n'est plus possible d'ouvrir automatiquement un fichier de voyage via l'url de l'apps quand ce fichier
 de voyage provient d'un autre site, même si Content Security Policy est complètement désactivé.
@@ -112,7 +112,7 @@ trajet et/ou SANS les manoeuvres. Cette commande permet d'avoir un fichier beauc
 - les css ont été réorganisés et revus. De nombreux petits bugs de présentation liés à CSS ont été corrigés.
 - il est possible de faire des zooms et des pans sur la carte quand un dialogue est affiché.
 - il est possible d'utiliser le clavier pour les commandes du viewer. Voir 
-le [guide pour les utilisateurs - fr ](https://github.com/wwwouaiebe/leaflet.TravelNotes/blob/gh-pages/TravelNotesGuides/fr/GuideUtilisateurFR.md#Viewer)
+le [guide pour les utilisateurs - fr ](https://github.com/wwwouaiebe/TravelNotes/blob/gh-pages/TravelNotesGuides/fr/GuideUtilisateurFR.md#Viewer)
 - et de nombreuses modifications purement techniques ainsi qie la correction de nombreux petits bugs.
 
 ### Quoi de neuf dans la version 2.3.0

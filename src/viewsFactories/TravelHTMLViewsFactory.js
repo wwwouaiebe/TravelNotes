@@ -197,8 +197,8 @@ class TravelHTMLViewsFactory {
 	#getTravelFooterHTML ( classPrefix ) {
 		let footerText =
 			theTranslator.getText ( 'TravelHTMLViewsFactory - Travel footer' ) +
-			'<a href="https://github.com/wwwouaiebe/leaflet.TravelNotes"' +
-			' target="_blank" title="https://github.com/wwwouaiebe/leaflet.TravelNotes" >Travel & Notes</a>, © ' +
+			'<a href="https://github.com/wwwouaiebe/TravelNotes"' +
+			' target="_blank" title="https://github.com/wwwouaiebe/TravelNotes" >Travel & Notes</a>, © ' +
 			'<a href="https://www.ouaie.be/"' +
 			' target="_blank" title="https://www.ouaie.be/" >wwwouaiebe 2017 2021</a> © ' +
 			'<a href="https://www.openstreetmap.org/copyright"' +

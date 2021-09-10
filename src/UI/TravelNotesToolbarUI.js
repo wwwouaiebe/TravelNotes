@@ -196,7 +196,7 @@ class TravelNotesToolbarUI {
 				'a',
 				{
 					className : 'TravelNotes-UI-LinkButton',
-					href : 'https://github.com/wwwouaiebe/leaflet.TravelNotes/tree/gh-pages/TravelNotesGuides',
+					href : 'https://github.com/wwwouaiebe/TravelNotes/tree/gh-pages/TravelNotesGuides',
 					target : '_blank'
 				},
 				theHTMLElementsFactory.create (

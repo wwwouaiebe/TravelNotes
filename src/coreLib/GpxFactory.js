@@ -85,7 +85,7 @@ class GpxFactory {
 		this.#myGpxString += '<gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
 		'xmlns:xsd="http://www.w3.org/2001/XMLSchema" ' +
 		'xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" ' +
-		'version="1.1" creator="leaflet.TravelNotes">';
+		'version="1.1" creator="TravelNotes">';
 	}
 
 	/**
