@@ -1,0 +1,47 @@
+{
+  "name": "leaflet.travelnotes",
+  "version": "3.0.0",
+  "description": "A mapping and routing application.",
+  "main": "src/main/main.js",
+  "dependencies": {
+    "leaflet": "latest"
+  },
+  "devDependencies": {
+    "@babel/core": "latest",
+    "@babel/eslint-parser": "latest",
+    "clean-css": "latest",
+    "eslint": "latest",
+    "grunt": "latest",
+    "grunt-contrib-clean": "latest",
+    "grunt-contrib-copy": "latest",
+    "grunt-contrib-cssmin": "latest",
+    "grunt-eslint": "latest",
+    "grunt-jsdoc": "latest",
+    "grunt-rollup": "latest",
+    "grunt-stylelint": "latest",
+    "grunt-terser": "latest",
+    "grunt-text-replace": "latest",
+    "jsdoc": "latest",
+    "osrm-text-instructions": "latest",
+    "rollup": "latest",
+    "stylelint": "latest",
+    "stylelint-config-standard": "latest",
+    "terser": "latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wwwouaiebe/leaflet.TravelNotes.git"
+  },
+  "keywords": [
+    "Leaflet",
+    "Routing",
+    "Markers"
+  ],
+  "author": "wwwouaiebe",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/wwwouaiebe/leaflet.TravelNotes/issues"
+  },
+  "sources": "https://github.com/wwwouaiebe/leaflet.TravelNotes",
+  "homepage": "https://github.com/wwwouaiebe/leaflet.TravelNotes#readme"
+}

@@ -1,0 +1,11 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+gh-page/
+node_modules/
+backup/
+tmp/
+debug/
+TechDoc/
+tests/

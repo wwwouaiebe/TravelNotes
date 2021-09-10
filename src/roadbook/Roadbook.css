@@ -1,0 +1,155 @@
+/*
+Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
+
+This  program is free software;
+you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation;
+either version 3 of the License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+/*
+--- Roadbook.css file -------------------------------------------------------------------------------------------------
+
+This file contains:
+	- the css for the Roadbook
+Changes:
+	- v1.12.0:
+		- Issue #120 : Review the UserInterface
+	- v2.0.0:
+		- Issue #138 : Protect the app - control html entries done by user.
+
+-----------------------------------------------------------------------------------------------------------------------
+*/
+
+#TravelNotes-Roadbook-GoTop > a {
+	color: black;
+	text-decoration: none;
+}
+
+.TravelNotes-Roadbook-Travel-Notes,
+.TravelNotes-Roadbook-Route-ManeuversAndNotes {
+	margin-top: 1em;
+	margin-bottom: 2em;
+}
+
+.TravelNotes-Roadbook-Travel-Notes-Row,
+.TravelNotes-Roadbook-Route-Maneuvers-Row,
+.TravelNotes-Roadbook-Route-Notes-Row {
+	border-bottom-style: solid;
+	border-bottom-width: 0.1em;
+	padding-top: 1em;
+	padding-bottom: 1em;
+	display: flex;
+	flex-direction: row;
+}
+
+.TravelNotes-Roadbook-Travel-Notes-IconCell,
+.TravelNotes-Roadbook-Route-ManeuversAndNotes-IconCell {
+	background-repeat: no-repeat;
+	min-width: 40px;
+	min-height: 40px;
+	vertical-align: top;
+	flex-shrink: 0;
+}
+
+.TravelNotes-Roadbook-Travel-Notes-Cell,
+.TravelNotes-Roadbook-Route-ManeuversAndNotes-Cell {
+	padding-left: 0.5em;
+	flex-shrink: 2;
+}
+
+#TravelNotes-Roadbook-Menu {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 200;
+}
+
+@media screen and (max-width: 320px) {
+	body {
+		margin: 0;
+		padding: 0;
+	}
+
+	#TravelNotes-Roadbook-Menu {
+		position: static;
+	}
+
+	.TravelNotes-Roadbook-Travel {
+		margin-right: 0;
+		margin-left: 0;
+	}
+
+	.TravelNotes-Roadbook-Travel-Notes-Row,
+	.TravelNotes-Roadbook-Route-Maneuvers-Row,
+	.TravelNotes-Roadbook-Route-Notes-Row {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.TravelNotes-Roadbook-NoteHtml-Url {
+		overflow: hidden;
+	}
+
+	.TravelNotes-Roadbook-Travel-Notes-Cell,
+	.TravelNotes-Roadbook-Route-ManeuversAndNotes-Cell {
+		padding-left: 0;
+		flex-shrink: 2;
+	}
+}
+
+@media screen and (min-width: 321px) and (max-width: 70em) {
+	.TravelNotes-Roadbook-Travel {
+		padding-top: 3.5em;
+	}
+
+	#TravelNotes-Roadbook-Menu {
+		padding: 0.5em;
+		border-style: solid;
+		border-width: 1px;
+		margin-left: 0.5em;
+	}
+
+	#TravelNotes-Roadbook-Menu > div {
+		display: inline-block;
+	}
+}
+
+@media screen and (min-width: 70em) {
+	.TravelNotes-Roadbook-Travel {
+		width: 50em;
+		margin-left: calc(50% - 50em / 2);
+		margin-right: calc(50% - 50em / 2);
+	}
+}
+
+@media print {
+	#TravelNotes-Roadbook-Menu {
+		visibility: hidden;
+		width: 0;
+		height: 0;
+		margin: 0;
+		padding: 0;
+		border-width: 0;
+		border-style: none;
+	}
+
+	.TravelNotes-Roadbook-Route-Header {
+		page-break-before: always;
+	}
+
+	.TravelNotes-Roadbook-Travel-Notes-Row,
+	.TravelNotes-Roadbook-Route-Maneuvers-Row,
+	.TravelNotes-Roadbook-Route-Notes-Row {
+		page-break-inside: avoid;
+	}
+}
