@@ -52,8 +52,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-/* eslint no-fallthrough: ["error", { "commentPattern": "eslint break omitted intentionally" }]*/
-
 import ObjId from '../data/ObjId.js';
 import ObjType from '../data/ObjType.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';

@@ -112,26 +112,30 @@ class BaseContextMenu {
 	@private
 	*/
 
-	#htmlElements = {
-		parentNode : null,
-		container : null,
-		cancelButton : null,
-		menuItemHTMLElements : []
-	};
+	#htmlElements = Object.seal (
+		{
+			parentNode : null,
+			container : null,
+			cancelButton : null,
+			menuItemHTMLElements : []
+		}
+	);
 
 	/**
 	Data shared with the derived classes
 	@private
 	*/
 
-	#eventData = {
-		clientX : ZERO,
-		clientY : ZERO,
-		lat : LAT_LNG.defaultValue,
-		lng : LAT_LNG.defaultValue,
-		targetObjId : INVALID_OBJ_ID,
-		haveParentNode : false
-	};
+	#eventData = Object.seal (
+		{
+			clientX : ZERO,
+			clientY : ZERO,
+			lat : LAT_LNG.defaultValue,
+			lng : LAT_LNG.defaultValue,
+			targetObjId : INVALID_OBJ_ID,
+			haveParentNode : false
+		}
+	);
 
 	/**
 	The associated BaseContextMenuOperator object

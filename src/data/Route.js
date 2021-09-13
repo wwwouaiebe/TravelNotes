@@ -60,8 +60,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-/* eslint no-fallthrough: ["error", { "commentPattern": "eslint break omitted intentionally" }]*/
-
 import theConfig from '../data/Config.js';
 import ObjId from '../data/ObjId.js';
 import ObjType from '../data/ObjType.js';

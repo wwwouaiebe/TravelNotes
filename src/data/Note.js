@@ -52,8 +52,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-/* eslint no-fallthrough: ["error", { "commentPattern": "eslint break omitted intentionally" }]*/
-
 import ObjId from '../data/ObjId.js';
 import ObjType from '../data/ObjType.js';
 import { LAT_LNG, DISTANCE, ZERO, ONE, INVALID_OBJ_ID, ICON_DIMENSIONS } from '../main/Constants.js';
