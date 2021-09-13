@@ -122,44 +122,6 @@ class Maneuver {
 	#objId = INVALID_OBJ_ID;;
 
 	/**
-	Performs the upgrade
-	@param {Object} maneuver A maneuver to upgrade
-	@throws {Error} when the maneuver version is invalid
-	@private
-	*/
-
-	#upgradeObject ( maneuver ) {
-		switch ( maneuver.objType.version ) {
-		case '1.0.0' :
-		case '1.1.0' :
-		case '1.2.0' :
-		case '1.3.0' :
-		case '1.4.0' :
-		case '1.5.0' :
-		case '1.6.0' :
-		case '1.7.0' :
-		case '1.7.1' :
-		case '1.8.0' :
-		case '1.9.0' :
-		case '1.10.0' :
-		case '1.11.0' :
-			if ( 'kArriveDefault' === maneuver.iconName ) {
-				maneuver.distance = DISTANCE.defaultValue;
-			}
-			// eslint break omitted intentionally
-		case '1.12.0' :
-		case '1.13.0' :
-		case '2.0.0' :
-		case '2.1.0' :
-		case '2.2.0' :
-			maneuver.objType.version = '2.3.0';
-			break;
-		default :
-			throw new Error ( 'invalid version for ' + OUR_OBJ_TYPE.name );
-		}
-	}
-
-	/**
 	Verify that the parameter can be transformed to a Maneuver and performs the upgrate if needed
 	@param {Object} something an object to validate
 	@return {Object} the validated object
@@ -172,9 +134,6 @@ class Maneuver {
 			throw new Error ( 'No objType for ' + OUR_OBJ_TYPE.name );
 		}
 		OUR_OBJ_TYPE.validate ( something.objType );
-		if ( OUR_OBJ_TYPE.version !== something.objType.version ) {
-			this.#upgradeObject ( something );
-		}
 		let properties = Object.getOwnPropertyNames ( something );
 		[ 'iconName', 'instruction', 'distance', 'duration', 'itineraryPointObjId', 'objId' ].forEach (
 			property => {

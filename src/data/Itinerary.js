@@ -144,45 +144,7 @@ class Itinerary	{
 	#maneuvers = new Collection ( Maneuver );
 
 	/**
-	Performs the upgrade
-	@param {Object} itinerary an itinerary to upgrade
-	@throws {Error} when the itinerary version is invalid
-	@private
-	*/
-
-	#upgradeObject ( itinerary ) {
-		switch ( itinerary.objType.version ) {
-		case '1.0.0' :
-		case '1.1.0' :
-		case '1.2.0' :
-		case '1.3.0' :
-		case '1.4.0' :
-		case '1.5.0' :
-		case '1.6.0' :
-			itinerary.hasProfile = false;
-			itinerary.ascent = ZERO;
-			itinerary.descent = ZERO;
-			// eslint break omitted intentionally
-		case '1.7.0' :
-		case '1.7.1' :
-		case '1.8.0' :
-		case '1.9.0' :
-		case '1.10.0' :
-		case '1.11.0' :
-		case '1.12.0' :
-		case '1.13.0' :
-		case '2.0.0' :
-		case '2.1.0' :
-		case '2.2.0' :
-			itinerary.objType.version = '2.3.0';
-			break;
-		default :
-			throw new Error ( 'invalid version for ' + OUR_OBJ_TYPE.name );
-		}
-	}
-
-	/**
-	Verify that the parameter can be transformed to a Itinerary and performs the upgrate if needed
+	Verify that the parameter can be transformed to a Itinerary
 	@param {Object} something an object to validate
 	@return {Object} the validated object
 	@throws {Error} when the parameter is invalid
@@ -194,9 +156,6 @@ class Itinerary	{
 			throw new Error ( 'No objType for ' + OUR_OBJ_TYPE.name );
 		}
 		OUR_OBJ_TYPE.validate ( something.objType );
-		if ( OUR_OBJ_TYPE.version !== something.objType.version ) {
-			this.#upgradeObject ( something );
-		}
 		let properties = Object.getOwnPropertyNames ( something );
 		[ 	'hasProfile',
 			'ascent',

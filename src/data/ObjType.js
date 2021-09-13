@@ -73,6 +73,7 @@ class ObjType {
 
 	/**
 	An array with all the valid objects names for the data
+	@private
 	*/
 
 	#validObjTypeNames = [ 'Itinerary', 'ItineraryPoint', 'Maneuver', 'Note', 'Route', 'Travel', 'WayPoint' ];

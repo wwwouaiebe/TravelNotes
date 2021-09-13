@@ -190,75 +190,7 @@ class Note {
 	#objId = INVALID_OBJ_ID;;
 
 	/**
-	Transform a style attribute to a class attribute for conversion from 1.13.0 to 2.0.0 version
-	@param {string} somethingText
-	@return {string} the modified text
-	@private
-	*/
-
-	#UpdateStyles ( somethingText ) {
-		let returnValue = somethingText
-			.replaceAll ( /style='color:white;background-color:red'/g, 'class=\'TravelNotes-Note-WhiteRed\'' )
-			.replaceAll ( /style='color:white;background-color:green'/g, 'class=\'TravelNotes-Note-WhiteGreen\'' )
-			.replaceAll ( /style='color:white;background-color:blue'/g, 'class=\'TravelNotes-Note-WhiteBlue\'' )
-			.replaceAll ( /style='color:white;background-color:brown'/g, 'class=\'TravelNotes-Note-WhiteBrown\'' )
-			.replaceAll ( /style='color:white;background-color:black'/g, 'class=\'TravelNotes-Note-WhiteBlack\'' )
-			.replaceAll ( /style='border:solid 0.1em'/g, 'class=\'TravelNotes-Note-BlackWhite\'' )
-			.replaceAll ( /style='background-color:white;'/g, 'class=\'TravelNotes-Note-Knooppunt\'' )
-			.replaceAll ( /style='fill:green;font:bold 120px sans-serif;'/g, '' )
-			.replaceAll ( /style='fill:none;stroke:green;stroke-width:10;'/g, '' );
-		return returnValue;
-	}
-
-	/**
-	Performs the upgrade
-	@param {Object} note a note to upgrade
-	@throws {Error} when the note version is invalid
-	@private
-	*/
-
-	/* eslint-disable-next-line complexity */
-	#upgradeObject ( note ) {
-		switch ( note.objType.version ) {
-		case '1.0.0' :
-		case '1.1.0' :
-		case '1.2.0' :
-		case '1.3.0' :
-		case '1.4.0' :
-		case '1.5.0' :
-		case '1.6.0' :
-		case '1.7.0' :
-		case '1.7.1' :
-		case '1.8.0' :
-		case '1.9.0' :
-		case '1.10.0' :
-		case '1.11.0' :
-		case '1.12.0' :
-		case '1.13.0' :
-			if ( 'string' === typeof ( note.iconHeight ) ) {
-				note.iconHeight = Number.parseInt ( note.iconHeight );
-			}
-			if ( 'string' === typeof ( note.iconWidth ) ) {
-				note.iconWidth = Number.parseInt ( note.iconWidth );
-			}
-			note.iconContent = this.#UpdateStyles ( note.iconContent );
-			note.popupContent = this.#UpdateStyles ( note.popupContent );
-			note.tooltipContent = this.#UpdateStyles ( note.tooltipContent );
-			note.phone = this.#UpdateStyles ( note.phone );
-			note.address = this.#UpdateStyles ( note.address );
-			// eslint break omitted intentionally
-		case '2.0.0' :
-		case '2.1.0' :
-		case '2.2.0' :
-			note.objType.version = '2.3.0';
-			break;
-		default :
-			throw new Error ( 'invalid version for ' + OUR_OBJ_TYPE.name );
-		}
-	}
-
-	/**
-	Verify that the parameter can be transformed to a Note and performs the upgrate if needed
+	Verify that the parameter can be transformed to a Note
 	@param {Object} something an object to validate
 	@return {Object} the validated object
 	@throws {Error} when the parameter is invalid
@@ -270,9 +202,6 @@ class Note {
 			throw new Error ( 'No objType for ' + OUR_OBJ_TYPE.name );
 		}
 		OUR_OBJ_TYPE.validate ( something.objType );
-		if ( OUR_OBJ_TYPE.version !== something.objType.version ) {
-			this.#upgradeObject ( something );
-		}
 		let properties = Object.getOwnPropertyNames ( something );
 		[
 			'iconHeight',

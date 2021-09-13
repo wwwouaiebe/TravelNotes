@@ -84,43 +84,6 @@ class WayPoint {
 	#objId = INVALID_OBJ_ID;;
 
 	/**
-	performs the upgrade from previous versions
-	@param {Object} wayPoint a wayPoint to upgrade
-	@throws {Error} when the wayPoint version is invalid
-	@private
-	*/
-
-	#upgradeObject ( wayPoint ) {
-		switch ( wayPoint.objType.version ) {
-		case '1.0.0' :
-		case '1.1.0' :
-		case '1.2.0' :
-		case '1.3.0' :
-		case '1.4.0' :
-		case '1.5.0' :
-		case '1.6.0' :
-		case '1.7.0' :
-		case '1.7.1' :
-		case '1.8.0' :
-		case '1.9.0' :
-		case '1.10.0' :
-		case '1.11.0' :
-			wayPoint.address = wayPoint.name;
-			wayPoint.name = '';
-			// eslint break omitted intentionally
-		case '1.12.0' :
-		case '1.13.0' :
-		case '2.0.0' :
-		case '2.1.0' :
-		case '2.2.0' :
-			wayPoint.objType.version = '2.3.0';
-			break;
-		default :
-			throw new Error ( 'invalid version for ' + OUR_OBJ_TYPE.name );
-		}
-	}
-
-	/**
 	Verify that the parameter can be transformed to a WayPoint and performs the upgrate if needed
 	@param {Object} something an object to validate
 	@return {Object} the validated object
@@ -133,9 +96,6 @@ class WayPoint {
 			throw new Error ( 'No objType for ' + OUR_OBJ_TYPE.name );
 		}
 		OUR_OBJ_TYPE.validate ( something.objType );
-		if ( OUR_OBJ_TYPE.version !== something.objType.version ) {
-			this.#upgradeObject ( something );
-		}
 		let properties = Object.getOwnPropertyNames ( something );
 		[ 'address', 'name', 'lat', 'lng', 'objId' ].forEach (
 			property => {

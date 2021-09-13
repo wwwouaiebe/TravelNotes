@@ -66,6 +66,7 @@ import Collection from '../data/Collection.js';
 import Route from '../data/Route.js';
 import Note from '../data/Note.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
+import TravelUpdater from '../data/TravelUpdater.js';
 import { INVALID_OBJ_ID } from '../main/Constants.js';
 
 const OUR_OBJ_TYPE = new ObjType ( 'Travel' );
@@ -138,71 +139,6 @@ class Travel {
 	#objId = INVALID_OBJ_ID;
 
 	/**
-	Performs the upgrade
-	@param {Object} travel a travel to upgrade
-	@throws {Error} when the travel version is invalid
-	@private
-	*/
-
-	/* eslint-disable-next-line complexity */
-	#upgradeObject ( travel ) {
-		switch ( travel.objType.version ) {
-		case '1.0.0' :
-		case '1.1.0' :
-		case '1.2.0' :
-		case '1.3.0' :
-		case '1.4.0' :
-			travel.editedRoute = new Route ( );
-			// eslint break omitted intentionally
-		case '1.5.0' :
-			if ( travel.userData.layerId ) {
-
-				// old layersId from maps are converted to TravelNotes layerName
-				let layerConvert =
-					[
-						{ layerId : '0', layerName : 'OSM - Color' },
-						{ layerId : '1', layerName : 'OSM - Black and White' },
-						{ layerId : '2', layerName : 'Thunderforest - Transport' },
-						{ layerId : '3', layerName : 'Thunderforest - OpenCycleMap' },
-						{ layerId : '4', layerName : 'Thunderforest - Outdoors' },
-						{ layerId : '5', layerName : 'Esri - Aerial view' },
-						{ layerId : '6', layerName : 'Kartverket - Norway' },
-						{ layerId : '7', layerName : 'IGN-NGI - Belgium now' },
-						{ layerId : '12', layerName : 'Thunderforest - Landscape' },
-						{ layerId : '24', layerName : 'Lantmäteriet - Sweden' },
-						{ layerId : '25', layerName : 'Maanmittauslaitos - Finland' }
-					].find ( layerConversion => layerConversion.layerId === travel.userData.layerId );
-				if ( layerConvert ) {
-					travel.layerName = layerConvert.layerName;
-				}
-				else {
-					travel.layerName = 'OSM - Color';
-				}
-			}
-			else {
-				travel.layerName = 'OSM - Color';
-			}
-			// eslint break omitted intentionally
-		case '1.6.0' :
-		case '1.7.0' :
-		case '1.7.1' :
-		case '1.8.0' :
-		case '1.9.0' :
-		case '1.10.0' :
-		case '1.11.0' :
-		case '1.12.0' :
-		case '1.13.0' :
-		case '2.0.0' :
-		case '2.1.0' :
-		case '2.2.0' :
-			travel.objType.version = '2.3.0';
-			break;
-		default :
-			throw new Error ( 'invalid version for ' + OUR_OBJ_TYPE.name );
-		}
-	}
-
-	/**
 	Verify that the parameter can be transformed to a Travel and performs the upgrate if needed
 	@param {Object} something an object to validate
 	@return {Object} the validated object
@@ -216,10 +152,10 @@ class Travel {
 		}
 		OUR_OBJ_TYPE.validate ( something.objType );
 		if ( OUR_OBJ_TYPE.version !== something.objType.version ) {
-			this.#upgradeObject ( something );
+			new TravelUpdater ( ).update ( something );
 		}
 		let properties = Object.getOwnPropertyNames ( something );
-		[ 'name', 'editedRoute', 'routes', 'objId' ].forEach (
+		[ 'editedRoute', 'routes', 'notes', 'layerName', 'name', 'readOnly', 'objId' ].forEach (
 			property => {
 				if ( ! properties.includes ( property ) ) {
 					throw new Error ( 'No ' + property + ' for ' + OUR_OBJ_TYPE.name );
