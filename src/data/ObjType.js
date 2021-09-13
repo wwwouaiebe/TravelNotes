@@ -72,22 +72,31 @@ class ObjType {
 	#objTypeName = '';
 
 	/**
-	An array with all the valid objects names for the data
+	An array with all the valid objects names for the ObjType objects
 	@private
 	*/
 
 	#validObjTypeNames = [ 'Itinerary', 'ItineraryPoint', 'Maneuver', 'Note', 'Route', 'Travel', 'WayPoint' ];
 
+	/**
+	An array with all the valid properties for the ObjType
+	@private
+	*/
+
+	#properties = [];
+
 	/*
 	constructor
 	*/
 
-	constructor ( objTypeName ) {
+	constructor ( objTypeName, properties ) {
 		Object.freeze ( this );
 		if ( NOT_FOUND === this.#validObjTypeNames.indexOf ( objTypeName ) ) {
 			throw new Error ( 'Invalid ObjType name : ' + objTypeName );
 		}
 		this.#objTypeName = objTypeName;
+		this.#properties = properties;
+		Object.freeze ( this.#properties );
 	}
 
 	/**
@@ -103,6 +112,12 @@ class ObjType {
 	*/
 
 	get version ( ) { return theDataVersion; }
+
+	/**
+	An array with all the valid properties for the ObjType
+	*/
+
+	get properties ( ) { return this.#properties; }
 
 	/**
 	An object literal with the ObjType properties and without any methods.

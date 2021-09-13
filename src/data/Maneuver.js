@@ -57,6 +57,7 @@ Tests ...
 import ObjId from '../data/ObjId.js';
 import ObjType from '../data/ObjType.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
+import TravelObject from '../data/TravelObject.js';
 import { DISTANCE, INVALID_OBJ_ID } from '../main/Constants.js';
 
 /**
@@ -64,14 +65,18 @@ import { DISTANCE, INVALID_OBJ_ID } from '../main/Constants.js';
 
 @class Maneuver
 @classdesc This class represent a maneuver
+@extends TravelObject
 @hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
-class Maneuver {
+class Maneuver extends TravelObject {
 
-	static #objType = new ObjType ( 'Maneuver' );
+	static #objType = new ObjType (
+		'Maneuver',
+		[ 'iconName', 'instruction', 'distance', 'duration', 'itineraryPointObjId', 'objId' ]
+	);
 
 	/**
 	The icon displayed with the Maneuver in the roadbook
@@ -121,36 +126,12 @@ class Maneuver {
 
 	#objId = INVALID_OBJ_ID;;
 
-	/**
-	Verify that the parameter can be transformed to a Maneuver and performs the upgrate if needed
-	@param {Object} something an object to validate
-	@return {Object} the validated object
-	@throws {Error} when the parameter is invalid
-	@private
-	*/
-
-	#validateObject ( something ) {
-		if ( ! Object.getOwnPropertyNames ( something ).includes ( 'objType' ) ) {
-			throw new Error ( 'No objType for ' + this.objType.name );
-		}
-		this.objType.validate ( something.objType );
-		let properties = Object.getOwnPropertyNames ( something );
-		[ 'iconName', 'instruction', 'distance', 'duration', 'itineraryPointObjId', 'objId' ].forEach (
-			property => {
-				if ( ! properties.includes ( property ) ) {
-					throw new Error ( 'No ' + property + ' for ' + this.objType.name );
-				}
-			}
-		);
-		return something;
-	}
-
 	/*
 	constructor
 	*/
 
 	constructor ( ) {
-		Object.freeze ( this );
+		super ( );
 		this.#objId = ObjId.nextObjId;
 	}
 
@@ -243,7 +224,7 @@ class Maneuver {
 		};
 	}
 	set jsonObject ( something ) {
-		const otherthing = this.#validateObject ( something );
+		const otherthing = this.validateObject ( something );
 		this.iconName = otherthing.iconName;
 		this.instruction = otherthing.instruction;
 		this.distance = otherthing.distance;

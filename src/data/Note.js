@@ -57,6 +57,7 @@ Tests ...
 import ObjId from '../data/ObjId.js';
 import ObjType from '../data/ObjType.js';
 import { LAT_LNG, DISTANCE, ZERO, ONE, INVALID_OBJ_ID, ICON_DIMENSIONS } from '../main/Constants.js';
+import TravelObject from '../data/TravelObject.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
 /**
@@ -64,14 +65,34 @@ import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
 @class Note
 @classdesc This class represent a note
+@extends TravelObject
 @hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
-class Note {
+class Note extends TravelObject {
 
-	static #objType = new ObjType ( 'Note' );
+	static #objType = new ObjType (
+		'Note',
+		[
+			'iconHeight',
+			'iconWidth',
+			'iconContent',
+			'popupContent',
+			'tooltipContent',
+			'phone',
+			'url',
+			'address',
+			'iconLat',
+			'iconLng',
+			'lat',
+			'lng',
+			'distance',
+			'chainedDistance',
+			'objId'
+		]
+	);
 
 	/**
 	the height of the icon associated to the note
@@ -189,52 +210,12 @@ class Note {
 
 	#objId = INVALID_OBJ_ID;;
 
-	/**
-	Verify that the parameter can be transformed to a Note
-	@param {Object} something an object to validate
-	@return {Object} the validated object
-	@throws {Error} when the parameter is invalid
-	@private
-	*/
-
-	#validateObject ( something ) {
-		if ( ! Object.getOwnPropertyNames ( something ).includes ( 'objType' ) ) {
-			throw new Error ( 'No objType for ' + this.objType.name );
-		}
-		this.objType.validate ( something.objType );
-		let properties = Object.getOwnPropertyNames ( something );
-		[
-			'iconHeight',
-			'iconWidth',
-			'iconContent',
-			'popupContent',
-			'tooltipContent',
-			'phone',
-			'url',
-			'address',
-			'iconLat',
-			'iconLng',
-			'lat',
-			'lng',
-			'distance',
-			'chainedDistance',
-			'objId'
-		].forEach (
-			property => {
-				if ( ! properties.includes ( property ) ) {
-					throw new Error ( 'No ' + property + ' for ' + this.objType.name );
-				}
-			}
-		);
-		return something;
-	}
-
 	/*
 	constructor
 	*/
 
 	constructor ( ) {
-		Object.freeze ( this );
+		super ( );
 		this.#objId = ObjId.nextObjId;
 	}
 
@@ -519,7 +500,7 @@ class Note {
 		};
 	}
 	set jsonObject ( something ) {
-		const otherthing = this.#validateObject ( something );
+		const otherthing = this.validateObject ( something );
 		this.iconHeight = otherthing.iconHeight;
 		this.iconWidth = otherthing.iconWidth;
 		this.iconContent = otherthing.iconContent;

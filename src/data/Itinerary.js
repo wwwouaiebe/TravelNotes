@@ -63,6 +63,7 @@ import Collection from '../data/Collection.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
+import TravelObject from '../data/TravelObject.js';
 import { ZERO, INVALID_OBJ_ID } from '../main/Constants.js';
 
 /**
@@ -70,14 +71,18 @@ import { ZERO, INVALID_OBJ_ID } from '../main/Constants.js';
 
 @class Itinerary
 @classdesc This class represent an itinerary
+@extends TravelObject
 @hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
-class Itinerary	{
+class Itinerary	extends TravelObject {
 
-	static #objType = new ObjType ( 'Itinerary' );
+	static #objType = new ObjType (
+		'Itinerary',
+		[ 'hasProfile', 'ascent', 'descent', 'itineraryPoints', 'maneuvers', 'provider', 'transitMode', 'objId' ]
+	);
 
 	/**
 	the objId of the Itinerary
@@ -143,43 +148,12 @@ class Itinerary	{
 
 	#maneuvers = new Collection ( Maneuver );
 
-	/**
-	Verify that the parameter can be transformed to a Itinerary
-	@param {Object} something an object to validate
-	@return {Object} the validated object
-	@throws {Error} when the parameter is invalid
-	@private
-	*/
-
-	#validateObject ( something ) {
-		if ( ! Object.getOwnPropertyNames ( something ).includes ( 'objType' ) ) {
-			throw new Error ( 'No objType for ' + this.objType.name );
-		}
-		this.objType.validate ( something.objType );
-		let properties = Object.getOwnPropertyNames ( something );
-		[ 	'hasProfile',
-			'ascent',
-			'descent',
-			'itineraryPoints',
-			'maneuvers',
-			'provider',
-			'transitMode',
-			'objId' ].forEach (
-			property => {
-				if ( ! properties.includes ( property ) ) {
-					throw new Error ( 'No ' + property + ' for ' + this.objType.name );
-				}
-			}
-		);
-		return something;
-	}
-
 	/*
 	constructor
 	*/
 
 	constructor ( ) {
-		Object.freeze ( this );
+		super ( );
 		this.#objId = ObjId.nextObjId;
 	}
 
@@ -290,7 +264,7 @@ class Itinerary	{
 		};
 	}
 	set jsonObject ( something ) {
-		const otherthing = this.#validateObject ( something );
+		const otherthing = this.validateObject ( something );
 		this.hasProfile = otherthing.hasProfile;
 		this.ascent = otherthing.ascent;
 		this.descent = otherthing.descent;

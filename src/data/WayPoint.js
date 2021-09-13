@@ -60,6 +60,7 @@ import ObjId from '../data/ObjId.js';
 import ObjType from '../data/ObjType.js';
 import theUtilities from '../UILib/Utilities.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
+import TravelObject from '../data/TravelObject.js';
 
 import { LAT_LNG, ZERO, ONE, INVALID_OBJ_ID } from '../main/Constants.js';
 
@@ -68,54 +69,62 @@ import { LAT_LNG, ZERO, ONE, INVALID_OBJ_ID } from '../main/Constants.js';
 
 @class WayPoint
 @classdesc This class represent a way point
+@extends TravelObject
+@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
-class WayPoint {
+class WayPoint extends TravelObject {
 
-	static #objType = new ObjType ( 'WayPoint' );
-
-	#name = '';
-
-	#address = '';
-
-	#lat = LAT_LNG.defaultValue;
-
-	#lng = LAT_LNG.defaultValue;
-
-	#objId = INVALID_OBJ_ID;;
+	static #objType = new ObjType ( 'WayPoint', [ 'address', 'name', 'lat', 'lng', 'objId' ] );
 
 	/**
-	Verify that the parameter can be transformed to a WayPoint and performs the upgrate if needed
-	@param {Object} something an object to validate
-	@return {Object} the validated object
-	@throws {Error} when the parameter is invalid
+	the name of the WayPoint
+	@type {string}
 	@private
 	*/
 
-	#validateObject ( something ) {
-		if ( ! Object.getOwnPropertyNames ( something ).includes ( 'objType' ) ) {
-			throw new Error ( 'No objType for ' + this.objType.name );
-		}
-		this.objType.validate ( something.objType );
-		let properties = Object.getOwnPropertyNames ( something );
-		[ 'address', 'name', 'lat', 'lng', 'objId' ].forEach (
-			property => {
-				if ( ! properties.includes ( property ) ) {
-					throw new Error ( 'No ' + property + ' for ' + this.objType.name );
-				}
-			}
-		);
-		return something;
-	}
+	#name = '';
+
+	/**
+	the address of the WayPoint
+	@type {string}
+	@private
+	*/
+
+	#address = '';
+
+	/**
+	the latitude of the WayPoint
+	@type {number}
+	@private
+	*/
+
+	#lat = LAT_LNG.defaultValue;
+
+	/**
+	the longitude of the WayPoint
+	@type {number}
+	@private
+	*/
+
+	#lng = LAT_LNG.defaultValue;
+
+	/**
+	the objId of the WayPoint.
+	@type {!number}
+	@private
+	*/
+
+	#objId = INVALID_OBJ_ID;;
 
 	/*
 	constructor
 	*/
 
 	constructor ( ) {
-		Object.freeze ( this );
+		super ( );
 		this.#objId = ObjId.nextObjId;
 	}
 
@@ -245,7 +254,7 @@ class WayPoint {
 	}
 
 	set jsonObject ( something ) {
-		const otherthing = this.#validateObject ( something );
+		const otherthing = this.validateObject ( something );
 		this.address = otherthing.address;
 		this.name = otherthing.name;
 		this.lat = otherthing.lat;

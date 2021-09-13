@@ -70,6 +70,7 @@ import WayPoint from '../data/WayPoint.js';
 import Itinerary from '../data/Itinerary.js';
 import Note from '../data/Note.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
+import TravelObject from '../data/TravelObject.js';
 import { ROUTE_EDITION_STATUS, DISTANCE, ZERO, INVALID_OBJ_ID, LAT_LNG } from '../main/Constants.js';
 
 /**
@@ -77,14 +78,33 @@ import { ROUTE_EDITION_STATUS, DISTANCE, ZERO, INVALID_OBJ_ID, LAT_LNG } from '.
 
 @class Route
 @classdesc This class represent a route
+@extends TravelObject
 @hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
-class Route {
+class Route extends TravelObject {
 
-	static #objType = new ObjType ( 'Route' );
+	static #objType = new ObjType (
+		'Route',
+		[
+			'name',
+			'wayPoints',
+			'notes',
+			'itinerary',
+			'width',
+			'color',
+			'dashArray',
+			'chain',
+			'chainedDistance',
+			'distance',
+			'duration',
+			'editionStatus',
+			'hidden',
+			'objId'
+		]
+	);
 
 	/**
 	the name of the Route
@@ -189,51 +209,12 @@ class Route {
 
 	#objId = INVALID_OBJ_ID;;
 
-	/**
-	Verify that the parameter can be transformed to a Route and performs the upgrate if needed
-	@param {Object} something an object to validate
-	@return {Object} the validated object
-	@throws {Error} when the parameter is invalid
-	@private
-	*/
-
-	#validateObject ( something ) {
-		if ( ! Object.getOwnPropertyNames ( something ).includes ( 'objType' ) ) {
-			throw new Error ( 'No objType for ' + this.objType.name );
-		}
-		this.objType.validate ( something.objType );
-		let properties = Object.getOwnPropertyNames ( something );
-		[
-			'name',
-			'wayPoints',
-			'notes',
-			'itinerary',
-			'width',
-			'color',
-			'dashArray',
-			'chain',
-			'chainedDistance',
-			'distance',
-			'duration',
-			'editionStatus',
-			'hidden',
-			'objId'
-		].forEach (
-			property => {
-				if ( ! properties.includes ( property ) ) {
-					throw new Error ( 'No ' + property + ' for ' + this.objType.name );
-				}
-			}
-		);
-		return something;
-	}
-
 	/*
 	constructor
 	*/
 
 	constructor ( ) {
-		Object.freeze ( this );
+		super ( );
 		this.#wayPoints.add ( new WayPoint ( ) );
 		this.#wayPoints.add ( new WayPoint ( ) );
 		this.#objId = ObjId.nextObjId;
@@ -479,7 +460,7 @@ class Route {
 	}
 
 	set jsonObject ( something ) {
-		const otherthing = this.#validateObject ( something );
+		const otherthing = this.validateObject ( something );
 		this.name = otherthing.name;
 		this.wayPoints.jsonObject = otherthing.wayPoints;
 		this.notes.jsonObject = otherthing.notes;

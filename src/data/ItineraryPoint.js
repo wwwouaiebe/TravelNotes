@@ -58,6 +58,7 @@ Tests ...
 
 import ObjId from '../data/ObjId.js';
 import ObjType from '../data/ObjType.js';
+import TravelObject from '../data/TravelObject.js';
 import { ELEV, LAT_LNG, DISTANCE, ZERO, ONE, INVALID_OBJ_ID } from '../main/Constants.js';
 
 /**
@@ -65,14 +66,15 @@ import { ELEV, LAT_LNG, DISTANCE, ZERO, ONE, INVALID_OBJ_ID } from '../main/Cons
 
 @class ItineraryPoint
 @classdesc This class represent an itinerary point
+@extends TravelObject
 @hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-class ItineraryPoint {
+class ItineraryPoint extends TravelObject {
 
-	static #objType = new ObjType ( 'ItineraryPoint' );
+	static #objType = new ObjType ( 'ItineraryPoint', [ 'lat', 'lng', 'distance', 'elev', 'objId' ] );
 
 	/**
 	the latitude of the ItineraryPoint
@@ -114,38 +116,12 @@ class ItineraryPoint {
 
 	#objId = INVALID_OBJ_ID;
 
-	/**
-	Verify that the parameter can be transformed to an ItineraryPoint
-	@param {Object} something an object to validate
-	@return {Object} the validated object
-	@throws {Error} when the parameter is invalid
-	@private
-	*/
-
-	#validateObject ( something ) {
-		if ( ! Object.getOwnPropertyNames ( something ).includes ( 'objType' ) ) {
-			throw new Error ( 'No objType for ' + this.objType.name );
-		}
-		this.objType.validate ( something.objType );
-		let properties = Object.getOwnPropertyNames ( something );
-		[ 'lat', 'lng', 'distance', 'elev', 'objId' ].forEach (
-			property => {
-				if ( ! properties.includes ( property ) ) {
-					throw new Error ( 'No ' + property + ' for ' + this.objType.name );
-				}
-			}
-		);
-		return something;
-	}
-
 	/*
 	constructor
 	*/
 
 	constructor ( ) {
-
-		Object.freeze ( this );
-
+		super ( );
 		this.#objId = ObjId.nextObjId;
 
 	}
@@ -250,7 +226,7 @@ class ItineraryPoint {
 	}
 
 	set jsonObject ( something ) {
-		const otherthing = this.#validateObject ( something );
+		const otherthing = this.validateObject ( something );
 		this.lat = otherthing.lat;
 		this.lng = otherthing.lng;
 		this.distance = otherthing.distance;

@@ -66,7 +66,7 @@ import Collection from '../data/Collection.js';
 import Route from '../data/Route.js';
 import Note from '../data/Note.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
-import TravelUpdater from '../data/TravelUpdater.js';
+import TravelObject from '../data/TravelObject.js';
 import { INVALID_OBJ_ID } from '../main/Constants.js';
 
 /**
@@ -74,13 +74,15 @@ import { INVALID_OBJ_ID } from '../main/Constants.js';
 
 @class Travel
 @classdesc This class represent a travel
+@extends TravelObject
+@hideconstructor
 
 @-----------------------------------------------------------------------------------------------------------------------------
 */
 
-class Travel {
+class Travel extends TravelObject {
 
-	static #objType = new ObjType ( 'Travel' );
+	static #objType = new ObjType ( 'Travel', [ 'editedRoute', 'routes', 'notes', 'layerName', 'name', 'readOnly', 'objId' ] );
 
 	/**
 	the route currently edited
@@ -138,39 +140,12 @@ class Travel {
 
 	#objId = INVALID_OBJ_ID;
 
-	/**
-	Verify that the parameter can be transformed to a Travel and performs the upgrate if needed
-	@param {Object} something an object to validate
-	@return {Object} the validated object
-	@throws {Error} when the parameter is invalid
-	@private
-	*/
-
-	#validateObject ( something ) {
-		if ( ! Object.getOwnPropertyNames ( something ).includes ( 'objType' ) ) {
-			throw new Error ( 'No objType for ' + this.objType.name );
-		}
-		this.objType.validate ( something.objType );
-		if ( this.objType.version !== something.objType.version ) {
-			new TravelUpdater ( ).update ( something );
-		}
-		let properties = Object.getOwnPropertyNames ( something );
-		[ 'editedRoute', 'routes', 'notes', 'layerName', 'name', 'readOnly', 'objId' ].forEach (
-			property => {
-				if ( ! properties.includes ( property ) ) {
-					throw new Error ( 'No ' + property + ' for ' + this.objType.name );
-				}
-			}
-		);
-		return something;
-	}
-
 	/*
 	constructor
 	*/
 
 	constructor ( ) {
-		Object.freeze ( this );
+		super ( );
 		this.#routes.add ( new Route ( ) );
 		this.#objId = ObjId.nextObjId;
 
@@ -292,7 +267,7 @@ class Travel {
 	}
 
 	set jsonObject ( something ) {
-		const otherthing = this.#validateObject ( something );
+		const otherthing = this.validateObject ( something );
 		this.editedRoute.jsonObject = otherthing.editedRoute;
 		this.layerName = something.layerName;
 		this.name = otherthing.name;
