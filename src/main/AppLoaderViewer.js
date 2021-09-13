@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
 
@@ -54,7 +56,7 @@ import MapEditorViewer from '../coreMapEditor/MapEditorViewer.js';
 import theGeoLocator from '../core/GeoLocator.js';
 import Zoomer from '../core/Zoomer.js';
 
-import { LAT_LNG, ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
+import { ZERO, ONE, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
 
 const OUR_VIEWER_DEFAULT_ZOOM = 2;
 
@@ -275,21 +277,14 @@ class AppLoaderViewer {
 		return false;
 	}
 
-	/**
-	Loading theTravelNotesViewer
-	@readonly
-	*/
-
-	#loadTravelNotesViewer ( ) {
+	#loadTravelNotes ( ) {
 
 		// mapDiv must be extensible for leaflet
-		let mapDiv = document.createElement ( 'div' );
+		const mapDiv = document.createElement ( 'div' );
 		mapDiv.id = 'TravelNotes-Map';
 		document.body.appendChild ( mapDiv );
-
-		theTravelNotesData.map =
-			window.L.map ( 'TravelNotes-Map', { attributionControl : false, zoomControl : false } );
-		theTravelNotesData.map.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], OUR_VIEWER_DEFAULT_ZOOM );
+		theTravelNotesData.map = window.L.map ( mapDiv.id, { attributionControl : false, zoomControl : false } )
+			.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], OUR_VIEWER_DEFAULT_ZOOM );
 
 		theTravelNotesViewer.addReadOnlyMap ( this.#travelUrl, this.#addLayerToolbar );
 	}
@@ -323,7 +318,8 @@ class AppLoaderViewer {
 			return;
 		}
 		this.#addEventsListeners ( );
-		this.#loadTravelNotesViewer ( );
+		this.#loadTravelNotes ( );
+
 	}
 }
 

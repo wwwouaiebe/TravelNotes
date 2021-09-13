@@ -28,7 +28,9 @@ Changes:
 		- Issue ♯138 : Protect the app - control html entries done by user.
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
 
@@ -72,7 +74,45 @@ const OUR_OBJ_TYPE = new ObjType ( 'ItineraryPoint' );
 
 class ItineraryPoint {
 
-	#objId = INVALID_OBJ_ID;;
+	/**
+	the latitude of the ItineraryPoint
+	@type {number}
+	@private
+	*/
+
+	#lat = LAT_LNG.defaultValue;
+
+	/**
+	the longitude of the ItineraryPoint
+	@type {number}
+	@private
+	*/
+
+	#lng = LAT_LNG.defaultValue;
+
+	/**
+	the distance between the beginning of the itinerary and the ItineraryPoint
+	@type {number}
+	@private
+	*/
+
+	#distance = DISTANCE.defaultValue;
+
+	/**
+	the elevation (if any)  of the ItineraryPoint
+	@type {number}
+	@private
+	*/
+
+	#elev = ELEV.defaultValue;
+
+	/**
+	the objId of the ItineraryPoint.
+	@type {!number}
+	@private
+	*/
+
+	#objId = INVALID_OBJ_ID;
 
 	/**
 	performs the upgrade from previous versions
@@ -143,37 +183,54 @@ class ItineraryPoint {
 
 	constructor ( ) {
 
-		/**
-		the latitude of the ItineraryPoint
-		@type {number}
-		*/
-
-		this.lat = LAT_LNG.defaultValue;
-
-		/**
-		the longitude of the ItineraryPoint
-		@type {number}
-		*/
-
-		this.lng = LAT_LNG.defaultValue;
-
-		/**
-		the distance between the beginning of the itinerary and the ItineraryPoint
-		@type {number}
-		*/
-
-		this.distance = DISTANCE.defaultValue;
-
-		/**
-		the elevation (if any)  of the ItineraryPoint
-		@type {number}
-		*/
-
-		this.elev = ELEV.defaultValue;
+		Object.freeze ( this );
 
 		this.#objId = ObjId.nextObjId;
 
-		Object.seal ( this );
+	}
+
+	/**
+	the latitude of the ItineraryPoint
+	@type {number}
+	*/
+
+	get lat ( ) { return this.#lat; }
+
+	set lat ( lat ) {
+		this.#lat = 'number' === typeof ( lat ) ? lat : LAT_LNG.defaultValue;
+	}
+
+	/**
+	the longitude of the ItineraryPoint
+	@type {number}
+	*/
+
+	get lng ( ) { return this.#lng; }
+
+	set lng ( lng ) {
+		this.#lng = 'number' === typeof ( lng ) ? lng : LAT_LNG.defaultValue;
+	}
+
+	/**
+	the distance between the beginning of the itinerary and the ItineraryPoint
+	@type {number}
+	*/
+
+	get distance ( ) { return this.#distance; }
+
+	set distance ( distance ) {
+		this.#distance = 'number' === typeof ( distance ) ? distance : DISTANCE.defaultValue;
+	}
+
+	/**
+	the elevation (if any)  of the ItineraryPoint
+	@type {number}
+	*/
+
+	get elev ( ) { return this.#elev; }
+
+	set elev ( elev ) {
+		this.#elev = 'number' === typeof ( elev ) ? elev : LAT_LNG.defaultValue;
 	}
 
 	/**
@@ -182,9 +239,20 @@ class ItineraryPoint {
 	*/
 
 	get latLng ( ) { return [ this.lat, this.lng ]; }
-	set latLng ( LatLng ) {
-		this.lat = LatLng [ ZERO ];
-		this.lng = LatLng [ ONE ];
+
+	set latLng ( latLng ) {
+		if (
+			'number' === typeof ( latLng [ ZERO ] )
+			&&
+			'number' === typeof ( latLng [ ONE ] )
+		) {
+			this.#lat = latLng [ ZERO ];
+			this.#lng = latLng [ ONE ];
+		}
+		else {
+			this.#lat = LAT_LNG.defaultValue;
+			this.#lng = LAT_LNG.defaultValue;
+		}
 	}
 
 	/**
@@ -221,35 +289,12 @@ class ItineraryPoint {
 	}
 
 	set jsonObject ( something ) {
-		let otherthing = this.#validateObject ( something );
-		this.lat = otherthing.lat || LAT_LNG.defaultValue;
-		this.lng = otherthing.lng || LAT_LNG.defaultValue;
-		this.distance = otherthing.distance || DISTANCE.defaultValue;
-		this.elev = otherthing.elev || ELEV.defaultValue;
+		const otherthing = this.#validateObject ( something );
+		this.lat = otherthing.lat;
+		this.lng = otherthing.lng;
+		this.distance = otherthing.distance;
+		this.elev = otherthing.elev;
 		this.#objId = ObjId.nextObjId;
-		this.validateData ( );
-	}
-
-	/*
-	This method verify that the data stored in the object have the correct type, and,
-	for html string data, that they not contains invalid tags and attributes.
-	This method must be called each time the data are modified by the user or when
-	a file is opened
-	*/
-
-	validateData ( ) {
-		if ( 'number' !== typeof ( this.lat ) ) {
-			this.lat = LAT_LNG.defaultValue;
-		}
-		if ( 'number' !== typeof ( this.lng ) ) {
-			this.lng = LAT_LNG.defaultValue;
-		}
-		if ( 'number' !== typeof ( this.distance ) ) {
-			this.distance = DISTANCE.defaultValue;
-		}
-		if ( 'number' !== typeof ( this.elev ) ) {
-			this.elev = ELEV.defaultValue;
-		}
 	}
 }
 

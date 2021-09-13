@@ -44,7 +44,9 @@ Changes:
 		- Issue ♯64 : Improve geocoding
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
 
@@ -263,8 +265,6 @@ class NoteDialog extends BaseDialog {
 			// latLng can change for map icons, so we save the value from the preview note
 			this.#note.latLng = this.#previewNote.latLng;
 
-			// Sanitizing the html code entered by the user
-			this.#note.validateData ( );
 			this.#destructor ( );
 		}
 	}

@@ -24,7 +24,9 @@ Changes:
 		- Issue ♯65 : Time to go to ES6 modules?
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
 
@@ -62,7 +64,17 @@ import { theDataVersion } from '../data/Version.js';
 
 class ObjType {
 
+	/**
+	The name of the object
+	@private
+	*/
+
 	#objTypeName = '';
+
+	/**
+	An array with all the valid objects names for the data
+	*/
+
 	#validObjTypeNames = [ 'Itinerary', 'ItineraryPoint', 'Maneuver', 'Note', 'Route', 'Travel', 'WayPoint' ];
 
 	/*
@@ -70,11 +82,11 @@ class ObjType {
 	*/
 
 	constructor ( objTypeName ) {
+		Object.freeze ( this );
 		if ( NOT_FOUND === this.#validObjTypeNames.indexOf ( objTypeName ) ) {
 			throw new Error ( 'Invalid ObjType name : ' + objTypeName );
 		}
 		this.#objTypeName = objTypeName;
-		Object.freeze ( this );
 	}
 
 	/**

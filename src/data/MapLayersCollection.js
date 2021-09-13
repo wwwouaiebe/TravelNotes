@@ -19,7 +19,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
 
@@ -59,8 +61,28 @@ import MapLayer from '../data/MapLayer.js';
 
 class MapLayersCollection {
 
+	/**
+	A JS map to store the mapLayers, ordered by name
+	@type {Map}
+	@private
+	*/
+
 	#mapLayers = new Map ( );
+
+	/**
+	The mapLayer to use by default
+	#type {MapLayer}
+	@private
+	*/
+
 	#defaultMapLayer = null;
+
+	/**
+	A guard to block a second upload of the mapLayers
+	@type {Boolean}
+	@private
+	*/
+
 	#mapLayersAdded = false;
 
 	/*
@@ -68,6 +90,7 @@ class MapLayersCollection {
 	*/
 
 	constructor ( ) {
+		Object.freeze ( this );
 		this.#defaultMapLayer = new MapLayer (
 			{
 				service : 'wmts',
@@ -85,7 +108,6 @@ class MapLayersCollection {
 			}
 		);
 		this.#mapLayers.set ( this.#defaultMapLayer.name, this.#defaultMapLayer );
-		Object.freeze ( this );
 	}
 
 	/**

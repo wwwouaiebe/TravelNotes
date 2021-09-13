@@ -21,7 +21,9 @@ Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
 Doc reviewed 20210901
-Tests ...
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 */
 
 /**
@@ -60,10 +62,9 @@ import theTranslator from '../UILib/Translator.js';
 import theNoteDialogToolbarData from '../dialogNotes/NoteDialogToolbarData.js';
 import theOsmSearchDictionary from '../coreOsmSearch/OsmSearchDictionary.js';
 import theMapLayersCollection from '../data/MapLayersCollection.js';
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 
-import { SAVE_STATUS, LAT_LNG, ZERO, ONE, NOT_FOUND, HTTP_STATUS_OK, PANE_ID } from '../main/Constants.js';
+import { LAT_LNG, SAVE_STATUS, ZERO, ONE, NOT_FOUND, HTTP_STATUS_OK, PANE_ID } from '../main/Constants.js';
 
 const OUR_DEMO_PRINT_MAX_TILES = 120;
 const OUR_DEMO_MAX_MANEUVERS_NOTES = 10;
@@ -621,26 +622,20 @@ class AppLoader {
 	*/
 
 	#loadTravelNotes ( ) {
-		if ( theConfig.travelNotes.autoLoad ) {
 
-			// mapDiv must be extensible for leaflet
-			let mapDiv = document.createElement ( 'div' );
-			mapDiv.id = 'TravelNotes-Map';
-			document.body.appendChild ( mapDiv );
+		// mapDiv must be extensible for leaflet
+		const mapDiv = document.createElement ( 'div' );
+		mapDiv.id = 'TravelNotes-Map';
+		document.body.appendChild ( mapDiv );
+		theTravelNotesData.map = window.L.map ( mapDiv.id, { attributionControl : false, zoomControl : false } )
+			.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], ZERO );
 
-			theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-UI' }, document.body );
-
-			let map = window.L.map ( 'TravelNotes-Map', { attributionControl : false, zoomControl : false } )
-				.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], ZERO );
-
-			if ( this.#travelUrl ) {
-				theTravelNotes.addReadOnlyMap ( map, this.#travelUrl );
-			}
-			else {
-				this.#addUnloadEventsListeners ( );
-				theTravelNotes.addControl ( map, 'TravelNotes-UI' );
-			}
-			mapDiv.focus ( );
+		if ( this.#travelUrl ) {
+			theTravelNotes.addReadOnlyMap ( this.#travelUrl );
+		}
+		else {
+			this.#addUnloadEventsListeners ( );
+			theTravelNotes.addControl ( 'TravelNotes-UI' );
 		}
 	}
 

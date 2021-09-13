@@ -24,7 +24,9 @@ Changes:
 		- Issue ♯138 : Protect the app - control html entries done by user.
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
 
@@ -288,10 +290,11 @@ class OsmSearchEngine	{
 				);
 			}
 		);
-		theTravelNotesData.searchData =
-			Array.from ( pointsOfInterest.values ( ) ).sort (
-				( obj1, obj2 ) => obj1.description > obj2.description
-			);
+		theTravelNotesData.searchData.length = ZERO;
+		Array.from ( pointsOfInterest.values ( ) ).sort (
+			( obj1, obj2 ) => obj1.description > obj2.description
+		)
+			.forEach ( poi => theTravelNotesData.searchData.push ( poi ) );
 		this.#searchStarted = false;
 		theEventDispatcher.dispatch ( 'showsearch' );
 	}

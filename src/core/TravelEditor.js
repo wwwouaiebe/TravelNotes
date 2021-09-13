@@ -42,7 +42,9 @@ Changes:
 		- Issue ♯129 : Add an indicator when the travel is modified and not saved
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests 20210902
 */
 
@@ -72,7 +74,6 @@ import theConfig from '../data/Config.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theRouteEditor from '../core/RouteEditor.js';
 import theUtilities from '../UILib/Utilities.js';
-import Route from '../data/Route.js';
 import Travel from '../data/Travel.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import FileCompactor from '../coreLib/FileCompactor.js';
@@ -236,10 +237,10 @@ class TravelEditor {
 		}
 		theProfileWindowsManager.deleteAllProfiles ( );
 		theEventDispatcher.dispatch ( 'removeallobjects' );
-		theTravelNotesData.travel.editedRoute = new Route ( );
+
 		theTravelNotesData.editedRouteObjId = INVALID_OBJ_ID;
-		theTravelNotesData.travel = new Travel ( );
-		theTravelNotesData.travel.routes.add ( new Route ( ) );
+		theTravelNotesData.travel.jsonObject = new Travel ( ).jsonObject;
+
 		theEventDispatcher.dispatch ( 'setrouteslist' );
 		theEventDispatcher.dispatch ( 'showitinerary' );
 		theEventDispatcher.dispatch ( 'roadbookupdate' );

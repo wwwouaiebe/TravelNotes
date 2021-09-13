@@ -28,7 +28,9 @@ Changes:
 		- Issue ♯138 : Protect the app - control html entries done by user.
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
 
@@ -73,6 +75,11 @@ const OUR_OBJ_TYPE = new ObjType ( 'WayPoint' );
 */
 
 class WayPoint {
+
+	#name = '';
+	#address = '';
+	#lat = LAT_LNG.defaultValue;
+	#lng = LAT_LNG.defaultValue;
 
 	#objId = INVALID_OBJ_ID;;
 
@@ -145,38 +152,62 @@ class WayPoint {
 	*/
 
 	constructor ( ) {
-
-		/**
-		the name of the WayPoint
-		@type {string}
-		*/
-
-		this.name = '';
-
-		/**
-		the address of the WayPoint
-		@type {string}
-		*/
-
-		this.address = '';
-
-		/**
-		the latitude of the WayPoint
-		@type {number}
-		*/
-
-		this.lat = LAT_LNG.defaultValue;
-
-		/**
-		the longitude of the WayPoint
-		@type {number}
-		*/
-
-		this.lng = LAT_LNG.defaultValue;
-
+		Object.freeze ( this );
 		this.#objId = ObjId.nextObjId;
+	}
 
-		Object.seal ( this );
+	/**
+	the name of the WayPoint
+	@type {string}
+	*/
+
+	get name ( ) { return this.#name; }
+
+	set name ( Name ) {
+		this.#name =
+			'string' === typeof ( Name )
+				?
+				theHTMLSanitizer.sanitizeToJsString ( Name )
+				:
+				'';
+	}
+
+	/**
+	the address of the WayPoint
+	@type {string}
+	*/
+
+	get address ( ) { return this.#address; }
+
+	set address ( address ) {
+		this.#address =
+			'string' === typeof ( address )
+				?
+				theHTMLSanitizer.sanitizeToJsString ( address )
+				:
+				'';
+	}
+
+	/**
+	the latitude of the WayPoint
+	@type {number}
+	*/
+
+	get lat ( ) { return this.#lat; }
+
+	set lat ( lat ) {
+		this.#lat = 'number' === typeof ( lat ) ? lat : LAT_LNG.defaultValue;
+	}
+
+	/**
+	the longitude of the WayPoint
+	@type {number}
+	*/
+
+	get lng ( ) { return this.#lng; }
+
+	set lng ( lng ) {
+		this.#lng = 'number' === typeof ( lng ) ? lng : LAT_LNG.defaultValue;
 	}
 
 	/**
@@ -202,9 +233,19 @@ class WayPoint {
 
 	get latLng ( ) { return [ this.lat, this.lng ]; }
 
-	set latLng ( LatLng ) {
-		this.lat = LatLng [ ZERO ];
-		this.lng = LatLng [ ONE ];
+	set latLng ( latLng ) {
+		if (
+			'number' === typeof ( latLng [ ZERO ] )
+			&&
+			'number' === typeof ( latLng [ ONE ] )
+		) {
+			this.#lat = latLng [ ZERO ];
+			this.#lng = latLng [ ONE ];
+		}
+		else {
+			this.#lat = LAT_LNG.defaultValue;
+			this.#lng = LAT_LNG.defaultValue;
+		}
 	}
 
 	/**
@@ -241,34 +282,12 @@ class WayPoint {
 	}
 
 	set jsonObject ( something ) {
-		let otherthing = this.#validateObject ( something );
-		this.address = otherthing.address || '';
-		this.name = otherthing.name || '';
-		this.lat = otherthing.lat || LAT_LNG.defaultValue;
-		this.lng = otherthing.lng || LAT_LNG.defaultValue;
+		const otherthing = this.#validateObject ( something );
+		this.address = otherthing.address;
+		this.name = otherthing.name;
+		this.lat = otherthing.lat;
+		this.lng = otherthing.lng;
 		this.#objId = ObjId.nextObjId;
-		this.validateData ( );
-	}
-
-	validateData ( ) {
-		if ( 'string' === typeof ( this.address ) ) {
-			this.address = theHTMLSanitizer.sanitizeToJsString ( this.address );
-		}
-		else {
-			this.address = '';
-		}
-		if ( 'string' === typeof ( this.name ) ) {
-			this.name = theHTMLSanitizer.sanitizeToJsString ( this.name );
-		}
-		else {
-			this.name = '';
-		}
-		if ( 'number' !== typeof ( this.lat ) ) {
-			this.lat = LAT_LNG.defaultValue;
-		}
-		if ( 'number' !== typeof ( this.lng ) ) {
-			this.lng = LAT_LNG.defaultValue;
-		}
 	}
 }
 

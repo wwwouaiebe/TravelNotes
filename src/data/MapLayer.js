@@ -20,7 +20,9 @@ Changes:
 		- created
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
 
@@ -64,7 +66,6 @@ import { ZERO, ONE } from '../main/Constants.js';
 
 @class MapLayer
 @classdesc This class represent a background map
-@desc A background map with all the properties
 @hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
@@ -72,54 +73,161 @@ import { ZERO, ONE } from '../main/Constants.js';
 
 class MapLayer	{
 
-	#name = null;
-	#service = null;
-	#url = null;
-	#wmsOptions = null;
-	#bounds = null;
-	#minZoom = null;
-	#maxZoom = null;
-	#toolbar = null;
-	#providerName = null;
-	#providerKeyNeeded = false;
-	#attribution = null;
-	#getCapabilitiesUrl = null;
-
-	/*
-	constructor
+	/**
+	The name of the map
+	@type {string}
+	@private
 	*/
 
-	/* eslint-disable-next-line complexity, max-statements */
-	constructor ( jsonLayer ) {
-		if ( jsonLayer.name && 'string' === typeof ( jsonLayer.name ) ) {
-			this.#name = theHTMLSanitizer.sanitizeToJsString ( jsonLayer.name );
+	#name = null;
+
+	/**
+	The type of service: wms or wmts
+	@type {string}
+	@private
+	*/
+
+	#service = null;
+
+	/**
+	The url to use to get the map
+	@type {string}
+	@private
+	*/
+
+	#url = null;
+
+	/**
+	The wmsOptions for this mapLayer
+	See the Leaflet TileLayer.WMS documentation
+	@type {object}
+	@private
+	*/
+
+	#wmsOptions = null;
+
+	/**
+	The lower left and upper right corner of the mapLayer
+	@type {Array.<number>}
+	@private
+	*/
+
+	#bounds = null;
+
+	/**
+	The smallest possible zoom for this mapLayer
+	@type {number}
+	@private
+	*/
+
+	#minZoom = null;
+
+	/**
+	The largest possible zoom for this mapLayer
+	@type {number}
+	@private
+	*/
+
+	#maxZoom = null;
+
+	/**
+	An object with text, color and backgroundColor properties used to create the button in the toolbar
+	@type {LayerToolbarButton}
+	@private
+	*/
+
+	#toolbar = null;
+
+	/**
+	The name of the service provider.
+	@type {string}
+	@private
+	*/
+
+	#providerName = null;
+
+	/**
+	When true, an access key is required to get the map.
+	@type {boolean}
+	@private
+	*/
+
+	#providerKeyNeeded = false;
+
+	/**
+	The map attributions.
+	@type {string}
+	@private
+	*/
+
+	#attribution = null;
+
+	/**
+	A temporary variable to store the layer data
+	@private
+	*/
+
+	#jsonLayer = null;
+
+	/**
+	Set the name of the map layer
+	@private
+	*/
+
+	#setLayerName ( ) {
+		if ( this.#jsonLayer.name && 'string' === typeof ( this.#jsonLayer.name ) ) {
+			this.#name = theHTMLSanitizer.sanitizeToJsString ( this.#jsonLayer.name );
 		}
 		else {
 			throw new Error ( 'invalid name for layer' );
 		}
-		if ( jsonLayer.service && ( 'wms' === jsonLayer.service || 'wmts' === jsonLayer.service ) ) {
-			this.#service = jsonLayer.service;
+	}
+
+	/**
+	Set the type of service: wms or wmts
+	@private
+	*/
+
+	#setService ( ) {
+		if ( this.#jsonLayer.service && ( 'wms' === this.#jsonLayer.service || 'wmts' === this.#jsonLayer.service ) ) {
+			this.#service = this.#jsonLayer.service;
 		}
 		else {
 			throw new Error ( 'invalid service for layer ' + this.#name );
 		}
-		if ( jsonLayer.url && 'string' === typeof ( jsonLayer.url ) ) {
-			this.#url = jsonLayer.url;
+	}
+
+	/**
+	Set the url to use to get the map
+	@private
+	*/
+
+	#setUrl ( ) {
+		if ( this.#jsonLayer.url && 'string' === typeof ( this.#jsonLayer.url ) ) {
+			this.#url = this.#jsonLayer.url;
 		}
 		else {
 			throw new Error ( 'invalid url for layer ' + this.#name );
 		}
+	}
+
+	/**
+	Set the wmsOptions for this mapLayer
+	@private
+	*/
+
+	#setWmsOptions ( ) {
 		if ( 'wms' === this.#service ) {
 			if (
-				jsonLayer.wmsOptions
+				this.#jsonLayer.wmsOptions
 				&&
-				jsonLayer.wmsOptions.layers && 'string' === typeof ( jsonLayer.wmsOptions.layers )
+				this.#jsonLayer.wmsOptions.layers && 'string' === typeof ( this.#jsonLayer.wmsOptions.layers )
 				&&
-				jsonLayer.wmsOptions.format && 'string' === typeof ( jsonLayer.wmsOptions.format )
+				this.#jsonLayer.wmsOptions.format && 'string' === typeof ( this.#jsonLayer.wmsOptions.format )
 				&&
-				jsonLayer.wmsOptions.transparent && 'boolean' === typeof ( jsonLayer.wmsOptions.transparent )
+				this.#jsonLayer.wmsOptions.transparent && 'boolean' === typeof ( this.#jsonLayer.wmsOptions.transparent )
 			) {
-				this.#wmsOptions = jsonLayer.wmsOptions;
+				this.#wmsOptions = this.#jsonLayer.wmsOptions;
 				this.#wmsOptions.layers = theHTMLSanitizer.sanitizeToJsString ( this.#wmsOptions.layers );
 				this.#wmsOptions.format = theHTMLSanitizer.sanitizeToJsString ( this.#wmsOptions.format );
 			}
@@ -127,40 +235,74 @@ class MapLayer	{
 				throw new Error ( 'invalid wmsOptions for layer ' + this.#name );
 			}
 		}
+	}
+
+	/**
+	Set the lower left and upper right corner of the mapLayer
+	@private
+	*/
+
+	#setBounds ( ) {
 		try {
 			if (
-				jsonLayer.bounds
+				this.#jsonLayer.bounds
 				&&
-				'number' === typeof jsonLayer.bounds [ ZERO ] [ ZERO ]
+				'number' === typeof this.#jsonLayer.bounds [ ZERO ] [ ZERO ]
 				&&
-				'number' === typeof jsonLayer.bounds [ ZERO ] [ ONE ]
+				'number' === typeof this.#jsonLayer.bounds [ ZERO ] [ ONE ]
 				&&
-				'number' === typeof jsonLayer.bounds [ ONE ] [ ZERO ]
+				'number' === typeof this.#jsonLayer.bounds [ ONE ] [ ZERO ]
 				&&
-				'number' === typeof jsonLayer.bounds [ ONE ] [ ONE ]
+				'number' === typeof this.#jsonLayer.bounds [ ONE ] [ ONE ]
 			) {
-				this.#bounds = jsonLayer.bounds;
+				this.#bounds = this.#jsonLayer.bounds;
 			}
 		}
 		catch ( err ) {
 			throw new Error ( 'invalid bounds for layer ' + this.#name );
 		}
-		if ( jsonLayer.minZoom && 'number' === typeof ( jsonLayer.minZoom ) ) {
-			this.#minZoom = jsonLayer.minZoom;
+	}
+
+	/**
+	Set the min and max zoom for the map
+	@private
+	*/
+
+	#setMinMaxZoom ( ) {
+		if ( this.#jsonLayer.minZoom ) {
+			if ( 'number' === typeof ( this.#jsonLayer.minZoom ) ) {
+				this.#minZoom = this.#jsonLayer.minZoom;
+			}
+			else {
+				throw new Error ( 'invalid minZoom for layer ' + this.#name );
+			}
 		}
-		if ( jsonLayer.maxZoom && 'number' === typeof ( jsonLayer.maxZoom ) ) {
-			this.#maxZoom = jsonLayer.maxZoom;
+		if ( this.#jsonLayer.maxZoom ) {
+			if ( 'number' === typeof ( this.#jsonLayer.maxZoom ) ) {
+				this.#maxZoom = this.#jsonLayer.maxZoom;
+			}
+			else {
+				throw new Error ( 'invalid maxZoom for layer ' + this.#name );
+			}
 		}
+	}
+
+	/**
+	Set the toolbar data
+	@private
+	*/
+
+	#setToolbarData ( ) {
 		if (
-			jsonLayer.toolbar
+			this.#jsonLayer.toolbar
 			&&
-			jsonLayer.toolbar.text && 'string' === typeof ( jsonLayer.toolbar.text )
+			this.#jsonLayer.toolbar.text && 'string' === typeof ( this.#jsonLayer.toolbar.text )
 			&&
-			jsonLayer.toolbar.color && 'string' === typeof ( jsonLayer.toolbar.color )
+			this.#jsonLayer.toolbar.color && 'string' === typeof ( this.#jsonLayer.toolbar.color )
 			&&
-			jsonLayer.toolbar.backgroundColor && 'string' === typeof ( jsonLayer.toolbar.backgroundColor )
+			this.#jsonLayer.toolbar.backgroundColor && 'string' === typeof ( this.#jsonLayer.toolbar.backgroundColor )
 		) {
-			this.#toolbar = jsonLayer.toolbar;
+			this.#toolbar = this.#jsonLayer.toolbar;
 			this.#toolbar.text = theHTMLSanitizer.sanitizeToJsString ( this.#toolbar.text );
 			this.#toolbar.color =
 				theHTMLSanitizer.sanitizeToColor ( this.#toolbar.color ) || '\u0023000000';
@@ -170,36 +312,71 @@ class MapLayer	{
 		else {
 			throw new Error ( 'invalid toolbar for layer ' + this.#name );
 		}
-		if ( jsonLayer.providerName && 'string' === typeof ( jsonLayer.providerName ) ) {
-			this.#providerName = theHTMLSanitizer.sanitizeToJsString ( jsonLayer.providerName );
+	}
+
+	/**
+	Set the name of the service provider
+	@private
+	*/
+
+	#setProviderName ( ) {
+		if ( this.#jsonLayer.providerName && 'string' === typeof ( this.#jsonLayer.providerName ) ) {
+			this.#providerName = theHTMLSanitizer.sanitizeToJsString ( this.#jsonLayer.providerName );
 		}
 		else {
 			throw new Error ( 'invalid providerName for layer ' + this.#name );
 		}
-		if ( 'boolean' === typeof ( jsonLayer.providerKeyNeeded ) ) {
-			this.#providerKeyNeeded = jsonLayer.providerKeyNeeded;
+	}
+
+	/**
+	Set the providerKeyNeeded value
+	@private
+	*/
+
+	#setProviderKeyNeeded ( ) {
+		if ( 'boolean' === typeof ( this.#jsonLayer.providerKeyNeeded ) ) {
+			this.#providerKeyNeeded = this.#jsonLayer.providerKeyNeeded;
 		}
 		else {
 			throw new Error ( 'invalid providerKeyNeeded for layer ' + this.#name );
 		}
-		if ( '' === jsonLayer.attribution ) {
+	}
+
+	/**
+	Set the map attributions.
+	@private
+	*/
+
+	#setAttributions ( ) {
+		if ( '' === this.#jsonLayer.attribution ) {
 			this.#attribution = '';
 		}
-		else if ( jsonLayer.attribution && 'string' === typeof ( jsonLayer.attribution ) ) {
-			this.#attribution = theHTMLSanitizer.sanitizeToHtmlString ( jsonLayer.attribution ).htmlString;
+		else if ( this.#jsonLayer.attribution && 'string' === typeof ( this.#jsonLayer.attribution ) ) {
+			this.#attribution = theHTMLSanitizer.sanitizeToHtmlString ( this.#jsonLayer.attribution ).htmlString;
 		}
 		else {
 			throw new Error ( 'invalid attribution for map layer ' + this.#name );
 		}
-		if ( jsonLayer.getCapabilitiesUrl && 'string' === typeof ( jsonLayer.getCapabilitiesUrl ) ) {
+	}
 
-			this.#getCapabilitiesUrl = theHTMLSanitizer.sanitizeToUrl ( jsonLayer.getCapabilitiesUrl ).url;
-			if ( '' === this.#getCapabilitiesUrl ) {
-				throw new Error ( 'invalid getCapabilitiesUrl for map layer ' + this.#name );
-			}
-		}
+	/*
+	constructor
+	*/
 
+	constructor ( jsonLayer ) {
 		Object.freeze ( this );
+		this.#jsonLayer = jsonLayer;
+		this.#setLayerName ( );
+		this.#setService ( );
+		this.#setUrl ( );
+		this.#setWmsOptions ( );
+		this.#setBounds ( );
+		this.#setMinMaxZoom ( );
+		this.#setToolbarData ( );
+		this.#setProviderName ( );
+		this.#setProviderKeyNeeded ( );
+		this.#setAttributions ( );
+		this.#jsonLayer = null;
 	}
 
 	/**
@@ -224,7 +401,7 @@ class MapLayer	{
 	get url ( ) { return this.#url; }
 
 	/**
-	The wmsOptiond for this mapLayer
+	The wmsOptions for this mapLayer
 	See the Leaflet TileLayer.WMS documentation
 	@type {object}
 	*/
@@ -280,13 +457,6 @@ class MapLayer	{
 	*/
 
 	get attribution ( ) { return this.#attribution; }
-
-	/**
-	The url of the getCapabilities file when it is known.
-	@type {string}
-	*/
-
-	get getCapabilitiesUrl ( ) { return this.#getCapabilitiesUrl; }
 
 }
 

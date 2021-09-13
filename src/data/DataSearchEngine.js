@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+
 /*
 Changes:
 	- v1.4.0:
@@ -25,7 +26,9 @@ Changes:
 		- Issue ♯65 : Time to go to ES6 modules?
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
 
@@ -80,11 +83,16 @@ import { ZERO, INVALID_OBJ_ID, LAT_LNG } from '../main/Constants.js';
 
 class DataSearchEngine {
 
+	/**
+	Helper method for the getNearestRouteData method
+	@private
+	*/
+
 	#setNearestRouteData ( route, latLng, nearestRouteData ) {
 		if ( route.objId !== theTravelNotesData.editedRouteObjId ) {
-			let pointAndDistance = theGeometry.getClosestLatLngDistance ( route, latLng );
+			const pointAndDistance = theGeometry.getClosestLatLngDistance ( route, latLng );
 			if ( pointAndDistance ) {
-				let distanceToRoute = theSphericalTrigonometry.pointsDistance (
+				const distanceToRoute = theSphericalTrigonometry.pointsDistance (
 					latLng,
 					pointAndDistance.latLng
 				);
@@ -114,7 +122,7 @@ class DataSearchEngine {
 	*/
 
 	getNearestRouteData ( latLng ) {
-		let nearestRouteData = {
+		const nearestRouteData = {
 			distance : Number.MAX_VALUE,
 			route : null,
 			distanceOnRoute : ZERO,
@@ -147,7 +155,7 @@ class DataSearchEngine {
 	}
 
 	/**
-	Search a Note and a Route with the Note objId
+	Search a Note and a the Route to witch the Note is attached with the Note objId
 	@param {!number} objId the objId of the note to search
 	@return (NoteAndRoute) a NoteAndRoute object with the route and note
 	*/
@@ -176,8 +184,8 @@ class DataSearchEngine {
 
 	/**
 	Search a WayPoint with the WayPoint objId
-	@param {!number} objId the objId of the note to search
-	@return (NoteAndRoute) a NoteAndRoute object with the route and note
+	@param {!number} wayPointObjId the objId of the WayPoint to search
+	@return (WayPoint) a WayPoint
 	*/
 
 	getWayPoint ( wayPointObjId ) {

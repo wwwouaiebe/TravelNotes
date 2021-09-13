@@ -26,7 +26,9 @@ Changes:
 		- Issue ♯100 : Fix circular dependancies with Collection
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
 
@@ -71,23 +73,26 @@ class CollectionIterator {
 
 	/**
 	The collection used by the iterator
+	@private
 	*/
 
 	#collection = null;
 
 	/**
 	The current index
+	@private
 	*/
 
 	#index = NOT_FOUND;
 
 	/*
 	constructor
+	@param {Collection} collection The collection for witch the iterator is used
 	*/
 
 	constructor ( collection ) {
-		this.#collection = collection;
 		Object.freeze ( this );
+		this.#collection = collection;
 	}
 
 	/**
@@ -188,10 +193,9 @@ class Collection {
 	*/
 
 	#indexOfObjId ( objId ) {
-		let index = this.#array.findIndex (
+		return this.#array.findIndex (
 			element => element.objId === objId
 		);
-		return index;
 	}
 
 	/**
@@ -235,13 +239,13 @@ class Collection {
 	*/
 
 	constructor ( classCollection ) {
+		Object.freeze ( this );
 		this.#classCollection = classCollection;
-		let tmpObject = new classCollection ( );
+		const tmpObject = new classCollection ( );
 		if ( ( ! tmpObject.objType ) || ( ! tmpObject.objType.name ) ) {
 			throw new Error ( 'invalid object name for collection' );
 		}
 		this.#objName = tmpObject.objType.name;
-		Object.freeze ( this );
 	}
 
 	/**
@@ -264,10 +268,7 @@ class Collection {
 	*/
 
 	at ( index ) {
-		if ( index < this.#array.length && index > NOT_FOUND ) {
-			return this.#array [ index ];
-		}
-		return null;
+		return ( index < this.#array.length && index > NOT_FOUND ) ? this.#array [ index ] : null;
 	}
 
 	/**
@@ -278,7 +279,7 @@ class Collection {
 
 	forEach ( funct ) {
 		let result = null;
-		let iterator = this.iterator;
+		const iterator = this.iterator;
 		while ( ! iterator.done ) {
 			result = funct ( iterator.value, result );
 		}
@@ -292,11 +293,8 @@ class Collection {
 	*/
 
 	getAt ( objId ) {
-		let index = this.#indexOfObjId ( objId );
-		if ( NOT_FOUND === index ) {
-			return null;
-		}
-		return this.#array [ index ];
+		const index = this.#indexOfObjId ( objId );
+		return NOT_FOUND === index ? null : this.#array [ index ];
 	}
 
 	/**
@@ -350,11 +348,11 @@ class Collection {
 	*/
 
 	remove ( objId ) {
-		let index = this.#indexOfObjId ( objId );
+		const index = this.#indexOfObjId ( objId );
 		if ( NOT_FOUND === index ) {
 			throw new Error ( 'invalid objId for remove function' );
 		}
-		this.#array.splice ( this.#indexOfObjId ( objId ), ONE );
+		this.#array.splice ( index, ONE );
 	}
 
 	/**
@@ -379,7 +377,7 @@ class Collection {
 	*/
 
 	replace ( oldObjId, newObject ) {
-		let index = this.#indexOfObjId ( oldObjId );
+		const index = this.#indexOfObjId ( oldObjId );
 		if ( NOT_FOUND === index ) {
 			throw new Error ( 'invalid objId for replace function' );
 		}
@@ -411,7 +409,7 @@ class Collection {
 	*/
 
 	swap ( objId, swapUp ) {
-		let index = this.#indexOfObjId ( objId );
+		const index = this.#indexOfObjId ( objId );
 		if (
 			( NOT_FOUND === index )
 			||
@@ -421,9 +419,10 @@ class Collection {
 		) {
 			throw new Error ( 'invalid objId for swap function' );
 		}
-		let tmp = this.#array [ index ];
-		this.#array [ index ] = this.#array [ index + ( swapUp ? OUR_SWAP_UP : OUR_SWAP_DOWN ) ];
-		this.#array [ index + ( swapUp ? OUR_SWAP_UP : OUR_SWAP_DOWN ) ] = tmp;
+		const swap = swapUp ? OUR_SWAP_UP : OUR_SWAP_DOWN;
+		const tmp = this.#array [ index ];
+		this.#array [ index ] = this.#array [ index + swap ];
+		this.#array [ index + swap ] = tmp;
 	}
 
 	/**
@@ -467,7 +466,7 @@ class Collection {
 	*/
 
 	get jsonObject ( ) {
-		let array = [ ];
+		const array = [ ];
 		let iterator = this.iterator;
 		while ( ! iterator.done ) {
 			array.push ( iterator.value.jsonObject );
@@ -475,13 +474,17 @@ class Collection {
 
 		return array;
 	}
+
 	set jsonObject ( something ) {
 		this.#array.length = ZERO;
-		let newObject = null;
+
+		if ( ! Array.isArray ( something ) ) {
+			return;
+		}
 
 		something.forEach (
 			arrayObject => {
-				newObject = new this.#classCollection ( );
+				const newObject = new this.#classCollection ( );
 				newObject.jsonObject = arrayObject;
 				this.add ( newObject );
 			}

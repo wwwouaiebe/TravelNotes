@@ -32,7 +32,9 @@ Changes:
 		- Issue ♯146 : Add the travel name in the document title...
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
 
@@ -78,6 +80,60 @@ const OUR_OBJ_TYPE = new ObjType ( 'Travel' );
 */
 
 class Travel {
+
+	/**
+	the route currently edited
+	@type {Route}
+	@private
+	*/
+
+	#editedRoute = new Route ( );
+
+	/**
+	a Collection of Routes
+	@type {Collection.<Route>}
+	@private
+	*/
+
+	#routes = new Collection ( Route );
+
+	/**
+	a Collection of Notes
+	@type {Collection.<Note>}
+	@private
+	*/
+
+	#notes = new Collection ( Note );
+
+	/**
+	the background map name
+	@type {string}
+	@private
+	*/
+
+	#layerName = 'OSM - Color';
+
+	/**
+	the Travel name
+	@type {string}
+	@private
+	*/
+
+	#name = '';
+
+	/**
+	a boolean indicates when the Travel is read only
+	@type {boolean}
+	@private
+	*/
+
+	#readOnly = false;
+
+	/**
+	the objId of the route
+	@type {!number}
+	@private
+	*/
 
 	#objId = INVALID_OBJ_ID;
 
@@ -178,54 +234,90 @@ class Travel {
 	*/
 
 	constructor ( ) {
-
-		/**
-		the route currently edited
-		@type {Route}
-		*/
-
-		this.editedRoute = new Route ( );
-
-		/**
-		a Collection of Routes
-		@type {Collection.<Route>}
-		@readonly
-		*/
-
-		this.routes = new Collection ( Route );
-
-		/**
-		a Collection of Notes
-		@type {Collection.<Note>}
-		@readonly
-		*/
-
-		this.notes = new Collection ( Note );
-
-		/**
-		the background map name
-		@type {string}
-		*/
-
-		this.layerName = 'OSM - Color';
-
-		/**
-		the Travel name
-		@type {string}
-		*/
-
-		this.name = '';
-
-		/**
-		a boolean indicates when the Travel is read only
-		@type {boolean}
-		*/
-
-		this.readOnly = false;
-
+		Object.freeze ( this );
+		this.#routes.add ( new Route ( ) );
 		this.#objId = ObjId.nextObjId;
 
-		Object.seal ( this );
+	}
+
+	/**
+	the route currently edited
+	@type {Route}
+	*/
+
+	get editedRoute ( ) { return this.#editedRoute; }
+
+	set editedRoute ( editedRoute ) {
+		this.#editedRoute =
+			editedRoute.objType && editedRoute.objType.name && 'Route' === editedRoute.objType.name
+				?
+				editedRoute
+				:
+				new Route ( );
+	}
+
+	/**
+	a Collection of Routes
+	@type {Collection.<Route>}
+	@readonly
+	*/
+
+	get routes ( ) { return this.#routes; }
+
+	/**
+	a Collection of Notes
+	@type {Collection.<Note>}
+	@readonly
+	*/
+
+	get notes ( ) { return this.#notes; }
+
+	/**
+	the background map name
+	@type {string}
+	*/
+
+	get layerName ( ) { return this.#layerName; }
+
+	set layerName ( layerName ) {
+		this.#layerName =
+			'string' === typeof ( layerName )
+				?
+				theHTMLSanitizer.sanitizeToJsString ( layerName )
+				:
+				'OSM - Color';
+	}
+
+	/**
+	the Travel name
+	@type {string}
+	*/
+
+	get name ( ) { return this.#name; }
+
+	set name ( Name ) {
+		this.#name =
+			'string' === typeof ( Name )
+				?
+				theHTMLSanitizer.sanitizeToJsString ( Name )
+				:
+				'';
+	}
+
+	/**
+	a boolean indicates when the Travel is read only
+	@type {boolean}
+	*/
+
+	get readOnly ( ) { return this.#readOnly; }
+
+	set readOnly ( readOnly ) {
+		this.#readOnly =
+			'boolean' === typeof ( readOnly )
+				?
+				readOnly
+				:
+				true;
 	}
 
 	/**
@@ -262,41 +354,16 @@ class Travel {
 			objType : OUR_OBJ_TYPE.jsonObject
 		};
 	}
+
 	set jsonObject ( something ) {
-		let otherthing = this.#validateObject ( something );
+		const otherthing = this.#validateObject ( something );
 		this.editedRoute.jsonObject = otherthing.editedRoute;
-		this.layerName = something.layerName || 'OSM - Color';
-		this.name = otherthing.name || '';
-		this.readOnly = otherthing.readOnly || false;
-		this.routes.jsonObject = otherthing.routes || [];
-		this.notes.jsonObject = otherthing.notes || [];
+		this.layerName = something.layerName;
+		this.name = otherthing.name;
+		this.readOnly = otherthing.readOnly;
+		this.routes.jsonObject = otherthing.routes;
+		this.notes.jsonObject = otherthing.notes;
 		this.#objId = ObjId.nextObjId;
-		this.validateData ( );
-	}
-
-	/*
-	This method verify that the data stored in the object have the correct type, and,
-	for html string data, that they not contains invalid tags and attributes.
-	This method must be called each time the data are modified by the user or when
-	a file is opened
-	*/
-
-	validateData ( ) {
-		if ( 'string' === typeof ( this.layerName ) ) {
-			this.layerName = theHTMLSanitizer.sanitizeToJsString ( this.layerName );
-		}
-		else {
-			this.layerName = 'OSM - Color';
-		}
-		if ( 'string' === typeof ( this.name ) ) {
-			this.name = theHTMLSanitizer.sanitizeToJsString ( this.name );
-		}
-		else {
-			this.name = 'TravelNotes';
-		}
-		if ( 'boolean' !== typeof ( this.readOnly ) ) {
-			this.readOnly = true;
-		}
 	}
 }
 

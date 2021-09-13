@@ -26,7 +26,9 @@ Changes:
 		- Issue ♯138 : Protect the app - control html entries done by user.
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
 
@@ -71,11 +73,57 @@ const OUR_OBJ_TYPE = new ObjType ( 'Maneuver' );
 
 class Maneuver {
 
+	/**
+	The icon displayed with the Maneuver in the roadbook
+	@type {string}
+	@private
+	*/
+
+	#iconName = '';
+
+	/**
+	The instruction of the Maneuver
+	@type {string}
+	@private
+	*/
+
+	#instruction = '';
+
+	/**
+	The objId of the ItineraryPoint at the same position than the Maneuver
+	@type {!number}
+	@private
+	*/
+
+	#itineraryPointObjId = INVALID_OBJ_ID;
+
+	/**
+	The distance between the Maneuver and the next Maneuver
+	@type {number}
+	@private
+	*/
+
+	#distance = DISTANCE.defaultValue;
+
+	/**
+	The time between the Maneuver and the next Maneuver
+	@type {number}
+	@private
+	*/
+
+	#duration = DISTANCE.defaultValue;
+
+	/**
+	the objId of the Maneuver.
+	@type {!number}
+	@private
+	*/
+
 	#objId = INVALID_OBJ_ID;;
 
 	/**
 	Performs the upgrade
-	@param {Object} maneuver a maneuver to upgrade
+	@param {Object} maneuver A maneuver to upgrade
 	@throws {Error} when the maneuver version is invalid
 	@private
 	*/
@@ -143,45 +191,63 @@ class Maneuver {
 	*/
 
 	constructor ( ) {
-
-		/**
-		The icon displayed with the Maneuver in the roadbook
-		@type {string}
-		*/
-
-		this.iconName = '';
-
-		/**
-		The instruction of the Maneuver
-		@type {string}
-		*/
-
-		this.instruction = '';
-
-		/**
-		The objId of the ItineraryPoint at the same position than the Maneuver
-		@type {!number}
-		*/
-
-		this.itineraryPointObjId = INVALID_OBJ_ID;
-
-		/**
-		The distance between the Maneuver and the next Maneuver
-		@type {number}
-		*/
-
-		this.distance = DISTANCE.defaultValue;
-
-		/**
-		The time between the Maneuver and the next Maneuver
-		@type {number}
-		*/
-
-		this.duration = DISTANCE.defaultValue;
-
+		Object.freeze ( this );
 		this.#objId = ObjId.nextObjId;
+	}
 
-		Object.seal ( this );
+	/**
+	The icon displayed with the Maneuver in the roadbook
+	@type {string}
+	*/
+
+	get iconName ( ) { return this.#iconName; }
+
+	set iconName ( iconName ) {
+		this.#iconName = 'string' === typeof ( iconName ) ? theHTMLSanitizer.sanitizeToJsString ( iconName ) : '';
+	}
+
+	/**
+	The instruction of the Maneuver
+	@type {string}
+	*/
+
+	get instruction ( ) { return this.#instruction; }
+
+	set instruction ( instruction ) {
+		this.#instruction = 'string' === typeof ( instruction ) ? theHTMLSanitizer.sanitizeToJsString ( instruction ) : '';
+	}
+
+	/**
+	The objId of the ItineraryPoint at the same position than the Maneuver
+	@type {!number}
+	*/
+
+	get itineraryPointObjId ( ) { return this.#itineraryPointObjId; }
+
+	set itineraryPointObjId ( itineraryPointObjId ) {
+		this.#itineraryPointObjId = 'number' === typeof ( itineraryPointObjId ) ? itineraryPointObjId : INVALID_OBJ_ID;
+	}
+
+	/**
+	The distance between the Maneuver and the next Maneuver
+	@type {number}
+	*/
+
+	get distance ( ) { return this.#distance; }
+
+	set distance ( distance ) {
+		this.#distance = 'number' === typeof ( distance ) ? distance : DISTANCE.defaultValue;
+	}
+
+	/**
+	The time between the Maneuver and the next Maneuver
+	@type {number}
+	*/
+
+	get duration ( ) { return this.#duration; }
+
+	set duration ( duration ) {
+		this.#duration = 'number' === typeof ( duration ) ? duration : DISTANCE.defaultValue;
 	}
 
 	/**
@@ -218,45 +284,13 @@ class Maneuver {
 		};
 	}
 	set jsonObject ( something ) {
-		let otherthing = this.#validateObject ( something );
-		this.iconName = otherthing.iconName || '';
-		this.instruction = otherthing.instruction || '';
-		this.distance = otherthing.distance || DISTANCE.defaultValue;
-		this.duration = otherthing.duration || DISTANCE.defaultValue;
-		this.itineraryPointObjId = otherthing.itineraryPointObjId || INVALID_OBJ_ID;
+		const otherthing = this.#validateObject ( something );
+		this.iconName = otherthing.iconName;
+		this.instruction = otherthing.instruction;
+		this.distance = otherthing.distance;
+		this.duration = otherthing.duration;
+		this.itineraryPointObjId = otherthing.itineraryPointObjId;
 		this.#objId = ObjId.nextObjId;
-		this.validateData ( );
-	}
-
-	/*
-	This method verify that the data stored in the object have the correct type, and,
-	for html string data, that they not contains invalid tags and attributes.
-	This method must be called each time the data are modified by the user or when
-	a file is opened
-	*/
-
-	validateData ( ) {
-		if ( 'string' === typeof ( this.iconName ) ) {
-			this.iconName = theHTMLSanitizer.sanitizeToJsString ( this.iconName );
-		}
-		else {
-			this.iconName = '';
-		}
-		if ( 'string' === typeof ( this.instruction ) ) {
-			this.instruction = theHTMLSanitizer.sanitizeToJsString ( this.instruction );
-		}
-		else {
-			this.instruction = '';
-		}
-		if ( 'number' !== typeof ( this.distance ) ) {
-			this.distance = DISTANCE.defaultValue;
-		}
-		if ( 'number' !== typeof ( this.duration ) ) {
-			this.duration = DISTANCE.defaultValue;
-		}
-		if ( 'number' !== typeof ( this.itineraryPointObjId ) ) {
-			this.itineraryPointObjId = INVALID_OBJ_ID;
-		}
 	}
 }
 

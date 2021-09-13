@@ -31,8 +31,10 @@ Changes:
 		- Issue ♯120 : Review the UserInterface
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
-Tests ...
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
+ests ...
 */
 
 /**
@@ -295,8 +297,6 @@ class RoutePropertiesDialog extends BaseDialog {
 		this.#route.width = parseInt ( this.#widthInput.value );
 		this.#route.chain = this.#chainInput.checked;
 		this.#route.dashArray = this.#dashSelect.selectedIndex;
-
-		this.#route.validateData ( );
 		this.#colorControl.destructor ( );
 
 		super.onOk ( );

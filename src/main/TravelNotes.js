@@ -48,7 +48,9 @@ Changes:
 		- Issue ♯129 : Add an indicator when the travel is modified and not saved
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
 
@@ -78,7 +80,6 @@ import theRouteEditor from '../core/RouteEditor.js';
 import theAPIKeysManager from '../core/APIKeysManager.js';
 import theUI from '../UI/UI.js';
 import Travel from '../data/Travel.js';
-import Route from '../data/Route.js';
 import ViewerFileLoader from '../core/ViewerFileLoader.js';
 import { theAppVersion } from '../data/Version.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
@@ -88,6 +89,7 @@ import theMouseUI from '../mouseUI/MouseUI.js';
 import theAttributionsUI from '../attributionsUI/AttributionsUI.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theTranslator from '../UILib/Translator.js';
+import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import { LAT_LNG, TWO, SAVE_STATUS, HTTP_STATUS_OK } from '../main/Constants.js';
 
 /**
@@ -139,14 +141,11 @@ class TravelNotes {
 	This method can only be executed once. Others call will be ignored.
 	*/
 
-	addReadOnlyMap ( map, travelUrl ) {
+	addReadOnlyMap ( travelUrl ) {
 		if ( this.#travelNotesLoaded ) {
 			return;
 		}
 		this.#travelNotesLoaded = true;
-		if ( map ) {
-			theTravelNotesData.map = map;
-		}
 		theAttributionsUI.createUI ( );
 		theMapLayersToolbarUI.setMapLayer ( 'OSM - Color' );
 		this.#loadDistantTravel ( travelUrl );
@@ -157,18 +156,20 @@ class TravelNotes {
 	This method can only be executed once. Others call will be ignored.
 	*/
 
-	addControl ( map, divControlId ) {
+	addControl ( ) {
 		if ( this.#travelNotesLoaded ) {
 			return;
 		}
 		this.#travelNotesLoaded = true;
-		if ( map ) {
-			theTravelNotesData.map = map;
-			theTravelNotesData.map.on ( 'contextmenu', contextMenuEvent => new MapContextMenu ( contextMenuEvent ) .show ( ) );
-		}
-		theTravelNotesData.travel = new Travel ( );
-		theTravelNotesData.travel.routes.add ( new Route ( ) );
-		theUI.createUI ( document.getElementById ( divControlId ) );
+
+		document.title = 'Travel & Notes';
+
+		theTravelNotesData.map.on ( 'contextmenu', contextMenuEvent => new MapContextMenu ( contextMenuEvent ) .show ( ) );
+
+		theTravelNotesData.travel.jsonObject = new Travel ( ).jsonObject;
+
+		theUI.createUI ( theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-UI' }, document.body ) );
+
 		theAttributionsUI.createUI ( );
 		theAPIKeysManager.setKeysFromServerFile ( );
 		if ( theConfig.layersToolbarUI.haveLayersToolbarUI ) {
@@ -180,19 +181,23 @@ class TravelNotes {
 
 		if ( theConfig.mouseUI.haveMouseUI ) {
 			theMouseUI.createUI ( );
+			theMouseUI.saveStatus = SAVE_STATUS.saved;
 		}
+
 		if ( theConfig.travelEditor.startupRouteEdition ) {
 			theRouteEditor.editRoute ( theTravelNotesData.travel.routes.first.objId );
 		}
+
 		theEventDispatcher.dispatch ( 'setrouteslist' );
 		theEventDispatcher.dispatch ( 'roadbookupdate' );
+
 		theTravelNotesData.map.setView ( [ theConfig.map.center.lat, theConfig.map.center.lng ], theConfig.map.zoom );
+
 		theErrorsUI.showHelp (
 			'<p>' + theTranslator.getText ( 'Help - Continue with interface1' ) + '</p>' +
 			'<p>' + theTranslator.getText ( 'Help - Continue with interface2' ) + '</p>'
 		);
-		document.title = 'Travel & Notes';
-		theMouseUI.saveStatus = SAVE_STATUS.saved;
+
 	}
 
 	/**

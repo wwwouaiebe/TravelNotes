@@ -5,6 +5,7 @@ This  program is free software;
 you can redistribute it and/or modify it under the terms of the
 GNU General Public License as published by the Free Software Foundation;
 either version 3 of the License, or any later version.
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -13,6 +14,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+
 /*
 Changes:
 	- v1.0.0:
@@ -27,7 +29,9 @@ Changes:
 		- Issue ♯138 : Protect the app - control html entries done by user.
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
 
@@ -75,7 +79,69 @@ const OUR_OBJ_TYPE = new ObjType ( 'Itinerary' );
 
 class Itinerary	{
 
+	/**
+	the objId of the Itinerary
+	@type {!number}
+	@private
+	*/
+
 	#objId = INVALID_OBJ_ID;;
+
+	/**
+	a boolean set to true when the itinerary have a profile
+	@type {boolean}
+	@private
+	*/
+
+	#hasProfile = false;
+
+	/**
+	the ascent of the Itinerary when a profile exists, otherwise ZERO
+	@type {!number}
+	@private
+	*/
+
+	#ascent = ZERO;
+
+	/**
+	the descent of the Itinerary when a profile exists, otherwise ZERO
+	@type {!number}
+	@private
+	*/
+
+	#descent = ZERO;
+
+	/**
+	the provider name used for this Itinerary
+	@type {string}
+	@private
+	*/
+
+	#provider = '';
+
+	/**
+	the transit mode used for this Itinerary
+	@type {string}
+	@private
+	*/
+
+	#transitMode = '';
+
+	/**
+	a Collection of ItineraryPoints
+	@type {Collection.<ItineraryPoint>}
+	@private
+	*/
+
+	#itineraryPoints = new Collection ( ItineraryPoint );
+
+	/**
+	a Collection of Maneuvers
+	@type {Collection.<Maneuver>}
+	@private
+	*/
+
+	#maneuvers = new Collection ( Maneuver );
 
 	/**
 	Performs the upgrade
@@ -154,62 +220,80 @@ class Itinerary	{
 	*/
 
 	constructor ( ) {
-
-		/**
-		a boolean set to true when the itinerary have a profile
-		@type {boolean}
-		*/
-
-		this.hasProfile = false;
-
-		/**
-		the ascent of the Itinerary when a profile exists, otherwise ZERO
-		@type {!number}
-		*/
-
-		this.ascent = ZERO;
-
-		/**
-		the descent of the Itinerary when a profile exists, otherwise ZERO
-		@type {!number}
-		*/
-
-		this.descent = ZERO;
-
-		/**
-		the provider name used for this Itinerary
-		@type {string}
-		*/
-
-		this.provider = '';
-
-		/**
-		the transit mode used for this Itinerary
-		@type {string}
-		*/
-
-		this.transitMode = '';
-
-		/**
-		a Collection of ItineraryPoints
-		@type {Collection.<ItineraryPoint>}
-		@readonly
-		*/
-
-		this.itineraryPoints = new Collection ( ItineraryPoint );
-
-		/**
-		a Collection of Maneuvers
-		@type {Collection.<Maneuver>}
-		@readonly
-		*/
-
-		this.maneuvers = new Collection ( Maneuver );
-
+		Object.freeze ( this );
 		this.#objId = ObjId.nextObjId;
-
-		Object.seal ( this );
 	}
+
+	/**
+	a boolean set to true when the itinerary have a profile
+	@type {boolean}
+	*/
+
+	get hasProfile ( ) { return this.#hasProfile; }
+
+	set hasProfile ( hasProfile ) {
+		this.#hasProfile = 'boolean' === typeof ( hasProfile ) ? hasProfile : false;
+	}
+
+	/**
+	the ascent of the Itinerary when a profile exists, otherwise ZERO
+	@type {!number}
+	*/
+
+	get ascent ( ) { return this.#ascent; }
+
+	set ascent ( ascent ) {
+		this.#ascent = 'number' === typeof ( ascent ) ? Number.parseInt ( ascent ) : ZERO;
+	}
+
+	/**
+	the descent of the Itinerary when a profile exists, otherwise ZERO
+	@type {!number}
+	*/
+
+	get descent ( ) { return this.#descent; }
+
+	set descent ( descent ) {
+		this.#descent = 'number' === typeof ( descent ) ? Number.parseInt ( descent ) : ZERO;
+	}
+
+	/**
+	the provider name used for this Itinerary
+	@type {string}
+	*/
+
+	get provider ( ) { return this.#provider; }
+
+	set provider ( provider ) {
+		this.#provider = 'string' === typeof ( provider ) ? theHTMLSanitizer.sanitizeToJsString ( provider ) : '';
+	}
+
+	/**
+	the transit mode used for this Itinerary
+	@type {string}
+	*/
+
+	get transitMode ( ) { return this.#transitMode; }
+
+	set transitMode ( transitMode ) {
+		this.#transitMode = 'string' === typeof ( transitMode ) ? theHTMLSanitizer.sanitizeToJsString ( transitMode ) : '';
+	}
+
+	/**
+	a Collection of ItineraryPoints
+	@type {Collection.<ItineraryPoint>}
+	@readonly
+	*/
+
+	get itineraryPoints ( ) { return this.#itineraryPoints; }
+
+	/**
+	a Collection of Maneuvers
+	@type {Collection.<Maneuver>}
+	@readonly
+	*/
+
+	get maneuvers ( ) { return this.#maneuvers; }
 
 	/**
 	the ObjType of the Itinerary.
@@ -247,60 +331,31 @@ class Itinerary	{
 		};
 	}
 	set jsonObject ( something ) {
-		let otherthing = this.#validateObject ( something );
-		this.hasProfile = otherthing.hasProfile || false;
-		this.ascent = otherthing.ascent || ZERO;
-		this.descent = otherthing.descent || ZERO;
-		this.itineraryPoints.jsonObject = otherthing.itineraryPoints || [];
-		this.maneuvers.jsonObject = otherthing.maneuvers || [];
-		this.provider = otherthing.provider || '';
-		this.transitMode = otherthing.transitMode || '';
+		const otherthing = this.#validateObject ( something );
+		this.hasProfile = otherthing.hasProfile;
+		this.ascent = otherthing.ascent;
+		this.descent = otherthing.descent;
+		this.itineraryPoints.jsonObject = otherthing.itineraryPoints;
+		this.maneuvers.jsonObject = otherthing.maneuvers;
+		this.provider = otherthing.provider;
+		this.transitMode = otherthing.transitMode;
 		this.#objId = ObjId.nextObjId;
 
 		// rebuilding links between maneuvers and itineraryPoints
-		let itineraryPointObjIdMap = new Map ( );
+		const itineraryPointObjIdMap = new Map ( );
 		let sourceCounter = ZERO;
-		let targetIterator = this.itineraryPoints.iterator;
-		while ( ! targetIterator.done ) {
-			itineraryPointObjIdMap.set ( otherthing.itineraryPoints [ sourceCounter ].objId, targetIterator.value.objId );
+		const itineraryPointsIterator = this.itineraryPoints.iterator;
+		while ( ! itineraryPointsIterator.done ) {
+			itineraryPointObjIdMap.set (
+				otherthing.itineraryPoints [ sourceCounter ].objId,
+				itineraryPointsIterator.value.objId
+			);
 			sourceCounter ++;
 		}
-		let maneuverIterator = this.maneuvers.iterator;
+		const maneuverIterator = this.maneuvers.iterator;
 		while ( ! maneuverIterator.done ) {
 			maneuverIterator.value.itineraryPointObjId =
 				itineraryPointObjIdMap.get ( maneuverIterator.value.itineraryPointObjId );
-		}
-		this.validateData ( );
-	}
-
-	/*
-	This method verify that the data stored in the object have the correct type, and,
-	for html string data, that they not contains invalid tags and attributes.
-	This method must be called each time the data are modified by the user or when
-	a file is opened
-	*/
-
-	validateData ( ) {
-		if ( 'boolean' !== typeof ( this.hasProfile ) ) {
-			this.hasProfile = false;
-		}
-		if ( 'number' !== typeof ( this.ascent ) ) {
-			this.ascent = ZERO;
-		}
-		if ( 'number' !== typeof ( this.descent ) ) {
-			this.descent = ZERO;
-		}
-		if ( 'string' === typeof ( this.provider ) ) {
-			this.provider = theHTMLSanitizer.sanitizeToJsString ( this.provider );
-		}
-		else {
-			this.provider = '';
-		}
-		if ( 'string' === typeof ( this.transitMode ) ) {
-			this.transitMode = theHTMLSanitizer.sanitizeToJsString ( this.transitMode );
-		}
-		else {
-			this.transitMode = '';
 		}
 	}
 }

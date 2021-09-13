@@ -232,7 +232,6 @@
 		"timeout":1500
 	},
 	"travelNotes" : {
-		"autoLoad":true,
 		"haveBeforeUnloadWarning":true,
 		"language":"fr"
 	},
