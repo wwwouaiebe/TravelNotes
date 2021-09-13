@@ -65,8 +65,6 @@ import Maneuver from '../data/Maneuver.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import { ZERO, INVALID_OBJ_ID } from '../main/Constants.js';
 
-const OUR_OBJ_TYPE = new ObjType ( 'Itinerary' );
-
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
@@ -78,6 +76,8 @@ const OUR_OBJ_TYPE = new ObjType ( 'Itinerary' );
 */
 
 class Itinerary	{
+
+	static #objType = new ObjType ( 'Itinerary' );
 
 	/**
 	the objId of the Itinerary
@@ -153,9 +153,9 @@ class Itinerary	{
 
 	#validateObject ( something ) {
 		if ( ! Object.getOwnPropertyNames ( something ).includes ( 'objType' ) ) {
-			throw new Error ( 'No objType for ' + OUR_OBJ_TYPE.name );
+			throw new Error ( 'No objType for ' + this.objType.name );
 		}
-		OUR_OBJ_TYPE.validate ( something.objType );
+		this.objType.validate ( something.objType );
 		let properties = Object.getOwnPropertyNames ( something );
 		[ 	'hasProfile',
 			'ascent',
@@ -167,7 +167,7 @@ class Itinerary	{
 			'objId' ].forEach (
 			property => {
 				if ( ! properties.includes ( property ) ) {
-					throw new Error ( 'No ' + property + ' for ' + OUR_OBJ_TYPE.name );
+					throw new Error ( 'No ' + property + ' for ' + this.objType.name );
 				}
 			}
 		);
@@ -260,7 +260,7 @@ class Itinerary	{
 	@readonly
 	*/
 
-	get objType ( ) { return OUR_OBJ_TYPE; }
+	get objType ( ) { return Itinerary.#objType; }
 
 	/**
 	the objId of the Itinerary. objId are unique identifier given by the code
@@ -286,7 +286,7 @@ class Itinerary	{
 			provider : this.provider,
 			transitMode : this.transitMode,
 			objId : this.#objId,
-			objType : OUR_OBJ_TYPE.jsonObject
+			objType : this.objType.jsonObject
 		};
 	}
 	set jsonObject ( something ) {

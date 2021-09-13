@@ -72,8 +72,6 @@ import Note from '../data/Note.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import { ROUTE_EDITION_STATUS, DISTANCE, ZERO, INVALID_OBJ_ID, LAT_LNG } from '../main/Constants.js';
 
-const OUR_OBJ_TYPE = new ObjType ( 'Route' );
-
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
@@ -85,6 +83,8 @@ const OUR_OBJ_TYPE = new ObjType ( 'Route' );
 */
 
 class Route {
+
+	static #objType = new ObjType ( 'Route' );
 
 	/**
 	the name of the Route
@@ -199,9 +199,9 @@ class Route {
 
 	#validateObject ( something ) {
 		if ( ! Object.getOwnPropertyNames ( something ).includes ( 'objType' ) ) {
-			throw new Error ( 'No objType for ' + OUR_OBJ_TYPE.name );
+			throw new Error ( 'No objType for ' + this.objType.name );
 		}
-		OUR_OBJ_TYPE.validate ( something.objType );
+		this.objType.validate ( something.objType );
 		let properties = Object.getOwnPropertyNames ( something );
 		[
 			'name',
@@ -221,7 +221,7 @@ class Route {
 		].forEach (
 			property => {
 				if ( ! properties.includes ( property ) ) {
-					throw new Error ( 'No ' + property + ' for ' + OUR_OBJ_TYPE.name );
+					throw new Error ( 'No ' + property + ' for ' + this.objType.name );
 				}
 			}
 		);
@@ -428,7 +428,7 @@ class Route {
 	@readonly
 	*/
 
-	get objType ( ) { return OUR_OBJ_TYPE; }
+	get objType ( ) { return Route.#objType; }
 
 	/**
 	This method verify that all waypoints have valid coordinates ( reminder: a route have always a startpoint
@@ -474,7 +474,7 @@ class Route {
 			hidden : this.hidden,
 			chainedDistance : parseFloat ( this.chainedDistance.toFixed ( DISTANCE.fixed ) ),
 			objId : this.#objId,
-			objType : OUR_OBJ_TYPE.jsonObject
+			objType : this.objType.jsonObject
 		};
 	}
 

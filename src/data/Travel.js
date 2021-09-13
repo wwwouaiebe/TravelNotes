@@ -69,8 +69,6 @@ import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import TravelUpdater from '../data/TravelUpdater.js';
 import { INVALID_OBJ_ID } from '../main/Constants.js';
 
-const OUR_OBJ_TYPE = new ObjType ( 'Travel' );
-
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
@@ -81,6 +79,8 @@ const OUR_OBJ_TYPE = new ObjType ( 'Travel' );
 */
 
 class Travel {
+
+	static #objType = new ObjType ( 'Travel' );
 
 	/**
 	the route currently edited
@@ -148,17 +148,17 @@ class Travel {
 
 	#validateObject ( something ) {
 		if ( ! Object.getOwnPropertyNames ( something ).includes ( 'objType' ) ) {
-			throw new Error ( 'No objType for ' + OUR_OBJ_TYPE.name );
+			throw new Error ( 'No objType for ' + this.objType.name );
 		}
-		OUR_OBJ_TYPE.validate ( something.objType );
-		if ( OUR_OBJ_TYPE.version !== something.objType.version ) {
+		this.objType.validate ( something.objType );
+		if ( this.objType.version !== something.objType.version ) {
 			new TravelUpdater ( ).update ( something );
 		}
 		let properties = Object.getOwnPropertyNames ( something );
 		[ 'editedRoute', 'routes', 'notes', 'layerName', 'name', 'readOnly', 'objId' ].forEach (
 			property => {
 				if ( ! properties.includes ( property ) ) {
-					throw new Error ( 'No ' + property + ' for ' + OUR_OBJ_TYPE.name );
+					throw new Error ( 'No ' + property + ' for ' + this.objType.name );
 				}
 			}
 		);
@@ -270,7 +270,7 @@ class Travel {
 	@readonly
 	*/
 
-	get objType ( ) { return OUR_OBJ_TYPE; }
+	get objType ( ) { return Travel.#objType; }
 
 	/**
 	An object literal with the Travel properties and without any methods.
@@ -287,7 +287,7 @@ class Travel {
 			notes : this.notes.jsonObject,
 			readOnly : this.readOnly,
 			objId : this.#objId,
-			objType : OUR_OBJ_TYPE.jsonObject
+			objType : this.objType.jsonObject
 		};
 	}
 

@@ -60,8 +60,6 @@ import ObjId from '../data/ObjId.js';
 import ObjType from '../data/ObjType.js';
 import { ELEV, LAT_LNG, DISTANCE, ZERO, ONE, INVALID_OBJ_ID } from '../main/Constants.js';
 
-const OUR_OBJ_TYPE = new ObjType ( 'ItineraryPoint' );
-
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
@@ -73,6 +71,8 @@ const OUR_OBJ_TYPE = new ObjType ( 'ItineraryPoint' );
 */
 
 class ItineraryPoint {
+
+	static #objType = new ObjType ( 'ItineraryPoint' );
 
 	/**
 	the latitude of the ItineraryPoint
@@ -124,14 +124,14 @@ class ItineraryPoint {
 
 	#validateObject ( something ) {
 		if ( ! Object.getOwnPropertyNames ( something ).includes ( 'objType' ) ) {
-			throw new Error ( 'No objType for ' + OUR_OBJ_TYPE.name );
+			throw new Error ( 'No objType for ' + this.objType.name );
 		}
-		OUR_OBJ_TYPE.validate ( something.objType );
+		this.objType.validate ( something.objType );
 		let properties = Object.getOwnPropertyNames ( something );
 		[ 'lat', 'lng', 'distance', 'elev', 'objId' ].forEach (
 			property => {
 				if ( ! properties.includes ( property ) ) {
-					throw new Error ( 'No ' + property + ' for ' + OUR_OBJ_TYPE.name );
+					throw new Error ( 'No ' + property + ' for ' + this.objType.name );
 				}
 			}
 		);
@@ -222,7 +222,7 @@ class ItineraryPoint {
 	@readonly
 	*/
 
-	get objType ( ) { return OUR_OBJ_TYPE; }
+	get objType ( ) { return ItineraryPoint.#objType; }
 
 	/**
 	the objId of the ItineraryPoint. objId are unique identifier given by the code
@@ -245,7 +245,7 @@ class ItineraryPoint {
 			distance : parseFloat ( this.distance.toFixed ( DISTANCE.fixed ) ),
 			elev : parseFloat ( this.elev.toFixed ( ELEV.fixed ) ),
 			objId : this.#objId,
-			objType : OUR_OBJ_TYPE.jsonObject
+			objType : this.objType.jsonObject
 		};
 	}
 

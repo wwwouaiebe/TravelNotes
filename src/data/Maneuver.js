@@ -59,8 +59,6 @@ import ObjType from '../data/ObjType.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import { DISTANCE, INVALID_OBJ_ID } from '../main/Constants.js';
 
-const OUR_OBJ_TYPE = new ObjType ( 'Maneuver' );
-
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
@@ -72,6 +70,8 @@ const OUR_OBJ_TYPE = new ObjType ( 'Maneuver' );
 */
 
 class Maneuver {
+
+	static #objType = new ObjType ( 'Maneuver' );
 
 	/**
 	The icon displayed with the Maneuver in the roadbook
@@ -131,14 +131,14 @@ class Maneuver {
 
 	#validateObject ( something ) {
 		if ( ! Object.getOwnPropertyNames ( something ).includes ( 'objType' ) ) {
-			throw new Error ( 'No objType for ' + OUR_OBJ_TYPE.name );
+			throw new Error ( 'No objType for ' + this.objType.name );
 		}
-		OUR_OBJ_TYPE.validate ( something.objType );
+		this.objType.validate ( something.objType );
 		let properties = Object.getOwnPropertyNames ( something );
 		[ 'iconName', 'instruction', 'distance', 'duration', 'itineraryPointObjId', 'objId' ].forEach (
 			property => {
 				if ( ! properties.includes ( property ) ) {
-					throw new Error ( 'No ' + property + ' for ' + OUR_OBJ_TYPE.name );
+					throw new Error ( 'No ' + property + ' for ' + this.objType.name );
 				}
 			}
 		);
@@ -215,7 +215,7 @@ class Maneuver {
 	@readonly
 	*/
 
-	get objType ( ) { return OUR_OBJ_TYPE; }
+	get objType ( ) { return Maneuver.#objType; }
 
 	/**
 	the objId of the Maneuver. objId are unique identifier given by the code
@@ -239,7 +239,7 @@ class Maneuver {
 			duration : this.duration,
 			itineraryPointObjId : this.itineraryPointObjId,
 			objId : this.#objId,
-			objType : OUR_OBJ_TYPE.jsonObject
+			objType : this.objType.jsonObject
 		};
 	}
 	set jsonObject ( something ) {

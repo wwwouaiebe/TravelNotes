@@ -59,8 +59,6 @@ import ObjType from '../data/ObjType.js';
 import { LAT_LNG, DISTANCE, ZERO, ONE, INVALID_OBJ_ID, ICON_DIMENSIONS } from '../main/Constants.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
-const OUR_OBJ_TYPE = new ObjType ( 'Note' );
-
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
@@ -72,6 +70,8 @@ const OUR_OBJ_TYPE = new ObjType ( 'Note' );
 */
 
 class Note {
+
+	static #objType = new ObjType ( 'Note' );
 
 	/**
 	the height of the icon associated to the note
@@ -199,9 +199,9 @@ class Note {
 
 	#validateObject ( something ) {
 		if ( ! Object.getOwnPropertyNames ( something ).includes ( 'objType' ) ) {
-			throw new Error ( 'No objType for ' + OUR_OBJ_TYPE.name );
+			throw new Error ( 'No objType for ' + this.objType.name );
 		}
-		OUR_OBJ_TYPE.validate ( something.objType );
+		this.objType.validate ( something.objType );
 		let properties = Object.getOwnPropertyNames ( something );
 		[
 			'iconHeight',
@@ -222,7 +222,7 @@ class Note {
 		].forEach (
 			property => {
 				if ( ! properties.includes ( property ) ) {
-					throw new Error ( 'No ' + property + ' for ' + OUR_OBJ_TYPE.name );
+					throw new Error ( 'No ' + property + ' for ' + this.objType.name );
 				}
 			}
 		);
@@ -482,7 +482,7 @@ class Note {
 	@readonly
 	*/
 
-	get objType ( ) { return OUR_OBJ_TYPE; }
+	get objType ( ) { return Note.#objType; }
 
 	/**
 	the objId of the Note. objId are unique identifier given by the code
@@ -515,7 +515,7 @@ class Note {
 			distance : parseFloat ( this.distance.toFixed ( DISTANCE.fixed ) ),
 			chainedDistance : parseFloat ( this.chainedDistance.toFixed ( DISTANCE.fixed ) ),
 			objId : this.#objId,
-			objType : OUR_OBJ_TYPE.jsonObject
+			objType : this.objType.jsonObject
 		};
 	}
 	set jsonObject ( something ) {

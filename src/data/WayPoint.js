@@ -63,8 +63,6 @@ import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
 import { LAT_LNG, ZERO, ONE, INVALID_OBJ_ID } from '../main/Constants.js';
 
-const OUR_OBJ_TYPE = new ObjType ( 'WayPoint' );
-
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
@@ -76,9 +74,14 @@ const OUR_OBJ_TYPE = new ObjType ( 'WayPoint' );
 
 class WayPoint {
 
+	static #objType = new ObjType ( 'WayPoint' );
+
 	#name = '';
+
 	#address = '';
+
 	#lat = LAT_LNG.defaultValue;
+
 	#lng = LAT_LNG.defaultValue;
 
 	#objId = INVALID_OBJ_ID;;
@@ -93,14 +96,14 @@ class WayPoint {
 
 	#validateObject ( something ) {
 		if ( ! Object.getOwnPropertyNames ( something ).includes ( 'objType' ) ) {
-			throw new Error ( 'No objType for ' + OUR_OBJ_TYPE.name );
+			throw new Error ( 'No objType for ' + this.objType.name );
 		}
-		OUR_OBJ_TYPE.validate ( something.objType );
+		this.objType.validate ( something.objType );
 		let properties = Object.getOwnPropertyNames ( something );
 		[ 'address', 'name', 'lat', 'lng', 'objId' ].forEach (
 			property => {
 				if ( ! properties.includes ( property ) ) {
-					throw new Error ( 'No ' + property + ' for ' + OUR_OBJ_TYPE.name );
+					throw new Error ( 'No ' + property + ' for ' + this.objType.name );
 				}
 			}
 		);
@@ -222,7 +225,7 @@ class WayPoint {
 	@readonly
 	*/
 
-	get objType ( ) { return OUR_OBJ_TYPE; }
+	get objType ( ) { return WayPoint.#objType; }
 
 	/**
 	An object literal with the WayPoint properties and without any methods.
@@ -237,7 +240,7 @@ class WayPoint {
 			lat : parseFloat ( this.lat.toFixed ( LAT_LNG.fixed ) ),
 			lng : parseFloat ( this.lng.toFixed ( LAT_LNG.fixed ) ),
 			objId : this.#objId,
-			objType : OUR_OBJ_TYPE.jsonObject
+			objType : this.objType.jsonObject
 		};
 	}
 
