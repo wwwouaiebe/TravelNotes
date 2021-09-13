@@ -111,7 +111,7 @@ class Routing {
 	get provider ( ) { return this.#provider; }
 
 	set provider ( provider ) {
-		this.#provider = 'string' === provider ? provider : '';
+		this.#provider = 'string' === typeof ( provider ) ? provider : '';
 	}
 
 	/**
@@ -122,7 +122,7 @@ class Routing {
 	get transitMode ( ) { return this.#transitMode; }
 
 	set transitMode ( transitMode ) {
-		this.#transitMode = 'string' === transitMode ? transitMode : '';
+		this.#transitMode = 'string' === typeof ( transitMode ) ? transitMode : '';
 	}
 }
 
