@@ -20,7 +20,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
 Tests ...
 */
 
@@ -134,7 +135,7 @@ class PrintPageBuilder {
 		this.#cancelButton.removeEventListener ( 'click', this.#eventsListeners.onAfterPrint, false );
 		document.body.removeChild ( this.#printToolbar );
 
-		let childrens = document.body.children;
+		const childrens = document.body.children;
 		for ( let counter = 0; counter < childrens.length; counter ++ ) {
 			childrens.item ( counter ).classList.remove ( 'TravelNotes-Hidden' );
 		}
@@ -155,20 +156,19 @@ class PrintPageBuilder {
 	*/
 
 	#getMapLayer ( ) {
-		let layer = theMapLayersCollection.getMapLayer ( theTravelNotesData.travel.layerName );
-		let url = theAPIKeysManager.getUrl ( layer );
-		let leafletLayer = null;
-		if ( 'wmts' === layer.service.toLowerCase ( ) ) {
-			leafletLayer = window.L.tileLayer ( url );
-		}
-		else {
-			leafletLayer = window.L.tileLayer.wms ( url, layer.wmsOptions );
-		}
+		const mapLayer = theMapLayersCollection.getMapLayer ( theTravelNotesData.travel.layerName );
+		const url = theAPIKeysManager.getUrl ( mapLayer );
+		const leafletLayer =
+			'wmts' === mapLayer.service.toLowerCase ( )
+				?
+				window.L.tileLayer ( url )
+				:
+				window.L.tileLayer.wms ( url, mapLayer.wmsOptions );
 
 		leafletLayer.options.attribution = theHTMLSanitizer.sanitizeToHtmlString (
 			' © <a href="https://www.openstreetmap.org/copyright" target="_blank" ' +
 			'title="OpenStreetMap contributors">OpenStreetMap contributors</a> ' +
-			layer.attribution +
+			mapLayer.attribution +
 			'| © <a href="https://github.com/wwwouaiebe" target="_blank" ' +
 			'title="https://github.com/wwwouaiebe">Travel & Notes</a> '
 		).htmlString;
@@ -182,10 +182,10 @@ class PrintPageBuilder {
 	*/
 
 	#getNotesMarkers ( ) {
-		let notesMarkers = [];
+		const notesMarkers = [];
 		this.#route.notes.forEach (
 			note => {
-				let icon = window.L.divIcon (
+				const icon = window.L.divIcon (
 					{
 						iconSize : [ note.iconWidth, note.iconHeight ],
 						iconAnchor : [ note.iconWidth / TWO, note.iconHeight / TWO ],
@@ -195,7 +195,7 @@ class PrintPageBuilder {
 					}
 				);
 
-				let marker = window.L.marker (
+				const marker = window.L.marker (
 					note.iconLatLng,
 					{
 						zIndexOffset : OUR_NOTE_Z_INDEX_OFFSET,
@@ -216,10 +216,10 @@ class PrintPageBuilder {
 
 	#createViewOnPage ( view ) {
 		this.#viewsCounter ++;
-		let viewId = 'TravelNotes-RouteViewDiv' + this.#viewsCounter;
+		const viewId = 'TravelNotes-RouteViewDiv' + this.#viewsCounter;
 
 		// viewDiv is used by leaflet. We cannot seal viewDiv with theHTMLElementsFactory
-		let viewDiv = document.createElement ( 'div' );
+		const viewDiv = document.createElement ( 'div' );
 		viewDiv.className = 'TravelNotes-routeViewDiv';
 		viewDiv.id = viewId;
 		document.body.appendChild ( viewDiv );
@@ -234,7 +234,7 @@ class PrintPageBuilder {
 		viewDiv.style.height = String ( this.#printData.paperHeight ) + 'mm';
 
 		// creating markers for notes
-		let layers = this.#printData.printNotes ? this.#getNotesMarkers ( ) : [];
+		const layers = this.#printData.printNotes ? this.#getNotesMarkers ( ) : [];
 
 		// adding the leaflet map layer
 		layers.push ( this.#getMapLayer ( ) );
@@ -333,7 +333,7 @@ class PrintPageBuilder {
 
 		// adding classes to the body, so all existing elements are hidden
 
-		let childrens = document.body.children;
+		const childrens = document.body.children;
 		for ( let counter = 0; counter < childrens.length; counter ++ ) {
 			childrens.item ( counter ).classList.add ( 'TravelNotes-Hidden' );
 		}
@@ -352,13 +352,13 @@ class PrintPageBuilder {
 
 		// creating the polyline for the route
 		// why we can create the polyline only once and we have to create markers and layers for each view?
-		let latLng = [];
-		let pointsIterator = this.#route.itinerary.itineraryPoints.iterator;
+		const latLngs = [];
+		const pointsIterator = this.#route.itinerary.itineraryPoints.iterator;
 		while ( ! pointsIterator.done ) {
-			latLng.push ( pointsIterator.value.latLng );
+			latLngs.push ( pointsIterator.value.latLng );
 		}
 		this.#routePolyline = window.L.polyline (
-			latLng,
+			latLngs,
 			{
 				color : this.#route.color,
 				weight : this.#route.width

@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
 Doc reviewed 20210913
@@ -370,7 +369,7 @@ class AppLoader {
 	*/
 
 	#readURL ( ) {
-		let docURL = new URL ( window.location );
+		const docURL = new URL ( window.location );
 
 		// 'fil' parameter
 		let strTravelUrl = docURL.searchParams.get ( 'fil' );
@@ -385,7 +384,7 @@ class AppLoader {
 				}
 
 				// Verify that the given url is on the same server and uses the same protocol
-				let travelURL = new URL ( strTravelUrl );
+				const travelURL = new URL ( strTravelUrl );
 				if (
 					docURL.protocol && travelURL.protocol && docURL.protocol === travelURL.protocol
 					&&
@@ -405,7 +404,7 @@ class AppLoader {
 		}
 
 		// 'lng' parameter. lng must be 2 letters...
-		let urlLng = docURL.searchParams.get ( 'lng' );
+		const urlLng = docURL.searchParams.get ( 'lng' );
 		if ( urlLng ) {
 			if ( urlLng.match ( /^[A-Z,a-z]{2}$/ ) ) {
 				this.#language = urlLng.toLowerCase ( );
@@ -418,10 +417,10 @@ class AppLoader {
 	*/
 
 	async #loadConfig ( ) {
-		let configResponse = await fetch ( this.#originAndPath + 'Config.json' );
+		const configResponse = await fetch ( this.#originAndPath + 'Config.json' );
 
 		if ( HTTP_STATUS_OK === configResponse.status && configResponse.ok ) {
-			let config = await configResponse.json ( );
+			const config = await configResponse.json ( );
 
 			// overload of language
 			config.travelNotes.language = this.#language || config.travelNotes.language;
@@ -499,7 +498,7 @@ class AppLoader {
 			&&
 			noteDialogPromiseResult.value.ok
 		) {
-			let noteDialogData = await noteDialogPromiseResult.value.json ( );
+			const noteDialogData = await noteDialogPromiseResult.value.json ( );
 			theNoteDialogToolbarData.loadJson ( noteDialogData );
 			return true;
 		}
@@ -510,7 +509,7 @@ class AppLoader {
 			&&
 			defaultNoteDialogPromiseResult.value.ok
 		) {
-			let defaultNoteDialogData = await defaultNoteDialogPromiseResult.value.json ( );
+			const defaultNoteDialogData = await defaultNoteDialogPromiseResult.value.json ( );
 			theNoteDialogToolbarData.loadJson ( defaultNoteDialogData );
 			this.#errorMessage +=
 				'Not possible to load the TravelNotesNoteDialog' +
@@ -584,7 +583,7 @@ class AppLoader {
 
 	async #loadJsonFiles ( ) {
 
-		let results = await Promise.allSettled ( [
+		const results = await Promise.allSettled ( [
 			fetch ( this.#originAndPath +	this.#language.toUpperCase ( ) + '.json' ),
 			fetch ( this.#originAndPath + 'EN.json' ),
 			fetch ( this.#originAndPath + 'NoteDialog' + this.#language.toUpperCase ( ) + '.json' ),
@@ -595,7 +594,7 @@ class AppLoader {
 		] );
 
 		/* eslint-disable no-magic-numbers */
-		let jsonSuccess =
+		const jsonSuccess =
 			await this.#loadTranslations ( results [ 0 ], results [ 1 ] )
 			&&
 			await this.#loadNoteDialogConfig ( results [ 2 ], results [ 3 ] )

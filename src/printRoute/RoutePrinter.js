@@ -31,7 +31,8 @@ Changes:
 		- Issue ♯146 : Add the travel name in the document title...
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
 Tests ...
 */
 
@@ -89,7 +90,7 @@ class RoutePrinter {
 
 	#computeViewSize ( printData ) {
 
-		let dummyDiv = theHTMLElementsFactory.create ( 'div', { }, document.body );
+		const dummyDiv = theHTMLElementsFactory.create ( 'div', { }, document.body );
 		dummyDiv.style.position = 'absolute';
 		dummyDiv.style.top = '0';
 		dummyDiv.style.left = '0';
@@ -98,14 +99,14 @@ class RoutePrinter {
 		this.#tilesPerPage =
 			Math.ceil ( dummyDiv.clientWidth / OUR_TILE_SIZE ) *
 			Math.ceil ( dummyDiv.clientHeight / OUR_TILE_SIZE );
-		let topLeftScreen = theGeometry.screenCoordToLatLng ( ZERO, ZERO );
-		let bottomRightScreen = theGeometry.screenCoordToLatLng (
+		const topLeftScreen = theGeometry.screenCoordToLatLng ( ZERO, ZERO );
+		const bottomRightScreen = theGeometry.screenCoordToLatLng (
 			dummyDiv.clientWidth,
 			dummyDiv.clientHeight
 		);
 		document.body.removeChild ( dummyDiv );
 
-		let scale = theTravelNotesData.map.getZoomScale ( theTravelNotesData.map.getZoom ( ), printData.zoomFactor );
+		const scale = theTravelNotesData.map.getZoomScale ( theTravelNotesData.map.getZoom ( ), printData.zoomFactor );
 		return [
 			Math.abs ( topLeftScreen [ LAT ] - bottomRightScreen [ LAT ] ) * scale,
 			Math.abs ( topLeftScreen [ LNG ] - bottomRightScreen [ LNG ] ) * scale
@@ -127,13 +128,13 @@ class RoutePrinter {
 	*/
 
 	print ( printData, routeObjId ) {
-		let route = theDataSearchEngine.getRoute ( routeObjId );
+		const route = theDataSearchEngine.getRoute ( routeObjId );
 		if ( ! route ) {
 			return;
 		}
 
 		// Computing the needed views
-		let printViewsFactory = new PrintViewsFactory (
+		const printViewsFactory = new PrintViewsFactory (
 			route,
 			this.#computeViewSize ( printData )
 		);
@@ -153,7 +154,7 @@ class RoutePrinter {
 		}
 
 		// Prepare the main page, for printing, hidding the map, adding the views and a print toolbar
-		let printPageBuilder = new PrintPageBuilder (
+		const printPageBuilder = new PrintPageBuilder (
 			route,
 			printViewsFactory.views,
 			printData

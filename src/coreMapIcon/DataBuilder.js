@@ -89,13 +89,15 @@ class DataBuilder {
 		}
 	);
 
-	#computeData = {
-		mapIconPosition : null,
-		route : null,
-		positionOnRoute : ICON_POSITION.onRoute,
-		direction : null,
-		directionArrow : ' '
-	}
+	#computeData = Object.seal (
+		{
+			mapIconPosition : null,
+			route : null,
+			positionOnRoute : ICON_POSITION.onRoute,
+			direction : null,
+			directionArrow : ' '
+		}
+	);
 
 	/*
 	constructor

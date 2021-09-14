@@ -21,7 +21,8 @@ Changes:
 		- created
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
 Tests ...
 */
 
@@ -71,10 +72,9 @@ class TravelNotesViewer {
 	*/
 
 	async #loadDistantTravel ( travelUrl ) {
-		let travelResponse = await fetch ( travelUrl );
+		const travelResponse = await fetch ( travelUrl );
 		if ( HTTP_STATUS_OK === travelResponse.status && travelResponse.ok ) {
-			let travelContent = await travelResponse.json ( );
-			new ViewerFileLoader ( ).openDistantFile ( travelContent );
+			new ViewerFileLoader ( ).openDistantFile ( await travelResponse.json ( ) );
 		}
 		else {
 			theTravelNotesData.map.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], TWO );

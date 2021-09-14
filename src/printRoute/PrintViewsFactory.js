@@ -20,7 +20,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
 Tests ...
 */
 
@@ -128,7 +129,7 @@ class PrintViewsFactory {
 			&&
 			currentView.bottomLeft.lng === currentView.upperRight.lng
 		) {
-			let coef = Math.min (
+			const coef = Math.min (
 				Math.abs ( this.#printSize [ LAT ] / ( lastItineraryPoint.lat - firstItineraryPoint.lat ) ),
 				Math.abs ( this.#printSize [ LNG ] / ( lastItineraryPoint.lng - firstItineraryPoint.lng ) )
 			);
@@ -195,8 +196,11 @@ class PrintViewsFactory {
 			return intermediatePoint;
 		}
 
-		let coefA = ( firstItineraryPoint.lat - lastItineraryPoint.lat ) / ( firstItineraryPoint.lng - lastItineraryPoint.lng );
-		let coefB = firstItineraryPoint.lat - ( coefA * firstItineraryPoint.lng );
+		const coefA =
+			( firstItineraryPoint.lat - lastItineraryPoint.lat )
+			/
+			( firstItineraryPoint.lng - lastItineraryPoint.lng );
+		const coefB = firstItineraryPoint.lat - ( coefA * firstItineraryPoint.lng );
 
 		// Searching intersection with the right side of currentView
 		intermediatePoint = {
@@ -274,7 +278,7 @@ class PrintViewsFactory {
 		this.#views = [];
 
 		// Iteration on the route
-		let itineraryPointsIterator = this.#route.itinerary.itineraryPoints.iterator;
+		const itineraryPointsIterator = this.#route.itinerary.itineraryPoints.iterator;
 		let done = itineraryPointsIterator.done;
 
 		// First view is created with the first point
@@ -291,7 +295,7 @@ class PrintViewsFactory {
 		while ( ! done ) {
 
 			// a temporary view is created, extending the current view with the current itinerary point
-			let tmpView = {
+			const tmpView = {
 				bottomLeft : {
 					lat : Math.min ( currentView.bottomLeft.lat, currentItineraryPoint.lat ),
 					lng : Math.min ( currentView.bottomLeft.lng, currentItineraryPoint.lng )
@@ -303,7 +307,7 @@ class PrintViewsFactory {
 			};
 
 			// computing the temporary view size...
-			let tmpViewSize = [
+			const tmpViewSize = [
 				tmpView.upperRight.lat - tmpView.bottomLeft.lat,
 				tmpView.upperRight.lng - tmpView.bottomLeft.lng
 			];

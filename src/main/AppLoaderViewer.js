@@ -89,7 +89,7 @@ class KeydownEventListener {
 			theGeoLocator.switch ( );
 		}
 		else {
-			let charCode = keyBoardEvent.key.charCodeAt ( ZERO );
+			const charCode = keyBoardEvent.key.charCodeAt ( ZERO );
 			/* eslint-disable-next-line no-magic-numbers */
 			if ( 47 < charCode && 58 > charCode ) {
 				theViewerLayersToolbarUI.setMapLayer ( keyBoardEvent.key );
@@ -194,7 +194,7 @@ class AppLoaderViewer {
 	*/
 
 	#readURL ( ) {
-		let docURL = new URL ( window.location );
+		const docURL = new URL ( window.location );
 		let strTravelUrl = docURL.searchParams.get ( 'fil' );
 		if ( strTravelUrl && ZERO !== strTravelUrl.length ) {
 			try {
@@ -202,7 +202,7 @@ class AppLoaderViewer {
 				if ( strTravelUrl.match ( /[^\w-%:./]/ ) ) {
 					throw new Error ( 'invalid char in the url encoded in the fil parameter' );
 				}
-				let travelURL = new URL ( strTravelUrl );
+				const travelURL = new URL ( strTravelUrl );
 				if (
 					docURL.protocol && travelURL.protocol && docURL.protocol === travelURL.protocol
 					&&
@@ -220,7 +220,7 @@ class AppLoaderViewer {
 				}
 			}
 		}
-		let urlLng = docURL.searchParams.get ( 'lng' );
+		const urlLng = docURL.searchParams.get ( 'lng' );
 		if ( urlLng ) {
 			if ( urlLng.match ( /^[A-Z,a-z]{2}$/ ) ) {
 				this.#language = urlLng.toLowerCase ( );
@@ -236,9 +236,9 @@ class AppLoaderViewer {
 	*/
 
 	async #loadConfig ( ) {
-		let configResponse = await fetch ( this.#originAndPath + 'Config.json' );
+		const configResponse = await fetch ( this.#originAndPath + 'Config.json' );
 		if ( HTTP_STATUS_OK === configResponse.status && configResponse.ok ) {
-			let config = await configResponse.json ( );
+			const config = await configResponse.json ( );
 			config.travelNotes.language = this.#language || config.travelNotes.language;
 			if ( 'wwwouaiebe.github.io' === window.location.hostname ) {
 				config.note.haveBackground = true;
@@ -255,7 +255,7 @@ class AppLoaderViewer {
 	*/
 
 	async #loadTranslations ( ) {
-		let languageResponse = await fetch ( this.#originAndPath +	this.#language.toUpperCase ( ) + '.json' );
+		const languageResponse = await fetch ( this.#originAndPath +	this.#language.toUpperCase ( ) + '.json' );
 		if ( HTTP_STATUS_OK === languageResponse.status && languageResponse.ok ) {
 			theTranslator.setTranslations ( await languageResponse.json ( ) );
 			return true;
@@ -269,7 +269,7 @@ class AppLoaderViewer {
 	*/
 
 	async #loadMapLayers ( ) {
-		let layersResponse = await fetch ( this.#originAndPath +	'Layers.json' );
+		const layersResponse = await fetch ( this.#originAndPath +	'Layers.json' );
 		if ( HTTP_STATUS_OK === layersResponse.status && layersResponse.ok ) {
 			theViewerLayersToolbarUI.addMapLayers ( await layersResponse.json ( ) );
 			return true;

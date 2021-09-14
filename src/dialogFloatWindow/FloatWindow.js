@@ -104,7 +104,7 @@ class TopBarDragEndEL {
 	#containerDiv = null;
 
 	constructor ( dragData ) {
-		Object.seal ( this );
+		Object.freeze ( this );
 		this.#dragData = dragData;
 	}
 

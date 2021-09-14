@@ -28,7 +28,9 @@ Changes:
 		- Issue ♯142 : Transform the typedef layer to a class as specified in the layersToolbarUI.js
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
 
@@ -213,7 +215,7 @@ class MapLayersToolbarUI {
 					( mapLayer.providerKeyNeeded && theAPIKeysManager.hasKey ( mapLayer.providerName.toLowerCase ( ) ) )
 					|| ! mapLayer.providerKeyNeeded
 				) {
-					let mapLayerButton =
+					const mapLayerButton =
 						new MapLayersToolbarButton ( mapLayer, this.#buttonsHTMLElement );
 					this.#wheelEventData.buttonHeight = mapLayerButton.height;
 					this.#wheelEventData.buttonsHeight += mapLayerButton.height;
@@ -224,7 +226,7 @@ class MapLayersToolbarUI {
 
 		// Adding link buttons
 		if ( theConfig.layersToolbarUI.theDevil && theConfig.layersToolbarUI.theDevil.addButton ) {
-			let theDevilButton = new MapLayersToolbarLink (
+			const theDevilButton = new MapLayersToolbarLink (
 				{
 					href : 'https://www.google.com/maps/@' +
 						theTravelNotesData.map.getCenter ( ).lat +
@@ -318,10 +320,10 @@ class MapLayersToolbarUI {
 	*/
 
 	setMapLayer ( mapLayerName ) {
-		let theLayer = theMapLayersCollection.getMapLayer ( mapLayerName );
-		theEventDispatcher.dispatch ( 'layerchange', { layer : theLayer } );
-		theAttributionsUI.attributions = theLayer.attribution;
-		theTravelNotesData.travel.layerName = theLayer.name;
+		const mapLayer = theMapLayersCollection.getMapLayer ( mapLayerName );
+		theEventDispatcher.dispatch ( 'layerchange', { layer : mapLayer } );
+		theAttributionsUI.attributions = mapLayer.attribution;
+		theTravelNotesData.travel.layerName = mapLayer.name;
 	}
 
 	/**

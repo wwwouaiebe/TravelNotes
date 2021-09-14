@@ -117,10 +117,9 @@ class TravelNotes {
 	*/
 
 	async #loadDistantTravel ( travelUrl ) {
-		let travelResponse = await fetch ( travelUrl );
+		const travelResponse = await fetch ( travelUrl );
 		if ( HTTP_STATUS_OK === travelResponse.status && travelResponse.ok ) {
-			let travelContent = await travelResponse.json ( );
-			new ViewerFileLoader ( ).openDistantFile ( travelContent );
+			new ViewerFileLoader ( ).openDistantFile ( await travelResponse.json ( ) );
 		}
 		else {
 			theTravelNotesData.map.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], TWO	);
