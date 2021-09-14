@@ -103,7 +103,7 @@ class OverpassAPIDataLoader {
 				let nodesCounter = ZERO;
 				way.nodes.forEach (
 					nodeId => {
-						let node = this.#nodes.get ( nodeId );
+						const node = this.#nodes.get ( nodeId );
 						way.geometry [ ZERO ].push ( [ node.lat, node.lon ] );
 						way.lat += node.lat;
 						way.lon += node.lon;
@@ -125,7 +125,7 @@ class OverpassAPIDataLoader {
 				relation.members.forEach (
 					member => {
 						if ( 'way' === member.type ) {
-							let way = this.#ways.get ( member.ref );
+							const way = this.#ways.get ( member.ref );
 							relation.geometry.push ( way.geometry [ ZERO ] );
 							relation.lat += way.lat;
 							relation.lon += way.lon;
@@ -159,11 +159,11 @@ class OverpassAPIDataLoader {
 						this.#places [ osmElement.tags.place ] &&
 						osmElement.tags.name
 					) {
-						let nodeDistance = theSphericalTrigonometry.pointsDistance (
+						const nodeDistance = theSphericalTrigonometry.pointsDistance (
 							this.#latLngDistance.latLng,
 							[ osmElement.lat, osmElement.lon ]
 						);
-						let place = this.#places [ osmElement.tags.place ];
+						const place = this.#places [ osmElement.tags.place ];
 						if ( place.maxDistance > nodeDistance && place.distance > nodeDistance ) {
 							place.distance = nodeDistance;
 							place.name = osmElement.tags.name;
@@ -264,7 +264,7 @@ class OverpassAPIDataLoader {
 				&&
 				results[ counter ].value.ok
 			) {
-				let response = await results[ counter ].value.json ( );
+				const response = await results[ counter ].value.json ( );
 				this.#parseData ( response.elements );
 				this.#statusOk = this.#statusOk && true;
 			}
@@ -331,7 +331,7 @@ class OverpassAPIDataLoader {
 		this.#ways.clear ( );
 		this.#relations.clear ( );
 
-		let promises = [];
+		const promises = [];
 		queries.forEach ( query => {
 			promises.push (
 				fetch ( theConfig.overpassApi.url +

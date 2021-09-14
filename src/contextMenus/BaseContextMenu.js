@@ -185,7 +185,7 @@ class BaseContextMenu {
 		let menuItemCounter = ZERO;
 		this.menuItems.forEach (
 			menuItem => {
-				let menuItemHTMLElement = theHTMLElementsFactory.create (
+				const menuItemHTMLElement = theHTMLElementsFactory.create (
 					'div',
 					{
 						textContent : menuItem.itemText,

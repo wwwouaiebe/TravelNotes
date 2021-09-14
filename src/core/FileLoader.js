@@ -106,7 +106,7 @@ class FileLoader {
 		document.title =
 			'Travel & Notes' +
 			( '' === theTravelNotesData.travel.name ? '' : ' - ' + theTravelNotesData.travel.name );
-		let routesIterator = theTravelNotesData.travel.routes.iterator;
+		const routesIterator = theTravelNotesData.travel.routes.iterator;
 		while ( ! routesIterator.done ) {
 			if ( ROUTE_EDITION_STATUS.notEdited === routesIterator.value.editionStatus ) {
 				theEventDispatcher.dispatch (
@@ -127,7 +127,7 @@ class FileLoader {
 				}
 			);
 		}
-		let notesIterator = theTravelNotesData.travel.notes.iterator;
+		const notesIterator = theTravelNotesData.travel.notes.iterator;
 		while ( ! notesIterator.done ) {
 			theEventDispatcher.dispatch (
 				'noteupdated',
@@ -144,7 +144,7 @@ class FileLoader {
 		// Editors and HTML pages are filled
 		theEventDispatcher.dispatch ( 'setrouteslist' );
 		if ( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId ) {
-			let providerName = theTravelNotesData.travel.editedRoute.itinerary.provider;
+			const providerName = theTravelNotesData.travel.editedRoute.itinerary.provider;
 			if (
 				providerName
 				&&
@@ -162,7 +162,7 @@ class FileLoader {
 			else {
 
 				// Provider and transit mode are changed in the itinerary editor
-				let transitMode = theTravelNotesData.travel.editedRoute.itinerary.transitMode;
+				const transitMode = theTravelNotesData.travel.editedRoute.itinerary.transitMode;
 				theEventDispatcher.dispatch ( 'setprovider', { provider : providerName } );
 
 				if ( transitMode && '' !== transitMode ) {

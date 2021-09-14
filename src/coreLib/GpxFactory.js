@@ -94,7 +94,7 @@ class GpxFactory {
 	*/
 
 	#addWayPoints ( ) {
-		let wayPointsIterator = this.#route.wayPoints.iterator;
+		const wayPointsIterator = this.#route.wayPoints.iterator;
 		while ( ! wayPointsIterator.done ) {
 			this.#myGpxString +=
 				OUR_TAB_1 + '<wpt lat="' + wayPointsIterator.value.lat + '" lon="' + wayPointsIterator.value.lng + '" ' +
@@ -110,12 +110,12 @@ class GpxFactory {
 
 	#addRoute ( ) {
 		this.#myGpxString += OUR_TAB_1 + '<rte>';
-		let maneuverIterator = this.#route.itinerary.maneuvers.iterator;
+		const maneuverIterator = this.#route.itinerary.maneuvers.iterator;
 		while ( ! maneuverIterator.done ) {
-			let wayPoint = this.#route.itinerary.itineraryPoints.getAt (
+			const wayPoint = this.#route.itinerary.itineraryPoints.getAt (
 				maneuverIterator.value.itineraryPointObjId
 			);
-			let instruction = maneuverIterator.value.instruction
+			const instruction = maneuverIterator.value.instruction
 				.replaceAll ( /\u0027/g, '&apos;' )
 				.replaceAll ( /"/g, '&quot;' )
 				.replaceAll ( /</g, '&lt;' )
@@ -142,7 +142,7 @@ class GpxFactory {
 	#addTrack ( ) {
 		this.#myGpxString += OUR_TAB_1 + '<trk>';
 		this.#myGpxString += OUR_TAB_2 + '<trkseg>';
-		let itineraryPointsIterator = this.#route.itinerary.itineraryPoints.iterator;
+		const itineraryPointsIterator = this.#route.itinerary.itineraryPoints.iterator;
 		while ( ! itineraryPointsIterator.done ) {
 			this.#myGpxString +=
 				OUR_TAB_3 +

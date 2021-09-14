@@ -117,13 +117,13 @@ class Geometry {
 			return null;
 		}
 		let nearestDistance = 0;
-		let itineraryPointsIterator = route.itinerary.itineraryPoints.iterator;
+		const itineraryPointsIterator = route.itinerary.itineraryPoints.iterator;
 		while ( nearestDistance < distance && ! itineraryPointsIterator.done ) {
 			nearestDistance += itineraryPointsIterator.value.distance;
 		}
-		let previousItineraryPoint = itineraryPointsIterator.value;
+		const previousItineraryPoint = itineraryPointsIterator.value;
 		itineraryPointsIterator.done;
-		let scale = ( previousItineraryPoint.distance - nearestDistance + distance ) / previousItineraryPoint.distance;
+		const scale = ( previousItineraryPoint.distance - nearestDistance + distance ) / previousItineraryPoint.distance;
 		return Object.freeze (
 			{
 				latLng :
@@ -157,12 +157,12 @@ class Geometry {
 		if ( ZERO === route.itinerary.itineraryPoints.length ) {
 			return null;
 		}
-		let itineraryPointIterator = route.itinerary.itineraryPoints.iterator;
+		const itineraryPointIterator = route.itinerary.itineraryPoints.iterator;
 		itineraryPointIterator.done;
 		let minDistance = Number.MAX_VALUE;
 
 		// projections of points are made
-		let point = window.L.Projection.SphericalMercator.project (
+		const point = window.L.Projection.SphericalMercator.project (
 			window.L.latLng ( latLng [ ZERO ], latLng [ ONE ] ) );
 		let point1 = window.L.Projection.SphericalMercator.project (
 			window.L.latLng ( itineraryPointIterator.value.lat, itineraryPointIterator.value.lng )
@@ -171,7 +171,7 @@ class Geometry {
 		let closestDistance = DISTANCE.defaultValue;
 		let endSegmentDistance = itineraryPointIterator.value.distance;
 		while ( ! itineraryPointIterator.done ) {
-			let point2 = window.L.Projection.SphericalMercator.project (
+			const point2 = window.L.Projection.SphericalMercator.project (
 				window.L.latLng ( itineraryPointIterator.value.lat, itineraryPointIterator.value.lng )
 			);
 			let distance = window.L.LineUtil.pointToSegmentDistance ( point, point1, point2 );
@@ -205,8 +205,8 @@ class Geometry {
 	*/
 
 	getLatLngBounds ( latLngs ) {
-		let sw = window.L.latLng ( [ LAT_LNG.maxLat, LAT_LNG.maxLng ] );
-		let ne = window.L.latLng ( [ LAT_LNG.minLat, LAT_LNG.minLng ] );
+		const sw = window.L.latLng ( [ LAT_LNG.maxLat, LAT_LNG.maxLng ] );
+		const ne = window.L.latLng ( [ LAT_LNG.minLat, LAT_LNG.minLng ] );
 		latLngs.forEach (
 			latLng => {
 				sw.lat = Math.min ( sw.lat, latLng [ ZERO ] );
@@ -225,9 +225,9 @@ class Geometry {
 	*/
 
 	getSquareBoundingBox ( latLngCenter, dimension ) {
-		let deltaLat = ( dimension / EARTH_RADIUS ) * DEGREES.fromRadians;
-		let latCenterRad = latLngCenter [ ZERO ] * DEGREES.toRadians;
-		let deltaLng =
+		const latCenterRad = latLngCenter [ ZERO ] * DEGREES.toRadians;
+		const deltaLat = ( dimension / EARTH_RADIUS ) * DEGREES.fromRadians;
+		const deltaLng =
 			Math.acos (
 				( Math.cos ( dimension / EARTH_RADIUS ) - ( Math.sin ( latCenterRad ) ** TWO ) ) /
 				( Math.cos ( latCenterRad ) ** TWO )
@@ -247,7 +247,7 @@ class Geometry {
 	*/
 
 	project ( latLng, zoom ) {
-		let projection = theTravelNotesData.map.project ( window.L.latLng ( latLng ), zoom );
+		const projection = theTravelNotesData.map.project ( window.L.latLng ( latLng ), zoom );
 		return [ projection.x, projection.y ];
 	}
 
@@ -259,7 +259,7 @@ class Geometry {
 	*/
 
 	screenCoordToLatLng ( xScreen, yScreen ) {
-		let latLng = theTravelNotesData.map.containerPointToLatLng ( window.L.point ( xScreen, yScreen ) );
+		const latLng = theTravelNotesData.map.containerPointToLatLng ( window.L.point ( xScreen, yScreen ) );
 		return [ latLng.lat, latLng.lng ];
 	}
 

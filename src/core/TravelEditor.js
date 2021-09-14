@@ -103,7 +103,7 @@ class TravelEditor {
 
 	#saveAsTravel ( removeData ) {
 
-		let saveAsTravel = new Travel ( );
+		const saveAsTravel = new Travel ( );
 		saveAsTravel.jsonObject = theTravelNotesData.travel.jsonObject;
 		saveAsTravel.name += '-partial';
 		let routesIterator = saveAsTravel.routes.iterator;
@@ -125,7 +125,7 @@ class TravelEditor {
 				routesIterator.value.itinerary.maneuvers.removeAll ( );
 			}
 		}
-		let compressedSaveAsTravel = new FileCompactor ( ).compress ( saveAsTravel );
+		const compressedSaveAsTravel = new FileCompactor ( ).compress ( saveAsTravel );
 		theUtilities.saveFile (
 			compressedSaveAsTravel.name + '.trv',
 			JSON.stringify ( compressedSaveAsTravel ),
@@ -152,14 +152,14 @@ class TravelEditor {
 	*/
 
 	routeDropped ( draggedRouteObjId, targetRouteObjId, draggedBefore ) {
-		let newDraggedRouteObjId =
+		const newDraggedRouteObjId =
 			draggedRouteObjId === theTravelNotesData.travel.editedRoute.objId
 				?
 				theTravelNotesData.editedRouteObjId
 				:
 				draggedRouteObjId;
 
-		let newTargetRouteObjId =
+		const newTargetRouteObjId =
 			targetRouteObjId === theTravelNotesData.travel.editedRoute.objId
 				?
 				theTravelNotesData.editedRouteObjId
@@ -209,11 +209,11 @@ class TravelEditor {
 			theErrorsUI.showError ( theTranslator.getText ( 'TravelEditor - Gives a name to the travel' ) );
 			return;
 		}
-		let routesIterator = theTravelNotesData.travel.routes.iterator;
+		const routesIterator = theTravelNotesData.travel.routes.iterator;
 		while ( ! routesIterator.done ) {
 			routesIterator.value.hidden = false;
 		}
-		let compressedTravel = new FileCompactor ( ).compress ( theTravelNotesData.travel );
+		const compressedTravel = new FileCompactor ( ).compress ( theTravelNotesData.travel );
 		theUtilities.saveFile ( compressedTravel.name + '.trv', JSON.stringify ( compressedTravel ), 'application/json' );
 		theMouseUI.saveStatus = SAVE_STATUS.saved;
 	}

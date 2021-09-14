@@ -100,8 +100,8 @@ class ProfileFactory {
 
 		let tmpPointsDistance = 0;
 		let tmpPointElev = 0;
-		let tmpPoints = [];
-		let itineraryPointsIterator = this.#route.itinerary.itineraryPoints.iterator;
+		const tmpPoints = [];
+		const itineraryPointsIterator = this.#route.itinerary.itineraryPoints.iterator;
 		let itineraryPointsDistance = 0;
 
 		// going to the first itinerary point
@@ -126,7 +126,7 @@ class ProfileFactory {
 			if ( ! done ) {
 
 				// adding tmpPoint
-				let ascentFactor = ( itineraryPointsIterator.value.elev - itineraryPointsIterator.previous.elev ) /
+				const ascentFactor = ( itineraryPointsIterator.value.elev - itineraryPointsIterator.previous.elev ) /
 					itineraryPointsIterator.previous.distance;
 				tmpPointElev =
 					itineraryPointsIterator.value.elev -
@@ -147,8 +147,8 @@ class ProfileFactory {
 	*/
 
 	#createSmoothPoints ( ) {
-		let tmpPoints = this.#createTmpPoints ( );
-		let smoothPoints = new Map;
+		const tmpPoints = this.#createTmpPoints ( );
+		const smoothPoints = new Map;
 
 		let deltaElev = ( tmpPoints [ this.#smoothPoints ].elev - tmpPoints [ ZERO ].elev ) / this.#smoothPoints;
 
@@ -237,7 +237,7 @@ class ProfileFactory {
 				distance += itineraryPoint.distance;
 			}
 		);
-		let polyline = document.createElementNS ( SVG_NS, 'polyline' );
+		const polyline = document.createElementNS ( SVG_NS, 'polyline' );
 		polyline.setAttributeNS ( null, 'points', pointsAttribute );
 		polyline.setAttributeNS ( null, 'class', 'TravelNotes-Route-SvgProfile-profilePolyline' );
 		this.#svg.appendChild ( polyline );
@@ -249,10 +249,10 @@ class ProfileFactory {
 	*/
 
 	#createFramePolyline ( ) {
-		let pointsAttribute =
+		const pointsAttribute =
 			OUR_LEFT_PROFILE + ',' + OUR_TOP_PROFILE + ' ' + OUR_LEFT_PROFILE + ',' + OUR_BOTTOM_PROFILE + ' ' +
 			OUR_RIGHT_PROFILE + ',' + OUR_BOTTOM_PROFILE + ' ' + OUR_RIGHT_PROFILE + ',' + OUR_TOP_PROFILE;
-		let polyline = document.createElementNS ( SVG_NS, 'polyline' );
+		const polyline = document.createElementNS ( SVG_NS, 'polyline' );
 		polyline.setAttributeNS ( null, 'points', pointsAttribute );
 		polyline.setAttributeNS ( null, 'class', 'TravelNotes-Route-SvgProfile-framePolyline' );
 		this.#svg.appendChild ( polyline );
@@ -269,7 +269,7 @@ class ProfileFactory {
 		let selectedScale = 0;
 		SVG_PROFILE.hScales.forEach (
 			scale => {
-				let currentDelta = Math.abs ( ( this.#route.distance / OUR_MAX_X_LEGEND_NUMBER ) - scale );
+				const currentDelta = Math.abs ( ( this.#route.distance / OUR_MAX_X_LEGEND_NUMBER ) - scale );
 				if ( currentDelta < minDelta ) {
 					minDelta = currentDelta;
 					selectedScale = scale;
@@ -278,7 +278,7 @@ class ProfileFactory {
 		);
 		let distance = Math.ceil ( this.#route.chainedDistance / selectedScale ) * selectedScale;
 		while ( distance < this.#route.distance + this.#route.chainedDistance ) {
-			let distanceText = document.createElementNS ( SVG_NS, 'text' );
+			const distanceText = document.createElementNS ( SVG_NS, 'text' );
 
 			distanceText.appendChild (
 				document.createTextNode (
@@ -313,7 +313,7 @@ class ProfileFactory {
 		let selectedScale = ZERO;
 		SVG_PROFILE.vScales.forEach (
 			scale => {
-				let currentDelta = Math.abs ( ( this.#deltaElev / OUR_MAX_Y_LEGEND_NUMBER ) - scale );
+				const currentDelta = Math.abs ( ( this.#deltaElev / OUR_MAX_Y_LEGEND_NUMBER ) - scale );
 				if ( currentDelta < minDelta ) {
 					minDelta = currentDelta;
 					selectedScale = scale;
@@ -322,15 +322,15 @@ class ProfileFactory {
 		);
 		let elev = Math.ceil ( this.#minElev / selectedScale ) * selectedScale;
 		while ( elev < this.#maxElev ) {
-			let elevTextY = SVG_PROFILE.margin + ( ( this.#maxElev - elev ) * this.#VScale );
-			let rightElevText = document.createElementNS ( SVG_NS, 'text' );
+			const elevTextY = SVG_PROFILE.margin + ( ( this.#maxElev - elev ) * this.#VScale );
+			const rightElevText = document.createElementNS ( SVG_NS, 'text' );
 			rightElevText.appendChild ( document.createTextNode ( elev.toFixed ( ZERO ) ) );
 			rightElevText.setAttributeNS ( null, 'class', 'TravelNotes-Route-SvgProfile-elevLegend' );
 			rightElevText.setAttributeNS ( null, 'x', OUR_RIGHT_TEXT_PROFILE );
 			rightElevText.setAttributeNS ( null, 'y', elevTextY );
 			rightElevText.setAttributeNS ( null, 'text-anchor', 'start' );
 			this.#svg.appendChild ( rightElevText );
-			let leftElevText = document.createElementNS ( SVG_NS, 'text' );
+			const leftElevText = document.createElementNS ( SVG_NS, 'text' );
 			leftElevText.appendChild ( document.createTextNode ( elev.toFixed ( ZERO ) ) );
 			leftElevText.setAttributeNS ( null, 'class', 'TravelNotes-Route-SvgProfile-elevLegend' );
 			leftElevText.setAttributeNS ( null, 'x', OUR_LEFT_TEXT_PROFILE );
@@ -396,7 +396,7 @@ class ProfileFactory {
 		}
 
 		// creating smooth points
-		let smoothPoints = this.#createSmoothPoints ( );
+		const smoothPoints = this.#createSmoothPoints ( );
 
 		itineraryPointsIterator = this.#route.itinerary.itineraryPoints.iterator;
 
@@ -406,13 +406,13 @@ class ProfileFactory {
 
 		// loop on the itinerary point to push the smooth elev
 		while ( ! itineraryPointsIterator.done ) {
-			let previousIronPoint = smoothPoints.get (
+			const previousIronPoint = smoothPoints.get (
 				Math.floor ( itineraryPointsTotalDistance / this.#smoothDistance ) * this.#smoothDistance );
-			let nextIronPoint = smoothPoints.get (
+			const nextIronPoint = smoothPoints.get (
 				Math.ceil ( itineraryPointsTotalDistance / this.#smoothDistance ) * this.#smoothDistance );
 			if ( previousIronPoint && nextIronPoint ) {
-				let deltaDist = itineraryPointsTotalDistance - previousIronPoint.distance;
-				let ascentFactor = ( nextIronPoint.elev - previousIronPoint.elev ) /
+				const deltaDist = itineraryPointsTotalDistance - previousIronPoint.distance;
+				const ascentFactor = ( nextIronPoint.elev - previousIronPoint.elev ) /
 					( nextIronPoint.distance - previousIronPoint.distance );
 				itineraryPointsIterator.value.elev = previousIronPoint.elev + ( deltaDist * ascentFactor );
 			}

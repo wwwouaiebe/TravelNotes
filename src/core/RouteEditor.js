@@ -120,7 +120,7 @@ class RouteEditor {
 	*/
 
 	addRoute ( ) {
-		let route = new Route ( );
+		const route = new Route ( );
 		theTravelNotesData.travel.routes.add ( route );
 		if ( ROUTE_EDITION_STATUS.editedChanged === theTravelNotesData.travel.editedRoute.editionStatus ) {
 			this.chainRoutes ( );
@@ -146,9 +146,9 @@ class RouteEditor {
 	editRoute ( routeObjId ) {
 
 		// We verify that the provider  for this route is available
-		let initialRoute = theDataSearchEngine.getRoute ( routeObjId );
-		let providerName = initialRoute.itinerary.provider;
-		let provider = theTravelNotesData.providers.get ( providerName.toLowerCase ( ) );
+		const initialRoute = theDataSearchEngine.getRoute ( routeObjId );
+		const providerName = initialRoute.itinerary.provider;
+		const provider = theTravelNotesData.providers.get ( providerName.toLowerCase ( ) );
 		if (
 			providerName
 			&&
@@ -179,7 +179,7 @@ class RouteEditor {
 		if ( providerName && '' !== providerName ) {
 			theEventDispatcher.dispatch ( 'setprovider', { provider : providerName } );
 		}
-		let transitMode = initialRoute.itinerary.transitMode;
+		const transitMode = initialRoute.itinerary.transitMode;
 		if ( transitMode && '' !== transitMode ) {
 			theEventDispatcher.dispatch ( 'settransitmode', { transitMode : transitMode } );
 		}
@@ -263,7 +263,7 @@ class RouteEditor {
 	*/
 
 	chainRoutes ( ) {
-		let routesIterator = theTravelNotesData.travel.routes.iterator;
+		const routesIterator = theTravelNotesData.travel.routes.iterator;
 		let chainedDistance = DISTANCE.defaultValue;
 		while ( ! routesIterator.done ) {
 			if ( routesIterator.value.chain ) {
@@ -273,7 +273,7 @@ class RouteEditor {
 			else {
 				routesIterator.value.chainedDistance = DISTANCE.defaultValue;
 			}
-			let notesIterator = routesIterator.value.notes.iterator;
+			const notesIterator = routesIterator.value.notes.iterator;
 			while ( ! notesIterator.done ) {
 				notesIterator.value.chainedDistance = routesIterator.value.chainedDistance;
 			}
@@ -291,7 +291,7 @@ class RouteEditor {
 	saveEdition ( ) {
 
 		// the edited route is cloned
-		let clonedRoute = new Route ( );
+		const clonedRoute = new Route ( );
 		clonedRoute.jsonObject = theTravelNotesData.travel.editedRoute.jsonObject;
 
 		// and the initial route replaced with the clone
@@ -311,7 +311,7 @@ class RouteEditor {
 	cancelEdition ( ) {
 
 		// !!! order is important!!!
-		let editedRoute = theDataSearchEngine.getRoute ( theTravelNotesData.editedRouteObjId );
+		const editedRoute = theDataSearchEngine.getRoute ( theTravelNotesData.editedRouteObjId );
 		editedRoute.editionStatus = ROUTE_EDITION_STATUS.notEdited;
 
 		theProfileWindowsManager.updateProfile (
@@ -347,26 +347,26 @@ class RouteEditor {
 	*/
 
 	routeProperties ( routeObjId ) {
-		let route = theDataSearchEngine.getRoute ( routeObjId );
-		let routePropertiesDialog = new RoutePropertiesDialog ( route );
+		const route = theDataSearchEngine.getRoute ( routeObjId );
+		new RoutePropertiesDialog ( route )
+			.show ( )
+			.then (
+				( ) => {
+					this.chainRoutes ( );
 
-		routePropertiesDialog.show ( ).then (
-			( ) => {
-				this.chainRoutes ( );
-
-				if ( route.haveValidWayPoints ( ) ) {
-					theEventDispatcher.dispatch (
-						'routepropertiesupdated',
-						{
-							routeObjId : route.objId
-						}
-					);
+					if ( route.haveValidWayPoints ( ) ) {
+						theEventDispatcher.dispatch (
+							'routepropertiesupdated',
+							{
+								routeObjId : route.objId
+							}
+						);
+					}
+					theEventDispatcher.dispatch ( 'roadbookupdate' );
+					theEventDispatcher.dispatch ( 'setrouteslist' );
+					theEventDispatcher.dispatch ( 'updateitinerary' );
 				}
-				theEventDispatcher.dispatch ( 'roadbookupdate' );
-				theEventDispatcher.dispatch ( 'setrouteslist' );
-				theEventDispatcher.dispatch ( 'updateitinerary' );
-			}
-		)
+			)
 			.catch (
 				err => {
 					if ( err instanceof Error ) {
@@ -434,7 +434,7 @@ class RouteEditor {
 	*/
 
 	showRoutes ( ) {
-		let routesIterator = theTravelNotesData.travel.routes.iterator;
+		const routesIterator = theTravelNotesData.travel.routes.iterator;
 		while ( ! routesIterator.done ) {
 			if ( routesIterator.value.hidden ) {
 				routesIterator.value.hidden = false;
@@ -455,7 +455,7 @@ class RouteEditor {
 	*/
 
 	hideRoutes ( ) {
-		let routesIterator = theTravelNotesData.travel.routes.iterator;
+		const routesIterator = theTravelNotesData.travel.routes.iterator;
 		while ( ! routesIterator.done ) {
 			if (
 				! routesIterator.value.hidden

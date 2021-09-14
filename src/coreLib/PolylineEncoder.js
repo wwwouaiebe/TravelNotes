@@ -154,8 +154,8 @@ class PolylineEncoder {
 	*/
 
 	#encodeDelta ( current, previous, factorD ) {
-		let currentCoordRound = this.#python2Round ( current * factorD );
-		let previousCoordRound = this.#python2Round ( previous * factorD );
+		const currentCoordRound = this.#python2Round ( current * factorD );
+		const previousCoordRound = this.#python2Round ( previous * factorD );
 		let coordinateDelta = currentCoordRound - previousCoordRound;
 		/* eslint-disable no-bitwise */
 		coordinateDelta <<= ONE;
@@ -219,16 +219,16 @@ class PolylineEncoder {
 			return '';
 		}
 
-		let dimensions = precisions.length;
-		let factors = Array.from ( precisions, precision => Math.pow ( OUR_NUMBER10, precision ) );
+		const dimensions = precisions.length;
+		const factors = Array.from ( precisions, precision => Math.pow ( OUR_NUMBER10, precision ) );
 
 		let output = '';
 		for ( let counter = 0; counter < dimensions; counter ++ ) {
 			output += this.#encodeDelta ( coordinatesArray [ ZERO ] [ counter ], ZERO, factors [ counter ] );
 		}
 		for ( let coordCounter = ONE; coordCounter < coordinatesArray.length; coordCounter ++ ) {
-			let currentCoord = coordinatesArray [ coordCounter ];
-			let previousCoord = coordinatesArray [ coordCounter - ONE ];
+			const currentCoord = coordinatesArray [ coordCounter ];
+			const previousCoord = coordinatesArray [ coordCounter - ONE ];
 			for ( let counter = 0; counter < dimensions; counter ++ ) {
 				output += this.#encodeDelta ( currentCoord [ counter ], previousCoord [ counter ], factors [ counter ] );
 			}
@@ -245,18 +245,18 @@ class PolylineEncoder {
 	*/
 
 	decode ( encodedString, precisions ) {
-		let dimensions = precisions.length;
+		const dimensions = precisions.length;
 		if ( ! encodedString || ZERO === encodedString.length ) {
 			return [ ];
 		}
 
 		this.#index = ZERO;
-		let allDecodedValues = [];
-		let factors = Array.from ( precisions, precision => Math.pow ( OUR_NUMBER10, precision ) );
-		let tmpValues = new Array ( dimensions ).fill ( ZERO );
+		const allDecodedValues = [];
+		const factors = Array.from ( precisions, precision => Math.pow ( OUR_NUMBER10, precision ) );
+		const tmpValues = new Array ( dimensions ).fill ( ZERO );
 
 		while ( this.#index < encodedString.length ) {
-			let decodedValues = new Array ( dimensions ).fill ( ZERO );
+			const decodedValues = new Array ( dimensions ).fill ( ZERO );
 			for ( let coordCounter = 0; coordCounter < dimensions; coordCounter ++ ) {
 				tmpValues [ coordCounter ] += this.#decodeDelta ( encodedString );
 				decodedValues [ coordCounter ] = tmpValues [ coordCounter ] / factors [ coordCounter ];

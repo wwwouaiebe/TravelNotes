@@ -102,8 +102,7 @@ class APIKeysManager {
 	*/
 
 	#onOkDecryptServerFile ( decryptedData ) {
-		let APIKeys = JSON.parse ( new TextDecoder ( ).decode ( decryptedData ) );
-		this.#resetAPIKeys ( APIKeys );
+		this.#resetAPIKeys ( JSON.parse ( new TextDecoder ( ).decode ( decryptedData ) ) );
 	}
 
 	/**
@@ -174,7 +173,7 @@ class APIKeysManager {
 	#setAPIKeysFromSessionStorage ( ) {
 		let APIKeysCounter = ZERO;
 		for ( let counter = ZERO; counter < sessionStorage.length; counter ++ ) {
-			let keyName = sessionStorage.key ( counter );
+			const keyName = sessionStorage.key ( counter );
 			if ( 'ProviderKey' === keyName.substr ( keyName.length - 'ProviderKey'.length ) ) {
 				this.#setAPIKey (
 					keyName.substr ( ZERO, keyName.length - 'ProviderKey'.length ),
@@ -199,7 +198,7 @@ class APIKeysManager {
 	#resetAPIKeys ( APIKeys ) {
 		sessionStorage.clear ( );
 		this.#APIKeysMap.clear ( );
-		let saveToSessionStorage =
+		const saveToSessionStorage =
 			theUtilities.storageAvailable ( 'sessionStorage' )
 			&&
 			theConfig.APIKeys.saveToSessionStorage;
@@ -245,7 +244,7 @@ class APIKeysManager {
 
 	getUrl ( layer ) {
 		if ( layer.providerKeyNeeded ) {
-			let providerKey = this.#APIKeysMap.get ( layer.providerName.toLowerCase ( ) );
+			const providerKey = this.#APIKeysMap.get ( layer.providerName.toLowerCase ( ) );
 			if ( providerKey ) {
 				return layer.url.replace ( '{providerKey}', providerKey );
 			}
@@ -302,7 +301,7 @@ class APIKeysManager {
 	setKeysFromDialog ( ) {
 
 		// preparing a list of providers and provider keys for the dialog
-		let ApiKeys = [];
+		const ApiKeys = [];
 		this.#APIKeysMap.forEach (
 			( providerKey, providerName ) => {
 				ApiKeys.push ( Object.seal ( { providerName : providerName, providerKey : providerKey } ) );
@@ -329,8 +328,8 @@ class APIKeysManager {
 	*/
 
 	addProvider ( providerClass ) {
-		let provider = new providerClass ( );
-		let providerName = provider.name.toLowerCase ( );
+		const provider = new providerClass ( );
+		const providerName = provider.name.toLowerCase ( );
 
 		// searching if we have already the provider key
 		let providerKey = this.#getAPIKey ( providerName );

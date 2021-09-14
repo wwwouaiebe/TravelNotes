@@ -191,23 +191,23 @@ class GeoCoder {
 			theConfig.nominatim.url + 'reverse?format=json&lat=' +
 			this.#latLng [ ZERO ] + '&lon=' + this.#latLng [ ONE ] +
 			'&zoom=18&addressdetails=1&namedetails=1';
-		let nominatimLanguage = theConfig.nominatim.language;
+		const nominatimLanguage = theConfig.nominatim.language;
 		if ( nominatimLanguage && '*' !== nominatimLanguage ) {
 			nominatimUrl += '&accept-language=' + nominatimLanguage;
 		}
-		let nominatimHeaders = new Headers ( );
+		const nominatimHeaders = new Headers ( );
 		if ( nominatimLanguage && '*' === nominatimLanguage ) {
 			nominatimHeaders.append ( 'accept-language', '' );
 		}
 
-		let nominatimResponse = await fetch ( nominatimUrl, { headers : nominatimHeaders } );
+		const nominatimResponse = await fetch ( nominatimUrl, { headers : nominatimHeaders } );
 		if (
 			HTTP_STATUS_OK === nominatimResponse.status
 			&&
 			nominatimResponse.ok
 		) {
 			this.#nominatimStatusOk = this.#nominatimStatusOk && true;
-			let nominatimData = await nominatimResponse.json ( );
+			const nominatimData = await nominatimResponse.json ( );
 			this.#parseNominatimData ( nominatimData );
 		}
 		else {
@@ -229,6 +229,11 @@ class GeoCoder {
 		];
 	}
 
+	/**
+	This method...
+	@private
+	*/
+
 	async #execGetAddress ( ) {
 		this.#nominatimStatusOk = true;
 		this.#nominatimData = null;
@@ -240,8 +245,13 @@ class GeoCoder {
 		return this.#mergeData ( );
 	}
 
+	/**
+	This method...
+	@private
+	*/
+
 	async #exeGetAdressWithPromise ( onOk, onError ) {
-		let result = await this.#execGetAddress ( );
+		const result = await this.#execGetAddress ( );
 		if ( result.statusOk ) {
 			onOk ( result );
 		}

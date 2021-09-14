@@ -145,9 +145,9 @@ class SphericalTrigonometry {
 			// the method runs infinitely when latLngStartPoint === latLngEndPoint :-(
 			return ZERO;
 		}
-		let latStartPoint = latLngStartPoint [ ZERO ] * DEGREES.toRadians;
-		let latEndPoint = latLngEndPoint [ ZERO ] * DEGREES.toRadians;
-		let deltaLng =
+		const latStartPoint = latLngStartPoint [ ZERO ] * DEGREES.toRadians;
+		const latEndPoint = latLngEndPoint [ ZERO ] * DEGREES.toRadians;
+		const deltaLng =
 			(
 				this.#normalizeLng ( latLngEndPoint [ ONE ] ) -
 				this.#normalizeLng ( latLngStartPoint [ ONE ] )

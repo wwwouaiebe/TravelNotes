@@ -318,7 +318,7 @@ class EventDispatcher {
 	*/
 
 	dispatch ( eventName, eventData ) {
-		let dispatchedEvent = new Event ( eventName );
+		const dispatchedEvent = new Event ( eventName );
 		if ( eventData ) {
 			dispatchedEvent.data = eventData;
 		}

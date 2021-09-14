@@ -79,7 +79,7 @@ class AllManeuverNotesBuilder {
 	*/
 
 	#newNoteFromOsmData ( noteData, route ) {
-		let note = new Note ( );
+		const note = new Note ( );
 		for ( const property in noteData ) {
 			note [ property ] = noteData [ property ];
 		}
@@ -110,7 +110,7 @@ class AllManeuverNotesBuilder {
 	async #addAllManeuverNotes ( route, maneuverLength ) {
 		this.#waitUI = new WaitUI ( );
 		this.#waitUI.createUI ( );
-		let maneuverIterator = route.itinerary.maneuvers.iterator;
+		const maneuverIterator = route.itinerary.maneuvers.iterator;
 		while ( ! maneuverIterator.done ) {
 			this.#waitUI.showInfo (
 				theTranslator.getText (
@@ -119,8 +119,8 @@ class AllManeuverNotesBuilder {
 				)
 			);
 
-			let latLng = route.itinerary.itineraryPoints.getAt ( maneuverIterator.value.itineraryPointObjId ).latLng;
-			let svgIconData = await new MapIconFromOsmFactory ( ).getIconAndAdressAsync ( latLng, route.objId );
+			const latLng = route.itinerary.itineraryPoints.getAt ( maneuverIterator.value.itineraryPointObjId ).latLng;
+			const svgIconData = await new MapIconFromOsmFactory ( ).getIconAndAdressAsync ( latLng, route.objId );
 			if ( svgIconData.statusOk ) {
 				this.#newNoteFromOsmData ( svgIconData.noteData, route );
 			}
@@ -153,8 +153,8 @@ class AllManeuverNotesBuilder {
 	*/
 
 	addAllManeuverNotes ( routeObjId ) {
-		let route = theDataSearchEngine.getRoute ( routeObjId );
-		let maneuverIterator = route.itinerary.maneuvers.iterator;
+		const route = theDataSearchEngine.getRoute ( routeObjId );
+		const maneuverIterator = route.itinerary.maneuvers.iterator;
 		let maneuverLength = ZERO;
 		while ( ! maneuverIterator.done ) {
 			if (

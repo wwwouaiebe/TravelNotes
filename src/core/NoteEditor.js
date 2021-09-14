@@ -116,7 +116,7 @@ class NoteEditor {
 				theEventDispatcher.dispatch ( 'showtravelnotes' );
 			}
 			else {
-				let route = theDataSearchEngine.getRoute ( routeObjId );
+				const route = theDataSearchEngine.getRoute ( routeObjId );
 				route.notes.add ( note );
 				note.chainedDistance = route.chainedDistance;
 				route.notes.sort (
@@ -172,7 +172,7 @@ class NoteEditor {
 	*/
 
 	#newNote ( latLng ) {
-		let note = new Note ( );
+		const note = new Note ( );
 		note.latLng = latLng;
 		note.iconLatLng = latLng;
 		return note;
@@ -216,16 +216,16 @@ class NoteEditor {
 	*/
 
 	newRouteNote ( data ) {
-		let route = theDataSearchEngine.getRoute ( data.routeObjId );
+		const route = theDataSearchEngine.getRoute ( data.routeObjId );
 
 		// the nearest point and distance on the route is searched
-		let latLngDistance = theGeometry.getClosestLatLngDistance (
+		const latLngDistance = theGeometry.getClosestLatLngDistance (
 			route,
 			[ data.lat, data.lng ]
 		);
 
 		// the note is created
-		let note = this.#newNote ( latLngDistance.latLng );
+		const note = this.#newNote ( latLngDistance.latLng );
 		note.distance = latLngDistance.distance;
 
 		this.#noteDialog ( note, route.objId, true );
@@ -241,12 +241,12 @@ class NoteEditor {
 
 	async newSearchNote ( data ) {
 		let routeObjId = INVALID_OBJ_ID;
-		let note = new Note ( );
+		const note = new Note ( );
 		if ( data.isTravelNote ) {
 			note.latLng = [ data.osmElement.lat, data.osmElement.lon ];
 		}
 		else {
-			let nearestRouteData = theDataSearchEngine.getNearestRouteData ( [ data.osmElement.lat, data.osmElement.lon ] );
+			const nearestRouteData = theDataSearchEngine.getNearestRouteData ( [ data.osmElement.lat, data.osmElement.lon ] );
 			if ( ! nearestRouteData.route ) {
 				theErrorsUI.showError ( theTranslator.getText ( 'NoteEditor - No route was found' ) );
 				return;
@@ -319,7 +319,7 @@ class NoteEditor {
 	*/
 
 	newTravelNote ( latLng ) {
-		let note = this.#newNote ( latLng );
+		const note = this.#newNote ( latLng );
 		this.#noteDialog ( note, INVALID_OBJ_ID, true );
 	}
 
@@ -333,8 +333,8 @@ class NoteEditor {
 	*/
 
 	editNote ( noteObjId ) {
-		let noteAndRoute = theDataSearchEngine.getNoteAndRoute ( noteObjId );
-		let routeObjId = null === noteAndRoute.route ? INVALID_OBJ_ID : noteAndRoute.route.objId;
+		const noteAndRoute = theDataSearchEngine.getNoteAndRoute ( noteObjId );
+		const routeObjId = null === noteAndRoute.route ? INVALID_OBJ_ID : noteAndRoute.route.objId;
 		this.#noteDialog ( noteAndRoute.note, routeObjId, false );
 	}
 
@@ -350,7 +350,7 @@ class NoteEditor {
 	removeNote ( noteObjId ) {
 
 		// the note and the route are searched
-		let noteAndRoute = theDataSearchEngine.getNoteAndRoute ( noteObjId );
+		const noteAndRoute = theDataSearchEngine.getNoteAndRoute ( noteObjId );
 		if ( noteAndRoute.route ) {
 
 			// it's a route note
@@ -383,7 +383,7 @@ class NoteEditor {
 		while ( ! notesIterator.done ) {
 			theEventDispatcher.dispatch ( 'removeobject', { objId : notesIterator.value.objId } );
 		}
-		let routesIterator = theTravelNotesData.travel.routes.iterator;
+		const routesIterator = theTravelNotesData.travel.routes.iterator;
 		while ( ! routesIterator.done ) {
 			notesIterator = routesIterator.value.notes.iterator;
 			while ( ! notesIterator.done ) {
@@ -406,7 +406,7 @@ class NoteEditor {
 
 	showNotes ( ) {
 		this.hideNotes ( );
-		let notesIterator = theTravelNotesData.travel.notes.iterator;
+		const notesIterator = theTravelNotesData.travel.notes.iterator;
 		while ( ! notesIterator.done ) {
 			theEventDispatcher.dispatch (
 				'noteupdated',
@@ -416,7 +416,7 @@ class NoteEditor {
 				}
 			);
 		}
-		let routesIterator = theTravelNotesData.travel.routes.iterator;
+		const routesIterator = theTravelNotesData.travel.routes.iterator;
 		while ( ! routesIterator.done ) {
 			if ( ! routesIterator.value.hidden ) {
 				theEventDispatcher.dispatch (
@@ -441,8 +441,8 @@ class NoteEditor {
 	*/
 
 	attachNoteToRoute ( noteObjId ) {
-		let note = theDataSearchEngine.getNoteAndRoute ( noteObjId ).note;
-		let nearestRouteData = theDataSearchEngine.getNearestRouteData ( note.latLng );
+		const note = theDataSearchEngine.getNoteAndRoute ( noteObjId ).note;
+		const nearestRouteData = theDataSearchEngine.getNearestRouteData ( note.latLng );
 
 		if ( nearestRouteData.route ) {
 			theTravelNotesData.travel.notes.remove ( noteObjId );
@@ -476,7 +476,7 @@ class NoteEditor {
 	*/
 
 	detachNoteFromRoute ( noteObjId ) {
-		let noteAndRoute = theDataSearchEngine.getNoteAndRoute ( noteObjId );
+		const noteAndRoute = theDataSearchEngine.getNoteAndRoute ( noteObjId );
 		noteAndRoute.route.notes.remove ( noteObjId );
 		noteAndRoute.note.distance = DISTANCE.invalid;
 		noteAndRoute.note.chainedDistance = DISTANCE.defaultValue;

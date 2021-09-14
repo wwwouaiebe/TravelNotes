@@ -106,7 +106,7 @@ class WayPointEditor {
 	*/
 
 	#renameWayPoint ( wayPointOsmData, wayPointObjId ) {
-		let wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.getAt ( wayPointObjId );
+		const wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.getAt ( wayPointObjId );
 		if ( wayPoint ) {
 			theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
 			wayPoint.name = wayPointOsmData.name;
@@ -138,7 +138,7 @@ class WayPointEditor {
 			return;
 		}
 
-		let address = await new GeoCoder ( ).getAddressAsync ( latLng );
+		const address = await new GeoCoder ( ).getAddressAsync ( latLng );
 		if ( address.statusOk ) {
 			let addressString = address.street;
 			if ( '' !== address.city ) {
@@ -168,7 +168,7 @@ class WayPointEditor {
 
 	addWayPoint ( latLng ) {
 		theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
-		let wayPoint = new WayPoint ( );
+		const wayPoint = new WayPoint ( );
 		wayPoint.latLng = latLng;
 		theTravelNotesData.travel.editedRoute.wayPoints.add ( wayPoint );
 		this.#renameWayPointWithGeocoder ( latLng, wayPoint.objId );
@@ -192,17 +192,17 @@ class WayPointEditor {
 	*/
 
 	addWayPointOnRoute ( initialLatLng, finalLatLng ) {
-		let newWayPointDistance = theGeometry.getClosestLatLngDistance (
+		const newWayPointDistance = theGeometry.getClosestLatLngDistance (
 			theTravelNotesData.travel.editedRoute,
 			initialLatLng
 		).distance;
 		theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
-		let wayPoint = new WayPoint ( );
+		const wayPoint = new WayPoint ( );
 		wayPoint.latLng = finalLatLng;
 		let letter = '';
-		let wayPointsIterator = theTravelNotesData.travel.editedRoute.wayPoints.iterator;
+		const wayPointsIterator = theTravelNotesData.travel.editedRoute.wayPoints.iterator;
 		while ( ! wayPointsIterator.done ) {
-			let latLngDistance = theGeometry.getClosestLatLngDistance (
+			const latLngDistance = theGeometry.getClosestLatLngDistance (
 				theTravelNotesData.travel.editedRoute,
 				wayPointsIterator.value.latLng
 			);
@@ -338,10 +338,9 @@ class WayPointEditor {
 	*/
 
 	wayPointProperties ( wayPointObjId ) {
-		let wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.getAt ( wayPointObjId );
-		let wayPointPropertiesDialog = new WayPointPropertiesDialog ( wayPoint );
-
-		wayPointPropertiesDialog.show ( )
+		const wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.getAt ( wayPointObjId );
+		new WayPointPropertiesDialog ( wayPoint )
+			.show ( )
 			.then (
 				( ) => {
 					theEventDispatcher.dispatch ( 'setrouteslist' );

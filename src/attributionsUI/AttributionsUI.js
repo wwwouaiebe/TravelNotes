@@ -93,7 +93,7 @@ class AttributionsUI {
 	*/
 
 	set attributions ( attributions ) {
-		let attributionsString =
+		const attributionsString =
 			'© <a href="https://leafletjs.com/" target="_blank" title="Leaflet">Leaflet</a> ' +
 			'| © <a href="https://www.openstreetmap.org/copyright" target="_blank" ' +
 			'title="OpenStreetMap contributors">OpenStreetMap contributors</a> ' +

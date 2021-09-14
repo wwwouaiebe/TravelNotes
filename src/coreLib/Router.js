@@ -81,8 +81,8 @@ class Router {
 	#computeRouteDistances ( route ) {
 
 		// Computing the distance between itineraryPoints
-		let itineraryPointsIterator = route.itinerary.itineraryPoints.iterator;
-		let maneuverIterator = route.itinerary.maneuvers.iterator;
+		const itineraryPointsIterator = route.itinerary.itineraryPoints.iterator;
+		const maneuverIterator = route.itinerary.maneuvers.iterator;
 
 		itineraryPointsIterator.done;
 		maneuverIterator.done;
@@ -143,7 +143,7 @@ class Router {
 
 		// Placing the waypoints on the itinerary
 		if ( 'circle' !== theTravelNotesData.travel.editedRoute.itinerary.transitMode ) {
-			let wayPointsIterator = theTravelNotesData.travel.editedRoute.wayPoints.iterator;
+			const wayPointsIterator = theTravelNotesData.travel.editedRoute.wayPoints.iterator;
 			while ( ! wayPointsIterator.done ) {
 				if ( wayPointsIterator.first ) {
 					wayPointsIterator.value.latLng =
@@ -163,9 +163,9 @@ class Router {
 		}
 
 		// the position of the notes linked to the route is recomputed
-		let notesIterator = theTravelNotesData.travel.editedRoute.notes.iterator;
+		const notesIterator = theTravelNotesData.travel.editedRoute.notes.iterator;
 		while ( ! notesIterator.done ) {
-			let latLngDistance = theGeometry.getClosestLatLngDistance (
+			const latLngDistance = theGeometry.getClosestLatLngDistance (
 				theTravelNotesData.travel.editedRoute,
 				notesIterator.value.latLng
 			);
@@ -223,7 +223,7 @@ class Router {
 		) {
 			this.#zoomToRouteAfterRouting = ZERO === theTravelNotesData.travel.editedRoute.itinerary.itineraryPoints.length;
 			this.#routingRequestStarted = true;
-			let routeProvider = theTravelNotesData.providers.get ( theTravelNotesData.routing.provider.toLowerCase ( ) );
+			const routeProvider = theTravelNotesData.providers.get ( theTravelNotesData.routing.provider.toLowerCase ( ) );
 			theTravelNotesData.travel.editedRoute.itinerary.provider = routeProvider.name;
 			theTravelNotesData.travel.editedRoute.itinerary.transitMode = theTravelNotesData.routing.transitMode;
 			routeProvider.getPromiseRoute ( theTravelNotesData.travel.editedRoute )

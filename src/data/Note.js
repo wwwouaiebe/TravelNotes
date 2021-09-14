@@ -422,7 +422,7 @@ class Note extends TravelObject {
 		if (
 			'number' === typeof ( iconLatLng [ ZERO ] )
 			&&
-			'number' === typeof ( iconLatLng )
+			'number' === typeof ( iconLatLng [ ONE ] )
 		) {
 			this.#iconLat = iconLatLng [ ZERO ];
 			this.#iconLng = iconLatLng [ ONE ];

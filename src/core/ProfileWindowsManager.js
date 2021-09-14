@@ -84,7 +84,7 @@ class ProfileWindowsManager {
 	*/
 
 	createProfile ( route ) {
-		let profileWindow = this.#profileWindows.get ( route.objId );
+		const profileWindow = this.#profileWindows.get ( route.objId );
 
 		if ( route.itinerary.hasProfile ) {
 			if ( theConfig.route.elev.smooth ) {
@@ -121,7 +121,7 @@ class ProfileWindowsManager {
 	*/
 
 	updateProfile ( oldRouteObjId, newRoute ) {
-		let profileWindow = this.#profileWindows.get ( oldRouteObjId );
+		const profileWindow = this.#profileWindows.get ( oldRouteObjId );
 		if ( profileWindow ) {
 			this.#profileWindows.delete ( oldRouteObjId );
 			if ( newRoute && newRoute.itinerary.hasProfile ) {
@@ -140,7 +140,7 @@ class ProfileWindowsManager {
 	*/
 
 	deleteProfile ( objId ) {
-		let profileWindow = this.#profileWindows.get ( objId );
+		const profileWindow = this.#profileWindows.get ( objId );
 		if ( profileWindow ) {
 			profileWindow.close ( );
 		}
@@ -164,7 +164,7 @@ class ProfileWindowsManager {
 		if ( ! profileWindow ) {
 			profileWindow = new ProfileWindow ( );
 		}
-		let route = theDataSearchEngine.getRoute ( routeObjId );
+		const route = theDataSearchEngine.getRoute ( routeObjId );
 		profileWindow.update ( route );
 		this.#profileWindows.set ( routeObjId, profileWindow );
 	}

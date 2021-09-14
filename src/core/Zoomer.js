@@ -115,9 +115,9 @@ class Zoomer {
 	*/
 
 	zoomToManeuver ( maneuverObjId ) {
-		let itineraryPointObjId =
+		const itineraryPointObjId =
 			theTravelNotesData.travel.editedRoute.itinerary.maneuvers.getAt ( maneuverObjId ).itineraryPointObjId;
-		let latLng =
+		const latLng =
 			theTravelNotesData.travel.editedRoute.itinerary.itineraryPoints.getAt ( itineraryPointObjId ).latLng;
 		theEventDispatcher.dispatch ( 'zoomto', { latLng : latLng } );
 	}

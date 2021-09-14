@@ -86,7 +86,7 @@ class ViewerFileLoader {
 		document.title =
 			'Travel & Notes' +
 			( '' === theTravelNotesData.travel.name ? '' : ' - ' + theTravelNotesData.travel.name );
-		let routesIterator = theTravelNotesData.travel.routes.iterator;
+		const routesIterator = theTravelNotesData.travel.routes.iterator;
 		while ( ! routesIterator.done ) {
 			if ( ROUTE_EDITION_STATUS.notEdited === routesIterator.value.editionStatus ) {
 				theEventDispatcher.dispatch (
@@ -107,7 +107,7 @@ class ViewerFileLoader {
 				}
 			);
 		}
-		let notesIterator = theTravelNotesData.travel.notes.iterator;
+		const notesIterator = theTravelNotesData.travel.notes.iterator;
 		while ( ! notesIterator.done ) {
 			theEventDispatcher.dispatch (
 				'noteupdated',
