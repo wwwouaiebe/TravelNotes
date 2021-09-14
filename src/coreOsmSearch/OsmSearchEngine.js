@@ -26,7 +26,9 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210913
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 
@@ -87,7 +89,7 @@ class OsmSearchEngine	{
 		let isValidOsmElement = true;
 		filterTags.forEach (
 			filterTag => {
-				let [ key, value ] = Object.entries ( filterTag ) [ ZERO ];
+				const [ key, value ] = Object.entries ( filterTag ) [ ZERO ];
 				isValidOsmElement =
 					isValidOsmElement &&
 					osmElement.tags [ key ] &&
@@ -129,15 +131,15 @@ class OsmSearchEngine	{
 	*/
 
 	#getSearchQueries ( ) {
-		let searchQueries = [];
-		let keysMap = new Map ( );
+		const searchQueries = [];
+		const keysMap = new Map ( );
 
 		this.#filterItems.forEach (
 			filterItem => {
 				filterItem.filterTagsArray.forEach (
 					filterTags => {
 
-						let [ key, value ] = Object.entries ( filterTags [ ZERO ] ) [ ZERO ];
+						const [ key, value ] = Object.entries ( filterTags [ ZERO ] ) [ ZERO ];
 						let valuesElements = keysMap.get ( key );
 						if ( ! valuesElements ) {
 							valuesElements = { values : new Map ( ), elements : new Map ( ) };
@@ -154,9 +156,9 @@ class OsmSearchEngine	{
 			}
 		);
 
-		let searchBounds = this.#computeSearchBounds ( );
+		const searchBounds = this.#computeSearchBounds ( );
 		this.#previousSearchBounds = searchBounds;
-		let searchBoundingBoxString = '(' +
+		const searchBoundingBoxString = '(' +
 			searchBounds.getSouthWest ( ).lat.toFixed ( LAT_LNG.fixed ) +
 			',' +
 			searchBounds.getSouthWest ( ).lng.toFixed ( LAT_LNG.fixed ) +
@@ -170,7 +172,7 @@ class OsmSearchEngine	{
 			( valuesElements, key ) => {
 				let queryTag = '"' + key + '"';
 				if ( ONE === valuesElements.values.size ) {
-					let value = valuesElements.values.values ( ).next ( ).value;
+					const value = valuesElements.values.values ( ).next ( ).value;
 					if ( value ) {
 						queryTag += '="' + value + '"';
 					}
@@ -189,7 +191,7 @@ class OsmSearchEngine	{
 				// Some overpass API servers don't know nwr...
 
 				if ( theConfig.overpassApi.useNwr ) {
-					let queryElement =
+					const queryElement =
 						ONE === valuesElements.elements.size ? valuesElements.elements.values ( ).next ( ).value : 'nwr';
 
 					searchQueries.push (
@@ -241,9 +243,9 @@ class OsmSearchEngine	{
 	*/
 
 	#computeSearchBounds ( ) {
-		let mapCenter = theTravelNotesData.map.getCenter ( );
-		let searchBounds = theTravelNotesData.map.getBounds ( );
-		let maxBounds = theGeometry.getSquareBoundingBox ( [ mapCenter.lat, mapCenter.lng ], SEARCH_DIMENSION );
+		const mapCenter = theTravelNotesData.map.getCenter ( );
+		const searchBounds = theTravelNotesData.map.getBounds ( );
+		const maxBounds = theGeometry.getSquareBoundingBox ( [ mapCenter.lat, mapCenter.lng ], SEARCH_DIMENSION );
 		searchBounds.getSouthWest ( ).lat =
 			Math.max ( searchBounds.getSouthWest ( ).lat, maxBounds.getSouthWest ( ).lat );
 		searchBounds.getSouthWest ( ).lng =
@@ -275,9 +277,9 @@ class OsmSearchEngine	{
 		this.#searchStarted = true;
 		this.#filterItems = [];
 		this.#searchFilters ( theOsmSearchDictionary.dictionary );
-		let dataLoader = new OverpassAPIDataLoader ( { searchPlaces : false } );
+		const dataLoader = new OverpassAPIDataLoader ( { searchPlaces : false } );
 		await dataLoader.loadData ( this.#getSearchQueries ( ) );
-		let pointsOfInterest = new Map ( );
+		const pointsOfInterest = new Map ( );
 
 		[ dataLoader.nodes, dataLoader.ways, dataLoader.relations ]. forEach (
 			elementsMap => {

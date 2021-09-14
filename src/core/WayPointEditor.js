@@ -35,7 +35,9 @@ Changes:
 		- Issue ♯170 : The apps crash when renaming a waypoint and then saving the route before the end of the renaming...
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests 20210902
 */
 
@@ -96,41 +98,15 @@ import { ROUTE_EDITION_STATUS, LAT_LNG, TWO } from '../main/Constants.js';
 class WayPointEditor {
 
 	/**
-	This method rename a WayPoint
-	@param {WayPointOsmData} wayPointOsmData the name and address for WayPoint renaming
-	@param {!number} wayPointObjId The objId of the WayPoint to rename
-	@fires setrouteslist
-	@fires showitinerary
-	@fires roadbookupdate
-	@private
-	*/
-
-	#renameWayPoint ( wayPointOsmData, wayPointObjId ) {
-		const wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.getAt ( wayPointObjId );
-		if ( wayPoint ) {
-			theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
-			wayPoint.name = wayPointOsmData.name;
-			wayPoint.address = wayPointOsmData.address;
-			theEventDispatcher.dispatch ( 'setrouteslist' );
-			theEventDispatcher.dispatch ( 'showitinerary' );
-			theEventDispatcher.dispatch ( 'roadbookupdate' );
-		}
-		else {
-			console.error ( 'waypoint not found' );
-		}
-	}
-
-	/**
 	This method rename a WayPoint with data from Nominatim
-	@param {Array.<number>} latLng The latitude and longitude of the WayPoint
-	@param {!number} wayPointObjId The objId of the WayPoint to rename
+	@param {Object} wayPoint The wayPoint to rename
 	@fires setrouteslist
 	@fires showitinerary
 	@fires roadbookupdate
 	@private
 	*/
 
-	async #renameWayPointWithGeocoder ( latLng, wayPointObjId ) {
+	async #renameWayPointWithGeocoder ( wayPoint ) {
 		if ( ! theConfig.wayPoint.reverseGeocoding ) {
 			theEventDispatcher.dispatch ( 'setrouteslist' );
 			theEventDispatcher.dispatch ( 'showitinerary' );
@@ -138,17 +114,20 @@ class WayPointEditor {
 			return;
 		}
 
-		const address = await new GeoCoder ( ).getAddressAsync ( latLng );
+		const address = await new GeoCoder ( ).getAddressAsync ( wayPoint.latLng );
 		if ( address.statusOk ) {
-			let addressString = address.street;
+			theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
+			wayPoint.address = address.street;
 			if ( '' !== address.city ) {
-				addressString += ' ' + address.city;
+				wayPoint.address += ' ' + address.city;
 			}
-			let wayPointName = '';
+			wayPoint.name = '';
 			if ( theConfig.wayPoint.geocodingIncludeName ) {
-				wayPointName = address.name;
+				wayPoint.name = address.name;
 			}
-			this.#renameWayPoint ( Object.seal ( { name : wayPointName, address : addressString } ), wayPointObjId );
+			theEventDispatcher.dispatch ( 'setrouteslist' );
+			theEventDispatcher.dispatch ( 'showitinerary' );
+			theEventDispatcher.dispatch ( 'roadbookupdate' );
 		}
 	}
 
@@ -171,7 +150,7 @@ class WayPointEditor {
 		const wayPoint = new WayPoint ( );
 		wayPoint.latLng = latLng;
 		theTravelNotesData.travel.editedRoute.wayPoints.add ( wayPoint );
-		this.#renameWayPointWithGeocoder ( latLng, wayPoint.objId );
+		this.#renameWayPointWithGeocoder ( wayPoint );
 		theEventDispatcher.dispatch (
 			'addwaypoint',
 			{
@@ -212,7 +191,7 @@ class WayPointEditor {
 				theTravelNotesData.travel.editedRoute.wayPoints.moveTo (
 					wayPoint.objId, wayPointsIterator.value.objId, true
 				);
-				this.#renameWayPointWithGeocoder ( finalLatLng, wayPoint.objId );
+				this.#renameWayPointWithGeocoder ( wayPoint );
 				theEventDispatcher.dispatch ( 'addwaypoint', { wayPoint : wayPoint, letter : letter } );
 				theRouter.startRouting ( );
 				break;
@@ -276,12 +255,13 @@ class WayPointEditor {
 				{ objId : theTravelNotesData.travel.editedRoute.wayPoints.first.objId }
 			);
 		}
-		theTravelNotesData.travel.editedRoute.wayPoints.first.latLng = latLng;
-		this.#renameWayPointWithGeocoder ( latLng, theTravelNotesData.travel.editedRoute.wayPoints.first.objId );
+		const wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.first;
+		wayPoint.latLng = latLng;
+		this.#renameWayPointWithGeocoder ( wayPoint );
 		theEventDispatcher.dispatch (
 			'addwaypoint',
 			{
-				wayPoint : theTravelNotesData.travel.editedRoute.wayPoints.first,
+				wayPoint : wayPoint,
 				letter : 'A'
 			}
 		);
@@ -302,12 +282,13 @@ class WayPointEditor {
 				{ objId : theTravelNotesData.travel.editedRoute.wayPoints.last.objId }
 			);
 		}
-		theTravelNotesData.travel.editedRoute.wayPoints.last.latLng = latLng;
-		this.#renameWayPointWithGeocoder ( latLng, theTravelNotesData.travel.editedRoute.wayPoints.last.objId );
+		const wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.last;
+		wayPoint.latLng = latLng;
+		this.#renameWayPointWithGeocoder ( wayPoint );
 		theEventDispatcher.dispatch (
 			'addwaypoint',
 			{
-				wayPoint : theTravelNotesData.travel.editedRoute.wayPoints.last,
+				wayPoint : wayPoint,
 				letter : 'B'
 			}
 		);
@@ -316,15 +297,16 @@ class WayPointEditor {
 
 	/**
 	This method is called when a drag of a WayPoint ends on the map
-	@param {!number} wayPointObjId The objId of the WayPoint that was dragged
+	@param {!number} dragEndEvent The drag event
 	@async
 	*/
 
-	wayPointDragEnd ( wayPointObjId ) {
+	wayPointDragEnd ( dragEndEvent ) {
 		theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
-		this.#renameWayPointWithGeocoder (
-			theTravelNotesData.travel.editedRoute.wayPoints.getAt ( wayPointObjId ).latLng, wayPointObjId
-		);
+		const draggedWayPoint = theTravelNotesData.travel.editedRoute.wayPoints.getAt ( dragEndEvent.target.objId );
+		const latLng = dragEndEvent.target.getLatLng ( );
+		draggedWayPoint.latLng = [ latLng.lat, latLng.lng ];
+		this.#renameWayPointWithGeocoder ( draggedWayPoint );
 		theRouter.startRouting ( );
 	}
 

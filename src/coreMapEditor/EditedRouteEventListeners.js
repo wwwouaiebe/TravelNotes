@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests 20210902
 */
 
@@ -77,71 +79,73 @@ class EditedRouteMouseOverEL {
 	*/
 
 	static handleEvent ( mapEvent ) {
-		let route = theDataSearchEngine.getRoute ( mapEvent.target.objId );
-		if ( ROUTE_EDITION_STATUS.notEdited !== route.editionStatus ) {
-			TempWayPointMarkerELData.initialLatLng = [ mapEvent.latlng.lat, mapEvent.latlng.lng ];
-			if ( TempWayPointMarkerELData.marker ) {
-				TempWayPointMarkerELData.marker.setLatLng ( mapEvent.latlng );
-			}
-			else {
+		const route = theDataSearchEngine.getRoute ( mapEvent.target.objId );
+		if ( ROUTE_EDITION_STATUS.notEdited === route.editionStatus ) {
+			return;
+		}
+		TempWayPointMarkerELData.initialLatLng = [ mapEvent.latlng.lat, mapEvent.latlng.lng ];
+		if ( TempWayPointMarkerELData.marker ) {
+			TempWayPointMarkerELData.marker.setLatLng ( mapEvent.latlng );
+		}
+		else {
 
-				// a HTML element is created, with different class name, depending of the waypont position.
-				// See also WayPoints.css
-				let iconHtml = '<div class="TravelNotes-Map-WayPoint TravelNotes-Map-WayPointTmp' +
-				'"></div><div class="TravelNotes-Map-WayPointText">?</div>';
-
-				// a leaflet marker is created...
-				TempWayPointMarkerELData.marker = window.L.marker (
-					mapEvent.latlng,
-					{
-						icon : window.L.divIcon (
-							{
-								iconSize : [ WAY_POINT_ICON_SIZE, WAY_POINT_ICON_SIZE ],
-								iconAnchor : [
-									WAY_POINT_ICON_SIZE / TWO,
-									WAY_POINT_ICON_SIZE
-								],
-								html : iconHtml,
-								className : 'TravelNotes-Map-WayPointStyle'
-							}
-						),
-						draggable : true
-					}
-				);
-				if (
-					NOT_FOUND === theConfig.route.showDragTooltip
-					||
-					EditedRouteMouseOverEL.#showDragTooltip <= theConfig.route.showDragTooltip
-				) {
-					EditedRouteMouseOverEL.#showDragTooltip ++;
-					TempWayPointMarkerELData.marker.bindTooltip (
-						theTranslator.getText ( 'MapEditor - Drag and drop to add a waypoint' )
-					);
-					TempWayPointMarkerELData.marker.getTooltip ( ).options.offset = [	ZERO, ZERO ];
-
+			// a leaflet marker is created...
+			TempWayPointMarkerELData.marker = window.L.marker (
+				mapEvent.latlng,
+				{
+					icon : window.L.divIcon (
+						{
+							iconSize : [ WAY_POINT_ICON_SIZE, WAY_POINT_ICON_SIZE ],
+							iconAnchor : [
+								WAY_POINT_ICON_SIZE / TWO,
+								WAY_POINT_ICON_SIZE
+							],
+							html : '<div class="TravelNotes-Map-WayPoint TravelNotes-Map-WayPointTmp' +
+								'"></div><div class="TravelNotes-Map-WayPointText">?</div>',
+							className : 'TravelNotes-Map-WayPointStyle'
+						}
+					),
+					draggable : true
 				}
-				TempWayPointMarkerELData.marker.addTo ( theTravelNotesData.map );
-				window.L.DomEvent.on (
-					TempWayPointMarkerELData.marker,
-					'mouseout',
-					TempWayPointMarkerMouseOutEL.handleEvent
+			);
+
+			// adding tooltip
+			if (
+				NOT_FOUND === theConfig.route.showDragTooltip
+				||
+				EditedRouteMouseOverEL.#showDragTooltip <= theConfig.route.showDragTooltip
+			) {
+				EditedRouteMouseOverEL.#showDragTooltip ++;
+				TempWayPointMarkerELData.marker.bindTooltip (
+					theTranslator.getText ( 'MapEditor - Drag and drop to add a waypoint' )
 				);
-				window.L.DomEvent.on (
-					TempWayPointMarkerELData.marker,
-					'dragstart',
-					TempWayPointMarkerDragStartEL.handleEvent
-				);
-				window.L.DomEvent.on (
-					TempWayPointMarkerELData.marker,
-					'dragend',
-					TempWayPointMarkerDragEndEL.handleEvent
-				);
-				window.L.DomEvent.on (
-					TempWayPointMarkerELData.marker,
-					'contextmenu',
-					TempWayPointMarkerContextMenuEL.handleEvent
-				);
+				TempWayPointMarkerELData.marker.getTooltip ( ).options.offset = [	ZERO, ZERO ];
 			}
+
+			// adding marker to the map
+			TempWayPointMarkerELData.marker.addTo ( theTravelNotesData.map );
+
+			// adding event listeners on the marker
+			window.L.DomEvent.on (
+				TempWayPointMarkerELData.marker,
+				'mouseout',
+				TempWayPointMarkerMouseOutEL.handleEvent
+			);
+			window.L.DomEvent.on (
+				TempWayPointMarkerELData.marker,
+				'dragstart',
+				TempWayPointMarkerDragStartEL.handleEvent
+			);
+			window.L.DomEvent.on (
+				TempWayPointMarkerELData.marker,
+				'dragend',
+				TempWayPointMarkerDragEndEL.handleEvent
+			);
+			window.L.DomEvent.on (
+				TempWayPointMarkerELData.marker,
+				'contextmenu',
+				TempWayPointMarkerContextMenuEL.handleEvent
+			);
 		}
 	}
 }

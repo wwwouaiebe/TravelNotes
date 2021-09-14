@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 
@@ -131,7 +133,7 @@ class TranslationRotationFinder {
 			!==
 			this.#computeData.route.itinerary.itineraryPoints.first.objId
 		) {
-			let rotationPoint = theGeometry.addPoints (
+			const rotationPoint = theGeometry.addPoints (
 				theGeometry.project ( this.#rotationItineraryPoint.latLng, theConfig.note.svgIcon.zoom ),
 				this.#mapIconData.translation
 			);
@@ -166,7 +168,7 @@ class TranslationRotationFinder {
 			!==
 			this.#computeData.route.itinerary.itineraryPoints.last.objId
 		) {
-			let directionPoint = theGeometry.addPoints (
+			const directionPoint = theGeometry.addPoints (
 				theGeometry.project ( this.#directionItineraryPoint.latLng, theConfig.note.svgIcon.zoom ),
 				this.#mapIconData.translation
 			);

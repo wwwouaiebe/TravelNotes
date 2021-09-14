@@ -43,7 +43,9 @@ Changes:
 		- Issue ♯142 : Transform the typedef layer to a class as specified in the layersToolbarUI.js
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests 20210902
 */
 
@@ -112,7 +114,7 @@ class MapEditor	extends MapEditorViewer {
 	*/
 
 	#RemoveFromMap ( objId ) {
-		let layer = theTravelNotesData.mapObjects.get ( objId );
+		const layer = theTravelNotesData.mapObjects.get ( objId );
 		if ( layer ) {
 			window.L.DomEvent.off ( layer );
 			theTravelNotesData.map.removeLayer ( layer );
@@ -140,32 +142,32 @@ class MapEditor	extends MapEditorViewer {
 
 	updateRoute ( removedRouteObjId, addedRouteObjId ) {
 		if ( INVALID_OBJ_ID !== removedRouteObjId ) {
-			let route = theDataSearchEngine.getRoute ( removedRouteObjId );
+			const route = theDataSearchEngine.getRoute ( removedRouteObjId );
 			this.#RemoveFromMap ( route.objId );
 
-			let notesIterator = route.notes.iterator;
+			const notesIterator = route.notes.iterator;
 			while ( ! notesIterator.done ) {
 				this.#RemoveFromMap ( notesIterator.value.objId );
 			}
 
-			let wayPointsIterator = route.wayPoints.iterator;
+			const wayPointsIterator = route.wayPoints.iterator;
 			while ( ! wayPointsIterator.done ) {
 				this.#RemoveFromMap ( wayPointsIterator.value.objId );
 			}
 		}
 		if ( INVALID_OBJ_ID !== addedRouteObjId ) {
-			let route = this.addRoute ( addedRouteObjId );
-			let polyline = theTravelNotesData.mapObjects.get ( addedRouteObjId );
+			const route = this.addRoute ( addedRouteObjId );
+			const polyline = theTravelNotesData.mapObjects.get ( addedRouteObjId );
 
 			if ( ! theTravelNotesData.travel.readOnly ) {
 				window.L.DomEvent.on ( polyline, 'contextmenu', RouteContextMenuEL.handleEvent );
 				window.L.DomEvent.on ( polyline, 'mouseover', EditedRouteMouseOverEL.handleEvent );
 
-				let notesIterator = route.notes.iterator;
+				const notesIterator = route.notes.iterator;
 				while ( ! notesIterator.done ) {
-					let layerGroup = theTravelNotesData.mapObjects.get ( notesIterator.value.objId );
-					let marker = layerGroup.getLayer ( layerGroup.markerId );
-					let bullet = layerGroup.getLayer ( layerGroup.bulletId );
+					const layerGroup = theTravelNotesData.mapObjects.get ( notesIterator.value.objId );
+					const marker = layerGroup.getLayer ( layerGroup.markerId );
+					const bullet = layerGroup.getLayer ( layerGroup.bulletId );
 					window.L.DomEvent.on ( bullet, 'dragend', NoteBulletDragEndEL.handleEvent );
 					window.L.DomEvent.on ( bullet, 'drag',	NoteBulletDragEL.handleEvent );
 					window.L.DomEvent.on ( bullet, 'mouseenter', NoteBulletMouseEnterEL.handleEvent );
@@ -178,7 +180,7 @@ class MapEditor	extends MapEditorViewer {
 
 			// waypoints are added
 			if ( ! theTravelNotesData.travel.readOnly && ROUTE_EDITION_STATUS.notEdited !== route.editionStatus ) {
-				let wayPointsIterator = theTravelNotesData.travel.editedRoute.wayPoints.iterator;
+				const wayPointsIterator = theTravelNotesData.travel.editedRoute.wayPoints.iterator;
 				while ( ! wayPointsIterator.done ) {
 					this.addWayPoint (
 						wayPointsIterator.value,
@@ -197,8 +199,8 @@ class MapEditor	extends MapEditorViewer {
 	*/
 
 	updateRouteProperties ( routeObjId ) {
-		let polyline = theTravelNotesData.mapObjects.get ( routeObjId );
-		let route = theDataSearchEngine.getRoute ( routeObjId );
+		const polyline = theTravelNotesData.mapObjects.get ( routeObjId );
+		const route = theDataSearchEngine.getRoute ( routeObjId );
 		polyline.setStyle (
 			{
 				color : route.color,
@@ -221,14 +223,14 @@ class MapEditor	extends MapEditorViewer {
 	updateNote ( removedNoteObjId, addedNoteObjId ) {
 		let isPopupOpen = false;
 		if ( INVALID_OBJ_ID !== removedNoteObjId ) {
-			let layerGroup = theTravelNotesData.mapObjects.get ( removedNoteObjId );
+			const layerGroup = theTravelNotesData.mapObjects.get ( removedNoteObjId );
 			if ( layerGroup ) {
 				isPopupOpen = layerGroup.getLayer ( layerGroup.markerId ).isPopupOpen ( );
 			}
 			this.#RemoveFromMap ( removedNoteObjId );
 		}
 		if ( INVALID_OBJ_ID !== addedNoteObjId ) {
-			let noteObjects = this.addNote ( addedNoteObjId );
+			const noteObjects = this.addNote ( addedNoteObjId );
 			if ( isPopupOpen ) {
 				noteObjects.marker.openPopup ( );
 			}
@@ -283,12 +285,12 @@ class MapEditor	extends MapEditorViewer {
 		}
 
 		// a HTML element is created, with different class name, depending of the waypont position. See also WayPoints.css
-		let iconHtml = '<div class="TravelNotes-Map-WayPoint TravelNotes-Map-WayPoint' +
+		const iconHtml = '<div class="TravelNotes-Map-WayPoint TravelNotes-Map-WayPoint' +
 		( 'A' === letter ? 'Start' : ( 'B' === letter ? 'End' : 'Via' ) ) +
 		'"></div><div class="TravelNotes-Map-WayPointText">' + letter + '</div>';
 
 		// a leaflet marker is created...
-		let marker = window.L.marker (
+		const marker = window.L.marker (
 			wayPoint.latLng,
 			{
 				icon : window.L.divIcon (
@@ -357,8 +359,8 @@ class MapEditor	extends MapEditorViewer {
 			geometry.forEach (
 				geometryPart => { latLngs = latLngs.concat ( geometryPart ); }
 			);
-			let geometryBounds = theGeometry.getLatLngBounds ( latLngs );
-			let mapBounds = theTravelNotesData.map.getBounds ( );
+			const geometryBounds = theGeometry.getLatLngBounds ( latLngs );
+			const mapBounds = theTravelNotesData.map.getBounds ( );
 			showGeometry =
 				(
 					( geometryBounds.getEast ( ) - geometryBounds.getWest ( ) )
@@ -404,7 +406,7 @@ class MapEditor	extends MapEditorViewer {
 	*/
 
 	setLayer ( layer ) {
-		let url = theAPIKeysManager.getUrl ( layer );
+		const url = theAPIKeysManager.getUrl ( layer );
 		if ( ! url ) {
 			return;
 		}

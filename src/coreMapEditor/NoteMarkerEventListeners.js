@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests 20210902
 */
 
@@ -80,13 +82,13 @@ class NoteMarkerDragEndEL {
 	static handleEvent ( dragEndEvent ) {
 
 		// The TravelNotes note linked to the marker is searched...
-		let draggedNote = theDataSearchEngine.getNoteAndRoute ( dragEndEvent.target.objId ).note;
+		const draggedNote = theDataSearchEngine.getNoteAndRoute ( dragEndEvent.target.objId ).note;
 
 		// ... new coordinates are saved in the TravelNotes note...
 		draggedNote.iconLatLng = [ dragEndEvent.target.getLatLng ( ).lat, dragEndEvent.target.getLatLng ( ).lng ];
 
 		// ... then the layerGroup is searched...
-		let draggedLayerGroup = theTravelNotesData.mapObjects.get ( dragEndEvent.target.objId );
+		const draggedLayerGroup = theTravelNotesData.mapObjects.get ( dragEndEvent.target.objId );
 
 		// ... and finally the polyline is updated with the new coordinates
 		draggedLayerGroup.getLayer (
@@ -113,10 +115,10 @@ class NoteMarkerDragEL {
 	static handleEvent ( dragEvent ) {
 
 		// The TravelNotes note linked to the marker is searched...
-		let draggedNote = theDataSearchEngine.getNoteAndRoute ( dragEvent.target.objId ).note;
+		const draggedNote = theDataSearchEngine.getNoteAndRoute ( dragEvent.target.objId ).note;
 
 		// ... then the layerGroup is searched...
-		let draggedLayerGroup = theTravelNotesData.mapObjects.get ( dragEvent.target.objId );
+		const draggedLayerGroup = theTravelNotesData.mapObjects.get ( dragEvent.target.objId );
 
 		// ... and finally the polyline is updated with the new coordinates
 		draggedLayerGroup.getLayer ( draggedLayerGroup.polylineId )

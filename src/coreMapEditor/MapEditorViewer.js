@@ -27,7 +27,9 @@ Changes:
 		- Issue ♯142 : Transform the typedef layer to a class as specified in the layersToolbarUI.js
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 
@@ -107,7 +109,7 @@ class MapEditorViewer {
 		if ( route.dashArray >= theConfig.route.dashChoices.length ) {
 			route.dashArray = ZERO;
 		}
-		let iDashArray = theConfig.route.dashChoices [ route.dashArray ].iDashArray;
+		const iDashArray = theConfig.route.dashChoices [ route.dashArray ].iDashArray;
 		if ( iDashArray ) {
 			let dashArray = '';
 			let dashCounter = ZERO;
@@ -130,11 +132,11 @@ class MapEditorViewer {
 
 	#addNote ( noteObjId ) {
 
-		let note = theDataSearchEngine.getNoteAndRoute ( noteObjId ).note;
+		const note = theDataSearchEngine.getNoteAndRoute ( noteObjId ).note;
 
 		// first a marker is created at the note position. This marker is empty and transparent, so
 		// not visible on the map but the marker can be dragged
-		let bullet = window.L.marker (
+		const bullet = window.L.marker (
 			note.latLng,
 			{
 				icon : window.L.divIcon (
@@ -152,7 +154,7 @@ class MapEditorViewer {
 		bullet.objId = note.objId;
 
 		// a second marker is now created. The icon created by the user is used for this marker
-		let icon = window.L.divIcon (
+		const icon = window.L.divIcon (
 			{
 				iconSize : [ note.iconWidth, note.iconHeight ],
 				iconAnchor : [ note.iconWidth / TWO, note.iconHeight / TWO ],
@@ -162,7 +164,7 @@ class MapEditorViewer {
 			}
 		);
 
-		let marker = window.L.marker (
+		const marker = window.L.marker (
 			note.iconLatLng,
 			{
 				zIndexOffset : OUR_NOTE_Z_INDEX_OFFSET,
@@ -191,11 +193,11 @@ class MapEditorViewer {
 		}
 
 		// Finally a polyline is created between the 2 markers
-		let polyline = window.L.polyline ( [ note.latLng, note.iconLatLng ], theConfig.note.polyline );
+		const polyline = window.L.polyline ( [ note.latLng, note.iconLatLng ], theConfig.note.polyline );
 		polyline.objId = note.objId;
 
 		// The 3 objects are added to a layerGroup
-		let layerGroup = window.L.layerGroup ( [ marker, polyline, bullet ] );
+		const layerGroup = window.L.layerGroup ( [ marker, polyline, bullet ] );
 		layerGroup.markerId = window.L.Util.stamp ( marker );
 		layerGroup.polylineId = window.L.Util.stamp ( polyline );
 		layerGroup.bulletId = window.L.Util.stamp ( bullet );
@@ -242,17 +244,17 @@ class MapEditorViewer {
 	*/
 
 	addRoute ( routeObjId ) {
-		let route = theDataSearchEngine.getRoute ( routeObjId );
+		const route = theDataSearchEngine.getRoute ( routeObjId );
 
 		// an array of points is created
-		let latLng = [];
-		let pointsIterator = route.itinerary.itineraryPoints.iterator;
-		while ( ! pointsIterator.done ) {
-			latLng.push ( pointsIterator.value.latLng );
+		const latLng = [];
+		const itineraryPointsIterator = route.itinerary.itineraryPoints.iterator;
+		while ( ! itineraryPointsIterator.done ) {
+			latLng.push ( itineraryPointsIterator.value.latLng );
 		}
 
 		// the leaflet polyline is created and added to the map
-		let polyline = window.L.polyline (
+		const polyline = window.L.polyline (
 			latLng,
 			{
 				color : route.color,
@@ -285,7 +287,7 @@ class MapEditorViewer {
 		window.L.DomEvent.on ( polyline, 'click', clickEvent => clickEvent.target.openPopup ( clickEvent.latlng ) );
 
 		// notes are added
-		let notesIterator = route.notes.iterator;
+		const notesIterator = route.notes.iterator;
 		while ( ! notesIterator.done ) {
 			this.#addNote ( notesIterator.value.objId );
 		}
@@ -340,13 +342,12 @@ class MapEditorViewer {
 	*/
 
 	setLayer ( layer, url ) {
-		let leafletLayer = null;
-		if ( 'wmts' === layer.service.toLowerCase ( ) ) {
-			leafletLayer = window.L.tileLayer ( url );
-		}
-		else {
-			leafletLayer = window.L.tileLayer.wms ( url, layer.wmsOptions );
-		}
+		const leafletLayer =
+			'wmts' === layer.service.toLowerCase ( )
+				?
+				window.L.tileLayer ( url )
+				:
+				window.L.tileLayer.wms ( url, layer.wmsOptions );
 
 		if ( this.#currentLayer ) {
 			theTravelNotesData.map.removeLayer ( this.#currentLayer );

@@ -22,7 +22,9 @@ Changes:
 		- created
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 
@@ -99,7 +101,7 @@ class HTMLSanitizer {
 	*/
 
 	#addHtmlEntities ( htmlString ) {
-		let newHtmlString = htmlString
+		const newHtmlString = htmlString
 			.replaceAll ( /</g, '&lt;' )
 			.replaceAll ( />/g, '&gt;' )
 			.replaceAll ( /"/g, '&quot;' )
@@ -112,16 +114,16 @@ class HTMLSanitizer {
 	#stringify ( sourceNode ) {
 		let targetString = '';
 		let errorsString = '';
-		let childs = sourceNode.childNodes;
+		const childs = sourceNode.childNodes;
 		for ( let nodeCounter = 0; nodeCounter < childs.length; nodeCounter ++ ) {
-			let currentNode = sourceNode.childNodes [ nodeCounter ];
-			let nodeName = currentNode.nodeName.toLowerCase ( );
+			const currentNode = sourceNode.childNodes [ nodeCounter ];
+			const nodeName = currentNode.nodeName.toLowerCase ( );
 			let validAttributesNames = this.#validityMap.get ( nodeName );
 			if ( validAttributesNames ) {
 				validAttributesNames = validAttributesNames.concat (
 					[ 'id', 'class', 'dir', 'title', 'tanwidth', 'tanheight' ]
 				);
-				let isSvg = ( 'svg' === nodeName || 'text' === nodeName || 'polyline' === nodeName );
+				const isSvg = ( 'svg' === nodeName || 'text' === nodeName || 'polyline' === nodeName );
 				targetString += '<' + nodeName;
 				if ( currentNode.hasAttribute ( 'target' ) ) {
 					targetString += ' rel="noopener noreferrer"';
@@ -138,7 +140,7 @@ class HTMLSanitizer {
 						}
 						else if ( currentNode.hasAttribute ( validAttributeName ) ) {
 							if ( 'href' === validAttributeName || 'src' === validAttributeName ) {
-								let attributeValue = this.sanitizeToUrl (
+								const attributeValue = this.sanitizeToUrl (
 									currentNode.getAttribute ( validAttributeName ),
 									validAttributeName
 								).url;
@@ -197,17 +199,17 @@ class HTMLSanitizer {
 	}
 
 	#cloneNode ( clonedNode, newNode ) {
-		let childs = clonedNode.childNodes;
+		const childs = clonedNode.childNodes;
 		for ( let nodeCounter = 0; nodeCounter < childs.length; nodeCounter ++ ) {
-			let currentNode = clonedNode.childNodes [ nodeCounter ];
-			let nodeName = currentNode.nodeName.toLowerCase ( );
+			const currentNode = clonedNode.childNodes [ nodeCounter ];
+			const nodeName = currentNode.nodeName.toLowerCase ( );
 			let validAttributesNames = this.#validityMap.get ( nodeName );
 			if ( validAttributesNames ) {
 				validAttributesNames = validAttributesNames.concat (
 					[ 'id', 'class', 'dir', 'title', 'tanwidth', 'tanheight' ]
 				);
-				let isSvg = ( 'svg' === nodeName || 'text' === nodeName || 'polyline' === nodeName );
-				let newChildNode =
+				const isSvg = ( 'svg' === nodeName || 'text' === nodeName || 'polyline' === nodeName );
+				const newChildNode =
 					isSvg
 						?
 						document.createElementNS ( SVG_NS, nodeName )
@@ -227,7 +229,7 @@ class HTMLSanitizer {
 						}
 						else if ( currentNode.hasAttribute ( validAttributeName ) ) {
 							if ( 'href' === validAttributeName || 'src' === validAttributeName ) {
-								let attributeValue = this.sanitizeToUrl (
+								const attributeValue = this.sanitizeToUrl (
 									currentNode.getAttribute ( validAttributeName ),
 									validAttributeName
 								).url;
@@ -245,10 +247,10 @@ class HTMLSanitizer {
 					}
 				);
 				if ( currentNode.hasAttribute ( 'style' ) ) {
-					let styles = currentNode.getAttribute ( 'style' ).split ( ';' );
+					const styles = currentNode.getAttribute ( 'style' ).split ( ';' );
 					styles.forEach (
 						style => {
-							let styleValues = style.split ( ':' );
+							const styleValues = style.split ( ':' );
 							if (
 								TWO === styleValues.length
 								&&
@@ -327,7 +329,7 @@ class HTMLSanitizer {
 	*/
 
 	sanitizeToColor ( colorString ) {
-		let newColor = colorString.match ( /^\u0023[0-9,A-F,a-f]{6}$/ );
+		const newColor = colorString.match ( /^\u0023[0-9,A-F,a-f]{6}$/ );
 		if ( newColor ) {
 			return newColor [ ZERO ];
 		}
@@ -348,11 +350,11 @@ class HTMLSanitizer {
 	*/
 
 	sanitizeToUrl ( urlString, attributeName = 'href' ) {
-		let parseResult = this.#parser.parseFromString ( '<div>' + urlString + '</div>', 'text/html' );
+		const parseResult = this.#parser.parseFromString ( '<div>' + urlString + '</div>', 'text/html' );
 		if ( ! parseResult || '\u0023document' !== parseResult.nodeName ) {
 			return { url : '', errorsString : 'Parsing error' };
 		}
-		let resultNode = parseResult.body.firstChild;
+		const resultNode = parseResult.body.firstChild;
 		let newUrlString = '';
 		for ( let nodeCounter = 0; nodeCounter < resultNode.childNodes.length; nodeCounter ++ ) {
 			if ( '\u0023text' === resultNode.childNodes [ nodeCounter ].nodeName ) {
@@ -381,7 +383,7 @@ class HTMLSanitizer {
 			return { url : '', errorsString : 'Invalid characters found in the url' };
 		}
 
-		let validProtocols = [ 'https:' ];
+		const validProtocols = [ 'https:' ];
 		if ( 'http:' === window.location.protocol || 'href' === attributeName ) {
 			validProtocols.push ( 'http:' );
 		}
@@ -389,7 +391,7 @@ class HTMLSanitizer {
 			validProtocols.push ( 'mailto:' );
 			validProtocols.push ( 'sms:' );
 			validProtocols.push ( 'tel:' );
-			let urlHash = newUrlString.match ( /^\u0023\w*/ );
+			const urlHash = newUrlString.match ( /^\u0023\w*/ );
 			if ( urlHash && newUrlString === urlHash [ ZERO ] ) {
 				return { url : newUrlString, errorsString : '' };
 			}
@@ -428,11 +430,11 @@ class HTMLSanitizer {
 	*/
 
 	sanitizeToJsString ( stringToSanitize ) {
-		let parseResult = this.#parser.parseFromString ( '<div>' + stringToSanitize + '</div>', 'text/html' );
+		const parseResult = this.#parser.parseFromString ( '<div>' + stringToSanitize + '</div>', 'text/html' );
 		if ( ! parseResult || '\u0023document' !== parseResult.nodeName ) {
 			return '';
 		}
-		let resultNode = parseResult.body.firstChild;
+		const resultNode = parseResult.body.firstChild;
 		let sanitizedString = '';
 		for ( let nodeCounter = 0; nodeCounter < resultNode.childNodes.length; nodeCounter ++ ) {
 			if ( '\u0023text' === resultNode.childNodes [ nodeCounter ].nodeName ) {
@@ -461,7 +463,7 @@ class HTMLSanitizer {
 
 	sanitizeToHtmlElement ( htmlString, targetNode ) {
 
-		let parseResult = this.#parser.parseFromString ( '<div>' + htmlString + '</div>', 'text/html' );
+		const parseResult = this.#parser.parseFromString ( '<div>' + htmlString + '</div>', 'text/html' );
 		if ( parseResult && '\u0023document' === parseResult.nodeName ) {
 			this.#cloneNode ( parseResult.body.firstChild, targetNode );
 		}
@@ -476,7 +478,7 @@ class HTMLSanitizer {
 	*/
 
 	clone ( htmlElement ) {
-		let clone = document.createElement ( htmlElement.tagName );
+		const clone = document.createElement ( htmlElement.tagName );
 		this.#cloneNode ( htmlElement, clone );
 
 		return clone;
@@ -496,7 +498,7 @@ class HTMLSanitizer {
 		let targetString = '';
 		let errorsString = '';
 
-		let parseResult =
+		const parseResult =
 			this.#parser.parseFromString ( '<div>' + htmlString.replace ( '&nbsp;', '\u0a00' ) + '</div>', 'text/html' );
 		if ( parseResult && '\u0023document' === parseResult.nodeName ) {
 			[ targetString, errorsString ] = this.#stringify ( parseResult.body.firstChild, errorsString );

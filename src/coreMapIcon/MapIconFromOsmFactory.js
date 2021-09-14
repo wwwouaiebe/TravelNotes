@@ -30,7 +30,9 @@ Changes:
 		- Issue ♯145 : Merge svg icon and knoopunt icon
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 
@@ -129,7 +131,7 @@ class MapIconFromOsmFactory {
 		// Iteration on the points...
 		this.#route.itinerary.itineraryPoints.forEach (
 			itineraryPoint => {
-				let itineraryPointDistance =
+				const itineraryPointDistance =
 					theSphericalTrigonometry.pointsDistance ( this.#mapIconPosition.latLng, itineraryPoint.latLng );
 				if ( minDistance > itineraryPointDistance ) {
 					minDistance = itineraryPointDistance;
@@ -154,13 +156,13 @@ class MapIconFromOsmFactory {
 
 	#buildIconAndAdress ( ) {
 
-		let mapIconData = new DataBuilder ( ).buildData (
+		const mapIconData = new DataBuilder ( ).buildData (
 			this.#route,
 			this.#overpassAPIDataLoader,
 			this.#mapIconPosition
 		);
 
-		let svgElement = new SvgBuilder ( ).buildSvg (
+		const svgElement = new SvgBuilder ( ).buildSvg (
 			this.#route,
 			this.#overpassAPIDataLoader,
 			mapIconData
@@ -205,7 +207,7 @@ class MapIconFromOsmFactory {
 
 		this.#searchNearestItineraryPoint ( );
 
-		let queryLatLng =
+		const queryLatLng =
 			this.#mapIconPosition.latLng [ ZERO ].toFixed ( LAT_LNG.fixed ) +
 			',' +
 			this.#mapIconPosition.latLng [ ONE ].toFixed ( LAT_LNG.fixed );
@@ -217,7 +219,7 @@ class MapIconFromOsmFactory {
 			node(around:1500,50.644242,5.572354)[place];out;
 		*/
 
-		let queries = [
+		const queries = [
 			'way[highway](around:' +
 			( ICON_DIMENSIONS.svgViewboxDim * SEARCH_AROUND_FACTOR ).toFixed ( ZERO ) +
 			',' + queryLatLng + ')->.a;(.a >;.a;)->.a;.a out;' +
@@ -237,7 +239,7 @@ class MapIconFromOsmFactory {
 	}
 
 	async #exeGetIconAndAdressWithPromise ( onOk, onError ) {
-		let result = await this.#exeGetIconAndAdress ( );
+		const result = await this.#exeGetIconAndAdress ( );
 
 		if ( result.statusOk ) {
 			onOk ( result );

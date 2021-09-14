@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 
@@ -97,17 +99,19 @@ class SvgBuilder {
 		let index = -ONE;
 		let firstPointIndex = NOT_FOUND;
 		let lastPointIndex = NOT_FOUND;
-		let points = [];
+		const points = [];
 		this.#route.itinerary.itineraryPoints.forEach (
 			itineraryPoint => {
 				index ++;
-				let point = theGeometry.addPoints (
+				const point = theGeometry.addPoints (
 					theGeometry.project ( itineraryPoint.latLng, theConfig.note.svgIcon.zoom ),
 					this.#MapIconData.translation
 				);
 				points.push ( point );
-				let pointIsInside =
-					point [ ZERO ] >= ZERO && point [ ONE ] >= ZERO
+				const pointIsInside =
+					point [ ZERO ] >= ZERO
+					&&
+					point [ ONE ] >= ZERO
 					&&
 					point [ ZERO ] <= ICON_DIMENSIONS.svgViewboxDim
 					&&
@@ -132,7 +136,7 @@ class SvgBuilder {
 				pointsAttribute += points[ index ] [ ZERO ].toFixed ( ZERO ) + ',' +
 					points[ index ] [ ONE ].toFixed ( ZERO ) + ' ';
 			}
-			let polyline = document.createElementNS ( SVG_NS, 'polyline' );
+			const polyline = document.createElementNS ( SVG_NS, 'polyline' );
 			polyline.setAttributeNS ( null, 'points', pointsAttribute );
 			polyline.setAttributeNS ( null, 'class', 'TravelNotes-OSM-Itinerary' );
 			polyline.setAttributeNS (
@@ -160,17 +164,17 @@ class SvgBuilder {
 				let firstPointIndex = NOT_FOUND;
 				let lastPointIndex = NOT_FOUND;
 				let index = -ONE;
-				let points = [ ];
+				const points = [ ];
 				way.nodes.forEach (
 					nodeId => {
 						index ++;
-						let node = this.#overpassAPIDataLoader.nodes.get ( nodeId );
-						let point = theGeometry.addPoints (
+						const node = this.#overpassAPIDataLoader.nodes.get ( nodeId );
+						const point = theGeometry.addPoints (
 							theGeometry.project ( [ node.lat, node.lon ], theConfig.note.svgIcon.zoom ),
 							this.#MapIconData.translation
 						);
 						points.push ( point );
-						let pointIsInside =
+						const pointIsInside =
 							point [ ZERO ] >= ZERO
 							&&
 							point [ ONE ] >= ZERO
@@ -200,7 +204,7 @@ class SvgBuilder {
 							points[ index ] [ ONE ].toFixed ( ZERO ) + ' ';
 					}
 
-					let polyline = document.createElementNS ( SVG_NS, 'polyline' );
+					const polyline = document.createElementNS ( SVG_NS, 'polyline' );
 					polyline.setAttributeNS ( null, 'points', pointsAttribute );
 					polyline.setAttributeNS (
 						null,
@@ -233,7 +237,7 @@ class SvgBuilder {
 		if ( '' === this.#MapIconData.rcnRef ) {
 			return;
 		}
-		let svgText = document.createElementNS ( SVG_NS, 'text' );
+		const svgText = document.createElementNS ( SVG_NS, 'text' );
 		svgText.textContent = this.#MapIconData.rcnRef;
 		svgText.setAttributeNS ( null, 'x', String ( ICON_DIMENSIONS.svgViewboxDim / TWO ) );
 		svgText.setAttributeNS ( null, 'y', String ( ICON_DIMENSIONS.svgViewboxDim * Y_TEXT ) );

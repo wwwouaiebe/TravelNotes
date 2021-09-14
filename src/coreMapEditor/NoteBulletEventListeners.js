@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests 20210902
 */
 
@@ -65,12 +67,12 @@ class NoteBulletDragEndEL {
 	static handleEvent ( dragEndEvent ) {
 
 		// the TravelNotes note and route are searched...
-		let noteAndRoute = theDataSearchEngine.getNoteAndRoute ( dragEndEvent.target.objId );
-		let draggedNote = noteAndRoute.note;
-		let route = noteAndRoute.route;
+		const noteAndRoute = theDataSearchEngine.getNoteAndRoute ( dragEndEvent.target.objId );
+		const draggedNote = noteAndRoute.note;
+		const route = noteAndRoute.route;
 
 		// ... then the layerGroup is searched...
-		let draggedLayerGroup = theTravelNotesData.mapObjects.get ( dragEndEvent.target.objId );
+		const draggedLayerGroup = theTravelNotesData.mapObjects.get ( dragEndEvent.target.objId );
 		if ( null === route ) {
 
 			// the note is not attached to a route, so the coordinates of the note can be directly changed
@@ -81,7 +83,7 @@ class NoteBulletDragEndEL {
 
 			// the note is attached to the route, so we have to find the nearest point on the route
 			// and the distance since the start of the route
-			let latLngDistance = theGeometry.getClosestLatLngDistance (
+			const latLngDistance = theGeometry.getClosestLatLngDistance (
 				route,
 				[ dragEndEvent.target.getLatLng ( ).lat, dragEndEvent.target.getLatLng ( ).lng ]
 			);
@@ -123,8 +125,8 @@ class NoteBulletDragEndEL {
 class NoteBulletDragEL {
 
 	static handleEvent ( dragEvent ) {
-		let draggedNote = theDataSearchEngine.getNoteAndRoute ( dragEvent.target.objId ).note;
-		let draggedLayerGroup = theTravelNotesData.mapObjects.get ( dragEvent.target.objId );
+		const draggedNote = theDataSearchEngine.getNoteAndRoute ( dragEvent.target.objId ).note;
+		const draggedLayerGroup = theTravelNotesData.mapObjects.get ( dragEvent.target.objId );
 		draggedLayerGroup.getLayer ( draggedLayerGroup.polylineId )
 			.setLatLngs ( [ [ dragEvent.latlng.lat, dragEvent.latlng.lng ], draggedNote.iconLatLng ] );
 	}

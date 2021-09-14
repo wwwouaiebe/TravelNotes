@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 
@@ -141,11 +143,11 @@ class StreetFinder {
 	#findNodes ( ) {
 
 		// searching the previous and next point on the itinerary
-		let incomingItineraryPoint = this.#computeData.route.itinerary.itineraryPoints.previous (
+		const incomingItineraryPoint = this.#computeData.route.itinerary.itineraryPoints.previous (
 			this.#computeData.mapIconPosition.nearestItineraryPointObjId,
 			itineraryPoint => this.#latLngCompare ( itineraryPoint )
 		);
-		let outgoingItineraryPoint = this.#computeData.route.itinerary.itineraryPoints.next (
+		const outgoingItineraryPoint = this.#computeData.route.itinerary.itineraryPoints.next (
 			this.#computeData.mapIconPosition.nearestItineraryPointObjId,
 			itineraryPoint => this.#latLngCompare ( itineraryPoint )
 		);
@@ -200,7 +202,7 @@ class StreetFinder {
 	#moveIconToRcnRef ( ) {
 
 		if ( this.#rcnRefNode ) {
-			let rcnRefDistance = theSphericalTrigonometry.pointsDistance (
+			const rcnRefDistance = theSphericalTrigonometry.pointsDistance (
 				[ this.#rcnRefNode.lat, this.#rcnRefNode.lon ],
 				[ this.#iconNode.lat, this.#iconNode.lon ]
 			);
@@ -258,11 +260,11 @@ class StreetFinder {
 					return;
 				}
 
-				let wayName = this.#getWayName ( way );
-				let haveName = '' !== wayName;
+				const wayName = this.#getWayName ( way );
+				const haveName = '' !== wayName;
 
-				let isIncomingStreet = way.nodes.includes ( this.#incomingNodeId );
-				let isOutgoingStreet = way.nodes.includes ( this.#outgoingNodeId );
+				const isIncomingStreet = way.nodes.includes ( this.#incomingNodeId );
+				const isOutgoingStreet = way.nodes.includes ( this.#outgoingNodeId );
 
 				// the same way can enter multiple times in the intersection!
 				let streetOcurrences = way.nodes.filter ( nodeId => nodeId === this.#svgPointId ).length * TWO;

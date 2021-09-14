@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests 20210902
 */
 
@@ -46,7 +48,6 @@ Tests 20210902
 
 import theWayPointEditor from '../core/WayPointEditor.js';
 import WayPointContextMenu from '../contextMenus/WayPointContextMenu.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
@@ -78,9 +79,7 @@ class WayPointContextMenuEL {
 class WayPointDragEndEL {
 
 	static handleEvent ( dragEndEvent ) {
-		let draggedWayPoint = theTravelNotesData.travel.editedRoute.wayPoints.getAt ( dragEndEvent.target.objId );
-		draggedWayPoint.latLng = [ dragEndEvent.target.getLatLng ( ).lat, dragEndEvent.target.getLatLng ( ).lng ];
-		theWayPointEditor.wayPointDragEnd ( dragEndEvent.target.objId );
+		theWayPointEditor.wayPointDragEnd ( dragEndEvent );
 	}
 }
 
