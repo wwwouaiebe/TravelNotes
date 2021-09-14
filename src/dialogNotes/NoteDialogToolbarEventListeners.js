@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 
@@ -85,7 +87,7 @@ class EditionButtonsClickEL {
 		if ( ! this.#noteDialog.focusControl ) {
 			return;
 		}
-		let button = clickEvent.currentTarget;
+		const button = clickEvent.currentTarget;
 		let selectionStart = this.#noteDialog.focusControl.selectionStart;
 		let selectionEnd = this.#noteDialog.focusControl.selectionEnd;
 
@@ -111,7 +113,7 @@ class EditionButtonsClickEL {
 		}
 		this.#noteDialog.focusControl.setSelectionRange ( selectionStart, selectionEnd );
 		this.#noteDialog.focusControl.focus ( );
-		let noteData = {};
+		const noteData = {};
 		noteData [ this.#noteDialog.focusControl.dataset.tanName ] = this.#noteDialog.focusControl.value;
 		this.#noteDialog.updatePreview ( noteData );
 	}
@@ -190,7 +192,7 @@ class IconSelectorChangeEL {
 
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
-		let preDefinedIcon = theNoteDialogToolbarData.getIconData ( changeEvent.target.selectedIndex );
+		const preDefinedIcon = theNoteDialogToolbarData.getIconData ( changeEvent.target.selectedIndex );
 
 		if ( 'SvgIcon' === preDefinedIcon.icon ) {
 			this.#onMapIcon ( );
@@ -275,12 +277,10 @@ class OpenFileInputChangeEL {
 
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
-		let fileReader = new FileReader ( );
+		const fileReader = new FileReader ( );
 		fileReader.onload = ( ) => {
-			let fileContent = {};
 			try {
-				fileContent = JSON.parse ( fileReader.result );
-				theNoteDialogToolbarData.loadJson ( fileContent );
+				theNoteDialogToolbarData.loadJson ( JSON.parse ( fileReader.result ) );
 				this.#noteDialogToolbar.update ( );
 			}
 			catch ( err ) {

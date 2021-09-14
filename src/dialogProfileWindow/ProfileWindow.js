@@ -26,7 +26,9 @@ Changes:
 		- Issue ♯135 : Remove innerHTML from code
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 
@@ -82,9 +84,9 @@ class BaseSvgEL {
 	}
 
 	getlatLngElevOnRouteAtMousePosition ( mouseEvent ) {
-		let route = theDataSearchEngine.getRoute ( Number.parseInt ( mouseEvent.currentTarget.dataset.tanObjId ) );
-		let clientRect = mouseEvent.currentTarget.getBoundingClientRect ( );
-		let routeDist =
+		const route = theDataSearchEngine.getRoute ( Number.parseInt ( mouseEvent.currentTarget.dataset.tanObjId ) );
+		const clientRect = mouseEvent.currentTarget.getBoundingClientRect ( );
+		const routeDist =
 			(
 				( mouseEvent.clientX - clientRect.x -
 					(
@@ -129,7 +131,7 @@ class SvgContextMenuEL extends BaseSvgEL {
 		mouseEvent.preventDefault ( );
 		mouseEvent.stopPropagation ( );
 
-		let latLngElevOnRoute = this.getlatLngElevOnRouteAtMousePosition ( mouseEvent );
+		const latLngElevOnRoute = this.getlatLngElevOnRouteAtMousePosition ( mouseEvent );
 		if ( latLngElevOnRoute ) {
 			mouseEvent.latlng = {
 				lat : latLngElevOnRoute.latLng [ ZERO ],
@@ -199,7 +201,7 @@ class SvgMouseMoveEL extends BaseSvgEL {
 	#profileSvg = null;
 
 	#createSvgText ( text, markerY ) {
-		let svgText = document.createElementNS ( SVG_NS, 'text' );
+		const svgText = document.createElementNS ( SVG_NS, 'text' );
 		svgText.appendChild ( document.createTextNode ( text ) );
 		svgText.setAttributeNS ( null, 'class', 'TravelNotes-Route-SvgProfile-elevText' );
 		svgText.setAttributeNS ( null, 'x', this.#markerX );
@@ -216,11 +218,11 @@ class SvgMouseMoveEL extends BaseSvgEL {
 		mouseEvent.stopPropagation ( );
 
 		this.#profileSvg = mouseEvent.currentTarget;
-		let latLngElevOnRoute = this.getlatLngElevOnRouteAtMousePosition ( mouseEvent );
+		const latLngElevOnRoute = this.getlatLngElevOnRouteAtMousePosition ( mouseEvent );
 		if ( latLngElevOnRoute ) {
 
 			// itinerary point marker on the map
-			let markerObjId = Number.parseInt ( this.#profileSvg.dataset.tanMarkerObjId );
+			const markerObjId = Number.parseInt ( this.#profileSvg.dataset.tanMarkerObjId );
 			theEventDispatcher.dispatch ( 'removeobject', { objId : markerObjId } );
 			theEventDispatcher.dispatch (
 				'additinerarypointmarker',
@@ -237,11 +239,11 @@ class SvgMouseMoveEL extends BaseSvgEL {
 				this.#profileSvg.removeChild ( this.#elevText );
 				this.#profileSvg.removeChild ( this.#ascentText );
 			}
-			let clientRect = this.#profileSvg.getBoundingClientRect ( );
+			const clientRect = this.#profileSvg.getBoundingClientRect ( );
 			this.#markerX =
 				( ( TWO * SVG_PROFILE.margin ) + SVG_PROFILE.width ) *
 				( mouseEvent.clientX - clientRect.x ) / clientRect.width;
-			let markerY = SVG_PROFILE.margin + SVG_PROFILE.height;
+			const markerY = SVG_PROFILE.margin + SVG_PROFILE.height;
 
 			// line
 			this.#marker = document.createElementNS ( SVG_NS, 'polyline' );
@@ -254,7 +256,7 @@ class SvgMouseMoveEL extends BaseSvgEL {
 			this.#profileSvg.appendChild ( this.#marker );
 
 			// texts
-			let route = theDataSearchEngine.getRoute ( Number.parseInt ( this.#profileSvg.dataset.tanObjId ) );
+			const route = theDataSearchEngine.getRoute ( Number.parseInt ( this.#profileSvg.dataset.tanObjId ) );
 			this.#textAnchor = latLngElevOnRoute.routeDistance > route.distance / TWO ? 'end' : 'start';
 			this.#markerX +=
 				latLngElevOnRoute.routeDistance > route.distance / TWO

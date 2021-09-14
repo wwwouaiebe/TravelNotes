@@ -39,7 +39,9 @@ Changes:
 		- Issue ♯155 : Enable pan and zoom on the map when a dialog is displayed
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 
@@ -338,7 +340,7 @@ class BaseDialog {
 	*/
 
 	#createContentDiv ( ) {
-		let contentDiv = theHTMLElementsFactory.create (
+		const contentDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-ContentDiv'
@@ -399,7 +401,7 @@ class BaseDialog {
 	*/
 
 	#createFooterDiv ( ) {
-		let footerDiv = theHTMLElementsFactory.create (
+		const footerDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-FooterDiv'
@@ -474,7 +476,7 @@ class BaseDialog {
 			DIALOG_DRAG_MARGIN
 		);
 
-		let dialogMaxHeight =
+		const dialogMaxHeight =
 			this.#backgroundDiv.clientHeight -
 			Math.max ( this.#dragData.dialogY, ZERO ) -
 			DIALOG_DRAG_MARGIN;

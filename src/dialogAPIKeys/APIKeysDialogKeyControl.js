@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 
@@ -72,7 +74,7 @@ class DeleteButtonClickEL {
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		let dispatchedEvent = new Event ( 'apikeydeleted' );
+		const dispatchedEvent = new Event ( 'apikeydeleted' );
 		dispatchedEvent.data = { objId : Number.parseInt ( clickEvent.target.dataset.tanObjId ) };
 		clickEvent.target.parentNode.parentNode.dispatchEvent ( dispatchedEvent );
 	}

@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 
@@ -213,7 +215,7 @@ class TopBarDragEndEL {
 		this.#dragData.dialogY =
 			Math.max ( this.#dragData.dialogY, DIALOG_DRAG_MARGIN );
 
-		let dialogMaxHeight =
+		const dialogMaxHeight =
 			this.#backgroundDiv.clientHeight -
 			Math.max ( this.#dragData.dialogY, ZERO ) -
 			DIALOG_DRAG_MARGIN;
@@ -298,11 +300,11 @@ class BackgroundLeftPanEL {
 			this.#mapCenter = theTravelNotesData.map.getCenter ( );
 			return;
 		}
-		let latLngAtStart = theGeometry.screenCoordToLatLng (
+		const latLngAtStart = theGeometry.screenCoordToLatLng (
 			leftPanEvent.startX,
 			leftPanEvent.startY
 		);
-		let latLngAtEnd = theGeometry.screenCoordToLatLng ( leftPanEvent.endX, leftPanEvent.endY );
+		const latLngAtEnd = theGeometry.screenCoordToLatLng ( leftPanEvent.endX, leftPanEvent.endY );
 		theTravelNotesData.map.panTo (
 			[
 				this.#mapCenter.lat +

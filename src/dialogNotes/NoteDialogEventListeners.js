@@ -217,7 +217,7 @@ class UrlInputBlurEL {
 			return;
 		}
 
-		let verifyResult = theHTMLSanitizer.sanitizeToUrl ( blurEvent.target.value );
+		const verifyResult = theHTMLSanitizer.sanitizeToUrl ( blurEvent.target.value );
 		if ( '' === verifyResult.errorsString ) {
 			this.#noteDialog.hideError ( );
 		}
@@ -256,7 +256,7 @@ class AllControlsInputEL {
 
 	handleEvent ( inputUpdatedEvent ) {
 		inputUpdatedEvent.stopPropagation ( );
-		let noteData = {};
+		const noteData = {};
 		noteData [ inputUpdatedEvent.target.dataset.tanName ] = inputUpdatedEvent.target.value;
 		this.#noteDialog.updatePreview ( noteData );
 	}

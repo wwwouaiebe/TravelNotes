@@ -26,7 +26,9 @@ Changes:
 		- Issue ♯64 : Improve geocoding
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 /**
@@ -107,8 +109,7 @@ class WayPointPropertiesDialog extends BaseDialog {
 			return;
 		}
 		this.showWait ( );
-		let geoCoder = new GeoCoder ( );
-		let address = await geoCoder.getAddressAsync ( this.#wayPoint.latLng );
+		const address = await new GeoCoder ( ).getAddressAsync ( this.#wayPoint.latLng );
 		this.hideWait ( );
 		if ( address.statusOk ) {
 			if ( theConfig.wayPoint.geocodingIncludeName ) {
@@ -128,7 +129,7 @@ class WayPointPropertiesDialog extends BaseDialog {
 	*/
 
 	#createAddressControl ( ) {
-		let addressHeaderDiv = theHTMLElementsFactory.create ( 'div' );
+		const addressHeaderDiv = theHTMLElementsFactory.create ( 'div' );
 		this.#resetAddressButton = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -147,7 +148,7 @@ class WayPointPropertiesDialog extends BaseDialog {
 			addressHeaderDiv
 		);
 
-		let addressInputDiv = theHTMLElementsFactory.create ( 'div' );
+		const addressInputDiv = theHTMLElementsFactory.create ( 'div' );
 		this.#addressInput = theHTMLElementsFactory.create (
 			'input',
 			{
@@ -167,13 +168,13 @@ class WayPointPropertiesDialog extends BaseDialog {
 	*/
 
 	#createNameControl ( ) {
-		let nameHeaderDiv = theHTMLElementsFactory.create (
+		const nameHeaderDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				textContent : theTranslator.getText ( 'WayPointPropertiesDialog - Name' )
 			}
 		);
-		let nameInputDiv = theHTMLElementsFactory.create ( 'div' );
+		const nameInputDiv = theHTMLElementsFactory.create ( 'div' );
 		this.#nameInput = theHTMLElementsFactory.create (
 			'input',
 			{

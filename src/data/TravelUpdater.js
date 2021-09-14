@@ -42,7 +42,7 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-import Route from '../data/Route.js';
+// import Route from '../data/Route.js';
 import { theDataVersion } from '../data/Version.js';
 
 import { ZERO, ROUTE_EDITION_STATUS, ELEV, DISTANCE } from '../main/Constants.js';
@@ -87,7 +87,35 @@ class TravelUpdater {
 
 	#updateTravelV_1_4_0 ( ) {
 		this.#updateRoutesV_1_4_0 ( );
-		this.#jsonTravel.editedRoute = new Route ( ).jsonObject;
+		/* eslint-disable no-magic-numbers */
+		this.#jsonTravel.editedRoute = {
+			name : '',
+			wayPoints : [
+				{ name : '', lat : 0, lng : 0, objId : 2, objType : { name : 'WayPoint', version : '1.4.0' } },
+				{ name : '', lat : 0, lng : 0, objId : 3, objType : { name : 'WayPoint', version : '1.4.0' } }
+			],
+			notes : [],
+			itinerary : {
+				itineraryPoints : [],
+				maneuvers : [],
+				provider : '',
+				transitMode : '',
+				objId : 1,
+				objType : { name : 'Itinerary', version : '1.4.0' }
+			},
+			width : 3,
+			color : '#ff0000',
+			dashArray : 0,
+			chain : true,
+			distance : 0,
+			duration : 0,
+			edited : ROUTE_EDITION_STATUS.notEdited,
+			hidden : false,
+			chainedDistance : 0,
+			objId : 4,
+			objType : { name : 'Route', version : '1.4.0' }
+		};
+		/* eslint-enable no-magic-numbers */
 	}
 
 	/* v1.5.0 */

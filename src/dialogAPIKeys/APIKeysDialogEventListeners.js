@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 
@@ -118,7 +120,7 @@ class OpenUnsecureFileChangeEL {
 
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
-		let fileReader = new FileReader ( );
+		const fileReader = new FileReader ( );
 		fileReader.onload = ( ) => {
 			try {
 				this.#APIKeysDialog.addAPIKeys (
@@ -275,7 +277,7 @@ class OpenSecureFileChangeEL {
 		changeEvent.stopPropagation ( );
 		this.#APIKeysDialog.showWait ( );
 		this.#APIKeysDialog.keyboardELEnabled = false;
-		let fileReader = new FileReader ( );
+		const fileReader = new FileReader ( );
 		fileReader.onload = ( ) => {
 			new DataEncryptor ( ).decryptData (
 				fileReader.result,
@@ -457,8 +459,8 @@ class NewAPIKeyButtonClickEL {
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		let APIKey = Object.seal ( { providerName : '', providerKey : '' } );
-		let APIKeyControl = new APIKeysDialogKeyControl ( APIKey );
+		const APIKey = Object.seal ( { providerName : '', providerKey : '' } );
+		const APIKeyControl = new APIKeysDialogKeyControl ( APIKey );
 		this.#APIKeysControls.set ( APIKeyControl.objId, APIKeyControl );
 		this.#APIKeysDialog.refreshAPIKeys ( );
 	}

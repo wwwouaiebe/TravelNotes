@@ -21,7 +21,9 @@ Changes:
 		- created
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 
@@ -96,7 +98,7 @@ class PrintRouteMapDialog extends BaseDialog {
 	*/
 
 	#createPaperWidthDiv ( ) {
-		let paperWidthDiv = theHTMLElementsFactory.create (
+		const paperWidthDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-PrintRouteMapDialog-DataDiv'
@@ -136,7 +138,7 @@ class PrintRouteMapDialog extends BaseDialog {
 	*/
 
 	#createPaperHeightDiv ( ) {
-		let paperHeightDiv = theHTMLElementsFactory.create (
+		const paperHeightDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-PrintRouteMapDialog-DataDiv'
@@ -175,7 +177,7 @@ class PrintRouteMapDialog extends BaseDialog {
 	*/
 
 	#createBorderWidthDiv ( ) {
-		let borderWidthDiv = theHTMLElementsFactory.create (
+		const borderWidthDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-PrintRouteMapDialog-DataDiv'
@@ -215,7 +217,7 @@ class PrintRouteMapDialog extends BaseDialog {
 	*/
 
 	#createZoomFactorDiv ( ) {
-		let zoomFactorDiv = theHTMLElementsFactory.create (
+		const zoomFactorDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-PrintRouteMapDialog-DataDiv'
@@ -249,7 +251,7 @@ class PrintRouteMapDialog extends BaseDialog {
 	*/
 
 	#createPageBreakDiv ( ) {
-		let pageBreakDiv = theHTMLElementsFactory.create (
+		const pageBreakDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-PrintRouteMapDialog-DataDiv'
@@ -280,7 +282,7 @@ class PrintRouteMapDialog extends BaseDialog {
 	*/
 
 	#createPrintNotesDiv ( ) {
-		let printNotesDiv = theHTMLElementsFactory.create (
+		const printNotesDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-PrintRouteMapDialog-DataDiv'

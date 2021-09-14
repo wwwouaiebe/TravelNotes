@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 
@@ -70,7 +72,7 @@ class MouseEL {
 	*/
 
 	#dispatchEvent ( mouseEvent, action ) {
-		let panEvent = new Event ( this.#eventType );
+		const panEvent = new Event ( this.#eventType );
 		panEvent.startX = this.#startPanX;
 		panEvent.startY = this.#startPanY;
 		panEvent.endX = mouseEvent.screenX;

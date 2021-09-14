@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 
@@ -83,7 +85,7 @@ class RedSliderInputEL {
 
 	handleEvent ( inputEvent ) {
 		inputEvent.stopPropagation ( );
-		let newColor = new Color ( );
+		const newColor = new Color ( );
 
 		// Math.ceil because with JS 100 * 2.55 = 254.99999....
 		newColor.red =
@@ -136,7 +138,7 @@ class ColorInputEL {
 
 	handleEvent ( inputEvent ) {
 		inputEvent.stopPropagation ( );
-		let newColor = new Color (
+		const newColor = new Color (
 			Number.parseInt ( this.#inputs.red.value ),
 			Number.parseInt ( this.#inputs.green.value ),
 			Number.parseInt ( this.#inputs.blue.value )
@@ -178,7 +180,7 @@ class ColorButtonClickEL {
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		let newColor = new Color ( );
+		const newColor = new Color ( );
 		newColor.cssColor = clickEvent.target.style [ 'background-color' ];
 		this.#colorControl.color = newColor;
 	}

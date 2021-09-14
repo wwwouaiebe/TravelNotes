@@ -30,7 +30,9 @@ Changes:
 		- Issue ♯137 : Remove html tags from json files
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 
@@ -141,7 +143,7 @@ class APIKeysDialog extends BaseDialog {
 	validateAPIKeys ( ) {
 		this.hideError ( );
 		let haveEmptyValues = false;
-		let providersNames = [];
+		const providersNames = [];
 		this.#APIKeysControls.forEach (
 			APIKeyControl => {
 				haveEmptyValues =
@@ -184,7 +186,7 @@ class APIKeysDialog extends BaseDialog {
 		this.#APIKeysControls.clear ( );
 		APIKeys.forEach (
 			APIKey => {
-				let APIKeyControl = new APIKeysDialogKeyControl ( APIKey );
+				const APIKeyControl = new APIKeysDialogKeyControl ( APIKey );
 				this.#APIKeysControls.set ( APIKeyControl.objId, APIKeyControl );
 			}
 		);
@@ -226,7 +228,7 @@ class APIKeysDialog extends BaseDialog {
 	*/
 
 	onOk ( ) {
-		let APIKeys = [];
+		const APIKeys = [];
 		this.#APIKeysControls.forEach (
 			APIKeyControl => APIKeys.push ( APIKeyControl.APIKey )
 		);

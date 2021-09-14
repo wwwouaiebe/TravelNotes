@@ -25,7 +25,9 @@ Changes:
 		- Issue ♯135 : Remove innerHTML from code
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 
@@ -107,7 +109,7 @@ class TopBarDragEndEL {
 	}
 
 	handleEvent ( dragEndEvent ) {
-		let containerDiv = dragEndEvent.target.parentNode;
+		const containerDiv = dragEndEvent.target.parentNode;
 		this.#dragData.windowX += dragEndEvent.screenX - this.#dragData.dragStartX;
 		this.#dragData.windowY += dragEndEvent.screenY - this.#dragData.dragStartY;
 		this.#dragData.windowX = Math.min (
@@ -115,7 +117,7 @@ class TopBarDragEndEL {
 			theTravelNotesData.map.getContainer ( ).clientWidth - containerDiv.clientWidth - OUR_DRAG_MARGIN
 		);
 		this.#dragData.windowY = Math.max ( this.#dragData.windowY, OUR_DRAG_MARGIN );
-		let windowMaxHeight =
+		const windowMaxHeight =
 			theTravelNotesData.map.getContainer ( ).clientHeight - Math.max ( this.#dragData.windowY, ZERO ) - OUR_DRAG_MARGIN;
 		containerDiv.style.top = String ( this.#dragData.windowY ) + 'px';
 		containerDiv.style.left = String ( this.#dragData.windowX ) + 'px';
@@ -182,10 +184,12 @@ class FloatWindow {
 	@private
 	*/
 
-	#eventListeners = {
-		onTopBarDragStart : null,
-		onTopBarDragEnd : null
-	}
+	#eventListeners = Object.seal (
+		{
+			onTopBarDragStart : null,
+			onTopBarDragEnd : null
+		}
+	);
 
 	/**
 	This method creates the window

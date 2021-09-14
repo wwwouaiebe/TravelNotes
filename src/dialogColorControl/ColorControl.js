@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 
@@ -122,17 +124,17 @@ class ColorControl {
 	}
 
 	#createColorButtonsDiv ( ) {
-		let colorButtonsDiv = theHTMLElementsFactory.create ( 'div', null, this.#colorDiv );
-		let cellColor = new Color ( COLOR_CONTROL.initialRed, COLOR_CONTROL.minColorValue, COLOR_CONTROL.minColorValue 	);
+		const colorButtonsDiv = theHTMLElementsFactory.create ( 'div', null, this.#colorDiv );
+		const cellColor = new Color ( COLOR_CONTROL.initialRed, COLOR_CONTROL.minColorValue, COLOR_CONTROL.minColorValue 	);
 		this.#eventListeners.onColorButtonClick = new ColorButtonClickEL ( this );
 
 		for ( let rowCounter = ZERO; rowCounter < COLOR_CONTROL.rowsNumber; ++ rowCounter ) {
-			let colorButtonsRowDiv = theHTMLElementsFactory.create ( 'div', null, colorButtonsDiv );
+			const colorButtonsRowDiv = theHTMLElementsFactory.create ( 'div', null, colorButtonsDiv );
 
 			cellColor.green = COLOR_CONTROL.minColorValue;
 
 			for ( let cellCounter = ZERO; cellCounter < COLOR_CONTROL.cellsNumber; ++ cellCounter ) {
-				let colorButtonCellDiv = theHTMLElementsFactory.create (
+				const colorButtonCellDiv = theHTMLElementsFactory.create (
 					'div',
 					{
 						className : 'TravelNotes-ColorControl-CellColorDiv'
@@ -154,7 +156,7 @@ class ColorControl {
 	*/
 
 	#createRedSliderDiv ( ) {
-		let redSliderDiv = theHTMLElementsFactory.create ( 'div', null, this.#colorDiv );
+		const redSliderDiv = theHTMLElementsFactory.create ( 'div', null, this.#colorDiv );
 		this.#redSliderInput = theHTMLElementsFactory.create ( 'input',
 			{
 				type : 'range',
@@ -181,7 +183,7 @@ class ColorControl {
 
 	#createColorInput ( inputText, inputValue ) {
 		theHTMLElementsFactory.create ( 'text', { value : inputText }, this.#rgbDiv	);
-		let inputHtmlElement = theHTMLElementsFactory.create ( 'input',
+		const inputHtmlElement = theHTMLElementsFactory.create ( 'input',
 			{
 				type : 'number',
 				className : 'TravelNotes-ColorControl-NumberInput',

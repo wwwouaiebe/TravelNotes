@@ -33,7 +33,7 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210913
+Doc reviewed 20210914
 ests ...
 */
 
@@ -128,13 +128,13 @@ class RoutePropertiesDialog extends BaseDialog {
 	*/
 
 	#createNameDiv ( ) {
-		let nameHeaderDiv = theHTMLElementsFactory.create (
+		const nameHeaderDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				textContent : theTranslator.getText ( 'RoutePropertiesDialog - Name' )
 			}
 		);
-		let nameInputDiv = theHTMLElementsFactory.create (
+		const nameInputDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-RoutePropertiesDialog-DataDiv',
@@ -159,7 +159,7 @@ class RoutePropertiesDialog extends BaseDialog {
 	*/
 
 	#createWidthDiv ( ) {
-		let widthDiv = theHTMLElementsFactory.create (
+		const widthDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-RoutePropertiesDialog-DataDiv'
@@ -194,7 +194,7 @@ class RoutePropertiesDialog extends BaseDialog {
 	*/
 
 	#createDashDiv ( ) {
-		let dashDiv = theHTMLElementsFactory.create (
+		const dashDiv = theHTMLElementsFactory.create (
 			'div',
 			{ className : 'TravelNotes-RoutePropertiesDialog-DataDiv' }
 		);
@@ -206,12 +206,14 @@ class RoutePropertiesDialog extends BaseDialog {
 			theHTMLElementsFactory.create ( 'span', null, dashDiv )
 		);
 		this.#dashSelect = theHTMLElementsFactory.create ( 'select', null, dashDiv );
-		let dashChoices = theConfig.route.dashChoices;
-		for ( let optionsCounter = ZERO; optionsCounter < dashChoices.length; optionsCounter ++ ) {
-			this.#dashSelect.add ( theHTMLElementsFactory.create ( 'option', { text : dashChoices [ optionsCounter ].text } ) );
-		}
-		this.#dashSelect.selectedIndex = this.#route.dashArray < dashChoices.length ? this.#route.dashArray : ZERO;
+		const dashChoices = theConfig.route.dashChoices;
 
+		dashChoices.forEach (
+			dashChoice => {
+				this.#dashSelect.add ( theHTMLElementsFactory.create ( 'option', { text : dashChoice.text } ) );
+			}
+		);
+		this.#dashSelect.selectedIndex = this.#route.dashArray < dashChoices.length ? this.#route.dashArray : ZERO;
 		return dashDiv;
 	}
 
@@ -221,7 +223,7 @@ class RoutePropertiesDialog extends BaseDialog {
 	*/
 
 	#createChainDiv ( ) {
-		let chainDiv = theHTMLElementsFactory.create (
+		const chainDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-RoutePropertiesDialog-DataDiv',
