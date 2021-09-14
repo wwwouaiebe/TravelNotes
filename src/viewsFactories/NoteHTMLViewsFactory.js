@@ -110,17 +110,9 @@ class NoteHTMLViewsFactory {
 			else if ( iconHTML.firstChild.classList.contains ( 'TravelNotes-MapNoteCategory-0073' ) ) {
 				dimCoeficient = theConfig.note.svgIcon.roadbookFactor;
 			}
-			iconHTML.setAttribute (
-				'tanwidth', String ( noteAndRoute.note.iconWidth * dimCoeficient ) + 'px'
-			);
-			iconHTML.setAttribute (
-				'tanheight', String ( noteAndRoute.note.iconWidth * dimCoeficient ) + 'px'
-			);
 		}
-		else {
-			iconHTML.style.width = String ( noteAndRoute.note.iconWidth ) + 'px';
-			iconHTML.style.height = String ( noteAndRoute.note.iconHeight ) + 'px';
-		}
+		iconHTML.style.width = String ( noteAndRoute.note.iconWidth * dimCoeficient ) + 'px';
+		iconHTML.style.height = String ( noteAndRoute.note.iconHeight * dimCoeficient ) + 'px';
 
 		let noteTextHTMLElement = this.getNoteTextHTML ( classPrefix, noteAndRoute );
 		noteTextHTMLElement.className =

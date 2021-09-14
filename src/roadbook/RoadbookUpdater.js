@@ -134,27 +134,6 @@ class RoadbookUpdater {
 	}
 
 	/**
-	Updating icons width and height
-	*/
-
-	updateIcons ( ) {
-		document.querySelectorAll (
-			'.TravelNotes-Roadbook-Route-ManeuversAndNotes-IconCell, .TravelNotes-Roadbook-Travel-Notes-IconCell'
-		).forEach (
-			icon => {
-				let width = icon.getAttribute ( 'tanwidth' );
-				if ( width ) {
-					icon.style.width = width;
-				}
-				let height = icon.getAttribute ( 'tanheight' );
-				if ( height ) {
-					icon.style.height = height;
-				}
-			}
-		);
-	}
-
-	/**
 	Updating roadbook
 	*/
 
@@ -166,7 +145,6 @@ class RoadbookUpdater {
 			document.title =
 				'' === headerName.textContent ? 'roadbook' : headerName.textContent + ' - roadbook';
 		}
-		this.updateIcons ( );
 		this.toggleNotes ( );
 	}
 

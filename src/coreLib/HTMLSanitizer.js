@@ -121,7 +121,7 @@ class HTMLSanitizer {
 			let validAttributesNames = this.#validityMap.get ( nodeName );
 			if ( validAttributesNames ) {
 				validAttributesNames = validAttributesNames.concat (
-					[ 'id', 'class', 'dir', 'title', 'tanwidth', 'tanheight' ]
+					[ 'id', 'class', 'dir', 'title' ]
 				);
 				const isSvg = ( 'svg' === nodeName || 'text' === nodeName || 'polyline' === nodeName );
 				targetString += '<' + nodeName;
@@ -206,7 +206,7 @@ class HTMLSanitizer {
 			let validAttributesNames = this.#validityMap.get ( nodeName );
 			if ( validAttributesNames ) {
 				validAttributesNames = validAttributesNames.concat (
-					[ 'id', 'class', 'dir', 'title', 'tanwidth', 'tanheight' ]
+					[ 'id', 'class', 'dir', 'title' ]
 				);
 				const isSvg = ( 'svg' === nodeName || 'text' === nodeName || 'polyline' === nodeName );
 				const newChildNode =
