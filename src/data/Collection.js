@@ -467,7 +467,7 @@ class Collection {
 
 	get jsonObject ( ) {
 		const array = [ ];
-		let iterator = this.iterator;
+		const iterator = this.iterator;
 		while ( ! iterator.done ) {
 			array.push ( iterator.value.jsonObject );
 		}

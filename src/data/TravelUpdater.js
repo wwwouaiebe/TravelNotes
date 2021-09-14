@@ -96,7 +96,7 @@ class TravelUpdater {
 		if ( this.#jsonTravel.userData.layerId ) {
 
 			// old layersId from maps are converted to TravelNotes layerName
-			let layerConvert =
+			const layerConvert =
 				[
 					{ layerId : '0', layerName : 'OSM - Color' },
 					{ layerId : '1', layerName : 'OSM - Black and White' },
@@ -184,7 +184,7 @@ class TravelUpdater {
 	/* v1.13.0 */
 
 	#UpdateStyleNoteV1_13_0 ( somethingText ) {
-		let returnValue = somethingText
+		const returnValue = somethingText
 			.replaceAll ( /style='color:white;background-color:red'/g, 'class=\'TravelNotes-Note-WhiteRed\'' )
 			.replaceAll ( /style='color:white;background-color:green'/g, 'class=\'TravelNotes-Note-WhiteGreen\'' )
 			.replaceAll ( /style='color:white;background-color:blue'/g, 'class=\'TravelNotes-Note-WhiteBlue\'' )

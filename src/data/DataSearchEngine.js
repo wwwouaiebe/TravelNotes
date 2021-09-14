@@ -165,7 +165,7 @@ class DataSearchEngine {
 		let route = null;
 		note = theTravelNotesData.travel.notes.getAt ( noteObjId );
 		if ( ! note ) {
-			let routeIterator = theTravelNotesData.travel.routes.iterator;
+			const routeIterator = theTravelNotesData.travel.routes.iterator;
 			while ( ! ( routeIterator.done || note ) ) {
 				note = routeIterator.value.notes.getAt ( noteObjId );
 				if ( note ) {
@@ -191,7 +191,7 @@ class DataSearchEngine {
 	getWayPoint ( wayPointObjId ) {
 		let wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.getAt ( wayPointObjId );
 		if ( ! wayPoint ) {
-			let routeIterator = theTravelNotesData.travel.routes.iterator;
+			const routeIterator = theTravelNotesData.travel.routes.iterator;
 			while ( ! ( routeIterator.done || wayPoint ) ) {
 				wayPoint = routeIterator.value.wayPoints.getAt ( wayPointObjId );
 			}

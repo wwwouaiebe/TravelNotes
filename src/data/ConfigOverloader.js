@@ -105,7 +105,7 @@ class ConfigOverloader {
 		}
 
 		// iteration on target.
-		for ( let property in target ) {
+		for ( const property in target ) {
 			if ( 'object' === typeof target [ property ] ) {
 				this.#copyObjectTo ( source [ property ], target [ property ] );
 			}
@@ -131,7 +131,7 @@ class ConfigOverloader {
 		}
 
 		// iteration on source
-		for ( let property in source ) {
+		for ( const property in source ) {
 			if ( 'object' === typeof source [ property ] ) {
 				if ( '[object Array]' === Object.prototype.toString.call ( source [ property ] ) ) {
 					target [ property ] = target [ property ] || [];
@@ -158,7 +158,7 @@ class ConfigOverloader {
 	*/
 
 	#freeze ( object ) {
-		for ( let property in object ) {
+		for ( const property in object ) {
 			if ( 'object' === typeof object [ property ] ) {
 				this.#freeze ( object [ property ] );
 			}

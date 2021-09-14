@@ -74,7 +74,7 @@ Tests ...
 */
 /* eslint-disable no-magic-numbers */
 
-let theConfig = {
+const theConfig = {
 	APIKeys : {
 		saveToSessionStorage : true
 	},

@@ -148,7 +148,7 @@ class MapLayersCollection {
 		}
 		jsonLayers.forEach (
 			jsonLayer => {
-				let newLayer = new MapLayer ( jsonLayer );
+				const newLayer = new MapLayer ( jsonLayer );
 				if ( ! this.#mapLayers.get ( newLayer.name ) ) {
 					this.#mapLayers.set ( newLayer.name, newLayer );
 				}
