@@ -21,7 +21,7 @@ class TravelObject {
 		if ( 'Travel' === this.objType.name && this.objType.version !== something.objType.version ) {
 			new TravelUpdater ( ).update ( something );
 		}
-		let properties = Object.getOwnPropertyNames ( something );
+		const properties = Object.getOwnPropertyNames ( something );
 		this.objType.properties.forEach (
 			property => {
 				if ( ! properties.includes ( property ) ) {
