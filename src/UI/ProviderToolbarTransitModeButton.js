@@ -137,6 +137,7 @@ class ProviderToolbarTransitModeButton {
 	*/
 
 	constructor ( providerToolbarUI, transitMode ) {
+		Object.freeze ( this );
 		this.#providerToolbarUI = providerToolbarUI;
 		this.#transitMode = transitMode;
 
@@ -151,7 +152,6 @@ class ProviderToolbarTransitModeButton {
 		);
 		this.#buttonHTMLElement.addEventListener ( 'click', this );
 		this.visible = false;
-		Object.seal ( this );
 	}
 
 	/**

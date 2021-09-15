@@ -370,6 +370,7 @@ class RoadbookLoader {
 	*/
 
 	constructor ( ) {
+		Object.freeze ( this );
 		let params = new URLSearchParams ( document.location.search.substring ( ONE ) );
 		this.#UUID = params.get ( 'page' );
 		this.#language = params.get ( 'lng' ) || 'fr';
@@ -390,7 +391,7 @@ class RoadbookLoader {
 		else {
 			theRoadbookUpdater.updateIcons ( );
 		}
-		theRoadbookUpdater.toggleNotes ( );
+		theRoadbookUpdater.updateNotes ( );
 	}
 }
 

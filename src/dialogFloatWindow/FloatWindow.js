@@ -265,13 +265,13 @@ class FloatWindow {
 	}
 
 	constructor ( ) {
+		Object.freeze ( this );
 		this.#eventListeners.onTopBarDragStart = new TopBarDragStartEL ( this.#dragData );
 		this.#eventListeners.onTopBarDragEnd = new TopBarDragEndEL ( this.#dragData );
 		this.#createContainerDiv ( );
 		this.#createTopBar ( );
 		this.#createHeaderDiv ( );
 		this.#createContentDiv ( );
-		Object.seal ( this );
 	}
 
 	/**

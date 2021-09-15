@@ -62,77 +62,55 @@ class RoadbookUpdater {
 
 	#travelNotesHtmlElement = document.getElementById ( 'TravelNotes' );
 
+	#showTravelNotes = true;
+
+	#showRouteNotes = true;
+
+	#showManeuversNotes = false;
+
+	#toggleNotes ( selector, show ) {
+		document.querySelectorAll ( selector ).forEach (
+			note => {
+				if ( show ) {
+					note.classList.remove ( 'TravelNotes-Hidden' );
+				}
+				else {
+					note.classList.add ( 'TravelNotes-Hidden' );
+				}
+			}
+		);
+	}
+
 	/*
 	constructor
 	*/
 
 	constructor ( ) {
-		this.showTravelNotes = true;
-		this.showRouteNotes = true;
-		this.showManeuversNotes = false;
-
-		Object.seal ( this );
+		Object.freeze ( this );
 	}
 
-	/**
-	Toogle the visibility of the travel notes
-	*/
-
-	toggleTravelNotes ( ) {
-		document.querySelectorAll ( '.TravelNotes-Roadbook-Travel-Notes-Row' ).forEach (
-			note => {
-				if ( this.showTravelNotes ) {
-					note.classList.remove ( 'TravelNotes-Hidden' );
-				}
-				else {
-					note.classList.add ( 'TravelNotes-Hidden' );
-				}
-			}
-		);
+	get showTravelNotes ( ) { return this.#showTravelNotes; }
+	set showTravelNotes ( show ) {
+		this.#showTravelNotes = show;
+		this.#toggleNotes ( '.TravelNotes-Roadbook-Travel-Notes-Row', show );
 	}
 
-	/**
-	Toogle the visibility of the route notes
-	*/
-
-	toggleRouteNotes ( ) {
-		document.querySelectorAll ( '.TravelNotes-Roadbook-Route-Notes-Row' ).forEach (
-			note => {
-				if ( this.showRouteNotes ) {
-					note.classList.remove ( 'TravelNotes-Hidden' );
-				}
-				else {
-					note.classList.add ( 'TravelNotes-Hidden' );
-				}
-			}
-		);
+	get showRouteNotes ( ) { return this.#showRouteNotes; }
+	set showRouteNotes ( show ) {
+		this.#showRouteNotes = show;
+		this.#toggleNotes ( '.TravelNotes-Roadbook-Route-Notes-Row', show );
 	}
 
-	/**
-	Toogle the visibility of the maneuver notes
-	*/
-
-	toggleManeuversNotes ( ) {
-		document.querySelectorAll ( '.TravelNotes-Roadbook-Route-Maneuvers-Row' ).forEach (
-			note => {
-				if ( this.showManeuversNotes ) {
-					note.classList.remove ( 'TravelNotes-Hidden' );
-				}
-				else {
-					note.classList.add ( 'TravelNotes-Hidden' );
-				}
-			}
-		);
+	get showManeuversNotes ( ) { return this.#showManeuversNotes; }
+	set showManeuversNotes ( show ) {
+		this.#showManeuversNotes = show;
+		this.#toggleNotes ( '.TravelNotes-Roadbook-Route-Maneuvers-Row', show );
 	}
 
-	/**
-	Toogle the visibility of the all notes
-	*/
-
-	toggleNotes ( ) {
-		this.toggleTravelNotes ( );
-		this.toggleRouteNotes ( );
-		this.toggleManeuversNotes ( );
+	updateNotes ( ) {
+		this.showTravelNotes = this.#showTravelNotes;
+		this.showRouteNotes = this.#showRouteNotes;
+		this.showManeuversNotes = this.#showManeuversNotes;
 	}
 
 	/**
@@ -147,7 +125,7 @@ class RoadbookUpdater {
 			document.title =
 				'' === headerName.textContent ? 'roadbook' : headerName.textContent + ' - roadbook';
 		}
-		this.toggleNotes ( );
+		this.updateNotes ( );
 	}
 
 }
