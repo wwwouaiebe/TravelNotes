@@ -150,7 +150,7 @@ class PanesManagerUI {
 	*/
 
 	constructor ( uiMainDiv ) {
-		Object.seal ( this );
+		Object.freeze ( this );
 		this.#headerDiv = theHTMLElementsFactory.create (
 			'div',
 			{

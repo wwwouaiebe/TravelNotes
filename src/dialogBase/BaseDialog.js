@@ -197,18 +197,20 @@ class BaseDialog {
 	@private
 	*/
 
-	#eventListeners = {
-		onKeydown : null,
-		onTopBarDragStart : null,
-		onTopBarDragEnd : null,
-		onCancelButtonClick : null,
-		onOkButtonClick : null,
-		onLeftPan : null,
-		onRightPan : null,
-		onWheel : null,
-		onContextMenu : null,
-		onDragOver : null
-	};
+	#eventListeners = Object.seal (
+		{
+			onKeydown : null,
+			onTopBarDragStart : null,
+			onTopBarDragEnd : null,
+			onCancelButtonClick : null,
+			onOkButtonClick : null,
+			onLeftPan : null,
+			onRightPan : null,
+			onWheel : null,
+			onContextMenu : null,
+			onDragOver : null
+		}
+	);
 
 	/**
 	options parameter

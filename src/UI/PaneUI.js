@@ -63,15 +63,23 @@ import { PANE_ID } from '../main/Constants.js';
 
 class PaneUI {
 
+	#paneData = null;
+
+	#paneControl = null;
+
 	/*
 	constructor
 	*/
 
 	constructor ( paneData, paneControl ) {
-		this.paneData = paneData;
-		this.paneControl = paneControl;
-		Object.seal ( this );
+		Object.freeze ( this );
+		this.#paneData = paneData;
+		this.#paneControl = paneControl;
 	}
+
+	get paneData ( ) { return this.#paneData; }
+
+	get paneControl ( ) { return this.#paneControl; }
 
 	remove ( ) {
 	}
