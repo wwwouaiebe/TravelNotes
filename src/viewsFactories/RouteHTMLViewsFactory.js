@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
@@ -78,7 +80,7 @@ class RouteHTMLViewsFactory {
 	*/
 
 	#getManeuverHTML ( classPrefix, routeAndManeuver ) {
-		let maneuverHTML = theHTMLElementsFactory.create ( 'div' );
+		const maneuverHTML = theHTMLElementsFactory.create ( 'div' );
 		theHTMLElementsFactory.create (
 			'div',
 			{
@@ -90,7 +92,7 @@ class RouteHTMLViewsFactory {
 			},
 			maneuverHTML
 		);
-		let maneuverTextHTML = theHTMLElementsFactory.create (
+		const maneuverTextHTML = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : classPrefix + 'Route-ManeuversAndNotes-Cell'
@@ -166,7 +168,7 @@ class RouteHTMLViewsFactory {
 	*/
 
 	getRouteProfileHTML ( classPrefix, route ) {
-		let profileDiv = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'RouteProfile' } );
+		const profileDiv = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'RouteProfile' } );
 		theHTMLSanitizer.sanitizeToHtmlElement ( theTranslator.getText ( 'RouteHTMLViewsFactory - Profile' ), profileDiv );
 		profileDiv.appendChild ( new ProfileFactory ( ).createSvg ( route ) );
 
@@ -182,8 +184,8 @@ class RouteHTMLViewsFactory {
 	*/
 
 	getRouteManeuversAndNotesHTML ( classPrefix, route, addDataset ) {
-		let notesAndManeuvers = [];
-		let notesIterator = route.notes.iterator;
+		const notesAndManeuvers = [];
+		const notesIterator = route.notes.iterator;
 		while ( ! notesIterator.done ) {
 			notesAndManeuvers.push (
 				{
@@ -192,7 +194,7 @@ class RouteHTMLViewsFactory {
 				}
 			);
 		}
-		let maneuversIterator = route.itinerary.maneuvers.iterator;
+		const maneuversIterator = route.itinerary.maneuvers.iterator;
 		let maneuverDistance = ZERO;
 		while ( ! maneuversIterator.done ) {
 			notesAndManeuvers.push (
@@ -204,7 +206,7 @@ class RouteHTMLViewsFactory {
 			maneuverDistance += maneuversIterator.value.distance;
 		}
 		notesAndManeuvers.sort ( ( first, second ) => first.distance - second.distance );
-		let routeNotesAndManeuversHTML = theHTMLElementsFactory.create (
+		const routeNotesAndManeuversHTML = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : classPrefix + 'Route-ManeuversAndNotes'
@@ -252,7 +254,7 @@ class RouteHTMLViewsFactory {
 	*/
 
 	getRouteHeaderHTML ( classPrefix, route ) {
-		let routeHeaderHTML = theHTMLElementsFactory.create (
+		const routeHeaderHTML = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : classPrefix + 'Route-Header',
@@ -344,20 +346,22 @@ class RouteHTMLViewsFactory {
 	*/
 
 	getRouteFooterHTML ( classPrefix, route ) {
-		let footerText = '';
-		if ( ( '' !== route.itinerary.provider ) && ( '' !== route.itinerary.transitMode ) ) {
-			footerText = theTranslator.getText (
-				'RouteHTMLViewsFactory - Itinerary computed by {provider} and optimized for {transitMode}',
-				{
-					provider : route.itinerary.provider,
-					transitMode : theTranslator.getText (
-						'RouteHTMLViewsFactory - TransitMode ' +	route.itinerary.transitMode
-					)
-				}
-			);
-		}
+		let footerText =
+			( ( '' !== route.itinerary.provider ) && ( '' !== route.itinerary.transitMode ) )
+				?
+				theTranslator.getText (
+					'RouteHTMLViewsFactory - Itinerary computed by {provider} and optimized for {transitMode}',
+					{
+						provider : route.itinerary.provider,
+						transitMode : theTranslator.getText (
+							'RouteHTMLViewsFactory - TransitMode ' +	route.itinerary.transitMode
+						)
+					}
+				)
+				:
+				'';
 
-		let footerHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'RouteFooter' } );
+		const footerHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'RouteFooter' } );
 
 		theHTMLSanitizer.sanitizeToHtmlElement ( footerText, footerHTML );
 

@@ -26,7 +26,9 @@ Changes:
 		- Issue ♯120 : Review the UserInterface
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
@@ -70,11 +72,11 @@ class HTMLElementsFactory {
 	*/
 
 	#addProperties ( element, properties ) {
-		for ( let property in properties ) {
+		for ( const property in properties ) {
 			try {
 				if ( 'dataset' === property ) {
-					let datasetObject = properties.dataset;
-					for ( let valueName in datasetObject ) {
+					const datasetObject = properties.dataset;
+					for ( const valueName in datasetObject ) {
 						element.dataset [ 'tan' + valueName ] = datasetObject [ valueName ];
 					}
 				}

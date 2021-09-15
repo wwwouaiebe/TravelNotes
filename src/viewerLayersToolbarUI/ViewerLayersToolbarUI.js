@@ -24,7 +24,9 @@ Changes:
 		- Issue ♯135 : Remove innerHTML from code
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
@@ -79,7 +81,7 @@ class MapLayerButtonClickEL {
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		let mapLayer = this.#mapLayers [ Number.parseInt ( clickEvent.target.dataset.tanMapLayerId ) ];
+		const mapLayer = this.#mapLayers [ Number.parseInt ( clickEvent.target.dataset.tanMapLayerId ) ];
 		theEventDispatcher.dispatch ( 'layerchange', { layer : mapLayer } );
 		theAttributionsUI.attributions = mapLayer.attribution;
 	}
@@ -214,9 +216,9 @@ class ViewerLayersToolbarUI {
 			this.#mapLayersToolbar
 		).addEventListener ( 'click', new ZoomButtonClickEL ( ), false );
 
-		let clickMapLayerButtonEventListener = new MapLayerButtonClickEL ( this.#mapLayers );
+		const clickMapLayerButtonEventListener = new MapLayerButtonClickEL ( this.#mapLayers );
 		for ( let mapLayerCounter = 0; mapLayerCounter < this.#mapLayers.length; mapLayerCounter ++ ) {
-			let mapLayer = this.#mapLayers [ mapLayerCounter ];
+			const mapLayer = this.#mapLayers [ mapLayerCounter ];
 			theHTMLElementsFactory.create (
 				'div',
 				{
@@ -237,7 +239,7 @@ class ViewerLayersToolbarUI {
 	*/
 
 	setMapLayer ( layerName ) {
-		let newLayer =
+		const newLayer =
 			( layerName.match ( /^[0-9]$/ ) )
 				?
 				this.#mapLayers [ Number.parseInt ( layerName ) ] || this.#mapLayers [ ZERO ]

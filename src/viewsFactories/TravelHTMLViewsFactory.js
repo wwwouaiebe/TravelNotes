@@ -34,7 +34,9 @@ Changes:
 		- Issue ♯138 : Protect the app - control html entries done by user.
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
@@ -90,7 +92,7 @@ class TravelHTMLViewsFactory {
 	*/
 
 	#getTravelHeaderHTML ( classPrefix ) {
-		let travelHeaderHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'Travel-Header' } );
+		const travelHeaderHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'Travel-Header' } );
 
 		theHTMLSanitizer.sanitizeToHtmlElement (
 			theTravelNotesData.travel.name,
@@ -106,9 +108,9 @@ class TravelHTMLViewsFactory {
 		let travelDistance = DISTANCE.defaultValue;
 		let travelAscent = ZERO;
 		let travelDescent = ZERO;
-		let routesIterator = theTravelNotesData.travel.routes.iterator;
+		const routesIterator = theTravelNotesData.travel.routes.iterator;
 		while ( ! routesIterator.done ) {
-			let route =
+			const route =
 				( routesIterator.value.objId === theTravelNotesData.editedRouteObjId
 					&&
 					theConfig.routeEditor.showEditedRouteInRoadbook
@@ -195,7 +197,7 @@ class TravelHTMLViewsFactory {
 	*/
 
 	#getTravelFooterHTML ( classPrefix ) {
-		let footerText =
+		const footerText =
 			theTranslator.getText ( 'TravelHTMLViewsFactory - Travel footer' ) +
 			'<a href="https://github.com/wwwouaiebe/TravelNotes"' +
 			' target="_blank" title="https://github.com/wwwouaiebe/TravelNotes" >Travel & Notes</a>, © ' +
@@ -204,7 +206,7 @@ class TravelHTMLViewsFactory {
 			'<a href="https://www.openstreetmap.org/copyright"' +
 			' target="_blank" title="https://www.openstreetmap.org/copyright">' +
 			theTranslator.getText ( 'TravelHTMLViewsFactory - OpenStreetMap contributors' ) + '</a>';
-		let footerHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'TravelFooter' } );
+		const footerHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'TravelFooter' } );
 
 		theHTMLSanitizer.sanitizeToHtmlElement ( footerText, footerHTML );
 
@@ -227,18 +229,18 @@ class TravelHTMLViewsFactory {
 	*/
 
 	getTravelHTML ( classPrefix ) {
-		let travelHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'Travel' } );
+		const travelHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'Travel' } );
 
 		travelHTML.appendChild ( this.#getTravelHeaderHTML ( classPrefix ) );
 		travelHTML.appendChild ( theNoteHTMLViewsFactory.getTravelNotesHTML ( classPrefix ) );
 
-		let travelRoutesIterator = theTravelNotesData.travel.routes.iterator;
+		const travelRoutesIterator = theTravelNotesData.travel.routes.iterator;
 		while ( ! travelRoutesIterator.done ) {
-			let useEditedRoute =
+			const useEditedRoute =
 				theConfig.routeEditor.showEditedRouteInRoadbook
 				&&
 				travelRoutesIterator.value.objId === theTravelNotesData.editedRouteObjId;
-			let route = useEditedRoute ? theTravelNotesData.travel.editedRoute : travelRoutesIterator.value;
+			const route = useEditedRoute ? theTravelNotesData.travel.editedRoute : travelRoutesIterator.value;
 			travelHTML.appendChild ( theRouteHTMLViewsFactory.getRouteHeaderHTML ( classPrefix, route ) );
 			if ( route.itinerary.hasProfile ) {
 				travelHTML.appendChild ( theRouteHTMLViewsFactory.getRouteProfileHTML ( classPrefix, route ) );

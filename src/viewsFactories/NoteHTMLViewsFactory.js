@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
@@ -83,13 +85,13 @@ class NoteHTMLViewsFactory {
 	*/
 
 	getNoteTextAndIconHTML ( classPrefix, noteAndRoute ) {
-		let NoteTextAndIconHTML = theHTMLElementsFactory.create (
+		const NoteTextAndIconHTML = theHTMLElementsFactory.create (
 			'div',
 			{
 				dataset : { ObjId : noteAndRoute.note.objId }
 			}
 		);
-		let iconHTML = theHTMLElementsFactory.create (
+		const iconHTML = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : classPrefix + ( noteAndRoute.route ? 'Route-ManeuversAndNotes-IconCell' : 'Travel-Notes-IconCell' )
@@ -114,7 +116,7 @@ class NoteHTMLViewsFactory {
 		iconHTML.style.width = String ( noteAndRoute.note.iconWidth * dimCoeficient ) + 'px';
 		iconHTML.style.height = String ( noteAndRoute.note.iconHeight * dimCoeficient ) + 'px';
 
-		let noteTextHTMLElement = this.getNoteTextHTML ( classPrefix, noteAndRoute );
+		const noteTextHTMLElement = this.getNoteTextHTML ( classPrefix, noteAndRoute );
 		noteTextHTMLElement.className =
 			classPrefix +
 			( noteAndRoute.route ? 'Route-ManeuversAndNotes-Cell' : 'Travel-Notes-Cell' );
@@ -134,8 +136,8 @@ class NoteHTMLViewsFactory {
 	*/
 
 	getNoteTextHTML ( classPrefix, noteAndRoute ) {
-		let note = noteAndRoute.note;
-		let noteHTMLElement = theHTMLElementsFactory.create ( 'div' );
+		const note = noteAndRoute.note;
+		const noteHTMLElement = theHTMLElementsFactory.create ( 'div' );
 		if ( ZERO !== note.tooltipContent.length ) {
 			theHTMLSanitizer.sanitizeToHtmlElement (
 				note.tooltipContent,
@@ -191,8 +193,8 @@ class NoteHTMLViewsFactory {
 		if ( ZERO !== note.phone.length ) {
 			let phoneText = note.phone;
 			if ( note.phone.match ( /^\+[0-9, ,*,\u0023]*$/ ) ) {
-				let phoneNumber = note.phone.replaceAll ( /\u0020/g, '' );
-				let phoneNumberDisplay = note.phone.replaceAll ( /\u0020/g, '\u00a0' );
+				const phoneNumber = note.phone.replaceAll ( /\u0020/g, '' );
+				const phoneNumberDisplay = note.phone.replaceAll ( /\u0020/g, '\u00a0' );
 				phoneText =
 					theTranslator.getText ( 'NoteHTMLViewsFactory - Phone' ) + '\u00a0:\u00a0' +
 					theTranslator.getText ( 'NoteHTMLViewsFactory - call' ) +
@@ -257,9 +259,9 @@ class NoteHTMLViewsFactory {
 				)
 			);
 
-			let nextNote = noteAndRoute.route.notes.next ( note.objId );
+			const nextNote = noteAndRoute.route.notes.next ( note.objId );
 			if ( nextNote ) {
-				let nextDistance = nextNote.distance - note.distance;
+				const nextDistance = nextNote.distance - note.distance;
 				if ( OUR_MIN_NOTES_DISTANCE < nextDistance ) {
 					theHTMLSanitizer.sanitizeToHtmlElement (
 						'<span>' +
@@ -287,10 +289,10 @@ class NoteHTMLViewsFactory {
 	*/
 
 	getTravelNotesHTML ( classPrefix ) {
-		let travelNotesHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'Travel-Notes' } );
-		let travelNotesIterator = theTravelNotesData.travel.notes.iterator;
+		const travelNotesHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'Travel-Notes' } );
+		const travelNotesIterator = theTravelNotesData.travel.notes.iterator;
 		while ( ! travelNotesIterator.done ) {
-			let noteTextAndIconHTML = this.getNoteTextAndIconHTML (
+			const noteTextAndIconHTML = this.getNoteTextAndIconHTML (
 				classPrefix,
 				{ note : travelNotesIterator.value, route : null }
 			);

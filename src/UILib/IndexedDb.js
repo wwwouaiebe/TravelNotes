@@ -22,7 +22,9 @@ Changes:
 		- created
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
@@ -75,7 +77,7 @@ class IndexedDb {
 			onOk ( );
 			return;
 		}
-		let openRequest = window.indexedDB.open ( 'TravelNotesDb', OUR_DB_VERSION );
+		const openRequest = window.indexedDB.open ( 'TravelNotesDb', OUR_DB_VERSION );
 		openRequest.onerror = ( ) => {
 			this.#indexedDb = null;
 			onError ( new Error ( 'Not possible to open the db' ) );
@@ -100,11 +102,11 @@ class IndexedDb {
 			onError ( new Error ( 'Database not opened' ) );
 			return;
 		}
-		let transaction = this.#indexedDb.transaction ( [ 'Travels' ], 'readonly' );
+		const transaction = this.#indexedDb.transaction ( [ 'Travels' ], 'readonly' );
 		transaction.onerror = ( ) => onError ( new Error ( 'Transaction error' ) );
 
-		let travelsObjectStore = transaction.objectStore ( 'Travels' );
-		let getRequest = travelsObjectStore.get ( this.#UUID );
+		const travelsObjectStore = transaction.objectStore ( 'Travels' );
+		const getRequest = travelsObjectStore.get ( this.#UUID );
 		getRequest.onsuccess = successEvent => onOk ( successEvent.target.result ? successEvent.target.result.data : null );
 	}
 
@@ -118,17 +120,10 @@ class IndexedDb {
 			onError ( new Error ( 'Database not opened' ) );
 			return;
 		}
-		let transaction = null;
-		try {
-			transaction = this.#indexedDb.transaction ( [ 'Travels' ], 'readwrite' );
-		}
-		catch ( err ) {
-			onError ( err );
-			return;
-		}
+		const transaction = this.#indexedDb.transaction ( [ 'Travels' ], 'readwrite' );
 		transaction.onerror = ( ) => onError ( new Error ( 'Transaction error' ) );
-		let travelsObjectStore = transaction.objectStore ( 'Travels' );
-		let putRequest = travelsObjectStore.put ( { UUID : this.#UUID, data : this.#data } );
+		const travelsObjectStore = transaction.objectStore ( 'Travels' );
+		const putRequest = travelsObjectStore.put ( { UUID : this.#UUID, data : this.#data } );
 		putRequest.onsuccess = ( ) => onOk ( );
 	}
 
@@ -199,11 +194,11 @@ class IndexedDb {
 			return;
 		}
 
-		let transaction = this.#indexedDb.transaction ( [ 'Travels' ], 'readwrite' );
+		const transaction = this.#indexedDb.transaction ( [ 'Travels' ], 'readwrite' );
 		transaction.onerror = ( ) => { };
-		let travelsObjectStore = transaction.objectStore ( 'Travels' );
+		const travelsObjectStore = transaction.objectStore ( 'Travels' );
 
-		let deleteRequest = travelsObjectStore.delete ( UUID );
+		const deleteRequest = travelsObjectStore.delete ( UUID );
 		deleteRequest.onerror = ( ) => this.#close ( );
 		deleteRequest.onsuccess = ( ) => this.#close ( );
 	}
