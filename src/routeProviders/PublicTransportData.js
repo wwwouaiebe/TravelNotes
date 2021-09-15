@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 */
 
 /**
@@ -110,8 +112,8 @@ class PublicTransportData {
 
 	#reverseWay ( way ) {
 
-		let oldStartNode = this.#nodesMap.get ( this.firstOf ( way.nodesIds ) );
-		let oldEndNode = this.#nodesMap.get ( this.lastOf ( way.nodesIds ) );
+		const oldStartNode = this.#nodesMap.get ( this.firstOf ( way.nodesIds ) );
+		const oldEndNode = this.#nodesMap.get ( this.lastOf ( way.nodesIds ) );
 
 		this.removeFrom ( oldStartNode.startingWaysIds, way.id );
 		oldStartNode.endingWaysIds.push ( way.id );
@@ -129,8 +131,8 @@ class PublicTransportData {
 
 	mergeWays ( waysId1, waysId2 ) {
 
-		let way1 = this.#waysMap.get ( waysId1 );
-		let way2 = this.#waysMap.get ( waysId2 );
+		const way1 = this.#waysMap.get ( waysId1 );
+		const way2 = this.#waysMap.get ( waysId2 );
 
 		// reversing some ways, so :
 		// - the 2 ways have the same direction
@@ -151,7 +153,7 @@ class PublicTransportData {
 		}
 
 		// removing the node at the merging node and all the starting or ending ways of the node
-		let mergedNode = this.#nodesMap.get ( way1.nodesIds.pop ( ) );
+		const mergedNode = this.#nodesMap.get ( way1.nodesIds.pop ( ) );
 		mergedNode.startingWaysIds = [];
 		mergedNode.endingWaysIds = [];
 
@@ -160,7 +162,7 @@ class PublicTransportData {
 		way1.distance += way2.distance;
 
 		// and changing the ending ways in the last node
-		let endNode = this.#nodesMap.get ( this.lastOf ( way1.nodesIds ) );
+		const endNode = this.#nodesMap.get ( this.lastOf ( way1.nodesIds ) );
 		this.removeFrom ( endNode.endingWaysIds, way2.id );
 		endNode.endingWaysIds.push ( way1.id );
 
@@ -176,9 +178,9 @@ class PublicTransportData {
 
 	#cloneNode ( nodeId ) {
 
-		let node = this.#nodesMap.get ( nodeId );
+		const node = this.#nodesMap.get ( nodeId );
 
-		let clonedNode = {
+		const clonedNode = {
 			id : this.newId,
 			lat : node.lat,
 			lon : node.lon,
@@ -199,9 +201,9 @@ class PublicTransportData {
 
 	cloneWay ( wayId ) {
 
-		let way = this.#waysMap.get ( wayId );
+		const way = this.#waysMap.get ( wayId );
 
-		let clonedWay = {
+		const clonedWay = {
 			id : this.newId,
 			type : 'way',
 			nodesIds : [],
@@ -269,7 +271,7 @@ class PublicTransportData {
 		// we replace the nodeId with the node when possible
 		this.#stopsMap.forEach (
 			nodeId => {
-				let node = this.#nodesMap.get ( nodeId );
+				const node = this.#nodesMap.get ( nodeId );
 				if ( node ) {
 					this.#stopsMap.set ( nodeId, node );
 				}
@@ -293,7 +295,7 @@ class PublicTransportData {
 				let previousNode = null;
 				way.nodesIds.forEach (
 					nodeId => {
-						let node = this.#nodesMap.get ( nodeId );
+						const node = this.#nodesMap.get ( nodeId );
 						if ( previousNode ) {
 							way.distance += theSphericalTrigonometry.pointsDistance (
 								[ node.lat, node.lon ], [ previousNode.lat, previousNode.lon ]

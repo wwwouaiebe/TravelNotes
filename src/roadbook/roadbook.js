@@ -24,7 +24,9 @@ Changes:
 		- Issue ♯135 : Remove innerHTML from code
 		- Issue ♯138 : Protect the app - control html entries done by user.
 		- Issue ♯146 : Add the travel name in the document title...
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 

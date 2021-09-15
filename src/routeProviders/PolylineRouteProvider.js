@@ -21,7 +21,9 @@ Changes:
 		- Issue ♯150 : Merge travelNotes and plugins
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
@@ -107,7 +109,7 @@ class PolylineRouteProvider extends BaseRouteProvider {
 	*/
 
 	#addManeuver ( itineraryPointObjId, position ) {
-		let maneuver = new Maneuver ( );
+		const maneuver = new Maneuver ( );
 
 		maneuver.iconName = OUR_ICON_NAMES [ position ];
 		maneuver.instruction =
@@ -130,7 +132,7 @@ class PolylineRouteProvider extends BaseRouteProvider {
 	*/
 
 	#addItineraryPoint ( latLng ) {
-		let itineraryPoint = new ItineraryPoint ( );
+		const itineraryPoint = new ItineraryPoint ( );
 		itineraryPoint.latLng = latLng;
 		this.#route.itinerary.itineraryPoints.add ( itineraryPoint );
 		return itineraryPoint.objId;
@@ -146,17 +148,17 @@ class PolylineRouteProvider extends BaseRouteProvider {
 	#addIntermediateItineraryPoints ( startWayPoint, endWaypoint ) {
 
 		// first conversion to radian
-		let latLngStartPoint = [
+		const latLngStartPoint = [
 			startWayPoint.lat * DEGREES.toRadians,
 			startWayPoint.lng * DEGREES.toRadians
 		];
-		let latLngEndPoint = [
+		const latLngEndPoint = [
 			endWaypoint.lat * DEGREES.toRadians,
 			endWaypoint.lng * DEGREES.toRadians
 		];
 
 		// searching the direction: from west to east or east to west...
-		let WestEast =
+		const WestEast =
 			( endWaypoint.lng - startWayPoint.lng + DEGREES.d360 ) % DEGREES.d360 > DEGREES.d180
 				?
 				-ONE
@@ -164,7 +166,7 @@ class PolylineRouteProvider extends BaseRouteProvider {
 				ONE;
 
 		// computing the distance
-		let angularDistance = theSphericalTrigonometry.arcFromSummitArcArc (
+		const angularDistance = theSphericalTrigonometry.arcFromSummitArcArc (
 			latLngEndPoint [ LNG ] - latLngStartPoint [ LNG ],
 			OUR_HALF_PI - latLngStartPoint [ LAT ],
 			OUR_HALF_PI - latLngEndPoint [ LAT ]
@@ -177,35 +179,35 @@ class PolylineRouteProvider extends BaseRouteProvider {
 		}
 
 		// and the direction at the start point
-		let direction = theSphericalTrigonometry.summitFromArcArcArc (
+		const direction = theSphericalTrigonometry.summitFromArcArcArc (
 			OUR_HALF_PI - latLngStartPoint [ LAT ],
 			angularDistance,
 			OUR_HALF_PI - latLngEndPoint [ LAT ]
 		);
 
-		let addedSegments = 64;
-		let itineraryPoints = [];
+		const addedSegments = 64;
+		const itineraryPoints = [];
 
 		// loop to compute the added segments
 		for ( let counter = 1; counter <= addedSegments; counter ++ ) {
-			let partialDistance = angularDistance * counter / addedSegments;
+			const partialDistance = angularDistance * counter / addedSegments;
 
 			// computing the opposite arc to the start point
-			let tmpArc = theSphericalTrigonometry.arcFromSummitArcArc (
+			const tmpArc = theSphericalTrigonometry.arcFromSummitArcArc (
 				direction,
 				OUR_HALF_PI - latLngStartPoint [ LAT ],
 				partialDistance
 			);
 
 			// computing the lng
-			let deltaLng = theSphericalTrigonometry.summitFromArcArcArc (
+			const deltaLng = theSphericalTrigonometry.summitFromArcArcArc (
 				OUR_HALF_PI - latLngStartPoint [ LAT ],
 				tmpArc,
 				partialDistance
 			);
 
 			// adding the itinerary point to a tmp array
-			let itineraryPoint = new ItineraryPoint ( );
+			const itineraryPoint = new ItineraryPoint ( );
 			itineraryPoint.latLng = [
 				( OUR_HALF_PI - tmpArc ) * DEGREES.fromRadians,
 				( latLngStartPoint [ LNG ] + ( WestEast * deltaLng ) ) * DEGREES.fromRadians
@@ -259,7 +261,7 @@ class PolylineRouteProvider extends BaseRouteProvider {
 		while ( ! itineraryPointsIterator.done ) {
 			maxLng = Math.max ( maxLng, itineraryPointsIterator.value.lng );
 		}
-		let deltaLng = ( maxLng % DEGREES.d360 ) - maxLng;
+		const deltaLng = ( maxLng % DEGREES.d360 ) - maxLng;
 
 		itineraryPointsIterator = this.#route.itinerary.itineraryPoints.iterator;
 		while ( ! itineraryPointsIterator.done ) {
@@ -278,37 +280,37 @@ class PolylineRouteProvider extends BaseRouteProvider {
 
 	#parseCircle ( ) {
 
-		let centerPoint = [
+		const centerPoint = [
 			this.#route.wayPoints.first.lat * DEGREES.toRadians,
 			this.#route.wayPoints.first.lng * DEGREES.toRadians
 		];
 
-		let distancePoint = [
+		const distancePoint = [
 			this.#route.wayPoints.last.lat * DEGREES.toRadians,
 			this.#route.wayPoints.last.lng * DEGREES.toRadians
 		];
 
-		let angularDistance = theSphericalTrigonometry.arcFromSummitArcArc (
+		const angularDistance = theSphericalTrigonometry.arcFromSummitArcArc (
 			centerPoint [ LNG ] - distancePoint [ LNG ],
 			OUR_HALF_PI - centerPoint [ LAT ],
 			OUR_HALF_PI - distancePoint [ LAT ]
 		);
 
-		let addedSegments = 360;
-		let itineraryPoints = [];
+		const addedSegments = 360;
+		const itineraryPoints = [];
 
 		// loop to compute the added segments
 		for ( let counter = 0; counter <= addedSegments; counter ++ ) {
 
-			let direction = ( Math.PI / ( TWO * addedSegments ) ) + ( ( Math.PI * counter ) / addedSegments );
+			const direction = ( Math.PI / ( TWO * addedSegments ) ) + ( ( Math.PI * counter ) / addedSegments );
 
-			let tmpArc = theSphericalTrigonometry.arcFromSummitArcArc (
+			const tmpArc = theSphericalTrigonometry.arcFromSummitArcArc (
 				direction,
 				angularDistance,
 				OUR_HALF_PI - centerPoint [ LAT ]
 			);
 
-			let deltaLng = theSphericalTrigonometry.summitFromArcArcArc (
+			const deltaLng = theSphericalTrigonometry.summitFromArcArcArc (
 				OUR_HALF_PI - centerPoint [ LAT ],
 				tmpArc,
 				angularDistance

@@ -21,7 +21,9 @@ Changes:
 		- Issue ♯150 : Merge travelNotes and plugins
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 
 -----------------------------------------------------------------------------------------------------------------------
@@ -136,7 +138,7 @@ class MapboxRouteProvider extends BaseRouteProvider {
 							step.geometry.pop ( );
 						}
 
-						let maneuver = new Maneuver ( );
+						const maneuver = new Maneuver ( );
 						maneuver.iconName =
 							ICON_LIST [ step.maneuver.type ]
 								?
@@ -157,7 +159,7 @@ class MapboxRouteProvider extends BaseRouteProvider {
 								:
 								( geometryCounter < step.geometry.length );
 							geometryCounter ++ ) {
-							let itineraryPoint = new ItineraryPoint ( );
+							const itineraryPoint = new ItineraryPoint ( );
 							itineraryPoint.latLng = [
 								step.geometry [ geometryCounter ] [ ZERO ],
 								step.geometry [ geometryCounter ] [ ONE ]
@@ -185,7 +187,7 @@ class MapboxRouteProvider extends BaseRouteProvider {
 			}
 		);
 
-		let wayPointsIterator = this.#route.wayPoints.iterator;
+		const wayPointsIterator = this.#route.wayPoints.iterator;
 		response.waypoints.forEach (
 			wayPoint => {
 				if ( ! wayPointsIterator.done ) {

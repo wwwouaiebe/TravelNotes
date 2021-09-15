@@ -21,7 +21,9 @@ Changes:
 		- Issue ♯150 : Merge travelNotes and plugins
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
@@ -162,7 +164,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 				);
 			}
 		);
-		let wayPointsIterator = this.#route.wayPoints.iterator;
+		const wayPointsIterator = this.#route.wayPoints.iterator;
 		response.routes [ ZERO ].way_points.forEach (
 			wayPoint => {
 				if ( ! wayPointsIterator.done ) {
@@ -206,7 +208,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 
 	#getRequestHeaders ( ) {
 
-		let orsHeaders = new Headers ( );
+		const orsHeaders = new Headers ( );
 		orsHeaders.append ( 'Accept', 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8' );
 		orsHeaders.append ( 'Content-Type', 'application/json' );
 		orsHeaders.append ( 'Authorization', this.#providerKey );

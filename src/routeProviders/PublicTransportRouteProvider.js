@@ -21,7 +21,9 @@ Changes:
 		- Issue ♯150 : Merge travelNotes and plugins
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
@@ -85,8 +87,7 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 	*/
 
 	#parseResponse ( waysNodes, onOk, onError ) {
-		let publicTransportRouteBuilder = new PublicTransportRouteBuilder ( this.#route );
-		publicTransportRouteBuilder.buildRoute ( waysNodes, onOk, onError );
+		new PublicTransportRouteBuilder ( this.#route ).buildRoute ( waysNodes, onOk, onError );
 	}
 
 	/**
@@ -111,14 +112,14 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 			return Promise.reject ( new Error ( 'No relations found' ) );
 		}
 
-		let selectOptionsData = [];
+		const selectOptionsData = [];
 		relations.elements.forEach (
 			relationElement => {
 				selectOptionsData.push ( { text : relationElement.tags.name, objId : relationElement.id } );
 			}
 		);
 
-		let selectDialog = new SelectDialog (
+		const selectDialog = new SelectDialog (
 			{
 				title : 'Relations',
 				text : 'select a relation : ',

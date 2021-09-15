@@ -21,7 +21,9 @@ Changes:
 		- Issue ♯150 : Merge travelNotes and plugins
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
@@ -140,7 +142,7 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 		response.trip.legs.forEach (
 			leg => {
 				leg.shape = thePolylineEncoder.decode ( leg.shape, [ OUR_MAPZEN_LAT_LNG_ROUND, OUR_MAPZEN_LAT_LNG_ROUND ] );
-				let itineraryPoints = [];
+				const itineraryPoints = [];
 				for ( let shapePointCounter = ZERO; shapePointCounter < leg.shape.length; shapePointCounter ++ ) {
 					let itineraryPoint = new ItineraryPoint ( );
 					itineraryPoint.latLng = leg.shape [ shapePointCounter ];
@@ -149,7 +151,7 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 				}
 				leg.maneuvers.forEach (
 					mapzenManeuver => {
-						let travelNotesManeuver = new Maneuver ( );
+						const travelNotesManeuver = new Maneuver ( );
 						travelNotesManeuver.iconName = OUR_ICON_LIST [ mapzenManeuver.type || ZERO ];
 						travelNotesManeuver.instruction = mapzenManeuver.instruction || '';
 						travelNotesManeuver.distance = ( mapzenManeuver.length || ZERO ) * DISTANCE.metersInKm;
@@ -161,7 +163,7 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 			}
 		);
 
-		let wayPointsIterator = this.#route.wayPoints.iterator;
+		const wayPointsIterator = this.#route.wayPoints.iterator;
 		response.trip.locations.forEach (
 			curLocation => {
 				if ( ! wayPointsIterator.done ) {
@@ -179,7 +181,7 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 	*/
 
 	#getUrl ( ) {
-		let request = {
+		const request = {
 			locations : [],
 			costing : '',
 			/* eslint-disable-next-line camelcase */
@@ -188,7 +190,7 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 			costing_options : {}
 		};
 
-		let wayPointsIterator = this.#route.wayPoints.iterator;
+		const wayPointsIterator = this.#route.wayPoints.iterator;
 		while ( ! wayPointsIterator.done ) {
 			request.locations.push (
 				{

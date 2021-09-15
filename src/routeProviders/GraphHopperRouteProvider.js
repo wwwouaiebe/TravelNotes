@@ -21,7 +21,9 @@ Changes:
 		- Issue ♯150 : Merge travelNotes and plugins
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
@@ -130,9 +132,9 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 					path.snapped_waypoints,
 					[ OUR_GRAPHHOPPER_LAT_LNG_ROUND, OUR_GRAPHHOPPER_LAT_LNG_ROUND, TWO ]
 				);
-				let itineraryPoints = [];
+				const itineraryPoints = [];
 				for ( let pointsCounter = ZERO; pointsCounter < path.points.length; pointsCounter ++ ) {
-					let itineraryPoint = new ItineraryPoint ( );
+					const itineraryPoint = new ItineraryPoint ( );
 					itineraryPoint.lat = path.points [ pointsCounter ] [ LAT ];
 					itineraryPoint.lng = path.points [ pointsCounter ] [ LNG ];
 					itineraryPoint.elev = path.points [ pointsCounter ] [ ELEVATION ];
@@ -143,7 +145,7 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 				let previousIconName = '';
 				path.instructions.forEach (
 					instruction => {
-						let maneuver = new Maneuver ( );
+						const maneuver = new Maneuver ( );
 						maneuver.iconName = OUR_ICON_LIST [ instruction.sign + FOUR || ZERO ];
 						if ( 'kArriveDefault' === previousIconName && 'kContinueStraight' === maneuver.iconName ) {
 							maneuver.iconName = 'kDepartDefault';
@@ -158,7 +160,7 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 					}
 				);
 
-				let wayPointsIterator = this.#route.wayPoints.iterator;
+				const wayPointsIterator = this.#route.wayPoints.iterator;
 				path.snapped_waypoints.forEach (
 					latLngElev => {
 						if ( ! wayPointsIterator.done ) {
