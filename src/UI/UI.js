@@ -34,7 +34,9 @@ Changes:
 		- Issue ♯135 : Remove innerHTML from code
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
@@ -165,7 +167,7 @@ class UI {
 		this.#mainHTMLElement.classList.remove ( 'TravelNotes-UI-Minimized' );
 		this.#titleHTMLElement.classList.add ( 'TravelNotes-Hidden' );
 
-		let children = this.#mainHTMLElement.childNodes;
+		const children = this.#mainHTMLElement.childNodes;
 		for ( let childrenCounter = ONE; childrenCounter < children.length; childrenCounter ++ ) {
 			children[ childrenCounter ].classList.remove ( 'TravelNotes-Hidden' );
 		}
@@ -184,7 +186,7 @@ class UI {
 		this.#mainHTMLElement.classList.add ( 'TravelNotes-UI-Minimized' );
 		this.#titleHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
 
-		let children = this.#mainHTMLElement.childNodes;
+		const children = this.#mainHTMLElement.childNodes;
 		for ( let childrenCounter = ONE; childrenCounter < children.length; childrenCounter ++ ) {
 			children[ childrenCounter ].classList.add ( 'TravelNotes-Hidden' );
 		}

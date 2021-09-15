@@ -34,7 +34,9 @@ Changes:
 		- Issue ♯120 : Review the UserInterface
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
@@ -118,7 +120,7 @@ class ProvidersToolbarUI {
 	#createTransitModesButtons ( ) {
 		[ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ].forEach (
 			transitMode => {
-				let transitModeButton = new ProviderToolbarTransitModeButton ( this, transitMode );
+				const transitModeButton = new ProviderToolbarTransitModeButton ( this, transitMode );
 				this.#transitModeButtons.set ( transitMode, transitModeButton );
 				this.#toolbarHTMLElement.appendChild ( transitModeButton.buttonHTMLElement );
 			}
@@ -135,7 +137,7 @@ class ProvidersToolbarUI {
 		theTravelNotesData.providers.forEach (
 			provider => {
 				if ( ZERO !== provider.providerKey ) {
-					let providerButton = new ProviderToolbarProviderButton ( this, provider );
+					const providerButton = new ProviderToolbarProviderButton ( this, provider );
 					this.#providerButtons.set ( provider.name, providerButton );
 					this.#toolbarHTMLElement.appendChild ( providerButton.buttonHTMLElement );
 				}
@@ -178,7 +180,7 @@ class ProvidersToolbarUI {
 		this.#activeProviderButton.active = true;
 
 		// transit mode buttons activation
-		let provider = theTravelNotesData.providers.get ( providerName.toLowerCase ( ) );
+		const provider = theTravelNotesData.providers.get ( providerName.toLowerCase ( ) );
 		this.#transitModeButtons.forEach (
 			transitModeButton => {
 				transitModeButton.visible = NOT_FOUND !== provider.transitModes.indexOf ( transitModeButton.transitMode );
@@ -238,7 +240,7 @@ class ProvidersToolbarUI {
 		this.#createTransitModesButtons ( );
 		this.#createProvidersButtons ( );
 		this.provider = this.#providerButtons.keys ().next ().value;
-		let providerName = this.#providerButtons.keys ( ).next ( ).value;
+		const providerName = this.#providerButtons.keys ( ).next ( ).value;
 		this.provider = providerName;
 		this.transitMode = theTravelNotesData.providers.get ( providerName.toLowerCase ( ) ).transitModes [ ZERO ];
 	}

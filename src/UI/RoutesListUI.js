@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
@@ -116,15 +118,15 @@ class RoutesListUI {
 			this.#routesListHTMLElement.removeChild ( this.#routesListHTMLElement.firstChild );
 		}
 
-		let routesIterator = theTravelNotesData.travel.routes.iterator;
+		const routesIterator = theTravelNotesData.travel.routes.iterator;
 		while ( ! routesIterator.done ) {
-			let route = routesIterator.value.objId === theTravelNotesData.editedRouteObjId
+			const route = routesIterator.value.objId === theTravelNotesData.editedRouteObjId
 				?
 				theTravelNotesData.travel.editedRoute
 				:
 				routesIterator.value;
 
-			let routeName =
+			const routeName =
 				( routesIterator.value.objId === theTravelNotesData.editedRouteObjId ? '🔴\u00a0' : '' ) +
 				( route.chain ? '⛓\u00a0' : '' ) +
 				(
@@ -133,7 +135,7 @@ class RoutesListUI {
 						route.computedName
 				);
 
-			let routeHTMLElement = theHTMLElementsFactory.create (
+			const routeHTMLElement = theHTMLElementsFactory.create (
 				'div',
 				{
 					draggable : true,

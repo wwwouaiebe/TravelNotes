@@ -32,6 +32,9 @@ Changes:
 		- Issue ♯135 : Remove innerHTML from code
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Doc reviewed 20210901
 Tests ...
 */
@@ -180,7 +183,7 @@ class PanesManagerUI {
 	*/
 
 	addPane ( paneClass ) {
-		let pane = new paneClass ( this.#paneData, this.#paneControl );
+		const pane = new paneClass ( this.#paneData, this.#paneControl );
 		this.#panes.set ( pane.getPaneId ( ), pane );
 		theHTMLElementsFactory.create (
 			'div',

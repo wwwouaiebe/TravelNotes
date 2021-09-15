@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
@@ -184,7 +186,7 @@ class OsmSearchTreeUI {
 	#addItem ( item ) {
 
 		this.#deepTree ++;
-		let itemDiv = theHTMLElementsFactory.create (
+		const itemDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-OsmSearchPaneUI-SearchItem ' +
@@ -194,7 +196,7 @@ class OsmSearchTreeUI {
 			this.#treeHTMLElement
 		);
 		if ( ! item.isRoot ) {
-			let itemCheckbox = theHTMLElementsFactory.create (
+			const itemCheckbox = theHTMLElementsFactory.create (
 				'input',
 				{
 					type : 'checkbox',
@@ -205,7 +207,7 @@ class OsmSearchTreeUI {
 			itemCheckbox.addEventListener ( 'change', this.#eventListeners.onChangeCheckbox, false );
 		}
 		if ( ZERO === item.filterTagsArray.length ) {
-			let itemArrow = theHTMLElementsFactory.create (
+			const itemArrow = theHTMLElementsFactory.create (
 				'div',
 				{
 					className : 'TravelNotes-UI-Button TravelNotes-OsmSearchPaneUI-TreeArrow',

@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
@@ -65,6 +67,14 @@ import { INVALID_OBJ_ID, ZERO } from '../main/Constants.js';
 
 class SaveAsButtonClickEL {
 
+	/*
+	constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		theTravelEditor.saveAsTravel ( );
@@ -82,6 +92,14 @@ class SaveAsButtonClickEL {
 */
 
 class CancelButtonClickEL {
+
+	/*
+	constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ();
@@ -103,6 +121,14 @@ class CancelButtonClickEL {
 
 class SaveButtonClickEL {
 
+	/*
+	constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		theTravelEditor.saveTravel ( );
@@ -120,14 +146,20 @@ class SaveButtonClickEL {
 
 class OpenInputChangeEL {
 
+	/*
+	constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
-		let fileReader = new FileReader ( );
+		const fileReader = new FileReader ( );
 		fileReader.onload = ( ) => {
-			let fileContent = {};
 			try {
-				fileContent = JSON.parse ( fileReader.result );
-				new FileLoader ( ).openLocalFile ( fileContent );
+				new FileLoader ( ).openLocalFile ( JSON.parse ( fileReader.result ) );
 			}
 			catch ( err ) {
 				if ( err instanceof Error ) {
@@ -149,6 +181,14 @@ class OpenInputChangeEL {
 */
 
 class OpenButtonClickEL {
+
+	/*
+	constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -179,14 +219,20 @@ class OpenButtonClickEL {
 
 class ImportInputChangeEL {
 
+	/*
+	constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
-		let fileReader = new FileReader ( );
+		const fileReader = new FileReader ( );
 		fileReader.onload = ( ) => {
-			let fileContent = {};
 			try {
-				fileContent = JSON.parse ( fileReader.result );
-				new FileLoader ( ).mergeLocalFile ( fileContent );
+				new FileLoader ( ).mergeLocalFile ( JSON.parse ( fileReader.result ) );
 			}
 			catch ( err ) {
 				if ( err instanceof Error ) {
@@ -209,6 +255,14 @@ class ImportInputChangeEL {
 */
 
 class ImportButtonClickEL {
+
+	/*
+	constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );

@@ -44,7 +44,9 @@ Changes:
 		- Issue ♯146 : Add the travel name in the document title...
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
@@ -116,7 +118,7 @@ class ExpandButtonClickEL {
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		let hiddenList = this.#routesListUI.toogleExpand ( );
+		const hiddenList = this.#routesListUI.toogleExpand ( );
 		clickEvent.target.textContent =
 			hiddenList ? '▶' : '▼'; // 25b6 = '▶'  25bc = ▼
 		clickEvent.target.title =
@@ -169,7 +171,7 @@ class TravelUI {
 	*/
 
 	#createTravelNameDiv ( uiMainDiv ) {
-		let travelNameDiv = theHTMLElementsFactory.create (
+		const travelNameDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-UI-FlexRowDiv'

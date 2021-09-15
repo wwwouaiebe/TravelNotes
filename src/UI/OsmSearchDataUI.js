@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
@@ -102,7 +104,7 @@ class SearchResultMouseEnterEL {
 
 	handleEvent ( mouseEvent ) {
 		mouseEvent.stopPropagation ( );
-		let osmElement = theTravelNotesData.searchData [ Number.parseInt ( mouseEvent.target.dataset.tanElementIndex ) ];
+		const osmElement = theTravelNotesData.searchData [ Number.parseInt ( mouseEvent.target.dataset.tanElementIndex ) ];
 		theEventDispatcher.dispatch (
 			'addsearchpointmarker',
 			{
@@ -180,7 +182,7 @@ class OsmSearchDataUI {
 		else {
 			iconContent = theNoteDialogToolbarData.getIconContentFromName ( this.#currentOsmElement.description ) || '';
 		}
-		let iconCell = theHTMLElementsFactory.create (
+		const iconCell = theHTMLElementsFactory.create (
 			'div',
 			{
 				className :	'TravelNotes-OsmSearchPaneUI-SearchResult-IconCell'
@@ -207,7 +209,7 @@ class OsmSearchDataUI {
 	*/
 
 	#addAddress ( searchResultCell ) {
-		let street =
+		const street =
 			this.#currentOsmElement.tags [ 'addr:street' ]
 				?
 				(
@@ -220,7 +222,7 @@ class OsmSearchDataUI {
 				this.#currentOsmElement.tags [ 'addr:street' ] + ' '
 				:
 				'';
-		let city =
+		const city =
 			this.#currentOsmElement.tags [ 'addr:city' ]
 				?
 				(
@@ -233,7 +235,7 @@ class OsmSearchDataUI {
 				this.#currentOsmElement.tags [ 'addr:city' ]
 				:
 				'';
-		let address = street + city;
+		const address = street + city;
 		if ( '' !== address ) {
 			this.#addOsmTag ( address, searchResultCell );
 		}
@@ -293,7 +295,7 @@ class OsmSearchDataUI {
 	*/
 
 	#addOsmData ( ) {
-		let searchResultCell = theHTMLElementsFactory.create (
+		const searchResultCell = theHTMLElementsFactory.create (
 			'div',
 			{ className :	'TravelNotes-OsmSearchPaneUI-SearchResult-Cell'	},
 			this.#currentHtmlElement
