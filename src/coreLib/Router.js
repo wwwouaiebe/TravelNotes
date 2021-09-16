@@ -127,9 +127,12 @@ class Router {
 
 	#onRoutingError ( err ) {
 		this.#routingRequestStarted = false;
-		theErrorsUI.showError ( err );
 		if ( err instanceof Error ) {
 			console.error ( err );
+			theErrorsUI.showError ( err.message );
+		}
+		else {
+			theErrorsUI.showError ( 'A network error occurs when calling the provider' );
 		}
 	}
 

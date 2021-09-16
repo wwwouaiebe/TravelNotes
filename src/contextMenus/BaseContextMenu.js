@@ -65,13 +65,6 @@ import BaseContextMenuOperator from '../contextMenus/BaseContextMenuOperator.js'
 import { ZERO, INVALID_OBJ_ID, LAT_LNG } from '../main/Constants.js';
 
 /**
-The min margin between the screen borders and the menu in pixels
-@private
-*/
-
-const OUR_MENU_MARGIN = 20;
-
-/**
 @--------------------------------------------------------------------------------------------------------------------------
 
 @class BaseContextMenu
@@ -84,9 +77,22 @@ const OUR_MENU_MARGIN = 20;
 
 class BaseContextMenu {
 
+	/* eslint-disable no-magic-numbers */
 	/**
-	The active menu container. Needed to close the menu when
-	a second menu is loaded
+
+	The min margin between the screen borders and the menu in pixels
+	@type {!number}
+	@static
+	@private
+	*/
+
+	static #menuMargin = 20;
+
+	/* eslint-enable no-magic-numbers */
+
+	/**
+	The active menu container. Needed to close the menu when a second menu is loaded
+	#type {BaseContextMenu}
 	@static
 	@private
 	*/
@@ -95,6 +101,7 @@ class BaseContextMenu {
 
 	/**
 	The promise ok handler
+	@type {function}
 	@private
 	*/
 
@@ -102,13 +109,15 @@ class BaseContextMenu {
 
 	/**
 	The promise error handler
+	@type {function}
 	@private
 	*/
 
 	#onPromiseError = null;
 
 	/**
-	html elements of the menu
+	An object to store the html elements of the menu
+	@type {Object}
 	@private
 	*/
 
@@ -122,7 +131,8 @@ class BaseContextMenu {
 	);
 
 	/**
-	Data shared with the derived classes
+	An object to store data from the Event and parentNode and shared with the derived classes
+	@type {Object}
 	@private
 	*/
 
@@ -130,8 +140,7 @@ class BaseContextMenu {
 		{
 			clientX : ZERO,
 			clientY : ZERO,
-			lat : LAT_LNG.defaultValue,
-			lng : LAT_LNG.defaultValue,
+			latLng : [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ],
 			targetObjId : INVALID_OBJ_ID,
 			haveParentNode : false
 		}
@@ -139,6 +148,7 @@ class BaseContextMenu {
 
 	/**
 	The associated BaseContextMenuOperator object
+	@type {BaseContextMenuOperator}
 	@private
 	*/
 
@@ -212,15 +222,19 @@ class BaseContextMenu {
 		// the menu is positionned ( = top left where the user have clicked but the menu must be completely in the window...
 		const menuTop = Math.min (
 			this.#eventData.clientY,
-			theTravelNotesData.map.getContainer ( ).clientHeight - this.#htmlElements.container.clientHeight - OUR_MENU_MARGIN
+			theTravelNotesData.map.getContainer ( ).clientHeight -
+				this.#htmlElements.container.clientHeight -
+				BaseContextMenu.#menuMargin
 		);
 		const menuLeft = Math.min (
 			this.#eventData.clientX,
-			theTravelNotesData.map.getContainer ( ).clientWidth - this.#htmlElements.container.clientWidth - OUR_MENU_MARGIN
+			theTravelNotesData.map.getContainer ( ).clientWidth -
+			this.#htmlElements.container.clientWidth -
+			BaseContextMenu.#menuMargin
 		);
 		this.#htmlElements.container.style.top = String ( menuTop ) + 'px';
 		if ( this.#eventData.haveParentNode ) {
-			this.#htmlElements.container.style.right = String ( OUR_MENU_MARGIN ) + 'px';
+			this.#htmlElements.container.style.right = String ( BaseContextMenu.#menuMargin ) + 'px';
 		}
 		else {
 			this.#htmlElements.container.style.left = String ( menuLeft ) + 'px';
@@ -265,8 +279,10 @@ class BaseContextMenu {
 		// Saving data from the contextMenuEvent
 		this.#eventData.clientX = contextMenuEvent.clientX || contextMenuEvent.originalEvent.clientX || ZERO;
 		this.#eventData.clientY = contextMenuEvent.clientY || contextMenuEvent.originalEvent.clientY || ZERO;
-		this.#eventData.lat = contextMenuEvent.latlng ? contextMenuEvent.latlng.lat : LAT_LNG.defaultValue;
-		this.#eventData.lng = contextMenuEvent.latlng ? contextMenuEvent.latlng.lng : LAT_LNG.defaultValue;
+		this.#eventData.latLng = [
+			contextMenuEvent.latlng ? contextMenuEvent.latlng.lat : LAT_LNG.defaultValue,
+			contextMenuEvent.latlng ? contextMenuEvent.latlng.lng : LAT_LNG.defaultValue
+		];
 		if ( contextMenuEvent.target.objId ) {
 
 			// Needed for leaflet objects
@@ -345,6 +361,7 @@ class BaseContextMenu {
 
 	/**
 	menuItems getter. Must be implemented in the derived classes
+	@type {Array.<MenuItem>}
 	@readonly
 	*/
 
@@ -352,13 +369,15 @@ class BaseContextMenu {
 
 	/**
 	html elements getter for the menuOperator
+	@type {Object}
 	@readonly
 	*/
 
 	get htmlElements ( ) { return this.#htmlElements; }
 
 	/**
-	event data getter
+	eventDdata getter
+	@type {Object}
 	@readonly
 	*/
 

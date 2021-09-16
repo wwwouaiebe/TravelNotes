@@ -73,13 +73,26 @@ import { INVALID_OBJ_ID } from '../main/Constants.js';
 
 class NoteContextMenu extends BaseContextMenu {
 
+	/**
+	The objId of the note for witch the context menu is displayer
+	@type {!number}
+	@private
+	*/
+
 	#noteObjId = INVALID_OBJ_ID;
+
+	/**
+	The route to witch the note is linked
+	@type {Route}
+	@private
+	*/
+
 	#route = null;
 
 	/*
 	constructor
 	@param {Event} contextMenuEvent. The event that have triggered the menu
-	@param {Object} parentNode The parent node of the menu. Can be null for leaflet objects
+	@param {HTMLElement} parentNode The parent node of the menu. Can be null for leaflet objects
 	*/
 
 	constructor ( contextMenuEvent, parentNode = null ) {

@@ -55,7 +55,6 @@ import BaseContextMenu from '../contextMenus/BaseContextMenu.js';
 import theWayPointEditor from '../core/WayPointEditor.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theTranslator from '../UILib/Translator.js';
-import { INVALID_OBJ_ID } from '../main/Constants.js';
 
 /**
 @--------------------------------------------------------------------------------------------------------------------------
@@ -70,17 +69,14 @@ import { INVALID_OBJ_ID } from '../main/Constants.js';
 
 class WayPointContextMenu extends BaseContextMenu {
 
-	#wayPointObjId = INVALID_OBJ_ID;
-
 	/*
 	constructor
 	@param {Event} contextMenuEvent. The event that have triggered the menu
-	@param {Object} parentNode The parent node of the menu. Can be null for leaflet objects
+	@param {HTMLElement} parentNode The parent node of the menu. Can be null for leaflet objects
 	*/
 
 	constructor ( contextMenuEvent, parentNode = null ) {
 		super ( contextMenuEvent, parentNode );
-		this.#wayPointObjId = this.eventData.targetObjId;
 	}
 
 	/* eslint-disable no-magic-numbers */
@@ -93,10 +89,10 @@ class WayPointContextMenu extends BaseContextMenu {
 	doAction ( selectedItemObjId ) {
 		switch ( selectedItemObjId ) {
 		case 0 :
-			theWayPointEditor.removeWayPoint ( this.#wayPointObjId );
+			theWayPointEditor.removeWayPoint ( this.eventData.targetObjId );
 			break;
 		case 1 :
-			theWayPointEditor.wayPointProperties ( this.#wayPointObjId );
+			theWayPointEditor.wayPointProperties ( this.eventData.targetObjId );
 			break;
 		default :
 			break;
@@ -115,9 +111,9 @@ class WayPointContextMenu extends BaseContextMenu {
 			{
 				itemText : theTranslator.getText ( 'WayPointContextMenu - Delete this waypoint' ),
 				isActive :
-					theTravelNotesData.travel.editedRoute.wayPoints.first.objId !== this.#wayPointObjId
+					theTravelNotesData.travel.editedRoute.wayPoints.first.objId !== this.eventData.targetObjId
 					&&
-					theTravelNotesData.travel.editedRoute.wayPoints.last.objId !== this.#wayPointObjId
+					theTravelNotesData.travel.editedRoute.wayPoints.last.objId !== this.eventData.targetObjId
 			},
 			{
 				itemText : theTranslator.getText ( 'WayPointContextMenu - Modify properties' ),

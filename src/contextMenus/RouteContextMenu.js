@@ -71,7 +71,7 @@ import theProfileWindowsManager from '../core/ProfileWindowsManager.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import AllManeuverNotesBuilder from '../core/AllManeuverNotesBuilder.js';
 
-import { ROUTE_EDITION_STATUS, ZERO, INVALID_OBJ_ID } from '../main/Constants.js';
+import { ROUTE_EDITION_STATUS, ZERO, LAT, LNG } from '../main/Constants.js';
 
 /**
 @--------------------------------------------------------------------------------------------------------------------------
@@ -86,19 +86,23 @@ import { ROUTE_EDITION_STATUS, ZERO, INVALID_OBJ_ID } from '../main/Constants.js
 
 class RouteContextMenu extends BaseContextMenu {
 
-	#routeObjId = INVALID_OBJ_ID;
+	/**
+	The route for witch the context menu is displayed
+	@type {Route}
+	@private
+	*/
+
 	#route = null;
 
 	/*
 	constructor
 	@param {Event} contextMenuEvent. The event that have triggered the menu
-	@param {Object} parentNode The parent node of the menu. Can be null for leaflet objects
+	@param {HTMLElement} parentNode The parent node of the menu. Can be null for leaflet objects
 	*/
 
 	constructor ( contextMenuEvent, parentNode = null ) {
 		super ( contextMenuEvent, parentNode );
-		this.#routeObjId = this.eventData.targetObjId;
-		this.#route = theDataSearchEngine.getRoute ( this.#routeObjId );
+		this.#route = theDataSearchEngine.getRoute ( this.eventData.targetObjId );
 	}
 
 	/* eslint-disable no-magic-numbers */
@@ -111,33 +115,33 @@ class RouteContextMenu extends BaseContextMenu {
 	doAction ( selectedItemObjId ) {
 		switch ( selectedItemObjId ) {
 		case 0 :
-			theRouteEditor.editRoute ( this.#routeObjId );
+			theRouteEditor.editRoute ( this.eventData.targetObjId );
 			break;
 		case 1 :
-			theRouteEditor.removeRoute ( this.#routeObjId );
+			theRouteEditor.removeRoute ( this.eventData.targetObjId );
 			break;
 		case 2 :
 			if ( this.#route.hidden ) {
-				theRouteEditor.showRoute ( this.#routeObjId );
+				theRouteEditor.showRoute ( this.eventData.targetObjId );
 			}
 			else {
-				theRouteEditor.hideRoute ( this.#routeObjId );
+				theRouteEditor.hideRoute ( this.eventData.targetObjId );
 			}
 			break;
 		case 3 :
-			theRouteEditor.routeProperties ( this.#routeObjId );
+			theRouteEditor.routeProperties ( this.eventData.targetObjId );
 			break;
 		case 4 :
-			new Zoomer ( ).zoomToRoute ( this.#routeObjId );
+			new Zoomer ( ).zoomToRoute ( this.eventData.targetObjId );
 			break;
 		case 5 :
-			theProfileWindowsManager.showProfile ( this.#routeObjId );
+			theProfileWindowsManager.showProfile ( this.eventData.targetObjId );
 			break;
 		case 6 :
-			theRouteEditor.printRouteMap ( this.#routeObjId );
+			theRouteEditor.printRouteMap ( this.eventData.targetObjId );
 			break;
 		case 7 :
-			theRouteEditor.saveGpx ( this.#routeObjId );
+			theRouteEditor.saveGpx ( this.eventData.targetObjId );
 			break;
 		case 8 :
 			theWayPointEditor.reverseWayPoints ( );
@@ -145,14 +149,14 @@ class RouteContextMenu extends BaseContextMenu {
 		case 9 :
 			theNoteEditor.newRouteNote (
 				{
-					routeObjId : this.#routeObjId,
-					lat : this.eventData.lat,
-					lng : this.eventData.lng
+					routeObjId : this.eventData.targetObjId,
+					lat : this.eventData.latLng [ LAT ],
+					lng : this.eventData.latLng [ LNG ]
 				}
 			);
 			break;
 		case 10 :
-			new AllManeuverNotesBuilder ( ).addAllManeuverNotes ( this.#routeObjId );
+			new AllManeuverNotesBuilder ( ).addAllManeuverNotes ( this.eventData.targetObjId );
 			break;
 		case 11 :
 			theRouteEditor.saveEdition ( );
@@ -178,7 +182,7 @@ class RouteContextMenu extends BaseContextMenu {
 				itemText : theTranslator.getText ( 'RouteContextMenu - Edit this route' ),
 				isActive :
 					(
-						( this.#routeObjId !== theTravelNotesData.travel.editedRoute.objId )
+						( this.eventData.targetObjId !== theTravelNotesData.travel.editedRoute.objId )
 						&&
 						( ROUTE_EDITION_STATUS.editedChanged !== theTravelNotesData.travel.editedRoute.editionStatus )
 					)
@@ -187,7 +191,7 @@ class RouteContextMenu extends BaseContextMenu {
 				itemText : theTranslator.getText ( 'RouteContextMenu - Delete this route' ),
 				isActive :
 					(
-						( this.#routeObjId !== theTravelNotesData.travel.editedRoute.objId )
+						( this.eventData.targetObjId !== theTravelNotesData.travel.editedRoute.objId )
 						||
 						( ROUTE_EDITION_STATUS.editedChanged !== theTravelNotesData.travel.editedRoute.editionStatus )
 					)
@@ -204,7 +208,7 @@ class RouteContextMenu extends BaseContextMenu {
 				isActive :
 					this.#route.hidden
 					||
-					theTravelNotesData.travel.editedRoute.objId !== this.#routeObjId
+					theTravelNotesData.travel.editedRoute.objId !== this.eventData.targetObjId
 			},
 			{
 				itemText : theTranslator.getText ( 'RouteContextMenu - Properties' ),
@@ -228,7 +232,7 @@ class RouteContextMenu extends BaseContextMenu {
 			},
 			{
 				itemText : theTranslator.getText ( 'RouteContextMenu - Invert waypoints' ),
-				isActive : theTravelNotesData.travel.editedRoute.objId === this.#routeObjId
+				isActive : theTravelNotesData.travel.editedRoute.objId === this.eventData.targetObjId
 			},
 			{
 				itemText : theTranslator.getText ( 'RouteContextMenu - Add a note on the route' ),
@@ -240,11 +244,11 @@ class RouteContextMenu extends BaseContextMenu {
 			},
 			{
 				itemText : theTranslator.getText ( 'RouteContextMenu - Save modifications on this route' ),
-				isActive : theTravelNotesData.travel.editedRoute.objId === this.#routeObjId
+				isActive : theTravelNotesData.travel.editedRoute.objId === this.eventData.targetObjId
 			},
 			{
 				itemText : theTranslator.getText ( 'RouteContextMenu - Cancel modifications on this route' ),
-				isActive : theTravelNotesData.travel.editedRoute.objId === this.#routeObjId
+				isActive : theTravelNotesData.travel.editedRoute.objId === this.eventData.targetObjId
 			}
 		];
 	}

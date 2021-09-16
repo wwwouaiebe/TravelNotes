@@ -345,6 +345,8 @@ class RoadbookLoader {
 							);
 					}
 				}
+			)
+			.catch (
 			);
 	}
 

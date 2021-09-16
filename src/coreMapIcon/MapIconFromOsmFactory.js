@@ -260,13 +260,13 @@ class MapIconFromOsmFactory {
 	/**
 	get the svg and the data needed for creating the icon, using an async function
 	@param {Array.<number>} iconLatLng The latitude and longitude of the icon
-	@param {!number} routeObjId The objId of the route to witch the icon will be attached.
+	@param {!Route} route The route to witch the icon will be attached.
 	@return {OsmNoteData} An object with the svg and data
 	*/
 
-	async getIconAndAdressAsync ( iconLatLng, routeObjId ) {
+	async getIconAndAdressAsync ( iconLatLng, route ) {
 		this.#mapIconPosition.latLng = iconLatLng;
-		this.#route = theDataSearchEngine.getRoute ( routeObjId );
+		this.#route = route;
 
 		return this.#exeGetIconAndAdress ( );
 	}

@@ -62,6 +62,7 @@ class KeyboardKeydownEL {
 
 	/**
 	A reference to the menuOperator Object
+	@type {BaseContextMenuOperator}
 	@private
 	*/
 
@@ -87,7 +88,7 @@ class KeyboardKeydownEL {
 
 	/**
 	Event listener method
-	@param {EVvent} keydownEvent The triggerd event
+	@param {Event} keydownEvent The triggered event
 	*/
 
 	handleEvent ( keydownEvent ) {
@@ -110,6 +111,7 @@ class CancelButtonClickEL {
 
 	/**
 	A reference to the menuOperator Object
+	@type {BaseContextMenuOperator}
 	@private
 	*/
 
@@ -135,7 +137,7 @@ class CancelButtonClickEL {
 
 	/**
 	Event listener method
-	@param {EVvent} clickEvent The triggerd event
+	@param {EVvent} clickEvent The triggered event
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -158,6 +160,7 @@ class MenuItemMouseLeaveEL {
 
 	/**
 	A reference to the menuOperator Object
+	@type {BaseContextMenuOperator}
 	@private
 	*/
 
@@ -183,7 +186,7 @@ class MenuItemMouseLeaveEL {
 
 	/**
 	Event listener method
-	@param {EVvent} mouseLeaveEvent The triggerd event
+	@param {Event} mouseLeaveEvent The triggered event
 	*/
 
 	handleEvent ( mouseLeaveEvent ) {
@@ -206,6 +209,7 @@ class MenuItemMouseEnterEL {
 
 	/**
 	A reference to the menuOperator Object
+	@type {BaseContextMenuOperator}
 	@private
 	*/
 
@@ -231,7 +235,7 @@ class MenuItemMouseEnterEL {
 
 	/**
 	Event listener method
-	@param {EVvent} mouseEnterEvent The triggerd event
+	@param {Event} mouseEnterEvent The triggered event
 	*/
 
 	handleEvent ( mouseEnterEvent ) {
@@ -254,6 +258,7 @@ class MenuItemClickEL {
 
 	/**
 	A reference to the menuOperator Object
+	@type {BaseContextMenuOperator}
 	@private
 	*/
 
@@ -279,7 +284,7 @@ class MenuItemClickEL {
 
 	/**
 	Event listener method
-	@param {EVvent} clickEvent The triggerd event
+	@param {Event} clickEvent The triggered event
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -302,6 +307,7 @@ class ContainerMouseLeaveEL {
 
 	/**
 	A reference to the menuOperator Object
+	@type {BaseContextMenuOperator}
 	@private
 	*/
 
@@ -327,7 +333,7 @@ class ContainerMouseLeaveEL {
 
 	/**
 	Event listener method
-	@param {EVvent} mouseLeaveEvent The triggerd event
+	@param {Event} mouseLeaveEvent The triggered event
 	*/
 
 	handleEvent ( mouseLeaveEvent ) {
@@ -350,6 +356,7 @@ class ContainerMouseEnterEL {
 
 	/**
 	A reference to the menuOperator Object
+	@type {BaseContextMenuOperator}
 	@private
 	*/
 
@@ -375,7 +382,7 @@ class ContainerMouseEnterEL {
 
 	/**
 	Event listener method
-	@param {EVvent} mouseEnterEvent The triggerd event
+	@param {Event} mouseEnterEvent The triggered event
 	*/
 
 	handleEvent ( mouseEnterEvent ) {

@@ -182,7 +182,13 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 						onError ( new Error ( 'An error occurs...' ) );
 					}
 				}
+			)
+			.catch (
+
+				// calling onError without parameters because fetch don't accecpt to add something as parameter :-(...
+				( ) => { onError ( ); }
 			);
+			
 	}
 
 	/*

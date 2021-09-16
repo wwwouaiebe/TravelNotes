@@ -68,7 +68,7 @@ class ManeuverContextMenu extends BaseContextMenu {
 	/*
 	constructor
 	@param {Event} contextMenuEvent. The event that have triggered the menu
-	@param {Object} parentNode The parent node of the menu. Can be null for leaflet objects
+	@param {HTMLElement} parentNode The parent node of the menu. Can be null for leaflet objects
 	*/
 
 	constructor ( contextMenuEvent, parentNode = null ) {

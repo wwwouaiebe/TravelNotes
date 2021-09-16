@@ -28,16 +28,6 @@ Changes:
 -------------------------------------------------------------------------------------------------------------------------------
 */
 
-.TravelNotes-ContextMenu-DummyDiv {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	background-color: transparent;
-	z-index: 1100;
-}
-
 .TravelNotes-ContextMenu-Container {
 	position: absolute;
 	z-index: 1200;

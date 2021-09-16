@@ -79,7 +79,7 @@ class PublicTransportData {
 
 	get nodes3WaysCounter ( ) { return this.#nodes3WaysCounter; }
 	set nodes3WaysCounter ( nodes3WaysCounter ) { this.#nodes3WaysCounter = nodes3WaysCounter; }
-	
+
 	get waysMap ( ) { return this.#waysMap; }
 	get nodesMap ( ) { return this.#nodesMap; }
 	get stopsMap ( ) { return this.#stopsMap; }

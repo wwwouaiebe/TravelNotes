@@ -62,7 +62,7 @@ import { ZERO, ONE, INVALID_OBJ_ID } from '../main/Constants.js';
 @------------------------------------------------------------------------------------------------------------------------------
 
 @class AllManeuverNotesBuilder
-@classdesc coming soon...
+@classdesc This class add all maneuvers notes to a route
 @hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
@@ -70,26 +70,31 @@ import { ZERO, ONE, INVALID_OBJ_ID } from '../main/Constants.js';
 
 class AllManeuverNotesBuilder {
 
-	#waitUI = null;
+	/** The route for witch the maneuvers note are created
+	@type {Route}
+	@private
+	*/
+
+	#route = null;
+	#maneuversLength = ZERO;
 
 	/**
 	This method creates a new route note with data from osm
-	@param {OsmNoteData} osmNoteData The osm data needed for the note
-	@param {Route} route The route to witch the note will be attached
+	@param {OsmNoteData} noteData The osm data needed for the note
 	@fires noteupdated
 	@private
 	*/
 
-	#newNoteFromOsmData ( noteData, route ) {
+	#newNoteFromOsmData ( noteData ) {
 		const note = new Note ( );
 		for ( const property in noteData ) {
 			note [ property ] = noteData [ property ];
 		}
 
 		note.iconLatLng = note.latLng;
-		note.distance = theGeometry.getClosestLatLngDistance ( route, note.latLng ).distance;
-		note.chainedDistance = route.chainedDistance;
-		route.notes.add ( note );
+		note.distance = theGeometry.getClosestLatLngDistance ( this.#route, note.latLng ).distance;
+		note.chainedDistance = this.#route.chainedDistance;
+		this.#route.notes.add ( note );
 		theEventDispatcher.dispatch (
 			'noteupdated',
 			{
@@ -97,44 +102,41 @@ class AllManeuverNotesBuilder {
 				addedNoteObjId : note.objId
 			}
 		);
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
 	}
 
 	/**
 	This method add a note with data from osm for each maneuver of a route.
-	@param {Route} route The route to witch the notes will be attached
-	@param {maneuverLength} The number of maneuver to proceed !== route.itinerary.maneuvers.length
 	@fires updateitinerary
 	@fires roadbookupdate
 	@private
 	*/
 
-	async #addAllManeuverNotes ( route, maneuverLength ) {
-		this.#waitUI = new WaitUI ( );
-		this.#waitUI.createUI ( );
-		const maneuverIterator = route.itinerary.maneuvers.iterator;
+	async #addAllManeuverNotes ( ) {
+		const waitUI = new WaitUI ( );
+		waitUI.createUI ( );
+		const mapIconFromOsmFactory = new MapIconFromOsmFactory ( );
+		const maneuverIterator = this.#route.itinerary.maneuvers.iterator;
 		while ( ! maneuverIterator.done ) {
-			this.#waitUI.showInfo (
+			waitUI.showInfo (
 				theTranslator.getText (
 					'NoteEditor - Creating note',
-					{ noteNumber : maneuverIterator.index + ONE, notesLength : maneuverLength }
+					{ noteNumber : maneuverIterator.index + ONE, notesLength : this.#maneuversLength }
 				)
 			);
 
-			const latLng = route.itinerary.itineraryPoints.getAt ( maneuverIterator.value.itineraryPointObjId ).latLng;
-			const svgIconData = await new MapIconFromOsmFactory ( ).getIconAndAdressAsync ( latLng, route.objId );
+			const latLng = this.#route.itinerary.itineraryPoints.getAt ( maneuverIterator.value.itineraryPointObjId ).latLng;
+			const svgIconData = await mapIconFromOsmFactory.getIconAndAdressAsync ( latLng, this.#route );
 			if ( svgIconData.statusOk ) {
-				this.#newNoteFromOsmData ( svgIconData.noteData, route );
+				this.#newNoteFromOsmData ( svgIconData.noteData );
 			}
 			else {
 				console.error ( 'An error occurs when creating the svg icon ' + maneuverIterator.index );
 			}
 		}
-		route.notes.sort ( ( first, second ) => first.distance - second.distance );
+		this.#route.notes.sort ( ( first, second ) => first.distance - second.distance );
 		theEventDispatcher.dispatch ( 'updateitinerary' );
 		theEventDispatcher.dispatch ( 'roadbookupdate' );
-		this.#waitUI.close ( );
-		this.#waitUI = null;
+		waitUI.close ( );
 	}
 
 	/*
@@ -155,23 +157,14 @@ class AllManeuverNotesBuilder {
 	*/
 
 	addAllManeuverNotes ( routeObjId ) {
-		const route = theDataSearchEngine.getRoute ( routeObjId );
-		const maneuverIterator = route.itinerary.maneuvers.iterator;
-		let maneuverLength = ZERO;
-		while ( ! maneuverIterator.done ) {
-			if (
-				! ( 'kDepartDefault' === maneuverIterator.value.iconName && ! maneuverIterator.first )
-				&&
-				! ( 'kArriveDefault' === maneuverIterator.value.iconName && ! maneuverIterator.last )
-			) {
-				maneuverLength ++;
-			}
-		}
 
-		if ( theConfig.note.maxManeuversNotes < maneuverLength ) {
+		this.#route = theDataSearchEngine.getRoute ( routeObjId );
+		this.#maneuversLength = this.#route.itinerary.maneuvers.length;
+
+		if ( theConfig.note.maxManeuversNotes < this.#maneuversLength ) {
 			theErrorsUI.showError (
 				theTranslator.getText ( 'NoteEditor - max maneuvers notes reached {maneuversLength}{maxManeuversNotes}',
-					{ maneuversLength : maneuverLength, maxManeuversNotes : theConfig.note.maxManeuversNotes } )
+					{ maneuversLength : this.#maneuversLength, maxManeuversNotes : theConfig.note.maxManeuversNotes } )
 			);
 			return;
 		}
@@ -181,13 +174,13 @@ class AllManeuverNotesBuilder {
 				title : theTranslator.getText ( 'NoteEditor - Add a note for each maneuver' ),
 				text : theTranslator.getText (
 					'NoteEditor - Add a note for each maneuver. Are you sure?',
-					{ noteLength : maneuverLength }
+					{ noteLength : this.#maneuversLength }
 				),
 				secondButtonText : '❌'
 			}
 		)
 			.show ( )
-			.then ( ( ) => this.#addAllManeuverNotes ( route, maneuverLength ) )
+			.then ( ( ) => this.#addAllManeuverNotes ( ) )
 			.catch (
 				err => {
 					if ( err instanceof Error ) {

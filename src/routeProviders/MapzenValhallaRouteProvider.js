@@ -256,6 +256,11 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 						onError ( new Error ( 'Invalid status ' + response.status ) );
 					}
 				}
+			)
+			.catch (
+
+				// calling onError without parameters because fetch don't accecpt to add something as parameter :-(...
+				( ) => { onError ( ); }
 			);
 	}
 

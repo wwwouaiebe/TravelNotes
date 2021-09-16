@@ -72,13 +72,26 @@ import { LAT_LNG, INVALID_OBJ_ID } from '../main/Constants.js';
 
 class OsmSearchContextMenu extends BaseContextMenu {
 
+	/**
+	The osmElement for witch the context menu is displayed
+	@type {Object}
+	@private
+	*/
+
 	#osmElement = null;
-	#latLng = LAT_LNG.defaultValue;
+
+	/**
+	The lat and lng of the osmElement
+	@type {Array.<number>}
+	@private
+	*/
+
+	#latLng = [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ];
 
 	/*
 	constructor
 	@param {Event} contextMenuEvent. The event that have triggered the menu
-	@param {Object} parentNode The parent node of the menu. Can be null for leaflet objects
+	@param {HTMLElement} parentNode The parent node of the menu. Can be null for leaflet objects
 	*/
 
 	constructor ( contextMenuEvent, parentNode = null ) {

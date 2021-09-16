@@ -75,17 +75,14 @@ import { LAT_LNG, INVALID_OBJ_ID } from '../main/Constants.js';
 
 class MapContextMenu extends BaseContextMenu {
 
-	#latLng = LAT_LNG.defaultValue;
-
 	/*
 	constructor
 	@param {Event} contextMenuEvent. The event that have triggered the menu
-	@param {Object} parentNode The parent node of the menu. Can be null for leaflet objects
+	@param {HTMLElement} parentNode The parent node of the menu. Can be null for leaflet objects
 	*/
 
 	constructor ( contextMenuEvent, parentNode = null ) {
 		super ( contextMenuEvent, parentNode );
-		this.#latLng = [ this.eventData.lat, this.eventData.lng ];
 	}
 
 	/* eslint-disable no-magic-numbers */
@@ -98,13 +95,13 @@ class MapContextMenu extends BaseContextMenu {
 	doAction ( selectedItemObjId ) {
 		switch ( selectedItemObjId ) {
 		case 0 :
-			theWayPointEditor.setStartPoint ( this.#latLng );
+			theWayPointEditor.setStartPoint ( this.eventData.latLng );
 			break;
 		case 1 :
-			theWayPointEditor.addWayPoint ( this.#latLng );
+			theWayPointEditor.addWayPoint ( this.eventData.latLng );
 			break;
 		case 2 :
-			theWayPointEditor.setEndPoint ( this.#latLng );
+			theWayPointEditor.setEndPoint ( this.eventData.latLng );
 			break;
 		case 3 :
 			theRouteEditor.addRoute ( );
@@ -116,7 +113,7 @@ class MapContextMenu extends BaseContextMenu {
 			theRouteEditor.showRoutes ( );
 			break;
 		case 6 :
-			theNoteEditor.newTravelNote ( this.#latLng );
+			theNoteEditor.newTravelNote ( this.eventData.latLng );
 			break;
 		case 7 :
 			theNoteEditor.hideNotes ( );

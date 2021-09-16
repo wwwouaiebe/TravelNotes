@@ -53,6 +53,8 @@ import theTranslator from '../UILib/Translator.js';
 import theNoteEditor from '../core/NoteEditor.js';
 import Zoomer from '../core/Zoomer.js';
 
+import { LAT, LNG } from '../main/Constants.js';
+
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
@@ -69,7 +71,7 @@ class ProfileContextMenu extends BaseContextMenu {
 	/*
 	constructor
 	@param {Event} contextMenuEvent. The event that have triggered the menu
-	@param {Object} parentNode The parent node of the menu. Can be null for leaflet objects
+	@param {HTMLElement} parentNode The parent node of the menu. Can be null for leaflet objects
 	*/
 
 	constructor ( contextMenuEvent, parentNode = null ) {
@@ -89,13 +91,13 @@ class ProfileContextMenu extends BaseContextMenu {
 			theNoteEditor.newRouteNote (
 				{
 					routeObjId : this.eventData.targetObjId,
-					lat : this.eventData.lat,
-					lng : this.eventData.lng
+					lat : this.eventData.latLng [ LAT ],
+					lng : this.eventData.latLng [ LNG ]
 				}
 			);
 			break;
 		case 1 :
-			new Zoomer ( ).zoomToLatLng ( [ this.eventData.lat, this.eventData.lng ] );
+			new Zoomer ( ).zoomToLatLng ( [ this.eventData.latLng [ LAT ], this.eventData.latLng [ LNG ] ] );
 			break;
 		default :
 			break;
