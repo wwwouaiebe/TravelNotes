@@ -95,7 +95,7 @@ class APIKeysManager {
 
 	#haveAPIKeysFile = false;
 
-	#APIKeysMap = new Map;
+	#APIKeysMap = new Map ( );
 
 	/**
 	This method is called when the 'APIKkeys' file is decoded correctly
@@ -176,9 +176,9 @@ class APIKeysManager {
 		let APIKeysCounter = ZERO;
 		for ( let counter = ZERO; counter < sessionStorage.length; counter ++ ) {
 			const keyName = sessionStorage.key ( counter );
-			if ( 'ProviderKey' === keyName.substr ( keyName.length - 'ProviderKey'.length ) ) {
+			if ( keyName.match ( /^\w*ProviderKey$/ ) ) {
 				this.#setAPIKey (
-					keyName.substr ( ZERO, keyName.length - 'ProviderKey'.length ),
+					keyName.replace ( 'ProviderKey', '' ),
 					atob ( sessionStorage.getItem ( keyName ) )
 				);
 				APIKeysCounter ++;
@@ -239,20 +239,20 @@ class APIKeysManager {
 	hasKey ( providerName ) { return this.#APIKeysMap.has ( providerName.toLowerCase ( ) ); }
 
 	/**
-	Get the url from the layer
-	@param {Object} layer the layer for witch the url must returned
-	@return {string} the url for the given layer or null if the url cannot be given
+	Get the url from the mapLayer
+	@param {Object} mapLayer the layer for witch the url must returned
+	@return {string} the url for the given mapLayer or null if the url cannot be given
 	*/
 
-	getUrl ( layer ) {
-		if ( layer.providerKeyNeeded ) {
-			const providerKey = this.#APIKeysMap.get ( layer.providerName.toLowerCase ( ) );
+	getUrl ( mapLayer ) {
+		if ( mapLayer.providerKeyNeeded ) {
+			const providerKey = this.#APIKeysMap.get ( mapLayer.providerName.toLowerCase ( ) );
 			if ( providerKey ) {
-				return layer.url.replace ( '{providerKey}', providerKey );
+				return mapLayer.url.replace ( '{providerKey}', providerKey );
 			}
 			return null;
 		}
-		return layer.url;
+		return mapLayer.url;
 	}
 
 	/**
@@ -325,8 +325,8 @@ class APIKeysManager {
 	}
 
 	/**
-	This method add a provider
-	@param {Provider} provider the provider to add
+	This method add a provider. Used by plugins
+	@param {class} providerClass The JS class of the provider to add
 	*/
 
 	addProvider ( providerClass ) {

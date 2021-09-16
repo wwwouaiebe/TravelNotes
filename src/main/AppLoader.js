@@ -80,25 +80,30 @@ const OUR_DEMO_MAX_MANEUVERS_NOTES = 10;
 
 class RoadbookUpdateEL {
 
+	#storageAvailable = false;
+
 	/*
 	constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#storageAvailable = theUtilities.storageAvailable ( 'localStorage' );
 	}
 
 	handleEvent ( ) {
 		theMouseUI.saveStatus = SAVE_STATUS.modified;
 
-		if ( theUtilities.storageAvailable ( 'localStorage' ) ) {
+		if ( this.#storageAvailable ) {
 			theIndexedDb.getOpenPromise ( )
-				.then ( ( ) => {
-					theIndexedDb.getWritePromise (
-						theTravelNotesData.UUID,
-						theTravelHTMLViewsFactory.getTravelHTML ( 'TravelNotes-Roadbook-' ).outerHTML
-					);
-				} )
+				.then (
+					( ) => {
+						theIndexedDb.getWritePromise (
+							theTravelNotesData.UUID,
+							theTravelHTMLViewsFactory.getTravelHTML ( 'TravelNotes-Roadbook-' ).outerHTML
+						);
+					}
+				)
 				.then ( ( ) => localStorage.setItem ( theTravelNotesData.UUID, Date.now ( ) ) )
 				.catch ( err => {
 					if ( err instanceof Error ) {

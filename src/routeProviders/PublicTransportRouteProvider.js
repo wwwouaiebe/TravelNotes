@@ -188,7 +188,7 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 				// calling onError without parameters because fetch don't accecpt to add something as parameter :-(...
 				( ) => { onError ( ); }
 			);
-			
+
 	}
 
 	/*
