@@ -128,8 +128,8 @@ class GeoLocator {
 			theConfig.geoLocation.options
 		);
 		this.#watchId = navigator.geolocation.watchPosition (
-			this.#showPosition,
-			this.#error,
+			position => this.#showPosition ( position ),
+			positionError => this.#error ( positionError ),
 			theConfig.geoLocation.options
 		);
 	}
