@@ -23,7 +23,7 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210914
+Doc reviewed 20210921
 Tests 20210903
 */
 
@@ -64,7 +64,7 @@ import { GEOLOCATION_STATUS, ONE } from '../main/Constants.js';
 
 class GeoLocator {
 
-	#status = ( 'geolocation' in navigator ) ? GEOLOCATION_STATUS.inactive : GEOLOCATION_STATUS.disabled;
+	#status = navigator.geolocation ? GEOLOCATION_STATUS.inactive : GEOLOCATION_STATUS.disabled;
 
 	#watchId = null;
 
