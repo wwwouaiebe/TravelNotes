@@ -36,7 +36,7 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210914
+Doc reviewed 20210921
 Tests 20210903
 */
 
@@ -70,6 +70,7 @@ import FileCompactor from '../coreLib/FileCompactor.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import theProfileWindowsManager from '../core/ProfileWindowsManager.js';
 import Zoomer from '../core/Zoomer.js';
+import Travel from '../data/Travel.js';
 
 import { INVALID_OBJ_ID, ROUTE_EDITION_STATUS, SAVE_STATUS } from '../main/Constants.js';
 
@@ -105,9 +106,12 @@ class FileLoader {
 		// the map is cleaned
 		theEventDispatcher.dispatch ( 'removeallobjects' );
 
+		// document title
 		document.title =
 			'Travel & Notes' +
 			( '' === theTravelNotesData.travel.name ? '' : ' - ' + theTravelNotesData.travel.name );
+
+		// displaying all not edited routes
 		const routesIterator = theTravelNotesData.travel.routes.iterator;
 		while ( ! routesIterator.done ) {
 			if ( ROUTE_EDITION_STATUS.notEdited === routesIterator.value.editionStatus ) {
@@ -120,6 +124,8 @@ class FileLoader {
 				);
 			}
 		}
+
+		// displaying the edited route if any
 		if ( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId ) {
 			theEventDispatcher.dispatch (
 				'routeupdated',
@@ -129,6 +135,8 @@ class FileLoader {
 				}
 			);
 		}
+
+		// displaying travel notes
 		const notesIterator = theTravelNotesData.travel.notes.iterator;
 		while ( ! notesIterator.done ) {
 			theEventDispatcher.dispatch (
@@ -139,12 +147,14 @@ class FileLoader {
 				}
 			);
 		}
+
+		// zoom on travel
 		new Zoomer ( ).zoomToTravel ( );
 
+		// Setting the correct map
 		theMapLayersToolbarUI.setMapLayer ( theTravelNotesData.travel.layerName );
 
-		// Editors and HTML pages are filled
-		theEventDispatcher.dispatch ( 'setrouteslist' );
+		// Changing provider and transit mode if an edited route is found and if possible
 		if ( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId ) {
 			const providerName = theTravelNotesData.travel.editedRoute.itinerary.provider;
 			if (
@@ -172,37 +182,14 @@ class FileLoader {
 				}
 			}
 		}
+
 		theRouteEditor.chainRoutes ( );
 
+		// Editors and HTML pages are filled
+		theEventDispatcher.dispatch ( 'setrouteslist' );
 		theEventDispatcher.dispatch ( 'travelnameupdated' );
 		theEventDispatcher.dispatch ( 'showitinerary' );
 		theEventDispatcher.dispatch ( 'roadbookupdate' );
-	}
-
-	/**
-	Open a file, set or merge it's content in theTravelNotesData and then display the file
-	@param {event} changeEvent the changeEvent that have started the process
-	@param {boolean} mustMerge the method merge the content when true
-	@private
-	*/
-
-	#openFile ( fileContent, mustMerge ) {
-		try {
-			if ( mustMerge ) {
-				new FileCompactor ( ).decompressMerge ( fileContent );
-			}
-			else {
-				theProfileWindowsManager.deleteAllProfiles ( );
-				new FileCompactor ( ).decompress ( fileContent );
-			}
-			this.#display ( );
-			if ( ! mustMerge ) {
-				theMouseUI.saveStatus = SAVE_STATUS.saved;
-			}
-		}
-		catch ( err ) {
-			theErrorsUI.showError ( 'An error occurs when reading the file : ' + err.message );
-		}
 	}
 
 	/*
@@ -228,7 +215,29 @@ class FileLoader {
 	@fires roadbookupdate
 	*/
 
-	openLocalFile ( fileContent ) { this.#openFile ( fileContent, false ); }
+	openLocalFile ( travelJsonObject ) {
+
+		// Closing all profiles
+		theProfileWindowsManager.deleteAllProfiles ( );
+
+		// Decompress the json file content and uploading the travel in theTravelNotesData object
+		new FileCompactor ( ).decompress ( travelJsonObject );
+		theTravelNotesData.travel.jsonObject = travelJsonObject;
+		theTravelNotesData.editedRouteObjId = INVALID_OBJ_ID;
+		theTravelNotesData.travel.routes.forEach (
+			route => {
+				if ( ROUTE_EDITION_STATUS.notEdited !== route.editionStatus ) {
+					theTravelNotesData.editedRouteObjId = route.objId;
+				}
+			}
+		);
+
+		// display the travel
+		this.#display ( );
+
+		// Updating theMouseUI
+		theMouseUI.saveStatus = SAVE_STATUS.saved;
+	}
 
 	/**
 	Open a local file and merge the content of the file with the current travel
@@ -245,7 +254,31 @@ class FileLoader {
 	@fires roadbookupdate
 	*/
 
-	mergeLocalFile ( fileContent ) { this.#openFile ( fileContent, true ); }
+	mergeLocalFile ( travelJsonObject ) {
+
+		// Decompress the json file content and uploading the travel in a new Travel object
+		new FileCompactor ( ).decompress ( travelJsonObject );
+		const mergedTravel = new Travel ( );
+		mergedTravel.jsonObject = travelJsonObject;
+
+		// routes are added with their notes
+		const routesIterator = mergedTravel.routes.iterator;
+		while ( ! routesIterator.done ) {
+			theTravelNotesData.travel.routes.add ( routesIterator.value );
+		}
+
+		// travel notes are added
+		const notesIterator = mergedTravel.notes.iterator;
+		while ( ! notesIterator.done ) {
+			theTravelNotesData.travel.notes.add ( notesIterator.value );
+		}
+
+		// display the travel
+		this.#display ( );
+
+		// Updating theMouseUI
+		theMouseUI.saveStatus = SAVE_STATUS.modified;
+	}
 }
 
 export default FileLoader;

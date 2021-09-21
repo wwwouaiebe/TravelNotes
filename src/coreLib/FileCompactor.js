@@ -52,10 +52,8 @@ Tests ...
 */
 
 import thePolylineEncoder from '../coreLib/PolylineEncoder.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
-import Travel from '../data/Travel.js';
-import { ROUTE_EDITION_STATUS, ELEV, ZERO, ONE, TWO, INVALID_OBJ_ID, LAT_LNG, DISTANCE } from '../main/Constants.js';
+import { ELEV, ZERO, ONE, TWO, INVALID_OBJ_ID, LAT_LNG, DISTANCE } from '../main/Constants.js';
 
 /**
 @--------------------------------------------------------------------------------------------------------------------------
@@ -174,22 +172,6 @@ class FileCompactor {
 		routeJsonObject.itinerary.itineraryPoints = decompressedItineraryPoints;
 	}
 
-	/**
-	Decompress a travel
-	@param {Object} travelJsonObject the compressed travel. travelJsonObject is not a Travel instance!
-	It's an Object created with JSON.parse ( ).
-	@private
-	*/
-
-	#decompressTravel ( travelJsonObject ) {
-		travelJsonObject.routes.forEach ( this.#decompressRoute );
-		if ( travelJsonObject.editedRoute ) {
-
-			// don't remove the if statment... files created with version < 1.5.0 don't have editedRoute...
-			this.#decompressRoute ( travelJsonObject.editedRoute );
-		}
-	}
-
 	/*
 	constructor
 	*/
@@ -199,45 +181,18 @@ class FileCompactor {
 	}
 
 	/**
-	Decompress a file
-	@param {Object} travelJsonObject the compressed travel as read from the file. travelJsonObject is not a Travel instance!
+	Decompress a travel
+	@param {Object} travelJsonObject the compressed travel. travelJsonObject is not a Travel instance!
 	It's an Object created with JSON.parse ( ).
+	@private
 	*/
 
 	decompress ( travelJsonObject ) {
-		this.#decompressTravel ( travelJsonObject );
-		theTravelNotesData.travel.jsonObject = travelJsonObject;
-		theTravelNotesData.editedRouteObjId = INVALID_OBJ_ID;
-		theTravelNotesData.travel.routes.forEach (
-			route => {
-				if ( ROUTE_EDITION_STATUS.notEdited !== route.editionStatus ) {
-					theTravelNotesData.editedRouteObjId = route.objId;
-				}
-			}
-		);
-	}
+		travelJsonObject.routes.forEach ( this.#decompressRoute );
+		if ( travelJsonObject.editedRoute ) {
 
-	/**
-	Decompress a file and merge this travel with the currently edited travel
-	@param {Object} travelJsonObject the compressed travel as read from the file. travelJsonObject is not a Travel instance!
-	It's an Object created with JSON.parse ( ).
-	*/
-
-	decompressMerge ( travelJsonObject ) {
-		this.#decompressTravel ( travelJsonObject );
-		const mergedTravel = new Travel ( );
-		mergedTravel.jsonObject = travelJsonObject;
-
-		// routes are added with their notes
-		const routesIterator = mergedTravel.routes.iterator;
-		while ( ! routesIterator.done ) {
-			theTravelNotesData.travel.routes.add ( routesIterator.value );
-		}
-
-		// travel notes are added
-		const notesIterator = mergedTravel.notes.iterator;
-		while ( ! notesIterator.done ) {
-			theTravelNotesData.travel.notes.add ( notesIterator.value );
+			// don't remove the if statment... files created with version < 1.5.0 don't have editedRoute...
+			this.#decompressRoute ( travelJsonObject.editedRoute );
 		}
 	}
 

@@ -164,6 +164,7 @@ class OpenInputChangeEL {
 			catch ( err ) {
 				if ( err instanceof Error ) {
 					console.error ( err );
+					theErrorsUI.showError ( 'An error occurs when reading the file : ' + err.message );
 				}
 			}
 		};
@@ -237,6 +238,7 @@ class ImportInputChangeEL {
 			catch ( err ) {
 				if ( err instanceof Error ) {
 					console.error ( err );
+					theErrorsUI.showError ( 'An error occurs when reading the file : ' + err.message );
 				}
 			}
 		};

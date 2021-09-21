@@ -82,8 +82,9 @@ class ViewerFileLoader {
 	@param {Object} fileContent
 	*/
 
-	openDistantFile ( fileContent ) {
-		new FileCompactor ( ).decompress ( fileContent );
+	openDistantFile ( travelJsonObject ) {
+		new FileCompactor ( ).decompress ( travelJsonObject );
+		theTravelNotesData.travel.jsonObject = travelJsonObject;
 		theTravelNotesData.travel.readOnly = true;
 		document.title =
 			'Travel & Notes' +
