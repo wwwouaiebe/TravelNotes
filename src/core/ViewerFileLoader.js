@@ -27,7 +27,7 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210914
+Doc reviewed 20210922
 Tests 20210903
 */
 
@@ -100,7 +100,11 @@ class ViewerFileLoader {
 					}
 				);
 			}
+			else {
+				theTravelNotesData.editedRouteObjId = routesIterator.value.objId;
+			}
 		}
+
 		if ( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId ) {
 			theEventDispatcher.dispatch (
 				'routeupdated',
