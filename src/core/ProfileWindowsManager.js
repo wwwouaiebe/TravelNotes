@@ -117,7 +117,7 @@ class ProfileWindowsManager {
 	}
 
 	/**
-	This method creates the profile window for a Route
+	This method updates the profile window for a Route
 	@param {!number} oldRouteObjId The objId of the Route that is in the profile window
 	@param {Route} newRoute The  Route for witch the profile window is updated
 	*/
