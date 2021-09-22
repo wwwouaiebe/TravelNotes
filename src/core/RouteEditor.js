@@ -173,7 +173,7 @@ class RouteEditor {
 
 		if ( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId ) {
 
-			// the current edited route is not changed. Cleaning the editors
+			// the current edited route is not changed (we have verified in the RouteContextMenu ). Cleaning the editors
 			this.cancelEdition ( );
 		}
 
@@ -299,6 +299,8 @@ class RouteEditor {
 		// and the initial route replaced with the clone
 		theTravelNotesData.travel.routes.replace ( theTravelNotesData.editedRouteObjId, clonedRoute );
 		theTravelNotesData.editedRouteObjId = clonedRoute.objId;
+		
+		//cleaning editor
 		this.cancelEdition ( );
 	}
 
