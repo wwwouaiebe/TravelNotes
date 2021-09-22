@@ -120,10 +120,10 @@ class OsmSearchContextMenu extends BaseContextMenu {
 			theWayPointEditor.setEndPoint ( this.#latLng );
 			break;
 		case 3 :
-			theNoteEditor.newSearchNote ( { osmElement : this.#osmElement, isTravelNote : false } );
+			theNoteEditor.newSearchRouteNote ( this.#osmElement );
 			break;
 		case 4 :
-			theNoteEditor.newSearchNote ( { osmElement : this.#osmElement, isTravelNote : true } );
+			theNoteEditor.newSearchTravelNote ( this.#osmElement );
 			break;
 		case 5 :
 			theNoteEditor.changeOsmSearchNoteDialog ( );

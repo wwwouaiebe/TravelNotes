@@ -71,7 +71,7 @@ import theProfileWindowsManager from '../core/ProfileWindowsManager.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import AllManeuverNotesBuilder from '../core/AllManeuverNotesBuilder.js';
 
-import { ROUTE_EDITION_STATUS, ZERO, LAT, LNG } from '../main/Constants.js';
+import { ROUTE_EDITION_STATUS, ZERO } from '../main/Constants.js';
 
 /**
 @--------------------------------------------------------------------------------------------------------------------------
@@ -147,13 +147,7 @@ class RouteContextMenu extends BaseContextMenu {
 			theWayPointEditor.reverseWayPoints ( );
 			break;
 		case 9 :
-			theNoteEditor.newRouteNote (
-				{
-					routeObjId : this.eventData.targetObjId,
-					lat : this.eventData.latLng [ LAT ],
-					lng : this.eventData.latLng [ LNG ]
-				}
-			);
+			theNoteEditor.newRouteNote ( this.eventData.targetObjId, this.eventData.latLng );
 			break;
 		case 10 :
 			new AllManeuverNotesBuilder ( ).addAllManeuverNotes ( this.eventData.targetObjId );

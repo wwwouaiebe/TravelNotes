@@ -73,7 +73,6 @@ This will be used for the note address
 */
 
 import theConfig from '../data/Config.js';
-import theDataSearchEngine from '../data/DataSearchEngine.js';
 import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
 import SvgBuilder from '../coreMapIcon/SvgBuilder.js';
 import OverpassAPIDataLoader from '../coreLib/OverpassAPIDataLoader.js';
@@ -278,9 +277,9 @@ class MapIconFromOsmFactory {
 	@return {Promise} A Promise fullfilled with the svg data
 	*/
 
-	getIconAndAdressWithPromise ( iconLatLng, routeObjId ) {
+	getIconAndAdressWithPromise ( iconLatLng, route ) {
 		this.#mapIconPosition.latLng = iconLatLng;
-		this.#route = theDataSearchEngine.getRoute ( routeObjId );
+		this.#route = route;
 
 		return new Promise ( ( onOk, onError ) => this.#exeGetIconAndAdressWithPromise ( onOk, onError ) );
 	}

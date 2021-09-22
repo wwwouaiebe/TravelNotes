@@ -88,13 +88,7 @@ class ProfileContextMenu extends BaseContextMenu {
 	doAction ( selectedItemObjId ) {
 		switch ( selectedItemObjId ) {
 		case 0 :
-			theNoteEditor.newRouteNote (
-				{
-					routeObjId : this.eventData.targetObjId,
-					lat : this.eventData.latLng [ LAT ],
-					lng : this.eventData.latLng [ LNG ]
-				}
-			);
+			theNoteEditor.newRouteNote ( this.eventData.targetObjId, this.eventData.latLng );
 			break;
 		case 1 :
 			new Zoomer ( ).zoomToLatLng ( [ this.eventData.latLng [ LAT ], this.eventData.latLng [ LNG ] ] );

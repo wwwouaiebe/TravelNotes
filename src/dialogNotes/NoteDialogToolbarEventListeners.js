@@ -50,7 +50,7 @@ import theUtilities from '../UILib/Utilities.js';
 import theNoteDialogToolbarData from '../dialogNotes/NoteDialogToolbarData.js';
 import theTranslator from '../UILib/Translator.js';
 import MapIconFromOsmFactory from '../coreMapIcon/MapIconFromOsmFactory.js';
-import { ZERO, INVALID_OBJ_ID } from '../main/Constants.js';
+import { ZERO } from '../main/Constants.js';
 
 /**
 @--------------------------------------------------------------------------------------------------------------------------
@@ -149,7 +149,7 @@ class IconSelectorChangeEL {
 	*/
 
 	#onMapIcon ( ) {
-		if ( INVALID_OBJ_ID === this.#noteDialog.mapIconData.routeObjId ) {
+		if ( ! this.#noteDialog.mapIconData.route ) {
 			this.#noteDialog.showError (
 				theTranslator.getText ( 'Notedialog - not possible to create a SVG icon for a travel note' )
 			);
@@ -159,7 +159,7 @@ class IconSelectorChangeEL {
 		this.#noteDialog.showWait ( );
 		new MapIconFromOsmFactory ( ).getIconAndAdressWithPromise (
 			this.#noteDialog.mapIconData.latLng,
-			this.#noteDialog.mapIconData.routeObjId
+			this.#noteDialog.mapIconData.route
 		)
 			.then (
 				mapIconData => {

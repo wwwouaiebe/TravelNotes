@@ -115,11 +115,11 @@ class NoteDialog extends BaseDialog {
 	#startGeoCoder = false;
 
 	/**
-	The route ObjId on witch the note is attached
+	The route on witch the note is attached
 	@private
 	*/
 
-	#routeObjId = null;
+	#route = null;
 
 	/**
 	A clone of the #note used to store the modifications and display the preview
@@ -160,11 +160,11 @@ class NoteDialog extends BaseDialog {
 	constructor
 	*/
 
-	constructor ( note, routeObjId, startGeoCoder ) {
+	constructor ( note, route ) {
 		super ( );
 		this.#note = note;
-		this.#startGeoCoder = startGeoCoder;
-		this.#routeObjId = routeObjId;
+		this.#startGeoCoder = '' === this.#note.address;
+		this.#route = route;
 
 		this.#previewNote = new Note ( );
 		this.#previewNote.jsonObject = note.jsonObject;
@@ -174,7 +174,7 @@ class NoteDialog extends BaseDialog {
 		this.#iconControl = new NoteDialogIconControl ( this );
 		this.#tooltipControl = new NoteDialogTooltipControl ( this );
 		this.#popupControl = new NoteDialogPopupControl ( this );
-		this.#addressControl = new NoteDialogAddressControl ( this, note.latLng, startGeoCoder );
+		this.#addressControl = new NoteDialogAddressControl ( this, note.latLng, this.#startGeoCoder );
 		this.#linkControl = new NoteDialogLinkControl ( this, note.latLng );
 		this.#phoneControl = new NoteDialogPhoneControl ( this );
 		this.#previewControl = new NoteDialogPreviewControl ( this.#previewNote );
@@ -207,7 +207,7 @@ class NoteDialog extends BaseDialog {
 	@readonly
 	*/
 
-	get mapIconData ( ) { return Object.freeze ( { latLng : this.#previewNote.latLng, routeObjId : this.#routeObjId } ); }
+	get mapIconData ( ) { return Object.freeze ( { latLng : this.#previewNote.latLng, route : this.#route } ); }
 
 	/**
 	Update the preview of the icons. Used by event listeners
