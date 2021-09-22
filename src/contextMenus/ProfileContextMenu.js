@@ -53,8 +53,6 @@ import theTranslator from '../UILib/Translator.js';
 import theNoteEditor from '../core/NoteEditor.js';
 import Zoomer from '../core/Zoomer.js';
 
-import { LAT, LNG } from '../main/Constants.js';
-
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
@@ -91,7 +89,7 @@ class ProfileContextMenu extends BaseContextMenu {
 			theNoteEditor.newRouteNote ( this.eventData.targetObjId, this.eventData.latLng );
 			break;
 		case 1 :
-			new Zoomer ( ).zoomToLatLng ( [ this.eventData.latLng [ LAT ], this.eventData.latLng [ LNG ] ] );
+			new Zoomer ( ).zoomToLatLng ( this.eventData.latLng );
 			break;
 		default :
 			break;

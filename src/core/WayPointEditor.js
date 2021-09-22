@@ -82,7 +82,7 @@ import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import theGeometry from '../coreLib/Geometry.js';
 import theRouter from '../coreLib/Router.js';
 
-import { ROUTE_EDITION_STATUS, LAT_LNG, TWO } from '../main/Constants.js';
+import { ROUTE_EDITION_STATUS, TWO } from '../main/Constants.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
@@ -101,8 +101,9 @@ class WayPointEditor {
 	This method rename a WayPoint with data from Nominatim
 	@param {Object} wayPoint The wayPoint to rename
 	@fires setrouteslist
-	@fires showitinerary
+	@fires updateitinerary
 	@fires roadbookupdate
+	@async
 	@private
 	*/
 
@@ -126,7 +127,7 @@ class WayPointEditor {
 				wayPoint.name = address.name;
 			}
 			theEventDispatcher.dispatch ( 'setrouteslist' );
-			theEventDispatcher.dispatch ( 'showitinerary' );
+			theEventDispatcher.dispatch ( 'updateitinerary' );
 			theEventDispatcher.dispatch ( 'roadbookupdate' );
 		}
 	}
@@ -142,7 +143,6 @@ class WayPointEditor {
 	/**
 	This method add a WayPoint
 	@param {Array.<number>} latLng The latitude and longitude where the WayPoint will be added
-	@async
 	*/
 
 	addWayPoint ( latLng ) {
@@ -167,7 +167,6 @@ class WayPointEditor {
 	dragging
 	@param {Array.<number>} initialLatLng The latitude and longitude from witch the WayPoint is coming
 	@param {Array.<number>} finalLatLng The latitude and longitude where the WayPoint will be added
-	@async
 	*/
 
 	addWayPointOnRoute ( initialLatLng, finalLatLng ) {
@@ -201,7 +200,9 @@ class WayPointEditor {
 
 	/**
 	This method reverse the waypoints order
-	@async
+	@fires setrouteslist
+	@fires showitinerary
+	@fires roadbookupdate
 	*/
 
 	reverseWayPoints ( ) {
@@ -218,7 +219,7 @@ class WayPointEditor {
 				{
 					wayPoint : wayPointsIterator.value,
 					letter :
-						wayPointsIterator .first ? 'A' : ( wayPointsIterator.last ? 'B' : wayPointsIterator.index )
+						wayPointsIterator .first ? 'A' : ( wayPointsIterator.last ? 'B' : String ( wayPointsIterator.index ) )
 				}
 			);
 		}
@@ -231,7 +232,6 @@ class WayPointEditor {
 	/**
 	This method remove a WayPoint
 	@param {!number} wayPointObjId The objId of the WayPoint to remove
-	@async
 	*/
 
 	removeWayPoint ( wayPointObjId ) {
@@ -244,17 +244,11 @@ class WayPointEditor {
 	/**
 	This method set the starting WayPoint
 	@param {Array.<number>} latLng The latitude and longitude where the WayPoint will be added
-	@async
+	@fires addwaypoint
 	*/
 
 	setStartPoint ( latLng ) {
 		theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
-		if ( LAT_LNG.defaultValue !== theTravelNotesData.travel.editedRoute.wayPoints.first.lat ) {
-			theEventDispatcher.dispatch (
-				'removeobject',
-				{ objId : theTravelNotesData.travel.editedRoute.wayPoints.first.objId }
-			);
-		}
 		const wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.first;
 		wayPoint.latLng = latLng;
 		this.#renameWayPointWithGeocoder ( wayPoint );
@@ -271,17 +265,11 @@ class WayPointEditor {
 	/**
 	This method set the ending WayPoint
 	@param {Array.<number>} latLng The latitude and longitude where the WayPoint will be added
-	@async
+	@fires addwaypoint
 	*/
 
 	setEndPoint ( latLng ) {
 		theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
-		if ( LAT_LNG.defaultValue !== theTravelNotesData.travel.editedRoute.wayPoints.last.lat ) {
-			theEventDispatcher.dispatch (
-				'removeobject',
-				{ objId : theTravelNotesData.travel.editedRoute.wayPoints.last.objId }
-			);
-		}
 		const wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.last;
 		wayPoint.latLng = latLng;
 		this.#renameWayPointWithGeocoder ( wayPoint );
@@ -298,7 +286,6 @@ class WayPointEditor {
 	/**
 	This method is called when a drag of a WayPoint ends on the map
 	@param {!number} dragEndEvent The drag event
-	@async
 	*/
 
 	wayPointDragEnd ( dragEndEvent ) {
@@ -313,7 +300,6 @@ class WayPointEditor {
 	/**
 	This method shows the WayPointPropertiesDialog
 	@param {!number} wayPointObjId The objId of the WayPoint that modify
-	@async
 	@fires setrouteslist
 	@fires showitinerary
 	@fires roadbookupdate

@@ -74,14 +74,6 @@ import { INVALID_OBJ_ID } from '../main/Constants.js';
 class NoteContextMenu extends BaseContextMenu {
 
 	/**
-	The objId of the note for witch the context menu is displayer
-	@type {!number}
-	@private
-	*/
-
-	#noteObjId = INVALID_OBJ_ID;
-
-	/**
 	The route to witch the note is linked
 	@type {Route}
 	@private
@@ -97,8 +89,7 @@ class NoteContextMenu extends BaseContextMenu {
 
 	constructor ( contextMenuEvent, parentNode = null ) {
 		super ( contextMenuEvent, parentNode );
-		this.#noteObjId = this.eventData.targetObjId;
-		this.#route = theDataSearchEngine.getNoteAndRoute ( this.#noteObjId ).route;
+		this.#route = theDataSearchEngine.getNoteAndRoute ( this.eventData.targetObjId ).route;
 	}
 
 	/* eslint-disable no-magic-numbers */
@@ -111,20 +102,20 @@ class NoteContextMenu extends BaseContextMenu {
 	doAction ( selectedItemObjId ) {
 		switch ( selectedItemObjId ) {
 		case 0 :
-			theNoteEditor.editNote ( this.#noteObjId );
+			theNoteEditor.editNote ( this.eventData.targetObjId );
 			break;
 		case 1 :
-			theNoteEditor.removeNote ( this.#noteObjId );
+			theNoteEditor.removeNote ( this.eventData.targetObjId );
 			break;
 		case 2 :
-			new Zoomer ( ).zoomToNote ( this.#noteObjId );
+			new Zoomer ( ).zoomToNote ( this.eventData.targetObjId );
 			break;
 		case 3 :
 			if ( this.#route ) {
-				theNoteEditor.detachNoteFromRoute ( this.#noteObjId );
+				theNoteEditor.detachNoteFromRoute ( this.eventData.targetObjId );
 			}
 			else {
-				theNoteEditor.attachNoteToRoute ( this.#noteObjId );
+				theNoteEditor.attachNoteToRoute ( this.eventData.targetObjId );
 			}
 			break;
 		default :

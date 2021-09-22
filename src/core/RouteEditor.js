@@ -299,8 +299,8 @@ class RouteEditor {
 		// and the initial route replaced with the clone
 		theTravelNotesData.travel.routes.replace ( theTravelNotesData.editedRouteObjId, clonedRoute );
 		theTravelNotesData.editedRouteObjId = clonedRoute.objId;
-		
-		//cleaning editor
+
+		// cleaning editor
 		this.cancelEdition ( );
 	}
 
