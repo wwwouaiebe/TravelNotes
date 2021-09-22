@@ -135,7 +135,7 @@ class DataEncryptor {
 	encryptData ( data, onOk, onError, pswdPromise ) {
 		let ivBytes = window.crypto.getRandomValues ( new Uint8Array ( 16 ) );
 		pswdPromise
-			.then ( this.#importKey )
+			.then ( pswd => this.#importKey ( pswd ) )
 			.then ( deriveKey => this.#deriveKey ( deriveKey, this.#salt ) )
 			.then ( encryptKey => this.#encrypt ( encryptKey, ivBytes, data ) )
 			.then (
@@ -161,13 +161,13 @@ class DataEncryptor {
 
 	decryptData ( data, onOk, onError, pswdPromise ) {
 		pswdPromise
-			.then ( this.#importKey )
+			.then ( pswd => this.#importKey ( pswd ) )
 			.then ( deriveKey => this.#deriveKey ( deriveKey, this.#salt ) )
 			.then ( decryptKey => this.#decrypt ( decryptKey, data ) )
 			.then ( onOk )
 			.catch ( onError );
 	}
-	/* eslint-disable max-params */
+	/* eslint-enable max-params */
 	/* eslint-enable no-magic-numbers */
 }
 
