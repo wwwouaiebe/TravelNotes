@@ -111,16 +111,14 @@ class WayPointPropertiesDialog extends BaseDialog {
 		this.showWait ( );
 		const address = await new GeoCoder ( ).getAddressAsync ( this.#wayPoint.latLng );
 		this.hideWait ( );
-		if ( address.statusOk ) {
-			if ( theConfig.wayPoint.geocodingIncludeName ) {
-				this.#nameInput.value = address.name;
-			}
-			let addressString = address.street;
-			if ( '' !== address.city ) {
-				addressString += ' ' + address.city;
-			}
-			this.#addressInput.value = addressString;
+		if ( theConfig.wayPoint.geocodingIncludeName ) {
+			this.#nameInput.value = address.name;
 		}
+		let addressString = address.street;
+		if ( '' !== address.city ) {
+			addressString += ' ' + address.city;
+		}
+		this.#addressInput.value = addressString;
 	}
 
 	/**

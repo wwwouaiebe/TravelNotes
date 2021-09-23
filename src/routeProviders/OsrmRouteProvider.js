@@ -47,7 +47,7 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-import thePolylineEncoder from '../coreLib/PolylineEncoder.js';
+import PolylineEncoder from '../coreLib/PolylineEncoder.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
 import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
@@ -113,7 +113,8 @@ class OsrmRouteProvider extends BaseRouteProvider {
 		this.#route.itinerary.ascent = ZERO;
 		this.#route.itinerary.descent = ZERO;
 
-		response.routes [ ZERO ].geometry = thePolylineEncoder.decode (
+		const polylineEncoder = new PolylineEncoder ( );
+		response.routes [ ZERO ].geometry = polylineEncoder.decode (
 			response.routes [ ZERO ].geometry,
 			[ OUR_OSRM_ROUTE_LAT_LNG_ROUND, OUR_OSRM_ROUTE_LAT_LNG_ROUND ]
 		);
@@ -123,7 +124,7 @@ class OsrmRouteProvider extends BaseRouteProvider {
 				let lastPointWithDistance = ZERO;
 				leg.steps.forEach (
 					step => {
-						step.geometry = thePolylineEncoder.decode (
+						step.geometry = polylineEncoder.decode (
 							step.geometry,
 							[ OUR_OSRM_ROUTE_LAT_LNG_ROUND, OUR_OSRM_ROUTE_LAT_LNG_ROUND ]
 						);

@@ -47,7 +47,7 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-import thePolylineEncoder from '../coreLib/PolylineEncoder.js';
+import PolylineEncoder from '../coreLib/PolylineEncoder.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
 import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
@@ -116,6 +116,7 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 			return;
 		}
 
+		const polylineEncoder = new PolylineEncoder ( );
 		this.#route.itinerary.itineraryPoints.removeAll ( );
 		this.#route.itinerary.maneuvers.removeAll ( );
 		this.#route.itinerary.hasProfile = true;
@@ -123,12 +124,12 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 		this.#route.itinerary.descent = ZERO;
 		response.paths.forEach (
 			path => {
-				path.points = thePolylineEncoder.decode (
+				path.points = polylineEncoder.decode (
 					path.points,
 					[ OUR_GRAPHHOPPER_LAT_LNG_ROUND, OUR_GRAPHHOPPER_LAT_LNG_ROUND, TWO ]
 				);
 				/* eslint-disable-next-line camelcase */
-				path.snapped_waypoints = thePolylineEncoder.decode (
+				path.snapped_waypoints = polylineEncoder.decode (
 					path.snapped_waypoints,
 					[ OUR_GRAPHHOPPER_LAT_LNG_ROUND, OUR_GRAPHHOPPER_LAT_LNG_ROUND, TWO ]
 				);

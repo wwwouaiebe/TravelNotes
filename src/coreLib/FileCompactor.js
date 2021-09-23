@@ -51,7 +51,7 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-import thePolylineEncoder from '../coreLib/PolylineEncoder.js';
+import PolylineEncoder from '../coreLib/PolylineEncoder.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import { ELEV, ZERO, ONE, TWO, INVALID_OBJ_ID, LAT_LNG, DISTANCE } from '../main/Constants.js';
 
@@ -95,7 +95,7 @@ class FileCompactor {
 				);
 			}
 		);
-		compressedItineraryPoints.values = thePolylineEncoder.encode (
+		compressedItineraryPoints.values = new PolylineEncoder ( ).encode (
 			itineraryPoints,
 			[ LAT_LNG.fixed, LAT_LNG.fixed, TWO, TWO, ZERO ]
 		);
@@ -120,7 +120,7 @@ class FileCompactor {
 		*/
 
 		if ( routeJsonObject.itinerary.itineraryPoints.values ) {
-			thePolylineEncoder.decode (
+			new PolylineEncoder ( ).decode (
 				routeJsonObject.itinerary.itineraryPoints.values,
 				[ LAT_LNG.fixed, LAT_LNG.fixed, TWO, TWO, ZERO ]
 			)
@@ -146,7 +146,7 @@ class FileCompactor {
 				);
 		}
 		else {
-			routeJsonObject.itinerary.itineraryPoints.latLngs = thePolylineEncoder.decode (
+			routeJsonObject.itinerary.itineraryPoints.latLngs = new PolylineEncoder ( ).decode (
 				routeJsonObject.itinerary.itineraryPoints.latLngs, [ LAT_LNG.fixed, LAT_LNG.fixed ]
 			);
 			let latLngsCounter = ZERO;

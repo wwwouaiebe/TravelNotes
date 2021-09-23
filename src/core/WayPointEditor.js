@@ -116,20 +116,18 @@ class WayPointEditor {
 		}
 
 		const address = await new GeoCoder ( ).getAddressAsync ( wayPoint.latLng );
-		if ( address.statusOk ) {
-			theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
-			wayPoint.address = address.street;
-			if ( '' !== address.city ) {
-				wayPoint.address += ' ' + address.city;
-			}
-			wayPoint.name = '';
-			if ( theConfig.wayPoint.geocodingIncludeName ) {
-				wayPoint.name = address.name;
-			}
-			theEventDispatcher.dispatch ( 'setrouteslist' );
-			theEventDispatcher.dispatch ( 'updateitinerary' );
-			theEventDispatcher.dispatch ( 'roadbookupdate' );
+		theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
+		wayPoint.address = address.street;
+		if ( '' !== address.city ) {
+			wayPoint.address += ' ' + address.city;
 		}
+		wayPoint.name = '';
+		if ( theConfig.wayPoint.geocodingIncludeName ) {
+			wayPoint.name = address.name;
+		}
+		theEventDispatcher.dispatch ( 'setrouteslist' );
+		theEventDispatcher.dispatch ( 'updateitinerary' );
+		theEventDispatcher.dispatch ( 'roadbookupdate' );
 	}
 
 	/*

@@ -47,7 +47,7 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-import thePolylineEncoder from '../coreLib/PolylineEncoder.js';
+import PolylineEncoder from '../coreLib/PolylineEncoder.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
 import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
@@ -141,7 +141,10 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 
 		response.trip.legs.forEach (
 			leg => {
-				leg.shape = thePolylineEncoder.decode ( leg.shape, [ OUR_MAPZEN_LAT_LNG_ROUND, OUR_MAPZEN_LAT_LNG_ROUND ] );
+				leg.shape = new PolylineEncoder ( ).decode (
+					leg.shape,
+					[ OUR_MAPZEN_LAT_LNG_ROUND, OUR_MAPZEN_LAT_LNG_ROUND ]
+				);
 				const itineraryPoints = [];
 				for ( let shapePointCounter = ZERO; shapePointCounter < leg.shape.length; shapePointCounter ++ ) {
 					let itineraryPoint = new ItineraryPoint ( );

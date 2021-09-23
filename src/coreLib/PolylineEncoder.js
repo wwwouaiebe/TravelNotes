@@ -270,20 +270,7 @@ class PolylineEncoder {
 	}
 }
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of PolylineEncoder class
-@type {PolylineEncoder}
-@constant
-@global
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-const thePolylineEncoder = new PolylineEncoder ( );
-
-export default thePolylineEncoder;
+export default PolylineEncoder;
 
 /*
 --- End of PolylineEncoder.js file --------------------------------------------------------------------------------------------

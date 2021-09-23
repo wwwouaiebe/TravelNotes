@@ -121,7 +121,8 @@ class NoteEditor {
 
 	/**
 	A flag indicating when the note dialog is show when creating a search note
-	@type {boolean} - Must be set to null at the startup because theConfig is perhaps not initialized
+	Must be set to null at the startup because theConfig is perhaps not initialized
+	@type {boolean}
 	*/
 
 	#showSearchNoteDialog = null;
@@ -248,12 +249,10 @@ class NoteEditor {
 				console.error ( err );
 			}
 			waitUI.close ( );
-			if ( geoCoderData.statusOk ) {
-				this.#note.address = geoCoderData.street;
-				if ( '' !== geoCoderData.city ) {
-					this.#note.address +=
-						' <span class="TravelNotes-NoteHtml-Address-City">' + geoCoderData.city + '</span>';
-				}
+			this.#note.address = geoCoderData.street;
+			if ( '' !== geoCoderData.city ) {
+				this.#note.address +=
+					' <span class="TravelNotes-NoteHtml-Address-City">' + geoCoderData.city + '</span>';
 			}
 		}
 

@@ -49,7 +49,7 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-import thePolylineEncoder from '../coreLib/PolylineEncoder.js';
+import PolylineEncoder from '../coreLib/PolylineEncoder.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
 import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
@@ -109,12 +109,13 @@ class MapboxRouteProvider extends BaseRouteProvider {
 			return;
 		}
 
+		const polylineEncoder = new PolylineEncoder ( );
 		this.#route.itinerary.itineraryPoints.removeAll ( );
 		this.#route.itinerary.maneuvers.removeAll ( );
 		this.#route.itinerary.hasProfile = false;
 		this.#route.itinerary.ascent = ZERO;
 		this.#route.itinerary.descent = ZERO;
-		response.routes [ ZERO ].geometry = thePolylineEncoder.decode (
+		response.routes [ ZERO ].geometry = polylineEncoder.decode (
 			response.routes [ ZERO ].geometry, [ OUR_MAPBOX_LAT_LNG_ROUND, OUR_MAPBOX_LAT_LNG_ROUND ]
 		);
 		response.routes [ ZERO ].legs.forEach (
@@ -122,7 +123,7 @@ class MapboxRouteProvider extends BaseRouteProvider {
 				let lastPointWithDistance = ZERO;
 				leg.steps.forEach (
 					step => {
-						step.geometry = thePolylineEncoder.decode (
+						step.geometry = polylineEncoder.decode (
 							step.geometry,
 							[ OUR_MAPBOX_LAT_LNG_ROUND, OUR_MAPBOX_LAT_LNG_ROUND ]
 						);

@@ -47,7 +47,7 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-import thePolylineEncoder from '../coreLib/PolylineEncoder.js';
+import polylineEncoder from '../coreLib/PolylineEncoder.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
 import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
@@ -117,7 +117,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 			onError ( new Error ( 'Route not found' ) );
 			return;
 		}
-		response.routes [ ZERO ].geometry = thePolylineEncoder.decode (
+		response.routes [ ZERO ].geometry = new polylineEncoder ( ).decode (
 			response.routes [ ZERO ].geometry,
 			[ OUR_OPEN_ROUTE_LAT_LNG_ROUND, OUR_OPEN_ROUTE_LAT_LNG_ROUND, TWO ]
 		);

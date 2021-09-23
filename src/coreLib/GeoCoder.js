@@ -78,9 +78,10 @@ Tests ...
 
 import theConfig from '../data/Config.js';
 import OverpassAPIDataLoader from '../coreLib/OverpassAPIDataLoader.js';
+import NominatimDataLoader from '../coreLib/NominatimDataLoader.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
-import { ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
+import { ZERO, ONE } from '../main/Constants.js';
 
 /**
 @--------------------------------------------------------------------------------------------------------------------------
@@ -94,7 +95,11 @@ import { ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
 
 class GeoCoder {
 
-	#nominatimStatusOk = true;
+	/**
+	The distance used in the OverpassAPI query for places
+	@type {number}
+	@private
+	*/
 
 	#queryDistance = Math.max (
 		theConfig.geoCoder.distances.hamlet,
@@ -103,11 +108,29 @@ class GeoCoder {
 		theConfig.geoCoder.distances.town
 	);
 
+	/**
+	The Lat and Lng for thr geocoding
+	@type {Array.<number>}
+	@private
+	*/
+
 	#latLng = null;
+
+	/**
+	The OverpassAPIDataLoader object
+	@type {OverpassAPIDataLoader}
+	@private
+	*/
 
 	#overpassAPIDataLoader = null;
 
-	#nominatimData = null;
+	/**
+	The NominatimDataLoader object
+	@type {NominatimDataLoader}
+	@private
+	*/
+
+	#nominatimDataLoader = null;
 
 	/**
 	this method merge the data from Nominatim and theOverpassAPI
@@ -115,151 +138,71 @@ class GeoCoder {
 	*/
 
 	#mergeData ( ) {
-		let city = null;
-		if ( this.#overpassAPIDataLoader.city ) {
-			city = this.#overpassAPIDataLoader.city;
-			if ( this.#overpassAPIDataLoader.place ) {
-				city += ' (' + this.#overpassAPIDataLoader.place + ')';
-			}
-			if ( ! city ) {
-				city = this.#overpassAPIDataLoader.country;
-			}
-		}
-		let street = null;
-		let nameDetails = null;
-		if ( this.#nominatimData ) {
-			street = this.#nominatimData.street;
-			nameDetails = this.#nominatimData.nameDetails || '';
-			if ( ! city ) {
-				city = this.#nominatimData.country;
-			}
+		let city =
+			this.#nominatimDataLoader.city
+			||
+			this.#nominatimDataLoader.country
+			||
+			'';
+
+		const place = this.#overpassAPIDataLoader.place;
+		if ( place && place !== city ) {
+			city += ' (' + place + ')';
 		}
 
-		city = city || '';
-		street = street || '';
-		nameDetails = nameDetails || '';
+		let street = this.#nominatimDataLoader.street || '';
 
-		if ( street.includes ( nameDetails ) || city.includes ( nameDetails ) ) {
-			nameDetails = '';
+		let nominatimName = this.#nominatimDataLoader.name || '';
+
+		if ( street.includes ( nominatimName ) || city.includes ( nominatimName ) ) {
+			nominatimName = '';
 		}
 
 		return Object.freeze (
 			{
-				name : theHTMLSanitizer.sanitizeToJsString ( nameDetails ),
+				name : theHTMLSanitizer.sanitizeToJsString ( nominatimName ),
 				street : theHTMLSanitizer.sanitizeToJsString ( street ),
-				city : theHTMLSanitizer.sanitizeToJsString ( city ),
-				statusOk : this.#nominatimStatusOk // && this.#overpassAPIDataLoader.statusOk
+				city : theHTMLSanitizer.sanitizeToJsString ( city )
 			}
 		);
 	}
 
 	/**
-	This method...
-	@private
-	*/
-
-	#parseNominatimData ( nominatimData ) {
-		let street = '';
-		if ( nominatimData.error ) {
-			this.#nominatimStatusOk = false;
-		}
-		else {
-
-			// street
-			if ( nominatimData.address.house_number ) {
-				street += nominatimData.address.house_number + ' ';
-			}
-			if ( nominatimData.address.road ) {
-				street += nominatimData.address.road + ' ';
-			}
-			else if ( nominatimData.address.pedestrian ) {
-				street += nominatimData.address.pedestrian + ' ';
-			}
-			this.#nominatimData = {
-				street : street,
-				nameDetails : nominatimData.namedetails.name,
-				country : nominatimData.address.country
-			};
-		}
-	}
-
-	/**
-	This method...
-	@private
-	*/
-
-	async #loadNominatimData ( ) {
-		let nominatimUrl =
-			theConfig.nominatim.url + 'reverse?format=json&lat=' +
-			this.#latLng [ ZERO ] + '&lon=' + this.#latLng [ ONE ] +
-			'&zoom=18&addressdetails=1&namedetails=1';
-		const nominatimLanguage = theConfig.nominatim.language;
-		if ( nominatimLanguage && '*' !== nominatimLanguage ) {
-			nominatimUrl += '&accept-language=' + nominatimLanguage;
-		}
-		const nominatimHeaders = new Headers ( );
-		if ( nominatimLanguage && '*' === nominatimLanguage ) {
-			nominatimHeaders.append ( 'accept-language', '' );
-		}
-
-		const nominatimResponse = await fetch ( nominatimUrl, { headers : nominatimHeaders } );
-		if (
-			HTTP_STATUS_OK === nominatimResponse.status
-			&&
-			nominatimResponse.ok
-		) {
-			this.#nominatimStatusOk = this.#nominatimStatusOk && true;
-			const nominatimData = await nominatimResponse.json ( );
-			this.#parseNominatimData ( nominatimData );
-		}
-		else {
-			this.#nominatimStatusOk = false;
-		}
-	}
-
-	/**
-	This method...
+	This method get the Overpass query
 	@private
 	*/
 
 	#getOverpassQueries ( ) {
 		return [
-			'is_in(' + this.#latLng [ ZERO ] + ',' + this.#latLng [ ONE ] +
-			')->.e;area.e[admin_level][boundary="administrative"];out;' +
+
+			/* 'is_in(' + this.#latLng [ ZERO ] + ',' + this.#latLng [ ONE ] +
+			')->.e;area.e[admin_level][boundary="administrative"];out;' +*/
+
 			'node(around:' + this.#queryDistance + ',' + this.#latLng [ ZERO ] + ',' + this.#latLng [ ONE ] +
 			')[place];out;'
 		];
 	}
 
 	/**
-	This method...
+	This method search the address
 	@private
 	*/
 
-	async #execGetAddress ( ) {
-		this.#nominatimStatusOk = true;
-		this.#nominatimData = null;
-		this.#overpassAPIDataLoader = new OverpassAPIDataLoader (
-			{ searchWays : false, searchRelations : false, setGeometry : true }
-		);
+	async #getAddressAsync ( ) {
+
 		await this.#overpassAPIDataLoader.loadData ( this.#getOverpassQueries ( ), this.#latLng );
-		await this.#loadNominatimData ( );
+		await this.#nominatimDataLoader.loadData ( this.#latLng );
 		return this.#mergeData ( );
 	}
 
 	/**
-	This method...
+	This method is executed by the Promise to search an address. The #getAddressAsync return always a response,
+	eventually with empty strings, so the onError function is never called
 	@private
 	*/
 
-	async #exeGetAdressWithPromise ( onOk, onError ) {
-		const result = await this.#execGetAddress ( );
-		if ( result.statusOk ) {
-			onOk ( result );
-		}
-		else {
-			onError ( 'An error occurs...' );
-		}
+	async #getAddressWithPromise ( onOk /* onError */ ) {
+		onOk ( await this.#getAddressAsync ( ) );
 	}
 
 	/*
@@ -268,23 +211,34 @@ class GeoCoder {
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#overpassAPIDataLoader = new OverpassAPIDataLoader (
+			{ searchWays : false, searchRelations : false, setGeometry : true }
+		);
+		this.#nominatimDataLoader = new NominatimDataLoader ( );
 	}
 
 	/**
-	This method search an address from a latitude and longitude
+	This async method search an address from a latitude and longitude
 	@param {Array.<number>} latLng the latitude and longitude to be used to search the address
 	@return {GeoCoderAddress} the address at the given point. The GeoCoderAddress.statusOk must be verified
 	before using the data.
+	@async
 	*/
 
 	async getAddressAsync ( latLng ) {
 		this.#latLng = latLng;
-		return this.#execGetAddress ( );
+		return this.#getAddressAsync ( );
 	}
+
+	/**
+	This method search an address from a latitude and longitude with a Promise.
+	@param {Array.<number>} latLng the latitude and longitude to be used to search the address
+	@return {Promise} A promise that fulfill with the address at the given point.
+	*/
 
 	getAddressWithPromise ( latLng ) {
 		this.#latLng = latLng;
-		return new Promise ( ( onOk, onError ) => this.#exeGetAdressWithPromise ( onOk, onError ) );
+		return new Promise ( ( onOk, onError ) => this.#getAddressWithPromise ( onOk, onError ) );
 	}
 
 }
