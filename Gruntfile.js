@@ -69,7 +69,7 @@ module.exports = function(grunt) {
 				replacements: [
 					{
 						from: '#',
-						to: '_'
+						to: '_private_'
 					},
 					{
 						from: 'Object.freeze ( this );',
@@ -158,7 +158,11 @@ module.exports = function(grunt) {
 			// release only
 			TravelNotes: {
 				options: {
-					mangle: true,
+					mangle: {
+						properties: {
+							regex : /^_private_/
+						}
+					},
 					output: {
 						preamble: banner
 					}
