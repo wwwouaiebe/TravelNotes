@@ -63,6 +63,8 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
+import Sanitizer from '../coreLib/Sanitizer.js';
+
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
@@ -72,7 +74,7 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-import { SVG_NS, NOT_FOUND, ZERO } from '../main/Constants.js';
+import { SVG_NS, ZERO } from '../main/Constants.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
@@ -86,11 +88,9 @@ present in the string.
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-class HTMLSanitizer {
+class HTMLSanitizer extends Sanitizer {
 
 	#validityMap = new Map ( );
-
-	#parser = new DOMParser ( );
 
 	/**
 	Replace < >' " and nbsp chars with htmlEntities
@@ -110,6 +110,17 @@ class HTMLSanitizer {
 		return newHtmlString;
 	}
 
+	#getValidAttributesNames ( nodeName ) {
+		let validAttributesNames = this.#validityMap.get ( nodeName );
+		if ( validAttributesNames ) {
+			validAttributesNames = validAttributesNames.concat (
+				[ 'id', 'class', 'dir', 'title' ]
+			);
+		}
+
+		return validAttributesNames;
+	}
+
 	#stringify ( sourceNode ) {
 		let targetString = '';
 		let errorsString = '';
@@ -117,11 +128,8 @@ class HTMLSanitizer {
 		for ( let nodeCounter = 0; nodeCounter < childs.length; nodeCounter ++ ) {
 			const currentNode = sourceNode.childNodes [ nodeCounter ];
 			const nodeName = currentNode.nodeName.toLowerCase ( );
-			let validAttributesNames = this.#validityMap.get ( nodeName );
+			let validAttributesNames = this.#getValidAttributesNames ( nodeName );
 			if ( validAttributesNames ) {
-				validAttributesNames = validAttributesNames.concat (
-					[ 'id', 'class', 'dir', 'title' ]
-				);
 				const isSvg = ( 'svg' === nodeName || 'text' === nodeName || 'polyline' === nodeName );
 				targetString += '<' + nodeName;
 				if ( currentNode.hasAttribute ( 'target' ) ) {
@@ -191,7 +199,6 @@ class HTMLSanitizer {
 					}
 				}
 			}
-
 		}
 
 		return [ targetString, errorsString ];
@@ -202,11 +209,8 @@ class HTMLSanitizer {
 		for ( let nodeCounter = 0; nodeCounter < childs.length; nodeCounter ++ ) {
 			const currentNode = clonedNode.childNodes [ nodeCounter ];
 			const nodeName = currentNode.nodeName.toLowerCase ( );
-			let validAttributesNames = this.#validityMap.get ( nodeName );
+			let validAttributesNames = this.#getValidAttributesNames ( nodeName );
 			if ( validAttributesNames ) {
-				validAttributesNames = validAttributesNames.concat (
-					[ 'id', 'class', 'dir', 'title' ]
-				);
 				const isSvg = ( 'svg' === nodeName || 'text' === nodeName || 'polyline' === nodeName );
 				const newChildNode =
 					isSvg
@@ -263,6 +267,8 @@ class HTMLSanitizer {
 
 	constructor ( ) {
 
+		super ( );
+
 		/*
 		WARNING :
 
@@ -302,139 +308,6 @@ class HTMLSanitizer {
 		this.#validityMap.set ( 'svg', [ 'xmlns', 'viewBox', 'class' ] );
 		this.#validityMap.set ( 'text', [ 'x', 'y', 'text-anchor' ] );
 		this.#validityMap.set ( 'polyline', [ 'points', 'class', 'transform' ] );
-
-		Object.freeze ( this );
-	}
-
-	/**
-	This method verify that a string describe a css color. A valid css color must start with a hash followed by 6 hex numbers
-	@param {string} colorString the string to test
-	@return {string} the verified color or null if the given color is invalid
-	*/
-
-	sanitizeToColor ( colorString ) {
-		const newColor = colorString.match ( /^\u0023[0-9,A-F,a-f]{6}$/ );
-		if ( newColor ) {
-			return newColor [ ZERO ];
-		}
-		return null;
-	}
-
-	/**
-	This method verify that a string contains a valid url.
-	A valid url must not contains html tags or html entities or invalid characters
-	and must start with a valid protocol
-	Valid protocols are http: and https:. For href attributes mailto:, sms: and tel: are also valid
-	and for src attributes, data: is also valid.
-	sms: and tel: url's  must start with a + and contains only digits, *, # or space
-	@param {string} urlString The url to validate
-	@param {attributeName} attributeName The attribute name in witch the url will be placed. must be 'src' or
-	null (in this case 'href' is used as default)
-	@return {object} a UrlValidationReult with the result of the validation
-	*/
-
-	sanitizeToUrl ( urlString, attributeName = 'href' ) {
-		const parseResult = this.#parser.parseFromString ( '<div>' + urlString + '</div>', 'text/html' );
-		if ( ! parseResult || '\u0023document' !== parseResult.nodeName ) {
-			return { url : '', errorsString : 'Parsing error' };
-		}
-		const resultNode = parseResult.body.firstChild;
-		let newUrlString = '';
-		for ( let nodeCounter = 0; nodeCounter < resultNode.childNodes.length; nodeCounter ++ ) {
-			if ( '\u0023text' === resultNode.childNodes [ nodeCounter ].nodeName ) {
-				newUrlString += resultNode.childNodes [ nodeCounter ].nodeValue;
-			}
-			else {
-				return { url : '', errorsString : 'Invalid characters found in the url' };
-			}
-		}
-		newUrlString = newUrlString
-			.replaceAll ( /</g, '' )
-			.replaceAll ( />/g, '' )
-			.replaceAll ( /"/g, '' )
-			.replaceAll ( /\u0027/g, '' )
-			.replaceAll ( /&lt;/g, '' )
-			.replaceAll ( /&gt;/g, '' )
-			.replaceAll ( /&quot;/g, '' )
-			.replaceAll ( /&apos;/g, '' )
-			.replaceAll ( /%3C/g, '' )
-			.replaceAll ( /%3c/g, '' )
-			.replaceAll ( /%3E/g, '' )
-			.replaceAll ( /%3e/g, '' )
-			.replaceAll ( /%22/g, '' )
-			.replaceAll ( /%27/g, '' );
-		if ( newUrlString !== urlString ) {
-			return { url : '', errorsString : 'Invalid characters found in the url' };
-		}
-
-		const validProtocols = [ 'https:' ];
-		if ( 'http:' === window.location.protocol || 'href' === attributeName ) {
-			validProtocols.push ( 'http:' );
-		}
-		if ( 'href' === attributeName ) {
-			validProtocols.push ( 'mailto:' );
-			validProtocols.push ( 'sms:' );
-			validProtocols.push ( 'tel:' );
-			const urlHash = newUrlString.match ( /^\u0023\w*/ );
-			if ( urlHash && newUrlString === urlHash [ ZERO ] ) {
-				return { url : newUrlString, errorsString : '' };
-			}
-		}
-		if ( 'src' === attributeName ) {
-			validProtocols.push ( 'data:' );
-		}
-		let url = null;
-		try {
-			url = new URL ( newUrlString );
-		}
-		catch ( err ) {
-			return { url : '', errorsString : 'Invalid url string' };
-		}
-		if ( NOT_FOUND === validProtocols.indexOf ( url.protocol ) ) {
-			return { url : '', errorsString : 'Invalid protocol ' + url.protocol };
-		}
-		if ( NOT_FOUND !== [ 'sms:', 'tel:' ].indexOf ( url.protocol ) ) {
-			if ( url.pathname.match ( /^\+[0-9,*,\u0023]*$/ ) ) {
-				return { url : newUrlString, errorsString : '' };
-			}
-		}
-		try {
-			encodeURIComponent ( url.href );
-		}
-		catch ( err ) {
-			return { url : '', errorsString : 'Invalid character in url' };
-		}
-		return { url : newUrlString, errorsString : '' };
-	}
-
-	/**
-	Remove all html tags from a string and replace htmlEntities and < > ' " and nbsp chars with others similar unicode chars
-	@param {string} stringToSanitize the string to transform
-	@return {string} a string with html tags removed and htmlEntities and < >' " and nbsp chars replaced
-	*/
-
-	sanitizeToJsString ( stringToSanitize ) {
-		const parseResult = this.#parser.parseFromString ( '<div>' + stringToSanitize + '</div>', 'text/html' );
-		if ( ! parseResult || '\u0023document' !== parseResult.nodeName ) {
-			return '';
-		}
-		const resultNode = parseResult.body.firstChild;
-		let sanitizedString = '';
-		for ( let nodeCounter = 0; nodeCounter < resultNode.childNodes.length; nodeCounter ++ ) {
-			if ( '\u0023text' === resultNode.childNodes [ nodeCounter ].nodeName ) {
-				sanitizedString += resultNode.childNodes [ nodeCounter ].nodeValue;
-			}
-			else {
-				return '';
-			}
-		}
-		sanitizedString = sanitizedString
-			.replaceAll ( /</g, '\u227a' )
-			.replaceAll ( />/g, '\u227b' )
-			.replaceAll ( /"/g, '\u2033' )
-			.replaceAll ( /\u0027/g, '\u2032' );
-
-		return sanitizedString;
 	}
 
 	/**
@@ -447,9 +320,11 @@ class HTMLSanitizer {
 
 	sanitizeToHtmlElement ( htmlString, targetNode ) {
 
-		const parseResult = this.#parser.parseFromString ( '<div>' + htmlString + '</div>', 'text/html' );
+		const parseResult = new DOMParser ( ).parseFromString ( '<div>' + htmlString + '</div>', 'text/html' );
+		const docFragment = new DocumentFragment ( );
 		if ( parseResult && '\u0023document' === parseResult.nodeName ) {
-			this.#cloneNode ( parseResult.body.firstChild, targetNode );
+			this.#cloneNode ( parseResult.body.firstChild, docFragment );
+			targetNode.appendChild ( docFragment );
 		}
 		else {
 			targetNode.textContent = '';
@@ -483,7 +358,7 @@ class HTMLSanitizer {
 		let errorsString = '';
 
 		const parseResult =
-			this.#parser.parseFromString ( '<div>' + htmlString.replace ( '&nbsp;', '\u0a00' ) + '</div>', 'text/html' );
+			new DOMParser ( ).parseFromString ( '<div>' + htmlString.replace ( '&nbsp;', '\u0a00' ) + '</div>', 'text/html' );
 		if ( parseResult && '\u0023document' === parseResult.nodeName ) {
 			[ targetString, errorsString ] = this.#stringify ( parseResult.body.firstChild, errorsString );
 			return { htmlString : targetString, errorsString : errorsString };
