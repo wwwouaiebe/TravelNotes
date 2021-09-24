@@ -72,8 +72,7 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-/* eslint-disable max-lines */
-import { SVG_NS, NOT_FOUND, ZERO, ONE, TWO } from '../main/Constants.js';
+import { SVG_NS, NOT_FOUND, ZERO } from '../main/Constants.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
@@ -133,9 +132,9 @@ class HTMLSanitizer {
 						if ( isSvg ) {
 							if ( currentNode.hasAttributeNS ( null, validAttributeName ) ) {
 								targetString += ' ' + validAttributeName + '="' +
-									this.#addHtmlEntities ( currentNode.getAttribute ( validAttributeName ) ) +
+									this.#addHtmlEntities ( currentNode.getAttributeNS ( null, validAttributeName ) ) +
 									'"';
-								currentNode.removeAttribute ( validAttributeName );
+								currentNode.removeAttributeNS ( null, validAttributeName );
 							}
 						}
 						else if ( currentNode.hasAttribute ( validAttributeName ) ) {
@@ -180,7 +179,7 @@ class HTMLSanitizer {
 			else {
 				errorsString += '\nAn invalid tag ' + nodeName + ' was removed';
 			}
-			if ( currentNode.hasAttributes ) {
+			if ( currentNode.hasAttributes || currentNode.hasAttributesNS ) {
 				for ( let attCounter = ZERO; attCounter < currentNode.attributes.length; attCounter ++ ) {
 					if ( 'rel' !== currentNode.attributes [ attCounter ].name ) {
 						errorsString +=
@@ -246,21 +245,6 @@ class HTMLSanitizer {
 						}
 					}
 				);
-				if ( currentNode.hasAttribute ( 'style' ) ) {
-					const styles = currentNode.getAttribute ( 'style' ).split ( ';' );
-					styles.forEach (
-						style => {
-							const styleValues = style.split ( ':' );
-							if (
-								TWO === styleValues.length
-								&&
-								( 'width' === styleValues [ ZERO ].trim ( ) || 'height' === styleValues [ ZERO ].trim ( ) )
-							) {
-								newChildNode.style [ styleValues [ ZERO ].trim ( ) ] = styleValues [ ONE ].trim ( );
-							}
-						}
-					);
-				}
 				if ( currentNode.hasAttribute ( 'target' ) ) {
 					newChildNode.setAttribute ( 'rel', 'noopener noreferrer' );
 				}
@@ -519,7 +503,7 @@ class HTMLSanitizer {
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-const theHTMLSanitizer = Object.freeze ( new HTMLSanitizer );
+const theHTMLSanitizer = new HTMLSanitizer ( );
 
 export default theHTMLSanitizer;
 
