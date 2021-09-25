@@ -214,13 +214,13 @@ class GeoCoder {
 		this.#overpassAPIDataLoader = new OverpassAPIDataLoader (
 			{ searchWays : false, searchRelations : false, setGeometry : true }
 		);
-		this.#nominatimDataLoader = new NominatimDataLoader ( 
+		this.#nominatimDataLoader = new NominatimDataLoader (
 			{
 				searchPlaces : true,
 				searchWays : false,
 				searchRelations : false,
 				setGeometry : false
-			}		
+			}
 		);
 	}
 
