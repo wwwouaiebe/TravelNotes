@@ -52,7 +52,7 @@ Tests 20210903
 
 import theConfig from '../data/Config.js';
 import ProfileWindow from '../dialogProfileWindow/ProfileWindow.js';
-import ProfileFactory from '../coreLib/ProfileFactory.js';
+import ProfileSmoothingIron from '../coreLib/ProfileSmoothingIron.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import { ZERO } from '../main/Constants.js';
 
@@ -90,23 +90,25 @@ class ProfileWindowsManager {
 
 		if ( route.itinerary.hasProfile ) {
 			if ( theConfig.route.elev.smooth ) {
-				new ProfileFactory ( ).smooth ( route );
+				new ProfileSmoothingIron ( ).smooth ( route );
 			}
-			route.itinerary.ascent = ZERO;
-			route.itinerary.descent = ZERO;
+			let ascent = ZERO;
+			let descent = ZERO;
 			let previousElev = route.itinerary.itineraryPoints.first.elev;
 			route.itinerary.itineraryPoints.forEach (
 				itineraryPoint => {
 					let deltaElev = itineraryPoint.elev - previousElev;
 					if ( ZERO > deltaElev ) {
-						route.itinerary.descent -= deltaElev;
+						descent -= deltaElev;
 					}
 					else {
-						route.itinerary.ascent += deltaElev;
+						ascent += deltaElev;
 					}
 					previousElev = itineraryPoint.elev;
 				}
 			);
+			route.itinerary.ascent = ascent;
+			route.itinerary.descent = descent;
 			if ( profileWindow ) {
 				profileWindow.update ( route );
 			}
