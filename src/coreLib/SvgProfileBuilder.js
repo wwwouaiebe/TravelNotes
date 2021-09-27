@@ -35,7 +35,7 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@file ProfileFactory.js
+@file SvgProfileBuilder.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
 @private
@@ -52,10 +52,7 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-import theConfig from '../data/Config.js';
 import { SVG_NS, SVG_PROFILE, ZERO, ONE, TWO, DISTANCE } from '../main/Constants.js';
-
-const TEN = 10;
 
 const OUR_LEFT_PROFILE = SVG_PROFILE.margin.toFixed ( ZERO );
 const OUR_BOTTOM_PROFILE = ( SVG_PROFILE.margin + SVG_PROFILE.height ).toFixed ( ZERO );
@@ -77,12 +74,9 @@ const OUR_BOTTOM_TEXT_PROFILE = SVG_PROFILE.margin + SVG_PROFILE.height + ( SVG_
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-class ProfileFactory {
+class SvgProfileBuilder {
 
 	#route = null;
-
-	#smoothDistance = ZERO;
-	#smoothPoints = theConfig.route.elev.smoothPoints;
 
 	#svg = null;
 	#VScale = ONE;
@@ -91,130 +85,6 @@ class ProfileFactory {
 	#minElev = Number.MAX_VALUE;
 	#maxElev = ZERO;
 	#deltaElev = ZERO;
-
-	/**
-	This method creates a map with temporary points that are all at the same distance.
-	Elevation of tmp points is computed from the elevation of the route to smooth
-	@private
-	*/
-
-	#createTmpPoints ( ) {
-
-		let tmpPointsDistance = 0;
-		let tmpPointElev = 0;
-		const tmpPoints = [];
-		const itineraryPointsIterator = this.#route.itinerary.itineraryPoints.iterator;
-		let itineraryPointsDistance = 0;
-
-		// going to the first itinerary point
-		let done = itineraryPointsIterator.done;
-
-		// adding the first itinerary point to the tmpPoints
-		tmpPoints.push ( { distance : tmpPointsDistance, elev : itineraryPointsIterator.value.elev } );
-
-		// going to the second itinerary point
-		itineraryPointsDistance += itineraryPointsIterator.value.distance;
-		done = itineraryPointsIterator.done;
-
-		// loop on next itinerary points
-		while ( ! done ) {
-			tmpPointsDistance += this.#smoothDistance;
-
-			// loop on the itinerary points till we pass the itinerary point distance
-			while ( tmpPointsDistance >= itineraryPointsDistance && ! done ) {
-				itineraryPointsDistance += itineraryPointsIterator.value.distance;
-				done = itineraryPointsIterator.done;
-			}
-			if ( ! done ) {
-
-				// adding tmpPoint
-				const ascentFactor = ( itineraryPointsIterator.value.elev - itineraryPointsIterator.previous.elev ) /
-					itineraryPointsIterator.previous.distance;
-				tmpPointElev =
-					itineraryPointsIterator.value.elev -
-					( ( itineraryPointsDistance - tmpPointsDistance ) * ascentFactor );
-				tmpPoints.push ( { distance : tmpPointsDistance, elev : tmpPointElev } );
-			}
-		}
-
-		// last itinerary point is added
-		tmpPoints.push ( { distance : itineraryPointsDistance, elev : this.#route.itinerary.itineraryPoints.last.elev } );
-
-		return tmpPoints;
-	}
-
-	/**
-	Create a map from the tmppoints with smooth elevation
-	@private
-	*/
-
-	#createSmoothPoints ( ) {
-		const tmpPoints = this.#createTmpPoints ( );
-		const smoothPoints = new Map;
-
-		let deltaElev = ( tmpPoints [ this.#smoothPoints ].elev - tmpPoints [ ZERO ].elev ) / this.#smoothPoints;
-
-		let pointCounter = ZERO;
-
-		// Computing the first elevs
-		for ( pointCounter = ZERO; pointCounter < this.#smoothPoints; pointCounter ++ ) {
-			smoothPoints.set (
-				pointCounter * this.#smoothDistance,
-				{
-					distance : pointCounter * this.#smoothDistance,
-					elev : tmpPoints [ ZERO ].elev + ( deltaElev * pointCounter )
-				}
-			);
-		}
-
-		// Computing next elevs
-		for ( pointCounter = this.#smoothPoints; pointCounter < tmpPoints.length - this.#smoothPoints; pointCounter ++ ) {
-			let elevSum = ZERO;
-			for (
-				let pointNumber = pointCounter - this.#smoothPoints;
-				pointCounter + this.#smoothPoints >= pointNumber;
-				pointNumber ++
-			) {
-				elevSum += tmpPoints [ pointNumber ].elev;
-			}
-			smoothPoints.set (
-				tmpPoints [ pointCounter ].distance,
-				{
-					distance : tmpPoints [ pointCounter ].distance,
-					elev : elevSum / ( ( this.#smoothPoints * TWO ) + ONE )
-				}
-			);
-		}
-
-		pointCounter --;
-
-		deltaElev = this.#smoothDistance * (
-			tmpPoints [ tmpPoints.length - ONE ].elev -
-				tmpPoints [ tmpPoints.length - ONE - this.#smoothPoints ].elev
-		) /
-			(
-				tmpPoints [ tmpPoints.length - ONE ].distance -
-				tmpPoints [ tmpPoints.length - ONE - this.#smoothPoints ].distance
-			);
-
-		// Computing the last elevs
-		smoothPoints.set (
-			tmpPoints [ pointCounter ].distance + this.#smoothDistance,
-			{
-				distance : tmpPoints [ pointCounter ].distance + this.#smoothDistance,
-				elev : tmpPoints [ pointCounter ].elev + deltaElev
-			}
-		);
-		smoothPoints.set (
-			tmpPoints [ pointCounter ].distance + ( this.#smoothDistance * TWO ),
-			{
-				distance : tmpPoints [ pointCounter ].distance + ( this.#smoothDistance * TWO ),
-				elev : tmpPoints [ pointCounter ].elev + ( deltaElev * TWO )
-			}
-		);
-
-		return smoothPoints;
-	}
 
 	/**
 	This method creates the profile polyline in the svg element
@@ -369,60 +239,6 @@ class ProfileFactory {
 	}
 
 	/**
-	This method smooth the Route elevation. Some elevations are not correct due to imprecisions in the elev files
-	so it's needed to smooth these strange elevs
-	@param {Route} route The Route to smooth
-	*/
-
-	smooth ( route ) {
-
-		// some computations to prepare the job...
-		this.#route = route;
-		let itineraryPointsIterator = this.#route.itinerary.itineraryPoints.iterator;
-		let distance = ZERO;
-		let elev = ZERO;
-		while ( ! itineraryPointsIterator.done ) {
-			distance += itineraryPointsIterator.value.distance;
-			elev +=
-				itineraryPointsIterator.next
-					?
-					Math.abs ( itineraryPointsIterator.value.elev - itineraryPointsIterator.next.elev )
-					:
-					ZERO;
-
-		}
-
-		this.#smoothDistance = Math.floor ( theConfig.route.elev.smoothCoefficient / ( elev / distance ) ) * TEN;
-		if ( distance <= TWO * this.#smoothPoints * this.#smoothDistance ) {
-			return;
-		}
-
-		// creating smooth points
-		const smoothPoints = this.#createSmoothPoints ( );
-
-		itineraryPointsIterator = this.#route.itinerary.itineraryPoints.iterator;
-
-		// we skip the first itinerary point
-		itineraryPointsIterator.done;
-		let itineraryPointsTotalDistance = itineraryPointsIterator.value.distance;
-
-		// loop on the itinerary point to push the smooth elev
-		while ( ! itineraryPointsIterator.done ) {
-			const previousIronPoint = smoothPoints.get (
-				Math.floor ( itineraryPointsTotalDistance / this.#smoothDistance ) * this.#smoothDistance );
-			const nextIronPoint = smoothPoints.get (
-				Math.ceil ( itineraryPointsTotalDistance / this.#smoothDistance ) * this.#smoothDistance );
-			if ( previousIronPoint && nextIronPoint ) {
-				const deltaDist = itineraryPointsTotalDistance - previousIronPoint.distance;
-				const ascentFactor = ( nextIronPoint.elev - previousIronPoint.elev ) /
-					( nextIronPoint.distance - previousIronPoint.distance );
-				itineraryPointsIterator.value.elev = previousIronPoint.elev + ( deltaDist * ascentFactor );
-			}
-			itineraryPointsTotalDistance += itineraryPointsIterator.value.distance;
-		}
-	}
-
-	/**
 	this method creates the svg with the Route profile. This svg is displayed in the profile window and in the roadbook
 	@param {Route} route The route for witch the svg must be created
 	@return the svg element with the profile
@@ -455,8 +271,8 @@ class ProfileFactory {
 	}
 }
 
-export default ProfileFactory;
+export default SvgProfileBuilder;
 
 /*
---- End of ProfileFactory.js file ---------------------------------------------------------------------------------------------
+--- End of SvgProfileBuilder.js file ------------------------------------------------------------------------------------------
 */

@@ -47,7 +47,7 @@ Tests ...
 */
 
 import ObjId from '../data/ObjId.js';
-import ProfileFactory from '../coreLib/ProfileFactory.js';
+import SvgProfileBuilder from '../coreLib/SvgProfileBuilder.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import theTranslator from '../UILib/Translator.js';
@@ -170,7 +170,7 @@ class RouteHTMLViewsFactory {
 	getRouteProfileHTML ( classPrefix, route ) {
 		const profileDiv = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'RouteProfile' } );
 		theHTMLSanitizer.sanitizeToHtmlElement ( theTranslator.getText ( 'RouteHTMLViewsFactory - Profile' ), profileDiv );
-		profileDiv.appendChild ( new ProfileFactory ( ).createSvg ( route ) );
+		profileDiv.appendChild ( new SvgProfileBuilder ( ).createSvg ( route ) );
 
 		return profileDiv;
 	}

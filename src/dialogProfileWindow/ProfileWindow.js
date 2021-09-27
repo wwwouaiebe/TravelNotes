@@ -40,7 +40,7 @@ import theGeometry from '../coreLib/Geometry.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import theUtilities from '../UILib/Utilities.js';
 import ProfileContextMenu from '../contextMenus/ProfileContextMenu.js';
-import ProfileFactory from '../coreLib/ProfileFactory.js';
+import SvgProfileBuilder from '../coreLib/SvgProfileBuilder.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import { SVG_NS, SVG_PROFILE, ZERO, ONE, TWO, THREE } from '../main/Constants.js';
 
@@ -389,7 +389,7 @@ class ProfileWindow extends FloatWindow {
 	update ( route ) {
 		this.#clean ( );
 		this.#route = route;
-		this.#svg = new ProfileFactory ( ).createSvg ( this.#route );
+		this.#svg = new SvgProfileBuilder ( ).createSvg ( this.#route );
 		this.#svg.dataset.tanObjId = route.objId;
 		this.#svg.dataset.tanMarkerObjId = this.#markerObjId;
 
