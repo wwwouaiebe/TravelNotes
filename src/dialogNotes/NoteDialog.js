@@ -325,8 +325,8 @@ class NoteDialog extends BaseDialog {
 	*/
 
 	getControlsValues ( destination ) {
-		destination.iconWidth = this.#iconDimsControl.iconHeight;
-		destination.iconHeight = this.#iconDimsControl.iconWidth;
+		destination.iconWidth = this.#iconDimsControl.iconWidth;
+		destination.iconHeight = this.#iconDimsControl.iconHeight;
 		destination.iconContent = this.#iconControl.iconContent;
 		destination.tooltipContent = this.#tooltipControl.tooltipContent;
 		destination.popupContent = this.#popupControl.popupContent;
