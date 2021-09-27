@@ -222,20 +222,15 @@ class ProfileSmoothingIron {
 			);
 
 		// Computing the last elevs
-		this.#smoothPoints.set (
-			this.#tempSmoothPoints [ pointCounter ].distance + this.#smoothDistance,
-			{
-				distance : this.#tempSmoothPoints [ pointCounter ].distance + this.#smoothDistance,
-				elev : this.#tempSmoothPoints [ pointCounter ].elev + deltaElev
-			}
-		);
-		this.#smoothPoints.set (
-			this.#tempSmoothPoints [ pointCounter ].distance + ( this.#smoothDistance * TWO ),
-			{
-				distance : this.#tempSmoothPoints [ pointCounter ].distance + ( this.#smoothDistance * TWO ),
-				elev : this.#tempSmoothPoints [ pointCounter ].elev + ( deltaElev * TWO )
-			}
-		);
+		for ( let counter = ONE; counter <= this.#SmoothPointsNumber; counter ++ ) {
+			this.#smoothPoints.set (
+				this.#tempSmoothPoints [ pointCounter ].distance + ( this.#smoothDistance * counter ),
+				{
+					distance : this.#tempSmoothPoints [ pointCounter ].distance + ( this.#smoothDistance * counter ),
+					elev : this.#tempSmoothPoints [ pointCounter ].elev + ( deltaElev * counter )
+				}
+			);
+		}
 	}
 
 	/**

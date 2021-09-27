@@ -233,11 +233,17 @@ class SvgMouseMoveEL extends BaseSvgEL {
 			);
 
 			// Line and text on svg
-			if ( this.#marker ) {
+			if ( this.#marker && this.#profileSvg.contains ( this.#marker ) ) {
 				this.#profileSvg.removeChild ( this.#marker );
 				this.#profileSvg.removeChild ( this.#distanceText );
 				this.#profileSvg.removeChild ( this.#elevText );
 				this.#profileSvg.removeChild ( this.#ascentText );
+			}
+			else {
+				this.#marker = null;
+				this.#distanceText = null;
+				this.#elevText = null;
+				this.#ascentText = null;
 			}
 			const clientRect = this.#profileSvg.getBoundingClientRect ( );
 			this.#markerX =
