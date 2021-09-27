@@ -55,8 +55,6 @@ Changes:
 .TravelNotes-Roadbook-Travel-Notes-IconCell,
 .TravelNotes-Roadbook-Route-ManeuversAndNotes-IconCell {
 	background-repeat: no-repeat;
-	min-width: 40px;
-	min-height: 40px;
 	vertical-align: top;
 	flex-shrink: 0;
 }

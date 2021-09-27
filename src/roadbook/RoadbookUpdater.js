@@ -46,8 +46,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
-
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
@@ -118,8 +116,7 @@ class RoadbookUpdater {
 	*/
 
 	updateRoadbook ( pageContent ) {
-		this.#travelNotesHtmlElement.textContent = '';
-		theHTMLSanitizer.sanitizeToHtmlElement ( pageContent, this.#travelNotesHtmlElement );
+		this.#travelNotesHtmlElement.innerHTML = pageContent;
 		const headerName = document.querySelector ( '.TravelNotes-Roadbook-Travel-Header-Name' );
 		if ( headerName ) {
 			document.title =
