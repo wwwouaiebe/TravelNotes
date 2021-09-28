@@ -46,9 +46,7 @@ Tests ...
 
 import theConfig from '../data/Config.js';
 
-import { ZERO, ONE, TWO } from '../main/Constants.js';
-
-const TEN = 10;
+import { ZERO, ONE, TWO, THREE } from '../main/Constants.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
@@ -79,157 +77,138 @@ class ProfileSmoothingIron {
 	#smoothDistance = ZERO;
 
 	/**
-	The number of points used to compute the elevation
+	The number of points used to compute the smooth elevation
 	#type {number}
 	@private
 	*/
 
-	#SmoothPointsNumber = theConfig.route.elev.smoothPoints;
+	#smoothPointsNumber = theConfig.route.elev.smoothPoints;
 
 	/**
+	An array with point used to smooth the elevation
 	@type {Array.<Object>}
 	@private
 	*/
 
-	#tempSmoothPoints = [];
-
+	#smoothPoints = [];
+	
 	/**
-	@type {Map}
-	@private
-	*/
-
-	#smoothPoints = new Map ( );
-
-	/**
-	This method creates an array with temporary points that are all at the same distance.
-	Elevation of tmp points is computed from the elevation of the route to smooth
-	@private
-	*/
-
-	#createTempSmoothPoints ( ) {
-
-		let tempPointsDistance = ZERO;
-		let tmpPointElev = ZERO;
-		let itineraryPointsDistance = ZERO;
-		this.#tempSmoothPoints = [];
-		const itineraryPointsIterator = this.#route.itinerary.itineraryPoints.iterator;
-
-		// going to the first itinerary point
-		let done = itineraryPointsIterator.done;
-
-		// adding the first itinerary point to the tempSmoothPoints
-		this.#tempSmoothPoints.push ( { distance : tempPointsDistance, elev : itineraryPointsIterator.value.elev } );
-
-		// going to the second itinerary point
-		itineraryPointsDistance += itineraryPointsIterator.value.distance;
-		done = itineraryPointsIterator.done;
-
-		// loop on next itinerary points
-		while ( ! done ) {
-			tempPointsDistance += this.#smoothDistance;
-
-			// loop on the itinerary points till we pass the itinerary point distance
-			while ( tempPointsDistance >= itineraryPointsDistance && ! done ) {
-				itineraryPointsDistance += itineraryPointsIterator.value.distance;
-				done = itineraryPointsIterator.done;
-			}
-			if ( ! done ) {
-
-				// adding temp point
-				const ascentFactor = ( itineraryPointsIterator.value.elev - itineraryPointsIterator.previous.elev ) /
-					itineraryPointsIterator.previous.distance;
-				tmpPointElev =
-					itineraryPointsIterator.value.elev -
-					( ( itineraryPointsDistance - tempPointsDistance ) * ascentFactor );
-				this.#tempSmoothPoints.push ( { distance : tempPointsDistance, elev : tmpPointElev } );
-			}
-		}
-
-		// last itinerary point is added
-		this.#tempSmoothPoints.push (
-			{
-				distance : itineraryPointsDistance,
-				elev : this.#route.itinerary.itineraryPoints.last.elev
-			}
-		);
-
-		return this.#tempSmoothPoints;
-	}
-
-	/**
-	Create a map from the tmppoints with smooth elevation
+	Create the array of points with the elevation
 	@private
 	*/
 
 	#createSmoothPoints ( ) {
+		this.#smoothPoints = [];
 
-		this.#smoothPoints.clear ( );
+		// first point
+		this.#smoothPoints.push (
+			{
+				distance : ZERO,
+				elev : this.#route.itinerary.itineraryPoints.first.elev,
+				smoothElev : this.#route.itinerary.itineraryPoints.first.elev
+			}
+		);
+		const itineraryPointsIterator = this.#route.itinerary.itineraryPoints.iterator;
+		itineraryPointsIterator.done;
+		let previousItineraryPointDistance = ZERO;
+		let itineraryPointdistance = itineraryPointsIterator.value.distance;
+		let previousItineraryPointElev = itineraryPointsIterator.value.elev;
+		itineraryPointsIterator.done;
 
-		let deltaElev =
-			( this.#tempSmoothPoints [ this.#SmoothPointsNumber ].elev - this.#tempSmoothPoints [ ZERO ].elev )
-			/
-			this.#SmoothPointsNumber;
+		let smoothPointDistance = this.#smoothDistance;
+		
+		// next points
+		while ( smoothPointDistance < this.#route.distance ) {
 
-		let pointCounter = ZERO;
+			if ( itineraryPointdistance < smoothPointDistance ) {
+				previousItineraryPointDistance = itineraryPointdistance;
+				previousItineraryPointElev = itineraryPointsIterator.value.elev;
+				while ( itineraryPointdistance < smoothPointDistance ) {
+					itineraryPointdistance += itineraryPointsIterator.value.distance;
+					itineraryPointsIterator.done;
+				}
+			}
 
-		// Computing the first elevs
-		for ( pointCounter = ZERO; pointCounter < this.#SmoothPointsNumber; pointCounter ++ ) {
-			this.#smoothPoints.set (
-				pointCounter * this.#smoothDistance,
+			let ascentFactor =
+				( itineraryPointsIterator.value.elev - previousItineraryPointElev )
+				/
+				( itineraryPointdistance - previousItineraryPointDistance );
+			const smoothPointElev =
+				previousItineraryPointElev
+				+
+				( ( smoothPointDistance - previousItineraryPointDistance ) * ascentFactor );
+			this.#smoothPoints.push (
 				{
-					distance : pointCounter * this.#smoothDistance,
-					elev : this.#tempSmoothPoints [ ZERO ].elev + ( deltaElev * pointCounter )
+					distance : smoothPointDistance,
+					elev : smoothPointElev,
+					smoothElev : ZERO
 				}
 			);
+			smoothPointDistance += this.#smoothDistance;
 		}
 
-		// Computing next elevs
+		// last point
+		this.#smoothPoints.push (
+			{
+				distance : this.#route.distance,
+				elev : this.#route.itinerary.itineraryPoints.last.elev,
+				smoothElev : this.#route.itinerary.itineraryPoints.last.elev
+			}
+		);
+	}
+	
+	/**
+	Compute the smooth elevation for the points in the array
+	@private
+	*/
+
+	#computeSmoothElev ( ) {
+		let deltaElev =
+			( this.#smoothPoints [ this.#smoothPointsNumber - ONE ].elev - this.#smoothPoints [ ZERO ].elev )
+			/
+			( this.#smoothPointsNumber - ONE );
+
+		let pointCounter = ZERO;
+		for ( pointCounter = ZERO; pointCounter < this.#smoothPointsNumber; pointCounter ++ ) {
+			this.#smoothPoints [ pointCounter ].smoothElev =
+				this.#smoothPoints [ ZERO ].elev + ( deltaElev * pointCounter );
+		}
+
 		for (
-			pointCounter = this.#SmoothPointsNumber;
-			pointCounter < this.#tempSmoothPoints.length - this.#SmoothPointsNumber;
+			pointCounter = this.#smoothPointsNumber;
+			pointCounter < this.#smoothPoints.length - this.#smoothPointsNumber;
 			pointCounter ++
 		) {
 			let elevSum = ZERO;
 			for (
-				let pointNumber = pointCounter - this.#SmoothPointsNumber;
-				pointCounter + this.#SmoothPointsNumber >= pointNumber;
+				let pointNumber = pointCounter - this.#smoothPointsNumber;
+				pointNumber <= pointCounter + this.#smoothPointsNumber;
 				pointNumber ++
 			) {
-				elevSum += this.#tempSmoothPoints [ pointNumber ].elev;
+				elevSum += this.#smoothPoints [ pointNumber ].elev;
 			}
-			this.#smoothPoints.set (
-				this.#tempSmoothPoints [ pointCounter ].distance,
-				{
-					distance : this.#tempSmoothPoints [ pointCounter ].distance,
-					elev : elevSum / ( ( this.#SmoothPointsNumber * TWO ) + ONE )
-				}
-			);
+			this.#smoothPoints [ pointCounter ].smoothElev = elevSum / ( ( this.#smoothPointsNumber * TWO ) + ONE );
 		}
 
 		pointCounter --;
 
-		deltaElev =
-			this.#smoothDistance
-			*
+		const deltaSmoothElev =
 			(
-				this.#tempSmoothPoints [ this.#tempSmoothPoints.length - ONE ].elev -
-				this.#tempSmoothPoints [ this.#tempSmoothPoints.length - ONE - this.#SmoothPointsNumber ].elev
+				this.#smoothPoints [ pointCounter + this.#smoothPointsNumber ].smoothElev
+				-
+				this.#smoothPoints [ pointCounter ].smoothElev
 			)
 			/
-			(
-				this.#tempSmoothPoints [ this.#tempSmoothPoints.length - ONE ].distance -
-				this.#tempSmoothPoints [ this.#tempSmoothPoints.length - ONE - this.#SmoothPointsNumber ].distance
-			);
+			this.#smoothPointsNumber;
 
-		// Computing the last elevs
-		for ( let counter = ONE; counter <= this.#SmoothPointsNumber; counter ++ ) {
-			this.#smoothPoints.set (
-				this.#tempSmoothPoints [ pointCounter ].distance + ( this.#smoothDistance * counter ),
-				{
-					distance : this.#tempSmoothPoints [ pointCounter ].distance + ( this.#smoothDistance * counter ),
-					elev : this.#tempSmoothPoints [ pointCounter ].elev + ( deltaElev * counter )
-				}
-			);
+		let tmpSmoothElev = this.#smoothPoints [ pointCounter ].smoothElev;
+		let tmpPointCounter = ONE;
+
+		pointCounter ++;
+
+		for ( ; pointCounter < this.#smoothPoints.length - ONE; tmpPointCounter ++, pointCounter ++ ) {
+			this.#smoothPoints [ pointCounter ].smoothElev =
+				tmpSmoothElev + ( deltaSmoothElev * tmpPointCounter );
 		}
 	}
 
@@ -244,10 +223,8 @@ class ProfileSmoothingIron {
 
 		// computing the distance and elev of the route (elev is the sum of ascent and descent see Math.abs)
 		const itineraryPointsIterator = this.#route.itinerary.itineraryPoints.iterator;
-		let distance = ZERO;
 		let elev = ZERO;
 		while ( ! itineraryPointsIterator.done ) {
-			distance += itineraryPointsIterator.value.distance;
 			elev +=
 				itineraryPointsIterator.next
 					?
@@ -259,20 +236,22 @@ class ProfileSmoothingIron {
 
 		// Computing smooth distance
 		this.#smoothDistance =
-			Number.parseInt ( Math.floor ( theConfig.route.elev.smoothCoefficient / ( elev / distance ) ) * TEN );
-
-		// The route is too short to be smoothed. Setting smooth distance to null
-		if ( distance <= TWO * this.#SmoothPointsNumber * this.#smoothDistance ) {
-			this.#smoothDistance = null;
-		}
+			Math.floor (
+				Math.min (
+					theConfig.route.elev.smoothCoefficient * this.#route.distance / elev,
+					this.#route.distance / ( THREE * this.#smoothPointsNumber )
+				)
+			);
+		console.log ( this.#smoothDistance );
 	}
 
 	/**
-	Report the smooth elev from the smoothPoints map to the route
+	Report the smooth elev from the smoothPoints array to the route itinerary
 	@private
 	*/
 
 	#setSmoothElev ( ) {
+
 		const itineraryPointsIterator = this.#route.itinerary.itineraryPoints.iterator;
 
 		// we skip the first itinerary point
@@ -281,10 +260,11 @@ class ProfileSmoothingIron {
 
 		// loop on the itinerary point to push the smooth elev
 		while ( ! itineraryPointsIterator.done ) {
-			const previousIronPoint = this.#smoothPoints.get (
-				Math.floor ( itineraryPointsTotalDistance / this.#smoothDistance ) * this.#smoothDistance );
-			const nextIronPoint = this.#smoothPoints.get (
-				Math.ceil ( itineraryPointsTotalDistance / this.#smoothDistance ) * this.#smoothDistance );
+			const previousIronPoint =
+			this.#smoothPoints [ Math.floor ( itineraryPointsTotalDistance / this.#smoothDistance ) ];
+			const nextIronPoint =
+				this.#smoothPoints [ Math.ceil ( itineraryPointsTotalDistance / this.#smoothDistance ) ];
+			// nextIronPoint is null for the last itineray point, so the last point is also skipped
 			if ( previousIronPoint && nextIronPoint ) {
 				const deltaDist = itineraryPointsTotalDistance - previousIronPoint.distance;
 				const ascentFactor = ( nextIronPoint.elev - previousIronPoint.elev ) /
@@ -293,6 +273,7 @@ class ProfileSmoothingIron {
 			}
 			itineraryPointsTotalDistance += itineraryPointsIterator.value.distance;
 		}
+		console.log ( this.#smoothPoints );
 	}
 
 	/*
@@ -311,11 +292,8 @@ class ProfileSmoothingIron {
 	smooth ( route ) {
 		this.#route = route;
 		this.#computeSmoothDistance ( );
-		if ( ! this.#smoothDistance ) {
-			return;
-		}
-		this.#createTempSmoothPoints ( );
 		this.#createSmoothPoints ( );
+		this.#computeSmoothElev ( );
 		this.#setSmoothElev ( );
 	}
 }

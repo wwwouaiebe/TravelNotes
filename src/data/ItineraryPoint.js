@@ -147,7 +147,7 @@ class ItineraryPoint extends TravelObject {
 	}
 
 	/**
-	the distance between the beginning of the itinerary and the ItineraryPoint
+	the distance between the ItineraryPoint and the next ItineraryPoint
 	@type {number}
 	*/
 

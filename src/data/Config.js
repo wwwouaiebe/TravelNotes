@@ -283,7 +283,7 @@ const theConfig = {
 		],
 		elev : {
 			smooth : true,
-			smoothCoefficient : 0.25,
+			smoothCoefficient : 2.5,
 			smoothPoints : 3
 		},
 		showDragTooltip : 3,
