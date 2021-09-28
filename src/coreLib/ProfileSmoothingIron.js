@@ -91,7 +91,7 @@ class ProfileSmoothingIron {
 	*/
 
 	#smoothPoints = [];
-	
+
 	/**
 	Create the array of points with the elevation
 	@private
@@ -116,7 +116,7 @@ class ProfileSmoothingIron {
 		itineraryPointsIterator.done;
 
 		let smoothPointDistance = this.#smoothDistance;
-		
+
 		// next points
 		while ( smoothPointDistance < this.#route.distance ) {
 
@@ -156,7 +156,7 @@ class ProfileSmoothingIron {
 			}
 		);
 	}
-	
+
 	/**
 	Compute the smooth elevation for the points in the array
 	@private
@@ -242,7 +242,6 @@ class ProfileSmoothingIron {
 					this.#route.distance / ( THREE * this.#smoothPointsNumber )
 				)
 			);
-		console.log ( this.#smoothDistance );
 	}
 
 	/**
@@ -264,6 +263,7 @@ class ProfileSmoothingIron {
 			this.#smoothPoints [ Math.floor ( itineraryPointsTotalDistance / this.#smoothDistance ) ];
 			const nextIronPoint =
 				this.#smoothPoints [ Math.ceil ( itineraryPointsTotalDistance / this.#smoothDistance ) ];
+
 			// nextIronPoint is null for the last itineray point, so the last point is also skipped
 			if ( previousIronPoint && nextIronPoint ) {
 				const deltaDist = itineraryPointsTotalDistance - previousIronPoint.distance;
@@ -273,7 +273,6 @@ class ProfileSmoothingIron {
 			}
 			itineraryPointsTotalDistance += itineraryPointsIterator.value.distance;
 		}
-		console.log ( this.#smoothPoints );
 	}
 
 	/*
