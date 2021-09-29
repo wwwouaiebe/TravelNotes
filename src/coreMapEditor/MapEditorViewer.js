@@ -144,7 +144,7 @@ class MapEditorViewer {
 			{
 				color : route.color,
 				weight : route.width,
-				dashArray : this.#getDashArray ( route )
+				dashArray : this.getDashArray ( route )
 			}
 		);
 		this.addToMap ( route.objId, polyline );
@@ -189,7 +189,7 @@ class MapEditorViewer {
 	@listens noteupdated
 	*/
 
-	addNote ( noteObjId ) { 
+	addNote ( noteObjId ) {
 		const note = theDataSearchEngine.getNoteAndRoute ( noteObjId ).note;
 
 		// first a marker is created at the note position. This marker is empty and transparent, so
@@ -275,7 +275,7 @@ class MapEditorViewer {
 	@return {string} the dashArray to use for the route
 	*/
 
-	getDashArray ( route ) { 
+	getDashArray ( route ) {
 		if ( route.dashArray >= theConfig.route.dashChoices.length ) {
 			route.dashArray = ZERO;
 		}
