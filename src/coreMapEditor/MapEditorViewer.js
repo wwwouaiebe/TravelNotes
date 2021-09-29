@@ -98,121 +98,6 @@ class MapEditorViewer {
 
 	#geolocationCircle = null;
 
-	/**
-	This method compute the dashArray to use for a route
-	@param {Route} route The route for witch the dashArray must be computed
-	@return {string} the dashArray to use for the route
-	@private
-	*/
-
-	#getDashArray ( route ) {
-		if ( route.dashArray >= theConfig.route.dashChoices.length ) {
-			route.dashArray = ZERO;
-		}
-		const iDashArray = theConfig.route.dashChoices [ route.dashArray ].iDashArray;
-		if ( iDashArray ) {
-			let dashArray = '';
-			let dashCounter = ZERO;
-			for ( dashCounter = ZERO; dashCounter < iDashArray.length - ONE; dashCounter ++ ) {
-				dashArray += ( iDashArray [ dashCounter ] * route.width ) + ',';
-			}
-			dashArray += iDashArray [ dashCounter ] * route.width;
-
-			return dashArray;
-		}
-		return null;
-	}
-
-	/**
-	Add a Note to the map
-	@param {!number} objId The objId of the note to add
-	@return {NoteLeafletObjects} An object with a reference to the Leaflet objects of the note
-	@private
-	*/
-
-	#addNote ( noteObjId ) {
-
-		const note = theDataSearchEngine.getNoteAndRoute ( noteObjId ).note;
-
-		// first a marker is created at the note position. This marker is empty and transparent, so
-		// not visible on the map but the marker can be dragged
-		const bullet = window.L.marker (
-			note.latLng,
-			{
-				icon : window.L.divIcon (
-					{
-						iconSize : [ theConfig.note.grip.size, theConfig.note.grip.size ],
-						iconAnchor : [ theConfig.note.grip.size / TWO, theConfig.note.grip.size / TWO ],
-						html : '<div></div>',
-						className : 'TravelNotes-Map-Note-Bullet'
-					}
-				),
-				opacity : theConfig.note.grip.opacity,
-				draggable : ! theTravelNotesData.travel.readOnly
-			}
-		);
-		bullet.objId = note.objId;
-
-		// a second marker is now created. The icon created by the user is used for this marker
-		const icon = window.L.divIcon (
-			{
-				iconSize : [ note.iconWidth, note.iconHeight ],
-				iconAnchor : [ note.iconWidth / TWO, note.iconHeight / TWO ],
-				popupAnchor : [ ZERO, -note.iconHeight / TWO ],
-				html : note.iconContent,
-				className : 'TravelNotes-Map-AllNotes '
-			}
-		);
-
-		const marker = window.L.marker (
-			note.iconLatLng,
-			{
-				zIndexOffset : OUR_NOTE_Z_INDEX_OFFSET,
-				icon : icon,
-				draggable : ! theTravelNotesData.travel.readOnly
-			}
-		);
-		marker.objId = note.objId;
-
-		// a popup is binded to the the marker...
-		marker.bindPopup (
-			layer => theHTMLSanitizer.clone (
-				theNoteHTMLViewsFactory.getNoteTextHTML (
-					'TravelNotes-Map-',
-					theDataSearchEngine.getNoteAndRoute ( layer.objId )
-				)
-			)
-		);
-
-		// ... and also a tooltip
-		if ( ZERO !== note.tooltipContent.length ) {
-			marker.bindTooltip (
-				layer => theDataSearchEngine.getNoteAndRoute ( layer.objId ).note.tooltipContent
-			);
-			marker.getTooltip ( ).options.offset [ ZERO ] = note.iconWidth / TWO;
-		}
-
-		// Finally a polyline is created between the 2 markers
-		const polyline = window.L.polyline ( [ note.latLng, note.iconLatLng ], theConfig.note.polyline );
-		polyline.objId = note.objId;
-
-		// The 3 objects are added to a layerGroup
-		const layerGroup = window.L.layerGroup ( [ marker, polyline, bullet ] );
-		layerGroup.markerId = window.L.Util.stamp ( marker );
-		layerGroup.polylineId = window.L.Util.stamp ( polyline );
-		layerGroup.bulletId = window.L.Util.stamp ( bullet );
-
-		// and the layerGroup added to the leaflet map and JavaScript map
-		this.addToMap ( note.objId, layerGroup );
-
-		if ( theConfig.note.haveBackground ) {
-			document.querySelectorAll ( '.TravelNotes-MapNote,.TravelNotes-SvgIcon' ).forEach (
-				noteIcon => noteIcon.classList.add ( 'TravelNotes-Map-Note-Background' )
-			);
-		}
-		return Object.freeze ( { marker : marker, polyline : polyline, bullet : bullet } );
-	}
-
 	/*
 	constructor
 	*/
@@ -289,7 +174,7 @@ class MapEditorViewer {
 		// notes are added
 		const notesIterator = route.notes.iterator;
 		while ( ! notesIterator.done ) {
-			this.#addNote ( notesIterator.value.objId );
+			this.addNote ( notesIterator.value.objId );
 		}
 
 		return route;
@@ -304,7 +189,85 @@ class MapEditorViewer {
 	@listens noteupdated
 	*/
 
-	addNote ( noteObjId ) { return this.#addNote ( noteObjId ); }
+	addNote ( noteObjId ) { 
+		const note = theDataSearchEngine.getNoteAndRoute ( noteObjId ).note;
+
+		// first a marker is created at the note position. This marker is empty and transparent, so
+		// not visible on the map but the marker can be dragged
+		const bullet = window.L.marker (
+			note.latLng,
+			{
+				icon : window.L.divIcon (
+					{
+						iconSize : [ theConfig.note.grip.size, theConfig.note.grip.size ],
+						iconAnchor : [ theConfig.note.grip.size / TWO, theConfig.note.grip.size / TWO ],
+						html : '<div></div>',
+						className : 'TravelNotes-Map-Note-Bullet'
+					}
+				),
+				opacity : theConfig.note.grip.opacity,
+				draggable : ! theTravelNotesData.travel.readOnly
+			}
+		);
+		bullet.objId = note.objId;
+
+		// a second marker is now created. The icon created by the user is used for this marker
+		const marker = window.L.marker (
+			note.iconLatLng,
+			{
+				zIndexOffset : OUR_NOTE_Z_INDEX_OFFSET,
+				icon : window.L.divIcon (
+					{
+						iconSize : [ note.iconWidth, note.iconHeight ],
+						iconAnchor : [ note.iconWidth / TWO, note.iconHeight / TWO ],
+						popupAnchor : [ ZERO, -note.iconHeight / TWO ],
+						html : note.iconContent,
+						className : 'TravelNotes-Map-AllNotes '
+					}
+				),
+				draggable : ! theTravelNotesData.travel.readOnly
+			}
+		);
+		marker.objId = note.objId;
+
+		// a popup is binded to the the marker...
+		marker.bindPopup (
+			layer => theHTMLSanitizer.clone (
+				theNoteHTMLViewsFactory.getNoteTextHTML (
+					'TravelNotes-Map-',
+					theDataSearchEngine.getNoteAndRoute ( layer.objId )
+				)
+			)
+		);
+
+		// ... and also a tooltip
+		if ( ZERO !== note.tooltipContent.length ) {
+			marker.bindTooltip (
+				layer => theDataSearchEngine.getNoteAndRoute ( layer.objId ).note.tooltipContent
+			);
+			marker.getTooltip ( ).options.offset [ ZERO ] = note.iconWidth / TWO;
+		}
+
+		// Finally a polyline is created between the 2 markers
+		const polyline = window.L.polyline ( [ note.latLng, note.iconLatLng ], theConfig.note.polyline );
+		polyline.objId = note.objId;
+
+		// The 3 objects are added to a layerGroup
+		const layerGroup = window.L.layerGroup ( [ marker, polyline, bullet ] );
+		layerGroup.markerId = window.L.Util.stamp ( marker );
+		layerGroup.polylineId = window.L.Util.stamp ( polyline );
+		layerGroup.bulletId = window.L.Util.stamp ( bullet );
+
+		// and the layerGroup added to the leaflet map and JavaScript map
+		this.addToMap ( note.objId, layerGroup );
+
+		if ( theConfig.note.haveBackground ) {
+			document.querySelectorAll ( '.TravelNotes-MapNote,.TravelNotes-SvgIcon' ).forEach (
+				noteIcon => noteIcon.classList.add ( 'TravelNotes-Map-Note-Background' )
+			);
+		}
+		return Object.freeze ( { marker : marker, polyline : polyline, bullet : bullet } );
+	}
 
 	/**
 	This method compute the dashArray to use for a route
@@ -312,7 +275,23 @@ class MapEditorViewer {
 	@return {string} the dashArray to use for the route
 	*/
 
-	getDashArray ( route ) { return this.#getDashArray ( route ); }
+	getDashArray ( route ) { 
+		if ( route.dashArray >= theConfig.route.dashChoices.length ) {
+			route.dashArray = ZERO;
+		}
+		const iDashArray = theConfig.route.dashChoices [ route.dashArray ].iDashArray;
+		if ( iDashArray ) {
+			let dashArray = '';
+			let dashCounter = ZERO;
+			for ( dashCounter = ZERO; dashCounter < iDashArray.length - ONE; dashCounter ++ ) {
+				dashArray += ( iDashArray [ dashCounter ] * route.width ) + ',';
+			}
+			dashArray += iDashArray [ dashCounter ] * route.width;
+
+			return dashArray;
+		}
+		return null;
+	}
 
 	/**
 	This method zoom to a point or an array of points
