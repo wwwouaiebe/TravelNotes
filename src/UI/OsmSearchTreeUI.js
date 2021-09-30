@@ -74,7 +74,7 @@ class TreeCheckboxChangeEL {
 
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
-		theOsmSearchDictionary.selectItemObjId (
+		theOsmSearchDictionary.selectItem (
 			Number.parseInt ( changeEvent.target.parentNode.dataset.tanObjId ),
 			changeEvent.target.checked
 		);
@@ -136,7 +136,7 @@ class TreeArrowClickEL {
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		theOsmSearchDictionary.changeExpanded ( Number.parseInt ( clickEvent.target.parentNode.dataset.tanObjId ) );
+		theOsmSearchDictionary.expandItem ( Number.parseInt ( clickEvent.target.parentNode.dataset.tanObjId ) );
 		this.#osmSearchTreeUI.redraw ( );
 	}
 
@@ -248,7 +248,6 @@ class OsmSearchTreeUI {
 		);
 		this.#treeHTMLElement.addEventListener ( 'wheel', new TreeWheelEL ( ), false );
 
-		theOsmSearchDictionary.dictionary.name = '';
 		this.#addItem ( theOsmSearchDictionary.dictionary );
 	}
 

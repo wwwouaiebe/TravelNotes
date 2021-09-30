@@ -230,11 +230,11 @@ class OsmSearchEngine	{
 	@private
 	*/
 
-	#searchFilters ( item ) {
+	#searchFilterItems ( item ) {
 		if ( item.isSelected && ( ZERO < item.filterTagsArray.length ) ) {
-			this.#filterItems = this.#filterItems.concat ( item );
+			this.#filterItems.push ( item );
 		}
-		item.items.forEach ( nextItem => this.#searchFilters ( nextItem ) );
+		item.items.forEach ( nextItem => this.#searchFilterItems ( nextItem ) );
 	}
 
 	/**
@@ -276,7 +276,7 @@ class OsmSearchEngine	{
 		}
 		this.#searchStarted = true;
 		this.#filterItems = [];
-		this.#searchFilters ( theOsmSearchDictionary.dictionary );
+		this.#searchFilterItems ( theOsmSearchDictionary.dictionary );
 		const dataLoader = new OverpassAPIDataLoader ( { searchPlaces : false } );
 		await dataLoader.loadData ( this.#getSearchQueries ( ) );
 		const pointsOfInterest = new Map ( );
@@ -302,13 +302,13 @@ class OsmSearchEngine	{
 	}
 
 	/**
-	Current search bounds getter
+	The current search bounds
 	*/
 
 	get searchBounds ( ) { return this.#computeSearchBounds ( ); }
 
 	/**
-	Previous search bounds getter
+	The previous search bounds
 	*/
 
 	get previousSearchBounds ( ) { return this.#previousSearchBounds; }

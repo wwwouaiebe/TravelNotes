@@ -117,7 +117,7 @@ class ExpandButtonClickEL {
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		theOsmSearchDictionary.expandBranch ( theOsmSearchDictionary.dictionary );
+		theOsmSearchDictionary.expand ( );
 		this.#osmSearchTreeUI.redraw ( );
 	}
 }
@@ -146,7 +146,7 @@ class CollapseButtonClickEL {
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		theOsmSearchDictionary.collapseBranch ( theOsmSearchDictionary.dictionary );
+		theOsmSearchDictionary.collapse ( );
 		this.#osmSearchTreeUI.redraw ( );
 	}
 }
@@ -175,7 +175,7 @@ class ClearButtonClickEL {
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		theOsmSearchDictionary.clearBranch ( theOsmSearchDictionary.dictionary );
+		theOsmSearchDictionary.unselectAll ( );
 		this.#osmSearchTreeUI.redraw ( );
 	}
 }

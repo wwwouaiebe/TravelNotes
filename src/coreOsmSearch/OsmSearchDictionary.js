@@ -65,68 +65,129 @@ class OsmSearchDictionary {
 
 	/**
 	the root item of the dictionary
+	@type {DictionaryItem}
 	@private
 	*/
 
 	#dictionary = null;
 
 	/**
-	A map with the dictionary items
+	A map with the all the DictionaryItem created, selectable by their objId
+	@type {Map}
 	@private
 	*/
 
 	#itemsMap = null;
 
 	/**
-	Variables used for the conversion of the .csv file
+	the currentItem treated by the #parseLine method
+	@type {DictionaryItem}
+	@private
 	*/
 
-	#itemsArray = [ ];
-	#filterTagsArray = null;
 	#currentItem = null;
 
 	/**
-	Split a line from the csv file into words and add a DictionaryItem or a filterTag to the dictionary
+	Array used to store a reference to the items property  of the DictionaryItem Objects
+	and so build the tree.
+	@type {Array.<Array.<DictionaryItem>>}
+	*/
+
+	#itemsArray = [ ];
+
+	/**
+	Split a line from the csv file into cells and add a DictionaryItem or a filterTag to the dictionary
 	@private
 	*/
 
 	#parseLine ( line ) {
-		let words = line.split ( ';' );
-		while ( '' === words [ words.length - ONE ] ) {
-			words.pop ( );
+
+		// split the linres into cells
+		const cells = line.split ( ';' );
+
+		// removing empty cells at the end of the line
+		while ( '' === cells [ cells.length - ONE ] ) {
+			cells.pop ( );
 		}
-		let wordPos = ZERO;
-		let filterTags = null;
-		words.forEach (
-			word => {
-				if ( '' !== word ) {
-					if ( NOT_FOUND === word.indexOf ( '=' ) ) {
-						this.#currentItem = new DictionaryItem ( word );
+
+		// The cell position in line. Used to build the tree
+		let cellPos = ZERO;
+
+		// An array with filterTags objects used to filter the osm elements. See DictionaryItem
+		const filterTags = [];
+		cells.forEach (
+			cell => {
+				if ( '' !== cell ) {
+
+					// The cell contains something
+					if ( NOT_FOUND === cell.indexOf ( '=' ) ) {
+
+						// The cell don't contains the = char. A new DictionaryItem is created
+						this.#currentItem = new DictionaryItem ( cell );
+
+						// The item is added to the itemsMap
 						this.#itemsMap.set ( this.#currentItem.objId, this.#currentItem );
-						this.#itemsArray [ wordPos ].push ( this.#currentItem );
-						this.#itemsArray [ wordPos + ONE ] = this.#currentItem.items;
-						this.#filterTagsArray = this.#currentItem.filterTagsArray;
+
+						this.#itemsArray [ cellPos ].push ( this.#currentItem );
+						this.#itemsArray [ cellPos + ONE ] = this.#currentItem.items;
 					}
 					else {
-						let keyAndValue = word.split ( '=' );
+
+						// Each cell is splited into a key and a value
+						let keyAndValue = cell.split ( '=' );
+
 						if ( 'element' === keyAndValue [ ZERO ] ) {
-							this.#currentItem.elementTypes = [ keyAndValue [ ONE ] ];
+
+							// Only one elementType is acceptable for this item
+							this.#currentItem.setElementType ( keyAndValue [ ONE ] );
 						}
 						else {
+
+							// A filterTag object is created...
 							let filterTag = {};
+
+							// ...and a property added to the object. The property name is the key found in the cell
+							// and the property value is the value found in the cell, except when the value is *
 							filterTag [ keyAndValue [ ZERO ] ] =
 								'*' === keyAndValue [ ONE ] ? null : keyAndValue [ ONE ];
-							filterTags = filterTags || [];
+
+							// ...and the filterTag object pushed in the array
 							filterTags.push ( filterTag );
 						}
 					}
 				}
-				wordPos ++;
+				cellPos ++;
 			}
 		);
-		if ( filterTags ) {
-			this.#filterTagsArray.push ( filterTags );
+		if ( ZERO !== filterTags.length ) {
+			this.#currentItem.filterTagsArray.push ( filterTags );
 		}
+	}
+
+	/**
+	Mark as expanded an item and all the childrens
+	@param {DictionartItem} item The item to mark as expanded
+	@private
+	*/
+
+	#expand ( item ) {
+		item.items.forEach (
+			subItem => { this.#expand ( subItem ); }
+		);
+		item.isExpanded = true;
+	}
+
+	/**
+	Mark as not expanded an item and all the childrens
+	@param {DictionartItem} item The item to mark as not expanded
+	@private
+	*/
+
+	#collapse ( item ) {
+		item.items.forEach (
+			subItem => { this.#collapse ( subItem ); }
+		);
+		item.isExpanded = false;
 	}
 
 	/*
@@ -135,11 +196,19 @@ class OsmSearchDictionary {
 
 	constructor ( ) {
 		this.#itemsMap = new Map ( );
-		this.#dictionary = new DictionaryItem ( 'All', true );
+		this.#dictionary = new DictionaryItem ( '', true );
 		this.#itemsMap.set ( this.#dictionary.objId, this.#dictionary );
 		this.#itemsArray = [ this.#dictionary.items ];
 		Object.freeze ( this );
 	}
+
+	/**
+	The dictionary
+	@type {DictionaryItem}
+	@readonly
+	*/
+
+	get dictionary ( ) { return this.#dictionary; }
 
 	/**
 	Parse the content of the TravelNotesSearchDictionaryXX.csv and build a tree of DictionaryItem
@@ -159,77 +228,63 @@ class OsmSearchDictionary {
 	}
 
 	/**
-	Helper method to select or unselected all the items childrens of a given item
-	@private
+	Mark as selected/not selected an item identified by it's objId and all the chidrens of this item
+	@param {!number} itemObjId The objId of the item
+	@param {boolean} isSelected The value to set for isSelected
 	*/
 
-	#selectItem ( item, isSelected ) {
-		item.isSelected = isSelected;
-		item.items.forEach (
-			subItem => { this.#selectItem ( subItem, isSelected ); }
-		);
+	selectItem ( itemObjId, isSelected ) {
+		this.#itemsMap.get ( itemObjId ).isSelected = isSelected;
 	}
 
 	/**
-	Mark as selected/not selected an item identified by it's objId and all the chidrens of this item
+	Mark the complete dictionary as not selected
 	*/
 
-	selectItemObjId ( itemObjId, isSelected ) {
-		let item = this.#itemsMap.get ( itemObjId );
-		this.#selectItem ( item, isSelected );
+	unselectAll ( ) {
+		this.#dictionary.isSelected = false;
 	}
 
 	/**
 	Mark as expanded an item identified by it's objId
+	@param {!number} itemObjId The objId of the item
 	*/
 
-	changeExpanded ( itemObjId ) {
+	expandItem ( itemObjId ) {
 		let item = this.#itemsMap.get ( itemObjId );
 		item.isExpanded = ! item.isExpanded;
 	}
 
 	/**
-	Mark as expanded an item and all the childrens
+	Mark the complete dictionary as expanded
 	*/
 
-	expandBranch ( item ) {
-		item.items.forEach (
-			tmpItem => { this.expandBranch ( tmpItem ); }
-		);
-		item.isExpanded = true;
+	expand ( ) {
+		this.#expand ( this.#dictionary );
 	}
 
 	/**
-	Mark as not expanded an item and all the childrens
+	Mark the complete dictionary except the root item as not expanded
 	*/
 
-	collapseBranch ( item ) {
-		item.items.forEach (
-			tmpItem => { this.collapseBranch ( tmpItem ); }
+	collapse ( ) {
+		this.#dictionary.items.forEach (
+			item => this.#collapse ( item )
 		);
-		if ( ! item.isRoot ) {
-			item.isExpanded = false;
-		}
 	}
-
-	/**
-	Unselect an item and all the childrens
-	*/
-
-	clearBranch ( item ) {
-		item.items.forEach (
-			tmpItem => { this.clearBranch ( tmpItem ); }
-		);
-		item.isSelected = false;
-	}
-
-	/**
-	get the dictionary
-	*/
-
-	get dictionary ( ) { return this.#dictionary; }
 
 }
+
+/**
+@------------------------------------------------------------------------------------------------------------------------------
+
+@desc The one and only one instance of OsmSearchDictionary class
+@type {OsmSearchDictionary}
+@constant
+@global
+
+@------------------------------------------------------------------------------------------------------------------------------
+*/
 
 const theOsmSearchDictionary = new OsmSearchDictionary ( );
 

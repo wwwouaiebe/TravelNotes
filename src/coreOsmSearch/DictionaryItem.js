@@ -48,7 +48,7 @@ Tests ...
 
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import ObjId from '../data/ObjId.js';
-import { INVALID_OBJ_ID } from '../main/Constants.js';
+import { NOT_FOUND, INVALID_OBJ_ID } from '../main/Constants.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
@@ -62,23 +62,173 @@ import { INVALID_OBJ_ID } from '../main/Constants.js';
 
 class DictionaryItem {
 
+	/**
+	The name displayed to the user
+	@type {string}
+	@private
+	*/
+
+	#name = '';
+
+	/**
+	A boolean indicating when the item is the root item.
+	@type {boolean}
+	@private
+	*/
+
+	#isRoot = false;
+
+	/**
+	An array with subitems if any
+	@type {Array.<DictionaryItem>}
+	@private
+	*/
+
+	#items = [];
+
+	/**
+	The elements type used for the item
+	@type {Array<string>}
+	@private
+	*/
+
+	#elementTypes = [ 'node', 'way', 'relation' ];
+
+	/**
+	An array of arrays of objects. This is used to filter the results received from osm.
+	Each sub array is a line in the TravelNotesSearchDictionary
+	Each object in a sub array is a cell in the TravelNotesSearchDictionary
+	@type {Array.<Array.<Objects>>}
+	@private
+	*/
+
+	#filterTagsArray = [];
+
+	/**
+	A boolean indicating when the item is selected by the user
+	@type {boolean}
+	@private
+	*/
+
+	#isSelected = false;
+
+	/**
+	A boolean indicating when the item is expanded by the user
+	@type {boolean}
+	@private
+	*/
+
+	#isExpanded = false;
+
+	/**
+	A unique identifier given to the DictionaryItem
+	@type {!number}
+	@private
+	*/
+
 	#objId = INVALID_OBJ_ID;
 
+	/*
+	constructor
+	@param {string } itemName The name of the item
+	@param {boolean} isRoot True when the item is the root item ( = the dictionary )
+	*/
+
 	constructor ( itemName, isRoot ) {
-		this.name = theHTMLSanitizer.sanitizeToJsString ( itemName );
-		this.items = [];
-		this.filterTagsArray = [];
-		this.elementTypes = [ 'node', 'way', 'relation' ];
-		this.isSelected = false;
-		this.isExpanded = false;
-		this.isRoot = false;
+
+		this.#name = theHTMLSanitizer.sanitizeToJsString ( itemName );
 		if ( isRoot ) {
-			this.isExpanded = true;
-			this.isRoot = true;
+			this.#isExpanded = true;
+			this.#isRoot = true;
 		}
+
 		this.#objId = ObjId.nextObjId;
-		Object.seal ( this );
+
+		Object.freeze ( this );
 	}
+
+	/**
+	The name displayed to the user
+	@type {string}
+	@readonly
+	*/
+
+	get name ( ) { return this.#name; }
+
+	/**
+	A boolean indicating when the item is the root item.
+	@type {boolean}
+	@readonly
+	*/
+
+	get isRoot ( ) { return this.#isRoot; }
+
+	/**
+	An array with subitems if any
+	@type {Array.<DictionaryItem>}
+	@readonly
+	*/
+
+	get items ( ) { return this.#items; }
+
+	/**
+	The element types used for the item
+	@type {Array<string>}
+	*/
+
+	get elementTypes ( ) { return this.#elementTypes; }
+
+	/**
+	Change the value of elementTypes to only one value
+	@param {string} elementType The element type to set must be one of 'node', 'way' or 'relation'
+	*/
+
+	setElementType ( elementType ) {
+		if ( NOT_FOUND !== [ 'node', 'way', 'relation' ].indexOf ( elementType ) ) {
+			this.#elementTypes = [ elementType ];
+		}
+	}
+
+	/**
+	An array of arrays of objects. This is used to filter the results received from osm.
+	Each sub array is a line in the TravelNotesSearchDictionary
+	Each object in a sub array is a cell in the TravelNotesSearchDictionary
+	@type {Array.<Array.<Objects>>}
+	@readonly
+	*/
+
+	get filterTagsArray ( ) { return this.#filterTagsArray; }
+
+	/**
+	A boolean indicating when the item is selected by the user
+	@type {boolean}
+	*/
+
+	get isSelected ( ) { return this.#isSelected; }
+
+	set isSelected ( isSelected ) {
+		this.#isSelected = isSelected;
+		this.items.forEach (
+			item => {
+				item.isSelected = isSelected;
+			}
+		);
+	}
+
+	/**
+	A boolean indicating when the item is expanded by the user
+	@type {boolean}
+	*/
+
+	get isExpanded ( ) { return this.#isExpanded; }
+
+	set isExpanded ( isExpanded ) { this.#isExpanded = isExpanded; }
+
+	/**
+	A unique identifier given to the DictionaryItem
+	@type {!number}
+	@readonly
+	*/
 
 	get objId ( ) { return this.#objId; }
 }
