@@ -72,9 +72,7 @@ class ArrowAndTooltipFinder {
 	constructor
 	*/
 
-	constructor ( computeData, mapIconData ) {
-		this.#computeData = computeData;
-		this.#mapIconData = mapIconData;
+	constructor ( ) {
 		Object.freeze ( this );
 	}
 
@@ -82,7 +80,10 @@ class ArrowAndTooltipFinder {
 	This method set the direction arrow and tooltip
 	*/
 
-	findData ( ) {
+	findData ( computeData, mapIconData ) {
+		this.#computeData = computeData;
+		this.#mapIconData = mapIconData;
+
 		if ( null !== this.#computeData.direction ) {
 			if ( this.#computeData.direction < theConfig.note.svgIcon.angleDirection.right ) {
 				this.#mapIconData.tooltip = theTranslator.getText ( 'MapIconDataBuilder - Turn right' );

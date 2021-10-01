@@ -228,9 +228,7 @@ class TranslationRotationFinder {
 	constructor
 	*/
 
-	constructor ( computeData, mapIconData ) {
-		this.#computeData = computeData;
-		this.#mapIconData = mapIconData;
+	constructor ( ) {
 		Object.freeze ( this );
 	}
 
@@ -239,7 +237,9 @@ class TranslationRotationFinder {
 	and compute also the direction to take after the icon
 	*/
 
-	findData ( ) {
+	findData ( computeData, mapIconData ) {
+		this.#computeData = computeData;
+		this.#mapIconData = mapIconData;
 		this.#computeTranslation ( );
 		this.#searchPoints ( );
 		this.#findRotation ( );

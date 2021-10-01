@@ -305,8 +305,8 @@ class StreetFinder {
 
 				// It's a passing street ... saving name...
 				while ( ZERO !== streetOcurrences ) {
-					this.#mapIconData.streets =
-						'' === this.#mapIconData.streets ? wayName : this.#mapIconData.streets + ' ⪥  ' + wayName; // ⪥  = ><
+					this.#mapIconData.address =
+						'' === this.#mapIconData.address ? wayName : this.#mapIconData.address + ' ⪥  ' + wayName; // ⪥  = ><
 					streetOcurrences --;
 				}
 			}
@@ -323,19 +323,19 @@ class StreetFinder {
 		if ( ICON_POSITION.atStart === this.#computeData.positionOnRoute ) {
 
 			// It's the start point adding a green circle to the outgoing street
-			this.#mapIconData.streets = '🟢 ' + this.#outgoingStreet;
+			this.#mapIconData.address = '🟢 ' + this.#outgoingStreet;
 		}
 		else if ( ICON_POSITION.atEnd === this.#computeData.positionOnRoute ) {
 
 			// It's the end point adding a red circle to the incoming street
-			this.#mapIconData.streets = this.#incomingStreet + ' 🔴 ';
+			this.#mapIconData.address = this.#incomingStreet + ' 🔴 ';
 		}
 		else {
 
 			// Adiing the incoming and outgoing streets and direction arrow
-			this.#mapIconData.streets =
+			this.#mapIconData.address =
 				this.#incomingStreet +
-				( '' === this.#mapIconData.streets ? '' : ' ⪥  ' + this.#mapIconData.streets ) + // ⪥ = ><
+				( '' === this.#mapIconData.address ? '' : ' ⪥  ' + this.#mapIconData.address ) + // ⪥ = ><
 				' ' + this.#computeData.directionArrow + ' ' +
 				this.#outgoingStreet;
 		}
@@ -363,14 +363,21 @@ class StreetFinder {
 		}
 	}
 
+	#addCity ( ) {
+		if ( '' !== this.#overpassAPIDataLoader.city ) {
+			this.#mapIconData.address +=
+				' <span class="TravelNotes-NoteHtml-Address-City">' + this.#overpassAPIDataLoader.city + '</span>';
+		}
+		if ( this.#overpassAPIDataLoader.place && this.#overpassAPIDataLoader.place !== this.#overpassAPIDataLoader.city ) {
+			this.#mapIconData.address += ' (' + this.#overpassAPIDataLoader.place + ')';
+		}
+	}
+
 	/*
 	constructor
 	*/
 
-	constructor ( computeData, mapIconData, overpassAPIDataLoader ) {
-		this.#computeData = computeData;
-		this.#mapIconData = mapIconData;
-		this.#overpassAPIDataLoader = overpassAPIDataLoader;
+	constructor ( ) {
 		Object.freeze ( this );
 	}
 
@@ -378,13 +385,17 @@ class StreetFinder {
 	Find street info: street names, roundabout info, rcnRef info ...
 	*/
 
-	findData ( ) {
+	findData ( computeData, mapIconData, overpassAPIDataLoader ) {
+		this.#computeData = computeData;
+		this.#mapIconData = mapIconData;
+		this.#overpassAPIDataLoader = overpassAPIDataLoader;
 		this.#findNodes ( );
 		this.#moveIconToRcnRef ( );
 		this.#findMiniRoundabout ( );
 		this.#addRcnRefNumber ( );
 		this.#findStreets ( );
 		this.#addStreetInfo ( );
+		this.#addCity ( );
 		this.#addRoundaboutInfo ( );
 	}
 }

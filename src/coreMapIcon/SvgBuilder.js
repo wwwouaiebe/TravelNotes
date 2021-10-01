@@ -64,8 +64,6 @@ class SvgBuilder {
 
 	#overpassAPIDataLoader = null;
 	#computeData = null;
-	#mapIconData = null;
-
 	#svgElement = null;
 
 	/**
@@ -261,7 +259,6 @@ class SvgBuilder {
 	buildSvg ( computeData, mapIconData, overpassAPIDataLoader ) {
 
 		this.#computeData = computeData;
-		this.#mapIconData = mapIconData;
 		this.#overpassAPIDataLoader = overpassAPIDataLoader;
 
 		this.#createSvg ( );
@@ -269,7 +266,7 @@ class SvgBuilder {
 		this.#createWays ( );
 		this.#createRcnRef ( );
 
-		return this.#svgElement;
+		mapIconData.iconContent = this.#svgElement.outerHTML;
 	}
 }
 

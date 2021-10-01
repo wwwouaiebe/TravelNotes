@@ -98,9 +98,9 @@ class MapIconFromOsmFactory {
 
 	#mapIconData = Object.seal (
 		{
-			rcnRef : '',
+			iconContent : '',
 			tooltip : '',
-			streets : ''
+			address : ''
 		}
 	);
 
@@ -185,39 +185,27 @@ class MapIconFromOsmFactory {
 		this.#computeData.direction = null;
 		this.#computeData.directionArrow = ' ';
 		this.#computeData.translation = [ ZERO, ZERO ];
-
 		this.#computeData.rotation = ZERO;
 		this.#computeData.rcnRef = '';
+
+		this.#mapIconData.iconContent = '';
 		this.#mapIconData.tooltip = '';
-		this.#mapIconData.streets = '';
+		this.#mapIconData.address = '';
 
-		new TranslationRotationFinder ( this.#computeData, this.#mapIconData ).findData ( );
-		new ArrowAndTooltipFinder ( this.#computeData, this.#mapIconData ).findData ( );
-		new StreetFinder ( this.#computeData, this.#mapIconData, this.#overpassAPIDataLoader ).findData ( );
-
-		const svgElement = new SvgBuilder ( ).buildSvg (
-			this.#computeData,
-			this.#mapIconData,
-			this.#overpassAPIDataLoader
-		);
+		new TranslationRotationFinder ( ).findData ( this.#computeData, this.#mapIconData );
+		new ArrowAndTooltipFinder ( ).findData ( this.#computeData, this.#mapIconData );
+		new StreetFinder ( ).findData ( this.#computeData, this.#mapIconData, this.#overpassAPIDataLoader );
+		new SvgBuilder ( ).buildSvg ( this.#computeData, this.#mapIconData,	this.#overpassAPIDataLoader	);
 
 		this.#requestStarted = false;
-
-		let address = this.#mapIconData.streets;
-		if ( '' !== this.#overpassAPIDataLoader.city ) {
-			address += ' <span class="TravelNotes-NoteHtml-Address-City">' + this.#overpassAPIDataLoader.city + '</span>';
-		}
-		if ( this.#overpassAPIDataLoader.place && this.#overpassAPIDataLoader.place !== this.#overpassAPIDataLoader.city ) {
-			address += ' (' + this.#overpassAPIDataLoader.place + ')';
-		}
 
 		return Object.freeze (
 			{
 				statusOk : true,
 				noteData : {
-					iconContent : svgElement.outerHTML,
+					iconContent : this.#mapIconData.iconContent,
 					tooltipContent : this.#mapIconData.tooltip,
-					address : address,
+					address : this.#mapIconData.address,
 					latLng : this.#computeData.mapIconPosition.latLng
 				}
 			}
