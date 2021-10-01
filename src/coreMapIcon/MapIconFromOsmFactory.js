@@ -76,9 +76,11 @@ import theConfig from '../data/Config.js';
 import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
 import SvgBuilder from '../coreMapIcon/SvgBuilder.js';
 import OverpassAPIDataLoader from '../coreLib/OverpassAPIDataLoader.js';
-import DataBuilder from '../coreMapIcon/DataBuilder.js';
+import StreetFinder from '../coreMapIcon/StreetFinder.js';
+import ArrowAndTooltipFinder from '../coreMapIcon/ArrowAndTooltipFinder.js';
+import TranslationRotationFinder from '../coreMapIcon/TranslationRotationFinder.js';
 
-import { ICON_DIMENSIONS, LAT_LNG, DISTANCE, INVALID_OBJ_ID, ZERO, ONE } from '../main/Constants.js';
+import { ICON_POSITION, ICON_DIMENSIONS, LAT_LNG, DISTANCE, INVALID_OBJ_ID, ZERO, ONE } from '../main/Constants.js';
 
 const SEARCH_AROUND_FACTOR = 1.5;
 
@@ -94,16 +96,40 @@ const SEARCH_AROUND_FACTOR = 1.5;
 
 class MapIconFromOsmFactory {
 
-	#route = null;
-	#overpassAPIDataLoader = new OverpassAPIDataLoader ( { searchRelations : false, setGeometry : false } );
-
-	#mapIconPosition = Object.seal (
+	#mapIconData = Object.seal (
 		{
-			latLng : [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], // = latLng of the nearest ItineraryPoint
-			distance : DISTANCE.defaultValue, // = the distance between the nearest itineraryPoint and the beginning of route
-			nearestItineraryPointObjId : INVALID_OBJ_ID // the nearest itineraryPoint objId
+			rcnRef : '',
+			tooltip : '',
+			streets : ''
 		}
 	);
+
+	#computeData = Object.seal (
+		{
+			mapIconPosition : Object.seal (
+				{
+
+					// = latLng of the nearest ItineraryPoint
+					latLng : [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ],
+
+					// = the distance between the nearest itineraryPoint and the beginning of route
+					distance : DISTANCE.defaultValue,
+
+					// the nearest itineraryPoint objId
+					nearestItineraryPointObjId : INVALID_OBJ_ID
+				}
+			),
+			route : null,
+			positionOnRoute : ICON_POSITION.onRoute,
+			direction : null,
+			directionArrow : ' ',
+			rcnRef : '',
+			rotation : ZERO,
+			translation : [ ZERO, ZERO ]
+		}
+	);
+
+	#overpassAPIDataLoader = new OverpassAPIDataLoader ( { searchRelations : false, setGeometry : false } );
 
 	#queryDistance = Math.max (
 		theConfig.geoCoder.distances.hamlet,
@@ -128,22 +154,22 @@ class MapIconFromOsmFactory {
 		let distance = DISTANCE.defaultValue;
 
 		// Iteration on the points...
-		this.#route.itinerary.itineraryPoints.forEach (
+		this.#computeData.route.itinerary.itineraryPoints.forEach (
 			itineraryPoint => {
 				const itineraryPointDistance =
-					theSphericalTrigonometry.pointsDistance ( this.#mapIconPosition.latLng, itineraryPoint.latLng );
+					theSphericalTrigonometry.pointsDistance ( this.#computeData.mapIconPosition.latLng, itineraryPoint.latLng );
 				if ( minDistance > itineraryPointDistance ) {
 					minDistance = itineraryPointDistance;
 					nearestItineraryPoint = itineraryPoint;
-					this.#mapIconPosition.distance = distance;
+					this.#computeData.mapIconPosition.distance = distance;
 				}
 				distance += itineraryPoint.distance;
 			}
 		);
 
 		// The coordinates of the nearest point are used as position of the SVG
-		this.#mapIconPosition.latLng = nearestItineraryPoint.latLng;
-		this.#mapIconPosition.nearestItineraryPointObjId = nearestItineraryPoint.objId;
+		this.#computeData.mapIconPosition.latLng = nearestItineraryPoint.latLng;
+		this.#computeData.mapIconPosition.nearestItineraryPointObjId = nearestItineraryPoint.objId;
 	}
 
 	/**
@@ -155,21 +181,29 @@ class MapIconFromOsmFactory {
 
 	#buildIconAndAdress ( ) {
 
-		const mapIconData = new DataBuilder ( ).buildData (
-			this.#route,
-			this.#overpassAPIDataLoader,
-			this.#mapIconPosition
-		);
+		this.#computeData.positionOnRoute = ICON_POSITION.onRoute;
+		this.#computeData.direction = null;
+		this.#computeData.directionArrow = ' ';
+		this.#computeData.translation = [ ZERO, ZERO ];
+
+		this.#computeData.rotation = ZERO;
+		this.#computeData.rcnRef = '';
+		this.#mapIconData.tooltip = '';
+		this.#mapIconData.streets = '';
+
+		new TranslationRotationFinder ( this.#computeData, this.#mapIconData ).findData ( );
+		new ArrowAndTooltipFinder ( this.#computeData, this.#mapIconData ).findData ( );
+		new StreetFinder ( this.#computeData, this.#mapIconData, this.#overpassAPIDataLoader ).findData ( );
 
 		const svgElement = new SvgBuilder ( ).buildSvg (
-			this.#route,
-			this.#overpassAPIDataLoader,
-			mapIconData
+			this.#computeData,
+			this.#mapIconData,
+			this.#overpassAPIDataLoader
 		);
 
 		this.#requestStarted = false;
 
-		let address = mapIconData.streets;
+		let address = this.#mapIconData.streets;
 		if ( '' !== this.#overpassAPIDataLoader.city ) {
 			address += ' <span class="TravelNotes-NoteHtml-Address-City">' + this.#overpassAPIDataLoader.city + '</span>';
 		}
@@ -182,11 +216,9 @@ class MapIconFromOsmFactory {
 				statusOk : true,
 				noteData : {
 					iconContent : svgElement.outerHTML,
-					tooltipContent : mapIconData.tooltip,
+					tooltipContent : this.#mapIconData.tooltip,
 					address : address,
-					iconWidth : ICON_DIMENSIONS.width,
-					iconHeight : ICON_DIMENSIONS.height,
-					latLng : this.#mapIconPosition.latLng
+					latLng : this.#computeData.mapIconPosition.latLng
 				}
 			}
 		);
@@ -207,9 +239,9 @@ class MapIconFromOsmFactory {
 		this.#searchNearestItineraryPoint ( );
 
 		const queryLatLng =
-			this.#mapIconPosition.latLng [ ZERO ].toFixed ( LAT_LNG.fixed ) +
+			this.#computeData.mapIconPosition.latLng [ ZERO ].toFixed ( LAT_LNG.fixed ) +
 			',' +
-			this.#mapIconPosition.latLng [ ONE ].toFixed ( LAT_LNG.fixed );
+			this.#computeData.mapIconPosition.latLng [ ONE ].toFixed ( LAT_LNG.fixed );
 
 		/*
 		Sample of query:
@@ -226,7 +258,7 @@ class MapIconFromOsmFactory {
 			'node(around:' + this.#queryDistance + ',' + queryLatLng + ')[place];out;'
 		];
 
-		await this.#overpassAPIDataLoader.loadData ( queries, this.#mapIconPosition.latLng );
+		await this.#overpassAPIDataLoader.loadData ( queries, this.#computeData.mapIconPosition.latLng );
 		if ( this.#overpassAPIDataLoader.statusOk ) {
 			return this.#buildIconAndAdress ( );
 		}
@@ -264,8 +296,8 @@ class MapIconFromOsmFactory {
 	*/
 
 	async getIconAndAdressAsync ( iconLatLng, route ) {
-		this.#mapIconPosition.latLng = iconLatLng;
-		this.#route = route;
+		this.#computeData.mapIconPosition.latLng = iconLatLng;
+		this.#computeData.route = route;
 
 		return this.#exeGetIconAndAdress ( );
 	}
@@ -278,8 +310,8 @@ class MapIconFromOsmFactory {
 	*/
 
 	getIconAndAdressWithPromise ( iconLatLng, route ) {
-		this.#mapIconPosition.latLng = iconLatLng;
-		this.#route = route;
+		this.#computeData.mapIconPosition.latLng = iconLatLng;
+		this.#computeData.route = route;
 
 		return new Promise ( ( onOk, onError ) => this.#exeGetIconAndAdressWithPromise ( onOk, onError ) );
 	}

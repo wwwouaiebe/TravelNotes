@@ -79,7 +79,7 @@ class TranslationRotationFinder {
 	*/
 
 	#computeTranslation ( ) {
-		this.#mapIconData.translation = theGeometry.subtrackPoints (
+		this.#computeData.translation = theGeometry.subtrackPoints (
 			[ ICON_DIMENSIONS.svgViewboxDim / TWO, ICON_DIMENSIONS.svgViewboxDim / TWO ],
 			theGeometry.project ( this.#computeData.mapIconPosition.latLng, theConfig.note.svgIcon.zoom )
 		);
@@ -117,7 +117,7 @@ class TranslationRotationFinder {
 
 		this.#iconPoint = theGeometry.addPoints (
 			theGeometry.project ( this.#computeData.mapIconPosition.latLng, theConfig.note.svgIcon.zoom ),
-			this.#mapIconData.translation
+			this.#computeData.translation
 		);
 	}
 
@@ -135,9 +135,9 @@ class TranslationRotationFinder {
 		) {
 			const rotationPoint = theGeometry.addPoints (
 				theGeometry.project ( this.#rotationItineraryPoint.latLng, theConfig.note.svgIcon.zoom ),
-				this.#mapIconData.translation
+				this.#computeData.translation
 			);
-			this.#mapIconData.rotation =
+			this.#computeData.rotation =
 				Math.atan (
 					( this.#iconPoint [ ONE ] - rotationPoint [ ONE ] )
 					/
@@ -145,14 +145,14 @@ class TranslationRotationFinder {
 				)
 				*
 				DEGREES.d180 / Math.PI;
-			if ( ZERO > this.#mapIconData.rotation ) {
-				this.#mapIconData.rotation += DEGREES.d360;
+			if ( ZERO > this.#computeData.rotation ) {
+				this.#computeData.rotation += DEGREES.d360;
 			}
-			this.#mapIconData.rotation -= DEGREES.d270;
+			this.#computeData.rotation -= DEGREES.d270;
 
 			// point 0,0 of the svg is the UPPER left corner
 			if ( ZERO > rotationPoint [ ZERO ] - this.#iconPoint [ ZERO ] ) {
-				this.#mapIconData.rotation += DEGREES.d180;
+				this.#computeData.rotation += DEGREES.d180;
 			}
 		}
 	}
@@ -170,7 +170,7 @@ class TranslationRotationFinder {
 		) {
 			const directionPoint = theGeometry.addPoints (
 				theGeometry.project ( this.#directionItineraryPoint.latLng, theConfig.note.svgIcon.zoom ),
-				this.#mapIconData.translation
+				this.#computeData.translation
 			);
 			this.#computeData.direction = Math.atan (
 				( this.#iconPoint [ ONE ] - directionPoint [ ONE ] )
@@ -184,7 +184,7 @@ class TranslationRotationFinder {
 			if ( ZERO > directionPoint [ ZERO ] - this.#iconPoint [ ZERO ] ) {
 				this.#computeData.direction += DEGREES.d180;
 			}
-			this.#computeData.direction -= this.#mapIconData.rotation;
+			this.#computeData.direction -= this.#computeData.rotation;
 
 			// setting direction between 0 and 360
 			while ( DEGREES.d0 > this.#computeData.direction ) {
@@ -207,7 +207,7 @@ class TranslationRotationFinder {
 			===
 			this.#computeData.route.itinerary.itineraryPoints.first.objId
 		) {
-			this.#mapIconData.rotation = -this.#computeData.direction - DEGREES.d90;
+			this.#computeData.rotation = -this.#computeData.direction - DEGREES.d90;
 			this.#computeData.direction = null;
 			this.#computeData.positionOnRoute = ICON_POSITION.atStart;
 		}

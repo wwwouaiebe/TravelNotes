@@ -62,9 +62,9 @@ import { SVG_NS, ICON_DIMENSIONS, ZERO, ONE, TWO, NOT_FOUND } from '../main/Cons
 
 class SvgBuilder {
 
-	#route = null;
 	#overpassAPIDataLoader = null;
-	#MapIconData = null;
+	#computeData = null;
+	#mapIconData = null;
 
 	#svgElement = null;
 
@@ -100,12 +100,12 @@ class SvgBuilder {
 		let firstPointIndex = NOT_FOUND;
 		let lastPointIndex = NOT_FOUND;
 		const points = [];
-		this.#route.itinerary.itineraryPoints.forEach (
+		this.#computeData.route.itinerary.itineraryPoints.forEach (
 			itineraryPoint => {
 				index ++;
 				const point = theGeometry.addPoints (
 					theGeometry.project ( itineraryPoint.latLng, theConfig.note.svgIcon.zoom ),
-					this.#MapIconData.translation
+					this.#computeData.translation
 				);
 				points.push ( point );
 				const pointIsInside =
@@ -128,7 +128,7 @@ class SvgBuilder {
 			if ( ZERO < firstPointIndex ) {
 				firstPointIndex --;
 			}
-			if ( this.#route.itinerary.itineraryPoints.length - ONE > lastPointIndex ) {
+			if ( this.#computeData.route.itinerary.itineraryPoints.length - ONE > lastPointIndex ) {
 				lastPointIndex ++;
 			}
 			let pointsAttribute = '';
@@ -142,7 +142,7 @@ class SvgBuilder {
 			polyline.setAttributeNS (
 				null,
 				'transform',
-				'rotate(' + this.#MapIconData.rotation +
+				'rotate(' + this.#computeData.rotation +
 					',' + ( ICON_DIMENSIONS.svgViewboxDim / TWO ) +
 					',' + ( ICON_DIMENSIONS.svgViewboxDim / TWO )
 					+ ')'
@@ -171,7 +171,7 @@ class SvgBuilder {
 						const node = this.#overpassAPIDataLoader.nodes.get ( nodeId );
 						const point = theGeometry.addPoints (
 							theGeometry.project ( [ node.lat, node.lon ], theConfig.note.svgIcon.zoom ),
-							this.#MapIconData.translation
+							this.#computeData.translation
 						);
 						points.push ( point );
 						const pointIsInside =
@@ -214,7 +214,7 @@ class SvgBuilder {
 					polyline.setAttributeNS (
 						null,
 						'transform',
-						'rotate(' + this.#MapIconData.rotation +
+						'rotate(' + this.#computeData.rotation +
 							',' + ( ICON_DIMENSIONS.svgViewboxDim / TWO ) +
 							',' + ( ICON_DIMENSIONS.svgViewboxDim / TWO ) +
 							')'
@@ -234,11 +234,11 @@ class SvgBuilder {
 	#createRcnRef ( ) {
 
 		const Y_TEXT = 0.6;
-		if ( '' === this.#MapIconData.rcnRef ) {
+		if ( '' === this.#computeData.rcnRef ) {
 			return;
 		}
 		const svgText = document.createElementNS ( SVG_NS, 'text' );
-		svgText.textContent = this.#MapIconData.rcnRef;
+		svgText.textContent = this.#computeData.rcnRef;
 		svgText.setAttributeNS ( null, 'x', String ( ICON_DIMENSIONS.svgViewboxDim / TWO ) );
 		svgText.setAttributeNS ( null, 'y', String ( ICON_DIMENSIONS.svgViewboxDim * Y_TEXT ) );
 		svgText.setAttributeNS ( null, 'class', 'TravelNotes-OSM-RcnRef' );
@@ -258,11 +258,11 @@ class SvgBuilder {
 	@private
 	*/
 
-	buildSvg ( route, overpassAPIDataLoader, MapIconData ) {
+	buildSvg ( computeData, mapIconData, overpassAPIDataLoader ) {
 
-		this.#route = route;
+		this.#computeData = computeData;
+		this.#mapIconData = mapIconData;
 		this.#overpassAPIDataLoader = overpassAPIDataLoader;
-		this.#MapIconData = MapIconData;
 
 		this.#createSvg ( );
 		this.#createRoute ( );

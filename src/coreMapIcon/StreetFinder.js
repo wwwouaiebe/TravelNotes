@@ -242,9 +242,9 @@ class StreetFinder {
 			&&
 			this.#iconNode.tags [ 'network:type' ] && 'node_network' === this.#iconNode.tags [ 'network:type' ]
 		) {
-			this.#mapIconData.rcnRef = this.#iconNode.tags.rcn_ref;
+			this.#computeData.rcnRef = this.#iconNode.tags.rcn_ref;
 			this.#mapIconData.tooltip +=
-				theTranslator.getText ( 'MapIconDataBuilder - rcnRef', { rcnRef : this.#mapIconData.rcnRef } );
+				theTranslator.getText ( 'MapIconDataBuilder - rcnRef', { rcnRef : this.#computeData.rcnRef } );
 		}
 	}
 
@@ -367,10 +367,10 @@ class StreetFinder {
 	constructor
 	*/
 
-	constructor ( overpassAPIDataLoader, computeData, mapIconData ) {
-		this.#overpassAPIDataLoader = overpassAPIDataLoader;
+	constructor ( computeData, mapIconData, overpassAPIDataLoader ) {
 		this.#computeData = computeData;
 		this.#mapIconData = mapIconData;
+		this.#overpassAPIDataLoader = overpassAPIDataLoader;
 		Object.freeze ( this );
 	}
 
