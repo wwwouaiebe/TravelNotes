@@ -127,9 +127,9 @@ class StreetFinder {
 			! isWayPoint
 			&&
 			(
-				this.#computeData.mapIconPosition.latLng [ ZERO ] !== itineraryPoint.lat
+				this.#mapIconData.latLng [ ZERO ] !== itineraryPoint.lat
 				||
-				this.#computeData.mapIconPosition.latLng [ ONE ] !== itineraryPoint.lng
+				this.#mapIconData.latLng [ ONE ] !== itineraryPoint.lng
 			)
 		);
 	}
@@ -144,11 +144,11 @@ class StreetFinder {
 
 		// searching the previous and next point on the itinerary
 		const incomingItineraryPoint = this.#computeData.route.itinerary.itineraryPoints.previous (
-			this.#computeData.mapIconPosition.nearestItineraryPointObjId,
+			this.#computeData.nearestItineraryPointObjId,
 			itineraryPoint => this.#latLngCompare ( itineraryPoint )
 		);
 		const outgoingItineraryPoint = this.#computeData.route.itinerary.itineraryPoints.next (
-			this.#computeData.mapIconPosition.nearestItineraryPointObjId,
+			this.#computeData.nearestItineraryPointObjId,
 			itineraryPoint => this.#latLngCompare ( itineraryPoint )
 		);
 
@@ -163,10 +163,10 @@ class StreetFinder {
 				if ( 'bike' === this.#computeData.route.itinerary.transitMode && node.tags && node.tags.rcn_ref ) {
 					this.#rcnRefNode = node;
 				}
-				if ( INVALID_OBJ_ID !== this.#computeData.mapIconPosition.nearestItineraryPointObjId ) {
+				if ( INVALID_OBJ_ID !== this.#computeData.nearestItineraryPointObjId ) {
 					nodeDistance = theSphericalTrigonometry.pointsDistance (
 						[ node.lat, node.lon ],
-						this.#computeData.mapIconPosition.latLng
+						this.#mapIconData.latLng
 					);
 					if ( nodeDistance < svgNodeDistance ) {
 						this.#svgPointId = node.id;

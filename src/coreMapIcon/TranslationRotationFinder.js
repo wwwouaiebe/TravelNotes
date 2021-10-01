@@ -81,7 +81,7 @@ class TranslationRotationFinder {
 	#computeTranslation ( ) {
 		this.#computeData.translation = theGeometry.subtrackPoints (
 			[ ICON_DIMENSIONS.svgViewboxDim / TWO, ICON_DIMENSIONS.svgViewboxDim / TWO ],
-			theGeometry.project ( this.#computeData.mapIconPosition.latLng, theConfig.note.svgIcon.zoom )
+			theGeometry.project ( this.#mapIconData.latLng, theConfig.note.svgIcon.zoom )
 		);
 	}
 
@@ -100,11 +100,11 @@ class TranslationRotationFinder {
 
 		this.#computeData.route.itinerary.itineraryPoints.forEach (
 			itineraryPoint => {
-				if ( this.#computeData.mapIconPosition.distance - distance > theConfig.note.svgIcon.angleDistance ) {
+				if ( this.#computeData.distance - distance > theConfig.note.svgIcon.angleDistance ) {
 					this.#rotationItineraryPoint = itineraryPoint;
 				}
 				if (
-					distance - this.#computeData.mapIconPosition.distance
+					distance - this.#computeData.distance
 					>
 					theConfig.note.svgIcon.angleDistance && ! directionPointReached
 				) {
@@ -116,7 +116,7 @@ class TranslationRotationFinder {
 		);
 
 		this.#iconPoint = theGeometry.addPoints (
-			theGeometry.project ( this.#computeData.mapIconPosition.latLng, theConfig.note.svgIcon.zoom ),
+			theGeometry.project ( this.#mapIconData.latLng, theConfig.note.svgIcon.zoom ),
 			this.#computeData.translation
 		);
 	}
@@ -129,7 +129,7 @@ class TranslationRotationFinder {
 	#findRotation ( ) {
 
 		if (
-			this.#computeData.mapIconPosition.nearestItineraryPointObjId
+			this.#computeData.nearestItineraryPointObjId
 			!==
 			this.#computeData.route.itinerary.itineraryPoints.first.objId
 		) {
@@ -164,7 +164,7 @@ class TranslationRotationFinder {
 
 	#findDirection ( ) {
 		if (
-			this.#computeData.mapIconPosition.nearestItineraryPointObjId
+			this.#computeData.nearestItineraryPointObjId
 			!==
 			this.#computeData.route.itinerary.itineraryPoints.last.objId
 		) {
@@ -203,7 +203,7 @@ class TranslationRotationFinder {
 
 	#findPositionOnRoute ( ) {
 		if (
-			this.#computeData.mapIconPosition.nearestItineraryPointObjId
+			this.#computeData.nearestItineraryPointObjId
 			===
 			this.#computeData.route.itinerary.itineraryPoints.first.objId
 		) {
@@ -213,9 +213,9 @@ class TranslationRotationFinder {
 		}
 
 		if (
-			this.#computeData.mapIconPosition.latLng [ ZERO ] === this.#computeData.route.itinerary.itineraryPoints.last.lat
+			this.#mapIconData.latLng [ ZERO ] === this.#computeData.route.itinerary.itineraryPoints.last.lat
 			&&
-			this.#computeData.mapIconPosition.latLng [ ONE ] === this.#computeData.route.itinerary.itineraryPoints.last.lng
+			this.#mapIconData.latLng [ ONE ] === this.#computeData.route.itinerary.itineraryPoints.last.lng
 		) {
 
 			// using lat & lng because last point is sometime duplicated
