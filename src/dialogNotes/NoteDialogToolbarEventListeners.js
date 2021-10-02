@@ -162,13 +162,16 @@ class IconSelectorChangeEL {
 			this.#noteDialog.mapIconData.route
 		)
 			.then (
-				mapIconData => {
+				noteData => {
 					this.#noteDialog.hideWait ( );
-					this.#updatePreviewAndControls ( mapIconData.noteData );
+					this.#updatePreviewAndControls ( noteData );
 				}
 			)
 			.catch (
-				( ) => {
+				err => {
+					if ( err instanceof Error ) {
+						console.error ( err );
+					}
 					this.#noteDialog.hideWait ( );
 					this.#noteDialog.showError (
 						theTranslator.getText ( 'Notedialog - an error occurs when creating the SVG icon' )

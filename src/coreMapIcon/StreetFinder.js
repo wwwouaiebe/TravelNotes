@@ -50,7 +50,7 @@ import theConfig from '../data/Config.js';
 import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
 import theTranslator from '../UILib/Translator.js';
 
-import { DISTANCE, INVALID_OBJ_ID, ZERO, ONE, TWO, NOT_FOUND, ICON_POSITION } from '../main/Constants.js';
+import { DISTANCE, ZERO, ONE, TWO, NOT_FOUND, ICON_POSITION } from '../main/Constants.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
@@ -67,20 +67,93 @@ import { DISTANCE, INVALID_OBJ_ID, ZERO, ONE, TWO, NOT_FOUND, ICON_POSITION } fr
 
 class StreetFinder {
 
-	#overpassAPIDataLoader = null;
+	/**
+	A reference to the computeData object
+	@type {ComputeData}
+	@private
+	*/
+
 	#computeData = null;
-	#mapIconData = null;
 
-	#rcnRefNode = null;
-	#svgPointId = NOT_FOUND;
-	#incomingNodeId = NOT_FOUND;
-	#outgoingNodeId = NOT_FOUND;
-	#iconNode = null;
+	/**
+	A reference to the noteData Object
+	@type {NoteData}
+	@private
+	*/
 
-	#incomingStreet = '';
-	#outgoingStreet = '';
+	#noteData = null;
 
-	#roundabout = {
+	/**
+	A reference to the noteData overpassAPIDataLoader
+	@type {NoteData}
+	@private
+	*/
+
+	#overpassAPIDataLoader = null;
+
+	/**
+	The osm node of the rcnRef
+	@type {!number}
+	@private
+	*/
+
+	#rcnRefOsmNode = null;
+
+	/**
+	The osm node of the rcnRef
+	@type {!number}
+	@private
+	*/
+
+	#iconOsmNode = null;
+
+	/**
+	The osm node id of the incoming node
+	@type {!number}
+	@private
+	*/
+
+	#iconOsmNodeId = NOT_FOUND;
+
+	/**
+	The osm node id of the incoming node
+	@type {!number}
+	@private
+	*/
+
+	#incomingOsmNodeId = NOT_FOUND;
+
+	/**
+	The osm node id of the outgoing node
+	@type {!number}
+	@private
+	*/
+
+	#outgoingOsmNodeId = NOT_FOUND;
+
+	/**
+	The incoming street name
+	@type {string}
+	@private
+	*/
+
+	#incomingStreetName = '';
+
+	/**
+	The outgoing street name
+	@type {string}
+	@private
+	*/
+
+	#outgoingStreetName = '';
+
+	/**
+	Roundabout data
+	@type {Object}
+	@private
+	*/
+
+	#roundaboutData = {
 		isMini : false,
 		isEntry : false,
 		isExit : false
@@ -127,9 +200,9 @@ class StreetFinder {
 			! isWayPoint
 			&&
 			(
-				this.#mapIconData.latLng [ ZERO ] !== itineraryPoint.lat
+				this.#noteData.latLng [ ZERO ] !== itineraryPoint.lat
 				||
-				this.#mapIconData.latLng [ ONE ] !== itineraryPoint.lng
+				this.#noteData.latLng [ ONE ] !== itineraryPoint.lng
 			)
 		);
 	}
@@ -140,7 +213,7 @@ class StreetFinder {
 	@private
 	*/
 
-	#findNodes ( ) {
+	#findOsmNodes ( ) {
 
 		// searching the previous and next point on the itinerary
 		const incomingItineraryPoint = this.#computeData.route.itinerary.itineraryPoints.previous (
@@ -152,64 +225,71 @@ class StreetFinder {
 			itineraryPoint => this.#latLngCompare ( itineraryPoint )
 		);
 
-		let svgNodeDistance = Number.MAX_VALUE;
+		// creating some var for finding the nearest points. We don't use lat lng to avoid problems with precision
+		let iconNodeDistance = Number.MAX_VALUE;
+		let rcnRefDistance = Number.MAX_VALUE;
 		let incomingNodeDistance = Number.MAX_VALUE;
 		let outgoingNodeDistance = Number.MAX_VALUE;
+
 		let nodeDistance = DISTANCE.defaultValue;
 
-		// searching in the nodes JS map the incoming, outgoing and icon nodes
+		// searching in the nodes map of the overpassAPIDataLoader ...
 		this.#overpassAPIDataLoader.nodes.forEach (
 			node => {
-				if ( 'bike' === this.#computeData.route.itinerary.transitMode && node.tags && node.tags.rcn_ref ) {
-					this.#rcnRefNode = node;
+				nodeDistance = theSphericalTrigonometry.pointsDistance (
+					[ node.lat, node.lon ],
+					this.#noteData.latLng
+				);
+
+				// ... a rcnRef...
+				if (
+					'bike' === this.#computeData.route.itinerary.transitMode
+					&&
+					node.tags
+					&&
+					node.tags.rcn_ref
+					&&
+					node.tags [ 'network:type' ]
+					&&
+					'node_network' === node.tags [ 'network:type' ]
+					&&
+					nodeDistance < theConfig.note.svgIcon.rcnRefDistance
+					&&
+					nodeDistance < rcnRefDistance
+				) {
+					this.#rcnRefOsmNode = node;
+					rcnRefDistance = nodeDistance;
 				}
-				if ( INVALID_OBJ_ID !== this.#computeData.nearestItineraryPointObjId ) {
-					nodeDistance = theSphericalTrigonometry.pointsDistance (
-						[ node.lat, node.lon ],
-						this.#mapIconData.latLng
-					);
-					if ( nodeDistance < svgNodeDistance ) {
-						this.#svgPointId = node.id;
-						svgNodeDistance = nodeDistance;
-					}
+
+				// ... the note node
+				if ( nodeDistance < iconNodeDistance ) {
+					this.#iconOsmNodeId = node.id;
+					iconNodeDistance = nodeDistance;
 				}
+
+				// ... the incoming node...
 				if ( incomingItineraryPoint ) {
 					nodeDistance =
 						theSphericalTrigonometry.pointsDistance ( [ node.lat, node.lon ], incomingItineraryPoint.latLng );
 					if ( nodeDistance < incomingNodeDistance ) {
-						this.#incomingNodeId = node.id;
+						this.#incomingOsmNodeId = node.id;
 						incomingNodeDistance = nodeDistance;
 					}
 				}
+
+				// ... and the outgoing node
 				if ( outgoingItineraryPoint ) {
 					nodeDistance =
 						theSphericalTrigonometry.pointsDistance ( [ node.lat, node.lon ], outgoingItineraryPoint.latLng );
 					if ( nodeDistance < outgoingNodeDistance ) {
-						this.#outgoingNodeId = node.id;
+						this.#outgoingOsmNodeId = node.id;
 						outgoingNodeDistance = nodeDistance;
 					}
 				}
 			}
 		);
-		this.#iconNode = this.#overpassAPIDataLoader.nodes.get ( this.#svgPointId );
-	}
 
-	/**
-	Moving the icon to the rcnref node if icnRef node is near the icon node (only bike routing have rcnRef)
-	@private
-	*/
-
-	#moveIconToRcnRef ( ) {
-
-		if ( this.#rcnRefNode ) {
-			const rcnRefDistance = theSphericalTrigonometry.pointsDistance (
-				[ this.#rcnRefNode.lat, this.#rcnRefNode.lon ],
-				[ this.#iconNode.lat, this.#iconNode.lon ]
-			);
-			if ( theConfig.note.svgIcon.rcnRefDistance > rcnRefDistance ) {
-				this.#iconNode = this.#rcnRefNode;
-			}
-		}
+		this.#iconOsmNode = this.#overpassAPIDataLoader.nodes.get ( this.#iconOsmNodeId );
 	}
 
 	/**
@@ -218,32 +298,26 @@ class StreetFinder {
 	*/
 
 	#findMiniRoundabout ( ) {
-		this.#roundabout.isMini = (
-			this.#iconNode
+		this.#roundaboutData.isMini = (
+			this.#iconOsmNode
 			&&
-			this.#iconNode.tags
+			this.#iconOsmNode.tags
 			&&
-			this.#iconNode.tags.highway
+			this.#iconOsmNode.tags.highway
 			&&
-			'mini_roundabout' === this.#iconNode.tags.highway
+			'mini_roundabout' === this.#iconOsmNode.tags.highway
 		);
 	}
 
 	/**
-	Adding the rcnRef number to the tooltip
+	Adding the rcnRef number to the tooltip and the computeData
 	@private
 	*/
 
 	#addRcnRefNumber ( ) {
-		if (
-			'bike' === this.#computeData.route.itinerary.transitMode
-			&&
-			this.#iconNode && this.#iconNode.tags && this.#iconNode.tags.rcn_ref
-			&&
-			this.#iconNode.tags [ 'network:type' ] && 'node_network' === this.#iconNode.tags [ 'network:type' ]
-		) {
-			this.#computeData.rcnRef = this.#iconNode.tags.rcn_ref;
-			this.#mapIconData.tooltip +=
+		if ( this.#rcnRefOsmNode ) {
+			this.#computeData.rcnRef = this.#rcnRefOsmNode.tags.rcn_ref;
+			this.#noteData.tooltipContent +=
 				theTranslator.getText ( 'MapIconDataBuilder - rcnRef', { rcnRef : this.#computeData.rcnRef } );
 		}
 	}
@@ -256,35 +330,35 @@ class StreetFinder {
 	#findStreets ( ) {
 		this.#overpassAPIDataLoader.ways.forEach (
 			way => {
-				if ( ! way.nodes.includes ( this.#svgPointId ) ) {
+				if ( ! way.nodes.includes ( this.#iconOsmNodeId ) ) {
 					return;
 				}
 
 				const wayName = this.#getWayName ( way );
 				const haveName = '' !== wayName;
 
-				const isIncomingStreet = way.nodes.includes ( this.#incomingNodeId );
-				const isOutgoingStreet = way.nodes.includes ( this.#outgoingNodeId );
+				const isIncomingStreet = way.nodes.includes ( this.#incomingOsmNodeId );
+				const isOutgoingStreet = way.nodes.includes ( this.#outgoingOsmNodeId );
 
 				// the same way can enter multiple times in the intersection!
-				let streetOcurrences = way.nodes.filter ( nodeId => nodeId === this.#svgPointId ).length * TWO;
+				let streetOcurrences = way.nodes.filter ( nodeId => nodeId === this.#iconOsmNodeId ).length * TWO;
 
 				// the icon is at the begining of the street
-				if ( way.nodes [ ZERO ] === this.#svgPointId ) {
+				if ( way.nodes [ ZERO ] === this.#iconOsmNodeId ) {
 					streetOcurrences --;
 				}
 
 				// the icon is at end of the street
-				if ( way.nodes [ way.nodes.length - ONE ] === this.#svgPointId ) {
+				if ( way.nodes [ way.nodes.length - ONE ] === this.#iconOsmNodeId ) {
 					streetOcurrences --;
 				}
 
 				// it's the incoming street ...saving name  and eventually the roundabout exit
 				if ( isIncomingStreet ) {
-					this.#incomingStreet = haveName ? wayName : '???';
+					this.#incomingStreetName = haveName ? wayName : '???';
 					streetOcurrences --;
 					if ( way.tags.junction && 'roundabout' === way.tags.junction ) {
-						this.#roundabout.isExit = true;
+						this.#roundaboutData.isExit = true;
 					}
 				}
 				if ( ZERO === streetOcurrences ) {
@@ -293,10 +367,10 @@ class StreetFinder {
 
 				// it's the outgoing street ...saving name  and eventually the roundabout exit
 				if ( isOutgoingStreet ) {
-					this.#outgoingStreet = haveName ? wayName : '???';
+					this.#outgoingStreetName = haveName ? wayName : '???';
 					streetOcurrences --;
 					if ( way.tags.junction && 'roundabout' === way.tags.junction ) {
-						this.#roundabout.isEntry = true;
+						this.#roundaboutData.isEntry = true;
 					}
 				}
 				if ( ZERO === streetOcurrences || ! haveName ) {
@@ -305,8 +379,8 @@ class StreetFinder {
 
 				// It's a passing street ... saving name...
 				while ( ZERO !== streetOcurrences ) {
-					this.#mapIconData.address =
-						'' === this.#mapIconData.address ? wayName : this.#mapIconData.address + ' ⪥  ' + wayName; // ⪥  = ><
+					this.#noteData.address =
+						'' === this.#noteData.address ? wayName : this.#noteData.address + ' ⪥  ' + wayName; // ⪥  = ><
 					streetOcurrences --;
 				}
 			}
@@ -314,30 +388,51 @@ class StreetFinder {
 	}
 
 	/**
+	Adding city and hamlet to the address
+	@private
+	*/
+
+	#addCity ( ) {
+		if ( '' !== this.#overpassAPIDataLoader.city ) {
+			this.#noteData.address +=
+				' <span class="TravelNotes-NoteHtml-Address-City">' + this.#overpassAPIDataLoader.city + '</span>';
+		}
+		if ( this.#overpassAPIDataLoader.place && this.#overpassAPIDataLoader.place !== this.#overpassAPIDataLoader.city ) {
+			this.#noteData.address += ' (' + this.#overpassAPIDataLoader.place + ')';
+		}
+	}
+
+	/**
 	Adding street name
 	@private
 	*/
 
-	#addStreetInfo ( ) {
+	#addAddress ( ) {
 
 		if ( ICON_POSITION.atStart === this.#computeData.positionOnRoute ) {
 
 			// It's the start point adding a green circle to the outgoing street
-			this.#mapIconData.address = '🟢 ' + this.#outgoingStreet;
+			this.#noteData.address = '🟢 ' + this.#outgoingStreetName;
+			this.#addCity ( );
 		}
 		else if ( ICON_POSITION.atEnd === this.#computeData.positionOnRoute ) {
 
+			this.#addCity ( );
+
 			// It's the end point adding a red circle to the incoming street
-			this.#mapIconData.address = this.#incomingStreet + ' 🔴 ';
+			this.#noteData.address = this.#incomingStreetName;
+			this.#addCity ( );
+			this.#noteData.address += ' 🔴 ';
 		}
 		else {
 
 			// Adiing the incoming and outgoing streets and direction arrow
-			this.#mapIconData.address =
-				this.#incomingStreet +
-				( '' === this.#mapIconData.address ? '' : ' ⪥  ' + this.#mapIconData.address ) + // ⪥ = ><
+			this.#noteData.address =
+				this.#incomingStreetName +
+				( '' === this.#noteData.address ? '' : ' ⪥  ' + this.#noteData.address ) + // ⪥ = ><
 				' ' + this.#computeData.directionArrow + ' ' +
-				this.#outgoingStreet;
+				this.#outgoingStreetName;
+			this.#addCity ( );
 		}
 	}
 
@@ -347,29 +442,19 @@ class StreetFinder {
 	*/
 
 	#addRoundaboutInfo ( ) {
-		if ( this.#roundabout.isEntry && ! this.#roundabout.isExit ) {
-			this.#mapIconData.tooltip += theTranslator.getText ( 'MapIconDataBuilder - entry roundabout' );
+		if ( this.#roundaboutData.isEntry && ! this.#roundaboutData.isExit ) {
+			this.#noteData.tooltipContent += theTranslator.getText ( 'MapIconDataBuilder - entry roundabout' );
 		}
-		else if ( ! this.#roundabout.isEntry && this.#roundabout.isExit ) {
-			this.#mapIconData.tooltip += theTranslator.getText ( 'MapIconDataBuilder - exit roundabout' );
+		else if ( ! this.#roundaboutData.isEntry && this.#roundaboutData.isExit ) {
+			this.#noteData.tooltipContent += theTranslator.getText ( 'MapIconDataBuilder - exit roundabout' );
 		}
-		else if ( this.#roundabout.isEntry && this.#roundabout.isExit ) {
-			this.#mapIconData.tooltip +=
+		else if ( this.#roundaboutData.isEntry && this.#roundaboutData.isExit ) {
+			this.#noteData.tooltipContent +=
 				theTranslator.getText ( 'MapIconDataBuilder - continue roundabout' ); // strange but correct
 		}
-		if ( this.#roundabout.isMini ) {
-			this.#mapIconData.tooltip +=
+		if ( this.#roundaboutData.isMini ) {
+			this.#noteData.tooltipContent +=
 				theTranslator.getText ( 'MapIconDataBuilder - at the small roundabout on the ground' );
-		}
-	}
-
-	#addCity ( ) {
-		if ( '' !== this.#overpassAPIDataLoader.city ) {
-			this.#mapIconData.address +=
-				' <span class="TravelNotes-NoteHtml-Address-City">' + this.#overpassAPIDataLoader.city + '</span>';
-		}
-		if ( this.#overpassAPIDataLoader.place && this.#overpassAPIDataLoader.place !== this.#overpassAPIDataLoader.city ) {
-			this.#mapIconData.address += ' (' + this.#overpassAPIDataLoader.place + ')';
 		}
 	}
 
@@ -382,20 +467,20 @@ class StreetFinder {
 	}
 
 	/**
-	Find street info: street names, roundabout info, rcnRef info ...
+	Find street info: street names, city, roundabout info, rcnRef info ...
 	*/
 
-	findData ( computeData, mapIconData, overpassAPIDataLoader ) {
+	findData ( computeData, noteData, overpassAPIDataLoader ) {
+
 		this.#computeData = computeData;
-		this.#mapIconData = mapIconData;
+		this.#noteData = noteData;
 		this.#overpassAPIDataLoader = overpassAPIDataLoader;
-		this.#findNodes ( );
-		this.#moveIconToRcnRef ( );
+
+		this.#findOsmNodes ( );
 		this.#findMiniRoundabout ( );
 		this.#addRcnRefNumber ( );
 		this.#findStreets ( );
-		this.#addStreetInfo ( );
-		this.#addCity ( );
+		this.#addAddress ( );
 		this.#addRoundaboutInfo ( );
 	}
 }

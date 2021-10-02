@@ -50,15 +50,33 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@typedef {Object} OsmNoteData
-@desc An object that store the data found in osm for a svg note creation
-@property {string} svg The svg definition created from the OSM map and the itinerary. This will be used as icon for the note
-@property {string} tooltip A string with the drection to follow This will be used as tooltip for the note
-@property {string} city A string with the city. This will be used for the note address
-@property {string} place A place (Can be 'town', 'city', 'village' or 'hamlet') found in OSM.
-This will be used for the note address
-@property {string} streets A string with all the streets found at the note position. This will be used for the note address
-@property {Array.<number>} latLng The latitude and longitude of the nearest itinerary point
+@typedef {Object} NoteData
+@desc An object with data used to build the Note
+@property {string} iconContent The icon content ( = the outerHTML of the SVG with streets itinerary and rcnRef number )
+@property {string} tooltipContent The tooltip ( = the direction to follow + indications on roundabout, rcnRef
+and start point or end point
+@property {string} address The address ( = streets names at the note position and city and hamlet )
+@property {Array.<number>} latLng The lat and lng of the note
+@public
+
+@------------------------------------------------------------------------------------------------------------------------------
+*/
+
+/**
+@------------------------------------------------------------------------------------------------------------------------------
+
+@typedef {Object} ComputeData
+@desc An object with data shared between the differents objects that are building the note ( TranslationRotationFinder,
+ArrowAndTooltipFinder, StreetFinder and SvgBuilder )
+@property {!number} nearestItineraryPointObjId The objId of the nearest itinerary point
+@property {Route} route the route to witch the note will be attached
+@property {!number} positionOnRoute The position on the Route. Must be a property of the ICON_POSITION enum
+@property {number} direction The direction to follow ( = the angle of the outgoing street after the rotation of the svg icon )
+@property {string} directionArrow The arrow to display in the address
+@property {string} rcnRef The rcnRef number for bike ( when a bike network exists near the note position )
+@property {!number} rotation The rotation of the svg icon needed to have the incoming street oriented from the bottom
+of the icon
+@property {Array.<number>} translation The translation needed to have the note position at the center of the svg icon
 @public
 
 @------------------------------------------------------------------------------------------------------------------------------
@@ -80,7 +98,7 @@ import StreetFinder from '../coreMapIcon/StreetFinder.js';
 import ArrowAndTooltipFinder from '../coreMapIcon/ArrowAndTooltipFinder.js';
 import TranslationRotationFinder from '../coreMapIcon/TranslationRotationFinder.js';
 
-import { ICON_POSITION, ICON_DIMENSIONS, LAT_LNG, DISTANCE, INVALID_OBJ_ID, ZERO, ONE } from '../main/Constants.js';
+import { ICON_POSITION, ICON_DIMENSIONS, LAT_LNG, INVALID_OBJ_ID, ZERO, ONE } from '../main/Constants.js';
 
 const SEARCH_AROUND_FACTOR = 1.5;
 
@@ -96,30 +114,51 @@ const SEARCH_AROUND_FACTOR = 1.5;
 
 class MapIconFromOsmFactory {
 
-	#mapIconData = Object.seal (
+	/**
+	The NoteData object needed to buid the note
+	@type {NoteData}
+	@private
+	*/
+
+	#noteData = Object.seal (
 		{
 			iconContent : '',
-			tooltip : '',
+			tooltipContent : '',
 			address : '',
 			latLng : [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ]
 		}
 	);
 
+	/**
+	The ComputeData object needed to buid the note
+	@type {ComputeData}
+	@private
+	*/
+
 	#computeData = Object.seal (
 		{
 			nearestItineraryPointObjId : INVALID_OBJ_ID,
-			distance : DISTANCE.defaultValue,
 			route : null,
 			positionOnRoute : ICON_POSITION.onRoute,
 			direction : null,
 			directionArrow : ' ',
 			rcnRef : '',
 			rotation : ZERO,
-			translation : [ ZERO, ZERO ]
+			translation : [ ZERO, ZERO ] // = the translation in pixel from the map origin.
 		}
 	);
 
+	/**
+	An OverpassAPIDataLoader object used to search the osm data
+	@private
+	*/
+
 	#overpassAPIDataLoader = new OverpassAPIDataLoader ( { searchRelations : false, setGeometry : false } );
+
+	/**
+	The distance used to search cities and hamlet in osm
+	@private
+	*/
 
 	#queryDistance = Math.max (
 		theConfig.geoCoder.distances.hamlet,
@@ -127,6 +166,11 @@ class MapIconFromOsmFactory {
 		theConfig.geoCoder.distances.city,
 		theConfig.geoCoder.distances.town
 	);
+
+	/**
+	A guard to avoid to mutch requests at the same time
+	@private
+	*/
 
 	#requestStarted = false;
 
@@ -141,24 +185,21 @@ class MapIconFromOsmFactory {
 
 		// Searching the nearest itinerary point
 		let minDistance = Number.MAX_VALUE;
-		let distance = DISTANCE.defaultValue;
 
 		// Iteration on the points...
 		this.#computeData.route.itinerary.itineraryPoints.forEach (
 			itineraryPoint => {
 				const itineraryPointDistance =
-					theSphericalTrigonometry.pointsDistance ( this.#mapIconData.latLng, itineraryPoint.latLng );
+					theSphericalTrigonometry.pointsDistance ( this.#noteData.latLng, itineraryPoint.latLng );
 				if ( minDistance > itineraryPointDistance ) {
 					minDistance = itineraryPointDistance;
 					nearestItineraryPoint = itineraryPoint;
-					this.#computeData.distance = distance;
 				}
-				distance += itineraryPoint.distance;
 			}
 		);
 
 		// The coordinates of the nearest point are used as position of the SVG
-		this.#mapIconData.latLng = nearestItineraryPoint.latLng;
+		this.#noteData.latLng = nearestItineraryPoint.latLng;
 		this.#computeData.nearestItineraryPointObjId = nearestItineraryPoint.objId;
 	}
 
@@ -171,38 +212,36 @@ class MapIconFromOsmFactory {
 
 	#buildIconAndAdress ( ) {
 
-		new TranslationRotationFinder ( ).findData ( this.#computeData, this.#mapIconData );
-		new ArrowAndTooltipFinder ( ).findData ( this.#computeData, this.#mapIconData );
-		new StreetFinder ( ).findData ( this.#computeData, this.#mapIconData, this.#overpassAPIDataLoader );
-		new SvgBuilder ( ).buildSvg ( this.#computeData, this.#mapIconData,	this.#overpassAPIDataLoader	);
+		// calling the different objects used to build the note ...
+		new TranslationRotationFinder ( ).findData ( this.#computeData, this.#noteData );
+		new ArrowAndTooltipFinder ( ).findData ( this.#computeData, this.#noteData );
+		new StreetFinder ( ).findData ( this.#computeData, this.#noteData, this.#overpassAPIDataLoader );
+		new SvgBuilder ( ).buildSvg ( this.#computeData, this.#noteData, this.#overpassAPIDataLoader	);
 
 		this.#requestStarted = false;
 
-		return Object.freeze (
-			{
-				statusOk : true,
-				noteData : {
-					iconContent : this.#mapIconData.iconContent,
-					tooltipContent : this.#mapIconData.tooltip,
-					address : this.#mapIconData.address,
-					latLng : this.#mapIconData.latLng
-				}
-			}
-		);
+		// returning the results
+		return this.#noteData;
 	}
+
+	/**
+	Start the buid of the note data
+	@private
+	*/
 
 	async #exeGetIconAndAdress ( ) {
 		if ( this.#requestStarted ) {
-			return Object.freeze (
-				{
-					statusOk : false,
-					noteData : null
-				}
-			);
+
+			// Return when another request is already running
+			return null;
 		}
 
+		this.#requestStarted = true;
+
+		// ComputeData and NoteData initialization
+		// !!! ComputeData.route contains already the route
+		// !!! NoteData.latLng contains already the note position
 		this.#computeData.nearestItineraryPointObjId = INVALID_OBJ_ID;
-		this.#computeData.distance = DISTANCE.defaultValue;
 		this.#computeData.positionOnRoute = ICON_POSITION.onRoute;
 		this.#computeData.direction = null;
 		this.#computeData.directionArrow = ' ';
@@ -210,25 +249,25 @@ class MapIconFromOsmFactory {
 		this.#computeData.rotation = ZERO;
 		this.#computeData.rcnRef = '';
 
-		this.#mapIconData.iconContent = '';
-		this.#mapIconData.tooltip = '';
-		this.#mapIconData.address = '';
+		this.#noteData.iconContent = '';
+		this.#noteData.tooltipContent = '';
+		this.#noteData.address = '';
 
-		this.#requestStarted = true;
-
+		// Moving the the nearest itinerary point
 		this.#searchNearestItineraryPoint ( );
 
-		const queryLatLng =
-			this.#mapIconData.latLng [ ZERO ].toFixed ( LAT_LNG.fixed ) +
-			',' +
-			this.#mapIconData.latLng [ ONE ].toFixed ( LAT_LNG.fixed );
-
+		// Starting the query to osm. Searching highways, administrative boundaries and places around the note
 		/*
 		Sample of query:
 			way[highway](around:300,50.489312,5.501035)->.a;(.a >;.a;)->.a;.a out;
 			is_in(50.644242,5.572354)->.e;area.e[admin_level][boundary="administrative"];out;
 			node(around:1500,50.644242,5.572354)[place];out;
 		*/
+
+		const queryLatLng =
+			this.#noteData.latLng [ ZERO ].toFixed ( LAT_LNG.fixed ) +
+			',' +
+			this.#noteData.latLng [ ONE ].toFixed ( LAT_LNG.fixed );
 
 		const queries = [
 			'way[highway](around:' +
@@ -238,21 +277,22 @@ class MapIconFromOsmFactory {
 			'node(around:' + this.#queryDistance + ',' + queryLatLng + ')[place];out;'
 		];
 
-		await this.#overpassAPIDataLoader.loadData ( queries, this.#mapIconData.latLng );
+		await this.#overpassAPIDataLoader.loadData ( queries, this.#noteData.latLng );
 		if ( this.#overpassAPIDataLoader.statusOk ) {
 			return this.#buildIconAndAdress ( );
 		}
-		return Object.freeze (
-			{
-				statusOk : false
-			}
-		);
+		return null;
 	}
+
+	/**
+	The method used to buid the icon with a promise
+	@private
+	*/
 
 	async #exeGetIconAndAdressWithPromise ( onOk, onError ) {
 		const result = await this.#exeGetIconAndAdress ( );
 
-		if ( result.statusOk ) {
+		if ( result ) {
 			onOk ( result );
 		}
 		else {
@@ -272,11 +312,11 @@ class MapIconFromOsmFactory {
 	get the svg and the data needed for creating the icon, using an async function
 	@param {Array.<number>} iconLatLng The latitude and longitude of the icon
 	@param {!Route} route The route to witch the icon will be attached.
-	@return {OsmNoteData} An object with the svg and data
+	@return {Object}
 	*/
 
 	async getIconAndAdressAsync ( iconLatLng, route ) {
-		this.#mapIconData.latLng = iconLatLng;
+		this.#noteData.latLng = iconLatLng;
 		this.#computeData.route = route;
 
 		return this.#exeGetIconAndAdress ( );
@@ -290,7 +330,7 @@ class MapIconFromOsmFactory {
 	*/
 
 	getIconAndAdressWithPromise ( iconLatLng, route ) {
-		this.#mapIconData.latLng = iconLatLng;
+		this.#noteData.latLng = iconLatLng;
 		this.#computeData.route = route;
 
 		return new Promise ( ( onOk, onError ) => this.#exeGetIconAndAdressWithPromise ( onOk, onError ) );

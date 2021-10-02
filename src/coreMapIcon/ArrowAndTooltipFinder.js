@@ -56,7 +56,7 @@ import { ICON_POSITION } from '../main/Constants.js';
 
 @class ArrowAndTooltipFinder
 @classdesc Search:
-- the arrow to use for the direction to follow
+- the arrow to use for the direction to follow ( the arrow will be displayed in the adrress )
 - the tooltip content
 @hideconstructor
 
@@ -64,9 +64,6 @@ import { ICON_POSITION } from '../main/Constants.js';
 */
 
 class ArrowAndTooltipFinder {
-
-	#computeData = null;
-	#mapIconData = null;
 
 	/*
 	constructor
@@ -80,50 +77,48 @@ class ArrowAndTooltipFinder {
 	This method set the direction arrow and tooltip
 	*/
 
-	findData ( computeData, mapIconData ) {
-		this.#computeData = computeData;
-		this.#mapIconData = mapIconData;
+	findData ( computeData, noteData ) {
 
-		if ( null !== this.#computeData.direction ) {
-			if ( this.#computeData.direction < theConfig.note.svgIcon.angleDirection.right ) {
-				this.#mapIconData.tooltip = theTranslator.getText ( 'MapIconDataBuilder - Turn right' );
-				this.#computeData.directionArrow = '🢂';
+		if ( null !== computeData.direction ) {
+			if ( computeData.direction < theConfig.note.svgIcon.angleDirection.right ) {
+				noteData.tooltipContent = theTranslator.getText ( 'MapIconDataBuilder - Turn right' );
+				computeData.directionArrow = '🢂';
 			}
-			else if ( this.#computeData.direction < theConfig.note.svgIcon.angleDirection.slightRight ) {
-				this.#mapIconData.tooltip = theTranslator.getText ( 'MapIconDataBuilder - Turn slight right' );
-				this.#computeData.directionArrow = '🢅';
+			else if ( computeData.direction < theConfig.note.svgIcon.angleDirection.slightRight ) {
+				noteData.tooltipContent = theTranslator.getText ( 'MapIconDataBuilder - Turn slight right' );
+				computeData.directionArrow = '🢅';
 			}
-			else if ( this.#computeData.direction < theConfig.note.svgIcon.angleDirection.continue ) {
-				this.#mapIconData.tooltip = theTranslator.getText ( 'MapIconDataBuilder - Continue' );
-				this.#computeData.directionArrow = '🢁';
+			else if ( computeData.direction < theConfig.note.svgIcon.angleDirection.continue ) {
+				noteData.tooltipContent = theTranslator.getText ( 'MapIconDataBuilder - Continue' );
+				computeData.directionArrow = '🢁';
 			}
-			else if ( this.#computeData.direction < theConfig.note.svgIcon.angleDirection.slightLeft ) {
-				this.#mapIconData.tooltip = theTranslator.getText ( 'MapIconDataBuilder - Turn slight left' );
-				this.#computeData.directionArrow = '🢄';
+			else if ( computeData.direction < theConfig.note.svgIcon.angleDirection.slightLeft ) {
+				noteData.tooltipContent = theTranslator.getText ( 'MapIconDataBuilder - Turn slight left' );
+				computeData.directionArrow = '🢄';
 			}
-			else if ( this.#computeData.direction < theConfig.note.svgIcon.angleDirection.left ) {
-				this.#mapIconData.tooltip = theTranslator.getText ( 'MapIconDataBuilder - Turn left' );
-				this.#computeData.directionArrow = '🢀';
+			else if ( computeData.direction < theConfig.note.svgIcon.angleDirection.left ) {
+				noteData.tooltipContent = theTranslator.getText ( 'MapIconDataBuilder - Turn left' );
+				computeData.directionArrow = '🢀';
 			}
-			else if ( this.#computeData.direction < theConfig.note.svgIcon.angleDirection.sharpLeft ) {
-				this.#mapIconData.tooltip = theTranslator.getText ( 'MapIconDataBuilder - Turn sharp left' );
-				this.#computeData.directionArrow = '🢇';
+			else if ( computeData.direction < theConfig.note.svgIcon.angleDirection.sharpLeft ) {
+				noteData.tooltipContent = theTranslator.getText ( 'MapIconDataBuilder - Turn sharp left' );
+				computeData.directionArrow = '🢇';
 			}
-			else if ( this.#computeData.direction < theConfig.note.svgIcon.angleDirection.sharpRight ) {
-				this.#mapIconData.tooltip = theTranslator.getText ( 'MapIconDataBuilder - Turn sharp right' );
-				this.#computeData.directionArrow = '🢆';
+			else if ( computeData.direction < theConfig.note.svgIcon.angleDirection.sharpRight ) {
+				noteData.tooltipContent = theTranslator.getText ( 'MapIconDataBuilder - Turn sharp right' );
+				computeData.directionArrow = '🢆';
 			}
 			else {
-				this.#mapIconData.tooltip = theTranslator.getText ( 'MapIconDataBuilder - Turn right' );
-				this.#computeData.directionArrow = '🢂';
+				noteData.tooltipContent = theTranslator.getText ( 'MapIconDataBuilder - Turn right' );
+				computeData.directionArrow = '🢂';
 			}
 		}
 
-		if ( ICON_POSITION.atStart === this.#computeData.positionOnRoute ) {
-			this.#mapIconData.tooltip = theTranslator.getText ( 'MapIconDataBuilder - Start' );
+		if ( ICON_POSITION.atStart === computeData.positionOnRoute ) {
+			noteData.tooltipContent = theTranslator.getText ( 'MapIconDataBuilder - Start' );
 		}
-		else if ( ICON_POSITION.atEnd === this.#computeData.positionOnRoute ) {
-			this.#mapIconData.tooltip = theTranslator.getText ( 'MapIconDataBuilder - Stop' );
+		else if ( ICON_POSITION.atEnd === computeData.positionOnRoute ) {
+			noteData.tooltipContent = theTranslator.getText ( 'MapIconDataBuilder - Stop' );
 		}
 	}
 }

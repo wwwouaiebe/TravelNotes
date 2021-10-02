@@ -62,8 +62,27 @@ import { SVG_NS, ICON_DIMENSIONS, ZERO, ONE, TWO, NOT_FOUND } from '../main/Cons
 
 class SvgBuilder {
 
-	#overpassAPIDataLoader = null;
+	/**
+	A reference to the computeData object
+	@type {ComputeData}
+	@private
+	*/
+
 	#computeData = null;
+
+	/**
+	A reference to the noteData overpassAPIDataLoader
+	@type {NoteData}
+	@private
+	*/
+
+	#overpassAPIDataLoader = null;
+	
+	/**
+	The svg element to build
+	@private
+	*/
+
 	#svgElement = null;
 
 	/**
@@ -253,10 +272,9 @@ class SvgBuilder {
 
 	/**
 	This method build the SVG element for the icon
-	@private
 	*/
 
-	buildSvg ( computeData, mapIconData, overpassAPIDataLoader ) {
+	buildSvg ( computeData, noteData, overpassAPIDataLoader ) {
 
 		this.#computeData = computeData;
 		this.#overpassAPIDataLoader = overpassAPIDataLoader;
@@ -266,7 +284,7 @@ class SvgBuilder {
 		this.#createWays ( );
 		this.#createRcnRef ( );
 
-		mapIconData.iconContent = this.#svgElement.outerHTML;
+		noteData.iconContent = this.#svgElement.outerHTML;
 	}
 }
 

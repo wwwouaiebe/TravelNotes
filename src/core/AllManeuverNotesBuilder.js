@@ -80,7 +80,7 @@ class AllManeuverNotesBuilder {
 
 	/**
 	This method creates a new route note with data from osm
-	@param {OsmNoteData} noteData The osm data needed for the note
+	@param {NoteData} noteData The data needed for building the note
 	@fires noteupdated
 	@private
 	*/
@@ -125,9 +125,9 @@ class AllManeuverNotesBuilder {
 			);
 
 			const latLng = this.#route.itinerary.itineraryPoints.getAt ( maneuverIterator.value.itineraryPointObjId ).latLng;
-			const svgIconData = await mapIconFromOsmFactory.getIconAndAdressAsync ( latLng, this.#route );
-			if ( svgIconData.statusOk ) {
-				this.#newNoteFromOsmData ( svgIconData.noteData );
+			const noteData = await mapIconFromOsmFactory.getIconAndAdressAsync ( latLng, this.#route );
+			if ( noteData ) {
+				this.#newNoteFromOsmData ( noteData );
 			}
 			else {
 				console.error ( 'An error occurs when creating the svg icon ' + maneuverIterator.index );

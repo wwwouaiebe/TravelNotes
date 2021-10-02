@@ -48,8 +48,9 @@ Tests ...
 
 import theConfig from '../data/Config.js';
 import theGeometry from '../coreLib/Geometry.js';
+import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
 
-import { ICON_DIMENSIONS, DISTANCE, ZERO, ONE, TWO, DEGREES, ICON_POSITION } from '../main/Constants.js';
+import { ICON_DIMENSIONS, ZERO, ONE, TWO, DEGREES, ICON_POSITION } from '../main/Constants.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
@@ -67,58 +68,103 @@ import { ICON_DIMENSIONS, DISTANCE, ZERO, ONE, TWO, DEGREES, ICON_POSITION } fro
 
 class TranslationRotationFinder {
 
+	/**
+	A reference to the computeData object
+	@type {ComputeData}
+	@private
+	*/
+
 	#computeData = null;
-	#mapIconData = null;
+
+	/**
+	A reference to the noteData Object
+	@type {NoteData}
+	@private
+	*/
+
+	#noteData = null;
+
+	/**
+	A reference to the itineraryPoint used to compute the rotation
+	@type {ItineraryPoint}
+	@private
+	*/
 
 	#rotationItineraryPoint = null;
+
+	/**
+	A reference to the itineraryPoint used to compute the direction
+	@type {ItineraryPoint}
+	@private
+	*/
+
 	#directionItineraryPoint = null;
+
+	/**
+	The coordinates in pixel of the icon point
+	@type {Array.<number>}
+	@private
+	*/
+
 	#iconPoint = null;
 
 	/**
 	This method compute the translation needed to have the itinerary point in the middle of the svg
+	@private
 	*/
 
 	#computeTranslation ( ) {
 		this.#computeData.translation = theGeometry.subtrackPoints (
 			[ ICON_DIMENSIONS.svgViewboxDim / TWO, ICON_DIMENSIONS.svgViewboxDim / TWO ],
-			theGeometry.project ( this.#mapIconData.latLng, theConfig.note.svgIcon.zoom )
+			theGeometry.project ( this.#noteData.latLng, theConfig.note.svgIcon.zoom )
 		);
 	}
 
 	/**
-	Searching points at least at 10 m ( theConfig.note.svgIcon.angleDistance ) from the icon point,
-	one for rotation and one for direction
+	Searching a point at least at 10 m ( theConfig.note.svgIcon.angleDistance ) from the icon point for rotation
 	@private
 	*/
 
-	#searchPoints ( ) {
+	#findRotationPoint ( ) {
 
-		this.#rotationItineraryPoint = this.#computeData.route.itinerary.itineraryPoints.first;
-		this.#directionItineraryPoint = this.#computeData.route.itinerary.itineraryPoints.last;
-		let distance = DISTANCE.defaultValue;
-		let directionPointReached = false;
+		this.#rotationItineraryPoint = this.#computeData.route.itinerary.itineraryPoints.previous (
+			this.#computeData.nearestItineraryPointObjId,
+			itineraryPoint => theSphericalTrigonometry.pointsDistance ( itineraryPoint.latLng, this.#noteData.latLng )
+				>
+				theConfig.note.svgIcon.angleDistance
+		)
+		||
+		this.#computeData.route.itinerary.itineraryPoints.first;
+	}
 
-		this.#computeData.route.itinerary.itineraryPoints.forEach (
-			itineraryPoint => {
-				if ( this.#computeData.distance - distance > theConfig.note.svgIcon.angleDistance ) {
-					this.#rotationItineraryPoint = itineraryPoint;
-				}
-				if (
-					distance - this.#computeData.distance
-					>
-					theConfig.note.svgIcon.angleDistance && ! directionPointReached
-				) {
-					this.#directionItineraryPoint = itineraryPoint;
-					directionPointReached = true;
-				}
-				distance += itineraryPoint.distance;
-			}
-		);
+	/**
+	Searching a point at least at 10 m ( theConfig.note.svgIcon.angleDistance ) from the icon point for direction
+	@private
+	*/
 
+	#findDirectionPoint ( ) {
+
+		this.#directionItineraryPoint = this.#computeData.route.itinerary.itineraryPoints.next (
+			this.#computeData.nearestItineraryPointObjId,
+			itineraryPoint => theSphericalTrigonometry.pointsDistance ( itineraryPoint.latLng, this.#noteData.latLng )
+				>
+				theConfig.note.svgIcon.angleDistance
+		)
+		||
+		this.#computeData.route.itinerary.itineraryPoints.last;
+	}
+
+	/**
+	Transform the latLng of the icon ro pixel coordinates relative to the map origin
+	@private
+	*/
+
+	#computeIconPoint ( ) {
 		this.#iconPoint = theGeometry.addPoints (
-			theGeometry.project ( this.#mapIconData.latLng, theConfig.note.svgIcon.zoom ),
+			theGeometry.project ( this.#noteData.latLng, theConfig.note.svgIcon.zoom ),
 			this.#computeData.translation
 		);
+
 	}
 
 	/**
@@ -145,6 +191,7 @@ class TranslationRotationFinder {
 				)
 				*
 				DEGREES.d180 / Math.PI;
+
 			if ( ZERO > this.#computeData.rotation ) {
 				this.#computeData.rotation += DEGREES.d360;
 			}
@@ -213,9 +260,9 @@ class TranslationRotationFinder {
 		}
 
 		if (
-			this.#mapIconData.latLng [ ZERO ] === this.#computeData.route.itinerary.itineraryPoints.last.lat
+			this.#noteData.latLng [ ZERO ] === this.#computeData.route.itinerary.itineraryPoints.last.lat
 			&&
-			this.#mapIconData.latLng [ ONE ] === this.#computeData.route.itinerary.itineraryPoints.last.lng
+			this.#noteData.latLng [ ONE ] === this.#computeData.route.itinerary.itineraryPoints.last.lng
 		) {
 
 			// using lat & lng because last point is sometime duplicated
@@ -237,11 +284,15 @@ class TranslationRotationFinder {
 	and compute also the direction to take after the icon
 	*/
 
-	findData ( computeData, mapIconData ) {
+	findData ( computeData, noteData ) {
+
 		this.#computeData = computeData;
-		this.#mapIconData = mapIconData;
+		this.#noteData = noteData;
+
 		this.#computeTranslation ( );
-		this.#searchPoints ( );
+		this.#findRotationPoint ( );
+		this.#findDirectionPoint ( );
+		this.#computeIconPoint ( );
 		this.#findRotation ( );
 		this.#findDirection ( );
 		this.#findPositionOnRoute ( );
