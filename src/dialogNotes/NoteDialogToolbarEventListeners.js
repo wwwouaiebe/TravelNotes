@@ -149,7 +149,8 @@ class IconSelectorChangeEL {
 	*/
 
 	#onMapIcon ( ) {
-		if ( ! this.#noteDialog.mapIconData.route ) {
+		const mapIconData = this.#noteDialog.mapIconData;
+		if ( ! mapIconData.route ) {
 			this.#noteDialog.showError (
 				theTranslator.getText ( 'Notedialog - not possible to create a SVG icon for a travel note' )
 			);
@@ -157,10 +158,7 @@ class IconSelectorChangeEL {
 		}
 
 		this.#noteDialog.showWait ( );
-		new MapIconFromOsmFactory ( ).getIconAndAdressWithPromise (
-			this.#noteDialog.mapIconData.latLng,
-			this.#noteDialog.mapIconData.route
-		)
+		new MapIconFromOsmFactory ( ).getIconAndAdressWithPromise ( mapIconData )
 			.then (
 				noteData => {
 					this.#noteDialog.hideWait ( );

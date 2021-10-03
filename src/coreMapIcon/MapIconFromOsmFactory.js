@@ -329,9 +329,9 @@ class MapIconFromOsmFactory {
 	@return {Promise} A Promise fullfilled with the svg data
 	*/
 
-	getIconAndAdressWithPromise ( iconLatLng, route ) {
-		this.#noteData.latLng = iconLatLng;
-		this.#computeData.route = route;
+	getIconAndAdressWithPromise ( mapIconData ) {
+		this.#noteData.latLng = mapIconData.latLng;
+		this.#computeData.route = mapIconData.route;
 
 		return new Promise ( ( onOk, onError ) => this.#exeGetIconAndAdressWithPromise ( onOk, onError ) );
 	}
