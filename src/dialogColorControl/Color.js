@@ -155,7 +155,7 @@ class Color {
 	}
 
 	/**
-	The color in the css HEX format '#RRGGBB'
+	Get the color in the css HEX format '#RRGGBB'
 	*/
 
 	get cssColor ( ) {
@@ -166,7 +166,7 @@ class Color {
 	}
 
 	/**
-	The color from a cssColor in the HEX format or the rgb () format
+	Set the color from a cssColor in the HEX format '#RRGGBB'or the 'rgb (RR,GG,BB)' format
 	*/
 
 	set cssColor ( cssColor ) {

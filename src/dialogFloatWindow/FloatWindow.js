@@ -69,6 +69,12 @@ const OUR_DRAG_MARGIN = 20;
 
 class TopBarDragStartEL {
 
+	/**
+	A reference to the dragData object of the FloatWindow
+	#type {Object}
+	@private
+	*/
+
 	#dragData = null;
 
 	/*
@@ -79,6 +85,10 @@ class TopBarDragStartEL {
 		Object.freeze ( this );
 		this.#dragData = dragData;
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( dragStartEvent ) {
 		this.#dragData.dragStartX = dragStartEvent.screenX;
@@ -100,13 +110,34 @@ class TopBarDragStartEL {
 
 class TopBarDragEndEL {
 
+	/**
+	A reference to the dragData object of the FloatWindow
+	#type {Object}
+	@private
+	*/
+
 	#dragData = null;
+
+	/**
+	A reference to the window's container
+	@type {HTMLElement}
+	@private
+	*/
+
 	#containerDiv = null;
+
+	/*
+	constructor
+	*/
 
 	constructor ( dragData ) {
 		Object.freeze ( this );
 		this.#dragData = dragData;
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( dragEndEvent ) {
 		const containerDiv = dragEndEvent.target.parentNode;
@@ -139,6 +170,7 @@ class FloatWindow {
 
 	/**
 	Shared data for drag and drop operations
+	@type {Object}
 	@private
 	*/
 
@@ -152,7 +184,8 @@ class FloatWindow {
 	);
 
 	/**
-	The window container
+	The window's container
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -160,6 +193,7 @@ class FloatWindow {
 
 	/**
 	The window top bar
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -167,6 +201,7 @@ class FloatWindow {
 
 	/**
 	The window header
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -174,6 +209,7 @@ class FloatWindow {
 
 	/**
 	The window content
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -184,12 +220,8 @@ class FloatWindow {
 	@private
 	*/
 
-	#eventListeners = Object.seal (
-		{
-			onTopBarDragStart : null,
-			onTopBarDragEnd : null
-		}
-	);
+	#topBarDragStartEL = null;
+	#topBarDragEndEL = null;
 
 	/**
 	This method creates the window
@@ -221,8 +253,8 @@ class FloatWindow {
 			},
 			this.#containerDiv
 		);
-		this.#topBar.addEventListener ( 'dragstart', this.#eventListeners.onTopBarDragStart, false );
-		this.#topBar.addEventListener ( 'dragend', this.#eventListeners.onTopBarDragEnd, false );
+		this.#topBar.addEventListener ( 'dragstart', this.#topBarDragStartEL, false );
+		this.#topBar.addEventListener ( 'dragend', this.#topBarDragEndEL, false );
 
 		theHTMLElementsFactory.create (
 			'div',
@@ -237,16 +269,11 @@ class FloatWindow {
 
 	/**
 	This method creates the header div
+	@private
 	*/
 
 	#createHeaderDiv ( ) {
-		this.#headerDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-FloatWindow-HeaderDiv'
-			},
-			this.#containerDiv
-		);
+		this.#headerDiv = theHTMLElementsFactory.create ( 'div', null, this.#containerDiv );
 	}
 
 	/**
@@ -255,19 +282,17 @@ class FloatWindow {
 	*/
 
 	#createContentDiv ( ) {
-		this.#contentDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-FloatWindow-ContentDiv'
-			},
-			this.#containerDiv
-		);
+		this.#contentDiv = theHTMLElementsFactory.create ( 'div', null, this.#containerDiv );
 	}
+
+	/*
+	constructor
+	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
-		this.#eventListeners.onTopBarDragStart = new TopBarDragStartEL ( this.#dragData );
-		this.#eventListeners.onTopBarDragEnd = new TopBarDragEndEL ( this.#dragData );
+		this.#topBarDragStartEL = new TopBarDragStartEL ( this.#dragData );
+		this.#topBarDragEndEL = new TopBarDragEndEL ( this.#dragData );
 		this.#createContainerDiv ( );
 		this.#createTopBar ( );
 		this.#createHeaderDiv ( );
@@ -279,21 +304,22 @@ class FloatWindow {
 	*/
 
 	close ( ) {
-		this.#topBar.removeEventListener ( 'dragstart', this.#eventListeners.onTopBarDragStart, false );
-		this.#topBar.removeEventListener ( 'dragend', this.#eventListeners.onTopBarDragEnd, false );
-		this.#eventListeners.onTopBarDragStart = null;
-		this.#eventListeners.onTopBarDragEnd = null;
+		this.#topBar.removeEventListener ( 'dragstart', this.#topBarDragStartEL, false );
+		this.#topBar.removeEventListener ( 'dragend', this.#topBarDragEndEL, false );
+		this.#topBarDragStartEL = null;
+		this.#topBarDragEndEL = null;
 		document.body.removeChild ( this.#containerDiv );
 	}
 
 	/**
-	Update the window
+	Update the window. To be implemented in the derived classes
 	*/
 
 	update ( ) { }
 
 	/**
 	The header of the window. Read only but remember it's an HTMLElement...
+	@type {HTMLElement}
 	@readonly
 	*/
 
@@ -301,6 +327,7 @@ class FloatWindow {
 
 	/**
 	The content of the window. Read only but remember it's an HTMLElement...
+	@type {HTMLElement}
 	@readonly
 	*/
 
