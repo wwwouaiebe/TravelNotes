@@ -146,6 +146,7 @@ class APIKeysDialog extends BaseDialog {
 			this.#onAPIKeyDeletedEventListener,
 			false
 		);
+		this.#onAPIKeyDeletedEventListener = null;
 	}
 
 	/**

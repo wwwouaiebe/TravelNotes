@@ -74,11 +74,6 @@ class RedSliderInputEL {
 		Object.freeze ( this );
 	}
 
-	destructor ( ) {
-		this.#redSlider = null;
-		this.#colorButtons = null;
-	}
-
 	/**
 	Event listener method
 	*/
@@ -127,11 +122,6 @@ class ColorInputEL {
 		Object.freeze ( this );
 	}
 
-	destructor ( ) {
-		this.#colorControl = null;
-		this.#inputs = null;
-	}
-
 	/**
 	Event listener method
 	*/
@@ -168,10 +158,6 @@ class ColorButtonClickEL {
 	constructor ( colorControl ) {
 		this.#colorControl = colorControl;
 		Object.freeze ( this );
-	}
-
-	destructor ( ) {
-		this.#colorControl = null;
 	}
 
 	/**

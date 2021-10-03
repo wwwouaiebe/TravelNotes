@@ -54,7 +54,7 @@ const FIVE = 5;
 @------------------------------------------------------------------------------------------------------------------------------
 
 @class Color
-@classdesc a simple helper class for the ColorControl
+@classdesc A simple helper class for the ColorControl
 @hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
@@ -62,8 +62,28 @@ const FIVE = 5;
 
 class Color {
 
+	/**
+	The red value of the color
+	@type {!number}
+	@private
+	*/
+
 	#red = COLOR_CONTROL.maxColorValue;
+
+	/**
+	The green value of the color
+	@type {!number}
+	@private
+	*/
+
 	#green = COLOR_CONTROL.maxColorValue;
+
+	/**
+	The blue value of the color
+	@type {!number}
+	@private
+	*/
+
 	#blue = COLOR_CONTROL.maxColorValue;
 
 	/*
@@ -75,6 +95,7 @@ class Color {
 
 	constructor ( red, green, blue ) {
 
+		Object.freeze ( this );
 		this.#red =
 			'number' === typeof red && COLOR_CONTROL.maxColorValue >= red && COLOR_CONTROL.minColorValue <= red
 				?
@@ -95,8 +116,6 @@ class Color {
 				blue
 				:
 				COLOR_CONTROL.maxColorValue;
-
-		Object.freeze ( this );
 	}
 
 	/**
@@ -136,7 +155,7 @@ class Color {
 	}
 
 	/**
-	get the color in the css HEX format '#RRGGBB'
+	The color in the css HEX format '#RRGGBB'
 	*/
 
 	get cssColor ( ) {
@@ -147,7 +166,7 @@ class Color {
 	}
 
 	/**
-	set the color from a cssColor in the HEX format or the rgb () format
+	The color from a cssColor in the HEX format or the rgb () format
 	*/
 
 	set cssColor ( cssColor ) {
@@ -163,7 +182,7 @@ class Color {
 	}
 
 	/**
-	return a clone of the Color
+	Clone the Color
 	@return {color} a new color Oject similar to this Color
 	*/
 

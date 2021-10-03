@@ -47,8 +47,7 @@ Tests ...
 
 import theTranslator from '../UILib/Translator.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import { RedSliderInputEL, ColorInputEL, ColorButtonClickEL }
-	from '../dialogColorControl/ColorControlEventListeners.js';
+import { RedSliderInputEL, ColorInputEL, ColorButtonClickEL } from '../dialogColorControl/ColorControlEventListeners.js';
 import Color from '../dialogColorControl/Color.js';
 
 import { ZERO, COLOR_CONTROL } from '../main/Constants.js';
@@ -67,12 +66,14 @@ class ColorControl {
 
 	/**
 	the main HTMLElement
+	@type {HTMLElement}
 	@private
 	*/
 
 	#colorDiv = null;
 
 	/** An array with the color buttons of the ColorControl
+	@type {Array.<HTMLElement>}
 	@private
 	*/
 
@@ -80,6 +81,7 @@ class ColorControl {
 
 	/**
 	The red, green and blue input htmlElement of the ColorControl
+	@type {object}
 	@private
 	*/
 
@@ -89,10 +91,17 @@ class ColorControl {
 		blue : null
 	};
 
+	/**
+	The red slider
+	#type {HTMLElement}
+	@private
+	*/
+
 	#redSliderInput = null;
 
 	/**
 	A div that contains the red green and blue inputs
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -100,6 +109,7 @@ class ColorControl {
 
 	/**
 	The sample color div of the color control
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -107,26 +117,30 @@ class ColorControl {
 
 	/**
 	The new color
+	@type {Color}
 	@private
 	*/
 
-	#newColor = new Color;
+	#newColor = new Color ( );
+
+	/**
+	Event listeners for color buttons, inputs and slider
+	@private
+	*/
+
+	#colorButtonClickEL = null;
+	#colorInputEL = null
+	#redSliderInputEL = null;
 
 	/**
 	Create the Color Buttons div
 	@private
 	*/
 
-	#eventListeners = {
-		onColorButtonClick : null,
-		onColorInput : null,
-		onRedSliderInput : null
-	}
-
 	#createColorButtonsDiv ( ) {
 		const colorButtonsDiv = theHTMLElementsFactory.create ( 'div', null, this.#colorDiv );
 		const cellColor = new Color ( COLOR_CONTROL.initialRed, COLOR_CONTROL.minColorValue, COLOR_CONTROL.minColorValue 	);
-		this.#eventListeners.onColorButtonClick = new ColorButtonClickEL ( this );
+		this.#colorButtonClickEL = new ColorButtonClickEL ( this );
 
 		for ( let rowCounter = ZERO; rowCounter < COLOR_CONTROL.rowsNumber; ++ rowCounter ) {
 			const colorButtonsRowDiv = theHTMLElementsFactory.create ( 'div', null, colorButtonsDiv );
@@ -142,7 +156,7 @@ class ColorControl {
 					colorButtonsRowDiv
 				);
 				colorButtonCellDiv.style [ 'background-color' ] = cellColor.cssColor;
-				colorButtonCellDiv.addEventListener ( 'click', this.#eventListeners.onColorButtonClick, false );
+				colorButtonCellDiv.addEventListener ( 'click', this.#colorButtonClickEL, false );
 				cellColor.green += COLOR_CONTROL.deltaColor;
 				this.#colorButtons.push ( colorButtonCellDiv );
 			}
@@ -171,15 +185,19 @@ class ColorControl {
 			redSliderDiv
 		);
 
-		this.#eventListeners.onRedSliderInput = new RedSliderInputEL ( this.#redSliderInput, this.#colorButtons );
-		this.#redSliderInput.addEventListener ( 'input', this.#eventListeners.onRedSliderInput, false );
+		this.#redSliderInputEL = new RedSliderInputEL ( this.#redSliderInput, this.#colorButtons );
+		this.#redSliderInput.addEventListener ( 'input', this.#redSliderInputEL, false );
 
 		this.#redSliderInput.focus ( );
 	}
 
 	/**
 	create the color inputs and text
-	@private*/
+	@param {string} The text before the input
+	@param {!number} The input value
+	@return {HTMLElement} the input object
+	@private
+	*/
 
 	#createColorInput ( inputText, inputValue ) {
 		theHTMLElementsFactory.create ( 'text', { value : inputText }, this.#rgbDiv	);
@@ -193,7 +211,7 @@ class ColorControl {
 			},
 			this.#rgbDiv
 		);
-		inputHtmlElement.addEventListener ( 'input', this.#eventListeners.onColorInput, false );
+		inputHtmlElement.addEventListener ( 'input', this.#colorInputEL, false );
 
 		return inputHtmlElement;
 	}
@@ -206,7 +224,7 @@ class ColorControl {
 	#createColorInputsDiv ( ) {
 		this.#rgbDiv = theHTMLElementsFactory.create ( 'div', null, this.#colorDiv );
 
-		this.#eventListeners.onColorInput = new ColorInputEL ( this, this.#inputs );
+		this.#colorInputEL = new ColorInputEL ( this, this.#inputs );
 
 		this.#inputs.red = this.#createColorInput (
 			theTranslator.getText ( 'ColorControl - Red' ),
@@ -240,6 +258,7 @@ class ColorControl {
 
 	/*
 	constructor
+	@param {string} cssColor The initial color for the control (must be #RRGGBB or rgb(RR, GG, BB) .
 	*/
 
 	constructor ( cssColor ) {
@@ -257,39 +276,46 @@ class ColorControl {
 		this.#createColorSampleDiv ( );
 	}
 
+	/**
+	Remove event listeners
+	*/
+
 	destructor ( ) {
 		this.#colorButtons.forEach (
 			colorButton => {
-				colorButton.removeEventListener ( 'click', this.#eventListeners.onColorButtonClick, false );
+				colorButton.removeEventListener ( 'click', this.#colorButtonClickEL, false );
 			}
 		);
-		this.#eventListeners.onColorButtonClick.destructor ( );
+		this.#colorButtonClickEL = null;
 
 		for ( const colorInput in this.#inputs ) {
-			this.#inputs [ colorInput ].removeEventListener ( 'input', this.#eventListeners.onColorInput, false );
+			this.#inputs [ colorInput ].removeEventListener ( 'input', this.#colorInputEL, false );
 		}
-		this.#eventListeners.onColorInput.destructor ( );
+		this.#colorInputEL = null;
 
-		this.#redSliderInput.removeEventListener ( 'input', this.#eventListeners.onRedSliderInput, false );
-		this.#eventListeners.onRedSliderInput.destructor ( );
+		this.#redSliderInput.removeEventListener ( 'input', this.#redSliderInputEL, false );
+		this.#redSliderInputEL = null;
 	}
 
 	/**
-	return an array with the HTML elements of the control
+	An array with the HTML element of the control
+	@type {Array.<HTMLElement>}
 	@readonly
 	*/
 
 	get HTMLElements ( ) { return [ this.#colorDiv ]; }
 
 	/**
-	return the color selected in the control in the css hex format ( #rrggbb )
+	The color selected in the control in the css hex format ( #rrggbb )
+	@type {string}
 	@readonly
 	*/
 
 	get cssColor ( ) { return this.#newColor.cssColor; }
 
 	/**
-	set the inputs, sample div and newColor to the color given as parameter
+	Change the default color of the control and set the inputs, sample div and newColor to the given color
+	@param {Volor} newColor The color to set as default color
 	*/
 
 	set color ( newColor ) {

@@ -511,18 +511,37 @@ class BaseDialog {
 
 	#BaseDialogDestructor ( ) {
 		document.removeEventListener ( 'keydown', this.#keyboardKeydownEL, { capture : true } );
+		this.#keyboardKeydownEL = null;
+
 		this.#topBar.removeEventListener ( 'dragstart', this.#topBarDragStartEL, false );
+		this.#topBarDragStartEL = null;
+
 		this.#topBar.removeEventListener ( 'dragend', this.#topBarDragEndEL, false );
+		this.#topBarDragEndEL = null;
+
 		this.#cancelButton.removeEventListener ( 'click', this.#cancelButtonClickEL, false );
 		if ( this.#options.secondButtonText ) {
 			this.#secondButton.removeEventListener ( 'click', this.#cancelButtonClickEL, false	);
 		}
+		this.#cancelButtonClickEL = null;
+
 		this.#okButton.removeEventListener ( 'click', this.#okButtonClickEL, false );
+		this.#okButtonClickEL = null;
+
 		this.#backgroundDiv.removeEventListener ( 'leftpan', this.#backgroundLeftPanEL, false );
+		this.#backgroundLeftPanEL = null;
+
 		this.#backgroundDiv.removeEventListener ( 'rightpan', this.#backgroundRightPanEL, false );
+		this.#backgroundRightPanEL = null;
+
 		this.#backgroundDiv.removeEventListener ( 'wheel', this.#backgroundWheelEL, false	);
+		this.#backgroundWheelEL = null;
+
 		this.#backgroundDiv.removeEventListener ( 'contextmenu', this.#backgroundContextMenuEL, false );
+		this.#backgroundContextMenuEL = null;
+
 		this.#backgroundDiv.removeEventListener ( 'dragover', this.#backgroundDragOverEL, false );
+		this.#backgroundDragOverEL = null;
 
 		this.#leftPanEventDispatcher.detach ( );
 		this.#rightPanEventDispatcher.detach ( );

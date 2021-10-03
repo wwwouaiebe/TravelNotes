@@ -101,7 +101,7 @@ class APIKeysDialogToolbar {
 	*/
 
 	#rootHTMLElement = null;
-	
+
 	/**
 	The reload key from server button
 	@type {HTMLElement}
@@ -109,7 +109,7 @@ class APIKeysDialogToolbar {
 	*/
 
 	#reloadKeysFromServerButton = null;
-	
+
 	/**
 	The save keys to secure file button
 	@type {HTMLElement}
@@ -117,7 +117,7 @@ class APIKeysDialogToolbar {
 	*/
 
 	#saveKeysToSecureFileButton = null;
-	
+
 	/**
 	The restore keys from secure file button
 	@type {HTMLElement}
@@ -125,7 +125,7 @@ class APIKeysDialogToolbar {
 	*/
 
 	#restoreKeysFromSecureFileButton = null;
-	
+
 	/**
 	The new APIKey button
 	@type {HTMLElement}
@@ -133,7 +133,7 @@ class APIKeysDialogToolbar {
 	*/
 
 	#newAPIKeyButton = null;
-	
+
 	/**
 	The save keys to unsecure file button
 	@type {HTMLElement}
@@ -141,7 +141,7 @@ class APIKeysDialogToolbar {
 	*/
 
 	#saveKeysToUnsecureFileButton = null;
-	
+
 	/**
 	The restore keys from unsecure file button
 	@type {HTMLElement}
@@ -149,7 +149,7 @@ class APIKeysDialogToolbar {
 	*/
 
 	#restoreKeysFromUnsecureFileButton = null;
-	
+
 	/**
 	Event listeners instances for the buttons
 	@private
@@ -349,7 +349,7 @@ class APIKeysDialogToolbar {
 		this.#addToolbarButtons ( );
 		Object.freeze ( this );
 	}
-	
+
 	/**
 	Remove events listeners from the buttons
 	*/
@@ -362,6 +362,8 @@ class APIKeysDialogToolbar {
 				false
 			);
 		}
+		this.#reloadFromServerButtonClickEL = null;
+
 		if ( this.#saveKeysToSecureFileButton ) {
 			this.#saveKeysToSecureFileButton.removeEventListener (
 				'click',
@@ -369,6 +371,8 @@ class APIKeysDialogToolbar {
 				false
 			);
 		}
+		this.#saveToSecureFileButtonClickEL = null;
+
 		if ( this.#restoreKeysFromSecureFileButton ) {
 			this.#restoreKeysFromSecureFileButton.removeEventListener (
 				'click',
@@ -376,6 +380,8 @@ class APIKeysDialogToolbar {
 				false
 			);
 		}
+		this.#restoreFromSecureFileButtonClickEL = null;
+
 		if ( this.#newAPIKeyButton ) {
 			this.#newAPIKeyButton.removeEventListener (
 				'click',
@@ -383,6 +389,8 @@ class APIKeysDialogToolbar {
 				false
 			);
 		}
+		this.#newAPIKeyButtonClickEL = null;
+
 		if ( this.#saveKeysToUnsecureFileButton ) {
 			this.#saveKeysToUnsecureFileButton.removeEventListener (
 				'click',
@@ -390,6 +398,8 @@ class APIKeysDialogToolbar {
 				false
 			);
 		}
+		this.#saveToUnsecureFileButtonClickEL = null;
+
 		if ( this.#restoreKeysFromUnsecureFileButton ) {
 			this.#restoreKeysFromUnsecureFileButton.removeEventListener (
 				'click',
@@ -397,6 +407,7 @@ class APIKeysDialogToolbar {
 				false
 			);
 		}
+		this.#restoreFromUnsecureFileButtonClickEL = null;
 	}
 
 	/**
