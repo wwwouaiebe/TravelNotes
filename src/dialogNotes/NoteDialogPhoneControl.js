@@ -83,10 +83,8 @@ class NoteDialogPhoneControl {
 	@private
 	*/
 
-	#eventListeners = {
-		onFocusControl : null,
-		onInputUpdated : null
-	}
+	#allControlsFocusEL = null;
+	#allControlsInputEL	= null;
 
 	/*
 	constructor
@@ -129,17 +127,17 @@ class NoteDialogPhoneControl {
 			this.#phoneInputDiv
 		);
 
-		this.#eventListeners.onFocusControl = new AllControlsFocusEL ( this.#noteDialog, false );
-		this.#eventListeners.onInputUpdated = new AllControlsInputEL ( this.#noteDialog );
-		this.#phoneInput.addEventListener ( 'focus', this.#eventListeners.onFocusControl );
-		this.#phoneInput.addEventListener ( 'input', this.#eventListeners.onInputUpdated );
+		this.#allControlsFocusEL = new AllControlsFocusEL ( this.#noteDialog, false );
+		this.#allControlsInputEL = new AllControlsInputEL ( this.#noteDialog );
+		this.#phoneInput.addEventListener ( 'focus', this.#allControlsFocusEL );
+		this.#phoneInput.addEventListener ( 'input', this.#allControlsInputEL );
 	}
 
 	destructor ( ) {
-		this.#phoneInput.removeEventListener ( 'focus', this.#eventListeners.onFocusControl );
-		this.#phoneInput.removeEventListener ( 'input', this.#eventListeners.onInputUpdated );
-		this.#eventListeners.onFocusControl.destructor ( );
-		this.#eventListeners.onInputUpdated.destructor ( );
+		this.#phoneInput.removeEventListener ( 'focus', this.#allControlsFocusEL );
+		this.#phoneInput.removeEventListener ( 'input', this.#allControlsInputEL );
+		this.#allControlsFocusEL.destructor ( );
+		this.#allControlsInputEL.destructor ( );
 		this.#noteDialog = null;
 	}
 

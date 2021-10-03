@@ -82,10 +82,8 @@ class NoteDialogTooltipControl {
 	@private
 	*/
 
-	#eventListeners = {
-		onFocusControl : null,
-		onInputUpdated : null
-	}
+	#allControlsFocusEL = null;
+	#allControlsInputEL = null;
 
 	/*
 	constructor
@@ -111,17 +109,17 @@ class NoteDialogTooltipControl {
 			this.#tooltipDiv
 		);
 
-		this.#eventListeners.onFocusControl = new AllControlsFocusEL ( this.#noteDialog, false );
-		this.#eventListeners.onInputUpdated = new AllControlsInputEL ( this.#noteDialog );
-		this.#tooltipInput.addEventListener ( 'focus', this.#eventListeners.onFocusControl );
-		this.#tooltipInput.addEventListener ( 'input', this.#eventListeners.onInputUpdated );
+		this.#allControlsFocusEL = new AllControlsFocusEL ( this.#noteDialog, false );
+		this.#allControlsInputEL = new AllControlsInputEL ( this.#noteDialog );
+		this.#tooltipInput.addEventListener ( 'focus', this.#allControlsFocusEL );
+		this.#tooltipInput.addEventListener ( 'input', this.#allControlsInputEL );
 	}
 
 	destructor ( ) {
-		this.#tooltipInput.removeEventListener ( 'focus', this.#eventListeners.onFocusControl );
-		this.#tooltipInput.removeEventListener ( 'input', this.#eventListeners.onInputUpdated );
-		this.#eventListeners.onFocusControl.destructor ( );
-		this.#eventListeners.onInputUpdated.destructor ( );
+		this.#tooltipInput.removeEventListener ( 'focus', this.#allControlsFocusEL );
+		this.#tooltipInput.removeEventListener ( 'input', this.#allControlsInputEL );
+		this.#allControlsFocusEL.destructor ( );
+		this.#allControlsInputEL.destructor ( );
 		this.#noteDialog = null;
 	}
 

@@ -93,11 +93,9 @@ class NoteDialogAddressControl {
 	@private
 	*/
 
-	#eventListeners = {
-		onFocusControl : null,
-		onInputUpdated : null,
-		onAddressButtonClick : null
-	}
+	#allControlsFocusEL = null;
+	#allControlsInputEL = null;
+	#addressButtonClickEL = null;
 
 	/*
 	constructor
@@ -147,21 +145,21 @@ class NoteDialogAddressControl {
 			this.#addressInputDiv
 		);
 
-		this.#eventListeners.onFocusControl = new AllControlsFocusEL ( this.#noteDialog, false );
-		this.#eventListeners.onInputUpdated = new AllControlsInputEL ( this.#noteDialog );
-		this.#eventListeners.onAddressButtonClick = new AddressButtonClickEL ( this.#noteDialog, this.#latLng );
-		this.#addressInput.addEventListener ( 'focus', this.#eventListeners.onFocusControl );
-		this.#addressInput.addEventListener ( 'input', this.#eventListeners.onInputUpdated );
-		this.#addressButton.addEventListener ( 'click', this.#eventListeners.onAddressButtonClick );
+		this.#allControlsFocusEL = new AllControlsFocusEL ( this.#noteDialog, false );
+		this.#allControlsInputEL = new AllControlsInputEL ( this.#noteDialog );
+		this.#addressButtonClickEL = new AddressButtonClickEL ( this.#noteDialog, this.#latLng );
+		this.#addressInput.addEventListener ( 'focus', this.#allControlsFocusEL );
+		this.#addressInput.addEventListener ( 'input', this.#allControlsInputEL );
+		this.#addressButton.addEventListener ( 'click', this.#addressButtonClickEL );
 	}
 
 	destructor ( ) {
-		this.#addressInput.removeEventListener ( 'focus', this.#eventListeners.onFocusControl );
-		this.#addressInput.removeEventListener ( 'input', this.#eventListeners.onInputUpdated );
-		this.#addressButton.removeEventListener ( 'click', this.#eventListeners.onAddressButtonClick );
-		this.#eventListeners.onFocusControl.destructor ( );
-		this.#eventListeners.onInputUpdated.destructor ( );
-		this.#eventListeners.onAddressButtonClick.destructor ( );
+		this.#addressInput.removeEventListener ( 'focus', this.#allControlsFocusEL );
+		this.#addressInput.removeEventListener ( 'input', this.#allControlsInputEL );
+		this.#addressButton.removeEventListener ( 'click', this.#addressButtonClickEL );
+		this.#allControlsFocusEL.destructor ( );
+		this.#allControlsInputEL.destructor ( );
+		this.#addressButtonClickEL.destructor ( );
 	}
 
 	/**

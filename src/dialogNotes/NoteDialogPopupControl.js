@@ -83,10 +83,8 @@ class NoteDialogPopupControl {
 	@private
 	*/
 
-	#eventListeners = {
-		onFocusControl : null,
-		onInputUpdated : null
-	}
+	#allControlsFocusEL = null;
+	#allControlsInputEL = null;
 
 	/*
 	constructor
@@ -112,17 +110,17 @@ class NoteDialogPopupControl {
 			this.#popupDiv
 		);
 
-		this.#eventListeners.onFocusControl = new AllControlsFocusEL ( this.#noteDialog, false );
-		this.#eventListeners.onInputUpdated = new AllControlsInputEL ( this.#noteDialog );
-		this.#popupTextArea.addEventListener ( 'focus', this.#eventListeners.onFocusControl );
-		this.#popupTextArea.addEventListener ( 'input', this.#eventListeners.onInputUpdated );
+		this.#allControlsFocusEL = new AllControlsFocusEL ( this.#noteDialog, false );
+		this.#allControlsInputEL = new AllControlsInputEL ( this.#noteDialog );
+		this.#popupTextArea.addEventListener ( 'focus', this.#allControlsFocusEL );
+		this.#popupTextArea.addEventListener ( 'input', this.#allControlsInputEL );
 	}
 
 	destructor ( ) {
-		this.#popupTextArea.removeEventListener ( 'focus', this.#eventListeners.onFocusControl );
-		this.#popupTextArea.removeEventListener ( 'input', this.#eventListeners.onInputUpdated );
-		this.#eventListeners.onFocusControl.destructor ( );
-		this.#eventListeners.onInputUpdated.destructor ( );
+		this.#popupTextArea.removeEventListener ( 'focus', this.#allControlsFocusEL );
+		this.#popupTextArea.removeEventListener ( 'input', this.#allControlsInputEL );
+		this.#allControlsFocusEL.destructor ( );
+		this.#allControlsInputEL.destructor ( );
 		this.#noteDialog = null;
 	}
 

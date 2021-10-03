@@ -141,12 +141,10 @@ class NoteDialogToolbar {
 	@private
 	*/
 
-	#eventListeners = {
-		onEditionButtonClick : null,
-		onIconSelectChange : null,
-		onToogleContentsButtonClick : null,
-		onOpenFileButtonClick : null
-	};
+	#editionButtonsClickEL = null;
+	#iconSelectorChangeEL = null;
+	#toogleContentsButtonClickEL = null;
+	#openFileButtonClickEL = null;
 
 	/**
 	Add the icon selector to the toolbar
@@ -162,7 +160,7 @@ class NoteDialogToolbar {
 			},
 			this.#rootHTMLElement
 		);
-		this.#iconSelect.addEventListener ( 'change', this.#eventListeners.onIconSelectChange, false );
+		this.#iconSelect.addEventListener ( 'change', this.#iconSelectorChangeEL, false );
 
 		theNoteDialogToolbarData.icons.forEach (
 			selectOption => {
@@ -188,7 +186,7 @@ class NoteDialogToolbar {
 			},
 			this.#rootHTMLElement
 		);
-		this.#toogleContentsButton.addEventListener ( 'click', this.#eventListeners.onToogleContentsButtonClick, false );
+		this.#toogleContentsButton.addEventListener ( 'click', this.#toogleContentsButtonClickEL, false );
 
 		this.#openFileButton = theHTMLElementsFactory.create (
 			'div',
@@ -199,7 +197,7 @@ class NoteDialogToolbar {
 			},
 			this.#rootHTMLElement
 		);
-		this.#openFileButton.addEventListener ( 'click', this.#eventListeners.onOpenFileButtonClick, false );
+		this.#openFileButton.addEventListener ( 'click', this.#openFileButtonClickEL, false );
 	}
 
 	/**
@@ -222,7 +220,7 @@ class NoteDialogToolbar {
 					this.#rootHTMLElement
 				);
 				theHTMLSanitizer.sanitizeToHtmlElement ( editionButton.title || '?', newButton );
-				newButton.addEventListener ( 'click', this.#eventListeners.onEditionButtonClick, false );
+				newButton.addEventListener ( 'click', this.#editionButtonsClickEL, false );
 				this.#editionButtons.push ( newButton );
 			}
 		);
@@ -245,11 +243,11 @@ class NoteDialogToolbar {
 	*/
 
 	#removeEventListeners ( ) {
-		this.#iconSelect.removeEventListener ( 'change', this.#eventListeners.onIconSelectChange, false );
-		this.#toogleContentsButton.removeEventListener ( 'click', this.#eventListeners.onToogleContentsButtonClick, false );
-		this.#openFileButton.removeEventListener ( 'click', this.#eventListeners.onOpenFileButtonClick, false );
+		this.#iconSelect.removeEventListener ( 'change', this.#iconSelectorChangeEL, false );
+		this.#toogleContentsButton.removeEventListener ( 'click', this.#toogleContentsButtonClickEL, false );
+		this.#openFileButton.removeEventListener ( 'click', this.#openFileButtonClickEL, false );
 		this.#editionButtons.forEach (
-			button => { button.removeEventListener ( 'click', this.#eventListeners.onEditionButtonClick, false ); }
+			button => { button.removeEventListener ( 'click', this.#editionButtonsClickEL, false ); }
 		);
 	}
 
@@ -266,20 +264,20 @@ class NoteDialogToolbar {
 				id : 'TravelNotes-NoteDialog-ToolbarDiv'
 			}
 		);
-		this.#eventListeners.onIconSelectChange = new IconSelectorChangeEL ( this.#noteDialog );
-		this.#eventListeners.onToogleContentsButtonClick = new ToogleContentsButtonClickEL ( this.#noteDialog );
-		this.#eventListeners.onOpenFileButtonClick = new OpenFileButtonClickEL ( this );
-		this.#eventListeners.onEditionButtonClick = new EditionButtonsClickEL ( this.#noteDialog );
+		this.#iconSelectorChangeEL = new IconSelectorChangeEL ( this.#noteDialog );
+		this.#toogleContentsButtonClickEL = new ToogleContentsButtonClickEL ( this.#noteDialog );
+		this.#openFileButtonClickEL = new OpenFileButtonClickEL ( this );
+		this.#editionButtonsClickEL = new EditionButtonsClickEL ( this.#noteDialog );
 
 		this.#addToolbarElements ( );
 	}
 
 	destructor ( ) {
 		this.#removeEventListeners ( );
-		this.#eventListeners.onEditionButtonClick.destructor ( );
-		this.#eventListeners.onIconSelectChange.destructor ( );
-		this.#eventListeners.onToogleContentsButtonClick.destructor ( );
-		this.#eventListeners.onOpenFileButtonClick.destructor ( );
+		this.#editionButtonsClickEL.destructor ( );
+		this.#iconSelectorChangeEL.destructor ( );
+		this.#toogleContentsButtonClickEL.destructor ( );
+		this.#openFileButtonClickEL.destructor ( );
 		this.#noteDialog = null;
 	}
 

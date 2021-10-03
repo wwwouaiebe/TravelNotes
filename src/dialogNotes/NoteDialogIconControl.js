@@ -83,10 +83,8 @@ class NoteDialogIconControl {
 	@private
 	*/
 
-	#eventListeners = {
-		onFocusControl : null,
-		onInputUpdated : null
-	}
+	#allControlsFocusEL = null;
+	#allControlsInputEL = null;
 
 	/*
 	constructor
@@ -113,17 +111,17 @@ class NoteDialogIconControl {
 			this.#iconDiv
 		);
 
-		this.#eventListeners.onFocusControl = new AllControlsFocusEL ( this.#noteDialog, false );
-		this.#eventListeners.onInputUpdated = new AllControlsInputEL ( this.#noteDialog );
-		this.#iconTextArea.addEventListener ( 'focus', this.#eventListeners.onFocusControl );
-		this.#iconTextArea.addEventListener ( 'input', this.#eventListeners.onInputUpdated );
+		this.#allControlsFocusEL = new AllControlsFocusEL ( this.#noteDialog, false );
+		this.#allControlsInputEL = new AllControlsInputEL ( this.#noteDialog );
+		this.#iconTextArea.addEventListener ( 'focus', this.#allControlsFocusEL );
+		this.#iconTextArea.addEventListener ( 'input', this.#allControlsInputEL );
 	}
 
 	destructor ( ) {
-		this.#iconTextArea.removeEventListener ( 'focus', this.#eventListeners.onFocusControl );
-		this.#iconTextArea.removeEventListener ( 'input', this.#eventListeners.onInputUpdated );
-		this.#eventListeners.onFocusControl.destructor ( );
-		this.#eventListeners.onInputUpdated.destructor ( );
+		this.#iconTextArea.removeEventListener ( 'focus', this.#allControlsFocusEL );
+		this.#iconTextArea.removeEventListener ( 'input', this.#allControlsInputEL );
+		this.#allControlsFocusEL.destructor ( );
+		this.#allControlsInputEL.destructor ( );
 		this.#noteDialog = null;
 	}
 

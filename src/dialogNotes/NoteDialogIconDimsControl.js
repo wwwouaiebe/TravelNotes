@@ -84,9 +84,7 @@ class NoteDialogIconDimsControl {
 	@private
 	*/
 
-	#eventListeners = {
-		onInputUpdated : null
-	}
+	#allControlsInputEL = null;
 
 	/*
 	constructor
@@ -137,15 +135,15 @@ class NoteDialogIconDimsControl {
 			this.#iconDimsDiv
 		);
 
-		this.#eventListeners.onInputUpdated = new AllControlsInputEL ( this.#noteDialog );
-		this.#iconWidthInput.addEventListener ( 'input', this.#eventListeners.onInputUpdated );
-		this.#iconHeightInput.addEventListener ( 'input', this.#eventListeners.onInputUpdated );
+		this.#allControlsInputEL = new AllControlsInputEL ( this.#noteDialog );
+		this.#iconWidthInput.addEventListener ( 'input', this.#allControlsInputEL );
+		this.#iconHeightInput.addEventListener ( 'input', this.#allControlsInputEL );
 	}
 
 	destructor ( ) {
-		this.#iconWidthInput.removeEventListener ( 'input', this.#eventListeners.onInputUpdated );
-		this.#iconHeightInput.removeEventListener ( 'input', this.#eventListeners.onInputUpdated );
-		this.#eventListeners.onInputUpdated.destructor ( );
+		this.#iconWidthInput.removeEventListener ( 'input', this.#allControlsInputEL );
+		this.#iconHeightInput.removeEventListener ( 'input', this.#allControlsInputEL );
+		this.#allControlsInputEL.destructor ( );
 		this.#noteDialog = null;
 	}
 

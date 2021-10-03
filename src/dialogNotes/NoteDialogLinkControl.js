@@ -90,11 +90,9 @@ class NoteDialogLinkControl {
 	@private
 	*/
 
-	#eventListeners = {
-		onFocusControl : null,
-		onInputUpdated : null,
-		onBlurUrlInput : null
-	}
+	#allControlsFocusEL= null;
+	#allControlsInputEL = null;
+	#urlInputBlurEL	= null;
 
 	/**
 	The Devil button...
@@ -172,21 +170,21 @@ class NoteDialogLinkControl {
 			this.#linkInputDiv
 		);
 
-		this.#eventListeners.onFocusControl = new AllControlsFocusEL ( this.#noteDialog, true );
-		this.#eventListeners.onInputUpdated = new AllControlsInputEL ( this.#noteDialog );
-		this.#eventListeners.onBlurUrlInput = new UrlInputBlurEL ( this.#noteDialog );
-		this.#linkInput.addEventListener ( 'focus', this.#eventListeners.onFocusControl );
-		this.#linkInput.addEventListener ( 'input', this.#eventListeners.onInputUpdated );
-		this.#linkInput.addEventListener ( 'blur', this.#eventListeners.onBlurUrlInput );
+		this.#allControlsFocusEL = new AllControlsFocusEL ( this.#noteDialog, true );
+		this.#allControlsInputEL = new AllControlsInputEL ( this.#noteDialog );
+		this.#urlInputBlurEL = new UrlInputBlurEL ( this.#noteDialog );
+		this.#linkInput.addEventListener ( 'focus', this.#allControlsFocusEL );
+		this.#linkInput.addEventListener ( 'input', this.#allControlsInputEL );
+		this.#linkInput.addEventListener ( 'blur', this.#urlInputBlurEL );
 	}
 
 	destructor ( ) {
-		this.#linkInput.removeEventListener ( 'focus', this.#eventListeners.onFocusControl );
-		this.#linkInput.removeEventListener ( 'input', this.#eventListeners.onInputUpdated );
-		this.#linkInput.removeEventListener ( 'blur', this.#eventListeners.onBlurUrlInput );
-		this.#eventListeners.onFocusControl.destructor ( );
-		this.#eventListeners.onInputUpdated.destructor ( );
-		this.#eventListeners.onBlurUrlInput.destructor ( );
+		this.#linkInput.removeEventListener ( 'focus', this.#allControlsFocusEL );
+		this.#linkInput.removeEventListener ( 'input', this.#allControlsInputEL );
+		this.#linkInput.removeEventListener ( 'blur', this.#urlInputBlurEL );
+		this.#allControlsFocusEL.destructor ( );
+		this.#allControlsInputEL.destructor ( );
+		this.#urlInputBlurEL.destructor ( );
 		this.#noteDialog = null;
 	}
 

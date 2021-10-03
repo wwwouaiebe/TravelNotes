@@ -180,7 +180,7 @@ class NoteDialog extends BaseDialog {
 
 	constructor ( note, route ) {
 		super ( );
-		
+
 		// Saving parameters
 		this.#note = note;
 		this.#startGeoCoder = '' === this.#note.address;
@@ -269,7 +269,7 @@ class NoteDialog extends BaseDialog {
 	/**
 	Overload of the BaseDialog.onCancel ( ) method.
 	*/
-	
+
 	onCancel ( ) {
 		this.#destructor ( );
 		super.onCancel ( );
@@ -278,7 +278,7 @@ class NoteDialog extends BaseDialog {
 	/**
 	Overload of the BaseDialog.onOk ( ) method.
 	*/
-	
+
 	onOk ( ) {
 		if ( super.onOk ( ) ) {
 
