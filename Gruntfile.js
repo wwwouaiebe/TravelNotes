@@ -276,12 +276,7 @@ module.exports = function(grunt) {
 			beforeRelease:{
 				// JS files are copied in a temp folder for replace
 				files: [
-					{
-						expand: true,
-						cwd: '',
-						src: ['src/**/*.js' ],
-						dest: 'tmpRelease/'
-					}
+					{ expand: true, cwd: '', src: ['src/**/*.js' ], dest: 'tmpRelease/' }
 				]
 			},
 			release: {
@@ -289,264 +284,84 @@ module.exports = function(grunt) {
 				files: [
 				
 					// json and csv files from the cfg folder to the dist folder for TravelNotes
-					{
-						expand: true,
-						cwd: 'src/cfg/',
-						src: ['*.json', '*.csv' ],
-						dest: 'dist/'
-					},
+					{ expand: true, cwd: 'src/cfg/', src: ['*.json', '*.csv' ], dest: 'dist/' },
 
 					// json files from the translations folder to the dist folder for TravelNotes
-					{
-						expand: true,
-						cwd: 'src/translations/',
-						src: ['*.json'],
-						dest: 'dist/'
-					},
+					{ expand: true, cwd: 'src/translations/', src: ['*.json'], dest: 'dist/' },
 					
 					// html files from the html folder to the dist folder for TravelNotes
-					{
-						expand: true,
-						cwd: 'src/html/',
-						src: ['index.html'],
-						dest: 'dist/'
-					},
-					{
-						expand: true,
-						cwd: 'src/html/',
-						src: ['TravelNotesRoadbook.html'],
-						dest: 'dist/'
-					},		
+					{ expand: true, cwd: 'src/html/', src: ['index.html'], dest: 'dist/' },
+					{ expand: true, cwd: 'src/html/', src: ['TravelNotesRoadbook.html'], dest: 'dist/' },		
 
 					// json files from the cfg folder to the dist/viewer folder for the viewer
-					{
-						expand: true,
-						cwd: 'src/cfg/',
-						src: [ 'TravelNotesConfig.json', 'TravelNotesLayers.json' ],
-						dest: 'dist/viewer/'
-					},
+					{ expand: true, cwd: 'src/cfg/', src: [ 'TravelNotesConfig.json', 'TravelNotesLayers.json' ], dest: 'dist/viewer/' },
 
 					// json files from the translations folder to the dist/viewer folder for the viewer
-					{
-						expand: true,
-						cwd: 'src/translations/',
-						src: ['*.json'],
-						dest: 'dist/viewer/'
-					},
+					{ expand: true, cwd: 'src/translations/', src: ['*.json'], dest: 'dist/viewer/' },
 
 					// html files from the html folder to the dist/viewer folder for the viewer
-					{
-						expand: true,
-						cwd: 'src/html/',
-						src: ['TravelNotesViewer.html'],
-						rename: function ( ){return 'dist/viewer/index.html';}
-					},
+					{ expand: true, cwd: 'src/html/', src: ['TravelNotesViewer.html'], rename: function ( ){return 'dist/viewer/index.html';} },
+					
 					// osrmTextInstructions from node_modules to the dist/TravelNotesProviders
-					{
-						expand: true,
-						cwd: 'node_modules/osrm-text-instructions/languages/abbreviations/',
-						src: ['*.json'],
-						dest: 'dist/TravelNotesProviders/languages/abbreviations/'
-					},
-					{
-						expand: true,
-						cwd: 'node_modules/osrm-text-instructions/languages/translations/',
-						src: ['*.json'],
-						dest: 'dist/TravelNotesProviders/languages/instructions/'
-					},
-					{
-						expand: true,
-						cwd: 'node_modules/osrm-text-instructions/languages/grammar/',
-						src: ['*.json'],
-						dest: 'dist/TravelNotesProviders/languages/grammars/'
-					},
+					{ expand: true, cwd: 'node_modules/osrm-text-instructions/languages/abbreviations/', src: ['*.json'], dest: 'dist/TravelNotesProviders/languages/abbreviations/' },
+					{ expand: true, cwd: 'node_modules/osrm-text-instructions/languages/translations/', src: ['*.json'], dest: 'dist/TravelNotesProviders/languages/instructions/' },
+					{ expand: true, cwd: 'node_modules/osrm-text-instructions/languages/grammar/', src: ['*.json'], dest: 'dist/TravelNotesProviders/languages/grammars/' },
 				
 					// json and csv files from the cfg folder to the gh-page folder for TravelNotes
-					{
-						expand: true,
-						cwd: 'src/cfg/',
-						src: ['*.json', '*.csv' ],
-						dest: 'gh-page/'
-					},
+					{ expand: true, cwd: 'src/cfg/', src: ['*.json', '*.csv' ], dest: 'gh-page/' },
 
 					// json files from the translations folder to the gh-page folder for TravelNotes
-					{
-						expand: true,
-						cwd: 'src/translations/',
-						src: ['*.json'],
-						dest: 'gh-page/'
-					},
+					{ expand: true, cwd: 'src/translations/', src: ['*.json'], dest: 'gh-page/' },
 					
 					// html files from the html folder to the gh-page folder for TravelNotes
-					{
-						expand: true,
-						cwd: 'src/html/',
-						src: ['index.html'],
-						dest: 'gh-page/'
-					},
-					{
-						expand: true,
-						cwd: 'src/html/',
-						src: ['TravelNotesRoadbook.html'],
-						dest: 'gh-page/'
-					},		
+					{ expand: true, cwd: 'src/html/', src: ['index.html'], dest: 'gh-page/'	},
+					{ expand: true, cwd: 'src/html/', src: ['TravelNotesRoadbook.html'], dest: 'gh-page/' },		
 
 					// json files from the cfg folder to the gh-page/viewer folder for the viewer
-					{
-						expand: true,
-						cwd: 'src/cfg/',
-						src: [ 'TravelNotesConfig.json', 'TravelNotesLayers.json' ],
-						dest: 'gh-page/viewer/'
-					},
+					{ expand: true, cwd: 'src/cfg/', src: [ 'TravelNotesConfig.json', 'TravelNotesLayers.json' ], dest: 'gh-page/viewer/' },
 
 					// json files from the translations folder to the gh-page/viewer folder for the viewer
-					{
-						expand: true,
-						cwd: 'src/translations/',
-						src: ['*.json'],
-						dest: 'gh-page/viewer/'
-					},
+					{ expand: true, cwd: 'src/translations/', src: ['*.json'], dest: 'gh-page/viewer/' },
 
 					// html files from the html folder to the gh-page/viewer folder for the viewer
-					{
-						expand: true,
-						cwd: 'src/html/',
-						src: ['TravelNotesViewer.html'],
-						rename: function ( ){return 'gh-page/viewer/index.html';}
-					},
+					{ expand: true, cwd: 'src/html/', src: ['TravelNotesViewer.html'], rename: function ( ){return 'gh-page/viewer/index.html';} },
+					
 					// users guides to the gh-page/TravelNotesGuides/
-					{
-						expand: true,
-						cwd: 'TravelNotesGuides/',
-						src: ['**/*.*'],
-						dest: 'gh-page/TravelNotesGuides/'
-					},
+					{ expand: true, cwd: 'TravelNotesGuides/', src: ['**/*.*'], dest: 'gh-page/TravelNotesGuides/' },
 					// tech doc to the gh-page/TechDoc/
-					{
-						expand: true,
-						cwd: 'TechDoc/',
-						src: ['**/*.*'],
-						dest: 'gh-page/TechDoc/'
-					},
+					{ expand: true, cwd: 'TechDoc/', src: ['**/*.*'], dest: 'gh-page/TechDoc/' },
 					
 					// leaflet from node_modules to the gh-page/leaflet folder
-					{
-						expand: true,
-						cwd: 'node_modules/leaflet/dist/',
-						src: ['leaflet.js', 'leaflet.css' ],
-						dest: 'gh-page/leaflet/'
-					},
-					{
-						expand: true,
-						cwd: 'node_modules/leaflet/dist/images/',
-						src: ['*.png' ],
-						dest: 'gh-page/leaflet/images/'
-					},
+					{ expand: true, cwd: 'node_modules/leaflet/dist/', src: ['leaflet.js', 'leaflet.css' ], dest: 'gh-page/leaflet/' },
+					{ expand: true, cwd: 'node_modules/leaflet/dist/images/', src: ['*.png' ], dest: 'gh-page/leaflet/images/' },
 					
 					// osrmTextInstructions from node_modules to the gh-page/TravelNotesProviders
+					{ expand: true, cwd: 'node_modules/osrm-text-instructions/languages/abbreviations/', src: ['fr.json', 'en.json'], dest: 'gh-page/TravelNotesProviders/languages/abbreviations/' },
+					{ expand: true, cwd: 'node_modules/osrm-text-instructions/languages/translations/', src: ['fr.json', 'en.json'], dest: 'gh-page/TravelNotesProviders/languages/instructions/' },
 					{
-						expand: true,
-						cwd: 'node_modules/osrm-text-instructions/languages/abbreviations/',
-						src: ['fr.json', 'en.json'],
-						dest: 'gh-page/TravelNotesProviders/languages/abbreviations/'
-					},
-					{
-						expand: true,
-						cwd: 'node_modules/osrm-text-instructions/languages/translations/',
-						src: ['fr.json', 'en.json'],
-						dest: 'gh-page/TravelNotesProviders/languages/instructions/'
-					},
-					{
-						expand: true,
-						cwd: 'node_modules/osrm-text-instructions/languages/grammar/',
-						src: ['fr.json'],
-						dest: 'gh-page/TravelNotesProviders/languages/grammars/'
-					}
+					expand: true, cwd: 'node_modules/osrm-text-instructions/languages/grammar/', src: ['fr.json'], dest: 'gh-page/TravelNotesProviders/languages/grammars/' }
 				]
 			},
 			debug: {
+				
+				// debug mode
 				files: [
 					// TravelNotes
-					{
-						expand: true,
-						cwd: 'src/cfg/',
-						src: ['*.json', '*.csv'],
-						dest: 'debug/'
-					},
-					{
-						expand: true,
-						cwd: 'src/translations/',
-						src: ['*.json'],
-						dest: 'debug/'
-					},
-					{
-						expand: true,
-						cwd: 'src/html/',
-						src: 'indexDebug.html',
-						rename: function ( ){return 'debug/index.html';}
-					},
-					{
-						expand: true,
-						cwd: 'src/html/',
-						src: 'TravelNotesRoadbookDebug.html',
-						rename: function ( ){return 'debug/TravelNotesRoadbook.html';}
-					},
-					{
-						expand: true,
-						cwd: 'tmpDebug/',
-						src: ['TravelNotesRoadbook.min.css'],
-						dest: 'debug/'
-					},
-					{
-						expand: true,
-						cwd: 'tmpDebug/',
-						src: ['TravelNotes.min.css'],
-						dest: 'debug/'
-					},
+					{ expand: true, cwd: 'src/cfg/', src: ['*.json', '*.csv'], dest: 'debug/' },
+					{ expand: true, cwd: 'src/translations/', src: ['*.json'], dest: 'debug/' },
+					{ expand: true, cwd: 'src/html/', src: 'indexDebug.html', rename: function ( ){return 'debug/index.html';} },
+					{ expand: true, cwd: 'src/html/', src: 'TravelNotesRoadbookDebug.html', rename: function ( ){return 'debug/TravelNotesRoadbook.html';} },
+					{ expand: true, cwd: 'tmpDebug/', src: ['TravelNotesRoadbook.min.css'], dest: 'debug/' },
+					{ expand: true, cwd: 'tmpDebug/', src: ['TravelNotes.min.css'], dest: 'debug/' },
 					// Viewer
-					{
-						expand: true,
-						cwd: 'src/cfg/',
-						src: [ 'TravelNotesConfig.json', 'TravelNotesLayers.json' ],
-						dest: 'debug/viewer/'
-					},
-					{
-						expand: true,
-						cwd: 'src/translations/',
-						src: ['*.json'],
-						dest: 'debug/viewer/'
-					},
-					{
-						expand: true,
-						cwd: 'src/html/',
-						src: 'TravelNotesViewerDebug.html',
-						rename: function ( ){return 'debug/viewer/index.html';}
-					},
-					{
-						expand: true,
-						cwd: 'tmpDebug/',
-						src: ['TravelNotesViewer.min.css'],
-						dest: 'debug/viewer/'
-					},
+					{ expand: true, cwd: 'src/cfg/', src: [ 'TravelNotesConfig.json', 'TravelNotesLayers.json' ], dest: 'debug/viewer/' },
+					{ expand: true, cwd: 'src/translations/', src: ['*.json'], dest: 'debug/viewer/' },
+					{ expand: true, cwd: 'src/html/', src: 'TravelNotesViewerDebug.html', rename: function ( ){return 'debug/viewer/index.html';} },
+					{ expand: true, cwd: 'tmpDebug/', src: ['TravelNotesViewer.min.css'], dest: 'debug/viewer/' },
 					// osrmTextInstructions
-					{
-						expand: true,
-						cwd: 'node_modules/osrm-text-instructions/languages/abbreviations/',
-						src: ['*.json'],
-						dest: 'debug/TravelNotesProviders/languages/abbreviations/'
-					},
-					{
-						expand: true,
-						cwd: 'node_modules/osrm-text-instructions/languages/translations/',
-						src: ['*.json'],
-						dest: 'debug/TravelNotesProviders/languages/instructions/'
-					},
-					{
-						expand: true,
-						cwd: 'node_modules/osrm-text-instructions/languages/grammar/',
-						src: ['*.json'],
-						dest: 'debug/TravelNotesProviders/languages/grammars/'
-					}
+					{ expand: true, cwd: 'node_modules/osrm-text-instructions/languages/abbreviations/', src: ['*.json'], dest: 'debug/TravelNotesProviders/languages/abbreviations/' },
+					{ expand: true, cwd: 'node_modules/osrm-text-instructions/languages/translations/', src: ['*.json'], dest: 'debug/TravelNotesProviders/languages/instructions/' },
+					{ expand: true, cwd: 'node_modules/osrm-text-instructions/languages/grammar/', src: ['*.json'], dest: 'debug/TravelNotesProviders/languages/grammars/' }
 				]
 			}
 		},
@@ -592,50 +407,19 @@ module.exports = function(grunt) {
 	// Register tasks
 	grunt.registerTask (
 		'default',
-		[
-			'eslint'
-		]
+		[ 'eslint' ]
 	);
 	grunt.registerTask(
 		'doc', 
-		[ 
-			'clean:beforeDoc',
-			'jsdoc'
-		]
+		[ 'clean:beforeDoc', 'jsdoc' ]
 	);
 	grunt.registerTask(
 		'debug',
-		[ 
-			'eslint', 
-			'stylelint',
-			'clean:beforeDebug', 
-			'rollup:debug', 
-			'cssmin:debug',
-			'copy:debug',
-			'clean:afterDebug',
-		]
+		[ 'eslint', 'stylelint', 'clean:beforeDebug', 'rollup:debug', 'cssmin:debug', 'copy:debug',	'clean:afterDebug' ]
 	);
 	grunt.registerTask(
 		'release',
-		[ 
-			'eslint', 
-			'stylelint',
-			'clean:beforeDebug', 
-			'rollup:debug', 
-			'cssmin:debug',
-			'copy:debug',
-			'clean:afterDebug',
-			'clean:beforeRelease', 
-			'copy:beforeRelease', 
-			'replace:release' ,
-			'rollup:release',
-			'terser',
-			'cssmin:release',
-			'copy:release',
-			'clean:afterRelease',
-			'clean:beforeDoc',
-			'jsdoc'
-		]
+		[ 'eslint', 'stylelint', 'clean:beforeDebug', 'rollup:debug', 'cssmin:debug', 'copy:debug', 'clean:afterDebug', 'clean:beforeRelease', 'copy:beforeRelease', 'replace:release', 'rollup:release', 'terser', 'cssmin:release', 'copy:release', 'clean:afterRelease', 'clean:beforeDoc', 'jsdoc' ]
 	);
 	
 	// console
