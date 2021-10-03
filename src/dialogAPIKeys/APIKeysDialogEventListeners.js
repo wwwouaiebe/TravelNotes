@@ -79,10 +79,9 @@ class APIKeyDeletedEL {
 		Object.freeze ( this );
 	}
 
-	destructor ( ) {
-		this.#APIKeysDialog = null;
-		this.#APIKeysControls = null;
-	}
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( ApiKeyDeletedEvent ) {
 		ApiKeyDeletedEvent.stopPropagation ( );
@@ -114,9 +113,9 @@ class OpenUnsecureFileChangeEL {
 		Object.freeze ( this );
 	}
 
-	destructor ( ) {
-		this.#APIKeysDialog = null;
-	}
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
@@ -163,10 +162,9 @@ class RestoreFromUnsecureFileButtonClickEL {
 		Object.freeze ( this );
 	}
 
-	destructor ( ) {
-		this.#APIKeysDialog = null;
-		this.#openUnsecureFileInputEventListener.destructor ( );
-	}
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -201,10 +199,9 @@ class ReloadFromServerButtonClickEL {
 		Object.freeze ( this );
 	}
 
-	destructor ( ) {
-		this.#APIKeysDialog = null;
-		this.#dataEncryptorHandlers.destructor ( );
-	}
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -268,10 +265,9 @@ class OpenSecureFileChangeEL {
 		Object.freeze ( this );
 	}
 
-	destructor ( ) {
-		this.#APIKeysDialog = null;
-		this.#dataEncryptorHandlers.destructor ( );
-	}
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
@@ -315,10 +311,9 @@ class RestoreFromSecureFileButtonClickEL {
 		Object.freeze ( this );
 	}
 
-	destructor ( ) {
-		this.#APIKeysDialog = null;
-		this.#openSecureFileInputEventListener.destructor ( );
-	}
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -356,12 +351,9 @@ class SaveToSecureFileButtonClickEL {
 		Object.freeze ( this );
 	}
 
-	destructor ( ) {
-		this.#APIKeysDialog = null;
-		this.#APIKeysControls = null;
-		this.#saveAPIKeysHelper.destructor ( );
-		this.#dataEncryptorHandlers.destructor ( );
-	}
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -408,11 +400,9 @@ class SaveToUnsecureFileButtonClickEL {
 		Object.freeze ( this );
 	}
 
-	destructor ( ) {
-		this.#APIKeysDialog = null;
-		this.#APIKeysControls = null;
-		this.#saveAPIKeysHelper.destructor ( );
-	}
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -452,10 +442,9 @@ class NewAPIKeyButtonClickEL {
 		Object.freeze ( this );
 	}
 
-	destructor ( ) {
-		this.#APIKeysDialog = null;
-		this.#APIKeysControls = null;
-	}
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );

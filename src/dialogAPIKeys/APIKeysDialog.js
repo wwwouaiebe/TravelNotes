@@ -79,6 +79,7 @@ class APIKeysDialog extends BaseDialog {
 
 	/**
 	A map to store the APIKeyControl object
+	@type {Map}
 	@private
 	*/
 
@@ -86,6 +87,7 @@ class APIKeysDialog extends BaseDialog {
 
 	/**
 	The dialog toolbar
+	@type {APIKeysDialogToolbar}
 	@private
 	*/
 
@@ -93,10 +95,17 @@ class APIKeysDialog extends BaseDialog {
 
 	/**
 	A div that contains the APIKeyControls
+	@type {HTMLElement}
 	@private
 	*/
 
 	#APIKeysControlsContainer = null
+
+	/**
+	Api key deleted event listener
+	@type {APIKeyDeletedEL}
+	@private
+	*/
 
 	#onAPIKeyDeletedEventListener = null;
 
@@ -115,6 +124,12 @@ class APIKeysDialog extends BaseDialog {
 		);
 	}
 
+	/*
+	constructor
+	@param {Array.<APIKey>} APIKeys An array with the existing APIKeys
+	@param {boolean} haveAPIKeysFile A boolean indicating when a APIKey file was found on the server
+	*/
+
 	constructor ( APIKeys, haveAPIKeysFile ) {
 
 		super ( );
@@ -131,7 +146,6 @@ class APIKeysDialog extends BaseDialog {
 			this.#onAPIKeyDeletedEventListener,
 			false
 		);
-		this.#onAPIKeyDeletedEventListener.destructor ( );
 	}
 
 	/**
@@ -208,6 +222,7 @@ class APIKeysDialog extends BaseDialog {
 
 	/**
 	Overload of the BaseDialog.canClose ( ) method.
+	@return {boolean} true when all the APIKeys have a name and a value and there are no duplicate keys name
 	*/
 
 	canClose ( ) {
@@ -238,14 +253,16 @@ class APIKeysDialog extends BaseDialog {
 	}
 
 	/**
-	Return the dialog title. Overload of the BaseDialog.title property
+	The dialog title. Overload of the BaseDialog.title property
+	@type {string}
 	@readonly
 	*/
 
 	get title ( ) { return theTranslator.getText ( 'APIKeysDialog - API keys' ); }
 
 	/**
-	Get an array with the HTMLElements that have to be added in the content of the dialog.
+	An array with the HTMLElements that have to be added in the content of the dialog.
+	@type {Array.<HTMLElement>}
 	@readonly
 	*/
 

@@ -95,6 +95,7 @@ class APIKeysDialogKeyControl {
 
 	/**
 	The root HTML element of the control
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -102,6 +103,7 @@ class APIKeysDialogKeyControl {
 
 	/**
 	The providerName HTML input element
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -109,6 +111,7 @@ class APIKeysDialogKeyControl {
 
 	/**
 	The providerKey HTML input element
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -116,6 +119,7 @@ class APIKeysDialogKeyControl {
 
 	/**
 	A unique ObjId given to the control
+	@type {!number}
 	@private
 	*/
 
@@ -123,6 +127,7 @@ class APIKeysDialogKeyControl {
 
 	/*
 	constructor
+	@param {APIKey} APIKey The APIKey to display in the control
 	*/
 
 	constructor ( APIKey ) {
@@ -161,8 +166,7 @@ class APIKeysDialogKeyControl {
 			'div',
 			{
 				className :
-					'TravelNotes-BaseDialog-Button ' +
-					'TravelNotes-APIKeysDialog-AtRightButton TravelNotes-APIKeysDialog-DeleteRowButton',
+					'TravelNotes-BaseDialog-Button TravelNotes-APIKeysDialog-AtRightButton',
 				title : theTranslator.getText ( 'APIKeysDialog - delete API key' ),
 				textContent : '❌',
 				dataset : { ObjId : this.#objId }
@@ -174,35 +178,40 @@ class APIKeysDialogKeyControl {
 	}
 
 	/**
-	return the ObjId of the control
+	The ObjId of the control
+	@type {!number}
 	@readonly
 	*/
 
 	get objId ( ) { return this.#objId; }
 
 	/**
-	return an array with the HTML elements of the control
+	An array with the root HTML element of the control
+	@type {Array.<HTMLElement>}
 	@readonly
 	*/
 
 	get HTMLElements ( ) { return [ this.#rootHTMLElement ]; }
 
 	/**
-	return the providerName
+	The providerName
+	@type {string}
 	@readonly
 	*/
 
 	get providerName ( ) { return this.#providerNameInput.value; }
 
 	/**
-	return the providerKey
+	The providerKey
+	@type {string}
 	@readonly
 	*/
 
 	get providerKey ( ) { return this.#providerKeyInput.value; }
 
 	/**
-	return the APIKey
+	The APIKey
+	@type {APIKey}
 	@readonly
 	*/
 

@@ -131,7 +131,7 @@ import {
 } from '../dialogbase/BaseDialogEventListeners.js';
 import PanEventDispatcher from '../dialogPanEventDispatcher/PanEventDispatcher.js';
 
-// import GarbageCollectorTester from '../UILib/GarbageCollectorTester.js';
+import GarbageCollectorTester from '../UILib/GarbageCollectorTester.js';
 
 import { ZERO, TWO, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
 
@@ -153,7 +153,7 @@ class BaseDialog {
 	@private
 	*/
 
-	// #garbageCollectorTester = new GarbageCollectorTester ( );
+	#garbageCollectorTester = new GarbageCollectorTester ( );
 
 	/**
 	HTMLElements of the dialog
@@ -197,20 +197,16 @@ class BaseDialog {
 	@private
 	*/
 
-	#eventListeners = Object.seal (
-		{
-			onKeydown : null,
-			onTopBarDragStart : null,
-			onTopBarDragEnd : null,
-			onCancelButtonClick : null,
-			onOkButtonClick : null,
-			onLeftPan : null,
-			onRightPan : null,
-			onWheel : null,
-			onContextMenu : null,
-			onDragOver : null
-		}
-	);
+	#backgroundLeftPanEL = null;
+	#backgroundRightPanEL = null;
+	#backgroundDragOverEL = null;
+	#backgroundWheelEL = null;
+	#backgroundContextMenuEL = null;
+	#topBarDragStartEL = null;
+	#topBarDragEndEL = null;
+	#cancelButtonClickEL = null;
+	#okButtonClickEL = null;
+	#keyboardKeydownEL = null;
 
 	/**
 	options parameter
@@ -246,16 +242,20 @@ class BaseDialog {
 		this.#leftPanEventDispatcher = new PanEventDispatcher ( this.#backgroundDiv, PanEventDispatcher.LEFT_BUTTON );
 		this.#rightPanEventDispatcher = new PanEventDispatcher ( this.#backgroundDiv, PanEventDispatcher.RIGHT_BUTTON );
 
-		this.#eventListeners.onLeftPan = new BackgroundLeftPanEL ( );
-		this.#backgroundDiv.addEventListener ( 'leftpan', this.#eventListeners.onLeftPan, false );
-		this.#eventListeners.onRightPan = new BackgroundRightPanEL ( );
-		this.#backgroundDiv.addEventListener ( 'rightpan', this.#eventListeners.onRightPan, false );
-		this.#eventListeners.onDragOver = new BackgroundDragOverEL ( );
-		this.#backgroundDiv.addEventListener ( 'dragover', this.#eventListeners.onDragOver, false );
-		this.#eventListeners.onWheel = new BackgroundWheelEL ( );
-		this.#backgroundDiv.addEventListener ( 'wheel', this.#eventListeners.onWheel, false	);
-		this.#eventListeners.onContextMenu = new BackgroundContextMenuEL ( );
-		this.#backgroundDiv.addEventListener ( 'contextmenu', this.#eventListeners.onContextMenu, false );
+		this.#backgroundLeftPanEL = new BackgroundLeftPanEL ( );
+		this.#backgroundDiv.addEventListener ( 'leftpan', this.#backgroundLeftPanEL, false );
+
+		this.#backgroundRightPanEL = new BackgroundRightPanEL ( );
+		this.#backgroundDiv.addEventListener ( 'rightpan', this.#backgroundRightPanEL, false );
+
+		this.#backgroundDragOverEL = new BackgroundDragOverEL ( );
+		this.#backgroundDiv.addEventListener ( 'dragover', this.#backgroundDragOverEL, false );
+
+		this.#backgroundWheelEL = new BackgroundWheelEL ( );
+		this.#backgroundDiv.addEventListener ( 'wheel', this.#backgroundWheelEL, false	);
+
+		this.#backgroundContextMenuEL = new BackgroundContextMenuEL ( );
+		this.#backgroundDiv.addEventListener ( 'contextmenu', this.#backgroundContextMenuEL, false );
 	}
 
 	/**
@@ -291,11 +291,11 @@ class BaseDialog {
 			this.#containerDiv
 		);
 
-		this.#eventListeners.onTopBarDragStart = new TopBarDragStartEL ( this.#dragData );
-		this.#topBar.addEventListener ( 'dragstart', this.#eventListeners.onTopBarDragStart, false );
-		this.#eventListeners.onTopBarDragEnd =
+		this.#topBarDragStartEL = new TopBarDragStartEL ( this.#dragData );
+		this.#topBar.addEventListener ( 'dragstart', this.#topBarDragStartEL, false );
+		this.#topBarDragEndEL =
 			new TopBarDragEndEL ( this.#dragData, this.#containerDiv, this.#backgroundDiv );
-		this.#topBar.addEventListener ( 'dragend', this.#eventListeners.onTopBarDragEnd, false );
+		this.#topBar.addEventListener ( 'dragend', this.#topBarDragEndEL, false );
 
 		this.#cancelButton = theHTMLElementsFactory.create (
 			'div',
@@ -306,8 +306,8 @@ class BaseDialog {
 			},
 			this.#topBar
 		);
-		this.#eventListeners.onCancelButtonClick = new CancelButtonClickEL ( this );
-		this.#cancelButton.addEventListener ( 'click', this.#eventListeners.onCancelButtonClick, false );
+		this.#cancelButtonClickEL = new CancelButtonClickEL ( this );
+		this.#cancelButton.addEventListener ( 'click', this.#cancelButtonClickEL, false );
 	}
 
 	/**
@@ -416,8 +416,8 @@ class BaseDialog {
 			},
 			footerDiv
 		);
-		this.#eventListeners.onOkButtonClick = new OkButtonClickEL ( this );
-		this.#okButton.addEventListener ( 'click', this.#eventListeners.onOkButtonClick, false );
+		this.#okButtonClickEL = new OkButtonClickEL ( this );
+		this.#okButton.addEventListener ( 'click', this.#okButtonClickEL, false );
 
 		if ( this.#options.secondButtonText ) {
 			this.#secondButton = theHTMLElementsFactory.create (
@@ -428,7 +428,7 @@ class BaseDialog {
 				},
 				footerDiv
 			);
-			this.#secondButton.addEventListener ( 'click',	this.#eventListeners.onCancelButtonClick, false	);
+			this.#secondButton.addEventListener ( 'click',	this.#cancelButtonClickEL, false	);
 		}
 
 		this.footerHTMLElements.forEach (
@@ -497,8 +497,8 @@ class BaseDialog {
 		this.#createHTML ( );
 		document.body.appendChild ( this.#backgroundDiv );
 		this.#centerDialog ( );
-		this.#eventListeners.onKeydown = new KeyboardKeydownEL ( this );
-		document.addEventListener ( 'keydown', this.#eventListeners.onKeydown, { capture : true } );
+		this.#keyboardKeydownEL = new KeyboardKeydownEL ( this );
+		document.addEventListener ( 'keydown', this.#keyboardKeydownEL, { capture : true } );
 
 		this.onShow ( );
 	}
@@ -510,23 +510,19 @@ class BaseDialog {
 	}
 
 	#BaseDialogDestructor ( ) {
-		document.removeEventListener ( 'keydown', this.#eventListeners.onKeydown, { capture : true } );
-		this.#topBar.removeEventListener ( 'dragstart', this.#eventListeners.onTopBarDragStart, false );
-		this.#topBar.removeEventListener ( 'dragend', this.#eventListeners.onTopBarDragEnd, false );
-		this.#cancelButton.removeEventListener ( 'click', this.#eventListeners.onCancelButtonClick, false );
+		document.removeEventListener ( 'keydown', this.#keyboardKeydownEL, { capture : true } );
+		this.#topBar.removeEventListener ( 'dragstart', this.#topBarDragStartEL, false );
+		this.#topBar.removeEventListener ( 'dragend', this.#topBarDragEndEL, false );
+		this.#cancelButton.removeEventListener ( 'click', this.#cancelButtonClickEL, false );
 		if ( this.#options.secondButtonText ) {
-			this.#secondButton.removeEventListener ( 'click',	this.#eventListeners.onCancelButtonClick, false	);
+			this.#secondButton.removeEventListener ( 'click', this.#cancelButtonClickEL, false	);
 		}
-		this.#okButton.removeEventListener ( 'click', this.#eventListeners.onOkButtonClick, false );
-		this.#backgroundDiv.removeEventListener ( 'leftpan', this.#eventListeners.onLeftPan, false );
-		this.#backgroundDiv.removeEventListener ( 'rightpan', this.#eventListeners.onRightPan, false );
-		this.#backgroundDiv.removeEventListener ( 'wheel', this.#eventListeners.onWheel, false	);
-		this.#backgroundDiv.removeEventListener ( 'contextmenu', this.#eventListeners.onContextMenu, false );
-		this.#backgroundDiv.removeEventListener ( 'dragover', this.#eventListeners.onDragOver, false );
-
-		for ( const property in this.#eventListeners ) {
-			this.#eventListeners [ property ] = null;
-		}
+		this.#okButton.removeEventListener ( 'click', this.#okButtonClickEL, false );
+		this.#backgroundDiv.removeEventListener ( 'leftpan', this.#backgroundLeftPanEL, false );
+		this.#backgroundDiv.removeEventListener ( 'rightpan', this.#backgroundRightPanEL, false );
+		this.#backgroundDiv.removeEventListener ( 'wheel', this.#backgroundWheelEL, false	);
+		this.#backgroundDiv.removeEventListener ( 'contextmenu', this.#backgroundContextMenuEL, false );
+		this.#backgroundDiv.removeEventListener ( 'dragover', this.#backgroundDragOverEL, false );
 
 		this.#leftPanEventDispatcher.detach ( );
 		this.#rightPanEventDispatcher.detach ( );
@@ -545,8 +541,8 @@ class BaseDialog {
 
 	/**
 	Called after the ok button will be clicked and before the dialog will be closed.
-	Can be overloaded in the derived classes
-	@return {boolean} true when the dialog can be closed, false otherwise.
+	Can be overloaded in the derived classes.
+	@return {boolean} true when the dialog can be closed (all data in the dialog are valid), false otherwise.
 	*/
 
 	canClose ( ) {
@@ -574,23 +570,26 @@ class BaseDialog {
 	onShow ( ) {}
 
 	/**
-	Get the title of the dialog. Can be overloaded in the derived classes
+	The title of the dialog. Can be overloaded in the derived classes
+	@type {string}
 	@readonly
 	*/
 
 	get title ( ) { return ''; }
 
 	/**
-	Get an array with the HTMLElements that have to be added in the content of the dialog.
+	An array with the HTMLElements that have to be added in the content of the dialog.
 	Can be overloaded in the derived classes
+	@type {Array.<HTMLElement>}
 	@readonly
 	*/
 
 	get contentHTMLElements ( ) { return []; }
 
 	/**
-	Get an array with the HTMLElements that have to be added in the footer of the dialog
+	An array with the HTMLElements that have to be added in the footer of the dialog
 	Can be overloaded in the derived classes
+	@type {Array.<HTMLElement>}
 	@readonly
 	*/
 

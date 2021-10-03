@@ -72,10 +72,6 @@ class DataEncryptorHandlers {
 		Object.freeze ( this );
 	}
 
-	destructor ( ) {
-		this.#APIKeysDialog = null;
-	}
-
 	/**
 	onErrorDecrypt handler for the DataEncryptor
 	*/
@@ -157,10 +153,6 @@ class SaveAPIKeysHelper {
 	constructor ( APIKeysControls ) {
 		this.#APIKeysControls = APIKeysControls;
 		Object.freeze ( this );
-	}
-
-	destructor ( ) {
-		this.#APIKeysControls = null;
 	}
 
 	/**
