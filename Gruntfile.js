@@ -1,4 +1,27 @@
+/*
+Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
+
+This  program is free software;
+you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation;
+either version 3 of the License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+
+
+
 module.exports = function(grunt) {
+	
+	// The banner inserted in the generated js files
 	let banner = 
 		'/**\n * ' +
 		'\n * @source: <%= pkg.sources %>\n * ' + 
@@ -23,6 +46,8 @@ module.exports = function(grunt) {
 		'\n * \n * @licend  The above is the entire license notice' +
 		'\n * for the JavaScript code in this page.' +
 		'\n * \n */\n\n';
+		
+	// css files needed for TravelNotes
 	let travelNotesCss = [
 		'src/css/Map.css', 
 		'src/css/Notes.css', 'src/css/NotesIcons.css', 'src/css/NotesForMap.css', 'src/css/NotesForUI.css', 
@@ -39,12 +64,16 @@ module.exports = function(grunt) {
 		'src/UI/UI.css', 'src/waitUI/WaitUI.css',
 		'src/css/Hidden.css' // must always be the last css
 	];
+	
+	// css files needed for the viewer
 	let travelNotesViewerCss = [ 
 		'src/css/Map.css', 
 		'src/css/Notes.css', 'src/css/NotesIcons.css', 'src/css/NotesForMap.css', 
 		'src/css/RoutesForMap.css',
 		'src/AttributionsUI/AttributionsUI.css', 'src/ErrorsUI/ErrorsUI.css','src/viewerLayersToolbarUI/ViewerLayersToolbarUI.css'
 	];
+	
+	// css files needed for the roadbook
 	let travelNotesRoadbookCss = [ 
 		'src/css/TravelForRoadbook.css',
 		'src/css/Notes.css', 'src/css/NotesIcons.css', 'src/css/NotesForRoadbook.css',
@@ -53,8 +82,12 @@ module.exports = function(grunt) {
 		'src/roadbook/Roadbook.css',
 		'src/css/Hidden.css'
 	];
+	
+	// grunt config
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
+		
+		// eslint config
 		eslint: {
 			options: {
 				fix: true,
@@ -62,19 +95,26 @@ module.exports = function(grunt) {
 			},				
 			target: ['src/**/*.js']
 		},	
+		
+		// replace config
 		replace: {
+			
+			// release mode
 			release : {
 				src: ['tmpRelease/src/**/*.js'],
 				overwrite: true, 
 				replacements: [
+					// # are replaced with _private_ so the code can be executed by old browsers
 					{
 						from: '#',
 						to: '_private_'
 					},
+					// Object.freeze in the constructors is removed
 					{
 						from: 'Object.freeze ( this );',
 						to: '/* Object.freeze ( this ); */'
 					},
+					// and Object.seal in the constructors is removed
 					{
 						from: 'Object.seal ( this );',
 						to: '/* Object.seal ( this ); */'
@@ -82,7 +122,11 @@ module.exports = function(grunt) {
 				]
 			}
 		},
+		
+		// rollup config
 		rollup : {
+			
+			// debug mode. Files are created but not used, so import and export errors are detected
 			debug : {
 				options : {
 					format : 'iife'
@@ -99,8 +143,9 @@ module.exports = function(grunt) {
 				  'tmpDebug/PolylineRouteProvider.min.js': ['src/routeProviders/PolylineRouteProvider.js'],				  
 				  'tmpDebug/PublicTransportRouteProvider.min.js': ['src/routeProviders/PublicTransportRouteProvider.js']				  
 				}
-			}
-			,
+			},
+			
+			// release mode
 			release : {
 				options : {
 					format : 'iife'
@@ -119,12 +164,16 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		
+		// stylelint config for debug and release
 		stylelint: {
 			 options: {
 				 fix: true
 			 },
 			src: ['src/**/*.css']
 		},	
+		
+		// cssmin config
 		cssmin: {
 			options: {
 				// don't remove this. Colors must not be changed in css to avoid problems with data uri
@@ -136,6 +185,17 @@ module.exports = function(grunt) {
 				mergeIntoShorthands: false,
 				roundingPrecision: -1
 			},
+			
+			// debug mode. Files are copied in the debug folder
+			debug: {
+				files: {
+					'debug/TravelNotes.min.css': travelNotesCss,
+					'debug/viewer/TravelNotesViewer.min.css': travelNotesViewerCss,
+					'debug/TravelNotesRoadbook.min.css': travelNotesRoadbookCss
+				}
+			},
+			
+			// release mode. Files are copied in the dist and gh-page folders
 			release: {
 				files: {
 					'dist/TravelNotes.min.css': travelNotesCss,
@@ -145,17 +205,12 @@ module.exports = function(grunt) {
 					'gh-page/viewer/TravelNotesViewer.min.css': travelNotesViewerCss,
 					'gh-page/TravelNotesRoadbook.min.css': travelNotesRoadbookCss
 				}
-			},
-			debug: {
-				files: {
-					'debug/TravelNotes.min.css': travelNotesCss,
-					'debug/viewer/TravelNotesViewer.min.css': travelNotesViewerCss,
-					'debug/TravelNotesRoadbook.min.css': travelNotesRoadbookCss
-				}
 			}
 		},
+		
+		// terser config
 		terser: {
-			// release only
+			// release only for TravelNotes
 			TravelNotes: {
 				options: {
 					mangle: {
@@ -186,6 +241,8 @@ module.exports = function(grunt) {
 					'gh-page/TravelNotesProviders/PublicTransportRouteProvider.min.js': ['tmpRelease/PublicTransportRouteProvider.min.js']				  
 				}
 			},
+			
+			// release only for the viewer
 			Viewer: {
 				options: {
 					mangle: true,
@@ -198,6 +255,8 @@ module.exports = function(grunt) {
 					'gh-page/viewer/TravelNotesViewer.min.js': ['tmpRelease/TravelNotesViewer.min.js']
 				}
 			},
+			
+			// release only for the roadbook
 			Roadbook: {
 				options: {
 					mangle: true,
@@ -211,9 +270,11 @@ module.exports = function(grunt) {
 				}
 			},
 		},
+		
+		// copy config
 		copy: {
 			beforeRelease:{
-				// for replace
+				// JS files are copied in a temp folder for replace
 				files: [
 					{
 						expand: true,
@@ -224,21 +285,26 @@ module.exports = function(grunt) {
 				]
 			},
 			release: {
-				// release only
+				// release mode
 				files: [
-					// TravelNotes
+				
+					// json and csv files from the cfg folder to the dist folder for TravelNotes
 					{
 						expand: true,
 						cwd: 'src/cfg/',
 						src: ['*.json', '*.csv' ],
 						dest: 'dist/'
 					},
+
+					// json files from the translations folder to the dist folder for TravelNotes
 					{
 						expand: true,
 						cwd: 'src/translations/',
 						src: ['*.json'],
 						dest: 'dist/'
 					},
+					
+					// html files from the html folder to the dist folder for TravelNotes
 					{
 						expand: true,
 						cwd: 'src/html/',
@@ -251,26 +317,31 @@ module.exports = function(grunt) {
 						src: ['TravelNotesRoadbook.html'],
 						dest: 'dist/'
 					},		
-					// viewer
+
+					// json files from the cfg folder to the dist/viewer folder for the viewer
 					{
 						expand: true,
 						cwd: 'src/cfg/',
 						src: [ 'TravelNotesConfig.json', 'TravelNotesLayers.json' ],
 						dest: 'dist/viewer/'
 					},
+
+					// json files from the translations folder to the dist/viewer folder for the viewer
 					{
 						expand: true,
 						cwd: 'src/translations/',
 						src: ['*.json'],
 						dest: 'dist/viewer/'
 					},
+
+					// html files from the html folder to the dist/viewer folder for the viewer
 					{
 						expand: true,
 						cwd: 'src/html/',
 						src: ['TravelNotesViewer.html'],
 						rename: function ( ){return 'dist/viewer/index.html';}
 					},
-					// osrmTextInstructions
+					// osrmTextInstructions from node_modules to the dist/TravelNotesProviders
 					{
 						expand: true,
 						cwd: 'node_modules/osrm-text-instructions/languages/abbreviations/',
@@ -289,19 +360,24 @@ module.exports = function(grunt) {
 						src: ['*.json'],
 						dest: 'dist/TravelNotesProviders/languages/grammars/'
 					},
-					// TravelNotes
+				
+					// json and csv files from the cfg folder to the gh-page folder for TravelNotes
 					{
 						expand: true,
 						cwd: 'src/cfg/',
 						src: ['*.json', '*.csv' ],
 						dest: 'gh-page/'
 					},
+
+					// json files from the translations folder to the gh-page folder for TravelNotes
 					{
 						expand: true,
 						cwd: 'src/translations/',
 						src: ['*.json'],
 						dest: 'gh-page/'
 					},
+					
+					// html files from the html folder to the gh-page folder for TravelNotes
 					{
 						expand: true,
 						cwd: 'src/html/',
@@ -314,40 +390,46 @@ module.exports = function(grunt) {
 						src: ['TravelNotesRoadbook.html'],
 						dest: 'gh-page/'
 					},		
-					// viewer
+
+					// json files from the cfg folder to the gh-page/viewer folder for the viewer
 					{
 						expand: true,
 						cwd: 'src/cfg/',
 						src: [ 'TravelNotesConfig.json', 'TravelNotesLayers.json' ],
 						dest: 'gh-page/viewer/'
 					},
+
+					// json files from the translations folder to the gh-page/viewer folder for the viewer
 					{
 						expand: true,
 						cwd: 'src/translations/',
 						src: ['*.json'],
 						dest: 'gh-page/viewer/'
 					},
+
+					// html files from the html folder to the gh-page/viewer folder for the viewer
 					{
 						expand: true,
 						cwd: 'src/html/',
 						src: ['TravelNotesViewer.html'],
 						rename: function ( ){return 'gh-page/viewer/index.html';}
 					},
-					// guides
+					// users guides to the gh-page/TravelNotesGuides/
 					{
 						expand: true,
 						cwd: 'TravelNotesGuides/',
 						src: ['**/*.*'],
 						dest: 'gh-page/TravelNotesGuides/'
 					},
-					// tech doc
+					// tech doc to the gh-page/TechDoc/
 					{
 						expand: true,
 						cwd: 'TechDoc/',
 						src: ['**/*.*'],
 						dest: 'gh-page/TechDoc/'
 					},
-					// leaflet
+					
+					// leaflet from node_modules to the gh-page/leaflet folder
 					{
 						expand: true,
 						cwd: 'node_modules/leaflet/dist/',
@@ -360,7 +442,8 @@ module.exports = function(grunt) {
 						src: ['*.png' ],
 						dest: 'gh-page/leaflet/images/'
 					},
-					// osrmTextInstructions
+					
+					// osrmTextInstructions from node_modules to the gh-page/TravelNotesProviders
 					{
 						expand: true,
 						cwd: 'node_modules/osrm-text-instructions/languages/abbreviations/',
@@ -467,6 +550,8 @@ module.exports = function(grunt) {
 				]
 			}
 		},
+		
+		// clean config
 		clean: {
 			beforeDoc: ['TechDoc'],
 			beforeDebug: ['debug', 'tmpDebug', 'out'],
@@ -474,6 +559,8 @@ module.exports = function(grunt) {
 			afterDebug: [ 'tmpDebug', 'out' ],
 			afterRelease: [ 'tmpRelease', 'out' ]
 		},
+		
+		// jsdoc config
 		jsdoc : {
 			doc : {
 				src: ['src/**/*.js'],
@@ -485,9 +572,13 @@ module.exports = function(grunt) {
 			}
 		}		
 	});
+	
+	// Build number
 	grunt.config.data.pkg.buildNumber = grunt.file.readJSON('buildNumber.json').buildNumber;
 	grunt.config.data.pkg.buildNumber = ("00000" + ( Number.parseInt ( grunt.config.data.pkg.buildNumber ) + 1 )).substr ( -5, 5 ) ;
 	grunt.file.write ( 'buildNumber.json', '{ "buildNumber" : "' + grunt.config.data.pkg.buildNumber + '"}'  );
+	
+	// Load tasks
 	grunt.loadNpmTasks('grunt-eslint');
 	grunt.loadNpmTasks('grunt-text-replace');
 	grunt.loadNpmTasks('grunt-rollup');
@@ -497,6 +588,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-jsdoc');
+	
+	// Register tasks
 	grunt.registerTask (
 		'default',
 		[
@@ -544,7 +637,13 @@ module.exports = function(grunt) {
 			'jsdoc'
 		]
 	);
+	
+	// console
 	console.log ( '---------------------------------------------------------------------------------------------------------------------------------------------');
 	console.log ( '\n                                     ' + grunt.config.data.pkg.name + ' - ' + grunt.config.data.pkg.version +' - build: '+ grunt.config.data.pkg.buildNumber + ' - ' + grunt.template.today("isoDateTime") +'\n' );
-	console.log ( '---------------------------------------------------------------------------------------------------------------------------------------------');
+	console.log ( '---------------------------------------------------------------------------------------------------------------------------------------------');	
 };
+
+// end of file
+
+
