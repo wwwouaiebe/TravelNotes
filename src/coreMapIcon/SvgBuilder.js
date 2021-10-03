@@ -77,7 +77,7 @@ class SvgBuilder {
 	*/
 
 	#overpassAPIDataLoader = null;
-	
+
 	/**
 	The svg element to build
 	@private

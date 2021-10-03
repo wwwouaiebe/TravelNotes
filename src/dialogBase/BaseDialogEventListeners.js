@@ -51,7 +51,7 @@ import theTravelNotesData from '../data/TravelNotesData.js';
 
 import { ZERO, ONE, LAT_LNG, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
 
-const ZOOM_DISPLACMENT = 50;
+const ZOOM_DISPLACMENT = 25;
 
 /**
 @--------------------------------------------------------------------------------------------------------------------------
@@ -74,10 +74,6 @@ class OkButtonClickEL {
 	constructor ( baseDialog ) {
 		Object.freeze ( this );
 		this.#baseDialog = baseDialog;
-	}
-
-	destructor ( ) {
-		this.#baseDialog = null;
 	}
 
 	/**
@@ -112,10 +108,6 @@ class CancelButtonClickEL {
 		this.#baseDialog = baseDialog;
 	}
 
-	destructor ( ) {
-		this.#baseDialog = null;
-	}
-
 	/**
 	Event listener method
 	*/
@@ -146,10 +138,6 @@ class TopBarDragStartEL {
 	constructor ( dragData ) {
 		Object.freeze ( this );
 		this.#dragData = dragData;
-	}
-
-	destructor ( ) {
-		this.#dragData = null;
 	}
 
 	/**
@@ -189,12 +177,6 @@ class TopBarDragEndEL {
 		this.#dragData = dragData;
 		this.#containerDiv = containerDiv;
 		this.#backgroundDiv = backgroundDiv;
-	}
-
-	destructor ( ) {
-		this.#dragData = null;
-		this.#containerDiv = null;
-		this.#backgroundDiv = null;
 	}
 
 	/**
@@ -249,10 +231,6 @@ class KeyboardKeydownEL {
 		this.#baseDialog = baseDialog;
 	}
 
-	destructor ( ) {
-		this.#baseDialog = null;
-	}
-
 	/**
 	Event listener method
 	*/
@@ -294,6 +272,10 @@ class BackgroundLeftPanEL {
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( leftPanEvent ) {
 		if ( 'start' === leftPanEvent.action ) {
@@ -341,6 +323,10 @@ class BackgroundRightPanEL {
 		Object.freeze ( this );
 	}
 
+	/**
+	Event listener method
+	*/
+
 	handleEvent ( rightPanEvent ) {
 		if ( 'start' === rightPanEvent.action ) {
 			this.#initialZoom = theTravelNotesData.map.getZoom ( );
@@ -375,7 +361,7 @@ class BackgroundWheelEL {
 	}
 
 	handleEvent ( wheelEvent ) {
-		if ( 'TravelNotes-Background' !== wheelEvent.target.id ) {
+		if ( ! wheelEvent.target.classList.contains ( 'TravelNotes-Background' ) ) {
 			return;
 		}
 
