@@ -47,6 +47,10 @@ Tests ...
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import theTranslator from '../UILib/Translator.js';
 import GeoCoder from '../coreLib/GeoCoder.js';
+import theUtilities from '../UILib/Utilities.js';
+import theNoteDialogToolbarData from '../dialogNotes/NoteDialogToolbarData.js';
+import MapIconFromOsmFactory from '../coreMapIcon/MapIconFromOsmFactory.js';
+import { ZERO } from '../main/Constants.js';
 
 /**
 @--------------------------------------------------------------------------------------------------------------------------
@@ -237,12 +241,291 @@ class AllControlsInputEL {
 	}
 }
 
+/**
+@--------------------------------------------------------------------------------------------------------------------------
+
+@class EditionButtonsClickEL
+@classdesc click event listener for the edition buttons
+@hideconstructor
+
+@--------------------------------------------------------------------------------------------------------------------------
+*/
+
+class EditionButtonsClickEL {
+
+	#noteDialog = null;
+
+	/*
+	constructor
+	*/
+
+	constructor ( noteDialog ) {
+		Object.freeze ( this );
+		this.#noteDialog = noteDialog;
+	}
+
+	destructor ( ) {
+		this.#noteDialog = null;
+	}
+
+	/**
+	click event listener fot the toolbar edition buttons. Update the current control value
+	*/
+
+	handleEvent ( clickEvent ) {
+		if ( ! this.#noteDialog.focusControl ) {
+			return;
+		}
+		const button = clickEvent.currentTarget;
+		let selectionStart = this.#noteDialog.focusControl.selectionStart;
+		let selectionEnd = this.#noteDialog.focusControl.selectionEnd;
+
+		this.#noteDialog.focusControl.value =
+			this.#noteDialog.focusControl.value.slice ( ZERO, selectionStart ) +
+			button.dataset.tanHtmlBefore +
+			(
+				ZERO === button.dataset.tanHtmlAfter.length
+					?
+					''
+					:
+					this.#noteDialog.focusControl.value.slice ( selectionStart, selectionEnd )
+			) +
+			button.dataset.tanHtmlAfter +
+			this.#noteDialog.focusControl.value.slice ( selectionEnd );
+
+		if ( selectionStart === selectionEnd || ZERO === button.dataset.tanHtmlAfter.length ) {
+			selectionStart += button.dataset.tanHtmlBefore.length;
+			selectionEnd = selectionStart;
+		}
+		else {
+			selectionEnd += button.dataset.tanHtmlBefore.length + button.dataset.tanHtmlAfter.length;
+		}
+		this.#noteDialog.focusControl.setSelectionRange ( selectionStart, selectionEnd );
+		this.#noteDialog.focusControl.focus ( );
+		const noteData = {};
+		noteData [ this.#noteDialog.focusControl.dataset.tanName ] = this.#noteDialog.focusControl.value;
+		this.#noteDialog.updatePreview ( noteData );
+	}
+}
+
+/**
+@--------------------------------------------------------------------------------------------------------------------------
+
+@class IconSelectorChangeEL
+@classdesc change event listener for the icon selector
+@hideconstructor
+
+@--------------------------------------------------------------------------------------------------------------------------
+*/
+
+class IconSelectorChangeEL {
+
+	#noteDialog = null;
+
+	/**
+	Helper method for the onIconSelectChange mehod
+	@private
+	*/
+
+	#updatePreviewAndControls ( noteData )	{
+		this.#noteDialog.setControlsValues ( noteData );
+		this.#noteDialog.updatePreview ( noteData );
+	}
+
+	/**
+	Svg Map icon creation
+	@private
+	*/
+
+	#onMapIcon ( ) {
+		const mapIconData = this.#noteDialog.mapIconData;
+		if ( ! mapIconData.route ) {
+			this.#noteDialog.showError (
+				theTranslator.getText ( 'Notedialog - not possible to create a SVG icon for a travel note' )
+			);
+			return;
+		}
+
+		this.#noteDialog.showWait ( );
+		new MapIconFromOsmFactory ( ).getIconAndAdressWithPromise ( mapIconData )
+			.then (
+				noteData => {
+					this.#noteDialog.hideWait ( );
+					this.#updatePreviewAndControls ( noteData );
+				}
+			)
+			.catch (
+				err => {
+					if ( err instanceof Error ) {
+						console.error ( err );
+					}
+					this.#noteDialog.hideWait ( );
+					this.#noteDialog.showError (
+						theTranslator.getText ( 'Notedialog - an error occurs when creating the SVG icon' )
+					);
+				}
+			);
+	}
+
+	/*
+	constructor
+	*/
+
+	constructor ( noteDialog ) {
+		Object.freeze ( this );
+		this.#noteDialog = noteDialog;
+	}
+
+	destructor ( ) {
+		this.#noteDialog = null;
+	}
+
+	handleEvent ( changeEvent ) {
+		changeEvent.stopPropagation ( );
+		const preDefinedIcon = theNoteDialogToolbarData.getIconData ( changeEvent.target.selectedIndex );
+
+		if ( 'SvgIcon' === preDefinedIcon.icon ) {
+			this.#onMapIcon ( );
+			return;
+		}
+
+		this.#updatePreviewAndControls (
+			{
+				iconContent : preDefinedIcon.icon,
+				iconHeight : preDefinedIcon.height,
+				iconWidth : preDefinedIcon.width,
+				tooltipContent : preDefinedIcon.tooltip
+			}
+		);
+	}
+}
+
+/**
+@--------------------------------------------------------------------------------------------------------------------------
+
+@class ToggleContentsButtonClickEL
+@classdesc click event listener for the toogle button
+@hideconstructor
+
+@--------------------------------------------------------------------------------------------------------------------------
+*/
+
+class ToggleContentsButtonClickEL {
+
+	#noteDialog = null;
+
+	/*
+	constructor
+	*/
+
+	constructor ( noteDialog ) {
+		Object.freeze ( this );
+		this.#noteDialog = noteDialog;
+	}
+
+	destructor ( ) {
+		this.#noteDialog = null;
+	}
+
+	/**
+	click event listener for the toogle button on the toolbar
+	*/
+
+	handleEvent ( clickEvent ) {
+		clickEvent.target.textContent = '▼' === clickEvent.target.textContent ? '▶' : '▼';
+		this.#noteDialog.toogleContents ( );
+	}
+}
+
+/**
+@--------------------------------------------------------------------------------------------------------------------------
+
+@class OpenFileInputChangeEL
+@classdesc change event listener for the temp open file input
+@hideconstructor
+
+@--------------------------------------------------------------------------------------------------------------------------
+*/
+
+class OpenFileInputChangeEL {
+
+	#noteDialog = null;
+
+	/*
+	constructor
+	*/
+
+	constructor ( noteDialog ) {
+		Object.freeze ( this );
+		this.#noteDialog = noteDialog;
+	}
+
+	/**
+	Change event listener for the input associated on the open file button
+	@private
+	*/
+
+	handleEvent ( changeEvent ) {
+		changeEvent.stopPropagation ( );
+		const fileReader = new FileReader ( );
+		fileReader.onload = ( ) => {
+			try {
+				theNoteDialogToolbarData.loadJson ( JSON.parse ( fileReader.result ) );
+				this.#noteDialog.updateToolbar ( );
+			}
+			catch ( err ) {
+				if ( err instanceof Error ) {
+					console.error ( err );
+				}
+			}
+		};
+		fileReader.readAsText ( changeEvent.target.files [ ZERO ] );
+	}
+}
+
+/**
+@--------------------------------------------------------------------------------------------------------------------------
+
+@class OpenFileButtonClickEL
+@classdesc click event listener for the open file button
+@hideconstructor
+
+@--------------------------------------------------------------------------------------------------------------------------
+*/
+
+class OpenFileButtonClickEL {
+
+	#noteDialog = null;
+
+	/*
+	constructor
+	*/
+
+	constructor ( noteDialog ) {
+		Object.freeze ( this );
+		this.#noteDialog = noteDialog;
+	}
+
+	/**
+	click event listener for the open file button on the toolbar
+	*/
+
+	handleEvent ( clickEvent ) {
+		clickEvent.stopPropagation ( );
+		theUtilities.openFile ( new OpenFileInputChangeEL ( this.#noteDialog ), '.json' );
+	}
+}
+
 export {
 	AddressButtonClickEL,
 	NoteDialogGeoCoderHelper,
 	AllControlsFocusEL,
 	UrlInputBlurEL,
-	AllControlsInputEL
+	AllControlsInputEL,
+	EditionButtonsClickEL,
+	IconSelectorChangeEL,
+	ToggleContentsButtonClickEL,
+	OpenFileButtonClickEL
 };
 
 /*

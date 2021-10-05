@@ -84,7 +84,11 @@ import {
 	NoteDialogGeoCoderHelper,
 	AllControlsFocusEL,
 	UrlInputBlurEL,
-	AllControlsInputEL
+	AllControlsInputEL,
+	EditionButtonsClickEL,
+	IconSelectorChangeEL,
+	ToggleContentsButtonClickEL,
+	OpenFileButtonClickEL
 } from '../dialogNotes/NoteDialogEventListeners.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import theTranslator from '../UILib/Translator.js';
@@ -170,15 +174,23 @@ class NoteDialog extends BaseDialog {
 
 	#eventListeners = Object.seal (
 		{
+
+			// for controls
 			controlFocus : null,
 			controlInput : null,
 			addressButtonClick : null,
-			urlInputBlur : null
+			urlInputBlur : null,
+
+			// for toolbar
+			editionButtonsClick : null,
+			iconSelectorChange : null,
+			toggleContentsButtonClick : null,
+			openFileButtonClick : null
 		}
 	);
 
 	#destructor ( ) {
-		this.#toolbar.destructor ( );
+		this.#toolbar.destructor ( this.#eventListeners );
 		this.#iconDimsControl.destructor ( this.#eventListeners );
 		this.#iconControl.destructor ( this.#eventListeners );
 		this.#tooltipControl.destructor ( this.#eventListeners );
@@ -191,6 +203,12 @@ class NoteDialog extends BaseDialog {
 		this.#eventListeners.controlInput = null;
 		this.#eventListeners.addressButtonClick = null;
 		this.#eventListeners.urlInputBlur = null;
+
+		this.#eventListeners.editionButtonsClick = null;
+		this.#eventListeners.iconSelectorChange = null;
+		this.#eventListeners.toggleContentsButtonClick = null;
+		this.#eventListeners.openFileButtonClick = null;
+
 	}
 
 	/*
@@ -210,12 +228,17 @@ class NoteDialog extends BaseDialog {
 		this.#eventListeners.addressButtonClick = new AddressButtonClickEL ( this, note.latLng );
 		this.#eventListeners.urlInputBlur = new UrlInputBlurEL ( this );
 
+		this.#eventListeners.editionButtonsClick = new EditionButtonsClickEL ( this );
+		this.#eventListeners.iconSelectorChange = new IconSelectorChangeEL ( this );
+		this.#eventListeners.toggleContentsButtonClick = new ToggleContentsButtonClickEL ( this );
+		this.#eventListeners.openFileButtonClick = new OpenFileButtonClickEL ( this );
+
 		// Cloning the note
 		this.#previewNote = new Note ( );
 		this.#previewNote.jsonObject = note.jsonObject;
 
 		// creting toolbar and controls
-		this.#toolbar = new NoteDialogToolbar ( this );
+		this.#toolbar = new NoteDialogToolbar ( this.#eventListeners );
 		this.#iconDimsControl = new NoteDialogIconDimsControl ( this.#eventListeners );
 		this.#iconControl = new NoteDialogIconControl ( this.#eventListeners );
 		this.#tooltipControl = new NoteDialogTooltipControl ( this.#eventListeners );
@@ -416,6 +439,10 @@ class NoteDialog extends BaseDialog {
 			this.#phoneControl.HTMLElements [ ZERO ].classList.toggle ( 'TravelNotes-Hidden' );
 			this.#phoneControl.HTMLElements [ ONE ].classList.toggle ( 'TravelNotes-Hidden' );
 		}
+	}
+
+	updateToolbar ( ) {
+		this.#toolbar.update ( this.#eventListeners );
 	}
 
 }
