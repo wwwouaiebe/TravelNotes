@@ -48,7 +48,6 @@ Tests ...
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
-import { AllControlsFocusEL, AllControlsInputEL } from '../dialogNotes/NoteDialogEventListeners.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
@@ -63,14 +62,8 @@ import { AllControlsFocusEL, AllControlsInputEL } from '../dialogNotes/NoteDialo
 class NoteDialogTooltipControl {
 
 	/**
-	A reference to the noteDialog
-	@private
-	*/
-
-	#noteDialog = null;
-
-	/**
 	HTMLElements
+	@type {htmlElement}
 	@private
 	*/
 
@@ -79,6 +72,7 @@ class NoteDialogTooltipControl {
 
 	/**
 	Event listeners
+	@type {object}
 	@private
 	*/
 
@@ -87,11 +81,14 @@ class NoteDialogTooltipControl {
 
 	/*
 	constructor
+	@param {NoteDialog} noteDialog A reference to the dialog in witch the control is integrated
 	*/
 
-	constructor ( noteDialog ) {
+	constructor ( eventListeners ) {
+
 		Object.freeze ( this );
-		this.#noteDialog = noteDialog;
+
+		// HTMLElements creation
 		this.#tooltipDiv = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -109,22 +106,23 @@ class NoteDialogTooltipControl {
 			this.#tooltipDiv
 		);
 
-		this.#allControlsFocusEL = new AllControlsFocusEL ( this.#noteDialog, false );
-		this.#allControlsInputEL = new AllControlsInputEL ( this.#noteDialog );
-		this.#tooltipInput.addEventListener ( 'focus', this.#allControlsFocusEL );
-		this.#tooltipInput.addEventListener ( 'input', this.#allControlsInputEL );
-	}
-
-	destructor ( ) {
-		this.#tooltipInput.removeEventListener ( 'focus', this.#allControlsFocusEL );
-		this.#tooltipInput.removeEventListener ( 'input', this.#allControlsInputEL );
-		this.#allControlsFocusEL.destructor ( );
-		this.#allControlsInputEL.destructor ( );
-		this.#noteDialog = null;
+		// event listeners
+		this.#tooltipInput.addEventListener ( 'focus', eventListeners.controlFocus );
+		this.#tooltipInput.addEventListener ( 'input', eventListeners.controlInput );
 	}
 
 	/**
-	return an array with the HTML elements of the control
+	Remove event listeners
+	*/
+
+	destructor ( eventListeners ) {
+		this.#tooltipInput.removeEventListener ( 'focus', eventListeners.controlFocus );
+		this.#tooltipInput.removeEventListener ( 'input', eventListeners.controlInput );
+	}
+
+	/**
+	An array with the HTML elements of the control
+	@type {Array.<HTMLElement>}
 	@readonly
 	*/
 
@@ -132,6 +130,7 @@ class NoteDialogTooltipControl {
 
 	/**
 	the tooltip value in the control
+	@type {string}
 	*/
 
 	get tooltipContent ( ) { return this.#tooltipInput.value; }

@@ -79,7 +79,13 @@ import NoteDialogAddressControl from '../dialogNotes/NoteDialogAddressControl.js
 import NoteDialogLinkControl from '../dialogNotes/NoteDialogLinkControl.js';
 import NoteDialogPhoneControl from '../dialogNotes/NoteDialogPhoneControl.js';
 import NoteDialogPreviewControl from '../dialogNotes/NoteDialogPreviewControl.js';
-import { NoteDialogGeoCoderHelper } from '../dialogNotes/NoteDialogEventListeners.js';
+import {
+	AddressButtonClickEL,
+	NoteDialogGeoCoderHelper,
+	AllControlsFocusEL,
+	UrlInputBlurEL,
+	AllControlsInputEL
+} from '../dialogNotes/NoteDialogEventListeners.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import theTranslator from '../UILib/Translator.js';
 import Note from '../data/Note.js';
@@ -162,16 +168,29 @@ class NoteDialog extends BaseDialog {
 
 	#focusControl = null;
 
+	#eventListeners = Object.seal (
+		{
+			controlFocus : null,
+			controlInput : null,
+			addressButtonClick : null,
+			urlInputBlur : null
+		}
+	);
+
 	#destructor ( ) {
 		this.#toolbar.destructor ( );
-		this.#iconDimsControl.destructor ( );
-		this.#iconControl.destructor ( );
-		this.#tooltipControl.destructor ( );
-		this.#popupControl.destructor ( );
-		this.#addressControl.destructor ( );
-		this.#linkControl.destructor ( );
-		this.#phoneControl.destructor ( );
+		this.#iconDimsControl.destructor ( this.#eventListeners );
+		this.#iconControl.destructor ( this.#eventListeners );
+		this.#tooltipControl.destructor ( this.#eventListeners );
+		this.#popupControl.destructor ( this.#eventListeners );
+		this.#addressControl.destructor ( this.#eventListeners );
+		this.#linkControl.destructor ( this.#eventListeners );
+		this.#phoneControl.destructor ( this.#eventListeners );
 
+		this.#eventListeners.controlFocus = null;
+		this.#eventListeners.controlInput = null;
+		this.#eventListeners.addressButtonClick = null;
+		this.#eventListeners.urlInputBlur = null;
 	}
 
 	/*
@@ -186,19 +205,24 @@ class NoteDialog extends BaseDialog {
 		this.#startGeoCoder = '' === this.#note.address;
 		this.#route = route;
 
+		this.#eventListeners.controlFocus = new AllControlsFocusEL ( this );
+		this.#eventListeners.controlInput = new AllControlsInputEL ( this );
+		this.#eventListeners.addressButtonClick = new AddressButtonClickEL ( this, note.latLng );
+		this.#eventListeners.urlInputBlur = new UrlInputBlurEL ( this );
+
 		// Cloning the note
 		this.#previewNote = new Note ( );
 		this.#previewNote.jsonObject = note.jsonObject;
 
 		// creting toolbar and controls
 		this.#toolbar = new NoteDialogToolbar ( this );
-		this.#iconDimsControl = new NoteDialogIconDimsControl ( this );
-		this.#iconControl = new NoteDialogIconControl ( this );
-		this.#tooltipControl = new NoteDialogTooltipControl ( this );
-		this.#popupControl = new NoteDialogPopupControl ( this );
-		this.#addressControl = new NoteDialogAddressControl ( this, note.latLng, this.#startGeoCoder );
-		this.#linkControl = new NoteDialogLinkControl ( this, note.latLng );
-		this.#phoneControl = new NoteDialogPhoneControl ( this );
+		this.#iconDimsControl = new NoteDialogIconDimsControl ( this.#eventListeners );
+		this.#iconControl = new NoteDialogIconControl ( this.#eventListeners );
+		this.#tooltipControl = new NoteDialogTooltipControl ( this.#eventListeners );
+		this.#popupControl = new NoteDialogPopupControl ( this.#eventListeners );
+		this.#addressControl = new NoteDialogAddressControl ( this.#eventListeners, this.#startGeoCoder );
+		this.#linkControl = new NoteDialogLinkControl ( this.#eventListeners, note.latLng );
+		this.#phoneControl = new NoteDialogPhoneControl ( this.#eventListeners );
 		this.#previewControl = new NoteDialogPreviewControl ( this.#previewNote );
 
 		// copy the notes values into the controls

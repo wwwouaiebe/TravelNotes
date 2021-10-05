@@ -48,7 +48,6 @@ Tests ...
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
-import { AllControlsFocusEL, AllControlsInputEL } from '../dialogNotes/NoteDialogEventListeners.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
@@ -63,14 +62,8 @@ import { AllControlsFocusEL, AllControlsInputEL } from '../dialogNotes/NoteDialo
 class NoteDialogPhoneControl {
 
 	/**
-	A reference to the noteDialog
-	@private
-	*/
-
-	#noteDialog = null;
-
-	/**
 	HTMLElements
+	@type {htmlElement}
 	@private
 	*/
 
@@ -78,23 +71,16 @@ class NoteDialogPhoneControl {
 	#phoneInputDiv = null;
 	#phoneInput = null;
 
-	/**
-	Event listeners
-	@private
-	*/
-
-	#allControlsFocusEL = null;
-	#allControlsInputEL	= null;
-
 	/*
 	constructor
+	@param {NoteDialog} noteDialog A reference to the dialog in witch the control is integrated
 	*/
 
-	constructor ( noteDialog ) {
+	constructor ( eventListeners ) {
+
 		Object.freeze ( this );
 
-		this.#noteDialog = noteDialog;
-
+		// HTMLElements creation
 		this.#phoneHeaderDiv = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -127,22 +113,23 @@ class NoteDialogPhoneControl {
 			this.#phoneInputDiv
 		);
 
-		this.#allControlsFocusEL = new AllControlsFocusEL ( this.#noteDialog, false );
-		this.#allControlsInputEL = new AllControlsInputEL ( this.#noteDialog );
-		this.#phoneInput.addEventListener ( 'focus', this.#allControlsFocusEL );
-		this.#phoneInput.addEventListener ( 'input', this.#allControlsInputEL );
-	}
-
-	destructor ( ) {
-		this.#phoneInput.removeEventListener ( 'focus', this.#allControlsFocusEL );
-		this.#phoneInput.removeEventListener ( 'input', this.#allControlsInputEL );
-		this.#allControlsFocusEL.destructor ( );
-		this.#allControlsInputEL.destructor ( );
-		this.#noteDialog = null;
+		// event listeners
+		this.#phoneInput.addEventListener ( 'focus', eventListeners.controlFocus );
+		this.#phoneInput.addEventListener ( 'input', eventListeners.controlInput );
 	}
 
 	/**
-	return an array with the HTML elements of the control
+	Remove event listeners
+	*/
+
+	destructor ( eventListeners ) {
+		this.#phoneInput.removeEventListener ( 'focus', eventListeners.controlFocus );
+		this.#phoneInput.removeEventListener ( 'input', eventListeners.controlInput );
+	}
+
+	/**
+	An array with the HTML elements of the control
+	@type {Array.<HTMLElement>}
 	@readonly
 	*/
 
@@ -150,6 +137,7 @@ class NoteDialogPhoneControl {
 
 	/**
 	The phone number in the control
+	@type {string}
 	*/
 
 	get phone ( ) { return this.#phoneInput.value; }

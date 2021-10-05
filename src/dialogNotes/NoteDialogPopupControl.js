@@ -49,7 +49,6 @@ Tests ...
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
-import { AllControlsFocusEL, AllControlsInputEL } from '../dialogNotes/NoteDialogEventListeners.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
@@ -64,35 +63,24 @@ import { AllControlsFocusEL, AllControlsInputEL } from '../dialogNotes/NoteDialo
 class NoteDialogPopupControl {
 
 	/**
-	A reference to the noteDialog
-	@private
-	*/
-
-	#noteDialog = null;
-
-	/**
 	HTMLElements
+	@type {htmlElement}
 	@private
 	*/
 
 	#popupDiv = null;
 	#popupTextArea = null;
 
-	/**
-	Event listeners
-	@private
-	*/
-
-	#allControlsFocusEL = null;
-	#allControlsInputEL = null;
-
 	/*
 	constructor
+	@param {NoteDialog} noteDialog A reference to the dialog in witch the control is integrated
 	*/
 
-	constructor ( noteDialog ) {
+	constructor ( eventListeners ) {
+
 		Object.freeze ( this );
-		this.#noteDialog = noteDialog;
+
+		// HTMLElements creation
 		this.#popupDiv = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -110,22 +98,23 @@ class NoteDialogPopupControl {
 			this.#popupDiv
 		);
 
-		this.#allControlsFocusEL = new AllControlsFocusEL ( this.#noteDialog, false );
-		this.#allControlsInputEL = new AllControlsInputEL ( this.#noteDialog );
-		this.#popupTextArea.addEventListener ( 'focus', this.#allControlsFocusEL );
-		this.#popupTextArea.addEventListener ( 'input', this.#allControlsInputEL );
-	}
-
-	destructor ( ) {
-		this.#popupTextArea.removeEventListener ( 'focus', this.#allControlsFocusEL );
-		this.#popupTextArea.removeEventListener ( 'input', this.#allControlsInputEL );
-		this.#allControlsFocusEL.destructor ( );
-		this.#allControlsInputEL.destructor ( );
-		this.#noteDialog = null;
+		// event listeners
+		this.#popupTextArea.addEventListener ( 'focus', eventListeners.controlFocus );
+		this.#popupTextArea.addEventListener ( 'input', eventListeners.controlInput );
 	}
 
 	/**
-	return an array with the HTML elements of the control
+	Remove event listeners
+	*/
+
+	destructor ( eventListeners ) {
+		this.#popupTextArea.removeEventListener ( 'focus', eventListeners.controlFocus );
+		this.#popupTextArea.removeEventListener ( 'input', eventListeners.controlInput );
+	}
+
+	/**
+	An array with the HTML elements of the control
+	@type {Array.<HTMLElement>}
 	@readonly
 	*/
 
@@ -133,6 +122,7 @@ class NoteDialogPopupControl {
 
 	/**
 	The popupcontent value in the control
+	@type {string}
 	*/
 
 	get popupContent ( ) { return this.#popupTextArea.value; }

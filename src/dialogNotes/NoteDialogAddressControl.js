@@ -46,11 +46,6 @@ Tests ...
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
-import {
-	AddressButtonClickEL,
-	AllControlsFocusEL,
-	AllControlsInputEL
-} from '../dialogNotes/NoteDialogEventListeners.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
@@ -65,14 +60,8 @@ import {
 class NoteDialogAddressControl {
 
 	/**
-	A reference to the noteDialog
-	@private
-	*/
-
-	#noteDialog = null;
-
-	/**
 	HTMLElements
+	@type {htmlElement}
 	@private
 	*/
 
@@ -81,36 +70,24 @@ class NoteDialogAddressControl {
 	#addressInput = null;
 	#addressButton = null;
 
-	/**
-	The latLng used for geocoding
-	@private
-	*/
-
-	#latLng = null;
-
-	/**
-	Event listeners
-	@private
-	*/
-
-	#allControlsFocusEL = null;
-	#allControlsInputEL = null;
-	#addressButtonClickEL = null;
-
 	/*
 	constructor
+	@param {NoteDialog} noteDialog A reference to the dialog in witch the control is integrated
+	@param {Array.<!number} latLng The lat and lng to use for geocoding
 	*/
 
-	constructor ( noteDialog, latLng ) {
+	constructor ( eventListeners ) {
+
 		Object.freeze ( this );
-		this.#noteDialog = noteDialog;
-		this.#latLng = latLng;
+
+		// HTMLElements creation
 		this.#addressHeaderDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-NoteDialog-DataDiv'
 			}
 		);
+
 		this.#addressButton = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -135,6 +112,7 @@ class NoteDialogAddressControl {
 				className : 'TravelNotes-NoteDialog-DataDiv'
 			}
 		);
+
 		this.#addressInput = theHTMLElementsFactory.create (
 			'input',
 			{
@@ -145,25 +123,25 @@ class NoteDialogAddressControl {
 			this.#addressInputDiv
 		);
 
-		this.#allControlsFocusEL = new AllControlsFocusEL ( this.#noteDialog, false );
-		this.#allControlsInputEL = new AllControlsInputEL ( this.#noteDialog );
-		this.#addressButtonClickEL = new AddressButtonClickEL ( this.#noteDialog, this.#latLng );
-		this.#addressInput.addEventListener ( 'focus', this.#allControlsFocusEL );
-		this.#addressInput.addEventListener ( 'input', this.#allControlsInputEL );
-		this.#addressButton.addEventListener ( 'click', this.#addressButtonClickEL );
-	}
-
-	destructor ( ) {
-		this.#addressInput.removeEventListener ( 'focus', this.#allControlsFocusEL );
-		this.#addressInput.removeEventListener ( 'input', this.#allControlsInputEL );
-		this.#addressButton.removeEventListener ( 'click', this.#addressButtonClickEL );
-		this.#allControlsFocusEL.destructor ( );
-		this.#allControlsInputEL.destructor ( );
-		this.#addressButtonClickEL.destructor ( );
+		// event listeners
+		this.#addressInput.addEventListener ( 'focus', eventListeners.controlFocus );
+		this.#addressInput.addEventListener ( 'input', eventListeners.controlInput );
+		this.#addressButton.addEventListener ( 'click', eventListeners.addressButtonClick );
 	}
 
 	/**
-	return an array with the HTML elements of the control
+	Remove event listeners
+	*/
+
+	destructor ( eventListeners ) {
+		this.#addressInput.removeEventListener ( 'focus', eventListeners.controlFocus );
+		this.#addressInput.removeEventListener ( 'input', eventListeners.controlInput );
+		this.#addressButton.removeEventListener ( 'click', eventListeners.addressButtonClick );
+	}
+
+	/**
+	An array with the HTML elements of the control
+	@type {Array.<HTMLElement>}
 	@readonly
 	*/
 
@@ -173,6 +151,7 @@ class NoteDialogAddressControl {
 
 	/**
 	The address value in the control
+	@type {string}
 	*/
 
 	get address ( ) { return this.#addressInput.value; }

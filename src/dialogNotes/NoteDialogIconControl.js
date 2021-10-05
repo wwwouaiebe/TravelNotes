@@ -47,7 +47,6 @@ Tests ...
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
-import { AllControlsFocusEL, AllControlsInputEL } from '../dialogNotes/NoteDialogEventListeners.js';
 
 const OUR_DEFAULT_ICON = '?????';
 
@@ -64,35 +63,24 @@ const OUR_DEFAULT_ICON = '?????';
 class NoteDialogIconControl {
 
 	/**
-	A reference to the noteDialog
-	@private
-	*/
-
-	#noteDialog = null;
-
-	/**
 	HTMLElements
+	@type {htmlElement}
 	@private
 	*/
 
 	#iconDiv = null;
 	#iconTextArea = null;
 
-	/**
-	Event listeners
-	@private
-	*/
-
-	#allControlsFocusEL = null;
-	#allControlsInputEL = null;
-
 	/*
 	constructor
+	@param {NoteDialog} noteDialog A reference to the dialog in witch the control is integrated
 	*/
 
-	constructor ( noteDialog ) {
+	constructor ( eventListeners ) {
+
 		Object.freeze ( this );
-		this.#noteDialog = noteDialog;
+
+		// HTMLElements creation
 		this.#iconDiv = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -111,22 +99,23 @@ class NoteDialogIconControl {
 			this.#iconDiv
 		);
 
-		this.#allControlsFocusEL = new AllControlsFocusEL ( this.#noteDialog, false );
-		this.#allControlsInputEL = new AllControlsInputEL ( this.#noteDialog );
-		this.#iconTextArea.addEventListener ( 'focus', this.#allControlsFocusEL );
-		this.#iconTextArea.addEventListener ( 'input', this.#allControlsInputEL );
-	}
-
-	destructor ( ) {
-		this.#iconTextArea.removeEventListener ( 'focus', this.#allControlsFocusEL );
-		this.#iconTextArea.removeEventListener ( 'input', this.#allControlsInputEL );
-		this.#allControlsFocusEL.destructor ( );
-		this.#allControlsInputEL.destructor ( );
-		this.#noteDialog = null;
+		// event listeners
+		this.#iconTextArea.addEventListener ( 'focus', eventListeners.controlFocus );
+		this.#iconTextArea.addEventListener ( 'input', eventListeners.controlInput );
 	}
 
 	/**
-	return an array with the HTML elements of the control
+	Remove event listeners
+	*/
+
+	destructor ( eventListeners ) {
+		this.#iconTextArea.removeEventListener ( 'focus', eventListeners.controlFocus );
+		this.#iconTextArea.removeEventListener ( 'input', eventListeners.controlInput );
+	}
+
+	/**
+	An array with the HTML elements of the control
+	@type {Array.<HTMLElement>}
 	@readonly
 	*/
 
@@ -134,6 +123,7 @@ class NoteDialogIconControl {
 
 	/**
 	The icon value in the control
+	@type {string}
 	*/
 
 	get iconContent ( ) { return this.#iconTextArea.value; }

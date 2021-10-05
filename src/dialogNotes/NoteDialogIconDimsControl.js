@@ -48,7 +48,6 @@ Tests ...
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
-import { AllControlsInputEL } from '../dialogNotes/NoteDialogEventListeners.js';
 import { ICON_DIMENSIONS } from '../main/Constants.js';
 
 /**
@@ -64,14 +63,8 @@ import { ICON_DIMENSIONS } from '../main/Constants.js';
 class NoteDialogIconDimsControl {
 
 	/**
-	A reference to the noteDialog
-	@private
-	*/
-
-	#noteDialog = null;
-
-	/**
 	HTMLElements
+	@type {htmlElement}
 	@private
 	*/
 
@@ -79,20 +72,16 @@ class NoteDialogIconDimsControl {
 	#iconWidthInput = null;
 	#iconHeightInput = null;
 
-	/**
-	Event listeners
-	@private
-	*/
-
-	#allControlsInputEL = null;
-
 	/*
 	constructor
+	@param {NoteDialog} noteDialog A reference to the dialog in witch the control is integrated
 	*/
 
-	constructor ( noteDialog ) {
+	constructor ( eventListeners ) {
+
 		Object.freeze ( this );
-		this.#noteDialog = noteDialog;
+
+		// HTMLElements creation
 		this.#iconDimsDiv = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -135,20 +124,23 @@ class NoteDialogIconDimsControl {
 			this.#iconDimsDiv
 		);
 
-		this.#allControlsInputEL = new AllControlsInputEL ( this.#noteDialog );
-		this.#iconWidthInput.addEventListener ( 'input', this.#allControlsInputEL );
-		this.#iconHeightInput.addEventListener ( 'input', this.#allControlsInputEL );
-	}
-
-	destructor ( ) {
-		this.#iconWidthInput.removeEventListener ( 'input', this.#allControlsInputEL );
-		this.#iconHeightInput.removeEventListener ( 'input', this.#allControlsInputEL );
-		this.#allControlsInputEL.destructor ( );
-		this.#noteDialog = null;
+		// event listeners
+		this.#iconWidthInput.addEventListener ( 'input', eventListeners.controlInput );
+		this.#iconHeightInput.addEventListener ( 'input', eventListeners.controlInput );
 	}
 
 	/**
-	return an array with the HTML elements of the control
+	Remove event listeners
+	*/
+
+	destructor ( eventListeners ) {
+		this.#iconWidthInput.removeEventListener ( 'input', eventListeners.controlInput );
+		this.#iconHeightInput.removeEventListener ( 'input', eventListeners.controlInput );
+	}
+
+	/**
+	An array with the HTML elements of the control
+	@type {Array.<HTMLElement>}
 	@readonly
 	*/
 
@@ -156,6 +148,7 @@ class NoteDialogIconDimsControl {
 
 	/**
 	The icon width value in the control
+	@type {number}
 	*/
 
 	get iconWidth ( ) { return Number.parseInt ( this.#iconWidthInput.value ); }
@@ -164,6 +157,7 @@ class NoteDialogIconDimsControl {
 
 	/**
 	The icon width height in the control
+	@type {number}
 	*/
 
 	get iconHeight ( ) { return Number.parseInt ( this.#iconHeightInput.value ); }

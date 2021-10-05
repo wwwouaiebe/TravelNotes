@@ -82,10 +82,6 @@ class NoteDialogGeoCoderHelper {
 		this.#noteDialog = noteDialog;
 	}
 
-	destructor ( ) {
-		this.#noteDialog = null;
-	}
-
 	setAddressWithGeoCoder ( latLng ) {
 		this.#noteDialog.showWait ( );
 		this.#noteDialog.hideError ( );
@@ -119,7 +115,6 @@ class AddressButtonClickEL {
 
 	#noteDialog = null;
 	#latLng = null;
-	#geoCoderHelper = null;
 
 	/*
 	constructor
@@ -129,17 +124,11 @@ class AddressButtonClickEL {
 		Object.freeze ( this );
 		this.#noteDialog = noteDialog;
 		this.#latLng = latLng;
-		this.#geoCoderHelper = new NoteDialogGeoCoderHelper ( this.#noteDialog );
-	}
-
-	destructor ( ) {
-		this.#noteDialog = null;
-		this.#geoCoderHelper.destructor ( );
 	}
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		this.#geoCoderHelper.setAddressWithGeoCoder ( this.#latLng );
+		new NoteDialogGeoCoderHelper ( this.#noteDialog ).setAddressWithGeoCoder ( this.#latLng );
 	}
 }
 
@@ -156,25 +145,19 @@ class AddressButtonClickEL {
 class AllControlsFocusEL {
 
 	#noteDialog = null;
-	#disableFocusControl = false;
 
 	/*
 	constructor
 	*/
 
-	constructor ( noteDialog, disableFocusControl ) {
+	constructor ( noteDialog ) {
 		Object.freeze ( this );
 		this.#noteDialog = noteDialog;
-		this.#disableFocusControl = disableFocusControl;
-	}
-
-	destructor ( ) {
-		this.#noteDialog = null;
 	}
 
 	handleEvent ( focusEvent ) {
 		focusEvent.stopPropagation ( );
-		if ( this.#disableFocusControl ) {
+		if ( 'url' === focusEvent.target.dataset.tanName ) {
 			this.#noteDialog.focusControl = null;
 		}
 		else {
@@ -204,10 +187,6 @@ class UrlInputBlurEL {
 	constructor ( noteDialog ) {
 		Object.freeze ( this );
 		this.#noteDialog = noteDialog;
-	}
-
-	destructor ( ) {
-		this.#noteDialog = null;
 	}
 
 	handleEvent ( blurEvent ) {
@@ -248,10 +227,6 @@ class AllControlsInputEL {
 	constructor ( noteDialog ) {
 		Object.freeze ( this );
 		this.#noteDialog = noteDialog;
-	}
-
-	destructor ( ) {
-		this.#noteDialog = null;
 	}
 
 	handleEvent ( inputUpdatedEvent ) {

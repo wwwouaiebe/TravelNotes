@@ -63,6 +63,7 @@ class NoteDialogPreviewControl {
 
 	/**
 	HTMLElements
+	@type {htmlElement}
 	@private
 	*/
 
@@ -71,11 +72,16 @@ class NoteDialogPreviewControl {
 
 	/*
 	constructor
+	@param {Note} previewNote A reference to the note displayed in the control
 	*/
 
 	constructor ( previewNote ) {
+
 		Object.freeze ( this );
+
 		this.#previewNote = previewNote;
+
+		// HTMLElements creation
 		this.#previewDiv = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -90,6 +96,10 @@ class NoteDialogPreviewControl {
 		);
 	}
 
+	/**
+	Update the control
+	*/
+
 	update ( ) {
 		this.#previewDiv.textContent = '';
 		this.#previewDiv.appendChild (
@@ -101,7 +111,8 @@ class NoteDialogPreviewControl {
 	}
 
 	/**
-	return an array with the HTML elements of the control
+	An array with the HTML elements of the control
+	@type {Array.<HTMLElement>}
 	@readonly
 	*/
 

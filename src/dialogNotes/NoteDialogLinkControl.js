@@ -49,11 +49,6 @@ Tests ...
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
-import {
-	AllControlsFocusEL,
-	UrlInputBlurEL,
-	AllControlsInputEL
-} from '../dialogNotes/NoteDialogEventListeners.js';
 
 import { ZERO, ONE, LAT_LNG } from '../main/Constants.js';
 
@@ -70,14 +65,8 @@ import { ZERO, ONE, LAT_LNG } from '../main/Constants.js';
 class NoteDialogLinkControl {
 
 	/**
-	A reference to the noteDialog
-	@private
-	*/
-
-	#noteDialog = null;
-
-	/**
 	HTMLElements
+	@type {htmlElement}
 	@private
 	*/
 
@@ -86,16 +75,8 @@ class NoteDialogLinkControl {
 	#linkInput = null;
 
 	/**
-	Event listeners
-	@private
-	*/
-
-	#allControlsFocusEL= null;
-	#allControlsInputEL = null;
-	#urlInputBlurEL	= null;
-
-	/**
-	The Devil button...
+	The 👿 button...
+	@param {Array.<!number>} latLng The lat and lng used in the 👿 button
 	@private
 	*/
 
@@ -131,11 +112,15 @@ class NoteDialogLinkControl {
 
 	/*
 	constructor
+	@param {NoteDialog} noteDialog A reference to the dialog in witch the control is integrated
+	@param {Array.<number>} latLng The lat and lng to use with the 👿 button
 	*/
 
-	constructor ( noteDialog, latLng ) {
+	constructor ( eventListeners, latLng ) {
+
 		Object.freeze ( this );
-		this.#noteDialog = noteDialog;
+
+		// HTMLElements creation
 		this.#linkHeaderDiv = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -170,26 +155,25 @@ class NoteDialogLinkControl {
 			this.#linkInputDiv
 		);
 
-		this.#allControlsFocusEL = new AllControlsFocusEL ( this.#noteDialog, true );
-		this.#allControlsInputEL = new AllControlsInputEL ( this.#noteDialog );
-		this.#urlInputBlurEL = new UrlInputBlurEL ( this.#noteDialog );
-		this.#linkInput.addEventListener ( 'focus', this.#allControlsFocusEL );
-		this.#linkInput.addEventListener ( 'input', this.#allControlsInputEL );
-		this.#linkInput.addEventListener ( 'blur', this.#urlInputBlurEL );
-	}
-
-	destructor ( ) {
-		this.#linkInput.removeEventListener ( 'focus', this.#allControlsFocusEL );
-		this.#linkInput.removeEventListener ( 'input', this.#allControlsInputEL );
-		this.#linkInput.removeEventListener ( 'blur', this.#urlInputBlurEL );
-		this.#allControlsFocusEL.destructor ( );
-		this.#allControlsInputEL.destructor ( );
-		this.#urlInputBlurEL.destructor ( );
-		this.#noteDialog = null;
+		// event listeners
+		this.#linkInput.addEventListener ( 'focus', eventListeners.controlFocus );
+		this.#linkInput.addEventListener ( 'input', eventListeners.controlInput );
+		this.#linkInput.addEventListener ( 'blur', eventListeners.urlInputBlur );
 	}
 
 	/**
-	return an array with the HTML elements of the control
+	Remove event listeners
+	*/
+
+	destructor ( eventListeners ) {
+		this.#linkInput.removeEventListener ( 'focus', eventListeners.controlFocus );
+		this.#linkInput.removeEventListener ( 'input', eventListeners.controlInput );
+		this.#linkInput.removeEventListener ( 'blur', eventListeners.urlInputBlur );
+	}
+
+	/**
+	An array with the HTML elements of the control
+	@type {Array.<HTMLElement>}
 	@readonly
 	*/
 
@@ -197,6 +181,7 @@ class NoteDialogLinkControl {
 
 	/**
 	The url value in the control
+	@type {string}
 	*/
 
 	get url ( ) { return this.#linkInput.value; }
