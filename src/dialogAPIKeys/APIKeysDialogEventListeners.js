@@ -74,9 +74,9 @@ class APIKeyDeletedEL {
 	*/
 
 	constructor ( APIKeysDialog, APIKeysControls ) {
+		Object.freeze ( this );
 		this.#APIKeysDialog = APIKeysDialog;
 		this.#APIKeysControls = APIKeysControls;
-		Object.freeze ( this );
 	}
 
 	/**
@@ -109,8 +109,8 @@ class OpenUnsecureFileChangeEL {
 	*/
 
 	constructor ( APIKeysDialog ) {
-		this.#APIKeysDialog = APIKeysDialog;
 		Object.freeze ( this );
+		this.#APIKeysDialog = APIKeysDialog;
 	}
 
 	/**
@@ -150,16 +150,14 @@ class OpenUnsecureFileChangeEL {
 class RestoreFromUnsecureFileButtonClickEL {
 
 	#APIKeysDialog = null;
-	#openUnsecureFileInputEventListener = null;
 
 	/*
 	constructor
 	*/
 
 	constructor ( APIKeysDialog ) {
-		this.#APIKeysDialog = APIKeysDialog;
-		this.#openUnsecureFileInputEventListener = new OpenUnsecureFileChangeEL ( this.#APIKeysDialog );
 		Object.freeze ( this );
+		this.#APIKeysDialog = APIKeysDialog;
 	}
 
 	/**
@@ -169,7 +167,7 @@ class RestoreFromUnsecureFileButtonClickEL {
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		this.#APIKeysDialog.hideError ( );
-		theUtilities.openFile (	this.#openUnsecureFileInputEventListener, '.json' );
+		theUtilities.openFile (	new OpenUnsecureFileChangeEL ( this.#APIKeysDialog ), '.json' );
 
 	}
 }
@@ -187,16 +185,14 @@ class RestoreFromUnsecureFileButtonClickEL {
 class ReloadFromServerButtonClickEL {
 
 	#APIKeysDialog = null;
-	#dataEncryptorHandlers = null;
 
 	/*
 	constructor
 	*/
 
 	constructor ( APIKeysDialog ) {
-		this.#APIKeysDialog = APIKeysDialog;
-		this.#dataEncryptorHandlers = new DataEncryptorHandlers ( this.#APIKeysDialog );
 		Object.freeze ( this );
+		this.#APIKeysDialog = APIKeysDialog;
 	}
 
 	/**
@@ -215,23 +211,26 @@ class ReloadFromServerButtonClickEL {
 					if ( HTTP_STATUS_OK === response.status && response.ok ) {
 						response.arrayBuffer ( ).then (
 							data => {
+								const dataEncryptorHandlers = new DataEncryptorHandlers ( this.#APIKeysDialog );
 								new DataEncryptor ( ).decryptData (
 									data,
-									tmpData => { this.#dataEncryptorHandlers.onOkDecrypt ( tmpData ); },
-									err => { this.#dataEncryptorHandlers.onErrorDecrypt ( err ); },
+									tmpData => { dataEncryptorHandlers.onOkDecrypt ( tmpData ); },
+									err => { dataEncryptorHandlers.onErrorDecrypt ( err ); },
 									new PasswordDialog ( false ).show ( )
 								);
 							}
 						);
 					}
 					else {
-						this.#dataEncryptorHandlers.onErrorDecrypt ( new Error ( 'Invalid http status' ) );
+						new DataEncryptorHandlers ( this.#APIKeysDialog ).onErrorDecrypt (
+							new Error ( 'Invalid http status' )
+						);
 					}
 				}
 			)
 			.catch (
 				err => {
-					this.#dataEncryptorHandlers.onErrorDecrypt ( err );
+					new DataEncryptorHandlers ( this.#APIKeysDialog ).onErrorDecrypt ( err );
 					if ( err instanceof Error ) {
 						console.error ( err );
 					}
@@ -253,16 +252,14 @@ class ReloadFromServerButtonClickEL {
 class OpenSecureFileChangeEL {
 
 	#APIKeysDialog = null;
-	#dataEncryptorHandlers = null;
 
 	/*
 	constructor
 	*/
 
 	constructor ( APIKeysDialog ) {
-		this.#APIKeysDialog = APIKeysDialog;
-		this.#dataEncryptorHandlers = new DataEncryptorHandlers ( this.#APIKeysDialog );
 		Object.freeze ( this );
+		this.#APIKeysDialog = APIKeysDialog;
 	}
 
 	/**
@@ -275,10 +272,11 @@ class OpenSecureFileChangeEL {
 		this.#APIKeysDialog.keyboardELEnabled = false;
 		const fileReader = new FileReader ( );
 		fileReader.onload = ( ) => {
+			const dataEncryptorHandlers = new DataEncryptorHandlers ( this.#APIKeysDialog );
 			new DataEncryptor ( ).decryptData (
 				fileReader.result,
-				data => { this.#dataEncryptorHandlers.onOkDecrypt ( data ); },
-				err => { this.#dataEncryptorHandlers.onErrorDecrypt ( err ); },
+				data => { dataEncryptorHandlers.onOkDecrypt ( data ); },
+				err => { dataEncryptorHandlers.onErrorDecrypt ( err ); },
 				new PasswordDialog ( false ).show ( )
 			);
 		};
@@ -299,16 +297,14 @@ class OpenSecureFileChangeEL {
 class RestoreFromSecureFileButtonClickEL {
 
 	#APIKeysDialog = null;
-	#openSecureFileInputEventListener = null;
 
 	/*
 	constructor
 	*/
 
 	constructor ( APIKeysDialog ) {
-		this.#APIKeysDialog = APIKeysDialog;
-		this.#openSecureFileInputEventListener = new OpenSecureFileChangeEL ( this.#APIKeysDialog );
 		Object.freeze ( this );
+		this.#APIKeysDialog = APIKeysDialog;
 	}
 
 	/**
@@ -318,7 +314,7 @@ class RestoreFromSecureFileButtonClickEL {
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		this.#APIKeysDialog.hideError ( );
-		theUtilities.openFile (	this.#openSecureFileInputEventListener );
+		theUtilities.openFile (	new OpenSecureFileChangeEL ( this.#APIKeysDialog ) );
 	}
 }
 
@@ -336,19 +332,15 @@ class SaveToSecureFileButtonClickEL {
 
 	#APIKeysDialog = null;
 	#APIKeysControls = null;
-	#saveAPIKeysHelper = null;
-	#dataEncryptorHandlers = null;
 
 	/*
 	constructor
 	*/
 
 	constructor ( APIKeysDialog, APIKeysControls ) {
+		Object.freeze ( this );
 		this.#APIKeysDialog = APIKeysDialog;
 		this.#APIKeysControls = APIKeysControls;
-		this.#saveAPIKeysHelper = new SaveAPIKeysHelper ( this.#APIKeysControls );
-		this.#dataEncryptorHandlers = new DataEncryptorHandlers ( this.#APIKeysDialog );
-		Object.freeze ( this );
 	}
 
 	/**
@@ -363,11 +355,13 @@ class SaveToSecureFileButtonClickEL {
 		this.#APIKeysDialog.showWait ( );
 
 		this.#APIKeysDialog.keyboardELEnabled = false;
-
+		const dataEncryptorHandlers = new DataEncryptorHandlers ( this.#APIKeysDialog );
 		new DataEncryptor ( ).encryptData (
-			new window.TextEncoder ( ).encode ( this.#saveAPIKeysHelper.getAPIKeysJsonString ( ) ),
-			data => this.#dataEncryptorHandlers.onOkEncrypt ( data ),
-			( ) => this.#dataEncryptorHandlers.onErrorEncrypt ( ),
+			new window.TextEncoder ( ).encode (
+				new SaveAPIKeysHelper ( this.#APIKeysControls ).getAPIKeysJsonString ( )
+			),
+			data => dataEncryptorHandlers.onOkEncrypt ( data ),
+			( ) => dataEncryptorHandlers.onErrorEncrypt ( ),
 			new PasswordDialog ( true ).show ( )
 		);
 	}
@@ -387,17 +381,15 @@ class SaveToUnsecureFileButtonClickEL {
 
 	#APIKeysDialog = null;
 	#APIKeysControls = null;
-	#saveAPIKeysHelper = null;
 
 	/*
 	constructor
 	*/
 
 	constructor ( APIKeysDialog, APIKeysControls ) {
+		Object.freeze ( this );
 		this.#APIKeysDialog = APIKeysDialog;
 		this.#APIKeysControls = APIKeysControls;
-		this.#saveAPIKeysHelper = new SaveAPIKeysHelper ( this.#APIKeysControls );
-		Object.freeze ( this );
 	}
 
 	/**
@@ -411,7 +403,7 @@ class SaveToUnsecureFileButtonClickEL {
 		}
 		theUtilities.saveFile (
 			'APIKeys.json',
-			this.#saveAPIKeysHelper.getAPIKeysJsonString ( ),
+			new SaveAPIKeysHelper ( this.#APIKeysControls ).getAPIKeysJsonString ( ),
 			'application/json'
 		);
 	}
@@ -437,9 +429,9 @@ class NewAPIKeyButtonClickEL {
 	*/
 
 	constructor ( APIKeysDialog, APIKeysControls ) {
+		Object.freeze ( this );
 		this.#APIKeysDialog = APIKeysDialog;
 		this.#APIKeysControls = APIKeysControls;
-		Object.freeze ( this );
 	}
 
 	/**

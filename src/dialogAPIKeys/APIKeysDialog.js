@@ -141,6 +141,7 @@ class APIKeysDialog extends BaseDialog {
 
 	#destructor ( ) {
 		this.#toolbar.destructor ( );
+		this.#toolbar = null;
 		this.#APIKeysControlsContainer.removeEventListener (
 			'apikeydeleted',
 			this.#onAPIKeyDeletedEventListener,
