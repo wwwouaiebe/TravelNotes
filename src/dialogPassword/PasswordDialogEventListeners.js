@@ -58,6 +58,11 @@ Tests ...
 
 class EyeMouseDownEL {
 
+	/**
+	A reference to the passwordInput HTMLElement of the dialogPassword
+	@private
+	*/
+
 	#passwordInput = null;
 
 	/*
@@ -69,11 +74,12 @@ class EyeMouseDownEL {
 		this.#passwordInput = passwordInput;
 	}
 
-	destructor ( ) {
-		this.#passwordInput = null;
-	}
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( mouseDownEvent ) {
+		mouseDownEvent.currentTarget.textContent = '👀';
 		mouseDownEvent.stopPropagation;
 		this.#passwordInput.type = 'text';
 	}
@@ -91,6 +97,11 @@ class EyeMouseDownEL {
 
 class EyeMouseUpEL {
 
+	/**
+	A reference to the passwordInput HTMLElement of the dialogPassword
+	@private
+	*/
+
 	#passwordInput = null;
 
 	/*
@@ -102,11 +113,12 @@ class EyeMouseUpEL {
 		this.#passwordInput = passwordInput;
 	}
 
-	destructor ( ) {
-		this.#passwordInput = null;
-	}
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( mouseUpEvent ) {
+		mouseUpEvent.currentTarget.textContent = '👁️';
 		mouseUpEvent.stopPropagation;
 		this.#passwordInput.type = 'password';
 		this.#passwordInput.focus ( );

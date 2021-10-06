@@ -192,7 +192,7 @@ class PanEventDispatcher {
 	constructor
 	@param {HTMLElement} target The target for the event dispatcher
 	@param {!number} button The button to use. must be PanEventDispatcher.LEFT_BUTTON or PanEventDispatcher.MIDDLE_BUTTON
-	or PanEventDispatcher.RIGHTLEFT_BUTTON. Default value: PanEventDispatcher.LEFT_BUTTON
+	or PanEventDispatcher.RIGHT_BUTTON. Default value: PanEventDispatcher.LEFT_BUTTON
 	*/
 
 	constructor ( target, button = ZERO ) {

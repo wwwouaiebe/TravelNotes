@@ -72,6 +72,7 @@ class PasswordDialog extends BaseDialog {
 
 	/**
 	The password html div
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -79,12 +80,14 @@ class PasswordDialog extends BaseDialog {
 
 	/**
 	the password html input
+	@type {HTMLElement}
 	@private
 	*/
 
 	#passwordInput = null;
 
 	/** the eye html span
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -92,10 +95,17 @@ class PasswordDialog extends BaseDialog {
 
 	/**
 	the verifyPassword constructor parameter
+	@type {boolean}
 	@private
 	*/
 
 	#verifyPassword = false;
+
+	/**
+	Events listeners
+	@type {Object}
+	@private
+	*/
 
 	#onMouseDownEyeEventListener = null;
 	#onMouseUpEyeEventListener = null;
@@ -108,10 +118,10 @@ class PasswordDialog extends BaseDialog {
 	constructor ( verifyPassword ) {
 		super ( );
 		this.#verifyPassword = verifyPassword;
+
+		// Adding HTMLElements
 		this.#passwordDiv = theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-PasswordDialog-PasswordDiv' } );
 		this.#passwordInput = theHTMLElementsFactory.create ( 'input', { type : 'password' }, this.#passwordDiv );
-		this.#onMouseDownEyeEventListener = new EyeMouseDownEL ( this.#passwordInput );
-		this.#onMouseUpEyeEventListener = new EyeMouseUpEL ( this.#passwordInput );
 		this.#eyeSpan = theHTMLElementsFactory.create (
 			'span',
 			{
@@ -120,6 +130,10 @@ class PasswordDialog extends BaseDialog {
 			},
 			this.#passwordDiv
 		);
+
+		// Event listeners
+		this.#onMouseDownEyeEventListener = new EyeMouseDownEL ( this.#passwordInput );
+		this.#onMouseUpEyeEventListener = new EyeMouseUpEL ( this.#passwordInput );
 		this.#eyeSpan.addEventListener ( 'mousedown', this.#onMouseDownEyeEventListener, false );
 		this.#eyeSpan.addEventListener ( 'mouseup', this.#onMouseUpEyeEventListener,	false );
 	}
@@ -127,8 +141,8 @@ class PasswordDialog extends BaseDialog {
 	#destructor ( ) {
 		this.#eyeSpan.removeEventListener ( 'mousedown', this.#onMouseDownEyeEventListener, false );
 		this.#eyeSpan.removeEventListener ( 'mouseup', this.#onMouseUpEyeEventListener,	false );
-		this.#onMouseDownEyeEventListener.destructor ( );
-		this.#onMouseUpEyeEventListener.destructor ( );
+		this.#onMouseDownEyeEventListener = null;
+		this.#onMouseUpEyeEventListener = null;
 
 	}
 
@@ -193,14 +207,14 @@ class PasswordDialog extends BaseDialog {
 	}
 
 	/**
-	Get an array with the HTMLElements that have to be added in the content of the dialog.
+	An array with the HTMLElements that have to be added in the content of the dialog.
 	@readonly
 	*/
 
 	get contentHTMLElements ( ) { return [ this.#passwordDiv ]; }
 
 	/**
-	Return the dialog title. Overload of the BaseDialog.title property
+	The dialog title. Overload of the BaseDialog.title property
 	@readonly
 	*/
 
