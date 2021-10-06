@@ -98,7 +98,7 @@ import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
-import { NOT_FOUND, ZERO } from '../main/Constants.js';
+import { NOT_FOUND } from '../main/Constants.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
@@ -114,6 +114,7 @@ class NoteDialogToolbar {
 
 	/**
 	HTMLElements
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -140,7 +141,7 @@ class NoteDialogToolbar {
 
 		theNoteDialogToolbarData.icons.forEach (
 			selectOption => {
-				this.#iconSelect.add ( theHTMLElementsFactory.create ( 'option', { text : selectOption [ ZERO ] } ) );
+				this.#iconSelect.add ( theHTMLElementsFactory.create ( 'option', { text : selectOption.name } ) );
 			}
 		);
 		this.#iconSelect.selectedIndex = NOT_FOUND;
@@ -212,7 +213,24 @@ class NoteDialogToolbar {
 	}
 
 	/**
+	Add the events listeners to the toolbar objects
+	@param {Object} eventListeners The event listeners created by the NoTeDialog object
+	@private
+	*/
+
+	#addEventListeners ( eventListeners ) {
+		this.#iconSelect.addEventListener ( 'change', eventListeners.iconSelectorChange );
+		this.#toogleContentsButton.addEventListener ( 'click', eventListeners.toggleContentsButtonClick );
+		this.#editionButtons.forEach (
+			button => { button.addEventListener ( 'click', eventListeners.editionButtonsClick ); }
+		);
+		this.#openFileButton.addEventListener ( 'click', eventListeners.openFileButtonClick, false );
+	}
+
+	/**
 	Remove event listeners on all htmlElements
+	@param {Object} eventListeners The event listeners created by the NoTeDialog object
+	@private
 	*/
 
 	#removeEventListeners ( eventListeners ) {
@@ -224,17 +242,9 @@ class NoteDialogToolbar {
 		this.#openFileButton.removeEventListener ( 'click', eventListeners.openFileButtonClick, false );
 	}
 
-	#addEventListeners ( eventListeners ) {
-		this.#iconSelect.addEventListener ( 'change', eventListeners.iconSelectorChange );
-		this.#toogleContentsButton.addEventListener ( 'click', eventListeners.toggleContentsButtonClick );
-		this.#editionButtons.forEach (
-			button => { button.addEventListener ( 'click', eventListeners.editionButtonsClick ); }
-		);
-		this.#openFileButton.addEventListener ( 'click', eventListeners.openFileButtonClick, false );
-	}
-
 	/*
 	constructor
+	@param {Object} eventListeners The event listeners created by the NoTeDialog object
 	*/
 
 	constructor ( eventListeners ) {
@@ -252,12 +262,18 @@ class NoteDialogToolbar {
 		this.#addEventListeners ( eventListeners );
 	}
 
+	/**
+	Destructor. Remove event listeners.
+	@param {Object} eventListeners The event listeners created by the NoTeDialog object
+	*/
+
 	destructor ( eventListeners ) {
 		this.#removeEventListeners ( eventListeners );
 	}
 
 	/**
 	Refresh the toolbar - needed after a file upload.
+	@param {Object} eventListeners The event listeners created by the NoTeDialog object
 	*/
 
 	update ( eventListeners ) {
@@ -269,7 +285,7 @@ class NoteDialogToolbar {
 	}
 
 	/**
-	get the rootHTMLElement of the toolbar
+	The rootHTMLElement of the toolbar
 	@readonly
 	*/
 

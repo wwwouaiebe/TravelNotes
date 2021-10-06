@@ -62,8 +62,28 @@ import { ZERO, ONE, ICON_DIMENSIONS } from '../main/Constants.js';
 
 class NoteDialogToolbarData {
 
+	/**
+	The additional buttons defined in the TravelNotesDialogXX.json file or a file loaded by the user
+	@type {Array.<NoteDialogToolbarButton>}
+	@private
+	*/
+
 	#editionButtons = [];
+
+	/**
+	A map with the additional icons defined in the TravelNotesDialogXX.json file or a file loaded by the user, ordered by name
+	@type {Map}
+	@private
+	*/
+
 	#preDefinedIconsMap = new Map ( );
+
+	/**
+	The additional icons defined in the TravelNotesDialogXX.json file or a file loaded by the user
+	@type {Array.<NoteDialogToolbarSelectOption>}
+	@private
+	*/
+
 	#preDefinedIcons = [];
 
 	/*
@@ -75,13 +95,16 @@ class NoteDialogToolbarData {
 	}
 
 	/**
-	the edition buttons
+	The additional buttons defined in the TravelNotesDialogXX.json file or a file loaded by the user
+	@type {Array.<NoteDialogToolbarButton>}
+	@readonly
 	*/
 
 	get buttons ( ) { return this.#editionButtons; }
 
 	/**
-	the predefined icons
+	The additional icons defined in the TravelNotesDialogXX.json file or a file loaded by the user
+	@type {Array.<NoteDialogToolbarSelectOption>}
 	*/
 
 	get icons ( ) {
@@ -90,14 +113,16 @@ class NoteDialogToolbarData {
 
 	/**
 	get and icon from the icon position in the array
+	@param {!number} The icon index in the array
 	*/
 
 	getIconData ( index ) {
-		return this.#preDefinedIcons [ index ] [ ONE ];
+		return this.#preDefinedIcons [ index ];
 	}
 
 	/**
-	get and icon from the icon name
+	get an icon from the icon name
+	@param {string} iconName The icon name
 	*/
 
 	getIconContentFromName ( iconName ) {
@@ -107,25 +132,60 @@ class NoteDialogToolbarData {
 
 	/**
 	Load a json file with predefined icons and / or edition buttons
+	@param {NoteDialogCfgFileContent} jsonData The file content after JSON.parse ( )
 	*/
 
 	loadJson ( jsonData ) {
 		if ( jsonData.editionButtons ) {
-			this.#editionButtons = this.#editionButtons.concat ( jsonData.editionButtons );
+			jsonData.editionButtons.forEach (
+				editionButton => {
+					let htmlString = ( editionButton.htmlBefore || '' ) + ( editionButton.htmlAfter || '' );
+					let errorsString = theHTMLSanitizer.sanitizeToHtmlString ( htmlString ).errorsString;
+					if ( '' === errorsString ) {
+						this.#editionButtons.push ( editionButton );
+					}
+					else {
+						console.error ( 'Invalid editionButton : ' + htmlString + ' ' + errorsString );
+					}
+				}
+			);
 		}
-		jsonData.preDefinedIconsList.forEach (
-			predefinedIcon => {
-				predefinedIcon.name = theHTMLSanitizer.sanitizeToJsString ( predefinedIcon.name ) || '?';
-				predefinedIcon.icon = theHTMLSanitizer.sanitizeToHtmlString ( predefinedIcon.icon ).htmlString || '?';
-				predefinedIcon.tooltip = theHTMLSanitizer.sanitizeToJsString ( predefinedIcon.tooltip ) || '?';
-				predefinedIcon.width = predefinedIcon.width || ICON_DIMENSIONS.width;
-				predefinedIcon.height = predefinedIcon.height || ICON_DIMENSIONS.height;
-				this.#preDefinedIconsMap.set ( predefinedIcon.name, predefinedIcon );
+		if ( jsonData.preDefinedIconsList ) {
+			jsonData.preDefinedIconsList.forEach (
+				predefinedIcon => {
+					predefinedIcon.name =
+						'string' === typeof ( predefinedIcon.name )
+							?
+							theHTMLSanitizer.sanitizeToJsString ( predefinedIcon.name )
+							:
+							'?';
+					predefinedIcon.icon =
+						'string' === typeof ( predefinedIcon.icon )
+							?
+							theHTMLSanitizer.sanitizeToHtmlString ( predefinedIcon.icon ).htmlString
+							:
+							'?';
+					predefinedIcon.tooltip =
+						'string' === typeof ( predefinedIcon.tooltip )
+							?
+							theHTMLSanitizer.sanitizeToHtmlString ( predefinedIcon.tooltip ).htmlString
+							:
+							'?';
+					predefinedIcon.width =
+						'number' === typeof ( predefinedIcon.width ) ? predefinedIcon.width : ICON_DIMENSIONS.width;
+					predefinedIcon.height =
+						'number' === typeof ( predefinedIcon.height ) ? predefinedIcon.height : ICON_DIMENSIONS.height;
+					this.#preDefinedIconsMap.set ( predefinedIcon.name, predefinedIcon );
+				}
+			);
+			this.#preDefinedIcons.length = ZERO;
+			for ( const element of this.#preDefinedIconsMap ) {
+				this.#preDefinedIcons.push ( element [ ONE ] );
 			}
-		);
-		this.#preDefinedIcons = Array.from ( this.#preDefinedIconsMap ).sort (
-			( first, second ) => first [ ZERO ].localeCompare ( second [ ZERO ] )
-		);
+			this.#preDefinedIcons = this.#preDefinedIcons.sort (
+				( first, second ) => first.name.localeCompare ( second.name )
+			);
+		}
 	}
 }
 

@@ -142,7 +142,7 @@ class HTMLSanitizer {
 
 	#stringifyUrl ( url, attributeName ) {
 		const validUrl = this.sanitizeToUrl ( url, attributeName ).url;
-		if ( '' === validUrl ) {
+		if ( '' === validUrl && '' !== url ) {
 			this.#stringifyErrors +=
 				'\nAn invalid url (' + 	url + ') was removed from a ' + attributeName + ' attribute';
 		}

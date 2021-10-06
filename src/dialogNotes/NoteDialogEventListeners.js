@@ -64,7 +64,18 @@ import { ZERO } from '../main/Constants.js';
 
 class NoteDialogGeoCoderHelper {
 
+	/**
+	A reference to the NoteDialog object
+	@type {NoteDialog}
+	@private
+	*/
+
 	#noteDialog = null;
+
+	/**
+	Success handler for the geoCoder.getAddressWithPromise ( ) method
+	@private
+	*/
 
 	#onAddressUpdatedByGeoCoder ( address ) {
 		this.#noteDialog.hideWait ( );
@@ -79,12 +90,17 @@ class NoteDialogGeoCoderHelper {
 
 	/*
 	constructor
+	@param {NoteDialog} A reference to the Notedialog object
 	*/
 
 	constructor ( noteDialog ) {
 		Object.freeze ( this );
 		this.#noteDialog = noteDialog;
 	}
+
+	/**
+	Set the address in the dialog, using GeoCoder
+	*/
 
 	setAddressWithGeoCoder ( latLng ) {
 		this.#noteDialog.showWait ( );
@@ -117,11 +133,19 @@ class NoteDialogGeoCoderHelper {
 
 class AddressButtonClickEL {
 
+	/**
+	A reference to the NoteDialog object
+	@type {NoteDialog}
+	@private
+	*/
+
 	#noteDialog = null;
 	#latLng = null;
 
 	/*
 	constructor
+	@param {NoteDialog} A reference to the Notedialog object
+	@param {Array.<!number>} The lat and lng for witch the address must be found
 	*/
 
 	constructor ( noteDialog, latLng ) {
@@ -129,6 +153,10 @@ class AddressButtonClickEL {
 		this.#noteDialog = noteDialog;
 		this.#latLng = latLng;
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -148,16 +176,27 @@ class AddressButtonClickEL {
 
 class AllControlsFocusEL {
 
+	/**
+	A reference to the NoteDialog object
+	@type {NoteDialog}
+	@private
+	*/
+
 	#noteDialog = null;
 
 	/*
 	constructor
+	@param {NoteDialog} A reference to the Notedialog object
 	*/
 
 	constructor ( noteDialog ) {
 		Object.freeze ( this );
 		this.#noteDialog = noteDialog;
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( focusEvent ) {
 		focusEvent.stopPropagation ( );
@@ -182,16 +221,27 @@ class AllControlsFocusEL {
 
 class UrlInputBlurEL {
 
+	/**
+	A reference to the NoteDialog object
+	@type {NoteDialog}
+	@private
+	*/
+
 	#noteDialog = null;
 
 	/*
 	constructor
+	@param {NoteDialog} A reference to the Notedialog object
 	*/
 
 	constructor ( noteDialog ) {
 		Object.freeze ( this );
 		this.#noteDialog = noteDialog;
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( blurEvent ) {
 		blurEvent.stopPropagation ( );
@@ -222,16 +272,27 @@ class UrlInputBlurEL {
 
 class AllControlsInputEL {
 
+	/**
+	A reference to the NoteDialog object
+	@type {NoteDialog}
+	@private
+	*/
+
 	#noteDialog = null;
 
 	/*
 	constructor
+	@param {NoteDialog} A reference to the Notedialog object
 	*/
 
 	constructor ( noteDialog ) {
 		Object.freeze ( this );
 		this.#noteDialog = noteDialog;
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( inputUpdatedEvent ) {
 		inputUpdatedEvent.stopPropagation ( );
@@ -253,10 +314,17 @@ class AllControlsInputEL {
 
 class EditionButtonsClickEL {
 
+	/**
+	A reference to the NoteDialog object
+	@type {NoteDialog}
+	@private
+	*/
+
 	#noteDialog = null;
 
 	/*
 	constructor
+	@param {NoteDialog} A reference to the Notedialog object
 	*/
 
 	constructor ( noteDialog ) {
@@ -264,12 +332,8 @@ class EditionButtonsClickEL {
 		this.#noteDialog = noteDialog;
 	}
 
-	destructor ( ) {
-		this.#noteDialog = null;
-	}
-
 	/**
-	click event listener fot the toolbar edition buttons. Update the current control value
+	Event listener method
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -320,6 +384,12 @@ class EditionButtonsClickEL {
 
 class IconSelectorChangeEL {
 
+	/**
+	A reference to the NoteDialog object
+	@type {NoteDialog}
+	@private
+	*/
+
 	#noteDialog = null;
 
 	/**
@@ -369,6 +439,7 @@ class IconSelectorChangeEL {
 
 	/*
 	constructor
+	@param {NoteDialog} A reference to the Notedialog object
 	*/
 
 	constructor ( noteDialog ) {
@@ -376,9 +447,9 @@ class IconSelectorChangeEL {
 		this.#noteDialog = noteDialog;
 	}
 
-	destructor ( ) {
-		this.#noteDialog = null;
-	}
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
@@ -412,19 +483,22 @@ class IconSelectorChangeEL {
 
 class ToggleContentsButtonClickEL {
 
+	/**
+	A reference to the NoteDialog object
+	@type {NoteDialog}
+	@private
+	*/
+
 	#noteDialog = null;
 
 	/*
 	constructor
+	@param {NoteDialog} A reference to the Notedialog object
 	*/
 
 	constructor ( noteDialog ) {
 		Object.freeze ( this );
 		this.#noteDialog = noteDialog;
-	}
-
-	destructor ( ) {
-		this.#noteDialog = null;
 	}
 
 	/**
@@ -449,10 +523,17 @@ class ToggleContentsButtonClickEL {
 
 class OpenFileInputChangeEL {
 
+	/**
+	A reference to the NoteDialog object
+	@type {NoteDialog}
+	@private
+	*/
+
 	#noteDialog = null;
 
 	/*
 	constructor
+	@param {NoteDialog} A reference to the Notedialog object
 	*/
 
 	constructor ( noteDialog ) {
@@ -495,10 +576,17 @@ class OpenFileInputChangeEL {
 
 class OpenFileButtonClickEL {
 
+	/**
+	A reference to the NoteDialog object
+	@type {NoteDialog}
+	@private
+	*/
+
 	#noteDialog = null;
 
 	/*
 	constructor
+	@param {NoteDialog} A reference to the Notedialog object
 	*/
 
 	constructor ( noteDialog ) {

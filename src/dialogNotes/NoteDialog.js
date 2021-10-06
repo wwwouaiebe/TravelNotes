@@ -172,6 +172,12 @@ class NoteDialog extends BaseDialog {
 
 	#focusControl = null;
 
+	/**
+	Event listeners
+	@type {Object}
+	@private
+	*/
+
 	#eventListeners = Object.seal (
 		{
 
@@ -188,6 +194,11 @@ class NoteDialog extends BaseDialog {
 			openFileButtonClick : null
 		}
 	);
+
+	/**
+	Destructor. Remove event listeners before closing the dialog and set event listeners objects
+	to null, so all references to the dialog are released
+	*/
 
 	#destructor ( ) {
 		this.#toolbar.destructor ( this.#eventListeners );
@@ -208,11 +219,12 @@ class NoteDialog extends BaseDialog {
 		this.#eventListeners.iconSelectorChange = null;
 		this.#eventListeners.toggleContentsButtonClick = null;
 		this.#eventListeners.openFileButtonClick = null;
-
 	}
 
 	/*
 	constructor
+	@param {Note} note The edited note
+	@param {Route} route The route to witch the note is linked
 	*/
 
 	constructor ( note, route ) {
@@ -220,9 +232,10 @@ class NoteDialog extends BaseDialog {
 
 		// Saving parameters
 		this.#note = note;
-		this.#startGeoCoder = '' === this.#note.address;
 		this.#route = route;
+		this.#startGeoCoder = '' === this.#note.address;
 
+		// creating event listeners
 		this.#eventListeners.controlFocus = new AllControlsFocusEL ( this );
 		this.#eventListeners.controlInput = new AllControlsInputEL ( this );
 		this.#eventListeners.addressButtonClick = new AddressButtonClickEL ( this, note.latLng );
