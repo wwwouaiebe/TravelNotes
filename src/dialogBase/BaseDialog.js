@@ -59,6 +59,33 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
+@typedef {Object} dialogOptions
+@desc An object to store the options of the select in the SelectDialog
+@property {string} text The text to be displayed as option HTMLElement
+@property {!number} objId An objId
+@public
+
+@------------------------------------------------------------------------------------------------------------------------------
+*/
+
+/**
+@------------------------------------------------------------------------------------------------------------------------------
+
+@typedef {Object} dialogOptions
+@desc An object to gives some options to a dialog, mainly for generic dialogs (SelectDialog, TwoButtonsDialog)
+@property {string} firstButtonText The text to be displayed on the first button on the bottom of the dialog. Default to 🆗
+@property {string} secondButtonText The text to be displayed on the first button on the bottom of the dialog.
+@property {Array.<SelectOptionSData>} selectOptionsData Options for the SelectDialog
+@property {string} title The title of the dialog
+@property {string} text A text to be displayed in the dialog
+@public
+
+@------------------------------------------------------------------------------------------------------------------------------
+*/
+
+/**
+@------------------------------------------------------------------------------------------------------------------------------
+
 @module dialogBase
 
 @------------------------------------------------------------------------------------------------------------------------------
@@ -502,6 +529,11 @@ class BaseDialog {
 
 		this.onShow ( );
 	}
+
+	/*
+	constructor
+	@param {dialogOptions} the options for the dialog
+	*/
 
 	constructor ( options = {} ) {
 		Object.freeze ( this );

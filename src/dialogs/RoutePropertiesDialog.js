@@ -82,6 +82,7 @@ class RoutePropertiesDialog extends BaseDialog {
 
 	/**
 	A reference to the route
+	@type {Route}
 	@private
 	*/
 
@@ -89,6 +90,7 @@ class RoutePropertiesDialog extends BaseDialog {
 
 	/**
 	The colorControl object used in the dialog
+	@type {ColorControl}
 	@private
 	*/
 
@@ -96,6 +98,7 @@ class RoutePropertiesDialog extends BaseDialog {
 
 	/**
 	The route name input in the dialog
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -103,6 +106,7 @@ class RoutePropertiesDialog extends BaseDialog {
 
 	/**
 	The route width input in the dialog
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -110,6 +114,7 @@ class RoutePropertiesDialog extends BaseDialog {
 
 	/**
 	The route dash select in the dialog
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -117,6 +122,7 @@ class RoutePropertiesDialog extends BaseDialog {
 
 	/**
 	The route chain check box in the dialog
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -319,7 +325,6 @@ class RoutePropertiesDialog extends BaseDialog {
 
 	get contentHTMLElements ( ) {
 		return [].concat (
-
 			this.#createNameDiv ( ),
 			this.#createWidthDiv ( ),
 			this.#createDashDiv ( ),

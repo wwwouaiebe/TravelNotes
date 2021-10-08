@@ -72,6 +72,7 @@ class WayPointPropertiesDialog extends BaseDialog {
 
 	/**
 	A reference to the edited wayPoint
+	@type {WayPoint}
 	@private
 	*/
 
@@ -79,6 +80,7 @@ class WayPointPropertiesDialog extends BaseDialog {
 
 	/**
 	The address input HTMLElement
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -86,6 +88,7 @@ class WayPointPropertiesDialog extends BaseDialog {
 
 	/**
 	The reser address button
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -93,6 +96,7 @@ class WayPointPropertiesDialog extends BaseDialog {
 
 	/**
 	The name input HTMLElement
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -218,7 +222,9 @@ class WayPointPropertiesDialog extends BaseDialog {
 	}
 
 	/**
-	Get an array with the HTMLElements that have to be added in the content of the dialog.
+	An array with the HTMLElements that have to be added in the content of the dialog.
+	Overload of the BaseDialog contentHTMLElements property.
+	{type {Array.<HTMLElement>}
 	@readonly
 	*/
 
@@ -230,7 +236,8 @@ class WayPointPropertiesDialog extends BaseDialog {
 	}
 
 	/**
-	The title of the dialog
+	The title of the dialog. Overload of the BaseDialog title property.
+	@type {string}
 	@readonly
 	*/
 

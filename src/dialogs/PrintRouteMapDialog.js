@@ -84,11 +84,52 @@ const OUR_MAX_ZOOM = 15;
 
 class PrintRouteMapDialog extends BaseDialog {
 
+	/**
+	The paper width input
+	@type {HTMLElement}
+	@private
+	*/
+
 	#paperWidthInput = null;
+
+	/**
+	The paper height input
+	@type {HTMLElement}
+	@private
+	*/
+
 	#paperHeightInput = null;
+
+	/**
+	The border width input
+	@type {HTMLElement}
+	@private
+	*/
+
 	#borderWidthInput = null;
+
+	/**
+	The page break input
+	@type {HTMLElement}
+	@private
+	*/
+
 	#pageBreakInput = null;
+
+	/**
+	The print notes input
+	@type {HTMLElement}
+	@private
+	*/
+
 	#printNotesInput = null;
+
+	/**
+	The zoom factor input
+	@type {HTMLElement}
+	@private
+	*/
+
 	#zoomFactorInput = null;
 
 	/**
@@ -167,6 +208,7 @@ class PrintRouteMapDialog extends BaseDialog {
 			},
 			paperHeightDiv
 		);
+
 		return paperHeightDiv;
 	}
 
@@ -241,6 +283,7 @@ class PrintRouteMapDialog extends BaseDialog {
 			},
 			zoomFactorDiv
 		);
+
 		return zoomFactorDiv;
 	}
 
@@ -272,6 +315,7 @@ class PrintRouteMapDialog extends BaseDialog {
 			},
 			pageBreakDiv
 		);
+
 		return pageBreakDiv;
 	}
 
@@ -303,6 +347,7 @@ class PrintRouteMapDialog extends BaseDialog {
 			},
 			printNotesDiv
 		);
+
 		return printNotesDiv;
 	}
 
@@ -310,8 +355,8 @@ class PrintRouteMapDialog extends BaseDialog {
 	constructor
 	*/
 
-	constructor ( options = {} ) {
-		super ( options );
+	constructor ( ) {
+		super ( );
 	}
 
 	/**

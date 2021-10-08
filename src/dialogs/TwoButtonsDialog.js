@@ -83,8 +83,8 @@ newTwoButtonsDialog (
 	}
 )
 	.show ( )
-	.then ( ( ) => doSomethingOnOkButtonClick )
-	.catch ( error => doSomethingWithTheError );
+	.then ( ... )
+	.catch ( ... );
 @extends BaseDialog
 @hideconstructor
 
@@ -92,6 +92,12 @@ newTwoButtonsDialog (
 */
 
 class TwoButtonsDialog extends BaseDialog {
+
+	/**
+	A reference to the options of the dialog
+	@type {dialogOptions}
+	@private
+	*/
 
 	#options = null;
 
@@ -105,8 +111,9 @@ class TwoButtonsDialog extends BaseDialog {
 	}
 
 	/**
-	Get an array with the HTMLElements that have to be added in the content of the dialog.
-	Can be overloaded in the derived classes
+	An array with the HTMLElements that have to be added in the content of the dialog.
+	Overload of the BaseDialog contentHTMLElements property.
+	{type {Array.<HTMLElement>}
 	@readonly
 	*/
 
@@ -122,7 +129,8 @@ class TwoButtonsDialog extends BaseDialog {
 	}
 
 	/**
-	Get the title of the dialog. Can be overloaded in the derived classes
+	The title of the dialog. Overload of the BaseDialog title property.
+	@type {string}
 	@readonly
 	*/
 

@@ -77,14 +77,21 @@ import { theAppVersion } from '../data/Version.js';
 
 class AboutDialog extends BaseDialog {
 
+	/**
+	The main
+	@type {HTMLElement}
+	@private
+	*/
+
 	#aboutDiv = null;
 
 	/*
 	constructor
+	@param {dialogOptions} options Options for the dialog
 	*/
 
-	constructor ( options = {} ) {
-		super ( options );
+	constructor ( ) {
+		super ( );
 		this.#aboutDiv = theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-AboutDialog-AboutDiv' } );
 
 		theHTMLSanitizer.sanitizeToHtmlElement (

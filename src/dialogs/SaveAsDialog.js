@@ -59,11 +59,6 @@ import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 Create an instance of the dialog, then execute the show ( ) method. The selected values are returned as parameter of the
 succes handler of the Promise returned by the show ( ) method.
 @extends BaseDialog
-@example
-new SaveAsDialog (  )
-	.show ( )
-	.then ( removeData => doSomethingWithTheDataToRemove )
-	.catch ( error => doSomethingWithTheError );
 @hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
@@ -71,11 +66,52 @@ new SaveAsDialog (  )
 
 class SaveAsDialog extends BaseDialog {
 
+	/**
+	The remove travel notes input
+	@type {HTMLElement}
+	@private
+	*/
+
 	#removeTravelNotesInput = null;
+
+	/**
+	The remove route notes input
+	@type {HTMLElement}
+	@private
+	*/
+
 	#removeRoutesNotesInput = null;
+
+	/**
+	The remove maneuvers input
+	@type {HTMLElement}
+	@private
+	*/
+
 	#removeManeuversInput = null;
+
+	/**
+	The remove travel notes div
+	@type {HTMLElement}
+	@private
+	*/
+
 	#removeTravelNotesDiv = null;
+
+	/**
+	The remove route notes div
+	@type {HTMLElement}
+	@private
+	*/
+
 	#removeRoutesNotesDiv = null;
+
+	/**
+	The remove maneuvers div
+	@type {HTMLElement}
+	@private
+	*/
+
 	#removeManeuversDiv = null;
 
 	/**
