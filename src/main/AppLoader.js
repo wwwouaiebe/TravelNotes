@@ -79,7 +79,7 @@ const OUR_DEMO_MAX_MANEUVERS_NOTES = 10;
 */
 
 class RoadbookUpdateEL {
-	
+
 	/**
 	@type {boolean}
 	@private
@@ -142,7 +142,7 @@ class AppLoader {
 	@type {string}
 	@private
 	*/
-	
+
 	#travelUrl = null;
 
 	/**
@@ -150,7 +150,7 @@ class AppLoader {
 	@type {string}
 	@private
 	*/
-	
+
 	#language = null;
 
 	/**
@@ -158,7 +158,7 @@ class AppLoader {
 	@type {string}
 	@private
 	*/
-	
+
 	#originAndPath = null;
 
 	/**
@@ -166,7 +166,7 @@ class AppLoader {
 	@type {string}
 	@private
 	*/
-	
+
 	#errorMessage = '';
 
 	/**
@@ -624,7 +624,7 @@ class AppLoader {
 
 	async #loadJsonFiles ( ) {
 
-		// loading the files in // 
+		// loading the files in //
 		const results = await Promise.allSettled ( [
 			fetch ( this.#originAndPath +	this.#language.toUpperCase ( ) + '.json' ),
 			fetch ( this.#originAndPath + 'EN.json' ),

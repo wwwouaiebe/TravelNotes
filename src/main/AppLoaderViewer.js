@@ -64,7 +64,7 @@ const OUR_VIEWER_DEFAULT_ZOOM = 2;
 @------------------------------------------------------------------------------------------------------------------------------
 
 @class KeydownEventListener
-@classdesc keydown event listener
+@classdesc keydown event listener, so we can use the keyboard for zoom on the travel, geolocator and maps
 @private
 
 @------------------------------------------------------------------------------------------------------------------------------
@@ -79,6 +79,10 @@ class KeydownEventListener {
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( keyBoardEvent ) {
 		keyBoardEvent.stopPropagation ( );
@@ -197,27 +201,20 @@ class AppLoaderViewer {
 		const docURL = new URL ( window.location );
 		let strTravelUrl = docURL.searchParams.get ( 'fil' );
 		if ( strTravelUrl && ZERO !== strTravelUrl.length ) {
-			try {
-				strTravelUrl = atob ( strTravelUrl );
-				if ( strTravelUrl.match ( /[^\w-%:./]/ ) ) {
-					throw new Error ( 'invalid char in the url encoded in the fil parameter' );
-				}
-				const travelURL = new URL ( strTravelUrl );
-				if (
-					docURL.protocol && travelURL.protocol && docURL.protocol === travelURL.protocol
-					&&
-					docURL.hostname && travelURL.hostname && docURL.hostname === travelURL.hostname
-				) {
-					this.#travelUrl = encodeURI ( travelURL.href );
-				}
-				else {
-					throw new Error ( 'The distant file is not on the same site than the app' );
-				}
+			strTravelUrl = atob ( strTravelUrl );
+			if ( strTravelUrl.match ( /[^\w-%:./]/ ) ) {
+				throw new Error ( 'invalid char in the url encoded in the fil parameter' );
 			}
-			catch ( err ) {
-				if ( err instanceof Error ) {
-					console.error ( err );
-				}
+			const travelURL = new URL ( strTravelUrl );
+			if (
+				docURL.protocol && travelURL.protocol && docURL.protocol === travelURL.protocol
+				&&
+				docURL.hostname && travelURL.hostname && docURL.hostname === travelURL.hostname
+			) {
+				this.#travelUrl = encodeURI ( travelURL.href );
+			}
+			else {
+				throw new Error ( 'The distant file is not on the same site than the app' );
 			}
 		}
 		const urlLng = docURL.searchParams.get ( 'lng' );
@@ -302,23 +299,31 @@ class AppLoaderViewer {
 	*/
 
 	async loadApp ( ) {
-		this.#readURL ( );
-		if ( ! await this.#loadConfig ( ) ) {
-			document.body.textContent = 'Not possible to load the TravelNotesConfig.json file. ';
-			return;
+		try {
+			this.#readURL ( );
+			if ( ! await this.#loadConfig ( ) ) {
+				document.body.textContent = 'Not possible to load the TravelNotesConfig.json file. ';
+				return;
+			}
+			this.#language = this.#language || theConfig.travelNotes.language;
+			if ( ! await this.#loadTranslations ( ) ) {
+				document.body.textContent =
+					'Not possible to load the TravelNotesConfig' + this.#language.toUpperCase ( ) + '.json file. ';
+				return;
+			}
+			if ( ! await this.#loadMapLayers ( ) ) {
+				document.body.textContent = 'Not possible to load the TravelNotesLayers.json file. ';
+				return;
+			}
+			this.#addEventsListeners ( );
+			this.#loadTravelNotes ( );
 		}
-		this.#language = this.#language || theConfig.travelNotes.language;
-		if ( ! await this.#loadTranslations ( ) ) {
-			document.body.textContent =
-				'Not possible to load the TravelNotesConfig' + this.#language.toUpperCase ( ) + '.json file. ';
-			return;
+		catch ( err ) {
+			if ( err instanceof Error ) {
+				console.error ( err );
+				document.body.textContent = err.message;
+			}
 		}
-		if ( ! await this.#loadMapLayers ( ) ) {
-			document.body.textContent = 'Not possible to load the TravelNotesLayers.json file. ';
-			return;
-		}
-		this.#addEventsListeners ( );
-		this.#loadTravelNotes ( );
 
 	}
 }
