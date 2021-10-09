@@ -79,6 +79,11 @@ const OUR_DEMO_MAX_MANEUVERS_NOTES = 10;
 */
 
 class RoadbookUpdateEL {
+	
+	/**
+	@type {boolean}
+	@private
+	*/
 
 	#storageAvailable = false;
 
@@ -90,6 +95,10 @@ class RoadbookUpdateEL {
 		Object.freeze ( this );
 		this.#storageAvailable = theUtilities.storageAvailable ( 'localStorage' );
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( ) {
 		theMouseUI.saveStatus = SAVE_STATUS.modified;
@@ -119,7 +128,7 @@ class RoadbookUpdateEL {
 @------------------------------------------------------------------------------------------------------------------------------
 
 @class AppLoader
-@classdesc Loader for the app.Load all the json files needed (config, translations, map layers...) and add event listeners
+@classdesc Loader for the app. Load all the json files needed (config, translations, map layers...) and add event listeners
 to the document
 @hideconstructor
 
@@ -128,9 +137,36 @@ to the document
 
 class AppLoader {
 
+	/**
+	The url of the trv file in the fil parameter of the url
+	@type {string}
+	@private
+	*/
+	
 	#travelUrl = null;
+
+	/**
+	the language in the lng parameter of the url
+	@type {string}
+	@private
+	*/
+	
 	#language = null;
-	#originAndPath = window.location.href.substr ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'TravelNotes';
+
+	/**
+	The path of the app + TravelNotes ( first part of the json file names )
+	@type {string}
+	@private
+	*/
+	
+	#originAndPath = null;
+
+	/**
+	An error message used when loading the json files
+	@type {string}
+	@private
+	*/
+	
 	#errorMessage = '';
 
 	/**
@@ -408,7 +444,7 @@ class AppLoader {
 			}
 		}
 
-		// 'lng' parameter. lng must be 2 letters...
+		// 'lng' parameter (lng as 'language and not lng as longitude...). lng must be 2 letters...
 		const urlLng = docURL.searchParams.get ( 'lng' );
 		if ( urlLng ) {
 			if ( urlLng.match ( /^[A-Z,a-z]{2}$/ ) ) {
@@ -588,6 +624,7 @@ class AppLoader {
 
 	async #loadJsonFiles ( ) {
 
+		// loading the files in // 
 		const results = await Promise.allSettled ( [
 			fetch ( this.#originAndPath +	this.#language.toUpperCase ( ) + '.json' ),
 			fetch ( this.#originAndPath + 'EN.json' ),
@@ -622,7 +659,7 @@ class AppLoader {
 
 	/**
 	Loading theTravelNotes
-	@readonly
+	@private
 	*/
 
 	#loadTravelNotes ( ) {
@@ -659,7 +696,6 @@ class AppLoader {
 		this.#addEventsListeners ( );
 		this.#originAndPath =
 			window.location.href.substr ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'TravelNotes';
-
 		window.TaN = theTravelNotes;
 		this.#readURL ( );
 
