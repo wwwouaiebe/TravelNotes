@@ -61,6 +61,7 @@ import { APIKeyDeletedEL } from '../dialogAPIKeys/APIKeysDialogEventListeners.js
 import theTranslator from '../UILib/Translator.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import APIKeysDialogKeyControl from '../dialogAPIKeys/APIKeysDialogKeyControl.js';
+import theErrorsUI from '../errorsUI/ErrorsUI.js';
 
 import { ZERO } from '../main/Constants.js';
 
@@ -219,6 +220,18 @@ class APIKeysDialog extends BaseDialog {
 		}
 		this.#APIKeysControls.forEach (
 			APIKeyControl => { this.#APIKeysControlsContainer.appendChild ( APIKeyControl.HTMLElements [ ZERO ] ); }
+		);
+	}
+
+	/**
+	Overload of the BaseDialog.onShow ( ) method.
+	*/
+
+	onShow ( ) {
+		theErrorsUI.showHelp (
+			'<p>' + theTranslator.getText ( 'Help - Complete the APIKeys1' ) + '</p>' +
+			'<p>' + theTranslator.getText ( 'Help - Complete the APIKeys2' ) + '</p>' +
+			'<p>' + theTranslator.getText ( 'Help - Complete the APIKeys3' ) + '</p>'
 		);
 	}
 

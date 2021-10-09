@@ -55,7 +55,6 @@ Tests ...
 import theConfig from '../data/Config.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
-import theTranslator from '../UILib/Translator.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
@@ -71,49 +70,46 @@ import theTranslator from '../UILib/Translator.js';
 class ErrorsUI {
 
 	/**
+	@type {HTMLElement}
 	@private
 	*/
 
 	#mainHTMLElement = null;
 
 	/**
+	@type {HTMLElement}
 	@private
 	*/
 
 	#messageHTMLElement = null;
 
 	/**
+	@type {number}
 	@private
 	*/
 
 	#timerId = null;
 
 	/**
+	@type {HTMLElement}
 	@private
 	*/
 
-	#showHelpInput = null;
+	#hideHelpInput = null;
 
 	/**
+	@type {HTMLElement}
 	@private
 	*/
 
-	#showHelpHTMLElement = null;
+	#hideHelpHTMLElement = null;
 
 	/**
+	@type {string}
 	@private
 	*/
 
-	#showHelp = theConfig.errorsUI.showHelp;
-
-	/**
-	Event listener for the input change for the show help checkbox
-	@private
-	*/
-
-	#onHelpInputChange ( ) {
-		this.#showHelp = ! this.#showHelpInput.checked;
-	}
+	#currentErrorLevel = '';
 
 	/**
 	Hide the help window
@@ -125,12 +121,9 @@ class ErrorsUI {
 			clearTimeout ( this.#timerId );
 			this.#timerId = null;
 		}
-		this.#mainHTMLElement.classList.remove ( 'TravelNotes-ErrorsUI-Error' );
-		this.#mainHTMLElement.classList.remove ( 'TravelNotes-ErrorsUI-Warning' );
-		this.#mainHTMLElement.classList.remove ( 'TravelNotes-ErrorsUI-Info' );
-		this.#mainHTMLElement.classList.remove ( 'TravelNotes-ErrorsUI-Help' );
+		this.#mainHTMLElement.classList.remove ( 'TravelNotes-ErrorsUI-' + this.#currentErrorLevel );
 		this.#mainHTMLElement.classList.add ( 'TravelNotes-Hidden' );
-		this.#showHelpHTMLElement.classList.add ( 'TravelNotes-Hidden' );
+		this.#hideHelpHTMLElement.classList.add ( 'TravelNotes-Hidden' );
 		this.#messageHTMLElement.textContent = '';
 	}
 
@@ -142,16 +135,11 @@ class ErrorsUI {
 	*/
 
 	#show ( message, errorLevel ) {
+		this.#currentErrorLevel = errorLevel;
 		if (
-			( 'Error' === errorLevel && ! theConfig.errorsUI.showError )
+			( ! theConfig.errorsUI [ 'show' + this.#currentErrorLevel ] )
 			||
-			( 'Warning' === errorLevel && ! theConfig.errorsUI.showWarning )
-			||
-			( 'Info' === errorLevel && ! theConfig.errorsUI.showInfo )
-			||
-			( 'Help' === errorLevel && ! theConfig.errorsUI.showHelp )
-			||
-			( 'Help' === errorLevel && ! this.#showHelp )
+			( 'Help' === errorLevel && this.#hideHelpInput.checked )
 		) {
 			return;
 		}
@@ -160,12 +148,12 @@ class ErrorsUI {
 			this.#timerId = null;
 		}
 		theHTMLSanitizer.sanitizeToHtmlElement ( message, this.#messageHTMLElement );
-		this.#mainHTMLElement.classList.add ( 'TravelNotes-ErrorsUI-' + errorLevel );
+		this.#mainHTMLElement.classList.add ( 'TravelNotes-ErrorsUI-' + this.#currentErrorLevel );
 		this.#mainHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
 
 		let timeOutDuration = theConfig.errorsUI.timeOut;
-		if ( 'Help' === errorLevel ) {
-			this.#showHelpHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
+		if ( 'Help' === this.#currentErrorLevel ) {
+			this.#hideHelpHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
 			timeOutDuration = theConfig.errorsUI.helpTimeOut;
 		}
 		this.#timerId = setTimeout ( ( ) => this.#hide ( ), timeOutDuration );
@@ -212,7 +200,7 @@ class ErrorsUI {
 			},
 			this.#mainHTMLElement
 		);
-		this.#showHelpHTMLElement = theHTMLElementsFactory.create (
+		this.#hideHelpHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
 				id : 'TravelNotes-ErrorsUI-HelpInputDiv',
@@ -220,23 +208,26 @@ class ErrorsUI {
 			},
 			this.#mainHTMLElement
 		);
-		this.#showHelpInput = theHTMLElementsFactory.create (
+		this.#hideHelpInput = theHTMLElementsFactory.create (
 			'input',
 			{
 				id : 'TravelNotes-ErrorsUI-HelpInput',
-				type : 'checkbox'
+				type : 'checkbox',
+				checked : ! theConfig.errorsUI.showHelp
 			},
-			this.#showHelpHTMLElement
+			this.#hideHelpHTMLElement
 		);
-		this.#showHelpInput.addEventListener ( 'change', ( ) => this.#onHelpInputChange ( ), false );
 		theHTMLElementsFactory.create (
 			'label',
 			{
 				id : 'TravelNotes-ErrorsUI-HelpInputLabel',
 				htmlFor : 'TravelNotes-ErrorsUI-HelpInput',
-				textContent : theTranslator.getText ( 'ErrorUI - Dont show again' )
+				textContent : 'Don\'t show help again'
+
+				// not possible to translate. We need the ErrorsUI for loading translations!
+				// textContent : theTranslator.getText ( 'ErrorUI - Dont show again' )
 			},
-			this.#showHelpHTMLElement
+			this.#hideHelpHTMLElement
 		);
 	}
 
