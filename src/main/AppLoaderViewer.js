@@ -114,10 +114,42 @@ class KeydownEventListener {
 
 class AppLoaderViewer {
 
+	/**
+	The url of the trv file in the fil parameter of the url
+	@type {string}
+	@private
+	*/
+
 	#travelUrl = null;
+
+	/**
+	the language in the lng parameter of the url
+	@type {string}
+	@private
+	*/
+
 	#language = null;
-	#addLayerToolbar = false;
+
+	/**
+	The path of the app + TravelNotes ( first part of the json file names )
+	@type {string}
+	@private
+	*/
+
 	#originAndPath = window.location.href.substr ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'TravelNotes';
+
+	/**
+	@type {boolean}
+	@private
+	*/
+
+	#addLayerToolbar = false;
+
+	/**
+	The mapEditorViewer
+	@type {MapEditorViewer}
+	@private
+	*/
 
 	static #mapEditorViewer = new MapEditorViewer ( );
 
@@ -201,20 +233,27 @@ class AppLoaderViewer {
 		const docURL = new URL ( window.location );
 		let strTravelUrl = docURL.searchParams.get ( 'fil' );
 		if ( strTravelUrl && ZERO !== strTravelUrl.length ) {
-			strTravelUrl = atob ( strTravelUrl );
-			if ( strTravelUrl.match ( /[^\w-%:./]/ ) ) {
-				throw new Error ( 'invalid char in the url encoded in the fil parameter' );
+			try {
+				strTravelUrl = atob ( strTravelUrl );
+				if ( strTravelUrl.match ( /[^\w-%:./]/ ) ) {
+					throw new Error ( 'invalid char in the url encoded in the fil parameter' );
+				}
+				const travelURL = new URL ( strTravelUrl );
+				if (
+					docURL.protocol && travelURL.protocol && docURL.protocol === travelURL.protocol
+					&&
+					docURL.hostname && travelURL.hostname && docURL.hostname === travelURL.hostname
+				) {
+					this.#travelUrl = encodeURI ( travelURL.href );
+				}
+				else {
+					throw new Error ( 'The distant file is not on the same site than the app' );
+				}
 			}
-			const travelURL = new URL ( strTravelUrl );
-			if (
-				docURL.protocol && travelURL.protocol && docURL.protocol === travelURL.protocol
-				&&
-				docURL.hostname && travelURL.hostname && docURL.hostname === travelURL.hostname
-			) {
-				this.#travelUrl = encodeURI ( travelURL.href );
-			}
-			else {
-				throw new Error ( 'The distant file is not on the same site than the app' );
+			catch ( err ) {
+				if ( err instanceof Error ) {
+					console.error ( err );
+				}
 			}
 		}
 		const urlLng = docURL.searchParams.get ( 'lng' );
@@ -252,7 +291,7 @@ class AppLoaderViewer {
 	*/
 
 	async #loadTranslations ( ) {
-		const languageResponse = await fetch ( this.#originAndPath +	this.#language.toUpperCase ( ) + '.json' );
+		const languageResponse = await fetch ( this.#originAndPath + this.#language.toUpperCase ( ) + '.json' );
 		if ( HTTP_STATUS_OK === languageResponse.status && languageResponse.ok ) {
 			theTranslator.setTranslations ( await languageResponse.json ( ) );
 			return true;
@@ -273,6 +312,11 @@ class AppLoaderViewer {
 		}
 		return false;
 	}
+
+	/**
+	Loading TravelNotes
+	@private
+	*/
 
 	#loadTravelNotes ( ) {
 
@@ -299,32 +343,23 @@ class AppLoaderViewer {
 	*/
 
 	async loadApp ( ) {
-		try {
-			this.#readURL ( );
-			if ( ! await this.#loadConfig ( ) ) {
-				document.body.textContent = 'Not possible to load the TravelNotesConfig.json file. ';
-				return;
-			}
-			this.#language = this.#language || theConfig.travelNotes.language;
-			if ( ! await this.#loadTranslations ( ) ) {
-				document.body.textContent =
-					'Not possible to load the TravelNotesConfig' + this.#language.toUpperCase ( ) + '.json file. ';
-				return;
-			}
-			if ( ! await this.#loadMapLayers ( ) ) {
-				document.body.textContent = 'Not possible to load the TravelNotesLayers.json file. ';
-				return;
-			}
-			this.#addEventsListeners ( );
-			this.#loadTravelNotes ( );
+		this.#readURL ( );
+		if ( ! await this.#loadConfig ( ) ) {
+			document.body.textContent = 'Not possible to load the TravelNotesConfig.json file. ';
+			return;
 		}
-		catch ( err ) {
-			if ( err instanceof Error ) {
-				console.error ( err );
-				document.body.textContent = err.message;
-			}
+		this.#language = this.#language || theConfig.travelNotes.language;
+		if ( ! await this.#loadTranslations ( ) ) {
+			document.body.textContent =
+				'Not possible to load the TravelNotesConfig' + this.#language.toUpperCase ( ) + '.json file. ';
+			return;
 		}
-
+		if ( ! await this.#loadMapLayers ( ) ) {
+			document.body.textContent = 'Not possible to load the TravelNotesLayers.json file. ';
+			return;
+		}
+		this.#addEventsListeners ( );
+		this.#loadTravelNotes ( );
 	}
 }
 

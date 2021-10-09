@@ -159,7 +159,7 @@ class AppLoader {
 	@private
 	*/
 
-	#originAndPath = null;
+	#originAndPath = window.location.href.substr ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'TravelNotes';
 
 	/**
 	An error message used when loading the json files
@@ -694,8 +694,6 @@ class AppLoader {
 
 	async loadApp ( ) {
 		this.#addEventsListeners ( );
-		this.#originAndPath =
-			window.location.href.substr ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'TravelNotes';
 		window.TaN = theTravelNotes;
 		this.#readURL ( );
 
