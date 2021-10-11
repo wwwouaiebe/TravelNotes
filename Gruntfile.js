@@ -139,8 +139,8 @@ module.exports = function(grunt) {
 					format : 'iife'
 				},
 				files: {
-				  'tmpDebug/TravelNotes.min.js': ['src/main/main.js'],  
-				  'tmpDebug/TravelNotesViewer.min.js': ['src/main/mainViewer.js'],  
+				  'tmpDebug/TravelNotes.min.js': ['src/main/Main.js'],  
+				  'tmpDebug/TravelNotesViewer.min.js': ['src/main/MainViewer.js'],  
 				  'tmpDebug/TravelNotesRoadbook.min.js': ['src/roadbook/roadbook.js'],			  
 				  'tmpDebug/GraphHopperRouteProvider.min.js': ['src/routeProviders/GraphHopperRouteProvider.js'],			  
 				  'tmpDebug/MapboxRouteProvider.min.js': ['src/routeProviders/MapboxRouteProvider.js'],			  
@@ -159,8 +159,8 @@ module.exports = function(grunt) {
 					format : 'iife'
 				},
 				files: {
-				  'tmpRelease/TravelNotes.min.js': ['tmpRelease/src/main/main.js'],  
-				  'tmpRelease/TravelNotesViewer.min.js': ['tmpRelease/src/main/mainViewer.js'],  
+				  'tmpRelease/TravelNotes.min.js': ['tmpRelease/src/main/Main.js'],  
+				  'tmpRelease/TravelNotesViewer.min.js': ['tmpRelease/src/main/MainViewer.js'],  
 				  'tmpRelease/TravelNotesRoadbook.min.js': ['tmpRelease/src/roadbook/roadbook.js'],			  
 				  'tmpRelease/GraphHopperRouteProvider.min.js': ['tmpRelease/src/routeProviders/GraphHopperRouteProvider.js'],			  
 				  'tmpRelease/MapboxRouteProvider.min.js': ['tmpRelease/src/routeProviders/MapboxRouteProvider.js'],			  

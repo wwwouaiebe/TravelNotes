@@ -147,6 +147,7 @@ class ErrorsUI {
 			clearTimeout ( this.#timerId );
 			this.#timerId = null;
 		}
+		this.#messageHTMLElement.textContent = '';
 		theHTMLSanitizer.sanitizeToHtmlElement ( message, this.#messageHTMLElement );
 		this.#mainHTMLElement.classList.add ( 'TravelNotes-ErrorsUI-' + this.#currentErrorLevel );
 		this.#mainHTMLElement.classList.remove ( 'TravelNotes-Hidden' );

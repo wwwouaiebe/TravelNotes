@@ -65,7 +65,7 @@ const OUR_VIEWER_DEFAULT_ZOOM = 2;
 
 @class KeydownEventListener
 @classdesc keydown event listener, so we can use the keyboard for zoom on the travel, geolocator and maps
-@private
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -269,6 +269,7 @@ class AppLoaderViewer {
 
 	/**
 	Loading the config.json file from the server
+	@private
 	*/
 
 	async #loadConfig ( ) {

@@ -54,5 +54,5 @@ import AppLoaderViewer from '../main/AppLoaderViewer.js';
 new AppLoaderViewer ( ).loadApp ( );
 
 /*
---- End of MainViewer file ----------------------------------------------------------------------------------------------------
+--- End of MainViewer.js file -------------------------------------------------------------------------------------------------
 */

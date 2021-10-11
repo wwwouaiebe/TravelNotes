@@ -2,7 +2,7 @@
   "name": "travelnotes",
   "version": "3.1.0-dev",
   "description": "A mapping and routing application.",
-  "main": "src/main/main.js",
+  "main": "src/main/Main.js",
   "dependencies": {
     "leaflet": "latest"
   },

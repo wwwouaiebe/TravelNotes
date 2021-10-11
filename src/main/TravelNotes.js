@@ -107,13 +107,16 @@ class TravelNotes {
 
 	/**
 	Guard to avoid a second upload
-	#private
+	@type {boolean}
+	@private
 	*/
 
 	#travelNotesLoaded = false;
 
 	/**
 	Load a travel from the server
+	@param {string} travelUrl The url of the trv file to open
+	@private
 	*/
 
 	async #loadDistantTravel ( travelUrl ) {
@@ -122,7 +125,7 @@ class TravelNotes {
 			new ViewerFileLoader ( ).openDistantFile ( await travelResponse.json ( ) );
 		}
 		else {
-			theTravelNotesData.map.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], TWO	);
+			theTravelNotesData.map.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], TWO );
 			document.title = 'Travel & Notes';
 		}
 	}
@@ -138,13 +141,17 @@ class TravelNotes {
 	/**
 	This method load TravelNotes and open a read only map passed trought the url.
 	This method can only be executed once. Others call will be ignored.
+	@param {string} travelUrl The url of the trv file to open
 	*/
 
 	addReadOnlyMap ( travelUrl ) {
+
 		if ( this.#travelNotesLoaded ) {
 			return;
 		}
+
 		this.#travelNotesLoaded = true;
+
 		theAttributionsUI.createUI ( );
 		theMapLayersToolbarUI.setMapLayer ( 'OSM - Color' );
 		this.#loadDistantTravel ( travelUrl );
@@ -156,21 +163,25 @@ class TravelNotes {
 	*/
 
 	addControl ( ) {
+
 		if ( this.#travelNotesLoaded ) {
 			return;
 		}
+
 		this.#travelNotesLoaded = true;
 
+		// Loading the user interfaces...
 		document.title = 'Travel & Notes';
-
 		theTravelNotesData.map.on ( 'contextmenu', contextMenuEvent => new MapContextMenu ( contextMenuEvent ) .show ( ) );
+		theTravelNotesData.map.setView ( [ theConfig.map.center.lat, theConfig.map.center.lng ], theConfig.map.zoom );
 
-		theTravelNotesData.travel.jsonObject = new Travel ( ).jsonObject;
-
+		// ... the main UI...
 		theUI.createUI ( theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-UI' }, document.body ) );
 
+		// ... the attributions UI...
 		theAttributionsUI.createUI ( );
-		theAPIKeysManager.setKeysFromServerFile ( );
+
+		// ... the map layers toolbar UI...
 		if ( theConfig.layersToolbarUI.haveLayersToolbarUI ) {
 			theMapLayersToolbarUI.createUI ( );
 		}
@@ -178,10 +189,23 @@ class TravelNotes {
 			theMapLayersToolbarUI.setMapLayer ( 'OSM - Color' );
 		}
 
+		// ... the mouse UI
 		if ( theConfig.mouseUI.haveMouseUI ) {
 			theMouseUI.createUI ( );
 			theMouseUI.saveStatus = SAVE_STATUS.saved;
 		}
+
+		// ...help UI
+		theErrorsUI.showHelp (
+			'<p>' + theTranslator.getText ( 'Help - Continue with interface1' ) + '</p>' +
+			'<p>' + theTranslator.getText ( 'Help - Continue with interface2' ) + '</p>'
+		);
+
+		// Loading the API keys
+		theAPIKeysManager.setKeysFromServerFile ( );
+
+		// Loading a new empty travel
+		theTravelNotesData.travel.jsonObject = new Travel ( ).jsonObject;
 
 		if ( theConfig.travelEditor.startupRouteEdition ) {
 			theRouteEditor.editRoute ( theTravelNotesData.travel.routes.first.objId );
@@ -190,18 +214,11 @@ class TravelNotes {
 		theEventDispatcher.dispatch ( 'setrouteslist' );
 		theEventDispatcher.dispatch ( 'roadbookupdate' );
 
-		theTravelNotesData.map.setView ( [ theConfig.map.center.lat, theConfig.map.center.lng ], theConfig.map.zoom );
-
-		theErrorsUI.showHelp (
-			'<p>' + theTranslator.getText ( 'Help - Continue with interface1' ) + '</p>' +
-			'<p>' + theTranslator.getText ( 'Help - Continue with interface2' ) + '</p>'
-		);
-
 	}
 
 	/**
 	This method add a provider. Used by plugins.
-	@param {Provider} provider The provider to add
+	@param {class} provider The provider to add
 	*/
 
 	addProvider ( providerClass ) {
@@ -217,19 +234,22 @@ class TravelNotes {
 	}
 
 	/**
-	get the overpassApi url
+	The overpassApi url to use by plugins
+	@type {string}
 	*/
 
 	get overpassApiUrl ( ) { return theConfig.overpassApi.url; }
 
 	/**
 	get the Leaflet map object
+	@type {Leaflet.map}
 	*/
 
 	get map ( ) { return theTravelNotesData.map; }
 
 	/**
 	theTravelNotes version
+	@type {string}
 	*/
 
 	get version ( ) { return theAppVersion; }

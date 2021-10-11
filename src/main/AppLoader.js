@@ -72,7 +72,7 @@ const OUR_DEMO_MAX_MANEUVERS_NOTES = 10;
 @------------------------------------------------------------------------------------------------------------------------------
 
 @class RoadbookUpdateEL
-@classdesc 'roadbookupdate' event listener
+@classdesc roadbookupdate event listener
 @hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
@@ -455,6 +455,7 @@ class AppLoader {
 
 	/**
 	Loading the config.json file from the server
+	@private
 	*/
 
 	async #loadConfig ( ) {

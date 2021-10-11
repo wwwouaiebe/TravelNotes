@@ -65,10 +65,18 @@ import { TWO, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
 
 class TravelNotesViewer {
 
+	/**
+	Guard to avoid a second upload
+	@type {boolean}
+	@private
+	*/
+
 	#travelNotesLoaded = false;
 
 	/**
 	Load a travel from the server
+	@param {string} travelUrl The url of the trv file to open
+	@private
 	*/
 
 	async #loadDistantTravel ( travelUrl ) {
@@ -93,12 +101,16 @@ class TravelNotesViewer {
 	/**
 	This method load the TravelNotes viewer and open a read only map passed trought the url.
 	This method can only be executed once. Others call will be ignored.
+	@param {string} travelUrl The url of the trv file to open
+	@param {boolean} addLayerToolbar A bollean indicating when the map layer toolbar must be visible
 	*/
 
 	addReadOnlyMap ( travelUrl, addLayerToolbar ) {
+
 		if ( this.#travelNotesLoaded ) {
 			return;
 		}
+
 		this.#travelNotesLoaded = true;
 
 		theAttributionsUI.createUI ( );
