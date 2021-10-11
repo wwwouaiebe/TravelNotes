@@ -120,10 +120,8 @@ class MapLayersToolbarLink {
 	@private
 	*/
 
-	#eventListeners = {
-		mouseEnter : null,
-		mouseLeave : null
-	}
+	#linkMouseEnterEL = null;
+	#linkMouseLeaveEL = null;
 
 	/**
 	A reference to the link button html element
@@ -132,20 +130,15 @@ class MapLayersToolbarLink {
 
 	#linkButton = null;
 
-	/**
-	A reference to the parent node
-	@private
-	*/
-
-	#parentNode = null;
-
 	/*
 	constructor
 	*/
 
 	constructor ( linkProperties, parentNode ) {
+
 		Object.freeze ( this );
-		this.#parentNode = parentNode;
+
+		// HTML creation
 		this.#linkButton = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -154,21 +147,21 @@ class MapLayersToolbarLink {
 			parentNode
 		);
 		theHTMLElementsFactory.create ( 'a', linkProperties, this.#linkButton );
-		this.#eventListeners.mouseEnter = new LinkMouseEnterEL ( );
-		this.#eventListeners.mouseLeave = new LinkMouseLeaveEL ( );
-		this.#linkButton.addEventListener ( 'mouseenter', this.#eventListeners.mouseEnter, false );
-		this.#linkButton.addEventListener ( 'mouseleave', this.#eventListeners.mouseLeave, false );
+
+		// events listeners
+		this.#linkMouseEnterEL = new LinkMouseEnterEL ( );
+		this.#linkMouseLeaveEL = new LinkMouseLeaveEL ( );
+		this.#linkButton.addEventListener ( 'mouseenter', this.#linkMouseEnterEL, false );
+		this.#linkButton.addEventListener ( 'mouseleave', this.#linkMouseLeaveEL, false );
 	}
 
 	/**
-	destructor. Remove event listeners and the button html element from the buttons container.
+	destructor. Remove event listeners.
 	*/
 
 	destructor ( ) {
-		this.#linkButton.removeEventListener ( 'mouseenter', this.#eventListeners.mouseEnter, false );
-		this.#linkButton.removeEventListener ( 'mouseleave', this.#eventListeners.mouseLeave, false );
-		this.#parentNode.removeChild ( this.#linkButton );
-		this.#parentNode = null;
+		this.#linkButton.removeEventListener ( 'mouseenter', this.#linkMouseEnterEL, false );
+		this.#linkButton.removeEventListener ( 'mouseleave', this.#linkMouseLeaveEL, false );
 	}
 
 	/**

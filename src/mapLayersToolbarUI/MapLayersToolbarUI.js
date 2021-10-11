@@ -80,19 +80,27 @@ const OUR_MIN_BUTTONS_VISIBLE = 3;
 
 class ButtonsContainerWheelEL {
 
-	#mapLayersToolbarUI = null;
+	/**
+	A reference to the WheelEventData Object
+	@type {Object}
+	@private
+	*/
 
 	#wheelEventData = null;
 
 	/*
 	constructor
+	@param {Object} wheelEventData A reference to the WheelEventData Object
 	*/
 
-	constructor ( mapLayersToolbarUI, wheelEventData ) {
+	constructor ( wheelEventData ) {
 		Object.freeze ( this );
-		this.#mapLayersToolbarUI = mapLayersToolbarUI;
 		this.#wheelEventData = wheelEventData;
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( wheelEvent ) {
 		wheelEvent.stopPropagation ( );
@@ -115,7 +123,7 @@ class ButtonsContainerWheelEL {
 					)
 					:
 					this.#wheelEventData.marginTop;
-			this.#mapLayersToolbarUI.buttonsHTMLElement.style.marginTop = String ( this.#wheelEventData.marginTop ) + 'px';
+			wheelEvent.currentTarget.style.marginTop = String ( this.#wheelEventData.marginTop ) + 'px';
 		}
 	}
 }
@@ -136,6 +144,7 @@ class MapLayersToolbarUI {
 
 	/**
 	The main HTMLElement of the UI
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -143,6 +152,7 @@ class MapLayersToolbarUI {
 
 	/**
 	The HTML element that contains the map layer buttons
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -150,13 +160,15 @@ class MapLayersToolbarUI {
 
 	/**
 	An array with the map layer buttons and links
+	@type {Array.<Object>}
 	@private
 	*/
 
 	#buttonsAndLinks = [];
 
 	/**
-	Data for the wheel event listener
+	Data shared with the wheel event listener
+	@type {Object}
 	@private
 	*/
 
@@ -169,13 +181,15 @@ class MapLayersToolbarUI {
 
 	/**
 	Timer id for the mouse leave event
+	@type {number}
 	@private
 	*/
 
 	#timerId = null;
 
 	/**
-	The wheel eveny listener
+	The wheel event listener
+	@type {Object}
 	@private
 	*/
 
@@ -287,8 +301,8 @@ class MapLayersToolbarUI {
 	*/
 
 	constructor ( ) {
-		this.#onWheelButtonsEventListener = new ButtonsContainerWheelEL ( this, this.#wheelEventData );
 		Object.freeze ( this );
+		this.#onWheelButtonsEventListener = new ButtonsContainerWheelEL ( this.#wheelEventData );
 	}
 
 	/**
@@ -325,13 +339,6 @@ class MapLayersToolbarUI {
 		theAttributionsUI.attributions = mapLayer.attribution;
 		theTravelNotesData.travel.layerName = mapLayer.name;
 	}
-
-	/**
-	The map layer buttons container
-	@readonly
-	*/
-
-	get buttonsHTMLElement ( ) { return this.#buttonsHTMLElement; }
 }
 
 /**

@@ -119,15 +119,14 @@ class MapLayersCollection {
 	*/
 
 	getMapLayer ( mapLayerName ) {
-
-		let theLayer = this.#mapLayers.get ( mapLayerName ) || this.#defaultMapLayer;
-		if ( theLayer.providerKeyNeeded ) {
-			if ( ! theAPIKeysManager.hasKey ( theLayer.providerName.toLowerCase ( ) ) ) {
-				theLayer = this.#defaultMapLayer;
+		let mapLayer = this.#mapLayers.get ( mapLayerName ) || this.#defaultMapLayer;
+		if ( mapLayer.providerKeyNeeded ) {
+			if ( ! theAPIKeysManager.hasKey ( mapLayer.providerName.toLowerCase ( ) ) ) {
+				mapLayer = this.#defaultMapLayer;
 			}
 		}
 
-		return theLayer;
+		return mapLayer;
 	}
 
 	/**

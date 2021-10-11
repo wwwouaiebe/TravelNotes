@@ -50,6 +50,7 @@ import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import theAttributionsUI from '../attributionsUI/AttributionsUI.js';
+import theMapLayersCollection from '../data/MapLayersCollection.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
@@ -63,25 +64,22 @@ import theAttributionsUI from '../attributionsUI/AttributionsUI.js';
 
 class LayerButtonMouseEnterEL {
 
-	#mapLayer = null;
-
 	/*
 	constructor
 	*/
 
-	constructor ( mapLayer ) {
+	constructor ( ) {
 		Object.freeze ( this );
-		this.#mapLayer = mapLayer;
 	}
 
 	/**
-	Mouse enter event listener. Inverse the button color
+	Event listener method
 	*/
 
 	handleEvent ( mouseEnterEvent ) {
-		mouseEnterEvent.stopPropagation ( );
-		mouseEnterEvent.target.style.color = this.#mapLayer.toolbar.backgroundColor;
-		mouseEnterEvent.target.style[ 'background-color' ] = this.#mapLayer.toolbar.color;
+		const mapLayer = theMapLayersCollection.getMapLayer ( mouseEnterEvent.target.dataset.tanMapLayerName );
+		mouseEnterEvent.target.style.color = mapLayer.toolbar.backgroundColor;
+		mouseEnterEvent.target.style[ 'background-color' ] = mapLayer.toolbar.color;
 	}
 }
 
@@ -97,25 +95,23 @@ class LayerButtonMouseEnterEL {
 
 class LayerButtonMouseLeaveEL {
 
-	#mapLayer = null;
-
 	/*
 	constructor
 	*/
 
-	constructor ( mapLayer ) {
+	constructor ( ) {
 		Object.freeze ( this );
-		this.#mapLayer = mapLayer;
 	}
 
 	/**
-	Mouse leave event listener. Inverse the button color
+	Event listener method
 	*/
 
 	handleEvent ( mouseLeaveEvent ) {
 		mouseLeaveEvent.stopPropagation ( );
-		mouseLeaveEvent.target.style.color = this.#mapLayer.toolbar.color;
-		mouseLeaveEvent.target.style[ 'background-color' ] = this.#mapLayer.toolbar.backgroundColor;
+		const mapLayer = theMapLayersCollection.getMapLayer ( mouseLeaveEvent.target.dataset.tanMapLayerName );
+		mouseLeaveEvent.target.style.color = mapLayer.toolbar.color;
+		mouseLeaveEvent.target.style[ 'background-color' ] = mapLayer.toolbar.backgroundColor;
 	}
 }
 
@@ -131,26 +127,24 @@ class LayerButtonMouseLeaveEL {
 
 class LayerButtonClickEL {
 
-	#mapLayer = null;
-
 	/*
 	constructor
 	*/
 
-	constructor ( mapLayer ) {
+	constructor ( ) {
 		Object.freeze ( this );
-		this.#mapLayer = mapLayer;
 	}
 
 	/**
-	Mouse click event listener. Change the background map
+	Event listener method
 	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		theEventDispatcher.dispatch ( 'layerchange', { layer : this.#mapLayer } );
-		theAttributionsUI.attributions = this.#mapLayer.attribution;
-		theTravelNotesData.travel.layerName = this.#mapLayer.name;
+		const mapLayer = theMapLayersCollection.getMapLayer ( clickEvent.target.dataset.tanMapLayerName );
+		theEventDispatcher.dispatch ( 'layerchange', { layer : mapLayer } );
+		theAttributionsUI.attributions = mapLayer.attribution;
+		theTravelNotesData.travel.layerName = mapLayer.name;
 	}
 }
 
@@ -167,37 +161,48 @@ class LayerButtonClickEL {
 class MapLayersToolbarButton {
 
 	/**
-	The button HTMLElementsFactory
+	The button HTMLElement
+	@type {HTMLElement}
 	@private
 	*/
 
 	#buttonHTMLElement = null;
 
 	/**
-	Event listeners
+	mouseenter event listener
+	@type {LayerButtonMouseEnterEL}
 	@private
 	*/
 
-	#eventListeners = {
-		mouseEnter : null,
-		mouseLeave : null,
-		click : null
-	}
+	#layerButtonMouseEnterEL = null;
 
 	/**
-	A reference to the parent nodeName
+	mouseleave event listener
+	@type {LayerButtonMouseLeaveEL}
 	@private
 	*/
 
-	#parentNode = null;
+	#layerButtonMouseLeaveEL = null;
+
+	/**
+	mouseclick event listener
+	@type {LayerButtonClickEL}
+	@private
+	*/
+
+	#layerButtonClickEL = null;
 
 	/*
 	constructor
+	@param {MapLayer} mapLayer the MapLayer object associated to the button
+	@parentNode {HTMLElement} the parent of the button
 	*/
 
 	constructor ( mapLayer, parentNode ) {
+
 		Object.freeze ( this );
-		this.#parentNode = parentNode;
+
+		// HTML creation
 		this.#buttonHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -210,26 +215,24 @@ class MapLayersToolbarButton {
 			parentNode
 		);
 
-		this.#eventListeners.mouseEnter = new LayerButtonMouseEnterEL ( mapLayer );
-		this.#eventListeners.mouseLeave = new LayerButtonMouseLeaveEL ( mapLayer );
-		this.#eventListeners.click = new LayerButtonClickEL ( mapLayer );
+		// event listeners
+		this.#layerButtonMouseEnterEL = new LayerButtonMouseEnterEL ( );
+		this.#layerButtonMouseLeaveEL = new LayerButtonMouseLeaveEL ( );
+		this.#layerButtonClickEL = new LayerButtonClickEL ( );
 
-		this.#buttonHTMLElement.addEventListener ( 'mouseenter', this.#eventListeners.mouseEnter, false );
-		this.#buttonHTMLElement.addEventListener ( 'mouseleave', this.#eventListeners.mouseLeave, false );
-		this.#buttonHTMLElement.addEventListener ( 'click', this.#eventListeners.click, false );
+		this.#buttonHTMLElement.addEventListener ( 'mouseenter', this.#layerButtonMouseEnterEL, false );
+		this.#buttonHTMLElement.addEventListener ( 'mouseleave', this.#layerButtonMouseLeaveEL, false );
+		this.#buttonHTMLElement.addEventListener ( 'click', this.#layerButtonClickEL, false );
 	}
 
 	/**
-	destructor. Remove event listeners and the button html element from the buttons container.
+	destructor. Remove event listeners.
 	*/
 
 	destructor ( ) {
-		this.#buttonHTMLElement.removeEventListener ( 'mouseenter', this.#eventListeners.mouseEnter, false );
-		this.#buttonHTMLElement.removeEventListener ( 'mouseleave', this.#eventListeners.mouseLeave, false );
-		this.#buttonHTMLElement.removeEventListener ( 'click', this.#eventListeners.click, false );
-
-		this.#parentNode.removeChild ( this.#buttonHTMLElement );
-		this.#parentNode = null;
+		this.#buttonHTMLElement.removeEventListener ( 'mouseenter', this.#layerButtonMouseEnterEL, false );
+		this.#buttonHTMLElement.removeEventListener ( 'mouseleave', this.#layerButtonMouseLeaveEL, false );
+		this.#buttonHTMLElement.removeEventListener ( 'click', this.#layerButtonClickEL, false );
 	}
 
 	/**
