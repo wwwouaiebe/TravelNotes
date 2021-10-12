@@ -73,12 +73,49 @@ const OUR_SAVE_TIME = 300000;
 
 class MouseUI {
 
+	/**
+	The HTMLElement with the status, mouse and zoom infos
+	@type {HTMLElement}
+	@private
+	*/
+
 	#mouseUISpan = null;
+
+	/**
+	The save status
+	@type {string}
+	@private
+	*/
+
 	#saveStatus = SAVE_STATUS.saved;
+
+	/**
+	The mouse position
+	@type {string}
+	@private
+	*/
+
 	#mousePosition = '';
-	#zoom = ''
+
+	/**
+	The zoom factor
+	@type {string}
+	@private
+	*/
+
+	#zoom = '';
+
+	/**
+	The save timer id
+	@type {number}
+	@private
+	*/
 
 	#saveTimer = null;
+
+	/**
+	@private
+	*/
 
 	#updateUI ( ) {
 		if ( this.#mouseUISpan ) {
@@ -100,17 +137,22 @@ class MouseUI {
 	*/
 
 	set saveStatus ( SaveStatus ) {
+
+		// Status unchanged... return directly
 		if ( SAVE_STATUS.modified === SaveStatus && SAVE_STATUS.notSaved === this.#saveStatus ) {
 			return;
 		}
 		this.#saveStatus = SaveStatus;
 		if ( SAVE_STATUS.modified === SaveStatus && ! this.#saveTimer ) {
+
+			// Starting the timer
 			this.#saveTimer = setTimeout (
 				( ) => this.#saveStatus = SAVE_STATUS.notSaved,
 				OUR_SAVE_TIME
 			);
-		}
-		if ( SAVE_STATUS.saved === SaveStatus && this.#saveTimer ) {
+		} else if ( SAVE_STATUS.saved === SaveStatus && this.#saveTimer ) {
+
+			// clear the timer
 			clearTimeout ( this.#saveTimer );
 			this.#saveTimer = null;
 		}
@@ -122,17 +164,23 @@ class MouseUI {
 	*/
 
 	createUI ( ) {
+
+		// HTML creation
 		this.#mouseUISpan =
 			theHTMLElementsFactory.create (
 				'span',
 				null,
 				theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-MouseUI' }, document.body )
 			);
+
+		// init vars for mouse and zoom
 		this.#zoom = theTravelNotesData.map.getZoom ( );
 		this.#mousePosition =
 			theUtilities.formatLat ( theConfig.map.center.lat ) +
 			'\u00a0-\u00a0' +
 			theUtilities.formatLng ( theConfig.map.center.lng );
+
+		// Event listeners for mouse and zoom
 		theTravelNotesData.map.on (
 			'mousemove',
 			mouseMoveEvent => {
