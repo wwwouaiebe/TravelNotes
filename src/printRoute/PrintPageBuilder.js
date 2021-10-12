@@ -91,7 +91,7 @@ class PrintEL {
 @--------------------------------------------------------------------------------------------------------------------------
 
 @class AfterPrintEL
-@classdesc afterprint Event listener the document
+@classdesc afterprint event listener for the document and the cancel button
 @hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
@@ -451,8 +451,7 @@ class PrintPageBuilder {
 	}
 
 	/**
-	Hide existing HTMLElements, add the toolbar and prepare the polyline and add the views to the html page
-	@private
+	Hide existing HTMLElements, add the toolbar, prepare the polyline and add the views to the html page
 	*/
 
 	preparePage ( ) {
