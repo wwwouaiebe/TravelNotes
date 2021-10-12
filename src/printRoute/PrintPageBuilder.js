@@ -70,6 +70,18 @@ const OUR_NOTE_Z_INDEX_OFFSET = 100;
 
 class PrintEL {
 
+	/*
+	constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
+	/**
+	Event listener method
+	*/
+
 	handleEvent ( ) {
 		window.print ( );
 	}
@@ -87,10 +99,26 @@ class PrintEL {
 
 class AfterPrintEL {
 
+	/**
+	A reference to the printPageBuilder Object
+	@type {PrintPageBuilder}
+	@private
+	*/
+
 	#printPageBuilder = null;
+
+	/*
+	constructor
+	*/
+
 	constructor ( printPageBuilder ) {
+		Object.freeze ( this );
 		this.#printPageBuilder = printPageBuilder;
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( ) {
 		this.#printPageBuilder.onAfterPrint ( );
@@ -110,19 +138,93 @@ class AfterPrintEL {
 
 class PrintPageBuilder {
 
+	/**
+	A reference to the printData object containing the user choices
+	@type {Object}
+	@private
+	*/
+
 	#printData = null;
+
+	/**
+	A reference to the printed route
+	@type {Route}
+	@private
+	*/
+
 	#route = null;
-	#views = [];
+
+	/**
+	A reference to the views to print
+	@type {Array.<Printview>}
+	@private
+	*/
+
+	#printViews = [];
+
+	/**
+	The toolbar on right top of the screen
+	@type {HTMLElement}
+	@private
+	*/
+
 	#printToolbar = null;
+
+	/**
+	The print button on the toolbar
+	@type {HTMLElement}
+	@private
+	*/
+
 	#printButton = null;
+
+	/**
+	The cancel button on the toolbar
+	@type {HTMLElement}
+	@private
+	*/
+
 	#cancelButton = null;
+
+	/**
+	A counter for the views, so we can gives a unique id to the views
+	@type {!number}
+	@private
+	*/
+
 	#viewsCounter = ZERO;
+
+	/**
+	An array with the HTML views
+	@type {Array.<HTMLElement>}
+	@private
+	*/
+
 	#viewsDiv = [];
+
+	/**
+	A leaflet.polyline used to represent the route on the maps
+	@type {leaflet.polyline}
+	@private
+	*/
+
 	#routePolyline = null;
-	#eventsListeners = {
-		onPrint : null,
-		onAfterPrint : null
-	}
+
+	/**
+	Event listener for the print button
+	@type {PrintEL}
+	@private
+	*/
+
+	#printEL = null;
+
+	/**
+	Event listener for the cancel button and the document. Reset the document in the correct state
+	@type {AfterPrintEL}
+	@private
+	*/
+
+	#afterPrintEL = null;
 
 	/**
 	Remove the print views and restore the map and user interface after printing
@@ -130,25 +232,34 @@ class PrintPageBuilder {
 	*/
 
 	onAfterPrint ( ) {
+
+		// removing the views
 		this.#viewsDiv.forEach ( viewDiv => document.body.removeChild ( viewDiv ) );
 		this.#viewsDiv.length = ZERO;
-		this.#printButton.removeEventListener (	'click', this.#eventsListeners.onPrint, false );
-		this.#cancelButton.removeEventListener ( 'click', this.#eventsListeners.onAfterPrint, false );
+
+		// removing the toolbar
+		this.#printButton.removeEventListener (	'click', this.#printEL, false );
+		this.#cancelButton.removeEventListener ( 'click', this.#afterPrintEL, false );
 		document.body.removeChild ( this.#printToolbar );
 
+		// shwing the hidden HTMLElements
 		const childrens = document.body.children;
 		for ( let counter = 0; counter < childrens.length; counter ++ ) {
 			childrens.item ( counter ).classList.remove ( 'TravelNotes-Hidden' );
 		}
 
+		// reset the map
 		theTravelNotesData.map.invalidateSize ( false );
+
+		// reset the document title
 		document.title =
 			'Travel & Notes' +
 			( '' === theTravelNotesData.travel.name ? '' : ' - ' + theTravelNotesData.travel.name );
 
-		window.removeEventListener ( 'afterprint', this.#eventsListeners.onAfterPrint, true );
-		this.#eventsListeners.onAfterPrint = null;
-		this.#eventsListeners.onPrint = null;
+		// removing event listeners
+		window.removeEventListener ( 'afterprint', this.#afterPrintEL, true );
+		this.#afterPrintEL = null;
+		this.#printEL = null;
 	}
 
 	/**
@@ -212,10 +323,12 @@ class PrintPageBuilder {
 
 	/**
 	Creates a print view
+	@param {PrintView} printView The view to create
 	@private
 	*/
 
-	#createViewOnPage ( view ) {
+	#createViewOnPage ( printView ) {
+
 		this.#viewsCounter ++;
 		const viewId = 'TravelNotes-RouteViewDiv' + this.#viewsCounter;
 
@@ -243,13 +356,13 @@ class PrintPageBuilder {
 		// adding entry point and exit point markers
 		layers.push (
 			window.L.circleMarker (
-				[ view.entryPoint.lat, view.entryPoint.lng ],
+				[ printView.entryPoint.lat, printView.entryPoint.lng ],
 				theConfig.printRouteMap.entryPointMarker
 			)
 		);
 		layers.push (
 			window.L.circleMarker (
-				[ view.exitPoint.lat, view.exitPoint.lng ],
+				[ printView.exitPoint.lat, printView.exitPoint.lng ],
 				theConfig.printRouteMap.exitPointMarker
 			)
 		);
@@ -264,8 +377,8 @@ class PrintPageBuilder {
 				attributionControl : true,
 				zoomControl : false,
 				center : [
-					( view.bottomLeft.lat + view.upperRight.lat ) / TWO,
-					( view.bottomLeft.lng + view.upperRight.lng ) / TWO
+					( printView.bottomLeft.lat + printView.upperRight.lat ) / TWO,
+					( printView.bottomLeft.lng + printView.upperRight.lng ) / TWO
 				],
 				zoom : this.#printData.zoomFactor,
 				minZoom : this.#printData.zoomFactor,
@@ -281,6 +394,7 @@ class PrintPageBuilder {
 	*/
 
 	#createToolbar ( ) {
+
 		this.#printToolbar = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -298,7 +412,7 @@ class PrintPageBuilder {
 			},
 			this.#printToolbar
 		);
-		this.#printButton.addEventListener ( 'click', this.#eventsListeners.onPrint, false );
+		this.#printButton.addEventListener ( 'click', this.#printEL, false );
 
 		this.#cancelButton = theHTMLElementsFactory.create (
 			'div',
@@ -309,20 +423,26 @@ class PrintPageBuilder {
 			},
 			this.#printToolbar
 		);
-		this.#cancelButton.addEventListener (	'click', this.#eventsListeners.onAfterPrint, false );
+		this.#cancelButton.addEventListener (	'click', this.#afterPrintEL, false );
 	}
 
 	/*
 	constructor
+	@param {Route} route A reference to the printed route
+	@param {Array.PrintView>} views A reference to the views to print
+	@param {Object} A reference to the printData object containing the user choices
 	*/
 
 	constructor ( route, views, printData ) {
-		this.#route = route;
-		this.#views = views;
-		this.#printData = printData;
-		this.#eventsListeners.onPrint = new PrintEL ( );
-		this.#eventsListeners.onAfterPrint = new AfterPrintEL ( this );
+
 		Object.freeze ( this );
+
+		this.#route = route;
+		this.#printViews = views;
+		this.#printData = printData;
+
+		this.#printEL = new PrintEL ( );
+		this.#afterPrintEL = new AfterPrintEL ( this );
 	}
 
 	/**
@@ -349,7 +469,7 @@ class PrintPageBuilder {
 		this.#createToolbar ( );
 
 		// Adding afterprint event listener to the document
-		window.addEventListener ( 'afterprint', this.#eventsListeners.onAfterPrint, true );
+		window.addEventListener ( 'afterprint', this.#afterPrintEL, true );
 
 		// creating the polyline for the route
 		// why we can create the polyline only once and we have to create markers and layers for each view?
@@ -368,7 +488,7 @@ class PrintPageBuilder {
 
 		// adding views
 		this.#viewsCounter = ZERO;
-		this.#views.forEach ( view => this.#createViewOnPage ( view ) );
+		this.#printViews.forEach ( printView => this.#createViewOnPage ( printView ) );
 	}
 }
 

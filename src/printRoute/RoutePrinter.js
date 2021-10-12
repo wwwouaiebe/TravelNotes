@@ -89,29 +89,38 @@ class RoutePrinter {
 	@private
 	*/
 
-	#computeViewSize ( printData ) {
+	#computeMaxViewSize ( printData ) {
 
+		// creating a dummy HTMLElement to compute the view size
 		const dummyDiv = theHTMLElementsFactory.create ( 'div', { }, document.body );
 		dummyDiv.style.position = 'absolute';
 		dummyDiv.style.top = '0';
 		dummyDiv.style.left = '0';
 		dummyDiv.style.width = String ( printData.paperWidth - ( TWO * printData.borderWidth ) ) + 'mm';
 		dummyDiv.style.height = String ( printData.paperHeight - ( TWO * printData.borderWidth ) ) + 'mm';
-		this.#tilesPerPage =
-			Math.ceil ( dummyDiv.clientWidth / OUR_TILE_SIZE ) *
-			Math.ceil ( dummyDiv.clientHeight / OUR_TILE_SIZE );
+
+		// transform the screen coordinates to lat and lng
 		const topLeftScreen = theGeometry.screenCoordToLatLng ( ZERO, ZERO );
 		const bottomRightScreen = theGeometry.screenCoordToLatLng (
 			dummyDiv.clientWidth,
 			dummyDiv.clientHeight
 		);
+
+		// computing the tiles needed for a page
+		this.#tilesPerPage =
+			Math.ceil ( dummyDiv.clientWidth / OUR_TILE_SIZE ) *
+			Math.ceil ( dummyDiv.clientHeight / OUR_TILE_SIZE );
+
 		document.body.removeChild ( dummyDiv );
 
+		// computing the scale
 		const scale = theTravelNotesData.map.getZoomScale ( theTravelNotesData.map.getZoom ( ), printData.zoomFactor );
-		return [
-			Math.abs ( topLeftScreen [ LAT ] - bottomRightScreen [ LAT ] ) * scale,
-			Math.abs ( topLeftScreen [ LNG ] - bottomRightScreen [ LNG ] ) * scale
-		];
+
+		// computing the size and return.
+		return {
+			height : Math.abs ( topLeftScreen [ LAT ] - bottomRightScreen [ LAT ] ) * scale,
+			width : Math.abs ( topLeftScreen [ LNG ] - bottomRightScreen [ LNG ] ) * scale
+		};
 	}
 
 	/*
@@ -129,6 +138,7 @@ class RoutePrinter {
 	*/
 
 	print ( printData, routeObjId ) {
+
 		const route = theDataSearchEngine.getRoute ( routeObjId );
 		if ( ! route ) {
 			return;
@@ -137,7 +147,7 @@ class RoutePrinter {
 		// Computing the needed views
 		const printViewsFactory = new PrintViewsFactory (
 			route,
-			this.#computeViewSize ( printData )
+			this.#computeMaxViewSize ( printData )
 		);
 
 		// Remain for debugging

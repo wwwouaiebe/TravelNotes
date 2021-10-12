@@ -150,7 +150,8 @@ class MouseUI {
 				( ) => this.#saveStatus = SAVE_STATUS.notSaved,
 				OUR_SAVE_TIME
 			);
-		} else if ( SAVE_STATUS.saved === SaveStatus && this.#saveTimer ) {
+		}
+		else if ( SAVE_STATUS.saved === SaveStatus && this.#saveTimer ) {
 
 			// clear the timer
 			clearTimeout ( this.#saveTimer );
