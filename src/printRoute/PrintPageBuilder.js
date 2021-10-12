@@ -395,6 +395,7 @@ class PrintPageBuilder {
 
 	#createToolbar ( ) {
 
+		// toolbar
 		this.#printToolbar = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -403,6 +404,7 @@ class PrintPageBuilder {
 			document.body
 		);
 
+		// print button
 		this.#printButton = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -414,6 +416,7 @@ class PrintPageBuilder {
 		);
 		this.#printButton.addEventListener ( 'click', this.#printEL, false );
 
+		// cancel button
 		this.#cancelButton = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -429,18 +432,20 @@ class PrintPageBuilder {
 	/*
 	constructor
 	@param {Route} route A reference to the printed route
-	@param {Array.PrintView>} views A reference to the views to print
+	@param {Array.PrintView>} printViews A reference to the views to print
 	@param {Object} A reference to the printData object containing the user choices
 	*/
 
-	constructor ( route, views, printData ) {
+	constructor ( route, printViews, printData ) {
 
 		Object.freeze ( this );
 
+		// Saving parameters
 		this.#route = route;
-		this.#printViews = views;
+		this.#printViews = printViews;
 		this.#printData = printData;
 
+		// Event listeners creation
 		this.#printEL = new PrintEL ( );
 		this.#afterPrintEL = new AfterPrintEL ( this );
 	}

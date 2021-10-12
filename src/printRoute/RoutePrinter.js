@@ -152,14 +152,14 @@ class RoutePrinter {
 
 		// Remain for debugging
 		/*
-		printViewsFactory.views.forEach (
+		printViewsFactory.printViews.forEach (
 			view => window.L.rectangle ( [ view.bottomLeft, view.upperRight ] ).addTo ( theTravelNotesData.map )
 		);
-		console.log ( 'views :' + printViewsFactory.views.length );
+		console.log ( 'views :' + printViewsFactory.printViews.length );
 		*/
 
 		// Verify the tiles needed and stop the command if too mutch tiles needed
-		if ( theConfig.printRouteMap.maxTiles < printViewsFactory.views.length * this.#tilesPerPage ) {
+		if ( theConfig.printRouteMap.maxTiles < printViewsFactory.printViews.length * this.#tilesPerPage ) {
 			theErrorsUI.showError ( theTranslator.getText ( 'RoutePrinter - The maximum of allowed pages is reached.' ) );
 			return;
 		}
@@ -167,7 +167,7 @@ class RoutePrinter {
 		// Prepare the main page, for printing, hidding the map, adding the views and a print toolbar
 		const printPageBuilder = new PrintPageBuilder (
 			route,
-			printViewsFactory.views,
+			printViewsFactory.printViews,
 			printData
 		);
 		printPageBuilder.preparePage ( );
