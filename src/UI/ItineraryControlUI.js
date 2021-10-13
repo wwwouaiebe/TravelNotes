@@ -57,6 +57,7 @@ import theTravelNotesData from '../data/TravelNotesData.js';
 
 @class NotesCheckboxInputEL
 @classdesc input event listener for the show notes checkbox
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -74,6 +75,10 @@ class NotesCheckboxInputEL {
 		this.#itineraryDataUI = itineraryDataUI;
 	}
 
+	/**
+	Event listener method
+	*/
+
 	handleEvent ( inputEvent ) {
 		inputEvent.stopPropagation ( );
 		this.#itineraryDataUI.toggleNotes ( );
@@ -83,13 +88,14 @@ class NotesCheckboxInputEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class ManeuverCheckboxInputEL
+@class ManeuversCheckboxInputEL
 @classdesc input event listener for the show maneuver checkbox
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-class ManeuverCheckboxInputEL {
+class ManeuversCheckboxInputEL {
 
 	#itineraryDataUI = null;
 
@@ -101,6 +107,10 @@ class ManeuverCheckboxInputEL {
 		Object.freeze ( this );
 		this.#itineraryDataUI = itineraryDataUI;
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( inputEvent ) {
 		inputEvent.stopPropagation ( );
@@ -121,50 +131,99 @@ class ManeuverCheckboxInputEL {
 class ItineraryControlUI {
 
 	/**
-	HTMLElements of the paneControl
+	The header of the route with the route name , distance and ascent
+	@type {HTMLElement}
 	@private
 	*/
 
 	#routeHeaderHTMLElement = null;
-	#checkBoxesHTMLElement = null;
-	#showNotesCheckBoxHTMLElement = null;
-	#showManeuversCheckBoxHTMLElement = null;
-
-	#showNotes = theConfig.itineraryPaneUI.showNotes;
-	#showManeuvers = theConfig.itineraryPaneUI.showManeuvers;
 
 	/**
-	Event listeners
+	The checkboxes container
+	@type {HTMLElement}
 	@private
 	*/
 
-	#eventListeners = {
-		onInputNotesCheckbox : null,
-		onInputManeuverCheckbox : null
-	};
+	#checkBoxesHTMLElement = null;
 
 	/**
-	A reference to the paneControl
+	The show notes checkbox
+	@type {HTMLElement}
+	@private
+	*/
+
+	#showNotesCheckBoxHTMLElement = null;
+
+	/**
+	The show maneuvers checkbox
+	@type {HTMLElement}
+	@private
+	*/
+
+	#showManeuversCheckBoxHTMLElement = null;
+
+	/**
+	The current status of the notes
+	@type {boolean}
+	@private
+	*/
+
+	#showNotes = theConfig.itineraryPaneUI.showNotes;
+
+	/**
+	The current status of the maneuvers
+	@type {boolean}
+	@private
+	*/
+
+	#showManeuvers = theConfig.itineraryPaneUI.showManeuvers;
+
+	/**
+	event listener for the notes checkbox
+	@type {NotesCheckboxInputEL}
+	@private
+	*/
+
+	#notesCheckboxInputEL = null;
+
+	/**
+	event listener for the maneuver checkbox
+	@type {ManeuversCheckboxInputEL}
+	@private
+	*/
+
+	#maneuversCheckboxInputEL = null
+
+	/**
+	A reference to the HTMLElement in witch the control have to be added
+	@type {HTMLElement}
 	@private
 	*/
 
 	#paneControl = null;
 
 	/**
-	A referebce to the DataPane manager
+	A reference to the associated ItineraryDataUI
+	@type {ItineraryDataUI}
+	@private
 	*/
 
 	#itineraryDataUI = null;
 
 	/*
 	constructor
+	@param {HTMLElement} paneControl The HTMLElement in witch the control have to be added
+	@param {ItineraryDataUI} itineraryDataUI A reference to the associated ItineraryDataUI
 	*/
 
 	constructor ( paneControl, itineraryDataUI ) {
+
+		Object.freeze ( this );
+
 		this.#paneControl = paneControl;
-		this.#eventListeners.onInputNotesCheckbox = new NotesCheckboxInputEL ( itineraryDataUI );
-		this.#eventListeners.onInputManeuverCheckbox = new ManeuverCheckboxInputEL ( itineraryDataUI );
 		this.#itineraryDataUI = itineraryDataUI;
+		this.#notesCheckboxInputEL = new NotesCheckboxInputEL ( itineraryDataUI );
+		this.#maneuversCheckboxInputEL = new ManeuversCheckboxInputEL ( itineraryDataUI );
 	}
 
 	/**
@@ -173,6 +232,8 @@ class ItineraryControlUI {
 
 	addControl ( ) {
 		this.#checkBoxesHTMLElement = theHTMLElementsFactory.create ( 'div', null, this.#paneControl );
+
+		// Notes
 		theHTMLElementsFactory.create (
 			'text',
 			{
@@ -189,7 +250,9 @@ class ItineraryControlUI {
 			},
 			this.#checkBoxesHTMLElement
 		);
-		this.#showNotesCheckBoxHTMLElement.addEventListener ( 'click', this.#eventListeners.onInputNotesCheckbox );
+		this.#showNotesCheckBoxHTMLElement.addEventListener ( 'click', this.#notesCheckboxInputEL );
+
+		// Maneuvers
 		theHTMLElementsFactory.create (
 			'text',
 			{
@@ -206,12 +269,16 @@ class ItineraryControlUI {
 			},
 			this.#checkBoxesHTMLElement
 		);
-		this.#showManeuversCheckBoxHTMLElement.addEventListener ( 'click', this.#eventListeners.onInputManeuverCheckbox );
+		this.#showManeuversCheckBoxHTMLElement.addEventListener ( 'click', this.#maneuversCheckboxInputEL );
+
+		// Route header
 		this.#routeHeaderHTMLElement = theRouteHTMLViewsFactory.getRouteHeaderHTML (
 			'TravelNotes-ItineraryPaneUI-',
 			theTravelNotesData.travel.editedRoute
 		);
+
 		this.#paneControl.appendChild ( this.#routeHeaderHTMLElement );
+
 		if ( ! this.#showManeuvers ) {
 			this.#itineraryDataUI.toggleManeuvers ( );
 		}
@@ -226,18 +293,22 @@ class ItineraryControlUI {
 
 	clearControl ( ) {
 		if ( this.#checkBoxesHTMLElement ) {
+
+			// maneuvers
 			if ( this.#showManeuversCheckBoxHTMLElement ) {
 				this.#showManeuvers = this.#showManeuversCheckBoxHTMLElement.checked;
 				this.#showManeuversCheckBoxHTMLElement.removeEventListener (
 					'click',
-					this.#eventListeners.onInputManeuverCheckbox
+					this.#maneuversCheckboxInputEL
 				);
 				this.#checkBoxesHTMLElement.removeChild ( this.#showManeuversCheckBoxHTMLElement );
 				this.#showManeuversCheckBoxHTMLElement = null;
 			}
+
+			// notes
 			if ( this.#showNotesCheckBoxHTMLElement ) {
 				this.#showNotes = this.#showNotesCheckBoxHTMLElement.checked;
-				this.#showNotesCheckBoxHTMLElement.addEventListener ( 'click', this.#eventListeners.onInputNotesCheckbox );
+				this.#showNotesCheckBoxHTMLElement.removeEventListener ( 'click', this.#notesCheckboxInputEL );
 				this.#checkBoxesHTMLElement.removeChild ( this.#showNotesCheckBoxHTMLElement );
 				this.#showNotesCheckBoxHTMLElement = null;
 			}

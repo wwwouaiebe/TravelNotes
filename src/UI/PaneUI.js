@@ -69,6 +69,8 @@ class PaneUI {
 
 	/*
 	constructor
+	@param {HTMLElement} paneData The HTMLElement in witch the data have to be added
+	@param {HTMLElement} paneControl The HTMLElement in witch the control have to be added
 	*/
 
 	constructor ( paneData, paneControl ) {
@@ -87,11 +89,11 @@ class PaneUI {
 	add ( ) {
 	}
 
-	getPaneId ( ) {
+	get paneId ( ) {
 		return PANE_ID.invalidPane;
 	}
 
-	getButtonText ( ) {
+	get buttonText ( ) {
 		return '';
 	}
 }

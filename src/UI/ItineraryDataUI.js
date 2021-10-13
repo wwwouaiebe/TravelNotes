@@ -51,13 +51,13 @@ import theTravelNotesData from '../data/TravelNotesData.js';
 import NoteContextMenu from '../contextMenus/NoteContextMenu.js';
 import ManeuverContextMenu from '../contextMenus/ManeuverContextMenu.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
-import { ZERO } from '../main/Constants.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
 @class ManeuverContextMenuEL
 @classdesc contextmenu event listener for the maneuvers
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -66,9 +66,17 @@ class ManeuverContextMenuEL {
 
 	#paneData = null;
 
+	/*
+	constructor
+	*/
+
 	constructor ( paneData ) {
 		this.#paneData = paneData;
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( contextMenuEvent ) {
 		contextMenuEvent.stopPropagation ( );
@@ -82,6 +90,7 @@ class ManeuverContextMenuEL {
 
 @class NoteContextMenuEL
 @classdesc contextmenu event listener for the notes
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -99,6 +108,10 @@ class NoteContextMenuEL {
 		this.#paneData = paneData;
 	}
 
+	/**
+	Event listener method
+	*/
+
 	handleEvent ( contextMenuEvent ) {
 		contextMenuEvent.stopPropagation ( );
 		contextMenuEvent.preventDefault ( );
@@ -111,6 +124,7 @@ class NoteContextMenuEL {
 
 @class ManeuverMouseEnterEL
 @classdesc mouseenter event listener for maneuvers
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -124,6 +138,10 @@ class ManeuverMouseEnterEL {
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( mouseEvent ) {
 		mouseEvent.stopPropagation ( );
@@ -147,6 +165,7 @@ class ManeuverMouseEnterEL {
 
 @class NoteMouseEnterEL
 @classdesc mouseenter event listener for notes
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -160,6 +179,10 @@ class NoteMouseEnterEL {
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( mouseEvent ) {
 		mouseEvent.stopPropagation ( );
@@ -181,6 +204,7 @@ class NoteMouseEnterEL {
 
 @class NoteOrManeuverMouseLeaveEL
 @classdesc mouseleave event listener notes and maneuvers
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -194,6 +218,10 @@ class NoteOrManeuverMouseLeaveEL {
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( mouseEvent ) {
 		mouseEvent.stopPropagation ( );
@@ -217,53 +245,93 @@ class NoteOrManeuverMouseLeaveEL {
 class ItineraryDataUI {
 
 	/**
-	A reference to the paneData
+	A reference to the HTMLElement in witch the data have to be added
+	@type {HTMLElement}
 	@private
 	*/
 
 	#paneData = null;
 
-	/** An array with the notes
-	@private
-	*/
-
-	#notesHTML = [];
-
-	/** An array with the maneuvers
-	@private
-	*/
-
-	#maneuversHTML = [];
-
 	/**
 	An HTMLElement with notes and maneuvers for the edited route
+	@type {HTMLElement}
 	@private
 	*/
 
 	#routeManeuversAndNotesHTML = null;
 
 	/**
-	event listeners
+	maneuver contextmenu event listener
+	@type {ManeuverContextMenuEL}
 	@private
 	*/
 
-	#eventListeners = {
-		onContextMenu : null,
-		onMouseEnter : null,
-		onMouseLeave : null
-	};
+	#maneuverContextMenuEL = null;
+
+	/**
+	note contextmenu event listener
+	@type {NoteContextMenuEL}
+	@private
+	*/
+
+	#noteContextMenuEL = null;
+
+	/**
+	maneuver mouseenter event listener
+	@type {ManeuverMouseEnterEL}
+	@private
+	*/
+
+	#maneuverMouseEnterEL = null;
+
+	/**
+	note mouseenter event listener
+	@type {NoteMouseEnterEL}
+	@private
+	*/
+
+	#noteMouseEnterEL = null;
+
+	/**
+	maneuver or note mouseleave event listener
+	@type {NoteOrManeuverMouseLeaveEL}
+	@private
+	*/
+
+	#noteOrManeuverMouseLeaveEL = null;
+
+	/**
+	toggle the visibility of notes or maneuvers
+	@param {string} objType The objType of objects to toggle
+	@private
+	*/
+
+	#toggleNotesOrManeuver ( objType ) {
+		this.#routeManeuversAndNotesHTML.childNodes.forEach (
+			routeOrManeuverHTML => {
+				if ( objType === routeOrManeuverHTML.dataset.tanObjType ) {
+					routeOrManeuverHTML.classList.toggle ( 'TravelNotes-Hidden' );
+				}
+			}
+		);
+	}
 
 	/*
 	constructor
+	@param {HTMLElement} paneData The HTMLElement in witch the data have to be added
 	*/
 
 	constructor ( paneData ) {
+
+		Object.freeze ( this );
+
 		this.#paneData = paneData;
-		this.#eventListeners.onContextMenuManeuver = new ManeuverContextMenuEL ( this.#paneData );
-		this.#eventListeners.onContextMenuNote = new NoteContextMenuEL ( this.#paneData );
-		this.#eventListeners.onMouseEnterManeuver = new ManeuverMouseEnterEL ( );
-		this.#eventListeners.onMouseEnterNote = new NoteMouseEnterEL ( );
-		this.#eventListeners.onMouseLeave = new NoteOrManeuverMouseLeaveEL ( );
+
+		this.#maneuverContextMenuEL = new ManeuverContextMenuEL ( this.#paneData );
+		this.#noteContextMenuEL = new NoteContextMenuEL ( this.#paneData );
+		this.#maneuverMouseEnterEL = new ManeuverMouseEnterEL ( );
+		this.#noteMouseEnterEL = new NoteMouseEnterEL ( );
+		this.#noteOrManeuverMouseLeaveEL = new NoteOrManeuverMouseLeaveEL ( );
 	}
 
 	/**
@@ -271,7 +339,7 @@ class ItineraryDataUI {
 	*/
 
 	toggleNotes ( ) {
-		this.#notesHTML.forEach ( noteHTML => noteHTML.classList.toggle ( 'TravelNotes-Hidden' ) );
+		this.#toggleNotesOrManeuver ( 'Note' );
 	}
 
 	/**
@@ -279,7 +347,7 @@ class ItineraryDataUI {
 	*/
 
 	toggleManeuvers ( ) {
-		this.#maneuversHTML.forEach ( maneuverHTML => maneuverHTML.classList.toggle ( 'TravelNotes-Hidden' ) );
+		this.#toggleNotesOrManeuver ( 'Maneuver' );
 	}
 
 	/**
@@ -295,16 +363,14 @@ class ItineraryDataUI {
 		this.#routeManeuversAndNotesHTML.childNodes.forEach (
 			routeOrManeuverHTML => {
 				if ( 'Maneuver' === routeOrManeuverHTML.dataset.tanObjType ) {
-					routeOrManeuverHTML.addEventListener ( 'contextmenu', this.#eventListeners.onContextMenuManeuver );
-					routeOrManeuverHTML.addEventListener ( 'mouseenter', this.#eventListeners.onMouseEnterManeuver );
-					routeOrManeuverHTML.addEventListener ( 'mouseleave', this.#eventListeners.onMouseLeave );
-					this.#maneuversHTML.push ( routeOrManeuverHTML );
+					routeOrManeuverHTML.addEventListener ( 'contextmenu', this.#maneuverContextMenuEL );
+					routeOrManeuverHTML.addEventListener ( 'mouseenter', this.#maneuverMouseEnterEL );
+					routeOrManeuverHTML.addEventListener ( 'mouseleave', this.#noteOrManeuverMouseLeaveEL );
 				}
 				else if ( 'Note' === routeOrManeuverHTML.dataset.tanObjType ) {
-					routeOrManeuverHTML.addEventListener ( 'contextmenu', this.#eventListeners.onContextMenuNote );
-					routeOrManeuverHTML.addEventListener ( 'mouseenter', this.#eventListeners.onMouseEnterNote );
-					routeOrManeuverHTML.addEventListener ( 'mouseleave', this.#eventListeners.onMouseLeave );
-					this.#notesHTML.push ( routeOrManeuverHTML );
+					routeOrManeuverHTML.addEventListener ( 'contextmenu', this.#noteContextMenuEL );
+					routeOrManeuverHTML.addEventListener ( 'mouseenter', this.#noteMouseEnterEL );
+					routeOrManeuverHTML.addEventListener ( 'mouseleave', this.#noteOrManeuverMouseLeaveEL );
 				}
 			}
 		);
@@ -316,23 +382,21 @@ class ItineraryDataUI {
 	*/
 
 	clearData ( ) {
-		this.#maneuversHTML.forEach (
-			maneuverHTML => {
-				maneuverHTML.removeEventListener ( 'contextmenu', this.#eventListeners.onContextMenuManeuver );
-				maneuverHTML.removeEventListener ( 'mouseenter', this.#eventListeners.onMouseEnterManeuver );
-				maneuverHTML.removeEventListener ( 'mouseleave', this.#eventListeners.onMouseLeave );
-			}
-		);
-		this.#maneuversHTML.length = ZERO;
-		this.#notesHTML.forEach (
-			noteHTML => {
-				noteHTML.removeEventListener ( 'contextmenu', this.#eventListeners.onContextMenuNote );
-				noteHTML.removeEventListener ( 'mouseenter', this.#eventListeners.onMouseEnterNote );
-				noteHTML.removeEventListener ( 'mouseleave', this.#eventListeners.onMouseLeave );
-			}
-		);
-		this.#notesHTML.length = ZERO;
 		if ( this.#routeManeuversAndNotesHTML ) {
+			this.#routeManeuversAndNotesHTML.childNodes.forEach (
+				routeOrManeuverHTML => {
+					if ( 'Maneuver' === routeOrManeuverHTML.dataset.tanObjType ) {
+						routeOrManeuverHTML.removeEventListener ( 'contextmenu', this.#maneuverContextMenuEL );
+						routeOrManeuverHTML.removeEventListener ( 'mouseenter', this.#maneuverMouseEnterEL );
+						routeOrManeuverHTML.removeEventListener ( 'mouseleave', this.#noteOrManeuverMouseLeaveEL );
+					}
+					else if ( 'Note' === routeOrManeuverHTML.dataset.tanObjType ) {
+						routeOrManeuverHTML.removeEventListener ( 'contextmenu', this.#noteContextMenuEL );
+						routeOrManeuverHTML.removeEventListener ( 'mouseenter', this.#noteMouseEnterEL );
+						routeOrManeuverHTML.removeEventListener ( 'mouseleave', this.#noteOrManeuverMouseLeaveEL );
+					}
+				}
+			);
 			this.#paneData.removeChild ( this.#routeManeuversAndNotesHTML );
 		}
 		this.#routeManeuversAndNotesHTML = null;

@@ -74,6 +74,7 @@ class ItineraryPaneUI extends PaneUI {
 
 	/**
 	the ItineraryDataUI Object
+	@type {ItineraryDataUI}
 	@private
 	*/
 
@@ -81,6 +82,7 @@ class ItineraryPaneUI extends PaneUI {
 
 	/**
 	the ItineraryControlUI Object
+	@type {ItineraryControlUI}
 	@private
 	*/
 
@@ -88,6 +90,8 @@ class ItineraryPaneUI extends PaneUI {
 
 	/*
 	constructor
+	@param {HTMLElement} paneData The HTMLElement in witch the data have to be added
+	@param {HTMLElement} paneControl The HTMLElement in witch the control have to be added
 	*/
 
 	constructor ( paneData, paneControl ) {
@@ -97,7 +101,8 @@ class ItineraryPaneUI extends PaneUI {
 	}
 
 	/**
-	This method removes all the elements from the data div and control div
+	This method removes all the elements from the paneData HTMLElement and paneControl HTMLElement
+	Overload of the PaneUI.remove ( ) method
 	*/
 
 	remove ( ) {
@@ -106,7 +111,8 @@ class ItineraryPaneUI extends PaneUI {
 	}
 
 	/**
-	This method add the  maneuver and notes to the data div and controls to the controls div
+	This method add the maneuvers and notes to the paneData HTMLElement and controls to the paneControl HTMLElement
+	Overload of the PaneUI.add ( ) method
 	*/
 
 	add ( ) {
@@ -117,16 +123,22 @@ class ItineraryPaneUI extends PaneUI {
 	}
 
 	/**
-	This method returns the pane id
+	A unique identifier for the pane
+	Overload of the PaneUI.paneId property
+	@type {string}
+	@readonly
 	*/
 
-	getPaneId ( ) { return PANE_ID.itineraryPane; }
+	get paneId ( ) { return PANE_ID.itineraryPane; }
 
 	/**
-	This method returns the text to add in the pane button
+	The text to be displayer in the pane button
+	Overload of the PaneUI.buttonText property
+	@type {string}
+	@readonly
 	*/
 
-	getButtonText ( ) { return theTranslator.getText ( 'PanesManagerUI - Itinerary' ); }
+	get buttonText ( ) { return theTranslator.getText ( 'PanesManagerUI - Itinerary' ); }
 
 }
 

@@ -184,13 +184,13 @@ class PanesManagerUI {
 
 	addPane ( paneClass ) {
 		const pane = new paneClass ( this.#paneData, this.#paneControl );
-		this.#panes.set ( pane.getPaneId ( ), pane );
+		this.#panes.set ( pane.paneId, pane );
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				textContent : pane.getButtonText ( ),
+				textContent : pane.buttonText,
 				className : 'TravelNotes-PanesManagerUI-PaneButton',
-				dataset : { PaneId : pane.getPaneId ( ) }
+				dataset : { PaneId : pane.paneId }
 			},
 			this.#headerDiv
 		).addEventListener ( 'click', new PaneButtonClickEL ( this ) );
