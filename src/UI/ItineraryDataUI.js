@@ -64,6 +64,12 @@ import theEventDispatcher from '../coreLib/EventDispatcher.js';
 
 class ManeuverContextMenuEL {
 
+	/**
+	A reference to the HTMLElement in witch the data have to be added
+	@type {HTMLElement}
+	@private
+	*/
+
 	#paneData = null;
 
 	/*
@@ -96,6 +102,12 @@ class ManeuverContextMenuEL {
 */
 
 class NoteContextMenuEL {
+
+	/**
+	A reference to the HTMLElement in witch the data have to be added
+	@type {HTMLElement}
+	@private
+	*/
 
 	#paneData = null;
 

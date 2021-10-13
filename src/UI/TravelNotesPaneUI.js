@@ -76,6 +76,10 @@ class TravelNoteDragStartEL {
 		Object.freeze ( this );
 	}
 
+	/**
+	Event listener method
+	*/
+
 	handleEvent ( dragEvent ) {
 		dragEvent.stopPropagation ( );
 		try {
@@ -109,6 +113,10 @@ class TravelNoteDragOverEL {
 		Object.freeze ( this );
 	}
 
+	/**
+	Event listener method
+	*/
+
 	handleEvent ( dragEvent ) {
 		dragEvent.preventDefault ( );
 	}
@@ -132,6 +140,10 @@ class TravelNoteDropEL {
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( dropEvent ) {
 		dropEvent.preventDefault ( );
@@ -157,6 +169,12 @@ class TravelNoteDropEL {
 
 class TravelNoteContextMenuEL {
 
+	/**
+	A reference to the HTMLElement in witch the data have to be added
+	@type {HTMLElement}
+	@private
+	*/
+
 	#paneData = null;
 
 	/*
@@ -167,6 +185,10 @@ class TravelNoteContextMenuEL {
 		Object.freeze ( this );
 		this.#paneData = paneData;
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( contextMenuEvent ) {
 		contextMenuEvent.stopPropagation ( );
@@ -189,72 +211,116 @@ class TravelNoteContextMenuEL {
 
 class TravelNotesPaneUI extends PaneUI {
 
+	/**
+	An HTMLElement in witch the notes will be added
+	@type {HTMLElement}
+	@private
+	*/
+
 	#travelNotesDiv = null;
 
-	#eventListeners = {
-		onDragStart : null,
-		onDragOver : null,
-		onDrop : null,
-		onContextMenu : null
-	};
+	/**
+	dragstart event listener
+	@type {TravelNoteDragStartEL}
+	@private
+	*/
+
+	#travelNoteDragStartEL = null;
+
+	/**
+	dragover event listener
+	@type {TravelNoteDragOverEL}
+	@private
+	*/
+
+	#travelNoteDragOverEL = null;
+
+	/**
+	drop event listener
+	@type {TravelNoteDropEL}
+	@private
+	*/
+
+	#travelNoteDropEL = null;
+
+	/**
+	contextmenu event listener
+	@type {TravelNoteContextMenuEL}
+	@private
+	*/
+
+	#travelNoteContextMenuEL = null;
 
 	/*
 	constructor
+	@param {HTMLElement} paneData The HTMLElement in witch the data have to be added
+	@param {HTMLElement} paneControl The HTMLElement in witch the control have to be added
 	*/
 
 	constructor ( paneData, paneControl ) {
+
 		super ( paneData, paneControl );
-		this.#eventListeners.onDragStart = new TravelNoteDragStartEL ( );
-		this.#eventListeners.onDragOver = new TravelNoteDragOverEL ( );
-		this.#eventListeners.onDrop = new TravelNoteDropEL ( );
-		this.#eventListeners.onContextMenu = new TravelNoteContextMenuEL ( paneData );
+
+		this.#travelNoteDragStartEL = new TravelNoteDragStartEL ( );
+		this.#travelNoteDragOverEL = new TravelNoteDragOverEL ( );
+		this.#travelNoteDropEL = new TravelNoteDropEL ( );
+		this.#travelNoteContextMenuEL = new TravelNoteContextMenuEL ( paneData );
 	}
 
 	/**
-	This method removes all the elements from the data div and control div
+	This method removes all the elements from the paneData HTMLElement
+	Overload of the PaneUI.remove ( ) method
 	*/
 
 	remove ( ) {
 		if ( this.#travelNotesDiv ) {
 			this.#travelNotesDiv.childNodes.forEach (
 				childNode => {
-					childNode.removeEventListener ( 'contextmenu', this.#eventListeners.onContextMenu, false );
-					childNode.removeEventListener ( 'dragstart', this.#eventListeners.onDragStart, false );
-					childNode.removeEventListener ( 'drop', this.#eventListeners.onDrop, false );
+					childNode.removeEventListener ( 'contextmenu', this.#travelNoteContextMenuEL, false );
+					childNode.removeEventListener ( 'dragstart', this.#travelNoteDragStartEL, false );
+					childNode.removeEventListener ( 'drop', this.#travelNoteDropEL, false );
 				}
 			);
+			this.#travelNotesDiv.removeEventListener ( 'dragover', this.#travelNoteDragOverEL, false );
 			this.paneData.removeChild ( this.#travelNotesDiv );
 		}
 		this.#travelNotesDiv = null;
 	}
 
 	/**
-	This method add the travel notes to the data div
+	This method add the notes to the paneData HTMLElement
+	Overload of the PaneUI.add ( ) method
 	*/
 
 	add ( ) {
 		this.#travelNotesDiv = theNoteHTMLViewsFactory.getTravelNotesHTML ( 'TravelNotes-TravelNotesPaneUI-' );
-		this.#travelNotesDiv.addEventListener ( 'dragover', this.#eventListeners.onDragOver, false );
+		this.#travelNotesDiv.addEventListener ( 'dragover', this.#travelNoteDragOverEL, false );
 		this.paneData.appendChild ( this.#travelNotesDiv );
 		this.#travelNotesDiv.childNodes.forEach (
 			childNode => {
 				childNode.draggable = true;
-				childNode.addEventListener ( 'contextmenu', this.#eventListeners.onContextMenu, false );
-				childNode.addEventListener ( 'dragstart', this.#eventListeners.onDragStart, false );
-				childNode.addEventListener ( 'drop', this.#eventListeners.onDrop, false );
+				childNode.addEventListener ( 'contextmenu', this.#travelNoteContextMenuEL, false );
+				childNode.addEventListener ( 'dragstart', this.#travelNoteDragStartEL, false );
+				childNode.addEventListener ( 'drop', this.#travelNoteDropEL, false );
 				childNode.classList.add ( 'TravelNotes-UI-MoveCursor' );
 			}
 		);
 	}
 
 	/**
-	This method returns the pane id
+	A unique identifier for the pane
+	Overload of the PaneUI.paneId property
+	@type {string}
+	@readonly
 	*/
 
 	get paneId ( ) { return PANE_ID.travelNotesPane; }
 
 	/**
-	This method returns the text to add in the pane button
+	The text to be displayer in the pane button
+	Overload of the PaneUI.buttonText property
+	@type {string}
+	@readonly
 	*/
 
 	get buttonText ( ) { return theTranslator.getText ( 'PanesManagerUI - Travel notes' ); }
