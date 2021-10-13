@@ -55,7 +55,7 @@ import theUtilities from '../UILib/Utilities.js';
 import theNoteHTMLViewsFactory from '../viewsFactories/NoteHTMLViewsFactory.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 
-import { ZERO, DISTANCE } from '../main/Constants.js';
+import { ZERO, DISTANCE, ICON_DIMENSIONS } from '../main/Constants.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
@@ -81,7 +81,7 @@ class RouteHTMLViewsFactory {
 
 	#getManeuverHTML ( classPrefix, routeAndManeuver ) {
 		const maneuverHTML = theHTMLElementsFactory.create ( 'div' );
-		theHTMLElementsFactory.create (
+		const maneuverIconHTML = theHTMLElementsFactory.create (
 			'div',
 			{
 				className :
@@ -92,6 +92,10 @@ class RouteHTMLViewsFactory {
 			},
 			maneuverHTML
 		);
+
+		maneuverIconHTML.style.width = String ( ICON_DIMENSIONS.width ) + 'px';
+		maneuverIconHTML.style.height = String ( ICON_DIMENSIONS.height ) + 'px';
+
 		const maneuverTextHTML = theHTMLElementsFactory.create (
 			'div',
 			{
