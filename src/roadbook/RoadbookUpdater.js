@@ -58,13 +58,41 @@ Tests ...
 
 class RoadbookUpdater {
 
+	/**
+	The HTMLElement in witch the roadbook content is placed
+	@type {HTMLElement}
+	@private
+	*/
+
 	#travelNotesHtmlElement = document.getElementById ( 'TravelNotes' );
+
+	/**
+	@type {boolean}
+	@private
+	*/
 
 	#showTravelNotes = true;
 
+	/**
+	@type {boolean}
+	@private
+	*/
+
 	#showRouteNotes = true;
 
+	/**
+	@type {boolean}
+	@private
+	*/
+
 	#showManeuversNotes = false;
+
+	/**
+	Show or hide the notes
+	@param {string} selector The css selector for the notes to show/hide
+	@param {boolean} show
+	@private
+	*/
 
 	#toggleNotes ( selector, show ) {
 		document.querySelectorAll ( selector ).forEach (
@@ -87,11 +115,21 @@ class RoadbookUpdater {
 		Object.freeze ( this );
 	}
 
+	/**
+	The visibility status of the travel notes
+	@type {boolean}
+	*/
+
 	get showTravelNotes ( ) { return this.#showTravelNotes; }
 	set showTravelNotes ( show ) {
 		this.#showTravelNotes = show;
 		this.#toggleNotes ( '.TravelNotes-Roadbook-Travel-Notes-Row', show );
 	}
+
+	/**
+	The visibility status of the route notes
+	@type {boolean}
+	*/
 
 	get showRouteNotes ( ) { return this.#showRouteNotes; }
 	set showRouteNotes ( show ) {
@@ -99,11 +137,20 @@ class RoadbookUpdater {
 		this.#toggleNotes ( '.TravelNotes-Roadbook-Route-Notes-Row', show );
 	}
 
+	/**
+	The visibility status of the maneuver notes
+	@type {boolean}
+	*/
+
 	get showManeuversNotes ( ) { return this.#showManeuversNotes; }
 	set showManeuversNotes ( show ) {
 		this.#showManeuversNotes = show;
 		this.#toggleNotes ( '.TravelNotes-Roadbook-Route-Maneuvers-Row', show );
 	}
+
+	/**
+	Update the notes visibility
+	*/
 
 	updateNotes ( ) {
 		this.showTravelNotes = this.#showTravelNotes;

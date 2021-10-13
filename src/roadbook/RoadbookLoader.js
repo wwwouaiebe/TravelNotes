@@ -49,6 +49,7 @@ Tests ...
 import theTranslator from '../UILib/Translator.js';
 import theIndexedDb from '../UILib/IndexedDb.js';
 import theRoadbookUpdater from '../roadbook/RoadbookUpdater.js';
+
 import { ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
 
 /**
@@ -71,10 +72,13 @@ class ShowTravelNotesChangeEL {
 		Object.freeze ( this );
 	}
 
+	/**
+	Event listener method
+	*/
+
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
 		theRoadbookUpdater.showTravelNotes = changeEvent.target.checked;
-		theRoadbookUpdater.toggleTravelNotes ( );
 	}
 }
 
@@ -98,10 +102,13 @@ class ShowRouteNotesChangeEL {
 		Object.freeze ( this );
 	}
 
+	/**
+	Event listener method
+	*/
+
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
 		theRoadbookUpdater.showRouteNotes = changeEvent.target.checked;
-		theRoadbookUpdater.toggleRouteNotes ( );
 	}
 }
 
@@ -125,10 +132,13 @@ class ShowManeuverNotesChangeEL {
 		Object.freeze ( this );
 	}
 
+	/**
+	Event listener method
+	*/
+
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
 		theRoadbookUpdater.showManeuversNotes = changeEvent.target.checked;
-		theRoadbookUpdater.toggleManeuversNotes ( );
 	}
 }
 
@@ -143,15 +153,27 @@ class ShowManeuverNotesChangeEL {
 */
 
 class StorageEL {
+
+	/**
+	The UUID of the page
+	@type {string}
+	@private
+	*/
+
 	#UUID = null;
 
 	/*
 	constructor
+	@param {string} UUID The UUID of the page
 	*/
 
 	constructor ( UUID ) {
 		this.#UUID = UUID;
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( ) {
 		theIndexedDb.getReadPromise ( this.#UUID )
@@ -195,13 +217,20 @@ class SaveButtonClickEL {
 		Object.freeze ( this );
 	}
 
+	/**
+	Event listener method
+	*/
+
 	handleEvent ( ) {
 		try {
 			const fileName =
 				document.querySelector ( '.TravelNotes-Roadbook-Travel-Header-Name' ).textContent + '-Roadbook.html';
+
+			// Temporary removing the save button
 			const menu = document.getElementById ( 'TravelNotes-Roadbook-Menu' );
 			const saveDiv = menu.removeChild ( document.getElementById ( 'TravelNotes-SaveDiv' ) );
 
+			// Saving
 			const mapFile = window.URL.createObjectURL (
 				new File (
 					[ '<!DOCTYPE html>', document.documentElement.outerHTML ],
@@ -215,6 +244,8 @@ class SaveButtonClickEL {
 			anchorElement.style.display = 'none';
 			anchorElement.click ( );
 			window.URL.revokeObjectURL ( mapFile );
+
+			// Restoring the save button
 			menu.appendChild ( saveDiv );
 		}
 		catch ( err ) {
@@ -239,6 +270,7 @@ class RoadbookLoader {
 
 	/**
 	UUID of the page
+	@type {string}
 	@private
 	*/
 
@@ -246,6 +278,7 @@ class RoadbookLoader {
 
 	/**
 	The user language
+	@type {string}
 	@private
 	*/
 
@@ -253,6 +286,7 @@ class RoadbookLoader {
 
 	/**
 	A reference to the save button
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -389,9 +423,6 @@ class RoadbookLoader {
 			this.#addSaveButton ( );
 			this.#openIndexedDb ( );
 			this.#loadTranslations ( );
-		}
-		else {
-			theRoadbookUpdater.updateIcons ( );
 		}
 		theRoadbookUpdater.updateNotes ( );
 	}
