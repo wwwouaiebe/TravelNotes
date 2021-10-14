@@ -64,6 +64,7 @@ class OsmSearchControlUI {
 
 	/**
 	A reference to the OsmSearchTreeUI object
+	@type {OsmSearchTreeUI}
 	@private
 	*/
 
@@ -71,6 +72,7 @@ class OsmSearchControlUI {
 
 	/**
 	A reference to the OsmSearchToolbarUI object
+	@type {OsmSearchToolbarUI}
 	@private
 	*/
 
@@ -78,13 +80,15 @@ class OsmSearchControlUI {
 
 	/**
 	A reference to the OsmSearchWaitUI Object
+	@type {OsmSearchWaitUI}
 	@private
 	*/
 
 	#osmSearchWaitUI = null;
 
 	/**
-	A reference to the pane control html element
+	The HTMLElement in witch the control have to be added
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -92,6 +96,7 @@ class OsmSearchControlUI {
 
 	/*
 	constructor
+	@param {HTMLElement} paneControl The HTMLElement in witch the control have to be added
 	*/
 
 	constructor ( paneControl ) {
@@ -103,7 +108,7 @@ class OsmSearchControlUI {
 	}
 
 	/**
-	Add the treeHTMLElement to the paneControl
+	Add the HTMLElements to the controlPane
 	*/
 
 	addControl ( ) {
@@ -113,7 +118,7 @@ class OsmSearchControlUI {
 	}
 
 	/**
-	Remove thetreeHTMLElement from the paneControl
+	remove the HTMLElements from the controlPane
 	*/
 
 	clearControl ( ) {

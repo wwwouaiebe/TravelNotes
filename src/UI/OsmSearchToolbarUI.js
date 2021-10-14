@@ -60,17 +60,33 @@ import { ZERO } from '../main/Constants.js';
 
 @class SearchButtonClickEL
 @classdesc click event listener for the search button
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class SearchButtonClickEL {
 
+	/**
+	A reference to the osmSearchTreeUI Object
+	@type {OsmSearchTreeUI}
+	@private
+	*/
+
 	#osmSearchTreeUI = null;
+
+	/**
+	A reference to the osmSearchWaitUI Object
+	@type {OsmSearchWaitUI}
+	@private
+	*/
+
 	#osmSearchWaitUI = null;
 
 	/*
 	constructor
+	@param {OsmSearchTreeUI} osmSearchTreeUI A reference to the OsmSearchTreeUI object
+	@param {OsmSearchWaitUI} osmSearchWaitUI A reference to the OsmSearchWaitUI object
 	*/
 
 	constructor ( osmSearchTreeUI, osmSearchWaitUI ) {
@@ -78,6 +94,10 @@ class SearchButtonClickEL {
 		this.#osmSearchTreeUI = osmSearchTreeUI;
 		this.#osmSearchWaitUI = osmSearchWaitUI;
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -98,22 +118,34 @@ class SearchButtonClickEL {
 
 @class ExpandButtonClickEL
 @classdesc click event listener for the expand tree button
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class ExpandButtonClickEL {
 
+	/**
+	A reference to the osmSearchTreeUI Object
+	@type {OsmSearchTreeUI}
+	@private
+	*/
+
 	#osmSearchTreeUI = null;
 
 	/*
 	constructor
+	@param {OsmSearchTreeUI} osmSearchTreeUI A reference to the OsmSearchTreeUI object
 	*/
 
 	constructor ( osmSearchTreeUI ) {
 		Object.freeze ( this );
 		this.#osmSearchTreeUI = osmSearchTreeUI;
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -127,22 +159,34 @@ class ExpandButtonClickEL {
 
 @class CollapseButtonClickEL
 @classdesc click event listener for the collapse tree button
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class CollapseButtonClickEL {
 
+	/**
+	A reference to the osmSearchTreeUI Object
+	@type {OsmSearchTreeUI}
+	@private
+	*/
+
 	#osmSearchTreeUI = null;
 
 	/*
 	constructor
+	@param {OsmSearchTreeUI} osmSearchTreeUI A reference to the OsmSearchTreeUI object
 	*/
 
 	constructor ( osmSearchTreeUI ) {
 		Object.freeze ( this );
 		this.#osmSearchTreeUI = osmSearchTreeUI;
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -156,22 +200,34 @@ class CollapseButtonClickEL {
 
 @class ClearButtonClickEL
 @classdesc click event listener for the clear tree button
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class ClearButtonClickEL {
 
+	/**
+	A reference to the osmSearchTreeUI Object
+	@type {OsmSearchTreeUI}
+	@private
+	*/
+
 	#osmSearchTreeUI = null;
 
 	/*
 	constructor
+	@param {OsmSearchTreeUI} osmSearchTreeUI A reference to the OsmSearchTreeUI object
 	*/
 
 	constructor ( osmSearchTreeUI ) {
 		Object.freeze ( this );
 		this.#osmSearchTreeUI = osmSearchTreeUI;
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -185,25 +241,37 @@ class ClearButtonClickEL {
 
 @class OsmSearchToolbarUI
 @classdesc This class build the search toolbar and contains also the event listeners for the toolbar
-@private
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class OsmSearchToolbarUI {
 
+	/**
+	The toolbar container
+	@type {HTMLElement}
+	@private
+	*/
+
 	#toolbarHTMLElement = null;
 
 	/*
 	constructor
+	@param {OsmSearchTreeUI} osmSearchTreeUI A reference to the OsmSearchTreeUI object
+	@param {OsmSearchWaitUI} osmSearchWaitUI A reference to the OsmSearchWaitUI object
 	*/
 
 	constructor ( osmSearchTreeUI, osmSearchWaitUI ) {
+
 		Object.freeze ( this );
 
+		// container
 		this.#toolbarHTMLElement = theHTMLElementsFactory.create (
 			'div'
 		);
+
+		// Search button
 		theHTMLElementsFactory.create (
 			'div',
 			{
@@ -215,6 +283,7 @@ class OsmSearchToolbarUI {
 		)
 			.addEventListener ( 'click', new SearchButtonClickEL ( osmSearchTreeUI, osmSearchWaitUI ), false );
 
+		// Expand tree button
 		theHTMLElementsFactory.create (
 			'div',
 			{
@@ -226,6 +295,7 @@ class OsmSearchToolbarUI {
 		)
 			.addEventListener ( 'click', new ExpandButtonClickEL ( osmSearchTreeUI ), false );
 
+		// Collapse button
 		theHTMLElementsFactory.create (
 			'div',
 			{
@@ -237,6 +307,7 @@ class OsmSearchToolbarUI {
 		)
 			.addEventListener ( 'click', new CollapseButtonClickEL ( osmSearchTreeUI ), false );
 
+		// clear button
 		theHTMLElementsFactory.create (
 			'div',
 			{
@@ -252,7 +323,9 @@ class OsmSearchToolbarUI {
 	}
 
 	/**
-	toolbar htmlElement getter
+	The toolbar htmlElement
+	@type HTMLElement
+	@readonly
 	*/
 
 	get toolbarHTMLElement ( ) { return this.#toolbarHTMLElement; }

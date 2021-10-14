@@ -66,11 +66,19 @@ import { INVALID_OBJ_ID } from '../main/Constants.js';
 class OsmSearchLimitsUI {
 
 	/**
-	ObjId's for the limits
+	ObjId for the previous search limits
+	@type {!number}
 	@private
 	*/
 
 	#previousSearchLimitObjId = INVALID_OBJ_ID;
+
+	/**
+	ObjId for the  search limits
+	@type {!number}
+	@private
+	*/
+
 	#searchLimitObjId = INVALID_OBJ_ID;
 
 	/**

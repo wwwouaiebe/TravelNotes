@@ -61,6 +61,7 @@ import { ZERO } from '../main/Constants.js';
 
 @class SearchResultContextMenuEL
 @classdesc contextmenu event listener for search result
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -75,6 +76,10 @@ class SearchResultContextMenuEL {
 		Object.freeze ( this );
 	}
 
+	/**
+	Event listener method
+	*/
+
 	handleEvent ( contextMenuEvent ) {
 		contextMenuEvent.stopPropagation ( );
 		contextMenuEvent.preventDefault ( );
@@ -88,6 +93,7 @@ class SearchResultContextMenuEL {
 
 @class SearchResultMouseEnterEL
 @classdesc mouseenter event listener for search result
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -101,6 +107,10 @@ class SearchResultMouseEnterEL {
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( mouseEvent ) {
 		mouseEvent.stopPropagation ( );
@@ -122,6 +132,7 @@ class SearchResultMouseEnterEL {
 
 @class SearchResultMouseLeaveEL
 @classdesc mouseenter event listener for search result
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -135,6 +146,10 @@ class SearchResultMouseLeaveEL {
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( mouseEvent ) {
 		mouseEvent.stopPropagation ( );
@@ -155,15 +170,67 @@ class SearchResultMouseLeaveEL {
 
 class OsmSearchDataUI {
 
+	/**
+	A reference to the HTMLElement in witch the data have to be added
+	@type {HTMLElement}
+	@private
+	*/
+
 	#paneData = null;
+
+	/**
+	Temp reference to the OsmElement for witch the HTMLElement is currently build
+	@type {Object}
+	@private
+	*/
+
 	#currentOsmElement = null;
-	#currentHtmlElement = null;
+
+	/**
+	Temp var to store the currently builded HTMLElement
+	@type {HTMLElement}
+	@private
+	*/
+
+	#currentContainer = null;
+
+	/**
+	Temp var to store the currently builded HTMLElement
+	@type {HTMLElement}
+	@private
+	*/
+
+	#currentSearchResultCell = null;
+
+	/**
+	The index of the currently OsmElement in the theTravelNotesData.searchData array
+	*/
+
 	#elementIndex = ZERO;
-	#eventListeners = {
-		onContextMenu : null,
-		onMouseEnter : null,
-		onMouseLeave : null
-	};
+
+	/**
+	Search result contextmenu event listener
+	@type {SearchResultContextMenuEL}
+	@private
+	*/
+
+	#searchResultContextMenuEL = null;
+
+	/**
+	Search result  mouseenter event listener
+	@type {SearchResultMouseEnterEL}
+	@private
+	*/
+
+	#searchResultMouseEnterEL = null;
+
+	/**
+	Search result contextmenu event listener
+	@type {SearchResultMouseLeaveEL}
+	@private
+	*/
+
+	#searchResultMouseLeaveEL	 = null;
 
 	/**
 	Icon builder
@@ -187,7 +254,7 @@ class OsmSearchDataUI {
 			{
 				className :	'TravelNotes-OsmSearchPaneUI-SearchResult-IconCell'
 			},
-			this.#currentHtmlElement
+			this.#currentContainer
 		);
 		theHTMLSanitizer.sanitizeToHtmlElement ( iconContent, iconCell );
 	}
@@ -197,9 +264,9 @@ class OsmSearchDataUI {
 	@private
 	*/
 
-	#addOsmTag ( osmTagValue, searchResultCell ) {
+	#addOsmTag ( osmTagValue ) {
 		if ( osmTagValue ) {
-			theHTMLElementsFactory.create ( 'div', { textContent : osmTagValue }, searchResultCell	);
+			theHTMLElementsFactory.create ( 'div', { textContent : osmTagValue }, this.#currentSearchResultCell	);
 		}
 	}
 
@@ -208,7 +275,7 @@ class OsmSearchDataUI {
 	@private
 	*/
 
-	#addAddress ( searchResultCell ) {
+	#addAddress ( ) {
 		const street =
 			this.#currentOsmElement.tags [ 'addr:street' ]
 				?
@@ -237,7 +304,7 @@ class OsmSearchDataUI {
 				'';
 		const address = street + city;
 		if ( '' !== address ) {
-			this.#addOsmTag ( address, searchResultCell );
+			this.#addOsmTag ( address, this.#currentSearchResultCell );
 		}
 	}
 
@@ -246,9 +313,9 @@ class OsmSearchDataUI {
 	@private
 	*/
 
-	#addPhone ( searchResultCell ) {
+	#addPhone ( ) {
 		if ( this.#currentOsmElement.tags.phone ) {
-			this.#addOsmTag ( '☎️ : ' + this.#currentOsmElement.tags.phone, searchResultCell );
+			this.#addOsmTag ( '☎️ : ' + this.#currentOsmElement.tags.phone, this.#currentSearchResultCell );
 		}
 	}
 
@@ -257,7 +324,7 @@ class OsmSearchDataUI {
 	@private
 	*/
 
-	#addMail ( searchResultCell ) {
+	#addMail ( ) {
 		if ( this.#currentOsmElement.tags.email ) {
 			theHTMLElementsFactory.create (
 				'a',
@@ -265,7 +332,7 @@ class OsmSearchDataUI {
 					href : 'mailto:' + this.#currentOsmElement.tags.email,
 					textContent : this.#currentOsmElement.tags.email
 				},
-				theHTMLElementsFactory.create ( 'div', { textContent : '📧 : ' }, searchResultCell )
+				theHTMLElementsFactory.create ( 'div', { textContent : '📧 : ' }, this.#currentSearchResultCell )
 			);
 		}
 	}
@@ -275,7 +342,7 @@ class OsmSearchDataUI {
 	@private
 	*/
 
-	#addWebSite ( searchResultCell ) {
+	#addWebSite ( ) {
 		if ( this.#currentOsmElement.tags.website ) {
 			theHTMLElementsFactory.create (
 				'a',
@@ -284,7 +351,7 @@ class OsmSearchDataUI {
 					target : '_blank',
 					textContent : this.#currentOsmElement.tags.website
 				},
-				theHTMLElementsFactory.create ( 'div', null, searchResultCell )
+				theHTMLElementsFactory.create ( 'div', null, this.#currentSearchResultCell )
 			);
 		}
 	}
@@ -295,19 +362,19 @@ class OsmSearchDataUI {
 	*/
 
 	#addOsmData ( ) {
-		const searchResultCell = theHTMLElementsFactory.create (
+		this.#currentSearchResultCell = theHTMLElementsFactory.create (
 			'div',
 			{ className :	'TravelNotes-OsmSearchPaneUI-SearchResult-Cell'	},
-			this.#currentHtmlElement
+			this.#currentContainer
 		);
 
-		this.#addOsmTag ( this.#currentOsmElement.description, searchResultCell );
-		this.#addOsmTag ( this.#currentOsmElement.tags.name, searchResultCell );
-		this.#addOsmTag ( this.#currentOsmElement.tags.rcn_ref, searchResultCell );
-		this.#addAddress ( searchResultCell );
-		this.#addPhone ( searchResultCell );
-		this.#addMail ( searchResultCell );
-		this.#addWebSite ( searchResultCell );
+		this.#addOsmTag ( this.#currentOsmElement.description );
+		this.#addOsmTag ( this.#currentOsmElement.tags.name );
+		this.#addOsmTag ( this.#currentOsmElement.tags.rcn_ref );
+		this.#addAddress ( );
+		this.#addPhone ( );
+		this.#addMail ( );
+		this.#addWebSite ( );
 
 	}
 
@@ -318,7 +385,7 @@ class OsmSearchDataUI {
 
 	#addTitle ( ) {
 		for ( const [ KEY, VALUE ] of Object.entries ( this.#currentOsmElement.tags ) ) {
-			this.#currentHtmlElement.title += KEY + '=' + VALUE + '\n';
+			this.#currentContainer.title += KEY + '=' + VALUE + '\n';
 		}
 
 	}
@@ -329,9 +396,9 @@ class OsmSearchDataUI {
 	*/
 
 	#addEventListeners ( ) {
-		this.#currentHtmlElement.addEventListener ( 'contextmenu', this.#eventListeners.onContextMenu, false );
-		this.#currentHtmlElement.addEventListener ( 'mouseenter', this.#eventListeners.onMouseEnter, false );
-		this.#currentHtmlElement.addEventListener ( 'mouseleave', this.#eventListeners.onMouseLeave, false );
+		this.#currentContainer.addEventListener ( 'contextmenu', this.#searchResultContextMenuEL, false );
+		this.#currentContainer.addEventListener ( 'mouseenter', this.#searchResultMouseEnterEL, false );
+		this.#currentContainer.addEventListener ( 'mouseleave', this.#searchResultMouseLeaveEL, false );
 	}
 
 	/**
@@ -340,7 +407,7 @@ class OsmSearchDataUI {
 	*/
 
 	#buildHtmlElement ( parentNode ) {
-		this.#currentHtmlElement = theHTMLElementsFactory.create (
+		this.#currentContainer = theHTMLElementsFactory.create (
 			'div',
 			{
 				className :	'TravelNotes-OsmSearchPaneUI-SearchResult-Row',
@@ -356,13 +423,14 @@ class OsmSearchDataUI {
 
 	/*
 	constructor
+	@param {HTMLElement} paneData The HTMLElement in witch the data have to be added
 	*/
 
 	constructor ( paneData ) {
 		this.#paneData = paneData;
-		this.#eventListeners.onContextMenu = new SearchResultContextMenuEL ( );
-		this.#eventListeners.onMouseEnter = new SearchResultMouseEnterEL ( );
-		this.#eventListeners.onMouseLeave = new SearchResultMouseLeaveEL ( );
+		this.#searchResultContextMenuEL = new SearchResultContextMenuEL ( );
+		this.#searchResultMouseEnterEL = new SearchResultMouseEnterEL ( );
+		this.#searchResultMouseLeaveEL = new SearchResultMouseLeaveEL ( );
 	}
 
 	/**
@@ -371,7 +439,8 @@ class OsmSearchDataUI {
 
 	addData ( ) {
 		this.#currentOsmElement = null;
-		this.#currentHtmlElement = null;
+		this.#currentContainer = null;
+		this.#currentSearchResultCell = null;
 		this.#elementIndex = ZERO;
 		theTravelNotesData.searchData.forEach (
 			osmElement => {
@@ -387,9 +456,9 @@ class OsmSearchDataUI {
 
 	clearData ( ) {
 		while ( this.#paneData.firstChild ) {
-			this.#paneData.firstChild.removeEventListener ( 'contextmenu', this.#eventListeners.onContextMenu, false );
-			this.#paneData.firstChild.removeEventListener ( 'mouseenter', this.#eventListeners.onMouseEnter, false );
-			this.#paneData.firstChild.removeEventListener ( 'mouseleave', this.#eventListeners.onMouseLeave, false );
+			this.#paneData.firstChild.removeEventListener ( 'contextmenu', this.#searchResultContextMenuEL, false );
+			this.#paneData.firstChild.removeEventListener ( 'mouseenter', this.#searchResultMouseEnterEL, false );
+			this.#paneData.firstChild.removeEventListener ( 'mouseleave', this.#searchResultMouseLeaveEL, false );
 			theEventDispatcher.dispatch (
 				'removeobject',
 				{ objId : Number.parseInt ( this.#paneData.firstChild.dataset.tanObjId ) }

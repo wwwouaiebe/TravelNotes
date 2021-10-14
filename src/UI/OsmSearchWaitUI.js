@@ -62,6 +62,7 @@ class OsmSearchWaitUI {
 
 	/**
 	The wait html element
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -69,6 +70,7 @@ class OsmSearchWaitUI {
 
 	/**
 	The red bullet...
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -83,6 +85,15 @@ class OsmSearchWaitUI {
 			'div',
 			{ className : 'TravelNotes-WaitAnimation' },
 		);
+
+		this.#waitBullet = theHTMLElementsFactory.create (
+			'div',
+			{
+				className : 'TravelNotes-WaitAnimationBullet'
+			},
+			this.#waitDiv
+		);
+
 		this.#waitDiv.classList.add ( 'TravelNotes-Hidden' );
 	}
 
@@ -91,13 +102,6 @@ class OsmSearchWaitUI {
 	*/
 
 	showWait ( ) {
-		this.#waitBullet = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-WaitAnimationBullet'
-			},
-			this.#waitDiv
-		);
 		this.#waitDiv.classList.remove ( 'TravelNotes-Hidden' );
 	}
 
@@ -106,12 +110,13 @@ class OsmSearchWaitUI {
 	*/
 
 	hideWait ( ) {
-		if ( this.#waitBullet ) {
-			this.#waitDiv.removeChild ( this.#waitBullet );
-			this.#waitBullet = null;
-		}
 		this.#waitDiv.classList.add ( 'TravelNotes-Hidden' );
 	}
+
+	/**
+	The wait HTMLElement of the OsmSearchWaitUI
+	@type {HTMLElement}
+	*/
 
 	get waitHTMLElement ( ) { return this.#waitDiv; }
 }
