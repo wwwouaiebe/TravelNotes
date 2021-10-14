@@ -46,6 +46,18 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
+/**
+@------------------------------------------------------------------------------------------------------------------------------
+
+@typedef {Object} selectOptions
+@desc An object to store the options of the select in the SelectDialog
+@property {string} text The text to be displayed as option HTMLElement
+@property {!number} objId An objId
+@public
+
+@------------------------------------------------------------------------------------------------------------------------------
+*/
+
 import BaseDialog from '../dialogBase/BaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import { ZERO } from '../main/Constants.js';

@@ -43,11 +43,8 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@typedef {Object} Translation
-@desc An object used to store translated messages
-@property {string} msgid an id to use to identify the message
-@property {string} msgstr The message translated
-@public
+@module UILib
+@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -55,8 +52,11 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@module UILib
-@private
+@typedef {Object} Translation
+@desc An object used to store translated messages
+@property {string} msgid an id to use to identify the message
+@property {string} msgstr The message translated
+@public
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

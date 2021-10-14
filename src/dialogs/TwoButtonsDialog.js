@@ -43,13 +43,8 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@typedef {Object} TwoButtonsDialogContent
-@desc An object to store the content displayed in a TwoButtonsDialog
-@property {?string} title The title of the dialog
-@property {?string} okButtonContent The text displayed on the ok button. Default OK
-@property {?string} secondButtonContent The text displayed on the second button. When none, the second button is not displayed
-@property {?string} textContent The text displayed in the dialog
-@public
+@module dialogs
+@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -57,8 +52,13 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@module dialogs
-@private
+@typedef {Object} TwoButtonsDialogContent
+@desc An object to store the content displayed in a TwoButtonsDialog
+@property {?string} title The title of the dialog
+@property {?string} okButtonContent The text displayed on the ok button. Default OK
+@property {?string} secondButtonContent The text displayed on the second button. When none, the second button is not displayed
+@property {?string} textContent The text displayed in the dialog
+@public
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

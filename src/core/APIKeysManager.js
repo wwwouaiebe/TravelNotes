@@ -50,11 +50,8 @@ Tests 20210903
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@typedef {Object} APIKey
-@desc An object to store a provider name and  API key
-@property {string} providerName The provider name
-@property {string} providerKey The provider API key
-@public
+@module core
+@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -62,8 +59,11 @@ Tests 20210903
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@module core
-@private
+@typedef {Object} APIKey
+@desc An object to store a provider name and  API key
+@property {string} providerName The provider name
+@property {string} providerKey The provider API key
+@public
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

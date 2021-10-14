@@ -55,11 +55,8 @@ Tests 20210902
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@typedef {Object} WayPointOsmData
-@desc An object with the name and address found for the WayPoint with Nominatim
-@property {string} name
-@property {string} address
-@public
+@module core
+@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -67,8 +64,11 @@ Tests 20210902
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@module core
-@private
+@typedef {Object} WayPointOsmData
+@desc An object with the name and address found for the WayPoint with Nominatim
+@property {string} name
+@property {string} address
+@public
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

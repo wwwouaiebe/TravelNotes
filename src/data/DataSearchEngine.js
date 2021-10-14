@@ -46,11 +46,8 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@typedef {Object} NoteAndRoute
-@desc An object to store a Note and the Route on witch the Note is attached
-@property {?Note} note the searched Note or null if the note is not found
-@property {?Route} route the Route on witch the Note is attached or null if the Note is a travel note
-@public
+@module data
+@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -58,8 +55,11 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@module data
-@private
+@typedef {Object} NoteAndRoute
+@desc An object to store a Note and the Route on witch the Note is attached
+@property {?Note} note the searched Note or null if the note is not found
+@property {?Route} route the Route on witch the Note is attached or null if the Note is a travel note
+@public
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

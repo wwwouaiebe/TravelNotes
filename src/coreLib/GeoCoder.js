@@ -57,12 +57,8 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@typedef {Object} GeoCoderAddress
-@desc An address
-@property {string} name The name of the point or an empty string
-@property {string} street The house number and the street of the point or an empty string
-@property {string} city The city of the point or an empty string
-@property {boolean} statusOk A status indicating that all the requests are executed correctly
+@module coreLib
+@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -70,8 +66,12 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@module coreLib
-@private
+@typedef {Object} GeoCoderAddress
+@desc An address
+@property {string} name The name of the point or an empty string
+@property {string} street The house number and the street of the point or an empty string
+@property {string} city The city of the point or an empty string
+@property {boolean} statusOk A status indicating that all the requests are executed correctly
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

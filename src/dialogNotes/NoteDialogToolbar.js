@@ -47,6 +47,15 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
+@module dialogNotes
+@private
+
+@------------------------------------------------------------------------------------------------------------------------------
+*/
+
+/**
+@------------------------------------------------------------------------------------------------------------------------------
+
 @typedef {Object} NoteDialogCfgFileContent
 @desc An object with definitions for the creation of select options and buttons for the NoteDialogToolbar
 @property {Array.<NoteDialogToolbarButton>} editionButtons An array with the buttons definitions
@@ -80,15 +89,6 @@ Tests ...
 @property {string} htmlBefore The text to be inserted before the cursor when clicking on the button
 @property {?string} htmlAfter The text to be inserted after the cursor when clicking on the button. Optional
 @public
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogNotes
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

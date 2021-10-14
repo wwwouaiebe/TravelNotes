@@ -40,11 +40,7 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@typedef {Object} MenuItem
-@desc An object with data used to display the menu
-@property {string} itemText The text to display in the menu
-@property {boolean} isActive When true the menu item is selectable
-@public
+@module contextMenus
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -52,7 +48,11 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@module contextMenus
+@typedef {Object} MenuItem
+@desc An object with data used to display the menu
+@property {string} itemText The text to display in the menu
+@property {boolean} isActive When true the menu item is selectable
+@public
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

@@ -47,11 +47,8 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@typedef {Object} NoteLeafletObjects
-@desc An object with all the Leaflet objects for a note
-@property {Object} marker The marker of the note
-@property {Object} polyline The polyline of the note
-@property {Object} bullet The bullet of the note (= a Leaflet marker)
+@module coreMapEditor
+@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -59,8 +56,11 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@module coreMapEditor
-@private
+@typedef {Object} NoteLeafletObjects
+@desc An object with all the Leaflet objects for a note
+@property {Object} marker The marker of the note
+@property {Object} polyline The polyline of the note
+@property {Object} bullet The bullet of the note (= a Leaflet marker)
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

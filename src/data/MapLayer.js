@@ -39,21 +39,21 @@ Tests ...
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
-@typedef {Object} LayerToolbarButton
-@desc A layers toolbar button properties
-@property {string} text The text to display in the toolbar button
-@property {string} color The foreground color of the toolbar button
-@property {string} backgroundColor The background color of the toolbar button
-@public
+
+@module data
+@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
+@typedef {Object} LayerToolbarButtonData
+@desc A layers toolbar button properties
+@property {string} text The text to display in the toolbar button
+@property {string} color The foreground color of the toolbar button
+@property {string} backgroundColor The background color of the toolbar button
+@public
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -132,7 +132,7 @@ class MapLayer	{
 
 	/**
 	An object with text, color and backgroundColor properties used to create the button in the toolbar
-	@type {LayerToolbarButton}
+	@type {LayerToolbarButtonData}
 	@private
 	*/
 
@@ -431,7 +431,7 @@ class MapLayer	{
 
 	/**
 	An object with text, color and backgroundColor properties used to create the button in the toolbar
-	@type {LayerToolbarButton}
+	@type {LayerToolbarButtonData}
 	*/
 
 	get toolbar ( ) { return this.#toolbar; }

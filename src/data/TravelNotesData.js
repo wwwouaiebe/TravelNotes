@@ -46,11 +46,7 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@typedef {Object} Routing
-@desc An object to store the current provider and transit mode
-@property {string} provider The current provider name as defined by the plugins
-@property {string} transitMode The current transitMode. Must be car, bike, etc... as defined by the plugins
-@public
+@module data
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -58,7 +54,11 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@module data
+@typedef {Object} Routing
+@desc An object to store the current provider and transit mode
+@property {string} provider The current provider name as defined by the plugins
+@property {string} transitMode The current transitMode. Must be car, bike, etc... as defined by the plugins
+@public
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
