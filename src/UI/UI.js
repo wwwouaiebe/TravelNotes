@@ -148,51 +148,6 @@ class UI {
 	#isPinned = false;
 
 	/**
-	@desc This method add the mouse events listeners (prevent defaults actions on the UI )
-	@private
-	*/
-
-	#addMouseEventListeners ( ) {
-		this.#mainHTMLElement.addEventListener (
-			'click',
-			clickEvent => {
-				if ( clickEvent.target.id && 'TravelNotes-UI-MainDiv' === clickEvent.target.id ) {
-					clickEvent.stopPropagation ( );
-					clickEvent.preventDefault ( );
-				}
-			},
-			false
-		);
-
-		this.#mainHTMLElement.addEventListener (
-			'dblclick',
-			dblClickEvent => {
-				dblClickEvent.stopPropagation ( );
-				dblClickEvent.preventDefault ( );
-			},
-			false
-		);
-
-		this.#mainHTMLElement.addEventListener (
-			'contextmenu',
-			conextMenuEvent => {
-				conextMenuEvent.stopPropagation ( );
-				conextMenuEvent.preventDefault ( );
-			},
-			false
-		);
-
-		this.#mainHTMLElement.addEventListener (
-			'wheel',
-			wheelEvent => {
-				wheelEvent.stopPropagation ( );
-				wheelEvent.preventDefault ( );
-			},
-			false
-		);
-	}
-
-	/**
 	Event listener for the mouse leave on the UI
 	@private
 	*/
@@ -300,7 +255,6 @@ class UI {
 		// Event listeners
 		this.#mainHTMLElement.addEventListener ( 'mouseenter', ( ) => this.#show ( ), false );
 		this.#mainHTMLElement.addEventListener ( 'mouseleave', ( ) => this.#onMouseLeave ( ), false );
-		this.#addMouseEventListeners ( );
 
 		if ( theConfig.travelEditor.startMinimized ) {
 			this.#hide ( );
