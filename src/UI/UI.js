@@ -83,15 +83,68 @@ import { ONE } from '../main/Constants.js';
 
 class UI {
 
+	/**
+	The main UI container
+	@type {HTMLElement}
+	@private
+	*/
+
 	#mainHTMLElement = null;
 
+	/**
+	The title (The black rectangle on right top)
+	@type {HTMLElement}
+	@private
+	*/
+
+	#titleHTMLElement = null;
+
+	/**
+	The main toolbar
+	@type {TravelNotesToolbarUI}
+	@private
+	*/
+
 	#travelNotesToolbarUI = null;
+
+	/**
+	The travel UI
+	@type {TravelUI}
+	@private
+	*/
+
 	#travelUI = null;
+
+	/**
+	The panes manager UI
+	@type {PanesManagerUI}
+	@private
+	*/
+
 	#panesManagerUI = null;
+
+	/**
+	The providers toolbar UI
+	@type {ProvidersToolbarUI}
+	@private
+	*/
+
 	#providersToolbarUI = null;
 
+	/**
+	A Timer id. Reduce the ui when the mouse leave
+	@type {}
+	@private
+	*/
+
 	#timerId = null;
-	#titleHTMLElement = null;
+
+	/**
+	The pinned status of the UI
+	@type {boolean}
+	@private
+	*/
+
 	#isPinned = false;
 
 	/**
@@ -218,6 +271,7 @@ class UI {
 			return;
 		}
 
+		// main UI
 		this.#mainHTMLElement = theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-UI-MainDiv' }, uiHTMLElement );
 		this.#titleHTMLElement = theHTMLElementsFactory.create (
 			'div',
@@ -227,14 +281,23 @@ class UI {
 			},
 			this.#mainHTMLElement
 		);
+
+		// TravelNotes toolbar UI
 		this.#travelNotesToolbarUI = new TravelNotesToolbarUI ( this.#mainHTMLElement );
+
+		// Travel UI
 		this.#travelUI = new TravelUI ( this.#mainHTMLElement );
+
+		// PanesManager UI
 		this.#panesManagerUI = new PanesManagerUI ( this.#mainHTMLElement );
 		this.#panesManagerUI.addPane ( ItineraryPaneUI );
 		this.#panesManagerUI.addPane ( TravelNotesPaneUI );
 		this.#panesManagerUI.addPane ( OsmSearchPaneUI );
+
+		// Providers toolbar UI
 		this.#providersToolbarUI = new ProvidersToolbarUI ( this.#mainHTMLElement );
 
+		// Event listeners
 		this.#mainHTMLElement.addEventListener ( 'mouseenter', ( ) => this.#show ( ), false );
 		this.#mainHTMLElement.addEventListener ( 'mouseleave', ( ) => this.#onMouseLeave ( ), false );
 		this.#addMouseEventListeners ( );
@@ -249,9 +312,32 @@ class UI {
 		}
 	}
 
+	/**
+	The main toolbar
+	@type {TravelNotesToolbarUI}
+	*/
+
 	get travelNotesToolbarUI ( ) { return this.#travelNotesToolbarUI; }
+
+	/**
+	The travel UI
+	@type {TravelUI}
+	*/
+
 	get travelUI ( ) { return this.#travelUI; }
+
+	/**
+	The panes manager UI
+	@type {PanesManagerUI}
+	*/
+
 	get panesManagerUI ( ) { return this.#panesManagerUI; }
+
+	/**
+	The providers toolbar UI
+	@type {ProvidersToolbarUI}
+	*/
+
 	get providersToolbarUI ( ) { return this.#providersToolbarUI; }
 }
 

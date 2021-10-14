@@ -80,6 +80,10 @@ class ApiKeysButtonClickEL {
 		Object.freeze ( this );
 	}
 
+	/**
+	Event listener method
+	*/
+
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		theAPIKeysManager.setKeysFromDialog ( );
@@ -105,6 +109,10 @@ class GeoLocatorButtonClickEL {
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -132,7 +140,12 @@ class PinButtonClickEL {
 		Object.freeze ( this );
 	}
 
+	/**
+	Event listener method
+	*/
+
 	handleEvent ( clickEvent ) {
+		clickEvent.stopPropagation ( );
 		clickEvent.target.textContent = '📌' === clickEvent.target.textContent ? '❌' : '📌';
 		theEventDispatcher.dispatch ( 'uipinned' );
 	}
@@ -141,7 +154,7 @@ class PinButtonClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class
+@class TravelNotesToolbarUI
 @classdesc This class is the Toolbar on top of the UI
 @hideconstructor
 
@@ -150,7 +163,20 @@ class PinButtonClickEL {
 
 class TravelNotesToolbarUI {
 
+	/**
+	The geolocation button
+	@type {HTMLElement}
+	@private
+	*/
+
 	#geoLocationButton = null;
+
+	/**
+	The buttons container
+	@type {HTMLElement}
+	@private
+	*/
+
 	#buttonsDiv = null;
 
 	/**
@@ -305,10 +331,14 @@ class TravelNotesToolbarUI {
 
 	/*
 	constructor
+	@param {HTMLElement} uiMainDiv The HTMLElement in witch the toolbar must be created
 	*/
 
 	constructor ( uiMainDiv ) {
+
 		Object.freeze ( this );
+
+		// Container creation
 		this.#buttonsDiv = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -316,6 +346,8 @@ class TravelNotesToolbarUI {
 			},
 			uiMainDiv
 		);
+
+		// Buttons creation
 		this.#createHomeButton ( );
 		this.#createHelpButton ( );
 		this.#createContactButton ( );

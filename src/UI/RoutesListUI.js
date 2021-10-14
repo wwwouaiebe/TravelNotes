@@ -69,32 +69,59 @@ import {
 class RoutesListUI {
 
 	/**
-	The route lst HTMLElement
+	The route list HTMLElement
+	@type {HTMLElement}
+	@private
 	*/
 
 	#routesListHTMLElement = null;
 
 	/**
-	Event listeners
+	Route contextmenu event listeners
+	@type {RouteContextMenuEL}
+	@private
 	*/
 
-	#routeContextMenuEventListener = new RouteContextMenuEL ( );
-	#routeDropEventListener = new RouteDropEL ( );
-	#routeDragStartEventListener = new RouteDragStartEL ( );
+	#routeContextMenuEL = null;
+
+	/**
+	Route drop event listeners
+	@type {RouteDropEL}
+	@private
+	*/
+
+	#routeDropEL = null;
+
+	/**
+	Route dragstart event listeners
+	@type {RouteDropEL}
+	@private
+	*/
+
+	#routeDragStartEL = null;
 
 	/*
 	constructor
+	@param {HTMLElement} UIMainHTMLElement The HTMLElement in witch the RouteList must be added
 	*/
 
 	constructor ( UIMainHTMLElement ) {
+
 		Object.freeze ( this );
+
+		// container creation
 		this.#routesListHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{ className : 'TravelNotes-TravelUI-RoutesListDiv' },
 			UIMainHTMLElement
 		);
+
+		// event listeners
 		this.#routesListHTMLElement.addEventListener ( 'dragover', new RoutesListDragOverEL ( ) );
 		this.#routesListHTMLElement.addEventListener ( 'wheel', new RoutesListWheelEL ( ) );
+		this.#routeContextMenuEL = new RouteContextMenuEL ( );
+		this.#routeDropEL = new RouteDropEL ( );
+		this.#routeDragStartEL = new RouteDragStartEL ( );
 	}
 
 	/*
@@ -111,13 +138,16 @@ class RoutesListUI {
 	*/
 
 	setRoutesList ( ) {
+
+		// Removing old routes
 		while ( this.#routesListHTMLElement.firstChild ) {
-			this.#routesListHTMLElement.firstChild.removeEventListener ( 'dragstart', this.#routeDragStartEventListener );
-			this.#routesListHTMLElement.firstChild.removeEventListener ( 'drop', this.#routeDropEventListener );
-			this.#routesListHTMLElement.firstChild.removeEventListener ( 'contextmenu', this.#routeContextMenuEventListener );
+			this.#routesListHTMLElement.firstChild.removeEventListener ( 'dragstart', this.#routeDragStartEL );
+			this.#routesListHTMLElement.firstChild.removeEventListener ( 'drop', this.#routeDropEL );
+			this.#routesListHTMLElement.firstChild.removeEventListener ( 'contextmenu', this.#routeContextMenuEL );
 			this.#routesListHTMLElement.removeChild ( this.#routesListHTMLElement.firstChild );
 		}
 
+		// Adding new routes
 		const routesIterator = theTravelNotesData.travel.routes.iterator;
 		while ( ! routesIterator.done ) {
 			const route = routesIterator.value.objId === theTravelNotesData.editedRouteObjId
@@ -148,9 +178,9 @@ class RoutesListUI {
 				this.#routesListHTMLElement
 			);
 
-			routeHTMLElement.addEventListener ( 'dragstart', this.#routeDragStartEventListener );
-			routeHTMLElement.addEventListener ( 'drop', this.#routeDropEventListener );
-			routeHTMLElement.addEventListener ( 'contextmenu', this.#routeContextMenuEventListener );
+			routeHTMLElement.addEventListener ( 'dragstart', this.#routeDragStartEL );
+			routeHTMLElement.addEventListener ( 'drop', this.#routeDropEL );
+			routeHTMLElement.addEventListener ( 'contextmenu', this.#routeContextMenuEL );
 		}
 	}
 }

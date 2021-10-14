@@ -56,6 +56,7 @@ import { MOUSE_WHEEL_FACTORS } from '../main/Constants.js';
 
 @class RoutesListDragOverEL
 @classdesc dragover event listener for the RoutesList based on the EventListener API.
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -71,7 +72,7 @@ class RoutesListDragOverEL {
 	}
 
 	/**
-	dragover event listener
+	Event listener method
 	*/
 
 	handleEvent ( dragEvent ) {
@@ -84,6 +85,7 @@ class RoutesListDragOverEL {
 
 @class RouteDragStartEL
 @classdesc dragstart event listener for the routes based on the EventListener API.
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -99,7 +101,7 @@ class RouteDragStartEL {
 	}
 
 	/**
-	@desc dragstart event listener
+	Event listener method
 	*/
 
 	handleEvent ( dragEvent ) {
@@ -121,6 +123,7 @@ class RouteDragStartEL {
 
 @class RouteDropEL
 @classdesc drop event listener for the routes based on the EventListener API.
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -136,7 +139,7 @@ class RouteDropEL {
 	}
 
 	/**
-	drop event listener
+	Event listener method
 	*/
 
 	handleEvent ( dropEvent ) {
@@ -156,6 +159,7 @@ class RouteDropEL {
 
 @class RoutesListWheelEL
 @classdesc wheel event listener for the RoutesList based on the EventListener API.
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -169,6 +173,10 @@ class RoutesListWheelEL {
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( wheelEvent ) {
 		wheelEvent.stopPropagation ( );
@@ -186,6 +194,7 @@ class RoutesListWheelEL {
 
 @class RouteContextMenuEL
 @classdesc contextmenu event listener for the routes based on the EventListener API.
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -199,6 +208,10 @@ class RouteContextMenuEL {
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( contextMenuEvent ) {
 		contextMenuEvent.stopPropagation ( );

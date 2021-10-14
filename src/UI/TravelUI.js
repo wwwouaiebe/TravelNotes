@@ -83,11 +83,24 @@ import RoutesListUI from '../UI/RoutesListUI.js';
 
 @class TravelNameChangeEL
 @classdesc change event listener for the TravelName input
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class TravelNameChangeEL {
+
+	/*
+	constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
@@ -105,16 +118,33 @@ class TravelNameChangeEL {
 
 @class ExpandButtonClickEL
 @classdesc click event listener for the ExpandRoutes button
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class ExpandButtonClickEL {
 
+	/**
+	A reference to the RoutesListUI object
+	@type {RoutesListUI}
+	@private
+	*/
+
 	#routesListUI = null;
+
+	/*
+	constructor
+	@param {RoutesListUI} routesListUI A reference to the RoutesListUI object
+	*/
+
 	constructor ( routesListUI ) {
 		this.#routesListUI = routesListUI;
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -136,11 +166,24 @@ class ExpandButtonClickEL {
 
 @class AddRouteButtonClickEL
 @classdesc click event listener for the addRoute button
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class AddRouteButtonClickEL {
+
+	/*
+	constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -160,17 +203,46 @@ class AddRouteButtonClickEL {
 
 class TravelUI {
 
+	/**
+	The routes list header
+	@type {HTMLElement}
+	@private
+	*/
+
 	#routesHeaderDiv = null;
+
+	/**
+	The travel name input
+	@type {HTMLElement}
+	@private
+	*/
+
 	#travelNameInput = null;
+
+	/**
+	The routes list UI
+	@type {RoutesListUI}
+	@private
+	*/
+
 	#routesListUI = null;
+
+	/**
+	The expand routes list UI button
+	@type {HTMLElement}
+	@private
+	*/
+
 	#expandRoutesButton = null;
 
 	/**
 	This method creates the travel name div
+	@param {HTMLElement} uiMainDiv The HTMLElement in witch the travel name div must be created
 	@private
 	*/
 
 	#createTravelNameDiv ( uiMainDiv ) {
+
 		const travelNameDiv = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -178,6 +250,7 @@ class TravelUI {
 			},
 			uiMainDiv
 		);
+
 		theHTMLElementsFactory.create (
 			'span',
 			{
@@ -185,6 +258,7 @@ class TravelUI {
 			},
 			travelNameDiv
 		);
+
 		this.#travelNameInput = theHTMLElementsFactory.create (
 			'input',
 			{
@@ -217,6 +291,7 @@ class TravelUI {
 
 	/**
 	This method creates the routes list header div
+	@param {HTMLElement} uiMainDiv The HTMLElement in witch the route list header must be created
 	@private
 	*/
 
@@ -251,14 +326,21 @@ class TravelUI {
 
 	/*
 	constructor
+	@param {HTMLElement} uiMainDiv The HTMLElement in witch the UI must be created
 	*/
 
 	constructor ( uiMainDiv ) {
+
 		Object.freeze ( this );
+
 		this.#createTravelNameDiv ( uiMainDiv );
+
 		new TravelToolbarUI ( uiMainDiv );
+
 		this.#createRoutesListHeaderDiv ( uiMainDiv );
+
 		this.#routesListUI = new RoutesListUI ( uiMainDiv );
+
 		this.#expandRoutesButton.addEventListener (
 			'click',
 			new ExpandButtonClickEL ( this.#routesListUI ),
@@ -273,6 +355,12 @@ class TravelUI {
 	setTravelName ( ) {
 		this.#travelNameInput.value = theTravelNotesData.travel.name;
 	}
+
+	/**
+	Areference to the routes list UI
+	@type {RoutesListUI}
+	@private
+	*/
 
 	get routesListUI ( ) { return this.#routesListUI; }
 }

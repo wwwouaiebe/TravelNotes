@@ -61,6 +61,7 @@ import { INVALID_OBJ_ID, ZERO } from '../main/Constants.js';
 
 @class SaveAsButtonClickEL
 @classdesc click event listener for the SaveAs button
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -75,6 +76,10 @@ class SaveAsButtonClickEL {
 		Object.freeze ( this );
 	}
 
+	/**
+	Event listener method
+	*/
+
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		theTravelEditor.saveAsTravel ( );
@@ -87,6 +92,7 @@ class SaveAsButtonClickEL {
 
 @class CancelButtonClickEL
 @classdesc click event listener for the Cancel button
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -100,6 +106,10 @@ class CancelButtonClickEL {
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ();
@@ -115,6 +125,7 @@ class CancelButtonClickEL {
 
 @class SaveButtonClickEL
 @classdesc click event listener for the Save button
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -129,6 +140,10 @@ class SaveButtonClickEL {
 		Object.freeze ( this );
 	}
 
+	/**
+	Event listener method
+	*/
+
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		theTravelEditor.saveTravel ( );
@@ -140,6 +155,7 @@ class SaveButtonClickEL {
 
 @class OpenInputChangeEL
 @classdesc change event listener for the input associated to the open button
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -153,6 +169,10 @@ class OpenInputChangeEL {
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
@@ -177,6 +197,7 @@ class OpenInputChangeEL {
 
 @class OpenButtonClickEL
 @classdesc click event listener for the open button
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -190,6 +211,10 @@ class OpenButtonClickEL {
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -214,6 +239,7 @@ class OpenButtonClickEL {
 
 @class ImportInputChangeEL
 @classdesc change event listener for the input associated to the import button
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -227,6 +253,10 @@ class ImportInputChangeEL {
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
@@ -252,6 +282,7 @@ class ImportInputChangeEL {
 
 @class ImportButtonClickEL
 @classdesc click event listener for the import button
+@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -265,6 +296,10 @@ class ImportButtonClickEL {
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -290,6 +325,12 @@ class ImportButtonClickEL {
 */
 
 class TravelToolbarUI {
+
+	/**
+	The buttons container
+	@type {HTMLElement}
+	@private
+	*/
 
 	#buttonsDiv = null;
 
@@ -419,10 +460,14 @@ class TravelToolbarUI {
 
 	/*
 	constructor
+	@param {HTMLElement} uiMainDiv The HTMLElement in witch the toolbar must be created
 	*/
 
 	constructor ( uiMainDiv ) {
+
 		Object.freeze ( this );
+
+		// Container creation
 		this.#buttonsDiv = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -431,6 +476,7 @@ class TravelToolbarUI {
 			uiMainDiv
 		);
 
+		// Buttons creation
 		this.#createSaveAsTravelButton ( );
 		this.#createCancelTravelButton ( );
 		this.#createSaveTravelButton ( );
