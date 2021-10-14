@@ -79,27 +79,31 @@ class ProvidersToolbarUI {
 
 	/**
 	The toolbar HTMLElement
+	@type {HTMLElement}
 	@private
 	*/
 
 	#toolbarHTMLElement = null;
 
 	/**
-	A map with the transit mode buttons
+	A JS map with the transit mode buttons, ordered by transitMode
+	@type {Map}
 	@private
 	*/
 
 	#transitModeButtons = new Map ( );
 
 	/**
-	A map with the provider buttons
+	A JS map with the provider buttons, ordered by provider.name
+	@type {Map}
 	@private
 	*/
 
 	#providerButtons = new Map ( );
 
 	/**
-	the active transit mode buttonHTMLElement
+	the active transit mode button
+	@type {ProviderToolbarTransitModeButton}
 	@private
 	*/
 
@@ -107,6 +111,7 @@ class ProvidersToolbarUI {
 
 	/**
 	the active provider button
+	@type {ProviderToolbarProviderButton}
 	@private
 	*/
 
@@ -147,10 +152,14 @@ class ProvidersToolbarUI {
 
 	/*
 	constructor
+	@param {HTMLElement} UIMainHTMLElement The HTMLElement in witch the toolbar must be added
 	*/
 
 	constructor ( UIMainHTMLElement ) {
+
 		Object.freeze ( this );
+
+		// toolbar creation
 		this.#toolbarHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -158,8 +167,12 @@ class ProvidersToolbarUI {
 			},
 			UIMainHTMLElement
 		);
+
+		// buttons creation
 		this.#createTransitModesButtons ( );
 		this.#createProvidersButtons ( );
+
+		// set the first provider in the map as active provider
 		this.provider = this.#providerButtons.keys ().next ().value;
 	}
 

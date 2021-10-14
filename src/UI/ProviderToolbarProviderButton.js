@@ -63,6 +63,7 @@ class ProviderToolbarProviderButton {
 
 	/**
 	A reference to the toolbar
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -70,26 +71,34 @@ class ProviderToolbarProviderButton {
 
 	/**
 	The provider
+	@type {BaseRouteProvider}
 	@private
 	*/
 
 	#provider = null;
 
 	/**
-	the button HTMLElements
+	the button HTMLElement
+	@type {HTMLElement}
+	@private
 	*/
 
 	#buttonHTMLElement = null;
 
 	/*
 	constructor
+	@param {ProviderToolbarUI} providerToolbarUI The providerToolbarUI on witch the button will be added
+	@param {BaseRouteProvider} provider The provider object linked to the button
 	*/
 
 	constructor ( providerToolbarUI, provider ) {
+
 		Object.freeze ( this );
+
 		this.#providerToolbarUI = providerToolbarUI;
 		this.#provider = provider;
 
+		// HTML creation
 		this.#buttonHTMLElement = theHTMLElementsFactory.create (
 			'img',
 			{
@@ -103,7 +112,7 @@ class ProviderToolbarProviderButton {
 	}
 
 	/**
-	click event listener
+	click event listener. The button is also it's own event listener.
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -114,12 +123,14 @@ class ProviderToolbarProviderButton {
 
 	/**
 	the button HTMLElements
+	@type HTMLElement
 	*/
 
 	get buttonHTMLElement ( ) { return this.#buttonHTMLElement; }
 
 	/**
 	The provider
+	@type {BaseRouteProvider}
 	*/
 
 	get provider ( ) { return this.#provider; }

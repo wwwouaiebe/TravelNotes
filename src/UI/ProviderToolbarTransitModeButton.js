@@ -114,6 +114,7 @@ class ProviderToolbarTransitModeButton {
 
 	/**
 	A reference to the toolbar
+	@type {HTMLElement}
 	@private
 	*/
 
@@ -121,26 +122,34 @@ class ProviderToolbarTransitModeButton {
 
 	/**
 	The transit mode
+	@type {string}
 	@private
 	*/
 
 	#transitMode = null;
 
 	/**
-	the button HTMLElements
+	the button HTMLElement
+	@type {HTMLelement}
+	@private
 	*/
 
 	#buttonHTMLElement = null;
 
 	/*
 	constructor
+	@param {ProviderToolbarUI} providerToolbarUI The providerToolbarUI on witch the button will be added
+	@param {string} transitMode The transit mode linked to the button
 	*/
 
 	constructor ( providerToolbarUI, transitMode ) {
+
 		Object.freeze ( this );
+
 		this.#providerToolbarUI = providerToolbarUI;
 		this.#transitMode = transitMode;
 
+		// HTML creation
 		this.#buttonHTMLElement = theHTMLElementsFactory.create (
 			'img',
 			{
@@ -155,7 +164,7 @@ class ProviderToolbarTransitModeButton {
 	}
 
 	/**
-	click event listener
+	click event listener. The button is also it's own event listener.
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -165,13 +174,15 @@ class ProviderToolbarTransitModeButton {
 	}
 
 	/**
-	the button HTMLElements
+	the button HTMLElement
+	@type {HTMLElement}
 	*/
 
 	get buttonHTMLElement ( ) { return this.#buttonHTMLElement; }
 
 	/**
 	The transit mode
+	@type {string}
 	*/
 
 	get transitMode ( ) { return this.#transitMode; }
