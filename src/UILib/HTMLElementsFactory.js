@@ -56,7 +56,7 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @class HTMLElementsFactory
-@classdesc ...
+@classdesc HTMLElements factory
 @see {@link theHTMLElementsFactory} for the one and only one instance of this class
 @hideconstructor
 
@@ -67,7 +67,9 @@ class HTMLElementsFactory {
 
 	/**
 	#addProperties
-	@desc This method add the properties to the created element
+	This method add the properties to the created element
+	@param {HTMLElement} element The HTMLElement for witch the properties will be added
+	@param {object} properties An object with properties to add to the HTMLElement
 	@private
 	*/
 

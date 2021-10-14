@@ -62,9 +62,28 @@ const OUR_DB_VERSION = 1;
 
 class IndexedDb {
 
+	/**
+	A reference to the opened indexedDB
+	@type {IDBFactory}
+	@private
+	*/
+	
 	#indexedDb = null;
 
+	/**
+	The UUID of the current travel
+	@type {string}
+	@private
+	*/
+	
 	#UUID = null;
+	
+	/**
+	A temp variable used to store the data to write in the indexedDb
+	@type {string}
+	@private
+	*/
+	
 	#data = null;
 
 	/**

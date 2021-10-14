@@ -76,6 +76,12 @@ import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
 class Translator {
 
+	/**
+	A js Map where the translations are stored, ordered by msgid
+	@type {Map}
+	@private
+	*/
+	
 	#translations = new Map ( );
 
 	/*
