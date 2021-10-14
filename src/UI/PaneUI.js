@@ -63,7 +63,19 @@ import { PANE_ID } from '../main/Constants.js';
 
 class PaneUI {
 
+	/**
+	A reference to the HTMLElement in witch the data have to be added
+	@type {HTMLElement}
+	@private
+	*/
+
 	#paneData = null;
+
+	/**
+	A reference to the HTMLElement in witch the control have to be added
+	@type {HTMLElement}
+	@private
+	*/
 
 	#paneControl = null;
 
@@ -79,19 +91,53 @@ class PaneUI {
 		this.#paneControl = paneControl;
 	}
 
+	/**
+	A reference to the HTMLElement in witch the data have to be added
+	@type {HTMLElement}
+	*/
+
 	get paneData ( ) { return this.#paneData; }
 
+	/**
+	A reference to the HTMLElement in witch the control have to be added
+	@type {HTMLElement}
+	*/
+
 	get paneControl ( ) { return this.#paneControl; }
+
+	/**
+	This method removes all the elements from the paneData HTMLElement and paneControl HTMLElement
+	Must be implemented in the derived classes
+	*/
 
 	remove ( ) {
 	}
 
+	/**
+	This method add the maneuvers and notes to the paneData HTMLElement and controls to the paneControl HTMLElement
+	Must be implemented in the derived classes
+	*/
+
 	add ( ) {
 	}
+
+	/**
+	A unique identifier for the pane
+	Must be implemented in the derived classes
+	@type {string}
+	@readonly
+	*/
 
 	get paneId ( ) {
 		return PANE_ID.invalidPane;
 	}
+
+	/**
+	The text to be displayer in the pane button
+	Must be implemented in the derived classes
+	@type {string}
+	@readonly
+	*/
 
 	get buttonText ( ) {
 		return '';

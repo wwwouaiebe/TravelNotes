@@ -72,15 +72,29 @@ import { MOUSE_WHEEL_FACTORS, PANE_ID } from '../main/Constants.js';
 
 class PaneButtonClickEL {
 
+	/**
+	A reference to the PanesManagerUI Object
+	@type {PanesManagerUI}
+	@private
+	*/
+
 	#paneManagerUI = null;
 
 	/*
 	constructor
+	@param {PanesManagerUI} paneManagerUI A reference to the PanesManagerUI Object
 	*/
 
 	constructor ( paneManagerUI ) {
+
+		Object.freeze ( this );
+
 		this.#paneManagerUI = paneManagerUI;
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( clickEvent ) {
 		this.#paneManagerUI.showPane ( clickEvent.target.dataset.tanPaneId );
@@ -106,6 +120,10 @@ class PaneDataDivWheelEL {
 		Object.freeze ( this );
 	}
 
+	/**
+	Event listener method
+	*/
+
 	handleEvent ( wheelEvent ) {
 		if ( wheelEvent.deltaY ) {
 			wheelEvent.target.scrollTop +=
@@ -118,7 +136,7 @@ class PaneDataDivWheelEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class
+@class PanesManagerUI
 @classdesc This class manages the differents panes on the UI
 @hideconstructor
 
@@ -127,10 +145,43 @@ class PaneDataDivWheelEL {
 
 class PanesManagerUI {
 
+	/**
+	The pane id of the active pane
+	@type {string}
+	@private
+	*/
+
 	#activePaneId = PANE_ID.invalidPane;
+
+	/**
+	A js Map with all the panes, ordered by paneId
+	@type {Map}
+	@private
+	*/
+
 	#panes = new Map ( );
+
+	/**
+	The HTMLElement in witch the data have to be added
+	@type {HTMLElement}
+	@private
+	*/
+
 	#paneData = null;
+
+	/**
+	The HTMLElement in witch the control have to be added
+	@type {HTMLElement}
+	@private
+	*/
+
 	#paneControl = null;
+
+	/**
+	@type {HTMLElement}
+	@private
+	*/
+
 	#headerDiv = null;
 
 	/**
@@ -141,16 +192,19 @@ class PanesManagerUI {
 	#removeActivePane ( ) {
 		if ( PANE_ID.invalidPane !== this.#activePaneId ) {
 			this.#panes.get ( this.#activePaneId ).remove ( );
-			this.#paneData.textContent = '';
 		}
 	}
 
 	/*
 	constructor
+	@param {HTMLElement} uiMainDiv The HTMLElement in witch the PaneManagerUI must be included
 	*/
 
 	constructor ( uiMainDiv ) {
+
 		Object.freeze ( this );
+
+		// Header div ( buttons ) creation
 		this.#headerDiv = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -159,6 +213,7 @@ class PanesManagerUI {
 			uiMainDiv
 		);
 
+		// paneControl creation
 		this.#paneControl = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -167,6 +222,7 @@ class PanesManagerUI {
 			uiMainDiv
 		);
 
+		// paneData creation
 		this.#paneData = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -179,12 +235,15 @@ class PanesManagerUI {
 
 	/**
 	add a pane to the PanesManagerUI
-	@param {PaneUI} paneUI The pane to add
+	@param {Class} paneClass The class of the pane to add
 	*/
 
 	addPane ( paneClass ) {
+
 		const pane = new paneClass ( this.#paneData, this.#paneControl );
 		this.#panes.set ( pane.paneId, pane );
+
+		// Pane button creation
 		theHTMLElementsFactory.create (
 			'div',
 			{
@@ -198,13 +257,19 @@ class PanesManagerUI {
 
 	/**
 	show a pane to the PanesManagerUI
-	@param {string|number} pane id of the pane to be displayed
+	@param {string} pane id of the pane to be displayed
 	*/
 
 	showPane ( paneId ) {
+
+		// removing current pane
 		this.#removeActivePane ( );
+
+		// adding the pane
 		this.#activePaneId = paneId;
 		this.#panes.get ( this.#activePaneId ).add ( );
+
+		// changing the button style
 		document.querySelectorAll ( '.TravelNotes-PanesManagerUI-PaneButton' ).forEach (
 			paneButton => {
 				if ( paneButton.dataset.tanPaneId === this.#activePaneId ) {

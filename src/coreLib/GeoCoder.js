@@ -150,7 +150,7 @@ class GeoCoder {
 			city += ' (' + place + ')';
 		}
 
-		let street = this.#nominatimDataLoader.street || '';
+		let street = ( this.#nominatimDataLoader.street || '' ).replaceAll ( ';', ' ' );
 
 		let nominatimName = this.#nominatimDataLoader.name || '';
 
