@@ -81,7 +81,7 @@ class Translator {
 	@type {Map}
 	@private
 	*/
-	
+
 	#translations = new Map ( );
 
 	/*

@@ -68,6 +68,12 @@ import { ZERO } from '../main/Constants.js';
 
 class MapLayerButtonClickEL {
 
+	/**
+	A reference to the array of MapLayer objects
+	@type {Array.<MapLayer>}
+	@private
+	*/
+
 	#mapLayers = null;
 
 	/*
@@ -78,6 +84,10 @@ class MapLayerButtonClickEL {
 		Object.freeze ( this );
 		this.#mapLayers = mapLayers;
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -107,6 +117,10 @@ class GeoLocationButtonClickEL {
 		Object.freeze ( this );
 	}
 
+	/**
+	Event listener method
+	*/
+
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		theGeoLocator.switch ( );
@@ -133,6 +147,10 @@ class ZoomButtonClickEL {
 		Object.freeze ( this );
 	}
 
+	/**
+	Event listener method
+	*/
+
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		new Zoomer ( ).zoomToTravel ( );
@@ -154,7 +172,19 @@ class ZoomButtonClickEL {
 
 class ViewerLayersToolbarUI {
 
+	/**
+	The toolbar
+	@type {HTMLElement}
+	@private
+	*/
+
 	#mapLayersToolbar = null;
+
+	/**
+	An array with the available MapLayer objects
+	@type {Array.<MapLayer>}
+	@private
+	*/
 
 	#mapLayers = [
 		{
@@ -186,12 +216,15 @@ class ViewerLayersToolbarUI {
 	*/
 
 	createUI ( ) {
+
+		// Toolbar
 		this.#mapLayersToolbar = theHTMLElementsFactory.create (
 			'div',
 			{ id : 'TravelNotes-ViewerLayersToolbarUI' },
 			document.body
 		);
 
+		// Geolocation button
 		// Don't test the https protocol. On some mobile devices with an integreted GPS
 		// the geolocation is working also on http protocol
 		theHTMLElementsFactory.create (
@@ -205,6 +238,7 @@ class ViewerLayersToolbarUI {
 			this.#mapLayersToolbar
 		).addEventListener ( 'click', new GeoLocationButtonClickEL ( ), false );
 
+		// Zoom button
 		theHTMLElementsFactory.create (
 			'div',
 			{
@@ -216,7 +250,8 @@ class ViewerLayersToolbarUI {
 			this.#mapLayersToolbar
 		).addEventListener ( 'click', new ZoomButtonClickEL ( ), false );
 
-		const clickMapLayerButtonEventListener = new MapLayerButtonClickEL ( this.#mapLayers );
+		// MapLayer buttons
+		const mapLayerButtonClickEL = new MapLayerButtonClickEL ( this.#mapLayers );
 		for ( let mapLayerCounter = 0; mapLayerCounter < this.#mapLayers.length; mapLayerCounter ++ ) {
 			const mapLayer = this.#mapLayers [ mapLayerCounter ];
 			theHTMLElementsFactory.create (
@@ -229,13 +264,13 @@ class ViewerLayersToolbarUI {
 					style : 'color:' + mapLayer.toolbar.color + ';background-color:' + mapLayer.toolbar.backgroundColor
 				},
 				this.#mapLayersToolbar
-			).addEventListener ( 'click', clickMapLayerButtonEventListener, false );
+			).addEventListener ( 'click', mapLayerButtonClickEL, false );
 		}
 	}
 
 	/**
 	Set a layer as background map. If the layer is not found, the 'OSM - Color' layer is set
-	@param {string} layerName the name of the layer to set
+	@param {string} layerName the name of the layer to set or the index of theMapLayer in the #mapLayers
 	*/
 
 	setMapLayer ( layerName ) {

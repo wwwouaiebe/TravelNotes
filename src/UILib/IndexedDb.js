@@ -67,7 +67,7 @@ class IndexedDb {
 	@type {IDBFactory}
 	@private
 	*/
-	
+
 	#indexedDb = null;
 
 	/**
@@ -75,15 +75,15 @@ class IndexedDb {
 	@type {string}
 	@private
 	*/
-	
+
 	#UUID = null;
-	
+
 	/**
 	A temp variable used to store the data to write in the indexedDb
 	@type {string}
 	@private
 	*/
-	
+
 	#data = null;
 
 	/**
