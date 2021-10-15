@@ -63,7 +63,20 @@ import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 
 class WaitUI {
 
+	/**
+	The background div
+	@type {HTMLElement}
+	@private
+	*/
+
 	#backgroundDiv = null;
+
+	/**
+	The message div
+	@type {HTMLElement}
+	@private
+	*/
+
 	#messageDiv = null;
 
 	/*
@@ -79,11 +92,19 @@ class WaitUI {
 	*/
 
 	createUI ( ) {
-		if ( document.getElementById ( 'TravelNotes-WaitUI' ) ) {
+
+		// We can create the waitUI only once...
+		if ( this.#backgroundDiv ) {
 			return;
 		}
+
+		// Background div, so the map and controls are unavailable
 		this.#backgroundDiv = theHTMLElementsFactory.create ( 'div', { className : 'TravelNotes-Background' }, document.body );
+
+		// Wait div
 		const waitDiv = theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-WaitUI' }, this.#backgroundDiv );
+
+		// Message div
 		this.#messageDiv = theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-WaitUI-MessageDiv' }, waitDiv );
 		theHTMLElementsFactory.create (
 			'div',
