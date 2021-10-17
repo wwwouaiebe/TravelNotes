@@ -176,7 +176,7 @@ class BaseRouteProvider {
 
 	get userLanguage ( ) { return this.#userLanguage; }
 	set userLanguage ( userLanguage ) {
-		this.#userLanguage = userLanguage; 
+		this.#userLanguage = userLanguage;
 	}
 }
 

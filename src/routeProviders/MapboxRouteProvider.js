@@ -74,10 +74,9 @@ of Providers of TravelNotes
 
 class MapboxRouteProvider extends BaseRouteProvider {
 
-	#userLanguage = 'fr';
-
 	/**
 	The provider key. Will be set by TravelNotes
+	@type {string}
 	@private
 	*/
 
@@ -85,6 +84,8 @@ class MapboxRouteProvider extends BaseRouteProvider {
 
 	/**
 	A reference to the edited route
+	@type {Route}
+	@private
 	*/
 
 	#route = null;
@@ -148,7 +149,6 @@ class MapboxRouteProvider extends BaseRouteProvider {
 								ICON_LIST [ step.maneuver.type ] [ 'default' ]
 								:
 								ICON_LIST [ 'default' ] [ 'default' ];
-
 						maneuver.instruction = theOsrmTextInstructions.compile ( this.userLanguage, step );
 						maneuver.duration = step.duration;
 						let distance = ZERO;
@@ -271,6 +271,25 @@ class MapboxRouteProvider extends BaseRouteProvider {
 		super ( );
 	}
 
+	/**
+	Call the provider, using the waypoints defined in the route and, on success,
+	complete the route with the data from the provider
+	@param {Route} route The route to witch the data will be added
+	@return {Promise} A Promise. On success, the Route is completed with the data given by the provider.
+	*/
+
+	getPromiseRoute ( route ) {
+		this.#route = route;
+		return new Promise ( ( onOk, onError ) => this.#getRoute ( onOk, onError ) );
+	}
+
+	/**
+	The icon used in the ProviderToolbarUI.
+	Overload of the base class icon property
+	@type {string}
+	@readonly
+	*/
+
 	get icon ( ) {
 		return '' +
 			'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWX' +
@@ -285,24 +304,62 @@ class MapboxRouteProvider extends BaseRouteProvider {
 			'hmgCNlhzKArA/i+nK92tvN2t6/zd1C0/ADiOy3l0UZHxAAAAAASUVORK5CYII=';
 	}
 
-	getPromiseRoute ( route ) {
-		this.#route = route;
-		return new Promise ( ( onOk, onError ) => this.#getRoute ( onOk, onError ) );
-	}
+	/**
+	The provider name.
+	Overload of the base class name property
+	@type {string}
+	@readonly
+	*/
 
 	get name ( ) { return 'Mapbox'; }
 
+	/**
+	The title to display in the ProviderToolbarUI button.
+	Overload of the base class title property
+	@type {string}
+	@readonly
+	*/
+
 	get title ( ) { return 'Mapbox'; }
+
+	/**
+	The possible transit modes for the provider.
+	Overload of the base class transitModes property
+	Must be a subarray of [ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ]
+	@type {Array.<string>}
+	@readonly
+	*/
 
 	get transitModes ( ) { return [ 'bike', 'pedestrian', 'car' ]; }
 
+	/**
+	A boolean indicating when a provider key is needed for the provider.
+	Overload of the base class providerKeyNeeded property
+	@type {boolean}
+	@readonly
+	*/
+
 	get providerKeyNeeded ( ) { return true; }
+
+	/**
+	The provider key. Notice that the accessor returns only the length of the provider key and not the key...
+	Overload of the base class providerKey property
+	@type {string|number}
+	*/
 
 	get providerKey ( ) { return this.#providerKey.length; }
 	set providerKey ( providerKey ) { this.#providerKey = providerKey; }
 
-	get userLanguage ( ) { return this.#userLanguage; }
-	set userLanguage ( userLanguage ) { this.#userLanguage = userLanguage; }
+	/**
+	The user language. Overload of the base class userLanguage property.
+	It's needed to overload the setter AND the getter otherwise the getter returns undefined
+	@type {string}
+	*/
+
+	get userLanguage ( ) { return super.userLanguage; }
+	set userLanguage ( userLanguage ) {
+		super.userLanguage = theOsrmTextInstructions.loadLanguage ( userLanguage );
+	}
 }
 
 window.TaN.addProvider ( MapboxRouteProvider );

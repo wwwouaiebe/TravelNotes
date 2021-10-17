@@ -72,10 +72,9 @@ of Providers of TravelNotes
 
 class OsrmRouteProvider extends BaseRouteProvider {
 
-	#userLanguage = 'fr';
-
 	/**
 	The provider key. Will be set by TravelNotes
+	@type {string}
 	@private
 	*/
 
@@ -83,12 +82,14 @@ class OsrmRouteProvider extends BaseRouteProvider {
 
 	/**
 	A reference to the edited route
+	@type {Route}
+	@private
 	*/
 
 	#route = null;
 
 	/**
-	Parse the response from the provider and add the received itinerary to the this.#route itinerary
+	Parse the response from the provider and add the received itinerary to the route itinerary
 	@param {Object} response the itinerary received from the provider
 	@param {function} onOk a function to call when the response is parsed correctly
 	@param {function} onError a function to call when an error occurs
@@ -138,7 +139,7 @@ class OsrmRouteProvider extends BaseRouteProvider {
 								:
 								ICON_LIST [ 'default' ] [ 'default' ];
 
-						maneuver.instruction = theOsrmTextInstructions.compile ( this.#userLanguage, step );
+						maneuver.instruction = theOsrmTextInstructions.compile ( this.userLanguage, step );
 						maneuver.duration = step.duration;
 						let distance = ZERO;
 						for (
@@ -229,6 +230,11 @@ class OsrmRouteProvider extends BaseRouteProvider {
 			'?geometries=polyline6&overview=full&steps=true&annotations=distance';
 	}
 
+	/**
+	Implementation of the base class #getRoute ( )
+	@private
+	*/
+
 	#getRoute ( onOk, onError ) {
 		fetch ( this.#getUrl ( ) )
 			.then (
@@ -251,6 +257,25 @@ class OsrmRouteProvider extends BaseRouteProvider {
 	constructor ( ) {
 		super ( );
 	}
+
+	/**
+	Call the provider, using the waypoints defined in the route and, on success,
+	complete the route with the data from the provider
+	@param {Route} route The route to witch the data will be added
+	@return {Promise} A Promise. On success, the Route is completed with the data given by the provider.
+	*/
+
+	getPromiseRoute ( route ) {
+		this.#route = route;
+		return new Promise ( ( onOk, onError ) => this.#getRoute ( onOk, onError ) );
+	}
+
+	/**
+	The icon used in the ProviderToolbarUI.
+	Overload of the base class icon property
+	@type {string}
+	@readonly
+	*/
 
 	get icon ( ) {
 		return '' +
@@ -276,25 +301,61 @@ class OsrmRouteProvider extends BaseRouteProvider {
 			'jok8Lk4anYm263h2Jv//+FeRjlHxKxS4in4X1YAAAAAElFTkSuQmCC';
 	}
 
-	getPromiseRoute ( route ) {
-		this.#route = route;
-		return new Promise ( ( onOk, onError ) => this.#getRoute ( onOk, onError ) );
-	}
+	/**
+	The provider name.
+	Overload of the base class name property
+	@type {string}
+	@readonly
+	*/
 
 	get name ( ) { return 'OSRM'; }
 
+	/**
+	The title to display in the ProviderToolbarUI button.
+	Overload of the base class title property
+	@type {string}
+	@readonly
+	*/
+
 	get title ( ) { return 'OSRM'; }
+
+	/**
+	The possible transit modes for the provider.
+	Overload of the base class transitModes property
+	Must be a subarray of [ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ]
+	@type {Array.<string>}
+	@readonly
+	*/
 
 	get transitModes ( ) { return [ 'bike', 'pedestrian', 'car' ]; }
 
+	/**
+	A boolean indicating when a provider key is needed for the provider.
+	Overload of the base class providerKeyNeeded property
+	@type {boolean}
+	@readonly
+	*/
+
 	get providerKeyNeeded ( ) { return false; }
+
+	/**
+	The provider key. Notice that the accessor returns only the length of the provider key and not the key...
+	Overload of the base class providerKey property
+	@type {string|number}
+	*/
 
 	get providerKey ( ) { return ONE; }
 	set providerKey ( ProviderKey ) { }
 
-	get userLanguage ( ) { return this.#userLanguage; }
+	/**
+	The user language. Overload of the base class userLanguage property.
+	It's needed to overload the setter AND the getter otherwise the getter returns undefined
+	@type {string}
+	*/
+
+	get userLanguage ( ) { return super.userLanguage; }
 	set userLanguage ( userLanguage ) {
-		this.#userLanguage = theOsrmTextInstructions.loadLanguage ( userLanguage );
+		super.userLanguage = theOsrmTextInstructions.loadLanguage ( userLanguage );
 	}
 }
 
