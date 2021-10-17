@@ -47,7 +47,7 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-import { ZERO, ONE, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
+import { ZERO, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
 import SelectDialog from '../dialogs/SelectDialog.js';
 import PublicTransportRouteBuilder from '../routeProviders/PublicTransportRouteBuilder.js';
 import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
@@ -67,15 +67,19 @@ of Providers of TravelNotes
 
 class PublicTransportRouteProvider extends BaseRouteProvider {
 
-	#userLanguage = 'fr';
-
 	/**
 	A reference to the edited route
+	@type {Route}
+	@private
 	*/
 
 	#route = null;
 
 	/**
+	Parse the response from the provider and add the received itinerary to the route itinerary
+	@param {Object} response the itinerary received from the provider
+	@param {function} onOk a function to call when the response is parsed correctly
+	@param {function} onError a function to call when an error occurs
 	@private
 	*/
 
@@ -192,6 +196,25 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 		super ( );
 	}
 
+	/**
+	Call the provider, using the waypoints defined in the route and, on success,
+	complete the route with the data from the provider
+	@param {Route} route The route to witch the data will be added
+	@return {Promise} A Promise. On success, the Route is completed with the data given by the provider.
+	*/
+
+	getPromiseRoute ( route ) {
+		this.#route = route;
+		return new Promise ( ( onOk, onError ) => this.#getRoute ( onOk, onError ) );
+	}
+
+	/**
+	The icon used in the ProviderToolbarUI.
+	Overload of the base class icon property
+	@type {string}
+	@readonly
+	*/
+
 	get icon ( ) {
 		return 'data:image/svg+xml;utf8,' +
 			'<svg viewBox="-3 -3 20 20" xmlns="http://www.w3.org/2000/svg"> <g fill="rgb(128,0,0)">' +
@@ -200,22 +223,42 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 			'-1,2 3,0 1,-2 z m 7,0 1,2 3,0 -1,-2 z"/></g></svg>';
 	}
 
-	getPromiseRoute ( route ) {
-		this.#route = route;
-		return new Promise ( ( onOk, onError ) => this.#getRoute ( onOk, onError ) );
-	}
+	/**
+	The provider name.
+	Overload of the base class name property
+	@type {string}
+	@readonly
+	*/
 
 	get name ( ) { return 'PublicTransport'; }
 
+	/**
+	The title to display in the ProviderToolbarUI button.
+	Overload of the base class title property
+	@type {string}
+	@readonly
+	*/
+
 	get title ( ) { return 'Public Transport on OpenStreetMap'; }
+
+	/**
+	The possible transit modes for the provider.
+	Overload of the base class transitModes property
+	Must be a subarray of [ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ]
+	@type {Array.<string>}
+	@readonly
+	*/
 
 	get transitModes ( ) { return [ 'train' ]; }
 
+	/**
+	A boolean indicating when a provider key is needed for the provider.
+	Overload of the base class providerKeyNeeded property
+	@type {boolean}
+	@readonly
+	*/
+
 	get providerKeyNeeded ( ) { return false; }
-
-	get userLanguage ( ) { return this.#userLanguage; }
-	set userLanguage ( userLanguage ) { this.#userLanguage = userLanguage; }
-
 }
 
 window.TaN.addProvider ( PublicTransportRouteProvider );

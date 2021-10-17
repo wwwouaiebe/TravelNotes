@@ -347,7 +347,6 @@ class MapboxRouteProvider extends BaseRouteProvider {
 	@type {string|number}
 	*/
 
-	// get providerKey ( ) { return this.#providerKey.length; }
 	set providerKey ( providerKey ) { this.#providerKey = providerKey; }
 
 	/**

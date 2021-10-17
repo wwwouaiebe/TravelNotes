@@ -86,8 +86,6 @@ of Providers of TravelNotes
 
 class PolylineRouteProvider extends BaseRouteProvider {
 
-	#userLanguage = 'fr';
-
 	/**
 	A reference to the edited route
 	*/
@@ -218,6 +216,7 @@ class PolylineRouteProvider extends BaseRouteProvider {
 
 	/**
 	Set a stuff of great circle as itinerary
+	@private
 	*/
 
 	#parseGreatCircle ( ) {
@@ -375,6 +374,25 @@ class PolylineRouteProvider extends BaseRouteProvider {
 		super ( );
 	}
 
+	/**
+	Call the provider, using the waypoints defined in the route and, on success,
+	complete the route with the data from the provider
+	@param {Route} route The route to witch the data will be added
+	@return {Promise} A Promise. On success, the Route is completed with the data given by the provider.
+	*/
+
+	getPromiseRoute ( route ) {
+		this.#route = route;
+		return new Promise ( ( onOk, onError ) => this.#parseResponse ( onOk, onError ) );
+	}
+
+	/**
+	The icon used in the ProviderToolbarUI.
+	Overload of the base class icon property
+	@type {string}
+	@readonly
+	*/
+
 	get icon ( ) {
 		return 'data:image/svg+xml;utf8,<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" > <circle cx="12" c' +
 			'y="12" r="3" stroke="rgb(0,0,0)" fill="transparent" /> <line x1="5" y1="17" x2="11" y2="2" stroke="rgb(0,0,0)" ' +
@@ -382,21 +400,42 @@ class PolylineRouteProvider extends BaseRouteProvider {
 			'255,204,0)" /> </svg>';
 	}
 
-	getPromiseRoute ( route ) {
-		this.#route = route;
-		return new Promise ( ( onOk, onError ) => this.#parseResponse ( onOk, onError ) );
-	}
+	/**
+	The provider name.
+	Overload of the base class name property
+	@type {string}
+	@readonly
+	*/
 
 	get name ( ) { return 'Polyline'; }
 
+	/**
+	The title to display in the ProviderToolbarUI button.
+	Overload of the base class title property
+	@type {string}
+	@readonly
+	*/
+
 	get title ( ) { return 'Polyline & Circle'; }
+
+	/**
+	The possible transit modes for the provider.
+	Overload of the base class transitModes property
+	Must be a subarray of [ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ]
+	@type {Array.<string>}
+	@readonly
+	*/
 
 	get transitModes ( ) { return [ 'line', 'circle' ]; }
 
-	get providerKeyNeeded ( ) { return false; }
+	/**
+	A boolean indicating when a provider key is needed for the provider.
+	Overload of the base class providerKeyNeeded property
+	@type {boolean}
+	@readonly
+	*/
 
-	get userLanguage ( ) { return this.#userLanguage; }
-	set userLanguage ( userLanguage ) { this.#userLanguage = userLanguage; }
+	get providerKeyNeeded ( ) { return false; }
 }
 
 window.TaN.addProvider ( PolylineRouteProvider );
