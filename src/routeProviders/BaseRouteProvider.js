@@ -50,7 +50,7 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @class BaseRouteProvider
-@classdesc coming soon...
+@classdesc Base class used for RouteProviders
 @hideconstructor
 @abstract
 
@@ -59,10 +59,17 @@ Tests ...
 
 class BaseRouteProvider {
 
+	/**
+	The user language
+	@type {string}
+	@private
+	*/
+
 	#userLanguage = 'fr';
 
 	/**
 	The provider key. Will be set by TravelNotes
+	@type {string}
 	@private
 	*/
 
@@ -70,6 +77,8 @@ class BaseRouteProvider {
 
 	/**
 	A reference to the edited route
+	@type {Route}
+	@private
 	*/
 
 	#route = null;
@@ -88,6 +97,25 @@ class BaseRouteProvider {
 		Object.freeze ( this );
 	}
 
+	/**
+	Call the provider, using the waypoints defined in the route and, on success,
+	complete the route with the data from the provider
+	@param {Route} route The route to witch the data will be added
+	@return {Promise} A Promise. On success, the Route is completed with the data given by the provider.
+	*/
+
+	getPromiseRoute ( route ) {
+		this.#route = route;
+		return new Promise ( ( onOk, onError ) => this.#getRoute ( onOk, onError ) );
+	}
+
+	/**
+	The icon used in the ProviderToolbarUI.
+	Must be overloaded in the derived classes
+	@type {string}
+	@readonly
+	*/
+
 	get icon ( ) {
 		return '' +
 			'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAIAAAC0Ujn1AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjw' +
@@ -95,24 +123,61 @@ class BaseRouteProvider {
 			'u6NeCUAAAAAElFTkSuQmCC';
 	}
 
-	getPromiseRoute ( route ) {
-		this.#route = route;
-		return new Promise ( ( onOk, onError ) => this.#getRoute ( onOk, onError ) );
-	}
+	/**
+	The provider name.
+	Must be overloaded in the derived classes
+	@type {string}
+	@readonly
+	*/
 
 	get name ( ) { return ''; }
 
+	/**
+	The title to display in the ProviderToolbarUI button.
+	Must be overloaded in the derived classes
+	@type {string}
+	@readonly
+	*/
+
 	get title ( ) { return ''; }
 
-	get transitModes ( ) { return [ /* 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' */ ]; }
+	/**
+	The possible transit modes for the provider.
+	Must be overloaded in the derived classes.
+	Must be a subarray of [ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ]
+	@type {Array.<string>}
+	@readonly
+	*/
+
+	get transitModes ( ) { return [ ]; }
+
+	/**
+	A boolean indicating when a provider key is needed for the provider.
+	Must be overloaded in the derived classes
+	@type {boolean}
+	@readonly
+	*/
 
 	get providerKeyNeeded ( ) { return true; }
+
+	/**
+	The provider key. Notice that the accessor returns only the length of the provider key and not the key...
+	Must be overloaded in the derived classes
+	@type {string|number}
+	*/
 
 	get providerKey ( ) { return this.#providerKey.length; }
 	set providerKey ( providerKey ) { this.#providerKey = providerKey; }
 
+	/**
+	The user language.
+	@type {string}
+	*/
+
 	get userLanguage ( ) { return this.#userLanguage; }
-	set userLanguage ( userLanguage ) { this.#userLanguage = userLanguage; }
+	set userLanguage ( userLanguage ) {
+		this.#userLanguage = userLanguage; 
+	}
 }
 
 export default BaseRouteProvider;

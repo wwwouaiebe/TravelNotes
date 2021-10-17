@@ -88,10 +88,9 @@ of Providers of TravelNotes
 
 class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 
-	#userLanguage = 'fr';
-
 	/**
 	The provider key. Will be set by TravelNotes
+	@type {string}
 	@private
 	*/
 
@@ -99,6 +98,8 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 
 	/**
 	A reference to the edited route
+	@type {Route}
+	@private
 	*/
 
 	#route = null;
@@ -178,7 +179,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 
 	/**
 	Gives the url to call
-	@return {string} a string with the url and transitMode
+	@return {string} a string with the url, wayPoints, transitMode, user language and API key
 	@private
 	*/
 
@@ -202,7 +203,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 
 	/**
 	Gives the request headers
-	@return {Array.<object>} an with the needed request headers
+	@return {Array.<object>} an array with the needed request headers
 	@private
 	*/
 
@@ -239,7 +240,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 	}
 
 	/**
-	Implementation of the base class #getRoute ( )
+	Overload of the base class #getRoute ( ) method
 	@private
 	*/
 
@@ -271,6 +272,25 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 		super ( );
 	}
 
+	/**
+	Call the provider, using the waypoints defined in the route and, on success,
+	complete the route with the data from the provider
+	@param {Route} route The route to witch the data will be added
+	@return {Promise} A Promise. On success, the Route is completed with the data given by the provider.
+	*/
+
+	getPromiseRoute ( route ) {
+		this.#route = route;
+		return new Promise ( ( onOk, onError ) => this.#getRoute ( onOk, onError ) );
+	}
+
+	/**
+	The icon used in the ProviderToolbarUI.
+	Overload of the base class icon property
+	@type {string}
+	@readonly
+	*/
+
 	get icon ( ) {
 		return '' +
 			'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QAzwBfAF8OMuGdAAAACXBIWX' +
@@ -285,24 +305,51 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 			'ZAkopnvvT3YxkeJnZ4SHhtDYvTieBwoBYEsskkj0dHRLxesvF4eXDlra6AK+AKuAIup1+E4uxBnFG6zQAAAABJRU5ErkJggg==';
 	}
 
-	getPromiseRoute ( route ) {
-		this.#route = route;
-		return new Promise ( ( onOk, onError ) => this.#getRoute ( onOk, onError ) );
-	}
+	/**
+	The provider name.
+	Overload of the base class name property
+	@type {string}
+	@readonly
+	*/
 
 	get name ( ) { return 'OpenRouteService'; }
 
+	/**
+	The title to display in the ProviderToolbarUI button.
+	Overload of the base class title property
+	@type {string}
+	@readonly
+	*/
+
 	get title ( ) { return 'OpenRouteService'; }
+
+	/**
+	The possible transit modes for the provider.
+	Overload of the base class transitModes property
+	Must be a subarray of [ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ]
+	@type {Array.<string>}
+	@readonly
+	*/
 
 	get transitModes ( ) { return [ 'bike', 'pedestrian', 'car' ]; }
 
+	/**
+	A boolean indicating when a provider key is needed for the provider.
+	Overload of the base class providerKeyNeeded property
+	@type {boolean}
+	@readonly
+	*/
+
 	get providerKeyNeeded ( ) { return true; }
+
+	/**
+	The provider key. Notice that the accessor returns only the length of the provider key and not the key...
+	Overload of the base class providerKey property
+	@type {string|number}
+	*/
 
 	get providerKey ( ) { return this.#providerKey.length; }
 	set providerKey ( providerKey ) { this.#providerKey = providerKey; }
-
-	get userLanguage ( ) { return this.#userLanguage; }
-	set userLanguage ( userLanguage ) { this.#userLanguage = userLanguage; }
 }
 
 window.TaN.addProvider ( OpenRouteServiceRouteProvider );

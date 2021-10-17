@@ -75,10 +75,7 @@ const OUR_ICON_LIST =
 @------------------------------------------------------------------------------------------------------------------------------
 
 @class GraphHopperRouteProvider
-@classdesc This class implements the Provider interface for Graphhopper. It's not possible to instanciate
-this class because the class is not exported from the module. Only one instance is created and added to the list
-of Providers of TravelNotes
-@see Provider for a description of methods
+@classdesc This class implements the BaseRouteProvider interface for Graphhopper.
 @hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
@@ -86,10 +83,9 @@ of Providers of TravelNotes
 
 class GraphHopperRouteProvider extends BaseRouteProvider {
 
-	#userLanguage = 'fr';
-
 	/**
 	The provider key. Will be set by TravelNotes
+	@type {string}
 	@private
 	*/
 
@@ -97,6 +93,8 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 
 	/**
 	A reference to the edited route
+	@type {Route}
+	@private
 	*/
 
 	#route = null;
@@ -214,6 +212,11 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 			'&vehicle=' + vehicle;
 	}
 
+	/**
+	Overload of the base class #getRoute ( ) method
+	@private
+	*/
+
 	#getRoute ( onOk, onError ) {
 		fetch ( this.#getUrl ( ) )
 			.then (
@@ -242,10 +245,24 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 		super ( );
 	}
 
+	/**
+	Call the provider, using the waypoints defined in the route and, on success,
+	complete the route with the data from the provider
+	@param {Route} route The route to witch the data will be added
+	@return {Promise} A Promise. On success, the Route is completed with the data given by the provider.
+	*/
+
 	getPromiseRoute ( route ) {
 		this.#route = route;
 		return new Promise ( ( onOk, onError ) => this.#getRoute ( onOk, onError ) );
 	}
+
+	/**
+	The icon used in the ProviderToolbarUI.
+	Overload of the base class icon property
+	@type {string}
+	@readonly
+	*/
 
 	get icon ( ) {
 		return '' +
@@ -268,19 +285,51 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 			'Qs/MMhAw8TPHIssirVJConsRSq1tr3/Q+O4QqEHeMWIQAAAABJRU5ErkJggg==';
 	}
 
+	/**
+	The provider name.
+	Overload of the base class name property
+	@type {string}
+	@readonly
+	*/
+
 	get name ( ) { return 'GraphHopper'; }
+
+	/**
+	The title to display in the ProviderToolbarUI button.
+	Overload of the base class title property
+	@type {string}
+	@readonly
+	*/
 
 	get title ( ) { return 'GraphHopper'; }
 
+	/**
+	The possible transit modes for the provider.
+	Overload of the base class transitModes property
+	Must be a subarray of [ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ]
+	@type {Array.<string>}
+	@readonly
+	*/
+
 	get transitModes ( ) { return [ 'bike', 'pedestrian', 'car' ]; }
+
+	/**
+	A boolean indicating when a provider key is needed for the provider.
+	Overload of the base class providerKeyNeeded property
+	@type {boolean}
+	@readonly
+	*/
 
 	get providerKeyNeeded ( ) { return true; }
 
+	/**
+	The provider key. Notice that the accessor returns only the length of the provider key and not the key...
+	Overload of the base class providerKey property
+	@type {string|number}
+	*/
+
 	get providerKey ( ) { return this.#providerKey.length; }
 	set providerKey ( providerKey ) { this.#providerKey = providerKey; }
-
-	get userLanguage ( ) { return this.#userLanguage; }
-	set userLanguage ( userLanguage ) { this.#userLanguage = userLanguage; }
 }
 
 window.TaN.addProvider ( GraphHopperRouteProvider );

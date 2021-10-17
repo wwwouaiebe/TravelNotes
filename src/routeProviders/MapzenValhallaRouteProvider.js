@@ -110,10 +110,9 @@ of Providers of TravelNotes
 
 class MapzenValhallaRouteProvider extends BaseRouteProvider {
 
-	#userLanguage = 'fr';
-
 	/**
 	The provider key. Will be set by TravelNotes
+	@type {string}
 	@private
 	*/
 
@@ -121,12 +120,17 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 
 	/**
 	A reference to the edited route
+	@type {Route}
+	@private
 	*/
 
 	#route = null;
 
 	/**
-	Parse the provider response and complete the route with values received from the provider
+	Parse the response from the provider and add the received itinerary to the route itinerary
+	@param {Object} response the itinerary received from the provider
+	@param {function} onOk a function to call when the response is parsed correctly
+	@param {function} onError a function to call when an error occurs
 	@private
 	*/
 
@@ -179,7 +183,8 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 	}
 
 	/**
-	Get the complete url to be send to the provider
+	Gives the url to call
+	@return {string} a string with the url, wayPoints, transitMode, user language and API key
 	@private
 	*/
 
@@ -243,7 +248,7 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 	}
 
 	/**
-	Implementation of the base class #getRoute ( )
+	Overload of the base class #getRoute ( ) method
 	@private
 	*/
 
@@ -275,10 +280,24 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 		super ( );
 	}
 
+	/**
+	Call the provider, using the waypoints defined in the route and, on success,
+	complete the route with the data from the provider
+	@param {Route} route The route to witch the data will be added
+	@return {Promise} A Promise. On success, the Route is completed with the data given by the provider.
+	*/
+
 	getPromiseRoute ( route ) {
 		this.#route = route;
 		return new Promise ( ( onOk, onError ) => this.#getRoute ( onOk, onError ) );
 	}
+
+	/**
+	The icon used in the ProviderToolbarUI.
+	Overload of the base class icon property
+	@type {string}
+	@readonly
+	*/
 
 	get icon ( ) {
 		return '' +
@@ -307,19 +326,51 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 			'8Avw8wxqKH931rThTFaX6fgPt9sev9K07+HwD9392d/g5xBCylN3zlQgAAAABJRU5ErkJggg==';
 	}
 
+	/**
+	The provider name.
+	Overload of the base class name property
+	@type {string}
+	@readonly
+	*/
+
 	get name ( ) { return 'MapzenValhalla'; }
+
+	/**
+	The title to display in the ProviderToolbarUI button.
+	Overload of the base class title property
+	@type {string}
+	@readonly
+	*/
 
 	get title ( ) { return 'Mapzen Valhalla with Stadia Maps'; }
 
+	/**
+	The possible transit modes for the provider.
+	Overload of the base class transitModes property
+	Must be a subarray of [ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ]
+	@type {Array.<string>}
+	@readonly
+	*/
+
 	get transitModes ( ) { return [ 'bike', 'pedestrian', 'car' ]; }
+
+	/**
+	A boolean indicating when a provider key is needed for the provider.
+	Overload of the base class providerKeyNeeded property
+	@type {boolean}
+	@readonly
+	*/
 
 	get providerKeyNeeded ( ) { return true; }
 
+	/**
+	The provider key. Notice that the accessor returns only the length of the provider key and not the key...
+	Overload of the base class providerKey property
+	@type {string|number}
+	*/
+
 	get providerKey ( ) { return this.#providerKey.length; }
 	set providerKey ( providerKey ) { this.#providerKey = providerKey; }
-
-	get userLanguage ( ) { return this.#userLanguage; }
-	set userLanguage ( userLanguage ) { this.#userLanguage = userLanguage; }
 }
 
 window.TaN.addProvider ( MapzenValhallaRouteProvider );
