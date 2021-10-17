@@ -70,13 +70,6 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 	#userLanguage = 'fr';
 
 	/**
-	The provider key. Will be set by TravelNotes
-	@private
-	*/
-
-	#providerKey = '';
-
-	/**
 	A reference to the edited route
 	*/
 
@@ -219,9 +212,6 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 	get transitModes ( ) { return [ 'train' ]; }
 
 	get providerKeyNeeded ( ) { return false; }
-
-	get providerKey ( ) { return ONE; }
-	set providerKey ( providerKey ) { }
 
 	get userLanguage ( ) { return this.#userLanguage; }
 	set userLanguage ( userLanguage ) { this.#userLanguage = userLanguage; }

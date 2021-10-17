@@ -73,14 +73,6 @@ of Providers of TravelNotes
 class OsrmRouteProvider extends BaseRouteProvider {
 
 	/**
-	The provider key. Will be set by TravelNotes
-	@type {string}
-	@private
-	*/
-
-	#providerKey = '';
-
-	/**
 	A reference to the edited route
 	@type {Route}
 	@private
@@ -337,15 +329,6 @@ class OsrmRouteProvider extends BaseRouteProvider {
 	*/
 
 	get providerKeyNeeded ( ) { return false; }
-
-	/**
-	The provider key. Notice that the accessor returns only the length of the provider key and not the key...
-	Overload of the base class providerKey property
-	@type {string|number}
-	*/
-
-	get providerKey ( ) { return ONE; }
-	set providerKey ( ProviderKey ) { }
 
 	/**
 	The user language. Overload of the base class userLanguage property.

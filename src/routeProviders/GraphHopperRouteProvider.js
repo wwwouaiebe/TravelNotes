@@ -328,7 +328,7 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 	@type {string|number}
 	*/
 
-	get providerKey ( ) { return this.#providerKey.length; }
+	// get providerKey ( ) { return this.#providerKey.length; }
 	set providerKey ( providerKey ) { this.#providerKey = providerKey; }
 }
 

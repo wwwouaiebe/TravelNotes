@@ -185,7 +185,11 @@ class APIKeysManager {
 			}
 		}
 		theTravelNotesData.providers.forEach (
-			provider => { provider.providerKey = ( this.#getAPIKey ( provider.name ) || '' ); }
+			provider => {
+				if ( provider.providerKeyNeeded ) {
+					provider.providerKey = ( this.#getAPIKey ( provider.name ) || '' );
+				}
+			}
 		);
 		return APIKeysCounter;
 	}
@@ -216,7 +220,11 @@ class APIKeysManager {
 			}
 		);
 		theTravelNotesData.providers.forEach (
-			provider => { provider.providerKey = ( this.#getAPIKey ( provider.name ) || '' ); }
+			provider => {
+				if ( provider.providerKeyNeeded ) {
+					provider.providerKey = ( this.#getAPIKey ( provider.name ) || '' );
+				}
+			}
 		);
 
 		theEventDispatcher.dispatch ( 'providersadded' );

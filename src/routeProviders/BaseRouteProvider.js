@@ -68,14 +68,6 @@ class BaseRouteProvider {
 	#userLanguage = 'fr';
 
 	/**
-	The provider key. Will be set by TravelNotes
-	@type {string}
-	@private
-	*/
-
-	#providerKey = '';
-
-	/**
 	A reference to the edited route
 	@type {Route}
 	@private
@@ -159,15 +151,6 @@ class BaseRouteProvider {
 	*/
 
 	get providerKeyNeeded ( ) { return true; }
-
-	/**
-	The provider key. Notice that the accessor returns only the length of the provider key and not the key...
-	Must be overloaded in the derived classes
-	@type {string|number}
-	*/
-
-	get providerKey ( ) { return this.#providerKey.length; }
-	set providerKey ( providerKey ) { this.#providerKey = providerKey; }
 
 	/**
 	The user language.
