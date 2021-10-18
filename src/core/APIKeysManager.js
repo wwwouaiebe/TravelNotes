@@ -134,7 +134,7 @@ class APIKeysManager {
 	*/
 
 	#onServerFileFound ( data ) {
-		if ( window.isSecureContext && window.crypto && window.crypto.subtle && window.crypto.subtle.importKey ) {
+		if ( window.isSecureContext && ( window?.crypto?.subtle?.importKey ) ) {
 			new DataEncryptor ( ).decryptData (
 				data,
 				decryptedData => this.#onOkDecryptServerFile ( decryptedData ),

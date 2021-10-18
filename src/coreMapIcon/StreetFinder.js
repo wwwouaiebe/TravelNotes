@@ -245,9 +245,7 @@ class StreetFinder {
 				if (
 					'bike' === this.#computeData.route.itinerary.transitMode
 					&&
-					node.tags
-					&&
-					node.tags.rcn_ref
+					node?.tags?.rcn_ref
 					&&
 					node.tags [ 'network:type' ]
 					&&
@@ -298,15 +296,7 @@ class StreetFinder {
 	*/
 
 	#findMiniRoundabout ( ) {
-		this.#roundaboutData.isMini = (
-			this.#iconOsmNode
-			&&
-			this.#iconOsmNode.tags
-			&&
-			this.#iconOsmNode.tags.highway
-			&&
-			'mini_roundabout' === this.#iconOsmNode.tags.highway
-		);
+		this.#roundaboutData.isMini = 'mini_roundabout' === this?.#iconOsmNode?.tags?.highway;
 	}
 
 	/**
@@ -357,7 +347,7 @@ class StreetFinder {
 				if ( isIncomingStreet ) {
 					this.#incomingStreetName = haveName ? wayName : '???';
 					streetOcurrences --;
-					if ( way.tags.junction && 'roundabout' === way.tags.junction ) {
+					if ( 'roundabout' === way?.tags?.junction ) {
 						this.#roundaboutData.isExit = true;
 					}
 				}
@@ -369,7 +359,7 @@ class StreetFinder {
 				if ( isOutgoingStreet ) {
 					this.#outgoingStreetName = haveName ? wayName : '???';
 					streetOcurrences --;
-					if ( way.tags.junction && 'roundabout' === way.tags.junction ) {
+					if ( 'roundabout' === way?.tags?.junction ) {
 						this.#roundaboutData.isEntry = true;
 					}
 				}
@@ -397,7 +387,7 @@ class StreetFinder {
 			this.#noteData.address +=
 				' <span class="TravelNotes-NoteHtml-Address-City">' + this.#overpassAPIDataLoader.city + '</span>';
 		}
-		if ( this.#overpassAPIDataLoader.place && this.#overpassAPIDataLoader.place !== this.#overpassAPIDataLoader.city ) {
+		if ( this.#overpassAPIDataLoader?.place !== this.#overpassAPIDataLoader.city ) {
 			this.#noteData.address += ' (' + this.#overpassAPIDataLoader.place + ')';
 		}
 	}

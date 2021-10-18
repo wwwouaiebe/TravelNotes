@@ -312,7 +312,7 @@ class APIKeysDialogToolbar {
 	*/
 
 	#addToolbarButtons ( ) {
-		if ( window.crypto && window.crypto.subtle && window.crypto.subtle.importKey && window.isSecureContext ) {
+		if ( window?.crypto?.subtle?.importKey && window.isSecureContext ) {
 			if ( this.#haveAPIKeysFile ) {
 				this.#createReloadKeysFromServerButton ( );
 			}

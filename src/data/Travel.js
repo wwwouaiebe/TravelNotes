@@ -158,7 +158,7 @@ class Travel extends TravelObject {
 
 	set editedRoute ( editedRoute ) {
 		this.#editedRoute =
-			editedRoute.objType && editedRoute.objType.name && 'Route' === editedRoute.objType.name
+			'Route' === editedRoute?.objType?.name
 				?
 				editedRoute
 				:

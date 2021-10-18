@@ -155,11 +155,10 @@ class OverpassAPIDataLoader {
 				case 'node' :
 					this.#nodes.set ( osmElement.id, osmElement );
 					if (
-						osmElement.tags &&
+						osmElement?.tags?.place &&
 						this.#options.searchPlaces &&
-						osmElement.tags.place &&
 						this.#places [ osmElement.tags.place ] &&
-						osmElement.tags.name
+						osmElement?.tags?.name
 					) {
 						const nodeDistance = theSphericalTrigonometry.pointsDistance (
 							this.#latLngDistance.latLng,
@@ -186,7 +185,6 @@ class OverpassAPIDataLoader {
 					if ( this.#options.searchPlaces ) {
 						let elementName = osmElement.tags.name;
 						if (
-							theConfig.nominatim.language &&
 							'*' !== theConfig.nominatim.language &&
 							osmElement.tags [ 'name:' + theConfig.nominatim.language ]
 						) {

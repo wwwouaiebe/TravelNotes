@@ -368,7 +368,7 @@ class AppLoader {
 		document.addEventListener (
 			'setprovider',
 			setProviderEvent => {
-				if ( setProviderEvent.data && setProviderEvent.data.provider ) {
+				if ( setProviderEvent?.data?.provider ) {
 					theUI.providersToolbarUI.provider = setProviderEvent.data.provider;
 				}
 			},
@@ -377,7 +377,7 @@ class AppLoader {
 		document.addEventListener (
 			'settransitmode',
 			setTransitModeEvent => {
-				if ( setTransitModeEvent.data && setTransitModeEvent.data.transitMode ) {
+				if ( setTransitModeEvent?.data?.transitMode ) {
 					theUI.providersToolbarUI.transitMode = setTransitModeEvent.data.transitMode;
 				}
 			},

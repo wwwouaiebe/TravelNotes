@@ -175,7 +175,7 @@ class MapLayer	{
 	*/
 
 	#setLayerName ( ) {
-		if ( this.#jsonLayer.name && 'string' === typeof ( this.#jsonLayer.name ) ) {
+		if ( 'string' === typeof ( this.#jsonLayer?.name ) ) {
 			this.#name = theHTMLSanitizer.sanitizeToJsString ( this.#jsonLayer.name );
 		}
 		else {
@@ -189,7 +189,7 @@ class MapLayer	{
 	*/
 
 	#setService ( ) {
-		if ( this.#jsonLayer.service && ( 'wms' === this.#jsonLayer.service || 'wmts' === this.#jsonLayer.service ) ) {
+		if ( 'wms' === this.#jsonLayer?.service || 'wmts' === this.#jsonLayer?.service ) {
 			this.#service = this.#jsonLayer.service;
 		}
 		else {
@@ -203,7 +203,7 @@ class MapLayer	{
 	*/
 
 	#setUrl ( ) {
-		if ( this.#jsonLayer.url && 'string' === typeof ( this.#jsonLayer.url ) ) {
+		if ( 'string' === typeof ( this.#jsonLayer?.url ) ) {
 			this.#url = this.#jsonLayer.url;
 		}
 		else {
@@ -219,13 +219,11 @@ class MapLayer	{
 	#setWmsOptions ( ) {
 		if ( 'wms' === this.#service ) {
 			if (
-				this.#jsonLayer.wmsOptions
+				'string' === typeof ( this.#jsonLayer?.wmsOptions?.layers )
 				&&
-				this.#jsonLayer.wmsOptions.layers && 'string' === typeof ( this.#jsonLayer.wmsOptions.layers )
+				'string' === typeof ( this.#jsonLayer?.wmsOptions?.format )
 				&&
-				this.#jsonLayer.wmsOptions.format && 'string' === typeof ( this.#jsonLayer.wmsOptions.format )
-				&&
-				this.#jsonLayer.wmsOptions.transparent && 'boolean' === typeof ( this.#jsonLayer.wmsOptions.transparent )
+				'boolean' === typeof ( this.#jsonLayer?.wmsOptions?.transparent )
 			) {
 				this.#wmsOptions = this.#jsonLayer.wmsOptions;
 				this.#wmsOptions.layers = theHTMLSanitizer.sanitizeToJsString ( this.#wmsOptions.layers );
@@ -294,13 +292,11 @@ class MapLayer	{
 
 	#setToolbarData ( ) {
 		if (
-			this.#jsonLayer.toolbar
+			'string' === typeof ( this.#jsonLayer?.toolbar?.text )
 			&&
-			this.#jsonLayer.toolbar.text && 'string' === typeof ( this.#jsonLayer.toolbar.text )
+			'string' === typeof ( this.#jsonLayer?.toolbar?.color )
 			&&
-			this.#jsonLayer.toolbar.color && 'string' === typeof ( this.#jsonLayer.toolbar.color )
-			&&
-			this.#jsonLayer.toolbar.backgroundColor && 'string' === typeof ( this.#jsonLayer.toolbar.backgroundColor )
+			'string' === typeof ( this.#jsonLayer?.toolbar?.backgroundColor )
 		) {
 			this.#toolbar = this.#jsonLayer.toolbar;
 			this.#toolbar.text = theHTMLSanitizer.sanitizeToJsString ( this.#toolbar.text );
@@ -320,7 +316,7 @@ class MapLayer	{
 	*/
 
 	#setProviderName ( ) {
-		if ( this.#jsonLayer.providerName && 'string' === typeof ( this.#jsonLayer.providerName ) ) {
+		if ( 'string' === typeof ( this.#jsonLayer?.providerName ) ) {
 			this.#providerName = theHTMLSanitizer.sanitizeToJsString ( this.#jsonLayer.providerName );
 		}
 		else {
@@ -351,7 +347,7 @@ class MapLayer	{
 		if ( '' === this.#jsonLayer.attribution ) {
 			this.#attribution = '';
 		}
-		else if ( this.#jsonLayer.attribution && 'string' === typeof ( this.#jsonLayer.attribution ) ) {
+		else if ( 'string' === typeof ( this.#jsonLayer?.attribution ) ) {
 			this.#attribution = theHTMLSanitizer.sanitizeToHtmlString ( this.#jsonLayer.attribution ).htmlString;
 		}
 		else {

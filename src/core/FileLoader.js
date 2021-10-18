@@ -158,8 +158,6 @@ class FileLoader {
 		if ( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId ) {
 			const providerName = theTravelNotesData.travel.editedRoute.itinerary.provider;
 			if (
-				providerName
-				&&
 				( '' !== providerName )
 				&&
 				! theTravelNotesData.providers.get ( providerName.toLowerCase ( ) )
@@ -174,10 +172,10 @@ class FileLoader {
 			else {
 
 				// Provider and transit mode are changed in the itinerary editor
-				const transitMode = theTravelNotesData.travel.editedRoute.itinerary.transitMode;
 				theEventDispatcher.dispatch ( 'setprovider', { provider : providerName } );
 
-				if ( transitMode && '' !== transitMode ) {
+				const transitMode = theTravelNotesData.travel.editedRoute.itinerary.transitMode;
+				if ( '' !== transitMode ) {
 					theEventDispatcher.dispatch ( 'settransitmode', { transitMode : transitMode } );
 				}
 			}

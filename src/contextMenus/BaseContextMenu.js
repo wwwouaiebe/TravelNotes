@@ -283,20 +283,12 @@ class BaseContextMenu {
 			contextMenuEvent.latlng ? contextMenuEvent.latlng.lat : LAT_LNG.defaultValue,
 			contextMenuEvent.latlng ? contextMenuEvent.latlng.lng : LAT_LNG.defaultValue
 		];
-		if ( contextMenuEvent.target.objId ) {
 
-			// Needed for leaflet objects
-			this.#eventData.targetObjId = contextMenuEvent.target.objId;
-		}
-		else if (
-			contextMenuEvent.currentTarget
-			&&
-			contextMenuEvent.currentTarget.dataset
-			&&
-			contextMenuEvent.currentTarget.dataset.tanObjId
-		) {
-			this.#eventData.targetObjId = Number.parseInt ( contextMenuEvent.currentTarget.dataset.tanObjId );
-		}
+		this.#eventData.targetObjId =
+			contextMenuEvent.target?.objId
+			??
+			( Number.parseInt ( contextMenuEvent?.currentTarget?.dataset?.tanObjId ) || INVALID_OBJ_ID );
+
 		this.#eventData.haveParentNode = null !== parentNode;
 		Object.freeze ( this.#eventData );
 

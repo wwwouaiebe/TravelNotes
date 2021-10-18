@@ -239,7 +239,7 @@ class MapLayersToolbarUI {
 		);
 
 		// Adding link buttons
-		if ( theConfig.layersToolbarUI.theDevil && theConfig.layersToolbarUI.theDevil.addButton ) {
+		if ( theConfig.layersToolbarUI?.theDevil?.addButton ) {
 			const theDevilButton = new MapLayersToolbarLink (
 				{
 					href : 'https://www.google.com/maps/@' +
