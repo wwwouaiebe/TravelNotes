@@ -50,26 +50,6 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file TravelEditor.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module core
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theTranslator from '../UILib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theConfig from '../data/Config.js';
@@ -87,10 +67,8 @@ import SaveAsDialog from '../dialogs/SaveAsDialog.js';
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class
 @classdesc This class contains methods fot Travel creation or modifications
-@see {@link theTravelEditor} for the one and only one instance of this class
-@hideconstructor
+See theTravelEditor for the one and only one instance of this class
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -100,7 +78,6 @@ class TravelEditor {
 	/**
 	This method save the travel to a file, removing notes and maneuvers, depending of the user choice.
 	@param {Object} removeData an object describing witch data must be saved
-	@private
 	*/
 
 	#saveAsTravel ( removeData ) {
@@ -135,8 +112,8 @@ class TravelEditor {
 		);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -145,8 +122,8 @@ class TravelEditor {
 
 	/**
 	This method is called when a route is dropped in the TravelUI and then routes reordered.
-	@param {!number} draggedRouteObjId The objId of the dragged route
-	@param {!number} targetRouteObjId The objId of the route on witch the drop was executed
+	@param {number} draggedRouteObjId The objId of the dragged route
+	@param {number} targetRouteObjId The objId of the route on witch the drop was executed
 	@param {boolean} draggedBefore when true the dragged route is moved before the target route
 	when false after
 	@fires setrouteslist

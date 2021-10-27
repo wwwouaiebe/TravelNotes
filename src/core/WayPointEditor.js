@@ -44,26 +44,6 @@ Tests 20210902
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@file WayPointEditor.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module core
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
 @typedef {Object} WayPointOsmData
 @desc An object with the name and address found for the WayPoint with Nominatim
 @property {string} name
@@ -87,10 +67,8 @@ import { ROUTE_EDITION_STATUS, TWO } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class
 @classdesc This class contains methods fot WayPoints creation or modifications
-@see {@link theWayPointEditor} for the one and only one instance of this class
-@hideconstructor
+See theWayPointEditor for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -103,8 +81,6 @@ class WayPointEditor {
 	@fires setrouteslist
 	@fires updateitinerary
 	@fires roadbookupdate
-	@async
-	@private
 	*/
 
 	async #renameWayPointWithGeocoder ( wayPoint ) {
@@ -130,8 +106,8 @@ class WayPointEditor {
 		theEventDispatcher.dispatch ( 'roadbookupdate' );
 	}
 
-	/*
-	constructor
+	/**
+	the constructor
 	*/
 
 	constructor ( ) {
@@ -229,7 +205,7 @@ class WayPointEditor {
 
 	/**
 	This method remove a WayPoint
-	@param {!number} wayPointObjId The objId of the WayPoint to remove
+	@param {number} wayPointObjId The objId of the WayPoint to remove
 	*/
 
 	removeWayPoint ( wayPointObjId ) {
@@ -283,7 +259,7 @@ class WayPointEditor {
 
 	/**
 	This method is called when a drag of a WayPoint ends on the map
-	@param {!number} dragEndEvent The drag event
+	@param {number} dragEndEvent The drag event
 	*/
 
 	wayPointDragEnd ( dragEndEvent ) {
@@ -297,7 +273,7 @@ class WayPointEditor {
 
 	/**
 	This method shows the WayPointPropertiesDialog
-	@param {!number} wayPointObjId The objId of the WayPoint that modify
+	@param {number} wayPointObjId The objId of the WayPoint that modify
 	@fires setrouteslist
 	@fires showitinerary
 	@fires roadbookupdate

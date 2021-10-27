@@ -30,26 +30,6 @@ Doc reviewed 20210914
 Tests 20210903
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ProfileWindowsManager.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module core
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theConfig from '../data/Config.js';
 import ProfileWindow from '../dialogProfileWindow/ProfileWindow.js';
 import ProfileSmoothingIron from '../coreLib/ProfileSmoothingIron.js';
@@ -59,10 +39,8 @@ import { ZERO } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class
 @classdesc This class provides methods to manage the profile windows
-@see {@link theProfileWindowsManager} for the one and only one instance of this class
-@hideconstructor
+see theProfileWindowsManager for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -71,8 +49,8 @@ class ProfileWindowsManager {
 
 	#profileWindows = new Map ( );
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -120,7 +98,7 @@ class ProfileWindowsManager {
 
 	/**
 	This method updates the profile window for a Route
-	@param {!number} oldRouteObjId The objId of the Route that is in the profile window
+	@param {number} oldRouteObjId The objId of the Route that is in the profile window
 	@param {Route} newRoute The  Route for witch the profile window is updated
 	*/
 
@@ -140,7 +118,7 @@ class ProfileWindowsManager {
 
 	/**
 	This method close the profile window of a route
-	@param {!number} objId The objId of the Route that is in the profile window to close
+	@param {number} objId The objId of the Route that is in the profile window to close
 	*/
 
 	deleteProfile ( objId ) {
@@ -160,7 +138,7 @@ class ProfileWindowsManager {
 
 	/**
 	This method creates the profile window for a Route
-	@param {!number} routeObjId The Route objId for witch a profile window is created
+	@param {number} routeObjId The Route objId for witch a profile window is created
 	*/
 
 	showProfile ( routeObjId ) {
@@ -175,7 +153,7 @@ class ProfileWindowsManager {
 
 	/**
 	This method is called when a profile window is closed
-	@param {!number} objId The Route objId for witch a profile window is created
+	@param {number} objId The Route objId for witch a profile window is created
 	@listens profileclosed
 	*/
 

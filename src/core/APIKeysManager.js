@@ -39,26 +39,6 @@ Tests 20210903
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@file APIKeysManager.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module core
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
 @typedef {Object} APIKey
 @desc An object to store a provider name and  API key
 @property {string} providerName The provider name
@@ -83,10 +63,8 @@ import { ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class
 @classdesc API keys manager
-@see {@link theAPIKeysManager} for the one and only one instance of this class
-@hideconstructor
+See theAPIKeysManager for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -100,7 +78,6 @@ class APIKeysManager {
 	/**
 	This method is called when the 'APIKkeys' file is decoded correctly
 	@param {string} decryptedData the decoded API keys as JSON string
-	@private
 	*/
 
 	#onOkDecryptServerFile ( decryptedData ) {
@@ -110,7 +87,6 @@ class APIKeysManager {
 	/**
 	This method is called when the 'APIKkeys' file is not decoded correctly
 	@param {Error} err
-	@private
 	*/
 
 	#onErrorDecryptServerFile ( err ) {
@@ -130,7 +106,6 @@ class APIKeysManager {
 	This method is called when a 'APIKeys' file is found on the web server
 	The methos ask a password to the user and try to decode the file
 	@param {ArrayBuffer} data the data to decode
-	@private
 	*/
 
 	#onServerFileFound ( data ) {
@@ -148,7 +123,6 @@ class APIKeysManager {
 	This method get an API key from the JS map
 	@param {string} providerName the provider name
 	@return {string} the API key
-	@private
 	*/
 
 	#getAPIKey ( providerName ) {
@@ -159,7 +133,6 @@ class APIKeysManager {
 	 This method add an API key to the JS map
 	@param {string} providerName the provider name
 	@param {string} key the API key
-	@private
 	*/
 
 	#setAPIKey ( providerName, key ) {
@@ -168,8 +141,7 @@ class APIKeysManager {
 
 	/**
 	This method set the API keys from the session storage
-	@return {!number} the number of API keys restored
-	@private
+	@return {number} the number of API keys restored
 	*/
 
 	#setAPIKeysFromSessionStorage ( ) {
@@ -198,7 +170,6 @@ class APIKeysManager {
 	This method replace all the API keys from the map and storage with the given APIKeys
 	@param {Array.<APIKey>} APIKeys the new APIKeys
 	@fires providersadded
-	@private
 	*/
 
 	#resetAPIKeys ( APIKeys ) {
@@ -230,8 +201,8 @@ class APIKeysManager {
 		theEventDispatcher.dispatch ( 'providersadded' );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -268,7 +239,6 @@ class APIKeysManager {
 	a file named 'APIKeys' on the web server. If the file is found, ask the file password to the user
 	and try to decode the file.
 	@fires providersadded
-	@async
 	*/
 
 	setKeysFromServerFile ( ) {
@@ -305,7 +275,6 @@ class APIKeysManager {
 	/**
 	This method show the APIKeys dialog and update the APIKeys when the user close the dialog.
 	@fires providersadded
-	@async
 	*/
 
 	setKeysFromDialog ( ) {

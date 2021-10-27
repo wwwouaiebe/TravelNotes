@@ -26,25 +26,6 @@ Doc reviewed 20210914
 Tests 20210903
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file AllManeuverNotesBuilder.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module core
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import WaitUI from '../waitUI/WaitUI.js';
 import MapIconFromOsmFactory from '../coreMapIcon/MapIconFromOsmFactory.js';
 import Note from '../data/Note.js';
@@ -61,9 +42,7 @@ import { ZERO, ONE, INVALID_OBJ_ID } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class AllManeuverNotesBuilder
 @classdesc This class add all maneuvers notes to a route
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -72,7 +51,6 @@ class AllManeuverNotesBuilder {
 
 	/** The route for witch the maneuvers note are created
 	@type {Route}
-	@private
 	*/
 
 	#route = null;
@@ -82,7 +60,6 @@ class AllManeuverNotesBuilder {
 	This method creates a new route note with data from osm
 	@param {NoteData} noteData The data needed for building the note
 	@fires noteupdated
-	@private
 	*/
 
 	#newNoteFromOsmData ( noteData ) {
@@ -108,7 +85,6 @@ class AllManeuverNotesBuilder {
 	This method add a note with data from osm for each maneuver of a route.
 	@fires updateitinerary
 	@fires roadbookupdate
-	@private
 	*/
 
 	async #addAllManeuverNotes ( ) {
@@ -139,8 +115,8 @@ class AllManeuverNotesBuilder {
 		waitUI.close ( );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -150,7 +126,7 @@ class AllManeuverNotesBuilder {
 	/**
 	This method add a note with data from osm for each maneuver of a route
 	A confirmation message is showed before starting.
-	@param {!number} routeObjId The Route objId
+	@param {number} routeObjId The Route objId
 	@fires updateitinerary
 	@fires noteupdated
 	@fires roadbookupdate

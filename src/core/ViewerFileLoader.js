@@ -31,26 +31,6 @@ Doc reviewed 20210922
 Tests 20210903
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ViewerFileLoader.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module core
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import FileCompactor from '../coreLib/FileCompactor.js';
@@ -60,17 +40,15 @@ import { ROUTE_EDITION_STATUS, INVALID_OBJ_ID } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class ViewerFileLoader
 @classdesc This class load a file from a web server and display the travel
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class ViewerFileLoader {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {

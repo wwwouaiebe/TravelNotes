@@ -54,26 +54,6 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file RouteEditor.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module core
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theTranslator from '../UILib/Translator.js';
 import theAPIKeysManager from '../core/APIKeysManager.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
@@ -92,18 +72,16 @@ import { ROUTE_EDITION_STATUS, DISTANCE, INVALID_OBJ_ID } from '../main/Constant
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class
 @classdesc This class contains methods fot Routes creation or modifications
-@see {@link theRouteEditor} for the one and only one instance of this class
-@hideconstructor
+See theRouteEditor for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class RouteEditor {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -136,7 +114,7 @@ class RouteEditor {
 
 	/**
 	This method start the edition of a route
-	@param {!number} routeObjId The objId of the route to edit.
+	@param {number} routeObjId The objId of the route to edit.
 	@fires setprovider
 	@fires settransitmode
 	@fires routeupdated
@@ -215,7 +193,7 @@ class RouteEditor {
 
 	/**
 	This method removes a route from the travel
-	@param {!number} routeObjId The objId of the Route to remove.
+	@param {number} routeObjId The objId of the Route to remove.
 	@fires routeupdated
 	@fires showitinerary
 	@fires setrouteslist
@@ -253,7 +231,7 @@ class RouteEditor {
 
 	/**
 	This method save the route to a gpx file
-	@param {!number} routeObjId The objId of the Route to save.
+	@param {number} routeObjId The objId of the Route to save.
 	*/
 
 	saveGpx ( routeObjId ) {
@@ -342,8 +320,7 @@ class RouteEditor {
 
 	/**
 	This method show the RoutePropertiesDialog
-	@param {!number} routeObjId The objId of the Route for witch the properties must be edited
-	@async
+	@param {number} routeObjId The objId of the Route for witch the properties must be edited
 	@fires routepropertiesupdated
 	@fires setrouteslist
 	@fires roadbookupdate
@@ -382,8 +359,7 @@ class RouteEditor {
 
 	/**
 	This method show the PrintRouteMapDialog and then print the maps
-	@param {!number} routeObjId The objId of the Route for witch the maps must be printed
-	@async
+	@param {number} routeObjId The objId of the Route for witch the maps must be printed
 	*/
 
 	printRouteMap ( routeObjId ) {
@@ -401,7 +377,7 @@ class RouteEditor {
 
 	/**
 	This method show a route on the map
-	@param {!number} routeObjId The objId of the Route to show
+	@param {number} routeObjId The objId of the Route to show
 	*/
 
 	showRoute ( routeObjId ) {
@@ -418,7 +394,7 @@ class RouteEditor {
 
 	/**
 	This method hide a route on the map
-	@param {!number} routeObjId The objId of the Route to show
+	@param {number} routeObjId The objId of the Route to show
 	*/
 
 	hideRoute ( routeObjId ) {

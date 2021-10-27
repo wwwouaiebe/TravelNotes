@@ -30,26 +30,6 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file Zoomer.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module core
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
@@ -58,9 +38,7 @@ import { INVALID_OBJ_ID } from '../main/Constants.js';
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class Zoomer
 @classdesc This class implements a zoom command on multiple objects
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -82,7 +60,6 @@ class Zoomer {
 	/**
 	This method push the latitude and longitude of a route in the #geometry array
 	@param {Route} route the route to push
-	@private
 	*/
 
 	#pushRouteGeometry ( route ) {
@@ -92,8 +69,8 @@ class Zoomer {
 		);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -112,7 +89,7 @@ class Zoomer {
 
 	/**
 	Performs a zoom on a maneuver
-	@param {!number} maneuverObjId the objId of the maneuver on witch the zoom must be performed
+	@param {number} maneuverObjId the objId of the maneuver on witch the zoom must be performed
 	@fires zoomto
 	*/
 
@@ -126,7 +103,7 @@ class Zoomer {
 
 	/**
 	Performs a zoom on a note
-	@param {!number} noteObjId the objId of the note on witch the zoom must be performed
+	@param {number} noteObjId the objId of the note on witch the zoom must be performed
 	@fires zoomto
 	*/
 
@@ -143,7 +120,7 @@ class Zoomer {
 
 	/**
 	Performs a zoom on a route
-	@param {!number} routeObjId the objId of the route on witch the zoom must be performed
+	@param {number} routeObjId the objId of the route on witch the zoom must be performed
 	@fires zoomto
 	*/
 

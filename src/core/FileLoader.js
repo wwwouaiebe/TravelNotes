@@ -40,26 +40,6 @@ Doc reviewed 20210921
 Tests 20210903
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file FileLoader.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module core
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theTranslator from '../UILib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
@@ -77,9 +57,7 @@ import { INVALID_OBJ_ID, ROUTE_EDITION_STATUS, SAVE_STATUS } from '../main/Const
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class FileLoader
 @classdesc This class load a file from the computer disk and display the travel
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -98,7 +76,6 @@ class FileLoader {
 	@fires settransitmode
 	@fires showitinerary
 	@fires roadbookupdate
-	@private
 	*/
 
 	#display ( ) {
@@ -190,8 +167,8 @@ class FileLoader {
 		theEventDispatcher.dispatch ( 'roadbookupdate' );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {

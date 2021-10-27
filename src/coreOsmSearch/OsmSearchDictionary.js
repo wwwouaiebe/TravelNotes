@@ -32,7 +32,6 @@ Tests ...
 @file OsmSearchDictionary.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -41,7 +40,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module coreOsmSearch
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -56,7 +54,6 @@ import { NOT_FOUND, ZERO, ONE } from '../main/Constants.js';
 @classdesc This class contains the OsmSearch dictionary and methods to perform changes in the dictionary
 @see {@link DictionaryItem} for dictionary items
 @see {@link theOsmSearchDictionary} for the one and only one instance of this class
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -66,7 +63,6 @@ class OsmSearchDictionary {
 	/**
 	the root item of the dictionary
 	@type {DictionaryItem}
-	@private
 	*/
 
 	#dictionary = null;
@@ -74,7 +70,6 @@ class OsmSearchDictionary {
 	/**
 	A map with the all the DictionaryItem created, selectable by their objId
 	@type {Map}
-	@private
 	*/
 
 	#itemsMap = null;
@@ -82,7 +77,6 @@ class OsmSearchDictionary {
 	/**
 	the currentItem treated by the #parseLine method
 	@type {DictionaryItem}
-	@private
 	*/
 
 	#currentItem = null;
@@ -97,7 +91,6 @@ class OsmSearchDictionary {
 
 	/**
 	Split a line from the csv file into cells and add a DictionaryItem or a filterTag to the dictionary
-	@private
 	*/
 
 	#parseLine ( line ) {
@@ -167,7 +160,6 @@ class OsmSearchDictionary {
 	/**
 	Mark as expanded an item and all the childrens
 	@param {DictionartItem} item The item to mark as expanded
-	@private
 	*/
 
 	#expand ( item ) {
@@ -180,7 +172,6 @@ class OsmSearchDictionary {
 	/**
 	Mark as not expanded an item and all the childrens
 	@param {DictionartItem} item The item to mark as not expanded
-	@private
 	*/
 
 	#collapse ( item ) {
