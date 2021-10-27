@@ -73,7 +73,7 @@ class MenuItem {
 	#isActive;
 
 	/**
-	The action to execute when the item is selected 
+	The action to execute when the item is selected
 	@type {function}
 	*/
 
@@ -107,9 +107,9 @@ class MenuItem {
 	*/
 
 	get isActive ( ) { return this.#isActive; }
-	
+
 	/**
-	The action to execute when the item is selected 
+	The action to execute when the item is selected
 	@type {function}
 	*/
 
@@ -165,7 +165,7 @@ class BaseContextMenuEventData {
 	/**
 	The constructor
 	@param {Event} contextMenuEvent The event that have triggered the menu
-	@param {?HTMLElement} parentNode The parent node of the menu. Can be null for leaflet objects
+	@param {?HTMLElement} parentNode The parent node of the menu. Can be undefined for leaflet objects
 	*/
 
 	constructor ( contextMenuEvent, parentNode ) {
@@ -180,8 +180,7 @@ class BaseContextMenuEventData {
 			contextMenuEvent.target?.objId
 			??
 			( Number.parseInt ( contextMenuEvent?.currentTarget?.dataset?.tanObjId ) || INVALID_OBJ_ID );
-
-		this.#haveParentNode = null !== parentNode;
+		this.#haveParentNode = Boolean ( parentNode );
 	}
 
 	/**
@@ -371,17 +370,17 @@ class BaseContextMenu {
 				this.#container.clientHeight -
 				BaseContextMenu.#menuMargin
 		);
-		const menuLeft = Math.min (
-			this.#eventData.clientX,
-			theTravelNotesData.map.getContainer ( ).clientWidth -
-			this.#container.clientWidth -
-			BaseContextMenu.#menuMargin
-		);
 		this.#container.style.top = String ( menuTop ) + 'px';
 		if ( this.#eventData.haveParentNode ) {
 			this.#container.style.right = String ( BaseContextMenu.#menuMargin ) + 'px';
 		}
 		else {
+			const menuLeft = Math.min (
+				this.#eventData.clientX,
+				theTravelNotesData.map.getContainer ( ).clientWidth -
+				this.#container.clientWidth -
+				BaseContextMenu.#menuMargin
+			);
 			this.#container.style.left = String ( menuLeft ) + 'px';
 		}
 	}
