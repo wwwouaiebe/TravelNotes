@@ -53,28 +53,6 @@ class ProfileContextMenu extends BaseContextMenu {
 		super ( contextMenuEvent, parentNode );
 	}
 
-	/* eslint-disable no-magic-numbers */
-
-	/**
-	Perform the action selected by the user. Implementation of the base class doAction method
-	@param {!number} selectedItemObjId The id of the item selected by the user
-	*/
-
-	doAction ( selectedItemObjId ) {
-		switch ( selectedItemObjId ) {
-		case 0 :
-			theNoteEditor.newRouteNote ( this.eventData.targetObjId, this.eventData.latLng );
-			break;
-		case 1 :
-			new Zoomer ( ).zoomToLatLng ( this.eventData.latLng );
-			break;
-		default :
-			break;
-		}
-	}
-
-	/* eslint-enable no-magic-numbers */
-
 	/**
 	The list of menu items to use. Implementation of the BaseContextMenu.menuItems property
 	@type {Array.<MenuItem>}
@@ -84,11 +62,13 @@ class ProfileContextMenu extends BaseContextMenu {
 		return [
 			new MenuItem (
 				theTranslator.getText ( 'ProfileContextMenu - Add a note to the route at this point' ),
-				true
+				true,
+				( ) => theNoteEditor.newRouteNote ( this.eventData.targetObjId, this.eventData.latLng )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'ProfileContextMenu - Zoom to this point' ),
-				true
+				true,
+				( ) => new Zoomer ( ).zoomToLatLng ( this.eventData.latLng )
 			)
 		];
 	}

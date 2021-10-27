@@ -76,48 +76,6 @@ class OsmSearchContextMenu extends BaseContextMenu {
 		this.#latLng = [ this.#osmElement.lat, this.#osmElement.lon ];
 	}
 
-	/* eslint-disable no-magic-numbers */
-
-	/**
-	Perform the action selected by the user. Implementation of the base class doAction method
-	@param {!number} selectedItemObjId The id of the item selected by the user
-	*/
-
-	doAction ( selectedItemObjId ) {
-		switch ( selectedItemObjId ) {
-		case 0 :
-			theWayPointEditor.setStartPoint ( this.#latLng );
-			break;
-		case 1 :
-			theWayPointEditor.addWayPoint ( this.#latLng );
-			break;
-		case 2 :
-			theWayPointEditor.setEndPoint ( this.#latLng );
-			break;
-		case 3 :
-			theNoteEditor.newSearchRouteNote ( this.#osmElement );
-			break;
-		case 4 :
-			theNoteEditor.newSearchTravelNote ( this.#osmElement );
-			break;
-		case 5 :
-			theNoteEditor.changeOsmSearchNoteDialog ( );
-			break;
-		case 6 :
-			new Zoomer ( ).zoomToPoi (
-				{
-					latLng : this.#latLng,
-					geometry : this.#osmElement.geometry
-				}
-			);
-			break;
-		default :
-			break;
-		}
-	}
-
-	/* eslint-enable no-magic-numbers */
-
 	/**
 	The list of menu items to use. Implementation of the BaseContextMenu.menuItems property
 	@type {Array.<MenuItem>}
@@ -129,25 +87,30 @@ class OsmSearchContextMenu extends BaseContextMenu {
 				theTranslator.getText ( 'MapContextMenu - Select this point as start point' ),
 				( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId )
 				&&
-				( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.first.lat )
+				( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.first.lat ),
+				( ) => theWayPointEditor.setStartPoint ( this.#latLng )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'MapContextMenu - Select this point as way point' ),
-				INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId
+				INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId,
+				( ) => theWayPointEditor.addWayPoint ( this.#latLng )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'MapContextMenu - Select this point as end point' ),
 				( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId )
 				&&
-				( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.last.lat )
+				( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.last.lat ),
+				( ) => theWayPointEditor.setEndPoint ( this.#latLng )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'OsmSearchContextMenu - Create a route note with this result' ),
-				true
+				true,
+				( ) => theNoteEditor.newSearchRouteNote ( this.#osmElement )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'OsmSearchContextMenu - Create a travel note with this result' ),
-				true
+				true,
+				( ) => theNoteEditor.newSearchTravelNote ( this.#osmElement )
 			),
 			new MenuItem (
 				theTranslator.getText (
@@ -157,11 +120,13 @@ class OsmSearchContextMenu extends BaseContextMenu {
 						:
 						'OsmSearchContextMenu - Show note dialog'
 				),
-				true
+				true,
+				( ) => theNoteEditor.changeOsmSearchNoteDialog ( )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'OsmSearchContextMenu - Zoom to this result' ),
-				true
+				true,
+				( ) => new Zoomer ( ).zoomToPoi ( { latLng : this.#latLng, geometry : this.#osmElement.geometry } )
 			)
 		];
 	}

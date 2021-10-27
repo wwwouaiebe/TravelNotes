@@ -52,25 +52,6 @@ class ManeuverContextMenu extends BaseContextMenu {
 		super ( contextMenuEvent, parentNode );
 	}
 
-	/* eslint-disable no-magic-numbers */
-
-	/**
-	Perform the action selected by the user. Implementation of the base class doAction method
-	@param {!number} selectedItemObjId The id of the item selected by the user
-	*/
-
-	doAction ( selectedItemObjId ) {
-		switch ( selectedItemObjId ) {
-		case 0 :
-			new Zoomer ( ).zoomToManeuver ( this.eventData.targetObjId );
-			break;
-		default :
-			break;
-		}
-	}
-
-	/* eslint-enable no-magic-numbers */
-
 	/**
 	The list of menu items to use. Implementation of the BaseContextMenu.menuItems property
 	@type {Array.<MenuItem>}
@@ -80,7 +61,8 @@ class ManeuverContextMenu extends BaseContextMenu {
 		return [
 			new MenuItem (
 				theTranslator.getText ( 'ManeuverContextMenu - Zoom to this maneuver' ),
-				true
+				true,
+				( ) => new Zoomer ( ).zoomToManeuver ( this.eventData.targetObjId )
 			)
 		];
 	}

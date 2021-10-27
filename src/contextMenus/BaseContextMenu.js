@@ -73,15 +73,24 @@ class MenuItem {
 	#isActive;
 
 	/**
+	The action to execute when the item is selected 
+	@type {function}
+	*/
+
+	#action;
+
+	/**
 	The constructor
 	@param {string} itemText The text to be displayed in the menu
 	@param {boolean} isActive A flag indicating if the menu item can be selected in the menu
+	@param {function} action The action to execute when the item is selected
 	*/
 
-	constructor ( itemText, isActive ) {
+	constructor ( itemText, isActive, action ) {
 		Object.freeze ( this );
 		this.#itemText = itemText;
 		this.#isActive = isActive;
+		this.#action = action;
 	}
 
 	/**
@@ -98,6 +107,13 @@ class MenuItem {
 	*/
 
 	get isActive ( ) { return this.#isActive; }
+	
+	/**
+	The action to execute when the item is selected 
+	@type {function}
+	*/
+
+	get action ( ) { return this.#action; }
 }
 
 /**
@@ -445,7 +461,7 @@ class BaseContextMenu {
 		new Promise (
 			( onPromiseOk, onPromiseError ) => { this.#createMenu ( onPromiseOk, onPromiseError ); }
 		)
-			.then ( selectedItemObjId => this.doAction ( selectedItemObjId ) )
+			.then ( selectedItemObjId => this.menuItems [ selectedItemObjId ].action ( ) )
 			.catch (
 				err => {
 					if ( err ) {
@@ -453,15 +469,6 @@ class BaseContextMenu {
 					}
 				}
 			);
-	}
-
-	/**
-	Perform the action selected by the user. Must be implemented in the derived classes
-	@param {number} selectedItemObjId The id of the item selected by the user
-	*/
-
-	// eslint-disable-next-line no-unused-vars
-	doAction ( selectedItemObjId ) {
 	}
 
 	/**

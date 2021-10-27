@@ -82,56 +82,6 @@ class MapContextMenu extends BaseContextMenu {
 		super ( contextMenuEvent, parentNode );
 	}
 
-	/* eslint-disable no-magic-numbers */
-
-	/**
-	Perform the action selected by the user. Implementation of the base class doAction method
-	@param {!number} selectedItemObjId The id of the item selected by the user
-	*/
-
-	doAction ( selectedItemObjId ) {
-		switch ( selectedItemObjId ) {
-		case 0 :
-			theWayPointEditor.setStartPoint ( this.eventData.latLng );
-			break;
-		case 1 :
-			theWayPointEditor.addWayPoint ( this.eventData.latLng );
-			break;
-		case 2 :
-			theWayPointEditor.setEndPoint ( this.eventData.latLng );
-			break;
-		case 3 :
-			theRouteEditor.addRoute ( );
-			break;
-		case 4 :
-			theRouteEditor.hideRoutes ( );
-			break;
-		case 5 :
-			theRouteEditor.showRoutes ( );
-			break;
-		case 6 :
-			theNoteEditor.newTravelNote ( this.eventData.latLng );
-			break;
-		case 7 :
-			theNoteEditor.hideNotes ( );
-			break;
-		case 8 :
-			theNoteEditor.showNotes ( );
-			break;
-		case 9 :
-			new Zoomer ( ).zoomToTravel ( );
-			break;
-		case 10 :
-			new AboutDialog ( ).show ( )
-				.catch ( ( ) => {} );
-			break;
-		default :
-			break;
-		}
-	}
-
-	/* eslint-enable no-magic-numbers */
-
 	/**
 	The list of menu items to use. Implementation of the BaseContextMenu.menuItems property
 	@type {Array.<MenuItem>}
@@ -143,48 +93,60 @@ class MapContextMenu extends BaseContextMenu {
 				theTranslator.getText ( 'MapContextMenu - Select this point as start point' ),
 				( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId )
 					&&
-					( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.first.lat )
+					( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.first.lat ),
+				( ) => theWayPointEditor.setStartPoint ( this.eventData.latLng )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'MapContextMenu - Select this point as way point' ),
-				( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId )
+				( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId ),
+				( ) => theWayPointEditor.addWayPoint ( this.eventData.latLng )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'MapContextMenu - Select this point as end point' ),
 				( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId )
 					&&
-					( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.last.lat )
+					( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.last.lat ),
+				( ) => theWayPointEditor.setEndPoint ( this.eventData.latLng )
 			),
 			new MenuItem ( theTranslator.getText ( 'MapContextMenu - Add a route' ),
-				true
+				true,
+				( ) => theRouteEditor.addRoute ( )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'MapContextMenu - Hide all routes' ),
-				true
+				true,
+				( ) => theRouteEditor.hideRoutes ( )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'MapContextMenu - Show all routes' ),
-				true
+				true,
+				( ) => theRouteEditor.showRoutes ( )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'MapContextMenu - New travel note' ),
-				true
+				true,
+				( ) => theNoteEditor.newTravelNote ( this.eventData.latLng )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'MapContextMenu - Hide all notes' ),
-				true
+				true,
+				( ) => theNoteEditor.hideNotes ( )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'MapContextMenu - Show all notes' ),
-				true
+				true,
+				( ) => theNoteEditor.showNotes ( )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'MapContextMenu - Zoom to travel' ),
-				true
+				true,
+				( ) => new Zoomer ( ).zoomToTravel ( )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'MapContextMenu - About Travel & Notes' ),
-				true
+				true,
+				( ) => new AboutDialog ( ).show ( )
+					.catch ( ( ) => {} )
 			)
 		];
 	}

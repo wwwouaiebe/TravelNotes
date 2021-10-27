@@ -68,39 +68,6 @@ class NoteContextMenu extends BaseContextMenu {
 		this.#route = theDataSearchEngine.getNoteAndRoute ( this.eventData.targetObjId ).route;
 	}
 
-	/* eslint-disable no-magic-numbers */
-
-	/**
-	Perform the action selected by the user. Implementation of the base class doAction method
-	@param {!number} selectedItemObjId The id of the item selected by the user
-	*/
-
-	doAction ( selectedItemObjId ) {
-		switch ( selectedItemObjId ) {
-		case 0 :
-			theNoteEditor.editNote ( this.eventData.targetObjId );
-			break;
-		case 1 :
-			theNoteEditor.removeNote ( this.eventData.targetObjId );
-			break;
-		case 2 :
-			new Zoomer ( ).zoomToNote ( this.eventData.targetObjId );
-			break;
-		case 3 :
-			if ( this.#route ) {
-				theNoteEditor.detachNoteFromRoute ( this.eventData.targetObjId );
-			}
-			else {
-				theNoteEditor.attachNoteToRoute ( this.eventData.targetObjId );
-			}
-			break;
-		default :
-			break;
-		}
-	}
-
-	/* eslint-enable no-magic-numbers */
-
 	/**
 	The list of menu items to use. Implementation of the BaseContextMenu.menuItems property
 	@type {Array.<MenuItem>}
@@ -110,15 +77,18 @@ class NoteContextMenu extends BaseContextMenu {
 		return [
 			new MenuItem (
 				theTranslator.getText ( 'NoteContextMenu - Edit this note' ),
-				true
+				true,
+				( ) => theNoteEditor.editNote ( this.eventData.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'NoteContextMenu - Delete this note' ),
-				true
+				true,
+				( ) => theNoteEditor.removeNote ( this.eventData.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'NoteContextMenu - Zoom to note' ),
-				true
+				true,
+				( ) => new Zoomer ( ).zoomToNote ( this.eventData.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText (
@@ -127,7 +97,15 @@ class NoteContextMenu extends BaseContextMenu {
 						'NoteContextMenu - Detach note from route'
 						:
 						'NoteContextMenu - Attach note to route' ),
-				INVALID_OBJ_ID === theTravelNotesData.editedRouteObjId
+				INVALID_OBJ_ID === theTravelNotesData.editedRouteObjId,
+				( ) => {
+					if ( this.#route ) {
+						theNoteEditor.detachNoteFromRoute ( this.eventData.targetObjId );
+					}
+					else {
+						theNoteEditor.attachNoteToRoute ( this.eventData.targetObjId );
+					}
+				}
 			)
 		];
 	}
