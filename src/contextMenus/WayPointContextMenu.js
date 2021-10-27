@@ -31,27 +31,7 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file WayPointContextMenu.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module contextMenus
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-import BaseContextMenu from '../contextMenus/BaseContextMenu.js';
+import { BaseContextMenu, MenuItem } from '../contextMenus/BaseContextMenu.js';
 import theWayPointEditor from '../core/WayPointEditor.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theTranslator from '../UILib/Translator.js';
@@ -59,23 +39,20 @@ import theTranslator from '../UILib/Translator.js';
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class WayPointContextMenu
 @classdesc this class implements the BaseContextMenu class for the wayPoints
-@extends BaseContextMenu
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class WayPointContextMenu extends BaseContextMenu {
 
-	/*
-	constructor
-	@param {Event} contextMenuEvent. The event that have triggered the menu
+	/**
+	The constructor
+	@param {Event} contextMenuEvent The event that have triggered the menu
 	@param {HTMLElement} parentNode The parent node of the menu. Can be null for leaflet objects
 	*/
 
-	constructor ( contextMenuEvent, parentNode = null ) {
+	constructor ( contextMenuEvent, parentNode ) {
 		super ( contextMenuEvent, parentNode );
 	}
 
@@ -102,23 +79,22 @@ class WayPointContextMenu extends BaseContextMenu {
 	/* eslint-enable no-magic-numbers */
 
 	/**
-	menuItems getter. Implementation of the base class menuItem getter
-	@readonly
+	The list of menu items to use. Implementation of the BaseContextMenu.menuItems property
+	@type {Array.<MenuItem>}
 	*/
 
 	get menuItems ( ) {
 		return [
-			{
-				itemText : theTranslator.getText ( 'WayPointContextMenu - Delete this waypoint' ),
-				isActive :
-					theTravelNotesData.travel.editedRoute.wayPoints.first.objId !== this.eventData.targetObjId
+			new MenuItem (
+				theTranslator.getText ( 'WayPointContextMenu - Delete this waypoint' ),
+				theTravelNotesData.travel.editedRoute.wayPoints.first.objId !== this.eventData.targetObjId
 					&&
 					theTravelNotesData.travel.editedRoute.wayPoints.last.objId !== this.eventData.targetObjId
-			},
-			{
-				itemText : theTranslator.getText ( 'WayPointContextMenu - Modify properties' ),
-				isActive : true
-			}
+			),
+			new MenuItem (
+				theTranslator.getText ( 'WayPointContextMenu - Modify properties' ),
+				true
+			)
 		];
 	}
 }

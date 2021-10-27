@@ -29,25 +29,6 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@file BaseContextMenu.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module contextMenus
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
 @typedef {Object} MenuItem
 @desc An object with data used to display the menu
 @property {string} itemText The text to display in the menu
@@ -65,36 +46,178 @@ import BaseContextMenuOperator from '../contextMenus/BaseContextMenuOperator.js'
 import { ZERO, INVALID_OBJ_ID, LAT_LNG } from '../main/Constants.js';
 
 /**
+
+/**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class BaseContextMenu
-@classdesc Base class used to create context menus
-@abstract
-@hideconstructor
+@desc Simple container to store a menu item
+
+@--------------------------------------------------------------------------------------------------------------------------
+*/
+
+class MenuItem {
+
+	/**
+	The text to be displayed in the menu
+	@type {String}
+	*/
+
+	#itemText;
+
+	/**
+	A flag indicating if the menu item can be selected in the menu. Non selectable menu items are
+	displayed in gray in the menu
+	@type {Boolean}
+	*/
+
+	#isActive;
+
+	/**
+	The constructor
+	@param {string} itemText The text to be displayed in the menu
+	@param {boolean} isActive A flag indicating if the menu item can be selected in the menu
+	*/
+
+	constructor ( itemText, isActive ) {
+		Object.freeze ( this );
+		this.#itemText = itemText;
+		this.#isActive = isActive;
+	}
+
+	/**
+	The text to be displayed in the menu
+	@type {String}
+	*/
+
+	get itemText ( ) { return this.#itemText; }
+
+	/**
+	A flag indicating if the menu item can be selected in the menu. Non selectable menu items are
+	displayed in gray in the menu
+	@type {Boolean}
+	*/
+
+	get isActive ( ) { return this.#isActive; }
+}
+
+/**
+@--------------------------------------------------------------------------------------------------------------------------
+
+@desc Simple container to share some data with the derived classes of BaseContextMenu
+
+@--------------------------------------------------------------------------------------------------------------------------
+*/
+
+class BaseContextMenuEventData {
+
+	/**
+	The X screen coordinate of the mouse event that have triggered the menu
+	@type {Number}
+	*/
+
+	#clientX;
+
+	/**
+	The Y screen coordinate of the mouse event that have triggered the menu
+	@type {Number}
+	*/
+
+	#clientY;
+
+	/**
+	The lat an lng at the mouse position for events triggered by the map
+	@type {Array.<Number>}
+	*/
+
+	#latLng;
+
+	/**
+	The ObjId of the TravelObject on witch the mouse is positionned if any
+	@type {Number}
+	*/
+
+	#targetObjId;
+
+	/**
+	A flag indicating when the menu must have a parent node. Menus triggered from leaflet objects don't have
+	parentNode and then the menu is added to the document body
+	@type {boolean}
+	*/
+
+	#haveParentNode;
+
+	/**
+	The constructor
+	@param {Event} contextMenuEvent The event that have triggered the menu
+	@param {?HTMLElement} parentNode The parent node of the menu. Can be null for leaflet objects
+	*/
+
+	constructor ( contextMenuEvent, parentNode ) {
+		Object.freeze ( this );
+		this.#clientX = contextMenuEvent.clientX || contextMenuEvent.originalEvent.clientX || ZERO;
+		this.#clientY = contextMenuEvent.clientY || contextMenuEvent.originalEvent.clientY || ZERO;
+		this.#latLng = [
+			contextMenuEvent.latlng ? contextMenuEvent.latlng.lat : LAT_LNG.defaultValue,
+			contextMenuEvent.latlng ? contextMenuEvent.latlng.lng : LAT_LNG.defaultValue
+		];
+		this.#targetObjId =
+			contextMenuEvent.target?.objId
+			??
+			( Number.parseInt ( contextMenuEvent?.currentTarget?.dataset?.tanObjId ) || INVALID_OBJ_ID );
+
+		this.#haveParentNode = null !== parentNode;
+	}
+
+	/**
+	The X screen coordinate of the mouse event that have triggered the menu
+	@type {Number}
+	*/
+
+	get clientX ( ) { return this.#clientX; }
+
+	/**
+	The Y screen coordinate of the mouse event that have triggered the menu
+	@type {Number}
+	*/
+
+	get clientY ( ) { return this.#clientY; }
+
+	/**
+	The lat an lng at the mouse position for events triggered by the map
+	@type {Array.<Number>}
+	*/
+
+	get latLng ( ) { return this.#latLng; }
+
+	/**
+	The ObjId of the TravelObject on witch the mouse is positionned if any
+	@type {Number}
+	*/
+
+	get targetObjId ( ) { return this.#targetObjId; }
+
+	/**
+	A flag indicating when the menu must have a parent node. Menus triggered from leaflet objects don't have
+	parentNode and then the menu is added to the document body
+	@type {boolean}
+	*/
+
+	get haveParentNode ( ) { return this.#haveParentNode; }
+}
+
+/**
+@--------------------------------------------------------------------------------------------------------------------------
+
+@desc Base class used to create context menus
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class BaseContextMenu {
 
-	/* eslint-disable no-magic-numbers */
 	/**
-
-	The min margin between the screen borders and the menu in pixels
-	@type {!number}
-	@static
-	@private
-	*/
-
-	static #menuMargin = 20;
-
-	/* eslint-enable no-magic-numbers */
-
-	/**
-	The active menu container. Needed to close the menu when a second menu is loaded
-	#type {BaseContextMenu}
-	@static
-	@private
+	The active BaseContextMenu instance. Needed to close the menu when a second menu is loaded
+	@type {BaseContextMenu}
 	*/
 
 	static #currentMenu = null;
@@ -102,96 +225,103 @@ class BaseContextMenu {
 	/**
 	The promise ok handler
 	@type {function}
-	@private
 	*/
 
-	#onPromiseOk = null;
+	#onPromiseOk;
 
 	/**
 	The promise error handler
 	@type {function}
-	@private
 	*/
 
-	#onPromiseError = null;
+	#onPromiseError;
 
 	/**
-	An object to store the html elements of the menu
-	@type {Object}
-	@private
+	The parent node of the menu
+	@type {HTMLElement}
 	*/
 
-	#htmlElements = Object.seal (
-		{
-			parentNode : null,
-			container : null,
-			cancelButton : null,
-			menuItemHTMLElements : []
-		}
-	);
+	#parentNode;
+
+	/**
+	The root HTMLElement of the menu
+	@type {HTMLElement}
+	*/
+
+	#container;
+
+	/**
+	The cancel button HTMLElement
+	@type {HTMLElement}
+	*/
+
+	#cancelButton;
+
+	/**
+	The HTMLElement of the menu items
+	@type {Array.<HTMLElement>}
+	*/
+
+	#menuItemHTMLElements;
 
 	/**
 	An object to store data from the Event and parentNode and shared with the derived classes
-	@type {Object}
-	@private
+	@type {BaseContextMenuEventData}
 	*/
 
-	#eventData = Object.seal (
-		{
-			clientX : ZERO,
-			clientY : ZERO,
-			latLng : [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ],
-			targetObjId : INVALID_OBJ_ID,
-			haveParentNode : false
-		}
-	);
+	#eventData;
 
 	/**
 	The associated BaseContextMenuOperator object
 	@type {BaseContextMenuOperator}
-	@private
 	*/
 
-	#menuOperator = null;
+	#menuOperator;
+
+	/**
+	The min margin between the screen borders and the menu in pixels
+	@type {number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #menuMargin ( ) { return 20; }
 
 	/**
 	Build the menu container and add event listeners
-	@private
 	*/
 
 	#createContainer ( ) {
-		this.#htmlElements.container = theHTMLElementsFactory.create (
+		this.#container = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-ContextMenu-Container'
 			},
-			this.#htmlElements.parentNode
+			this.#parentNode
 		);
 	}
 
 	/**
 	Create the cancel button and it's event listener to the menu
-	@private
 	*/
 
 	#createCancelButton ( ) {
-		this.#htmlElements.cancelButton = theHTMLElementsFactory.create (
+		this.#cancelButton = theHTMLElementsFactory.create (
 			'div',
 			{
 				textContent : '❌',
 				className : 'TravelNotes-ContextMenu-CloseButton',
 				title : theTranslator.getText ( 'ContextMenu - Close' )
 			},
-			this.#htmlElements.container
+			this.#container
 		);
 	}
 
 	/**
 	Create the menuItems html elements
-	@private
 	*/
 
 	#createMenuItemsHTMLElements ( ) {
+		this.#menuItemHTMLElements = [];
 		let menuItemCounter = ZERO;
 		this.menuItems.forEach (
 			menuItem => {
@@ -202,19 +332,18 @@ class BaseContextMenu {
 						className :	'TravelNotes-ContextMenu-Item',
 						dataset : { ObjId : String ( menuItemCounter ++ ) }
 					},
-					this.#htmlElements.container
+					this.#container
 				);
 				if ( ! menuItem.isActive ) {
 					menuItemHTMLElement.classList.add ( 'TravelNotes-ContextMenu-ItemDisabled' );
 				}
-				this.#htmlElements.menuItemHTMLElements.push ( menuItemHTMLElement );
+				this.#menuItemHTMLElements.push ( menuItemHTMLElement );
 			}
 		);
 	}
 
 	/**
 	Move the container, so the top of the container is near the mouse
-	@private
 	*/
 
 	#moveContainer ( ) {
@@ -223,21 +352,21 @@ class BaseContextMenu {
 		const menuTop = Math.min (
 			this.#eventData.clientY,
 			theTravelNotesData.map.getContainer ( ).clientHeight -
-				this.#htmlElements.container.clientHeight -
+				this.#container.clientHeight -
 				BaseContextMenu.#menuMargin
 		);
 		const menuLeft = Math.min (
 			this.#eventData.clientX,
 			theTravelNotesData.map.getContainer ( ).clientWidth -
-			this.#htmlElements.container.clientWidth -
+			this.#container.clientWidth -
 			BaseContextMenu.#menuMargin
 		);
-		this.#htmlElements.container.style.top = String ( menuTop ) + 'px';
+		this.#container.style.top = String ( menuTop ) + 'px';
 		if ( this.#eventData.haveParentNode ) {
-			this.#htmlElements.container.style.right = String ( BaseContextMenu.#menuMargin ) + 'px';
+			this.#container.style.right = String ( BaseContextMenu.#menuMargin ) + 'px';
 		}
 		else {
-			this.#htmlElements.container.style.left = String ( menuLeft ) + 'px';
+			this.#container.style.left = String ( menuLeft ) + 'px';
 		}
 	}
 
@@ -245,7 +374,6 @@ class BaseContextMenu {
 	Create and show the menu. This method is called by the Promise
 	@param {function} onPromiseOk The Promise Ok handler
 	@param {function} onPromiseError The Promise Error handler
-	@private
 	*/
 
 	#createMenu ( onPromiseOk, onPromiseError ) {
@@ -259,10 +387,10 @@ class BaseContextMenu {
 
 	}
 
-	/*
-	constructor
-	@param {Event} contextMenuEvent. The event that have triggered the menu
-	@param {Object} parentNode The parent node of the menu. Can be null for leaflet objects
+	/**
+	The constructor
+	@param {Event} contextMenuEvent The event that have triggered the menu
+	@param {?HTMLElement} parentNode The parent node of the menu. Can be null for leaflet objects
 	*/
 
 	constructor ( contextMenuEvent, parentNode ) {
@@ -276,30 +404,18 @@ class BaseContextMenu {
 			return;
 		}
 
+		this.#eventData = new BaseContextMenuEventData ( contextMenuEvent, parentNode );
+
 		// Saving data from the contextMenuEvent
-		this.#eventData.clientX = contextMenuEvent.clientX || contextMenuEvent.originalEvent.clientX || ZERO;
-		this.#eventData.clientY = contextMenuEvent.clientY || contextMenuEvent.originalEvent.clientY || ZERO;
-		this.#eventData.latLng = [
-			contextMenuEvent.latlng ? contextMenuEvent.latlng.lat : LAT_LNG.defaultValue,
-			contextMenuEvent.latlng ? contextMenuEvent.latlng.lng : LAT_LNG.defaultValue
-		];
 
-		this.#eventData.targetObjId =
-			contextMenuEvent.target?.objId
-			??
-			( Number.parseInt ( contextMenuEvent?.currentTarget?.dataset?.tanObjId ) || INVALID_OBJ_ID );
-
-		this.#eventData.haveParentNode = null !== parentNode;
-		Object.freeze ( this.#eventData );
-
-		this.#htmlElements.parentNode = parentNode || document.body;
+		this.#parentNode = parentNode || document.body;
 
 		BaseContextMenu.#currentMenu = this;
 	}
 
 	/**
 	onOk method used by the menu operator. Clean the variables and call the Promise Ok handler
-	@param {!number} selectedItemObjId The id of the item selected by the user
+	@param {number} selectedItemObjId The id of the item selected by the user
 	*/
 
 	onOk ( selectedItemObjId ) {
@@ -339,46 +455,61 @@ class BaseContextMenu {
 			);
 	}
 
-	/* eslint-disable no-unused-vars */
-
 	/**
 	Perform the action selected by the user. Must be implemented in the derived classes
-	@param {!number} selectedItemObjId The id of the item selected by the user
+	@param {number} selectedItemObjId The id of the item selected by the user
 	*/
 
+	// eslint-disable-next-line no-unused-vars
 	doAction ( selectedItemObjId ) {
 	}
 
-	/* eslint-enable no-unused-vars */
-
 	/**
-	menuItems getter. Must be implemented in the derived classes
+	The list of menu items to use. Must be implemented in the derived classes
 	@type {Array.<MenuItem>}
-	@readonly
 	*/
 
 	get menuItems ( ) { return []; }
 
 	/**
-	html elements getter for the menuOperator
-	@type {Object}
-	@readonly
+	The parent node of the menu
+	@type {HTMLElement}
 	*/
 
-	get htmlElements ( ) { return this.#htmlElements; }
+	get parentNode ( ) { return this.#parentNode; }
+
+	/**
+	The root HTMLElement of the menu
+	@type {HTMLElement}
+	*/
+
+	get container ( ) { return this.#container; }
+
+	/**
+	The cancel button HTMLElement
+	@type {HTMLElement}
+	*/
+
+	get cancelButton ( ) { return this.#cancelButton; }
+
+	/**
+	The HTMLElement of the menu items
+	@type {Array.<HTMLElement>}
+	*/
+
+	get menuItemHTMLElements ( ) { return this.#menuItemHTMLElements; }
 
 	/**
 	eventDdata getter
-	@type {Object}
-	@readonly
+	@type {BaseContextMenuEventData}
 	*/
 
 	get eventData ( ) { return this.#eventData; }
 
 }
 
-export default BaseContextMenu;
+export { BaseContextMenu, MenuItem };
 
-/**
+/*
 --- End of BaseContextMenu.js file --------------------------------------------------------------------------------------------
 */

@@ -29,31 +29,9 @@ Tests ...
 */
 
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file BaseContextMenuEventListeners.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module contextMenus
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class KeyboardKeydownEL
 @classdesc keydown event listener for the context menus
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -63,13 +41,12 @@ class KeyboardKeydownEL {
 	/**
 	A reference to the menuOperator Object
 	@type {BaseContextMenuOperator}
-	@private
 	*/
 
 	#menuOperator = null;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
 	*/
 
@@ -79,16 +56,8 @@ class KeyboardKeydownEL {
 	}
 
 	/**
-	Clean the reference to the menuOperator
-	*/
-
-	destructor ( ) {
-		this.#menuOperator = null;
-	}
-
-	/**
 	Event listener method
-	@param {Event} keydownEvent The triggered event
+	@param {Event} keydownEvent The event to handle
 	*/
 
 	handleEvent ( keydownEvent ) {
@@ -100,9 +69,7 @@ class KeyboardKeydownEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class CancelButtonClickEL
 @classdesc click event listener on the cancel button for the context menus
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -112,13 +79,12 @@ class CancelButtonClickEL {
 	/**
 	A reference to the menuOperator Object
 	@type {BaseContextMenuOperator}
-	@private
 	*/
 
 	#menuOperator = null;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
 	*/
 
@@ -128,16 +94,8 @@ class CancelButtonClickEL {
 	}
 
 	/**
-	Clean the reference to the menuOperator
-	*/
-
-	destructor ( ) {
-		this.#menuOperator = null;
-	}
-
-	/**
 	Event listener method
-	@param {EVvent} clickEvent The triggered event
+	@param {EVvent} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -149,9 +107,7 @@ class CancelButtonClickEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class MenuItemMouseLeaveEL
 @classdesc mouseleave event listener on the menuItems for the context menus
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -161,13 +117,12 @@ class MenuItemMouseLeaveEL {
 	/**
 	A reference to the menuOperator Object
 	@type {BaseContextMenuOperator}
-	@private
 	*/
 
 	#menuOperator = null;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
 	*/
 
@@ -177,16 +132,8 @@ class MenuItemMouseLeaveEL {
 	}
 
 	/**
-	Clean the reference to the menuOperator
-	*/
-
-	destructor ( ) {
-		this.#menuOperator = null;
-	}
-
-	/**
 	Event listener method
-	@param {Event} mouseLeaveEvent The triggered event
+	@param {Event} mouseLeaveEvent The event to handle
 	*/
 
 	handleEvent ( mouseLeaveEvent ) {
@@ -198,9 +145,7 @@ class MenuItemMouseLeaveEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class MenuItemMouseEnterEL
 @classdesc mouseenter event listener on the menuItems for the context menus
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -210,13 +155,12 @@ class MenuItemMouseEnterEL {
 	/**
 	A reference to the menuOperator Object
 	@type {BaseContextMenuOperator}
-	@private
 	*/
 
 	#menuOperator = null;
 
-	/*
-	constructor
+	/**
+	the constructor
 	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
 	*/
 
@@ -226,16 +170,8 @@ class MenuItemMouseEnterEL {
 	}
 
 	/**
-	Clean the reference to the menuOperator
-	*/
-
-	destructor ( ) {
-		this.#menuOperator = null;
-	}
-
-	/**
 	Event listener method
-	@param {Event} mouseEnterEvent The triggered event
+	@param {Event} mouseEnterEvent The event to handle
 	*/
 
 	handleEvent ( mouseEnterEvent ) {
@@ -247,9 +183,7 @@ class MenuItemMouseEnterEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class MenuItemClickEL
 @classdesc click event listener on the menuItems for the context menus
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -259,13 +193,12 @@ class MenuItemClickEL {
 	/**
 	A reference to the menuOperator Object
 	@type {BaseContextMenuOperator}
-	@private
 	*/
 
 	#menuOperator = null;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
 	*/
 
@@ -275,16 +208,8 @@ class MenuItemClickEL {
 	}
 
 	/**
-	Clean the reference to the menuOperator
-	*/
-
-	destructor ( ) {
-		this.#menuOperator = null;
-	}
-
-	/**
 	Event listener method
-	@param {Event} clickEvent The triggered event
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -296,9 +221,7 @@ class MenuItemClickEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class ContainerMouseLeaveEL
 @classdesc mouseleave event listener on the container for the context menus
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -308,13 +231,12 @@ class ContainerMouseLeaveEL {
 	/**
 	A reference to the menuOperator Object
 	@type {BaseContextMenuOperator}
-	@private
 	*/
 
 	#menuOperator = null;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
 	*/
 
@@ -324,16 +246,8 @@ class ContainerMouseLeaveEL {
 	}
 
 	/**
-	Clean the reference to the menuOperator
-	*/
-
-	destructor ( ) {
-		this.#menuOperator = null;
-	}
-
-	/**
 	Event listener method
-	@param {Event} mouseLeaveEvent The triggered event
+	@param {Event} mouseLeaveEvent The event to handle
 	*/
 
 	handleEvent ( mouseLeaveEvent ) {
@@ -345,9 +259,7 @@ class ContainerMouseLeaveEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class ContainerMouseEnterEL
 @classdesc  mouseenter event listener on the container for the context menus
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -357,13 +269,12 @@ class ContainerMouseEnterEL {
 	/**
 	A reference to the menuOperator Object
 	@type {BaseContextMenuOperator}
-	@private
 	*/
 
 	#menuOperator = null;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
 	*/
 
@@ -373,16 +284,8 @@ class ContainerMouseEnterEL {
 	}
 
 	/**
-	Clean the reference to the menuOperator
-	*/
-
-	destructor ( ) {
-		this.#menuOperator = null;
-	}
-
-	/**
 	Event listener method
-	@param {Event} mouseEnterEvent The triggered event
+	@param {Event} mouseEnterEvent The event to handle
 	*/
 
 	handleEvent ( mouseEnterEvent ) {

@@ -31,27 +31,7 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteContextMenu.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module contextMenus
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-import BaseContextMenu from '../contextMenus/BaseContextMenu.js';
+import { BaseContextMenu, MenuItem } from '../contextMenus/BaseContextMenu.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import theNoteEditor from '../core/NoteEditor.js';
 import Zoomer from '../core/Zoomer.js';
@@ -63,10 +43,7 @@ import { INVALID_OBJ_ID } from '../main/Constants.js';
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class NoteContextMenu
 @classdesc this class implements the BaseContextMenu class for the notes
-@extends BaseContextMenu
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -76,18 +53,17 @@ class NoteContextMenu extends BaseContextMenu {
 	/**
 	The route to witch the note is linked
 	@type {Route}
-	@private
 	*/
 
-	#route = null;
+	#route;
 
-	/*
-	constructor
-	@param {Event} contextMenuEvent. The event that have triggered the menu
+	/**
+	The constructor
+	@param {Event} contextMenuEvent The event that have triggered the menu
 	@param {HTMLElement} parentNode The parent node of the menu. Can be null for leaflet objects
 	*/
 
-	constructor ( contextMenuEvent, parentNode = null ) {
+	constructor ( contextMenuEvent, parentNode ) {
 		super ( contextMenuEvent, parentNode );
 		this.#route = theDataSearchEngine.getNoteAndRoute ( this.eventData.targetObjId ).route;
 	}
@@ -126,34 +102,33 @@ class NoteContextMenu extends BaseContextMenu {
 	/* eslint-enable no-magic-numbers */
 
 	/**
-	menuItems getter. Implementation of the base class menuItem getter
-	@readonly
+	The list of menu items to use. Implementation of the BaseContextMenu.menuItems property
+	@type {Array.<MenuItem>}
 	*/
 
 	get menuItems ( ) {
 		return [
-			{
-				itemText : theTranslator.getText ( 'NoteContextMenu - Edit this note' ),
-				isActive : true
-			},
-			{
-				itemText : theTranslator.getText ( 'NoteContextMenu - Delete this note' ),
-				isActive : true
-			},
-			{
-				itemText : theTranslator.getText ( 'NoteContextMenu - Zoom to note' ),
-				isActive : true
-			},
-			{
-				itemText : theTranslator.getText (
+			new MenuItem (
+				theTranslator.getText ( 'NoteContextMenu - Edit this note' ),
+				true
+			),
+			new MenuItem (
+				theTranslator.getText ( 'NoteContextMenu - Delete this note' ),
+				true
+			),
+			new MenuItem (
+				theTranslator.getText ( 'NoteContextMenu - Zoom to note' ),
+				true
+			),
+			new MenuItem (
+				theTranslator.getText (
 					this.#route
 						?
 						'NoteContextMenu - Detach note from route'
 						:
-						'NoteContextMenu - Attach note to route'
-				),
-				isActive : INVALID_OBJ_ID === theTravelNotesData.editedRouteObjId
-			}
+						'NoteContextMenu - Attach note to route' ),
+				INVALID_OBJ_ID === theTravelNotesData.editedRouteObjId
+			)
 		];
 	}
 }

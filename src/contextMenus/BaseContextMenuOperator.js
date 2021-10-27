@@ -26,26 +26,6 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file BaseContextMenuOperator.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module contextMenus
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theConfig from '../data/Config.js';
 import {
 	KeyboardKeydownEL,
@@ -62,23 +42,19 @@ import { NOT_FOUND, ZERO, ONE } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class BaseContextMenuOperator
 @classdesc This class perform all the needed operations for context menus
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class BaseContextMenuOperator {
 
-	/* eslint-disable no-magic-numbers */
-
 	/**
 	Enum for Item changes from the keyboard
-	@readonly
-	@enum {number}
-	@static
-	 */
+	@type {Object}
+	*/
+
+	/* eslint-disable no-magic-numbers */
 
 	static #keyboardItemChange = Object.freeze (
 		{
@@ -93,33 +69,63 @@ class BaseContextMenuOperator {
 
 	/**
 	A reference to the context menu
-	@private
+	@type {BaseContextMenu|derived}
 	*/
 
 	#contextMenu = null;
 
 	/**
-	events listeners
-	@type {Object}
-	@private
+	Keyboard keydown event listener
+	@type {KeyboardKeydownEL}
 	*/
 
-	#eventListeners = Object.seal (
-		{
-			onKeydownKeyboard : null,
-			onMouseLeaveContainer : null,
-			onMouseEnterContainer : null,
-			onMouseClickCancelButton : null,
-			onClickMenuItem : null,
-			onMouseLeaveMenuItem : null,
-			onMouseEnterMenuItem : null
-		}
-	);
+	#keyboardKeydownEL;
+
+	/**
+	Mouseleave container event listener
+	@type {ContainerMouseLeaveEL}
+	*/
+
+	#containerMouseLeaveEL;
+
+	/**
+	mouseenter container event listener
+	@type {ContainerMouseEnterEL}
+	*/
+
+	#containerMouseEnterEL;
+
+	/**
+	Click cancel button event listener
+	@type {CancelButtonClickEL}
+	*/
+
+	#cancelButtonClickEL;
+
+	/**
+	click menu item event listener
+	@type {MenuItemClickEL}
+	*/
+
+	#menuItemClickEL;
+
+	/**
+	Mouseleave menu item event listener
+	@type {MenuItemMouseLeaveEL}
+	*/
+
+	#menuItemMouseLeaveEL;
+
+	/**
+	Mouse enter menu item event listener
+	@type {MenuItemMouseEnterEL}
+	*/
+
+	#menuItemMouseEnterEL;
 
 	/**
 	The index of the selected by the keyboard menuItem
-	@type {!number}
-	@private
+	@type {number}
 	*/
 
 	#keyboardSelectedItemObjId = NOT_FOUND;
@@ -127,27 +133,24 @@ class BaseContextMenuOperator {
 	/**
 	TimerId for the mouseleave container action
 	@type {number}
-	@private
 	*/
 
 	#timerId = null;
 
 	/**
 	Remove the css class on all items
-	@private
 	*/
 
 	#unselectItems ( ) {
-		this.#contextMenu.htmlElements.menuItemHTMLElements.forEach (
+		this.#contextMenu.menuItemHTMLElements.forEach (
 			menuitemHTMLElement => { menuitemHTMLElement.classList.remove ( 'TravelNotes-ContextMenu-ItemSelected' ); }
 		);
 	}
 
 	/**
 	Selected item change by the keyboard
-	@param {!number} changeValue A value indicating witch menuItem have to be selected
+	@param {number} changeValue A value indicating witch menuItem have to be selected
 	See BaseContextMenuOperator.#keyboardItemChange
-	@private
 	*/
 
 	#changeKeyboardSelectedItemObjId ( changeValue ) {
@@ -160,9 +163,9 @@ class BaseContextMenuOperator {
 		case BaseContextMenuOperator.#keyboardItemChange.nextItem :
 			this.#keyboardSelectedItemObjId += changeValue;
 			if ( NOT_FOUND === this.#keyboardSelectedItemObjId ) {
-				this.#keyboardSelectedItemObjId = this.#contextMenu.htmlElements.menuItemHTMLElements.length - ONE;
+				this.#keyboardSelectedItemObjId = this.#contextMenu.menuItemHTMLElements.length - ONE;
 			}
-			if ( this.#contextMenu.htmlElements.menuItemHTMLElements.length === this.#keyboardSelectedItemObjId ) {
+			if ( this.#contextMenu.menuItemHTMLElements.length === this.#keyboardSelectedItemObjId ) {
 				this.#keyboardSelectedItemObjId = ZERO;
 			}
 			break;
@@ -170,20 +173,20 @@ class BaseContextMenuOperator {
 			this.#keyboardSelectedItemObjId = ZERO;
 			break;
 		case BaseContextMenuOperator.#keyboardItemChange.lastItem :
-			this.#keyboardSelectedItemObjId = this.#contextMenu.htmlElements.menuItemHTMLElements.length - ONE;
+			this.#keyboardSelectedItemObjId = this.#contextMenu.menuItemHTMLElements.length - ONE;
 			break;
 		default :
 			break;
 		}
 
 		// add css class
-		this.#contextMenu.htmlElements.menuItemHTMLElements [ this.#keyboardSelectedItemObjId ]
+		this.#contextMenu.menuItemHTMLElements [ this.#keyboardSelectedItemObjId ]
 			.classList.add ( 'TravelNotes-ContextMenu-ItemSelected' );
 	}
 
-	/*
+	/**
 	constructor
-	@param {BaseContextMenu} contextMenu. The ContextMenu for witch the operator is made
+	@param {BaseContextMenu} contextMenu The ContextMenu for witch the operator is made
 	*/
 
 	constructor ( contextMenu ) {
@@ -194,27 +197,32 @@ class BaseContextMenuOperator {
 		this.#contextMenu = contextMenu;
 
 		// Event listeners creation
-		this.#eventListeners.onKeydownKeyboard = new KeyboardKeydownEL ( this );
-		this.#eventListeners.onMouseLeaveContainer = new ContainerMouseLeaveEL ( this );
-		this.#eventListeners.onMouseEnterContainer = new ContainerMouseEnterEL ( this );
-		this.#eventListeners.onMouseClickCancelButton = new CancelButtonClickEL ( this );
-		this.#eventListeners.onClickMenuItem = new MenuItemClickEL ( this );
-		this.#eventListeners.onMouseLeaveMenuItem = new MenuItemMouseLeaveEL ( this );
-		this.#eventListeners.onMouseEnterMenuItem = new MenuItemMouseEnterEL ( this );
+		this.#keyboardKeydownEL = new KeyboardKeydownEL ( this );
+		this.#containerMouseLeaveEL = new ContainerMouseLeaveEL ( this );
+		this.#containerMouseEnterEL = new ContainerMouseEnterEL ( this );
+		this.#cancelButtonClickEL = new CancelButtonClickEL ( this );
+		this.#menuItemClickEL = new MenuItemClickEL ( this );
+		this.#menuItemMouseLeaveEL = new MenuItemMouseLeaveEL ( this );
+		this.#menuItemMouseEnterEL = new MenuItemMouseEnterEL ( this );
 
 		// Adding event listeners to the html elements of the menu and to the document
-		document.addEventListener ( 'keydown', this.#eventListeners.onKeydownKeyboard, true );
-		this.#contextMenu.htmlElements.container.addEventListener ( 'mouseleave', this.#eventListeners.onMouseLeaveContainer );
-		this.#contextMenu.htmlElements.container.addEventListener ( 'mouseenter', this.#eventListeners.onMouseEnterContainer );
-		this.#contextMenu.htmlElements.cancelButton.addEventListener ( 'click', this.#eventListeners.onMouseClickCancelButton );
-		this.#contextMenu.htmlElements.menuItemHTMLElements.forEach (
+		document.addEventListener ( 'keydown', this.#keyboardKeydownEL, true );
+		this.#contextMenu.container.addEventListener ( 'mouseleave', this.#containerMouseLeaveEL );
+		this.#contextMenu.container.addEventListener ( 'mouseenter', this.#containerMouseEnterEL );
+		this.#contextMenu.cancelButton.addEventListener ( 'click', this.#cancelButtonClickEL );
+		this.#contextMenu.menuItemHTMLElements.forEach (
 			menuItemHTMLElement => {
-				menuItemHTMLElement.addEventListener ( 'click', this.#eventListeners.onClickMenuItem );
-				menuItemHTMLElement.addEventListener ( 'mouseleave', this.#eventListeners.onMouseLeaveMenuItem );
-				menuItemHTMLElement.addEventListener ( 'mouseenter', this.#eventListeners.onMouseEnterMenuItem );
+				menuItemHTMLElement.addEventListener ( 'click', this.#menuItemClickEL );
+				menuItemHTMLElement.addEventListener ( 'mouseleave', this.#menuItemMouseLeaveEL );
+				menuItemHTMLElement.addEventListener ( 'mouseenter', this.#menuItemMouseEnterEL );
 			}
 		);
 	}
+
+	/**
+	Remove event listeners, set event listeners to null so all references to this are removed
+	and remove the menu from the screen
+	*/
 
 	destructor ( ) {
 
@@ -225,34 +233,37 @@ class BaseContextMenuOperator {
 		}
 
 		// Removing event listeners
-		document.removeEventListener ( 'keydown', this.#eventListeners.onKeydownKeyboard, true );
-		this.#contextMenu.htmlElements.container.removeEventListener (
+		document.removeEventListener ( 'keydown', this.#keyboardKeydownEL, true );
+		this.#contextMenu.container.removeEventListener (
 			'mouseleave',
-			this.#eventListeners.onMouseLeaveContainer
+			this.#containerMouseLeaveEL
 		);
-		this.#contextMenu.htmlElements.container.removeEventListener (
+		this.#contextMenu.container.removeEventListener (
 			'mouseenter',
-			this.#eventListeners.onMouseEnterContainer
+			this.#containerMouseEnterEL
 		);
-		this.#contextMenu.htmlElements.cancelButton.removeEventListener (
+		this.#contextMenu.cancelButton.removeEventListener (
 			'click',
-			this.#eventListeners.onMouseClickCancelButton
+			this.#cancelButtonClickEL
 		);
-		this.#contextMenu.htmlElements.menuItemHTMLElements.forEach (
+		this.#contextMenu.menuItemHTMLElements.forEach (
 			menuItemHTMLElement => {
-				menuItemHTMLElement.removeEventListener ( 'click', this.#eventListeners.onClickMenuItem );
-				menuItemHTMLElement.removeEventListener ( 'mouseleave', this.#eventListeners.onMouseLeaveMenuItem );
-				menuItemHTMLElement.removeEventListener ( 'mouseenter', this.#eventListeners.onMouseEnterMenuItem );
+				menuItemHTMLElement.removeEventListener ( 'click', this.#menuItemClickEL );
+				menuItemHTMLElement.removeEventListener ( 'mouseleave', this.#menuItemMouseLeaveEL );
+				menuItemHTMLElement.removeEventListener ( 'mouseenter', this.#menuItemMouseEnterEL );
 			}
 		);
 
-		// removing reference to the menu operator in the event listeners
-		for ( const eventListenerName in this.#eventListeners ) {
-			this.#eventListeners [ eventListenerName ].destructor ( );
-		}
+		this.#keyboardKeydownEL = null;
+		this.#containerMouseLeaveEL = null;
+		this.#containerMouseEnterEL = null;
+		this.#cancelButtonClickEL = null;
+		this.#menuItemClickEL = null;
+		this.#menuItemMouseLeaveEL = null;
+		this.#menuItemMouseEnterEL = null;
 
 		// removing the html elements
-		this.#contextMenu.htmlElements.parentNode.removeChild ( this.#contextMenu.htmlElements.container );
+		this.#contextMenu.parentNode.removeChild ( this.#contextMenu.container );
 
 		// cleaning the reference to the menu
 		this.#contextMenu = null;
@@ -307,7 +318,7 @@ class BaseContextMenuOperator {
 			if (
 				( NOT_FOUND === this.#keyboardSelectedItemObjId )
 				||
-				( this.#contextMenu.htmlElements.menuItemHTMLElements [ this.#keyboardSelectedItemObjId ]
+				( this.#contextMenu.menuItemHTMLElements [ this.#keyboardSelectedItemObjId ]
 					.classList.contains ( 'TravelNotes-ContextMenu-ItemDisabled' )
 				)
 			) {
@@ -330,12 +341,12 @@ class BaseContextMenuOperator {
 
 	/**
 	Select item action
-	@param {!number} itemObjId The id of the selected item
+	@param {number} itemObjId The id of the selected item
 	*/
 
 	selectItem ( itemObjId ) {
 		if (
-			this.#contextMenu.htmlElements.menuItemHTMLElements [ itemObjId ]
+			this.#contextMenu.menuItemHTMLElements [ itemObjId ]
 				.classList.contains ( 'TravelNotes-ContextMenu-ItemDisabled' )
 		) {
 			return;

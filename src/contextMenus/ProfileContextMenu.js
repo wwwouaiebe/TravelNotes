@@ -28,27 +28,7 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ProfileContextMenu.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module contextMenus
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-import BaseContextMenu from '../contextMenus/BaseContextMenu.js';
+import { BaseContextMenu, MenuItem } from '../contextMenus/BaseContextMenu.js';
 import theTranslator from '../UILib/Translator.js';
 import theNoteEditor from '../core/NoteEditor.js';
 import Zoomer from '../core/Zoomer.js';
@@ -56,23 +36,20 @@ import Zoomer from '../core/Zoomer.js';
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class ProfileContextMenu
 @classdesc this class implements the BaseContextMenu class for the profiles
-@extends BaseContextMenu
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class ProfileContextMenu extends BaseContextMenu {
 
-	/*
-	constructor
-	@param {Event} contextMenuEvent. The event that have triggered the menu
+	/**
+	The constructor
+	@param {Event} contextMenuEvent The event that have triggered the menu
 	@param {HTMLElement} parentNode The parent node of the menu. Can be null for leaflet objects
 	*/
 
-	constructor ( contextMenuEvent, parentNode = null ) {
+	constructor ( contextMenuEvent, parentNode ) {
 		super ( contextMenuEvent, parentNode );
 	}
 
@@ -99,20 +76,20 @@ class ProfileContextMenu extends BaseContextMenu {
 	/* eslint-enable no-magic-numbers */
 
 	/**
-	menuItems getter. Implementation of the base class menuItem getter
-	@readonly
+	The list of menu items to use. Implementation of the BaseContextMenu.menuItems property
+	@type {Array.<MenuItem>}
 	*/
 
 	get menuItems ( ) {
 		return [
-			{
-				itemText : theTranslator.getText ( 'ProfileContextMenu - Add a note to the route at this point' ),
-				isActive : true
-			},
-			{
-				itemText : theTranslator.getText ( 'ProfileContextMenu - Zoom to this point' ),
-				isActive : true
-			}
+			new MenuItem (
+				theTranslator.getText ( 'ProfileContextMenu - Add a note to the route at this point' ),
+				true
+			),
+			new MenuItem (
+				theTranslator.getText ( 'ProfileContextMenu - Zoom to this point' ),
+				true
+			)
 		];
 	}
 }
