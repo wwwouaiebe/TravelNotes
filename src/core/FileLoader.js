@@ -177,7 +177,7 @@ class FileLoader {
 
 	/**
 	Open a local file and display the content of the file
-	@param {event} changeEvent the changeEvent that have started the process
+	@param {Object} travelJsonObject the json object readed from the file
 	@fires removeallobjects
 	@fires routeupdated
 	@fires noteupdated
@@ -216,7 +216,7 @@ class FileLoader {
 
 	/**
 	Open a local file and merge the content of the file with the current travel
-	@param {event} changeEvent the changeEvent that have started the process
+	@param {Object} travelJsonObject the json object readed from the file
 	@fires removeallobjects
 	@fires routeupdated
 	@fires noteupdated

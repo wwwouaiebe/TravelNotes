@@ -82,7 +82,7 @@ class NoteEditor {
 
 	/**
 	The route to witch the created or edited note is linked
-	#type {Route}
+	@type {Route}
 	*/
 
 	#route = null;
@@ -244,8 +244,9 @@ class NoteEditor {
 		Object.freeze ( this );
 	}
 
-	/*
+	/**
 	get the status of the osmSearchNoteDialog flag
+	@type {Boolean}
 	*/
 
 	get osmSearchNoteDialog ( ) {
@@ -257,7 +258,7 @@ class NoteEditor {
 		return this.#showSearchNoteDialog;
 	}
 
-	/*
+	/**
 	change the status of the osmSearchNoteDialog flag
 	*/
 

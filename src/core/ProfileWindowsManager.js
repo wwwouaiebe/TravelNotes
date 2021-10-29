@@ -46,6 +46,11 @@ see theProfileWindowsManager for the one and only one instance of this class
 */
 
 class ProfileWindowsManager {
+	
+	/**
+	A map with all the profile windows currently displayed
+	@type {Map.<ProfileWindow>}
+	*/
 
 	#profileWindows = new Map ( );
 

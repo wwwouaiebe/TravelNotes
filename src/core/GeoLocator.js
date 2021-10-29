@@ -41,9 +41,21 @@ See theGeoLocator for the one and only one instance of this class
 */
 
 class GeoLocator {
+	
+	/**
+	The current status of the geoLocator. 
+	@type {GEOLOCATION_STATUS}
+	*/
 
 	#status = navigator.geolocation ? GEOLOCATION_STATUS.inactive : GEOLOCATION_STATUS.disabled;
 
+	/**
+	The id returned by the
+	<a href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/watchPosition">Geolocation.watchPosition ( )</a>
+	method
+	@type {Number}
+	*/
+	
 	#watchId = null;
 
 	/**
@@ -78,6 +90,9 @@ class GeoLocator {
 
 	/**
 	Stop the geolocation because the user don't accept the geolocation
+	@param {GeolocationPositionError} positionError 
+	See <a href="https://developer.mozilla.org/en-US/docs/Web/API/GeolocationPositionError">GeolocationPositionError</a>
+	on mdn
 	@fires geolocationstatuschanged
 	*/
 

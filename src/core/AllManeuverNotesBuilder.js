@@ -54,6 +54,12 @@ class AllManeuverNotesBuilder {
 	*/
 
 	#route = null;
+	
+	/**
+	the number of maneuvers
+	@type {number}
+	*/
+	
 	#maneuversLength = ZERO;
 
 	/**
