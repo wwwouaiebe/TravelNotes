@@ -26,26 +26,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OverpassAPIDataLoader.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreLib
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theConfig from '../data/Config.js';
 import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
 
@@ -54,9 +34,7 @@ import { ZERO, TWO, LAT_LNG, DISTANCE, HTTP_STATUS_OK, OSM_COUNTRY_ADMIN_LEVEL }
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class OverpassAPIDataLoader
 @classdesc This class is used to search osm data with the OverpassAPI
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -93,7 +71,6 @@ class OverpassAPIDataLoader {
 
 	/**
 	This method add the geometry to the osm elements
-	@private
 	*/
 
 	#setGeometry ( ) {
@@ -145,7 +122,6 @@ class OverpassAPIDataLoader {
 
 	/**
 	this method parse the osm elements received from the OverpassAPI
-	@private
 	*/
 
 	#parseData ( osmElements ) {
@@ -217,7 +193,6 @@ class OverpassAPIDataLoader {
 
 	/**
 	this method search the city and place name from the osm elements
-	@private
 	*/
 
 	#setPlaceAndCity ( ) {
@@ -252,7 +227,6 @@ class OverpassAPIDataLoader {
 
 	/**
 	This method parse the responses from the OverpassAPI
-	@private
 	*/
 
 	async #parseSearchResults ( results ) {

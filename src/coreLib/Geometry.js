@@ -37,26 +37,6 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@file Geometry.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreLib
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
 @typedef {Object} LatLngElevOnRoute
 @desc An object to store the latitude, longitude, elevation, ascent and distance of a point on a route
 @property {Array.<number>} latLng The latitude and longitude of the point
@@ -88,10 +68,8 @@ const HUNDRED = 100;
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class Geometry
 @classdesc This class contains methods for geometry operations requiring call to Leaflet functions
-@see {@link theGeometry} for the one and only one instance of this class
-@hideconstructor
+See theGeometry for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -299,8 +277,6 @@ class Geometry {
 
 @desc The one and only one instance of Geometry class
 @type {Geometry}
-@constant
-@global
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

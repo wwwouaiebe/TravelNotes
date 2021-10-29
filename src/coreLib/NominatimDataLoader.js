@@ -22,26 +22,6 @@ Doc reviewed ...
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NominatimDataLoader.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreLib
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theConfig from '../data/Config.js';
 
 import { ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
@@ -49,9 +29,7 @@ import { ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class NominatimDataLoader
 @classdesc This class search an address with Nominatim starting from a lat and lng
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -59,7 +37,6 @@ import { ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
 class NominatimDataLoader {
 
 	/** The status of the requests
-	@private
 	@type {boolean}
 	*/
 
@@ -67,7 +44,6 @@ class NominatimDataLoader {
 
 	/**
 	The name found by Nominatim
-	@private
 	@type {string}
 	*/
 
@@ -75,7 +51,6 @@ class NominatimDataLoader {
 
 	/**
 	The street found by Nominatim
-	@private
 	@type {string}
 	*/
 
@@ -83,7 +58,6 @@ class NominatimDataLoader {
 
 	/**
 	The city found by Nominatim
-	@private
 	@type {string}
 	*/
 
@@ -91,7 +65,6 @@ class NominatimDataLoader {
 
 	/**
 	The country found by Nominatim
-	@private
 	@type {string}
 	*/
 
@@ -101,7 +74,6 @@ class NominatimDataLoader {
 	This method parse the data received from Nominatim
 	@param {object} nominatimDataZoom10 the data received from Nomination using the zoom factor 10
 	@param {object} nominatimDataZoom18 the data received from Nomination using the zoom factor 18
-	@private
 	*/
 
 	#parseNominatimData ( nominatimDataZoom10, nominatimDataZoom18 ) {
@@ -143,7 +115,6 @@ class NominatimDataLoader {
 	/**
 	This method call Nominatim
 	@param {Array.<number>} latLng The latitude and longitude of the point for witch the address is searched
-	@async
 	*/
 
 	async loadData ( latLng ) {

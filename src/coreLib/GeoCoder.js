@@ -46,26 +46,6 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@file GeoCoder.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreLib
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
 @typedef {Object} GeoCoderAddress
 @desc An address
 @property {string} name The name of the point or an empty string
@@ -86,9 +66,7 @@ import { ZERO, ONE } from '../main/Constants.js';
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class GeoCoder
 @classdesc This class call Nominatim and parse the response
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -98,7 +76,6 @@ class GeoCoder {
 	/**
 	The distance used in the OverpassAPI query for places
 	@type {number}
-	@private
 	*/
 
 	#queryDistance = Math.max (
@@ -111,7 +88,6 @@ class GeoCoder {
 	/**
 	The Lat and Lng for thr geocoding
 	@type {Array.<number>}
-	@private
 	*/
 
 	#latLng = null;
@@ -119,7 +95,6 @@ class GeoCoder {
 	/**
 	The OverpassAPIDataLoader object
 	@type {OverpassAPIDataLoader}
-	@private
 	*/
 
 	#overpassAPIDataLoader = null;
@@ -127,14 +102,12 @@ class GeoCoder {
 	/**
 	The NominatimDataLoader object
 	@type {NominatimDataLoader}
-	@private
 	*/
 
 	#nominatimDataLoader = null;
 
 	/**
 	this method merge the data from Nominatim and theOverpassAPI
-	@private
 	*/
 
 	#mergeData ( ) {
@@ -169,7 +142,6 @@ class GeoCoder {
 
 	/**
 	This method get the Overpass query
-	@private
 	*/
 
 	#getOverpassQueries ( ) {
@@ -185,7 +157,6 @@ class GeoCoder {
 
 	/**
 	This method search the address
-	@private
 	*/
 
 	async #getAddressAsync ( ) {
@@ -198,7 +169,6 @@ class GeoCoder {
 	/**
 	This method is executed by the Promise to search an address. The #getAddressAsync return always a response,
 	eventually with empty strings, so the onError function is never called
-	@private
 	*/
 
 	async #getAddressWithPromise ( onOk /* onError */ ) {
@@ -229,7 +199,6 @@ class GeoCoder {
 	@param {Array.<number>} latLng the latitude and longitude to be used to search the address
 	@return {GeoCoderAddress} the address at the given point. The GeoCoderAddress.statusOk must be verified
 	before using the data.
-	@async
 	*/
 
 	async getAddressAsync ( latLng ) {

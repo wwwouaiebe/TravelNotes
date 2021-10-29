@@ -28,26 +28,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file Router.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreLib
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theGeometry from '../coreLib/Geometry.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
@@ -62,9 +42,7 @@ import { DISTANCE, ZERO } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class Router
 @classdesc Start the routing and adapt the linked data after routing
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -77,7 +55,6 @@ class Router {
 	/**
 	This method compute the route, itineraryPoints and maneuvers distances
 	@param {Route} route The route for witch the distances are computed
-	@private
 	*/
 
 	#computeRouteDistances ( route ) {
@@ -122,7 +99,6 @@ class Router {
 
 	/**
 	Error handler for the startRouting method
-	@private
 	*/
 
 	#onRoutingError ( err ) {
@@ -138,7 +114,6 @@ class Router {
 
 	/**
 	Success handler for the startRouting method
-	@private
 	*/
 
 	#onRoutingOk ( ) {
@@ -214,7 +189,6 @@ class Router {
 
 	/**
 	This method start the routing for the edited route.
-	@async
 	@fires routeupdated
 	@fires showitinerary
 	@fires roadbookupdate

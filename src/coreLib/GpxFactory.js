@@ -30,26 +30,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file GpxFactory.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreLib
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theUtilities from '../UILib/Utilities.js';
@@ -62,9 +42,7 @@ const OUR_TAB_3 = '\n\t\t\t';
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class
 @classdesc This class is used to create gpx files
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -77,7 +55,6 @@ class GpxFactory {
 
 	/**
 	Creates the header of the gpx file
-	@private
 	*/
 
 	#addHeader ( ) {
@@ -92,7 +69,6 @@ class GpxFactory {
 
 	/**
 	Add the waypoints to the gpx file
-	@private
 	*/
 
 	#addWayPoints ( ) {
@@ -107,7 +83,6 @@ class GpxFactory {
 
 	/**
 	Add the route to the gpx file
-	@private
 	*/
 
 	#addRoute ( ) {
@@ -138,7 +113,6 @@ class GpxFactory {
 
 	/**
 	Add the track to the gpx file
-	@private
 	*/
 
 	#addTrack ( ) {
@@ -161,7 +135,6 @@ class GpxFactory {
 
 	/**
 	Add the footer to the gpx file
-	@private
 	*/
 
 	#addFooter ( ) {
@@ -170,7 +143,6 @@ class GpxFactory {
 
 	/**
 	Save the gpx string to a file
-	@private
 	*/
 
 	#saveGpxToFile ( ) {
@@ -193,7 +165,7 @@ class GpxFactory {
 
 	/**
 	Transform a route into a gpx file
-	@param {!number} routeObjId the objId of the route to save in a gpx file
+	@param {number} routeObjId the objId of the route to save in a gpx file
 	*/
 
 	routeToGpx ( routeObjId ) {

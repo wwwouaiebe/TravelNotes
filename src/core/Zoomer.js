@@ -44,7 +44,7 @@ import { INVALID_OBJ_ID } from '../main/Constants.js';
 */
 
 class Zoomer {
-	
+
 	/**
 	An array with the lat and lng of all the objects on witch the zoom have to be performed
 	@type {Array.<Array.<Number>>}

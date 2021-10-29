@@ -241,35 +241,6 @@ export const ROUTE_EDITION_STATUS = Object.freeze ( {
 
 @readonly
 @enum {Object}
-@desc Enum for edition of a svg profile
-@property {number} margin The margin around the elevation graph
-@property {number} height The height of the elevation graph
-@property {number} width The width of the elevation graph
-@property {number} yDeltaText the vertical distance between texts of the flag
-@property {number} xDeltaText the horizontal distance between the texts and the vertical line of the flag
-@property {Array.<number>} vScales The possible scales for the elevation
-@property {Array.<number>} hScales The possible scales for the distance
-@public
-
-@------------------------------------------------------------------------------------------------------------------------------
- */
-
-export const SVG_PROFILE = Object.freeze ( {
-	margin : 100,
-	height : 500,
-	width : 1000,
-	yDeltaText : 30,
-	xDeltaText : 10,
-	vScales : [ 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000 ],
-	hScales : [ 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000 ]
-} );
-
-/**
-
-@------------------------------------------------------------------------------------------------------------------------------
-
-@readonly
-@enum {Object}
 @desc Enum for default icon dimensions
 @property {number} width The default width
 @property {number} height The default height

@@ -31,26 +31,6 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@file HTMLSanitizer.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreLib
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
 @typedef {Object} UrlValidationReult
 @desc An object returned by the sanitizeToUrl function
 @property {String} url the validated url or an empty string if the url is invalid
@@ -79,11 +59,9 @@ import { SVG_NS, ZERO, NOT_FOUND } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class HTMLSanitizer
 @classdesc This class contains methods to sanitize url and string, filtering html tags and attributes
 present in the string.
-@see {@link theHTMLSanitizer} for the one and only one instance of this class
-@hideconstructor
+See theHTMLSanitizer for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -93,7 +71,6 @@ class HTMLSanitizer {
 	/**
 	the results of the #stringify method
 	@type {string}
-	@private
 	*/
 
 	#stringifiedHTML = '';
@@ -101,7 +78,6 @@ class HTMLSanitizer {
 	/**
 	the errors detected by the #stringify method
 	@type {string}
-	@private
 	*/
 
 	#stringifyErrors = '';
@@ -109,8 +85,6 @@ class HTMLSanitizer {
 	/**
 	An instance of the HTMLSanitizerData
 	@type {Object}
-	@private
-	@static
 	*/
 
 	static #htmlSanitizerData = new HTMLSanitizerData ( );
@@ -119,7 +93,6 @@ class HTMLSanitizer {
 	Replace < >' " and nbsp chars with htmlEntities
 	@param {string} htmlString the string to transform
 	@return {string} a string with htmlEntities
-	@private
 	*/
 
 	#addHtmlEntities ( htmlString ) {
@@ -137,7 +110,6 @@ class HTMLSanitizer {
 	Helper method for the #stringify method. Validate an url present in a htmlString
 	@param {string} url The url to validate
 	@param {string} attributeName The attribute name in witch the url was found
-	@private
 	*/
 
 	#stringifyUrl ( url, attributeName ) {
@@ -155,7 +127,6 @@ class HTMLSanitizer {
 	Helper method for the #stringify method.  Validate and stringify the attributes of a svg node
 	@param {SVGElement} currentNode The svg node for witch the attributes are stringified.
 	@param {string} nodeName the name of the currentNode
-	@private
 	*/
 
 	#stringifySvgAttributes ( currentNode, nodeName ) {
@@ -175,7 +146,6 @@ class HTMLSanitizer {
 	Helper method for the #stringify method.  Validate and stringify the attributes of a HTML node
 	@param {HTMLElement} currentNode The HTML node for witch the attributes are stringified.
 	@param {string} nodeName the name of the currentNode
-	@private
 	*/
 
 	#stringifyHTMLAttributes ( currentNode, nodeName ) {
@@ -202,7 +172,6 @@ class HTMLSanitizer {
 	/**
 	Helper method for the #stringify method.  Add the removed attributes to the error string
 	@param {HTMLElement} currentNode The HTML node for witch the attributes are stringified.
-	@private
 	*/
 
 	#addStringifyErrors ( currentNode ) {
@@ -222,7 +191,6 @@ class HTMLSanitizer {
 	Transform a node and it's descendants into a string, removing all the invalid tags, invalid atrributes,
 	invalid texts and invalid url's
 	@param {HTMLElement} sourceNode The node to stringify
-	@private
 	*/
 
 	#stringify ( sourceNode ) {
@@ -281,7 +249,6 @@ class HTMLSanitizer {
 	Helper function for the #cloneNode method. Clone a HTML node
 	@param {HTMLElement} currentNode The html node to clone
 	@param {string} nodeName The name of the currentNode
-	@private
 	*/
 
 	#cloneHTML ( currentNode, nodeName ) {
@@ -319,7 +286,6 @@ class HTMLSanitizer {
 
 	@param {HTMLElement} clonedNode The node to clone
 	@param {HTMLElement} newNode The destination node
-	@private
 	*/
 
 	#cloneNode ( clonedNode, newNode ) {
@@ -589,8 +555,6 @@ class HTMLSanitizer {
 
 @desc The one and only one instance of HTMLSanitizer class
 @type {HTMLSanitizer}
-@constant
-@global
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

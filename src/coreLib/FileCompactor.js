@@ -31,26 +31,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file FileCompactor.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreLib
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import PolylineEncoder from '../coreLib/PolylineEncoder.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import { ELEV, ZERO, ONE, TWO, INVALID_OBJ_ID, LAT_LNG, DISTANCE } from '../main/Constants.js';
@@ -58,11 +38,9 @@ import { ELEV, ZERO, ONE, TWO, INVALID_OBJ_ID, LAT_LNG, DISTANCE } from '../main
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class FileCompactor
 @classdesc This class compress the travel to reduce the size of the file when saved to a file or decompress the
 travel when reading from a file. Each route of a compressed file have the ItineraryPoints in only one object
 and the lat and lng of	the ItineraryPoints are encoded with the polyline.encode algorithm
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -73,7 +51,6 @@ class FileCompactor {
 	Compress a route
 	@param {Object} routeJsonObject the route to compress. routeJsonObject is not a Route instance!
 	It's an Object created with Route.jsonObject ( ).
-	@private
 	*/
 
 	#compressRoute ( routeJsonObject ) {
@@ -107,7 +84,6 @@ class FileCompactor {
 	Decompress a route
 	@param {Object} routeJsonObject the compressed route. routeJsonObject is not a Route instance!
 	It's an Object created with JSON.parse ( ).
-	@private
 	*/
 
 	#decompressRoute ( routeJsonObject ) {
@@ -184,7 +160,6 @@ class FileCompactor {
 	Decompress a travel
 	@param {Object} travelJsonObject the compressed travel. travelJsonObject is not a Travel instance!
 	It's an Object created with JSON.parse ( ).
-	@private
 	*/
 
 	decompress ( travelJsonObject ) {

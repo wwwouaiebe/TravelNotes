@@ -41,9 +41,9 @@ See theGeoLocator for the one and only one instance of this class
 */
 
 class GeoLocator {
-	
+
 	/**
-	The current status of the geoLocator. 
+	The current status of the geoLocator.
 	@type {GEOLOCATION_STATUS}
 	*/
 
@@ -55,7 +55,7 @@ class GeoLocator {
 	method
 	@type {Number}
 	*/
-	
+
 	#watchId = null;
 
 	/**
@@ -90,7 +90,7 @@ class GeoLocator {
 
 	/**
 	Stop the geolocation because the user don't accept the geolocation
-	@param {GeolocationPositionError} positionError 
+	@param {GeolocationPositionError} positionError
 	See <a href="https://developer.mozilla.org/en-US/docs/Web/API/GeolocationPositionError">GeolocationPositionError</a>
 	on mdn
 	@fires geolocationstatuschanged

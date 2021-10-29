@@ -32,25 +32,6 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@file EventDispatcher.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreLib
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
 @event providersadded
 @desc fired when the ProvidersToolbarUI must be updated with a new provider
 
@@ -295,10 +276,8 @@ and when the geolocation marker must be removed from the map
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class EventDispatcher
 @classdesc This class contains methods for dispatching events
-@see {@link theEventDispatcher} for the one and only one instance of this class
-@hideconstructor
+See theEventDispatcher for the one and only one instance of this class
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -333,8 +312,6 @@ class EventDispatcher {
 
 @desc The one and only one instance of EventDispatcher class
 @type {EventDispatcher}
-@constant
-@global
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

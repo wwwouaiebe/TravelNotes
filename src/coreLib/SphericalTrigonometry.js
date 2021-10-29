@@ -34,35 +34,13 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file SphericalTrigonometry.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreLib
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import { ZERO, ONE, DEGREES, EARTH_RADIUS } from '../main/Constants.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class SphericalTrigonometry
 @classdesc This class contains methods for spherical trigonometry operations
-@see {@link theSphericalTrigonometry} for the one and only one instance of this class
-@hideconstructor
+See theSphericalTrigonometry for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -73,7 +51,6 @@ class SphericalTrigonometry {
 	This method normalize a longitude (always between -180° and 180°)
 	@param {number} Lng The longitude to normalize
 	@return {number} The normalized longitude
-	@private
 	*/
 
 	#normalizeLng ( Lng ) {
@@ -167,8 +144,6 @@ class SphericalTrigonometry {
 
 @desc The one and only one instance of SphericalTrigonometry class
 @type {SphericalTrigonometry}
-@constant
-@global
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

@@ -32,63 +32,206 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file SvgProfileBuilder.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+import { SVG_NS, ZERO, ONE, TWO, DISTANCE } from '../main/Constants.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@module coreLib
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-import { SVG_NS, SVG_PROFILE, ZERO, ONE, TWO, DISTANCE } from '../main/Constants.js';
-
-const OUR_LEFT_PROFILE = SVG_PROFILE.margin.toFixed ( ZERO );
-const OUR_BOTTOM_PROFILE = ( SVG_PROFILE.margin + SVG_PROFILE.height ).toFixed ( ZERO );
-const OUR_RIGHT_PROFILE = ( SVG_PROFILE.margin + SVG_PROFILE.width ).toFixed ( ZERO );
-const OUR_TOP_PROFILE = SVG_PROFILE.margin.toFixed ( ZERO );
-const OUR_MAX_X_LEGEND_NUMBER = 8;
-const OUR_MAX_Y_LEGEND_NUMBER = 4;
-const OUR_RIGHT_TEXT_PROFILE = ( SVG_PROFILE.margin + SVG_PROFILE.width + SVG_PROFILE.xDeltaText ).toFixed ( ZERO );
-const OUR_LEFT_TEXT_PROFILE = ( SVG_PROFILE.margin - SVG_PROFILE.xDeltaText ).toFixed ( ZERO );
-const OUR_BOTTOM_TEXT_PROFILE = SVG_PROFILE.margin + SVG_PROFILE.height + ( SVG_PROFILE.margin / TWO );
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class
 @classdesc This class provides methods to build a Route profile
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class SvgProfileBuilder {
 
+	/**
+	The margin around the profile
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get PROFILE_MARGIN ( ) { return 100; }
+
+	/**
+	The height of the profile
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get PROFILE_HEIGHT ( ) { return 500; }
+
+	/**
+	The width of the profile
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get PROFILE_WIDTH ( ) { return 1000; }
+
+	/**
+	The horizontal distance between the texts and the vertical line of the flag
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get X_DELTA_TEXT ( ) { return 10; }
+
+	/**
+	The vertical distance between texts of the flag
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get Y_DELTA_TEXT ( ) { return 30; }
+
+	/**
+	The possible X scales for the elevation
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #X_SCALES ( ) { return [ 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000 ]; }
+
+	/**
+	The possible Y scales for the elevation
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #Y_SCALES ( ) { return [ 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000 ]; } // vScales
+
+	/**
+	The maximum number of legends in the X direction
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #MAX_X_LEGEND_NUMBER ( ) { return 8; }
+
+	/**
+	The maximum number of legends in the Y direction
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #MAX_Y_LEGEND_NUMBER ( ) { return 4; }
+
+	/**
+	The left position of the profile inside the svg
+	@type {String}
+	*/
+
+	static get #LEFT_PROFILE ( ) { return SvgProfileBuilder.PROFILE_MARGIN.toFixed ( ZERO ); }
+
+	/**
+	The right position of the profile inside the svg
+	@type {String}
+	*/
+
+	static get #RIGHT_PROFILE ( ) {
+		return ( SvgProfileBuilder.PROFILE_MARGIN + SvgProfileBuilder.PROFILE_WIDTH ).toFixed ( ZERO );
+	}
+
+	/**
+	The top position of the profile inside the svg
+	@type {String}
+	*/
+
+	static get #TOP_PROFILE ( ) { return SvgProfileBuilder.PROFILE_MARGIN.toFixed ( ZERO ); }
+
+	/**
+	The bottom position of the profile inside the svg
+	@type {String}
+	*/
+
+	static get #BOTTOM_PROFILE ( ) {
+		return ( SvgProfileBuilder.PROFILE_MARGIN + SvgProfileBuilder.PROFILE_HEIGHT ).toFixed ( ZERO );
+	}
+
+	/**
+	The left position of the texts inside the svg
+	@type {String}
+	*/
+
+	static get #LEFT_TEXT_PROFILE ( ) {
+		return ( SvgProfileBuilder.PROFILE_MARGIN - SvgProfileBuilder.X_DELTA_TEXT ).toFixed ( ZERO );
+	}
+
+	/**
+	The right position of the texts inside the svg
+	@type {String}
+	*/
+
+	static get #RIGHT_TEXT_PROFILE ( ) {
+		return (
+			SvgProfileBuilder.PROFILE_MARGIN +
+			SvgProfileBuilder.PROFILE_WIDTH +
+			SvgProfileBuilder.X_DELTA_TEXT
+		).toFixed ( ZERO );
+	}
+
+	/**
+	The bottom position of the texts inside the svg
+	@type {Number}
+	*/
+
+	static get #BOTTOM_TEXT_PROFILE ( ) {
+		return SvgProfileBuilder.PROFILE_MARGIN +
+			SvgProfileBuilder.PROFILE_HEIGHT +
+			( SvgProfileBuilder.PROFILE_MARGIN / TWO );
+	}
+
+	/**
+	A reference to the route for witch the profile is createDistanceTexts
+	@type {Route}
+	*/
+
 	#route = null;
 
+	/**
+	The created svg with the profile
+	@type {SVGElement}
+	*/
+
 	#svg = null;
-	#VScale = ONE;
-	#HScale = ONE;
+
+	/**
+	The scale used in the Y direction
+	@type {Number}
+	*/
+
+	#YScale = ONE;
+
+	/**
+	The scale used in the Y direction
+	@type {Number}
+	*/
+
+	#XScale = ONE;
+
+	/**
+	The smallest elevation
+	@type {Number}
+	*/
 
 	#minElev = Number.MAX_VALUE;
+
+	/**
+	The greatest elevation
+	@type {Number}
+	*/
+
 	#maxElev = ZERO;
+
+	/**
+	The delta between the max and the min elevation
+	@type {Number}
+	*/
+
 	#deltaElev = ZERO;
 
 	/**
 	This method creates the profile polyline in the svg element
-	@private
 	*/
 
 	#createProfilePolyline ( ) {
@@ -98,11 +241,11 @@ class SvgProfileBuilder {
 		let yPolyline = ZERO;
 		this.#route.itinerary.itineraryPoints.forEach (
 			itineraryPoint => {
-				xPolyline = ( SVG_PROFILE.margin + ( this.#HScale * distance ) ).toFixed ( ZERO );
+				xPolyline = ( SvgProfileBuilder.PROFILE_MARGIN + ( this.#XScale * distance ) ).toFixed ( ZERO );
 				yPolyline =
 					(
-						SVG_PROFILE.margin +
-						( this.#VScale * ( this.#maxElev - itineraryPoint.elev ) )
+						SvgProfileBuilder.PROFILE_MARGIN +
+						( this.#YScale * ( this.#maxElev - itineraryPoint.elev ) )
 					)
 						.toFixed ( ZERO );
 				pointsAttribute += xPolyline + ',' + yPolyline + ' ';
@@ -117,13 +260,15 @@ class SvgProfileBuilder {
 
 	/**
 	This method creates the frame polyline in the svg element
-	@private
 	*/
 
 	#createFramePolyline ( ) {
 		const pointsAttribute =
-			OUR_LEFT_PROFILE + ',' + OUR_TOP_PROFILE + ' ' + OUR_LEFT_PROFILE + ',' + OUR_BOTTOM_PROFILE + ' ' +
-			OUR_RIGHT_PROFILE + ',' + OUR_BOTTOM_PROFILE + ' ' + OUR_RIGHT_PROFILE + ',' + OUR_TOP_PROFILE;
+			SvgProfileBuilder.#LEFT_PROFILE + ',' +
+			SvgProfileBuilder.#TOP_PROFILE + ' ' + SvgProfileBuilder.#LEFT_PROFILE + ',' +
+			SvgProfileBuilder.#BOTTOM_PROFILE + ' ' + SvgProfileBuilder.#RIGHT_PROFILE + ',' +
+			SvgProfileBuilder.#BOTTOM_PROFILE + ' ' + SvgProfileBuilder.#RIGHT_PROFILE + ',' +
+			SvgProfileBuilder.#TOP_PROFILE;
 		const polyline = document.createElementNS ( SVG_NS, 'polyline' );
 		polyline.setAttributeNS ( null, 'points', pointsAttribute );
 		polyline.setAttributeNS ( null, 'class', 'TravelNotes-Route-SvgProfile-framePolyline' );
@@ -132,16 +277,15 @@ class SvgProfileBuilder {
 
 	/**
 	This method creates the distance texts in the svg element
-	@private
 	*/
 
 	#createDistanceTexts ( ) {
 
 		let minDelta = Number.MAX_VALUE;
 		let selectedScale = 0;
-		SVG_PROFILE.hScales.forEach (
+		SvgProfileBuilder.#X_SCALES.forEach (
 			scale => {
-				const currentDelta = Math.abs ( ( this.#route.distance / OUR_MAX_X_LEGEND_NUMBER ) - scale );
+				const currentDelta = Math.abs ( ( this.#route.distance / SvgProfileBuilder.#MAX_X_LEGEND_NUMBER ) - scale );
 				if ( currentDelta < minDelta ) {
 					minDelta = currentDelta;
 					selectedScale = scale;
@@ -165,9 +309,9 @@ class SvgProfileBuilder {
 			distanceText.setAttributeNS (
 				null,
 				'x',
-				SVG_PROFILE.margin + ( ( distance - this.#route.chainedDistance ) * this.#HScale )
+				SvgProfileBuilder.PROFILE_MARGIN + ( ( distance - this.#route.chainedDistance ) * this.#XScale )
 			);
-			distanceText.setAttributeNS ( null, 'y', OUR_BOTTOM_TEXT_PROFILE );
+			distanceText.setAttributeNS ( null, 'y', SvgProfileBuilder.#BOTTOM_TEXT_PROFILE );
 			distanceText.setAttributeNS ( null, 'text-anchor', 'start' );
 			this.#svg.appendChild ( distanceText );
 			distance += selectedScale;
@@ -176,16 +320,14 @@ class SvgProfileBuilder {
 
 	/**
 	This method creates the elevation texts in the svg element
-	@private
 	*/
 
 	#createElevTexts ( ) {
-
 		let minDelta = Number.MAX_VALUE;
 		let selectedScale = ZERO;
-		SVG_PROFILE.vScales.forEach (
+		SvgProfileBuilder.#Y_SCALES.forEach (
 			scale => {
-				const currentDelta = Math.abs ( ( this.#deltaElev / OUR_MAX_Y_LEGEND_NUMBER ) - scale );
+				const currentDelta = Math.abs ( ( this.#deltaElev / SvgProfileBuilder.#MAX_Y_LEGEND_NUMBER ) - scale );
 				if ( currentDelta < minDelta ) {
 					minDelta = currentDelta;
 					selectedScale = scale;
@@ -194,29 +336,27 @@ class SvgProfileBuilder {
 		);
 		let elev = Math.ceil ( this.#minElev / selectedScale ) * selectedScale;
 		while ( elev < this.#maxElev ) {
-			const elevTextY = SVG_PROFILE.margin + ( ( this.#maxElev - elev ) * this.#VScale );
+			const elevTextY = SvgProfileBuilder.PROFILE_MARGIN + ( ( this.#maxElev - elev ) * this.#YScale );
 			const rightElevText = document.createElementNS ( SVG_NS, 'text' );
 			rightElevText.appendChild ( document.createTextNode ( elev.toFixed ( ZERO ) ) );
 			rightElevText.setAttributeNS ( null, 'class', 'TravelNotes-Route-SvgProfile-elevLegend' );
-			rightElevText.setAttributeNS ( null, 'x', OUR_RIGHT_TEXT_PROFILE );
+			rightElevText.setAttributeNS ( null, 'x', SvgProfileBuilder.#RIGHT_TEXT_PROFILE );
 			rightElevText.setAttributeNS ( null, 'y', elevTextY );
 			rightElevText.setAttributeNS ( null, 'text-anchor', 'start' );
 			this.#svg.appendChild ( rightElevText );
 			const leftElevText = document.createElementNS ( SVG_NS, 'text' );
 			leftElevText.appendChild ( document.createTextNode ( elev.toFixed ( ZERO ) ) );
 			leftElevText.setAttributeNS ( null, 'class', 'TravelNotes-Route-SvgProfile-elevLegend' );
-			leftElevText.setAttributeNS ( null, 'x', OUR_LEFT_TEXT_PROFILE );
+			leftElevText.setAttributeNS ( null, 'x', SvgProfileBuilder.#LEFT_TEXT_PROFILE );
 			leftElevText.setAttributeNS ( null, 'y', elevTextY );
 			leftElevText.setAttributeNS ( null, 'text-anchor', 'end' );
 			this.#svg.appendChild ( leftElevText );
 			elev += selectedScale;
 		}
-
 	}
 
 	/**
 	This method creates the svg element
-	@private
 	*/
 
 	#createSvgElement ( ) {
@@ -224,8 +364,8 @@ class SvgProfileBuilder {
 		this.#svg.setAttributeNS (
 			null,
 			'viewBox',
-			'0 0 ' + ( SVG_PROFILE.width + ( TWO * SVG_PROFILE.margin ) ) +
-			' ' + ( SVG_PROFILE.height + ( TWO * SVG_PROFILE.margin ) )
+			'0 0 ' + ( SvgProfileBuilder.PROFILE_WIDTH + ( TWO * SvgProfileBuilder.PROFILE_MARGIN ) ) +
+			' ' + ( SvgProfileBuilder.PROFILE_HEIGHT + ( TWO * SvgProfileBuilder.PROFILE_MARGIN ) )
 		);
 		this.#svg.setAttributeNS ( null, 'class', 'TravelNotes-Route-SvgProfile' );
 	}
@@ -257,8 +397,8 @@ class SvgProfileBuilder {
 			}
 		);
 		this.#deltaElev = this.#maxElev - this.#minElev;
-		this.#VScale = SVG_PROFILE.height / this.#deltaElev;
-		this.#HScale = SVG_PROFILE.width / this.#route.distance;
+		this.#YScale = SvgProfileBuilder.PROFILE_HEIGHT / this.#deltaElev;
+		this.#XScale = SvgProfileBuilder.PROFILE_WIDTH / this.#route.distance;
 
 		// ... then creates the svg
 		this.#createSvgElement ( );

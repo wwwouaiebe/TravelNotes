@@ -37,7 +37,8 @@ import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import theUtilities from '../UILib/Utilities.js';
 import ProfileContextMenu from '../contextMenus/ProfileContextMenu.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
-import { SVG_NS, SVG_PROFILE, ZERO, ONE, TWO, THREE } from '../main/Constants.js';
+import SvgProfileBuilder from '../coreLib/SvgProfileBuilder.js';
+import { SVG_NS, ZERO, ONE, TWO, THREE } from '../main/Constants.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
@@ -91,13 +92,13 @@ class BaseSvgEL {
 			(
 				( mouseEvent.clientX - clientRect.x -
 					(
-						( SVG_PROFILE.margin /
-							( ( TWO * SVG_PROFILE.margin ) + SVG_PROFILE.width )
+						( SvgProfileBuilder.PROFILE_MARGIN /
+							( ( TWO * SvgProfileBuilder.PROFILE_MARGIN ) + SvgProfileBuilder.PROFILE_WIDTH )
 						) * clientRect.width )
 				) /
 				(
-					( SVG_PROFILE.width /
-						( ( TWO * SVG_PROFILE.margin ) + SVG_PROFILE.width )
+					( SvgProfileBuilder.PROFILE_WIDTH /
+						( ( TWO * SvgProfileBuilder.PROFILE_MARGIN ) + SvgProfileBuilder.PROFILE_WIDTH )
 					) * clientRect.width )
 			) * route.distance;
 		if ( ZERO < routeDist && routeDist < route.distance ) {
@@ -315,16 +316,16 @@ class SvgMouseMoveEL extends BaseSvgEL {
 			}
 			const clientRect = this.#profileSvg.getBoundingClientRect ( );
 			this.#markerX =
-				( ( TWO * SVG_PROFILE.margin ) + SVG_PROFILE.width ) *
+				( ( TWO * SvgProfileBuilder.PROFILE_MARGIN ) + SvgProfileBuilder.PROFILE_WIDTH ) *
 				( mouseEvent.clientX - clientRect.x ) / clientRect.width;
-			const markerY = SVG_PROFILE.margin + SVG_PROFILE.height;
+			const markerY = SvgProfileBuilder.PROFILE_MARGIN + SvgProfileBuilder.PROFILE_HEIGHT;
 
 			// line
 			this.#marker = document.createElementNS ( SVG_NS, 'polyline' );
 			this.#marker.setAttributeNS (
 				null,
 				'points',
-				String ( this.#markerX ) + ',' + SVG_PROFILE.margin + ' ' + this.#markerX + ',' + markerY
+				String ( this.#markerX ) + ',' + SvgProfileBuilder.PROFILE_MARGIN + ' ' + this.#markerX + ',' + markerY
 			);
 			this.#marker.setAttributeNS ( null, 'class', 'TravelNotes-Route-SvgProfile-markerPolyline' );
 			this.#profileSvg.appendChild ( this.#marker );
@@ -335,24 +336,24 @@ class SvgMouseMoveEL extends BaseSvgEL {
 			this.#markerX +=
 				latLngElevOnRoute.routeDistance > route.distance / TWO
 					?
-					-SVG_PROFILE.xDeltaText
+					-SvgProfileBuilder.X_DELTA_TEXT
 					:
-					SVG_PROFILE.xDeltaText;
+					SvgProfileBuilder.X_DELTA_TEXT;
 
 			// distance
 			this.#distanceText = this.#createSvgText (
 				theUtilities.formatDistance ( latLngElevOnRoute.routeDistance ),
-				SVG_PROFILE.margin + SVG_PROFILE.yDeltaText,
+				SvgProfileBuilder.PROFILE_MARGIN + SvgProfileBuilder.Y_DELTA_TEXT,
 			);
 
 			this.#elevText = this.#createSvgText (
 				'Alt. ' + latLngElevOnRoute.elev.toFixed ( ZERO ) + ' m.',
-				SVG_PROFILE.margin + ( SVG_PROFILE.yDeltaText * TWO )
+				SvgProfileBuilder.PROFILE_MARGIN + ( SvgProfileBuilder.Y_DELTA_TEXT * TWO )
 			);
 
 			this.#ascentText = this.#createSvgText (
 				'Pente ' + latLngElevOnRoute.ascent.toFixed ( ZERO ) + ' % ',
-				SVG_PROFILE.margin + ( SVG_PROFILE.yDeltaText * THREE )
+				SvgProfileBuilder.PROFILE_MARGIN + ( SvgProfileBuilder.Y_DELTA_TEXT * THREE )
 			);
 		}
 	}

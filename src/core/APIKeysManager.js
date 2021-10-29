@@ -75,14 +75,14 @@ class APIKeysManager {
 	A flag indicating that a APIKkeys file was found on the server when launching the app
 	@type {boolean}
 	*/
-	
+
 	#haveAPIKeysFile = false;
 
 	/**
-	A map with the APIKeys 
+	A map with the APIKeys
 	@type {Map.<String>}
 	*/
-	
+
 	#APIKeysMap = new Map ( );
 
 	/**

@@ -24,26 +24,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ProfileSmoothingIron.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreLib
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theConfig from '../data/Config.js';
 
 import { ZERO, ONE, TWO, THREE } from '../main/Constants.js';
@@ -51,9 +31,7 @@ import { ZERO, ONE, TWO, THREE } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class ProfileSmoothingIron
 @classdesc Smooth a route profile
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -63,7 +41,6 @@ class ProfileSmoothingIron {
 	/**
 	The route for witch the profile will be smoothed
 	@type {Route}
-	@private
 	*/
 
 	#route = null;
@@ -71,7 +48,6 @@ class ProfileSmoothingIron {
 	/**
 	The distance between smooth points
 	@type {number}
-	@private
 	*/
 
 	#smoothDistance = ZERO;
@@ -79,7 +55,6 @@ class ProfileSmoothingIron {
 	/**
 	The number of points used to compute the smooth elevation
 	#type {number}
-	@private
 	*/
 
 	#smoothPointsNumber = theConfig.route.elev.smoothPoints;
@@ -87,14 +62,12 @@ class ProfileSmoothingIron {
 	/**
 	An array with point used to smooth the elevation
 	@type {Array.<Object>}
-	@private
 	*/
 
 	#smoothPoints = [];
 
 	/**
 	Create the array of points with the elevation
-	@private
 	*/
 
 	#createSmoothPoints ( ) {
@@ -159,7 +132,6 @@ class ProfileSmoothingIron {
 
 	/**
 	Compute the smooth elevation for the points in the array
-	@private
 	*/
 
 	#computeSmoothElev ( ) {
@@ -216,7 +188,6 @@ class ProfileSmoothingIron {
 	Compute the smooth distance
 	The smooth distance is depending of the toal ascent and descent of the route and of the route distance.
 	Smooth distance must be an integer.
-	@private
 	*/
 
 	#computeSmoothDistance ( ) {
@@ -246,7 +217,6 @@ class ProfileSmoothingIron {
 
 	/**
 	Report the smooth elev from the smoothPoints array to the route itinerary
-	@private
 	*/
 
 	#setSmoothElev ( ) {

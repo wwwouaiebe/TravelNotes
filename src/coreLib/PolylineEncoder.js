@@ -27,26 +27,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file PolylineEncoder.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreLib
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import { ZERO, ONE } from '../main/Constants.js';
 
 const OUR_NUMBER5 = 5;
@@ -124,15 +104,13 @@ Encoded polyline: _p~iF~ps|U_ulLnnqC_mqNvxq`@
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class PolylineEncoder
 @classdesc Encoder/decoder to encode or decode a polyline into a string.
-Based on Mark McClure polyline encoder (more info needed...)
-@see https://github.com/Project-OSRM/osrm-frontend/blob/master/WebContent/routing/OSRM.RoutingGeometry.js
-@see https://github.com/graphhopper/directions-api-js-client/blob/master/src/GHUtil.js GHUtil.prototype.decodePath
-@see https://developers.google.com/maps/documentation/utilities/polylinealgorithm
-@see https://github.com/mapbox/polyline
-@see {@link thePolylineEncoder} for the one and only one instance of this class
-@hideconstructor
+See thePolylineEncoder for the one and only one instance of this class <br/>
+Based on Mark McClure polyline encoder (more info needed...) <br/>
+See https://github.com/Project-OSRM/osrm-frontend/blob/master/WebContent/routing/OSRM.RoutingGeometry.js <br/>
+See https://github.com/graphhopper/directions-api-js-client/blob/master/src/GHUtil.js GHUtil.prototype.decodePath<br/>
+See https://developers.google.com/maps/documentation/utilities/polylinealgorithm<br/>
+See https://github.com/mapbox/polyline<br/>
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -143,7 +121,6 @@ class PolylineEncoder {
 	This method round a number in the same way than Python 2
 	@param {number} value The value to round
 	@return {number} The rounded value
-	@private
 	*/
 
 	#python2Round ( value ) {
@@ -152,7 +129,6 @@ class PolylineEncoder {
 
 	/**
 	Helper method for the encode...
-	@private
 	*/
 
 	#encodeDelta ( current, previous, factorD ) {
@@ -177,14 +153,12 @@ class PolylineEncoder {
 	/**
 	tmp variable for decode and decodeDelta methods communication (cannot use parameter the two functions are modifying the
 	value )
-	@private
 	*/
 
 	#index = ZERO;
 
 	/**
 	Helper method for the decode...
-	@private
 	*/
 
 	#decodeDelta ( encodedString ) {
