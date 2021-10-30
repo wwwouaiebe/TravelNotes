@@ -29,7 +29,54 @@ Tests ...
 import theConfig from '../data/Config.js';
 import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
 
-import { ZERO, TWO, LAT_LNG, DISTANCE, HTTP_STATUS_OK, OSM_COUNTRY_ADMIN_LEVEL } from '../main/Constants.js';
+import { ZERO, TWO, LAT_LNG, HTTP_STATUS_OK, OSM_COUNTRY_ADMIN_LEVEL } from '../main/Constants.js';
+
+/**
+@--------------------------------------------------------------------------------------------------------------------------
+
+@classdesc An object to store the options for the OverpassAPIDataLoader
+
+@--------------------------------------------------------------------------------------------------------------------------
+*/
+
+class OverpassAPIDataLoaderOptions {
+
+	/**
+	A flag indicating that the OSM places have to be searched
+	@type {Boolean}
+	*/
+
+	searchPlaces = true;
+
+	/**
+	A flag indicating that the OSM ways have to be searched
+	@type {Boolean}
+	*/
+
+	searchWays = true;
+
+	/**
+	A flag indicating that the OSM relations have to be searched
+	@type {Boolean}
+	*/
+
+	searchRelations = true;
+
+	/**
+	A flag indicating that the geometry for ways and relations have to be searched
+	@type {Boolean}
+	*/
+
+	setGeometry = true;
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.seal ( this );
+	}
+}
 
 /**
 @--------------------------------------------------------------------------------------------------------------------------
@@ -42,32 +89,82 @@ import { ZERO, TWO, LAT_LNG, DISTANCE, HTTP_STATUS_OK, OSM_COUNTRY_ADMIN_LEVEL }
 class OverpassAPIDataLoader {
 
 	/**
+	The options for the OverpassAPIDataLoader
+	@type {OverpassAPIDataLoaderOptions}
 	*/
 
-	#options = {
-		searchPlaces : true,
-		searchWays : true,
-		searchRelations : true,
-		setGeometry : true
-	}
+	#options;
 
-	#nodes = new Map ( );
-	#ways = new Map ( );
-	#relations = new Map ( );
+	/**
+	A map with the osm nodes found by the API, ordered by id
+	@type {Map.>OsmElement}
+	*/
 
-	#adminNames = null;
-	#osmCityAdminLevel = null;
-	#place = null;
-	#places = null;
-	#latLngDistance = Object.seal (
-		{
-			latLng : [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ],
-			distance : DISTANCE.defaultValue
-		}
-	);
+	#nodes;
 
-	#city = null;
-	#statusOk = true;
+	/**
+	A map with the osm ways found by the API, ordered by id
+	@type {Map.>OsmElement}
+	*/
+
+	#ways;
+
+	/**
+	A map with the osm relations found by the API, ordered by id
+	@type {Map.>OsmElement}
+	*/
+
+	#relations;
+
+	/**
+	A list with the administrative names found by the API
+	@type {Array.<String>}
+	*/
+
+	#adminNames;
+
+	/**
+	The Admin level at witch the cities are placed in OSM (Is country dependant...)
+	@type {Number}
+	*/
+
+	#osmCityAdminLevel;
+
+	/**
+	an Object with hamlet, village, city and town properties.
+	Each properties are objects with name, distance and maxDistance properties.
+	@type {Object}
+	*/
+
+	#places;
+
+	/**
+	A reference to the latitude and longitude used in the queries
+	@type {Array.<Number>}
+	*/
+
+	#latLng;
+
+	/**
+	A hamlet, village, city or town name found in the OSM data
+	@type {?String}
+	*/
+
+	#place;
+
+	/**
+	The city name found in the OSM data
+	@type {?String}
+	*/
+
+	#city;
+
+	/**
+	A flag indicating the success or failure of the request
+	@type {Boolean}
+	*/
+
+	#statusOk;
 
 	/**
 	This method add the geometry to the osm elements
@@ -122,6 +219,7 @@ class OverpassAPIDataLoader {
 
 	/**
 	this method parse the osm elements received from the OverpassAPI
+	@param {Array.<Object>} osmElements The osm elements received in the request.
 	*/
 
 	#parseData ( osmElements ) {
@@ -137,7 +235,7 @@ class OverpassAPIDataLoader {
 						osmElement?.tags?.name
 					) {
 						const nodeDistance = theSphericalTrigonometry.pointsDistance (
-							this.#latLngDistance.latLng,
+							this.#latLng,
 							[ osmElement.lat, osmElement.lon ]
 						);
 						const place = this.#places [ osmElement.tags.place ];
@@ -227,6 +325,7 @@ class OverpassAPIDataLoader {
 
 	/**
 	This method parse the responses from the OverpassAPI
+	@param {array.<Object>} results the results received from fetch
 	*/
 
 	async #parseSearchResults ( results ) {
@@ -240,7 +339,6 @@ class OverpassAPIDataLoader {
 			) {
 				const response = await results[ counter ].value.json ( );
 				this.#parseData ( response.elements );
-				this.#statusOk = this.#statusOk && true;
 			}
 			else {
 				this.#statusOk = false;
@@ -250,17 +348,24 @@ class OverpassAPIDataLoader {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {Object} options An object with the options to set
 	*/
 
 	constructor ( options ) {
+		Object.freeze ( this );
+		this.#options = new OverpassAPIDataLoaderOptions ( );
 		if ( options ) {
 			for ( const [ key, value ] of Object.entries ( options ) ) {
-				this.#options [ key ] = value;
+				if ( this.#options [ key ] ) {
+					this.#options [ key ] = value;
+				}
 			}
 		}
-		Object.freeze ( this );
+		this.#nodes = new Map ( );
+		this.#ways = new Map ( );
+		this.#relations = new Map ( );
 	}
 
 	/**
@@ -270,10 +375,10 @@ class OverpassAPIDataLoader {
 	*/
 
 	async loadData ( queries, latLng ) {
+		this.#latLng = latLng;
 		this.#statusOk = true;
 		this.#adminNames = [];
 		this.#osmCityAdminLevel = theConfig.geoCoder.osmCityAdminLevel.DEFAULT;// myOsmCityAdminLevel
-		this.#place = null;
 		this.#places = {
 			hamlet : {
 				name : null,
@@ -297,8 +402,7 @@ class OverpassAPIDataLoader {
 			}
 		};
 
-		this.#latLngDistance.latLng = latLng;
-		this.#latLngDistance.distance = DISTANCE.defaultValue;
+		this.#place = null;
 		this.#city = null;
 
 		this.#nodes.clear ( );

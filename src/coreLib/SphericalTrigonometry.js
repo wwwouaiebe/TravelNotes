@@ -39,7 +39,7 @@ import { ZERO, ONE, DEGREES, EARTH_RADIUS } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@classdesc This class contains methods for spherical trigonometry operations
+@classdesc This class contains methods for spherical trigonometry operations.
 See theSphericalTrigonometry for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
@@ -57,8 +57,8 @@ class SphericalTrigonometry {
 		return ( ( Lng + DEGREES.d540 ) % DEGREES.d360 ) - DEGREES.d180;
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -67,11 +67,11 @@ class SphericalTrigonometry {
 
 	/**
 
-	This method gives an arc of a spherical triangle when the 2 others arcs and the opposite summit are know
-	It's the well know cosinus law
-	cos a = cos b cos c + sin b sin c cos A
-	cos b =	cos c cos a + sin c sin a cos B
-	cos c = cos a cos b + sin a sin b cos C
+	This method gives an arc of a spherical triangle when the 2 others arcs and the opposite summit are know.
+	It's the well know cosinus law:<br/>
+	cos a = cos b cos c + sin b sin c cos A<br/>
+	cos b =	cos c cos a + sin c sin a cos B<br/>
+	cos c = cos a cos b + sin a sin b cos C<br/>
 
 	@param {number} summit the opposite summit
 	@param {number} arc1 the first arc
@@ -88,7 +88,7 @@ class SphericalTrigonometry {
 
 	/**
 
-	This method is also the well know cosinus law written in an other way....
+	This method is also the well know cosinus law written in an other way....<br/>
 	cos C = ( cos c - cos a cos b ) / sin a sin b
 
 	@param {number} arc1 the first arc

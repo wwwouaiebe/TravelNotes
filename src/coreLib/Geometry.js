@@ -63,8 +63,6 @@ Tests ...
 import theTravelNotesData from '../data/TravelNotesData.js';
 import { DISTANCE, ZERO, ONE, TWO, DEGREES, LAT_LNG, EARTH_RADIUS } from '../main/Constants.js';
 
-const HUNDRED = 100;
-
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
@@ -75,6 +73,14 @@ See theGeometry for the one and only one instance of this class
 */
 
 class Geometry {
+
+	/**
+	Simple constant for computation
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	get #HUNDRED ( ) { return 100; }
 
 	/*
 	constructor
@@ -117,7 +123,7 @@ class Geometry {
 					previousItineraryPoint.elev +
 					( ( itineraryPointsIterator.value.elev - previousItineraryPoint.elev ) * scale ),
 				ascent :
-					HUNDRED *
+					Geometry.#HUNDRED *
 					( itineraryPointsIterator.value.elev - previousItineraryPoint.elev ) /
 					previousItineraryPoint.distance,
 				routeDistance : distance

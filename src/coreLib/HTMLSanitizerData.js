@@ -39,8 +39,8 @@ class HTMLSanitizerData {
 
 	#validityMap = new Map ( );
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -103,7 +103,7 @@ class HTMLSanitizerData {
 
 	/**
 	verify that a node name is a valid node name
-	#param {string} nodeName The node name
+	@param {string} nodeName The node name
 	@return {string} the node name or an empty string if the given node name is invalid
 	*/
 

@@ -29,13 +29,6 @@ Tests ...
 
 import { ZERO, ONE } from '../main/Constants.js';
 
-const OUR_NUMBER5 = 5;
-const OUR_NUMBER10 = 10;
-const OUR_NUMBER31 = 0x1f;
-const OUR_NUMBER32 = 0x20;
-const OUR_NUMBER63 = 0x3f;
-const OUR_DOT5 = 0.5;
-
 /*
 Encoded Polyline Algorithm Format
 
@@ -118,17 +111,68 @@ See https://github.com/mapbox/polyline<br/>
 class PolylineEncoder {
 
 	/**
+	Simple constant to use for computations
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #DOT5 ( ) { return 0.5; }
+
+	/**
+	Simple constant to use for computations
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #NUMBER5 ( ) { return 5; }
+
+	/**
+	Simple constant to use for computations
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #NUMBER10 ( ) { return 10; }
+
+	/**
+	Simple constant to use for computations
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #NUMBER31 ( ) { return 0x1f; }
+
+	/**
+	Simple constant to use for computations
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #NUMBER32 ( ) { return 0x20; }
+
+	/**
+	Simple constant to use for computations
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #NUMBER63 ( ) { return 0x3f; }
+
+	/**
 	This method round a number in the same way than Python 2
 	@param {number} value The value to round
 	@return {number} The rounded value
 	*/
 
 	#python2Round ( value ) {
-		return Math.floor ( Math.abs ( value ) + OUR_DOT5 ) * ( ZERO <= value ? ONE : -ONE );
+		return Math.floor ( Math.abs ( value ) + PolylineEncoder.#DOT5 ) * ( ZERO <= value ? ONE : -ONE );
 	}
 
 	/**
 	Helper method for the encode...
+	@param {<array.<number>} current The current coordinates to encode
+	@param {<array.<number>} previous The previously encoded coordinates
+	@param {Number} factorD The precision to use
 	*/
 
 	#encodeDelta ( current, previous, factorD ) {
@@ -141,24 +185,34 @@ class PolylineEncoder {
 			coordinateDelta = ~ coordinateDelta;
 		}
 		let outputDelta = '';
-		while ( OUR_NUMBER32 <= coordinateDelta ) {
-			outputDelta += String.fromCharCode ( ( OUR_NUMBER32 | ( coordinateDelta & OUR_NUMBER31 ) ) + OUR_NUMBER63 );
-			coordinateDelta >>= OUR_NUMBER5;
+		while ( PolylineEncoder.#NUMBER32 <= coordinateDelta ) {
+			outputDelta +=
+				String.fromCharCode (
+					(
+						PolylineEncoder.#NUMBER32
+						|
+						( coordinateDelta & PolylineEncoder.#NUMBER31 )
+					) +
+					PolylineEncoder.#NUMBER63
+				);
+			coordinateDelta >>= PolylineEncoder.#NUMBER5;
 		}
 		/* eslint-enable no-bitwise */
-		outputDelta += String.fromCharCode ( coordinateDelta + OUR_NUMBER63 );
+		outputDelta += String.fromCharCode ( coordinateDelta + PolylineEncoder.#NUMBER63 );
 		return outputDelta;
 	}
 
 	/**
 	tmp variable for decode and decodeDelta methods communication (cannot use parameter the two functions are modifying the
 	value )
+	@type {Number}
 	*/
 
-	#index = ZERO;
+	#index;
 
 	/**
 	Helper method for the decode...
+	@param {String} encodedString The string to decode
 	*/
 
 	#decodeDelta ( encodedString ) {
@@ -166,17 +220,17 @@ class PolylineEncoder {
 		let shift = ZERO;
 		let result = ZERO;
 		do {
-			byte = encodedString.charCodeAt ( this.#index ++ ) - OUR_NUMBER63;
+			byte = encodedString.charCodeAt ( this.#index ++ ) - PolylineEncoder.#NUMBER63;
 			/* eslint-disable no-bitwise */
-			result |= ( byte & OUR_NUMBER31 ) << shift;
-			shift += OUR_NUMBER5;
-		} while ( OUR_NUMBER32 <= byte );
+			result |= ( byte & PolylineEncoder.#NUMBER31 ) << shift;
+			shift += PolylineEncoder.#NUMBER5;
+		} while ( PolylineEncoder.#NUMBER32 <= byte );
 		return ( ( result & ONE ) ? ~ ( result >> ONE ) : ( result >> ONE ) );
 		/* eslint-enable no-bitwise */
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -185,7 +239,7 @@ class PolylineEncoder {
 
 	/**
 	encode an array of coordinates to a string ( coordinates can be 1d or 2d or 3d or more...)
-	@param {array.<array.<number>>} coordinates the coordinates to encode
+	@param {array.<array.<number>>} coordinatesArray the coordinates to encode
 	@param {Array.<number>} precisions an array with the precision to use for each dimension
 	@return {string} the encoded coordinates
 	*/
@@ -196,7 +250,7 @@ class PolylineEncoder {
 		}
 
 		const dimensions = precisions.length;
-		const factors = Array.from ( precisions, precision => Math.pow ( OUR_NUMBER10, precision ) );
+		const factors = Array.from ( precisions, precision => Math.pow ( PolylineEncoder.#NUMBER10, precision ) );
 
 		let output = '';
 		for ( let counter = 0; counter < dimensions; counter ++ ) {
@@ -215,7 +269,7 @@ class PolylineEncoder {
 
 	/**
 	decode a string into an array of coordinates (coordinates can be 1d, 2d, 3d or more...)
-	@param {string } encodedString the string to decode
+	@param {string} encodedString the string to decode
 	@param {Array.<number>} precisions an array with the precision to use for each dimension
 	@return {array.<array.<number>>} the decoded coordinates
 	*/
@@ -228,7 +282,7 @@ class PolylineEncoder {
 
 		this.#index = ZERO;
 		const allDecodedValues = [];
-		const factors = Array.from ( precisions, precision => Math.pow ( OUR_NUMBER10, precision ) );
+		const factors = Array.from ( precisions, precision => Math.pow ( PolylineEncoder.#NUMBER10, precision ) );
 		const tmpValues = new Array ( dimensions ).fill ( ZERO );
 
 		while ( this.#index < encodedString.length ) {

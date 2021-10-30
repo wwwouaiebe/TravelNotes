@@ -104,8 +104,8 @@ class NominatimDataLoader {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -170,24 +170,28 @@ class NominatimDataLoader {
 
 	/**
 	The name found by Nominatim. Null when an error occurs when calling Nomnatim
+	@type {String}
 	*/
 
 	get name ( ) { return this.#nominatimStatusOk ? this.#name : null; }
 
 	/**
 	The street found by Nominatim. Null when an error occurs when calling Nomnatim
+	@type {String}
 	*/
 
 	get street ( ) { return this.#nominatimStatusOk ? this.#street : null; }
 
 	/**
 	The city found by Nominatim. Null when an error occurs when calling Nomnatim
+	@type {String}
 	*/
 
 	get city ( ) { return this.#nominatimStatusOk ? this.#city : null; }
 
 	/**
 	The country found by Nominatim. Null when an error occurs when calling Nomnatim
+	@type {String}
 	*/
 
 	get country ( ) { return this.#nominatimStatusOk ? this.#country : null; }

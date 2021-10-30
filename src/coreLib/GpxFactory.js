@@ -34,11 +34,6 @@ import theDataSearchEngine from '../data/DataSearchEngine.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theUtilities from '../UILib/Utilities.js';
 
-const OUR_TAB_0 = '\n';
-const OUR_TAB_1 = '\n\t';
-const OUR_TAB_2 = '\n\t\t';
-const OUR_TAB_3 = '\n\t\t\t';
-
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
@@ -48,6 +43,34 @@ const OUR_TAB_3 = '\n\t\t\t';
 */
 
 class GpxFactory {
+
+	/**
+	Simple constant for gpx presentation
+	@type {String}
+	*/
+
+	static get#TAB0 ( ) { return '\n'; }
+
+	/**
+	Simple constant for gpx presentation
+	@type {String}
+	*/
+
+	static get#TAB1 ( ) { return '\n\t'; }
+
+	/**
+	Simple constant for gpx presentation
+	@type {String}
+	*/
+
+	static get#TAB2 ( ) { return '\n\t\t'; }
+
+	/**
+	Simple constant for gpx presentation
+	@type {String}
+	*/
+
+	static get#TAB3 ( ) { return '\n\t\t\t'; }
 
 	#gpxString = '';
 	#timeStamp = '';
@@ -60,7 +83,7 @@ class GpxFactory {
 	#addHeader ( ) {
 
 		// header
-		this.#gpxString = '<?xml version="1.0"?>' + OUR_TAB_0;
+		this.#gpxString = '<?xml version="1.0"?>' + GpxFactory.#TAB0;
 		this.#gpxString += '<gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
 		'xmlns:xsd="http://www.w3.org/2001/XMLSchema" ' +
 		'xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" ' +
@@ -75,7 +98,7 @@ class GpxFactory {
 		const wayPointsIterator = this.#route.wayPoints.iterator;
 		while ( ! wayPointsIterator.done ) {
 			this.#gpxString +=
-				OUR_TAB_1 + '<wpt lat="' + wayPointsIterator.value.lat + '" lon="' + wayPointsIterator.value.lng + '" ' +
+				GpxFactory.#TAB1 + '<wpt lat="' + wayPointsIterator.value.lat + '" lon="' + wayPointsIterator.value.lng + '" ' +
 				this.#timeStamp + '/>';
 
 		}
@@ -86,7 +109,7 @@ class GpxFactory {
 	*/
 
 	#addRoute ( ) {
-		this.#gpxString += OUR_TAB_1 + '<rte>';
+		this.#gpxString += GpxFactory.#TAB1 + '<rte>';
 		const maneuverIterator = this.#route.itinerary.maneuvers.iterator;
 		while ( ! maneuverIterator.done ) {
 			const wayPoint = this.#route.itinerary.itineraryPoints.getAt (
@@ -98,7 +121,7 @@ class GpxFactory {
 				.replaceAll ( /</g, '&lt;' )
 				.replaceAll ( />/g, '&gt;' );
 			this.#gpxString +=
-				OUR_TAB_2 +
+				GpxFactory.#TAB2 +
 				'<rtept lat="' +
 				wayPoint.lat +
 				'" lon="' +
@@ -108,7 +131,7 @@ class GpxFactory {
 				'desc="' +
 				instruction + '" />';
 		}
-		this.#gpxString += OUR_TAB_1 + '</rte>';
+		this.#gpxString += GpxFactory.#TAB1 + '</rte>';
 	}
 
 	/**
@@ -116,12 +139,12 @@ class GpxFactory {
 	*/
 
 	#addTrack ( ) {
-		this.#gpxString += OUR_TAB_1 + '<trk>';
-		this.#gpxString += OUR_TAB_2 + '<trkseg>';
+		this.#gpxString += GpxFactory.#TAB1 + '<trk>';
+		this.#gpxString += GpxFactory.#TAB2 + '<trkseg>';
 		const itineraryPointsIterator = this.#route.itinerary.itineraryPoints.iterator;
 		while ( ! itineraryPointsIterator.done ) {
 			this.#gpxString +=
-				OUR_TAB_3 +
+				GpxFactory.#TAB3 +
 				'<trkpt lat="' + itineraryPointsIterator.value.lat +
 				'" lon="' +
 				itineraryPointsIterator.value.lng +
@@ -129,8 +152,8 @@ class GpxFactory {
 				this.#timeStamp +
 				' />';
 		}
-		this.#gpxString += OUR_TAB_2 + '</trkseg>';
-		this.#gpxString += OUR_TAB_1 + '</trk>';
+		this.#gpxString += GpxFactory.#TAB2 + '</trkseg>';
+		this.#gpxString += GpxFactory.#TAB1 + '</trk>';
 	}
 
 	/**
@@ -138,7 +161,7 @@ class GpxFactory {
 	*/
 
 	#addFooter ( ) {
-		this.#gpxString += OUR_TAB_0 + '</gpx>';
+		this.#gpxString += GpxFactory.#TAB0 + '</gpx>';
 	}
 
 	/**

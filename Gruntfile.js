@@ -368,25 +368,11 @@ module.exports = function(grunt) {
 		// clean config
 		
 		clean: {
-			beforeDoc: ['TechDoc'],
 			beforeDebug: ['debug', 'tmpDebug', 'out'],
 			beforeRelease: [ 'dist', 'gh-page', 'tmpRelease', 'out'],
 			afterDebug: [ 'tmpDebug', 'out' ],
 			afterRelease: [ 'tmpRelease', 'out' ]
-		},
-		
-		// jsdoc config
-		
-		jsdoc : {
-			doc : {
-				src: ['src/**/*.js'],
-				options: {
-					destination : 'TechDoc',
-					configure : "JSDocConf/JSDocConf.json",
-					private : false
-				}
-			}
-		}		
+		}
 	});
 	
 	// Build number
@@ -405,7 +391,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-terser');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-jsdoc');
 	
 	// Register tasks
 	
@@ -423,7 +408,7 @@ module.exports = function(grunt) {
 	);
 	grunt.registerTask(
 		'release',
-		[ 'eslint', 'stylelint', 'clean:beforeDebug', 'rollup:debug', 'cssmin:debug', 'copy:debug', 'clean:afterDebug', 'clean:beforeRelease', 'copy:beforeRelease', 'replace:release', 'rollup:release', 'terser', 'cssmin:release', 'copy:release', 'clean:afterRelease', 'clean:beforeDoc', 'jsdoc' ]
+		[ 'eslint', 'stylelint', 'clean:beforeDebug', 'rollup:debug', 'cssmin:debug', 'copy:debug', 'clean:afterDebug', 'clean:beforeRelease', 'copy:beforeRelease', 'replace:release', 'rollup:release', 'terser', 'cssmin:release', 'copy:release', 'clean:afterRelease' ]
 	);
 	
 	// console

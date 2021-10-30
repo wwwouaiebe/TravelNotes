@@ -49,8 +49,19 @@ import { DISTANCE, ZERO } from '../main/Constants.js';
 
 class Router {
 
-	#routingRequestStarted = false;
-	#zoomToRouteAfterRouting = false;
+	/**
+	A guard to avoid that the router is called when already busy.
+	@type {Boolean}
+	*/
+
+	#routingRequestStarted;
+
+	/**
+	A flag indicating when a zoom to the route must be performed at the end of the routing
+	@type {Boolean}
+	*/
+
+	#zoomToRouteAfterRouting;
 
 	/**
 	This method compute the route, itineraryPoints and maneuvers distances
@@ -99,6 +110,7 @@ class Router {
 
 	/**
 	Error handler for the startRouting method
+	@param {?Error} err the error to handle
 	*/
 
 	#onRoutingError ( err ) {
@@ -179,8 +191,8 @@ class Router {
 		theEventDispatcher.dispatch ( 'setrouteslist' );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -211,6 +223,15 @@ class Router {
 		}
 	}
 }
+
+/**
+@------------------------------------------------------------------------------------------------------------------------------
+
+@desc The one and only one instance of Router class
+@type {Router}
+
+@------------------------------------------------------------------------------------------------------------------------------
+*/
 
 const theRouter = new Router ( );
 

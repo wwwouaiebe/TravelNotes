@@ -380,7 +380,7 @@ class SvgProfileBuilder {
 	/**
 	this method creates the svg with the Route profile. This svg is displayed in the profile window and in the roadbook
 	@param {Route} route The route for witch the svg must be created
-	@return the svg element with the profile
+	@return {SVGElement} the svg element with the profile
 	*/
 
 	createSvg ( route ) {

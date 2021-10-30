@@ -43,28 +43,28 @@ class ProfileSmoothingIron {
 	@type {Route}
 	*/
 
-	#route = null;
+	#route;
 
 	/**
 	The distance between smooth points
 	@type {number}
 	*/
 
-	#smoothDistance = ZERO;
-
-	/**
-	The number of points used to compute the smooth elevation
-	#type {number}
-	*/
-
-	#smoothPointsNumber = theConfig.route.elev.smoothPoints;
+	#smoothDistance;
 
 	/**
 	An array with point used to smooth the elevation
 	@type {Array.<Object>}
 	*/
 
-	#smoothPoints = [];
+	#smoothPoints;
+
+	/**
+	The number of points used to compute the smooth elevation. Alias for theConfig.route.elev.smoothPoints.
+	@type {number}
+	*/
+
+	get #smoothPointsNumber ( ) { return theConfig.route.elev.smoothPoints; }
 
 	/**
 	Create the array of points with the elevation
@@ -245,8 +245,8 @@ class ProfileSmoothingIron {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
