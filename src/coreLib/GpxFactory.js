@@ -45,6 +45,27 @@ import theUtilities from '../UILib/Utilities.js';
 class GpxFactory {
 
 	/**
+	The gpx string to write in the gpx file
+	@type {String}
+	*/
+
+	#gpxString;
+
+	/**
+	The time stamp added in the gpx
+	@type {String}
+	*/
+
+	#timeStamp;
+
+	/**
+	A reference to the Route for witch the gpx file is created
+	@type {Route}
+	*/
+
+	#route;
+
+	/**
 	Simple constant for gpx presentation
 	@type {String}
 	*/
@@ -71,10 +92,6 @@ class GpxFactory {
 	*/
 
 	static get#TAB3 ( ) { return '\n\t\t\t'; }
-
-	#gpxString = '';
-	#timeStamp = '';
-	#route = null;
 
 	/**
 	Creates the header of the gpx file
@@ -178,8 +195,8 @@ class GpxFactory {
 		theUtilities.saveFile ( fileName, this.#gpxString, 'application/xml' );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {

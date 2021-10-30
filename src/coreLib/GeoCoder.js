@@ -78,33 +78,35 @@ class GeoCoder {
 	@type {number}
 	*/
 
-	#queryDistance = Math.max (
-		theConfig.geoCoder.distances.hamlet,
-		theConfig.geoCoder.distances.village,
-		theConfig.geoCoder.distances.city,
-		theConfig.geoCoder.distances.town
-	);
+	static get #queryDistance ( ) {
+		return Math.max (
+			theConfig.geoCoder.distances.hamlet,
+			theConfig.geoCoder.distances.village,
+			theConfig.geoCoder.distances.city,
+			theConfig.geoCoder.distances.town
+		);
+	}
 
 	/**
 	The Lat and Lng for thr geocoding
 	@type {Array.<number>}
 	*/
 
-	#latLng = null;
+	#latLng;
 
 	/**
 	The OverpassAPIDataLoader object
 	@type {OverpassAPIDataLoader}
 	*/
 
-	#overpassAPIDataLoader = null;
+	#overpassAPIDataLoader;
 
 	/**
 	The NominatimDataLoader object
 	@type {NominatimDataLoader}
 	*/
 
-	#nominatimDataLoader = null;
+	#nominatimDataLoader;
 
 	/**
 	this method merge the data from Nominatim and theOverpassAPI
@@ -150,7 +152,7 @@ class GeoCoder {
 			/* 'is_in(' + this.#latLng [ ZERO ] + ',' + this.#latLng [ ONE ] +
 			')->.e;area.e[admin_level][boundary="administrative"];out;' +*/
 
-			'node(around:' + this.#queryDistance + ',' + this.#latLng [ ZERO ] + ',' + this.#latLng [ ONE ] +
+			'node(around:' + GeoCoder.#queryDistance + ',' + this.#latLng [ ZERO ] + ',' + this.#latLng [ ONE ] +
 			')[place];out;'
 		];
 	}
@@ -169,14 +171,17 @@ class GeoCoder {
 	/**
 	This method is executed by the Promise to search an address. The #getAddressAsync return always a response,
 	eventually with empty strings, so the onError function is never called
+	@param {function} onOk The ok handler
+	@param {function} onError The error handler
 	*/
 
-	async #getAddressWithPromise ( onOk /* onError */ ) {
+	// eslint-disable-next-line no-unused-vars
+	async #getAddressWithPromise ( onOk, onError ) {
 		onOk ( await this.#getAddressAsync ( ) );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {

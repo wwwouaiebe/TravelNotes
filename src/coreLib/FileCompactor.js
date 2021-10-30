@@ -148,8 +148,8 @@ class FileCompactor {
 		routeJsonObject.itinerary.itineraryPoints = decompressedItineraryPoints;
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -173,7 +173,8 @@ class FileCompactor {
 
 	/**
 	Compress the currently edited travel
-	@return a copy of the currently edited travel compressed and ready to be written in a file
+	@return {Object} a copy of the currently edited travel compressed and ready to be written in a file
+	@param {Travel} travel The object to compress
 	*/
 
 	compress ( travel ) {

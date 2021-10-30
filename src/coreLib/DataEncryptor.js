@@ -37,9 +37,20 @@ Tests ...
 
 class DataEncryptor {
 
-	#salt = null;
+	/**
+	Salt to be used for encoding and decoding operations.
+	@type {String}
+	*/
+
+	#salt;
 
 	/* eslint-disable no-magic-numbers */
+
+	/**
+	Call the importKey() method of the SubtleCrypto interface
+	@param {Uint8Array} pswd The password to use, encode with TextEncoder.encode ( )
+	@return {Promise} a Promise that fulfills with the imported key as a CryptoKey object
+	*/
 
 	#importKey ( pswd ) {
 		return window.crypto.subtle.importKey (
@@ -51,7 +62,15 @@ class DataEncryptor {
 		);
 	}
 
-	#deriveKey ( deriveKey, salt ) {
+	/**
+	Call the deriveKey() method of the SubtleCrypto interface
+	@param {CryptoKey} masterKey the CryptoKey returned by the onOk handler of the Promise returned by #importKey
+	@param {String} salt The salt to use
+	@return {Promise} a Promise which will be fulfilled with a CryptoKey object representing the secret key derived
+	from the master key
+	*/
+
+	#deriveKey ( masterKey, salt ) {
 		return window.crypto.subtle.deriveKey (
 			{
 				name : 'PBKDF2',
@@ -59,7 +78,7 @@ class DataEncryptor {
 				iterations : 1000000,
 				hash : 'SHA-256'
 			},
-			deriveKey,
+			masterKey,
 			{
 				name : 'AES-GCM',
 				length : 256
@@ -68,6 +87,14 @@ class DataEncryptor {
 			[ 'encrypt', 'decrypt' ]
 		);
 	}
+
+	/**
+	Call the decrypt() method of the SubtleCrypto interface
+	@param {CryptoKey} decryptKey The key to use for decryption
+	@param {Uint8Array} data The data to decode
+	@return {Promise} a Promise which will be fulfilled with the decrypted data as a Uint8Array.
+	Use TextDecoder.decode ( ) to transform to string
+	*/
 
 	#decrypt ( decryptKey, data ) {
 		return window.crypto.subtle.decrypt (
@@ -80,6 +107,14 @@ class DataEncryptor {
 		);
 	}
 
+	/**
+	Call the encrypt() method of the SubtleCrypto interface
+	@param {CryptoKey} encryptKey The key to use for encryption
+	@param {Uint8Array} ivBytes A Uint8Array with random values used for encoding
+	@param {Uint8Array} data the data to encode transformed to a Uint8Array with TextEncoder.encode ( )
+	@return {Promise} a Promise which will be fulfilled with the encrypted data as a Uint8Array
+	*/
+
 	#encrypt ( encryptKey, ivBytes, data ) {
 		return window.crypto.subtle.encrypt (
 			{
@@ -91,8 +126,8 @@ class DataEncryptor {
 		);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {string} salt Salt to be used for encoding and decoding operations. If none, a default value is provided.
 	*/
 

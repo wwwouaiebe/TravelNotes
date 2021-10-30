@@ -284,8 +284,8 @@ See theEventDispatcher for the one and only one instance of this class
 
 class EventDispatcher {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -295,7 +295,7 @@ class EventDispatcher {
 	/**
 	Creates and dispatch an event to the correct target
 	@param {string} eventName the name of the event
-	@param {Object} enventData An object to set as data property of the event
+	@param {Object} eventData An object to set as data property of the event
 	*/
 
 	dispatch ( eventName, eventData ) {

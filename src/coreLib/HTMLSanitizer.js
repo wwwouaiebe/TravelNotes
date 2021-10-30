@@ -60,7 +60,7 @@ import { SVG_NS, ZERO, NOT_FOUND } from '../main/Constants.js';
 @------------------------------------------------------------------------------------------------------------------------------
 
 @classdesc This class contains methods to sanitize url and string, filtering html tags and attributes
-present in the string.
+present in the string.<br/>
 See theHTMLSanitizer for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
@@ -310,8 +310,8 @@ class HTMLSanitizer {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -323,7 +323,7 @@ class HTMLSanitizer {
 	as child nodes of the targetNode. Only tags and attributes present in the HTMLSanitizerData.#validityMap variable
 	are copied in the targetNode. Url in the href and src attributes must be valid url (see sanitizeToUrl method)
 	@param {string} htmlString the string to transform
-	@param targetNode {HTMLElement} the node in witch the created elements are placed
+	@param {HTMLElement} targetNode the node in witch the created elements are placed
 	*/
 
 	sanitizeToHtmlElement ( htmlString, targetNode ) {
@@ -355,7 +355,7 @@ class HTMLSanitizer {
 
 	/**
 	This method transform a string containing html and svg tags. Tags and attributes not present in the
-	TMLSanitizerData.#validityMap variable are removed. Invalid Url in the href and src attributes are
+	HTMLSanitizerData.#validityMap variable are removed. Invalid Url in the href and src attributes are
 	also removed (see sanitizeToUrl method)
 	@param {string} htmlString the string to transform
 	@return {object} a HtmlStringValidationReult with the result of the validation
@@ -378,11 +378,11 @@ class HTMLSanitizer {
 	}
 
 	/**
-	This method verify that a string contains a valid url.
+	This method verify that a string contains a valid url.<br/>
 	A valid url must not contains html tags or html entities or invalid characters
-	and must start with a valid protocol
+	and must start with a valid protocol<br/>
 	Valid protocols are http: and https:. For href attributes mailto:, sms: and tel: are also valid
-	and for src attributes, data: is also valid.
+	and for src attributes, data: is also valid.<br/>
 	sms: and tel: url's  must start with a + and contains only digits, *, # or space
 	@param {string} urlString The url to validate
 	@param {attributeName} attributeName The attribute name in witch the url will be placed. must be 'src' or
@@ -390,7 +390,9 @@ class HTMLSanitizer {
 	@return {object} a UrlValidationReult with the result of the validation
 	*/
 
-	sanitizeToUrl ( urlString, attributeName = 'href' ) {
+	sanitizeToUrl ( urlString, attributeName ) {
+
+		const tmpAttributeName = attributeName || 'href';
 
 		// set the url inside a div and then parsing...
 		const parseResult = new DOMParser ( ).parseFromString ( '<div>' + urlString + '</div>', 'text/html' );
@@ -442,10 +444,10 @@ class HTMLSanitizer {
 
 		// creating a list of valid protocols for the url
 		const validProtocols = [ 'https:' ];
-		if ( 'http:' === window.location.protocol || 'href' === attributeName ) {
+		if ( 'http:' === window.location.protocol || 'href' === tmpAttributeName ) {
 			validProtocols.push ( 'http:' );
 		}
-		if ( 'href' === attributeName ) {
+		if ( 'href' === tmpAttributeName ) {
 			validProtocols.push ( 'mailto:' );
 			validProtocols.push ( 'sms:' );
 			validProtocols.push ( 'tel:' );
@@ -456,7 +458,7 @@ class HTMLSanitizer {
 				return { url : newUrlString, errorsString : '' };
 			}
 		}
-		if ( 'src' === attributeName ) {
+		if ( 'src' === tmpAttributeName ) {
 			validProtocols.push ( 'data:' );
 		}
 
@@ -562,8 +564,6 @@ class HTMLSanitizer {
 const theHTMLSanitizer = new HTMLSanitizer ( );
 
 export default theHTMLSanitizer;
-
-/* eslint-enable max-lines */
 
 /*
 --- End of HTMLSanitizer.js file ----------------------------------------------------------------------------------------------

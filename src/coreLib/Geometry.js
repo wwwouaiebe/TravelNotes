@@ -66,7 +66,7 @@ import { DISTANCE, ZERO, ONE, TWO, DEGREES, LAT_LNG, EARTH_RADIUS } from '../mai
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@classdesc This class contains methods for geometry operations requiring call to Leaflet functions
+@classdesc This class contains methods for geometry operations requiring call to Leaflet functions<br/>
 See theGeometry for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
@@ -82,8 +82,8 @@ class Geometry {
 	// eslint-disable-next-line no-magic-numbers
 	get #HUNDRED ( ) { return 100; }
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -253,7 +253,7 @@ class Geometry {
 	Add two points
 	@param {Array.<number>} point1 the first point to add
 	@param {Array.<number>} point2 the second point to add
-	@return {Array.<number>}
+	@return {Array.<number>}  The result point
 	*/
 
 	addPoints ( point1, point2 ) {
@@ -267,7 +267,7 @@ class Geometry {
 	Subtrack two points
 	@param {Array.<number>} point1 the first point
 	@param {Array.<number>} point2 the point to subtrack
-	@return {Array.<number>}
+	@return {Array.<number>} The result point
 	*/
 
 	subtrackPoints ( point1, point2 ) {
