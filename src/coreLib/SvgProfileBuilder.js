@@ -32,7 +32,7 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import { SVG_NS, ZERO, ONE, TWO, DISTANCE } from '../main/Constants.js';
+import { SVG_NS, ZERO, TWO, DISTANCE } from '../main/Constants.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
@@ -43,6 +43,55 @@ import { SVG_NS, ZERO, ONE, TWO, DISTANCE } from '../main/Constants.js';
 */
 
 class SvgProfileBuilder {
+
+	/**
+	A reference to the route for witch the profile is createDistanceTexts
+	@type {Route}
+	*/
+
+	#route;
+
+	/**
+	The created svg with the profile
+	@type {SVGElement}
+	*/
+
+	#svg;
+
+	/**
+	The scale used in the Y direction
+	@type {Number}
+	*/
+
+	#YScale;
+
+	/**
+	The scale used in the Y direction
+	@type {Number}
+	*/
+
+	#XScale;
+
+	/**
+	The smallest elevation
+	@type {Number}
+	*/
+
+	#minElev;
+
+	/**
+	The greatest elevation
+	@type {Number}
+	*/
+
+	#maxElev;
+
+	/**
+	The delta between the max and the min elevation
+	@type {Number}
+	*/
+
+	#deltaElev;
 
 	/**
 	The margin around the profile
@@ -182,55 +231,6 @@ class SvgProfileBuilder {
 	}
 
 	/**
-	A reference to the route for witch the profile is createDistanceTexts
-	@type {Route}
-	*/
-
-	#route = null;
-
-	/**
-	The created svg with the profile
-	@type {SVGElement}
-	*/
-
-	#svg = null;
-
-	/**
-	The scale used in the Y direction
-	@type {Number}
-	*/
-
-	#YScale = ONE;
-
-	/**
-	The scale used in the Y direction
-	@type {Number}
-	*/
-
-	#XScale = ONE;
-
-	/**
-	The smallest elevation
-	@type {Number}
-	*/
-
-	#minElev = Number.MAX_VALUE;
-
-	/**
-	The greatest elevation
-	@type {Number}
-	*/
-
-	#maxElev = ZERO;
-
-	/**
-	The delta between the max and the min elevation
-	@type {Number}
-	*/
-
-	#deltaElev = ZERO;
-
-	/**
 	This method creates the profile polyline in the svg element
 	*/
 
@@ -280,7 +280,6 @@ class SvgProfileBuilder {
 	*/
 
 	#createDistanceTexts ( ) {
-
 		let minDelta = Number.MAX_VALUE;
 		let selectedScale = 0;
 		SvgProfileBuilder.#X_SCALES.forEach (
@@ -370,8 +369,8 @@ class SvgProfileBuilder {
 		this.#svg.setAttributeNS ( null, 'class', 'TravelNotes-Route-SvgProfile' );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
