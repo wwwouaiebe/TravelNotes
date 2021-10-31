@@ -49,11 +49,16 @@ import { ROUTE_EDITION_STATUS, NOT_FOUND, ZERO, ONE, TWO, WAY_POINT_ICON_SIZE } 
 
 class EditedRouteMouseOverEL {
 
+	/**
+	A counter for the drag tooltip
+	@type {Number}
+	*/
+
 	static #showDragTooltip = ONE;
 
 	/**
 	mouseover event listener
-	@listens mouseover
+	@param {Event} mapEvent The event to handle
 	*/
 
 	static handleEvent ( mapEvent ) {

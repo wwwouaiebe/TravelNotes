@@ -42,6 +42,11 @@ import theGeometry from '../coreLib/Geometry.js';
 
 class NoteBulletDragEndEL {
 
+	/**
+	Event listener method
+	@param {Event} dragEndEvent The event to handle
+	*/
+
 	static handleEvent ( dragEndEvent ) {
 
 		// the TravelNotes note and route are searched...
@@ -100,6 +105,11 @@ class NoteBulletDragEndEL {
 
 class NoteBulletDragEL {
 
+	/**
+	Event listener method
+	@param {Event} dragEvent The event to handle
+	*/
+
 	static handleEvent ( dragEvent ) {
 		const draggedNote = theDataSearchEngine.getNoteAndRoute ( dragEvent.target.objId ).note;
 		const draggedLayerGroup = theTravelNotesData.mapObjects.get ( dragEvent.target.objId );
@@ -118,6 +128,11 @@ class NoteBulletDragEL {
 
 class NoteBulletMouseEnterEL {
 
+	/**
+	Event listener method
+	@param {Event} mouseEnterEvent The event to handle
+	*/
+
 	static handleEvent ( mouseEnterEvent ) {
 		mouseEnterEvent.originalEvent.target.style.opacity = theConfig.note.grip.moveOpacity;
 	}
@@ -132,6 +147,11 @@ class NoteBulletMouseEnterEL {
 */
 
 class NoteBulletMouseLeaveEL {
+
+	/**
+	Event listener method
+	@param {Event} mouseLeaveEvent The event to handle
+	*/
 
 	static handleEvent ( mouseLeaveEvent ) {
 		mouseLeaveEvent.originalEvent.target.style.opacity = theConfig.note.grip.opacity;

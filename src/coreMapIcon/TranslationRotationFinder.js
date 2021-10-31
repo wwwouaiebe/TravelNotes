@@ -26,26 +26,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file TranslationRotationFinder.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreMapIcon
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theConfig from '../data/Config.js';
 import theGeometry from '../coreLib/Geometry.js';
 import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
@@ -55,13 +35,11 @@ import { ICON_DIMENSIONS, ZERO, ONE, TWO, DEGREES, ICON_POSITION } from '../main
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class TranslationRotationFinder
-@classdesc Search:
-- the translation needed to have the icon point in the middle of the icon
-- the rotation needed to have the entry point at the bottom of the icon
-- the direction to follow
-- adapt the icon if icon is on the start or the end point
-@hideconstructor
+@classdesc Search:<br/>
+- the translation needed to have the icon point in the middle of the icon<br/>
+- the rotation needed to have the entry point at the bottom of the icon<br/>
+- the direction to follow<br/>
+- adapt the icon if icon is on the start or the end point<br/>
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -69,48 +47,42 @@ import { ICON_DIMENSIONS, ZERO, ONE, TWO, DEGREES, ICON_POSITION } from '../main
 class TranslationRotationFinder {
 
 	/**
-	A reference to the computeData object
-	@type {ComputeData}
-	@private
+	A reference to the computeData object of the MapIconFromOsmFactory
+	@type {ComputeDataForMapIcon}
 	*/
 
-	#computeData = null;
+	#computeData;
 
 	/**
-	A reference to the noteData Object
-	@type {NoteData}
-	@private
+	A reference to the noteData Object of the MapIconFromOsmFactory
+	@type {NoteDataForMapIcon}
 	*/
 
-	#noteData = null;
+	#noteData;
 
 	/**
 	A reference to the itineraryPoint used to compute the rotation
 	@type {ItineraryPoint}
-	@private
 	*/
 
-	#rotationItineraryPoint = null;
+	#rotationItineraryPoint;
 
 	/**
 	A reference to the itineraryPoint used to compute the direction
 	@type {ItineraryPoint}
-	@private
 	*/
 
-	#directionItineraryPoint = null;
+	#directionItineraryPoint;
 
 	/**
 	The coordinates in pixel of the icon point
 	@type {Array.<number>}
-	@private
 	*/
 
-	#iconPoint = null;
+	#iconPoint;
 
 	/**
 	This method compute the translation needed to have the itinerary point in the middle of the svg
-	@private
 	*/
 
 	#computeTranslation ( ) {
@@ -122,7 +94,6 @@ class TranslationRotationFinder {
 
 	/**
 	Searching a point at least at 10 m ( theConfig.note.svgIcon.angleDistance ) from the icon point for rotation
-	@private
 	*/
 
 	#findRotationPoint ( ) {
@@ -139,7 +110,6 @@ class TranslationRotationFinder {
 
 	/**
 	Searching a point at least at 10 m ( theConfig.note.svgIcon.angleDistance ) from the icon point for direction
-	@private
 	*/
 
 	#findDirectionPoint ( ) {
@@ -156,7 +126,6 @@ class TranslationRotationFinder {
 
 	/**
 	Transform the latLng of the icon ro pixel coordinates relative to the map origin
-	@private
 	*/
 
 	#computeIconPoint ( ) {
@@ -169,7 +138,6 @@ class TranslationRotationFinder {
 
 	/**
 	Computing rotation... if possible
-	@private
 	*/
 
 	#findRotation ( ) {
@@ -206,7 +174,6 @@ class TranslationRotationFinder {
 
 	/**
 	Computing direction ... if possible
-	@private
 	*/
 
 	#findDirection ( ) {
@@ -245,7 +212,6 @@ class TranslationRotationFinder {
 
 	/**
 	Search if the icon is at the start or the end of the route and adapt data
-	@private
 	*/
 
 	#findPositionOnRoute ( ) {
@@ -271,8 +237,8 @@ class TranslationRotationFinder {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -282,6 +248,8 @@ class TranslationRotationFinder {
 	/**
 	this method compute the rotation needed to have the SVG oriented on the itinerary
 	and compute also the direction to take after the icon
+	@param {ComputeDataForMapIcon} computeData The object with the data needed for the computations
+	@param {NoteDataForMapIcon} noteData The object with the nota data
 	*/
 
 	findData ( computeData, noteData ) {

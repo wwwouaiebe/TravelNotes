@@ -41,7 +41,19 @@ import { ZERO, ONE } from '../main/Constants.js';
 */
 
 class TempWayPointMarkerELData {
+
+	/**
+	A reference to the L.marker Object
+	@type {Object}
+	*/
+
 	static marker = null;
+
+	/**
+	The initial lat and lng of the marker
+	@type {Array.<Number>}
+	*/
+
 	static initialLatLng = null;
 }
 
@@ -54,6 +66,10 @@ class TempWayPointMarkerELData {
 */
 
 class TempWayPointMarkerMouseOutEL {
+
+	/**
+	Event listener method
+	*/
 
 	static handleEvent ( ) {
 		if ( TempWayPointMarkerELData.marker ) {
@@ -74,6 +90,10 @@ class TempWayPointMarkerMouseOutEL {
 
 class TempWayPointMarkerDragStartEL {
 
+	/**
+	Event listener method
+	*/
+
 	static handleEvent ( ) {
 		window.L.DomEvent.off (
 			TempWayPointMarkerELData.marker,
@@ -93,6 +113,11 @@ class TempWayPointMarkerDragStartEL {
 
 class TempWayPointMarkerContextMenuEL {
 
+	/**
+	Event listener method
+	@param {Event} contextMenuEvent The event to handle
+	*/
+
 	static handleEvent ( contextMenuEvent ) {
 		contextMenuEvent.latlng.lat = TempWayPointMarkerELData.initialLatLng [ ZERO ];
 		contextMenuEvent.latlng.lng = TempWayPointMarkerELData.initialLatLng [ ONE ];
@@ -110,6 +135,11 @@ class TempWayPointMarkerContextMenuEL {
 */
 
 class TempWayPointMarkerDragEndEL {
+
+	/**
+	Event listener method
+	@param {Event} dragEndEvent The event to handle
+	*/
 
 	static handleEvent ( dragEndEvent ) {
 		theWayPointEditor.addWayPointOnRoute (

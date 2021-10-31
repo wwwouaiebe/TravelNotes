@@ -26,26 +26,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file StreetFinder.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreMapIcon
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theConfig from '../data/Config.js';
 import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
 import theTranslator from '../UILib/Translator.js';
@@ -55,12 +35,10 @@ import { DISTANCE, ZERO, ONE, TWO, NOT_FOUND, ICON_POSITION } from '../main/Cons
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class StreetFinder
-@classdesc Search:
-- the rcn ref number at the icon position
-- roundabout info at the icon position
-- street names at the icon position
-@hideconstructor
+@classdesc Search:<br/>
+- the rcn ref number at the icon position<br/>
+- roundabout info at the icon position<br/>
+- street names at the icon position<br/>
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -68,102 +46,86 @@ import { DISTANCE, ZERO, ONE, TWO, NOT_FOUND, ICON_POSITION } from '../main/Cons
 class StreetFinder {
 
 	/**
-	A reference to the computeData object
-	@type {ComputeData}
-	@private
+	A reference to the computeData object of the MapIconFromOsmFactory
+	@type {ComputeDataForMapIcon}
 	*/
 
-	#computeData = null;
+	#computeData;
 
 	/**
-	A reference to the noteData Object
-	@type {NoteData}
-	@private
+	A reference to the noteData Object of the MapIconFromOsmFactory
+	@type {NoteDataForMapIcon}
 	*/
 
-	#noteData = null;
+	#noteData;
 
 	/**
-	A reference to the noteData overpassAPIDataLoader
-	@type {NoteData}
-	@private
+	A reference to the noteData overpassAPIDataLoader of the MapIconFromOsmFactory
+	@type {OverpassAPIDataLoader}
 	*/
 
-	#overpassAPIDataLoader = null;
+	#overpassAPIDataLoader;
 
 	/**
 	The osm node of the rcnRef
 	@type {!number}
-	@private
 	*/
 
-	#rcnRefOsmNode = null;
+	#rcnRefOsmNode;
 
 	/**
 	The osm node of the rcnRef
 	@type {!number}
-	@private
 	*/
 
-	#iconOsmNode = null;
+	#iconOsmNode;
 
 	/**
 	The osm node id of the incoming node
 	@type {!number}
-	@private
 	*/
 
-	#iconOsmNodeId = NOT_FOUND;
+	#iconOsmNodeId;
 
 	/**
 	The osm node id of the incoming node
 	@type {!number}
-	@private
 	*/
 
-	#incomingOsmNodeId = NOT_FOUND;
+	#incomingOsmNodeId;
 
 	/**
 	The osm node id of the outgoing node
 	@type {!number}
-	@private
 	*/
 
-	#outgoingOsmNodeId = NOT_FOUND;
+	#outgoingOsmNodeId;
 
 	/**
 	The incoming street name
 	@type {string}
-	@private
 	*/
 
-	#incomingStreetName = '';
+	#incomingStreetName;
 
 	/**
 	The outgoing street name
 	@type {string}
-	@private
 	*/
 
-	#outgoingStreetName = '';
+	#outgoingStreetName;
 
 	/**
 	Roundabout data
 	@type {Object}
-	@private
 	*/
 
-	#roundaboutData = {
-		isMini : false,
-		isEntry : false,
-		isExit : false
-	}
+	#roundaboutData
 
 	/**
 	Return the name of a way
 	@param {Object} way  A way found in the request result
-	@return the concatenation of the way.ref and way.name if any
-	@private
+	@return {String} the concatenation of the way.ref and way.name if any
 	*/
 
 	#getWayName ( way ) {
@@ -177,7 +139,6 @@ class StreetFinder {
 	@param {ItineraryPoint} itineraryPoint the itineraryPoint to test
 	@return {boolean} true when the itineraryPoint is not at the same position than a WayPoint and not at the
 	same position than the icon point
-	@private
 	*/
 
 	#latLngCompare ( itineraryPoint ) {
@@ -210,7 +171,6 @@ class StreetFinder {
 	/**
 	Searching incoming node and outgoing node ( nodes before and after the icon node on the route )
 	and the rcnRef node ( bike only )
-	@private
 	*/
 
 	#findOsmNodes ( ) {
@@ -292,7 +252,6 @@ class StreetFinder {
 
 	/**
 	Searching a mini roundabout at the icon node
-	@private
 	*/
 
 	#findMiniRoundabout ( ) {
@@ -301,7 +260,6 @@ class StreetFinder {
 
 	/**
 	Adding the rcnRef number to the tooltip and the computeData
-	@private
 	*/
 
 	#addRcnRefNumber ( ) {
@@ -314,7 +272,6 @@ class StreetFinder {
 
 	/**
 	Searching  passing streets names, incoming and outgoing streets names, roundabout entry and exit
-	@private
 	*/
 
 	#findStreets ( ) {
@@ -379,7 +336,6 @@ class StreetFinder {
 
 	/**
 	Adding city and hamlet to the address
-	@private
 	*/
 
 	#addCity ( ) {
@@ -394,7 +350,6 @@ class StreetFinder {
 
 	/**
 	Adding street name
-	@private
 	*/
 
 	#addAddress ( ) {
@@ -428,7 +383,6 @@ class StreetFinder {
 
 	/**
 	Adding roundabout info
-	@private
 	*/
 
 	#addRoundaboutInfo ( ) {
@@ -448,8 +402,8 @@ class StreetFinder {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -458,6 +412,9 @@ class StreetFinder {
 
 	/**
 	Find street info: street names, city, roundabout info, rcnRef info ...
+	@param {ComputeDataForMapIcon} computeData The object with the data needed for the computations
+	@param {NoteDataForMapIcon} noteData The object with the nota data
+	@param {OverpassAPIDataLoader} overpassAPIDataLoader The OverpassAPIDataLoader object containing the data found in OSM
 	*/
 
 	findData ( computeData, noteData, overpassAPIDataLoader ) {
@@ -465,6 +422,17 @@ class StreetFinder {
 		this.#computeData = computeData;
 		this.#noteData = noteData;
 		this.#overpassAPIDataLoader = overpassAPIDataLoader;
+
+		this.#iconOsmNodeId = NOT_FOUND;
+		this.#incomingOsmNodeId = NOT_FOUND;
+		this.#outgoingOsmNodeId = NOT_FOUND;
+		this.#incomingStreetName = '';
+		this.#outgoingStreetName = '';
+		this.#roundaboutData = {
+			isMini : false,
+			isEntry : false,
+			isExit : false
+		};
 
 		this.#findOsmNodes ( );
 		this.#findMiniRoundabout ( );

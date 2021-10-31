@@ -43,6 +43,11 @@ import { ZERO } from '../main/Constants.js';
 
 class RouteMouseOverOrMoveEL {
 
+	/**
+	Event listener method
+	@param {Event} mapEvent The event to handle
+	*/
+
 	static handleEvent ( mapEvent ) {
 		const route = theDataSearchEngine.getRoute ( mapEvent.target.objId );
 		let distance = theGeometry.getClosestLatLngDistance ( route, [ mapEvent.latlng.lat, mapEvent.latlng.lng ] )
@@ -70,6 +75,11 @@ class RouteMouseOverOrMoveEL {
 */
 
 class RouteContextMenuEL {
+
+	/**
+	Event listener method
+	@param {Event} contextMenuEvent The event to handle
+	*/
 
 	static handleEvent ( contextMenuEvent ) {
 		window.L.DomEvent.stopPropagation ( contextMenuEvent );

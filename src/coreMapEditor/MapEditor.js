@@ -71,8 +71,6 @@ import { WayPointContextMenuEL, WayPointDragEndEL } from '../coreMapEditor/WayPo
 import { RouteContextMenuEL } from '../coreMapEditor/RouteEventListeners.js';
 import { ROUTE_EDITION_STATUS, LAT_LNG, INVALID_OBJ_ID, TWO, WAY_POINT_ICON_SIZE } from '../main/Constants.js';
 
-const OUR_MARKER_BOUNDS_PRECISION = 0.01;
-
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
@@ -83,6 +81,14 @@ See theMapEditor for the one and only one instance of this class
 */
 
 class MapEditor	extends MapEditorViewer {
+
+	/**
+	Simple constant for computing if we add a polyline or a marker for the search
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #MARKER_BOUNDS_PRECISION ( ) { return 0.01; }
 
 	/**
 	Remove a Leaflet object from the map
@@ -98,8 +104,8 @@ class MapEditor	extends MapEditorViewer {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -342,13 +348,13 @@ class MapEditor	extends MapEditorViewer {
 					( geometryBounds.getEast ( ) - geometryBounds.getWest ( ) )
 					/
 					( mapBounds.getEast ( ) - mapBounds.getWest ( ) )
-				) > OUR_MARKER_BOUNDS_PRECISION
+				) > MapEditor.#MARKER_BOUNDS_PRECISION
 				&&
 				(
 					( geometryBounds.getNorth ( ) - geometryBounds.getSouth ( ) )
 					/
 					( mapBounds.getNorth ( ) - mapBounds.getSouth ( ) )
-				) > OUR_MARKER_BOUNDS_PRECISION;
+				) > MapEditor.#MARKER_BOUNDS_PRECISION;
 		}
 		if ( showGeometry ) {
 			this.addToMap ( objId, window.L.polyline ( geometry, theConfig.osmSearch.searchPointPolyline ) );

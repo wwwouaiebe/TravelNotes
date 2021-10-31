@@ -39,6 +39,11 @@ import WayPointContextMenu from '../contextMenus/WayPointContextMenu.js';
 
 class WayPointContextMenuEL {
 
+	/**
+	Event listener method
+	@param {Event} contextMenuEvent The event to handle
+	*/
+
 	static handleEvent ( contextMenuEvent ) {
 		new WayPointContextMenu ( contextMenuEvent ).show ( );
 	}
@@ -53,6 +58,11 @@ class WayPointContextMenuEL {
 */
 
 class WayPointDragEndEL {
+
+	/**
+	Event listener method
+	@param {Event} dragEndEvent The event to handle
+	*/
 
 	static handleEvent ( dragEndEvent ) {
 		theWayPointEditor.wayPointDragEnd ( dragEndEvent );

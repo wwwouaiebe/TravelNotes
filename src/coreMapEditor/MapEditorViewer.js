@@ -57,10 +57,6 @@ import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
 import { GEOLOCATION_STATUS, ROUTE_EDITION_STATUS, ZERO, ONE, TWO } from '../main/Constants.js';
 
-const OUR_DEFAULT_MAX_ZOOM = 18;
-const OUR_DEFAULT_MIN_ZOOM = 0;
-const OUR_NOTE_Z_INDEX_OFFSET = 100;
-
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
@@ -72,16 +68,52 @@ Ssee theMapEditor for read/write updates on the map
 
 class MapEditorViewer {
 
-	#currentLayer = null;
+	/**
+	A reference to the L.tileLayer  object that contains the current map
+	@type {Object}
+	*/
 
-	#geolocationCircle = null;
+	#currentLayer;
 
-	/*
-	constructor
+	/**
+	A reference to the L.circleMarker object used for the geolocation
+	@type {Object}
+	*/
+
+	#geolocationCircle;
+
+	/**
+	Simple constant for the max possible zoom
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #DEFAULT_MAX_ZOOM ( ) { return 18; }
+
+	/**
+	Simple constant for the min possible zoom
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #DEFAULT_MIN_ZOOM ( ) { return 0; }
+
+	/**
+	Simple constant for the z-index css value for notes
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #NOTE_Z_INDEX_OFFSET ( ) { return 100; }
+
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#currentLayer = null;
+		this.#geolocationCircle = null;
 	}
 
 	/**
@@ -192,7 +224,7 @@ class MapEditorViewer {
 		const marker = window.L.marker (
 			note.iconLatLng,
 			{
-				zIndexOffset : OUR_NOTE_Z_INDEX_OFFSET,
+				zIndexOffset : MapEditorViewer.#NOTE_Z_INDEX_OFFSET,
 				icon : window.L.divIcon (
 					{
 						iconSize : [ note.iconWidth, note.iconHeight ],
@@ -314,14 +346,14 @@ class MapEditorViewer {
 
 			// strange... see Issue ♯79 ... zoom is not correct on read only file
 			// when the background map have bounds...
-			if ( theTravelNotesData.map.getZoom ( ) < ( layer.minZoom || OUR_DEFAULT_MIN_ZOOM ) ) {
-				theTravelNotesData.map.setZoom ( layer.minZoom || OUR_DEFAULT_MIN_ZOOM );
+			if ( theTravelNotesData.map.getZoom ( ) < ( layer.minZoom || MapEditorViewer.#DEFAULT_MIN_ZOOM ) ) {
+				theTravelNotesData.map.setZoom ( layer.minZoom || MapEditorViewer.#DEFAULT_MIN_ZOOM );
 			}
-			theTravelNotesData.map.setMinZoom ( layer.minZoom || OUR_DEFAULT_MIN_ZOOM );
-			if ( theTravelNotesData.map.getZoom ( ) > ( layer.maxZoom || OUR_DEFAULT_MAX_ZOOM ) ) {
-				theTravelNotesData.map.setZoom ( layer.maxZoom || OUR_DEFAULT_MAX_ZOOM );
+			theTravelNotesData.map.setMinZoom ( layer.minZoom || MapEditorViewer.#DEFAULT_MIN_ZOOM );
+			if ( theTravelNotesData.map.getZoom ( ) > ( layer.maxZoom || MapEditorViewer.#DEFAULT_MAX_ZOOM ) ) {
+				theTravelNotesData.map.setZoom ( layer.maxZoom || MapEditorViewer.#DEFAULT_MAX_ZOOM );
 			}
-			theTravelNotesData.map.setMaxZoom ( layer.maxZoom || OUR_DEFAULT_MAX_ZOOM );
+			theTravelNotesData.map.setMaxZoom ( layer.maxZoom || MapEditorViewer.#DEFAULT_MAX_ZOOM );
 			if ( layer.bounds ) {
 				if (
 					! theTravelNotesData.map.getBounds ( ).intersects ( layer.bounds )
@@ -330,7 +362,7 @@ class MapEditorViewer {
 				) {
 					theTravelNotesData.map.setMaxBounds ( null );
 					theTravelNotesData.map.fitBounds ( layer.bounds );
-					theTravelNotesData.map.setZoom ( layer.minZoom || OUR_DEFAULT_MIN_ZOOM );
+					theTravelNotesData.map.setZoom ( layer.minZoom || MapEditorViewer.#DEFAULT_MIN_ZOOM );
 				}
 				theTravelNotesData.map.setMaxBounds ( layer.bounds );
 			}

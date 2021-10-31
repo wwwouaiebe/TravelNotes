@@ -40,6 +40,11 @@ import NoteContextMenu from '../contextMenus/NoteContextMenu.js';
 
 class NoteMarkerContextMenuEL {
 
+	/**
+	Event listener method
+	@param {Event} contextMenuEvent The event to handle
+	*/
+
 	static handleEvent ( contextMenuEvent ) {
 		new NoteContextMenu ( contextMenuEvent ).show ( );
 	}
@@ -54,6 +59,11 @@ class NoteMarkerContextMenuEL {
 */
 
 class NoteMarkerDragEndEL {
+
+	/**
+	Event listener method
+	@param {Event} dragEndEvent The event to handle
+	*/
 
 	static handleEvent ( dragEndEvent ) {
 
@@ -85,6 +95,11 @@ class NoteMarkerDragEndEL {
 */
 
 class NoteMarkerDragEL {
+
+	/**
+	Event listener method
+	@param {Event} dragEvent The event to handle
+	*/
 
 	static handleEvent ( dragEvent ) {
 

@@ -26,26 +26,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file SvgBuilder.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreMapIcon
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theConfig from '../data/Config.js';
 import theGeometry from '../coreLib/Geometry.js';
 import { SVG_NS, ICON_DIMENSIONS, ZERO, ONE, TWO, NOT_FOUND } from '../main/Constants.js';
@@ -53,9 +33,7 @@ import { SVG_NS, ICON_DIMENSIONS, ZERO, ONE, TWO, NOT_FOUND } from '../main/Cons
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class SvgBuilder
 @classdesc This class is used to create  the svg for a map icon
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -63,31 +41,28 @@ import { SVG_NS, ICON_DIMENSIONS, ZERO, ONE, TWO, NOT_FOUND } from '../main/Cons
 class SvgBuilder {
 
 	/**
-	A reference to the computeData object
-	@type {ComputeData}
-	@private
+	A reference to the computeData object of the MapIconFromOsmFactory
+	@type {ComputeDataForMapIcon}
 	*/
 
-	#computeData = null;
+	#computeData;
 
 	/**
-	A reference to the noteData overpassAPIDataLoader
-	@type {NoteData}
-	@private
+	A reference to the overpassAPIDataLoader of the MapIconFromOsmFactory
+	@type {OverpassAPIDataLoader}
 	*/
 
-	#overpassAPIDataLoader = null;
+	#overpassAPIDataLoader
 
 	/**
 	The svg element to build
-	@private
+	@type {SVGElement}
 	*/
 
-	#svgElement = null;
+	#svgElement;
 
 	/**
 	This method creates the svgElement
-	@private
 	*/
 
 	#createSvg ( ) {
@@ -107,7 +82,6 @@ class SvgBuilder {
 
 	/**
 	This method create the SVG polyline for the route
-	@private
 	*/
 
 	#createRoute ( ) {
@@ -170,7 +144,6 @@ class SvgBuilder {
 
 	/**
 	This method creates the SVG elements for ways from OSM
-	@private
 	*/
 
 	#createWays ( ) {
@@ -245,7 +218,6 @@ class SvgBuilder {
 
 	/**
 	This method creates the SVG element for RcnRef from OSM
-	@private
 	*/
 
 	#createRcnRef ( ) {
@@ -262,8 +234,8 @@ class SvgBuilder {
 		this.#svgElement.appendChild ( svgText );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -272,6 +244,9 @@ class SvgBuilder {
 
 	/**
 	This method build the SVG element for the icon
+	@param {ComputeDataForMapIcon} computeData The object with the data needed for the computations
+	@param {NoteDataForMapIcon} noteData The object with the nota data
+	@param {OverpassAPIDataLoader} overpassAPIDataLoader The OverpassAPIDataLoader object containing the data found in OSM
 	*/
 
 	buildSvg ( computeData, noteData, overpassAPIDataLoader ) {

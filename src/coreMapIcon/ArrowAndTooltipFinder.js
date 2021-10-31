@@ -26,26 +26,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ArrowAndTooltipFinder.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreMapIcon
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theConfig from '../data/Config.js';
 import theTranslator from '../UILib/Translator.js';
 
@@ -54,19 +34,17 @@ import { ICON_POSITION } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class ArrowAndTooltipFinder
-@classdesc Search:
-- the arrow to use for the direction to follow ( the arrow will be displayed in the adrress )
+@classdesc Search:<br/>
+- the arrow to use for the direction to follow ( the arrow will be displayed in the address )<br/>
 - the tooltip content
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class ArrowAndTooltipFinder {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -75,6 +53,8 @@ class ArrowAndTooltipFinder {
 
 	/**
 	This method set the direction arrow and tooltip
+	@param {ComputeDataForMapIcon} computeData The object with the data needed for the computations
+	@param {NoteDataForMapIcon} noteData The object with the nota data
 	*/
 
 	findData ( computeData, noteData ) {
