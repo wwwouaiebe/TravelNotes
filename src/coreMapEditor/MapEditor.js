@@ -49,25 +49,6 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file MapEditor.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreMapEditor
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theConfig from '../data/Config.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
@@ -95,12 +76,8 @@ const OUR_MARKER_BOUNDS_PRECISION = 0.01;
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class MapEditor
-@classdesc This class performs all the read/write updates on the map
-@extends MapEditorViewer
-@inheritdoc
-@see {@link theMapEditor} for the one and only one instance of this class
-@hideconstructor
+@classdesc This class performs all the read/write updates on the map<br/>
+See theMapEditor for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -110,7 +87,6 @@ class MapEditor	extends MapEditorViewer {
 	/**
 	Remove a Leaflet object from the map
 	@param {!number} objId The objId of the object to remove
-	@private
 	*/
 
 	#RemoveFromMap ( objId ) {
@@ -420,8 +396,6 @@ class MapEditor	extends MapEditorViewer {
 
 @desc The one and only one instance of MapEditor class
 @type {MapEditor}
-@constant
-@global
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

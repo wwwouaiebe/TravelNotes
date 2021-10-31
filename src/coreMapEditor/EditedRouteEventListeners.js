@@ -26,26 +26,6 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file EditedRouteEventListeners.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreMapEditor
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theConfig from '../data/Config.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theTranslator from '../UILib/Translator.js';
@@ -62,9 +42,7 @@ import { ROUTE_EDITION_STATUS, NOT_FOUND, ZERO, ONE, TWO, WAY_POINT_ICON_SIZE } 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class EditedRouteMouseOverEL
 @classdesc mouseover event listeners for the edited route
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

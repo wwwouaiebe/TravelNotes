@@ -26,26 +26,6 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file TempWayPointMarkerEventListeners.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreMapEditor
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theTravelNotesData from '../data/TravelNotesData.js';
 import RouteContextMenu from '../contextMenus/RouteContextMenu.js';
 import theWayPointEditor from '../core/WayPointEditor.js';
@@ -55,9 +35,7 @@ import { ZERO, ONE } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class TempWayPointMarkerELData
 @classdesc This class contains shared data by the event listeners for the temp waypoint
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -70,9 +48,7 @@ class TempWayPointMarkerELData {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class TempWayPointMarkerMouseOutEL
 @classdesc mouseout event listener for the temp waypoint marker
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -91,9 +67,7 @@ class TempWayPointMarkerMouseOutEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class TempWayPointMarkerDragStartEL
 @classdesc dragstart event listener for the temp waypoint marker
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -112,9 +86,7 @@ class TempWayPointMarkerDragStartEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class TempWayPointMarkerContextMenuEL
 @classdesc contextmenu event listener for the temp waypoint marker
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -132,9 +104,7 @@ class TempWayPointMarkerContextMenuEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class TempWayPointMarkerDragEndEL
 @classdesc dragend event listener for the temp waypoint marker
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

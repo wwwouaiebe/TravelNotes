@@ -36,26 +36,6 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@file MapEditorViewer.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreMapEditor
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
 @typedef {Object} NoteLeafletObjects
 @desc An object with all the Leaflet objects for a note
 @property {Object} marker The marker of the note
@@ -84,10 +64,8 @@ const OUR_NOTE_Z_INDEX_OFFSET = 100;
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class
-@classdesc This class performs all the readonly updates on the map
-@see {@link theMapEditor} for read/write updates on the map
-@hideconstructor
+@classdesc This class performs all the readonly updates on the map<br/>
+Ssee theMapEditor for read/write updates on the map
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -110,7 +88,6 @@ class MapEditorViewer {
 	Add a Leaflet object to the map
 	@param {!number} objId The objId to use
 	@param {Object} leafletObject The Leaflet object to add
-	@private
 	*/
 
 	addToMap ( objId, leafletObject ) {

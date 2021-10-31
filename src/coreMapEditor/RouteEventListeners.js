@@ -26,26 +26,6 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file RouteEventListeners.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreMapEditor
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import RouteContextMenu from '../contextMenus/RouteContextMenu.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import theGeometry from '../coreLib/Geometry.js';
@@ -56,9 +36,7 @@ import { ZERO } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class RouteMouseOverOrMoveEL
 @classdesc mouseover and mousemove event listener for the routes
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -86,9 +64,7 @@ class RouteMouseOverOrMoveEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class RouteContextMenuEL
 @classdesc contextmenu event listener for the routes
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

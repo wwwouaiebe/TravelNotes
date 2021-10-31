@@ -26,17 +26,6 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file newClass.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import NoteContextMenu from '../contextMenus/NoteContextMenu.js';
@@ -44,18 +33,7 @@ import NoteContextMenu from '../contextMenus/NoteContextMenu.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@module coreMapEditor
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class NoteMarkerContextMenuEL
 @classdesc contextmenu event listener for the notes marker
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -70,9 +48,7 @@ class NoteMarkerContextMenuEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class NoteMarkerDragEndEL
 @classdesc dragend event listener for the notes marker
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -103,9 +79,7 @@ class NoteMarkerDragEndEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class NoteMarkerDragEL
 @classdesc drag event listener for the notes marker
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
