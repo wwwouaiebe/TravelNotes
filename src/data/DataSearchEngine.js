@@ -35,26 +35,6 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@file DataSearchEngine.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
 @typedef {Object} NoteAndRoute
 @desc An object to store a Note and the Route on witch the Note is attached
 @property {?Note} note the searched Note or null if the note is not found
@@ -73,10 +53,8 @@ import { ZERO, INVALID_OBJ_ID, LAT_LNG } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class DataSearchEngine
-@classdesc Class with helper methods to search data
-@see {@link theDataSearchEngine} for the one and only one instance of this class
-@hideconstructor
+@classdesc Class with helper methods to search data<br/>
+See theDataSearchEngine for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -85,7 +63,6 @@ class DataSearchEngine {
 
 	/**
 	Helper method for the getNearestRouteData method
-	@private
 	*/
 
 	#setNearestRouteData ( route, latLng, nearestRouteData ) {
@@ -118,7 +95,6 @@ class DataSearchEngine {
 	This method search route data for the nearest route of a given point
 	@param {Array.<number>} latLng The latitude and longitude of the point
 	@return {RouteData} A routeData object
-	@private
 	*/
 
 	getNearestRouteData ( latLng ) {

@@ -35,26 +35,6 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file Itinerary.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import ObjId from '../data/ObjId.js';
 import ObjType from '../data/ObjType.js';
 import Collection from '../data/Collection.js';
@@ -67,15 +47,17 @@ import { ZERO, INVALID_OBJ_ID } from '../main/Constants.js';
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class Itinerary
 @classdesc This class represent an itinerary
-@extends TravelObject
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class Itinerary	extends TravelObject {
+
+	/**
+	The object type for itineraries
+	@type {ObjType}
+	*/
 
 	static #objType = new ObjType (
 		'Itinerary',
@@ -85,7 +67,6 @@ class Itinerary	extends TravelObject {
 	/**
 	the objId of the Itinerary
 	@type {!number}
-	@private
 	*/
 
 	#objId = INVALID_OBJ_ID;;
@@ -93,7 +74,6 @@ class Itinerary	extends TravelObject {
 	/**
 	a boolean set to true when the itinerary have a profile
 	@type {boolean}
-	@private
 	*/
 
 	#hasProfile = false;
@@ -101,7 +81,6 @@ class Itinerary	extends TravelObject {
 	/**
 	the ascent of the Itinerary when a profile exists, otherwise ZERO
 	@type {!number}
-	@private
 	*/
 
 	#ascent = ZERO;
@@ -109,7 +88,6 @@ class Itinerary	extends TravelObject {
 	/**
 	the descent of the Itinerary when a profile exists, otherwise ZERO
 	@type {!number}
-	@private
 	*/
 
 	#descent = ZERO;
@@ -117,7 +95,6 @@ class Itinerary	extends TravelObject {
 	/**
 	the provider name used for this Itinerary
 	@type {string}
-	@private
 	*/
 
 	#provider = '';
@@ -125,7 +102,6 @@ class Itinerary	extends TravelObject {
 	/**
 	the transit mode used for this Itinerary
 	@type {string}
-	@private
 	*/
 
 	#transitMode = '';
@@ -133,7 +109,6 @@ class Itinerary	extends TravelObject {
 	/**
 	a Collection of ItineraryPoints
 	@type {Collection.<ItineraryPoint>}
-	@private
 	*/
 
 	#itineraryPoints = new Collection ( ItineraryPoint );
@@ -141,13 +116,12 @@ class Itinerary	extends TravelObject {
 	/**
 	a Collection of Maneuvers
 	@type {Collection.<Maneuver>}
-	@private
 	*/
 
 	#maneuvers = new Collection ( Maneuver );
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {

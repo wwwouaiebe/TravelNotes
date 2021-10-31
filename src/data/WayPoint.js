@@ -34,26 +34,6 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file WayPoint.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import ObjId from '../data/ObjId.js';
 import ObjType from '../data/ObjType.js';
 import theUtilities from '../UILib/Utilities.js';
@@ -65,22 +45,23 @@ import { LAT_LNG, ZERO, ONE, INVALID_OBJ_ID } from '../main/Constants.js';
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class WayPoint
 @classdesc This class represent a way point
-@extends TravelObject
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class WayPoint extends TravelObject {
 
+	/**
+	The object type for wayPoints
+	@type {ObjType}
+	*/
+
 	static #objType = new ObjType ( 'WayPoint', [ 'address', 'name', 'lat', 'lng', 'objId' ] );
 
 	/**
 	the name of the WayPoint
 	@type {string}
-	@private
 	*/
 
 	#name = '';
@@ -88,7 +69,6 @@ class WayPoint extends TravelObject {
 	/**
 	the address of the WayPoint
 	@type {string}
-	@private
 	*/
 
 	#address = '';
@@ -96,7 +76,6 @@ class WayPoint extends TravelObject {
 	/**
 	the latitude of the WayPoint
 	@type {number}
-	@private
 	*/
 
 	#lat = LAT_LNG.defaultValue;
@@ -104,7 +83,6 @@ class WayPoint extends TravelObject {
 	/**
 	the longitude of the WayPoint
 	@type {number}
-	@private
 	*/
 
 	#lng = LAT_LNG.defaultValue;
@@ -112,13 +90,12 @@ class WayPoint extends TravelObject {
 	/**
 	the objId of the WayPoint.
 	@type {!number}
-	@private
 	*/
 
 	#objId = INVALID_OBJ_ID;;
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {

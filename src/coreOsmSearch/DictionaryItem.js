@@ -176,10 +176,6 @@ class DictionaryItem {
 
 	get isSelected ( ) { return this.#isSelected; }
 
-	/**
-	A boolean indicating when the item is selected by the user
-	*/
-
 	set isSelected ( isSelected ) {
 		this.#isSelected = isSelected;
 		this.items.forEach (
@@ -195,10 +191,6 @@ class DictionaryItem {
 	*/
 
 	get isExpanded ( ) { return this.#isExpanded; }
-
-	/**
-	A boolean indicating when the item is expanded by the user
-	*/
 
 	set isExpanded ( isExpanded ) { this.#isExpanded = isExpanded; }
 

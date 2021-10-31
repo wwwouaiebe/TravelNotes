@@ -38,26 +38,6 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file Travel.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import ObjId from '../data/ObjId.js';
 import ObjType from '../data/ObjType.js';
 import Collection from '../data/Collection.js';
@@ -70,22 +50,23 @@ import { INVALID_OBJ_ID } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class Travel
 @classdesc This class represent a travel
-@extends TravelObject
-@hideconstructor
 
 @-----------------------------------------------------------------------------------------------------------------------------
 */
 
 class Travel extends TravelObject {
 
+	/**
+	The object type for travels
+	@type {ObjType}
+	*/
+
 	static #objType = new ObjType ( 'Travel', [ 'editedRoute', 'routes', 'notes', 'layerName', 'name', 'readOnly', 'objId' ] );
 
 	/**
 	the route currently edited
 	@type {Route}
-	@private
 	*/
 
 	#editedRoute = new Route ( );
@@ -93,7 +74,6 @@ class Travel extends TravelObject {
 	/**
 	a Collection of Routes
 	@type {Collection.<Route>}
-	@private
 	*/
 
 	#routes = new Collection ( Route );
@@ -101,7 +81,6 @@ class Travel extends TravelObject {
 	/**
 	a Collection of Notes
 	@type {Collection.<Note>}
-	@private
 	*/
 
 	#notes = new Collection ( Note );
@@ -109,7 +88,6 @@ class Travel extends TravelObject {
 	/**
 	the background map name
 	@type {string}
-	@private
 	*/
 
 	#layerName = 'OSM - Color';
@@ -117,7 +95,6 @@ class Travel extends TravelObject {
 	/**
 	the Travel name
 	@type {string}
-	@private
 	*/
 
 	#name = '';
@@ -125,21 +102,19 @@ class Travel extends TravelObject {
 	/**
 	a boolean indicates when the Travel is read only
 	@type {boolean}
-	@private
 	*/
 
 	#readOnly = false;
 
 	/**
-	the objId of the route
+	the objId of the travel
 	@type {!number}
-	@private
 	*/
 
 	#objId = INVALID_OBJ_ID;
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {

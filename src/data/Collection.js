@@ -32,39 +32,12 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file Collection.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-import { ZERO, ONE, TWO, NOT_FOUND } from '../main/Constants.js';
-
-const OUR_SWAP_UP = -1;
-const OUR_SWAP_DOWN = 1;
-const OUR_NEXT = 1;
-const OUR_PREVIOUS = -1;
+import { ZERO, ONE, NEXT, PREVIOUS, TWO, NOT_FOUND } from '../main/Constants.js';
 
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class CollectionIterator
 @classdesc iterator for Collection class
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -73,14 +46,12 @@ class CollectionIterator {
 
 	/**
 	The collection used by the iterator
-	@private
 	*/
 
 	#collection = null;
 
 	/**
 	The current index
-	@private
 	*/
 
 	#index = NOT_FOUND;
@@ -155,9 +126,7 @@ class CollectionIterator {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class Collection
 @classdesc Class used to store objects in an iterable
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -166,21 +135,18 @@ class Collection {
 
 	/**
 	The array where objects are stored
-	@private
 	*/
 
 	#array = [];
 
 	/**
 	The class name of objects stored in the collection
-	@private
 	*/
 
 	#objName = '';
 
 	/*
 	The class definition of objects stored in the collection
-	@private
 	*/
 
 	#classCollection = null;
@@ -189,7 +155,6 @@ class Collection {
 	Return the position of an object in the Collection
 	@param {!number} objId The objId of the object to locate
 	@return {number} the position of the object in the Collection
-	@private
 	*/
 
 	#indexOfObjId ( objId ) {
@@ -202,10 +167,9 @@ class Collection {
 	Gives the previous or next object in the collection that fullfil a given condition
 	@param {!number} objId The objId of the object from witch the search start
 	@param {?function} condition A fonction used to compare the objects. If null, ( ) => true is used
-	@param (!number} direction The direction to follow. Must be OUR_NEXT or OUR_PREVIOUS
+	@param (!number} direction The direction to follow. Must be NEXT or PREVIOUS
 	@return (?Object) An object or null if nothing found
-	@throws When direction is not OUR_NEXT or OUR_PREVIOUS or when the starting object is not found
-	@private
+	@throws When direction is not NEXT or PREVIOUS or when the starting object is not found
 	*/
 
 	#nextOrPrevious ( objId, condition, direction ) {
@@ -213,7 +177,7 @@ class Collection {
 		if ( NOT_FOUND === index ) {
 			throw new Error ( 'invalid objId for next or previous function' );
 		}
-		if ( direction !== OUR_NEXT && direction !== OUR_PREVIOUS ) {
+		if ( direction !== NEXT && direction !== PREVIOUS ) {
 			throw new Error ( 'invalid direction' );
 		}
 
@@ -329,7 +293,7 @@ class Collection {
 	@throws When the starting object is not found
 	*/
 
-	next ( objId, condition ) { return this.#nextOrPrevious ( objId, condition, OUR_NEXT ); }
+	next ( objId, condition ) { return this.#nextOrPrevious ( objId, condition, NEXT ); }
 
 	/**
 	@desc gives the previous object in the collection that fullfil a given condition
@@ -339,7 +303,7 @@ class Collection {
 	@throws When the starting object is not found
 	*/
 
-	previous ( objId, condition ) { return this.#nextOrPrevious ( objId, condition, OUR_PREVIOUS ); }
+	previous ( objId, condition ) { return this.#nextOrPrevious ( objId, condition, PREVIOUS ); }
 
 	/**
 	Remove an object from the Collection
@@ -419,7 +383,7 @@ class Collection {
 		) {
 			throw new Error ( 'invalid objId for swap function' );
 		}
-		const swap = swapUp ? OUR_SWAP_UP : OUR_SWAP_DOWN;
+		const swap = swapUp ? PREVIOUS : NEXT;
 		const tmp = this.#array [ index ];
 		this.#array [ index ] = this.#array [ index + swap ];
 		this.#array [ index + swap ] = tmp;

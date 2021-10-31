@@ -40,26 +40,6 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file Route.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theConfig from '../data/Config.js';
 import ObjId from '../data/ObjId.js';
 import ObjType from '../data/ObjType.js';
@@ -74,15 +54,17 @@ import { ROUTE_EDITION_STATUS, DISTANCE, ZERO, INVALID_OBJ_ID, LAT_LNG } from '.
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class Route
 @classdesc This class represent a route
-@extends TravelObject
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class Route extends TravelObject {
+
+	/**
+	The object type for routes
+	@type {ObjType}
+	*/
 
 	static #objType = new ObjType (
 		'Route',
@@ -163,7 +145,7 @@ class Route extends TravelObject {
 	#chain = true;
 
 	/**
-	the distance betwween the starting point of the travel and the starting point
+	the distance between the starting point of the travel and the starting point
 	of the route if the route is chained, otherwise DISTANCE.defaultValue
 	@type {!number}
 	*/
@@ -202,13 +184,12 @@ class Route extends TravelObject {
 	/**
 	the objId of the route
 	@type {!number}
-	@private
 	*/
 
 	#objId = INVALID_OBJ_ID;;
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -304,7 +285,7 @@ class Route extends TravelObject {
 	}
 
 	/**
-	boolean indicates if the route is chained
+	A boolean indicating if the route is chained
 	@type {boolean}
 	*/
 
@@ -413,7 +394,6 @@ class Route extends TravelObject {
 	This method verify that all waypoints have valid coordinates ( reminder: a route have always a startpoint
 	and an endpoint!)
 	@return {boolean} true when all waypoints have valid coordinates
-	@private
 	*/
 
 	haveValidWayPoints ( ) {

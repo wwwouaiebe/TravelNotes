@@ -18,31 +18,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 /*
 Changes:
+	- v3.0.0:
+		- Issue ♯175 : Private and static fields and methods are coming
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
 Doc reviewed ...
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file TravelUpdater.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-// import Route from '../data/Route.js';
 import { theDataVersion } from '../data/Version.js';
 
 import { ZERO, ROUTE_EDITION_STATUS, ELEV, DISTANCE } from '../main/Constants.js';
@@ -50,9 +33,8 @@ import { ZERO, ROUTE_EDITION_STATUS, ELEV, DISTANCE } from '../main/Constants.js
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class TravelUpdater
-@classdesc coming soon...
-@hideconstructor
+@classdesc This class update a Travel contained in a json object and created with a previous version to the
+current version
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -62,9 +44,16 @@ class TravelUpdater {
 	/* eslint-disable camelcase */
 	/* eslint no-fallthrough: ["error", { "commentPattern": "eslint break omitted intentionally" }]*/
 
-	#jsonTravel = null;
+	/**
+	The travel to update
+	@type {Object}
+	*/
 
-	/* v1.0.0 */
+	#jsonTravel;
+
+	/**
+	Update the routes when version is v1.0.0
+	*/
 
 	#updateRoutesV_1_0_0 ( ) {
 		this.#jsonTravel.routes.forEach (
@@ -75,7 +64,9 @@ class TravelUpdater {
 		);
 	}
 
-	/* v1.4.0 */
+	/**
+	Update the routes when version is v1.4.0
+	*/
 
 	#updateRoutesV_1_4_0 ( ) {
 		this.#jsonTravel.routes.forEach (
@@ -84,6 +75,10 @@ class TravelUpdater {
 			}
 		);
 	}
+
+	/**
+	Update the travel when version is v1.4.0
+	*/
 
 	#updateTravelV_1_4_0 ( ) {
 		this.#updateRoutesV_1_4_0 ( );
@@ -118,7 +113,9 @@ class TravelUpdater {
 		/* eslint-enable no-magic-numbers */
 	}
 
-	/* v1.5.0 */
+	/**
+	Update the travel when version is v1.5.0
+	*/
 
 	#updateTravelV_1_5_0 ( ) {
 		if ( this.#jsonTravel.userData.layerId ) {
@@ -150,7 +147,10 @@ class TravelUpdater {
 		}
 	}
 
-	/* v1.6.0 */
+	/**
+	Update the itinerary points when version is v1.6.0
+	@param {Array.<Object>} itineraryPoints A list with itinerary points to update
+	*/
 
 	#updateItineraryPointsV_1_6_0 ( itineraryPoints ) {
 		itineraryPoints.forEach (
@@ -159,6 +159,10 @@ class TravelUpdater {
 			}
 		);
 	}
+
+	/**
+	Update the itinerary when version is v1.6.0
+	*/
 
 	#updateItineraryV_1_6_0 ( ) {
 		this.#jsonTravel.routes.forEach (
@@ -175,7 +179,10 @@ class TravelUpdater {
 		this.#updateItineraryPointsV_1_6_0 ( this.#jsonTravel.editedRoute.itinerary.itineraryPoints );
 	}
 
-	/* v1.11.0 */
+	/**
+	Update the maneuvers when version is v1.11.0
+	@param {Object} route The route containing the maneuvers
+	*/
 
 	#updateManeuversV_1_11_0 ( route ) {
 		route.itinerary.maneuvers.forEach (
@@ -187,6 +194,11 @@ class TravelUpdater {
 		);
 	}
 
+	/**
+	Update the way points when version is v1.11.0
+	@param {Object} route The route containing the way points
+	*/
+
 	#updateWayPointsV_1_11_0 ( route ) {
 		route.wayPoints.forEach (
 			wayPoint => {
@@ -195,6 +207,10 @@ class TravelUpdater {
 			}
 		);
 	}
+
+	/**
+	Update the routes when version is v1.11.0
+	*/
 
 	#updateRoutesV_1_11_0 ( ) {
 		this.#jsonTravel.routes.forEach (
@@ -209,7 +225,10 @@ class TravelUpdater {
 		this.#updateWayPointsV_1_11_0 ( this.#jsonTravel.editedRoute );
 	}
 
-	/* v1.13.0 */
+	/**
+	Update a note style when version is v1.13.0
+	@param {String} somethingText A text containing HTML with style attributes
+	*/
 
 	#UpdateStyleNoteV1_13_0 ( somethingText ) {
 		const returnValue = somethingText
@@ -225,7 +244,12 @@ class TravelUpdater {
 		return returnValue;
 	}
 
-	#updateNoteV1_13_0 ( note ) {
+	/**
+	Update a note when version is v1.13.0
+	@param {Object} note The note to update
+	*/
+
+	#updateNote_V1_13_0 ( note ) {
 		if ( 'string' === typeof ( note.iconHeight ) ) {
 			note.iconHeight = Number.parseInt ( note.iconHeight );
 		}
@@ -239,68 +263,30 @@ class TravelUpdater {
 		note.address = this.#UpdateStyleNoteV1_13_0 ( note.address );
 	}
 
+	/**
+	Update the notes when version is v1.13.0
+	*/
+
 	#updateNotesV_1_13_0 ( ) {
 		this.#jsonTravel.notes.forEach (
 			note => {
-				this.#updateNoteV1_13_0 ( note );
+				this.#updateNote_V1_13_0 ( note );
 			}
 		);
 		this.jsonTravel.routes.forEach (
 			route => {
 				route.notes.forEach (
 					note => {
-						this.#updateNoteV1_13_0 ( note );
+						this.#updateNote_V1_13_0 ( note );
 					}
 				);
 			}
 		);
 	}
 
-	/* v2.3.0 */
-
-	#updateVersion ( jsonObject ) {
-		jsonObject.objType.version = theDataVersion;
-	}
-
-	#updateRouteVersion ( route ) {
-		this.#updateVersion ( route );
-		route.wayPoints.forEach (
-			wayPoint => {
-				this.updateVersion ( wayPoint );
-			}
-		);
-		route.notes.forEach (
-			note => {
-				this.updateVersion ( note );
-			}
-		);
-		this.updateVersion ( route.itinerary );
-		route.itinerary.itineraryPoints.forEach (
-			itineraryPoint => {
-				this.updateVersion ( itineraryPoint );
-			}
-		);
-		route.itinerary.maneuvers.forEach (
-			maneuver => {
-				this.updateVersion ( maneuver );
-			}
-		);
-	}
-
-	#updateVersions ( ) {
-		this.#updateVersion ( this.#jsonTravel );
-		this.jsonTravel.notes.forEach (
-			note => {
-				this.#updateVersion ( note );
-			}
-		);
-		this.jsonTravel.routes.forEach (
-			route => {
-				this.#updateRouteVersion ( route );
-			}
-		);
-		this.#updateRouteVersion ( this.#jsonTravel.editedRoute );
-	}
+	/**
+	Update the travel
+	*/
 
 	#updateTravel ( ) {
 		switch ( this.#jsonTravel.objType.version ) {
@@ -341,11 +327,18 @@ class TravelUpdater {
 		}
 	}
 
-	/* eslint-enable camelcase */
+	/**
+	The constructor
+	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Update the travel
+	@param {Object} jsonTravel The travel to update 
+	*/
 
 	update ( jsonTravel ) {
 		if ( jsonTravel.objType.version === theDataVersion ) {

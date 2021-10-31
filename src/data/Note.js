@@ -32,26 +32,6 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file Note.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import ObjId from '../data/ObjId.js';
 import ObjType from '../data/ObjType.js';
 import { LAT_LNG, DISTANCE, ZERO, ONE, INVALID_OBJ_ID, ICON_DIMENSIONS } from '../main/Constants.js';
@@ -61,15 +41,17 @@ import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class Note
 @classdesc This class represent a note
-@extends TravelObject
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class Note extends TravelObject {
+
+	/**
+	The object type for notes
+	@type {ObjType}
+	*/
 
 	static #objType = new ObjType (
 		'Note',
@@ -95,7 +77,6 @@ class Note extends TravelObject {
 	/**
 	the height of the icon associated to the note
 	@type {!number}
-	@private
 	*/
 
 	#iconHeight = ICON_DIMENSIONS.height;
@@ -103,7 +84,6 @@ class Note extends TravelObject {
 	/**
 	the width of the icon associated to the note
 	@type {!number}
-	@private
 	*/
 
 	#iconWidth = ICON_DIMENSIONS.width;
@@ -111,7 +91,6 @@ class Note extends TravelObject {
 	/**
 	the html needed to display the icon
 	@type {string}
-	@private
 	*/
 
 	#iconContent = '';
@@ -119,7 +98,6 @@ class Note extends TravelObject {
 	/**
 	the html added to the icon popup
 	@type {string}
-	@private
 	*/
 
 	#popupContent = '';
@@ -127,7 +105,6 @@ class Note extends TravelObject {
 	/**
 	the html added to the icon tooltip
 	@type {string}
-	@private
 	*/
 
 	#tooltipContent = '';
@@ -135,7 +112,6 @@ class Note extends TravelObject {
 	/**
 	the phone number dsplayed in the Note
 	@type {string}
-	@private
 	*/
 
 	#phone = '';
@@ -143,7 +119,6 @@ class Note extends TravelObject {
 	/**
 	the url dsplayed in the Note
 	@type {string}
-	@private
 	*/
 
 	#url = '';
@@ -151,7 +126,6 @@ class Note extends TravelObject {
 	/**
 	the address dsplayed in the Note
 	@type {string}
-	@private
 	*/
 
 	#address = '';
@@ -159,7 +133,6 @@ class Note extends TravelObject {
 	/**
 	the latitude of the Note icon
 	@type {number}
-	@private
 	*/
 
 	#iconLat = LAT_LNG.defaultValue;
@@ -167,7 +140,6 @@ class Note extends TravelObject {
 	/**
 	the longitude of the Note icon
 	@type {number}
-	@private
 	*/
 
 	#iconLng = LAT_LNG.defaultValue;
@@ -175,7 +147,6 @@ class Note extends TravelObject {
 	/**
 	the latitude of the Note
 	@type {number}
-	@private
 	*/
 
 	#lat = LAT_LNG.defaultValue;
@@ -183,7 +154,6 @@ class Note extends TravelObject {
 	/**
 	the longitude of the Note
 	@type {number}
-	@private
 	*/
 
 	#lng = LAT_LNG.defaultValue;
@@ -192,7 +162,6 @@ class Note extends TravelObject {
 	the distance between the beginning of the Route and the Note
 	@default DISTANCE.invalid
 	@type {number}
-	@private
 	*/
 
 	#distance = DISTANCE.invalid;
@@ -201,15 +170,19 @@ class Note extends TravelObject {
 	the distance between the beginning of the Travel and the Note
 	@default DISTANCE.defaultValue
 	@type {number}
-	@private
 	*/
 
 	#chainedDistance = DISTANCE.defaultValue;
 
+	/**
+	the objId of the note
+	@type {!number}
+	*/
+	
 	#objId = INVALID_OBJ_ID;;
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {

@@ -25,36 +25,14 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file MapLayersCollection.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theAPIKeysManager from '../core/APIKeysManager.js';
 import MapLayer from '../data/MapLayer.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class MapLayersCollection
-@classdesc This class contains all the mapLayers
-@see {@link theMapLayersCollection} for the one and only one instance of this class
-@hideconstructor
+@classdesc This class contains all the mapLayers<br/>
+See theMapLayersCollection for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -63,34 +41,33 @@ class MapLayersCollection {
 
 	/**
 	A JS map to store the mapLayers, ordered by name
-	@type {Map}
-	@private
+	@type {Map.<MapLayers>}
 	*/
 
-	#mapLayers = new Map ( );
+	#mapLayers;
 
 	/**
 	The mapLayer to use by default
-	#type {MapLayer}
-	@private
+	@type {MapLayer}
 	*/
 
-	#defaultMapLayer = null;
+	#defaultMapLayer;
 
 	/**
 	A guard to block a second upload of the mapLayers
 	@type {Boolean}
-	@private
 	*/
 
-	#mapLayersAdded = false;
+	#mapLayersAdded;
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#mapLayers = new Map ( );
+		this.#mapLayersAdded = false;
 		this.#defaultMapLayer = new MapLayer (
 			{
 				service : 'wmts',
@@ -131,13 +108,14 @@ class MapLayersCollection {
 
 	/**
 	Executes a function on each MapLayer in the collection
+	@param {Function} fct The function to execute
 	*/
 
 	forEach ( fct ) { this.#mapLayers.forEach ( fct ); }
 
 	/**
 	Add a MapLayer list to the list of available MapLayers. This method can only be called once
-	@param {Array.<Object>} layers the layer list to add (json object from TravelNotesLayers.json))
+	@param {Array.<Object>} jsonLayers the layer list to add (json object from TravelNotesLayers.json)
 	*/
 
 	addMapLayers ( jsonLayers ) {
@@ -158,10 +136,20 @@ class MapLayersCollection {
 
 	/**
 	get the defaultMapLayer
+	@type {MapLayer}
 	*/
 
 	get defaultMapLayer ( ) { return this.#defaultMapLayer; }
 }
+
+/**
+@------------------------------------------------------------------------------------------------------------------------------
+
+@desc The one and only one instance of MapLayersCollection class
+@type {MapLayersCollection}
+
+@------------------------------------------------------------------------------------------------------------------------------
+*/
 
 const theMapLayersCollection = new MapLayersCollection ( );
 

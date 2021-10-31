@@ -32,26 +32,6 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file Maneuver.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import ObjId from '../data/ObjId.js';
 import ObjType from '../data/ObjType.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
@@ -61,15 +41,17 @@ import { DISTANCE, INVALID_OBJ_ID } from '../main/Constants.js';
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class Maneuver
 @classdesc This class represent a maneuver
-@extends TravelObject
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class Maneuver extends TravelObject {
+
+	/**
+	The object type for maneuvers
+	@type {ObjType}
+	*/
 
 	static #objType = new ObjType (
 		'Maneuver',
@@ -79,7 +61,6 @@ class Maneuver extends TravelObject {
 	/**
 	The icon displayed with the Maneuver in the roadbook
 	@type {string}
-	@private
 	*/
 
 	#iconName = '';
@@ -87,7 +68,6 @@ class Maneuver extends TravelObject {
 	/**
 	The instruction of the Maneuver
 	@type {string}
-	@private
 	*/
 
 	#instruction = '';
@@ -95,7 +75,6 @@ class Maneuver extends TravelObject {
 	/**
 	The objId of the ItineraryPoint at the same position than the Maneuver
 	@type {!number}
-	@private
 	*/
 
 	#itineraryPointObjId = INVALID_OBJ_ID;
@@ -103,7 +82,6 @@ class Maneuver extends TravelObject {
 	/**
 	The distance between the Maneuver and the next Maneuver
 	@type {number}
-	@private
 	*/
 
 	#distance = DISTANCE.defaultValue;
@@ -111,7 +89,6 @@ class Maneuver extends TravelObject {
 	/**
 	The time between the Maneuver and the next Maneuver
 	@type {number}
-	@private
 	*/
 
 	#duration = DISTANCE.defaultValue;
@@ -119,13 +96,12 @@ class Maneuver extends TravelObject {
 	/**
 	the objId of the Maneuver.
 	@type {!number}
-	@private
 	*/
 
 	#objId = INVALID_OBJ_ID;;
 
-	/*
-	constructor
+	/**
+	the constructor
 	*/
 
 	constructor ( ) {

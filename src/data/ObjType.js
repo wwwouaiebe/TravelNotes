@@ -30,33 +30,12 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ObjType.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import { NOT_FOUND } from '../main/Constants.js';
 import { theDataVersion } from '../data/Version.js';
 
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class ObjType
 @classdesc This class represent a ObjType
 
 @--------------------------------------------------------------------------------------------------------------------------
@@ -66,27 +45,29 @@ class ObjType {
 
 	/**
 	The name of the object
-	@private
+	@type {String}
 	*/
 
 	#objTypeName = '';
 
 	/**
 	An array with all the valid objects names for the ObjType objects
-	@private
+	@type {Array.<String>}
 	*/
 
 	#validObjTypeNames = [ 'Itinerary', 'ItineraryPoint', 'Maneuver', 'Note', 'Route', 'Travel', 'WayPoint' ];
 
 	/**
 	An array with all the valid properties for the ObjType
-	@private
+	@type {Array.<String>}
 	*/
 
 	#properties = [];
 
-	/*
+	/**
 	constructor
+	@param {String} objTypeName The name of the ObjType
+	@param {Array.<String>} properties The properties names of the ObjType
 	*/
 
 	constructor ( objTypeName, properties ) {
@@ -115,6 +96,7 @@ class ObjType {
 
 	/**
 	An array with all the valid properties for the ObjType
+	@type {Array.<String>}
 	*/
 
 	get properties ( ) { return this.#properties; }
@@ -133,8 +115,9 @@ class ObjType {
 	}
 
 	/**
-	Verify that the ObjType is valid
-	@throws when the ObjType is invalid
+	Verify that the given object is an ObjType and is valid
+	@param {Object} something An object to validate
+	@throws when the object is an invalid objType
 	*/
 
 	validate ( something ) {

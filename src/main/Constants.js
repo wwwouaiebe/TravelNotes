@@ -310,11 +310,15 @@ export const INVALID_OBJ_ID = -1;
 
 export const NOT_FOUND = -1;
 
+export const PREVIOUS = -1;
+
 export const ZERO = 0;
 
 export const LAT = 0;
 
 export const ONE = 1;
+
+export const NEXT = 1;
 
 export const LNG = 1;
 

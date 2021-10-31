@@ -32,37 +32,6 @@ Tests ...
 -------------------------------------------------------------------------------------------------------------------------------
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file TravelNotesData.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@typedef {Object} Routing
-@desc An object to store the current provider and transit mode
-@property {string} provider The current provider name as defined by the plugins
-@property {string} transitMode The current transitMode. Must be car, bike, etc... as defined by the plugins
-@public
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import Travel from '../data/Travel.js';
 import theUtilities from '../UILib/Utilities.js';
 import { INVALID_OBJ_ID } from '../main/Constants.js';
@@ -70,9 +39,7 @@ import { INVALID_OBJ_ID } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class Routing
 @classdesc helper class to encapsulate the routing
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -82,7 +49,6 @@ class Routing {
 	/**
 	The routing provider
 	@type {string}
-	@private
 	*/
 
 	#provider = '';
@@ -90,13 +56,12 @@ class Routing {
 	/**
 	The routing transit mode
 	@type {string}
-	@private
 	*/
 
 	#transitMode = ''
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -129,10 +94,8 @@ class Routing {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class TravelNotesData
 @classdesc Class used to store the data needed by TravelNotes
-@see {@link theTravelNotesData} for the one and only one instance of this class
-@hideconstructor
+See theTravelNotesData for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -142,74 +105,74 @@ class TravelNotesData {
 	/**
 	A JS map with the provider objects. Providers objects are created and added by the plugins
 	@type {Map.provider}
-	@private
 	*/
 
-	#providers = new Map ( );
+	#providers;
 
 	/**
 	A JS map with all the Leaflet objects ordered by objId
 	@type {Map.Object}
-	@private
 	*/
 
-	#mapObjects = new Map ( );
+	#mapObjects;
 
 	/**
 	An Object with the provider and transit mode used
 	@type {Routing}
-	@private
 	*/
 
-	#routing = new Routing ( );
+	#routing;
 
 	/**
 	The UUID currently used
 	@type {string}
-	@private
 	*/
 
-	#UUID = theUtilities.UUID;
+	#UUID;
 
 	/**
 	The Leaflet map object
 	@type {object}
-	@private
 	*/
 
-	#map = null;
+	#map;
 
 	/**
 	The one and only one object Travel
 	@type {Object}
 	@see Travel
-	@private
 	*/
 
-	#travel = new Travel ( );
+	#travel;
 
 	/**
 	The objId of the currently edited route or INVALID_OBJ_ID if none
 	@type {!number}
-	@private
 	*/
 
-	#editedRouteObjId = INVALID_OBJ_ID;
+	#editedRouteObjId;
 
 	/**
 	The POI data found in OpenStreetMap
 	@type {Object[]}
-	@private
 	*/
 
-	#searchData = [];
+	#searchData;
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#providers = new Map ( );
+		this.#mapObjects = new Map ( );
+		this.#routing = new Routing ( );
+		this.#UUID = theUtilities.UUID;
+		this.#map = null;
+		this.#travel = new Travel ( );
+		this.#editedRouteObjId = INVALID_OBJ_ID;
+		this.#searchData = [];
 	}
 
 	/**

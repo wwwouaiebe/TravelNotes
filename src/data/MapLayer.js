@@ -28,26 +28,6 @@ Tests ...
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
-
-@file MapLayer.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
 @typedef {Object} LayerToolbarButtonData
 @desc A layers toolbar button properties
 @property {string} text The text to display in the toolbar button
@@ -64,9 +44,7 @@ import { ZERO, ONE } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class MapLayer
 @classdesc This class represent a background map
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -76,7 +54,6 @@ class MapLayer	{
 	/**
 	The name of the map
 	@type {string}
-	@private
 	*/
 
 	#name = null;
@@ -84,7 +61,6 @@ class MapLayer	{
 	/**
 	The type of service: wms or wmts
 	@type {string}
-	@private
 	*/
 
 	#service = null;
@@ -92,7 +68,6 @@ class MapLayer	{
 	/**
 	The url to use to get the map
 	@type {string}
-	@private
 	*/
 
 	#url = null;
@@ -101,7 +76,6 @@ class MapLayer	{
 	The wmsOptions for this mapLayer
 	See the Leaflet TileLayer.WMS documentation
 	@type {object}
-	@private
 	*/
 
 	#wmsOptions = null;
@@ -109,7 +83,6 @@ class MapLayer	{
 	/**
 	The lower left and upper right corner of the mapLayer
 	@type {Array.<number>}
-	@private
 	*/
 
 	#bounds = null;
@@ -117,7 +90,6 @@ class MapLayer	{
 	/**
 	The smallest possible zoom for this mapLayer
 	@type {number}
-	@private
 	*/
 
 	#minZoom = null;
@@ -125,7 +97,6 @@ class MapLayer	{
 	/**
 	The largest possible zoom for this mapLayer
 	@type {number}
-	@private
 	*/
 
 	#maxZoom = null;
@@ -133,7 +104,6 @@ class MapLayer	{
 	/**
 	An object with text, color and backgroundColor properties used to create the button in the toolbar
 	@type {LayerToolbarButtonData}
-	@private
 	*/
 
 	#toolbar = null;
@@ -141,7 +111,6 @@ class MapLayer	{
 	/**
 	The name of the service provider.
 	@type {string}
-	@private
 	*/
 
 	#providerName = null;
@@ -149,7 +118,6 @@ class MapLayer	{
 	/**
 	When true, an access key is required to get the map.
 	@type {boolean}
-	@private
 	*/
 
 	#providerKeyNeeded = false;
@@ -157,21 +125,19 @@ class MapLayer	{
 	/**
 	The map attributions.
 	@type {string}
-	@private
 	*/
 
 	#attribution = null;
 
 	/**
 	A temporary variable to store the layer data
-	@private
+	@type {Object}
 	*/
 
 	#jsonLayer = null;
 
 	/**
 	Set the name of the map layer
-	@private
 	*/
 
 	#setLayerName ( ) {
@@ -185,7 +151,6 @@ class MapLayer	{
 
 	/**
 	Set the type of service: wms or wmts
-	@private
 	*/
 
 	#setService ( ) {
@@ -199,7 +164,6 @@ class MapLayer	{
 
 	/**
 	Set the url to use to get the map
-	@private
 	*/
 
 	#setUrl ( ) {
@@ -213,7 +177,6 @@ class MapLayer	{
 
 	/**
 	Set the wmsOptions for this mapLayer
-	@private
 	*/
 
 	#setWmsOptions ( ) {
@@ -237,7 +200,6 @@ class MapLayer	{
 
 	/**
 	Set the lower left and upper right corner of the mapLayer
-	@private
 	*/
 
 	#setBounds ( ) {
@@ -263,7 +225,6 @@ class MapLayer	{
 
 	/**
 	Set the min and max zoom for the map
-	@private
 	*/
 
 	#setMinMaxZoom ( ) {
@@ -287,7 +248,6 @@ class MapLayer	{
 
 	/**
 	Set the toolbar data
-	@private
 	*/
 
 	#setToolbarData ( ) {
@@ -312,7 +272,6 @@ class MapLayer	{
 
 	/**
 	Set the name of the service provider
-	@private
 	*/
 
 	#setProviderName ( ) {
@@ -326,7 +285,6 @@ class MapLayer	{
 
 	/**
 	Set the providerKeyNeeded value
-	@private
 	*/
 
 	#setProviderKeyNeeded ( ) {
@@ -340,7 +298,6 @@ class MapLayer	{
 
 	/**
 	Set the map attributions.
-	@private
 	*/
 
 	#setAttributions ( ) {
@@ -355,8 +312,9 @@ class MapLayer	{
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {Object} jsonLayer A json object from TravelNotesLayers.json
 	*/
 
 	constructor ( jsonLayer ) {

@@ -43,36 +43,14 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ConfigOverloader.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theConfig from '../data/Config.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class
-@classdesc Class used to overload theConfig with the contains of theTravelNotesConfig.json file and finally freeze the config
-@see {@link theConfig} for the one and only one instance of this class
-@hideconstructor
+@classdesc Class used to overload theConfig with the contains of theTravelNotesConfig.json file and finally freeze the config<br/>
+See theConfig for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -96,7 +74,6 @@ class ConfigOverloader {
 	- if a property is in the user config but missing in the default config, the property is also added (and reminder
 	  that the user can have more dashChoices than the default config )
 	- if a property is changed in the user config, the property is adapted
-	@private
 	*/
 
 	#copyObjectTo ( source, target ) {
@@ -154,7 +131,6 @@ class ConfigOverloader {
 	/**
 	Freeze an object recursively
 	@param {Object} object The object to freeze
-	@private
 	*/
 
 	#freeze ( object ) {

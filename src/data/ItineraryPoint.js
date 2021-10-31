@@ -34,26 +34,6 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ItineraryPoint.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import ObjId from '../data/ObjId.js';
 import ObjType from '../data/ObjType.js';
 import TravelObject from '../data/TravelObject.js';
@@ -62,22 +42,23 @@ import { ELEV, LAT_LNG, DISTANCE, ZERO, ONE, INVALID_OBJ_ID } from '../main/Cons
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class ItineraryPoint
 @classdesc This class represent an itinerary point
-@extends TravelObject
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class ItineraryPoint extends TravelObject {
 
+	/**
+	The object type for itinerary points
+	@type {ObjType}
+	*/
+
 	static #objType = new ObjType ( 'ItineraryPoint', [ 'lat', 'lng', 'distance', 'elev', 'objId' ] );
 
 	/**
 	the latitude of the ItineraryPoint
 	@type {number}
-	@private
 	*/
 
 	#lat = LAT_LNG.defaultValue;
@@ -85,7 +66,6 @@ class ItineraryPoint extends TravelObject {
 	/**
 	the longitude of the ItineraryPoint
 	@type {number}
-	@private
 	*/
 
 	#lng = LAT_LNG.defaultValue;
@@ -93,7 +73,6 @@ class ItineraryPoint extends TravelObject {
 	/**
 	the distance between the beginning of the itinerary and the ItineraryPoint
 	@type {number}
-	@private
 	*/
 
 	#distance = DISTANCE.defaultValue;
@@ -101,7 +80,6 @@ class ItineraryPoint extends TravelObject {
 	/**
 	the elevation (if any)  of the ItineraryPoint
 	@type {number}
-	@private
 	*/
 
 	#elev = ELEV.defaultValue;
@@ -109,13 +87,12 @@ class ItineraryPoint extends TravelObject {
 	/**
 	the objId of the ItineraryPoint.
 	@type {!number}
-	@private
 	*/
 
 	#objId = INVALID_OBJ_ID;
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
