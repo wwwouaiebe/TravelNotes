@@ -32,25 +32,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OsmSearchEngine.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreOsmSearch
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theConfig from '../data/Config.js';
@@ -60,29 +41,51 @@ import theGeometry from '../coreLib/Geometry.js';
 
 import { ZERO, ONE, LAT_LNG } from '../main/Constants.js';
 
-const SEARCH_DIMENSION = 5000;
-
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class OsmSearchEngine
-@classdesc This class search the osm data
-@see {@link theOsmSearchEngine} for the one and only one instance of this class
-@hideconstructor
+@classdesc This class search the osm data<br/>
+See theOsmSearchEngine for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class OsmSearchEngine	{
 
-	#searchStarted = false;
-	#filterItems = [];
-	#previousSearchBounds = null;
+	/**
+	A flag to avoid to start a new search when a search is already ongoing
+	@type {boolean}
+	*/
+
+	#searchStarted;
+
+	/**
+	A list of DictionaryItem objects used to filter the results received from Osm
+	@type {Array.<DictionaryItem>}
+	*/
+
+	#filterItems;
+
+	/**
+	A leaflet LatLngBounds object with the previous search limits
+	@type {Object}
+	*/
+
+	#previousSearchBounds;
+
+	/**
+	A constant with the half dimension in meter of the search area
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #SEARCH_DIMENSION ( ) { return 5000; }
 
 	/**
 	Compare the tags of the osmElement with the tags of the filterTags
+	@param {Object} osmElement the osmElement to compare
+	@param <Array.<Objects>} filterTags The filter tags to use Seee DictionaryItem.filterTagsArray
 	@return {boolean} true when all the tags present in the filterTags are present in the osmElement with the same value
-	@private
 	*/
 
 	#filterOsmElement ( osmElement, filterTags ) {
@@ -106,7 +109,6 @@ class OsmSearchEngine	{
 	if the osmElement pass the filter. Add also a description, a latitude and longitude to the osmElement
 	@param {Object} osmElement the object to analyse
 	@param {Map} pointsOfInterest A map with all the retained osmElements
-	@private
 	*/
 
 	#addPointOfInterest ( osmElement, pointsOfInterest ) {
@@ -127,7 +129,6 @@ class OsmSearchEngine	{
 	/**
 	Build an array of queries for calls to OSM.
 	@return {Array.<string>} An array of string to use with OverpassAPIDataLoader
-	@private
 	*/
 
 	#getSearchQueries ( ) {
@@ -227,7 +228,6 @@ class OsmSearchEngine	{
 	and add the first tag to the root tags map.
 	@param {DictionaryItem} item The item from witch the search start. Recursive function. The first
 	call start with this.#dictionary
-	@private
 	*/
 
 	#searchFilterItems ( item ) {
@@ -239,13 +239,15 @@ class OsmSearchEngine	{
 
 	/**
 	Compute the search bounds
-	@private
 	*/
 
 	#computeSearchBounds ( ) {
 		const mapCenter = theTravelNotesData.map.getCenter ( );
 		const searchBounds = theTravelNotesData.map.getBounds ( );
-		const maxBounds = theGeometry.getSquareBoundingBox ( [ mapCenter.lat, mapCenter.lng ], SEARCH_DIMENSION );
+		const maxBounds = theGeometry.getSquareBoundingBox (
+			[ mapCenter.lat, mapCenter.lng ],
+			OsmSearchEngine.#SEARCH_DIMENSION
+		);
 		searchBounds.getSouthWest ( ).lat =
 			Math.max ( searchBounds.getSouthWest ( ).lat, maxBounds.getSouthWest ( ).lat );
 		searchBounds.getSouthWest ( ).lng =
@@ -258,12 +260,15 @@ class OsmSearchEngine	{
 		return searchBounds;
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#searchStarted = false;
+		this.#filterItems = [];
+		this.#previousSearchBounds = null;
 	}
 
 	/**
@@ -302,13 +307,15 @@ class OsmSearchEngine	{
 	}
 
 	/**
-	The current search bounds
+	A leaflet LatLngBounds object with the current search limits
+	@type {Object}
 	*/
 
 	get searchBounds ( ) { return this.#computeSearchBounds ( ); }
 
 	/**
-	The previous search bounds
+	A leaflet LatLngBounds object with the previous search limits
+	@type {Object}
 	*/
 
 	get previousSearchBounds ( ) { return this.#previousSearchBounds; }
@@ -320,8 +327,6 @@ class OsmSearchEngine	{
 
 @desc The one and only one instance of OsmSearchEngine class
 @type {OsmSearchEngine}
-@constant
-@global
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

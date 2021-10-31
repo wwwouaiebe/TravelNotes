@@ -26,26 +26,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file DictionaryItem.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreOsmSearch
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import ObjId from '../data/ObjId.js';
 import { NOT_FOUND, INVALID_OBJ_ID } from '../main/Constants.js';
@@ -53,9 +33,7 @@ import { NOT_FOUND, INVALID_OBJ_ID } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class DictionaryItem
 @classdesc This class is used to represent a branch of the dictionary tree.
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -65,7 +43,6 @@ class DictionaryItem {
 	/**
 	The name displayed to the user
 	@type {string}
-	@private
 	*/
 
 	#name = '';
@@ -73,7 +50,6 @@ class DictionaryItem {
 	/**
 	A boolean indicating when the item is the root item.
 	@type {boolean}
-	@private
 	*/
 
 	#isRoot = false;
@@ -81,7 +57,6 @@ class DictionaryItem {
 	/**
 	An array with subitems if any
 	@type {Array.<DictionaryItem>}
-	@private
 	*/
 
 	#items = [];
@@ -89,7 +64,6 @@ class DictionaryItem {
 	/**
 	The elements type used for the item
 	@type {Array<string>}
-	@private
 	*/
 
 	#elementTypes = [ 'node', 'way', 'relation' ];
@@ -99,7 +73,6 @@ class DictionaryItem {
 	Each sub array is a line in the TravelNotesSearchDictionary
 	Each object in a sub array is a cell in the TravelNotesSearchDictionary
 	@type {Array.<Array.<Objects>>}
-	@private
 	*/
 
 	#filterTagsArray = [];
@@ -107,7 +80,6 @@ class DictionaryItem {
 	/**
 	A boolean indicating when the item is selected by the user
 	@type {boolean}
-	@private
 	*/
 
 	#isSelected = false;
@@ -115,7 +87,6 @@ class DictionaryItem {
 	/**
 	A boolean indicating when the item is expanded by the user
 	@type {boolean}
-	@private
 	*/
 
 	#isExpanded = false;
@@ -123,14 +94,13 @@ class DictionaryItem {
 	/**
 	A unique identifier given to the DictionaryItem
 	@type {!number}
-	@private
 	*/
 
 	#objId = INVALID_OBJ_ID;
 
-	/*
-	constructor
-	@param {string } itemName The name of the item
+	/**
+	The constructor
+	@param {string} itemName The name of the item
 	@param {boolean} isRoot True when the item is the root item ( = the dictionary )
 	*/
 
@@ -206,6 +176,10 @@ class DictionaryItem {
 
 	get isSelected ( ) { return this.#isSelected; }
 
+	/**
+	A boolean indicating when the item is selected by the user
+	*/
+
 	set isSelected ( isSelected ) {
 		this.#isSelected = isSelected;
 		this.items.forEach (
@@ -221,6 +195,10 @@ class DictionaryItem {
 	*/
 
 	get isExpanded ( ) { return this.#isExpanded; }
+
+	/**
+	A boolean indicating when the item is expanded by the user
+	*/
 
 	set isExpanded ( isExpanded ) { this.#isExpanded = isExpanded; }
 

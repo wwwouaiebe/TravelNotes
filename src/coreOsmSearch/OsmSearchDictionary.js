@@ -26,34 +26,15 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OsmSearchDictionary.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreOsmSearch
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import DictionaryItem from '../coreOsmSearch/DictionaryItem.js';
 import { NOT_FOUND, ZERO, ONE } from '../main/Constants.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class OsmSearchDictionary
-@classdesc This class contains the OsmSearch dictionary and methods to perform changes in the dictionary
-@see {@link DictionaryItem} for dictionary items
-@see {@link theOsmSearchDictionary} for the one and only one instance of this class
+@classdesc This class contains the OsmSearch dictionary and methods to perform changes in the dictionary<br/>
+See DictionaryItem for dictionary items
+See theOsmSearchDictionary for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -65,21 +46,21 @@ class OsmSearchDictionary {
 	@type {DictionaryItem}
 	*/
 
-	#dictionary = null;
+	#dictionary;
 
 	/**
 	A map with the all the DictionaryItem created, selectable by their objId
 	@type {Map}
 	*/
 
-	#itemsMap = null;
+	#itemsMap
 
 	/**
 	the currentItem treated by the #parseLine method
 	@type {DictionaryItem}
 	*/
 
-	#currentItem = null;
+	#currentItem;
 
 	/**
 	Array used to store a reference to the items property  of the DictionaryItem Objects
@@ -87,10 +68,11 @@ class OsmSearchDictionary {
 	@type {Array.<Array.<DictionaryItem>>}
 	*/
 
-	#itemsArray = [ ];
+	#itemsArray;
 
 	/**
 	Split a line from the csv file into cells and add a DictionaryItem or a filterTag to the dictionary
+	@param {String} line A line of the csv file that will be parsed
 	*/
 
 	#parseLine ( line ) {
@@ -181,13 +163,13 @@ class OsmSearchDictionary {
 		item.isExpanded = false;
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
-		this.#itemsMap = new Map ( );
 		this.#dictionary = new DictionaryItem ( '', true );
+		this.#itemsMap = new Map ( );
 		this.#itemsMap.set ( this.#dictionary.objId, this.#dictionary );
 		this.#itemsArray = [ this.#dictionary.items ];
 		Object.freeze ( this );
@@ -204,6 +186,7 @@ class OsmSearchDictionary {
 	/**
 	Parse the content of the TravelNotesSearchDictionaryXX.csv and build a tree of DictionaryItem
 	with this content
+	@param {String} dictionaryTextContent The content of the TravelNotesSearchDictionaryXX.csv file
 	*/
 
 	parseDictionary ( dictionaryTextContent ) {
@@ -271,8 +254,6 @@ class OsmSearchDictionary {
 
 @desc The one and only one instance of OsmSearchDictionary class
 @type {OsmSearchDictionary}
-@constant
-@global
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
