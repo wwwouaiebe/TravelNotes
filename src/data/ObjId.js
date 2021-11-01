@@ -45,7 +45,7 @@ class ObjId {
 	The last sed objId
 	@type {Number}
 	*/
-	
+
 	static #objId = ZERO;
 
 	/**

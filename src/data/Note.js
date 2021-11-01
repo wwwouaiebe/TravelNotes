@@ -178,7 +178,7 @@ class Note extends TravelObject {
 	the objId of the note
 	@type {!number}
 	*/
-	
+
 	#objId = INVALID_OBJ_ID;;
 
 	/**

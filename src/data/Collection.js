@@ -46,18 +46,20 @@ class CollectionIterator {
 
 	/**
 	The collection used by the iterator
+	@type {Collection}
 	*/
 
 	#collection = null;
 
 	/**
 	The current index
+	@type {Number}
 	*/
 
 	#index = NOT_FOUND;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {Collection} collection The collection for witch the iterator is used
 	*/
 
@@ -135,21 +137,24 @@ class Collection {
 
 	/**
 	The array where objects are stored
+	@type {Array.<Object>}
 	*/
 
-	#array = [];
+	#array;
 
 	/**
 	The class name of objects stored in the collection
+	@type {String}
 	*/
 
-	#objName = '';
+	#objName;
 
-	/*
+	/**
 	The class definition of objects stored in the collection
+	@type {class}
 	*/
 
-	#classCollection = null;
+	#classCollection;
 
 	/**
 	Return the position of an object in the Collection
@@ -167,8 +172,8 @@ class Collection {
 	Gives the previous or next object in the collection that fullfil a given condition
 	@param {!number} objId The objId of the object from witch the search start
 	@param {?function} condition A fonction used to compare the objects. If null, ( ) => true is used
-	@param (!number} direction The direction to follow. Must be NEXT or PREVIOUS
-	@return (?Object) An object or null if nothing found
+	@param {!number} direction The direction to follow. Must be NEXT or PREVIOUS
+	@return {?Object} An object or null if nothing found
 	@throws When direction is not NEXT or PREVIOUS or when the starting object is not found
 	*/
 
@@ -197,13 +202,14 @@ class Collection {
 		return this.#array [ index ];
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {class} classCollection The class of objects that have to be stored in the collection
 	*/
 
 	constructor ( classCollection ) {
 		Object.freeze ( this );
+		this.#array = [];
 		this.#classCollection = classCollection;
 		const tmpObject = new classCollection ( );
 		if ( ( ! tmpObject.objType ) || ( ! tmpObject.objType.name ) ) {
@@ -228,7 +234,7 @@ class Collection {
 	/**
 	Search an object in the collection with the index
 	@param {!number} index The position of the desired object in the array
-	@return the object at the position or null if not found
+	@return {?Object} The object at the position or null if not found
 	*/
 
 	at ( index ) {
@@ -238,7 +244,7 @@ class Collection {
 	/**
 	Executes a function on each object of the Collection and returns the final result
 	@param {function} funct The function to execute
-	@return The final result
+	@return {any} The final result
 	*/
 
 	forEach ( funct ) {
@@ -253,7 +259,7 @@ class Collection {
 	/**
 	Search an object in the Collection
 	@param {!number} objId The objId of the object to search
-	@return the object with the given objId or null when the object is not found
+	@return {Object} the object with the given objId or null when the object is not found
 	*/
 
 	getAt ( objId ) {
@@ -289,7 +295,7 @@ class Collection {
 	@desc gives the next object in the collection that fullfil a given condition
 	@param {!number} objId The objId of the object from witch the search start
 	@param {?function} condition A fonction used to compare the objects. If null, ( ) => true is used
-	@return (?Object) An object or null if nothing found
+	@return {?Object} An object or null if nothing found
 	@throws When the starting object is not found
 	*/
 
@@ -299,7 +305,7 @@ class Collection {
 	@desc gives the previous object in the collection that fullfil a given condition
 	@param {!number} objId The objId of the object from witch the search start
 	@param {?function} condition A fonction used to compare the objects. If null, ( ) => true is used
-	@return (?Object) An object or null if nothing found
+	@return {?Object} An object or null if nothing found
 	@throws When the starting object is not found
 	*/
 

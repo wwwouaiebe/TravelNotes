@@ -26,18 +26,6 @@ Doc reviewed 20210913
 Tests ...
  */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@typedef {Object} MenuItem
-@desc An object with data used to display the menu
-@property {string} itemText The text to display in the menu
-@property {boolean} isActive When true the menu item is selectable
-@public
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theTranslator from '../UILib/Translator.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';

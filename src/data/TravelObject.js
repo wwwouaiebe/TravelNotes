@@ -37,7 +37,7 @@ import TravelUpdater from '../data/TravelUpdater.js';
 */
 
 class TravelObject {
-	
+
 	/**
 	The constructor
 	*/

@@ -337,7 +337,7 @@ class TravelUpdater {
 
 	/**
 	Update the travel
-	@param {Object} jsonTravel The travel to update 
+	@param {Object} jsonTravel The travel to update
 	*/
 
 	update ( jsonTravel ) {

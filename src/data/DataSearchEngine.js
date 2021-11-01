@@ -53,6 +53,104 @@ import { ZERO, INVALID_OBJ_ID, LAT_LNG } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
+@classdesc A container with data found when searching the nearest route from a point
+
+@------------------------------------------------------------------------------------------------------------------------------
+*/
+
+class NearestRouteData {
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.seal ( this );
+	}
+
+	/**
+	The distance between the given point and the nearest point on the route
+	@type {Number}
+	*/
+
+	distance = Number.MAX_VALUE;
+
+	/**
+	The route on witch the point was found
+	@type {Route}
+	*/
+
+	route = null;
+
+	/**
+	The distance between the beginning of the route and the nearest point
+	@type {Number}
+	*/
+
+	distanceOnRoute = ZERO;
+
+	/**
+	The lat and lng of the nearest point on the route
+	@type {Array.<Number>}
+	*/
+
+	latLngOnRoute = [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ];
+}
+
+/**
+@------------------------------------------------------------------------------------------------------------------------------
+
+@classdesc A container with a note and the route to witch the note is linked
+
+@------------------------------------------------------------------------------------------------------------------------------
+*/
+
+class NoteAndRoute {
+
+	/**
+	The Note
+	@type {?Note}
+	*/
+
+	#note;
+
+	/**
+	The route
+	@type {?Route}
+	*/
+
+	#route;
+
+	/**
+	The constructor
+	@param {Note} note The note to store
+	@param {Route} route The route to store
+	*/
+
+	constructor ( note, route ) {
+		Object.freeze ( this );
+		this.#note = note;
+		this.#route = route;
+	}
+
+	/**
+	The Note
+	@type {?Note}
+	*/
+
+	get note ( ) { return this.#note; }
+
+	/**
+	The route
+	@type {?Route}
+	*/
+
+	get route ( ) { return this.#route; }
+}
+
+/**
+@------------------------------------------------------------------------------------------------------------------------------
+
 @classdesc Class with helper methods to search data<br/>
 See theDataSearchEngine for the one and only one instance of this class
 
@@ -63,6 +161,9 @@ class DataSearchEngine {
 
 	/**
 	Helper method for the getNearestRouteData method
+	@param {Route} route The route that must be treated
+	@param {Array.<Number>} latLng The latitude and longitude of the nearest point on route
+	@param {NearestRouteData} nearestRouteData the NearestRouteData object used
 	*/
 
 	#setNearestRouteData ( route, latLng, nearestRouteData ) {
@@ -83,8 +184,8 @@ class DataSearchEngine {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -94,16 +195,11 @@ class DataSearchEngine {
 	/**
 	This method search route data for the nearest route of a given point
 	@param {Array.<number>} latLng The latitude and longitude of the point
-	@return {RouteData} A routeData object
+	@return {NearestRouteData} A NearestRouteData object
 	*/
 
 	getNearestRouteData ( latLng ) {
-		const nearestRouteData = {
-			distance : Number.MAX_VALUE,
-			route : null,
-			distanceOnRoute : ZERO,
-			latLngOnRoute : [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ]
-		};
+		const nearestRouteData = new NearestRouteData ( );
 
 		theTravelNotesData.travel.routes.forEach ( route => this.#setNearestRouteData ( route, latLng, nearestRouteData ) );
 		if ( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId ) {
@@ -115,8 +211,8 @@ class DataSearchEngine {
 
 	/**
 	Search a route with the route objId
-	@param {!number} objId the objId of the route to search
-	@return (?Route) the searched route or null if not found
+	@param {Number} routeObjId the objId of the route to search
+	@return {?Route} the searched route or null if not found
 	*/
 
 	getRoute ( routeObjId ) {
@@ -132,8 +228,8 @@ class DataSearchEngine {
 
 	/**
 	Search a Note and a the Route to witch the Note is attached with the Note objId
-	@param {!number} objId the objId of the note to search
-	@return (NoteAndRoute) a NoteAndRoute object with the route and note
+	@param {!number} noteObjId the objId of the note to search
+	@return {NoteAndRoute} a NoteAndRoute object with the route and note
 	*/
 
 	getNoteAndRoute ( noteObjId ) {
@@ -155,13 +251,13 @@ class DataSearchEngine {
 				}
 			}
 		}
-		return Object.freeze ( { note : note, route : route } );
+		return new NoteAndRoute ( note, route );
 	}
 
 	/**
 	Search a WayPoint with the WayPoint objId
 	@param {!number} wayPointObjId the objId of the WayPoint to search
-	@return (WayPoint) a WayPoint
+	@return {WayPoint} a WayPoint
 	*/
 
 	getWayPoint ( wayPointObjId ) {

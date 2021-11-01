@@ -49,7 +49,8 @@ import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@classdesc Class used to overload theConfig with the contains of theTravelNotesConfig.json file and finally freeze the config<br/>
+@classdesc Class used to overload theConfig with the contains of theTravelNotesConfig.json file and
+finally freeze the config<br/>
 See theConfig for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
@@ -142,8 +143,8 @@ class ConfigOverloader {
 		Object.freeze ( object );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -152,6 +153,8 @@ class ConfigOverloader {
 
 	/**
 	Overload the default config with another config. The config can be overloaded only once!
+	@param {Object} source The object from witch theConfig will be overloaded
+	( = the contains of the TravelNotesConfig.json file )
 	*/
 
 	overload ( source ) {
