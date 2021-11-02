@@ -26,35 +26,14 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteDialogPreviewControl.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogNotes
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theNoteHTMLViewsFactory from '../viewsFactories/NoteHTMLViewsFactory.js';
+import NoteAndRoute from '../data/NoteAndRoute.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class NoteDialogPreviewControl
 @classdesc This class is the notePreview control of the NotDialog
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -62,16 +41,21 @@ import theNoteHTMLViewsFactory from '../viewsFactories/NoteHTMLViewsFactory.js';
 class NoteDialogPreviewControl {
 
 	/**
-	HTMLElements
+	The container for the preview note
 	@type {htmlElement}
-	@private
 	*/
 
-	#previewNote = null;
-	#previewDiv = null;
+	#previewDiv;
 
-	/*
-	constructor
+	/**
+	A reference to the note displayed in the control
+	@type {Note}
+	*/
+
+	#previewNote;
+
+	/**
+	The constructor
 	@param {Note} previewNote A reference to the note displayed in the control
 	*/
 
@@ -91,7 +75,7 @@ class NoteDialogPreviewControl {
 		this.#previewDiv.appendChild (
 			theNoteHTMLViewsFactory.getNoteTextAndIconHTML (
 				'TravelNotes-NoteDialog-',
-				{ note : this.#previewNote, route : null }
+				new NoteAndRoute ( this.#previewNote, null )
 			)
 		);
 	}
@@ -113,7 +97,6 @@ class NoteDialogPreviewControl {
 	/**
 	An array with the HTML elements of the control
 	@type {Array.<HTMLElement>}
-	@readonly
 	*/
 
 	get HTMLElements ( ) { return [ this.#previewDiv ]; }

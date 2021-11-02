@@ -36,26 +36,6 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@file NoteDialogToolbar.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogNotes
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
 @typedef {Object} NoteDialogCfgFileContent
 @desc An object with definitions for the creation of select options and buttons for the NoteDialogToolbar
 @property {Array.<NoteDialogToolbarButton>} editionButtons An array with the buttons definitions
@@ -103,9 +83,7 @@ import { NOT_FOUND } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class NoteDialogToolbar
 @classdesc This class is the toolbar of the NoteDialog
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -113,20 +91,42 @@ import { NOT_FOUND } from '../main/Constants.js';
 class NoteDialogToolbar {
 
 	/**
-	HTMLElements
+	The toolbar container
 	@type {HTMLElement}
-	@private
 	*/
 
-	#rootHTMLElement = null;
-	#iconSelect = null;
-	#toogleContentsButton = null;
-	#openFileButton = null;
-	#editionButtons = [];
+	#rootHTMLElement;
+
+	/**
+	The icon selector
+	@type {HTMLElement}
+	*/
+
+	#iconSelect;
+
+	/**
+	The toggle content button
+	@type {HTMLElement}
+	*/
+
+	#toogleContentsButton;
+
+	/**
+	The open file button
+	@type {HTMLElement}
+	*/
+
+	#openFileButton;
+
+	/**
+	The editions buttons
+	@type {Array.<HTMLElement>}
+	*/
+
+	#editionButtons;
 
 	/**
 	Add the icon selector to the toolbar
-	@private
 	*/
 
 	#addIconsSelector ( ) {
@@ -149,7 +149,6 @@ class NoteDialogToolbar {
 
 	/**
 	Add the toolbar buttons to the toolbar ( toogle and open file )
-	@private
 	*/
 
 	#addToolbarButtons ( ) {
@@ -177,7 +176,6 @@ class NoteDialogToolbar {
 
 	/**
 	Add the edition buttons to the toolbar
-	@private
 	*/
 
 	#addEditionButtons ( ) {
@@ -202,7 +200,6 @@ class NoteDialogToolbar {
 
 	/**
 	Add elements to the toolbar
-	@private
 	*/
 
 	#addToolbarElements ( ) {
@@ -214,8 +211,7 @@ class NoteDialogToolbar {
 
 	/**
 	Add the events listeners to the toolbar objects
-	@param {Object} eventListeners The event listeners created by the NoTeDialog object
-	@private
+	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	#addEventListeners ( eventListeners ) {
@@ -229,8 +225,7 @@ class NoteDialogToolbar {
 
 	/**
 	Remove event listeners on all htmlElements
-	@param {Object} eventListeners The event listeners created by the NoTeDialog object
-	@private
+	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	#removeEventListeners ( eventListeners ) {
@@ -242,14 +237,16 @@ class NoteDialogToolbar {
 		this.#openFileButton.removeEventListener ( 'click', eventListeners.openFileButtonClick, false );
 	}
 
-	/*
-	constructor
-	@param {Object} eventListeners The event listeners created by the NoTeDialog object
+	/**
+	The constructor
+	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	constructor ( eventListeners ) {
 
 		Object.freeze ( this );
+
+		this.#editionButtons = [];
 
 		this.#rootHTMLElement = theHTMLElementsFactory.create (
 			'div',
@@ -264,7 +261,7 @@ class NoteDialogToolbar {
 
 	/**
 	Destructor. Remove event listeners.
-	@param {Object} eventListeners The event listeners created by the NoTeDialog object
+	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	destructor ( eventListeners ) {
@@ -273,7 +270,7 @@ class NoteDialogToolbar {
 
 	/**
 	Refresh the toolbar - needed after a file upload.
-	@param {Object} eventListeners The event listeners created by the NoTeDialog object
+	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	update ( eventListeners ) {
@@ -286,7 +283,7 @@ class NoteDialogToolbar {
 
 	/**
 	The rootHTMLElement of the toolbar
-	@readonly
+	@type {HTMLElement}
 	*/
 
 	get rootHTMLElement ( ) { return this.#rootHTMLElement;	}

@@ -26,26 +26,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteDialogIconDimsControl.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogNotes
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import { ICON_DIMENSIONS } from '../main/Constants.js';
@@ -53,9 +33,7 @@ import { ICON_DIMENSIONS } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class NoteDialogIconDimsControl
 @classdesc This class is the icnWidth and iconHeight control of the NoteDialog
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -63,18 +41,29 @@ import { ICON_DIMENSIONS } from '../main/Constants.js';
 class NoteDialogIconDimsControl {
 
 	/**
-	HTMLElements
-	@type {htmlElement}
-	@private
+	The control container
+	@type {HTMLElement}
 	*/
 
 	#iconDimsDiv = null;
+
+	/**
+	The width input
+	@type {HTMLElement}
+	*/
+
 	#iconWidthInput = null;
+
+	/**
+	The height input
+	@type {HTMLElement}
+	*/
+
 	#iconHeightInput = null;
 
-	/*
-	constructor
-	@param {NoteDialog} noteDialog A reference to the dialog in witch the control is integrated
+	/**
+	The constructor
+	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	constructor ( eventListeners ) {
@@ -131,6 +120,7 @@ class NoteDialogIconDimsControl {
 
 	/**
 	Remove event listeners
+	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	destructor ( eventListeners ) {
@@ -141,7 +131,6 @@ class NoteDialogIconDimsControl {
 	/**
 	An array with the HTML elements of the control
 	@type {Array.<HTMLElement>}
-	@readonly
 	*/
 
 	get HTMLElements ( ) { return [ this.#iconDimsDiv ]; }

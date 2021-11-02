@@ -24,26 +24,6 @@ Doc reviewed 20210901
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteDialogEventListeners.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogNotes
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import theTranslator from '../UILib/Translator.js';
 import GeoCoder from '../coreLib/GeoCoder.js';
@@ -55,9 +35,7 @@ import { ZERO } from '../main/Constants.js';
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class NoteDialogGeoCoderHelper
 @classdesc Helper class for the address button
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -67,14 +45,13 @@ class NoteDialogGeoCoderHelper {
 	/**
 	A reference to the NoteDialog object
 	@type {NoteDialog}
-	@private
 	*/
 
-	#noteDialog = null;
+	#noteDialog;
 
 	/**
 	Success handler for the geoCoder.getAddressWithPromise ( ) method
-	@private
+	@param {Object} address The address found by the geocoder
 	*/
 
 	#onAddressUpdatedByGeoCoder ( address ) {
@@ -88,9 +65,9 @@ class NoteDialogGeoCoderHelper {
 		this.#noteDialog.updatePreview ( { address : addressString } );
 	}
 
-	/*
-	constructor
-	@param {NoteDialog} A reference to the Notedialog object
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the Notedialog object
 	*/
 
 	constructor ( noteDialog ) {
@@ -100,6 +77,7 @@ class NoteDialogGeoCoderHelper {
 
 	/**
 	Set the address in the dialog, using GeoCoder
+	@param {Array.<Number>} latLng The lat and lng of the address to find
 	*/
 
 	setAddressWithGeoCoder ( latLng ) {
@@ -124,9 +102,7 @@ class NoteDialogGeoCoderHelper {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class AddressButtonClickEL
 @classdesc Click event listener for the AddressButtonClickEL class
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -136,16 +112,21 @@ class AddressButtonClickEL {
 	/**
 	A reference to the NoteDialog object
 	@type {NoteDialog}
-	@private
 	*/
 
-	#noteDialog = null;
-	#latLng = null;
+	#noteDialog;
 
-	/*
-	constructor
-	@param {NoteDialog} A reference to the Notedialog object
-	@param {Array.<!number>} The lat and lng for witch the address must be found
+	/**
+	The lat and lng for witch the address must be found
+	@type {Array.<Number>}
+	*/
+
+	#latLng;
+
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the Notedialog object
+	@param {Array.<Number>} latLng The lat and lng for witch the address must be found
 	*/
 
 	constructor ( noteDialog, latLng ) {
@@ -156,6 +137,7 @@ class AddressButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -167,9 +149,7 @@ class AddressButtonClickEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class AllControlsFocusEL
 @classdesc Focus event listener for all controls
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -179,14 +159,13 @@ class AllControlsFocusEL {
 	/**
 	A reference to the NoteDialog object
 	@type {NoteDialog}
-	@private
 	*/
 
-	#noteDialog = null;
+	#noteDialog;
 
-	/*
-	constructor
-	@param {NoteDialog} A reference to the Notedialog object
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the Notedialog object
 	*/
 
 	constructor ( noteDialog ) {
@@ -196,6 +175,7 @@ class AllControlsFocusEL {
 
 	/**
 	Event listener method
+	@param {Event} focusEvent The event to handle
 	*/
 
 	handleEvent ( focusEvent ) {
@@ -212,9 +192,7 @@ class AllControlsFocusEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class UrlInputBlurEL
 @classdesc blur event listener for url input
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -224,14 +202,13 @@ class UrlInputBlurEL {
 	/**
 	A reference to the NoteDialog object
 	@type {NoteDialog}
-	@private
 	*/
 
-	#noteDialog = null;
+	#noteDialog;
 
-	/*
-	constructor
-	@param {NoteDialog} A reference to the Notedialog object
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the Notedialog object
 	*/
 
 	constructor ( noteDialog ) {
@@ -241,6 +218,7 @@ class UrlInputBlurEL {
 
 	/**
 	Event listener method
+	@param {Event} blurEvent The event to handle
 	*/
 
 	handleEvent ( blurEvent ) {
@@ -263,9 +241,7 @@ class UrlInputBlurEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class AllControlsInputEL
 @classdesc input event listener for all control
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -275,14 +251,13 @@ class AllControlsInputEL {
 	/**
 	A reference to the NoteDialog object
 	@type {NoteDialog}
-	@private
 	*/
 
-	#noteDialog = null;
+	#noteDialog;
 
-	/*
-	constructor
-	@param {NoteDialog} A reference to the Notedialog object
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the Notedialog object
 	*/
 
 	constructor ( noteDialog ) {
@@ -292,6 +267,7 @@ class AllControlsInputEL {
 
 	/**
 	Event listener method
+	@param {Event} inputUpdatedEvent The event to handle
 	*/
 
 	handleEvent ( inputUpdatedEvent ) {
@@ -305,9 +281,7 @@ class AllControlsInputEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class EditionButtonsClickEL
 @classdesc click event listener for the edition buttons
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -317,14 +291,13 @@ class EditionButtonsClickEL {
 	/**
 	A reference to the NoteDialog object
 	@type {NoteDialog}
-	@private
 	*/
 
-	#noteDialog = null;
+	#noteDialog;
 
-	/*
-	constructor
-	@param {NoteDialog} A reference to the Notedialog object
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the Notedialog object
 	*/
 
 	constructor ( noteDialog ) {
@@ -334,6 +307,7 @@ class EditionButtonsClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -375,9 +349,7 @@ class EditionButtonsClickEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class IconSelectorChangeEL
 @classdesc change event listener for the icon selector
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -387,14 +359,13 @@ class IconSelectorChangeEL {
 	/**
 	A reference to the NoteDialog object
 	@type {NoteDialog}
-	@private
 	*/
 
-	#noteDialog = null;
+	#noteDialog;
 
 	/**
 	Helper method for the onIconSelectChange mehod
-	@private
+	@param {Object} noteData An object with the note properties to update
 	*/
 
 	#updatePreviewAndControls ( noteData )	{
@@ -404,7 +375,6 @@ class IconSelectorChangeEL {
 
 	/**
 	Svg Map icon creation
-	@private
 	*/
 
 	#onMapIcon ( ) {
@@ -437,9 +407,9 @@ class IconSelectorChangeEL {
 			);
 	}
 
-	/*
-	constructor
-	@param {NoteDialog} A reference to the Notedialog object
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the Notedialog object
 	*/
 
 	constructor ( noteDialog ) {
@@ -449,6 +419,7 @@ class IconSelectorChangeEL {
 
 	/**
 	Event listener method
+	@param {Event} changeEvent The event to handle
 	*/
 
 	handleEvent ( changeEvent ) {
@@ -474,9 +445,7 @@ class IconSelectorChangeEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class ToggleContentsButtonClickEL
 @classdesc click event listener for the toogle button
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -486,14 +455,13 @@ class ToggleContentsButtonClickEL {
 	/**
 	A reference to the NoteDialog object
 	@type {NoteDialog}
-	@private
 	*/
 
-	#noteDialog = null;
+	#noteDialog;
 
-	/*
-	constructor
-	@param {NoteDialog} A reference to the Notedialog object
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the Notedialog object
 	*/
 
 	constructor ( noteDialog ) {
@@ -502,7 +470,8 @@ class ToggleContentsButtonClickEL {
 	}
 
 	/**
-	click event listener for the toogle button on the toolbar
+	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -514,9 +483,7 @@ class ToggleContentsButtonClickEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class OpenFileInputChangeEL
 @classdesc change event listener for the temp open file input
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -526,14 +493,13 @@ class OpenFileInputChangeEL {
 	/**
 	A reference to the NoteDialog object
 	@type {NoteDialog}
-	@private
 	*/
 
-	#noteDialog = null;
+	#noteDialog;
 
-	/*
-	constructor
-	@param {NoteDialog} A reference to the Notedialog object
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the Notedialog object
 	*/
 
 	constructor ( noteDialog ) {
@@ -542,8 +508,8 @@ class OpenFileInputChangeEL {
 	}
 
 	/**
-	Change event listener for the input associated on the open file button
-	@private
+	Event listener method
+	@param {Event} changeEvent The event to handle
 	*/
 
 	handleEvent ( changeEvent ) {
@@ -567,9 +533,7 @@ class OpenFileInputChangeEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class OpenFileButtonClickEL
 @classdesc click event listener for the open file button
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -579,14 +543,13 @@ class OpenFileButtonClickEL {
 	/**
 	A reference to the NoteDialog object
 	@type {NoteDialog}
-	@private
 	*/
 
-	#noteDialog = null;
+	#noteDialog;
 
-	/*
-	constructor
-	@param {NoteDialog} A reference to the Notedialog object
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the Notedialog object
 	*/
 
 	constructor ( noteDialog ) {
@@ -595,7 +558,8 @@ class OpenFileButtonClickEL {
 	}
 
 	/**
-	click event listener for the open file button on the toolbar
+	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {

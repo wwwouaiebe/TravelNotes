@@ -32,21 +32,10 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@typedef {Object} NoteAndRoute
-@desc An object to store a Note and the Route on witch the Note is attached
-@property {?Note} note the searched Note or null if the note is not found
-@property {?Route} route the Route on witch the Note is attached or null if the Note is a travel note
-@public
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theGeometry from '../coreLib/Geometry.js';
 import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
+import NoteAndRoute from '../data/NoteAndRoute.js';
 
 import { ZERO, INVALID_OBJ_ID, LAT_LNG } from '../main/Constants.js';
 
@@ -95,57 +84,6 @@ class NearestRouteData {
 	*/
 
 	latLngOnRoute = [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ];
-}
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc A container with a note and the route to witch the note is linked
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-class NoteAndRoute {
-
-	/**
-	The Note
-	@type {?Note}
-	*/
-
-	#note;
-
-	/**
-	The route
-	@type {?Route}
-	*/
-
-	#route;
-
-	/**
-	The constructor
-	@param {Note} note The note to store
-	@param {Route} route The route to store
-	*/
-
-	constructor ( note, route ) {
-		Object.freeze ( this );
-		this.#note = note;
-		this.#route = route;
-	}
-
-	/**
-	The Note
-	@type {?Note}
-	*/
-
-	get note ( ) { return this.#note; }
-
-	/**
-	The route
-	@type {?Route}
-	*/
-
-	get route ( ) { return this.#route; }
 }
 
 /**

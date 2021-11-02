@@ -26,26 +26,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteDialogToolbarData.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogNotes
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
 import { ZERO, ONE, ICON_DIMENSIONS } from '../main/Constants.js';
@@ -53,9 +33,7 @@ import { ZERO, ONE, ICON_DIMENSIONS } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class NoteDialogToolbarData
 @classdesc This class is a container for the edition buttons and predefined icons
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -65,15 +43,13 @@ class NoteDialogToolbarData {
 	/**
 	The additional buttons defined in the TravelNotesDialogXX.json file or a file loaded by the user
 	@type {Array.<NoteDialogToolbarButton>}
-	@private
 	*/
 
 	#editionButtons = [];
 
 	/**
 	A map with the additional icons defined in the TravelNotesDialogXX.json file or a file loaded by the user, ordered by name
-	@type {Map}
-	@private
+	@type {Map.<NoteDialogToolbarSelectOption>}
 	*/
 
 	#preDefinedIconsMap = new Map ( );
@@ -81,23 +57,24 @@ class NoteDialogToolbarData {
 	/**
 	The additional icons defined in the TravelNotesDialogXX.json file or a file loaded by the user
 	@type {Array.<NoteDialogToolbarSelectOption>}
-	@private
 	*/
 
 	#preDefinedIcons = [];
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#editionButtons = [];
+		this.#preDefinedIconsMap = new Map ( );
+		this.#preDefinedIcons = [];
 	}
 
 	/**
 	The additional buttons defined in the TravelNotesDialogXX.json file or a file loaded by the user
 	@type {Array.<NoteDialogToolbarButton>}
-	@readonly
 	*/
 
 	get buttons ( ) { return this.#editionButtons; }
@@ -113,7 +90,7 @@ class NoteDialogToolbarData {
 
 	/**
 	get and icon from the icon position in the array
-	@param {!number} The icon index in the array
+	@param {!number} index The icon index in the array
 	*/
 
 	getIconData ( index ) {
@@ -194,8 +171,6 @@ class NoteDialogToolbarData {
 
 @desc The one and only one instance of NoteDialogToolbarData class
 @type {NoteDialogToolbarData}
-@constant
-@global
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

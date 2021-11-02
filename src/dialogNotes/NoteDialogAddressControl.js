@@ -24,35 +24,13 @@ Doc reviewed 20210901
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteDialogAddressControl.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogNotes
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class NoteDialogAddressControl
 @classdesc This class is the address control of the NoteDialog
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -60,20 +38,36 @@ import theTranslator from '../UILib/Translator.js';
 class NoteDialogAddressControl {
 
 	/**
-	HTMLElements
-	@type {htmlElement}
-	@private
+	The header container
+	@type {HTMLElement}
 	*/
 
-	#addressHeaderDiv = null;
-	#addressInputDiv = null;
-	#addressInput = null;
-	#addressButton = null;
+	#addressHeaderDiv;
 
-	/*
-	constructor
-	@param {NoteDialog} noteDialog A reference to the dialog in witch the control is integrated
-	@param {Array.<!number} latLng The lat and lng to use for geocoding
+	/**
+	The address input container
+	@type {HTMLElement}
+	*/
+
+	#addressInputDiv;
+
+	/**
+	The address input
+	@type {HTMLElement}
+	*/
+
+	#addressInput;
+
+	/**
+	The reset address buton
+	@type {HTMLElement}
+	*/
+
+	#addressButton;
+
+	/**
+	The constructor
+	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	constructor ( eventListeners ) {
@@ -131,6 +125,7 @@ class NoteDialogAddressControl {
 
 	/**
 	Remove event listeners
+	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	destructor ( eventListeners ) {
@@ -142,7 +137,6 @@ class NoteDialogAddressControl {
 	/**
 	An array with the HTML elements of the control
 	@type {Array.<HTMLElement>}
-	@readonly
 	*/
 
 	get HTMLElements ( ) {

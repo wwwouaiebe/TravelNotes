@@ -26,26 +26,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteDialogLinkControl.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogNotes
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
@@ -55,9 +35,7 @@ import { ZERO, ONE, LAT_LNG } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class NoteDialogLinkControl
 @classdesc This class is the url control of the NoteDialog
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -65,19 +43,29 @@ import { ZERO, ONE, LAT_LNG } from '../main/Constants.js';
 class NoteDialogLinkControl {
 
 	/**
-	HTMLElements
-	@type {htmlElement}
-	@private
+	The header container
+	@type {HTMLElement}
 	*/
 
-	#linkHeaderDiv = null;
-	#linkInputDiv = null;
-	#linkInput = null;
+	#linkHeaderDiv;
+
+	/**
+	The input container
+	@type {HTMLElement}
+	*/
+
+	#linkInputDiv;
+
+	/**
+	The link input
+	@type {HTMLElement}
+	*/
+
+	#linkInput;
 
 	/**
 	The 👿 button...
 	@param {Array.<!number>} latLng The lat and lng used in the 👿 button
-	@private
 	*/
 
 	#createTheDevilButton ( latLng ) {
@@ -110,10 +98,10 @@ class NoteDialogLinkControl {
 		}
 	}
 
-	/*
-	constructor
-	@param {NoteDialog} noteDialog A reference to the dialog in witch the control is integrated
-	@param {Array.<number>} latLng The lat and lng to use with the 👿 button
+	/**
+	The constructor
+	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
+	@param {Array.<Number>} latLng The lat and lng to use with the 👿 button
 	*/
 
 	constructor ( eventListeners, latLng ) {
@@ -163,6 +151,7 @@ class NoteDialogLinkControl {
 
 	/**
 	Remove event listeners
+	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	destructor ( eventListeners ) {
@@ -174,7 +163,6 @@ class NoteDialogLinkControl {
 	/**
 	An array with the HTML elements of the control
 	@type {Array.<HTMLElement>}
-	@readonly
 	*/
 
 	get HTMLElements ( ) { return [ this.#linkHeaderDiv, this.#linkInputDiv ]; }

@@ -26,35 +26,13 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteDialogTooltipControl.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogNotes
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class NoteDialogTooltipControl
 @classdesc This class is the tooltipContent control of the NoteDialog
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -62,26 +40,22 @@ import theTranslator from '../UILib/Translator.js';
 class NoteDialogTooltipControl {
 
 	/**
-	HTMLElements
+	The control container
 	@type {htmlElement}
-	@private
 	*/
 
-	#tooltipDiv = null;
-	#tooltipInput = null
+	#tooltipDiv;
 
 	/**
-	Event listeners
-	@type {object}
-	@private
+	The tooltip input
+	@type {htmlElement}
 	*/
 
-	#allControlsFocusEL = null;
-	#allControlsInputEL = null;
+	#tooltipInput;
 
-	/*
-	constructor
-	@param {NoteDialog} noteDialog A reference to the dialog in witch the control is integrated
+	/**
+	The constructor
+	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	constructor ( eventListeners ) {
@@ -113,6 +87,7 @@ class NoteDialogTooltipControl {
 
 	/**
 	Remove event listeners
+	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	destructor ( eventListeners ) {
@@ -123,7 +98,6 @@ class NoteDialogTooltipControl {
 	/**
 	An array with the HTML elements of the control
 	@type {Array.<HTMLElement>}
-	@readonly
 	*/
 
 	get HTMLElements ( ) { return [ this.#tooltipDiv ]; }
@@ -135,7 +109,7 @@ class NoteDialogTooltipControl {
 
 	get tooltipContent ( ) { return this.#tooltipInput.value; }
 
-	set tooltipContent ( Value ) { this.#tooltipInput.value = Value; }
+	set tooltipContent ( value ) { this.#tooltipInput.value = value; }
 
 }
 

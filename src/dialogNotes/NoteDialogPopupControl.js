@@ -26,26 +26,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteDialogPopupControl.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogNotes
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
@@ -53,9 +33,7 @@ import theConfig from '../data/Config.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class NoteDialogPopupControl
 @classdesc This class is the popupContent control of the NoteDialog
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -63,17 +41,22 @@ import theConfig from '../data/Config.js';
 class NoteDialogPopupControl {
 
 	/**
-	HTMLElements
-	@type {htmlElement}
-	@private
+	The control container
+	@type {HTMLElement}
 	*/
 
-	#popupDiv = null;
-	#popupTextArea = null;
+	#popupDiv;
 
-	/*
-	constructor
-	@param {NoteDialog} noteDialog A reference to the dialog in witch the control is integrated
+	/**
+	The popup textarea
+	@type {HTMLElement}
+	*/
+
+	#popupTextArea;
+
+	/**
+	The constructor
+	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	constructor ( eventListeners ) {
@@ -105,6 +88,7 @@ class NoteDialogPopupControl {
 
 	/**
 	Remove event listeners
+	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	destructor ( eventListeners ) {
@@ -115,7 +99,6 @@ class NoteDialogPopupControl {
 	/**
 	An array with the HTML elements of the control
 	@type {Array.<HTMLElement>}
-	@readonly
 	*/
 
 	get HTMLElements ( ) { return [ this.#popupDiv ]; }

@@ -24,38 +24,14 @@ Doc reviewed 20210901
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteDialogIconControl.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogNotes
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
 
-const OUR_DEFAULT_ICON = '?????';
-
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class NoteDialogIconControl
 @classdesc This class is the iconContent control of the NoteDialog
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -63,17 +39,22 @@ const OUR_DEFAULT_ICON = '?????';
 class NoteDialogIconControl {
 
 	/**
-	HTMLElements
-	@type {htmlElement}
-	@private
+	The control container
+	@type {HTMLElements}
 	*/
 
-	#iconDiv = null;
-	#iconTextArea = null;
+	#iconDiv;
 
-	/*
-	constructor
-	@param {NoteDialog} noteDialog A reference to the dialog in witch the control is integrated
+	/**
+	The icon text area
+	@type {HTMLElements}
+	*/
+
+	#iconTextArea;
+
+	/**
+	The constructor
+	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	constructor ( eventListeners ) {
@@ -92,7 +73,7 @@ class NoteDialogIconControl {
 			'textarea',
 			{
 				className : 'TravelNotes-NoteDialog-TextArea',
-				placeholder : OUR_DEFAULT_ICON,
+				placeholder : '?????',
 				rows : theConfig.noteDialog.areaHeight.icon,
 				dataset : { Name : 'iconContent' }
 			},
@@ -106,6 +87,7 @@ class NoteDialogIconControl {
 
 	/**
 	Remove event listeners
+	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	destructor ( eventListeners ) {
@@ -116,7 +98,6 @@ class NoteDialogIconControl {
 	/**
 	An array with the HTML elements of the control
 	@type {Array.<HTMLElement>}
-	@readonly
 	*/
 
 	get HTMLElements ( ) { return [ this.#iconDiv ]; }
