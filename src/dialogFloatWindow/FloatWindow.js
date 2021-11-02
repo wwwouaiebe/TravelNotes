@@ -34,51 +34,29 @@ Tests ...
 import theTranslator from '../UILib/Translator.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
-import { ZERO } from '../main/Constants.js';
-
-const OUR_DRAG_MARGIN = 20;
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file FloatWindow.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogFloatWindow
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+import DragData from '../dialogs/DragData.js';
+import { ZERO, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
 
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class TopBarDragStartEL
 @classdesc dragstart event listener for the top bar
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
-class TopBarDragStartEL {
+class FloatWindowTopBarDragStartEL {
 
 	/**
 	A reference to the dragData object of the FloatWindow
-	#type {Object}
-	@private
+	@type {DragData}
 	*/
 
-	#dragData = null;
+	#dragData;
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {DragData} dragData A reference to the dragData object of the FloatWindow
 	*/
 
 	constructor ( dragData ) {
@@ -88,6 +66,7 @@ class TopBarDragStartEL {
 
 	/**
 	Event listener method
+	@param {Event} dragStartEvent The event to handle
 	*/
 
 	handleEvent ( dragStartEvent ) {
@@ -101,33 +80,23 @@ class TopBarDragStartEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class TopBarDragEndEL
 @classdesc dragend event listener for the top bar
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
-class TopBarDragEndEL {
+class FloatWindowTopBarDragEndEL {
 
 	/**
 	A reference to the dragData object of the FloatWindow
-	#type {Object}
-	@private
+	@type {DragData}
 	*/
 
-	#dragData = null;
+	#dragData;
 
 	/**
-	A reference to the window's container
-	@type {HTMLElement}
-	@private
-	*/
-
-	#containerDiv = null;
-
-	/*
-	constructor
+	The constructor
+	@param {DragData} dragData A reference to the dragData object of the FloatWindow
 	*/
 
 	constructor ( dragData ) {
@@ -137,21 +106,23 @@ class TopBarDragEndEL {
 
 	/**
 	Event listener method
+	@param {Event} dragEndEvent The event to handle
 	*/
 
 	handleEvent ( dragEndEvent ) {
 		const containerDiv = dragEndEvent.target.parentNode;
-		this.#dragData.windowX += dragEndEvent.screenX - this.#dragData.dragStartX;
-		this.#dragData.windowY += dragEndEvent.screenY - this.#dragData.dragStartY;
-		this.#dragData.windowX = Math.min (
-			Math.max ( this.#dragData.windowX, OUR_DRAG_MARGIN ),
-			theTravelNotesData.map.getContainer ( ).clientWidth - containerDiv.clientWidth - OUR_DRAG_MARGIN
+		this.#dragData.dialogX += dragEndEvent.screenX - this.#dragData.dragStartX;
+		this.#dragData.dialogY += dragEndEvent.screenY - this.#dragData.dragStartY;
+		this.#dragData.dialogX = Math.min (
+			Math.max ( this.#dragData.dialogX, DIALOG_DRAG_MARGIN ),
+			theTravelNotesData.map.getContainer ( ).clientWidth - containerDiv.clientWidth - DIALOG_DRAG_MARGIN
 		);
-		this.#dragData.windowY = Math.max ( this.#dragData.windowY, OUR_DRAG_MARGIN );
+		this.#dragData.dialogY = Math.max ( this.#dragData.dialogY, DIALOG_DRAG_MARGIN );
 		const windowMaxHeight =
-			theTravelNotesData.map.getContainer ( ).clientHeight - Math.max ( this.#dragData.windowY, ZERO ) - OUR_DRAG_MARGIN;
-		containerDiv.style.top = String ( this.#dragData.windowY ) + 'px';
-		containerDiv.style.left = String ( this.#dragData.windowX ) + 'px';
+			theTravelNotesData.map.getContainer ( ).clientHeight -
+			Math.max ( this.#dragData.dialogY, ZERO ) - DIALOG_DRAG_MARGIN;
+		containerDiv.style.top = String ( this.#dragData.dialogY ) + 'px';
+		containerDiv.style.left = String ( this.#dragData.dialogX ) + 'px';
 		containerDiv.style [ 'max-height' ] = String ( windowMaxHeight ) + 'px';
 	}
 }
@@ -159,9 +130,7 @@ class TopBarDragEndEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class FloatWindow
 @classdesc This class is the base for all the floating windows
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -171,61 +140,54 @@ class FloatWindow {
 	/**
 	Shared data for drag and drop operations
 	@type {Object}
-	@private
 	*/
 
-	#dragData = Object.seal (
-		{
-			dragStartX : ZERO,
-			dragStartY : ZERO,
-			windowX : ZERO,
-			windowY : ZERO
-		}
-	);
+	#dragData;
 
 	/**
 	The window's container
 	@type {HTMLElement}
-	@private
 	*/
 
-	#containerDiv = null;
+	#containerDiv;
 
 	/**
 	The window top bar
 	@type {HTMLElement}
-	@private
 	*/
 
-	#topBar = null;
+	#topBar;
 
 	/**
 	The window header
 	@type {HTMLElement}
-	@private
 	*/
 
-	#headerDiv = null;
+	#headerDiv;
 
 	/**
 	The window content
 	@type {HTMLElement}
-	@private
 	*/
 
-	#contentDiv = null;
+	#contentDiv;
 
 	/**
-	event listeners
-	@private
+	Top bar drag start event listener
+	@type {FloatWindowTopBarDragStartEL}
 	*/
 
-	#topBarDragStartEL = null;
-	#topBarDragEndEL = null;
+	#topBarDragStartEL;
+
+	/**
+	Top bar drag end event listener
+	@type {FloatWindowTopBarDragEndEL}
+	*/
+
+	#topBarDragEndEL;
 
 	/**
 	This method creates the window
-	@private
 	*/
 
 	#createContainerDiv ( ) {
@@ -241,7 +203,6 @@ class FloatWindow {
 
 	/**
 	@desc This method creates the topbar
-	@private
 	*/
 
 	#createTopBar ( ) {
@@ -269,7 +230,6 @@ class FloatWindow {
 
 	/**
 	This method creates the header div
-	@private
 	*/
 
 	#createHeaderDiv ( ) {
@@ -278,21 +238,21 @@ class FloatWindow {
 
 	/**
 	This method creates the content div
-	@private
 	*/
 
 	#createContentDiv ( ) {
 		this.#contentDiv = theHTMLElementsFactory.create ( 'div', null, this.#containerDiv );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
-		this.#topBarDragStartEL = new TopBarDragStartEL ( this.#dragData );
-		this.#topBarDragEndEL = new TopBarDragEndEL ( this.#dragData );
+		this.#dragData = new DragData ( );
+		this.#topBarDragStartEL = new FloatWindowTopBarDragStartEL ( this.#dragData );
+		this.#topBarDragEndEL = new FloatWindowTopBarDragEndEL ( this.#dragData );
 		this.#createContainerDiv ( );
 		this.#createTopBar ( );
 		this.#createHeaderDiv ( );
@@ -320,7 +280,6 @@ class FloatWindow {
 	/**
 	The header of the window. Read only but remember it's an HTMLElement...
 	@type {HTMLElement}
-	@readonly
 	*/
 
 	get header ( ) { return this.#headerDiv; }
@@ -328,7 +287,6 @@ class FloatWindow {
 	/**
 	The content of the window. Read only but remember it's an HTMLElement...
 	@type {HTMLElement}
-	@readonly
 	*/
 
 	get content ( ) { return this.#contentDiv; }

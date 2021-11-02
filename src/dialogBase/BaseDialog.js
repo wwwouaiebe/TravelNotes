@@ -111,6 +111,7 @@ import {
 	BackgroundDragOverEL
 } from '../dialogbase/BaseDialogEventListeners.js';
 import PanEventDispatcher from '../dialogPanEventDispatcher/PanEventDispatcher.js';
+import DragData from '../dialogs/DragData.js';
 
 // import GarbageCollectorTester from '../UILib/GarbageCollectorTester.js';
 
@@ -208,52 +209,6 @@ class DialogOptions {
 	*/
 
 	get text ( ) { return this.#text; }
-}
-
-/**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@classdesc A simple container with data shared between the dialog and the drag event listeners
-
-@--------------------------------------------------------------------------------------------------------------------------
-*/
-
-class DragData {
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.seal ( this );
-	}
-
-	/**
-	The X screen coordinate of the mouse when dragging
-	@type {Number}
-	*/
-
-	dragStartX = ZERO;
-
-	/** The Y screen coordinate of the mouse when dragging
-	@type {Number}
-	*/
-
-	dragStartY = ZERO;
-
-	/**
-	The X screen coordinate of the upper left corner of the dialog before drag operations
-	@type {Number}
-	*/
-
-	dialogX = ZERO;
-
-	/**
-	The Y screen coordinate of the upper left corner of the dialog before drag operations
-	@type {Number}
-	*/
-
-	dialogY = ZERO;
 }
 
 /**

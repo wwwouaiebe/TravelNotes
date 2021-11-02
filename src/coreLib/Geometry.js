@@ -80,7 +80,7 @@ class Geometry {
 	*/
 
 	// eslint-disable-next-line no-magic-numbers
-	get #HUNDRED ( ) { return 100; }
+	static get #HUNDRED ( ) { return 100; }
 
 	/**
 	The constructor
