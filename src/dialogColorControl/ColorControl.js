@@ -67,74 +67,75 @@ class ColorControl {
 	/**
 	the main HTMLElement
 	@type {HTMLElement}
-	@private
 	*/
 
-	#colorDiv = null;
+	#colorDiv;
 
-	/** An array with the color buttons of the ColorControl
+	/**
+	An array with the color buttons of the ColorControl
 	@type {Array.<HTMLElement>}
-	@private
 	*/
 
-	#colorButtons = [];
+	#colorButtons;
 
 	/**
 	The red, green and blue input htmlElement of the ColorControl
-	@type {object}
-	@private
+	@type {Object}
 	*/
 
-	#inputs = {
-		red : null,
-		green : null,
-		blue : null
-	};
+	#inputs;
 
 	/**
 	The red slider
-	#type {HTMLElement}
-	@private
+	@type {HTMLElement}
 	*/
 
-	#redSliderInput = null;
+	#redSliderInput;
 
 	/**
 	A div that contains the red green and blue inputs
 	@type {HTMLElement}
-	@private
 	*/
 
-	#rgbDiv = null;
+	#rgbDiv;
 
 	/**
 	The sample color div of the color control
 	@type {HTMLElement}
-	@private
 	*/
 
-	#colorSampleDiv = null;
+	#colorSampleDiv;
 
 	/**
 	The new color
 	@type {Color}
-	@private
 	*/
 
-	#newColor = new Color ( );
+	#newColor;
 
 	/**
-	Event listeners for color buttons, inputs and slider
-	@private
+	Click event listener for the color buttons
+	@type {ColorButtonClickEL}
 	*/
 
-	#colorButtonClickEL = null;
-	#colorInputEL = null
-	#redSliderInputEL = null;
+	#colorButtonClickEL;
+
+	/**
+	Input event listener for the color inputs
+	@type {ColorInputEL}
+	*/
+
+	#colorInputEL;
+
+	/**
+	Input event listener for the red slider
+	@type {RedSliderInputEL}
+	*/
+
+	#redSliderInputEL;
 
 	/**
 	Create the Color Buttons div
-	@private
 	*/
 
 	#createColorButtonsDiv ( ) {
@@ -166,7 +167,6 @@ class ColorControl {
 
 	/**
 	Create the Red Slider div
-	@private
 	*/
 
 	#createRedSliderDiv ( ) {
@@ -185,7 +185,7 @@ class ColorControl {
 			redSliderDiv
 		);
 
-		this.#redSliderInputEL = new RedSliderInputEL ( this.#redSliderInput, this.#colorButtons );
+		this.#redSliderInputEL = new RedSliderInputEL ( this.#colorButtons );
 		this.#redSliderInput.addEventListener ( 'input', this.#redSliderInputEL, false );
 
 		this.#redSliderInput.focus ( );
@@ -193,10 +193,9 @@ class ColorControl {
 
 	/**
 	create the color inputs and text
-	@param {string} The text before the input
-	@param {!number} The input value
+	@param {string} inputText The text before the input
+	@param {!number} inputValue The input value
 	@return {HTMLElement} the input object
-	@private
 	*/
 
 	#createColorInput ( inputText, inputValue ) {
@@ -218,7 +217,6 @@ class ColorControl {
 
 	/**
 	Create the Color Input div
-	@private
 	*/
 
 	#createColorInputsDiv ( ) {
@@ -242,7 +240,6 @@ class ColorControl {
 
 	/**
 	Create the Color Sample div
-	@private
 	*/
 
 	#createColorSampleDiv ( ) {
@@ -256,13 +253,22 @@ class ColorControl {
 		this.#colorSampleDiv.style [ 'background-color' ] = this.#newColor.cssColor;
 	}
 
-	/*
+	/**
 	constructor
 	@param {string} cssColor The initial color for the control (must be #RRGGBB or rgb(RR, GG, BB) .
 	*/
 
 	constructor ( cssColor ) {
 		Object.freeze ( this );
+		this.#colorButtons = [];
+		this.#inputs = Object.seal (
+			{
+				red : null,
+				green : null,
+				blue : null
+			}
+		);
+		this.#newColor = new Color ( );
 		this.#newColor.cssColor = cssColor;
 		this.#colorDiv = theHTMLElementsFactory.create (
 			'div',
@@ -300,7 +306,6 @@ class ColorControl {
 	/**
 	An array with the HTML element of the control
 	@type {Array.<HTMLElement>}
-	@readonly
 	*/
 
 	get HTMLElements ( ) { return [ this.#colorDiv ]; }
@@ -308,7 +313,6 @@ class ColorControl {
 	/**
 	The color selected in the control in the css hex format ( #rrggbb )
 	@type {string}
-	@readonly
 	*/
 
 	get cssColor ( ) { return this.#newColor.cssColor; }

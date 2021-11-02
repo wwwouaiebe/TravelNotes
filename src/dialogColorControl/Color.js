@@ -46,9 +46,7 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-import { ZERO, ONE, TWO, THREE, HEXADECIMAL, COLOR_CONTROL } from '../main/Constants.js';
-
-const FIVE = 5;
+import { ZERO, TWO, THREE, HEXADECIMAL, COLOR_CONTROL } from '../main/Constants.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
@@ -65,29 +63,26 @@ class Color {
 	/**
 	The red value of the color
 	@type {!number}
-	@private
 	*/
 
-	#red = COLOR_CONTROL.maxColorValue;
+	#red;
 
 	/**
 	The green value of the color
 	@type {!number}
-	@private
 	*/
 
-	#green = COLOR_CONTROL.maxColorValue;
+	#green;
 
 	/**
 	The blue value of the color
 	@type {!number}
-	@private
 	*/
 
-	#blue = COLOR_CONTROL.maxColorValue;
+	#blue;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {?number} red The red value of the color. Must be between 0 and 255. If null set to 255
 	@param {?number} green The green value of the color. Must be between 0 and 255. If null set to 255
 	@param {?number} blue The blue value of the color. Must be between 0 and 255. If null set to 255
@@ -120,6 +115,7 @@ class Color {
 
 	/**
 	The red value of the color
+	@type {Number}
 	*/
 
 	get red ( ) { return this.#red; }
@@ -132,6 +128,7 @@ class Color {
 
 	/**
 	The green value of the color
+	@type {Number}
 	*/
 
 	get green ( ) { return this.#green; }
@@ -144,6 +141,7 @@ class Color {
 
 	/**
 	The blue value of the color
+	@type {Number}
 	*/
 
 	get blue ( ) { return this.#blue; }
@@ -155,7 +153,8 @@ class Color {
 	}
 
 	/**
-	Get the color in the css HEX format '#RRGGBB'
+	The color in the css HEX format '#RRGGBB'
+	@type {String}
 	*/
 
 	get cssColor ( ) {
@@ -165,15 +164,14 @@ class Color {
 			this.#blue.toString ( HEXADECIMAL ).padStart ( TWO, '0' );
 	}
 
-	/**
-	Set the color from a cssColor in the HEX format '#RRGGBB'or the 'rgb (RR,GG,BB)' format
-	*/
-
 	set cssColor ( cssColor ) {
 		if ( '\u0023' === cssColor [ ZERO ] ) {
-			this.#red = Number.parseInt ( cssColor.substr ( ONE, TWO ), HEXADECIMAL );
-			this.#green = Number.parseInt ( cssColor.substr ( THREE, TWO ), HEXADECIMAL );
-			this.#blue = Number.parseInt ( cssColor.substr ( FIVE, TWO ), HEXADECIMAL );
+			// eslint-disable-next-line no-magic-numbers
+			this.#red = Number.parseInt ( cssColor.substr ( 1, 2 ), HEXADECIMAL );
+			// eslint-disable-next-line no-magic-numbers
+			this.#green = Number.parseInt ( cssColor.substr ( 3, 2 ), HEXADECIMAL );
+			// eslint-disable-next-line no-magic-numbers
+			this.#blue = Number.parseInt ( cssColor.substr ( 5, 2 ), HEXADECIMAL );
 		}
 		else if ( 'rgb' === cssColor.substr ( ZERO, THREE ) ) {
 			[ this.#red, this.#green, this.#blue ] =
