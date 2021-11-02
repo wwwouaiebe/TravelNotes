@@ -36,25 +36,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file APIKeysDialog.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogAPIKeys
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import BaseDialog from '../dialogBase/BaseDialog.js';
 import APIKeysDialogToolbar from '../dialogAPIKeys/APIKeysDialogToolbar.js';
 import { APIKeyDeletedEL } from '../dialogAPIKeys/APIKeysDialogEventListeners.js';
@@ -68,10 +49,7 @@ import { ZERO } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class APIKeysDialog
 @classdesc This class is the APIKeys dialog
-@extends BaseDialog
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -81,38 +59,33 @@ class APIKeysDialog extends BaseDialog {
 	/**
 	A map to store the APIKeyControl object
 	@type {Map}
-	@private
 	*/
 
-	#APIKeysControls = new Map ( );
+	#APIKeysControls;
 
 	/**
 	The dialog toolbar
 	@type {APIKeysDialogToolbar}
-	@private
 	*/
 
-	#toolbar = null;
+	#toolbar;
 
 	/**
 	A div that contains the APIKeyControls
 	@type {HTMLElement}
-	@private
 	*/
 
-	#APIKeysControlsContainer = null
+	#APIKeysControlsContainer;
 
 	/**
 	Api key deleted event listener
 	@type {APIKeyDeletedEL}
-	@private
 	*/
 
-	#onAPIKeyDeletedEventListener = null;
+	#onAPIKeyDeletedEventListener;
 
 	/**
 	Create the #APIKeysControlsContainer
-	@private
 	*/
 
 	#createAPIKeysControlsContainer ( ) {
@@ -125,8 +98,8 @@ class APIKeysDialog extends BaseDialog {
 		);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {Array.<APIKey>} APIKeys An array with the existing APIKeys
 	@param {boolean} haveAPIKeysFile A boolean indicating when a APIKey file was found on the server
 	*/
@@ -135,10 +108,15 @@ class APIKeysDialog extends BaseDialog {
 
 		super ( );
 
+		this.#APIKeysControls = new Map ( );
 		this.#toolbar = new APIKeysDialogToolbar ( this, this.#APIKeysControls, haveAPIKeysFile );
 		this.#createAPIKeysControlsContainer ( );
 		this.addAPIKeys ( APIKeys );
 	}
+
+	/**
+	Remove all events listeners on the toolbar and controls, so all references to the dialog are released.
+	*/
 
 	#destructor ( ) {
 		this.#toolbar.destructor ( );
@@ -270,7 +248,6 @@ class APIKeysDialog extends BaseDialog {
 	/**
 	The dialog title. Overload of the BaseDialog.title property
 	@type {string}
-	@readonly
 	*/
 
 	get title ( ) { return theTranslator.getText ( 'APIKeysDialog - API keys' ); }
@@ -278,7 +255,6 @@ class APIKeysDialog extends BaseDialog {
 	/**
 	An array with the HTMLElements that have to be added in the content of the dialog.
 	@type {Array.<HTMLElement>}
-	@readonly
 	*/
 
 	get contentHTMLElements ( ) {

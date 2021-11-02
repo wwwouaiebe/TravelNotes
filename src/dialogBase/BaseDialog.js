@@ -45,40 +45,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file BaseDialog.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogBase
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@typedef {Object} dialogOptions
-@desc An object to gives some options to a dialog, mainly for generic dialogs (SelectDialog, TwoButtonsDialog)
-@property {string} firstButtonText The text to be displayed on the first button on the bottom of the dialog. Default to 🆗
-@property {string} secondButtonText The text to be displayed on the first button on the bottom of the dialog.
-@property {Array.<SelectOptionSData>} selectOptionsData Options for the SelectDialog
-@property {string} title The title of the dialog
-@property {string} text A text to be displayed in the dialog
-@public
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 /*
 
 Box model
@@ -146,107 +112,343 @@ import {
 } from '../dialogbase/BaseDialogEventListeners.js';
 import PanEventDispatcher from '../dialogPanEventDispatcher/PanEventDispatcher.js';
 
-import GarbageCollectorTester from '../UILib/GarbageCollectorTester.js';
+// import GarbageCollectorTester from '../UILib/GarbageCollectorTester.js';
 
 import { ZERO, TWO, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
 
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class BaseDialog
+@classdesc An object to gives some options to a dialog, mainly for generic dialogs (SelectDialog, TwoButtonsDialog)
+
+@--------------------------------------------------------------------------------------------------------------------------
+*/
+
+class DialogOptions {
+
+	/**
+	The text to be displayed on the first button on the bottom of the dialog. Default to 🆗
+	@type {?String}
+	*/
+
+	#firstButtonText = null;
+
+	/**
+	The text to be displayed on the first button on the bottom of the dialog
+	@type {?String}
+	*/
+
+	#secondButtonText = null;
+
+	/**
+	Options for the SelectDialog
+	@type {Array.<SelectOptionsData>}
+	*/
+
+	#selectOptionsData = null;
+
+	/**
+	title of the dialog
+	@type {?String}
+	*/
+
+	#title = null;
+
+	/**
+	A text to be displayed in the dialog
+	@type {?String}
+	*/
+
+	#text = null;
+
+	/**
+	The constructor
+	@param {Object} options An object with the options to change
+	*/
+
+	constructor ( options ) {
+		for ( const property in options ) {
+			if ( this [ '#' + property ] ) {
+				this [ '#' + property ] = property;
+			}
+		}
+	}
+
+	/**
+	The text to be displayed on the first button on the bottom of the dialog. Default to 🆗
+	@type {?String}
+	*/
+
+	get firstButtonText ( ) { return this.#firstButtonText; }
+
+	/**
+	The text to be displayed on the first button on the bottom of the dialog
+	@type {?String}
+	*/
+
+	get secondButtonText ( ) { return this.#secondButtonText; }
+
+	/**
+	Options for the SelectDialog
+	@type {Array.<SelectOptionsData>}
+	*/
+
+	get selectOptionsData ( ) { return this.#selectOptionsData; }
+
+	/**
+	title of the dialog
+	@type {?String}
+	*/
+
+	get title ( ) { return this.#title; }
+
+	/**
+	A text to be displayed in the dialog
+	@type {?String}
+	*/
+
+	get text ( ) { return this.#text; }
+}
+
+/**
+@--------------------------------------------------------------------------------------------------------------------------
+
+@classdesc A simple container with data shared between the dialog and the drag event listeners
+
+@--------------------------------------------------------------------------------------------------------------------------
+*/
+
+class DragData {
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.seal ( this );
+	}
+
+	/**
+	The X screen coordinate of the mouse when dragging
+	@type {Number}
+	*/
+
+	dragStartX = ZERO;
+
+	/** The Y screen coordinate of the mouse when dragging
+	@type {Number}
+	*/
+
+	dragStartY = ZERO;
+
+	/**
+	The X screen coordinate of the upper left corner of the dialog before drag operations
+	@type {Number}
+	*/
+
+	dialogX = ZERO;
+
+	/**
+	The Y screen coordinate of the upper left corner of the dialog before drag operations
+	@type {Number}
+	*/
+
+	dialogY = ZERO;
+}
+
+/**
+@--------------------------------------------------------------------------------------------------------------------------
+
 @classdesc Base class used for dialogs
-@abstract
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class BaseDialog {
 
-	/**
+	/*
 	Garbage collector testing. Only for memory free tests on dev.
-	@private
 	*/
 
-	#garbageCollectorTester = new GarbageCollectorTester ( );
+	// #garbageCollectorTester = new GarbageCollectorTester ( );
 
 	/**
-	HTMLElements of the dialog
-	@private
+	The background div of the dialog
+	@type {HTMLElement}
 	*/
 
-	#backgroundDiv = null;
-	#containerDiv = null;
-	#errorDiv = null;
-	#waitDiv = null;
-	#okButton = null;
-	#cancelButton = null;
-	#topBar = null;
-	#secondButton = null;
-	#leftPanEventDispatcher = null;
-	#rightPanEventDispatcher = null;
+	#backgroundDiv;
+
+	/**
+	The container div of the dialog
+	@type {HTMLElement}
+	*/
+
+	#containerDiv;
+
+	/**
+	The error div of the dialog
+	@type {HTMLElement}
+	*/
+
+	#errorDiv;
+
+	/**
+	The wait div of the dialog
+	@type {HTMLElement}
+	*/
+
+	#waitDiv;
+
+	/**
+	The ok button
+	@type {HTMLElement}
+	*/
+
+	#okButton;
+
+	/**
+	The cancel button
+	@type {HTMLElement}
+	*/
+
+	#cancelButton;
+
+	/**
+	The topbar
+	@type {HTMLElement}
+	*/
+
+	#topBar;
+
+	/**
+	The second button if any
+	@type {?HTMLElement}
+	*/
+
+	#secondButton;
+
+	/**
+	An event dispatcher for pans with the left button
+	@type {PanEventDispatcher}
+	*/
+
+	#leftPanEventDispatcher;
+
+	/**
+	An event dispatcher for pans with the right button
+	@type {PanEventDispatcher}
+	*/
+
+	#rightPanEventDispatcher;
 
 	/**
 	A flag to avoid all dialogs close when using the esc or enter keys
-	@private
+	@type {Boolean}
 	*/
 
-	#keyboardELEnabled = true;
+	#keyboardELEnabled;
 
 	/**
 	Data for drag ond drop operations
-	@private
+	@type {DragData}
 	*/
 
-	#dragData = Object.seal (
-		{
-			dragStartX : ZERO,
-			dragStartY : ZERO,
-			dialogX : ZERO,
-			dialogY : ZERO
-		}
-	);
+	#dragData;
 
 	/**
-	event listeners
-	@private
+	Background left pan event listener
+	@type {BackgroundLeftPanEL}
 	*/
 
-	#backgroundLeftPanEL = null;
-	#backgroundRightPanEL = null;
-	#backgroundDragOverEL = null;
-	#backgroundWheelEL = null;
-	#backgroundContextMenuEL = null;
-	#topBarDragStartEL = null;
-	#topBarDragEndEL = null;
-	#cancelButtonClickEL = null;
-	#okButtonClickEL = null;
-	#keyboardKeydownEL = null;
+	#backgroundLeftPanEL;
+
+	/**
+	Background right pan event listener
+	@type {BackgroundRightPanEL}
+	*/
+
+	#backgroundRightPanEL;
+
+	/**
+	Drog over the background event listener
+	@type {BackgroundDragOverEL}
+	*/
+
+	#backgroundDragOverEL;
+
+	/**
+	Wheel event listener on the background
+	@type {BackgroundWheelEL}
+	*/
+
+	#backgroundWheelEL;
+
+	/**
+	Context menu event listener on the background
+	@type {BackgroundContextMenuEL}
+	*/
+
+	#backgroundContextMenuEL;
+
+	/**
+	Top bar drag start event listener
+	@type {TopBarDragStartEL}
+	*/
+
+	#topBarDragStartEL;
+
+	/**
+	Top bar drag end event listener
+	@type {TopBarDragEndEL}
+	*/
+
+	#topBarDragEndEL;
+
+	/**
+	Cancel button click event listener
+	@type {CancelButtonClickEL}
+	*/
+
+	#cancelButtonClickEL;
+
+	/**
+	Ok button click event listener
+	@type {OkButtonClickEL}
+	*/
+
+	#okButtonClickEL;
+
+	/**
+	Keyboard key down event listener
+	@type {KeyboardKeydownEL}
+	*/
+
+	#keyboardKeydownEL;
 
 	/**
 	options parameter
-	@private
+	@type {?Object}
 	*/
 
 	#options = null;
 
 	/**
 	onOk promise function
-	@private
+	@type {function}
 	*/
 
-	#onPromiseOkFct = null;
+	#onPromiseOkFct;
 
 	/**
 	onError promise function
-	@private
+	@type {function}
 	*/
 
-	#onPromiseErrorFct = null;
+	#onPromiseErrorFct;
 
 	/**
 	Create the background
-	@private
 	*/
 
 	#createBackgroundDiv ( ) {
@@ -275,7 +477,6 @@ class BaseDialog {
 
 	/**
 	Create the dialog container
-	@private
 	*/
 
 	#createContainerDiv ( ) {
@@ -292,7 +493,6 @@ class BaseDialog {
 
 	/**
 	Create the animation top bar
-	@private
 	*/
 
 	#createTopBar ( ) {
@@ -327,7 +527,6 @@ class BaseDialog {
 
 	/**
 	Create the header div
-	@private
 	*/
 
 	#createHeaderDiv ( ) {
@@ -350,7 +549,6 @@ class BaseDialog {
 
 	/**
 	Create the content div
-	@private
 	*/
 
 	#createContentDiv ( ) {
@@ -369,7 +567,6 @@ class BaseDialog {
 
 	/**
 	Create the error div
-	@private
 	*/
 
 	#createErrorDiv ( ) {
@@ -384,7 +581,6 @@ class BaseDialog {
 
 	/**
 	Create the dialog wait animation
-	@private
 	*/
 
 	#createWaitDiv ( ) {
@@ -411,7 +607,6 @@ class BaseDialog {
 
 	/**
 	Create the dialog footer
-	@private
 	*/
 
 	#createFooterDiv ( ) {
@@ -445,6 +640,9 @@ class BaseDialog {
 			);
 			this.#secondButton.addEventListener ( 'click',	this.#cancelButtonClickEL, false	);
 		}
+		else {
+			this.#secondButton = null;
+		}
 
 		this.footerHTMLElements.forEach (
 			footerHTMLElement => footerDiv.appendChild ( footerHTMLElement )
@@ -453,7 +651,6 @@ class BaseDialog {
 
 	/**
 	Create the HTML dialog
-	@private
 	*/
 
 	#createHTML ( ) {
@@ -469,7 +666,6 @@ class BaseDialog {
 
 	/**
 	Center the dialog o the screen
-	@private
 	*/
 
 	#centerDialog ( ) {
@@ -501,7 +697,8 @@ class BaseDialog {
 
 	/**
 	Build and show the dialog
-	@private
+	@param {function} onPromiseOkFct The onOk Promise handler
+	@param {function} onPromiseErrorFct The onError Promise handler
 	*/
 
 	#show ( onPromiseOkFct, onPromiseErrorFct ) {
@@ -518,16 +715,22 @@ class BaseDialog {
 		this.onShow ( );
 	}
 
-	/*
-	constructor
-	@param {dialogOptions} the options for the dialog
+	/**
+	The constructor
+	@param {dialogOptions} options the options for the dialog
 	*/
 
-	constructor ( options = {} ) {
+	constructor ( options ) {
 		Object.freeze ( this );
-		this.#options = options;
+		this.#dragData = new DragData ( );
+		this.#options = new DialogOptions ( options );
 		this.#keyboardELEnabled = true;
 	}
+
+	/**
+	Remove all events listeners and events dispatchers so all references to the dialog are released and
+	finally remove all the htmlElements from the document
+	*/
 
 	#BaseDialogDestructor ( ) {
 		document.removeEventListener ( 'keydown', this.#keyboardKeydownEL, { capture : true } );
@@ -611,7 +814,6 @@ class BaseDialog {
 	/**
 	The title of the dialog. Can be overloaded in the derived classes
 	@type {string}
-	@readonly
 	*/
 
 	get title ( ) { return ''; }
@@ -620,7 +822,6 @@ class BaseDialog {
 	An array with the HTMLElements that have to be added in the content of the dialog.
 	Can be overloaded in the derived classes
 	@type {Array.<HTMLElement>}
-	@readonly
 	*/
 
 	get contentHTMLElements ( ) { return []; }
@@ -629,7 +830,6 @@ class BaseDialog {
 	An array with the HTMLElements that have to be added in the footer of the dialog
 	Can be overloaded in the derived classes
 	@type {Array.<HTMLElement>}
-	@readonly
 	*/
 
 	get footerHTMLElements ( ) { return []; }
@@ -680,7 +880,13 @@ class BaseDialog {
 		this.#errorDiv.classList.add ( 'TravelNotes-Hidden' );
 	}
 
+	/**
+	A flag to avoid all dialogs close when using the esc or enter keys
+	@type {Boolean}
+	*/
+
 	get keyboardELEnabled ( ) { return this.#keyboardELEnabled; }
+
 	set keyboardELEnabled ( keyboardELEnabled ) { this.#keyboardELEnabled = keyboardELEnabled; }
 
 }

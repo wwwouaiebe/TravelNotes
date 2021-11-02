@@ -26,26 +26,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file APIKeysDialogEventListeners.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogAPIKeys
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import PasswordDialog from '../dialogPassword/PasswordDialog.js';
 import DataEncryptor from '../coreLib/DataEncryptor.js';
 import theUtilities from '../UILib/Utilities.js';
@@ -57,20 +37,32 @@ import { ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class APIKeyDeletedEL
 @classdesc Event listener for the apikeydeleted event
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class APIKeyDeletedEL {
 
-	#APIKeysDialog = null;
-	#APIKeysControls = null;
+	/**
+	A reference to the API keys dialog
+	@type {APIKeysDialog}
+	*/
 
-	/*
-	constructor
+	#APIKeysDialog;
+
+	/**
+	A reference to the Map where the APIKeysDialogKeyControl objects are stored
+	@type {Map.<APIKeysDialogKeyControl>}
+	*/
+
+	#APIKeysControls;
+
+	/**
+	The constructor
+	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
+	@param {Map.<APIKeysDialogKeyControl>} APIKeysControls A reference to the Map where the APIKeysDialogKeyControl
+	objects are stored
 	*/
 
 	constructor ( APIKeysDialog, APIKeysControls ) {
@@ -81,6 +73,7 @@ class APIKeyDeletedEL {
 
 	/**
 	Event listener method
+	@param {Event} ApiKeyDeletedEvent The event to handle
 	*/
 
 	handleEvent ( ApiKeyDeletedEvent ) {
@@ -93,19 +86,23 @@ class APIKeyDeletedEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class OpenUnsecureFileChangeEL
 @classdesc change event listener for the open unsecure file input
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class OpenUnsecureFileChangeEL {
 
-	#APIKeysDialog = null;
+	/**
+	A reference to the API keys dialog
+	@type {APIKeysDialog}
+	*/
 
-	/*
-	constructor
+	#APIKeysDialog;
+
+	/**
+	The constructor
+	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
 	*/
 
 	constructor ( APIKeysDialog ) {
@@ -115,6 +112,7 @@ class OpenUnsecureFileChangeEL {
 
 	/**
 	Event listener method
+	@param {Event} changeEvent The event to handle
 	*/
 
 	handleEvent ( changeEvent ) {
@@ -140,19 +138,23 @@ class OpenUnsecureFileChangeEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class RestoreFromUnsecureFileButtonClickEL
 @classdesc click event listener for the restore keys from unsecure file button
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class RestoreFromUnsecureFileButtonClickEL {
 
-	#APIKeysDialog = null;
+	/**
+	A reference to the API keys dialog
+	@type {APIKeysDialog}
+	*/
 
-	/*
-	constructor
+	#APIKeysDialog;
+
+	/**
+	The constructor
+	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
 	*/
 
 	constructor ( APIKeysDialog ) {
@@ -162,6 +164,7 @@ class RestoreFromUnsecureFileButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -175,19 +178,23 @@ class RestoreFromUnsecureFileButtonClickEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class ReloadFromServerButtonClickEL
 @classdesc click event listener for the reload keys from server file button
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class ReloadFromServerButtonClickEL {
 
-	#APIKeysDialog = null;
+	/**
+	A reference to the API keys dialog
+	@type {APIKeysDialog}
+	*/
 
-	/*
-	constructor
+	#APIKeysDialog;
+
+	/**
+	The constructor
+	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
 	*/
 
 	constructor ( APIKeysDialog ) {
@@ -197,6 +204,7 @@ class ReloadFromServerButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -242,19 +250,23 @@ class ReloadFromServerButtonClickEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class OpenSecureFileChangeEL
 @classdesc Change event listener for the open secure file input
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class OpenSecureFileChangeEL {
 
-	#APIKeysDialog = null;
+	/**
+	A reference to the API keys dialog
+	@type {APIKeysDialog}
+	*/
 
-	/*
-	constructor
+	#APIKeysDialog;
+
+	/**
+	The constructor
+	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
 	*/
 
 	constructor ( APIKeysDialog ) {
@@ -264,6 +276,7 @@ class OpenSecureFileChangeEL {
 
 	/**
 	Event listener method
+	@param {Event} changeEvent The event to handle
 	*/
 
 	handleEvent ( changeEvent ) {
@@ -287,19 +300,23 @@ class OpenSecureFileChangeEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class RestoreFromSecureFileButtonClickEL
 @classdesc click event listener for the restore keys from secure file button
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class RestoreFromSecureFileButtonClickEL {
 
-	#APIKeysDialog = null;
+	/**
+	A reference to the API keys dialog
+	@type {APIKeysDialog}
+	*/
 
-	/*
-	constructor
+	#APIKeysDialog;
+
+	/**
+	The constructor
+	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
 	*/
 
 	constructor ( APIKeysDialog ) {
@@ -309,6 +326,7 @@ class RestoreFromSecureFileButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -321,20 +339,32 @@ class RestoreFromSecureFileButtonClickEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class SaveToSecureFileButtonClickEL
 @classdesc Click event listener for the saveAPIKeys to secure file button
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class SaveToSecureFileButtonClickEL {
 
-	#APIKeysDialog = null;
-	#APIKeysControls = null;
+	/**
+	A reference to the API keys dialog
+	@type {APIKeysDialog}
+	*/
 
-	/*
-	constructor
+	#APIKeysDialog;
+
+	/**
+	A reference to the Map where the APIKeysDialogKeyControl objects are stored
+	@type {Map.<APIKeysDialogKeyControl>}
+	*/
+
+	#APIKeysControls;
+
+	/**
+	The constructor
+	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
+	@param {Map.<APIKeysDialogKeyControl>} APIKeysControls A reference to the Map where the APIKeysDialogKeyControl
+	objects are stored
 	*/
 
 	constructor ( APIKeysDialog, APIKeysControls ) {
@@ -345,6 +375,7 @@ class SaveToSecureFileButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -370,20 +401,32 @@ class SaveToSecureFileButtonClickEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class SaveToUnsecureFileButtonClickEL
 @classdesc Click event listener for the saveAPIKeys to unsecure file button
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class SaveToUnsecureFileButtonClickEL {
 
-	#APIKeysDialog = null;
-	#APIKeysControls = null;
+	/**
+	A reference to the API keys dialog
+	@type {APIKeysDialog}
+	*/
 
-	/*
-	constructor
+	#APIKeysDialog;
+
+	/**
+	A reference to the Map where the APIKeysDialogKeyControl objects are stored
+	@type {Map.<APIKeysDialogKeyControl>}
+	*/
+
+	#APIKeysControls;
+
+	/**
+	The constructor
+	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
+	@param {Map.<APIKeysDialogKeyControl>} APIKeysControls A reference to the Map where the APIKeysDialogKeyControl
+	objects are stored
 	*/
 
 	constructor ( APIKeysDialog, APIKeysControls ) {
@@ -394,6 +437,7 @@ class SaveToUnsecureFileButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -412,20 +456,32 @@ class SaveToUnsecureFileButtonClickEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class NewAPIKeyButtonClickEL
 @classdesc Click event listener for the add new APIKey button
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class NewAPIKeyButtonClickEL {
 
-	#APIKeysDialog = null;
-	#APIKeysControls = null;
+	/**
+	A reference to the API keys dialog
+	@type {APIKeysDialog}
+	*/
 
-	/*
-	constructor
+	#APIKeysDialog;
+
+	/**
+	A reference to the Map where the APIKeysDialogKeyControl objects are stored
+	@type {Map.<APIKeysDialogKeyControl>}
+	*/
+
+	#APIKeysControls;
+
+	/**
+	The constructor
+	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
+	@param {Map.<APIKeysDialogKeyControl>} APIKeysControls A reference to the Map where the APIKeysDialogKeyControl
+	objects are stored
 	*/
 
 	constructor ( APIKeysDialog, APIKeysControls ) {
@@ -436,6 +492,7 @@ class NewAPIKeyButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {

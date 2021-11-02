@@ -26,26 +26,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file APIKeysDialogToolbar.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogAPIKeys
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
@@ -61,9 +41,7 @@ import {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class APIKeysDialogToolbar
 @classdesc This is the toolbar for the APIKeysDialog. Display 6 buttons on top of dialog.
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -73,98 +51,117 @@ class APIKeysDialogToolbar {
 	/**
 	A reference to the APIKeysDialog Object
 	@type {APIKeysDialog}
-	@private
 	*/
 
-	#APIKeysDialog = null;
+	#APIKeysDialog;
 
 	/**
 	A reference to the JS map where the APIKeysDialogKeyControl objects are stored
 	@type {Map}
-	@private
 	*/
 
-	#APIKeysControls = null;
+	#APIKeysControls;
 
 	/**
 	Store the status of the APIKeys file
 	@type {boolean}
-	@private
 	*/
 
-	#haveAPIKeysFile = false;
+	#haveAPIKeysFile;
 
 	/**
 	The root HTML element of the control
 	@type {HTMLElement}
-	@private
 	*/
 
-	#rootHTMLElement = null;
+	#rootHTMLElement;
 
 	/**
 	The reload key from server button
 	@type {HTMLElement}
-	@private
 	*/
 
-	#reloadKeysFromServerButton = null;
+	#reloadKeysFromServerButton;
 
 	/**
 	The save keys to secure file button
 	@type {HTMLElement}
-	@private
 	*/
 
-	#saveKeysToSecureFileButton = null;
+	#saveKeysToSecureFileButton;
 
 	/**
 	The restore keys from secure file button
 	@type {HTMLElement}
-	@private
 	*/
 
-	#restoreKeysFromSecureFileButton = null;
+	#restoreKeysFromSecureFileButton;
 
 	/**
 	The new APIKey button
 	@type {HTMLElement}
-	@private
 	*/
 
-	#newAPIKeyButton = null;
+	#newAPIKeyButton;
 
 	/**
 	The save keys to unsecure file button
 	@type {HTMLElement}
-	@private
 	*/
 
-	#saveKeysToUnsecureFileButton = null;
+	#saveKeysToUnsecureFileButton;
 
 	/**
 	The restore keys from unsecure file button
 	@type {HTMLElement}
-	@private
 	*/
 
-	#restoreKeysFromUnsecureFileButton = null;
+	#restoreKeysFromUnsecureFileButton;
 
 	/**
-	Event listeners instances for the buttons
-	@private
+	Event listener for the reload from server button
+	@type {ReloadFromServerButtonClickEL}
 	*/
 
-	#reloadFromServerButtonClickEL = null;
-	#saveToSecureFileButtonClickEL = null;
-	#restoreFromSecureFileButtonClickEL = null;
-	#newAPIKeyButtonClickEL = null;
-	#saveToUnsecureFileButtonClickEL = null;
-	#restoreFromUnsecureFileButtonClickEL = null;
+	#reloadFromServerButtonClickEL;
+
+	/**
+	Event listener for the save to secure file button
+	@type {SaveToSecureFileButtonClickEL}
+	*/
+
+	#saveToSecureFileButtonClickEL;
+
+	/**
+	Event listener for the restore from secure file button
+	@type {RestoreFromSecureFileButtonClickEL}
+	*/
+
+	#restoreFromSecureFileButtonClickEL;
+
+	/**
+	Event listener for the new API key button
+	@type {NewAPIKeyButtonClickEL}
+	*/
+
+	#newAPIKeyButtonClickEL;
+
+	/**
+	Event listener for the save to unsecure file button
+	@type {SaveToUnsecureFileButtonClickEL}
+	*/
+
+	#saveToUnsecureFileButtonClickEL;
+
+	/**
+	Event listener for the restore from unsecure file button
+	@type {RestoreFromUnsecureFileButtonClickEL}
+	*/
+
+	#restoreFromUnsecureFileButtonClickEL;
 
 	/**
 	Create the ReloadKeysFromServerFile Button
-	@private
 	*/
 
 	#createReloadKeysFromServerButton ( ) {
@@ -188,7 +185,6 @@ class APIKeysDialogToolbar {
 
 	/**
 	Create the SaveKeysToSecureFile Button
-	@private
 	*/
 
 	#createSaveKeysToSecureFileButton ( ) {
@@ -212,7 +208,6 @@ class APIKeysDialogToolbar {
 
 	/**
 	Create the RestoreKeysFromSecureFile Button
-	@private
 	*/
 
 	#createRestoreKeysFromSecureFileButton ( ) {
@@ -236,7 +231,6 @@ class APIKeysDialogToolbar {
 
 	/**
 	Create the AddNewAPIKey Button
-	@private
 	*/
 
 	#createNewAPIKeyButton ( ) {
@@ -260,7 +254,6 @@ class APIKeysDialogToolbar {
 
 	/**
 	Create the SaveKeysToUnsecureFile Button
-	@private
 	*/
 
 	#createSaveKeysToUnsecureFileButton ( ) {
@@ -284,7 +277,6 @@ class APIKeysDialogToolbar {
 
 	/**
 	Create the RestoreKeysFromUnsecureFile Button
-	@private
 	*/
 
 	#createRestoreKeysFromUnsecureFileButton ( ) {
@@ -308,7 +300,6 @@ class APIKeysDialogToolbar {
 
 	/**
 	Add the buttons to the toolbar
-	@private
 	*/
 
 	#addToolbarButtons ( ) {
@@ -328,8 +319,8 @@ class APIKeysDialogToolbar {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {ApiKeysDialog} APIKeysDialog A reference to the dialog
 	@param {Map} APIKeysControls A reference to the JS map with APIKeysControl objects
 	@param {boolean} haveAPIKeysFile  A boolean indicating when the APIKeys file was found on the server
@@ -413,7 +404,6 @@ class APIKeysDialogToolbar {
 	/**
 	The rootHTMLElement of the toolbar
 	@type {HTMLElement}
-	@readonly
 	*/
 
 	get rootHTMLElement ( ) {

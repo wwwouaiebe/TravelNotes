@@ -26,51 +26,33 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file APIKeysDialogKeyControl.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogAPIKeys
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import ObjId from '../data/ObjId.js';
-import { INVALID_OBJ_ID } from '../main/Constants.js';
 
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class DeleteButtonClickEL
 @classdesc Event listener for click event on the delete key button
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class DeleteButtonClickEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -83,10 +65,8 @@ class DeleteButtonClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class APIKeysDialogKeyControl
 @classdesc  the APIKey control for the APIKeysDialog. Display  HTML input elements for the providerName and the providerKey
 and a button to remove the APIKey from the dialog
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -96,37 +76,33 @@ class APIKeysDialogKeyControl {
 	/**
 	The root HTML element of the control
 	@type {HTMLElement}
-	@private
 	*/
 
-	#rootHTMLElement = null;
+	#rootHTMLElement;
 
 	/**
 	The providerName HTML input element
 	@type {HTMLElement}
-	@private
 	*/
 
-	#providerNameInput = null;
+	#providerNameInput;
 
 	/**
 	The providerKey HTML input element
 	@type {HTMLElement}
-	@private
 	*/
 
-	#providerKeyInput = null;
+	#providerKeyInput;
 
 	/**
 	A unique ObjId given to the control
 	@type {!number}
-	@private
 	*/
 
-	#objId = INVALID_OBJ_ID;
+	#objId;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {APIKey} APIKey The APIKey to display in the control
 	*/
 
@@ -180,7 +156,6 @@ class APIKeysDialogKeyControl {
 	/**
 	The ObjId of the control
 	@type {!number}
-	@readonly
 	*/
 
 	get objId ( ) { return this.#objId; }
@@ -188,7 +163,6 @@ class APIKeysDialogKeyControl {
 	/**
 	An array with the root HTML element of the control
 	@type {Array.<HTMLElement>}
-	@readonly
 	*/
 
 	get HTMLElements ( ) { return [ this.#rootHTMLElement ]; }
@@ -196,7 +170,6 @@ class APIKeysDialogKeyControl {
 	/**
 	The providerName
 	@type {string}
-	@readonly
 	*/
 
 	get providerName ( ) { return this.#providerNameInput.value; }
@@ -204,7 +177,6 @@ class APIKeysDialogKeyControl {
 	/**
 	The providerKey
 	@type {string}
-	@readonly
 	*/
 
 	get providerKey ( ) { return this.#providerKeyInput.value; }
@@ -212,7 +184,6 @@ class APIKeysDialogKeyControl {
 	/**
 	The APIKey
 	@type {APIKey}
-	@readonly
 	*/
 
 	get APIKey ( ) {

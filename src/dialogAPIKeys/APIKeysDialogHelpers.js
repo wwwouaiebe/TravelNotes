@@ -26,45 +26,29 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ApiKeysDialogHelpers.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogAPIKeys
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theUtilities from '../UILib/Utilities.js';
 import theTranslator from '../UILib/Translator.js';
 
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class DataEncryptorHandlers
 @classdesc handlers for DataEncryptor
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class DataEncryptorHandlers {
 
-	#APIKeysDialog = null;
+	/**
+	A reference to the API keys dialog
+	@type {APIKeysDialog}
+	*/
 
-	/*
-	constructor
+	#APIKeysDialog;
+
+	/**
+	The constructor
+	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
 	*/
 
 	constructor ( APIKeysDialog ) {
@@ -74,6 +58,7 @@ class DataEncryptorHandlers {
 
 	/**
 	onErrorDecrypt handler for the DataEncryptor
+	@param {Error|String} err The error to handle
 	*/
 
 	onErrorDecrypt ( err ) {
@@ -88,6 +73,7 @@ class DataEncryptorHandlers {
 
 	/**
 	onOkDecrypt handler for the DataEncryptor
+	@param {Uint8Array} data The decrypted data to handle
 	*/
 
 	onOkDecrypt ( data ) {
@@ -107,7 +93,7 @@ class DataEncryptorHandlers {
 
 	/**
 	onOkEncrypt handler for the DataEncryptor
-	@private
+	@param {Uint8Array} data The encrypted data to handle
 	*/
 
 	onOkEncrypt ( data ) {
@@ -119,7 +105,6 @@ class DataEncryptorHandlers {
 
 	/**
 	onErrorEncrypt handler for the DataEncryptor
-	@private
 	*/
 
 	onErrorEncrypt ( ) {
@@ -135,19 +120,24 @@ class DataEncryptorHandlers {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class SaveAPIKeysHelper
 @classdesc shared methods for save to file buttons event listeners
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class SaveAPIKeysHelper {
 
-	#APIKeysControls = null;
+	/**
+	A reference to the Map where the APIKeysDialogKeyControl objects are stored
+	@type {Map.<APIKeysDialogKeyControl>}
+	*/
 
-	/*
-	constructor
+	#APIKeysControls;
+
+	/**
+	The constructor
+	@param {Map.<APIKeysDialogKeyControl>} APIKeysControls A reference to the Map where the APIKeysDialogKeyControl
+	objects are stored
 	*/
 
 	constructor ( APIKeysControls ) {

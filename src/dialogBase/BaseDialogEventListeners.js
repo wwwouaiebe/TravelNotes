@@ -26,49 +26,31 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file BaseDialogEventListeners.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogBase
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theGeometry from '../coreLib/Geometry.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 
-import { ZERO, ONE, LAT_LNG, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
-
-const ZOOM_DISPLACMENT = 25;
+import { ZERO, ONE, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
 
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class OkButtonClickEL
 @classdesc click event listener for the ok button
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class OkButtonClickEL {
 
-	#baseDialog = null;
+	/**
+	A reference to the dialog
+	@type {BaseDialog}
+	*/
 
-	/*
-	constructor
+	#baseDialog;
+
+	/**
+	The constructor
+	@param {BaseDialog} baseDialog A reference to the dialog
 	*/
 
 	constructor ( baseDialog ) {
@@ -88,19 +70,23 @@ class OkButtonClickEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class CancelButtonClickEL
 @classdesc click event listener for the cancel button
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class CancelButtonClickEL {
 
-	#baseDialog = null;
+	/**
+	A reference to the dialog
+	@type {BaseDialog}
+	*/
 
-	/*
-	constructor
+	#baseDialog;
+
+	/**
+	The constructor
+	@param {BaseDialog} baseDialog A reference to the dialog
 	*/
 
 	constructor ( baseDialog ) {
@@ -120,19 +106,23 @@ class CancelButtonClickEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class TopBarDragStartEL
 @classdesc dragstart event listener for the top bar
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class TopBarDragStartEL {
 
-	#dragData = null;
+	/**
+	A reference to the dragData object of the dialog
+	@type {Object}
+	*/
 
-	/*
-	constructor
+	#dragData;
+
+	/**
+	The constructor
+	@param {Object} dragData A reference to the dragData object of the dialog
 	*/
 
 	constructor ( dragData ) {
@@ -142,6 +132,7 @@ class TopBarDragStartEL {
 
 	/**
 	Event listener method
+	@param {Event} dragStartEvent The event to handle
 	*/
 
 	handleEvent ( dragStartEvent ) {
@@ -155,32 +146,51 @@ class TopBarDragStartEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class TopBarDragEndEL
 @classdesc dragend event event listener for the top bar
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class TopBarDragEndEL {
 
-	#dragData = null;
-	#containerDiv = null;
-	#backgroundDiv= null;
-
-	/*
-	constructor
+	/**
+	A reference to the dragData object of the dialog
+	@type {Object}
 	*/
 
-	constructor ( dragData, containerDiv, backgroundDiv ) {
+	#dragData;
+
+	/**
+	A reference to the dialog container
+	@type {HTMLElement}
+	*/
+
+	#container;
+
+	/**
+	A reference to the background of the dialog
+	@type {HTMLElement}
+	*/
+
+	#background;
+
+	/**
+	The constructor
+	@param {Object} dragData A reference to the dragData object of the dialog
+	@param {HTMLElement} container A reference to the dialog container
+	@param {HTMLElement} background A reference to the background of the dialog
+	*/
+
+	constructor ( dragData, container, background ) {
 		Object.freeze ( this );
 		this.#dragData = dragData;
-		this.#containerDiv = containerDiv;
-		this.#backgroundDiv = backgroundDiv;
+		this.#container = container;
+		this.#background = background;
 	}
 
 	/**
 	Event listener method
+	@param {Event} dragEndEvent The event to handle
 	*/
 
 	handleEvent ( dragEndEvent ) {
@@ -188,8 +198,8 @@ class TopBarDragEndEL {
 		this.#dragData.dialogX =
 			Math.min (
 				Math.max ( this.#dragData.dialogX, DIALOG_DRAG_MARGIN ),
-				this.#backgroundDiv.clientWidth -
-					this.#containerDiv.clientWidth -
+				this.#background.clientWidth -
+					this.#container.clientWidth -
 					DIALOG_DRAG_MARGIN
 			);
 
@@ -198,32 +208,36 @@ class TopBarDragEndEL {
 			Math.max ( this.#dragData.dialogY, DIALOG_DRAG_MARGIN );
 
 		const dialogMaxHeight =
-			this.#backgroundDiv.clientHeight -
+			this.#background.clientHeight -
 			Math.max ( this.#dragData.dialogY, ZERO ) -
 			DIALOG_DRAG_MARGIN;
 
-		this.#containerDiv.style.left = String ( this.#dragData.dialogX ) + 'px';
-		this.#containerDiv.style.top = String ( this.#dragData.dialogY ) + 'px';
-		this.#containerDiv.style [ 'max-height' ] = String ( dialogMaxHeight ) + 'px';
+		this.#container.style.left = String ( this.#dragData.dialogX ) + 'px';
+		this.#container.style.top = String ( this.#dragData.dialogY ) + 'px';
+		this.#container.style [ 'max-height' ] = String ( dialogMaxHeight ) + 'px';
 	}
 }
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class KeyboardKeydownEL
 @classdesc keydown event listener
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class KeyboardKeydownEL {
 
-	#baseDialog = null;
+	/**
+	A reference to the dialog
+	@type {BaseDialog}
+	*/
 
-	/*
-	constructor
+	#baseDialog;
+
+	/**
+	The constructor
+	@param {BaseDialog} baseDialog A reference to the dialog
 	*/
 
 	constructor ( baseDialog ) {
@@ -233,6 +247,7 @@ class KeyboardKeydownEL {
 
 	/**
 	Event listener method
+	@param {Event} keyDownEvent The event to handle
 	*/
 
 	handleEvent ( keyDownEvent ) {
@@ -254,19 +269,22 @@ class KeyboardKeydownEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class BackgroundLeftPanEL
 @classdesc leftpan event listener for the background
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class BackgroundLeftPanEL {
 
-	#mapCenter = [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ];
+	/**
+	A leaflet LatLng object with the center of the map
+	@type {Object}
+	*/
 
-	/*
-	constructor
+	#mapCenter;
+
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -275,6 +293,7 @@ class BackgroundLeftPanEL {
 
 	/**
 	Event listener method
+	@param {Event} leftPanEvent The event to handle
 	*/
 
 	handleEvent ( leftPanEvent ) {
@@ -303,28 +322,47 @@ class BackgroundLeftPanEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class BackgroundRightPanEL
-@classdesc rightpan event listener for the background
-@hideconstructor
+@classdesc rightpan event listener for the background. Zoom on the map
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class BackgroundRightPanEL {
 
-	#initialZoom = ZERO;
-	#startPoint = null;
+	/**
+	The minimal value in pixels for the pan displacement triggering a zoom
+	@type {Number}
+	*/
 
-	/*
-	constructor
+	// eslint-disable-next-line no-magic-numbers
+	static get #ZOOM_DISPLACMENT ( ) { return 25; }
+
+	/**
+	The map zoom before the event
+	@type {Number}
+	*/
+
+	#initialZoom;
+
+	/**
+	A L.Point object containing the screen coordinates of the start point of the pan
+	@type {Object}
+	*/
+
+	#startPoint;
+
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#initialZoom = ZERO;
 	}
 
 	/**
 	Event listener method
+	@param {Event} rightPanEvent The event to handle
 	*/
 
 	handleEvent ( rightPanEvent ) {
@@ -333,7 +371,9 @@ class BackgroundRightPanEL {
 			this.#startPoint = window.L.point ( rightPanEvent.clientX, rightPanEvent.clientY );
 			return;
 		}
-		let zoom = Math.floor ( this.#initialZoom + ( ( rightPanEvent.startY - rightPanEvent.endY ) / ZOOM_DISPLACMENT ) );
+		let zoom = Math.floor (
+			this.#initialZoom + ( ( rightPanEvent.startY - rightPanEvent.endY ) / BackgroundRightPanEL.#ZOOM_DISPLACMENT )
+		);
 		zoom = Math.min ( theTravelNotesData.map.getMaxZoom ( ), zoom );
 		zoom = Math.max ( theTravelNotesData.map.getMinZoom ( ), zoom );
 		theTravelNotesData.map.setZoomAround ( this.#startPoint, zoom );
@@ -343,22 +383,25 @@ class BackgroundRightPanEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class BackgroundWheelEL
-@classdesc wheel event listener for the background
-@hideconstructor
+@classdesc wheel event listener for the background. Zoom on the map
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class BackgroundWheelEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	@param {Event} wheelEvent The event to handle
+	*/
 
 	handleEvent ( wheelEvent ) {
 		if ( ! wheelEvent.target.classList.contains ( 'TravelNotes-Background' ) ) {
@@ -378,22 +421,25 @@ class BackgroundWheelEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class BackgroundContextMenuEL
 @classdesc contextmenu event listener for the background
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class BackgroundContextMenuEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	@param {Event} contextmenuEvent The event to handle
+	*/
 
 	handleEvent ( contextmenuEvent ) {
 		contextmenuEvent.preventDefault ( );
@@ -403,22 +449,25 @@ class BackgroundContextMenuEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class BackgroundDragOverEL
 @classdesc BaseDialog drag over event listener based on the EventListener API.
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class BackgroundDragOverEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	@param {Event} dragEvent The event to handle
+	*/
 
 	handleEvent ( dragEvent ) {
 		dragEvent.preventDefault ( );
