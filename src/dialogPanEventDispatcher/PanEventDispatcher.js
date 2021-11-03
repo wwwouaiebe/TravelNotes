@@ -26,49 +26,65 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file PanEventDispatcher.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogPanEventDispatcher
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import { ZERO, ONE, TWO, NOT_FOUND } from '../main/Constants.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class MouseEL
 @classdesc mouse event listener fro the target. Redispath the mouse events as leftpan or rightpan or middlepan events
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class MouseEL {
 
+	/**
+	A flag set to true when a pan is ongoing
+	@type {Boolean}
+	*/
+
 	#panOngoing = false;
+
+	/**
+	The X screen coordinate of the beginning of the pan
+	@type {Number}
+	*/
+
 	#startPanX = ZERO;
+
+	/**
+	The Y screen coordinate of the beginning of the pan
+	@type {Number}
+	*/
+
 	#startPanY = ZERO;
+
+	/**
+	The target of the event
+	@type {HTMLElement}
+	*/
+
 	#target = null;
+
+	/**
+	The mouse button to use
+	@type {Number}
+	*/
+
 	#button = ZERO;
+
+	/**
+	The type of the event that have to be dispatched
+	@type {String}
+	*/
+
 	#eventType = '';
 
 	/**
 	Redispatch the events as pan events
-	@private
+	@param {Event} mouseEvent The initial event
+	@param {String} action The action of the pan ( = 'start', 'move' or 'end')
+
 	*/
 
 	#dispatchEvent ( mouseEvent, action ) {
@@ -83,8 +99,11 @@ class MouseEL {
 		this.#target.dispatchEvent ( panEvent );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {HTMLElement} target The target for the event listener
+	@param {!number} button The button used. must be PanEventDispatcher.LEFT_BUTTON or PanEventDispatcher.MIDDLE_BUTTON
+	or PanEventDispatcher.RIGHT_BUTTON. Default value: PanEventDispatcher.LEFT_BUTTON
 	*/
 
 	constructor ( target, button ) {
@@ -108,8 +127,8 @@ class MouseEL {
 	}
 
 	/**
-	handleEvent
-	Save some data from the event and then redispatch as pan events
+	Event listener method
+	@param {Event} mouseEvent The event to handle
 	*/
 
 	handleEvent ( mouseEvent ) {
@@ -158,9 +177,7 @@ class MouseEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class PanEventDispatcher
 @classdesc Listen mouse event from an object and redispath the mouse events as leftpan or rightpan or middlepan events
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -168,37 +185,50 @@ class MouseEL {
 class PanEventDispatcher {
 
 	/**
-	static constant for the left button
+	The target of the event dispatcher
+	@type {HTMLElement}
+	*/
+
+	#target;
+
+	/**
+	The mouse event listener that is added to the target and that redispatch the event
+	@type {MouseEL}
+	*/
+
+	#eventListener;
+
+	/**
+	constant for the left button
+	@type {Number}
 	*/
 
 	static get LEFT_BUTTON ( ) { return ZERO; }
 
 	/**
-	static constant for the middle button
+	constant for the middle button
+	@type {Number}
 	*/
 
 	static get MIDDLE_BUTTON ( ) { return ONE; }
 
 	/**
-	static constant for the right button
+	constant for the right button
+	@type {Number}
 	*/
 
 	static get RIGHT_BUTTON ( ) { return TWO; }
 
-	#target = null;
-	#eventListener = null;
-
-	/*
-	constructor
+	/**
+	The constructor
 	@param {HTMLElement} target The target for the event dispatcher
 	@param {!number} button The button to use. must be PanEventDispatcher.LEFT_BUTTON or PanEventDispatcher.MIDDLE_BUTTON
 	or PanEventDispatcher.RIGHT_BUTTON. Default value: PanEventDispatcher.LEFT_BUTTON
 	*/
 
-	constructor ( target, button = ZERO ) {
-
+	constructor ( target, button ) {
 		this.#target = target;
-		this.#eventListener = new MouseEL ( target, button );
+		this.#eventListener = new MouseEL ( target, button ?? ZERO );
 		this.#target.addEventListener ( 'mousedown', this.#eventListener );
 		this.#target.addEventListener ( 'mouseup', this.#eventListener );
 		this.#target.addEventListener ( 'mousemove', this.#eventListener );
