@@ -27,31 +27,9 @@ Tests ...
 */
 
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file PasswordDialogEventListeners.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogPassword
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class EyeMouseDownEL
 @classdesc mousedown event listener for the eye button
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -59,14 +37,15 @@ Tests ...
 class EyeMouseDownEL {
 
 	/**
-	A reference to the passwordInput HTMLElement of the dialogPassword
-	@private
+	A reference to the password input of the dialogPassword
+	@type {HTMLElement}
 	*/
 
 	#passwordInput = null;
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {HTMLElement} passwordInput A reference to the password input of the dialogPassword
 	*/
 
 	constructor ( passwordInput ) {
@@ -76,6 +55,7 @@ class EyeMouseDownEL {
 
 	/**
 	Event listener method
+	@param {Event} mouseDownEvent The event to handle
 	*/
 
 	handleEvent ( mouseDownEvent ) {
@@ -88,9 +68,7 @@ class EyeMouseDownEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class EyeMouseUpEL
 @classdesc mouseup event listener for the eye button
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -98,14 +76,15 @@ class EyeMouseDownEL {
 class EyeMouseUpEL {
 
 	/**
-	A reference to the passwordInput HTMLElement of the dialogPassword
-	@private
+	A reference to the password input of the dialogPassword
+	@type {HTMLElement}
 	*/
 
-	#passwordInput = null;
+	#passwordInput;
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {HTMLElement} passwordInput A reference to the password input of the dialogPassword
 	*/
 
 	constructor ( passwordInput ) {
@@ -115,6 +94,7 @@ class EyeMouseUpEL {
 
 	/**
 	Event listener method
+	@param {Event} mouseUpEvent The event to handle
 	*/
 
 	handleEvent ( mouseUpEvent ) {

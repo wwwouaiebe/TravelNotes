@@ -48,31 +48,9 @@ import {
 import { ZERO } from '../main/Constants.js';
 
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ProfileWindow.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogProfileWindow
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class ProfileWindow
 @classdesc a float window containing a route profile
-@extends FloatWindow
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -82,15 +60,13 @@ class ProfileWindow extends FloatWindow {
 	/**
 	The svg profile
 	@type {SVGElement}
-	@private
 	*/
 
 	#svg = null;
 
 	/**
 	A div under the svg profile with some texts
-	{type {HTMLElement}
-	@private
+	@type {HTMLElement}
 	*/
 
 	#ascentDiv = null;
@@ -98,7 +74,6 @@ class ProfileWindow extends FloatWindow {
 	/**
 	The route for witch the profile is diplayed
 	@type {Route}
-	@private
 	*/
 
 	#route = null;
@@ -106,7 +81,6 @@ class ProfileWindow extends FloatWindow {
 	/**
 	contextmenu event listener
 	@type {Object}
-	@private
 	*/
 
 	#svgContextMenuEL = null;
@@ -114,7 +88,6 @@ class ProfileWindow extends FloatWindow {
 	/**
 	mousemove event listener
 	@type {Object}
-	@private
 	*/
 
 	#svgMouseMoveEL = null;
@@ -122,22 +95,19 @@ class ProfileWindow extends FloatWindow {
 	/**
 	mouseleave event listener
 	@type {Object}
-	@private
 	*/
 
 	#svgMouseLeaveEL = null;
 
 	/**
 	An objId for the position marker
-	#type {!number}
-	@private
+	@type {Number}
 	*/
 
 	#markerObjId = ObjId.nextObjId;
 
 	/**
 	This method removes the svg and event listeners from the window
-	@private
 	*/
 
 	#clean ( ) {
@@ -156,8 +126,8 @@ class ProfileWindow extends FloatWindow {
 		this.#ascentDiv = null;
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -184,6 +154,7 @@ class ProfileWindow extends FloatWindow {
 
 	/**
 	Update the window's content
+	@param {Route} route The Route for witch the profile must be updated
 	*/
 
 	update ( route ) {

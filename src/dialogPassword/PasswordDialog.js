@@ -31,39 +31,16 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file PasswordDialog.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogPassword
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theTranslator from '../UILib/Translator.js';
 import BaseDialog from '../dialogBase/BaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import { EyeMouseDownEL, EyeMouseUpEL } from '../dialogPassword/PasswordDialogEventListeners.js';
 
-const OUR_PSWD_MIN_LENGTH = 12;
-
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class PasswordDialog
 @classdesc This class is the password dialog
 @extends BaseDialog
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -73,45 +50,54 @@ class PasswordDialog extends BaseDialog {
 	/**
 	The password html div
 	@type {HTMLElement}
-	@private
 	*/
 
-	#passwordDiv = null;
+	#passwordDiv;
 
 	/**
 	the password html input
 	@type {HTMLElement}
-	@private
 	*/
 
-	#passwordInput = null;
+	#passwordInput;
 
 	/** the eye html span
 	@type {HTMLElement}
-	@private
 	*/
 
-	#eyeSpan = null;
+	#eyeSpan;
 
 	/**
 	the verifyPassword constructor parameter
 	@type {boolean}
-	@private
 	*/
 
-	#verifyPassword = false;
+	#verifyPassword;
 
 	/**
-	Events listeners
+	mouseDown event listener
 	@type {Object}
-	@private
 	*/
 
-	#onMouseDownEyeEventListener = null;
-	#onMouseUpEyeEventListener = null;
+	#onMouseDownEyeEventListener;
 
-	/*
-	constructor
+	/**
+	mouseup event listener
+	@type {Object}
+	*/
+
+	#onMouseUpEyeEventListener;
+	
+	/**
+	The minimal length for the password
+	@type {String}
+	*/
+	
+	static get #PSWD_MIN_LENGTH ( ) { return 12; }
+
+
+	/**
+	The constructor
 	@param {boolean} verifyPassword When true the password must be conform to the password rules
 	*/
 
@@ -137,6 +123,10 @@ class PasswordDialog extends BaseDialog {
 		this.#eyeSpan.addEventListener ( 'mousedown', this.#onMouseDownEyeEventListener, false );
 		this.#eyeSpan.addEventListener ( 'mouseup', this.#onMouseUpEyeEventListener,	false );
 	}
+	
+	/**
+	Remove event listeners
+	*/
 
 	#destructor ( ) {
 		this.#eyeSpan.removeEventListener ( 'mousedown', this.#onMouseDownEyeEventListener, false );
@@ -148,13 +138,14 @@ class PasswordDialog extends BaseDialog {
 
 	/**
 	Overload of the BaseDialog.canClose ( ) method.
+	@return {Boolean} true when the password is correct, false otherwise
 	*/
 
 	canClose ( ) {
 		this.hideError ( );
 		if ( this.#verifyPassword ) {
 			if (
-				( this.#passwordInput.value.length < OUR_PSWD_MIN_LENGTH )
+				( this.#passwordInput.value.length < PasswordDialog.#PSWD_MIN_LENGTH )
 				||
 				! this.#passwordInput.value.match ( /[0-9]+/ )
 				||
@@ -190,7 +181,6 @@ class PasswordDialog extends BaseDialog {
 
 	/**
 	Overload of the BaseDialog.onOk ( ) method.
-	@return the password encoded with TextEncoder
 	*/
 
 	onOk ( ) {
@@ -208,14 +198,14 @@ class PasswordDialog extends BaseDialog {
 
 	/**
 	An array with the HTMLElements that have to be added in the content of the dialog.
-	@readonly
+	@type {Array.<HTMLElement>}
 	*/
 
 	get contentHTMLElements ( ) { return [ this.#passwordDiv ]; }
 
 	/**
 	The dialog title. Overload of the BaseDialog.title property
-	@readonly
+	@type {String}
 	*/
 
 	get title ( ) { return theTranslator.getText ( 'PasswordDialog - password' ); }

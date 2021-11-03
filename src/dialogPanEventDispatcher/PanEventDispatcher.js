@@ -31,7 +31,7 @@ import { ZERO, ONE, TWO, NOT_FOUND } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@classdesc mouse event listener fro the target. Redispath the mouse events as leftpan or rightpan or middlepan events
+@classdesc mouse event listener for the target. Redispath the mouse events as leftpan or rightpan or middlepan events
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

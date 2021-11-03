@@ -41,39 +41,17 @@ import SvgProfileBuilder from '../coreLib/SvgProfileBuilder.js';
 import { SVG_NS, ZERO, ONE, TWO, THREE } from '../main/Constants.js';
 
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ProfileWindowEventListeners.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogProfileWindow
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class BaseSvgEL
 @classdesc Base class for Svg event listeners
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class BaseSvgEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -81,6 +59,8 @@ class BaseSvgEL {
 	}
 
 	/**
+	Get the lat, lng, elevation, ascent and distance from the route origin at the mouse position on the svg
+	@param {Event} mouseEvent The triggered event
 	@return {LatLngElevOnRoute} An object with the lat, lng, elevation, ascent and distance from the route origin
 	at the mouse position on the svg
 	*/
@@ -112,17 +92,15 @@ class BaseSvgEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class SvgContextMenuEL
 @classdesc contextmenu event listener for svg profile
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class SvgContextMenuEL extends BaseSvgEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -131,6 +109,7 @@ class SvgContextMenuEL extends BaseSvgEL {
 
 	/**
 	Event listener method
+	@param {Event} mouseEvent The event to handle
 	*/
 
 	handleEvent ( mouseEvent ) {
@@ -151,17 +130,15 @@ class SvgContextMenuEL extends BaseSvgEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class SvgMouseLeaveEL
 @classdesc mouseleave event listener for svg profile
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class SvgMouseLeaveEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -170,6 +147,7 @@ class SvgMouseLeaveEL {
 
 	/**
 	Event listener method
+	@param {Event} mouseLeaveEvent The event to handle
 	*/
 
 	handleEvent ( mouseLeaveEvent ) {
@@ -185,9 +163,7 @@ class SvgMouseLeaveEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class SvgMouseMoveEL
 @classdesc mousemove event listener for svg profile
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -200,7 +176,7 @@ class SvgMouseMoveEL extends BaseSvgEL {
 	@private
 	*/
 
-	#marker = null;
+	#marker;
 
 	/**
 	The svg text with the distance since the beginning of the route at the mouse position
@@ -208,7 +184,7 @@ class SvgMouseMoveEL extends BaseSvgEL {
 	@private
 	*/
 
-	#distanceText = null;
+	#distanceText;
 
 	/**
 	The svg text with the elevation at the mouse position
@@ -216,7 +192,7 @@ class SvgMouseMoveEL extends BaseSvgEL {
 	@private
 	*/
 
-	#elevText = null;
+	#elevText;
 
 	/**
 	The svg text with the ascent of the route at the mouse position
@@ -224,7 +200,7 @@ class SvgMouseMoveEL extends BaseSvgEL {
 	@private
 	*/
 
-	#ascentText = null;
+	#ascentText;
 
 	/**
 	A string indicating where is the text anchor. Must be 'end' or 'start'
@@ -232,7 +208,7 @@ class SvgMouseMoveEL extends BaseSvgEL {
 	@private
 	*/
 
-	#textAnchor = null;
+	#textAnchor;
 
 	/**
 	The horizontal position of the marker on the svg
@@ -240,7 +216,7 @@ class SvgMouseMoveEL extends BaseSvgEL {
 	@private
 	*/
 
-	#markerX = null;
+	#markerX;
 
 	/**
 	The svgElement with the profile
@@ -248,7 +224,7 @@ class SvgMouseMoveEL extends BaseSvgEL {
 	@private
 	*/
 
-	#profileSvg = null;
+	#profileSvg;
 
 	/**
 	A method to create a svg:text.
@@ -269,8 +245,8 @@ class SvgMouseMoveEL extends BaseSvgEL {
 		return svgText;
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -279,6 +255,7 @@ class SvgMouseMoveEL extends BaseSvgEL {
 
 	/**
 	Event listener method
+	@param {Event} mouseEvent The event to handle
 	*/
 
 	handleEvent ( mouseEvent ) {
