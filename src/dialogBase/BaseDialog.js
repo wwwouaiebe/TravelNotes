@@ -169,8 +169,24 @@ class DialogOptions {
 
 	constructor ( options ) {
 		for ( const property in options ) {
-			if ( this [ '#' + property ] ) {
-				this [ '#' + property ] = property;
+			switch ( property ) {
+			case 'firstButtonText' :
+				this.#firstButtonText = options.firstButtonText;
+				break;
+			case 'secondButtonText' :
+				this.#secondButtonText = options.secondButtonText;
+				break;
+			case 'selectOptionsData' :
+				this.#selectOptionsData = options.selectOptionsData;
+				break;
+			case 'title' :
+				this.#title = options.title;
+				break;
+			case 'text' :
+				this.#text = options.text;
+				break;
+			default :
+				break;
 			}
 		}
 	}
@@ -843,6 +859,8 @@ class BaseDialog {
 	get keyboardELEnabled ( ) { return this.#keyboardELEnabled; }
 
 	set keyboardELEnabled ( keyboardELEnabled ) { this.#keyboardELEnabled = keyboardELEnabled; }
+
+	get options ( ) { return this.#options; }
 
 }
 

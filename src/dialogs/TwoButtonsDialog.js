@@ -29,44 +29,12 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file TwoButtonsDialog.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogs
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@typedef {Object} TwoButtonsDialogContent
-@desc An object to store the content displayed in a TwoButtonsDialog
-@property {?string} title The title of the dialog
-@property {?string} okButtonContent The text displayed on the ok button. Default OK
-@property {?string} secondButtonContent The text displayed on the second button. When none, the second button is not displayed
-@property {?string} textContent The text displayed in the dialog
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import BaseDialog from '../dialogBase/BaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class TwoButtonsDialog
 @classdesc A customizable dialog with two buttons.
 Create an instance of the dialog, then execute the show ( ) method. The Promise returned by the show ( ) method fullfil
 when the first button is used and reject when the second button or the cancel button on the topbar is used
@@ -82,8 +50,6 @@ newTwoButtonsDialog (
 	.show ( )
 	.then ( ... )
 	.catch ( ... );
-@extends BaseDialog
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -91,25 +57,18 @@ newTwoButtonsDialog (
 class TwoButtonsDialog extends BaseDialog {
 
 	/**
-	A reference to the options of the dialog
-	@type {dialogOptions}
+	The constructor
+	@param {DialogOptions|Object} options An Object with the needed options. See DialogOptions class.
 	*/
 
-	#options = null;
-
-	/*
-	constructor
-	*/
-
-	constructor ( options = {} ) {
+	constructor ( options ) {
 		super ( options );
-		this.#options = options;
 	}
 
 	/**
 	An array with the HTMLElements that have to be added in the content of the dialog.
 	Overload of the BaseDialog contentHTMLElements property.
-	{type {Array.<HTMLElement>}
+	@type {Array.<HTMLElement>}
 	*/
 
 	get contentHTMLElements ( ) {
@@ -117,7 +76,7 @@ class TwoButtonsDialog extends BaseDialog {
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					textContent : this.#options.text || ''
+					textContent : this.options.text || ''
 				}
 			)
 		];
@@ -128,7 +87,7 @@ class TwoButtonsDialog extends BaseDialog {
 	@type {String}
 	*/
 
-	get title ( ) { return this.#options.title || ''; }
+	get title ( ) { return this.options.title || ''; }
 }
 
 export default TwoButtonsDialog;

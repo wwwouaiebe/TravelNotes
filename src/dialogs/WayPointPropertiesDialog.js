@@ -31,23 +31,6 @@ Changes:
 Doc reviewed 20210914
 Tests ...
 */
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file WayPointPropertiesDialog.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogs
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
 
 import BaseDialog from '../dialogBase/BaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
@@ -58,10 +41,7 @@ import theConfig from '../data/Config.js';
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class WayPointPropertiesDialog
 @classdesc This is the WayPointProerties dialog
-@extends BaseDialog
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -73,31 +53,32 @@ class WayPointPropertiesDialog extends BaseDialog {
 	@type {WayPoint}
 	*/
 
-	#wayPoint = null;
+	#wayPoint;
 
 	/**
 	The address input HTMLElement
 	@type {HTMLElement}
 	*/
 
-	#addressInput = null;
+	#addressInput;
 
 	/**
 	The reser address button
 	@type {HTMLElement}
 	*/
 
-	#resetAddressButton = null;
+	#resetAddressButton;
 
 	/**
 	The name input HTMLElement
 	@type {HTMLElement}
 	*/
 
-	#nameInput = null;
+	#nameInput;
 
 	/**
 	Click on the reset address button event listener
+	@param {Event} clickEvent The event to handle
 	*/
 
 	async handleEvent ( clickEvent ) {
@@ -181,9 +162,9 @@ class WayPointPropertiesDialog extends BaseDialog {
 		return [ nameHeaderDiv, nameInputDiv ];
 	}
 
-	/*
-	constructor
-	@param {WayPoint} The wayPoint to modify
+	/**
+	The constructor
+	@param {WayPoint} wayPoint The wayPoint to modify
 	*/
 
 	constructor ( wayPoint ) {
@@ -215,7 +196,7 @@ class WayPointPropertiesDialog extends BaseDialog {
 	/**
 	An array with the HTMLElements that have to be added in the content of the dialog.
 	Overload of the BaseDialog contentHTMLElements property.
-	{type {Array.<HTMLElement>}
+	@type {Array.<HTMLElement>}
 	*/
 
 	get contentHTMLElements ( ) {

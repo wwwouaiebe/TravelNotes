@@ -27,24 +27,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file SaveAsDialog.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogs
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theTranslator from '../UILib/Translator.js';
 import BaseDialog from '../dialogBase/BaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
@@ -52,12 +34,9 @@ import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class SaveAsDialog
 @classdesc A saveAsDialog object completed for making a partial save of the edited travel
 Create an instance of the dialog, then execute the show ( ) method. The selected values are returned as parameter of the
 succes handler of the Promise returned by the show ( ) method.
-@extends BaseDialog
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -69,42 +48,42 @@ class SaveAsDialog extends BaseDialog {
 	@type {HTMLElement}
 	*/
 
-	#removeTravelNotesInput = null;
+	#removeTravelNotesInput;
 
 	/**
 	The remove route notes input
 	@type {HTMLElement}
 	*/
 
-	#removeRoutesNotesInput = null;
+	#removeRoutesNotesInput;
 
 	/**
 	The remove maneuvers input
 	@type {HTMLElement}
 	*/
 
-	#removeManeuversInput = null;
+	#removeManeuversInput;
 
 	/**
 	The remove travel notes div
 	@type {HTMLElement}
 	*/
 
-	#removeTravelNotesDiv = null;
+	#removeTravelNotesDiv;
 
 	/**
 	The remove route notes div
 	@type {HTMLElement}
 	*/
 
-	#removeRoutesNotesDiv = null;
+	#removeRoutesNotesDiv;
 
 	/**
 	The remove maneuvers div
 	@type {HTMLElement}
 	*/
 
-	#removeManeuversDiv = null;
+	#removeManeuversDiv;
 
 	/**
 	Create an input div and an input HTMLelements
@@ -126,11 +105,12 @@ class SaveAsDialog extends BaseDialog {
 		return [ inputDiv, input ];
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {DialogOptions|Object} options An Object with the needed options. See DialogOptions class.
 	*/
 
-	constructor ( options = {} ) {
+	constructor ( options ) {
 		super ( options );
 		[ this.#removeTravelNotesDiv, this.#removeTravelNotesInput ] =
 			this.#createInputDiv ( theTranslator.getText ( 'SaveAsDialog - Remove Travel Notes' ) );
@@ -158,6 +138,7 @@ class SaveAsDialog extends BaseDialog {
 
 	/**
 	Get an array with the HTMLElements that have to be added in the content of the dialog.
+	@type {Array.<HTMLElement>}
 	*/
 
 	get contentHTMLElements ( ) {
@@ -170,6 +151,7 @@ class SaveAsDialog extends BaseDialog {
 
 	/**
 	Get the title of the dialog
+	@type {String}
 	*/
 
 	get title ( ) { return theTranslator.getText ( 'SaveAsDialog - SaveAs' ); }

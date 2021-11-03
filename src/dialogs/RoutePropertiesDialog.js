@@ -37,24 +37,6 @@ Doc reviewed 20210914
 ests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file RoutePropertiesDialog.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogs
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import BaseDialog from '../dialogBase/BaseDialog.js';
 import theTranslator from '../UILib/Translator.js';
 import ColorControl from '../dialogColorControl/ColorControl.js';
@@ -62,16 +44,10 @@ import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theConfig from '../data/Config.js';
 import { ZERO } from '../main/Constants.js';
 
-const OUR_ROUTE_MIN_WIDTH = 1;
-const OUR_ROUTE_MAX_WIDTH = 40;
-
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class RoutePropertiesDialog
 @classdesc This class is the route properties dialog
-@extends BaseDialog
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -83,42 +59,58 @@ class RoutePropertiesDialog extends BaseDialog {
 	@type {Route}
 	*/
 
-	#route = null;
+	#route;
 
 	/**
 	The colorControl object used in the dialog
 	@type {ColorControl}
 	*/
 
-	#colorControl = null;
+	#colorControl;
 
 	/**
 	The route name input in the dialog
 	@type {HTMLElement}
 	*/
 
-	#nameInput = null;
+	#nameInput;
 
 	/**
 	The route width input in the dialog
 	@type {HTMLElement}
 	*/
 
-	#widthInput = null;
+	#widthInput;
 
 	/**
 	The route dash select in the dialog
 	@type {HTMLElement}
 	*/
 
-	#dashSelect = null;
+	#dashSelect;
 
 	/**
 	The route chain check box in the dialog
 	@type {HTMLElement}
 	*/
 
-	#chainInput = null;
+	#chainInput;
+
+	/**
+	The minimal width for a Route polyline
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #ROUTE_MIN_WIDTH ( ) { return 1; }
+
+	/**
+	The maximal width for a Route polyline
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #ROUTE_MAX_WIDTH ( ) { return 40; }
 
 	/**
 	This method creates the name div
@@ -175,8 +167,8 @@ class RoutePropertiesDialog extends BaseDialog {
 				type : 'number',
 				id : 'TravelNotes-RoutePropertiesDialog-WidthInput',
 				value : this.#route.width,
-				min : OUR_ROUTE_MIN_WIDTH,
-				max : OUR_ROUTE_MAX_WIDTH
+				min : RoutePropertiesDialog.#ROUTE_MIN_WIDTH,
+				max : RoutePropertiesDialog.#ROUTE_MAX_WIDTH
 			},
 			widthDiv
 		);
@@ -258,8 +250,8 @@ class RoutePropertiesDialog extends BaseDialog {
 		);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {Route} route The route for witch the properties are edited
 	*/
 
@@ -299,6 +291,7 @@ class RoutePropertiesDialog extends BaseDialog {
 
 	/**
 	Get the title of the dialog
+	@type {String}
 	*/
 
 	get title ( ) { return theTranslator.getText ( 'RoutePropertiesDialog - Route properties' ); }
@@ -306,6 +299,7 @@ class RoutePropertiesDialog extends BaseDialog {
 	/**
 	Overload of the BaseDialog.contentHTMLElements property.
 	Get an array with the HTMLElements that have to be added in the content of the dialog.
+	@type {Array.<HTMLElement>}
 	*/
 
 	get contentHTMLElements ( ) {

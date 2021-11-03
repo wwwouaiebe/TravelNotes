@@ -39,24 +39,6 @@ Tests ...
 -----------------------------------------------------------------------------------------------------------------------
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file AboutDialog.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogs
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import BaseDialog from '../dialogBase/BaseDialog.js';
@@ -66,10 +48,7 @@ import { theAppVersion } from '../data/Version.js';
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class AboutDialog
 @classdesc This class is the 'About' dialog
-@extends BaseDialog
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -83,9 +62,8 @@ class AboutDialog extends BaseDialog {
 
 	#aboutDiv = null;
 
-	/*
-	constructor
-	@param {dialogOptions} options Options for the dialog
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -112,9 +90,15 @@ class AboutDialog extends BaseDialog {
 
 	/**
 	Get an array with the HTMLElements that have to be added in the content of the dialog.
+	@type {Array.<HTMLElement>}
 	*/
 
 	get contentHTMLElements ( ) { return [ this.#aboutDiv ]; }
+
+	/**
+	Return the dialog title. Overload of the BaseDialog.title property
+	@type {String}
+	*/
 
 	get title ( ) { return theTranslator.getText ( 'AboutDialog - About Travel & Notes' ); }
 
