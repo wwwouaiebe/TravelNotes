@@ -32,7 +32,6 @@ Tests ...
 @file OsmSearchTreeUI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -41,7 +40,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module osmSearchPaneUI
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -65,7 +63,6 @@ class TreeCheckboxChangeEL {
 	/**
 	A reference to the osmSearchTreeUI Object
 	@type {OsmSearchTreeUI}
-	@private
 	*/
 
 	#osmSearchTreeUI = null;
@@ -144,7 +141,6 @@ class TreeArrowClickEL {
 	/**
 	A reference to the OsmSearchTreeUI object
 	@type {OsmSearchTreeUI}
-	@private
 	*/
 
 	#osmSearchTreeUI = null;
@@ -186,7 +182,6 @@ class OsmSearchTreeUI {
 	/**
 	A reference to the tree HTMLElement
 	@type {HTMLElement}
-	@private
 	*/
 
 	#treeHTMLElement = null;
@@ -194,7 +189,6 @@ class OsmSearchTreeUI {
 	/**
 	Tree arrow click event listener
 	@type {TreeArrowClickEL}
-	@private
 	*/
 
 	#treeArrowClickEL = null;
@@ -202,15 +196,13 @@ class OsmSearchTreeUI {
 	/**
 	Tree checkbox change event listener
 	@type {TreeCheckboxChangeEL}
-	@private
 	*/
 
 	#treeCheckboxChangeEL = null;
 
 	/**
 	Recursivity counter for the #addItem method
-	@type {!number}
-	@private
+	@type {Number}
 	*/
 
 	#deepTree = ZERO;
@@ -218,7 +210,6 @@ class OsmSearchTreeUI {
 	/**
 	Add a dictionary item in the SearchTree and do the same for all descendants
 	@param {DictionaryItem} item The dictionary item to add
-	@private
 	*/
 
 	#addItem ( item ) {

@@ -32,7 +32,6 @@ Tests ...
 @file SelectDialog.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -41,7 +40,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module dialogs
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -51,9 +49,8 @@ Tests ...
 
 @typedef {Object} selectOptions
 @desc An object to store the options of the select in the SelectDialog
-@property {string} text The text to be displayed as option HTMLElement
-@property {!number} objId An objId
-@public
+@property {String} text The text to be displayed as option HTMLElement
+@property {Number} objId An objId
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -104,7 +101,6 @@ class SelectDialog extends BaseDialog {
 
 	/**
 	Get the title of the dialog. Can be overloaded in the derived classes
-	@readonly
 	*/
 
 	get title ( ) { return this.#options.title || ''; }
@@ -112,7 +108,6 @@ class SelectDialog extends BaseDialog {
 	/**
 	Get an array with the HTMLElements that have to be added in the content of the dialog.
 	Can be overloaded in the derived classes
-	@readonly
 	*/
 
 	get contentHTMLElements ( ) {

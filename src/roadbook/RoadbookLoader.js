@@ -32,7 +32,6 @@ Tests ...
 @file RoadbookLoader.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -41,7 +40,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module roadbook
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -156,15 +154,14 @@ class StorageEL {
 
 	/**
 	The UUID of the page
-	@type {string}
-	@private
+	@type {String}
 	*/
 
 	#UUID = null;
 
 	/*
 	constructor
-	@param {string} UUID The UUID of the page
+	@param {String} UUID The UUID of the page
 	*/
 
 	constructor ( UUID ) {
@@ -270,16 +267,14 @@ class RoadbookLoader {
 
 	/**
 	UUID of the page
-	@type {string}
-	@private
+	@type {String}
 	*/
 
 	#UUID = null;
 
 	/**
 	The user language
-	@type {string}
-	@private
+	@type {String}
 	*/
 
 	#language = 'fr';
@@ -287,14 +282,12 @@ class RoadbookLoader {
 	/**
 	A reference to the save button
 	@type {HTMLElement}
-	@private
 	*/
 
 	#saveButton = null;
 
 	/**
 	checkboxes init
-	@private
 	*/
 
 	#initCheckboxes ( ) {
@@ -305,7 +298,6 @@ class RoadbookLoader {
 
 	/**
 	Adding event listeners
-	@private
 	*/
 
 	#addEventListeners ( ) {
@@ -319,7 +311,6 @@ class RoadbookLoader {
 
 	/**
 	Adding save button
-	@private
 	*/
 
 	#addSaveButton ( ) {
@@ -334,7 +325,6 @@ class RoadbookLoader {
 
 	/**
 	Opening the indexed db
-	@private
 	*/
 
 	#openIndexedDb ( ) {
@@ -354,7 +344,6 @@ class RoadbookLoader {
 
 	/**
 	Loading translations from server
-	@private
 	*/
 
 	#loadTranslations ( ) {
@@ -386,7 +375,6 @@ class RoadbookLoader {
 
 	/**
 	Translating the page
-	@private
 	*/
 
 	#translatePage ( ) {

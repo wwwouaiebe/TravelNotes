@@ -47,7 +47,7 @@ class ProfileSmoothingIron {
 
 	/**
 	The distance between smooth points
-	@type {number}
+	@type {Number}
 	*/
 
 	#smoothDistance;
@@ -61,7 +61,7 @@ class ProfileSmoothingIron {
 
 	/**
 	The number of points used to compute the smooth elevation. Alias for theConfig.route.elev.smoothPoints.
-	@type {number}
+	@type {Number}
 	*/
 
 	get #smoothPointsNumber ( ) { return theConfig.route.elev.smoothPoints; }

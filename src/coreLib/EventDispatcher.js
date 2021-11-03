@@ -294,7 +294,7 @@ class EventDispatcher {
 
 	/**
 	Creates and dispatch an event to the correct target
-	@param {string} eventName the name of the event
+	@param {String} eventName the name of the event
 	@param {Object} eventData An object to set as data property of the event
 	*/
 

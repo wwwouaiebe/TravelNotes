@@ -48,10 +48,10 @@ Tests ...
 
 @typedef {Object} GeoCoderAddress
 @desc An address
-@property {string} name The name of the point or an empty string
-@property {string} street The house number and the street of the point or an empty string
-@property {string} city The city of the point or an empty string
-@property {boolean} statusOk A status indicating that all the requests are executed correctly
+@property {String} name The name of the point or an empty string
+@property {String} street The house number and the street of the point or an empty string
+@property {String} city The city of the point or an empty string
+@property {Boolean} statusOk A status indicating that all the requests are executed correctly
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -75,7 +75,7 @@ class GeoCoder {
 
 	/**
 	The distance used in the OverpassAPI query for places
-	@type {number}
+	@type {Number}
 	*/
 
 	static get #queryDistance ( ) {
@@ -89,7 +89,7 @@ class GeoCoder {
 
 	/**
 	The Lat and Lng for thr geocoding
-	@type {Array.<number>}
+	@type {Array.<Number>}
 	*/
 
 	#latLng;
@@ -201,7 +201,7 @@ class GeoCoder {
 
 	/**
 	This async method search an address from a latitude and longitude
-	@param {Array.<number>} latLng the latitude and longitude to be used to search the address
+	@param {Array.<Number>} latLng the latitude and longitude to be used to search the address
 	@return {GeoCoderAddress} the address at the given point. The GeoCoderAddress.statusOk must be verified
 	before using the data.
 	*/
@@ -213,7 +213,7 @@ class GeoCoder {
 
 	/**
 	This method search an address from a latitude and longitude with a Promise.
-	@param {Array.<number>} latLng the latitude and longitude to be used to search the address
+	@param {Array.<Number>} latLng the latitude and longitude to be used to search the address
 	@return {Promise} A promise that fulfill with the address at the given point.
 	*/
 

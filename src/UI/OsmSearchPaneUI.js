@@ -45,7 +45,6 @@ Tests ...
 @file OsmSearchPaneUI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -83,7 +82,6 @@ class OsmSearchPaneUI extends PaneUI {
 	/**
 	the data UI
 	@type {OsmSearchDataUI}
-	@private
 	*/
 
 	#osmSearchDataUI = null;
@@ -91,7 +89,6 @@ class OsmSearchPaneUI extends PaneUI {
 	/**
 	The control UI
 	@type {OsmSearchControlUI}
-	@private
 	*/
 
 	#osmSearchControlUI = null;
@@ -99,7 +96,6 @@ class OsmSearchPaneUI extends PaneUI {
 	/**
 	The limits UI
 	@type {OsmSearchLimitsUI}
-	@private
 	*/
 
 	#osmSearchLimitsUI = null;
@@ -144,8 +140,7 @@ class OsmSearchPaneUI extends PaneUI {
 	/**
 	A unique identifier for the pane
 	Overload of the PaneUI.paneId property
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get paneId ( ) { return PANE_ID.searchPane; }
@@ -153,8 +148,7 @@ class OsmSearchPaneUI extends PaneUI {
 	/**
 	The text to be displayer in the pane button
 	Overload of the PaneUI.buttonText property
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get buttonText ( ) { return theTranslator.getText ( 'PanesManagerUI - Search' ); }

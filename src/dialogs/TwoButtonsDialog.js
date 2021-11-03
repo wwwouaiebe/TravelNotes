@@ -35,7 +35,6 @@ Tests ...
 @file TwoButtonsDialog.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -44,7 +43,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module dialogs
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -58,7 +56,6 @@ Tests ...
 @property {?string} okButtonContent The text displayed on the ok button. Default OK
 @property {?string} secondButtonContent The text displayed on the second button. When none, the second button is not displayed
 @property {?string} textContent The text displayed in the dialog
-@public
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -96,7 +93,6 @@ class TwoButtonsDialog extends BaseDialog {
 	/**
 	A reference to the options of the dialog
 	@type {dialogOptions}
-	@private
 	*/
 
 	#options = null;
@@ -114,7 +110,6 @@ class TwoButtonsDialog extends BaseDialog {
 	An array with the HTMLElements that have to be added in the content of the dialog.
 	Overload of the BaseDialog contentHTMLElements property.
 	{type {Array.<HTMLElement>}
-	@readonly
 	*/
 
 	get contentHTMLElements ( ) {
@@ -130,8 +125,7 @@ class TwoButtonsDialog extends BaseDialog {
 
 	/**
 	The title of the dialog. Overload of the BaseDialog title property.
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get title ( ) { return this.#options.title || ''; }

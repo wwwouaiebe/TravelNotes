@@ -92,7 +92,7 @@ class MapEditor	extends MapEditorViewer {
 
 	/**
 	Remove a Leaflet object from the map
-	@param {!number} objId The objId of the object to remove
+	@param {Number} objId The objId of the object to remove
 	*/
 
 	#RemoveFromMap ( objId ) {
@@ -117,8 +117,8 @@ class MapEditor	extends MapEditorViewer {
 	This method is also used for removing a route with the addedRouteObjId = INVALID_OBJ_ID.
 	This method is also used for adding a route with the removedRouteObjId = INVALID_OBJ_ID.
 	This method is called by the 'routeupdated' event listener.
-	@param {!number} removedRouteObjId The objId of the route to remove
-	@param {!number} addedRouteObjId The objId of the route to add
+	@param {Number} removedRouteObjId The objId of the route to remove
+	@param {Number} addedRouteObjId The objId of the route to add
 	@listens routeupdated
 	*/
 
@@ -176,7 +176,7 @@ class MapEditor	extends MapEditorViewer {
 	/**
 	This method update the properties of a route on the map
 	This method is called by the 'routepropertiesupdated' event listener.
-	@param {!number} routeObjId The objId of the route to update
+	@param {Number} routeObjId The objId of the route to update
 	@listens routepropertiesupdated
 	*/
 
@@ -197,8 +197,8 @@ class MapEditor	extends MapEditorViewer {
 	This method is also used for removing a note with the addedNoteObjId = INVALID_OBJ_ID.
 	This method is also used for adding a note with the removedNoteObjId = INVALID_OBJ_ID.
 	This method is called by the 'noteupdated' event listener.
-	@param {!number} removedNoteObjId The objId of the note to remove
-	@param {!number} addedNoteObjId The objId of the note to add
+	@param {Number} removedNoteObjId The objId of the note to remove
+	@param {Number} addedNoteObjId The objId of the note to add
 	@listens noteupdated
 	*/
 
@@ -231,7 +231,7 @@ class MapEditor	extends MapEditorViewer {
 	/**
 	This method removes an object from the map.
 	This method is called by the 'removeobject' event listener
-	@param {!number} objId The objId of the object to remove
+	@param {Number} objId The objId of the object to remove
 	@listens removeobject
 	*/
 
@@ -311,8 +311,8 @@ class MapEditor	extends MapEditorViewer {
 	/**
 	This method add an itinerary point marker to the map (= a leaflet.circleMarker object).
 	This method is called by the 'additinerarypointmarker' event listener.
-	@param {!number} objId A unique identifier to attach to the circleMarker
-	@param {Array.<number>} latLng The latitude and longitude of the itinerary point marker
+	@param {Number} objId A unique identifier to attach to the circleMarker
+	@param {Array.<Number>} latLng The latitude and longitude of the itinerary point marker
 	@listens additinerarypointmarker
 	*/
 
@@ -327,8 +327,8 @@ class MapEditor	extends MapEditorViewer {
 	This method add an search point marker to the map
 	(= a leaflet.circleMarker object or a polyline, depending of the zoom and the geometry parameter).
 	This method is called by the 'addsearchpointmarker' event listener.
-	@param {!number} objId A unique identifier to attach to the circleMarker
-	@param {Array.<number>} latLng The latitude and longitude of the search point marker
+	@param {Number} objId A unique identifier to attach to the circleMarker
+	@param {Array.<Number>} latLng The latitude and longitude of the search point marker
 	@param {?Array.<Array.<number>>} geometry The latitudes and longitudes of the search point marker when a polyline
 	can be showed
 	@listens addsearchpointmarker
@@ -367,7 +367,7 @@ class MapEditor	extends MapEditorViewer {
 	/**
 	This method add a rectangle to the map.
 	This method is called by the 'addrectangle' event listener.
-	@param {!number} objId A unique identifier to attach to the rectangle
+	@param {Number} objId A unique identifier to attach to the rectangle
 	@param {Array.<Array.<number>>} bounds The lower left and upper right corner of the rectangle
 	@param {Object} properties The Leaflet properties of the rectangle
 	@listens addrectangle

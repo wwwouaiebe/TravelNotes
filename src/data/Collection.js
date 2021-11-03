@@ -71,7 +71,6 @@ class CollectionIterator {
 	/**
 	The object pointed by the iterator
 	@type {Object}
-	@readonly
 	*/
 
 	get value ( ) { return this.#index < this.#collection.length ? this.#collection.at ( this.#index ) : null; }
@@ -79,7 +78,6 @@ class CollectionIterator {
 	/**
 	The object before the object pointed by the iterator or null if iterator is on the first object
 	@type {Object}
-	@readonly
 	*/
 
 	get previous ( ) { return ZERO >= this.#index ? null : this.#collection.at ( this.#index - ONE ); }
@@ -87,39 +85,34 @@ class CollectionIterator {
 	/**
 	The object after the object pointed by the iterator or null if iterator is on the last object
 	@type {Object}
-	@readonly
 	*/
 
 	get next ( ) { return this.#index < this.#collection.length - ONE ? this.#collection.at ( this.#index + ONE ) : null; }
 
 	/**
 	Move the iterator to the next object and return true when the end of the Collection is reached
-	@type {boolean}
-	@readonly
+	@type {Boolean}
 	*/
 
 	get done ( ) { return ++ this.#index >= this.#collection.length; }
 
 	/**
 	returns true when the iterator is on the first object
-	@type {boolean}
-	@readonly
+	@type {Boolean}
 	*/
 
 	get first ( ) { return ZERO === this.#index; }
 
 	/**
 	returns true when the iterator is on the last object
-	@type {boolean}
-	@readonly
+	@type {Boolean}
 	*/
 
 	get last ( ) { return this.#index >= this.#collection.length - ONE; }
 
 	/**
 	returns The position of the iterator in the Collection
-	@type {number}
-	@readonly
+	@type {Number}
 	*/
 
 	get index ( ) { return this.#index; }
@@ -158,8 +151,8 @@ class Collection {
 
 	/**
 	Return the position of an object in the Collection
-	@param {!number} objId The objId of the object to locate
-	@return {number} the position of the object in the Collection
+	@param {Number} objId The objId of the object to locate
+	@return {Number} the position of the object in the Collection
 	*/
 
 	#indexOfObjId ( objId ) {
@@ -170,9 +163,9 @@ class Collection {
 
 	/**
 	Gives the previous or next object in the collection that fullfil a given condition
-	@param {!number} objId The objId of the object from witch the search start
+	@param {Number} objId The objId of the object from witch the search start
 	@param {?function} condition A fonction used to compare the objects. If null, ( ) => true is used
-	@param {!number} direction The direction to follow. Must be NEXT or PREVIOUS
+	@param {Number} direction The direction to follow. Must be NEXT or PREVIOUS
 	@return {?Object} An object or null if nothing found
 	@throws When direction is not NEXT or PREVIOUS or when the starting object is not found
 	*/
@@ -233,7 +226,7 @@ class Collection {
 
 	/**
 	Search an object in the collection with the index
-	@param {!number} index The position of the desired object in the array
+	@param {Number} index The position of the desired object in the array
 	@return {?Object} The object at the position or null if not found
 	*/
 
@@ -258,7 +251,7 @@ class Collection {
 
 	/**
 	Search an object in the Collection
-	@param {!number} objId The objId of the object to search
+	@param {Number} objId The objId of the object to search
 	@return {Object} the object with the given objId or null when the object is not found
 	*/
 
@@ -269,9 +262,9 @@ class Collection {
 
 	/**
 	Move an object near another object in the Collection
-	@param {!number} objId The objId of the object to move
-	@param {!number} targetObjId The objId of the object near witch the object will be moved
-	@param {boolean} moveBefore When true, the object is moved before the target, when false after the target
+	@param {Number} objId The objId of the object to move
+	@param {Number} targetObjId The objId of the object near witch the object will be moved
+	@param {Boolean} moveBefore When true, the object is moved before the target, when false after the target
 	@throws when objId or targetObjId are invalid
 	*/
 
@@ -293,7 +286,7 @@ class Collection {
 
 	/**
 	@desc gives the next object in the collection that fullfil a given condition
-	@param {!number} objId The objId of the object from witch the search start
+	@param {Number} objId The objId of the object from witch the search start
 	@param {?function} condition A fonction used to compare the objects. If null, ( ) => true is used
 	@return {?Object} An object or null if nothing found
 	@throws When the starting object is not found
@@ -303,7 +296,7 @@ class Collection {
 
 	/**
 	@desc gives the previous object in the collection that fullfil a given condition
-	@param {!number} objId The objId of the object from witch the search start
+	@param {Number} objId The objId of the object from witch the search start
 	@param {?function} condition A fonction used to compare the objects. If null, ( ) => true is used
 	@return {?Object} An object or null if nothing found
 	@throws When the starting object is not found
@@ -313,7 +306,7 @@ class Collection {
 
 	/**
 	Remove an object from the Collection
-	@param {!number} objId The objId of the object to remove
+	@param {Number} objId The objId of the object to remove
 	@throws when the object is not found
 	*/
 
@@ -341,7 +334,7 @@ class Collection {
 
 	/**
 	Replace an object in the Collection with another object
-	@param {!number} oldObjId the objId of the object to replace
+	@param {Number} oldObjId the objId of the object to replace
 	@param {Object} newObject The new object
 	@throws when the object type of newObject is invalid or when the object to replace is not found
 	*/
@@ -372,8 +365,8 @@ class Collection {
 
 	/**
 	Reverse an Object with the previous or next object in the Collection
-	@param {!number} objId The objId of the object to swap
-	@param {boolean} swapUp When true the object is swapped with the previous one,
+	@param {Number} objId The objId of the object to swap
+	@param {Boolean} swapUp When true the object is swapped with the previous one,
 	when false with the next one
 	@throws when the object is not found or when the swap is not possible
 	*/
@@ -398,7 +391,6 @@ class Collection {
 	/**
 	The first object of the Collection
 	@type {Object}
-	@readonly
 	*/
 
 	get first ( ) { return this.#array [ ZERO ]; }
@@ -406,7 +398,6 @@ class Collection {
 	/**
 	An iterator on the Collection
 	@type {CollectionIterator}
-	@readonly
 	@see {@link module:Collection~CollectionIterator}
 	*/
 
@@ -417,15 +408,13 @@ class Collection {
 	/**
 	The last object of the Collection
 	@type {Object}
-	@readonly
 	*/
 
 	get last ( ) { return this.#array [ this.#array.length - ONE ]; }
 
 	/**
 	The length of the Collection
-	@type {number}
-	@readonly
+	@type {Number}
 	*/
 
 	get length ( ) { return this.#array.length; }

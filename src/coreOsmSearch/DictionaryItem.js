@@ -42,14 +42,14 @@ class DictionaryItem {
 
 	/**
 	The name displayed to the user
-	@type {string}
+	@type {String}
 	*/
 
 	#name = '';
 
 	/**
 	A boolean indicating when the item is the root item.
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	#isRoot = false;
@@ -79,29 +79,29 @@ class DictionaryItem {
 
 	/**
 	A boolean indicating when the item is selected by the user
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	#isSelected = false;
 
 	/**
 	A boolean indicating when the item is expanded by the user
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	#isExpanded = false;
 
 	/**
 	A unique identifier given to the DictionaryItem
-	@type {!number}
+	@type {Number}
 	*/
 
 	#objId = INVALID_OBJ_ID;
 
 	/**
 	The constructor
-	@param {string} itemName The name of the item
-	@param {boolean} isRoot True when the item is the root item ( = the dictionary )
+	@param {String} itemName The name of the item
+	@param {Boolean} isRoot True when the item is the root item ( = the dictionary )
 	*/
 
 	constructor ( itemName, isRoot ) {
@@ -119,16 +119,14 @@ class DictionaryItem {
 
 	/**
 	The name displayed to the user
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get name ( ) { return this.#name; }
 
 	/**
 	A boolean indicating when the item is the root item.
-	@type {boolean}
-	@readonly
+	@type {Boolean}
 	*/
 
 	get isRoot ( ) { return this.#isRoot; }
@@ -136,7 +134,6 @@ class DictionaryItem {
 	/**
 	An array with subitems if any
 	@type {Array.<DictionaryItem>}
-	@readonly
 	*/
 
 	get items ( ) { return this.#items; }
@@ -150,7 +147,7 @@ class DictionaryItem {
 
 	/**
 	Change the value of elementTypes to only one value
-	@param {string} elementType The element type to set must be one of 'node', 'way' or 'relation'
+	@param {String} elementType The element type to set must be one of 'node', 'way' or 'relation'
 	*/
 
 	setElementType ( elementType ) {
@@ -164,14 +161,13 @@ class DictionaryItem {
 	Each sub array is a line in the TravelNotesSearchDictionary
 	Each object in a sub array is a cell in the TravelNotesSearchDictionary
 	@type {Array.<Array.<Objects>>}
-	@readonly
 	*/
 
 	get filterTagsArray ( ) { return this.#filterTagsArray; }
 
 	/**
 	A boolean indicating when the item is selected by the user
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	get isSelected ( ) { return this.#isSelected; }
@@ -187,7 +183,7 @@ class DictionaryItem {
 
 	/**
 	A boolean indicating when the item is expanded by the user
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	get isExpanded ( ) { return this.#isExpanded; }
@@ -196,8 +192,7 @@ class DictionaryItem {
 
 	/**
 	A unique identifier given to the DictionaryItem
-	@type {!number}
-	@readonly
+	@type {Number}
 	*/
 
 	get objId ( ) { return this.#objId; }

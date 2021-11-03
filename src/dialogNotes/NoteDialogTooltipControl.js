@@ -104,7 +104,7 @@ class NoteDialogTooltipControl {
 
 	/**
 	the tooltip value in the control
-	@type {string}
+	@type {String}
 	*/
 
 	get tooltipContent ( ) { return this.#tooltipInput.value; }

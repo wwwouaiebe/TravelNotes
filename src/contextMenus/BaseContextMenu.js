@@ -69,8 +69,8 @@ class MenuItem {
 
 	/**
 	The constructor
-	@param {string} itemText The text to be displayed in the menu
-	@param {boolean} isActive A flag indicating if the menu item can be selected in the menu
+	@param {String} itemText The text to be displayed in the menu
+	@param {Boolean} isActive A flag indicating if the menu item can be selected in the menu
 	@param {function} action The action to execute when the item is selected
 	*/
 
@@ -145,7 +145,7 @@ class BaseContextMenuEventData {
 	/**
 	A flag indicating when the menu must have a parent node. Menus triggered from leaflet objects don't have
 	parentNode and then the menu is added to the document body
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	#haveParentNode;
@@ -202,7 +202,7 @@ class BaseContextMenuEventData {
 	/**
 	A flag indicating when the menu must have a parent node. Menus triggered from leaflet objects don't have
 	parentNode and then the menu is added to the document body
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	get haveParentNode ( ) { return this.#haveParentNode; }
@@ -283,7 +283,7 @@ class BaseContextMenu {
 
 	/**
 	The min margin between the screen borders and the menu in pixels
-	@type {number}
+	@type {Number}
 	*/
 
 	// eslint-disable-next-line no-magic-numbers
@@ -418,7 +418,7 @@ class BaseContextMenu {
 
 	/**
 	onOk method used by the menu operator. Clean the variables and call the Promise Ok handler
-	@param {number} selectedItemObjId The id of the item selected by the user
+	@param {Number} selectedItemObjId The id of the item selected by the user
 	*/
 
 	onOk ( selectedItemObjId ) {

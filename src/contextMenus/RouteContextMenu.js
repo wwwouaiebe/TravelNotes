@@ -66,7 +66,6 @@ class RouteContextMenu extends BaseContextMenu {
 	/**
 	The route for witch the context menu is displayed
 	@type {Route}
-	@private
 	*/
 
 	#route = null;

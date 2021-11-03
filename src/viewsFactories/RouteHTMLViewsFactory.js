@@ -32,7 +32,6 @@ Tests ...
 @file RouteHTMLViewsFactory.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -41,7 +40,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module viewsFactories
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -72,11 +70,10 @@ class RouteHTMLViewsFactory {
 	/**
 	Gives an HTMLElement with the icon, instruction, distance since the beginning of the travel (if the instruction is
 	linked to a chained route), distance since the beginning of the route and distance till the next maneuver
-	@param {string} classPrefix A string that will be added to all the className of the created HTMLElements
+	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
 	@param {Object} routeAndManeuver An object with the maneuver, the route to witch the maneuver is linked and the distance
 	between the beginning of the route and the maneuver
 	@return {HTMLElement}
-	@private
 	*/
 
 	#getManeuverHTML ( classPrefix, routeAndManeuver ) {
@@ -167,7 +164,7 @@ class RouteHTMLViewsFactory {
 
 	/**
 	Gives an HTMLElement with the SVG profile of a route
-	@param {string} classPrefix A string that will be added to all the className of the created HTMLElements
+	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
 	@param {Route} route The route for witch the HTMLElement will be created
 	*/
 
@@ -182,7 +179,7 @@ class RouteHTMLViewsFactory {
 	/**
 	Gives an HTMLElement with all the notes and maneuvers linked to a route, ordered by distance since the
 	beginning of the route
-	@param {string} classPrefix A string that will be added to all the className of the created HTMLElements
+	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
 	@param {Route} route The route for witch the HTMLElement will be created
 	@return {HTMLElement}
 	*/
@@ -252,7 +249,7 @@ class RouteHTMLViewsFactory {
 	/**
 	Gives an HTMLElement with a route name, route distance, route duration ( except for bike),
 	route ascent (if any) and route descent (if any)
-	@param {string} classPrefix A string that will be added to all the className of the created HTMLElements
+	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
 	@param {Route} route The route for witch the HTMLElement will be created
 	@return {HTMLElement}
 	*/
@@ -344,7 +341,7 @@ class RouteHTMLViewsFactory {
 
 	/**
 	Gives an HTMLElement with the provider and transit mode used for the itinerary creation
-	@param {string} classPrefix A string that will be added to all the className of the created HTMLElements
+	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
 	@param {Route} route The route for witch the HTMLElement will be created
 	@return {HTMLElement}
 	*/

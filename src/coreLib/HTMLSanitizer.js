@@ -35,7 +35,6 @@ Tests ...
 @desc An object returned by the sanitizeToUrl function
 @property {String} url the validated url or an empty string if the url is invalid
 @property {String} errorsString an empty string or an error description if the url is invalid
-@public
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -47,7 +46,6 @@ Tests ...
 @desc An object returned by the sanitizeToHtmlString function
 @property {String} htmlString the validated string
 @property {String} errorsString an empty string or an error description if the url is invalid
-@public
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -70,14 +68,14 @@ class HTMLSanitizer {
 
 	/**
 	the results of the #stringify method
-	@type {string}
+	@type {String}
 	*/
 
 	#stringifiedHTML = '';
 
 	/**
 	the errors detected by the #stringify method
-	@type {string}
+	@type {String}
 	*/
 
 	#stringifyErrors = '';
@@ -91,8 +89,8 @@ class HTMLSanitizer {
 
 	/**
 	Replace < >' " and nbsp chars with htmlEntities
-	@param {string} htmlString the string to transform
-	@return {string} a string with htmlEntities
+	@param {String} htmlString the string to transform
+	@return {String} a string with htmlEntities
 	*/
 
 	#addHtmlEntities ( htmlString ) {
@@ -108,8 +106,8 @@ class HTMLSanitizer {
 
 	/**
 	Helper method for the #stringify method. Validate an url present in a htmlString
-	@param {string} url The url to validate
-	@param {string} attributeName The attribute name in witch the url was found
+	@param {String} url The url to validate
+	@param {String} attributeName The attribute name in witch the url was found
 	*/
 
 	#stringifyUrl ( url, attributeName ) {
@@ -126,7 +124,7 @@ class HTMLSanitizer {
 	/**
 	Helper method for the #stringify method.  Validate and stringify the attributes of a svg node
 	@param {SVGElement} currentNode The svg node for witch the attributes are stringified.
-	@param {string} nodeName the name of the currentNode
+	@param {String} nodeName the name of the currentNode
 	*/
 
 	#stringifySvgAttributes ( currentNode, nodeName ) {
@@ -145,7 +143,7 @@ class HTMLSanitizer {
 	/**
 	Helper method for the #stringify method.  Validate and stringify the attributes of a HTML node
 	@param {HTMLElement} currentNode The HTML node for witch the attributes are stringified.
-	@param {string} nodeName the name of the currentNode
+	@param {String} nodeName the name of the currentNode
 	*/
 
 	#stringifyHTMLAttributes ( currentNode, nodeName ) {
@@ -225,7 +223,7 @@ class HTMLSanitizer {
 	/**
 	Helper function for the #cloneNode method. Clone a svg node
 	@param {SVGElement} currentNode The svg node to clone
-	@param {string} nodeName The name of the currentNode
+	@param {String} nodeName The name of the currentNode
 	*/
 
 	#cloneSvg ( currentNode, nodeName ) {
@@ -248,7 +246,7 @@ class HTMLSanitizer {
 	/**
 	Helper function for the #cloneNode method. Clone a HTML node
 	@param {HTMLElement} currentNode The html node to clone
-	@param {string} nodeName The name of the currentNode
+	@param {String} nodeName The name of the currentNode
 	*/
 
 	#cloneHTML ( currentNode, nodeName ) {
@@ -322,7 +320,7 @@ class HTMLSanitizer {
 	This method transform a string containing html and svg tags into html and svg elements and copy these elements
 	as child nodes of the targetNode. Only tags and attributes present in the HTMLSanitizerData.#validityMap variable
 	are copied in the targetNode. Url in the href and src attributes must be valid url (see sanitizeToUrl method)
-	@param {string} htmlString the string to transform
+	@param {String} htmlString the string to transform
 	@param {HTMLElement} targetNode the node in witch the created elements are placed
 	*/
 
@@ -357,8 +355,8 @@ class HTMLSanitizer {
 	This method transform a string containing html and svg tags. Tags and attributes not present in the
 	HTMLSanitizerData.#validityMap variable are removed. Invalid Url in the href and src attributes are
 	also removed (see sanitizeToUrl method)
-	@param {string} htmlString the string to transform
-	@return {object} a HtmlStringValidationReult with the result of the validation
+	@param {String} htmlString the string to transform
+	@return {Object} a HtmlStringValidationReult with the result of the validation
 	*/
 
 	sanitizeToHtmlString ( htmlString ) {
@@ -384,10 +382,10 @@ class HTMLSanitizer {
 	Valid protocols are http: and https:. For href attributes mailto:, sms: and tel: are also valid
 	and for src attributes, data: is also valid.<br/>
 	sms: and tel: url's  must start with a + and contains only digits, *, # or space
-	@param {string} urlString The url to validate
+	@param {String} urlString The url to validate
 	@param {attributeName} attributeName The attribute name in witch the url will be placed. must be 'src' or
 	null (in this case 'href' is used as default)
-	@return {object} a UrlValidationReult with the result of the validation
+	@return {Object} a UrlValidationReult with the result of the validation
 	*/
 
 	sanitizeToUrl ( urlString, attributeName ) {
@@ -501,8 +499,8 @@ class HTMLSanitizer {
 
 	/**
 	Remove all html tags from a string and replace htmlEntities and < > ' " and nbsp chars with others similar unicode chars
-	@param {string} stringToSanitize the string to transform
-	@return {string} a string with html tags removed and htmlEntities and < >' " and nbsp chars replaced
+	@param {String} stringToSanitize the string to transform
+	@return {String} a string with html tags removed and htmlEntities and < >' " and nbsp chars replaced
 	*/
 
 	sanitizeToJsString ( stringToSanitize ) {
@@ -539,8 +537,8 @@ class HTMLSanitizer {
 
 	/**
 	This method verify that a string describe a css color. A valid css color must start with a hash followed by 6 hex numbers
-	@param {string} colorString the string to test
-	@return {string} the verified color or null if the given color is invalid
+	@param {String} colorString the string to test
+	@return {String} the verified color or null if the given color is invalid
 	*/
 
 	sanitizeToColor ( colorString ) {

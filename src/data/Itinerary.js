@@ -66,42 +66,42 @@ class Itinerary	extends TravelObject {
 
 	/**
 	the objId of the Itinerary
-	@type {!number}
+	@type {Number}
 	*/
 
 	#objId = INVALID_OBJ_ID;;
 
 	/**
 	a boolean set to true when the itinerary have a profile
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	#hasProfile = false;
 
 	/**
 	the ascent of the Itinerary when a profile exists, otherwise ZERO
-	@type {!number}
+	@type {Number}
 	*/
 
 	#ascent = ZERO;
 
 	/**
 	the descent of the Itinerary when a profile exists, otherwise ZERO
-	@type {!number}
+	@type {Number}
 	*/
 
 	#descent = ZERO;
 
 	/**
 	the provider name used for this Itinerary
-	@type {string}
+	@type {String}
 	*/
 
 	#provider = '';
 
 	/**
 	the transit mode used for this Itinerary
-	@type {string}
+	@type {String}
 	*/
 
 	#transitMode = '';
@@ -131,7 +131,7 @@ class Itinerary	extends TravelObject {
 
 	/**
 	a boolean set to true when the itinerary have a profile
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	get hasProfile ( ) { return this.#hasProfile; }
@@ -142,7 +142,7 @@ class Itinerary	extends TravelObject {
 
 	/**
 	the ascent of the Itinerary when a profile exists, otherwise ZERO
-	@type {!number}
+	@type {Number}
 	*/
 
 	get ascent ( ) { return this.#ascent; }
@@ -153,7 +153,7 @@ class Itinerary	extends TravelObject {
 
 	/**
 	the descent of the Itinerary when a profile exists, otherwise ZERO
-	@type {!number}
+	@type {Number}
 	*/
 
 	get descent ( ) { return this.#descent; }
@@ -164,7 +164,7 @@ class Itinerary	extends TravelObject {
 
 	/**
 	the provider name used for this Itinerary
-	@type {string}
+	@type {String}
 	*/
 
 	get provider ( ) { return this.#provider; }
@@ -175,7 +175,7 @@ class Itinerary	extends TravelObject {
 
 	/**
 	the transit mode used for this Itinerary
-	@type {string}
+	@type {String}
 	*/
 
 	get transitMode ( ) { return this.#transitMode; }
@@ -187,7 +187,6 @@ class Itinerary	extends TravelObject {
 	/**
 	a Collection of ItineraryPoints
 	@type {Collection.<ItineraryPoint>}
-	@readonly
 	*/
 
 	get itineraryPoints ( ) { return this.#itineraryPoints; }
@@ -195,7 +194,6 @@ class Itinerary	extends TravelObject {
 	/**
 	a Collection of Maneuvers
 	@type {Collection.<Maneuver>}
-	@readonly
 	*/
 
 	get maneuvers ( ) { return this.#maneuvers; }
@@ -203,15 +201,13 @@ class Itinerary	extends TravelObject {
 	/**
 	the ObjType of the Itinerary.
 	@type {ObjType}
-	@readonly
 	*/
 
 	get objType ( ) { return Itinerary.#objType; }
 
 	/**
 	the objId of the Itinerary. objId are unique identifier given by the code
-	@readonly
-	@type {!number}
+	@type {Number}
 	*/
 
 	get objId ( ) { return this.#objId; }

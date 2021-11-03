@@ -58,7 +58,7 @@ class OsmSearchContextMenu extends BaseContextMenu {
 
 	/**
 	The lat and lng of the osmElement
-	@type {Array.<number>}
+	@type {Array.<Number>}
 	*/
 
 	#latLng;

@@ -68,49 +68,49 @@ class StreetFinder {
 
 	/**
 	The osm node of the rcnRef
-	@type {!number}
+	@type {Number}
 	*/
 
 	#rcnRefOsmNode;
 
 	/**
 	The osm node of the rcnRef
-	@type {!number}
+	@type {Number}
 	*/
 
 	#iconOsmNode;
 
 	/**
 	The osm node id of the incoming node
-	@type {!number}
+	@type {Number}
 	*/
 
 	#iconOsmNodeId;
 
 	/**
 	The osm node id of the incoming node
-	@type {!number}
+	@type {Number}
 	*/
 
 	#incomingOsmNodeId;
 
 	/**
 	The osm node id of the outgoing node
-	@type {!number}
+	@type {Number}
 	*/
 
 	#outgoingOsmNodeId;
 
 	/**
 	The incoming street name
-	@type {string}
+	@type {String}
 	*/
 
 	#incomingStreetName;
 
 	/**
 	The outgoing street name
-	@type {string}
+	@type {String}
 	*/
 
 	#outgoingStreetName;
@@ -137,7 +137,7 @@ class StreetFinder {
 	/**
 	This method compare the lat and lng of the parameter with the lat and lng of the route waypoints
 	@param {ItineraryPoint} itineraryPoint the itineraryPoint to test
-	@return {boolean} true when the itineraryPoint is not at the same position than a WayPoint and not at the
+	@return {Boolean} true when the itineraryPoint is not at the same position than a WayPoint and not at the
 	same position than the icon point
 	*/
 

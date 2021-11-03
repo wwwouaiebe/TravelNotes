@@ -32,7 +32,6 @@ Tests ...
 @file PublicTransportHolesRemover.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -41,7 +40,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module routeProviders
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -77,7 +75,6 @@ class PublicTransportHolesRemover {
 	}
 
 	/**
-	@private
 	*/
 
 	#removeHoles ( ) {

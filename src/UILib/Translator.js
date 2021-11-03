@@ -35,7 +35,6 @@ Tests ...
 @file Translator.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -44,7 +43,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module UILib
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -54,9 +52,8 @@ Tests ...
 
 @typedef {Object} Translation
 @desc An object used to store translated messages
-@property {string} msgid an id to use to identify the message
-@property {string} msgstr The message translated
-@public
+@property {String} msgid an id to use to identify the message
+@property {String} msgstr The message translated
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -79,7 +76,6 @@ class Translator {
 	/**
 	A js Map where the translations are stored, ordered by msgid
 	@type {Map}
-	@private
 	*/
 
 	#translations = new Map ( );
@@ -108,9 +104,9 @@ class Translator {
 
 	/**
 	get a message translated
-	@param {string} msgid The id to identify the message
+	@param {String} msgid The id to identify the message
 	@param {?Object} params Parameters to include in the message
-	@return {string} The message corresponding to the id, eventually with params added, or the
+	@return {String} The message corresponding to the id, eventually with params added, or the
 	id if the corresponding Translation was not found
 	*/
 

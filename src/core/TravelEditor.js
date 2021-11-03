@@ -122,9 +122,9 @@ class TravelEditor {
 
 	/**
 	This method is called when a route is dropped in the TravelUI and then routes reordered.
-	@param {number} draggedRouteObjId The objId of the dragged route
-	@param {number} targetRouteObjId The objId of the route on witch the drop was executed
-	@param {boolean} draggedBefore when true the dragged route is moved before the target route
+	@param {Number} draggedRouteObjId The objId of the dragged route
+	@param {Number} targetRouteObjId The objId of the route on witch the drop was executed
+	@param {Boolean} draggedBefore when true the dragged route is moved before the target route
 	when false after
 	@fires setrouteslist
 	@fires roadbookupdate

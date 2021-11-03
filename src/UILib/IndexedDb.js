@@ -34,7 +34,6 @@ Tests ...
 @file IndexedDb.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -42,7 +41,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module UILib
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -65,30 +63,26 @@ class IndexedDb {
 	/**
 	A reference to the opened indexedDB
 	@type {IDBFactory}
-	@private
 	*/
 
 	#indexedDb = null;
 
 	/**
 	The UUID of the current travel
-	@type {string}
-	@private
+	@type {String}
 	*/
 
 	#UUID = null;
 
 	/**
 	A temp variable used to store the data to write in the indexedDb
-	@type {string}
-	@private
+	@type {String}
 	*/
 
 	#data = null;
 
 	/**
 	Perform the open operations
-	@private
 	*/
 
 	#open ( onOk, onError ) {
@@ -113,7 +107,6 @@ class IndexedDb {
 
 	/**
 	Perform the read operations
-	@private
 	*/
 
 	#read ( onOk, onError ) {
@@ -131,7 +124,6 @@ class IndexedDb {
 
 	/**
 	Perform the write operations
-	@private
 	*/
 
 	#write ( onOk, onError ) {
@@ -148,7 +140,6 @@ class IndexedDb {
 
 	/**
 	Perform the close operations
-	@private
 	*/
 
 	#close ( ) {
@@ -175,7 +166,7 @@ class IndexedDb {
 
 	/**
 	Read data in the indexedDb.
-	@param {string} UUID An UUID used to identify the data in the indexedDb
+	@param {String} UUID An UUID used to identify the data in the indexedDb
 	@return {Promise} A promise that fullfil when the data are read or reject when a problem occurs
 	The success handler receive the data as parameter
 	*/
@@ -187,7 +178,7 @@ class IndexedDb {
 
 	/**
 	Write data in the indexedDb.
-	@param {string} UUID An UUID used to identify the data in the indexedDb
+	@param {String} UUID An UUID used to identify the data in the indexedDb
 	@param {any} data The data to put in the indexedDb
 	@return {Promise} A promise that fullfil when the data are written or reject when a problem occurs
 	*/
@@ -201,7 +192,7 @@ class IndexedDb {
 
 	/**
 	Remove the data in the indexedDb and close it
-	@param {string} UUID An UUID used to identify the data in the indexedDb
+	@param {String} UUID An UUID used to identify the data in the indexedDb
 	*/
 
 	closeDb ( UUID ) {

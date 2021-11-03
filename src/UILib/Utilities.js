@@ -33,7 +33,6 @@ Tests ...
 @file Utilities.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -111,7 +110,7 @@ class Utilities {
 
 	/**
 	Test the availibility of the storage
-	@param {string} type The type of storage. Must be 'sessionStorage' or 'localStorage'
+	@param {String} type The type of storage. Must be 'sessionStorage' or 'localStorage'
 	*/
 
 	storageAvailable ( type ) {
@@ -149,8 +148,8 @@ class Utilities {
 
 	/**
 	Save a string to a file
-	@param {string} fileName The file name
-	@param {string} fileContent The file content
+	@param {String} fileName The file name
+	@param {String} fileContent The file content
 	@param {?string} fileMimeType The mime type of the file. Default to 'text/plain'
 	*/
 
@@ -177,7 +176,7 @@ class Utilities {
 
 	/**
 	Transform a time to a string
-	@param {number} time The time in seconds
+	@param {Number} time The time in seconds
 	*/
 
 	formatTime ( time ) {
@@ -220,7 +219,7 @@ class Utilities {
 
 	/**
 	Transform a distance to a string
-	@param {number} distance The distance in meters
+	@param {Number} distance The distance in meters
 	*/
 
 	formatDistance ( distance ) {
@@ -240,7 +239,7 @@ class Utilities {
 
 	/**
 	Transform a latitude to a string
-	@param {number} lat The latitude
+	@param {Number} lat The latitude
 	*/
 
 	formatLat ( lat ) {
@@ -255,7 +254,7 @@ class Utilities {
 
 	/**
 	Transform a longitude to a string
-	@param {number} lng The longitude
+	@param {Number} lng The longitude
 	*/
 
 	formatLng ( lng ) {
@@ -270,7 +269,7 @@ class Utilities {
 
 	/**
 	Transform a latitude + longitude to a string
-	@param {Array.<number>} latLng The latitude and longitude
+	@param {Array.<Number>} latLng The latitude and longitude
 	*/
 
 	formatLatLng ( latLng ) {

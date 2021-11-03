@@ -32,7 +32,6 @@ Tests ...
 @file MapLayersToolbarLink.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -41,7 +40,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module mapLayersToolbarUI
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -117,7 +115,6 @@ class MapLayersToolbarLink {
 
 	/**
 	Event listeners for the buttons
-	@private
 	*/
 
 	#linkMouseEnterEL = null;
@@ -125,7 +122,6 @@ class MapLayersToolbarLink {
 
 	/**
 	A reference to the link button html element
-	@private
 	*/
 
 	#linkButton = null;

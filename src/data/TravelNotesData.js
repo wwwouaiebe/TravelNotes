@@ -48,14 +48,14 @@ class Routing {
 
 	/**
 	The routing provider
-	@type {string}
+	@type {String}
 	*/
 
 	#provider = '';
 
 	/**
 	The routing transit mode
-	@type {string}
+	@type {String}
 	*/
 
 	#transitMode = ''
@@ -70,7 +70,7 @@ class Routing {
 
 	/**
 	The routing provider
-	@type {string}
+	@type {String}
 	*/
 
 	get provider ( ) { return this.#provider; }
@@ -81,7 +81,7 @@ class Routing {
 
 	/**
 	The routing transit mode
-	@type {string}
+	@type {String}
 	*/
 
 	get transitMode ( ) { return this.#transitMode; }
@@ -125,14 +125,14 @@ class TravelNotesData {
 
 	/**
 	The UUID currently used
-	@type {string}
+	@type {String}
 	*/
 
 	#UUID;
 
 	/**
 	The Leaflet map object
-	@type {object}
+	@type {Object}
 	*/
 
 	#map;
@@ -147,7 +147,7 @@ class TravelNotesData {
 
 	/**
 	The objId of the currently edited route or INVALID_OBJ_ID if none
-	@type {!number}
+	@type {Number}
 	*/
 
 	#editedRouteObjId;
@@ -177,7 +177,7 @@ class TravelNotesData {
 
 	/**
 	The Leaflet map object
-	@type {object}
+	@type {Object}
 	*/
 
 	get map ( ) { return this.#map; }
@@ -198,7 +198,7 @@ class TravelNotesData {
 
 	/**
 	The objId of the currently edited route or INVALID_OBJ_ID if none
-	@type {!number}
+	@type {Number}
 	*/
 
 	get editedRouteObjId ( ) { return this.#editedRouteObjId; }
@@ -239,7 +239,7 @@ class TravelNotesData {
 
 	/**
 	The UUID currently used
-	@type {string}
+	@type {String}
 	*/
 
 	get UUID ( ) { return this.#UUID; }

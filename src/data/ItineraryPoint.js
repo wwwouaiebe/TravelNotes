@@ -58,35 +58,35 @@ class ItineraryPoint extends TravelObject {
 
 	/**
 	the latitude of the ItineraryPoint
-	@type {number}
+	@type {Number}
 	*/
 
 	#lat = LAT_LNG.defaultValue;
 
 	/**
 	the longitude of the ItineraryPoint
-	@type {number}
+	@type {Number}
 	*/
 
 	#lng = LAT_LNG.defaultValue;
 
 	/**
 	the distance between the beginning of the itinerary and the ItineraryPoint
-	@type {number}
+	@type {Number}
 	*/
 
 	#distance = DISTANCE.defaultValue;
 
 	/**
 	the elevation (if any)  of the ItineraryPoint
-	@type {number}
+	@type {Number}
 	*/
 
 	#elev = ELEV.defaultValue;
 
 	/**
 	the objId of the ItineraryPoint.
-	@type {!number}
+	@type {Number}
 	*/
 
 	#objId = INVALID_OBJ_ID;
@@ -103,7 +103,7 @@ class ItineraryPoint extends TravelObject {
 
 	/**
 	the latitude of the ItineraryPoint
-	@type {number}
+	@type {Number}
 	*/
 
 	get lat ( ) { return this.#lat; }
@@ -114,7 +114,7 @@ class ItineraryPoint extends TravelObject {
 
 	/**
 	the longitude of the ItineraryPoint
-	@type {number}
+	@type {Number}
 	*/
 
 	get lng ( ) { return this.#lng; }
@@ -125,7 +125,7 @@ class ItineraryPoint extends TravelObject {
 
 	/**
 	the distance between the ItineraryPoint and the next ItineraryPoint
-	@type {number}
+	@type {Number}
 	*/
 
 	get distance ( ) { return this.#distance; }
@@ -136,7 +136,7 @@ class ItineraryPoint extends TravelObject {
 
 	/**
 	the elevation (if any)  of the ItineraryPoint
-	@type {number}
+	@type {Number}
 	*/
 
 	get elev ( ) { return this.#elev; }
@@ -170,15 +170,13 @@ class ItineraryPoint extends TravelObject {
 	/**
 	the ObjType of the WayPoint.
 	@type {ObjType}
-	@readonly
 	*/
 
 	get objType ( ) { return ItineraryPoint.#objType; }
 
 	/**
 	the objId of the ItineraryPoint. objId are unique identifier given by the code
-	@readonly
-	@type {!number}
+	@type {Number}
 	*/
 
 	get objId ( ) { return this.#objId; }

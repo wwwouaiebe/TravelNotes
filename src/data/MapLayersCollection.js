@@ -89,7 +89,7 @@ class MapLayersCollection {
 
 	/**
 	gives a MapLayer object
-	@param {string} mapLayerName the name of the MapLayer to give
+	@param {String} mapLayerName the name of the MapLayer to give
 	@return {MapLayer} The asked MapLayer. If a provider key is needed and the key not available
 	the defaultMapLayer is returned. If the layer is not found, the defaultMapLayer
 	is returned

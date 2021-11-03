@@ -32,7 +32,6 @@ Tests ...
 @file AppLoaderViewer.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -41,7 +40,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module main
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -116,31 +114,27 @@ class AppLoaderViewer {
 
 	/**
 	The url of the trv file in the fil parameter of the url
-	@type {string}
-	@private
+	@type {String}
 	*/
 
 	#travelUrl = null;
 
 	/**
 	the language in the lng parameter of the url
-	@type {string}
-	@private
+	@type {String}
 	*/
 
 	#language = null;
 
 	/**
 	The path of the app + TravelNotes ( first part of the json file names )
-	@type {string}
-	@private
+	@type {String}
 	*/
 
 	#originAndPath = window.location.href.substr ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'TravelNotes';
 
 	/**
-	@type {boolean}
-	@private
+	@type {Boolean}
 	*/
 
 	#addLayerToolbar = false;
@@ -148,14 +142,12 @@ class AppLoaderViewer {
 	/**
 	The mapEditorViewer
 	@type {MapEditorViewer}
-	@private
 	*/
 
 	static #mapEditorViewer = new MapEditorViewer ( );
 
 	/**
 	Loading event listeners
-	@private
 	*/
 
 	#addEventsListeners ( ) {
@@ -226,7 +218,6 @@ class AppLoaderViewer {
 
 	/**
 	Read the url. Search a 'fil' parameter, a 'lng' parameter and a 'lay' in the url.
-	@private
 	*/
 
 	#readURL ( ) {
@@ -269,7 +260,6 @@ class AppLoaderViewer {
 
 	/**
 	Loading the config.json file from the server
-	@private
 	*/
 
 	async #loadConfig ( ) {
@@ -288,7 +278,6 @@ class AppLoaderViewer {
 
 	/**
 	Loading translations
-	@private
 	*/
 
 	async #loadTranslations ( ) {
@@ -302,7 +291,6 @@ class AppLoaderViewer {
 
 	/**
 	Loading map layers
-	@private
 	*/
 
 	async #loadMapLayers ( ) {
@@ -316,7 +304,6 @@ class AppLoaderViewer {
 
 	/**
 	Loading TravelNotes
-	@private
 	*/
 
 	#loadTravelNotes ( ) {

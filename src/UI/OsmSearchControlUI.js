@@ -32,7 +32,6 @@ Tests ...
 @file OsmSearchControlUI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -41,7 +40,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module osmSearchPaneUI
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -65,7 +63,6 @@ class OsmSearchControlUI {
 	/**
 	A reference to the OsmSearchTreeUI object
 	@type {OsmSearchTreeUI}
-	@private
 	*/
 
 	#osmSearchTreeUI = null;
@@ -73,7 +70,6 @@ class OsmSearchControlUI {
 	/**
 	A reference to the OsmSearchToolbarUI object
 	@type {OsmSearchToolbarUI}
-	@private
 	*/
 
 	#osmSearchToolbar = null;
@@ -81,7 +77,6 @@ class OsmSearchControlUI {
 	/**
 	A reference to the OsmSearchWaitUI Object
 	@type {OsmSearchWaitUI}
-	@private
 	*/
 
 	#osmSearchWaitUI = null;
@@ -89,7 +84,6 @@ class OsmSearchControlUI {
 	/**
 	The HTMLElement in witch the control have to be added
 	@type {HTMLElement}
-	@private
 	*/
 
 	#paneControl = null;

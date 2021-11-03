@@ -90,7 +90,7 @@ class NoteDialogToolbarData {
 
 	/**
 	get and icon from the icon position in the array
-	@param {!number} index The icon index in the array
+	@param {Number} index The icon index in the array
 	*/
 
 	getIconData ( index ) {
@@ -99,7 +99,7 @@ class NoteDialogToolbarData {
 
 	/**
 	get an icon from the icon name
-	@param {string} iconName The icon name
+	@param {String} iconName The icon name
 	*/
 
 	getIconContentFromName ( iconName ) {

@@ -32,7 +32,6 @@ Tests ...
 @file ProviderToolbarProviderButton.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -41,7 +40,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module providersToolbarUI
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -64,7 +62,6 @@ class ProviderToolbarProviderButton {
 	/**
 	A reference to the toolbar
 	@type {HTMLElement}
-	@private
 	*/
 
 	#providerToolbarUI = null;
@@ -72,7 +69,6 @@ class ProviderToolbarProviderButton {
 	/**
 	The provider
 	@type {BaseRouteProvider}
-	@private
 	*/
 
 	#provider = null;
@@ -80,7 +76,6 @@ class ProviderToolbarProviderButton {
 	/**
 	the button HTMLElement
 	@type {HTMLElement}
-	@private
 	*/
 
 	#buttonHTMLElement = null;

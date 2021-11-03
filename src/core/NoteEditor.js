@@ -89,7 +89,7 @@ class NoteEditor {
 
 	/**
 	A flag indicating when the note is created or edited
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	#isNewNote = true;
@@ -97,7 +97,7 @@ class NoteEditor {
 	/**
 	A flag indicating when the note dialog is show when creating a search note
 	Must be set to null at the startup because theConfig is perhaps not initialized
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	#showSearchNoteDialog = null;
@@ -158,7 +158,7 @@ class NoteEditor {
 
 	/**
 	This method construct a new Note object
-	@param {Array.<number>} latLng The latitude and longitude of the note
+	@param {Array.<Number>} latLng The latitude and longitude of the note
 	*/
 
 	#newNote ( latLng ) {
@@ -268,8 +268,8 @@ class NoteEditor {
 
 	/**
 	This method add a route note.
-	@param {number} routeObjId objId of the route to witch the note will be attached
-	@param {Array.<number>} latLng the lat and lng of the point selected by the user
+	@param {Number} routeObjId objId of the route to witch the note will be attached
+	@param {Array.<Number>} latLng the lat and lng of the point selected by the user
 	@fires showitinerary
 	@fires noteupdated
 	@fires roadbookupdate
@@ -327,7 +327,7 @@ class NoteEditor {
 
 	/**
 	This method add a travel note
-	@param {Array.<number>} latLng The latitude and longitude of the note
+	@param {Array.<Number>} latLng The latitude and longitude of the note
 	@fires showtravelnotes
 	@fires noteupdated
 	@fires roadbookupdate
@@ -341,7 +341,7 @@ class NoteEditor {
 
 	/**
 	This method start the edition of a note
-	@param {number} noteObjId The objId of the note to be edited
+	@param {Number} noteObjId The objId of the note to be edited
 	@fires updateitinerary
 	@fires updatetravelnotes
 	@fires noteupdated
@@ -358,7 +358,7 @@ class NoteEditor {
 
 	/**
 	This method remove a note
-	@param {number} noteObjId The objId of the note to be removed
+	@param {Number} noteObjId The objId of the note to be removed
 	@fires updateitinerary
 	@fires updatetravelnotes
 	@fires noteupdated
@@ -451,7 +451,7 @@ class NoteEditor {
 	/**
 	This method transform a travel note into a route note.
 	The nearest point on a route is selected for the note
-	@param {number} noteObjId The objId of the note
+	@param {Number} noteObjId The objId of the note
 	@fires updateitinerary
 	@fires updatetravelnotes
 	@fires noteupdated
@@ -487,7 +487,7 @@ class NoteEditor {
 
 	/**
 	This method transform a route note into a travel note.
-	@param {number} noteObjId The objId of the note
+	@param {Number} noteObjId The objId of the note
 	@fires updateitinerary
 	@fires updatetravelnotes
 	@fires roadbookupdate
@@ -507,9 +507,9 @@ class NoteEditor {
 
 	/**
 	This method is called when a note is dropped in the TravelNotesPaneUI and then notes reordered.
-	@param {number} draggedNoteObjId The objId of the dragged note
-	@param {number} targetNoteObjId The objId of the note on witch the drop was executed
-	@param {boolean} draggedBefore when true the dragged note is moved before the target note
+	@param {Number} draggedNoteObjId The objId of the dragged note
+	@param {Number} targetNoteObjId The objId of the note on witch the drop was executed
+	@param {Boolean} draggedBefore when true the dragged note is moved before the target note
 	when false after
 	@fires updatetravelnotes
 	@fires roadbookupdate

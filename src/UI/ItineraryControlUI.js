@@ -32,7 +32,6 @@ Tests ...
 @file ItineraryControlUI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -41,7 +40,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module itineraryPaneUI
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -133,7 +131,6 @@ class ItineraryControlUI {
 	/**
 	The header of the route with the route name , distance and ascent
 	@type {HTMLElement}
-	@private
 	*/
 
 	#routeHeaderHTMLElement = null;
@@ -141,7 +138,6 @@ class ItineraryControlUI {
 	/**
 	The checkboxes container
 	@type {HTMLElement}
-	@private
 	*/
 
 	#checkBoxesHTMLElement = null;
@@ -149,7 +145,6 @@ class ItineraryControlUI {
 	/**
 	The show notes checkbox
 	@type {HTMLElement}
-	@private
 	*/
 
 	#showNotesCheckBoxHTMLElement = null;
@@ -157,23 +152,20 @@ class ItineraryControlUI {
 	/**
 	The show maneuvers checkbox
 	@type {HTMLElement}
-	@private
 	*/
 
 	#showManeuversCheckBoxHTMLElement = null;
 
 	/**
 	The current status of the notes
-	@type {boolean}
-	@private
+	@type {Boolean}
 	*/
 
 	#showNotes = theConfig.itineraryPaneUI.showNotes;
 
 	/**
 	The current status of the maneuvers
-	@type {boolean}
-	@private
+	@type {Boolean}
 	*/
 
 	#showManeuvers = theConfig.itineraryPaneUI.showManeuvers;
@@ -181,7 +173,6 @@ class ItineraryControlUI {
 	/**
 	event listener for the notes checkbox
 	@type {NotesCheckboxInputEL}
-	@private
 	*/
 
 	#notesCheckboxInputEL = null;
@@ -189,7 +180,6 @@ class ItineraryControlUI {
 	/**
 	event listener for the maneuver checkbox
 	@type {ManeuversCheckboxInputEL}
-	@private
 	*/
 
 	#maneuversCheckboxInputEL = null
@@ -197,7 +187,6 @@ class ItineraryControlUI {
 	/**
 	A reference to the HTMLElement in witch the control have to be added
 	@type {HTMLElement}
-	@private
 	*/
 
 	#paneControl = null;
@@ -205,7 +194,6 @@ class ItineraryControlUI {
 	/**
 	A reference to the associated ItineraryDataUI
 	@type {ItineraryDataUI}
-	@private
 	*/
 
 	#itineraryDataUI = null;

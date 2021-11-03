@@ -32,7 +32,6 @@ Tests ...
 @file ColorControl.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -193,8 +192,8 @@ class ColorControl {
 
 	/**
 	create the color inputs and text
-	@param {string} inputText The text before the input
-	@param {!number} inputValue The input value
+	@param {String} inputText The text before the input
+	@param {Number} inputValue The input value
 	@return {HTMLElement} the input object
 	*/
 
@@ -255,7 +254,7 @@ class ColorControl {
 
 	/**
 	constructor
-	@param {string} cssColor The initial color for the control (must be #RRGGBB or rgb(RR, GG, BB) .
+	@param {String} cssColor The initial color for the control (must be #RRGGBB or rgb(RR, GG, BB) .
 	*/
 
 	constructor ( cssColor ) {
@@ -312,7 +311,7 @@ class ColorControl {
 
 	/**
 	The color selected in the control in the css hex format ( #rrggbb )
-	@type {string}
+	@type {String}
 	*/
 
 	get cssColor ( ) { return this.#newColor.cssColor; }

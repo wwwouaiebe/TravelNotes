@@ -205,7 +205,7 @@ class GpxFactory {
 
 	/**
 	Transform a route into a gpx file
-	@param {number} routeObjId the objId of the route to save in a gpx file
+	@param {Number} routeObjId the objId of the route to save in a gpx file
 	*/
 
 	routeToGpx ( routeObjId ) {

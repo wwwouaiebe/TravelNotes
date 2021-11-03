@@ -84,7 +84,7 @@ class Zoomer {
 
 	/**
 	Performs a zoom on a point
-	@param {Array.<number>} latLng The latitude and longitude of the point
+	@param {Array.<Number>} latLng The latitude and longitude of the point
 	@fires zoomto
 	*/
 
@@ -94,7 +94,7 @@ class Zoomer {
 
 	/**
 	Performs a zoom on a maneuver
-	@param {number} maneuverObjId the objId of the maneuver on witch the zoom must be performed
+	@param {Number} maneuverObjId the objId of the maneuver on witch the zoom must be performed
 	@fires zoomto
 	*/
 
@@ -108,7 +108,7 @@ class Zoomer {
 
 	/**
 	Performs a zoom on a note
-	@param {number} noteObjId the objId of the note on witch the zoom must be performed
+	@param {Number} noteObjId the objId of the note on witch the zoom must be performed
 	@fires zoomto
 	*/
 
@@ -125,7 +125,7 @@ class Zoomer {
 
 	/**
 	Performs a zoom on a route
-	@param {number} routeObjId the objId of the route on witch the zoom must be performed
+	@param {Number} routeObjId the objId of the route on witch the zoom must be performed
 	@fires zoomto
 	*/
 

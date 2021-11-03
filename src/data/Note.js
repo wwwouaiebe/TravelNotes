@@ -76,84 +76,84 @@ class Note extends TravelObject {
 
 	/**
 	the height of the icon associated to the note
-	@type {!number}
+	@type {Number}
 	*/
 
 	#iconHeight = ICON_DIMENSIONS.height;
 
 	/**
 	the width of the icon associated to the note
-	@type {!number}
+	@type {Number}
 	*/
 
 	#iconWidth = ICON_DIMENSIONS.width;
 
 	/**
 	the html needed to display the icon
-	@type {string}
+	@type {String}
 	*/
 
 	#iconContent = '';
 
 	/**
 	the html added to the icon popup
-	@type {string}
+	@type {String}
 	*/
 
 	#popupContent = '';
 
 	/**
 	the html added to the icon tooltip
-	@type {string}
+	@type {String}
 	*/
 
 	#tooltipContent = '';
 
 	/**
 	the phone number dsplayed in the Note
-	@type {string}
+	@type {String}
 	*/
 
 	#phone = '';
 
 	/**
 	the url dsplayed in the Note
-	@type {string}
+	@type {String}
 	*/
 
 	#url = '';
 
 	/**
 	the address dsplayed in the Note
-	@type {string}
+	@type {String}
 	*/
 
 	#address = '';
 
 	/**
 	the latitude of the Note icon
-	@type {number}
+	@type {Number}
 	*/
 
 	#iconLat = LAT_LNG.defaultValue;
 
 	/**
 	the longitude of the Note icon
-	@type {number}
+	@type {Number}
 	*/
 
 	#iconLng = LAT_LNG.defaultValue;
 
 	/**
 	the latitude of the Note
-	@type {number}
+	@type {Number}
 	*/
 
 	#lat = LAT_LNG.defaultValue;
 
 	/**
 	the longitude of the Note
-	@type {number}
+	@type {Number}
 	*/
 
 	#lng = LAT_LNG.defaultValue;
@@ -161,7 +161,7 @@ class Note extends TravelObject {
 	/**
 	the distance between the beginning of the Route and the Note
 	@default DISTANCE.invalid
-	@type {number}
+	@type {Number}
 	*/
 
 	#distance = DISTANCE.invalid;
@@ -169,14 +169,14 @@ class Note extends TravelObject {
 	/**
 	the distance between the beginning of the Travel and the Note
 	@default DISTANCE.defaultValue
-	@type {number}
+	@type {Number}
 	*/
 
 	#chainedDistance = DISTANCE.defaultValue;
 
 	/**
 	the objId of the note
-	@type {!number}
+	@type {Number}
 	*/
 
 	#objId = INVALID_OBJ_ID;;
@@ -192,7 +192,7 @@ class Note extends TravelObject {
 
 	/**
 	the height of the icon associated to the note
-	@type {!number}
+	@type {Number}
 	*/
 
 	get iconHeight ( ) { return this.#iconHeight; }
@@ -203,7 +203,7 @@ class Note extends TravelObject {
 
 	/**
 	the width of the icon associated to the note
-	@type {!number}
+	@type {Number}
 	*/
 
 	get iconWidth ( ) { return this.#iconWidth; }
@@ -214,7 +214,7 @@ class Note extends TravelObject {
 
 	/**
 	the html needed to display the icon
-	@type {string}
+	@type {String}
 	*/
 
 	get iconContent ( ) { return this.#iconContent; }
@@ -230,7 +230,7 @@ class Note extends TravelObject {
 
 	/**
 	the html added to the icon popup
-	@type {string}
+	@type {String}
 	*/
 
 	get popupContent ( ) { return this.#popupContent; }
@@ -246,7 +246,7 @@ class Note extends TravelObject {
 
 	/**
 	the html added to the icon tooltip
-	@type {string}
+	@type {String}
 	*/
 
 	get tooltipContent ( ) { return this.#tooltipContent; }
@@ -262,7 +262,7 @@ class Note extends TravelObject {
 
 	/**
 	the phone number dsplayed in the Note
-	@type {string}
+	@type {String}
 	*/
 
 	get phone ( ) { return this.#phone; }
@@ -278,7 +278,7 @@ class Note extends TravelObject {
 
 	/**
 	the url dsplayed in the Note
-	@type {string}
+	@type {String}
 	*/
 
 	get url ( ) { return this.#url; }
@@ -294,7 +294,7 @@ class Note extends TravelObject {
 
 	/**
 	the address dsplayed in the Note
-	@type {string}
+	@type {String}
 	*/
 
 	get address ( ) { return this.#address; }
@@ -310,7 +310,7 @@ class Note extends TravelObject {
 
 	/**
 	the latitude of the Note icon
-	@type {number}
+	@type {Number}
 	*/
 
 	get iconLat ( ) { return this.#iconLat; }
@@ -321,7 +321,7 @@ class Note extends TravelObject {
 
 	/**
 	the longitude of the Note icon
-	@type {number}
+	@type {Number}
 	*/
 
 	get iconLng ( ) { return this.#iconLng; }
@@ -332,7 +332,7 @@ class Note extends TravelObject {
 
 	/**
 	the latitude of the Note
-	@type {number}
+	@type {Number}
 	*/
 
 	get lat ( ) { return this.#lat; }
@@ -343,7 +343,7 @@ class Note extends TravelObject {
 
 	/**
 	the longitude of the Note
-	@type {number}
+	@type {Number}
 	*/
 
 	get lng ( ) { return this.#lng; }
@@ -355,7 +355,7 @@ class Note extends TravelObject {
 	/**
 	the distance between the beginning of the Route and the Note
 	@default DISTANCE.invalid
-	@type {number}
+	@type {Number}
 	*/
 
 	get distance ( ) { return this.#distance; }
@@ -367,7 +367,7 @@ class Note extends TravelObject {
 	/**
 	the distance between the beginning of the Travel and the Note
 	@default DISTANCE.defaultValue
-	@type {number}
+	@type {Number}
 	*/
 
 	get chainedDistance ( ) { return this.#chainedDistance; }
@@ -378,15 +378,14 @@ class Note extends TravelObject {
 
 	/**
 	is true when the note is linked with a route
-	@type {boolean}
-	@readonly
+	@type {Boolean}
 	*/
 
 	get isRouteNote ( ) { return this.#distance !== DISTANCE.invalid; }
 
 	/**
 	the latitude and longitude of the Note icon
-	@type {Array.<number>}
+	@type {Array.<Number>}
 	*/
 
 	get iconLatLng ( ) { return [ this.iconLat, this.iconLng ]; }
@@ -408,7 +407,7 @@ class Note extends TravelObject {
 
 	/**
 	the latitude and longitude of the Note
-	@type {Array.<number>}
+	@type {Array.<Number>}
 	*/
 
 	get latLng ( ) { return [ this.lat, this.lng ]; }
@@ -431,15 +430,13 @@ class Note extends TravelObject {
 	/**
 	the ObjType of the Note.
 	@type {ObjType}
-	@readonly
 	*/
 
 	get objType ( ) { return Note.#objType; }
 
 	/**
 	the objId of the Note. objId are unique identifier given by the code
-	@readonly
-	@type {!number}
+	@type {Number}
 	*/
 
 	get objId ( ) { return this.#objId; }

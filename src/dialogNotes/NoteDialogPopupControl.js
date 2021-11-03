@@ -105,7 +105,7 @@ class NoteDialogPopupControl {
 
 	/**
 	The popupcontent value in the control
-	@type {string}
+	@type {String}
 	*/
 
 	get popupContent ( ) { return this.#popupTextArea.value; }

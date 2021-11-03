@@ -76,7 +76,7 @@ class TranslationRotationFinder {
 
 	/**
 	The coordinates in pixel of the icon point
-	@type {Array.<number>}
+	@type {Array.<Number>}
 	*/
 
 	#iconPoint;

@@ -43,7 +43,6 @@ ests ...
 @file RoutePropertiesDialog.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -52,7 +51,6 @@ ests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module dialogs
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -83,7 +81,6 @@ class RoutePropertiesDialog extends BaseDialog {
 	/**
 	A reference to the route
 	@type {Route}
-	@private
 	*/
 
 	#route = null;
@@ -91,7 +88,6 @@ class RoutePropertiesDialog extends BaseDialog {
 	/**
 	The colorControl object used in the dialog
 	@type {ColorControl}
-	@private
 	*/
 
 	#colorControl = null;
@@ -99,7 +95,6 @@ class RoutePropertiesDialog extends BaseDialog {
 	/**
 	The route name input in the dialog
 	@type {HTMLElement}
-	@private
 	*/
 
 	#nameInput = null;
@@ -107,7 +102,6 @@ class RoutePropertiesDialog extends BaseDialog {
 	/**
 	The route width input in the dialog
 	@type {HTMLElement}
-	@private
 	*/
 
 	#widthInput = null;
@@ -115,7 +109,6 @@ class RoutePropertiesDialog extends BaseDialog {
 	/**
 	The route dash select in the dialog
 	@type {HTMLElement}
-	@private
 	*/
 
 	#dashSelect = null;
@@ -123,14 +116,12 @@ class RoutePropertiesDialog extends BaseDialog {
 	/**
 	The route chain check box in the dialog
 	@type {HTMLElement}
-	@private
 	*/
 
 	#chainInput = null;
 
 	/**
 	This method creates the name div
-	@private
 	*/
 
 	#createNameDiv ( ) {
@@ -161,7 +152,6 @@ class RoutePropertiesDialog extends BaseDialog {
 
 	/**
 	This method creates the route width div
-	@private
 	*/
 
 	#createWidthDiv ( ) {
@@ -196,7 +186,6 @@ class RoutePropertiesDialog extends BaseDialog {
 
 	/**
 	This method creates the route dash div
-	@private
 	*/
 
 	#createDashDiv ( ) {
@@ -225,7 +214,6 @@ class RoutePropertiesDialog extends BaseDialog {
 
 	/**
 	This method creates the route chain div
-	@private
 	*/
 
 	#createChainDiv ( ) {
@@ -258,7 +246,6 @@ class RoutePropertiesDialog extends BaseDialog {
 
 	/**
 	This method creates the color header div
-	@private
 	*/
 
 	#createColorHeaderDiv ( ) {
@@ -312,7 +299,6 @@ class RoutePropertiesDialog extends BaseDialog {
 
 	/**
 	Get the title of the dialog
-	@readonly
 	*/
 
 	get title ( ) { return theTranslator.getText ( 'RoutePropertiesDialog - Route properties' ); }
@@ -320,7 +306,6 @@ class RoutePropertiesDialog extends BaseDialog {
 	/**
 	Overload of the BaseDialog.contentHTMLElements property.
 	Get an array with the HTMLElements that have to be added in the content of the dialog.
-	@readonly
 	*/
 
 	get contentHTMLElements ( ) {

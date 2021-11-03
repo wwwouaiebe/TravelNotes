@@ -87,28 +87,28 @@ class Travel extends TravelObject {
 
 	/**
 	the background map name
-	@type {string}
+	@type {String}
 	*/
 
 	#layerName = 'OSM - Color';
 
 	/**
 	the Travel name
-	@type {string}
+	@type {String}
 	*/
 
 	#name = '';
 
 	/**
 	a boolean indicates when the Travel is read only
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	#readOnly = false;
 
 	/**
 	the objId of the travel
-	@type {!number}
+	@type {Number}
 	*/
 
 	#objId = INVALID_OBJ_ID;
@@ -143,7 +143,6 @@ class Travel extends TravelObject {
 	/**
 	a Collection of Routes
 	@type {Collection.<Route>}
-	@readonly
 	*/
 
 	get routes ( ) { return this.#routes; }
@@ -151,14 +150,13 @@ class Travel extends TravelObject {
 	/**
 	a Collection of Notes
 	@type {Collection.<Note>}
-	@readonly
 	*/
 
 	get notes ( ) { return this.#notes; }
 
 	/**
 	the background map name
-	@type {string}
+	@type {String}
 	*/
 
 	get layerName ( ) { return this.#layerName; }
@@ -174,7 +172,7 @@ class Travel extends TravelObject {
 
 	/**
 	the Travel name
-	@type {string}
+	@type {String}
 	*/
 
 	get name ( ) { return this.#name; }
@@ -190,7 +188,7 @@ class Travel extends TravelObject {
 
 	/**
 	a boolean indicates when the Travel is read only
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	get readOnly ( ) { return this.#readOnly; }
@@ -206,8 +204,7 @@ class Travel extends TravelObject {
 
 	/**
 	the objId of the Travel. objId are unique identifier given by the code
-	@readonly
-	@type {!number}
+	@type {Number}
 	*/
 
 	get objId ( ) { return this.#objId; }
@@ -215,7 +212,6 @@ class Travel extends TravelObject {
 	/**
 	the ObjType of the Travel.
 	@type {ObjType}
-	@readonly
 	*/
 
 	get objType ( ) { return Travel.#objType; }

@@ -125,14 +125,14 @@ class BaseContextMenuOperator {
 
 	/**
 	The index of the selected by the keyboard menuItem
-	@type {number}
+	@type {Number}
 	*/
 
 	#keyboardSelectedItemObjId = NOT_FOUND;
 
 	/**
 	TimerId for the mouseleave container action
-	@type {number}
+	@type {Number}
 	*/
 
 	#timerId = null;
@@ -149,7 +149,7 @@ class BaseContextMenuOperator {
 
 	/**
 	Selected item change by the keyboard
-	@param {number} changeValue A value indicating witch menuItem have to be selected
+	@param {Number} changeValue A value indicating witch menuItem have to be selected
 	See BaseContextMenuOperator.#keyboardItemChange
 	*/
 
@@ -290,7 +290,7 @@ class BaseContextMenuOperator {
 
 	/**
 	Keydown on the keyboard action
-	@param {string} key The pressed keyboard key
+	@param {String} key The pressed keyboard key
 	*/
 
 	onKeydownKeyboard ( key ) {
@@ -341,7 +341,7 @@ class BaseContextMenuOperator {
 
 	/**
 	Select item action
-	@param {number} itemObjId The id of the selected item
+	@param {Number} itemObjId The id of the selected item
 	*/
 
 	selectItem ( itemObjId ) {

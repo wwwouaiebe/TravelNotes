@@ -114,7 +114,7 @@ class RouteEditor {
 
 	/**
 	This method start the edition of a route
-	@param {number} routeObjId The objId of the route to edit.
+	@param {Number} routeObjId The objId of the route to edit.
 	@fires setprovider
 	@fires settransitmode
 	@fires routeupdated
@@ -193,7 +193,7 @@ class RouteEditor {
 
 	/**
 	This method removes a route from the travel
-	@param {number} routeObjId The objId of the Route to remove.
+	@param {Number} routeObjId The objId of the Route to remove.
 	@fires routeupdated
 	@fires showitinerary
 	@fires setrouteslist
@@ -231,7 +231,7 @@ class RouteEditor {
 
 	/**
 	This method save the route to a gpx file
-	@param {number} routeObjId The objId of the Route to save.
+	@param {Number} routeObjId The objId of the Route to save.
 	*/
 
 	saveGpx ( routeObjId ) {
@@ -320,7 +320,7 @@ class RouteEditor {
 
 	/**
 	This method show the RoutePropertiesDialog
-	@param {number} routeObjId The objId of the Route for witch the properties must be edited
+	@param {Number} routeObjId The objId of the Route for witch the properties must be edited
 	@fires routepropertiesupdated
 	@fires setrouteslist
 	@fires roadbookupdate
@@ -359,7 +359,7 @@ class RouteEditor {
 
 	/**
 	This method show the PrintRouteMapDialog and then print the maps
-	@param {number} routeObjId The objId of the Route for witch the maps must be printed
+	@param {Number} routeObjId The objId of the Route for witch the maps must be printed
 	*/
 
 	printRouteMap ( routeObjId ) {
@@ -377,7 +377,7 @@ class RouteEditor {
 
 	/**
 	This method show a route on the map
-	@param {number} routeObjId The objId of the Route to show
+	@param {Number} routeObjId The objId of the Route to show
 	*/
 
 	showRoute ( routeObjId ) {
@@ -394,7 +394,7 @@ class RouteEditor {
 
 	/**
 	This method hide a route on the map
-	@param {number} routeObjId The objId of the Route to show
+	@param {Number} routeObjId The objId of the Route to show
 	*/
 
 	hideRoute ( routeObjId ) {

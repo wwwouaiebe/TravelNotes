@@ -31,7 +31,6 @@ Doc reviewed 20210913
 @file AppLoader.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -81,8 +80,7 @@ const OUR_DEMO_MAX_MANEUVERS_NOTES = 10;
 class RoadbookUpdateEL {
 
 	/**
-	@type {boolean}
-	@private
+	@type {Boolean}
 	*/
 
 	#storageAvailable = false;
@@ -139,39 +137,34 @@ class AppLoader {
 
 	/**
 	The url of the trv file in the fil parameter of the url
-	@type {string}
-	@private
+	@type {String}
 	*/
 
 	#travelUrl = null;
 
 	/**
 	the language in the lng parameter of the url
-	@type {string}
-	@private
+	@type {String}
 	*/
 
 	#language = null;
 
 	/**
 	The path of the app + TravelNotes ( first part of the json file names )
-	@type {string}
-	@private
+	@type {String}
 	*/
 
 	#originAndPath = window.location.href.substr ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'TravelNotes';
 
 	/**
 	An error message used when loading the json files
-	@type {string}
-	@private
+	@type {String}
 	*/
 
 	#errorMessage = '';
 
 	/**
 	Loading event listeners
-	@private
 	*/
 
 	#addEventsListeners ( ) {
@@ -387,7 +380,6 @@ class AppLoader {
 
 	/**
 	Loading unload and beforeunload event listeners
-	@private
 	*/
 
 	#addUnloadEventsListeners ( ) {
@@ -406,7 +398,6 @@ class AppLoader {
 
 	/**
 	Read the url. Search a 'fil' parameter and a 'lng' parameter in the url.
-	@private
 	*/
 
 	#readURL ( ) {
@@ -455,7 +446,6 @@ class AppLoader {
 
 	/**
 	Loading the config.json file from the server
-	@private
 	*/
 
 	async #loadConfig ( ) {
@@ -495,7 +485,6 @@ class AppLoader {
 
 	/**
 	Loading translations
-	@private
 	*/
 
 	async #loadTranslations ( translationPromiseResult, defaultTranslationPromiseResult ) {
@@ -529,7 +518,6 @@ class AppLoader {
 
 	/**
 	Loading the NoteDialog config
-	@private
 	*/
 
 	async #loadNoteDialogConfig ( noteDialogPromiseResult, defaultNoteDialogPromiseResult ) {
@@ -565,7 +553,6 @@ class AppLoader {
 
 	/**
 	Loading the OsmSearch dictionary
-	@private
 	*/
 
 	async #loadOsmSearchDictionary ( searchDictPromiseResult, defaultSearchDictPromiseResult ) {
@@ -599,7 +586,6 @@ class AppLoader {
 
 	/**
 	Loading map layers
-	@private
 	*/
 
 	async #loadMapLayers ( layersPromiseResult ) {
@@ -620,7 +606,6 @@ class AppLoader {
 
 	/**
 	Loading json files from the server
-	@private
 	*/
 
 	async #loadJsonFiles ( ) {
@@ -660,7 +645,6 @@ class AppLoader {
 
 	/**
 	Loading theTravelNotes
-	@private
 	*/
 
 	#loadTravelNotes ( ) {

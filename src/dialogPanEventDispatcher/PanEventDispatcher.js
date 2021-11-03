@@ -102,7 +102,7 @@ class MouseEL {
 	/**
 	The constructor
 	@param {HTMLElement} target The target for the event listener
-	@param {!number} button The button used. must be PanEventDispatcher.LEFT_BUTTON or PanEventDispatcher.MIDDLE_BUTTON
+	@param {Number} button The button used. must be PanEventDispatcher.LEFT_BUTTON or PanEventDispatcher.MIDDLE_BUTTON
 	or PanEventDispatcher.RIGHT_BUTTON. Default value: PanEventDispatcher.LEFT_BUTTON
 	*/
 
@@ -222,7 +222,7 @@ class PanEventDispatcher {
 	/**
 	The constructor
 	@param {HTMLElement} target The target for the event dispatcher
-	@param {!number} button The button to use. must be PanEventDispatcher.LEFT_BUTTON or PanEventDispatcher.MIDDLE_BUTTON
+	@param {Number} button The button to use. must be PanEventDispatcher.LEFT_BUTTON or PanEventDispatcher.MIDDLE_BUTTON
 	or PanEventDispatcher.RIGHT_BUTTON. Default value: PanEventDispatcher.LEFT_BUTTON
 	*/
 

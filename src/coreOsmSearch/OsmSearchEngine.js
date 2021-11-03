@@ -54,7 +54,7 @@ class OsmSearchEngine	{
 
 	/**
 	A flag to avoid to start a new search when a search is already ongoing
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	#searchStarted;
@@ -85,7 +85,7 @@ class OsmSearchEngine	{
 	Compare the tags of the osmElement with the tags of the filterTags
 	@param {Object} osmElement the osmElement to compare
 	@param <Array.<Objects>} filterTags The filter tags to use Seee DictionaryItem.filterTagsArray
-	@return {boolean} true when all the tags present in the filterTags are present in the osmElement with the same value
+	@return {Boolean} true when all the tags present in the filterTags are present in the osmElement with the same value
 	*/
 
 	#filterOsmElement ( osmElement, filterTags ) {
@@ -128,7 +128,7 @@ class OsmSearchEngine	{
 
 	/**
 	Build an array of queries for calls to OSM.
-	@return {Array.<string>} An array of string to use with OverpassAPIDataLoader
+	@return {Array.<String>} An array of string to use with OverpassAPIDataLoader
 	*/
 
 	#getSearchQueries ( ) {

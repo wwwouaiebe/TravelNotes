@@ -33,7 +33,6 @@ Tests ...
 @file SaveAsDialog.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -42,7 +41,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module dialogs
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -69,7 +67,6 @@ class SaveAsDialog extends BaseDialog {
 	/**
 	The remove travel notes input
 	@type {HTMLElement}
-	@private
 	*/
 
 	#removeTravelNotesInput = null;
@@ -77,7 +74,6 @@ class SaveAsDialog extends BaseDialog {
 	/**
 	The remove route notes input
 	@type {HTMLElement}
-	@private
 	*/
 
 	#removeRoutesNotesInput = null;
@@ -85,7 +81,6 @@ class SaveAsDialog extends BaseDialog {
 	/**
 	The remove maneuvers input
 	@type {HTMLElement}
-	@private
 	*/
 
 	#removeManeuversInput = null;
@@ -93,7 +88,6 @@ class SaveAsDialog extends BaseDialog {
 	/**
 	The remove travel notes div
 	@type {HTMLElement}
-	@private
 	*/
 
 	#removeTravelNotesDiv = null;
@@ -101,7 +95,6 @@ class SaveAsDialog extends BaseDialog {
 	/**
 	The remove route notes div
 	@type {HTMLElement}
-	@private
 	*/
 
 	#removeRoutesNotesDiv = null;
@@ -109,16 +102,14 @@ class SaveAsDialog extends BaseDialog {
 	/**
 	The remove maneuvers div
 	@type {HTMLElement}
-	@private
 	*/
 
 	#removeManeuversDiv = null;
 
 	/**
 	Create an input div and an input HTMLelements
-	@param {string} inputText The text to display near the input
+	@param {String} inputText The text to display near the input
 	@return {Array.<HTMLElement>} An array with the div and the input HTMLelement
-	@private
 	*/
 
 	#createInputDiv ( inputText ) {
@@ -167,7 +158,6 @@ class SaveAsDialog extends BaseDialog {
 
 	/**
 	Get an array with the HTMLElements that have to be added in the content of the dialog.
-	@readonly
 	*/
 
 	get contentHTMLElements ( ) {
@@ -180,7 +170,6 @@ class SaveAsDialog extends BaseDialog {
 
 	/**
 	Get the title of the dialog
-	@readonly
 	*/
 
 	get title ( ) { return theTranslator.getText ( 'SaveAsDialog - SaveAs' ); }

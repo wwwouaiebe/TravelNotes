@@ -33,7 +33,6 @@ Tests ...
 @file PaneUI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -42,7 +41,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module panesManagerUI
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -66,7 +64,6 @@ class PaneUI {
 	/**
 	A reference to the HTMLElement in witch the data have to be added
 	@type {HTMLElement}
-	@private
 	*/
 
 	#paneData = null;
@@ -74,7 +71,6 @@ class PaneUI {
 	/**
 	A reference to the HTMLElement in witch the control have to be added
 	@type {HTMLElement}
-	@private
 	*/
 
 	#paneControl = null;
@@ -124,8 +120,7 @@ class PaneUI {
 	/**
 	A unique identifier for the pane
 	Must be implemented in the derived classes
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get paneId ( ) {
@@ -135,8 +130,7 @@ class PaneUI {
 	/**
 	The text to be displayer in the pane button
 	Must be implemented in the derived classes
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get buttonText ( ) {

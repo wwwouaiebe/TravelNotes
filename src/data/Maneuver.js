@@ -60,42 +60,42 @@ class Maneuver extends TravelObject {
 
 	/**
 	The icon displayed with the Maneuver in the roadbook
-	@type {string}
+	@type {String}
 	*/
 
 	#iconName = '';
 
 	/**
 	The instruction of the Maneuver
-	@type {string}
+	@type {String}
 	*/
 
 	#instruction = '';
 
 	/**
 	The objId of the ItineraryPoint at the same position than the Maneuver
-	@type {!number}
+	@type {Number}
 	*/
 
 	#itineraryPointObjId = INVALID_OBJ_ID;
 
 	/**
 	The distance between the Maneuver and the next Maneuver
-	@type {number}
+	@type {Number}
 	*/
 
 	#distance = DISTANCE.defaultValue;
 
 	/**
 	The time between the Maneuver and the next Maneuver
-	@type {number}
+	@type {Number}
 	*/
 
 	#duration = DISTANCE.defaultValue;
 
 	/**
 	the objId of the Maneuver.
-	@type {!number}
+	@type {Number}
 	*/
 
 	#objId = INVALID_OBJ_ID;;
@@ -111,7 +111,7 @@ class Maneuver extends TravelObject {
 
 	/**
 	The icon displayed with the Maneuver in the roadbook
-	@type {string}
+	@type {String}
 	*/
 
 	get iconName ( ) { return this.#iconName; }
@@ -122,7 +122,7 @@ class Maneuver extends TravelObject {
 
 	/**
 	The instruction of the Maneuver
-	@type {string}
+	@type {String}
 	*/
 
 	get instruction ( ) { return this.#instruction; }
@@ -133,7 +133,7 @@ class Maneuver extends TravelObject {
 
 	/**
 	The objId of the ItineraryPoint at the same position than the Maneuver
-	@type {!number}
+	@type {Number}
 	*/
 
 	get itineraryPointObjId ( ) { return this.#itineraryPointObjId; }
@@ -144,7 +144,7 @@ class Maneuver extends TravelObject {
 
 	/**
 	The distance between the Maneuver and the next Maneuver
-	@type {number}
+	@type {Number}
 	*/
 
 	get distance ( ) { return this.#distance; }
@@ -155,7 +155,7 @@ class Maneuver extends TravelObject {
 
 	/**
 	The time between the Maneuver and the next Maneuver
-	@type {number}
+	@type {Number}
 	*/
 
 	get duration ( ) { return this.#duration; }
@@ -167,15 +167,13 @@ class Maneuver extends TravelObject {
 	/**
 	the ObjType of the Maneuver.
 	@type {ObjType}
-	@readonly
 	*/
 
 	get objType ( ) { return Maneuver.#objType; }
 
 	/**
 	the objId of the Maneuver. objId are unique identifier given by the code
-	@readonly
-	@type {!number}
+	@type {Number}
 	*/
 
 	get objId ( ) { return this.#objId; }

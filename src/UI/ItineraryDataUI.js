@@ -32,7 +32,6 @@ Tests ...
 @file ItineraryDataUI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -41,7 +40,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module itineraryPaneUI
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -67,7 +65,6 @@ class ManeuverContextMenuEL {
 	/**
 	A reference to the HTMLElement in witch the data have to be added
 	@type {HTMLElement}
-	@private
 	*/
 
 	#paneData = null;
@@ -106,7 +103,6 @@ class NoteContextMenuEL {
 	/**
 	A reference to the HTMLElement in witch the data have to be added
 	@type {HTMLElement}
-	@private
 	*/
 
 	#paneData = null;
@@ -259,7 +255,6 @@ class ItineraryDataUI {
 	/**
 	A reference to the HTMLElement in witch the data have to be added
 	@type {HTMLElement}
-	@private
 	*/
 
 	#paneData = null;
@@ -267,7 +262,6 @@ class ItineraryDataUI {
 	/**
 	An HTMLElement with notes and maneuvers for the edited route
 	@type {HTMLElement}
-	@private
 	*/
 
 	#routeManeuversAndNotesHTML = null;
@@ -275,7 +269,6 @@ class ItineraryDataUI {
 	/**
 	maneuver contextmenu event listener
 	@type {ManeuverContextMenuEL}
-	@private
 	*/
 
 	#maneuverContextMenuEL = null;
@@ -283,7 +276,6 @@ class ItineraryDataUI {
 	/**
 	note contextmenu event listener
 	@type {NoteContextMenuEL}
-	@private
 	*/
 
 	#noteContextMenuEL = null;
@@ -291,7 +283,6 @@ class ItineraryDataUI {
 	/**
 	maneuver mouseenter event listener
 	@type {ManeuverMouseEnterEL}
-	@private
 	*/
 
 	#maneuverMouseEnterEL = null;
@@ -299,7 +290,6 @@ class ItineraryDataUI {
 	/**
 	note mouseenter event listener
 	@type {NoteMouseEnterEL}
-	@private
 	*/
 
 	#noteMouseEnterEL = null;
@@ -307,15 +297,13 @@ class ItineraryDataUI {
 	/**
 	maneuver or note mouseleave event listener
 	@type {NoteOrManeuverMouseLeaveEL}
-	@private
 	*/
 
 	#noteOrManeuverMouseLeaveEL = null;
 
 	/**
 	toggle the visibility of notes or maneuvers
-	@param {string} objType The objType of objects to toggle
-	@private
+	@param {String} objType The objType of objects to toggle
 	*/
 
 	#toggleNotesOrManeuver ( objType ) {

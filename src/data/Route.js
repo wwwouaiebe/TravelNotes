@@ -88,7 +88,7 @@ class Route extends TravelObject {
 
 	/**
 	the name of the Route
-	@type {string}
+	@type {String}
 	*/
 
 	#name = '';
@@ -116,7 +116,7 @@ class Route extends TravelObject {
 
 	/**
 	the width of the Leaflet polyline used to represent the Route on the map
-	@type {!number}
+	@type {Number}
 	*/
 
 	#width = theConfig.route.width;
@@ -124,7 +124,7 @@ class Route extends TravelObject {
 	/**
 	the color of the Leaflet polyline used to represent the Route on the map
 	using the css format '#rrggbb'
-	@type {string}
+	@type {String}
 	*/
 
 	#color = theConfig.route.color;
@@ -132,14 +132,14 @@ class Route extends TravelObject {
 	/**
 	the dash of the Leaflet polyline used to represent the Route on the map.
 	It's the index of the dash in the array Config.route.dashChoices
-	@type {!number}
+	@type {Number}
 	*/
 
 	#dashArray = theConfig.route.dashArray;
 
 	/**
 	boolean indicates if the route is chained
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	#chain = true;
@@ -147,21 +147,21 @@ class Route extends TravelObject {
 	/**
 	the distance between the starting point of the travel and the starting point
 	of the route if the route is chained, otherwise DISTANCE.defaultValue
-	@type {!number}
+	@type {Number}
 	*/
 
 	#chainedDistance = DISTANCE.defaultValue;
 
 	/**
 	the length of the route or DISTANCE.defaultValue if the Itinerary is not anymore computed
-	@type {number}
+	@type {Number}
 	*/
 
 	#distance = DISTANCE.defaultValue;
 
 	/**
 	the duration of the route or DISTANCE.defaultValue if the Itinerary is not anymore computed
-	@type {number}
+	@type {Number}
 	*/
 
 	#duration = DISTANCE.defaultValue;
@@ -169,21 +169,21 @@ class Route extends TravelObject {
 	/**
 	A number indicating the status of the route.
 	See ROUTE_EDITION_STATUS for possible values
-	@type {!number}
+	@type {Number}
 	*/
 
 	#editionStatus = ROUTE_EDITION_STATUS.notEdited;
 
 	/**
 	a boolean set to true when the route is hidden on the map
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	#hidden = false;
 
 	/**
 	the objId of the route
-	@type {!number}
+	@type {Number}
 	*/
 
 	#objId = INVALID_OBJ_ID;;
@@ -201,7 +201,7 @@ class Route extends TravelObject {
 
 	/**
 	the name of the Route
-	@type {string}
+	@type {String}
 	*/
 
 	get name ( ) { return this.#name; }
@@ -218,7 +218,6 @@ class Route extends TravelObject {
 	/**
 	a Collection of WayPoints
 	@type {Collection.<WayPoint>}
-	@readonly
 	*/
 
 	get wayPoints ( ) { return this.#wayPoints; }
@@ -226,7 +225,6 @@ class Route extends TravelObject {
 	/**
 	a Collection of Notes
 	@type {Collection.<Note>}
-	@readonly
 	*/
 
 	get notes ( ) { return this.#notes; }
@@ -234,14 +232,13 @@ class Route extends TravelObject {
 	/**
 	the Route Itinerary
 	@type {Itinerary}
-	@readonly
 	*/
 
 	get itinerary ( ) { return this.#itinerary; }
 
 	/**
 	the width of the Leaflet polyline used to represent the Route on the map
-	@type {!number}
+	@type {Number}
 	*/
 
 	get width ( ) { return this.#width; }
@@ -253,7 +250,7 @@ class Route extends TravelObject {
 	/**
 	the color of the Leaflet polyline used to represent the Route on the map
 	using the css format '#rrggbb'
-	@type {string}
+	@type {String}
 	*/
 
 	get color ( ) { return this.#color; }
@@ -270,7 +267,7 @@ class Route extends TravelObject {
 	/**
 	the dash of the Leaflet polyline used to represent the Route on the map.
 	It's the index of the dash in the array Config.route.dashChoices
-	@type {!number}
+	@type {Number}
 	*/
 
 	get dashArray ( ) { return this.#dashArray; }
@@ -286,7 +283,7 @@ class Route extends TravelObject {
 
 	/**
 	A boolean indicating if the route is chained
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	get chain ( ) { return this.#chain; }
@@ -296,7 +293,7 @@ class Route extends TravelObject {
 	/**
 	the distance betwween the starting point of the travel and the starting point
 	of the route if the route is chained, otherwise DISTANCE.defaultValue
-	@type {!number}
+	@type {Number}
 	*/
 
 	get chainedDistance ( ) { return this.#chainedDistance; }
@@ -307,7 +304,7 @@ class Route extends TravelObject {
 
 	/**
 	the length of the route or DISTANCE.defaultValue if the Itinerary is not anymore computed
-	@type {number}
+	@type {Number}
 	*/
 
 	get distance ( ) { return this.#distance; }
@@ -318,7 +315,7 @@ class Route extends TravelObject {
 
 	/**
 	the duration of the route or DISTANCE.defaultValue if the Itinerary is not anymore computed
-	@type {number}
+	@type {Number}
 	*/
 
 	get duration ( ) { return this.#duration; }
@@ -331,7 +328,7 @@ class Route extends TravelObject {
 	/**
 	A number indicating the status of the route.
 	See ROUTE_EDITION_STATUS for possible values
-	@type {!number}
+	@type {Number}
 	*/
 
 	get editionStatus ( ) { return this.#editionStatus; }
@@ -347,7 +344,7 @@ class Route extends TravelObject {
 
 	/**
 	a boolean set to true when the route is hidden on the map
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	get hidden ( ) { return this.#hidden; }
@@ -358,8 +355,7 @@ class Route extends TravelObject {
 
 	/**
 	A name computed from the starting WayPoint and ending WayPoint names and addresses
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get computedName ( ) {
@@ -376,8 +372,7 @@ class Route extends TravelObject {
 
 	/**
 	the objId of the Route. objId are unique identifier given by the code
-	@readonly
-	@type {!number}
+	@type {Number}
 	*/
 
 	get objId ( ) { return this.#objId; }
@@ -385,7 +380,6 @@ class Route extends TravelObject {
 	/**
 	the ObjType of the Route.
 	@type {ObjType}
-	@readonly
 	*/
 
 	get objType ( ) { return Route.#objType; }
@@ -393,7 +387,7 @@ class Route extends TravelObject {
 	/**
 	This method verify that all waypoints have valid coordinates ( reminder: a route have always a startpoint
 	and an endpoint!)
-	@return {boolean} true when all waypoints have valid coordinates
+	@return {Boolean} true when all waypoints have valid coordinates
 	*/
 
 	haveValidWayPoints ( ) {

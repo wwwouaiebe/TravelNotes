@@ -36,7 +36,6 @@ Tests ...
 @file WaitUI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -66,7 +65,6 @@ class WaitUI {
 	/**
 	The background div
 	@type {HTMLElement}
-	@private
 	*/
 
 	#backgroundDiv = null;
@@ -74,7 +72,6 @@ class WaitUI {
 	/**
 	The message div
 	@type {HTMLElement}
-	@private
 	*/
 
 	#messageDiv = null;
@@ -116,7 +113,7 @@ class WaitUI {
 
 	/**
 	Show an info in the WaitUI
-	@param {string} info The info to be displayed
+	@param {String} info The info to be displayed
 	*/
 
 	showInfo ( info ) {

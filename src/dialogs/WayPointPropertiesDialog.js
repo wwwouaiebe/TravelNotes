@@ -37,7 +37,6 @@ Tests ...
 @file WayPointPropertiesDialog.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -46,7 +45,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module dialogs
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -73,7 +71,6 @@ class WayPointPropertiesDialog extends BaseDialog {
 	/**
 	A reference to the edited wayPoint
 	@type {WayPoint}
-	@private
 	*/
 
 	#wayPoint = null;
@@ -81,7 +78,6 @@ class WayPointPropertiesDialog extends BaseDialog {
 	/**
 	The address input HTMLElement
 	@type {HTMLElement}
-	@private
 	*/
 
 	#addressInput = null;
@@ -89,7 +85,6 @@ class WayPointPropertiesDialog extends BaseDialog {
 	/**
 	The reser address button
 	@type {HTMLElement}
-	@private
 	*/
 
 	#resetAddressButton = null;
@@ -97,14 +92,12 @@ class WayPointPropertiesDialog extends BaseDialog {
 	/**
 	The name input HTMLElement
 	@type {HTMLElement}
-	@private
 	*/
 
 	#nameInput = null;
 
 	/**
 	Click on the reset address button event listener
-	@private
 	*/
 
 	async handleEvent ( clickEvent ) {
@@ -127,7 +120,6 @@ class WayPointPropertiesDialog extends BaseDialog {
 
 	/**
 	Create the address control HTMLElements
-	@private
 	*/
 
 	#createAddressControl ( ) {
@@ -166,7 +158,6 @@ class WayPointPropertiesDialog extends BaseDialog {
 
 	/**
 	Create the name control HTMLElements
-	@private
 	*/
 
 	#createNameControl ( ) {
@@ -225,7 +216,6 @@ class WayPointPropertiesDialog extends BaseDialog {
 	An array with the HTMLElements that have to be added in the content of the dialog.
 	Overload of the BaseDialog contentHTMLElements property.
 	{type {Array.<HTMLElement>}
-	@readonly
 	*/
 
 	get contentHTMLElements ( ) {
@@ -237,8 +227,7 @@ class WayPointPropertiesDialog extends BaseDialog {
 
 	/**
 	The title of the dialog. Overload of the BaseDialog title property.
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get title ( ) { return theTranslator.getText ( 'WayPointPropertiesDialog - Waypoint properties' ); }

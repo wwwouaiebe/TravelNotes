@@ -32,7 +32,6 @@ Tests ...
 @file OsmSearchLimitsUI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -41,7 +40,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module osmSearchPaneUI
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -67,16 +65,14 @@ class OsmSearchLimitsUI {
 
 	/**
 	ObjId for the previous search limits
-	@type {!number}
-	@private
+	@type {Number}
 	*/
 
 	#previousSearchLimitObjId = INVALID_OBJ_ID;
 
 	/**
 	ObjId for the  search limits
-	@type {!number}
-	@private
+	@type {Number}
 	*/
 
 	#searchLimitObjId = INVALID_OBJ_ID;
@@ -88,7 +84,6 @@ class OsmSearchLimitsUI {
 	@fires addrectangle
 	@listens zoom
 	@listens move
-	@private
 	*/
 
 	#drawSearchLimit ( ) {
@@ -113,7 +108,6 @@ class OsmSearchLimitsUI {
 	Draw the previous search limit on the map
 	@fires removeobject
 	@fires addrectangle
-	@private
 	*/
 
 	#drawPreviousSearchlimit ( ) {

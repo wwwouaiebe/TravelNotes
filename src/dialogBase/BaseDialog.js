@@ -739,7 +739,7 @@ class BaseDialog {
 	/**
 	Called after the ok button will be clicked and before the dialog will be closed.
 	Can be overloaded in the derived classes.
-	@return {boolean} true when the dialog can be closed (all data in the dialog are valid), false otherwise.
+	@return {Boolean} true when the dialog can be closed (all data in the dialog are valid), false otherwise.
 	*/
 
 	canClose ( ) {
@@ -768,7 +768,7 @@ class BaseDialog {
 
 	/**
 	The title of the dialog. Can be overloaded in the derived classes
-	@type {string}
+	@type {String}
 	*/
 
 	get title ( ) { return ''; }
@@ -817,7 +817,7 @@ class BaseDialog {
 
 	/**
 	Show the error section of the dialog
-	@param {string} errorText The text to display in the error section
+	@param {String} errorText The text to display in the error section
 	*/
 
 	showError ( errorText ) {

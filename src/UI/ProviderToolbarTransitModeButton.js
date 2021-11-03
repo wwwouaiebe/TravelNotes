@@ -32,7 +32,6 @@ Tests ...
 @file ProviderToolbarTransitModeButton.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -45,7 +44,6 @@ import theRouter from '../coreLib/Router.js';
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module providersToolbarUI
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -115,15 +113,13 @@ class ProviderToolbarTransitModeButton {
 	/**
 	A reference to the toolbar
 	@type {HTMLElement}
-	@private
 	*/
 
 	#providerToolbarUI = null;
 
 	/**
 	The transit mode
-	@type {string}
-	@private
+	@type {String}
 	*/
 
 	#transitMode = null;
@@ -131,7 +127,6 @@ class ProviderToolbarTransitModeButton {
 	/**
 	the button HTMLElement
 	@type {HTMLelement}
-	@private
 	*/
 
 	#buttonHTMLElement = null;
@@ -139,7 +134,7 @@ class ProviderToolbarTransitModeButton {
 	/*
 	constructor
 	@param {ProviderToolbarUI} providerToolbarUI The providerToolbarUI on witch the button will be added
-	@param {string} transitMode The transit mode linked to the button
+	@param {String} transitMode The transit mode linked to the button
 	*/
 
 	constructor ( providerToolbarUI, transitMode ) {
@@ -182,7 +177,7 @@ class ProviderToolbarTransitModeButton {
 
 	/**
 	The transit mode
-	@type {string}
+	@type {String}
 	*/
 
 	get transitMode ( ) { return this.#transitMode; }

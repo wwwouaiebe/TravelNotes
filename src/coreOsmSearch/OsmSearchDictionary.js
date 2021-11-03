@@ -178,7 +178,6 @@ class OsmSearchDictionary {
 	/**
 	The dictionary
 	@type {DictionaryItem}
-	@readonly
 	*/
 
 	get dictionary ( ) { return this.#dictionary; }
@@ -203,8 +202,8 @@ class OsmSearchDictionary {
 
 	/**
 	Mark as selected/not selected an item identified by it's objId and all the chidrens of this item
-	@param {!number} itemObjId The objId of the item
-	@param {boolean} isSelected The value to set for isSelected
+	@param {Number} itemObjId The objId of the item
+	@param {Boolean} isSelected The value to set for isSelected
 	*/
 
 	selectItem ( itemObjId, isSelected ) {
@@ -221,7 +220,7 @@ class OsmSearchDictionary {
 
 	/**
 	Mark as expanded an item identified by it's objId
-	@param {!number} itemObjId The objId of the item
+	@param {Number} itemObjId The objId of the item
 	*/
 
 	expandItem ( itemObjId ) {

@@ -39,7 +39,6 @@ Tests ...
 @file MouseUI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -76,45 +75,39 @@ class MouseUI {
 	/**
 	The HTMLElement with the status, mouse and zoom infos
 	@type {HTMLElement}
-	@private
 	*/
 
 	#mouseUISpan = null;
 
 	/**
 	The save status
-	@type {string}
-	@private
+	@type {String}
 	*/
 
 	#saveStatus = SAVE_STATUS.saved;
 
 	/**
 	The mouse position
-	@type {string}
-	@private
+	@type {String}
 	*/
 
 	#mousePosition = '';
 
 	/**
 	The zoom factor
-	@type {string}
-	@private
+	@type {String}
 	*/
 
 	#zoom = '';
 
 	/**
 	The save timer id
-	@type {number}
-	@private
+	@type {Number}
 	*/
 
 	#saveTimer = null;
 
 	/**
-	@private
 	*/
 
 	#updateUI ( ) {

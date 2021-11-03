@@ -137,7 +137,7 @@ class NoteDialogIconDimsControl {
 
 	/**
 	The icon width value in the control
-	@type {number}
+	@type {Number}
 	*/
 
 	get iconWidth ( ) { return Number.parseInt ( this.#iconWidthInput.value ); }
@@ -146,7 +146,7 @@ class NoteDialogIconDimsControl {
 
 	/**
 	The icon width height in the control
-	@type {number}
+	@type {Number}
 	*/
 
 	get iconHeight ( ) { return Number.parseInt ( this.#iconHeightInput.value ); }

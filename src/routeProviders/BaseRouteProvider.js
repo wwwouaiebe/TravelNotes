@@ -32,7 +32,6 @@ Tests ...
 @file BaseRouteProvider.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -61,8 +60,7 @@ class BaseRouteProvider {
 
 	/**
 	The user language
-	@type {string}
-	@private
+	@type {String}
 	*/
 
 	#userLanguage = 'fr';
@@ -70,7 +68,6 @@ class BaseRouteProvider {
 	/**
 	A reference to the edited route
 	@type {Route}
-	@private
 	*/
 
 	#route = null;
@@ -104,8 +101,7 @@ class BaseRouteProvider {
 	/**
 	The icon used in the ProviderToolbarUI.
 	Must be overloaded in the derived classes
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get icon ( ) {
@@ -118,8 +114,7 @@ class BaseRouteProvider {
 	/**
 	The provider name.
 	Must be overloaded in the derived classes
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get name ( ) { return ''; }
@@ -127,8 +122,7 @@ class BaseRouteProvider {
 	/**
 	The title to display in the ProviderToolbarUI button.
 	Must be overloaded in the derived classes
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get title ( ) { return ''; }
@@ -137,8 +131,7 @@ class BaseRouteProvider {
 	The possible transit modes for the provider.
 	Must be overloaded in the derived classes.
 	Must be a subarray of [ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ]
-	@type {Array.<string>}
-	@readonly
+	@type {Array.<String>}
 	*/
 
 	get transitModes ( ) { return [ ]; }
@@ -146,15 +139,14 @@ class BaseRouteProvider {
 	/**
 	A boolean indicating when a provider key is needed for the provider.
 	Must be overloaded in the derived classes
-	@type {boolean}
-	@readonly
+	@type {Boolean}
 	*/
 
 	get providerKeyNeeded ( ) { return true; }
 
 	/**
 	The user language.
-	@type {string}
+	@type {String}
 	*/
 
 	get userLanguage ( ) { return this.#userLanguage; }

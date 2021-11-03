@@ -82,14 +82,14 @@ class ObjType {
 
 	/**
 	the name of the ObjType
-	@type {string}
+	@type {String}
 	*/
 
 	get name ( ) { return this.#objTypeName; }
 
 	/**
 	the version of the ObjType
-	@type {string}
+	@type {String}
 	*/
 
 	get version ( ) { return theDataVersion; }

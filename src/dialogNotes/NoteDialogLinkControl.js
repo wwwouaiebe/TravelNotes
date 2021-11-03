@@ -65,7 +65,7 @@ class NoteDialogLinkControl {
 
 	/**
 	The 👿 button...
-	@param {Array.<!number>} latLng The lat and lng used in the 👿 button
+	@param {Array.<Number>} latLng The lat and lng used in the 👿 button
 	*/
 
 	#createTheDevilButton ( latLng ) {
@@ -169,7 +169,7 @@ class NoteDialogLinkControl {
 
 	/**
 	The url value in the control
-	@type {string}
+	@type {String}
 	*/
 
 	get url ( ) { return this.#linkInput.value; }

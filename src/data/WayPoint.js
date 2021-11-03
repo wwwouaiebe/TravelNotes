@@ -61,35 +61,35 @@ class WayPoint extends TravelObject {
 
 	/**
 	the name of the WayPoint
-	@type {string}
+	@type {String}
 	*/
 
 	#name = '';
 
 	/**
 	the address of the WayPoint
-	@type {string}
+	@type {String}
 	*/
 
 	#address = '';
 
 	/**
 	the latitude of the WayPoint
-	@type {number}
+	@type {Number}
 	*/
 
 	#lat = LAT_LNG.defaultValue;
 
 	/**
 	the longitude of the WayPoint
-	@type {number}
+	@type {Number}
 	*/
 
 	#lng = LAT_LNG.defaultValue;
 
 	/**
 	the objId of the WayPoint.
-	@type {!number}
+	@type {Number}
 	*/
 
 	#objId = INVALID_OBJ_ID;;
@@ -105,7 +105,7 @@ class WayPoint extends TravelObject {
 
 	/**
 	the name of the WayPoint
-	@type {string}
+	@type {String}
 	*/
 
 	get name ( ) { return this.#name; }
@@ -121,7 +121,7 @@ class WayPoint extends TravelObject {
 
 	/**
 	the address of the WayPoint
-	@type {string}
+	@type {String}
 	*/
 
 	get address ( ) { return this.#address; }
@@ -137,7 +137,7 @@ class WayPoint extends TravelObject {
 
 	/**
 	the latitude of the WayPoint
-	@type {number}
+	@type {Number}
 	*/
 
 	get lat ( ) { return this.#lat; }
@@ -148,7 +148,7 @@ class WayPoint extends TravelObject {
 
 	/**
 	the longitude of the WayPoint
-	@type {number}
+	@type {Number}
 	*/
 
 	get lng ( ) { return this.#lng; }
@@ -160,8 +160,7 @@ class WayPoint extends TravelObject {
 	/**
 	the full name of the WayPoint. Full name is created with the name and address or latitude and longitude
 	of the WayPoint
-	@readonly
-	@type {string}
+	@type {String}
 	*/
 
 	get fullName ( ) {
@@ -197,8 +196,7 @@ class WayPoint extends TravelObject {
 
 	/**
 	the objId of the WayPoint. objId are unique identifier given by the code
-	@readonly
-	@type {!number}
+	@type {Number}
 	*/
 
 	get objId ( ) { return this.#objId; }
@@ -206,7 +204,6 @@ class WayPoint extends TravelObject {
 	/**
 	the ObjType of the WayPoint.
 	@type {ObjType}
-	@readonly
 	*/
 
 	get objType ( ) { return WayPoint.#objType; }

@@ -60,7 +60,6 @@ Tests ...
 @file TravelNotes.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -69,7 +68,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module main
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -107,16 +105,14 @@ class TravelNotes {
 
 	/**
 	Guard to avoid a second upload
-	@type {boolean}
-	@private
+	@type {Boolean}
 	*/
 
 	#travelNotesLoaded = false;
 
 	/**
 	Load a travel from the server
-	@param {string} travelUrl The url of the trv file to open
-	@private
+	@param {String} travelUrl The url of the trv file to open
 	*/
 
 	async #loadDistantTravel ( travelUrl ) {
@@ -141,7 +137,7 @@ class TravelNotes {
 	/**
 	This method load TravelNotes and open a read only map passed trought the url.
 	This method can only be executed once. Others call will be ignored.
-	@param {string} travelUrl The url of the trv file to open
+	@param {String} travelUrl The url of the trv file to open
 	*/
 
 	addReadOnlyMap ( travelUrl ) {
@@ -235,7 +231,7 @@ class TravelNotes {
 
 	/**
 	The overpassApi url to use by plugins
-	@type {string}
+	@type {String}
 	*/
 
 	get overpassApiUrl ( ) { return theConfig.overpassApi.url; }
@@ -249,7 +245,7 @@ class TravelNotes {
 
 	/**
 	theTravelNotes version
-	@type {string}
+	@type {String}
 	*/
 
 	get version ( ) { return theAppVersion; }

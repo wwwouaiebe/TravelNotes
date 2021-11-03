@@ -128,7 +128,7 @@ class DataEncryptor {
 
 	/**
 	The constructor
-	@param {string} salt Salt to be used for encoding and decoding operations. If none, a default value is provided.
+	@param {String} salt Salt to be used for encoding and decoding operations. If none, a default value is provided.
 	*/
 
 	constructor ( salt ) {

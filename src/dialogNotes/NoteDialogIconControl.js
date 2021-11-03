@@ -104,7 +104,7 @@ class NoteDialogIconControl {
 
 	/**
 	The icon value in the control
-	@type {string}
+	@type {String}
 	*/
 
 	get iconContent ( ) { return this.#iconTextArea.value; }

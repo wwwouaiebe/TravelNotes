@@ -32,7 +32,6 @@ Tests ...
 @file PrintPageBuilder.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -41,7 +40,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module PrintRoute
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -102,7 +100,6 @@ class AfterPrintEL {
 	/**
 	A reference to the printPageBuilder Object
 	@type {PrintPageBuilder}
-	@private
 	*/
 
 	#printPageBuilder = null;
@@ -141,7 +138,6 @@ class PrintPageBuilder {
 	/**
 	A reference to the printData object containing the user choices
 	@type {Object}
-	@private
 	*/
 
 	#printData = null;
@@ -149,7 +145,6 @@ class PrintPageBuilder {
 	/**
 	A reference to the printed route
 	@type {Route}
-	@private
 	*/
 
 	#route = null;
@@ -157,7 +152,6 @@ class PrintPageBuilder {
 	/**
 	A reference to the views to print
 	@type {Array.<Printview>}
-	@private
 	*/
 
 	#printViews = [];
@@ -165,7 +159,6 @@ class PrintPageBuilder {
 	/**
 	The toolbar on right top of the screen
 	@type {HTMLElement}
-	@private
 	*/
 
 	#printToolbar = null;
@@ -173,7 +166,6 @@ class PrintPageBuilder {
 	/**
 	The print button on the toolbar
 	@type {HTMLElement}
-	@private
 	*/
 
 	#printButton = null;
@@ -181,15 +173,13 @@ class PrintPageBuilder {
 	/**
 	The cancel button on the toolbar
 	@type {HTMLElement}
-	@private
 	*/
 
 	#cancelButton = null;
 
 	/**
 	A counter for the views, so we can gives a unique id to the views
-	@type {!number}
-	@private
+	@type {Number}
 	*/
 
 	#viewsCounter = ZERO;
@@ -197,7 +187,6 @@ class PrintPageBuilder {
 	/**
 	An array with the HTML views
 	@type {Array.<HTMLElement>}
-	@private
 	*/
 
 	#viewsDiv = [];
@@ -205,7 +194,6 @@ class PrintPageBuilder {
 	/**
 	A leaflet.polyline used to represent the route on the maps
 	@type {leaflet.polyline}
-	@private
 	*/
 
 	#routePolyline = null;
@@ -213,7 +201,6 @@ class PrintPageBuilder {
 	/**
 	Event listener for the print button
 	@type {PrintEL}
-	@private
 	*/
 
 	#printEL = null;
@@ -221,14 +208,12 @@ class PrintPageBuilder {
 	/**
 	Event listener for the cancel button and the document. Reset the document in the correct state
 	@type {AfterPrintEL}
-	@private
 	*/
 
 	#afterPrintEL = null;
 
 	/**
 	Remove the print views and restore the map and user interface after printing
-	@private
 	*/
 
 	onAfterPrint ( ) {
@@ -264,7 +249,6 @@ class PrintPageBuilder {
 
 	/**
 	Creates a leaflet layer with the same map that the main map
-	@private
 	*/
 
 	#getMapLayer ( ) {
@@ -290,7 +274,6 @@ class PrintPageBuilder {
 
 	/**
 	Creates markers for notes
-	@private
 	*/
 
 	#getNotesMarkers ( ) {
@@ -324,7 +307,6 @@ class PrintPageBuilder {
 	/**
 	Creates a print view
 	@param {PrintView} printView The view to create
-	@private
 	*/
 
 	#createViewOnPage ( printView ) {
@@ -390,7 +372,6 @@ class PrintPageBuilder {
 
 	/**
 	creates the toolbar with the print and cancel button
-	@private
 	*/
 
 	#createToolbar ( ) {

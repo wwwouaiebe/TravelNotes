@@ -49,8 +49,8 @@ class SphericalTrigonometry {
 
 	/**
 	This method normalize a longitude (always between -180° and 180°)
-	@param {number} Lng The longitude to normalize
-	@return {number} The normalized longitude
+	@param {Number} Lng The longitude to normalize
+	@return {Number} The normalized longitude
 	*/
 
 	#normalizeLng ( Lng ) {
@@ -73,9 +73,9 @@ class SphericalTrigonometry {
 	cos b =	cos c cos a + sin c sin a cos B<br/>
 	cos c = cos a cos b + sin a sin b cos C<br/>
 
-	@param {number} summit the opposite summit
-	@param {number} arc1 the first arc
-	@param {number} arc2 the second arc
+	@param {Number} summit the opposite summit
+	@param {Number} arc1 the first arc
+	@param {Number} arc2 the second arc
 
 	*/
 
@@ -91,9 +91,9 @@ class SphericalTrigonometry {
 	This method is also the well know cosinus law written in an other way....<br/>
 	cos C = ( cos c - cos a cos b ) / sin a sin b
 
-	@param {number} arc1 the first arc
-	@param {number} arc2 the second arc
-	@param {number} oppositeArc the opposite arc
+	@param {Number} arc1 the first arc
+	@param {Number} arc2 the second arc
+	@param {Number} oppositeArc the opposite arc
 
 	*/
 
@@ -110,8 +110,8 @@ class SphericalTrigonometry {
 	(cos c = cos a cos b + sin a sin b cos C). The delta with the Leaflet method is
 	always < 10e-3 m. The error due to the earth radius is a lot bigger.
 	Notice: leaflet uses the haversine formula.
-	@param {Array.<number>} latLngStartPoint The coordinates of the start point
-	@param {Array.<number>} latLngEndPoint The coordinates of the end point
+	@param {Array.<Number>} latLngStartPoint The coordinates of the start point
+	@param {Array.<Number>} latLngEndPoint The coordinates of the end point
 	*/
 
 	pointsDistance ( latLngStartPoint, latLngEndPoint ) {

@@ -32,7 +32,6 @@ Tests ...
 @file OsmSearchToolbarUI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -41,7 +40,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module osmSearchPaneUI
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -70,7 +68,6 @@ class SearchButtonClickEL {
 	/**
 	A reference to the osmSearchTreeUI Object
 	@type {OsmSearchTreeUI}
-	@private
 	*/
 
 	#osmSearchTreeUI = null;
@@ -78,7 +75,6 @@ class SearchButtonClickEL {
 	/**
 	A reference to the osmSearchWaitUI Object
 	@type {OsmSearchWaitUI}
-	@private
 	*/
 
 	#osmSearchWaitUI = null;
@@ -128,7 +124,6 @@ class ExpandButtonClickEL {
 	/**
 	A reference to the osmSearchTreeUI Object
 	@type {OsmSearchTreeUI}
-	@private
 	*/
 
 	#osmSearchTreeUI = null;
@@ -169,7 +164,6 @@ class CollapseButtonClickEL {
 	/**
 	A reference to the osmSearchTreeUI Object
 	@type {OsmSearchTreeUI}
-	@private
 	*/
 
 	#osmSearchTreeUI = null;
@@ -210,7 +204,6 @@ class ClearButtonClickEL {
 	/**
 	A reference to the osmSearchTreeUI Object
 	@type {OsmSearchTreeUI}
-	@private
 	*/
 
 	#osmSearchTreeUI = null;
@@ -251,7 +244,6 @@ class OsmSearchToolbarUI {
 	/**
 	The toolbar container
 	@type {HTMLElement}
-	@private
 	*/
 
 	#toolbarHTMLElement = null;
@@ -325,7 +317,6 @@ class OsmSearchToolbarUI {
 	/**
 	The toolbar htmlElement
 	@type HTMLElement
-	@readonly
 	*/
 
 	get toolbarHTMLElement ( ) { return this.#toolbarHTMLElement; }

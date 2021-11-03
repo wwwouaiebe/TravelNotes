@@ -46,7 +46,6 @@ Tests ...
 @file TravelHTMLViewsFactory.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -55,7 +54,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module viewsFactories
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -86,9 +84,8 @@ class TravelHTMLViewsFactory {
 	/**
 	Gives an HTMLElement with the travel name, distance, ascent (if any), descent (if any) and a list with all the routes
 	of the travel
-	@param {string} classPrefix A string that will be added to all the className of the created HTMLElements
+	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
 	@return {HTMLElement}
-	@private
 	*/
 
 	#getTravelHeaderHTML ( classPrefix ) {
@@ -191,9 +188,8 @@ class TravelHTMLViewsFactory {
 
 	/**
 	Gives an HTMLElement with the Copyright notice and OSM attributions
-	@param {string} classPrefix A string that will be added to all the className of the created HTMLElements
+	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
 	@return {HTMLElement}
-	@private
 	*/
 
 	#getTravelFooterHTML ( classPrefix ) {
@@ -224,7 +220,7 @@ class TravelHTMLViewsFactory {
 	/**
 	Gives an HTMLElement with the travel header, the travel notes, all the routes of the travel
 	with route header, route notes, route maneuvers, route footer and travel footer
-	@param {string} classPrefix A string that will be added to all the className of the created HTMLElements
+	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
 	@return {HTMLElement}
 	*/
 

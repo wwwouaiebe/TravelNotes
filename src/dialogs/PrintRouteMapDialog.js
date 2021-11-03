@@ -33,7 +33,6 @@ Tests ...
 @file PrintRouteMapDialog.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -42,7 +41,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module dialogs
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -52,13 +50,12 @@ Tests ...
 
 @typedef {Object} PrintRouteMapOptions
 @desc An object to store the PrintRouteMapDialog options
-@property {number} paperWidth The paper width option
-@property {number} paperHeight The paper height option
-@property {number} borderWidth The border width option
-@property {number} zoomFactor The zoom factor option
-@property {boolean} pageBreak The page break option
-@property {boolean} printNotes The print notes option
-@public
+@property {Number} paperWidth The paper width option
+@property {Number} paperHeight The paper height option
+@property {Number} borderWidth The border width option
+@property {Number} zoomFactor The zoom factor option
+@property {Boolean} pageBreak The page break option
+@property {Boolean} printNotes The print notes option
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -87,7 +84,6 @@ class PrintRouteMapDialog extends BaseDialog {
 	/**
 	The paper width input
 	@type {HTMLElement}
-	@private
 	*/
 
 	#paperWidthInput = null;
@@ -95,7 +91,6 @@ class PrintRouteMapDialog extends BaseDialog {
 	/**
 	The paper height input
 	@type {HTMLElement}
-	@private
 	*/
 
 	#paperHeightInput = null;
@@ -103,7 +98,6 @@ class PrintRouteMapDialog extends BaseDialog {
 	/**
 	The border width input
 	@type {HTMLElement}
-	@private
 	*/
 
 	#borderWidthInput = null;
@@ -111,7 +105,6 @@ class PrintRouteMapDialog extends BaseDialog {
 	/**
 	The page break input
 	@type {HTMLElement}
-	@private
 	*/
 
 	#pageBreakInput = null;
@@ -119,7 +112,6 @@ class PrintRouteMapDialog extends BaseDialog {
 	/**
 	The print notes input
 	@type {HTMLElement}
-	@private
 	*/
 
 	#printNotesInput = null;
@@ -127,7 +119,6 @@ class PrintRouteMapDialog extends BaseDialog {
 	/**
 	The zoom factor input
 	@type {HTMLElement}
-	@private
 	*/
 
 	#zoomFactorInput = null;
@@ -135,7 +126,6 @@ class PrintRouteMapDialog extends BaseDialog {
 	/**
 	Create the paper width div
 	@return {HTMLElement} the paper width div
-	@private
 	*/
 
 	#createPaperWidthDiv ( ) {
@@ -175,7 +165,6 @@ class PrintRouteMapDialog extends BaseDialog {
 	/**
 	Create the paper height div
 	@return {HTMLElement} the paper height div
-	@private
 	*/
 
 	#createPaperHeightDiv ( ) {
@@ -215,7 +204,6 @@ class PrintRouteMapDialog extends BaseDialog {
 	/**
 	Create the border width div
 	@return {HTMLElement} the border width div
-	@private
 	*/
 
 	#createBorderWidthDiv ( ) {
@@ -255,7 +243,6 @@ class PrintRouteMapDialog extends BaseDialog {
 	/**
 	Create the zoom factor div
 	@return {HTMLElement} the zoom factor div
-	@private
 	*/
 
 	#createZoomFactorDiv ( ) {
@@ -290,7 +277,6 @@ class PrintRouteMapDialog extends BaseDialog {
 	/**
 	Create the page break div
 	@return {HTMLElement} the page break div
-	@private
 	*/
 
 	#createPageBreakDiv ( ) {
@@ -322,7 +308,6 @@ class PrintRouteMapDialog extends BaseDialog {
 	/**
 	Create the print notes div
 	@return {HTMLElement} the print notes div
-	@private
 	*/
 
 	#createPrintNotesDiv ( ) {
@@ -380,7 +365,6 @@ class PrintRouteMapDialog extends BaseDialog {
 
 	/**
 	Get an array with the HTMLElements that have to be added in the content of the dialog.
-	@readonly
 	*/
 
 	get contentHTMLElements ( ) {
@@ -396,7 +380,6 @@ class PrintRouteMapDialog extends BaseDialog {
 
 	/**
 	Return the dialog title. Overload of the BaseDialog.title property
-	@readonly
 	*/
 
 	get title ( ) { return theTranslator.getText ( 'PrintRouteMapDialog - Print' ); }

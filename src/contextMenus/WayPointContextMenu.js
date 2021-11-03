@@ -60,7 +60,7 @@ class WayPointContextMenu extends BaseContextMenu {
 
 	/**
 	Perform the action selected by the user. Implementation of the base class doAction method
-	@param {!number} selectedItemObjId The id of the item selected by the user
+	@param {Number} selectedItemObjId The id of the item selected by the user
 	*/
 
 	doAction ( selectedItemObjId ) {

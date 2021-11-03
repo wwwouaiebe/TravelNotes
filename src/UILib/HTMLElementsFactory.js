@@ -38,7 +38,6 @@ Tests ...
 @file HTMLElementsFactory.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -47,7 +46,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module UILib
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -69,8 +67,7 @@ class HTMLElementsFactory {
 	#addProperties
 	This method add the properties to the created element
 	@param {HTMLElement} element The HTMLElement for witch the properties will be added
-	@param {object} properties An object with properties to add to the HTMLElement
-	@private
+	@param {Object} properties An object with properties to add to the HTMLElement
 	*/
 
 	#addProperties ( element, properties ) {
@@ -107,7 +104,7 @@ class HTMLElementsFactory {
 
 	/**
 	Create an HTMLElement Object
-	@param {string} tagName the tag of the HTMLElement to create
+	@param {String} tagName the tag of the HTMLElement to create
 	@param {?object} properties An object with properties to add to the HTMLElement
 	@param {?HTMLElement} parentNode The parent node to witch the HTMLElement will be attached
 	@return {HTMLElement} the created HTMLElement

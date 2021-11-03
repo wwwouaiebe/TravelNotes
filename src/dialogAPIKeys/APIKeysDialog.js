@@ -101,7 +101,7 @@ class APIKeysDialog extends BaseDialog {
 	/**
 	The constructor
 	@param {Array.<APIKey>} APIKeys An array with the existing APIKeys
-	@param {boolean} haveAPIKeysFile A boolean indicating when a APIKey file was found on the server
+	@param {Boolean} haveAPIKeysFile A boolean indicating when a APIKey file was found on the server
 	*/
 
 	constructor ( APIKeys, haveAPIKeysFile ) {
@@ -132,7 +132,7 @@ class APIKeysDialog extends BaseDialog {
 	/**
 	Validate the APIKeys. Each APIKey must have a not empty name and a not empty key.
 	Duplicate APIKey names are not allowed
-	@return {boolean} true when all the keys are valid and not duplicated
+	@return {Boolean} true when all the keys are valid and not duplicated
 	*/
 
 	validateAPIKeys ( ) {
@@ -215,7 +215,7 @@ class APIKeysDialog extends BaseDialog {
 
 	/**
 	Overload of the BaseDialog.canClose ( ) method.
-	@return {boolean} true when all the APIKeys have a name and a value and there are no duplicate keys name
+	@return {Boolean} true when all the APIKeys have a name and a value and there are no duplicate keys name
 	*/
 
 	canClose ( ) {
@@ -247,7 +247,7 @@ class APIKeysDialog extends BaseDialog {
 
 	/**
 	The dialog title. Overload of the BaseDialog.title property
-	@type {string}
+	@type {String}
 	*/
 
 	get title ( ) { return theTranslator.getText ( 'APIKeysDialog - API keys' ); }

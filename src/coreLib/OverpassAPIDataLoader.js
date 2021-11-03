@@ -325,7 +325,7 @@ class OverpassAPIDataLoader {
 
 	/**
 	This method parse the responses from the OverpassAPI
-	@param {array.<Object>} results the results received from fetch
+	@param {Array.<Object>} results the results received from fetch
 	*/
 
 	async #parseSearchResults ( results ) {
@@ -370,8 +370,8 @@ class OverpassAPIDataLoader {
 
 	/**
 	This method launch the queries in the OverpassAPI and parse the received data
-	@param {Array.<string>} queries An array of queries to be executed in the OverpassAPI
-	@param {Array.<number>} latLng The latitude and longitude used in the queries
+	@param {Array.<String>} queries An array of queries to be executed in the OverpassAPI
+	@param {Array.<Number>} latLng The latitude and longitude used in the queries
 	*/
 
 	async loadData ( queries, latLng ) {
@@ -425,7 +425,6 @@ class OverpassAPIDataLoader {
 	/**
 	A map with the osm nodes
 	@type {Map}
-	@readonly
 	*/
 
 	get nodes ( ) { return this.#nodes; }
@@ -433,7 +432,6 @@ class OverpassAPIDataLoader {
 	/**
 	A map with the osm ways
 	@type {Map}
-	@readonly
 	*/
 
 	get ways ( ) { return this.#ways; }
@@ -441,7 +439,6 @@ class OverpassAPIDataLoader {
 	/**
 	A map with the osm relations
 	@type {Map}
-	@readonly
 	*/
 
 	get relations ( ) { return this.#relations; }
@@ -449,7 +446,6 @@ class OverpassAPIDataLoader {
 	/**
 	The osm place ( hamlet or village )
 	@type {String}
-	@readonly
 	*/
 
 	get place ( ) { return this.#place; }
@@ -457,7 +453,6 @@ class OverpassAPIDataLoader {
 	/**
 	The osm city
 	@type {String}
-	@readonly
 	*/
 
 	get city ( ) { return this.#city; }
@@ -465,15 +460,13 @@ class OverpassAPIDataLoader {
 	/**
 	The osm country
 	@type {String}
-	@readonly
 	*/
 
 	get country ( ) { return this.#adminNames [ OSM_COUNTRY_ADMIN_LEVEL ]; }
 
 	/**
 	The final status
-	@type {boolean}
-	@readonly
+	@type {Boolean}
 	*/
 
 	get statusOk ( ) { return this.#statusOk; }

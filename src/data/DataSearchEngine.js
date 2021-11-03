@@ -132,7 +132,7 @@ class DataSearchEngine {
 
 	/**
 	This method search route data for the nearest route of a given point
-	@param {Array.<number>} latLng The latitude and longitude of the point
+	@param {Array.<Number>} latLng The latitude and longitude of the point
 	@return {NearestRouteData} A NearestRouteData object
 	*/
 
@@ -166,7 +166,7 @@ class DataSearchEngine {
 
 	/**
 	Search a Note and a the Route to witch the Note is attached with the Note objId
-	@param {!number} noteObjId the objId of the note to search
+	@param {Number} noteObjId the objId of the note to search
 	@return {NoteAndRoute} a NoteAndRoute object with the route and note
 	*/
 
@@ -194,7 +194,7 @@ class DataSearchEngine {
 
 	/**
 	Search a WayPoint with the WayPoint objId
-	@param {!number} wayPointObjId the objId of the WayPoint to search
+	@param {Number} wayPointObjId the objId of the WayPoint to search
 	@return {WayPoint} a WayPoint
 	*/
 

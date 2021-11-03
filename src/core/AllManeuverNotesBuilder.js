@@ -57,7 +57,7 @@ class AllManeuverNotesBuilder {
 
 	/**
 	the number of maneuvers
-	@type {number}
+	@type {Number}
 	*/
 
 	#maneuversLength = ZERO;
@@ -132,7 +132,7 @@ class AllManeuverNotesBuilder {
 	/**
 	This method add a note with data from osm for each maneuver of a route
 	A confirmation message is showed before starting.
-	@param {number} routeObjId The Route objId
+	@param {Number} routeObjId The Route objId
 	@fires updateitinerary
 	@fires noteupdated
 	@fires roadbookupdate

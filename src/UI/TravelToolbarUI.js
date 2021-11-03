@@ -32,7 +32,6 @@ Tests ...
 @file TravelToolbarUI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -329,14 +328,12 @@ class TravelToolbarUI {
 	/**
 	The buttons container
 	@type {HTMLElement}
-	@private
 	*/
 
 	#buttonsDiv = null;
 
 	/**
 	This method creates the save travel button
-	@private
 	*/
 
 	#createSaveAsTravelButton ( ) {
@@ -354,7 +351,6 @@ class TravelToolbarUI {
 
 	/**
 	This method creates the cancel travel button
-	@private
 	*/
 
 	#createCancelTravelButton ( ) {
@@ -372,7 +368,6 @@ class TravelToolbarUI {
 
 	/**
 	This method creates the save travel button
-	@private
 	*/
 
 	#createSaveTravelButton ( ) {
@@ -390,7 +385,6 @@ class TravelToolbarUI {
 
 	/**
 	This method creates the open travel button
-	@private
 	*/
 
 	#createOpenTravelButton ( ) {
@@ -409,7 +403,6 @@ class TravelToolbarUI {
 
 	/**
 	This method creates the import travel button
-	@private
 	*/
 
 	#createImportTravelButton ( ) {
@@ -427,7 +420,6 @@ class TravelToolbarUI {
 
 	/**
 	This method creates the roadbook button
-	@private
 	*/
 
 	#createRoadbookButton ( ) {

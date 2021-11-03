@@ -39,7 +39,6 @@ Tests ...
 @file ErrorsUI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -71,49 +70,42 @@ class ErrorsUI {
 
 	/**
 	@type {HTMLElement}
-	@private
 	*/
 
 	#mainHTMLElement = null;
 
 	/**
 	@type {HTMLElement}
-	@private
 	*/
 
 	#messageHTMLElement = null;
 
 	/**
-	@type {number}
-	@private
+	@type {Number}
 	*/
 
 	#timerId = null;
 
 	/**
 	@type {HTMLElement}
-	@private
 	*/
 
 	#hideHelpInput = null;
 
 	/**
 	@type {HTMLElement}
-	@private
 	*/
 
 	#hideHelpHTMLElement = null;
 
 	/**
-	@type {string}
-	@private
+	@type {String}
 	*/
 
 	#currentErrorLevel = '';
 
 	/**
 	Hide the help window
-	@private
 	*/
 
 	#hide ( ) {
@@ -129,9 +121,8 @@ class ErrorsUI {
 
 	/**
 	This method show the windows
-	@param {string} message The message to be displayed
-	@param {string} errorLevel The tpe of window to display
-	@private
+	@param {String} message The message to be displayed
+	@param {String} errorLevel The tpe of window to display
 	*/
 
 	#show ( message, errorLevel ) {
@@ -235,7 +226,7 @@ class ErrorsUI {
 	/**
 	Show an error message ( a white text on a red background )
 	@see theConfig.errorsUI.showError to disable or enable the error messages
-	@param {string} error The error message to display
+	@param {String} error The error message to display
 	*/
 
 	showError ( error ) { this.#show ( error, 'Error' ); }
@@ -243,7 +234,7 @@ class ErrorsUI {
 	/**
 	Show an warning message ( a black text on an orange background )
 	@see theConfig.errorsUI.showWarning to disable or enable the warning messages
-	@param {string} warning The warning message to display
+	@param {String} warning The warning message to display
 	*/
 
 	showWarning ( warning ) { this.#show ( warning, 'Warning' ); }
@@ -251,7 +242,7 @@ class ErrorsUI {
 	/**
 	Show an info message ( a black text on a white background )
 	@see theConfig.errorsUI.showInfo to disable or enable the info messages
-	@param {string} info The info message to display
+	@param {String} info The info message to display
 	*/
 
 	showInfo ( info ) { this.#show ( info, 'Info' ); }
@@ -260,7 +251,7 @@ class ErrorsUI {
 	Show a help message ( a black text on a white background )
 	@see theConfig.errorsUI.showHelp to disable or enable the help messages and the
 	checkbox in the UI to disable the help
-	@param {string} help The help message to display
+	@param {String} help The help message to display
 	*/
 
 	showHelp ( help ) { this.#show ( help, 'Help' ); }

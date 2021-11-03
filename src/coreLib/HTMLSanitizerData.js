@@ -92,9 +92,9 @@ class HTMLSanitizerData {
 
 	/**
 	get the valid attributes for a node name
-	@param {string} nodeName the name of the node for witch the valid attrbutes are asked.
+	@param {String} nodeName the name of the node for witch the valid attrbutes are asked.
 	Warning: the node name must be a valid node name verified with the getValidNodeName.
-	@return {Array.<string>} the valid attributes names
+	@return {Array.<String>} the valid attributes names
 	*/
 
 	getValidAttributesNames ( nodeName ) {
@@ -103,8 +103,8 @@ class HTMLSanitizerData {
 
 	/**
 	verify that a node name is a valid node name
-	@param {string} nodeName The node name
-	@return {string} the node name or an empty string if the given node name is invalid
+	@param {String} nodeName The node name
+	@return {String} the node name or an empty string if the given node name is invalid
 	*/
 
 	getValidNodeName ( nodeName ) {

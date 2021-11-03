@@ -39,7 +39,6 @@ Tests ...
 @file TravelNotesToolbarUI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -166,7 +165,6 @@ class TravelNotesToolbarUI {
 	/**
 	The geolocation button
 	@type {HTMLElement}
-	@private
 	*/
 
 	#geoLocationButton = null;
@@ -174,14 +172,12 @@ class TravelNotesToolbarUI {
 	/**
 	The buttons container
 	@type {HTMLElement}
-	@private
 	*/
 
 	#buttonsDiv = null;
 
 	/**
 	This method creates the home button
-	@private
 	*/
 
 	#createHomeButton ( ) {
@@ -211,7 +207,6 @@ class TravelNotesToolbarUI {
 
 	/**
 	This method creates the help button
-	@private
 	*/
 
 	#createHelpButton ( ) {
@@ -241,7 +236,6 @@ class TravelNotesToolbarUI {
 
 	/**
 	This method creates the contact button
-	@private
 	*/
 
 	#createContactButton ( ) {
@@ -271,7 +265,6 @@ class TravelNotesToolbarUI {
 
 	/**
 	This method creates the show APIKeys dialog button
-	@private
 	*/
 
 	#createApiKeysButton ( ) {
@@ -291,7 +284,6 @@ class TravelNotesToolbarUI {
 
 	/**
 	This method creates the geo location button
-	@private
 	*/
 
 	#createGeoLocationButton ( ) {
@@ -314,7 +306,6 @@ class TravelNotesToolbarUI {
 
 	/**
 	This method creates the pin UI button
-	@private
 	*/
 
 	#createPinButton ( ) {

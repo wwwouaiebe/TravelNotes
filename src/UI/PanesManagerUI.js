@@ -45,7 +45,6 @@ Tests ...
 @file PanesManagerUI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -75,7 +74,6 @@ class PaneButtonClickEL {
 	/**
 	A reference to the PanesManagerUI Object
 	@type {PanesManagerUI}
-	@private
 	*/
 
 	#paneManagerUI = null;
@@ -147,8 +145,7 @@ class PanesManagerUI {
 
 	/**
 	The pane id of the active pane
-	@type {string}
-	@private
+	@type {String}
 	*/
 
 	#activePaneId = PANE_ID.invalidPane;
@@ -156,7 +153,6 @@ class PanesManagerUI {
 	/**
 	A js Map with all the panes, ordered by paneId
 	@type {Map}
-	@private
 	*/
 
 	#panes = new Map ( );
@@ -164,7 +160,6 @@ class PanesManagerUI {
 	/**
 	The HTMLElement in witch the data have to be added
 	@type {HTMLElement}
-	@private
 	*/
 
 	#paneData = null;
@@ -172,21 +167,18 @@ class PanesManagerUI {
 	/**
 	The HTMLElement in witch the control have to be added
 	@type {HTMLElement}
-	@private
 	*/
 
 	#paneControl = null;
 
 	/**
 	@type {HTMLElement}
-	@private
 	*/
 
 	#headerDiv = null;
 
 	/**
 	This method remove the content of the Data Pane Div
-	@private
 	*/
 
 	#removeActivePane ( ) {
@@ -257,7 +249,7 @@ class PanesManagerUI {
 
 	/**
 	show a pane to the PanesManagerUI
-	@param {string} pane id of the pane to be displayed
+	@param {String} pane id of the pane to be displayed
 	*/
 
 	showPane ( paneId ) {

@@ -33,7 +33,6 @@ Tests ...
 @file OpenRouteServiceRouteProvider.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -42,7 +41,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module routeProviders
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -90,8 +88,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 
 	/**
 	The provider key. Will be set by TravelNotes
-	@type {string}
-	@private
+	@type {String}
 	*/
 
 	#providerKey = '';
@@ -99,7 +96,6 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 	/**
 	A reference to the edited route
 	@type {Route}
-	@private
 	*/
 
 	#route = null;
@@ -109,7 +105,6 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 	@param {Object} response the itinerary received from the provider
 	@param {function} onOk a function to call when the response is parsed correctly
 	@param {function} onError a function to call when an error occurs
-	@private
 	*/
 
 	#parseResponse ( response, onOk, onError ) {
@@ -179,8 +174,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 
 	/**
 	Gives the url to call
-	@return {string} a string with the url, wayPoints, transitMode, user language and API key
-	@private
+	@return {String} a string with the url, wayPoints, transitMode, user language and API key
 	*/
 
 	#getUrl ( ) {
@@ -203,8 +197,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 
 	/**
 	Gives the request headers
-	@return {Array.<object>} an array with the needed request headers
-	@private
+	@return {Array.<Object>} an array with the needed request headers
 	*/
 
 	#getRequestHeaders ( ) {
@@ -219,8 +212,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 
 	/**
 	Gives the options and wayPoints for the request body
-	@return {string} a string with the wayPoint coordinates, elevation param and language in JSON format
-	@private
+	@return {String} a string with the wayPoint coordinates, elevation param and language in JSON format
 	*/
 
 	#getBody ( ) {
@@ -241,7 +233,6 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 
 	/**
 	Overload of the base class #getRoute ( ) method
-	@private
 	*/
 
 	#getRoute ( onOk, onError ) {
@@ -287,8 +278,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 	/**
 	The icon used in the ProviderToolbarUI.
 	Overload of the base class icon property
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get icon ( ) {
@@ -308,8 +298,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 	/**
 	The provider name.
 	Overload of the base class name property
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get name ( ) { return 'OpenRouteService'; }
@@ -317,8 +306,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 	/**
 	The title to display in the ProviderToolbarUI button.
 	Overload of the base class title property
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get title ( ) { return 'OpenRouteService'; }
@@ -327,8 +315,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 	The possible transit modes for the provider.
 	Overload of the base class transitModes property
 	Must be a subarray of [ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ]
-	@type {Array.<string>}
-	@readonly
+	@type {Array.<String>}
 	*/
 
 	get transitModes ( ) { return [ 'bike', 'pedestrian', 'car' ]; }
@@ -336,8 +323,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 	/**
 	A boolean indicating when a provider key is needed for the provider.
 	Overload of the base class providerKeyNeeded property
-	@type {boolean}
-	@readonly
+	@type {Boolean}
 	*/
 
 	get providerKeyNeeded ( ) { return true; }

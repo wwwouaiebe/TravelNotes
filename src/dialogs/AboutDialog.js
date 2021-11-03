@@ -45,7 +45,6 @@ Tests ...
 @file AboutDialog.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -80,7 +79,6 @@ class AboutDialog extends BaseDialog {
 	/**
 	The main
 	@type {HTMLElement}
-	@private
 	*/
 
 	#aboutDiv = null;
@@ -114,7 +112,6 @@ class AboutDialog extends BaseDialog {
 
 	/**
 	Get an array with the HTMLElements that have to be added in the content of the dialog.
-	@readonly
 	*/
 
 	get contentHTMLElements ( ) { return [ this.#aboutDiv ]; }

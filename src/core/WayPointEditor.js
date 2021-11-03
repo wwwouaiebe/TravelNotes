@@ -46,9 +46,8 @@ Tests 20210902
 
 @typedef {Object} WayPointOsmData
 @desc An object with the name and address found for the WayPoint with Nominatim
-@property {string} name
-@property {string} address
-@public
+@property {String} name
+@property {String} address
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -116,7 +115,7 @@ class WayPointEditor {
 
 	/**
 	This method add a WayPoint
-	@param {Array.<number>} latLng The latitude and longitude where the WayPoint will be added
+	@param {Array.<Number>} latLng The latitude and longitude where the WayPoint will be added
 	*/
 
 	addWayPoint ( latLng ) {
@@ -139,8 +138,8 @@ class WayPointEditor {
 	/**
 	This method add a waypoint at a given position on the edited route. It's used to add a WayPoint by
 	dragging
-	@param {Array.<number>} initialLatLng The latitude and longitude from witch the WayPoint is coming
-	@param {Array.<number>} finalLatLng The latitude and longitude where the WayPoint will be added
+	@param {Array.<Number>} initialLatLng The latitude and longitude from witch the WayPoint is coming
+	@param {Array.<Number>} finalLatLng The latitude and longitude where the WayPoint will be added
 	*/
 
 	addWayPointOnRoute ( initialLatLng, finalLatLng ) {
@@ -205,7 +204,7 @@ class WayPointEditor {
 
 	/**
 	This method remove a WayPoint
-	@param {number} wayPointObjId The objId of the WayPoint to remove
+	@param {Number} wayPointObjId The objId of the WayPoint to remove
 	*/
 
 	removeWayPoint ( wayPointObjId ) {
@@ -217,7 +216,7 @@ class WayPointEditor {
 
 	/**
 	This method set the starting WayPoint
-	@param {Array.<number>} latLng The latitude and longitude where the WayPoint will be added
+	@param {Array.<Number>} latLng The latitude and longitude where the WayPoint will be added
 	@fires addwaypoint
 	*/
 
@@ -238,7 +237,7 @@ class WayPointEditor {
 
 	/**
 	This method set the ending WayPoint
-	@param {Array.<number>} latLng The latitude and longitude where the WayPoint will be added
+	@param {Array.<Number>} latLng The latitude and longitude where the WayPoint will be added
 	@fires addwaypoint
 	*/
 
@@ -259,7 +258,7 @@ class WayPointEditor {
 
 	/**
 	This method is called when a drag of a WayPoint ends on the map
-	@param {number} dragEndEvent The drag event
+	@param {Number} dragEndEvent The drag event
 	*/
 
 	wayPointDragEnd ( dragEndEvent ) {
@@ -273,7 +272,7 @@ class WayPointEditor {
 
 	/**
 	This method shows the WayPointPropertiesDialog
-	@param {number} wayPointObjId The objId of the WayPoint that modify
+	@param {Number} wayPointObjId The objId of the WayPoint that modify
 	@fires setrouteslist
 	@fires showitinerary
 	@fires roadbookupdate

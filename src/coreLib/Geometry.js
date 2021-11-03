@@ -39,11 +39,10 @@ Tests ...
 
 @typedef {Object} LatLngElevOnRoute
 @desc An object to store the latitude, longitude, elevation, ascent and distance of a point on a route
-@property {Array.<number>} latLng The latitude and longitude of the point
-@property {number} elev The elevation of the point
-@property {number} ascent The ascent since the previous ItineraryPoint
-@property {number} routeDistance The distance since the beginning of the route
-@public
+@property {Array.<Number>} latLng The latitude and longitude of the point
+@property {Number} elev The elevation of the point
+@property {Number} ascent The ascent since the previous ItineraryPoint
+@property {Number} routeDistance The distance since the beginning of the route
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -53,9 +52,8 @@ Tests ...
 
 @typedef {Object} LatLngDistance
 @desc An object to store a latitude, longitude and distance
-@property {Array.<number>} latLng The latitude and longitude
-@property {number} distance The distance
-@public
+@property {Array.<Number>} latLng The latitude and longitude
+@property {Number} distance The distance
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -94,7 +92,7 @@ class Geometry {
 	Compute the latitude, longitude, elevation, ascent and distance of a point on a route when only the distance between
 	the beginning of the route and the point is know
 	@param {Route} route The route
-	@param {number} distance The distance (units: meter)
+	@param {Number} distance The distance (units: meter)
 	@return {LatLngElevOnRoute} A LatLngElevOnRoute with the desired values
 	*/
 
@@ -135,7 +133,7 @@ class Geometry {
 	This method search the nearest point on a route from a given point and compute the distance
 	between the beginning of the route and the nearest point
 	@param {Route} route The route object to be used
-	@param {Array.<number>} latLng The latitude and longitude of the point
+	@param {Array.<Number>} latLng The latitude and longitude of the point
 	@return {LatLngDistance} An object with the latitude, longitude and distance
 	*/
 
@@ -206,8 +204,8 @@ class Geometry {
 
 	/**
 	This method returns a window.L.latLngBounds that represents a square
-	@param {Array.<number>} latLngCenter The latitude and longitude of the center of the square
-	@param {number} dimension The half length of the square side in meter.
+	@param {Array.<Number>} latLngCenter The latitude and longitude of the center of the square
+	@param {Number} dimension The half length of the square side in meter.
 	*/
 
 	getSquareBoundingBox ( latLngCenter, dimension ) {
@@ -227,9 +225,9 @@ class Geometry {
 	/**
 	This method transforms a lat lng coordinate to pixel coordinate relative to the CRS origin using the Leaflet
 	method map.project
-	@param {Array.<number>} latLng The latitude and longitude of the point
-	@param {number} zoom The zoom factor to use
-	@return {Array.<number>} An array with the projected point
+	@param {Array.<Number>} latLng The latitude and longitude of the point
+	@param {Number} zoom The zoom factor to use
+	@return {Array.<Number>} An array with the projected point
 	*/
 
 	project ( latLng, zoom ) {
@@ -239,9 +237,9 @@ class Geometry {
 
 	/**
 	Transform a screen coordinate to a latLng using the Leaflet map.containerPointToLatLng method
-	@param {number} xScreen  The x screen coordinate
-	@param {number} yScreen  The y screen coordinate
-	@return {Array.<number>} The latitude and longitude of the point
+	@param {Number} xScreen  The x screen coordinate
+	@param {Number} yScreen  The y screen coordinate
+	@return {Array.<Number>} The latitude and longitude of the point
 	*/
 
 	screenCoordToLatLng ( xScreen, yScreen ) {
@@ -251,9 +249,9 @@ class Geometry {
 
 	/**
 	Add two points
-	@param {Array.<number>} point1 the first point to add
-	@param {Array.<number>} point2 the second point to add
-	@return {Array.<number>}  The result point
+	@param {Array.<Number>} point1 the first point to add
+	@param {Array.<Number>} point2 the second point to add
+	@return {Array.<Number>}  The result point
 	*/
 
 	addPoints ( point1, point2 ) {
@@ -265,9 +263,9 @@ class Geometry {
 
 	/**
 	Subtrack two points
-	@param {Array.<number>} point1 the first point
-	@param {Array.<number>} point2 the point to subtrack
-	@return {Array.<number>} The result point
+	@param {Array.<Number>} point1 the first point
+	@param {Array.<Number>} point2 the point to subtrack
+	@return {Array.<Number>} The result point
 	*/
 
 	subtrackPoints ( point1, point2 ) {

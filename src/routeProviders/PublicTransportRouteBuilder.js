@@ -31,7 +31,6 @@ Doc reviewed 20210915
 @file PublicTransportRouteBuilder.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -40,7 +39,6 @@ Doc reviewed 20210915
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module routeProviders
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -122,7 +120,6 @@ class PublicTransportRouteBuilder {
 	#publicTransportData = null;
 
 	/**
-	@private
 	*/
 
 	#merge3WaysNodes ( ) {
@@ -184,7 +181,6 @@ class PublicTransportRouteBuilder {
 	}
 
 	/**
-	@private
 	*/
 
 	#createRoute ( route ) {

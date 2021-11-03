@@ -134,7 +134,6 @@ class GeoLocator {
 	/**
 	The status of the geolocation
 	@type {GEOLOCATION_STATUS}
-	@readonly
 	*/
 
 	get status ( ) { return this.#status; }
@@ -144,7 +143,6 @@ class GeoLocator {
 	@return {GEOLOCATION_STATUS} the status after the switch
 	@fires geolocationstatuschanged
 	@fires geolocationpositionchanged
-	@readonly
 	*/
 
 	switch ( ) {

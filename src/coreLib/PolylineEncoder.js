@@ -160,8 +160,8 @@ class PolylineEncoder {
 
 	/**
 	This method round a number in the same way than Python 2
-	@param {number} value The value to round
-	@return {number} The rounded value
+	@param {Number} value The value to round
+	@return {Number} The rounded value
 	*/
 
 	#python2Round ( value ) {
@@ -239,9 +239,9 @@ class PolylineEncoder {
 
 	/**
 	encode an array of coordinates to a string ( coordinates can be 1d or 2d or 3d or more...)
-	@param {array.<array.<number>>} coordinatesArray the coordinates to encode
-	@param {Array.<number>} precisions an array with the precision to use for each dimension
-	@return {string} the encoded coordinates
+	@param {Array.<Array.<number>>} coordinatesArray the coordinates to encode
+	@param {Array.<Number>} precisions an array with the precision to use for each dimension
+	@return {String} the encoded coordinates
 	*/
 
 	encode ( coordinatesArray, precisions ) {
@@ -269,9 +269,9 @@ class PolylineEncoder {
 
 	/**
 	decode a string into an array of coordinates (coordinates can be 1d, 2d, 3d or more...)
-	@param {string} encodedString the string to decode
-	@param {Array.<number>} precisions an array with the precision to use for each dimension
-	@return {array.<array.<number>>} the decoded coordinates
+	@param {String} encodedString the string to decode
+	@param {Array.<Number>} precisions an array with the precision to use for each dimension
+	@return {Array.<Array.<number>>} the decoded coordinates
 	*/
 
 	decode ( encodedString, precisions ) {

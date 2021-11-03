@@ -32,7 +32,6 @@ Tests ...
 @file RoutesListUI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -41,7 +40,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module travelUI
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -71,7 +69,6 @@ class RoutesListUI {
 	/**
 	The route list HTMLElement
 	@type {HTMLElement}
-	@private
 	*/
 
 	#routesListHTMLElement = null;
@@ -79,7 +76,6 @@ class RoutesListUI {
 	/**
 	Route contextmenu event listeners
 	@type {RouteContextMenuEL}
-	@private
 	*/
 
 	#routeContextMenuEL = null;
@@ -87,7 +83,6 @@ class RoutesListUI {
 	/**
 	Route drop event listeners
 	@type {RouteDropEL}
-	@private
 	*/
 
 	#routeDropEL = null;
@@ -95,7 +90,6 @@ class RoutesListUI {
 	/**
 	Route dragstart event listeners
 	@type {RouteDropEL}
-	@private
 	*/
 
 	#routeDragStartEL = null;

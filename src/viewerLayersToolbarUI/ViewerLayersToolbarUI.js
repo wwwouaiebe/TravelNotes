@@ -36,7 +36,6 @@ Tests ...
 @file ViewerLayersToolbarUI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -71,7 +70,6 @@ class MapLayerButtonClickEL {
 	/**
 	A reference to the array of MapLayer objects
 	@type {Array.<MapLayer>}
-	@private
 	*/
 
 	#mapLayers = null;
@@ -175,7 +173,6 @@ class ViewerLayersToolbarUI {
 	/**
 	The toolbar
 	@type {HTMLElement}
-	@private
 	*/
 
 	#mapLayersToolbar = null;
@@ -183,7 +180,6 @@ class ViewerLayersToolbarUI {
 	/**
 	An array with the available MapLayer objects
 	@type {Array.<MapLayer>}
-	@private
 	*/
 
 	#mapLayers = [
@@ -270,7 +266,7 @@ class ViewerLayersToolbarUI {
 
 	/**
 	Set a layer as background map. If the layer is not found, the 'OSM - Color' layer is set
-	@param {string} layerName the name of the layer to set or the index of theMapLayer in the #mapLayers
+	@param {String} layerName the name of the layer to set or the index of theMapLayer in the #mapLayers
 	*/
 
 	setMapLayer ( layerName ) {

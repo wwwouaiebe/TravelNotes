@@ -43,7 +43,6 @@ Tests ...
 @file RoutePrinter.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -86,7 +85,6 @@ class RoutePrinter {
 
 	/**
 	Compute the view size in lat and lng transforming the dimension given in mm by the user.
-	@private
 	*/
 
 	#computeMaxViewSize ( printData ) {
@@ -134,7 +132,7 @@ class RoutePrinter {
 	/**
 	Modify the main page, creating views on the page, so the page can be printed easily
 	@param {PrintRouteMapOptions} printData the print options returned by the PrintRouteMapDialog
-	@param {!number} routeObjId The objId of the route to print
+	@param {Number} routeObjId The objId of the route to print
 	*/
 
 	print ( printData, routeObjId ) {

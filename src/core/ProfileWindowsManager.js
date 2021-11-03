@@ -103,7 +103,7 @@ class ProfileWindowsManager {
 
 	/**
 	This method updates the profile window for a Route
-	@param {number} oldRouteObjId The objId of the Route that is in the profile window
+	@param {Number} oldRouteObjId The objId of the Route that is in the profile window
 	@param {Route} newRoute The  Route for witch the profile window is updated
 	*/
 
@@ -123,7 +123,7 @@ class ProfileWindowsManager {
 
 	/**
 	This method close the profile window of a route
-	@param {number} objId The objId of the Route that is in the profile window to close
+	@param {Number} objId The objId of the Route that is in the profile window to close
 	*/
 
 	deleteProfile ( objId ) {
@@ -143,7 +143,7 @@ class ProfileWindowsManager {
 
 	/**
 	This method creates the profile window for a Route
-	@param {number} routeObjId The Route objId for witch a profile window is created
+	@param {Number} routeObjId The Route objId for witch a profile window is created
 	*/
 
 	showProfile ( routeObjId ) {
@@ -158,7 +158,7 @@ class ProfileWindowsManager {
 
 	/**
 	This method is called when a profile window is closed
-	@param {number} objId The Route objId for witch a profile window is created
+	@param {Number} objId The Route objId for witch a profile window is created
 	@listens profileclosed
 	*/
 

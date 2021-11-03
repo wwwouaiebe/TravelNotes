@@ -46,7 +46,6 @@ Tests ...
 @file UI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -86,7 +85,6 @@ class UI {
 	/**
 	The main UI container
 	@type {HTMLElement}
-	@private
 	*/
 
 	#mainHTMLElement = null;
@@ -94,7 +92,6 @@ class UI {
 	/**
 	The title (The black rectangle on right top)
 	@type {HTMLElement}
-	@private
 	*/
 
 	#titleHTMLElement = null;
@@ -102,7 +99,6 @@ class UI {
 	/**
 	The main toolbar
 	@type {TravelNotesToolbarUI}
-	@private
 	*/
 
 	#travelNotesToolbarUI = null;
@@ -110,7 +106,6 @@ class UI {
 	/**
 	The travel UI
 	@type {TravelUI}
-	@private
 	*/
 
 	#travelUI = null;
@@ -118,7 +113,6 @@ class UI {
 	/**
 	The panes manager UI
 	@type {PanesManagerUI}
-	@private
 	*/
 
 	#panesManagerUI = null;
@@ -126,7 +120,6 @@ class UI {
 	/**
 	The providers toolbar UI
 	@type {ProvidersToolbarUI}
-	@private
 	*/
 
 	#providersToolbarUI = null;
@@ -134,22 +127,19 @@ class UI {
 	/**
 	A Timer id. Reduce the ui when the mouse leave
 	@type {}
-	@private
 	*/
 
 	#timerId = null;
 
 	/**
 	The pinned status of the UI
-	@type {boolean}
-	@private
+	@type {Boolean}
 	*/
 
 	#isPinned = false;
 
 	/**
 	Event listener for the mouse leave on the UI
-	@private
 	*/
 
 	#onMouseLeave ( ) {
@@ -161,7 +151,6 @@ class UI {
 
 	/**
 	Show the UI and hide the title
-	@private
 	*/
 
 	#show ( ) {
@@ -184,7 +173,6 @@ class UI {
 
 	/**
 	Hide the UI and show the title
-	@private
 	*/
 
 	#hide ( ) {

@@ -32,7 +32,6 @@ Tests ...
 @file MapLayersToolbarButton.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -41,7 +40,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module mapLayersToolbarUI
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -163,7 +161,6 @@ class MapLayersToolbarButton {
 	/**
 	The button HTMLElement
 	@type {HTMLElement}
-	@private
 	*/
 
 	#buttonHTMLElement = null;
@@ -171,7 +168,6 @@ class MapLayersToolbarButton {
 	/**
 	mouseenter event listener
 	@type {LayerButtonMouseEnterEL}
-	@private
 	*/
 
 	#layerButtonMouseEnterEL = null;
@@ -179,7 +175,6 @@ class MapLayersToolbarButton {
 	/**
 	mouseleave event listener
 	@type {LayerButtonMouseLeaveEL}
-	@private
 	*/
 
 	#layerButtonMouseLeaveEL = null;
@@ -187,7 +182,6 @@ class MapLayersToolbarButton {
 	/**
 	mouseclick event listener
 	@type {LayerButtonClickEL}
-	@private
 	*/
 
 	#layerButtonClickEL = null;

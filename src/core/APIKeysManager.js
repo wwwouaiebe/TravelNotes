@@ -41,9 +41,8 @@ Tests 20210903
 
 @typedef {Object} APIKey
 @desc An object to store a provider name and  API key
-@property {string} providerName The provider name
-@property {string} providerKey The provider API key
-@public
+@property {String} providerName The provider name
+@property {String} providerKey The provider API key
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -73,7 +72,7 @@ class APIKeysManager {
 
 	/**
 	A flag indicating that a APIKkeys file was found on the server when launching the app
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	#haveAPIKeysFile = false;
@@ -87,7 +86,7 @@ class APIKeysManager {
 
 	/**
 	This method is called when the 'APIKkeys' file is decoded correctly
-	@param {string} decryptedData the decoded API keys as JSON string
+	@param {String} decryptedData the decoded API keys as JSON string
 	*/
 
 	#onOkDecryptServerFile ( decryptedData ) {
@@ -131,8 +130,8 @@ class APIKeysManager {
 
 	/**
 	This method get an API key from the JS map
-	@param {string} providerName the provider name
-	@return {string} the API key
+	@param {String} providerName the provider name
+	@return {String} the API key
 	*/
 
 	#getAPIKey ( providerName ) {
@@ -141,8 +140,8 @@ class APIKeysManager {
 
 	/**
 	 This method add an API key to the JS map
-	@param {string} providerName the provider name
-	@param {string} key the API key
+	@param {String} providerName the provider name
+	@param {String} key the API key
 	*/
 
 	#setAPIKey ( providerName, key ) {
@@ -151,7 +150,7 @@ class APIKeysManager {
 
 	/**
 	This method set the API keys from the session storage
-	@return {number} the number of API keys restored
+	@return {Number} the number of API keys restored
 	*/
 
 	#setAPIKeysFromSessionStorage ( ) {
@@ -221,8 +220,8 @@ class APIKeysManager {
 
 	/**
 	Verify that a provider key is known
-	@param {string} providerName the provider name for witch the API key is searched
-	@return {boolean} true when the provider API key is known
+	@param {String} providerName the provider name for witch the API key is searched
+	@return {Boolean} true when the provider API key is known
 	*/
 
 	hasKey ( providerName ) { return this.#APIKeysMap.has ( providerName.toLowerCase ( ) ); }
@@ -230,7 +229,7 @@ class APIKeysManager {
 	/**
 	Get the url from the mapLayer
 	@param {Object} mapLayer the layer for witch the url must returned
-	@return {string} the url for the given mapLayer or null if the url cannot be given
+	@return {String} the url for the given mapLayer or null if the url cannot be given
 	*/
 
 	getUrl ( mapLayer ) {

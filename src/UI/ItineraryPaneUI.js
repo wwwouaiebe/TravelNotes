@@ -38,7 +38,6 @@ Tests ...
 @file ItineraryPaneUI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -75,7 +74,6 @@ class ItineraryPaneUI extends PaneUI {
 	/**
 	the ItineraryDataUI Object
 	@type {ItineraryDataUI}
-	@private
 	*/
 
 	#itineraryDataUI = null;
@@ -83,7 +81,6 @@ class ItineraryPaneUI extends PaneUI {
 	/**
 	the ItineraryControlUI Object
 	@type {ItineraryControlUI}
-	@private
 	*/
 
 	#itineraryControlUI = null;
@@ -125,8 +122,7 @@ class ItineraryPaneUI extends PaneUI {
 	/**
 	A unique identifier for the pane
 	Overload of the PaneUI.paneId property
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get paneId ( ) { return PANE_ID.itineraryPane; }
@@ -134,8 +130,7 @@ class ItineraryPaneUI extends PaneUI {
 	/**
 	The text to be displayer in the pane button
 	Overload of the PaneUI.buttonText property
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get buttonText ( ) { return theTranslator.getText ( 'PanesManagerUI - Itinerary' ); }

@@ -40,7 +40,6 @@ Tests ...
 @file MapLayersToolbarUI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -83,7 +82,6 @@ class ButtonsContainerWheelEL {
 	/**
 	A reference to the WheelEventData Object
 	@type {Object}
-	@private
 	*/
 
 	#wheelEventData = null;
@@ -145,7 +143,6 @@ class MapLayersToolbarUI {
 	/**
 	The main HTMLElement of the UI
 	@type {HTMLElement}
-	@private
 	*/
 
 	#mainHTMLElement = null;
@@ -153,7 +150,6 @@ class MapLayersToolbarUI {
 	/**
 	The HTML element that contains the map layer buttons
 	@type {HTMLElement}
-	@private
 	*/
 
 	#buttonsHTMLElement = null;
@@ -161,7 +157,6 @@ class MapLayersToolbarUI {
 	/**
 	An array with the map layer buttons and links
 	@type {Array.<Object>}
-	@private
 	*/
 
 	#buttonsAndLinks = [];
@@ -169,7 +164,6 @@ class MapLayersToolbarUI {
 	/**
 	Data shared with the wheel event listener
 	@type {Object}
-	@private
 	*/
 
 	#wheelEventData = {
@@ -181,8 +175,7 @@ class MapLayersToolbarUI {
 
 	/**
 	Timer id for the mouse leave event
-	@type {number}
-	@private
+	@type {Number}
 	*/
 
 	#timerId = null;
@@ -190,14 +183,12 @@ class MapLayersToolbarUI {
 	/**
 	The wheel event listener
 	@type {Object}
-	@private
 	*/
 
 	#onWheelButtonsEventListener = null;
 
 	/**
 	Show the map layer buttons. Called by the mouseenter event
-	@private
 	*/
 
 	#show ( ) {
@@ -270,7 +261,6 @@ class MapLayersToolbarUI {
 
 	/**
 	Hide the toolbar
-	@private
 	*/
 
 	#hide ( ) {
@@ -289,7 +279,6 @@ class MapLayersToolbarUI {
 
 	/**
 	The mouseleave event listener. Start a timer
-	@private
 	*/
 
 	#onMouseLeave ( ) {
@@ -330,7 +319,7 @@ class MapLayersToolbarUI {
 	Set a mapLayer as background map. If a provider key is needed and the key not available
 	the 'OSM - Color' mapLayer is set. If the mapLayer is not found, the 'OSM - Color' mapLayer
 	is set
-	@param {string} mapLayerName the name of the mapLayer to set
+	@param {String} mapLayerName the name of the mapLayer to set
 	*/
 
 	setMapLayer ( mapLayerName ) {

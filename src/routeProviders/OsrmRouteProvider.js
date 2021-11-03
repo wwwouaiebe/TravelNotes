@@ -33,7 +33,6 @@ Tests ...
 @file OsrmRouteProvider.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -42,7 +41,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module routeProviders
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -75,7 +73,6 @@ class OsrmRouteProvider extends BaseRouteProvider {
 	/**
 	A reference to the edited route
 	@type {Route}
-	@private
 	*/
 
 	#route = null;
@@ -85,7 +82,6 @@ class OsrmRouteProvider extends BaseRouteProvider {
 	@param {Object} response the itinerary received from the provider
 	@param {function} onOk a function to call when the response is parsed correctly
 	@param {function} onError a function to call when an error occurs
-	@private
 	*/
 
 	#parseResponse ( response, onOk, onError ) {
@@ -184,8 +180,7 @@ class OsrmRouteProvider extends BaseRouteProvider {
 
 	/**
 	Gives the url to call
-	@return {string} a string with the url, wayPoints, transitMode, user language and API key
-	@private
+	@return {String} a string with the url, wayPoints, transitMode, user language and API key
 	*/
 
 	#getUrl ( ) {
@@ -224,7 +219,6 @@ class OsrmRouteProvider extends BaseRouteProvider {
 
 	/**
 	Implementation of the base class #getRoute ( )
-	@private
 	*/
 
 	#getRoute ( onOk, onError ) {
@@ -265,8 +259,7 @@ class OsrmRouteProvider extends BaseRouteProvider {
 	/**
 	The icon used in the ProviderToolbarUI.
 	Overload of the base class icon property
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get icon ( ) {
@@ -296,8 +289,7 @@ class OsrmRouteProvider extends BaseRouteProvider {
 	/**
 	The provider name.
 	Overload of the base class name property
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get name ( ) { return 'OSRM'; }
@@ -305,8 +297,7 @@ class OsrmRouteProvider extends BaseRouteProvider {
 	/**
 	The title to display in the ProviderToolbarUI button.
 	Overload of the base class title property
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get title ( ) { return 'OSRM'; }
@@ -315,8 +306,7 @@ class OsrmRouteProvider extends BaseRouteProvider {
 	The possible transit modes for the provider.
 	Overload of the base class transitModes property
 	Must be a subarray of [ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ]
-	@type {Array.<string>}
-	@readonly
+	@type {Array.<String>}
 	*/
 
 	get transitModes ( ) { return [ 'bike', 'pedestrian', 'car' ]; }
@@ -324,8 +314,7 @@ class OsrmRouteProvider extends BaseRouteProvider {
 	/**
 	A boolean indicating when a provider key is needed for the provider.
 	Overload of the base class providerKeyNeeded property
-	@type {boolean}
-	@readonly
+	@type {Boolean}
 	*/
 
 	get providerKeyNeeded ( ) { return false; }
@@ -333,7 +322,7 @@ class OsrmRouteProvider extends BaseRouteProvider {
 	/**
 	The user language. Overload of the base class userLanguage property.
 	It's needed to overload the setter AND the getter otherwise the getter returns undefined
-	@type {string}
+	@type {String}
 	*/
 
 	get userLanguage ( ) { return super.userLanguage; }

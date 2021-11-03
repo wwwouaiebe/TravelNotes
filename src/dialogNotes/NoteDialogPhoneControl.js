@@ -126,7 +126,7 @@ class NoteDialogPhoneControl {
 
 	/**
 	The phone number in the control
-	@type {string}
+	@type {String}
 	*/
 
 	get phone ( ) { return this.#phoneInput.value; }

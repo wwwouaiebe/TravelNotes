@@ -32,7 +32,6 @@ Tests ...
 @file PrintViewsFactory.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -41,7 +40,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module PrintRoute
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -51,9 +49,8 @@ Tests ...
 
 @typedef {Object} ViewSize
 @desc An object to store the width and height of a view
-@property {!number} width The width of the view ( = the abs of the delta between the left and right of the view in ° )
-@property {!number} height The height of the view ( = the abd of the delta between the top and bottom of the view in ° )
-@public
+@property {Number} width The width of the view ( = the abs of the delta between the left and right of the view in ° )
+@property {Number} height The height of the view ( = the abd of the delta between the top and bottom of the view in ° )
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -63,9 +60,8 @@ Tests ...
 
 @typedef {Object} PointCoordinates
 @desc An object to store the latitude and longitude of a point
-@property {!number} lat The latitude
-@property {!number} lng The longitude
-@public
+@property {Number} lat The latitude
+@property {Number} lng The longitude
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -80,7 +76,6 @@ Tests ...
 @property {PointCoordinates} entryPoint The entry point of the route in the view. EntryPoint and exitPoint
 are not on the frame!
 @property {PointCoordinates} exitPoint The exit point of the route in the view
-@public
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -102,21 +97,18 @@ class PrintViewsFactory {
 	/**
 	An array with rhe computed views
 	@type {Array.<PrintView>}
-	@private
 	*/
 
 	#printViews = [];
 
 	/**
 	@type {Route}
-	@private
 	*/
 
 	#route = null;
 
 	/**
 	@type {ViewSize}
-	@private
 	*/
 
 	#maxViewSize = null;
@@ -128,7 +120,6 @@ class PrintViewsFactory {
 	@param {ItineraryPoint} firstItineraryPoint The first ItineraryPoint
 	@param {ItineraryPoint} lastItineraryPoint The last ItineraryPoint
 	@return {PointCoordinates} The coordinates of the intersection or null if the line is not horizontal or vertical.
-	@private
 	*/
 
 	#isItineraryHorOrVer ( currentView, firstItineraryPoint, lastItineraryPoint ) {
@@ -165,7 +156,6 @@ class PrintViewsFactory {
 	@param {PrintView} currentView The current view
 	@param {ItineraryPoint} itineraryPoint The ItineraryPoint to test
 	@return {PointCoordinates} The coordinates of itineraryPoint or null if the itinerayPoint is not on the frame
-	@private
 	*/
 
 	#isPointOnViewFrame ( currentView, itineraryPoint ) {
@@ -192,7 +182,6 @@ class PrintViewsFactory {
 	@param {ItineraryPoint} firstItineraryPoint The first ItineraryPoint
 	@param {ItineraryPoint} lastItineraryPoint The last ItineraryPoint
 	@return {PointCoordinates} The coordinates of the computed intermediate point or null
-	@private
 	*/
 
 	#haveViewOnlyOnePoint ( currentView, firstItineraryPoint, lastItineraryPoint ) {
@@ -219,7 +208,6 @@ class PrintViewsFactory {
 	@param {ItineraryPoint} firstItineraryPoint The first ItineraryPoint
 	@param {ItineraryPoint} lastItineraryPoint The last ItineraryPoint
 	@return {PointCoordinates}
-	@private
 	*/
 
 	#computeIntermediatePoint ( currentView, firstItineraryPoint, lastItineraryPoint ) {
@@ -346,7 +334,6 @@ class PrintViewsFactory {
 
 	/**
 	Compute the different views needed to print the maps
-	@private
 	*/
 
 	#computePrintViews ( ) {

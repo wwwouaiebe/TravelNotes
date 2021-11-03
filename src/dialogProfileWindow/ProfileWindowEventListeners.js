@@ -173,7 +173,6 @@ class SvgMouseMoveEL extends BaseSvgEL {
 	/**
 	The vertical svg polyline at the mouse position
 	@type {svg:polyline}
-	@private
 	*/
 
 	#marker;
@@ -181,7 +180,6 @@ class SvgMouseMoveEL extends BaseSvgEL {
 	/**
 	The svg text with the distance since the beginning of the route at the mouse position
 	@type {svg:text}
-	@private
 	*/
 
 	#distanceText;
@@ -189,7 +187,6 @@ class SvgMouseMoveEL extends BaseSvgEL {
 	/**
 	The svg text with the elevation at the mouse position
 	@type {svg:text}
-	@private
 	*/
 
 	#elevText;
@@ -197,23 +194,20 @@ class SvgMouseMoveEL extends BaseSvgEL {
 	/**
 	The svg text with the ascent of the route at the mouse position
 	@type {svg:text}
-	@private
 	*/
 
 	#ascentText;
 
 	/**
 	A string indicating where is the text anchor. Must be 'end' or 'start'
-	@type {string}
-	@private
+	@type {String}
 	*/
 
 	#textAnchor;
 
 	/**
 	The horizontal position of the marker on the svg
-	@type {number}
-	@private
+	@type {Number}
 	*/
 
 	#markerX;
@@ -221,15 +215,14 @@ class SvgMouseMoveEL extends BaseSvgEL {
 	/**
 	The svgElement with the profile
 	@type {SVGElement}
-	@private
 	*/
 
 	#profileSvg;
 
 	/**
 	A method to create a svg:text.
-	@param {string} text The text to add in the svg:text
-	@param {!number} markerY The vertical position of the text on the svg
+	@param {String} text The text to add in the svg:text
+	@param {Number} markerY The vertical position of the text on the svg
 	@return {svg:text} The svg:text element
 	*/
 

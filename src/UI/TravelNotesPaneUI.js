@@ -37,7 +37,6 @@ Tests ...
 @file TravelNotesPaneUI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -172,7 +171,6 @@ class TravelNoteContextMenuEL {
 	/**
 	A reference to the HTMLElement in witch the data have to be added
 	@type {HTMLElement}
-	@private
 	*/
 
 	#paneData = null;
@@ -214,7 +212,6 @@ class TravelNotesPaneUI extends PaneUI {
 	/**
 	An HTMLElement in witch the notes will be added
 	@type {HTMLElement}
-	@private
 	*/
 
 	#travelNotesDiv = null;
@@ -222,7 +219,6 @@ class TravelNotesPaneUI extends PaneUI {
 	/**
 	dragstart event listener
 	@type {TravelNoteDragStartEL}
-	@private
 	*/
 
 	#travelNoteDragStartEL = null;
@@ -230,7 +226,6 @@ class TravelNotesPaneUI extends PaneUI {
 	/**
 	dragover event listener
 	@type {TravelNoteDragOverEL}
-	@private
 	*/
 
 	#travelNoteDragOverEL = null;
@@ -238,7 +233,6 @@ class TravelNotesPaneUI extends PaneUI {
 	/**
 	drop event listener
 	@type {TravelNoteDropEL}
-	@private
 	*/
 
 	#travelNoteDropEL = null;
@@ -246,7 +240,6 @@ class TravelNotesPaneUI extends PaneUI {
 	/**
 	contextmenu event listener
 	@type {TravelNoteContextMenuEL}
-	@private
 	*/
 
 	#travelNoteContextMenuEL = null;
@@ -310,8 +303,7 @@ class TravelNotesPaneUI extends PaneUI {
 	/**
 	A unique identifier for the pane
 	Overload of the PaneUI.paneId property
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get paneId ( ) { return PANE_ID.travelNotesPane; }
@@ -319,8 +311,7 @@ class TravelNotesPaneUI extends PaneUI {
 	/**
 	The text to be displayer in the pane button
 	Overload of the PaneUI.buttonText property
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get buttonText ( ) { return theTranslator.getText ( 'PanesManagerUI - Travel notes' ); }

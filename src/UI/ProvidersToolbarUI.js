@@ -46,7 +46,6 @@ Tests ...
 @file ProvidersToolbarUI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -81,7 +80,6 @@ class ProvidersToolbarUI {
 	/**
 	The toolbar HTMLElement
 	@type {HTMLElement}
-	@private
 	*/
 
 	#toolbarHTMLElement = null;
@@ -89,7 +87,6 @@ class ProvidersToolbarUI {
 	/**
 	A JS map with the transit mode buttons, ordered by transitMode
 	@type {Map}
-	@private
 	*/
 
 	#transitModeButtons = new Map ( );
@@ -97,7 +94,6 @@ class ProvidersToolbarUI {
 	/**
 	A JS map with the provider buttons, ordered by provider.name
 	@type {Map}
-	@private
 	*/
 
 	#providerButtons = new Map ( );
@@ -105,7 +101,6 @@ class ProvidersToolbarUI {
 	/**
 	the active transit mode button
 	@type {ProviderToolbarTransitModeButton}
-	@private
 	*/
 
 	#activeTransitModeButton = null;
@@ -113,14 +108,12 @@ class ProvidersToolbarUI {
 	/**
 	the active provider button
 	@type {ProviderToolbarProviderButton}
-	@private
 	*/
 
 	#activeProviderButton = null;
 
 	/**
 	Transit mode buttons creation
-	@private
 	*/
 
 	#createTransitModesButtons ( ) {
@@ -136,7 +129,6 @@ class ProvidersToolbarUI {
 
 	/**
 	Provider buttons creation
-	@private
 	*/
 
 	#createProvidersButtons ( ) {

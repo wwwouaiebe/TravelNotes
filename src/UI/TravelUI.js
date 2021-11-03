@@ -56,7 +56,6 @@ Tests ...
 @file TravelUI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -128,7 +127,6 @@ class ExpandButtonClickEL {
 	/**
 	A reference to the RoutesListUI object
 	@type {RoutesListUI}
-	@private
 	*/
 
 	#routesListUI = null;
@@ -206,7 +204,6 @@ class TravelUI {
 	/**
 	The routes list header
 	@type {HTMLElement}
-	@private
 	*/
 
 	#routesHeaderDiv = null;
@@ -214,7 +211,6 @@ class TravelUI {
 	/**
 	The travel name input
 	@type {HTMLElement}
-	@private
 	*/
 
 	#travelNameInput = null;
@@ -222,7 +218,6 @@ class TravelUI {
 	/**
 	The routes list UI
 	@type {RoutesListUI}
-	@private
 	*/
 
 	#routesListUI = null;
@@ -230,7 +225,6 @@ class TravelUI {
 	/**
 	The expand routes list UI button
 	@type {HTMLElement}
-	@private
 	*/
 
 	#expandRoutesButton = null;
@@ -238,7 +232,6 @@ class TravelUI {
 	/**
 	This method creates the travel name div
 	@param {HTMLElement} uiMainDiv The HTMLElement in witch the travel name div must be created
-	@private
 	*/
 
 	#createTravelNameDiv ( uiMainDiv ) {
@@ -273,7 +266,6 @@ class TravelUI {
 
 	/**
 	This method creates the add route button
-	@private
 	*/
 
 	#createAddRouteButton ( ) {
@@ -292,7 +284,6 @@ class TravelUI {
 	/**
 	This method creates the routes list header div
 	@param {HTMLElement} uiMainDiv The HTMLElement in witch the route list header must be created
-	@private
 	*/
 
 	#createRoutesListHeaderDiv ( uiMainDiv ) {
@@ -359,7 +350,6 @@ class TravelUI {
 	/**
 	Areference to the routes list UI
 	@type {RoutesListUI}
-	@private
 	*/
 
 	get routesListUI ( ) { return this.#routesListUI; }

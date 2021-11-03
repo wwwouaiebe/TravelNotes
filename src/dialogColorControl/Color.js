@@ -32,7 +32,6 @@ Tests ...
 @file Color.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -41,7 +40,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module dialogColorControl
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -62,21 +60,21 @@ class Color {
 
 	/**
 	The red value of the color
-	@type {!number}
+	@type {Number}
 	*/
 
 	#red;
 
 	/**
 	The green value of the color
-	@type {!number}
+	@type {Number}
 	*/
 
 	#green;
 
 	/**
 	The blue value of the color
-	@type {!number}
+	@type {Number}
 	*/
 
 	#blue;

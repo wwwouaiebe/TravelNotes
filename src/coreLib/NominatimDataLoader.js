@@ -37,43 +37,43 @@ import { ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
 class NominatimDataLoader {
 
 	/** The status of the requests
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	#nominatimStatusOk = false;
 
 	/**
 	The name found by Nominatim
-	@type {string}
+	@type {String}
 	*/
 
 	#name = '';
 
 	/**
 	The street found by Nominatim
-	@type {string}
+	@type {String}
 	*/
 
 	#street = '';
 
 	/**
 	The city found by Nominatim
-	@type {string}
+	@type {String}
 	*/
 
 	#city = '';
 
 	/**
 	The country found by Nominatim
-	@type {string}
+	@type {String}
 	*/
 
 	#country = '';
 
 	/**
 	This method parse the data received from Nominatim
-	@param {object} nominatimDataZoom10 the data received from Nomination using the zoom factor 10
-	@param {object} nominatimDataZoom18 the data received from Nomination using the zoom factor 18
+	@param {Object} nominatimDataZoom10 the data received from Nomination using the zoom factor 10
+	@param {Object} nominatimDataZoom18 the data received from Nomination using the zoom factor 18
 	*/
 
 	#parseNominatimData ( nominatimDataZoom10, nominatimDataZoom18 ) {
@@ -114,7 +114,7 @@ class NominatimDataLoader {
 
 	/**
 	This method call Nominatim
-	@param {Array.<number>} latLng The latitude and longitude of the point for witch the address is searched
+	@param {Array.<Number>} latLng The latitude and longitude of the point for witch the address is searched
 	*/
 
 	async loadData ( latLng ) {

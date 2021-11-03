@@ -32,7 +32,6 @@ Tests ...
 @file RoadbookUpdater.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -41,7 +40,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module roadbook
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -61,37 +59,32 @@ class RoadbookUpdater {
 	/**
 	The HTMLElement in witch the roadbook content is placed
 	@type {HTMLElement}
-	@private
 	*/
 
 	#travelNotesHtmlElement = document.getElementById ( 'TravelNotes' );
 
 	/**
-	@type {boolean}
-	@private
+	@type {Boolean}
 	*/
 
 	#showTravelNotes = true;
 
 	/**
-	@type {boolean}
-	@private
+	@type {Boolean}
 	*/
 
 	#showRouteNotes = true;
 
 	/**
-	@type {boolean}
-	@private
+	@type {Boolean}
 	*/
 
 	#showManeuversNotes = false;
 
 	/**
 	Show or hide the notes
-	@param {string} selector The css selector for the notes to show/hide
-	@param {boolean} show
-	@private
+	@param {String} selector The css selector for the notes to show/hide
+	@param {Boolean} show
 	*/
 
 	#toggleNotes ( selector, show ) {
@@ -117,7 +110,7 @@ class RoadbookUpdater {
 
 	/**
 	The visibility status of the travel notes
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	get showTravelNotes ( ) { return this.#showTravelNotes; }
@@ -128,7 +121,7 @@ class RoadbookUpdater {
 
 	/**
 	The visibility status of the route notes
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	get showRouteNotes ( ) { return this.#showRouteNotes; }
@@ -139,7 +132,7 @@ class RoadbookUpdater {
 
 	/**
 	The visibility status of the maneuver notes
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	get showManeuversNotes ( ) { return this.#showManeuversNotes; }

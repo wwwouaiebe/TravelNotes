@@ -33,7 +33,6 @@ Tests ...
 @file PolylineRouteProvider.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -42,7 +41,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module routeProviders
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -94,9 +92,8 @@ class PolylineRouteProvider extends BaseRouteProvider {
 
 	/**
 	Add a maneuver to the itinerary
-	@param {number} itineraryPointObjId the objId of the itineraryPoint linked to the maneuver
-	@param {string} position the position of the maneuver. Must be kStart or kEnd
-	@private
+	@param {Number} itineraryPointObjId the objId of the itineraryPoint linked to the maneuver
+	@param {String} position the position of the maneuver. Must be kStart or kEnd
 	*/
 
 	#addManeuver ( itineraryPointObjId, position ) {
@@ -117,9 +114,8 @@ class PolylineRouteProvider extends BaseRouteProvider {
 
 	/**
 	Add a itineraryPoint to the itineraryPoints collection
-	@param {array.<number>} latLng the position of the itineraryPoint
-	@return {number} the objId of the new itineraryPoint
-	@private
+	@param {Array.<Number>} latLng the position of the itineraryPoint
+	@return {Number} the objId of the new itineraryPoint
 	*/
 
 	#addItineraryPoint ( latLng ) {
@@ -133,7 +129,6 @@ class PolylineRouteProvider extends BaseRouteProvider {
 	This method add 64 intermediates points on a stuff of great circle
 	@param {WayPoint} startWayPoint the starting wayPoint
 	@param {WayPoint} endWayPoint the ending wayPoint
-	@private
 	*/
 
 	#addIntermediateItineraryPoints ( startWayPoint, endWaypoint ) {
@@ -216,7 +211,6 @@ class PolylineRouteProvider extends BaseRouteProvider {
 
 	/**
 	Set a stuff of great circle as itinerary
-	@private
 	*/
 
 	#parseGreatCircle ( ) {
@@ -267,7 +261,6 @@ class PolylineRouteProvider extends BaseRouteProvider {
 
 	/**
 	this function set a circle as itinerary
-	@private
 	*/
 
 	#parseCircle ( ) {
@@ -340,7 +333,6 @@ class PolylineRouteProvider extends BaseRouteProvider {
 	Build a polyline (as stuff of a great circle) or a circle from the start and end wayPoints
 	@param {function} onOk a function to call when the response is parsed correctly
 	@param {function} onError a function to call when an error occurs
-	@private
 	*/
 
 	#parseResponse ( onOk, onError ) {
@@ -389,8 +381,7 @@ class PolylineRouteProvider extends BaseRouteProvider {
 	/**
 	The icon used in the ProviderToolbarUI.
 	Overload of the base class icon property
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get icon ( ) {
@@ -403,8 +394,7 @@ class PolylineRouteProvider extends BaseRouteProvider {
 	/**
 	The provider name.
 	Overload of the base class name property
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get name ( ) { return 'Polyline'; }
@@ -412,8 +402,7 @@ class PolylineRouteProvider extends BaseRouteProvider {
 	/**
 	The title to display in the ProviderToolbarUI button.
 	Overload of the base class title property
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get title ( ) { return 'Polyline & Circle'; }
@@ -422,8 +411,7 @@ class PolylineRouteProvider extends BaseRouteProvider {
 	The possible transit modes for the provider.
 	Overload of the base class transitModes property
 	Must be a subarray of [ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ]
-	@type {Array.<string>}
-	@readonly
+	@type {Array.<String>}
 	*/
 
 	get transitModes ( ) { return [ 'line', 'circle' ]; }
@@ -431,8 +419,7 @@ class PolylineRouteProvider extends BaseRouteProvider {
 	/**
 	A boolean indicating when a provider key is needed for the provider.
 	Overload of the base class providerKeyNeeded property
-	@type {boolean}
-	@readonly
+	@type {Boolean}
 	*/
 
 	get providerKeyNeeded ( ) { return false; }

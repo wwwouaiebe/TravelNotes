@@ -32,7 +32,6 @@ Tests ...
 @file NoteHTMLViewsFactory.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -79,7 +78,7 @@ class NoteHTMLViewsFactory {
 
 	/**
 	Gives an HTMLElement with the note icon and sames values than the this.getNoteTextHTML method
-	@param {string} classPrefix A string that will be added to all the className of the created HTMLElement
+	@param {String} classPrefix A string that will be added to all the className of the created HTMLElement
 	@param {NoteAndRoute} noteAndRoute A NoteAndRoute object with the note and the route to witch the note is attached
 	@return {HTMLElement}
 	*/
@@ -130,7 +129,7 @@ class NoteHTMLViewsFactory {
 	url (if any), latitude, longitude, distance since the start of the travel (if the note is attached to a chained node),
 	distance since the start of the route (if the note is a route note) and distance till the next note(if the note
 	is a route note)
-	@param {string} classPrefix A string that will be added to all the className of the created HTMLElements
+	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
 	@param {NoteAndRoute} noteAndRoute A NoteAndRoute object with the note and the route to witch the note is attached
 	@return {HTMLElement} an HTMLElement
 	*/
@@ -284,7 +283,7 @@ class NoteHTMLViewsFactory {
 
 	/**
 	Gives an HTMLElement with all the travel notes
-	@param {string} classPrefix A string that will be added to all the className of the created HTMLElements
+	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
 	@return {HTMLElement}
 	*/
 

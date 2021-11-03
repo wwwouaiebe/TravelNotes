@@ -32,7 +32,6 @@ Tests ...
 @file OsmSearchDataUI.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -41,7 +40,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module osmSearchPaneUI
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -173,7 +171,6 @@ class OsmSearchDataUI {
 	/**
 	A reference to the HTMLElement in witch the data have to be added
 	@type {HTMLElement}
-	@private
 	*/
 
 	#paneData = null;
@@ -181,7 +178,6 @@ class OsmSearchDataUI {
 	/**
 	Temp reference to the OsmElement for witch the HTMLElement is currently build
 	@type {Object}
-	@private
 	*/
 
 	#currentOsmElement = null;
@@ -189,7 +185,6 @@ class OsmSearchDataUI {
 	/**
 	Temp var to store the currently builded HTMLElement
 	@type {HTMLElement}
-	@private
 	*/
 
 	#currentContainer = null;
@@ -197,7 +192,6 @@ class OsmSearchDataUI {
 	/**
 	Temp var to store the currently builded HTMLElement
 	@type {HTMLElement}
-	@private
 	*/
 
 	#currentSearchResultCell = null;
@@ -211,7 +205,6 @@ class OsmSearchDataUI {
 	/**
 	Search result contextmenu event listener
 	@type {SearchResultContextMenuEL}
-	@private
 	*/
 
 	#searchResultContextMenuEL = null;
@@ -219,7 +212,6 @@ class OsmSearchDataUI {
 	/**
 	Search result  mouseenter event listener
 	@type {SearchResultMouseEnterEL}
-	@private
 	*/
 
 	#searchResultMouseEnterEL = null;
@@ -227,14 +219,12 @@ class OsmSearchDataUI {
 	/**
 	Search result contextmenu event listener
 	@type {SearchResultMouseLeaveEL}
-	@private
 	*/
 
 	#searchResultMouseLeaveEL	 = null;
 
 	/**
 	Icon builder
-	@private
 	*/
 
 	#buildIcon ( ) {
@@ -261,7 +251,6 @@ class OsmSearchDataUI {
 
 	/**
 	generic builder
-	@private
 	*/
 
 	#addOsmTag ( osmTagValue ) {
@@ -272,7 +261,6 @@ class OsmSearchDataUI {
 
 	/**
 	Address builder
-	@private
 	*/
 
 	#addAddress ( ) {
@@ -310,7 +298,6 @@ class OsmSearchDataUI {
 
 	/**
 	Phone builder
-	@private
 	*/
 
 	#addPhone ( ) {
@@ -321,7 +308,6 @@ class OsmSearchDataUI {
 
 	/**
 	Mail builder
-	@private
 	*/
 
 	#addMail ( ) {
@@ -339,7 +325,6 @@ class OsmSearchDataUI {
 
 	/**
 	Web site builder
-	@private
 	*/
 
 	#addWebSite ( ) {
@@ -358,7 +343,6 @@ class OsmSearchDataUI {
 
 	/**
 	Add all osm data
-	@private
 	*/
 
 	#addOsmData ( ) {
@@ -380,7 +364,6 @@ class OsmSearchDataUI {
 
 	/**
 	Title builder
-	@private
 	*/
 
 	#addTitle ( ) {
@@ -392,7 +375,6 @@ class OsmSearchDataUI {
 
 	/**
 	Add event listeners
-	@private
 	*/
 
 	#addEventListeners ( ) {
@@ -403,7 +385,6 @@ class OsmSearchDataUI {
 
 	/**
 	Element builder
-	@private
 	*/
 
 	#buildHtmlElement ( parentNode ) {

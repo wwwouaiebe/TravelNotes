@@ -32,7 +32,6 @@ Tests ...
 @file TravelNotesViewer.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -41,7 +40,6 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module main
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -67,16 +65,14 @@ class TravelNotesViewer {
 
 	/**
 	Guard to avoid a second upload
-	@type {boolean}
-	@private
+	@type {Boolean}
 	*/
 
 	#travelNotesLoaded = false;
 
 	/**
 	Load a travel from the server
-	@param {string} travelUrl The url of the trv file to open
-	@private
+	@param {String} travelUrl The url of the trv file to open
 	*/
 
 	async #loadDistantTravel ( travelUrl ) {
@@ -101,8 +97,8 @@ class TravelNotesViewer {
 	/**
 	This method load the TravelNotes viewer and open a read only map passed trought the url.
 	This method can only be executed once. Others call will be ignored.
-	@param {string} travelUrl The url of the trv file to open
-	@param {boolean} addLayerToolbar A bollean indicating when the map layer toolbar must be visible
+	@param {String} travelUrl The url of the trv file to open
+	@param {Boolean} addLayerToolbar A bollean indicating when the map layer toolbar must be visible
 	*/
 
 	addReadOnlyMap ( travelUrl, addLayerToolbar ) {

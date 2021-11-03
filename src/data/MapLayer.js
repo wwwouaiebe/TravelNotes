@@ -30,10 +30,9 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 @typedef {Object} LayerToolbarButtonData
 @desc A layers toolbar button properties
-@property {string} text The text to display in the toolbar button
-@property {string} color The foreground color of the toolbar button
-@property {string} backgroundColor The background color of the toolbar button
-@public
+@property {String} text The text to display in the toolbar button
+@property {String} color The foreground color of the toolbar button
+@property {String} backgroundColor The background color of the toolbar button
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -53,21 +52,21 @@ class MapLayer	{
 
 	/**
 	The name of the map
-	@type {string}
+	@type {String}
 	*/
 
 	#name = null;
 
 	/**
 	The type of service: wms or wmts
-	@type {string}
+	@type {String}
 	*/
 
 	#service = null;
 
 	/**
 	The url to use to get the map
-	@type {string}
+	@type {String}
 	*/
 
 	#url = null;
@@ -75,28 +74,28 @@ class MapLayer	{
 	/**
 	The wmsOptions for this mapLayer
 	See the Leaflet TileLayer.WMS documentation
-	@type {object}
+	@type {Object}
 	*/
 
 	#wmsOptions = null;
 
 	/**
 	The lower left and upper right corner of the mapLayer
-	@type {Array.<number>}
+	@type {Array.<Number>}
 	*/
 
 	#bounds = null;
 
 	/**
 	The smallest possible zoom for this mapLayer
-	@type {number}
+	@type {Number}
 	*/
 
 	#minZoom = null;
 
 	/**
 	The largest possible zoom for this mapLayer
-	@type {number}
+	@type {Number}
 	*/
 
 	#maxZoom = null;
@@ -110,21 +109,21 @@ class MapLayer	{
 
 	/**
 	The name of the service provider.
-	@type {string}
+	@type {String}
 	*/
 
 	#providerName = null;
 
 	/**
 	When true, an access key is required to get the map.
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	#providerKeyNeeded = false;
 
 	/**
 	The map attributions.
-	@type {string}
+	@type {String}
 	*/
 
 	#attribution = null;
@@ -335,21 +334,21 @@ class MapLayer	{
 
 	/**
 	The name of the map
-	@type {string}
+	@type {String}
 	*/
 
 	get name ( ) { return this.#name; }
 
 	/**
 	The type of service: wms or wmts
-	@type {string}
+	@type {String}
 	*/
 
 	get service ( ) { return this.#service; }
 
 	/**
 	The url to use to get the map
-	@type {string}
+	@type {String}
 	*/
 
 	get url ( ) { return this.#url; }
@@ -357,28 +356,28 @@ class MapLayer	{
 	/**
 	The wmsOptions for this mapLayer
 	See the Leaflet TileLayer.WMS documentation
-	@type {object}
+	@type {Object}
 	*/
 
 	get wmsOptions ( ) { return this.#wmsOptions; }
 
 	/**
 	The lower left and upper right corner of the mapLayer
-	@type {Array.<number>}
+	@type {Array.<Number>}
 	*/
 
 	get bounds ( ) { return this.#bounds; }
 
 	/**
 	The smallest possible zoom for this mapLayer
-	@type {number}
+	@type {Number}
 	*/
 
 	get minZoom ( ) { return this.#minZoom; }
 
 	/**
 	The largest possible zoom for this mapLayer
-	@type {number}
+	@type {Number}
 	*/
 
 	get maxZoom ( ) { return this.#maxZoom; }
@@ -392,14 +391,14 @@ class MapLayer	{
 
 	/**
 	The name of the service provider. This name will be used to find the access key to the service.
-	@type {string}
+	@type {String}
 	*/
 
 	get providerName ( ) { return this.#providerName; }
 
 	/**
 	When true, an access key is required to get the map.
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	get providerKeyNeeded ( ) { return this.#providerKeyNeeded; }
@@ -407,7 +406,7 @@ class MapLayer	{
 	/**
 	The map attributions. For maps based on OpenStreetMap, it is not necessary to add
 	the attributions of OpenStreetMap because they are always present in Travel & Notes.
-	@type {string}
+	@type {String}
 	*/
 
 	get attribution ( ) { return this.#attribution; }

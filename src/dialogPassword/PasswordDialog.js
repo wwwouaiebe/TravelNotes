@@ -69,7 +69,7 @@ class PasswordDialog extends BaseDialog {
 
 	/**
 	the verifyPassword constructor parameter
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	#verifyPassword;
@@ -87,18 +87,18 @@ class PasswordDialog extends BaseDialog {
 	*/
 
 	#onMouseUpEyeEventListener;
-	
+
 	/**
 	The minimal length for the password
 	@type {String}
 	*/
-	
-	static get #PSWD_MIN_LENGTH ( ) { return 12; }
 
+	// eslint-disable-next-line no-magic-numbers
+	static get #PSWD_MIN_LENGTH ( ) { return 12; }
 
 	/**
 	The constructor
-	@param {boolean} verifyPassword When true the password must be conform to the password rules
+	@param {Boolean} verifyPassword When true the password must be conform to the password rules
 	*/
 
 	constructor ( verifyPassword ) {
@@ -123,7 +123,7 @@ class PasswordDialog extends BaseDialog {
 		this.#eyeSpan.addEventListener ( 'mousedown', this.#onMouseDownEyeEventListener, false );
 		this.#eyeSpan.addEventListener ( 'mouseup', this.#onMouseUpEyeEventListener,	false );
 	}
-	
+
 	/**
 	Remove event listeners
 	*/

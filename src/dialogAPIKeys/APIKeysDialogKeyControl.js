@@ -96,7 +96,7 @@ class APIKeysDialogKeyControl {
 
 	/**
 	A unique ObjId given to the control
-	@type {!number}
+	@type {Number}
 	*/
 
 	#objId;
@@ -155,7 +155,7 @@ class APIKeysDialogKeyControl {
 
 	/**
 	The ObjId of the control
-	@type {!number}
+	@type {Number}
 	*/
 
 	get objId ( ) { return this.#objId; }
@@ -169,14 +169,14 @@ class APIKeysDialogKeyControl {
 
 	/**
 	The providerName
-	@type {string}
+	@type {String}
 	*/
 
 	get providerName ( ) { return this.#providerNameInput.value; }
 
 	/**
 	The providerKey
-	@type {string}
+	@type {String}
 	*/
 
 	get providerKey ( ) { return this.#providerKeyInput.value; }

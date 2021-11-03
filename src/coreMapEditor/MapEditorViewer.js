@@ -118,7 +118,7 @@ class MapEditorViewer {
 
 	/**
 	Add a Leaflet object to the map
-	@param {!number} objId The objId to use
+	@param {Number} objId The objId to use
 	@param {Object} leafletObject The Leaflet object to add
 	*/
 
@@ -132,7 +132,7 @@ class MapEditorViewer {
 	This method add a route on the map
 	This method is called by the 'routeupdated' event listener of the viewer
 	and by the MapEditor.updateRoute( ) method
-	@param {!number} routeObjId The objId of the route to add
+	@param {Number} routeObjId The objId of the route to add
 	@return {Route} the added Route
 	@listens routeupdated
 	*/
@@ -193,7 +193,7 @@ class MapEditorViewer {
 	This method add a note on the map
 	This method is called by the 'noteupdated' event listener of the viewer
 	and indirectly by the MapEditor.updateNote( ) method
-	@param {!number} noteObjId The objId of the note to add
+	@param {Number} noteObjId The objId of the note to add
 	@return {NoteLeafletObjects} An object with a reference to the Leaflet objects of the note
 	@listens noteupdated
 	*/
@@ -281,7 +281,7 @@ class MapEditorViewer {
 	/**
 	This method compute the dashArray to use for a route
 	@param {Route} route The route for witch the dashArray must be computed
-	@return {string} the dashArray to use for the route
+	@return {String} the dashArray to use for the route
 	*/
 
 	getDashArray ( route ) {
@@ -304,7 +304,7 @@ class MapEditorViewer {
 
 	/**
 	This method zoom to a point or an array of points
-	@param {Array.<number>} latLng the point
+	@param {Array.<Number>} latLng the point
 	@param {Array.<Array.<Array.<number>>>} geometry the array of points...
 	@listens zoomto
 	*/
@@ -325,7 +325,7 @@ class MapEditorViewer {
 	This method is called by the 'layerchange' event listener of the viewer
 	and by the MapEditor.setLayer( ) method
 	@param {Layer} layer The layer to set
-	@param {string} url The url to use for this layer (reminder: url !== layer.url !!! See MapEditor.setLayer)
+	@param {String} url The url to use for this layer (reminder: url !== layer.url !!! See MapEditor.setLayer)
 	@listens layerchange
 	*/
 

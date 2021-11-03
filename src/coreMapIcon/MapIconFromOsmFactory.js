@@ -365,7 +365,7 @@ class MapIconFromOsmFactory {
 
 	/**
 	get the svg and the data needed for creating the icon, using an async function
-	@param {Array.<number>} iconLatLng The latitude and longitude of the icon
+	@param {Array.<Number>} iconLatLng The latitude and longitude of the icon
 	@param {!Route} route The route to witch the icon will be attached.
 	@return {?NoteDataForMapIcon} An object with the note data
 	*/

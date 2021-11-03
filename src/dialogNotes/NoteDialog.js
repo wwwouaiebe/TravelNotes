@@ -97,7 +97,7 @@ class NoteDialog extends BaseDialog {
 
 	/**
 	A boolean indicating to start the geocoder when opening the dialog box.
-	@type {boolean}
+	@type {Boolean}
 	*/
 
 	#startGeoCoder;
@@ -309,7 +309,7 @@ class NoteDialog extends BaseDialog {
 
 	/**
 	Overload of the BaseDialog.canClose ( ) method. Verify that the url is valid and the iconContent completed
-	@return {boolean} true when the url is valid and the iconContent completed
+	@return {Boolean} true when the url is valid and the iconContent completed
 	*/
 
 	canClose ( ) {
@@ -355,7 +355,7 @@ class NoteDialog extends BaseDialog {
 
 	/**
 	The dialog title. Overload of the BaseDialog.title property
-	@type {string}
+	@type {String}
 	*/
 
 	get title ( ) { return theTranslator.getText ( 'NoteDialog - Note' ); }

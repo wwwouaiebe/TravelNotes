@@ -31,7 +31,6 @@ Doc reviewed 20210915
 @file PublicTransportData.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -40,7 +39,6 @@ Doc reviewed 20210915
 @------------------------------------------------------------------------------------------------------------------------------
 
 @module routeProviders
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -86,7 +84,6 @@ class PublicTransportData {
 	get newId ( ) { return this.#newId --; }
 
 	/**
-	@private
 	*/
 
 	firstOf ( array ) {
@@ -94,7 +91,6 @@ class PublicTransportData {
 	}
 
 	/**
-	@private
 	*/
 
 	lastOf ( array ) {
@@ -102,7 +98,6 @@ class PublicTransportData {
 	}
 
 	/**
-	@private
 	*/
 
 	removeFrom ( array, value ) {
@@ -110,7 +105,6 @@ class PublicTransportData {
 	}
 
 	/**
-	@private
 	*/
 
 	#reverseWay ( way ) {
@@ -129,7 +123,6 @@ class PublicTransportData {
 	}
 
 	/**
-	@private
 	*/
 
 	mergeWays ( waysId1, waysId2 ) {
@@ -176,7 +169,6 @@ class PublicTransportData {
 	}
 
 	/**
-	@private
 	*/
 
 	#cloneNode ( nodeId ) {
@@ -199,7 +191,6 @@ class PublicTransportData {
 	}
 
 	/**
-	@private
 	*/
 
 	cloneWay ( wayId ) {

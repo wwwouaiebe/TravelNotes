@@ -33,7 +33,6 @@ Tests ...
 @file OsrmTextInstructions.js
 @copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 @license GNU General Public License
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -49,8 +48,6 @@ The osrmTextInstructions object code is the same than the code in the osrm-text-
 If changes are done in osrm-text-instruction, they can be reported there without major problems.
 Language json files are installed by the grunt.js file. Adapt this file if you will more languages.
 Don't rename variables for compatibility with osrm-text-instructions
-
-@private
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -123,7 +120,6 @@ class OsrmTextInstructions 	{
 
 	/**
 	new version of the OsrmTextInstructions.directionFromDegree ( ) method
-	@private
 	*/
 
 	#directionFromDegree ( language, degree ) {
