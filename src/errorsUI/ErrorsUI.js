@@ -33,24 +33,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ErrorsUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module errorsUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theConfig from '../data/Config.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
@@ -58,10 +40,8 @@ import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class
-@classdesc This class show a message on the screen
-@see {@link theErrorsUI} for the one and only one instance of this class
-@hideconstructor
+@classdesc This class show a message on the screen<br/>
+See theErrorsUI for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -69,40 +49,46 @@ import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 class ErrorsUI {
 
 	/**
+	The container
 	@type {HTMLElement}
 	*/
 
-	#mainHTMLElement = null;
+	#mainHTMLElement;
 
 	/**
+	The message area
 	@type {HTMLElement}
 	*/
 
-	#messageHTMLElement = null;
+	#messageHTMLElement;
 
 	/**
+	A timerId for the close UI timer
 	@type {Number}
 	*/
 
-	#timerId = null;
+	#timerId;
 
 	/**
+	The hide help input
 	@type {HTMLElement}
 	*/
 
-	#hideHelpInput = null;
+	#hideHelpInput;
 
 	/**
+	The hide help container
 	@type {HTMLElement}
 	*/
 
-	#hideHelpHTMLElement = null;
+	#hideHelpHTMLElement;
 
 	/**
+	The error level. Must be 'Info', 'Help', 'Warning' or 'Error'
 	@type {String}
 	*/
 
-	#currentErrorLevel = '';
+	#currentErrorLevel;
 
 	/**
 	Hide the help window
@@ -151,8 +137,8 @@ class ErrorsUI {
 		this.#timerId = setTimeout ( ( ) => this.#hide ( ), timeOutDuration );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -263,8 +249,6 @@ class ErrorsUI {
 
 @desc The one and only one instance of ErrorsUI class
 @type {ErrorsUI}
-@constant
-@global
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
