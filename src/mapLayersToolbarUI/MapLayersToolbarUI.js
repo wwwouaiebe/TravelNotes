@@ -34,24 +34,6 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file MapLayersToolbarUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module mapLayersToolbarUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
@@ -65,14 +47,57 @@ import theAPIKeysManager from '../core/APIKeysManager.js';
 
 import { MOUSE_WHEEL_FACTORS, ZERO } from '../main/Constants.js';
 
-const OUR_MIN_BUTTONS_VISIBLE = 3;
+/**
+@------------------------------------------------------------------------------------------------------------------------------
+
+@classdesc A simple container for data exchange between the ButtonsContainerWheelEL and the MapLayersToolbarUI
+
+@------------------------------------------------------------------------------------------------------------------------------
+*/
+
+class WheelEventData {
+	
+	/**
+	The constructor
+	*/
+	
+	constructor ( ) {
+		Object.seal ( this );
+	}
+
+	/**
+	The current margin-top in pixels css value for the buttons container
+	@type {Number}
+	*/
+	
+	marginTop = ZERO;
+
+	/**
+	The height of 1 button in pixel;
+	@type {Number}
+	*/
+	
+	buttonHeight = ZERO;
+
+	/**
+	The total height of all butons in pixels
+	@type {Number}
+	*/
+	
+	buttonsHeight = ZERO;
+
+	/**
+	The top css value of the first button
+	@type {Number}
+	*/
+	
+	buttonTop = ZERO;
+}
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class ButtonsContainerWheelEL
 @classdesc Wheel event listeners on the map layer buttons. Scroll the buttons
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -84,10 +109,18 @@ class ButtonsContainerWheelEL {
 	@type {Object}
 	*/
 
-	#wheelEventData = null;
+	#wheelEventData;
+	
+	/**
+	The min buttons that have to be always visible
+	@type {Number}
+	*/
 
-	/*
-	constructor
+	// eslint-disable-next-line no-magic-numbers
+	static get #MIN_BUTTONS_VISIBLE ( ) { return 3 ;}
+
+	/**
+	The constructor
 	@param {Object} wheelEventData A reference to the WheelEventData Object
 	*/
 
@@ -98,6 +131,7 @@ class ButtonsContainerWheelEL {
 
 	/**
 	Event listener method
+	@param {Event} wheelEvent The event to handle
 	*/
 
 	handleEvent ( wheelEvent ) {
@@ -112,12 +146,12 @@ class ButtonsContainerWheelEL {
 					this.#wheelEventData.marginTop;
 			this.#wheelEventData.marginTop =
 				this.#wheelEventData.marginTop < this.#wheelEventData.buttonTop - this.#wheelEventData.buttonsHeight +
-				( OUR_MIN_BUTTONS_VISIBLE * this.#wheelEventData.buttonHeight )
+				( ButtonsContainerWheelEL.#MIN_BUTTONS_VISIBLE * this.#wheelEventData.buttonHeight )
 					?
 					(
 						this.#wheelEventData.buttonTop -
 						this.#wheelEventData.buttonsHeight +
-						( OUR_MIN_BUTTONS_VISIBLE * this.#wheelEventData.buttonHeight )
+						( ButtonsContainerWheelEL.#MIN_BUTTONS_VISIBLE * this.#wheelEventData.buttonHeight )
 					)
 					:
 					this.#wheelEventData.marginTop;
@@ -129,11 +163,9 @@ class ButtonsContainerWheelEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class MapLayersToolbarUI
 @classdesc This class is the Layer Toolbar on the left of the screen.
-Displays buttons to change the background maps and manages the background maps list
-@see {@link theMapLayersToolbarUI} for the one and only one instance of this class
-@hideconstructor
+Displays buttons to change the background maps and manages the background maps list<br/>
+See theMapLayersToolbarUI for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -145,47 +177,42 @@ class MapLayersToolbarUI {
 	@type {HTMLElement}
 	*/
 
-	#mainHTMLElement = null;
+	#mainHTMLElement;
 
 	/**
 	The HTML element that contains the map layer buttons
 	@type {HTMLElement}
 	*/
 
-	#buttonsHTMLElement = null;
+	#buttonsHTMLElement;
 
 	/**
 	An array with the map layer buttons and links
 	@type {Array.<Object>}
 	*/
 
-	#buttonsAndLinks = [];
+	#buttonsAndLinks;
 
 	/**
 	Data shared with the wheel event listener
-	@type {Object}
+	@type {WheelEventData}
 	*/
 
-	#wheelEventData = {
-		marginTop : ZERO,
-		buttonHeight : ZERO,
-		buttonsHeight : ZERO,
-		buttonTop : ZERO
-	}
+	#wheelEventData;
 
 	/**
 	Timer id for the mouse leave event
 	@type {Number}
 	*/
 
-	#timerId = null;
+	#timerId;
 
 	/**
 	The wheel event listener
-	@type {Object}
+	@type {ButtonsContainerWheelEL}
 	*/
 
-	#onWheelButtonsEventListener = null;
+	#onWheelButtonsEventListener;
 
 	/**
 	Show the map layer buttons. Called by the mouseenter event
@@ -285,13 +312,15 @@ class MapLayersToolbarUI {
 		this.#timerId = setTimeout ( ( ) => this.#hide ( ), theConfig.layersToolbarUI.toolbarTimeOut );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 		this.#onWheelButtonsEventListener = new ButtonsContainerWheelEL ( this.#wheelEventData );
+		this.#buttonsAndLinks = [];
+		this.#wheelEventData = new WheelEventData ( );
 	}
 
 	/**
@@ -335,8 +364,6 @@ class MapLayersToolbarUI {
 
 @desc The one and only one instance of MapLayersToolbarUI class
 @type {MapLayersToolbarUI}
-@constant
-@global
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

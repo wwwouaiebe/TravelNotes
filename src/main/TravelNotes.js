@@ -54,24 +54,6 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file TravelNotes.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module main
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theConfig from '../data/Config.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theRouteEditor from '../core/RouteEditor.js';
@@ -93,10 +75,8 @@ import { LAT_LNG, TWO, SAVE_STATUS, HTTP_STATUS_OK } from '../main/Constants.js'
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class TravelNotes
-@classdesc This class is the entry point of the application.
-@see {@link theTravelNotes} for the one and only one instance of this class
-@hideconstructor
+@classdesc This class is the entry point of the application.<br/>
+See theTravelNotes for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -126,8 +106,8 @@ class TravelNotes {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -214,7 +194,7 @@ class TravelNotes {
 
 	/**
 	This method add a provider. Used by plugins.
-	@param {class} provider The provider to add
+	@param {class} providerClass The provider to add
 	*/
 
 	addProvider ( providerClass ) {
@@ -223,6 +203,7 @@ class TravelNotes {
 
 	/**
 	Show an info, using theErrorsUI. Used by plugins.
+	@param {String} info The info to show
 	*/
 
 	showInfo ( info ) {

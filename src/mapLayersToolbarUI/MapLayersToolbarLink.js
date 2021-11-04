@@ -26,45 +26,30 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file MapLayersToolbarLink.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module mapLayersToolbarUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class LinkMouseEnterEL
 @classdesc mouse enter event listener for the link
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class LinkMouseEnterEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	@param {Event} mouseEnterEvent The event to handle
+	*/
 
 	handleEvent ( mouseEnterEvent ) {
 		mouseEnterEvent.stopPropagation ( );
@@ -76,22 +61,25 @@ class LinkMouseEnterEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class LinkMouseLeaveEL
 @classdesc mouse leave event listener for the link
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class LinkMouseLeaveEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	@param {Event} mouseLeaveEvent The event to handle
+	*/
 
 	handleEvent ( mouseLeaveEvent ) {
 		mouseLeaveEvent.stopPropagation ( );
@@ -104,9 +92,7 @@ class LinkMouseLeaveEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class MapLayersToolbarLink
 @classdesc Link button for the map layers toolbar
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -114,20 +100,30 @@ class LinkMouseLeaveEL {
 class MapLayersToolbarLink {
 
 	/**
-	Event listeners for the buttons
+	Mouseenter event listener
+	@type {LinkMouseEnterEL}
 	*/
 
-	#linkMouseEnterEL = null;
-	#linkMouseLeaveEL = null;
+	#linkMouseEnterEL;
 
 	/**
-	A reference to the link button html element
+	Mouseenter event listener
+	@type {LinkMouseLeaveEL}
 	*/
 
-	#linkButton = null;
+	#linkMouseLeaveEL;
 
-	/*
-	constructor
+	/**
+	The button with the link
+	@type {HTMLElement}
+	*/
+
+	#linkButton;
+
+	/**
+	The constructor
+	@param {Object} linkProperties An object with the buttons properties (href, title, textContent and target)
+	@param {HTMLElement} parentNode The buttons container
 	*/
 
 	constructor ( linkProperties, parentNode ) {
@@ -162,6 +158,7 @@ class MapLayersToolbarLink {
 
 	/**
 	The height of the button
+	@type {Number}
 	*/
 
 	get height ( ) { return this.#linkButton.clientHeight; }

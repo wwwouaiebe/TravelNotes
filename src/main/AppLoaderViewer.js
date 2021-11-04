@@ -26,24 +26,6 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file AppLoaderViewer.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module main
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theConfig from '../data/Config.js';
 import ConfigOverloader from '../data/ConfigOverloader.js';
 import theTravelNotesViewer from '../main/TravelNotesViewer.js';
@@ -56,22 +38,18 @@ import Zoomer from '../core/Zoomer.js';
 
 import { ZERO, ONE, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
 
-const OUR_VIEWER_DEFAULT_ZOOM = 2;
-
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class KeydownEventListener
 @classdesc keydown event listener, so we can use the keyboard for zoom on the travel, geolocator and maps
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class KeydownEventListener {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -80,6 +58,7 @@ class KeydownEventListener {
 
 	/**
 	Event listener method
+	@param {Event} keyBoardEvent The event to handle
 	*/
 
 	handleEvent ( keyBoardEvent ) {
@@ -103,9 +82,7 @@ class KeydownEventListener {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class AppLoaderViewer
 @classdesc Loader for the app.Load all the json files needed (config, translations, map layers...) and add event listeners.
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -117,28 +94,36 @@ class AppLoaderViewer {
 	@type {String}
 	*/
 
-	#travelUrl = null;
+	#travelUrl;
 
 	/**
 	the language in the lng parameter of the url
 	@type {String}
 	*/
 
-	#language = null;
+	#language;
 
 	/**
 	The path of the app + TravelNotes ( first part of the json file names )
 	@type {String}
 	*/
 
-	#originAndPath = window.location.href.substr ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'TravelNotes';
+	#originAndPath;
 
 	/**
+	A flag indicating when the layer toolbar must be added
 	@type {Boolean}
 	*/
 
-	#addLayerToolbar = false;
+	#addLayerToolbar;
+	
+	/**
+	The dafault zomm factor 
+	@type {Number}
+	*/
 
+	//eslint-disable-next-line no-magic-numbers
+	static get #VIEWER_DEFAULT_ZOOM ( ) {return 2;}
 	/**
 	The mapEditorViewer
 	@type {MapEditorViewer}
@@ -313,17 +298,19 @@ class AppLoaderViewer {
 		mapDiv.id = 'TravelNotes-Map';
 		document.body.appendChild ( mapDiv );
 		theTravelNotesData.map = window.L.map ( mapDiv.id, { attributionControl : false, zoomControl : false } )
-			.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], OUR_VIEWER_DEFAULT_ZOOM );
+			.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], AppLoaderViewer.#VIEWER_DEFAULT_ZOOM );
 
 		theTravelNotesViewer.addReadOnlyMap ( this.#travelUrl, this.#addLayerToolbar );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#originAndPath = window.location.href.substr ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'TravelNotes';
+		this.#addLayerToolbar = false;
 	}
 
 	/**

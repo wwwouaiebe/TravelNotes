@@ -26,24 +26,6 @@ Changes:
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file TravelNotesViewer.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module main
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theTravelNotesData from '../data/TravelNotesData.js';
 import ViewerFileLoader from '../core/ViewerFileLoader.js';
 import theAttributionsUI from '../attributionsUI/AttributionsUI.js';
@@ -53,10 +35,8 @@ import { TWO, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class
-@classdesc This class is the entry point of the viewer.
-@see {@link theTravelNotesViewer} for the one and only one instance of this class
-@hideconstructor
+@classdesc This class is the entry point of the viewer.<br>
+See theTravelNotesViewer for the one and only one instance of this class.
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -68,7 +48,7 @@ class TravelNotesViewer {
 	@type {Boolean}
 	*/
 
-	#travelNotesLoaded = false;
+	#travelNotesLoaded;
 
 	/**
 	Load a travel from the server
@@ -86,12 +66,13 @@ class TravelNotesViewer {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#travelNotesLoaded = false;
 	}
 
 	/**
@@ -126,8 +107,6 @@ class TravelNotesViewer {
 
 @desc The one and only one instance of theTravelNotesViewer class
 @type {theTravelNotesViewer}
-@constant
-@global
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

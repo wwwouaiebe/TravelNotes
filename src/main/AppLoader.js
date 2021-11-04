@@ -25,24 +25,6 @@ Changes:
 Doc reviewed 20210913
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file AppLoader.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module main
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 /* eslint-disable max-lines */
 
 import theMapEditor from '../coreMapEditor/MapEditor.js';
@@ -64,15 +46,10 @@ import theErrorsUI from '../errorsUI/ErrorsUI.js';
 
 import { LAT_LNG, SAVE_STATUS, ZERO, ONE, NOT_FOUND, HTTP_STATUS_OK, PANE_ID } from '../main/Constants.js';
 
-const OUR_DEMO_PRINT_MAX_TILES = 120;
-const OUR_DEMO_MAX_MANEUVERS_NOTES = 10;
-
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class RoadbookUpdateEL
 @classdesc roadbookupdate event listener
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -80,13 +57,14 @@ const OUR_DEMO_MAX_MANEUVERS_NOTES = 10;
 class RoadbookUpdateEL {
 
 	/**
+	A boolean indicating when the local storage is available
 	@type {Boolean}
 	*/
 
-	#storageAvailable = false;
+	#storageAvailable;
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -125,10 +103,8 @@ class RoadbookUpdateEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class AppLoader
 @classdesc Loader for the app. Load all the json files needed (config, translations, map layers...) and add event listeners
 to the document
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -140,28 +116,28 @@ class AppLoader {
 	@type {String}
 	*/
 
-	#travelUrl = null;
+	#travelUrl;
 
 	/**
 	the language in the lng parameter of the url
 	@type {String}
 	*/
 
-	#language = null;
+	#language;
 
 	/**
 	The path of the app + TravelNotes ( first part of the json file names )
 	@type {String}
 	*/
 
-	#originAndPath = window.location.href.substr ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'TravelNotes';
+	#originAndPath;
 
 	/**
 	An error message used when loading the json files
 	@type {String}
 	*/
 
-	#errorMessage = '';
+	#errorMessage;
 
 	/**
 	Loading event listeners
@@ -462,10 +438,12 @@ class AppLoader {
 				config.APIKeysDialog.haveUnsecureButtons = true;
 				config.errorsUI.showHelp = true;
 				config.layersToolbarUI.theDevil.addButton = false;
-				config.note.maxManeuversNotes = OUR_DEMO_MAX_MANEUVERS_NOTES;
+				// eslint-disable-next-line no-magic-numbers
+				config.note.maxManeuversNotes = 120;
 				config.note.haveBackground = true;
 				config.noteDialog.theDevil.addButton = false;
-				config.printRouteMap.maxTiles = OUR_DEMO_PRINT_MAX_TILES;
+				// eslint-disable-next-line no-magic-numbers
+				config.printRouteMap.maxTiles = 10;
 				config.route.showDragTooltip = NOT_FOUND;
 			}
 
@@ -485,6 +463,8 @@ class AppLoader {
 
 	/**
 	Loading translations
+	@param {Object} translationPromiseResult The response of the fetch for the TravelNotesXX.json file
+	@param {Object} defaultTranslationPromiseResult The response of the fetch for the TravelNotesEN.json file
 	*/
 
 	async #loadTranslations ( translationPromiseResult, defaultTranslationPromiseResult ) {
@@ -518,6 +498,8 @@ class AppLoader {
 
 	/**
 	Loading the NoteDialog config
+	@param {Object} noteDialogPromiseResult The response of the fetch for the TravelNotesNoteDialogXX.json file
+	@param {Object} defaultNoteDialogPromiseResult The response of the fetch for the TravelNotesNoteDialogEN.json file
 	*/
 
 	async #loadNoteDialogConfig ( noteDialogPromiseResult, defaultNoteDialogPromiseResult ) {
@@ -553,6 +535,8 @@ class AppLoader {
 
 	/**
 	Loading the OsmSearch dictionary
+	@param {Object} searchDictPromiseResult The response of the fetch for the TravelNotesSearchDictionaryXX.csv file
+	@param {Object} defaultSearchDictPromiseResult The response of the fetch for the TravelNotesSearchDictionaryEN.csv file
 	*/
 
 	async #loadOsmSearchDictionary ( searchDictPromiseResult, defaultSearchDictPromiseResult ) {
@@ -586,6 +570,7 @@ class AppLoader {
 
 	/**
 	Loading map layers
+	@param {Object} layersPromiseResult The response of the fetch for the TravelNotesLayers.json file
 	*/
 
 	async #loadMapLayers ( layersPromiseResult ) {
@@ -665,12 +650,14 @@ class AppLoader {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#originAndPath = window.location.href.substr ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'TravelNotes';
+		this.#errorMessage = '';
 	}
 
 	/**

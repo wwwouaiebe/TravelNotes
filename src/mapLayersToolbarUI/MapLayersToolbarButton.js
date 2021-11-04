@@ -26,24 +26,6 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file MapLayersToolbarButton.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module mapLayersToolbarUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
@@ -53,17 +35,15 @@ import theMapLayersCollection from '../data/MapLayersCollection.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class LayerButtonMouseEnterEL
 @classdesc mouse enter event listener for the button
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class LayerButtonMouseEnterEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -72,6 +52,7 @@ class LayerButtonMouseEnterEL {
 
 	/**
 	Event listener method
+	@param {Event} mouseEnterEvent The event to handle
 	*/
 
 	handleEvent ( mouseEnterEvent ) {
@@ -84,17 +65,15 @@ class LayerButtonMouseEnterEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class LayerButtonMouseLeaveEL
 @classdesc mouse leave event listener for the button
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class LayerButtonMouseLeaveEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -103,6 +82,7 @@ class LayerButtonMouseLeaveEL {
 
 	/**
 	Event listener method
+	@param {Event} mouseLeaveEvent The event to handle
 	*/
 
 	handleEvent ( mouseLeaveEvent ) {
@@ -116,17 +96,15 @@ class LayerButtonMouseLeaveEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class LayerButtonClickEL
 @classdesc click event listener for the button
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class LayerButtonClickEL {
 
-	/*
-	constructor
+	/**
+	the constructor
 	*/
 
 	constructor ( ) {
@@ -135,6 +113,7 @@ class LayerButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -149,9 +128,7 @@ class LayerButtonClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class MapLayersToolbarButton
 @classdesc Map layer button for the toolbar
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -163,33 +140,33 @@ class MapLayersToolbarButton {
 	@type {HTMLElement}
 	*/
 
-	#buttonHTMLElement = null;
+	#buttonHTMLElement;
 
 	/**
 	mouseenter event listener
 	@type {LayerButtonMouseEnterEL}
 	*/
 
-	#layerButtonMouseEnterEL = null;
+	#layerButtonMouseEnterEL;
 
 	/**
 	mouseleave event listener
 	@type {LayerButtonMouseLeaveEL}
 	*/
 
-	#layerButtonMouseLeaveEL = null;
+	#layerButtonMouseLeaveEL;
 
 	/**
 	mouseclick event listener
 	@type {LayerButtonClickEL}
 	*/
 
-	#layerButtonClickEL = null;
+	#layerButtonClickEL;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {MapLayer} mapLayer the MapLayer object associated to the button
-	@parentNode {HTMLElement} the parent of the button
+	@param {HTMLElement} parentNode the parent of the button
 	*/
 
 	constructor ( mapLayer, parentNode ) {
@@ -231,6 +208,7 @@ class MapLayersToolbarButton {
 
 	/**
 	The height of the button
+	@type {Number}
 	*/
 
 	get height ( ) { return this.#buttonHTMLElement.clientHeight; }
