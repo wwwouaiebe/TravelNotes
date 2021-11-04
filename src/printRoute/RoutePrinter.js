@@ -37,24 +37,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file RoutePrinter.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module PrintRoute
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
@@ -62,40 +44,50 @@ import theDataSearchEngine from '../data/DataSearchEngine.js';
 import theGeometry from '../coreLib/Geometry.js';
 import theConfig from '../data/Config.js';
 import theTranslator from '../UILib/Translator.js';
-import PrintViewsFactory from '../printRoute/PrintViewsFactory.js';
+import { PrintViewsFactory, ViewSize } from '../printRoute/PrintViewsFactory.js';
 import PrintPageBuilder from '../printRoute/PrintPageBuilder.js';
 
 import { ZERO, TWO, LAT, LNG } from '../main/Constants.js';
 
-const OUR_TILE_SIZE = 256;
-
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class RoutePrinter
 @classdesc This class manages the print of a route
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class RoutePrinter {
 
+	/**
+	The number of tiles needed for printing a page
+	@type {Number}
+	*/
+
 	#tilesPerPage = ZERO;
 
 	/**
-	Compute the view size in lat and lng transforming the dimension given in mm by the user.
+	The tiles dimension in pixel
+	@type {Number}
 	*/
 
-	#computeMaxViewSize ( printData ) {
+	// eslint-disable-next-line no-magic-numbers
+	static get #TILE_SIZE ( ) { return 256; }
+
+	/**
+	Compute the view size in lat and lng transforming the dimension given in mm by the user.
+	@param {PrintRouteMapOptions} printRouteMapOptions the print options returned by the PrintRouteMapDialog
+	*/
+
+	#computeMaxViewSize ( printRouteMapOptions ) {
 
 		// creating a dummy HTMLElement to compute the view size
 		const dummyDiv = theHTMLElementsFactory.create ( 'div', { }, document.body );
 		dummyDiv.style.position = 'absolute';
 		dummyDiv.style.top = '0';
 		dummyDiv.style.left = '0';
-		dummyDiv.style.width = String ( printData.paperWidth - ( TWO * printData.borderWidth ) ) + 'mm';
-		dummyDiv.style.height = String ( printData.paperHeight - ( TWO * printData.borderWidth ) ) + 'mm';
+		dummyDiv.style.width = String ( printRouteMapOptions.paperWidth - ( TWO * printRouteMapOptions.borderWidth ) ) + 'mm';
+		dummyDiv.style.height = String ( printRouteMapOptions.paperHeight - ( TWO * printRouteMapOptions.borderWidth ) ) + 'mm';
 
 		// transform the screen coordinates to lat and lng
 		const topLeftScreen = theGeometry.screenCoordToLatLng ( ZERO, ZERO );
@@ -106,23 +98,26 @@ class RoutePrinter {
 
 		// computing the tiles needed for a page
 		this.#tilesPerPage =
-			Math.ceil ( dummyDiv.clientWidth / OUR_TILE_SIZE ) *
-			Math.ceil ( dummyDiv.clientHeight / OUR_TILE_SIZE );
+			Math.ceil ( dummyDiv.clientWidth / RoutePrinter.#TILE_SIZE ) *
+			Math.ceil ( dummyDiv.clientHeight / RoutePrinter.#TILE_SIZE );
 
 		document.body.removeChild ( dummyDiv );
 
 		// computing the scale
-		const scale = theTravelNotesData.map.getZoomScale ( theTravelNotesData.map.getZoom ( ), printData.zoomFactor );
+		const scale = theTravelNotesData.map.getZoomScale (
+			theTravelNotesData.map.getZoom ( ),
+			printRouteMapOptions.zoomFactor
+		);
 
 		// computing the size and return.
-		return {
-			height : Math.abs ( topLeftScreen [ LAT ] - bottomRightScreen [ LAT ] ) * scale,
-			width : Math.abs ( topLeftScreen [ LNG ] - bottomRightScreen [ LNG ] ) * scale
-		};
+		return new ViewSize (
+			Math.abs ( topLeftScreen [ LAT ] - bottomRightScreen [ LAT ] ) * scale,
+			Math.abs ( topLeftScreen [ LNG ] - bottomRightScreen [ LNG ] ) * scale
+		);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -131,11 +126,11 @@ class RoutePrinter {
 
 	/**
 	Modify the main page, creating views on the page, so the page can be printed easily
-	@param {PrintRouteMapOptions} printData the print options returned by the PrintRouteMapDialog
+	@param {PrintRouteMapOptions} printRouteMapOptions the PrintRouteMapOptions returned by the PrintRouteMapDialog
 	@param {Number} routeObjId The objId of the route to print
 	*/
 
-	print ( printData, routeObjId ) {
+	print ( printRouteMapOptions, routeObjId ) {
 
 		const route = theDataSearchEngine.getRoute ( routeObjId );
 		if ( ! route ) {
@@ -145,7 +140,7 @@ class RoutePrinter {
 		// Computing the needed views
 		const printViewsFactory = new PrintViewsFactory (
 			route,
-			this.#computeMaxViewSize ( printData )
+			this.#computeMaxViewSize ( printRouteMapOptions )
 		);
 
 		// Remain for debugging
@@ -166,7 +161,7 @@ class RoutePrinter {
 		const printPageBuilder = new PrintPageBuilder (
 			route,
 			printViewsFactory.printViews,
-			printData
+			printRouteMapOptions
 		);
 		printPageBuilder.preparePage ( );
 	}

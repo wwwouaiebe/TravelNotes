@@ -365,7 +365,7 @@ class RouteEditor {
 	printRouteMap ( routeObjId ) {
 		new PrintRouteMapDialog ( )
 			.show ( )
-			.then ( printData => new RoutePrinter ( ).print ( printData, routeObjId ) )
+			.then ( printRouteMapOptions => new RoutePrinter ( ).print ( printRouteMapOptions, routeObjId ) )
 			.catch (
 				err => {
 					if ( err instanceof Error ) {

@@ -29,35 +29,6 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@file PrintViewsFactory.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module PrintRoute
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@typedef {Object} ViewSize
-@desc An object to store the width and height of a view
-@property {Number} width The width of the view ( = the abs of the delta between the left and right of the view in ° )
-@property {Number} height The height of the view ( = the abd of the delta between the top and bottom of the view in ° )
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
 @typedef {Object} PointCoordinates
 @desc An object to store the latitude and longitude of a point
 @property {Number} lat The latitude
@@ -80,14 +51,61 @@ are not on the frame!
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-const OUR_LAT_LNG_TOLERANCE = 0.000001;
+/**
+@--------------------------------------------------------------------------------------------------------------------------
+
+@classdesc An object to store the width and height of a view
+
+@--------------------------------------------------------------------------------------------------------------------------
+*/
+
+class ViewSize {
+
+	/**
+	The width of the view
+	@type {Number}
+	*/
+
+	#width;
+
+	/**
+	The height of the view
+	@type {Number}
+	*/
+
+	#height;
+
+	/**
+	The constructor
+	@param {Number} width The width of the view
+	@param {Number} height The height of the view
+	*/
+
+	constructor ( width, height ) {
+		Object.freeze ( this );
+		this.#width = width;
+		this.#height = height;
+	}
+
+	/**
+	The width of the view
+	@type {Number}
+	*/
+
+	get width ( ) { return this.#width; }
+
+	/**
+	The height of the view
+	@type {Number}
+	*/
+
+	get height ( ) { return this.#height; }
+}
 
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class PrintViewsFactory
 @classdesc Compute the size of the views for printing
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -99,19 +117,21 @@ class PrintViewsFactory {
 	@type {Array.<PrintView>}
 	*/
 
-	#printViews = [];
+	#printViews;
 
 	/**
+	A reference to the printed route
 	@type {Route}
 	*/
 
-	#route = null;
+	#route;
 
 	/**
+	the greatest possible view size
 	@type {ViewSize}
 	*/
 
-	#maxViewSize = null;
+	#maxViewSize;
 
 	/**
 	Compute if the line defined by firstItineraryPoint  lastItineraryPoint
@@ -159,14 +179,17 @@ class PrintViewsFactory {
 	*/
 
 	#isPointOnViewFrame ( currentView, itineraryPoint ) {
+		
+		const LAT_LNG_TOLERANCE = 0.000001;
+
 		if (
-			itineraryPoint.lat - currentView.bottomLeft.lat < OUR_LAT_LNG_TOLERANCE
+			itineraryPoint.lat - currentView.bottomLeft.lat < LAT_LNG_TOLERANCE
 			||
-			currentView.upperRight.lat - itineraryPoint.lat < OUR_LAT_LNG_TOLERANCE
+			currentView.upperRight.lat - itineraryPoint.lat < LAT_LNG_TOLERANCE
 			||
-			itineraryPoint.lng - currentView.bottomLeft.lng < OUR_LAT_LNG_TOLERANCE
+			itineraryPoint.lng - currentView.bottomLeft.lng < LAT_LNG_TOLERANCE
 			||
-			currentView.upperRight.lng - itineraryPoint.lng < OUR_LAT_LNG_TOLERANCE
+			currentView.upperRight.lng - itineraryPoint.lng < LAT_LNG_TOLERANCE
 		) {
 
 			// itinerary point is really near the frame. we consider the itinerary point as intermediate point
@@ -207,7 +230,7 @@ class PrintViewsFactory {
 	@param {PrintView} currentView The current view
 	@param {ItineraryPoint} firstItineraryPoint The first ItineraryPoint
 	@param {ItineraryPoint} lastItineraryPoint The last ItineraryPoint
-	@return {PointCoordinates}
+	@return {PointCoordinates} The computed point
 	*/
 
 	#computeIntermediatePoint ( currentView, firstItineraryPoint, lastItineraryPoint ) {
@@ -381,10 +404,10 @@ class PrintViewsFactory {
 			};
 
 			// computing the temporary view size...
-			const tmpViewSize = {
-				height : tmpView.upperRight.lat - tmpView.bottomLeft.lat,
-				width : tmpView.upperRight.lng - tmpView.bottomLeft.lng
-			};
+			const tmpViewSize = new ViewSize (
+				tmpView.upperRight.lat - tmpView.bottomLeft.lat,
+				tmpView.upperRight.lng - tmpView.bottomLeft.lng
+			);
 
 			// and comparing with the desired max view size
 			if ( this.#maxViewSize.height > tmpViewSize.height && this.#maxViewSize.width > tmpViewSize.width ) {
@@ -443,10 +466,10 @@ class PrintViewsFactory {
 		} // end of while ( ! done )
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {Route} route The route to print
-	#param {ViewSize} maxViewSize The view size
+	@param {ViewSize} maxViewSize The view size
 	*/
 
 	constructor ( route, maxViewSize ) {
@@ -468,7 +491,7 @@ class PrintViewsFactory {
 
 }
 
-export default PrintViewsFactory;
+export { PrintViewsFactory, ViewSize };
 
 /*
 @------------------------------------------------------------------------------------------------------------------------------

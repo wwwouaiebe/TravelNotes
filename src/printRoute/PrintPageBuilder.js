@@ -26,24 +26,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file PrintPageBuilder.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module PrintRoute
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theConfig from '../data/Config.js';
@@ -54,12 +36,9 @@ import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
 import { ZERO, TWO } from '../main/Constants.js';
 
-const OUR_NOTE_Z_INDEX_OFFSET = 100;
-
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class PrintEL
 @classdesc click event listener for the print button
 @hideconstructor
 
@@ -68,8 +47,8 @@ const OUR_NOTE_Z_INDEX_OFFSET = 100;
 
 class PrintEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -88,9 +67,7 @@ class PrintEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class AfterPrintEL
 @classdesc afterprint event listener for the document and the cancel button
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -104,8 +81,9 @@ class AfterPrintEL {
 
 	#printPageBuilder = null;
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {PrintPageBuilder} printPageBuilder A reference to the printPageBuilder Object
 	*/
 
 	constructor ( printPageBuilder ) {
@@ -126,9 +104,7 @@ class AfterPrintEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class PrintPageBuilder
 @classdesc Build the html page for print
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -136,81 +112,81 @@ class AfterPrintEL {
 class PrintPageBuilder {
 
 	/**
-	A reference to the printData object containing the user choices
+	A reference to the PrintRouteMapOptions object containing the user choices
 	@type {Object}
 	*/
 
-	#printData = null;
+	#printRouteMapOptions;
 
 	/**
 	A reference to the printed route
 	@type {Route}
 	*/
 
-	#route = null;
+	#route;
 
 	/**
 	A reference to the views to print
 	@type {Array.<Printview>}
 	*/
 
-	#printViews = [];
+	#printViews;
 
 	/**
 	The toolbar on right top of the screen
 	@type {HTMLElement}
 	*/
 
-	#printToolbar = null;
+	#printToolbar;
 
 	/**
 	The print button on the toolbar
 	@type {HTMLElement}
 	*/
 
-	#printButton = null;
+	#printButton;
 
 	/**
 	The cancel button on the toolbar
 	@type {HTMLElement}
 	*/
 
-	#cancelButton = null;
+	#cancelButton;
 
 	/**
 	A counter for the views, so we can gives a unique id to the views
 	@type {Number}
 	*/
 
-	#viewsCounter = ZERO;
+	#viewsCounter;
 
 	/**
 	An array with the HTML views
 	@type {Array.<HTMLElement>}
 	*/
 
-	#viewsDiv = [];
+	#viewsDiv;
 
 	/**
 	A leaflet.polyline used to represent the route on the maps
 	@type {leaflet.polyline}
 	*/
 
-	#routePolyline = null;
+	#routePolyline;
 
 	/**
 	Event listener for the print button
 	@type {PrintEL}
 	*/
 
-	#printEL = null;
+	#printEL;
 
 	/**
 	Event listener for the cancel button and the document. Reset the document in the correct state
 	@type {AfterPrintEL}
 	*/
 
-	#afterPrintEL = null;
+	#afterPrintEL;
 
 	/**
 	Remove the print views and restore the map and user interface after printing
@@ -293,7 +269,8 @@ class PrintPageBuilder {
 				const marker = window.L.marker (
 					note.iconLatLng,
 					{
-						zIndexOffset : OUR_NOTE_Z_INDEX_OFFSET,
+						// eslint-disable-next-line no-magic-numbers
+						zIndexOffset : 100,
 						icon : icon,
 						draggable : true
 					}
@@ -321,16 +298,16 @@ class PrintPageBuilder {
 		document.body.appendChild ( viewDiv );
 		this.#viewsDiv.push ( viewDiv );
 
-		if ( this.#printData.pageBreak ) {
+		if ( this.#printRouteMapOptions.pageBreak ) {
 			viewDiv.classList.add ( 'TravelNotes-PrintPageBreak' );
 		}
 
 		// setting the size given by the user in mm
-		viewDiv.style.width = String ( this.#printData.paperWidth ) + 'mm';
-		viewDiv.style.height = String ( this.#printData.paperHeight ) + 'mm';
+		viewDiv.style.width = String ( this.#printRouteMapOptions.paperWidth ) + 'mm';
+		viewDiv.style.height = String ( this.#printRouteMapOptions.paperHeight ) + 'mm';
 
 		// creating markers for notes
-		const layers = this.#printData.printNotes ? this.#getNotesMarkers ( ) : [];
+		const layers = this.#printRouteMapOptions.printNotes ? this.#getNotesMarkers ( ) : [];
 
 		// adding the leaflet map layer
 		layers.push ( this.#getMapLayer ( ) );
@@ -362,9 +339,9 @@ class PrintPageBuilder {
 					( printView.bottomLeft.lat + printView.upperRight.lat ) / TWO,
 					( printView.bottomLeft.lng + printView.upperRight.lng ) / TWO
 				],
-				zoom : this.#printData.zoomFactor,
-				minZoom : this.#printData.zoomFactor,
-				maxZoom : this.#printData.zoomFactor,
+				zoom : this.#printRouteMapOptions.zoomFactor,
+				minZoom : this.#printRouteMapOptions.zoomFactor,
+				maxZoom : this.#printRouteMapOptions.zoomFactor,
 				layers : layers
 			}
 		);
@@ -410,21 +387,24 @@ class PrintPageBuilder {
 		this.#cancelButton.addEventListener (	'click', this.#afterPrintEL, false );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {Route} route A reference to the printed route
 	@param {Array.PrintView>} printViews A reference to the views to print
-	@param {Object} A reference to the printData object containing the user choices
+	@param {Object} printRouteMapOptions A reference to the PrintRouteMapOptions object containing the user choices
 	*/
 
-	constructor ( route, printViews, printData ) {
+	constructor ( route, printViews, printRouteMapOptions ) {
 
 		Object.freeze ( this );
 
 		// Saving parameters
 		this.#route = route;
 		this.#printViews = printViews;
-		this.#printData = printData;
+		this.#printRouteMapOptions = printRouteMapOptions;
+
+		this.#viewsCounter = ZERO;
+		this.#viewsDiv = [];
 
 		// Event listeners creation
 		this.#printEL = new PrintEL ( );
