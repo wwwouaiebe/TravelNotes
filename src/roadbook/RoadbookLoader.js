@@ -26,24 +26,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file RoadbookLoader.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module roadbook
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theTranslator from '../UILib/Translator.js';
 import theIndexedDb from '../UILib/IndexedDb.js';
 import theRoadbookUpdater from '../roadbook/RoadbookUpdater.js';
@@ -53,17 +35,15 @@ import { ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class ShowTravelNotesChangeEL
 @classdesc change event listener for the show travel notes checkbox
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class ShowTravelNotesChangeEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -72,6 +52,7 @@ class ShowTravelNotesChangeEL {
 
 	/**
 	Event listener method
+	@param {Event} changeEvent The event to handle
 	*/
 
 	handleEvent ( changeEvent ) {
@@ -83,17 +64,15 @@ class ShowTravelNotesChangeEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class ShowRouteNotesChangeEL
 @classdesc change event listener for the show route notes checkbox
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class ShowRouteNotesChangeEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -102,6 +81,7 @@ class ShowRouteNotesChangeEL {
 
 	/**
 	Event listener method
+	@param {Event} changeEvent The event to handle
 	*/
 
 	handleEvent ( changeEvent ) {
@@ -113,17 +93,15 @@ class ShowRouteNotesChangeEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class ShowManeuverNotesChangeEL
 @classdesc change event listener for the show maneuver notes checkbox
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class ShowManeuverNotesChangeEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -132,6 +110,7 @@ class ShowManeuverNotesChangeEL {
 
 	/**
 	Event listener method
+	@param {Event} changeEvent The event to handle
 	*/
 
 	handleEvent ( changeEvent ) {
@@ -143,9 +122,7 @@ class ShowManeuverNotesChangeEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class StorageEL
 @classdesc storage event listener
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -159,8 +136,8 @@ class StorageEL {
 
 	#UUID = null;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {String} UUID The UUID of the page
 	*/
 
@@ -197,17 +174,15 @@ class StorageEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class SaveButtonClickEL
 @classdesc click event listener for the save button
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
 
 class SaveButtonClickEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -256,9 +231,7 @@ class SaveButtonClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class RoadbookLoader
 @classdesc This class load the roadbook,
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -389,8 +362,8 @@ class RoadbookLoader {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {

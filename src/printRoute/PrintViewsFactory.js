@@ -179,7 +179,7 @@ class PrintViewsFactory {
 	*/
 
 	#isPointOnViewFrame ( currentView, itineraryPoint ) {
-		
+
 		const LAT_LNG_TOLERANCE = 0.000001;
 
 		if (

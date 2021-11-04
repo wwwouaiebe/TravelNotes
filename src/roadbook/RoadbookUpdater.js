@@ -29,27 +29,7 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@file RoadbookUpdater.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module roadbook
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class RoadbookUpdater
-@classdesc coming soon...
-@hideconstructor
+@classdesc This class performs the updates of the roadbook after changes in the Travel
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -61,25 +41,28 @@ class RoadbookUpdater {
 	@type {HTMLElement}
 	*/
 
-	#travelNotesHtmlElement = document.getElementById ( 'TravelNotes' );
+	#travelNotesHtmlElement;
 
 	/**
+	The visibility status of the travel notes
 	@type {Boolean}
 	*/
 
-	#showTravelNotes = true;
+	#showTravelNotes;
 
 	/**
+	The visibility status of the route notes
 	@type {Boolean}
 	*/
 
-	#showRouteNotes = true;
+	#showRouteNotes;
 
 	/**
+	The visibility status of the maneuver notes
 	@type {Boolean}
 	*/
 
-	#showManeuversNotes = false;
+	#showManeuversNotes;
 
 	/**
 	Show or hide the notes
@@ -100,12 +83,16 @@ class RoadbookUpdater {
 		);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#travelNotesHtmlElement = document.getElementById ( 'TravelNotes' );
+		this.#showTravelNotes = true;
+		this.#showRouteNotes = true;
+		this.#showManeuversNotes = false;
 	}
 
 	/**
@@ -153,6 +140,7 @@ class RoadbookUpdater {
 
 	/**
 	Updating roadbook
+	@param {String} pageContent An html string with the travel, routes and notes
 	*/
 
 	updateRoadbook ( pageContent ) {
@@ -172,8 +160,6 @@ class RoadbookUpdater {
 
 @desc The one and only one instance of RoadbookUpdater class
 @type {RoadbookUpdater}
-@constant
-@global
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
