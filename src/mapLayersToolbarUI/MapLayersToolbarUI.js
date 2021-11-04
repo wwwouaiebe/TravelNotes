@@ -56,11 +56,11 @@ import { MOUSE_WHEEL_FACTORS, ZERO } from '../main/Constants.js';
 */
 
 class WheelEventData {
-	
+
 	/**
 	The constructor
 	*/
-	
+
 	constructor ( ) {
 		Object.seal ( this );
 	}
@@ -69,28 +69,28 @@ class WheelEventData {
 	The current margin-top in pixels css value for the buttons container
 	@type {Number}
 	*/
-	
+
 	marginTop = ZERO;
 
 	/**
 	The height of 1 button in pixel;
 	@type {Number}
 	*/
-	
+
 	buttonHeight = ZERO;
 
 	/**
 	The total height of all butons in pixels
 	@type {Number}
 	*/
-	
+
 	buttonsHeight = ZERO;
 
 	/**
 	The top css value of the first button
 	@type {Number}
 	*/
-	
+
 	buttonTop = ZERO;
 }
 
@@ -110,14 +110,14 @@ class ButtonsContainerWheelEL {
 	*/
 
 	#wheelEventData;
-	
+
 	/**
 	The min buttons that have to be always visible
 	@type {Number}
 	*/
 
 	// eslint-disable-next-line no-magic-numbers
-	static get #MIN_BUTTONS_VISIBLE ( ) { return 3 ;}
+	static get #MIN_BUTTONS_VISIBLE ( ) { return 3; }
 
 	/**
 	The constructor

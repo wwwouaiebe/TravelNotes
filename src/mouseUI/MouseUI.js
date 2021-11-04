@@ -33,39 +33,17 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file MouseUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module mouseUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theConfig from '../data/Config.js';
 import theUtilities from '../UILib/Utilities.js';
 import { SAVE_STATUS } from '../main/Constants.js';
 
-const OUR_SAVE_TIME = 300000;
-
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class MouseUI
 @classdesc This class show the mouse position and the zoom on the screen
-@see {@link theMouseUI} for the one and only one instance of this class
-@hideconstructor
+See theMouseUI for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -77,37 +55,46 @@ class MouseUI {
 	@type {HTMLElement}
 	*/
 
-	#mouseUISpan = null;
+	#mouseUISpan;
 
 	/**
 	The save status
 	@type {String}
 	*/
 
-	#saveStatus = SAVE_STATUS.saved;
+	#saveStatus;
 
 	/**
 	The mouse position
 	@type {String}
 	*/
 
-	#mousePosition = '';
+	#mousePosition;
 
 	/**
 	The zoom factor
 	@type {String}
 	*/
 
-	#zoom = '';
+	#zoom;
 
 	/**
 	The save timer id
 	@type {Number}
 	*/
 
-	#saveTimer = null;
+	#saveTimer;
 
 	/**
+	The time in milliseconds between the first change and the moment the SAVE_STATUS.notSaved is displayed
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #SAVE_TIME ( ) { return 300000; }
+
+	/**
+	Update the UI with the changed saveStatus, mouse position or zoom
 	*/
 
 	#updateUI ( ) {
@@ -117,34 +104,39 @@ class MouseUI {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#saveStatus = SAVE_STATUS.saved;
+		this.#mousePosition = '';
+		this.#zoom = '';
+		this.#saveTimer = null;
 	}
 
 	/**
 	change the save status on the UI
+	@param {String} saveStatus the new saveStatus
 	*/
 
-	set saveStatus ( SaveStatus ) {
+	set saveStatus ( saveStatus ) {
 
 		// Status unchanged... return directly
-		if ( SAVE_STATUS.modified === SaveStatus && SAVE_STATUS.notSaved === this.#saveStatus ) {
+		if ( SAVE_STATUS.modified === saveStatus && SAVE_STATUS.notSaved === this.#saveStatus ) {
 			return;
 		}
-		this.#saveStatus = SaveStatus;
-		if ( SAVE_STATUS.modified === SaveStatus && ! this.#saveTimer ) {
+		this.#saveStatus = saveStatus;
+		if ( SAVE_STATUS.modified === saveStatus && ! this.#saveTimer ) {
 
 			// Starting the timer
 			this.#saveTimer = setTimeout (
 				( ) => this.#saveStatus = SAVE_STATUS.notSaved,
-				OUR_SAVE_TIME
+				MouseUI.#SAVE_TIME
 			);
 		}
-		else if ( SAVE_STATUS.saved === SaveStatus && this.#saveTimer ) {
+		else if ( SAVE_STATUS.saved === saveStatus && this.#saveTimer ) {
 
 			// clear the timer
 			clearTimeout ( this.#saveTimer );
@@ -198,8 +190,6 @@ class MouseUI {
 
 @desc The one and only one instance of MouseUI class
 @type {MouseUI}
-@constant
-@global
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

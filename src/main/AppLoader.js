@@ -656,7 +656,8 @@ class AppLoader {
 
 	constructor ( ) {
 		Object.freeze ( this );
-		this.#originAndPath = window.location.href.substr ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'TravelNotes';
+		this.#originAndPath =
+			window.location.href.substr ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'TravelNotes';
 		this.#errorMessage = '';
 	}
 

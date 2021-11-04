@@ -116,14 +116,15 @@ class AppLoaderViewer {
 	*/
 
 	#addLayerToolbar;
-	
+
 	/**
-	The dafault zomm factor 
+	The dafault zomm factor
 	@type {Number}
 	*/
 
-	//eslint-disable-next-line no-magic-numbers
-	static get #VIEWER_DEFAULT_ZOOM ( ) {return 2;}
+	// eslint-disable-next-line no-magic-numbers
+	static get #VIEWER_DEFAULT_ZOOM ( ) { return 2; }
+
 	/**
 	The mapEditorViewer
 	@type {MapEditorViewer}
@@ -309,7 +310,8 @@ class AppLoaderViewer {
 
 	constructor ( ) {
 		Object.freeze ( this );
-		this.#originAndPath = window.location.href.substr ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'TravelNotes';
+		this.#originAndPath =
+			window.location.href.substr ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'TravelNotes';
 		this.#addLayerToolbar = false;
 	}
 
