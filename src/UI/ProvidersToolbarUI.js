@@ -40,24 +40,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ProvidersToolbarUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module providersToolbarUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import ProviderToolbarTransitModeButton from '../UI/ProviderToolbarTransitModeButton.js';
@@ -68,9 +50,7 @@ import { NOT_FOUND, ZERO } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class ProvidersToolbarUI
 @classdesc This class is the provider and transitModes toolbar at the bottom of the UI
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -82,35 +62,35 @@ class ProvidersToolbarUI {
 	@type {HTMLElement}
 	*/
 
-	#toolbarHTMLElement = null;
+	#toolbarHTMLElement;
 
 	/**
 	A JS map with the transit mode buttons, ordered by transitMode
 	@type {Map}
 	*/
 
-	#transitModeButtons = new Map ( );
+	#transitModeButtons;
 
 	/**
 	A JS map with the provider buttons, ordered by provider.name
 	@type {Map}
 	*/
 
-	#providerButtons = new Map ( );
+	#providerButtons;
 
 	/**
 	the active transit mode button
 	@type {ProviderToolbarTransitModeButton}
 	*/
 
-	#activeTransitModeButton = null;
+	#activeTransitModeButton;
 
 	/**
 	the active provider button
 	@type {ProviderToolbarProviderButton}
 	*/
 
-	#activeProviderButton = null;
+	#activeProviderButton;
 
 	/**
 	Transit mode buttons creation
@@ -143,14 +123,17 @@ class ProvidersToolbarUI {
 		);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {HTMLElement} UIMainHTMLElement The HTMLElement in witch the toolbar must be added
 	*/
 
 	constructor ( UIMainHTMLElement ) {
 
 		Object.freeze ( this );
+
+		this.#transitModeButtons = new Map ( );
+		this.#providerButtons = new Map ( );
 
 		// toolbar creation
 		this.#toolbarHTMLElement = theHTMLElementsFactory.create (

@@ -26,33 +26,13 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ProviderToolbarProviderButton.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module providersToolbarUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theRouter from '../coreLib/Router.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class ProviderToolbarProviderButton
 @classdesc Provider buttons on the ProvidersToolbarUI
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -64,24 +44,24 @@ class ProviderToolbarProviderButton {
 	@type {HTMLElement}
 	*/
 
-	#providerToolbarUI = null;
+	#providerToolbarUI;
 
 	/**
 	The provider
 	@type {BaseRouteProvider}
 	*/
 
-	#provider = null;
+	#provider;
 
 	/**
 	the button HTMLElement
 	@type {HTMLElement}
 	*/
 
-	#buttonHTMLElement = null;
+	#buttonHTMLElement;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {ProviderToolbarUI} providerToolbarUI The providerToolbarUI on witch the button will be added
 	@param {BaseRouteProvider} provider The provider object linked to the button
 	*/
@@ -108,6 +88,7 @@ class ProviderToolbarProviderButton {
 
 	/**
 	click event listener. The button is also it's own event listener.
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -118,7 +99,7 @@ class ProviderToolbarProviderButton {
 
 	/**
 	the button HTMLElements
-	@type HTMLElement
+	@type {HTMLElement}
 	*/
 
 	get buttonHTMLElement ( ) { return this.#buttonHTMLElement; }

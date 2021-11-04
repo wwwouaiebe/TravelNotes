@@ -27,34 +27,12 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file PaneUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module panesManagerUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import { PANE_ID } from '../main/Constants.js';
 
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class PaneUI
 @classdesc Base class for panes
-@see {@link PanesManagerUI} for pane UI management
-@abstract
-@hideconstructor
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -66,17 +44,17 @@ class PaneUI {
 	@type {HTMLElement}
 	*/
 
-	#paneData = null;
+	#paneData;
 
 	/**
 	A reference to the HTMLElement in witch the control have to be added
 	@type {HTMLElement}
 	*/
 
-	#paneControl = null;
+	#paneControl;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {HTMLElement} paneData The HTMLElement in witch the data have to be added
 	@param {HTMLElement} paneControl The HTMLElement in witch the control have to be added
 	*/

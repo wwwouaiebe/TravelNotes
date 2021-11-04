@@ -40,24 +40,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file UI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module UI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theConfig from '../data/Config.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import TravelUI from '../UI/TravelUI.js';
@@ -72,10 +54,8 @@ import { ONE } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class
-@classdesc This class is the User Interface ( UI )
-@see {@link theUI} for the one and only one instance of this class
-@hideconstructor
+@classdesc This class is the User Interface ( UI )<br>
+See theUI for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -87,56 +67,56 @@ class UI {
 	@type {HTMLElement}
 	*/
 
-	#mainHTMLElement = null;
+	#mainHTMLElement;
 
 	/**
 	The title (The black rectangle on right top)
 	@type {HTMLElement}
 	*/
 
-	#titleHTMLElement = null;
+	#titleHTMLElement;
 
 	/**
 	The main toolbar
 	@type {TravelNotesToolbarUI}
 	*/
 
-	#travelNotesToolbarUI = null;
+	#travelNotesToolbarUI;
 
 	/**
 	The travel UI
 	@type {TravelUI}
 	*/
 
-	#travelUI = null;
+	#travelUI;
 
 	/**
 	The panes manager UI
 	@type {PanesManagerUI}
 	*/
 
-	#panesManagerUI = null;
+	#panesManagerUI;
 
 	/**
 	The providers toolbar UI
 	@type {ProvidersToolbarUI}
 	*/
 
-	#providersToolbarUI = null;
+	#providersToolbarUI;
 
 	/**
 	A Timer id. Reduce the ui when the mouse leave
-	@type {}
+	@type {Number}
 	*/
 
-	#timerId = null;
+	#timerId;
 
 	/**
 	The pinned status of the UI
 	@type {Boolean}
 	*/
 
-	#isPinned = false;
+	#isPinned;
 
 	/**
 	Event listener for the mouse leave on the UI
@@ -188,12 +168,13 @@ class UI {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#isPinned = false;
 	}
 
 	/**
@@ -288,8 +269,6 @@ class UI {
 
 @desc The one and only one instance of UI class
 @type {UI}
-@constant
-@global
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

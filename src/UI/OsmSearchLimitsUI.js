@@ -26,24 +26,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OsmSearchLimitsUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module osmSearchPaneUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import ObjId from '../data/ObjId.js';
 import theConfig from '../data/Config.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
@@ -54,9 +36,7 @@ import { INVALID_OBJ_ID } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class OsmSearchLimitsUI
 @classdesc This class manages the search limits on the map
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -68,14 +48,14 @@ class OsmSearchLimitsUI {
 	@type {Number}
 	*/
 
-	#previousSearchLimitObjId = INVALID_OBJ_ID;
+	#previousSearchLimitObjId;
 
 	/**
 	ObjId for the  search limits
 	@type {Number}
 	*/
 
-	#searchLimitObjId = INVALID_OBJ_ID;
+	#searchLimitObjId;
 
 	/**
 	Draw the search limit on the map.
@@ -134,12 +114,14 @@ class OsmSearchLimitsUI {
 		);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#previousSearchLimitObjId = INVALID_OBJ_ID;
+		this.#searchLimitObjId = INVALID_OBJ_ID;
 	}
 
 	/**

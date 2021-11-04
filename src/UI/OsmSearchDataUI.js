@@ -26,24 +26,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OsmSearchDataUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module osmSearchPaneUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
@@ -57,17 +39,15 @@ import { ZERO } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class SearchResultContextMenuEL
 @classdesc contextmenu event listener for search result
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class SearchResultContextMenuEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -76,6 +56,7 @@ class SearchResultContextMenuEL {
 
 	/**
 	Event listener method
+	@param {Event} contextMenuEvent The event to handle
 	*/
 
 	handleEvent ( contextMenuEvent ) {
@@ -89,17 +70,15 @@ class SearchResultContextMenuEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class SearchResultMouseEnterEL
 @classdesc mouseenter event listener for search result
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class SearchResultMouseEnterEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -108,6 +87,7 @@ class SearchResultMouseEnterEL {
 
 	/**
 	Event listener method
+	@param {Event} mouseEvent The event to handle
 	*/
 
 	handleEvent ( mouseEvent ) {
@@ -128,17 +108,15 @@ class SearchResultMouseEnterEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class SearchResultMouseLeaveEL
 @classdesc mouseenter event listener for search result
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class SearchResultMouseLeaveEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -147,6 +125,7 @@ class SearchResultMouseLeaveEL {
 
 	/**
 	Event listener method
+	@param {Event} mouseEvent The event to handle
 	*/
 
 	handleEvent ( mouseEvent ) {
@@ -159,9 +138,7 @@ class SearchResultMouseLeaveEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class OsmSearchDataUI
 @classdesc This class add or remove the search data on the pane data
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -173,55 +150,56 @@ class OsmSearchDataUI {
 	@type {HTMLElement}
 	*/
 
-	#paneData = null;
+	#paneData;
 
 	/**
 	Temp reference to the OsmElement for witch the HTMLElement is currently build
 	@type {Object}
 	*/
 
-	#currentOsmElement = null;
+	#currentOsmElement;
 
 	/**
 	Temp var to store the currently builded HTMLElement
 	@type {HTMLElement}
 	*/
 
-	#currentContainer = null;
+	#currentContainer;
 
 	/**
 	Temp var to store the currently builded HTMLElement
 	@type {HTMLElement}
 	*/
 
-	#currentSearchResultCell = null;
+	#currentSearchResultCell;
 
 	/**
-	The index of the currently OsmElement in the theTravelNotesData.searchData array
+	The index of the current OsmElement in the theTravelNotesData.searchData array
+	@type {Number}
 	*/
 
-	#elementIndex = ZERO;
+	#elementIndex;
 
 	/**
 	Search result contextmenu event listener
 	@type {SearchResultContextMenuEL}
 	*/
 
-	#searchResultContextMenuEL = null;
+	#searchResultContextMenuEL;
 
 	/**
 	Search result  mouseenter event listener
 	@type {SearchResultMouseEnterEL}
 	*/
 
-	#searchResultMouseEnterEL = null;
+	#searchResultMouseEnterEL;
 
 	/**
 	Search result contextmenu event listener
 	@type {SearchResultMouseLeaveEL}
 	*/
 
-	#searchResultMouseLeaveEL	 = null;
+	#searchResultMouseLeaveEL;
 
 	/**
 	Icon builder
@@ -251,6 +229,7 @@ class OsmSearchDataUI {
 
 	/**
 	generic builder
+	@param {String} osmTagValue The value of the OSM tag
 	*/
 
 	#addOsmTag ( osmTagValue ) {
@@ -385,6 +364,7 @@ class OsmSearchDataUI {
 
 	/**
 	Element builder
+	@param {HTMLElement} parentNode The parent node
 	*/
 
 	#buildHtmlElement ( parentNode ) {
@@ -402,8 +382,8 @@ class OsmSearchDataUI {
 		this.#addEventListeners ( );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {HTMLElement} paneData The HTMLElement in witch the data have to be added
 	*/
 
@@ -412,6 +392,8 @@ class OsmSearchDataUI {
 		this.#searchResultContextMenuEL = new SearchResultContextMenuEL ( );
 		this.#searchResultMouseEnterEL = new SearchResultMouseEnterEL ( );
 		this.#searchResultMouseLeaveEL = new SearchResultMouseLeaveEL ( );
+		this.#elementIndex = ZERO;
+
 	}
 
 	/**

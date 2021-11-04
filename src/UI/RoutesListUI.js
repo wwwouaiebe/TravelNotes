@@ -26,24 +26,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file RoutesListUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module travelUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import {
@@ -57,9 +39,7 @@ import {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class RoutesListUI
 @classdesc This class is the Routes List part of the UI
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -71,31 +51,31 @@ class RoutesListUI {
 	@type {HTMLElement}
 	*/
 
-	#routesListHTMLElement = null;
+	#routesListHTMLElement;
 
 	/**
 	Route contextmenu event listeners
 	@type {RouteContextMenuEL}
 	*/
 
-	#routeContextMenuEL = null;
+	#routeContextMenuEL;
 
 	/**
 	Route drop event listeners
 	@type {RouteDropEL}
 	*/
 
-	#routeDropEL = null;
+	#routeDropEL;
 
 	/**
 	Route dragstart event listeners
 	@type {RouteDropEL}
 	*/
 
-	#routeDragStartEL = null;
+	#routeDragStartEL;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {HTMLElement} UIMainHTMLElement The HTMLElement in witch the RouteList must be added
 	*/
 
@@ -118,7 +98,7 @@ class RoutesListUI {
 		this.#routeDragStartEL = new RouteDragStartEL ( );
 	}
 
-	/*
+	/**
 	Toogle the visibility of the routes list
 	*/
 

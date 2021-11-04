@@ -26,24 +26,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ItineraryControlUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module itineraryPaneUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theRouteHTMLViewsFactory from '../viewsFactories/RouteHTMLViewsFactory.js';
 import theTranslator from '../UILib/Translator.js';
@@ -53,19 +35,23 @@ import theTravelNotesData from '../data/TravelNotesData.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class NotesCheckboxInputEL
 @classdesc input event listener for the show notes checkbox
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class NotesCheckboxInputEL {
 
-	#itineraryDataUI = null;
+	/**
+	A reference to the ItineraryDataUI Object
+	@type {ItineraryDataUI}
+	*/
 
-	/*
-	constructor
+	#itineraryDataUI;
+
+	/**
+	The constructor
+	@param {ItineraryDataUI} itineraryDataUI A reference to the ItineraryDataUI Object
 	*/
 
 	constructor ( itineraryDataUI ) {
@@ -75,6 +61,7 @@ class NotesCheckboxInputEL {
 
 	/**
 	Event listener method
+	@param {Event} inputEvent The event to handle
 	*/
 
 	handleEvent ( inputEvent ) {
@@ -86,19 +73,23 @@ class NotesCheckboxInputEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class ManeuversCheckboxInputEL
 @classdesc input event listener for the show maneuver checkbox
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class ManeuversCheckboxInputEL {
 
-	#itineraryDataUI = null;
+	/**
+	A reference to the ItineraryDataUI Object
+	@type {ItineraryDataUI}
+	*/
 
-	/*
-	constructor
+	#itineraryDataUI;
+
+	/**
+	The constructor
+	@param {ItineraryDataUI} itineraryDataUI A reference to the ItineraryDataUI Object
 	*/
 
 	constructor ( itineraryDataUI ) {
@@ -108,6 +99,7 @@ class ManeuversCheckboxInputEL {
 
 	/**
 	Event listener method
+	@param {Event} inputEvent The event to handle
 	*/
 
 	handleEvent ( inputEvent ) {
@@ -119,9 +111,7 @@ class ManeuversCheckboxInputEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class ItineraryControlUI
 @classdesc This class manages the controlPane for the itineraries
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -133,28 +123,28 @@ class ItineraryControlUI {
 	@type {HTMLElement}
 	*/
 
-	#routeHeaderHTMLElement = null;
+	#routeHeaderHTMLElement;
 
 	/**
 	The checkboxes container
 	@type {HTMLElement}
 	*/
 
-	#checkBoxesHTMLElement = null;
+	#checkBoxesHTMLElement;
 
 	/**
 	The show notes checkbox
 	@type {HTMLElement}
 	*/
 
-	#showNotesCheckBoxHTMLElement = null;
+	#showNotesCheckBoxHTMLElement;
 
 	/**
 	The show maneuvers checkbox
 	@type {HTMLElement}
 	*/
 
-	#showManeuversCheckBoxHTMLElement = null;
+	#showManeuversCheckBoxHTMLElement;
 
 	/**
 	The current status of the notes
@@ -198,8 +188,8 @@ class ItineraryControlUI {
 
 	#itineraryDataUI = null;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {HTMLElement} paneControl The HTMLElement in witch the control have to be added
 	@param {ItineraryDataUI} itineraryDataUI A reference to the associated ItineraryDataUI
 	*/

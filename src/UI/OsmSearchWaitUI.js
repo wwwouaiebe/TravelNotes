@@ -26,32 +26,12 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OsmSearchWaitUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module osmSearchPaneUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class OsmSearchWaitUI
 @classdesc This the waitUI for the OsmSearch
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -63,17 +43,17 @@ class OsmSearchWaitUI {
 	@type {HTMLElement}
 	*/
 
-	#waitDiv = null;
+	#waitDiv;
 
 	/**
 	The red bullet...
 	@type {HTMLElement}
 	*/
 
-	#waitBullet = null;
+	#waitBullet;
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {

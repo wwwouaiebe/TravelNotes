@@ -26,24 +26,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OsmSearchTreeUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module osmSearchPaneUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theOsmSearchDictionary from '../coreOsmSearch/OsmSearchDictionary.js';
 import { ZERO, MOUSE_WHEEL_FACTORS } from '../main/Constants.js';
@@ -51,9 +33,7 @@ import { ZERO, MOUSE_WHEEL_FACTORS } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class TreeCheckboxChangeEL
 @classdesc change event listener for the tree checkboxes
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -67,8 +47,8 @@ class TreeCheckboxChangeEL {
 
 	#osmSearchTreeUI = null;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {OsmSearchTreeUI} osmSearchTreeUI A reference to the OsmSearchTreeUI object
 	*/
 
@@ -79,6 +59,7 @@ class TreeCheckboxChangeEL {
 
 	/**
 	Event listener method
+	@param {Event} changeEvent The event to handle
 	*/
 
 	handleEvent ( changeEvent ) {
@@ -95,17 +76,15 @@ class TreeCheckboxChangeEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class TreeWheelEL
 @classdesc wheel event listener
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class TreeWheelEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -114,6 +93,7 @@ class TreeWheelEL {
 
 	/**
 	Event listener method
+	@param {Event} wheelEvent The event to handle
 	*/
 
 	handleEvent ( wheelEvent ) {
@@ -129,9 +109,7 @@ class TreeWheelEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class TreeArrowClickEL
 @classdesc cick event listener for the tree arrows
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -145,8 +123,8 @@ class TreeArrowClickEL {
 
 	#osmSearchTreeUI = null;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {OsmSearchTreeUI} osmSearchTreeUI A reference to the OsmSearchTreeUI object
 	*/
 
@@ -157,6 +135,7 @@ class TreeArrowClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -170,9 +149,7 @@ class TreeArrowClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class OsmSearchTreeUI
 @classdesc This class build the search tree and contains also methods to modify this tree
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -184,28 +161,28 @@ class OsmSearchTreeUI {
 	@type {HTMLElement}
 	*/
 
-	#treeHTMLElement = null;
+	#treeHTMLElement;
 
 	/**
 	Tree arrow click event listener
 	@type {TreeArrowClickEL}
 	*/
 
-	#treeArrowClickEL = null;
+	#treeArrowClickEL;
 
 	/**
 	Tree checkbox change event listener
 	@type {TreeCheckboxChangeEL}
 	*/
 
-	#treeCheckboxChangeEL = null;
+	#treeCheckboxChangeEL;
 
 	/**
 	Recursivity counter for the #addItem method
 	@type {Number}
 	*/
 
-	#deepTree = ZERO;
+	#deepTree;
 
 	/**
 	Add a dictionary item in the SearchTree and do the same for all descendants
@@ -271,13 +248,15 @@ class OsmSearchTreeUI {
 		this.#deepTree --;
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 
 		Object.freeze ( this );
+
+		this.#deepTree = ZERO;
 
 		// Container creation
 		this.#treeHTMLElement = theHTMLElementsFactory.create (
@@ -306,7 +285,8 @@ class OsmSearchTreeUI {
 	}
 
 	/**
-	tree HTML element getter
+	The tree HTML element
+	@type {HTMLElement}
 	*/
 
 	get treeHTMLElement ( ) { return this.#treeHTMLElement; }

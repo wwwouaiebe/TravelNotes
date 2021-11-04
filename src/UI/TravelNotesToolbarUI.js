@@ -33,24 +33,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file TravelNotesToolbarUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module travelNotesToolbarUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
 import theAPIKeysManager from '../core/APIKeysManager.js';
@@ -62,17 +44,15 @@ import { GEOLOCATION_STATUS } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class ApiKeysButtonClickEL
 @classdesc click on ApiKeys button event listeners
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class ApiKeysButtonClickEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -81,6 +61,7 @@ class ApiKeysButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -92,17 +73,15 @@ class ApiKeysButtonClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class GeoLocatorButtonClickEL
 @classdesc GeoLocator button event listeners
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class GeoLocatorButtonClickEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -111,6 +90,7 @@ class GeoLocatorButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -122,17 +102,15 @@ class GeoLocatorButtonClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class PinButtonClickEL
 @classdesc GeoLocator button event listeners
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class PinButtonClickEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -141,6 +119,7 @@ class PinButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -153,9 +132,7 @@ class PinButtonClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class TravelNotesToolbarUI
 @classdesc This class is the Toolbar on top of the UI
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -167,14 +144,14 @@ class TravelNotesToolbarUI {
 	@type {HTMLElement}
 	*/
 
-	#geoLocationButton = null;
+	#geoLocationButton;
 
 	/**
 	The buttons container
 	@type {HTMLElement}
 	*/
 
-	#buttonsDiv = null;
+	#buttonsDiv;
 
 	/**
 	This method creates the home button
@@ -320,8 +297,8 @@ class TravelNotesToolbarUI {
 		pinButton.addEventListener ( 'click', new PinButtonClickEL ( ), false );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {HTMLElement} uiMainDiv The HTMLElement in witch the toolbar must be created
 	*/
 

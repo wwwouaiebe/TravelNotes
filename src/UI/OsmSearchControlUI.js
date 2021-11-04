@@ -26,24 +26,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OsmSearchControlUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module osmSearchPaneUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import OsmSearchToolbarUI from '../UI/OsmSearchToolbarUI.js';
 import OsmSearchTreeUI from '../UI/OsmSearchTreeUI.js';
 import OsmSearchWaitUI from '../UI/OsmSearchWaitUI.js';
@@ -51,9 +33,7 @@ import OsmSearchWaitUI from '../UI/OsmSearchWaitUI.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class OsmSearchControlUI
 @classdesc This class add or remove the search toolbar and search tree on the pane control
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -65,31 +45,31 @@ class OsmSearchControlUI {
 	@type {OsmSearchTreeUI}
 	*/
 
-	#osmSearchTreeUI = null;
+	#osmSearchTreeUI;
 
 	/**
 	A reference to the OsmSearchToolbarUI object
 	@type {OsmSearchToolbarUI}
 	*/
 
-	#osmSearchToolbar = null;
+	#osmSearchToolbar;
 
 	/**
 	A reference to the OsmSearchWaitUI Object
 	@type {OsmSearchWaitUI}
 	*/
 
-	#osmSearchWaitUI = null;
+	#osmSearchWaitUI;
 
 	/**
 	The HTMLElement in witch the control have to be added
 	@type {HTMLElement}
 	*/
 
-	#paneControl = null;
+	#paneControl;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {HTMLElement} paneControl The HTMLElement in witch the control have to be added
 	*/
 

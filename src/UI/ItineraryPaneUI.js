@@ -32,24 +32,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ItineraryPaneUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module itineraryPaneUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import PaneUI from '../UI/PaneUI.js';
 import theTranslator from '../UILib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
@@ -60,11 +42,8 @@ import { INVALID_OBJ_ID, PANE_ID } from '../main/Constants.js';
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class ItineraryPaneUI
 @classdesc This class manages the itinerary pane UI
-@see {@link PanesManagerUI} for pane UI management
-@extends PaneUI
-@hideconstructor
+See PanesManagerUI for pane UI management
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -76,16 +55,16 @@ class ItineraryPaneUI extends PaneUI {
 	@type {ItineraryDataUI}
 	*/
 
-	#itineraryDataUI = null;
+	#itineraryDataUI;
 
 	/**
 	the ItineraryControlUI Object
 	@type {ItineraryControlUI}
 	*/
 
-	#itineraryControlUI = null;
+	#itineraryControlUI;
 
-	/*
+	/**
 	constructor
 	@param {HTMLElement} paneData The HTMLElement in witch the data have to be added
 	@param {HTMLElement} paneControl The HTMLElement in witch the control have to be added

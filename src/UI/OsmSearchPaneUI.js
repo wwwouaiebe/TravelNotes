@@ -39,24 +39,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OsmSearchPaneUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module osmSearchPaneUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import PaneUI from '../UI/PaneUI.js';
 import theTranslator from '../UILib/Translator.js';
 import OsmSearchLimitsUI from '../UI/OsmSearchLimitsUI.js';
@@ -68,11 +50,8 @@ import { PANE_ID } from '../main/Constants.js';
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class OsmSearchPaneUI
 @classdesc This class manages the search pane UI
-@see {@link PanesManagerUI} for pane UI management
-@implements {PaneUI}
-@hideconstructor
+See PanesManagerUI for pane UI management
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -84,24 +63,24 @@ class OsmSearchPaneUI extends PaneUI {
 	@type {OsmSearchDataUI}
 	*/
 
-	#osmSearchDataUI = null;
+	#osmSearchDataUI;
 
 	/**
 	The control UI
 	@type {OsmSearchControlUI}
 	*/
 
-	#osmSearchControlUI = null;
+	#osmSearchControlUI;
 
 	/**
 	The limits UI
 	@type {OsmSearchLimitsUI}
 	*/
 
-	#osmSearchLimitsUI = null;
+	#osmSearchLimitsUI;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {HTMLElement} paneData The HTMLElement in witch the data have to be added
 	@param {HTMLElement} paneControl The HTMLElement in witch the control have to be added
 	*/

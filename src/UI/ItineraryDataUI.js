@@ -26,24 +26,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ItineraryDataUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module itineraryPaneUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theRouteHTMLViewsFactory from '../viewsFactories/RouteHTMLViewsFactory.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import NoteContextMenu from '../contextMenus/NoteContextMenu.js';
@@ -53,9 +35,7 @@ import theEventDispatcher from '../coreLib/EventDispatcher.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class ManeuverContextMenuEL
 @classdesc contextmenu event listener for the maneuvers
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -67,10 +47,11 @@ class ManeuverContextMenuEL {
 	@type {HTMLElement}
 	*/
 
-	#paneData = null;
+	#paneData;
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {HTMLElement} paneData A reference to the HTMLElement in witch the data have to be added
 	*/
 
 	constructor ( paneData ) {
@@ -79,6 +60,7 @@ class ManeuverContextMenuEL {
 
 	/**
 	Event listener method
+	@param {Event} contextMenuEvent The event to handle
 	*/
 
 	handleEvent ( contextMenuEvent ) {
@@ -91,9 +73,7 @@ class ManeuverContextMenuEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class NoteContextMenuEL
 @classdesc contextmenu event listener for the notes
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -105,10 +85,11 @@ class NoteContextMenuEL {
 	@type {HTMLElement}
 	*/
 
-	#paneData = null;
+	#paneData;
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {HTMLElement} paneData A reference to the HTMLElement in witch the data have to be added
 	*/
 
 	constructor ( paneData ) {
@@ -118,6 +99,7 @@ class NoteContextMenuEL {
 
 	/**
 	Event listener method
+	@param {Event} contextMenuEvent The event to handle
 	*/
 
 	handleEvent ( contextMenuEvent ) {
@@ -130,17 +112,15 @@ class NoteContextMenuEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class ManeuverMouseEnterEL
 @classdesc mouseenter event listener for maneuvers
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class ManeuverMouseEnterEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -149,6 +129,7 @@ class ManeuverMouseEnterEL {
 
 	/**
 	Event listener method
+	@param {Event} mouseEvent The event to handle
 	*/
 
 	handleEvent ( mouseEvent ) {
@@ -171,17 +152,15 @@ class ManeuverMouseEnterEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class NoteMouseEnterEL
 @classdesc mouseenter event listener for notes
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class NoteMouseEnterEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -190,6 +169,7 @@ class NoteMouseEnterEL {
 
 	/**
 	Event listener method
+	@param {Event} mouseEvent The event to handle
 	*/
 
 	handleEvent ( mouseEvent ) {
@@ -210,17 +190,15 @@ class NoteMouseEnterEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class NoteOrManeuverMouseLeaveEL
 @classdesc mouseleave event listener notes and maneuvers
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class NoteOrManeuverMouseLeaveEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -229,6 +207,7 @@ class NoteOrManeuverMouseLeaveEL {
 
 	/**
 	Event listener method
+	@param {Event} mouseEvent The event to handle
 	*/
 
 	handleEvent ( mouseEvent ) {
@@ -243,9 +222,7 @@ class NoteOrManeuverMouseLeaveEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class ItineraryDataUI
 @classdesc This class manages the dataPane for the itineraries
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -257,49 +234,49 @@ class ItineraryDataUI {
 	@type {HTMLElement}
 	*/
 
-	#paneData = null;
+	#paneData;
 
 	/**
 	An HTMLElement with notes and maneuvers for the edited route
 	@type {HTMLElement}
 	*/
 
-	#routeManeuversAndNotesHTML = null;
+	#routeManeuversAndNotesHTML;
 
 	/**
 	maneuver contextmenu event listener
 	@type {ManeuverContextMenuEL}
 	*/
 
-	#maneuverContextMenuEL = null;
+	#maneuverContextMenuEL;
 
 	/**
 	note contextmenu event listener
 	@type {NoteContextMenuEL}
 	*/
 
-	#noteContextMenuEL = null;
+	#noteContextMenuEL;
 
 	/**
 	maneuver mouseenter event listener
 	@type {ManeuverMouseEnterEL}
 	*/
 
-	#maneuverMouseEnterEL = null;
+	#maneuverMouseEnterEL;
 
 	/**
 	note mouseenter event listener
 	@type {NoteMouseEnterEL}
 	*/
 
-	#noteMouseEnterEL = null;
+	#noteMouseEnterEL;
 
 	/**
 	maneuver or note mouseleave event listener
 	@type {NoteOrManeuverMouseLeaveEL}
 	*/
 
-	#noteOrManeuverMouseLeaveEL = null;
+	#noteOrManeuverMouseLeaveEL
 
 	/**
 	toggle the visibility of notes or maneuvers
@@ -316,8 +293,8 @@ class ItineraryDataUI {
 		);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {HTMLElement} paneData The HTMLElement in witch the data have to be added
 	*/
 

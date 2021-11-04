@@ -26,24 +26,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file TravelToolbarUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module travelToolbarUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theTranslator from '../UILib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theTravelEditor from '../core/TravelEditor.js';
@@ -58,17 +40,15 @@ import { INVALID_OBJ_ID, ZERO } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class SaveAsButtonClickEL
 @classdesc click event listener for the SaveAs button
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class SaveAsButtonClickEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -77,6 +57,7 @@ class SaveAsButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -89,17 +70,15 @@ class SaveAsButtonClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class CancelButtonClickEL
 @classdesc click event listener for the Cancel button
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class CancelButtonClickEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -108,6 +87,7 @@ class CancelButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -122,17 +102,15 @@ class CancelButtonClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class SaveButtonClickEL
 @classdesc click event listener for the Save button
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class SaveButtonClickEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -141,6 +119,7 @@ class SaveButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -152,17 +131,15 @@ class SaveButtonClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class OpenInputChangeEL
 @classdesc change event listener for the input associated to the open button
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class OpenInputChangeEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -171,6 +148,7 @@ class OpenInputChangeEL {
 
 	/**
 	Event listener method
+	@param {Event} changeEvent The event to handle
 	*/
 
 	handleEvent ( changeEvent ) {
@@ -194,17 +172,15 @@ class OpenInputChangeEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class OpenButtonClickEL
 @classdesc click event listener for the open button
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class OpenButtonClickEL {
 
-	/*
-	constructor
+	/**
+	the constructor
 	*/
 
 	constructor ( ) {
@@ -213,6 +189,7 @@ class OpenButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -236,17 +213,15 @@ class OpenButtonClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class ImportInputChangeEL
 @classdesc change event listener for the input associated to the import button
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class ImportInputChangeEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -255,6 +230,7 @@ class ImportInputChangeEL {
 
 	/**
 	Event listener method
+	@param {Event} changeEvent The event to handle
 	*/
 
 	handleEvent ( changeEvent ) {
@@ -288,8 +264,8 @@ class ImportInputChangeEL {
 
 class ImportButtonClickEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -298,6 +274,7 @@ class ImportButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -316,9 +293,7 @@ class ImportButtonClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class TravelToolbarUI
 @classdesc This class is the TravelToolbar part of the UI
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -330,7 +305,7 @@ class TravelToolbarUI {
 	@type {HTMLElement}
 	*/
 
-	#buttonsDiv = null;
+	#buttonsDiv;
 
 	/**
 	This method creates the save travel button
@@ -450,8 +425,8 @@ class TravelToolbarUI {
 		);
 	}
 
-	/*
-	constructor
+	/**
+	the constructor
 	@param {HTMLElement} uiMainDiv The HTMLElement in witch the toolbar must be created
 	*/
 

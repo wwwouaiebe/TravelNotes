@@ -31,24 +31,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file TravelNotesPaneUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module travelNotesPaneUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import PaneUI from '../UI/PaneUI.js';
 import theTranslator from '../UILib/Translator.js';
 import theNoteHTMLViewsFactory from '../viewsFactories/NoteHTMLViewsFactory.js';
@@ -59,7 +41,6 @@ import { PANE_ID } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class TravelNoteDragStartEL
 @classdesc dragstart event listener for the travel notes
 
 @------------------------------------------------------------------------------------------------------------------------------
@@ -67,8 +48,8 @@ import { PANE_ID } from '../main/Constants.js';
 
 class TravelNoteDragStartEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -77,6 +58,7 @@ class TravelNoteDragStartEL {
 
 	/**
 	Event listener method
+	@param {Event} dragEvent The event to handle
 	*/
 
 	handleEvent ( dragEvent ) {
@@ -96,7 +78,6 @@ class TravelNoteDragStartEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class TravelNoteDragOverEL
 @classdesc dragover event listener for the travel notes
 
 @------------------------------------------------------------------------------------------------------------------------------
@@ -104,8 +85,8 @@ class TravelNoteDragStartEL {
 
 class TravelNoteDragOverEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -114,6 +95,7 @@ class TravelNoteDragOverEL {
 
 	/**
 	Event listener method
+	@param {Event} dragEvent The event to handle
 	*/
 
 	handleEvent ( dragEvent ) {
@@ -124,7 +106,6 @@ class TravelNoteDragOverEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class TravelNoteDropEL
 @classdesc drop event listener for the travel notes
 
 @------------------------------------------------------------------------------------------------------------------------------
@@ -132,8 +113,8 @@ class TravelNoteDragOverEL {
 
 class TravelNoteDropEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -142,6 +123,7 @@ class TravelNoteDropEL {
 
 	/**
 	Event listener method
+	@param {Event} dropEvent The event to handle
 	*/
 
 	handleEvent ( dropEvent ) {
@@ -160,7 +142,6 @@ class TravelNoteDropEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class TravelNoteContextMenuEL
 @classdesc contextmenu event listener for the travel notes
 
 @------------------------------------------------------------------------------------------------------------------------------
@@ -175,8 +156,9 @@ class TravelNoteContextMenuEL {
 
 	#paneData = null;
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {HTMLElement} paneData A reference to the HTMLElement in witch the data have to be added
 	*/
 
 	constructor ( paneData ) {
@@ -186,6 +168,7 @@ class TravelNoteContextMenuEL {
 
 	/**
 	Event listener method
+	@param {Event} contextMenuEvent The event to handle
 	*/
 
 	handleEvent ( contextMenuEvent ) {
@@ -198,11 +181,8 @@ class TravelNoteContextMenuEL {
 /**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class TravelNotesPaneUI
-@classdesc This class manages the travel notes pane UI
-@see {@link PanesManagerUI} for pane UI management
-@extends PaneUI
-@hideconstructor
+@classdesc This class manages the travel notes pane UI<br/>
+See PanesManagerUI for pane UI management
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -214,38 +194,38 @@ class TravelNotesPaneUI extends PaneUI {
 	@type {HTMLElement}
 	*/
 
-	#travelNotesDiv = null;
+	#travelNotesDiv;
 
 	/**
 	dragstart event listener
 	@type {TravelNoteDragStartEL}
 	*/
 
-	#travelNoteDragStartEL = null;
+	#travelNoteDragStartEL;
 
 	/**
 	dragover event listener
 	@type {TravelNoteDragOverEL}
 	*/
 
-	#travelNoteDragOverEL = null;
+	#travelNoteDragOverEL;
 
 	/**
 	drop event listener
 	@type {TravelNoteDropEL}
 	*/
 
-	#travelNoteDropEL = null;
+	#travelNoteDropEL;
 
 	/**
 	contextmenu event listener
 	@type {TravelNoteContextMenuEL}
 	*/
 
-	#travelNoteContextMenuEL = null;
+	#travelNoteContextMenuEL;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {HTMLElement} paneData The HTMLElement in witch the data have to be added
 	@param {HTMLElement} paneControl The HTMLElement in witch the control have to be added
 	*/

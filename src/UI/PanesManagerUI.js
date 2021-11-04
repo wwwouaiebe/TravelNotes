@@ -39,31 +39,12 @@ Doc reviewed 20210901
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file PanesManagerUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module panesManagerUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import { MOUSE_WHEEL_FACTORS, PANE_ID } from '../main/Constants.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class PaneButtonClickEL
 @classdesc click event listener for the mane buttons
 
 @------------------------------------------------------------------------------------------------------------------------------
@@ -78,8 +59,8 @@ class PaneButtonClickEL {
 
 	#paneManagerUI = null;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {PanesManagerUI} paneManagerUI A reference to the PanesManagerUI Object
 	*/
 
@@ -92,6 +73,7 @@ class PaneButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -102,7 +84,6 @@ class PaneButtonClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class PaneDataDivWheelEL
 @classdesc wheel event listeners for the PaneDataDiv
 
 @------------------------------------------------------------------------------------------------------------------------------
@@ -110,8 +91,8 @@ class PaneButtonClickEL {
 
 class PaneDataDivWheelEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -120,6 +101,7 @@ class PaneDataDivWheelEL {
 
 	/**
 	Event listener method
+	@param {Event} wheelEvent The event to handle
 	*/
 
 	handleEvent ( wheelEvent ) {
@@ -134,9 +116,7 @@ class PaneDataDivWheelEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class PanesManagerUI
 @classdesc This class manages the differents panes on the UI
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -148,34 +128,35 @@ class PanesManagerUI {
 	@type {String}
 	*/
 
-	#activePaneId = PANE_ID.invalidPane;
+	#activePaneId;
 
 	/**
 	A js Map with all the panes, ordered by paneId
 	@type {Map}
 	*/
 
-	#panes = new Map ( );
+	#panes;
 
 	/**
 	The HTMLElement in witch the data have to be added
 	@type {HTMLElement}
 	*/
 
-	#paneData = null;
+	#paneData;
 
 	/**
 	The HTMLElement in witch the control have to be added
 	@type {HTMLElement}
 	*/
 
-	#paneControl = null;
+	#paneControl;
 
 	/**
+	The header with the panes buttons
 	@type {HTMLElement}
 	*/
 
-	#headerDiv = null;
+	#headerDiv;
 
 	/**
 	This method remove the content of the Data Pane Div
@@ -187,14 +168,17 @@ class PanesManagerUI {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {HTMLElement} uiMainDiv The HTMLElement in witch the PaneManagerUI must be included
 	*/
 
 	constructor ( uiMainDiv ) {
 
 		Object.freeze ( this );
+
+		this.#activePaneId = PANE_ID.invalidPane;
+		this.#panes = new Map ( );
 
 		// Header div ( buttons ) creation
 		this.#headerDiv = theHTMLElementsFactory.create (
@@ -249,7 +233,7 @@ class PanesManagerUI {
 
 	/**
 	show a pane to the PanesManagerUI
-	@param {String} pane id of the pane to be displayed
+	@param {String} paneId The pane id of the pane to be displayed
 	*/
 
 	showPane ( paneId ) {
@@ -276,7 +260,7 @@ class PanesManagerUI {
 
 	/**
 	Update a pane ( = show the pane only if the pane is the active pane )
-	@param {string|number} pane id of the pane to be displayed
+	@param {string|number} paneId the pane id of the pane to be displayed
 	*/
 
 	updatePane ( paneId ) {

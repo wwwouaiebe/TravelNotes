@@ -26,24 +26,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OsmSearchToolbarUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module osmSearchPaneUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theOsmSearchEngine from '../coreOsmSearch/OsmSearchEngine.js';
 import theOsmSearchDictionary from '../coreOsmSearch/OsmSearchDictionary.js';
@@ -56,9 +38,7 @@ import { ZERO } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class SearchButtonClickEL
 @classdesc click event listener for the search button
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -70,17 +50,17 @@ class SearchButtonClickEL {
 	@type {OsmSearchTreeUI}
 	*/
 
-	#osmSearchTreeUI = null;
+	#osmSearchTreeUI;
 
 	/**
 	A reference to the osmSearchWaitUI Object
 	@type {OsmSearchWaitUI}
 	*/
 
-	#osmSearchWaitUI = null;
+	#osmSearchWaitUI;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {OsmSearchTreeUI} osmSearchTreeUI A reference to the OsmSearchTreeUI object
 	@param {OsmSearchWaitUI} osmSearchWaitUI A reference to the OsmSearchWaitUI object
 	*/
@@ -93,6 +73,7 @@ class SearchButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -112,9 +93,7 @@ class SearchButtonClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class ExpandButtonClickEL
 @classdesc click event listener for the expand tree button
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -126,10 +105,10 @@ class ExpandButtonClickEL {
 	@type {OsmSearchTreeUI}
 	*/
 
-	#osmSearchTreeUI = null;
+	#osmSearchTreeUI;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {OsmSearchTreeUI} osmSearchTreeUI A reference to the OsmSearchTreeUI object
 	*/
 
@@ -140,6 +119,7 @@ class ExpandButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -152,9 +132,7 @@ class ExpandButtonClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class CollapseButtonClickEL
 @classdesc click event listener for the collapse tree button
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -166,10 +144,10 @@ class CollapseButtonClickEL {
 	@type {OsmSearchTreeUI}
 	*/
 
-	#osmSearchTreeUI = null;
+	#osmSearchTreeUI;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {OsmSearchTreeUI} osmSearchTreeUI A reference to the OsmSearchTreeUI object
 	*/
 
@@ -180,6 +158,7 @@ class CollapseButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -192,9 +171,7 @@ class CollapseButtonClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class ClearButtonClickEL
 @classdesc click event listener for the clear tree button
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -206,10 +183,10 @@ class ClearButtonClickEL {
 	@type {OsmSearchTreeUI}
 	*/
 
-	#osmSearchTreeUI = null;
+	#osmSearchTreeUI;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {OsmSearchTreeUI} osmSearchTreeUI A reference to the OsmSearchTreeUI object
 	*/
 
@@ -220,6 +197,7 @@ class ClearButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -232,9 +210,7 @@ class ClearButtonClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class OsmSearchToolbarUI
 @classdesc This class build the search toolbar and contains also the event listeners for the toolbar
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -246,10 +222,10 @@ class OsmSearchToolbarUI {
 	@type {HTMLElement}
 	*/
 
-	#toolbarHTMLElement = null;
+	#toolbarHTMLElement;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {OsmSearchTreeUI} osmSearchTreeUI A reference to the OsmSearchTreeUI object
 	@param {OsmSearchWaitUI} osmSearchWaitUI A reference to the OsmSearchWaitUI object
 	*/
@@ -316,7 +292,7 @@ class OsmSearchToolbarUI {
 
 	/**
 	The toolbar htmlElement
-	@type HTMLElement
+	@type {HTMLElement}
 	*/
 
 	get toolbarHTMLElement ( ) { return this.#toolbarHTMLElement; }

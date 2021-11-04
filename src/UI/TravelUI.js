@@ -50,24 +50,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file TravelUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module travelUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theTranslator from '../UILib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
@@ -80,17 +62,15 @@ import RoutesListUI from '../UI/RoutesListUI.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class TravelNameChangeEL
 @classdesc change event listener for the TravelName input
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class TravelNameChangeEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -99,6 +79,7 @@ class TravelNameChangeEL {
 
 	/**
 	Event listener method
+	@param {Event} changeEvent The event to handle
 	*/
 
 	handleEvent ( changeEvent ) {
@@ -115,9 +96,7 @@ class TravelNameChangeEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class ExpandButtonClickEL
 @classdesc click event listener for the ExpandRoutes button
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -131,8 +110,8 @@ class ExpandButtonClickEL {
 
 	#routesListUI = null;
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {RoutesListUI} routesListUI A reference to the RoutesListUI object
 	*/
 
@@ -142,6 +121,7 @@ class ExpandButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -162,17 +142,15 @@ class ExpandButtonClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class AddRouteButtonClickEL
 @classdesc click event listener for the addRoute button
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class AddRouteButtonClickEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -181,6 +159,7 @@ class AddRouteButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -192,9 +171,7 @@ class AddRouteButtonClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class TravelUI
 @classdesc This class is the Travel part of the UI
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -206,28 +183,28 @@ class TravelUI {
 	@type {HTMLElement}
 	*/
 
-	#routesHeaderDiv = null;
+	#routesHeaderDiv;
 
 	/**
 	The travel name input
 	@type {HTMLElement}
 	*/
 
-	#travelNameInput = null;
+	#travelNameInput;
 
 	/**
 	The routes list UI
 	@type {RoutesListUI}
 	*/
 
-	#routesListUI = null;
+	#routesListUI;
 
 	/**
 	The expand routes list UI button
 	@type {HTMLElement}
 	*/
 
-	#expandRoutesButton = null;
+	#expandRoutesButton;
 
 	/**
 	This method creates the travel name div
@@ -315,8 +292,8 @@ class TravelUI {
 		this.#createAddRouteButton ( this.#routesHeaderDiv );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {HTMLElement} uiMainDiv The HTMLElement in witch the UI must be created
 	*/
 
