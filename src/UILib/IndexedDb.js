@@ -29,31 +29,10 @@ Tests ...
 */
 
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file IndexedDb.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module UILib
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-const OUR_DB_VERSION = 1;
-
-/**
 @--------------------------------------------------------------------------------------------------------------------------
 
-@class IndexedDb
-@classdesc This class contains methods for accessing the window.indexedDb
-@see {@link theIndexedDb} for the one and only one instance of this class
-@hideconstructor
+@classdesc This class contains methods for accessing the window.indexedDb.
+See theIndexedDb for the one and only one instance of this class
 
 @--------------------------------------------------------------------------------------------------------------------------
 */
@@ -65,24 +44,34 @@ class IndexedDb {
 	@type {IDBFactory}
 	*/
 
-	#indexedDb = null;
+	#indexedDb;
 
 	/**
 	The UUID of the current travel
 	@type {String}
 	*/
 
-	#UUID = null;
+	#UUID;
 
 	/**
 	A temp variable used to store the data to write in the indexedDb
 	@type {String}
 	*/
 
-	#data = null;
+	#data;
+	
+	/**
+	The version of the db to use
+	@type {Number}
+	*/
+	
+	// eslint-disable-next-line no-magic-numbers
+	static get #DB_VERSION ( ) { return 1;}
 
 	/**
 	Perform the open operations
+	@param {function} onOk the Ok handler for the Promise
+	@param {function} onError the error handler for the Promise
 	*/
 
 	#open ( onOk, onError ) {
@@ -90,7 +79,7 @@ class IndexedDb {
 			onOk ( );
 			return;
 		}
-		const openRequest = window.indexedDB.open ( 'TravelNotesDb', OUR_DB_VERSION );
+		const openRequest = window.indexedDB.open ( 'TravelNotesDb', IndexedDb.#DB_VERSION );
 		openRequest.onerror = ( ) => {
 			this.#indexedDb = null;
 			onError ( new Error ( 'Not possible to open the db' ) );
@@ -107,6 +96,8 @@ class IndexedDb {
 
 	/**
 	Perform the read operations
+	@param {function} onOk the Ok handler for the Promise
+	@param {function} onError the error handler for the Promise
 	*/
 
 	#read ( onOk, onError ) {
@@ -124,6 +115,8 @@ class IndexedDb {
 
 	/**
 	Perform the write operations
+	@param {function} onOk the Ok handler for the Promise
+	@param {function} onError the error handler for the Promise
 	*/
 
 	#write ( onOk, onError ) {
@@ -147,7 +140,7 @@ class IndexedDb {
 		this.#indexedDb = null;
 	}
 
-	/*
+	/**
 	constructor
 	*/
 
@@ -219,8 +212,6 @@ class IndexedDb {
 
 @desc The one and only one instance of IndexedDb class
 @type {IndexedDb}
-@constant
-@global
 
 @--------------------------------------------------------------------------------------------------------------------------
 */

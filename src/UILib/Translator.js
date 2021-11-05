@@ -29,44 +29,13 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file Translator.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module UILib
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@typedef {Object} Translation
-@desc An object used to store translated messages
-@property {String} msgid an id to use to identify the message
-@property {String} msgstr The message translated
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class
 @classdesc This class is used to translate the messages in another language
-@see {@link theTranslator} for the one and only one instance of this class
-@hideconstructor
+See theTranslator for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -80,7 +49,7 @@ class Translator {
 
 	#translations = new Map ( );
 
-	/*
+	/**
 	constructor
 	*/
 
@@ -126,8 +95,6 @@ class Translator {
 
 @desc The one and only one instance of Translator class
 @type {Translator}
-@constant
-@global
 
 @--------------------------------------------------------------------------------------------------------------------------
 */

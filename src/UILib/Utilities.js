@@ -27,41 +27,21 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file Utilities.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module UILib
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theTranslator from '../UILib/Translator.js';
 import { LAT_LNG, ZERO, ONE, TWO, THREE, HEXADECIMAL, DISTANCE } from '../main/Constants.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class Utilities
-@classdesc This class contains utility methods
-@see {@link theUtilities} for the one and only one instance of this class
-@hideconstructor
+@classdesc This class contains utility methods.
+See theUtilities for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class Utilities {
 
-	/*
+	/**
 	constructor
 	*/
 
@@ -71,6 +51,7 @@ class Utilities {
 
 	/**
 	Gives an UUID conform to the rfc 4122 section 4.4
+	@type {String}
 	*/
 
 	get UUID ( ) {
@@ -128,8 +109,8 @@ class Utilities {
 
 	/**
 	Open a file
-	@param {function} eventListener a change event listener to use when the file is opened
-
+	@param {function|Object} eventListener a change event listener to use when the file is opened
+	@param {String} acceptFileType The extension of the file, included the dot. 
 	*/
 
 	openFile ( eventListener, acceptFileType ) {
@@ -285,8 +266,6 @@ class Utilities {
 
 @desc The one and only one instance of Utilities class
 @type {Utilities}
-@constant
-@global
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
