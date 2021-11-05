@@ -27,23 +27,9 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OsrmTextInstructions.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module routeProviders
-@see https://github.com/Project-OSRM/osrm-text-instructions
-
-@desc This file is an adaptation for ES6 of the osrm-text-instruction project
+/*
+See https://github.com/Project-OSRM/osrm-text-instructions
+This file is an adaptation for ES6 of the osrm-text-instruction project
 The osrmTextInstructions object code is the same than the code in the osrm-text-instruction/index.js.
 If changes are done in osrm-text-instruction, they can be reported there without major problems.
 Language json files are installed by the grunt.js file. Adapt this file if you will more languages.
@@ -55,6 +41,10 @@ Don't rename variables for compatibility with osrm-text-instructions
 /* eslint-disable max-lines */
 
 import { ZERO, ONE, NOT_FOUND, HTTP_STATUS_OK } from '../main/Constants.js';
+
+/**
+@ignore
+*/
 
 const OUR_OSRM_LANGUAGES = [
 	'ar',
@@ -89,8 +79,15 @@ const OUR_OSRM_LANGUAGES = [
 	'zh-Hans'
 ];
 
-// working only with v5
+/**
+@ignore
+*/
+
 const OUR_VERSION = 'v5';
+
+/**
+@ignore
+*/
 
 const languages =
 {
@@ -101,17 +98,32 @@ const languages =
 };
 
 // references to avoid rewriting OsrmTextInstructions
+
+/**
+@ignore
+*/
+
 const instructions = languages.instructions;
+
+/**
+@ignore
+*/
+
 const grammars = languages.grammars;
+
+/**
+@ignore
+*/
+
 const abbreviations = languages.abbreviations;
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class OsrmTextInstructions
-@classdesc This class contains methods to write / translate moneuver instructions in MapboxRouteProvider and OsrmRouteProvider
-@see {@link theOsrmTextInstructions} for the one and only one instance of this class
-@hideconstructor
+@ignore
+@classdesc This class contains methods to write / translate moneuver instructions
+in MapboxRouteProvider and OsrmRouteProvider<br/>
+See theOsrmTextInstructions for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -425,10 +437,9 @@ class OsrmTextInstructions 	{
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
+@ignore
 @desc The one and only one instance of OsrmTextInstructions class
 @type {OsrmTextInstructions}
-@constant
-@global
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

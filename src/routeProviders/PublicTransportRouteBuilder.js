@@ -25,31 +25,13 @@ Changes:
 Doc reviewed 20210915
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file PublicTransportRouteBuilder.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module routeProviders
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
 import publicTransportData from '../routeProviders/PublicTransportData.js';
 import PublicTransportHolesRemover from '../routeProviders/PublicTransportHolesRemover.js';
 
-import { ZERO, INVALID_OBJ_ID, ONE, TWO, THREE } from '../main/Constants.js';
+import { ZERO, ONE, TWO, THREE } from '../main/Constants.js';
 
 /*
 
@@ -105,19 +87,18 @@ And also we have to look at this:
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class PublicTransportRouteBuilder
+@ignore
 @classdesc coming soon...
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class PublicTransportRouteBuilder {
 
-	#selectedRelationId = INVALID_OBJ_ID;
-	#nodes3Ways = [];
-	#route = null;
-	#publicTransportData = null;
+	#selectedRelationId;
+	#nodes3Ways;
+	#route;
+	#publicTransportData;
 
 	/**
 	*/
@@ -338,8 +319,8 @@ class PublicTransportRouteBuilder {
 
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( route, selectedRelationId ) {
@@ -347,6 +328,7 @@ class PublicTransportRouteBuilder {
 		this.#route = route;
 		this.#selectedRelationId = selectedRelationId;
 		this.#publicTransportData = new publicTransportData ( selectedRelationId );
+		this.nodes3Ways = [];
 	}
 
 	buildRoute ( response, onOk, onError ) {

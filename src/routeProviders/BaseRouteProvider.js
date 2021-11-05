@@ -29,29 +29,7 @@ Tests ...
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@file BaseRouteProvider.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module routeProviders
-@todo review this module: -> split into different modules for each provider + lib for shared classes.
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class BaseRouteProvider
 @classdesc Base class used for RouteProviders
-@hideconstructor
-@abstract
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -63,14 +41,22 @@ class BaseRouteProvider {
 	@type {String}
 	*/
 
-	#userLanguage = 'fr';
+	#userLanguage;
 
 	/**
 	A reference to the edited route
 	@type {Route}
 	*/
 
-	#route = null;
+	#route;
+
+	/**
+	Call the provider, using the waypoints defined in the route and, on success,
+	complete the route with the data from the provider
+	@param {function} onOk the Promise Success handler
+	@param {function} onError the Promise Error handler
+
+	*/
 
 	/* eslint-disable-next-line no-unused-vars */
 	#getRoute ( onOk, onError ) {
@@ -78,12 +64,13 @@ class BaseRouteProvider {
 		// to be implemented in the derived classes
 	}
 
-	/*
+	/**
 	constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#userLanguage = 'fr';
 	}
 
 	/**

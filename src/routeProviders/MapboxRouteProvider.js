@@ -29,24 +29,6 @@ Tests ...
 -----------------------------------------------------------------------------------------------------------------------
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file routeProviders.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module MapboxRouteProvider
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import PolylineEncoder from '../coreLib/PolylineEncoder.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
@@ -55,17 +37,12 @@ import theOsrmTextInstructions from '../routeProviders/OsrmTextInstructions.js';
 import { ICON_LIST } from '../routeProviders/IconList.js';
 import { ZERO, ONE, TWO, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
 
-const OUR_MAPBOX_LAT_LNG_ROUND = 6;
-
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class MapboxRouteProvider
-@classdesc This class implements the Provider interface for Mapbox. It's not possible to instanciate
+@classdesc This class implements the BaseRouteProvider for Mapbox. It's not possible to instanciate
 this class because the class is not exported from the module. Only one instance is created and added to the list
 of Providers of TravelNotes
-@see Provider for a description of methods
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -77,14 +54,21 @@ class MapboxRouteProvider extends BaseRouteProvider {
 	@type {String}
 	*/
 
-	#providerKey = '';
+	#providerKey;
 
 	/**
 	A reference to the edited route
 	@type {Route}
 	*/
 
-	#route = null;
+	#route;
+
+	/**
+	The round value used by PolylineEncoder
+	@type {Number}
+	*/
+	// eslint-disable-next-line no-magic-numbers
+	static get#ROUND_VALUE ( ) { return 6; }
 
 	/**
 	Parse the response from the provider and add the received itinerary to the route itinerary
@@ -112,7 +96,7 @@ class MapboxRouteProvider extends BaseRouteProvider {
 		this.#route.itinerary.ascent = ZERO;
 		this.#route.itinerary.descent = ZERO;
 		response.routes [ ZERO ].geometry = polylineEncoder.decode (
-			response.routes [ ZERO ].geometry, [ OUR_MAPBOX_LAT_LNG_ROUND, OUR_MAPBOX_LAT_LNG_ROUND ]
+			response.routes [ ZERO ].geometry, [ MapboxRouteProvider.#ROUND_VALUE, MapboxRouteProvider.#ROUND_VALUE ]
 		);
 		response.routes [ ZERO ].legs.forEach (
 			leg => {
@@ -121,7 +105,7 @@ class MapboxRouteProvider extends BaseRouteProvider {
 					step => {
 						step.geometry = polylineEncoder.decode (
 							step.geometry,
-							[ OUR_MAPBOX_LAT_LNG_ROUND, OUR_MAPBOX_LAT_LNG_ROUND ]
+							[ MapboxRouteProvider.#ROUND_VALUE, MapboxRouteProvider.#ROUND_VALUE ]
 						);
 						if (
 							'arrive' === step.maneuver.type
@@ -234,6 +218,8 @@ class MapboxRouteProvider extends BaseRouteProvider {
 
 	/**
 	Implementation of the base class #getRoute ( )
+	@param {function} onOk the Promise Success handler
+	@param {function} onError the Promise Error handler
 	*/
 
 	#getRoute ( onOk, onError ) {
@@ -256,12 +242,13 @@ class MapboxRouteProvider extends BaseRouteProvider {
 			);
 	}
 
-	/*
+	/**
 	constructor
 	*/
 
 	constructor ( ) {
 		super ( );
+		this.#providerKey = '';
 	}
 
 	/**
@@ -330,9 +317,8 @@ class MapboxRouteProvider extends BaseRouteProvider {
 	get providerKeyNeeded ( ) { return true; }
 
 	/**
-	The provider key. Notice that the accessor returns only the length of the provider key and not the key...
+	The provider key.
 	Overload of the base class providerKey property
-	@type {string|number}
 	*/
 
 	set providerKey ( providerKey ) { this.#providerKey = providerKey; }

@@ -27,24 +27,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file PolylineRouteProvider.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module routeProviders
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
@@ -52,32 +34,18 @@ import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
 
 import { ZERO, ONE, TWO, LAT, LNG, DEGREES } from '../main/Constants.js';
 
+/**
+@ignore
+*/
+
 const OUR_HALF_PI = Math.PI / TWO;
-
-const OUR_INSTRUCTIONS_LIST = Object.freeze (
-	{
-		en : Object.freeze ( { kStart : 'Start', kContinue : 'Continue', kEnd : 'Stop' } ),
-		fr : Object.freeze ( { kStart : 'Départ', kContinue : 'Continuer', kEnd : 'Arrivée' } )
-	}
-);
-
-const OUR_ICON_NAMES = Object.freeze (
-	{
-		kStart : 'kDepartDefault',
-		kContinue : 'kContinueStraight',
-		kEnd : 'kArriveDefault'
-	}
-);
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class PolylineRouteProvider
-@classdesc This class implements the Provider interface for a Polyline. It's not possible to instanciate
+@classdesc This class implements the BaseRouteProvider for a polyline or circle. It's not possible to instanciate
 this class because the class is not exported from the module. Only one instance is created and added to the list
 of Providers of TravelNotes
-@see Provider for a description of methods
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -86,9 +54,39 @@ class PolylineRouteProvider extends BaseRouteProvider {
 
 	/**
 	A reference to the edited route
+	@type {Route}
 	*/
 
-	#route = null;
+	#route;
+
+	/**
+	Translations for instructions
+	@type {Object}
+	*/
+
+	static get #INSTRUCTIONS_LIST ( ) {
+		return Object.freeze (
+			{
+				en : Object.freeze ( { kStart : 'Start', kContinue : 'Continue', kEnd : 'Stop' } ),
+				fr : Object.freeze ( { kStart : 'Départ', kContinue : 'Continuer', kEnd : 'Arrivée' } )
+			}
+		);
+	}
+
+	/**
+	Enum for icons names
+	@type {Object}
+	*/
+
+	static get #ICON_NAMES ( ) {
+		return Object.freeze (
+			{
+				kStart : 'kDepartDefault',
+				kContinue : 'kContinueStraight',
+				kEnd : 'kArriveDefault'
+			}
+		);
+	}
 
 	/**
 	Add a maneuver to the itinerary
@@ -99,13 +97,13 @@ class PolylineRouteProvider extends BaseRouteProvider {
 	#addManeuver ( itineraryPointObjId, position ) {
 		const maneuver = new Maneuver ( );
 
-		maneuver.iconName = OUR_ICON_NAMES [ position ];
+		maneuver.iconName = PolylineRouteProvider.#ICON_NAMES [ position ];
 		maneuver.instruction =
-			OUR_INSTRUCTIONS_LIST [ this.userLanguage ]
+			PolylineRouteProvider.#INSTRUCTIONS_LIST [ this.userLanguage ]
 				?
-				OUR_INSTRUCTIONS_LIST [ this.userLanguage ] [ position ]
+				PolylineRouteProvider.#INSTRUCTIONS_LIST [ this.userLanguage ] [ position ]
 				:
-				OUR_INSTRUCTIONS_LIST.en [ position ];
+				PolylineRouteProvider.#INSTRUCTIONS_LIST.en [ position ];
 		maneuver.duration = ZERO;
 		maneuver.itineraryPointObjId = itineraryPointObjId;
 
@@ -128,7 +126,7 @@ class PolylineRouteProvider extends BaseRouteProvider {
 	/**
 	This method add 64 intermediates points on a stuff of great circle
 	@param {WayPoint} startWayPoint the starting wayPoint
-	@param {WayPoint} endWayPoint the ending wayPoint
+	@param {WayPoint} endWaypoint the ending wayPoint
 	*/
 
 	#addIntermediateItineraryPoints ( startWayPoint, endWaypoint ) {
@@ -358,8 +356,8 @@ class PolylineRouteProvider extends BaseRouteProvider {
 		catch ( err ) { onError ( err ); }
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {

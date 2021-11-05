@@ -27,24 +27,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OpenRouteServiceRouteProvider.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module routeProviders
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import polylineEncoder from '../coreLib/PolylineEncoder.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
@@ -52,34 +34,12 @@ import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
 
 import { ZERO, ONE, TWO, LAT, LNG, ELEVATION, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
 
-const OUR_OPEN_ROUTE_LAT_LNG_ROUND = 5;
-
-const OUR_ICON_LIST = [
-	'kTurnLeft',
-	'kTurnRight',
-	'kTurnSharpLeft',
-	'kTurnSharpRight',
-	'kTurnSlightLeft',
-	'kTurnSlightRight',
-	'kContinueStraight',
-	'kRoundaboutRight',
-	'kRoundaboutExit',
-	'kUturnLeft',
-	'kArriveDefault',
-	'kDepartDefault',
-	'kStayLeft',
-	'kStayRight'
-];
-
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class OpenRouteServiceRouteProvider
-@classdesc This class implements the Provider interface for OpenRouteService. It's not possible to instanciate
+@classdesc This class implements the BaseRouteProvider for OpenRouteService. It's not possible to instanciate
 this class because the class is not exported from the module. Only one instance is created and added to the list
 of Providers of TravelNotes
-@see Provider for a description of methods
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -91,14 +51,45 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 	@type {String}
 	*/
 
-	#providerKey = '';
+	#providerKey;
 
 	/**
 	A reference to the edited route
 	@type {Route}
 	*/
 
-	#route = null;
+	#route;
+
+	/**
+	The round value used by PolylineEncoder
+	@type {Number}
+	*/
+	// eslint-disable-next-line no-magic-numbers
+	static get#ROUND_VALUE ( ) { return 5; }
+
+	/**
+	Enum for icons
+	@type {Array.<String>}
+	*/
+
+	static get #ICON_LIST ( ) {
+		return [
+			'kTurnLeft',
+			'kTurnRight',
+			'kTurnSharpLeft',
+			'kTurnSharpRight',
+			'kTurnSlightLeft',
+			'kTurnSlightRight',
+			'kContinueStraight',
+			'kRoundaboutRight',
+			'kRoundaboutExit',
+			'kUturnLeft',
+			'kArriveDefault',
+			'kDepartDefault',
+			'kStayLeft',
+			'kStayRight'
+		];
+	}
 
 	/**
 	Parse the response from the provider and add the received itinerary to the route itinerary
@@ -115,7 +106,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 		}
 		response.routes [ ZERO ].geometry = new polylineEncoder ( ).decode (
 			response.routes [ ZERO ].geometry,
-			[ OUR_OPEN_ROUTE_LAT_LNG_ROUND, OUR_OPEN_ROUTE_LAT_LNG_ROUND, TWO ]
+			[ OpenRouteServiceRouteProvider.#ROUND_VALUE, OpenRouteServiceRouteProvider.#ROUND_VALUE, TWO ]
 		);
 		this.#route.itinerary.itineraryPoints.removeAll ( );
 		this.#route.itinerary.maneuvers.removeAll ( );
@@ -136,7 +127,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 				segment.steps.forEach (
 					step => {
 						let maneuver = new Maneuver ( );
-						maneuver.iconName = OUR_ICON_LIST [ step.type ] || 'kUndefined';
+						maneuver.iconName = OpenRouteServiceRouteProvider.#ICON_LIST [ step.type ] || 'kUndefined';
 						maneuver.instruction = step.instruction;
 						maneuver.duration = step.duration;
 						maneuver.distance = step.distance;
@@ -233,6 +224,8 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 
 	/**
 	Overload of the base class #getRoute ( ) method
+	@param {function} onOk the Promise Success handler
+	@param {function} onError the Promise Error handler
 	*/
 
 	#getRoute ( onOk, onError ) {
@@ -255,12 +248,13 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 			);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		super ( );
+		this.#providerKey = '';
 	}
 
 	/**
@@ -329,9 +323,8 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 	get providerKeyNeeded ( ) { return true; }
 
 	/**
-	The provider key. Notice that the accessor returns only the length of the provider key and not the key...
+	The provider key.
 	Overload of the base class providerKey property
-	@type {string|number}
 	*/
 
 	set providerKey ( providerKey ) { this.#providerKey = providerKey; }

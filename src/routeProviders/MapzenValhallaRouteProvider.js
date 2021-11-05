@@ -27,24 +27,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file MapzenValhallaRouteProvider.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module routeProviders
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import PolylineEncoder from '../coreLib/PolylineEncoder.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
@@ -52,56 +34,12 @@ import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
 
 import { ZERO, HTTP_STATUS_OK, DISTANCE } from '../main/Constants.js';
 
-const OUR_MAPZEN_LAT_LNG_ROUND = 6;
-
-const OUR_ICON_LIST = [
-	'kUndefined', // kNone = 0;
-	'kDepartDefault', // kStart = 1;
-	'kDepartRight', // kStartRight = 2;
-	'kDepartLeft', // kStartLeft = 3;
-	'kArriveDefault', // kDestination = 4;
-	'kArriveRight', // kDestinationRight = 5;
-	'kArriveLeft', // kDestinationLeft = 6;
-	'kNewNameStraight', // kBecomes = 7;
-	'kContinueStraight', // kContinue = 8;
-	'kTurnSlightRight', // kSlightRight = 9;
-	'kTurnRight', // kRight = 10;
-	'kTurnSharpRight', // kSharpRight = 11;
-	'kUturnRight', // kUturnRight = 12;
-	'kUturnLeft', // kUturnLeft = 13;
-	'kTurnSharpLeft', // kSharpLeft = 14;
-	'kTurnLeft', // kLeft = 15;
-	'kTurnSlightLeft', // kSlightLeft = 16;
-	'kUndefined', // kRampStraight = 17;
-	'kOnRampRight', // kRampRight = 18;
-	'kOnRampLeft', // kRampLeft = 19;
-	'kOffRampRight', // kExitRight = 20;
-	'kOffRampLeft', // kExitLeft = 21;
-	'kStayStraight', // kStayStraight = 22;
-	'kStayRight', // kStayRight = 23;
-	'kStayLeft', // kStayLeft = 24;
-	'kMergeDefault', // kMerge = 25;
-	'kRoundaboutRight', // kRoundaboutEnter = 26;
-	'kRoundaboutExit', // kRoundaboutExit = 27;
-	'kFerryEnter', // kFerryEnter = 28;
-	'kFerryExit', // kFerryExit = 29;
-	'kUndefined', // kTransit = 30;
-	'kUndefined', // kTransitTransfer = 31;
-	'kUndefined', // kTransitRemainOn = 32;
-	'kUndefined', // kTransitConnectionStart = 33;
-	'kUndefined', // kTransitConnectionTransfer = 34;
-	'kUndefined', // kTransitConnectionDestination = 35;
-	'kUndefined' // kPostTransitConnectionDestination = 36;
-];
-
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class MapzenValhallaRouteProvider
-@classdesc This class implements the Provider interface for MapzenValhalla. It's not possible to instanciate
+@classdesc This class implements the BaseRouteProvider for MapzenValhalla. It's not possible to instanciate
 this class because the class is not exported from the module. Only one instance is created and added to the list
 of Providers of TravelNotes
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -113,14 +51,68 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 	@type {String}
 	*/
 
-	#providerKey = '';
+	#providerKey;
 
 	/**
 	A reference to the edited route
 	@type {Route}
 	*/
 
-	#route = null;
+	#route;
+
+	/**
+	The round value used by PolylineEncoder
+	@type {Number}
+	*/
+	// eslint-disable-next-line no-magic-numbers
+	static get#ROUND_VALUE ( ) { return 6; }
+
+	/**
+	Enum for icons
+	@type {Array.<String>}
+	*/
+
+	static get #ICON_LIST ( ) {
+		return [
+			'kUndefined', // kNone = 0;
+			'kDepartDefault', // kStart = 1;
+			'kDepartRight', // kStartRight = 2;
+			'kDepartLeft', // kStartLeft = 3;
+			'kArriveDefault', // kDestination = 4;
+			'kArriveRight', // kDestinationRight = 5;
+			'kArriveLeft', // kDestinationLeft = 6;
+			'kNewNameStraight', // kBecomes = 7;
+			'kContinueStraight', // kContinue = 8;
+			'kTurnSlightRight', // kSlightRight = 9;
+			'kTurnRight', // kRight = 10;
+			'kTurnSharpRight', // kSharpRight = 11;
+			'kUturnRight', // kUturnRight = 12;
+			'kUturnLeft', // kUturnLeft = 13;
+			'kTurnSharpLeft', // kSharpLeft = 14;
+			'kTurnLeft', // kLeft = 15;
+			'kTurnSlightLeft', // kSlightLeft = 16;
+			'kUndefined', // kRampStraight = 17;
+			'kOnRampRight', // kRampRight = 18;
+			'kOnRampLeft', // kRampLeft = 19;
+			'kOffRampRight', // kExitRight = 20;
+			'kOffRampLeft', // kExitLeft = 21;
+			'kStayStraight', // kStayStraight = 22;
+			'kStayRight', // kStayRight = 23;
+			'kStayLeft', // kStayLeft = 24;
+			'kMergeDefault', // kMerge = 25;
+			'kRoundaboutRight', // kRoundaboutEnter = 26;
+			'kRoundaboutExit', // kRoundaboutExit = 27;
+			'kFerryEnter', // kFerryEnter = 28;
+			'kFerryExit', // kFerryExit = 29;
+			'kUndefined', // kTransit = 30;
+			'kUndefined', // kTransitTransfer = 31;
+			'kUndefined', // kTransitRemainOn = 32;
+			'kUndefined', // kTransitConnectionStart = 33;
+			'kUndefined', // kTransitConnectionTransfer = 34;
+			'kUndefined', // kTransitConnectionDestination = 35;
+			'kUndefined' // kPostTransitConnectionDestination = 36;
+		];
+	}
 
 	/**
 	Parse the response from the provider and add the received itinerary to the route itinerary
@@ -142,7 +134,7 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 			leg => {
 				leg.shape = new PolylineEncoder ( ).decode (
 					leg.shape,
-					[ OUR_MAPZEN_LAT_LNG_ROUND, OUR_MAPZEN_LAT_LNG_ROUND ]
+					[ MapzenValhallaRouteProvider.#ROUND_VALUE, MapzenValhallaRouteProvider.#ROUND_VALUE ]
 				);
 				const itineraryPoints = [];
 				for ( let shapePointCounter = ZERO; shapePointCounter < leg.shape.length; shapePointCounter ++ ) {
@@ -154,7 +146,7 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 				leg.maneuvers.forEach (
 					mapzenManeuver => {
 						const travelNotesManeuver = new Maneuver ( );
-						travelNotesManeuver.iconName = OUR_ICON_LIST [ mapzenManeuver.type || ZERO ];
+						travelNotesManeuver.iconName = MapzenValhallaRouteProvider.#ICON_LIST [ mapzenManeuver.type || ZERO ];
 						travelNotesManeuver.instruction = mapzenManeuver.instruction || '';
 						travelNotesManeuver.distance = ( mapzenManeuver.length || ZERO ) * DISTANCE.metersInKm;
 						travelNotesManeuver.duration = mapzenManeuver.time || ZERO;
@@ -243,6 +235,8 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 
 	/**
 	Overload of the base class #getRoute ( ) method
+	@param {function} onOk the Promise Success handler
+	@param {function} onError the Promise Error handler
 	*/
 
 	#getRoute ( onOk, onError ) {
@@ -265,12 +259,13 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 			);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		super ( );
+		this.#providerKey = '';
 	}
 
 	/**
@@ -352,9 +347,8 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 	get providerKeyNeeded ( ) { return true; }
 
 	/**
-	The provider key. Notice that the accessor returns only the length of the provider key and not the key...
+	The provider key.
 	Overload of the base class providerKey property
-	@type {string|number}
 	*/
 
 	set providerKey ( providerKey ) { this.#providerKey = providerKey; }

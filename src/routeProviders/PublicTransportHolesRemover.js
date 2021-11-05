@@ -26,24 +26,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file PublicTransportHolesRemover.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module routeProviders
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
 
 import { ZERO, ONE, TWO, THREE } from '../main/Constants.js';
@@ -51,16 +33,15 @@ import { ZERO, ONE, TWO, THREE } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class PublicTransportHolesRemover
+@ignore
 @classdesc coming soon...
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class PublicTransportHolesRemover {
 
-	#publicTransportData = null;
+	#publicTransportData;
 
 	#computeDistances ( node1, node2, distancesBetweenWays ) {
 		if ( node1.isNode3Ways || node2.isNode3Ways ) {
@@ -148,8 +129,8 @@ class PublicTransportHolesRemover {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( publicTransportData ) {

@@ -25,24 +25,6 @@ Changes:
 Doc reviewed 20210915
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file PublicTransportData.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module routeProviders
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
 
 import { ZERO, INVALID_OBJ_ID, ONE, TWO } from '../main/Constants.js';
@@ -50,29 +32,33 @@ import { ZERO, INVALID_OBJ_ID, ONE, TWO } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class PublicTransportData
+@ignore
 @classdesc coming soon...
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class PublicTransportData {
 
-	#newId = INVALID_OBJ_ID;
-	#selectedRelationId = INVALID_OBJ_ID;
-	#waysMap = new Map ( );
-	#nodesMap = new Map ( );
-	#stopsMap = new Map ( );
-	#nodes3WaysCounter = ZERO;
+	#newId;
+	#selectedRelationId;
+	#waysMap;
+	#nodesMap;
+	#stopsMap;
+	#nodes3WaysCounter;
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( selectedRelationId ) {
 		Object.freeze ( this );
+		this.#newId = INVALID_OBJ_ID;
 		this.#selectedRelationId = selectedRelationId;
+		this.#waysMap = new Map ( );
+		this.#nodesMap = new Map ( );
+		this.#stopsMap = new Map ( );
+		this.#nodes3WaysCounter = ZERO;
 	}
 
 	get nodes3WaysCounter ( ) { return this.#nodes3WaysCounter; }

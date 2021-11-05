@@ -27,24 +27,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file PublicTransportRouteProvider.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module routeProviders
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import { ZERO, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
 import SelectDialog from '../dialogs/SelectDialog.js';
 import PublicTransportRouteBuilder from '../routeProviders/PublicTransportRouteBuilder.js';
@@ -53,12 +35,9 @@ import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class PublicTransportRouteProvider
-@classdesc This class implements the Provider interface for PublicTransport. It's not possible to instanciate
+@classdesc This class implements the BaseRouteProvider for PublicTransport. It's not possible to instanciate
 this class because the class is not exported from the module. Only one instance is created and added to the list
 of Providers of TravelNotes
-@see Provider for a description of methods
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -70,11 +49,11 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 	@type {Route}
 	*/
 
-	#route = null;
+	#route;
 
 	/**
 	Parse the response from the provider and add the received itinerary to the route itinerary
-	@param {Object} response the itinerary received from the provider
+	@param {Object} waysNodes The ways and nodes received from OSM
 	@param {function} onOk a function to call when the response is parsed correctly
 	@param {function} onError a function to call when an error occurs
 	*/
@@ -84,6 +63,9 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 	}
 
 	/**
+	Get the url to obtains the ways and node Osm elements for the relation
+	@param {Number} relationId The osm relation id
+	@return {String} The complete url
 	*/
 
 	#getWaysNodesUrl ( relationId ) {
@@ -95,6 +77,9 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 	}
 
 	/**
+	Show a SelectDialog with all the train relations between the start point and end point
+	@param {Array.<Object>} relations The relations received from OSM
+	@return {Promise} The Promise created by the selectDialog.show ( )
 	*/
 
 	#getDialogPromise ( relations ) {
@@ -124,9 +109,11 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 	}
 
 	/**
+	The url to use to have the relations between the start point and end point
+	@type {String}
 	*/
 
-	#getRelationsUrl ( ) {
+	get #relationsUrl ( ) {
 		return window.TaN.overpassApiUrl +
 			'?data=[out:json];node["public_transport"="stop_position"]["train"="yes"](around:400.0,' +
 			this.#route.wayPoints.first.lat.toFixed ( LAT_LNG.fixed ) +
@@ -147,7 +134,7 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 	*/
 
 	#getRoute ( onOk, onError ) {
-		fetch ( this.#getRelationsUrl ( ) )
+		fetch ( this.#relationsUrl )
 			.then (
 				responseRelations => {
 					if ( HTTP_STATUS_OK === responseRelations.status && responseRelations.ok ) {
@@ -180,8 +167,8 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {

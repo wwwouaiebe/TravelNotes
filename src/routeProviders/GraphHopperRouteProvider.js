@@ -27,24 +27,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file GraphHopperRouteProvider.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module routeProviders
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import PolylineEncoder from '../coreLib/PolylineEncoder.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
@@ -52,29 +34,11 @@ import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
 
 import { ZERO, TWO, LAT, LNG, ELEVATION, LAT_LNG, HTTP_STATUS_OK, DISTANCE } from '../main/Constants.js';
 
-const OUR_GRAPHHOPPER_LAT_LNG_ROUND = 5;
-const FOUR = 4;
-const OUR_ICON_LIST =
-[
-	'kUndefined',
-	'kTurnSharpLeft', // TURN_SHARP_LEFT = -3
-	'kTurnLeft', // TURN_LEFT = -2
-	'kTurnSlightLeft', // TURN_SLIGHT_LEFT = -1
-	'kContinueStraight', // CONTINUE_ON_STREET = 0
-	'kTurnSlightRight', // TURN_SLIGHT_RIGHT = 1
-	'kTurnRight', // TURN_RIGHT = 2
-	'kTurnSharpRight', // TURN_SHARP_RIGHT = 3
-	'kArriveDefault', // FINISH = 4
-	'kArriveDefault', // VIA_REACHED = 5
-	'kRoundaboutRight' // USE_ROUNDABOUT = 6
-];
-
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
 @class GraphHopperRouteProvider
 @classdesc This class implements the BaseRouteProvider interface for Graphhopper.
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -86,14 +50,42 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 	@type {String}
 	*/
 
-	#providerKey = '';
+	#providerKey;
 
 	/**
 	A reference to the edited route
 	@type {Route}
 	*/
 
-	#route = null;
+	#route;
+
+	/**
+	The round value used by PolylineEncoder
+	@type {Number}
+	*/
+	// eslint-disable-next-line no-magic-numbers
+	static get#ROUND_VALUE ( ) { return 5; }
+
+	/**
+	Enum for icons
+	@type {Array.<String>}
+	*/
+
+	static get #ICON_LIST ( ) {
+		return [
+			'kUndefined',
+			'kTurnSharpLeft', // TURN_SHARP_LEFT = -3
+			'kTurnLeft', // TURN_LEFT = -2
+			'kTurnSlightLeft', // TURN_SLIGHT_LEFT = -1
+			'kContinueStraight', // CONTINUE_ON_STREET = 0
+			'kTurnSlightRight', // TURN_SLIGHT_RIGHT = 1
+			'kTurnRight', // TURN_RIGHT = 2
+			'kTurnSharpRight', // TURN_SHARP_RIGHT = 3
+			'kArriveDefault', // FINISH = 4
+			'kArriveDefault', // VIA_REACHED = 5
+			'kRoundaboutRight' // USE_ROUNDABOUT = 6
+		];
+	}
 
 	/**
 	Parse the response from the provider and add the received itinerary to the route itinerary
@@ -119,12 +111,12 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 			path => {
 				path.points = polylineEncoder.decode (
 					path.points,
-					[ OUR_GRAPHHOPPER_LAT_LNG_ROUND, OUR_GRAPHHOPPER_LAT_LNG_ROUND, TWO ]
+					[ GraphHopperRouteProvider.#ROUND_VALUE, GraphHopperRouteProvider.#ROUND_VALUE, TWO ]
 				);
 				/* eslint-disable-next-line camelcase */
 				path.snapped_waypoints = polylineEncoder.decode (
 					path.snapped_waypoints,
-					[ OUR_GRAPHHOPPER_LAT_LNG_ROUND, OUR_GRAPHHOPPER_LAT_LNG_ROUND, TWO ]
+					[ GraphHopperRouteProvider.#ROUND_VALUE, GraphHopperRouteProvider.#ROUND_VALUE, TWO ]
 				);
 				const itineraryPoints = [];
 				for ( let pointsCounter = ZERO; pointsCounter < path.points.length; pointsCounter ++ ) {
@@ -140,7 +132,8 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 				path.instructions.forEach (
 					instruction => {
 						const maneuver = new Maneuver ( );
-						maneuver.iconName = OUR_ICON_LIST [ instruction.sign + FOUR || ZERO ];
+						// eslint-disable-next-line no-magic-numbers
+						maneuver.iconName = GraphHopperRouteProvider.#ICON_LIST [ instruction.sign + 4 || ZERO ];
 						if ( 'kArriveDefault' === previousIconName && 'kContinueStraight' === maneuver.iconName ) {
 							maneuver.iconName = 'kDepartDefault';
 						}
@@ -208,6 +201,8 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 
 	/**
 	Overload of the base class #getRoute ( ) method
+	@param {function} onOk the Promise Success handler
+	@param {function} onError the Promise Error handler
 	*/
 
 	#getRoute ( onOk, onError ) {
@@ -230,12 +225,13 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 			);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		super ( );
+		this.#providerKey = '';
 	}
 
 	/**
@@ -311,9 +307,8 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 	get providerKeyNeeded ( ) { return true; }
 
 	/**
-	The provider key. Notice that the accessor returns only the length of the provider key and not the key...
+	The provider key.
 	Overload of the base class providerKey property
-	@type {string|number}
 	*/
 
 	set providerKey ( providerKey ) { this.#providerKey = providerKey; }

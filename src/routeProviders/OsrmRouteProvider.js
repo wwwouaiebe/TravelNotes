@@ -27,24 +27,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OsrmRouteProvider.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module routeProviders
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import PolylineEncoder from '../coreLib/PolylineEncoder.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
@@ -53,17 +35,12 @@ import theOsrmTextInstructions from '../routeProviders/OsrmTextInstructions.js';
 import { ICON_LIST } from '../routeProviders/IconList.js';
 import { ZERO, ONE, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
 
-const OUR_OSRM_ROUTE_LAT_LNG_ROUND = 6;
-
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class OsrmRouteProvider
-@classdesc This class implements the Provider interface for Osrm. It's not possible to instanciate
+@classdesc This class implements the BaseRouteProvider for Osrm. It's not possible to instanciate
 this class because the class is not exported from the module. Only one instance is created and added to the list
 of Providers of TravelNotes
-@see Provider for a description of methods
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -75,7 +52,14 @@ class OsrmRouteProvider extends BaseRouteProvider {
 	@type {Route}
 	*/
 
-	#route = null;
+	#route;
+
+	/**
+	The round value used by PolylineEncoder
+	@type {Number}
+	*/
+	// eslint-disable-next-line no-magic-numbers
+	static get#ROUND_VALUE ( ) { return 6; }
 
 	/**
 	Parse the response from the provider and add the received itinerary to the route itinerary
@@ -105,7 +89,7 @@ class OsrmRouteProvider extends BaseRouteProvider {
 		const polylineEncoder = new PolylineEncoder ( );
 		response.routes [ ZERO ].geometry = polylineEncoder.decode (
 			response.routes [ ZERO ].geometry,
-			[ OUR_OSRM_ROUTE_LAT_LNG_ROUND, OUR_OSRM_ROUTE_LAT_LNG_ROUND ]
+			[ OsrmRouteProvider.#ROUND_VALUE, OsrmRouteProvider.#ROUND_VALUE ]
 		);
 
 		response.routes [ ZERO ].legs.forEach (
@@ -115,7 +99,7 @@ class OsrmRouteProvider extends BaseRouteProvider {
 					step => {
 						step.geometry = polylineEncoder.decode (
 							step.geometry,
-							[ OUR_OSRM_ROUTE_LAT_LNG_ROUND, OUR_OSRM_ROUTE_LAT_LNG_ROUND ]
+							[ OsrmRouteProvider.#ROUND_VALUE, OsrmRouteProvider.#ROUND_VALUE ]
 						);
 						const maneuver = new Maneuver ( );
 						maneuver.iconName =
@@ -219,6 +203,8 @@ class OsrmRouteProvider extends BaseRouteProvider {
 
 	/**
 	Implementation of the base class #getRoute ( )
+	@param {function} onOk the Promise Success handler
+	@param {function} onError the Promise Error handler
 	*/
 
 	#getRoute ( onOk, onError ) {
@@ -236,8 +222,8 @@ class OsrmRouteProvider extends BaseRouteProvider {
 			);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {

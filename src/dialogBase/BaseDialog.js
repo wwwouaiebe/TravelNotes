@@ -859,6 +859,11 @@ class BaseDialog {
 	get keyboardELEnabled ( ) { return this.#keyboardELEnabled; }
 
 	set keyboardELEnabled ( keyboardELEnabled ) { this.#keyboardELEnabled = keyboardELEnabled; }
+	
+	/**
+	The options of the dialog box
+	@type {DialogOptions}
+	*/
 
 	get options ( ) { return this.#options; }
 
