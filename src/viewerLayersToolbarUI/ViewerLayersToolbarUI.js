@@ -30,24 +30,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ViewerLayersToolbarUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module ViewerLayersToolbarUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import theAttributionsUI from '../attributionsUI/AttributionsUI.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
@@ -58,9 +40,7 @@ import { ZERO } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class MapLayerButtonClickEL
 @classdesc Click event listener for the map layer buttons
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -72,10 +52,11 @@ class MapLayerButtonClickEL {
 	@type {Array.<MapLayer>}
 	*/
 
-	#mapLayers = null;
+	#mapLayers;
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {Array.<MapLayer>} mapLayers A reference to the array of MapLayer objects
 	*/
 
 	constructor ( mapLayers ) {
@@ -85,6 +66,7 @@ class MapLayerButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -98,17 +80,15 @@ class MapLayerButtonClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class GeoLocationButtonClickEL
 @classdesc Click event listener for the geo location button
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class GeoLocationButtonClickEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -117,6 +97,7 @@ class GeoLocationButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -128,17 +109,15 @@ class GeoLocationButtonClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class ZoomButtonClickEL
 @classdesc Click event listener for the zoom to travel button
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class ZoomButtonClickEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -147,6 +126,7 @@ class ZoomButtonClickEL {
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
@@ -158,12 +138,10 @@ class ZoomButtonClickEL {
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class ViewerLayersToolbarUI
 @classdesc This class is the Layer Toolbar on the left of the viewer screen.
- Displays buttons to change the background maps and manages the background maps list.
- Displays also a geo location button and a zoom to travel button.
-@see {@link theViewerLayersToolbarUI} for the one and only one instance of this class
-@hideconstructor
+- Displays buttons to change the background maps and manages the background maps list.
+- Displays also a geo location button and a zoom to travel button.
+See theViewerLayersToolbarUI for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -175,36 +153,38 @@ class ViewerLayersToolbarUI {
 	@type {HTMLElement}
 	*/
 
-	#mapLayersToolbar = null;
+	#mapLayersToolbar;
 
 	/**
 	An array with the available MapLayer objects
 	@type {Array.<MapLayer>}
 	*/
 
-	#mapLayers = [
-		{
-			service : 'wmts',
-			url : 'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
-			name : 'OSM - Color',
-			toolbar :
-			{
-				text : 'OSM',
-				color : 'red',
-				backgroundColor : 'white'
-			},
-			providerName : 'OSM',
-			providerKeyNeeded : false,
-			attribution : ''
-		}
-	];
+	#mapLayers;
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#mapLayers = [
+			{
+				service : 'wmts',
+				url : 'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
+				name : 'OSM - Color',
+				toolbar :
+				{
+					text : 'OSM',
+					color : 'red',
+					backgroundColor : 'white'
+				},
+				providerName : 'OSM',
+				providerKeyNeeded : false,
+				attribution : ''
+			}
+		];
+
 	}
 
 	/**
@@ -282,7 +262,7 @@ class ViewerLayersToolbarUI {
 
 	/**
 	Add a layer list to the list of available layers
-	@param {Array.<Layer>} layers the layer list to add
+	@param {Array.<Layer>} mapLayers the layer list to add
 	*/
 
 	addMapLayers ( mapLayers ) {
@@ -301,8 +281,6 @@ class ViewerLayersToolbarUI {
 
 @desc The one and only one instance of ViewerLayersToolbarUI class
 @type {ViewerLayersToolbarUI}
-@constant
-@global
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
