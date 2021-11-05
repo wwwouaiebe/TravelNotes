@@ -94,7 +94,7 @@ click event listener for the expand tree button
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ExpandButtonClickEL {
+class ExpandTreeButtonClickEL {
 
 	/**
 	A reference to the osmSearchTreeUI Object
@@ -251,7 +251,7 @@ class OsmSearchToolbarUI {
 			},
 			this.#toolbarHTMLElement
 		)
-			.addEventListener ( 'click', new ExpandButtonClickEL ( osmSearchTreeUI ), false );
+			.addEventListener ( 'click', new ExpandTreeButtonClickEL ( osmSearchTreeUI ), false );
 
 		// Collapse button
 		theHTMLElementsFactory.create (

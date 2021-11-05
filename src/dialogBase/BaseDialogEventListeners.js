@@ -71,7 +71,7 @@ click event listener for the cancel button
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class CancelButtonClickEL {
+class CancelDialogButtonClickEL {
 
 	/**
 	A reference to the dialog
@@ -216,7 +216,7 @@ keydown event listener
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class KeyboardKeydownEL {
+class DialogKeyboardKeydownEL {
 
 	/**
 	A reference to the dialog
@@ -456,10 +456,10 @@ class BackgroundDragOverEL {
 
 export {
 	OkButtonClickEL,
-	CancelButtonClickEL,
+	CancelDialogButtonClickEL,
 	TopBarDragStartEL,
 	TopBarDragEndEL,
-	KeyboardKeydownEL,
+	DialogKeyboardKeydownEL,
 	BackgroundLeftPanEL,
 	BackgroundRightPanEL,
 	BackgroundWheelEL,

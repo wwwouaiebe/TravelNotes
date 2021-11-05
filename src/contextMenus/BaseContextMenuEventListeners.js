@@ -34,7 +34,7 @@ keydown event listener for the context menus
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class KeyboardKeydownEL {
+class ContextMenuKeyboardKeydownEL {
 
 	/**
 	A reference to the menuOperator Object
@@ -70,7 +70,7 @@ click event listener on the cancel button for the context menus
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class CancelButtonClickEL {
+class CancelContextMenuButtonClickEL {
 
 	/**
 	A reference to the menuOperator Object
@@ -281,8 +281,8 @@ class ContainerMouseEnterEL {
 }
 
 export {
-	KeyboardKeydownEL,
-	CancelButtonClickEL,
+	ContextMenuKeyboardKeydownEL,
+	CancelContextMenuButtonClickEL,
 	MenuItemMouseLeaveEL,
 	MenuItemMouseEnterEL,
 	MenuItemClickEL,

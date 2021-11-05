@@ -558,7 +558,6 @@ A contant used to move in arrays
 
 const NEXT = 1;
 
-
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 Used to compare with some results of Array and String methods
@@ -638,19 +637,19 @@ The number 0
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-
 const ZERO = 0;
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 export {
-	COLOR_CONTROL, 
-	DEGREES, DISTANCE, 
-	ELEV, 
-	GEOLOCATION_STATUS, 
-	ICON_DIMENSIONS, 
-	ICON_POSITION, 
-	LAT_LNG, PANE_ID, 
-	ROUTE_EDITION_STATUS, 
+	COLOR_CONTROL,
+	DEGREES, DISTANCE,
+	ELEV,
+	GEOLOCATION_STATUS,
+	ICON_DIMENSIONS,
+	ICON_POSITION,
+	LAT_LNG, PANE_ID,
+	ROUTE_EDITION_STATUS,
 	SAVE_STATUS,
 	DIALOG_DRAG_MARGIN,
 	EARTH_RADIUS,
@@ -670,7 +669,7 @@ export {
 	THREE,
 	TWO,
 	WAY_POINT_ICON_SIZE,
-	ZERO,
+	ZERO
 };
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

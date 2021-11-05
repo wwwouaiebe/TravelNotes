@@ -169,7 +169,7 @@ click event listener for the save button
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class SaveButtonClickEL {
+class SaveFileButtonClickEL {
 
 	/**
 	The constructor
@@ -277,7 +277,7 @@ class RoadbookLoader {
 	#addSaveButton ( ) {
 		this.#saveButton = document.createElement ( 'button' );
 		this.#saveButton.id = 'TravelNotes-SaveButton';
-		this.#saveButton.addEventListener ( 'click', new SaveButtonClickEL ( ) );
+		this.#saveButton.addEventListener ( 'click', new SaveFileButtonClickEL ( ) );
 		let saveDiv = document.createElement ( 'div' );
 		saveDiv.id = 'TravelNotes-SaveDiv';
 		saveDiv.appendChild ( this.#saveButton );

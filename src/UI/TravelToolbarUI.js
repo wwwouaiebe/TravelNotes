@@ -71,7 +71,7 @@ click event listener for the Cancel button
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class CancelButtonClickEL {
+class CancelTravelButtonClickEL {
 
 	/**
 	The constructor
@@ -101,7 +101,7 @@ click event listener for the Save button
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class SaveButtonClickEL {
+class SaveTravelButtonClickEL {
 
 	/**
 	The constructor
@@ -320,7 +320,7 @@ class TravelToolbarUI {
 			},
 			this.#buttonsDiv
 		)
-			.addEventListener ( 'click', new CancelButtonClickEL ( ), false );
+			.addEventListener ( 'click', new CancelTravelButtonClickEL ( ), false );
 	}
 
 	/**
@@ -337,7 +337,7 @@ class TravelToolbarUI {
 			},
 			this.#buttonsDiv
 		)
-			.addEventListener ( 'click', new SaveButtonClickEL ( ), false );
+			.addEventListener ( 'click', new SaveTravelButtonClickEL ( ), false );
 	}
 
 	/**

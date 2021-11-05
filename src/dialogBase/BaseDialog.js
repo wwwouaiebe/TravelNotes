@@ -100,10 +100,10 @@ import theTranslator from '../UILib/Translator.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import {
 	OkButtonClickEL,
-	CancelButtonClickEL,
+	CancelDialogButtonClickEL,
 	TopBarDragStartEL,
 	TopBarDragEndEL,
-	KeyboardKeydownEL,
+	DialogKeyboardKeydownEL,
 	BackgroundLeftPanEL,
 	BackgroundRightPanEL,
 	BackgroundWheelEL,
@@ -374,10 +374,10 @@ class BaseDialog {
 
 	/**
 	Cancel button click event listener
-	@type {CancelButtonClickEL}
+	@type {CancelDialogButtonClickEL}
 	*/
 
-	#cancelButtonClickEL;
+	#cancelDialogButtonClickEL;
 
 	/**
 	Ok button click event listener
@@ -388,10 +388,10 @@ class BaseDialog {
 
 	/**
 	Keyboard key down event listener
-	@type {KeyboardKeydownEL}
+	@type {DialogKeyboardKeydownEL}
 	*/
 
-	#keyboardKeydownEL;
+	#dialogKeyboardKeydownEL;
 
 	/**
 	options parameter
@@ -488,8 +488,8 @@ class BaseDialog {
 			},
 			this.#topBar
 		);
-		this.#cancelButtonClickEL = new CancelButtonClickEL ( this );
-		this.#cancelButton.addEventListener ( 'click', this.#cancelButtonClickEL, false );
+		this.#cancelDialogButtonClickEL = new CancelDialogButtonClickEL ( this );
+		this.#cancelButton.addEventListener ( 'click', this.#cancelDialogButtonClickEL, false );
 	}
 
 	/**
@@ -605,7 +605,7 @@ class BaseDialog {
 				},
 				footerDiv
 			);
-			this.#secondButton.addEventListener ( 'click',	this.#cancelButtonClickEL, false	);
+			this.#secondButton.addEventListener ( 'click',	this.#cancelDialogButtonClickEL, false	);
 		}
 		else {
 			this.#secondButton = null;
@@ -676,8 +676,8 @@ class BaseDialog {
 		this.#createHTML ( );
 		document.body.appendChild ( this.#backgroundDiv );
 		this.#centerDialog ( );
-		this.#keyboardKeydownEL = new KeyboardKeydownEL ( this );
-		document.addEventListener ( 'keydown', this.#keyboardKeydownEL, { capture : true } );
+		this.#dialogKeyboardKeydownEL = new DialogKeyboardKeydownEL ( this );
+		document.addEventListener ( 'keydown', this.#dialogKeyboardKeydownEL, { capture : true } );
 
 		this.onShow ( );
 	}
@@ -700,8 +700,8 @@ class BaseDialog {
 	*/
 
 	#BaseDialogDestructor ( ) {
-		document.removeEventListener ( 'keydown', this.#keyboardKeydownEL, { capture : true } );
-		this.#keyboardKeydownEL = null;
+		document.removeEventListener ( 'keydown', this.#dialogKeyboardKeydownEL, { capture : true } );
+		this.#dialogKeyboardKeydownEL = null;
 
 		this.#topBar.removeEventListener ( 'dragstart', this.#topBarDragStartEL, false );
 		this.#topBarDragStartEL = null;
@@ -709,11 +709,11 @@ class BaseDialog {
 		this.#topBar.removeEventListener ( 'dragend', this.#topBarDragEndEL, false );
 		this.#topBarDragEndEL = null;
 
-		this.#cancelButton.removeEventListener ( 'click', this.#cancelButtonClickEL, false );
+		this.#cancelButton.removeEventListener ( 'click', this.#cancelDialogButtonClickEL, false );
 		if ( this.#options.secondButtonText ) {
-			this.#secondButton.removeEventListener ( 'click', this.#cancelButtonClickEL, false	);
+			this.#secondButton.removeEventListener ( 'click', this.#cancelDialogButtonClickEL, false	);
 		}
-		this.#cancelButtonClickEL = null;
+		this.#cancelDialogButtonClickEL = null;
 
 		this.#okButton.removeEventListener ( 'click', this.#okButtonClickEL, false );
 		this.#okButtonClickEL = null;

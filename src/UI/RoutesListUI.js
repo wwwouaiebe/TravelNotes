@@ -31,7 +31,7 @@ import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import {
 	RouteDragStartEL,
 	RouteDropEL,
-	RouteContextMenuEL,
+	RouteUIContextMenuEL,
 	RoutesListDragOverEL,
 	RoutesListWheelEL
 } from '../UI/RoutesListUIEventListeners.js';
@@ -53,10 +53,10 @@ class RoutesListUI {
 
 	/**
 	Route contextmenu event listeners
-	@type {RouteContextMenuEL}
+	@type {RouteUIContextMenuEL}
 	*/
 
-	#routeContextMenuEL;
+	#routeUIContextMenuEL;
 
 	/**
 	Route drop event listeners
@@ -91,7 +91,7 @@ class RoutesListUI {
 		// event listeners
 		this.#routesListHTMLElement.addEventListener ( 'dragover', new RoutesListDragOverEL ( ) );
 		this.#routesListHTMLElement.addEventListener ( 'wheel', new RoutesListWheelEL ( ) );
-		this.#routeContextMenuEL = new RouteContextMenuEL ( );
+		this.#routeUIContextMenuEL = new RouteUIContextMenuEL ( );
 		this.#routeDropEL = new RouteDropEL ( );
 		this.#routeDragStartEL = new RouteDragStartEL ( );
 	}
@@ -115,7 +115,7 @@ class RoutesListUI {
 		while ( this.#routesListHTMLElement.firstChild ) {
 			this.#routesListHTMLElement.firstChild.removeEventListener ( 'dragstart', this.#routeDragStartEL );
 			this.#routesListHTMLElement.firstChild.removeEventListener ( 'drop', this.#routeDropEL );
-			this.#routesListHTMLElement.firstChild.removeEventListener ( 'contextmenu', this.#routeContextMenuEL );
+			this.#routesListHTMLElement.firstChild.removeEventListener ( 'contextmenu', this.#routeUIContextMenuEL );
 			this.#routesListHTMLElement.removeChild ( this.#routesListHTMLElement.firstChild );
 		}
 
@@ -152,7 +152,7 @@ class RoutesListUI {
 
 			routeHTMLElement.addEventListener ( 'dragstart', this.#routeDragStartEL );
 			routeHTMLElement.addEventListener ( 'drop', this.#routeDropEL );
-			routeHTMLElement.addEventListener ( 'contextmenu', this.#routeContextMenuEL );
+			routeHTMLElement.addEventListener ( 'contextmenu', this.#routeUIContextMenuEL );
 		}
 	}
 }

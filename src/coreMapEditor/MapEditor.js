@@ -68,7 +68,7 @@ import {
 	NoteMarkerDragEL
 } from '../coreMapEditor/NoteMarkerEventListeners.js';
 import { WayPointContextMenuEL, WayPointDragEndEL } from '../coreMapEditor/WayPointEventListeners.js';
-import { RouteContextMenuEL } from '../coreMapEditor/RouteEventListeners.js';
+import { RouteMapContextMenuEL } from '../coreMapEditor/RouteEventListeners.js';
 import { ROUTE_EDITION_STATUS, LAT_LNG, INVALID_OBJ_ID, TWO, WAY_POINT_ICON_SIZE } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -139,7 +139,7 @@ class MapEditor	extends MapEditorViewer {
 			const polyline = theTravelNotesData.mapObjects.get ( addedRouteObjId );
 
 			if ( ! theTravelNotesData.travel.readOnly ) {
-				window.L.DomEvent.on ( polyline, 'contextmenu', RouteContextMenuEL.handleEvent );
+				window.L.DomEvent.on ( polyline, 'contextmenu', RouteMapContextMenuEL.handleEvent );
 				window.L.DomEvent.on ( polyline, 'mouseover', EditedRouteMouseOverEL.handleEvent );
 
 				const notesIterator = route.notes.iterator;

@@ -97,7 +97,7 @@ click event listener for the ExpandRoutes button
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ExpandButtonClickEL {
+class ExpandRouteListButtonClickEL {
 
 	/**
 	A reference to the RoutesListUI object
@@ -303,7 +303,7 @@ class TravelUI {
 
 		this.#expandRoutesButton.addEventListener (
 			'click',
-			new ExpandButtonClickEL ( this.#routesListUI ),
+			new ExpandRouteListButtonClickEL ( this.#routesListUI ),
 			false
 		);
 	}

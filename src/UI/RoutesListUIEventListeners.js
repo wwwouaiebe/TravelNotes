@@ -163,7 +163,7 @@ contextmenu event listener for the routes based on the EventListener API.
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class RouteContextMenuEL {
+class RouteUIContextMenuEL {
 
 	/**
 	The constructor
@@ -188,7 +188,7 @@ class RouteContextMenuEL {
 export {
 	RouteDragStartEL,
 	RouteDropEL,
-	RouteContextMenuEL,
+	RouteUIContextMenuEL,
 	RoutesListDragOverEL,
 	RoutesListWheelEL
 };

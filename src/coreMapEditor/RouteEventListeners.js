@@ -70,7 +70,7 @@ contextmenu event listener for the routes
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class RouteContextMenuEL {
+class RouteMapContextMenuEL {
 
 	/**
 	Event listener method
@@ -85,7 +85,7 @@ class RouteContextMenuEL {
 
 export {
 	RouteMouseOverOrMoveEL,
-	RouteContextMenuEL
+	RouteMapContextMenuEL
 };
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
