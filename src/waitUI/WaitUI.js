@@ -30,32 +30,12 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file WaitUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module WaitUI
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class
 @classdesc This class display a Wait window on the screen with a message and an animation
-@hideconstructor
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -67,17 +47,17 @@ class WaitUI {
 	@type {HTMLElement}
 	*/
 
-	#backgroundDiv = null;
+	#backgroundDiv;
 
 	/**
 	The message div
 	@type {HTMLElement}
 	*/
 
-	#messageDiv = null;
+	#messageDiv;
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
