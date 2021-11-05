@@ -35,7 +35,7 @@ If changes are done in osrm-text-instruction, they can be reported there without
 Language json files are installed by the grunt.js file. Adapt this file if you will more languages.
 Don't rename variables for compatibility with osrm-text-instructions
 */
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 
 /* eslint-disable max-lines */
 
@@ -116,14 +116,14 @@ const grammars = languages.grammars;
 
 const abbreviations = languages.abbreviations;
 
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
 @ignore
 This class contains methods to write / translate moneuver instructions
 in MapboxRouteProvider and OsrmRouteProvider<br/>
 See theOsrmTextInstructions for the one and only one instance of this class
 */
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 
 class OsrmTextInstructions 	{
 
@@ -431,13 +431,13 @@ class OsrmTextInstructions 	{
 	}
 }
 
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
 @ignore
 The one and only one instance of OsrmTextInstructions class
 @type {OsrmTextInstructions}
 */
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 
 const theOsrmTextInstructions = new OsrmTextInstructions ( );
 
@@ -445,6 +445,4 @@ export default theOsrmTextInstructions;
 
 /* eslint-enable max-lines */
 
-/*
---- End of OsrmTextInstructions.js file ---------------------------------------------------------------------------------------
-*/
+/* --- End of file -----------------------------------------------------------------------------------------------------------*/

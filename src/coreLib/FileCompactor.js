@@ -35,13 +35,13 @@ import PolylineEncoder from '../coreLib/PolylineEncoder.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import { ELEV, ZERO, ONE, TWO, INVALID_OBJ_ID, LAT_LNG, DISTANCE } from '../main/Constants.js';
 
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
 This class compress the travel to reduce the size of the file when saved to a file or decompress the
 travel when reading from a file. Each route of a compressed file have the ItineraryPoints in only one object
 and the lat and lng of	the ItineraryPoints are encoded with the polyline.encode algorithm
 */
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 
 class FileCompactor {
 
@@ -188,6 +188,4 @@ class FileCompactor {
 
 export default FileCompactor;
 
-/*
---- End of FileCompactor.js file ----------------------------------------------------------------------------------------------
-*/
+/* --- End of file -----------------------------------------------------------------------------------------------------------*/

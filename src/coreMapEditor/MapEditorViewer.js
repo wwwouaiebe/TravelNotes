@@ -33,7 +33,7 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
 @typedef {Object} NoteLeafletObjects
 An object with all the Leaflet objects for a note
@@ -41,7 +41,7 @@ An object with all the Leaflet objects for a note
 @property {Object} polyline The polyline of the note
 @property {Object} bullet The bullet of the note (= a Leaflet marker)
 */
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 
 import theConfig from '../data/Config.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
@@ -55,12 +55,12 @@ import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
 import { GEOLOCATION_STATUS, ROUTE_EDITION_STATUS, ZERO, ONE, TWO } from '../main/Constants.js';
 
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
 This class performs all the readonly updates on the map<br/>
 Ssee theMapEditor for read/write updates on the map
 */
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 
 class MapEditorViewer {
 
@@ -419,6 +419,4 @@ class MapEditorViewer {
 
 export default MapEditorViewer;
 
-/*
---- End of MapEditorViewer.js file --------------------------------------------------------------------------------------------
-*/
+/* --- End of file -----------------------------------------------------------------------------------------------------------*/

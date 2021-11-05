@@ -46,13 +46,13 @@ Tests ...
 import theConfig from '../data/Config.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
 Class used to overload theConfig with the contains of theTravelNotesConfig.json file and
 finally freeze the config<br/>
 See theConfig for the one and only one instance of this class
 */
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 
 class ConfigOverloader {
 
@@ -163,6 +163,4 @@ class ConfigOverloader {
 
 export default ConfigOverloader;
 
-/*
---- End of ConfigOverloader.js file -------------------------------------------------------------------------------------------
-*/
+/* --- End of file -----------------------------------------------------------------------------------------------------------*/

@@ -32,10 +32,8 @@ Tests ...
 
 /* eslint no-magic-numbers: "off" */
 
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
-
-@------------------------------------------------------------------------------------------------------------------------------
-
 @enum {Object}
 Enum for the ColorControl
 @property {Number} minColorValue
@@ -61,18 +59,15 @@ export const COLOR_CONTROL = Object.freeze ( {
 	initialRed : 0
 } );
 
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
-
-@------------------------------------------------------------------------------------------------------------------------------
-
 @enum {Object}
 Enum for the save status displayed with the coordinates and zoom values
 @property {String} notSaved The string to display when the travel is modified since more than 5 minutes
 @property {String} modified The string to display when the travel is modified since less than 5 minutes
 @property {String} saved The string to display when the travel is not modified
-
-@------------------------------------------------------------------------------------------------------------------------------
- */
+*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 
 export const SAVE_STATUS = Object.freeze ( {
 	notSaved : '🔴', // red circle
@@ -80,18 +75,15 @@ export const SAVE_STATUS = Object.freeze ( {
 	saved : '🟢' // green circle
 } );
 
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
-
-@------------------------------------------------------------------------------------------------------------------------------
-
 @enum {Object}
 Enum for distances
 @property {Number} fixed The decimal length used for distances
 @property {Number} invalid The distance is invalid
 @property {Number} defaultValue Default value for distances
-
-@------------------------------------------------------------------------------------------------------------------------------
- */
+*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 
 export const DISTANCE = Object.freeze ( {
 	fixed : 2,
@@ -100,19 +92,16 @@ export const DISTANCE = Object.freeze ( {
 	metersInKm : 1000
 } );
 
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
-
-@------------------------------------------------------------------------------------------------------------------------------
-
 @enum {Object}
 Enum for geolocation status
 @property {Number} refusedByUser The user don't accept to be localized
 @property {Number} disabled The geolocation is not available (disabled in the browser or unsecure context)
 @property {Number} inactive The geolocation is inactive
 @property {Number} active the geolocation is active
-
-@------------------------------------------------------------------------------------------------------------------------------
- */
+*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 
 export const GEOLOCATION_STATUS = Object.freeze ( {
 	refusedByUser : -1,
@@ -121,19 +110,16 @@ export const GEOLOCATION_STATUS = Object.freeze ( {
 	active : 2
 } );
 
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
-
-@------------------------------------------------------------------------------------------------------------------------------
-
 @enum {Object}
 Enum for id's for panes in thePaneManagerUI
 @property {String} invalidPane The current pane is invalid
 @property {String} itineraryPane The itinerary pane
 @property {String} travelNotesPane The travel notes pane
 @property {String} searchPane The search pane
-
-@------------------------------------------------------------------------------------------------------------------------------
- */
+*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 
 export const PANE_ID = Object.freeze ( {
 	invalidPane : '43a6a53e-008a-4910-80a6-7a87d301ea15',
@@ -142,34 +128,28 @@ export const PANE_ID = Object.freeze ( {
 	searchPane : '228f00d7-43a8-4c13-897d-70400cb6dd58'
 } );
 
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
-
-@------------------------------------------------------------------------------------------------------------------------------
-
 @enum {Object}
 Enum for elevations
 @property {Number} fixed The decimal length used for elevation
 @property {Number} defaultValue Default value for elevation
-
-@------------------------------------------------------------------------------------------------------------------------------
- */
+*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 
 export const ELEV = Object.freeze ( {
 	fixed : 2,
 	defaultValue : 0
 } );
 
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
-
-@------------------------------------------------------------------------------------------------------------------------------
-
 @enum {Object}
 Enum for latitude and longitude
 @property {Number} fixed The decimal length used for latitude and longitude
 @property {Number} defaultValue Default value for latitude and longitude
-
-@------------------------------------------------------------------------------------------------------------------------------
- */
+*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 
 export const LAT_LNG = Object.freeze ( {
 	defaultValue : 0,
@@ -180,18 +160,15 @@ export const LAT_LNG = Object.freeze ( {
 	minLng : -180
 } );
 
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
-
-@------------------------------------------------------------------------------------------------------------------------------
-
 @enum {Object}
 Enum for edition status of a route
 @property {Number} notEdited The route is currently not edited
 @property {Number} editedNoChange The route is currently edited but without changes
 @property {Number} editedChanged The route is currently edited and changed
-
-@------------------------------------------------------------------------------------------------------------------------------
- */
+*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 
 export const ROUTE_EDITION_STATUS = Object.freeze ( {
 	notEdited : 0,
@@ -199,17 +176,14 @@ export const ROUTE_EDITION_STATUS = Object.freeze ( {
 	editedChanged : 2
 } );
 
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
-
-@------------------------------------------------------------------------------------------------------------------------------
-
 @enum {Object}
 Enum for default icon dimensions
 @property {Number} width The default width
 @property {Number} height The default height
-
-@------------------------------------------------------------------------------------------------------------------------------
- */
+*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 
 export const ICON_DIMENSIONS = Object.freeze ( {
 	width : 40,
@@ -217,15 +191,12 @@ export const ICON_DIMENSIONS = Object.freeze ( {
 	svgViewboxDim : 200
 } );
 
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
-
-@------------------------------------------------------------------------------------------------------------------------------
-
 @enum {Object}
 Enum for angular operations
-
-@------------------------------------------------------------------------------------------------------------------------------
- */
+*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 
 export const DEGREES = Object.freeze ( {
 	d0 : 0,
@@ -238,15 +209,12 @@ export const DEGREES = Object.freeze ( {
 	fromRadians : 180 / Math.PI
 } );
 
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
-
-@------------------------------------------------------------------------------------------------------------------------------
-
 @enum {Object}
 Enum for map svg icons
-
-@------------------------------------------------------------------------------------------------------------------------------
- */
+*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 
 export const ICON_POSITION = Object.freeze ( {
 	atStart : -1,
@@ -255,11 +223,8 @@ export const ICON_POSITION = Object.freeze ( {
 } );
 
 /**
-
-@var {Array.<Number>} MOUSE_WHEEL_FACTORS
 An array with correction factors to use in the wheel event (wheelEvent.deltaX and wheelEvent.deltaY are dependant of
 wheelEvent.deltaMode and deltaMode is browser dependant...)
-@constant
 */
 
 export const MOUSE_WHEEL_FACTORS = [ 0.3, 10, 1 ];
@@ -300,6 +265,4 @@ export const WAY_POINT_ICON_SIZE = 20;
 
 export const DIALOG_DRAG_MARGIN = 20;
 
-/*
---- End of Constants.js file --------------------------------------------------------------------------------------------------
-*/
+/* --- End of file -----------------------------------------------------------------------------------------------------------*/

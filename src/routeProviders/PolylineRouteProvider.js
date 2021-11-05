@@ -40,13 +40,13 @@ import { ZERO, ONE, TWO, LAT, LNG, DEGREES } from '../main/Constants.js';
 
 const OUR_HALF_PI = Math.PI / TWO;
 
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
 This class implements the BaseRouteProvider for a polyline or circle. It's not possible to instanciate
 this class because the class is not exported from the module. Only one instance is created and added to the list
 of Providers of TravelNotes
 */
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 
 class PolylineRouteProvider extends BaseRouteProvider {
 
@@ -423,6 +423,4 @@ class PolylineRouteProvider extends BaseRouteProvider {
 
 window.TaN.addProvider ( PolylineRouteProvider );
 
-/*
---- End of PolylineRouteProvider.js file --------------------------------------------------------------------------------------
-*/
+/* --- End of file -----------------------------------------------------------------------------------------------------------*/

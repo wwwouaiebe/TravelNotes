@@ -34,13 +34,13 @@ import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
 
 import { ZERO, HTTP_STATUS_OK, DISTANCE } from '../main/Constants.js';
 
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
 This class implements the BaseRouteProvider for MapzenValhalla. It's not possible to instanciate
 this class because the class is not exported from the module. Only one instance is created and added to the list
 of Providers of TravelNotes
 */
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 
 class MapzenValhallaRouteProvider extends BaseRouteProvider {
 
@@ -354,6 +354,4 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 
 window.TaN.addProvider ( MapzenValhallaRouteProvider );
 
-/*
---- End of MapzenValhallaRouteProvider.js file --------------------------------------------------------------------------------
-*/
+/* --- End of file -----------------------------------------------------------------------------------------------------------*/

@@ -36,11 +36,11 @@ import theWayPointEditor from '../core/WayPointEditor.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theTranslator from '../UILib/Translator.js';
 
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
 this class implements the BaseContextMenu class for the wayPoints
 */
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 
 class WayPointContextMenu extends BaseContextMenu {
 
@@ -99,6 +99,4 @@ class WayPointContextMenu extends BaseContextMenu {
 
 export default WayPointContextMenu;
 
-/*
---- End of WayPointContextMenu.js file ----------------------------------------------------------------------------------------
-*/
+/* --- End of file -----------------------------------------------------------------------------------------------------------*/

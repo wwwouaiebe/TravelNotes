@@ -32,7 +32,7 @@ Tests ...
 import BaseDialog from '../dialogBase/BaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
 A customizable dialog with two buttons.
 Create an instance of the dialog, then execute the show ( ) method. The Promise returned by the show ( ) method fullfil
@@ -50,7 +50,7 @@ newTwoButtonsDialog (
 	.then ( ... )
 	.catch ( ... );
 */
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 
 class TwoButtonsDialog extends BaseDialog {
 
@@ -90,6 +90,4 @@ class TwoButtonsDialog extends BaseDialog {
 
 export default TwoButtonsDialog;
 
-/*
---- End of TwoButtonsDialog.js file -------------------------------------------------------------------------------------------
-*/
+/* --- End of file -----------------------------------------------------------------------------------------------------------*/

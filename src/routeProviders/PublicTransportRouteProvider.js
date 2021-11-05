@@ -32,13 +32,13 @@ import SelectDialog from '../dialogs/SelectDialog.js';
 import PublicTransportRouteBuilder from '../routeProviders/PublicTransportRouteBuilder.js';
 import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
 
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
 This class implements the BaseRouteProvider for PublicTransport. It's not possible to instanciate
 this class because the class is not exported from the module. Only one instance is created and added to the list
 of Providers of TravelNotes
 */
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 
 class PublicTransportRouteProvider extends BaseRouteProvider {
 
@@ -235,6 +235,4 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 
 window.TaN.addProvider ( PublicTransportRouteProvider );
 
-/*
---- End of PublicTransportRouteProvider.js file -------------------------------------------------------------------------------
-*/
+/* --- End of file -----------------------------------------------------------------------------------------------------------*/
