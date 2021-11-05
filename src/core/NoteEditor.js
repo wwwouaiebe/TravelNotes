@@ -486,7 +486,7 @@ class NoteEditor {
 /**
 The one and only one instance of NoteEditor class
 @type {NoteEditor}
-
+*/
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theNoteEditor = new NoteEditor ( );

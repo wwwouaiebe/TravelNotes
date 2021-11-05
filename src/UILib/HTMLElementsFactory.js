@@ -116,7 +116,7 @@ class HTMLElementsFactory {
 /**
 The one and only one instance of HTMLElementsFactory class
 @type {HTMLElementsFactory}
-
+*/
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theHTMLElementsFactory = new HTMLElementsFactory ( );

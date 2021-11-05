@@ -34,234 +34,643 @@ Tests ...
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@enum {Object}
-Enum for the ColorControl
-@property {Number} minColorValue
-@property {Number} maxColorValue
-@property {Number} rowsNumber
-@property {Number} cellsNumber
-@property {Number} deltaColor
-@property {Number} sliderMaxValue
-@property {Number} sliderStep
-@property {Number} initialRed
+Enum for the ColorControl and Color classes
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-export const COLOR_CONTROL = Object.freeze ( {
-	minColorValue : 0,
-	maxColorValue : 255,
-	rowsNumber : 6,
-	cellsNumber : 6,
-	deltaColor : 51,
-	sliderMaxValue : 100,
-	sliderStep : 20,
-	initialRed : 0
-} );
+class COLOR_CONTROL {
+
+	/**
+	The min value for a color
+	@type {Number}
+	*/
+
+	static get minColorValue ( ) { return 0; }
+
+	/**
+	The max value for a color
+	@type {Number}
+	*/
+
+	static get maxColorValue ( ) { return 255; }
+
+	/**
+	The number of rows of the color control
+	@type {Number}
+	*/
+
+	static get rowsNumber ( ) { return 6; }
+
+	/**
+	The number of cells of the color control
+	@type {Number}
+	*/
+
+	static get cellsNumber ( ) { return 6; }
+
+	/**
+	The delta of color between two cells
+	@type {Number}
+	*/
+
+	static get deltaColor ( ) { return 51; }
+
+	/**
+	The max value of the red slider
+	@type {Number}
+	*/
+
+	static get sliderMaxValue ( ) { return 100; }
+
+	/**
+	The value between each step of the red slider
+	@type {Number}
+	*/
+
+	static get sliderStep ( ) { return 20; }
+
+	/**
+	The initial value of the red slider
+	@type {Number}
+	*/
+
+	static get initialRed ( ) { return 0; }
+}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@enum {Object}
-Enum for the save status displayed with the coordinates and zoom values
-@property {String} notSaved The string to display when the travel is modified since more than 5 minutes
-@property {String} modified The string to display when the travel is modified since less than 5 minutes
-@property {String} saved The string to display when the travel is not modified
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-export const SAVE_STATUS = Object.freeze ( {
-	notSaved : '🔴', // red circle
-	modified : '🟡', // yellow circle
-	saved : '🟢' // green circle
-} );
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-@enum {Object}
-Enum for distances
-@property {Number} fixed The decimal length used for distances
-@property {Number} invalid The distance is invalid
-@property {Number} defaultValue Default value for distances
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-export const DISTANCE = Object.freeze ( {
-	fixed : 2,
-	invalid : -1,
-	defaultValue : 0,
-	metersInKm : 1000
-} );
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-@enum {Object}
-Enum for geolocation status
-@property {Number} refusedByUser The user don't accept to be localized
-@property {Number} disabled The geolocation is not available (disabled in the browser or unsecure context)
-@property {Number} inactive The geolocation is inactive
-@property {Number} active the geolocation is active
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-export const GEOLOCATION_STATUS = Object.freeze ( {
-	refusedByUser : -1,
-	disabled : 0,
-	inactive : 1,
-	active : 2
-} );
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-@enum {Object}
-Enum for id's for panes in thePaneManagerUI
-@property {String} invalidPane The current pane is invalid
-@property {String} itineraryPane The itinerary pane
-@property {String} travelNotesPane The travel notes pane
-@property {String} searchPane The search pane
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-export const PANE_ID = Object.freeze ( {
-	invalidPane : '43a6a53e-008a-4910-80a6-7a87d301ea15',
-	itineraryPane : '8fbf0da7-4e6f-4bc7-8e20-1388461ccde7',
-	travelNotesPane : 'dffe782b-07df-4b81-a318-f287c0cf5ec6',
-	searchPane : '228f00d7-43a8-4c13-897d-70400cb6dd58'
-} );
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-@enum {Object}
-Enum for elevations
-@property {Number} fixed The decimal length used for elevation
-@property {Number} defaultValue Default value for elevation
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-export const ELEV = Object.freeze ( {
-	fixed : 2,
-	defaultValue : 0
-} );
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-@enum {Object}
-Enum for latitude and longitude
-@property {Number} fixed The decimal length used for latitude and longitude
-@property {Number} defaultValue Default value for latitude and longitude
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-export const LAT_LNG = Object.freeze ( {
-	defaultValue : 0,
-	fixed : 6,
-	maxLat : 90,
-	minLat : -90,
-	maxLng : 180,
-	minLng : -180
-} );
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-@enum {Object}
-Enum for edition status of a route
-@property {Number} notEdited The route is currently not edited
-@property {Number} editedNoChange The route is currently edited but without changes
-@property {Number} editedChanged The route is currently edited and changed
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-export const ROUTE_EDITION_STATUS = Object.freeze ( {
-	notEdited : 0,
-	editedNoChange : 1,
-	editedChanged : 2
-} );
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-@enum {Object}
-Enum for default icon dimensions
-@property {Number} width The default width
-@property {Number} height The default height
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-export const ICON_DIMENSIONS = Object.freeze ( {
-	width : 40,
-	height : 40,
-	svgViewboxDim : 200
-} );
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-@enum {Object}
 Enum for angular operations
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-export const DEGREES = Object.freeze ( {
-	d0 : 0,
-	d90 : 90,
-	d180 : 180,
-	d270 : 270,
-	d360 : 360,
-	d540 : 540,
-	toRadians : Math.PI / 180,
-	fromRadians : 180 / Math.PI
-} );
+class DEGREES {
+
+	/**
+	0°
+	@type {Number}
+	*/
+
+	static get d0 ( ) { return 0; }
+
+	/**
+	90°
+	@type {Number}
+	*/
+
+	static get d90 ( ) { return 90; }
+
+	/**
+	180°
+	@type {Number}
+	*/
+
+	static get d180 ( ) { return 180; }
+
+	/**
+	270°
+	@type {Number}
+	*/
+
+	static get d270 ( ) { return 270; }
+
+	/**
+	360°
+	@type {Number}
+	*/
+
+	static get d360 ( ) { return 360; }
+
+	/**
+	540°
+	@type {Number}
+	*/
+
+	static get d540 ( ) { return 540; }
+
+	/**
+	Conversion ° to radians
+	@type {Number}
+	*/
+
+	static get toRadians ( ) { return Math.PI / 180; }
+
+	/**
+	Conversion radians to °
+	@type {Number}
+	*/
+
+	static get fromRadians ( ) { return 180 / Math.PI; }
+}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@enum {Object}
+Enum for distances
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class DISTANCE {
+
+	/**
+	The decimal length used for distances
+	@type {Number}
+	*/
+
+	static get fixed ( ) { return 2; }
+
+	/**
+	The distance is invalid
+	@type {Number}
+	*/
+
+	static get invalid ( ) { return -1; }
+
+	/**
+	Default value for distances
+	@type {Number}
+	*/
+
+	static get defaultValue ( ) { return 0; }
+
+	/**
+	Meters in one kilometer
+	@type {Number}
+	*/
+
+	static get metersInKm ( ) { return 1000; }
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+Enum for elevations
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class ELEV {
+
+	/**
+	The decimal length used for elevation
+	@type {Number}
+	*/
+
+	static get fixed ( ) { return 2; }
+
+	/**
+	Default value for elevation
+	@type {Number}
+	*/
+
+	static get defaultValue ( ) { return 0; }
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+Enum for geolocation status
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class GEOLOCATION_STATUS {
+
+	/**
+	The user don't accept to be localized
+	@type {Number}
+	*/
+
+	static get refusedByUser ( ) { return -1; }
+
+	/**
+	The geolocation is not available (disabled in the browser or unsecure context)
+	@type {Number}
+	*/
+
+	static get disabled ( ) { return 0; }
+
+	/**
+	The geolocation is inactive
+	@type {Number}
+	*/
+
+	static get inactive ( ) { return 1; }
+
+	/**
+	The geolocation is active
+	@type {Number}
+	*/
+
+	static get active ( ) { return 2; }
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+Enum for default icon dimensions
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class ICON_DIMENSIONS {
+
+	/**
+	The default width
+	@type {Number}
+	*/
+
+	static get width ( ) { return 40; }
+
+	/**
+	The default height
+	@type {Number}
+	*/
+
+	static get height ( ) { return 40; }
+
+	/**
+	The viewbox size for svg icons
+	@type {Number}
+	*/
+
+	static get svgViewboxDim ( ) { return 200; }
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
 Enum for map svg icons
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-export const ICON_POSITION = Object.freeze ( {
-	atStart : -1,
-	onRoute : 0,
-	atEnd : 1
-} );
+class ICON_POSITION {
 
+	/**
+	The icon is on the start point
+	@type {Number}
+	*/
+
+	static get atStart ( ) { return -1; }
+
+	/**
+	The icon is between the start point and end point
+	@type {Number}
+	*/
+
+	static get onRoute ( ) { return 0; }
+
+	/**
+	The icon is on the end point
+	@type {Number}
+	*/
+
+	static get atEnd ( ) { return 1; }
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+Enum for latitude and longitude
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class LAT_LNG {
+
+	/**
+	Default value for latitude and longitude
+	@type {Number}
+	*/
+
+	static get defaultValue ( ) { return 0; }
+
+	/**
+	The decimal length used for latitude and longitude
+	@type {Number}
+	*/
+
+	static get fixed ( ) { return 6; }
+
+	/**
+	The max possibe lat
+	@type {Number}
+	*/
+
+	static get maxLat ( ) { return 90; }
+
+	/**
+	The min possibe lat
+	@type {Number}
+	*/
+
+	static get minLat ( ) { return -90; }
+
+	/**
+	The max possibe lng
+	@type {Number}
+	*/
+
+	static get maxLng ( ) { return 180; }
+
+	/**
+	The min possibe lng
+	@type {Number}
+	*/
+
+	static get minLng ( ) { return -180; }
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+Enum for id's for panes in thePaneManagerUI
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class PANE_ID {
+
+	/**
+	The current pane is invalid
+	@type {String}
+	*/
+
+	static get invalidPane ( ) { return '43a6a53e-008a-4910-80a6-7a87d301ea15'; }
+
+	/**
+	The itinerary pane
+	@type {String}
+	*/
+
+	static get itineraryPane ( ) { return '8fbf0da7-4e6f-4bc7-8e20-1388461ccde7'; }
+
+	/**
+	The travel notes pane
+	@type {String}
+	*/
+
+	static get travelNotesPane ( ) { return 'dffe782b-07df-4b81-a318-f287c0cf5ec6'; }
+
+	/**
+	The search pane
+	@type {String}
+	*/
+
+	static get searchPane ( ) { return '228f00d7-43a8-4c13-897d-70400cb6dd58'; }
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+Enum for edition status of a route
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class ROUTE_EDITION_STATUS {
+
+	/**
+	The route is currently not edited
+	@type {Number}
+	*/
+
+	static get notEdited ( ) { return 0; }
+
+	/**
+	The route is currently edited but without changes
+	@type {Number}
+	*/
+
+	static get editedNoChange ( ) { return 1; }
+
+	/**
+	The route is currently edited and changed
+	@type {Number}
+	*/
+
+	static get editedChanged ( ) { return 2; }
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+Enum for the save status displayed with the coordinates and zoom values
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class SAVE_STATUS {
+
+	/**
+	The string to display when the travel is modified since more than 5 minutes
+	@type {String}
+	*/
+
+	static get notSaved ( ) { return '🔴'; }
+
+	/**
+	The string to display when the travel is modified since less than 5 minutes
+	@type {String}
+	*/
+
+	static get modified ( ) { return '🟡'; }
+
+	/**
+	The string to display when the travel is not modified
+	@type {String}
+	*/
+
+	static get saved ( ) { return '🟢'; }
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+The margin around the map where drag of dialogs is not possible
+@type {Number}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+const DIALOG_DRAG_MARGIN = 20;
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+The earth radius
+@type {Number}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+const EARTH_RADIUS = 6371e3;
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+A constant used to select the elev in arrays
+@type {Number}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+const ELEVATION = 2;
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+The hexadecimal format
+@type {Number}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+const HEXADECIMAL = 16;
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+The http status 200
+@type {Number}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+const HTTP_STATUS_OK = 200;
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+A constant used for invalid objId
+@type {Number}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+const INVALID_OBJ_ID = -1;
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+A constant used to select the lat in arrays
+@type {Number}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+const LAT = 0;
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+A constant used to select the lng in arrays
+@type {Number}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+const LNG = 1;
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 An array with correction factors to use in the wheel event (wheelEvent.deltaX and wheelEvent.deltaY are dependant of
 wheelEvent.deltaMode and deltaMode is browser dependant...)
+@type {Array.<Number>}
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-export const MOUSE_WHEEL_FACTORS = [ 0.3, 10, 1 ];
+const MOUSE_WHEEL_FACTORS = [ 0.3, 10, 1 ];
 
-export const INVALID_OBJ_ID = -1;
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+A contant used to move in arrays
+@type {Number}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-export const NOT_FOUND = -1;
+const NEXT = 1;
 
-export const PREVIOUS = -1;
 
-export const ZERO = 0;
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+Used to compare with some results of Array and String methods
+@type {Number}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-export const LAT = 0;
+const NOT_FOUND = -1;
 
-export const ONE = 1;
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+The number 1
+@type {Number}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-export const NEXT = 1;
+const ONE = 1;
 
-export const LNG = 1;
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+The OSM country admin level
+@type {Number}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-export const TWO = 2;
+const OSM_COUNTRY_ADMIN_LEVEL = '2';
 
-export const ELEVATION = 2;
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+A contant used to move in arrays
+@type {Number}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-export const THREE = 3;
+const PREVIOUS = -1;
 
-export const HEXADECIMAL = 16;
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+The svg namespace
+@type {Number}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-export const HTTP_STATUS_OK = 200;
+const SVG_NS = 'http://www.w3.org/2000/svg';
 
-export const OSM_COUNTRY_ADMIN_LEVEL = '2';
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+The number 3
+@type {Number}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-export const SVG_NS = 'http://www.w3.org/2000/svg';
+const THREE = 3;
 
-export const EARTH_RADIUS = 6371e3;
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+The number 2
+@type {Number}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-export const WAY_POINT_ICON_SIZE = 20;
+const TWO = 2;
 
-export const DIALOG_DRAG_MARGIN = 20;
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+The icon size for waypoints
+@type {Number}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+const WAY_POINT_ICON_SIZE = 20;
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+The number 0
+@type {Number}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+
+const ZERO = 0;
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+export {
+	COLOR_CONTROL, 
+	DEGREES, DISTANCE, 
+	ELEV, 
+	GEOLOCATION_STATUS, 
+	ICON_DIMENSIONS, 
+	ICON_POSITION, 
+	LAT_LNG, PANE_ID, 
+	ROUTE_EDITION_STATUS, 
+	SAVE_STATUS,
+	DIALOG_DRAG_MARGIN,
+	EARTH_RADIUS,
+	ELEVATION,
+	HEXADECIMAL,
+	HTTP_STATUS_OK,
+	INVALID_OBJ_ID,
+	LAT,
+	LNG,
+	MOUSE_WHEEL_FACTORS,
+	NEXT,
+	NOT_FOUND,
+	ONE,
+	OSM_COUNTRY_ADMIN_LEVEL,
+	PREVIOUS,
+	SVG_NS,
+	THREE,
+	TWO,
+	WAY_POINT_ICON_SIZE,
+	ZERO,
+};
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

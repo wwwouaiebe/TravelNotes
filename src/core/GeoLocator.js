@@ -157,7 +157,7 @@ class GeoLocator {
 /**
 The one and only one instance of GeoLocator class
 @type {GeoLocator}
-
+*/
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theGeoLocator = new GeoLocator ( );

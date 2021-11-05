@@ -241,7 +241,7 @@ class TravelNotesData {
 /**
 The one and only one instance of TravelNoteData class
 @type {TravelNotesData}
-
+*/
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theTravelNotesData = new TravelNotesData ( );

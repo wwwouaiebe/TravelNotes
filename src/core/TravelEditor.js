@@ -226,7 +226,7 @@ class TravelEditor {
 /**
 The one and only one instance of TravelEditor class
 @type {TravelEditor}
-
+*/
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theTravelEditor = new TravelEditor ( );

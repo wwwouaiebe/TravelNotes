@@ -27,7 +27,8 @@ Tests ...
 */
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
-/** @typedef {Object} LayerToolbarButtonData
+/**
+@typedef {Object} LayerToolbarButtonData
 A layers toolbar button properties
 @property {String} text The text to display in the toolbar button
 @property {String} color The foreground color of the toolbar button

@@ -169,7 +169,7 @@ class ProfileWindowsManager {
 /**
 The one and only one instance of ProfileWindowsManager class
 @type {ProfileWindowsManager}
-
+*/
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theProfileWindowsManager = new ProfileWindowsManager ( );

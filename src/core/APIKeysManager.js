@@ -339,7 +339,7 @@ class APIKeysManager {
 /**
 The one and only one instance of APIKeysManager class
 @type {APIKeysManager}
-
+*/
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theAPIKeysManager = new APIKeysManager ( );

@@ -430,7 +430,7 @@ class RouteEditor {
 /**
 The one and only one instance of RouteEditor class
 @type {RouteEditor}
-
+*/
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theRouteEditor = new RouteEditor ( );
