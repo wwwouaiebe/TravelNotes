@@ -34,13 +34,13 @@ import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
 
 import { ZERO, ONE, TWO, LAT, LNG, ELEVATION, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
 
-/* ---------------------------------------------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 This class implements the BaseRouteProvider for OpenRouteService. It's not possible to instanciate
 this class because the class is not exported from the module. Only one instance is created and added to the list
 of Providers of TravelNotes
 */
-/* ---------------------------------------------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 
@@ -330,4 +330,4 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 
 window.TaN.addProvider ( OpenRouteServiceRouteProvider );
 
-/* --- End of file -----------------------------------------------------------------------------------------------------------*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

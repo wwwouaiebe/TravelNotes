@@ -34,11 +34,11 @@ import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
 
 import { ZERO, TWO, LAT, LNG, ELEVATION, LAT_LNG, HTTP_STATUS_OK, DISTANCE } from '../main/Constants.js';
 
-/* ---------------------------------------------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 This class implements the BaseRouteProvider interface for Graphhopper.
 */
-/* ---------------------------------------------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class GraphHopperRouteProvider extends BaseRouteProvider {
 
@@ -313,4 +313,4 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 
 window.TaN.addProvider ( GraphHopperRouteProvider );
 
-/* --- End of file -----------------------------------------------------------------------------------------------------------*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

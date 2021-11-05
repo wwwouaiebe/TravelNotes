@@ -31,13 +31,13 @@ import theTranslator from '../UILib/Translator.js';
 import BaseDialog from '../dialogBase/BaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 
-/* ---------------------------------------------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 A saveAsDialog object completed for making a partial save of the edited travel
 Create an instance of the dialog, then execute the show ( ) method. The selected values are returned as parameter of the
 succes handler of the Promise returned by the show ( ) method.
 */
-/* ---------------------------------------------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class SaveAsDialog extends BaseDialog {
 
@@ -158,4 +158,4 @@ class SaveAsDialog extends BaseDialog {
 
 export default SaveAsDialog;
 
-/* --- End of file -----------------------------------------------------------------------------------------------------------*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */
