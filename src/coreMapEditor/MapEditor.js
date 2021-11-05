@@ -117,7 +117,6 @@ class MapEditor	extends MapEditorViewer {
 	This method is called by the 'routeupdated' event listener.
 	@param {Number} removedRouteObjId The objId of the route to remove
 	@param {Number} addedRouteObjId The objId of the route to add
-	@listens routeupdated
 	*/
 
 	updateRoute ( removedRouteObjId, addedRouteObjId ) {
@@ -175,7 +174,6 @@ class MapEditor	extends MapEditorViewer {
 	This method update the properties of a route on the map
 	This method is called by the 'routepropertiesupdated' event listener.
 	@param {Number} routeObjId The objId of the route to update
-	@listens routepropertiesupdated
 	*/
 
 	updateRouteProperties ( routeObjId ) {
@@ -197,7 +195,6 @@ class MapEditor	extends MapEditorViewer {
 	This method is called by the 'noteupdated' event listener.
 	@param {Number} removedNoteObjId The objId of the note to remove
 	@param {Number} addedNoteObjId The objId of the note to add
-	@listens noteupdated
 	*/
 
 	updateNote ( removedNoteObjId, addedNoteObjId ) {
@@ -230,7 +227,6 @@ class MapEditor	extends MapEditorViewer {
 	This method removes an object from the map.
 	This method is called by the 'removeobject' event listener
 	@param {Number} objId The objId of the object to remove
-	@listens removeobject
 	*/
 
 	removeObject ( objId ) { this.#RemoveFromMap ( objId ); }
@@ -238,7 +234,6 @@ class MapEditor	extends MapEditorViewer {
 	/**
 	This method removes all objects from the map.
 	This method is called by the 'removeallobjects' event listener
-	@listens removeallobjects
 	*/
 
 	removeAllObjects ( ) {
@@ -256,7 +251,6 @@ class MapEditor	extends MapEditorViewer {
 	This method is called by the 'addwaypoint' event listener.
 	@param {WayPoint} wayPoint The wayPoint to add
 	@param {string|number} letter The letter or number to show with the WayPoint
-	@listens addwaypoint
 	*/
 
 	addWayPoint ( wayPoint, letter ) {
@@ -311,7 +305,6 @@ class MapEditor	extends MapEditorViewer {
 	This method is called by the 'additinerarypointmarker' event listener.
 	@param {Number} objId A unique identifier to attach to the circleMarker
 	@param {Array.<Number>} latLng The latitude and longitude of the itinerary point marker
-	@listens additinerarypointmarker
 	*/
 
 	addItineraryPointMarker ( objId, latLng ) {
@@ -329,7 +322,6 @@ class MapEditor	extends MapEditorViewer {
 	@param {Array.<Number>} latLng The latitude and longitude of the search point marker
 	@param {?Array.<Array.<number>>} geometry The latitudes and longitudes of the search point marker when a polyline
 	can be showed
-	@listens addsearchpointmarker
 	*/
 
 	addSearchPointMarker ( objId, latLng, geometry ) {
@@ -368,7 +360,6 @@ class MapEditor	extends MapEditorViewer {
 	@param {Number} objId A unique identifier to attach to the rectangle
 	@param {Array.<Array.<number>>} bounds The lower left and upper right corner of the rectangle
 	@param {Object} properties The Leaflet properties of the rectangle
-	@listens addrectangle
 	*/
 
 	addRectangle ( objId, bounds, properties ) {
@@ -382,7 +373,6 @@ class MapEditor	extends MapEditorViewer {
 	This method changes the background map.
 	This method is called by the 'layerchange' event listener.
 	@param {Layer} layer The layer to set
-	@listens layerchange
 	*/
 
 	setLayer ( layer ) {

@@ -102,12 +102,6 @@ class NoteEditor {
 
 	/**
 	This method add or update a note to theTravelNotesData and to the map
-	@fires showitinerary
-	@fires showtravelnotes
-	@fires updateitinerary
-	@fires updatetravelnotes
-	@fires noteupdated
-	@fires roadbookupdate
 	*/
 
 	#addNote ( ) {
@@ -268,9 +262,6 @@ class NoteEditor {
 	This method add a route note.
 	@param {Number} routeObjId objId of the route to witch the note will be attached
 	@param {Array.<Number>} latLng the lat and lng of the point selected by the user
-	@fires showitinerary
-	@fires noteupdated
-	@fires roadbookupdate
 	*/
 
 	newRouteNote ( routeObjId, latLng ) {
@@ -291,9 +282,6 @@ class NoteEditor {
 	/**
 	This method add a route note for a searh result from osm.
 	@param {Object} osmElement an object with osm data ( see OsmSearch...)
-	@fires showitinerary
-	@fires noteupdated
-	@fires roadbookupdate
 	*/
 
 	newSearchRouteNote ( osmElement ) {
@@ -312,9 +300,6 @@ class NoteEditor {
 	/**
 	This method add a travel note for a searh result from osm.
 	@param {Object} osmElement an object with osm data ( see OsmSearch...)
-	@fires showtravelnotes
-	@fires noteupdated
-	@fires roadbookupdate
 	*/
 
 	newSearchTravelNote ( osmElement ) {
@@ -326,9 +311,6 @@ class NoteEditor {
 	/**
 	This method add a travel note
 	@param {Array.<Number>} latLng The latitude and longitude of the note
-	@fires showtravelnotes
-	@fires noteupdated
-	@fires roadbookupdate
 	*/
 
 	newTravelNote ( latLng ) {
@@ -340,10 +322,6 @@ class NoteEditor {
 	/**
 	This method start the edition of a note
 	@param {Number} noteObjId The objId of the note to be edited
-	@fires updateitinerary
-	@fires updatetravelnotes
-	@fires noteupdated
-	@fires roadbookupdate
 	*/
 
 	editNote ( noteObjId ) {
@@ -357,10 +335,6 @@ class NoteEditor {
 	/**
 	This method remove a note
 	@param {Number} noteObjId The objId of the note to be removed
-	@fires updateitinerary
-	@fires updatetravelnotes
-	@fires noteupdated
-	@fires roadbookupdate
 	*/
 
 	removeNote ( noteObjId ) {
@@ -391,7 +365,6 @@ class NoteEditor {
 
 	/**
 	This method hide all notes on the map. The notes are always visible in the roadbook and UI
-	@fires removeobject
 	*/
 
 	hideNotes ( ) {
@@ -416,8 +389,6 @@ class NoteEditor {
 
 	/**
 	This method show all notes on the map.
-	@fires noteupdated
-	@fires routeupdated
 	*/
 
 	showNotes ( ) {
@@ -450,10 +421,6 @@ class NoteEditor {
 	This method transform a travel note into a route note.
 	The nearest point on a route is selected for the note
 	@param {Number} noteObjId The objId of the note
-	@fires updateitinerary
-	@fires updatetravelnotes
-	@fires noteupdated
-	@fires roadbookupdate
 	*/
 
 	attachNoteToRoute ( noteObjId ) {
@@ -486,9 +453,6 @@ class NoteEditor {
 	/**
 	This method transform a route note into a travel note.
 	@param {Number} noteObjId The objId of the note
-	@fires updateitinerary
-	@fires updatetravelnotes
-	@fires roadbookupdate
 	*/
 
 	detachNoteFromRoute ( noteObjId ) {
@@ -509,8 +473,6 @@ class NoteEditor {
 	@param {Number} targetNoteObjId The objId of the note on witch the drop was executed
 	@param {Boolean} draggedBefore when true the dragged note is moved before the target note
 	when false after
-	@fires updatetravelnotes
-	@fires roadbookupdate
 	*/
 
 	travelNoteDropped ( draggedNoteObjId, targetNoteObjId, draggedBefore ) {
@@ -524,9 +486,7 @@ class NoteEditor {
 /**
 The one and only one instance of NoteEditor class
 @type {NoteEditor}
-@constant
-@global
-*/
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theNoteEditor = new NoteEditor ( );

@@ -136,7 +136,6 @@ class TravelNotesData {
 	/**
 	The one and only one object Travel
 	@type {Object}
-	@see Travel
 	*/
 
 	#travel;
@@ -187,7 +186,6 @@ class TravelNotesData {
 	/**
 	The one and only one object Travel
 	@type {Object}
-	@see Travel
 	*/
 
 	get travel ( ) { return this.#travel; }
@@ -213,7 +211,6 @@ class TravelNotesData {
 	/**
 	A JS map with the provider objects. Providers objects are created and added by the plugins
 	@type {Map.provider}
-	@see {@link module:TravelNotesData~provider}
 	*/
 
 	get providers ( ) { return this.#providers; }
@@ -228,7 +225,6 @@ class TravelNotesData {
 	/**
 	An Object with the provider and transit mode used
 	@type {Routing}
-	@see {@link module:TravelNotesData~routing}
 	*/
 
 	get routing ( ) { return this.#routing; }
@@ -245,9 +241,7 @@ class TravelNotesData {
 /**
 The one and only one instance of TravelNoteData class
 @type {TravelNotesData}
-@constant
-@global
-*/
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theTravelNotesData = new TravelNotesData ( );

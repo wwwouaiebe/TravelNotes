@@ -163,7 +163,6 @@ class Collection {
 	@param {?function} condition A fonction used to compare the objects. If null, ( ) => true is used
 	@param {Number} direction The direction to follow. Must be NEXT or PREVIOUS
 	@return {?Object} An object or null if nothing found
-	@throws When direction is not NEXT or PREVIOUS or when the starting object is not found
 	*/
 
 	#nextOrPrevious ( objId, condition, direction ) {
@@ -210,7 +209,6 @@ class Collection {
 	/**
 	Add an object at the end of the collection
 	@param {Object} object The object to add
-	@throws when the object type is invalid
 	*/
 
 	add ( object ) {
@@ -261,7 +259,6 @@ class Collection {
 	@param {Number} objId The objId of the object to move
 	@param {Number} targetObjId The objId of the object near witch the object will be moved
 	@param {Boolean} moveBefore When true, the object is moved before the target, when false after the target
-	@throws when objId or targetObjId are invalid
 	*/
 
 	moveTo ( objId, targetObjId, moveBefore ) {
@@ -285,7 +282,6 @@ class Collection {
 	@param {Number} objId The objId of the object from witch the search start
 	@param {?function} condition A fonction used to compare the objects. If null, ( ) => true is used
 	@return {?Object} An object or null if nothing found
-	@throws When the starting object is not found
 	*/
 
 	next ( objId, condition ) { return this.#nextOrPrevious ( objId, condition, NEXT ); }
@@ -295,7 +291,6 @@ class Collection {
 	@param {Number} objId The objId of the object from witch the search start
 	@param {?function} condition A fonction used to compare the objects. If null, ( ) => true is used
 	@return {?Object} An object or null if nothing found
-	@throws When the starting object is not found
 	*/
 
 	previous ( objId, condition ) { return this.#nextOrPrevious ( objId, condition, PREVIOUS ); }
@@ -303,7 +298,6 @@ class Collection {
 	/**
 	Remove an object from the Collection
 	@param {Number} objId The objId of the object to remove
-	@throws when the object is not found
 	*/
 
 	remove ( objId ) {
@@ -332,7 +326,6 @@ class Collection {
 	Replace an object in the Collection with another object
 	@param {Number} oldObjId the objId of the object to replace
 	@param {Object} newObject The new object
-	@throws when the object type of newObject is invalid or when the object to replace is not found
 	*/
 
 	replace ( oldObjId, newObject ) {
@@ -364,7 +357,6 @@ class Collection {
 	@param {Number} objId The objId of the object to swap
 	@param {Boolean} swapUp When true the object is swapped with the previous one,
 	when false with the next one
-	@throws when the object is not found or when the swap is not possible
 	*/
 
 	swap ( objId, swapUp ) {
@@ -392,9 +384,9 @@ class Collection {
 	get first ( ) { return this.#array [ ZERO ]; }
 
 	/**
-	An iterator on the Collection
+	An iterator on the Collection. See CollectionIterator
 	@type {CollectionIterator}
-	@see {@link module:Collection~CollectionIterator}
+
 	*/
 
 	get iterator ( ) {

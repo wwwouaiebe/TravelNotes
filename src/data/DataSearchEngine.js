@@ -210,9 +210,7 @@ class DataSearchEngine {
 /**
 The one and only one instance of DataSearchEngine class
 @type {DataSearchEngine}
-@constant
-@global
-*/
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theDataSearchEngine = new DataSearchEngine ( );

@@ -64,16 +64,6 @@ class FileLoader {
 
 	/**
 	Display the travel and fires event for updating the map and the UI
-	@fires removeallobjects
-	@fires routeupdated
-	@fires noteupdated
-	@fires travelnameupdated
-	@fires layerchange
-	@fires setrouteslist
-	@fires setprovider
-	@fires settransitmode
-	@fires showitinerary
-	@fires roadbookupdate
 	*/
 
 	#display ( ) {
@@ -176,16 +166,6 @@ class FileLoader {
 	/**
 	Open a local file and display the content of the file
 	@param {Object} travelJsonObject the json object readed from the file
-	@fires removeallobjects
-	@fires routeupdated
-	@fires noteupdated
-	@fires travelnameupdated
-	@fires layerchange
-	@fires setrouteslist
-	@fires setprovider
-	@fires settransitmode
-	@fires showitinerary
-	@fires roadbookupdate
 	*/
 
 	openLocalFile ( travelJsonObject ) {
@@ -215,16 +195,6 @@ class FileLoader {
 	/**
 	Open a local file and merge the content of the file with the current travel
 	@param {Object} travelJsonObject the json object readed from the file
-	@fires removeallobjects
-	@fires routeupdated
-	@fires noteupdated
-	@fires travelnameupdated
-	@fires layerchange
-	@fires setrouteslist
-	@fires setprovider
-	@fires settransitmode
-	@fires showitinerary
-	@fires roadbookupdate
 	*/
 
 	mergeLocalFile ( travelJsonObject ) {

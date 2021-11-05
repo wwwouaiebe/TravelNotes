@@ -89,12 +89,6 @@ class RouteEditor {
 	/**
 	This method add a route to the Travel and, if no other route is beind edited,
 	start the edition of this new route
-	@fires setprovider
-	@fires settransitmode
-	@fires routeupdated
-	@fires showitinerary
-	@fires setrouteslist
-	@fires roadbookupdate
 	*/
 
 	addRoute ( ) {
@@ -113,12 +107,6 @@ class RouteEditor {
 	/**
 	This method start the edition of a route
 	@param {Number} routeObjId The objId of the route to edit.
-	@fires setprovider
-	@fires settransitmode
-	@fires routeupdated
-	@fires showitinerary
-	@fires setrouteslist
-	@fires roadbookupdate
 	*/
 
 	editRoute ( routeObjId ) {
@@ -192,10 +180,6 @@ class RouteEditor {
 	/**
 	This method removes a route from the travel
 	@param {Number} routeObjId The objId of the Route to remove.
-	@fires routeupdated
-	@fires showitinerary
-	@fires setrouteslist
-	@fires roadbookupdate
 	*/
 
 	removeRoute ( routeObjId ) {
@@ -260,10 +244,6 @@ class RouteEditor {
 
 	/**
 	This method save the edited route
-	@fires routeupdated
-	@fires showitinerary
-	@fires setrouteslist
-	@fires roadbookupdate
 	*/
 
 	saveEdition ( ) {
@@ -282,10 +262,6 @@ class RouteEditor {
 
 	/**
 	This method cancel the route edition
-	@fires routeupdated
-	@fires showitinerary
-	@fires setrouteslist
-	@fires roadbookupdate
 	*/
 
 	cancelEdition ( ) {
@@ -319,10 +295,6 @@ class RouteEditor {
 	/**
 	This method show the RoutePropertiesDialog
 	@param {Number} routeObjId The objId of the Route for witch the properties must be edited
-	@fires routepropertiesupdated
-	@fires setrouteslist
-	@fires roadbookupdate
-	@fires updateitinerary
 	*/
 
 	routeProperties ( routeObjId ) {
@@ -458,9 +430,7 @@ class RouteEditor {
 /**
 The one and only one instance of RouteEditor class
 @type {RouteEditor}
-@constant
-@global
-*/
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theRouteEditor = new RouteEditor ( );

@@ -59,7 +59,6 @@ class GeoLocator {
 	/**
 	Send an event to show the current position on the map
 	@param {GeolocationPosition} position a JS GeolocationPosition object
-	@fires geolocationpositionchanged
 	*/
 
 	#showPosition ( position ) {
@@ -68,7 +67,6 @@ class GeoLocator {
 
 	/**
 	Stop the geolocation
-	@fires geolocationstatuschanged
 	*/
 
 	#stop ( ) {
@@ -91,7 +89,6 @@ class GeoLocator {
 	@param {GeolocationPositionError} positionError
 	See <a href="https://developer.mozilla.org/en-US/docs/Web/API/GeolocationPositionError">GeolocationPositionError</a>
 	on mdn
-	@fires geolocationstatuschanged
 	*/
 
 	#error ( positionError ) {
@@ -103,7 +100,6 @@ class GeoLocator {
 
 	/**
 	Start the geolocation
-	@fires geolocationstatuschanged
 	*/
 
 	#start ( ) {
@@ -139,8 +135,6 @@ class GeoLocator {
 	/**
 	Start or stop the geolocatiion, depending of the status
 	@return {GEOLOCATION_STATUS} the status after the switch
-	@fires geolocationstatuschanged
-	@fires geolocationpositionchanged
 	*/
 
 	switch ( ) {
@@ -163,9 +157,7 @@ class GeoLocator {
 /**
 The one and only one instance of GeoLocator class
 @type {GeoLocator}
-@constant
-@global
-*/
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theGeoLocator = new GeoLocator ( );

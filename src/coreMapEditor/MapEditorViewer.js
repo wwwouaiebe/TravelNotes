@@ -130,7 +130,6 @@ class MapEditorViewer {
 	and by the MapEditor.updateRoute( ) method
 	@param {Number} routeObjId The objId of the route to add
 	@return {Route} the added Route
-	@listens routeupdated
 	*/
 
 	addRoute ( routeObjId ) {
@@ -191,7 +190,6 @@ class MapEditorViewer {
 	and indirectly by the MapEditor.updateNote( ) method
 	@param {Number} noteObjId The objId of the note to add
 	@return {NoteLeafletObjects} An object with a reference to the Leaflet objects of the note
-	@listens noteupdated
 	*/
 
 	addNote ( noteObjId ) {
@@ -302,7 +300,6 @@ class MapEditorViewer {
 	This method zoom to a point or an array of points
 	@param {Array.<Number>} latLng the point
 	@param {Array.<Array.<Array.<number>>>} geometry the array of points...
-	@listens zoomto
 	*/
 
 	zoomTo ( latLng, geometry ) {
@@ -322,7 +319,6 @@ class MapEditorViewer {
 	and by the MapEditor.setLayer( ) method
 	@param {Layer} layer The layer to set
 	@param {String} url The url to use for this layer (reminder: url !== layer.url !!! See MapEditor.setLayer)
-	@listens layerchange
 	*/
 
 	setLayer ( layer, url ) {
@@ -372,7 +368,6 @@ class MapEditorViewer {
 	/**
 	This method is called when the geolocation status is changed
 	@param {GEOLOCATION_STATUS} geoLocationStatus The geolocation status
-	@listens geolocationstatuschanged
 	*/
 
 	onGeolocationStatusChanged ( geoLocationStatus ) {
@@ -388,7 +383,6 @@ class MapEditorViewer {
 	/**
 	This method is called when the geolocation position is changed
 	@param {GeolocationPosition} position a JS GeolocationPosition object
-	@listens geolocationpositionchanged
 	*/
 
 	onGeolocationPositionChanged ( position ) {

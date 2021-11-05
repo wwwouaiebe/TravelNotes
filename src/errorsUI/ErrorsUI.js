@@ -208,16 +208,16 @@ class ErrorsUI {
 	}
 
 	/**
-	Show an error message ( a white text on a red background )
-	@see theConfig.errorsUI.showError to disable or enable the error messages
+	Show an error message ( a white text on a red background )<br/>
+	See theConfig.errorsUI.showError to disable or enable the error messages
 	@param {String} error The error message to display
 	*/
 
 	showError ( error ) { this.#show ( error, 'Error' ); }
 
 	/**
-	Show an warning message ( a black text on an orange background )
-	@see theConfig.errorsUI.showWarning to disable or enable the warning messages
+	Show an warning message ( a black text on an orange background )<br/>
+	See theConfig.errorsUI.showWarning to disable or enable the warning messages
 	@param {String} warning The warning message to display
 	*/
 
@@ -232,8 +232,8 @@ class ErrorsUI {
 	showInfo ( info ) { this.#show ( info, 'Info' ); }
 
 	/**
-	Show a help message ( a black text on a white background )
-	@see theConfig.errorsUI.showHelp to disable or enable the help messages and the
+	Show a help message ( a black text on a white background )<br/>
+	See theConfig.errorsUI.showHelp to disable or enable the help messages and the
 	checkbox in the UI to disable the help
 	@param {String} help The help message to display
 	*/

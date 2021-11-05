@@ -124,8 +124,6 @@ class TravelEditor {
 	@param {Number} targetRouteObjId The objId of the route on witch the drop was executed
 	@param {Boolean} draggedBefore when true the dragged route is moved before the target route
 	when false after
-	@fires setrouteslist
-	@fires roadbookupdate
 	*/
 
 	routeDropped ( draggedRouteObjId, targetRouteObjId, draggedBefore ) {
@@ -197,11 +195,6 @@ class TravelEditor {
 
 	/**
 	This method clear the current travel and start a new travel
-	@fires removeallobjects
-	@fires setrouteslist
-	@fires showitinerary
-	@fires travelnameupdated
-	@fires roadbookupdate
 	*/
 
 	newTravel ( ) {
@@ -233,9 +226,7 @@ class TravelEditor {
 /**
 The one and only one instance of TravelEditor class
 @type {TravelEditor}
-@constant
-@global
-*/
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theTravelEditor = new TravelEditor ( );

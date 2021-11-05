@@ -115,7 +115,6 @@ class ObjType {
 	/**
 	Verify that the given object is an ObjType and is valid
 	@param {Object} something An object to validate
-	@throws when the object is an invalid objType
 	*/
 
 	validate ( something ) {

@@ -174,7 +174,6 @@ class APIKeysManager {
 	/**
 	This method replace all the API keys from the map and storage with the given APIKeys
 	@param {Array.<APIKey>} APIKeys the new APIKeys
-	@fires providersadded
 	*/
 
 	#resetAPIKeys ( APIKeys ) {
@@ -243,7 +242,6 @@ class APIKeysManager {
 	This method try to restore the API keys from the storage. If not possible the method search
 	a file named 'APIKeys' on the web server. If the file is found, ask the file password to the user
 	and try to decode the file.
-	@fires providersadded
 	*/
 
 	setKeysFromServerFile ( ) {
@@ -279,7 +277,6 @@ class APIKeysManager {
 
 	/**
 	This method show the APIKeys dialog and update the APIKeys when the user close the dialog.
-	@fires providersadded
 	*/
 
 	setKeysFromDialog ( ) {
@@ -342,9 +339,7 @@ class APIKeysManager {
 /**
 The one and only one instance of APIKeysManager class
 @type {APIKeysManager}
-@constant
-@global
-*/
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theAPIKeysManager = new APIKeysManager ( );

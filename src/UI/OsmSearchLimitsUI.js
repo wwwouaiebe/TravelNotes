@@ -58,10 +58,6 @@ class OsmSearchLimitsUI {
 	/**
 	Draw the search limit on the map.
 	Also used as event listener for pan and zoom operations on the map.
-	@fires removeobject
-	@fires addrectangle
-	@listens zoom
-	@listens move
 	*/
 
 	#drawSearchLimit ( ) {
@@ -84,8 +80,6 @@ class OsmSearchLimitsUI {
 
 	/**
 	Draw the previous search limit on the map
-	@fires removeobject
-	@fires addrectangle
 	*/
 
 	#drawPreviousSearchlimit ( ) {

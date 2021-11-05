@@ -157,7 +157,6 @@ class ProfileWindowsManager {
 	/**
 	This method is called when a profile window is closed
 	@param {Number} objId The Route objId for witch a profile window is created
-	@listens profileclosed
 	*/
 
 	onProfileClosed ( objId ) {
@@ -170,9 +169,7 @@ class ProfileWindowsManager {
 /**
 The one and only one instance of ProfileWindowsManager class
 @type {ProfileWindowsManager}
-@constant
-@global
-*/
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theProfileWindowsManager = new ProfileWindowsManager ( );

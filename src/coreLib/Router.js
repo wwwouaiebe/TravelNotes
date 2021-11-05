@@ -199,9 +199,6 @@ class Router {
 
 	/**
 	This method start the routing for the edited route.
-	@fires routeupdated
-	@fires showitinerary
-	@fires roadbookupdate
 	*/
 
 	startRouting ( ) {

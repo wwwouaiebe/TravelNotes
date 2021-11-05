@@ -63,7 +63,6 @@ class AllManeuverNotesBuilder {
 	/**
 	This method creates a new route note with data from osm
 	@param {NoteData} noteData The data needed for building the note
-	@fires noteupdated
 	*/
 
 	#newNoteFromOsmData ( noteData ) {
@@ -87,8 +86,6 @@ class AllManeuverNotesBuilder {
 
 	/**
 	This method add a note with data from osm for each maneuver of a route.
-	@fires updateitinerary
-	@fires roadbookupdate
 	*/
 
 	async #addAllManeuverNotes ( ) {
@@ -131,9 +128,6 @@ class AllManeuverNotesBuilder {
 	This method add a note with data from osm for each maneuver of a route
 	A confirmation message is showed before starting.
 	@param {Number} routeObjId The Route objId
-	@fires updateitinerary
-	@fires noteupdated
-	@fires roadbookupdate
 	*/
 
 	addAllManeuverNotes ( routeObjId ) {

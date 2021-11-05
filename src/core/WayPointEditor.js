@@ -73,9 +73,6 @@ class WayPointEditor {
 	/**
 	This method rename a WayPoint with data from Nominatim
 	@param {Object} wayPoint The wayPoint to rename
-	@fires setrouteslist
-	@fires updateitinerary
-	@fires roadbookupdate
 	*/
 
 	async #renameWayPointWithGeocoder ( wayPoint ) {
@@ -169,9 +166,6 @@ class WayPointEditor {
 
 	/**
 	This method reverse the waypoints order
-	@fires setrouteslist
-	@fires showitinerary
-	@fires roadbookupdate
 	*/
 
 	reverseWayPoints ( ) {
@@ -213,7 +207,6 @@ class WayPointEditor {
 	/**
 	This method set the starting WayPoint
 	@param {Array.<Number>} latLng The latitude and longitude where the WayPoint will be added
-	@fires addwaypoint
 	*/
 
 	setStartPoint ( latLng ) {
@@ -234,7 +227,6 @@ class WayPointEditor {
 	/**
 	This method set the ending WayPoint
 	@param {Array.<Number>} latLng The latitude and longitude where the WayPoint will be added
-	@fires addwaypoint
 	*/
 
 	setEndPoint ( latLng ) {
@@ -269,9 +261,6 @@ class WayPointEditor {
 	/**
 	This method shows the WayPointPropertiesDialog
 	@param {Number} wayPointObjId The objId of the WayPoint that modify
-	@fires setrouteslist
-	@fires showitinerary
-	@fires roadbookupdate
 	*/
 
 	wayPointProperties ( wayPointObjId ) {

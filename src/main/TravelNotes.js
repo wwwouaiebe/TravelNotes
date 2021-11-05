@@ -234,9 +234,7 @@ class TravelNotes {
 /**
 The one and only one instance of TravelNotes class
 @type {TravelNotes}
-@constant
-@global
-*/
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theTravelNotes = new TravelNotes ( );
