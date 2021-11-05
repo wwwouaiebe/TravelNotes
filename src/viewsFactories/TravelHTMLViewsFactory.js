@@ -40,24 +40,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file TravelHTMLViewsFactory.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module viewsFactories
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import theUtilities from '../UILib/Utilities.js';
@@ -71,10 +53,8 @@ import { DISTANCE, ZERO } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class
-@classdesc This class creates HTMLElements for travel, notes and routes
-@see {@link theHTMLViewsFactory} for the one and only one instance of this class
-@hideconstructor
+@classdesc This class creates HTMLElements for travels
+See theTravelHTMLViewsFactory for the one and only one instance of this class
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -85,7 +65,7 @@ class TravelHTMLViewsFactory {
 	Gives an HTMLElement with the travel name, distance, ascent (if any), descent (if any) and a list with all the routes
 	of the travel
 	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
-	@return {HTMLElement}
+	@return {HTMLElement} An HTMLElement with the travel header
 	*/
 
 	#getTravelHeaderHTML ( classPrefix ) {
@@ -189,7 +169,7 @@ class TravelHTMLViewsFactory {
 	/**
 	Gives an HTMLElement with the Copyright notice and OSM attributions
 	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
-	@return {HTMLElement}
+	@return {HTMLElement} An HTMLElement with the travel footer
 	*/
 
 	#getTravelFooterHTML ( classPrefix ) {
@@ -209,8 +189,8 @@ class TravelHTMLViewsFactory {
 		return footerHTML;
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -221,7 +201,7 @@ class TravelHTMLViewsFactory {
 	Gives an HTMLElement with the travel header, the travel notes, all the routes of the travel
 	with route header, route notes, route maneuvers, route footer and travel footer
 	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
-	@return {HTMLElement}
+	@return {HTMLElement} An HTMLElement with the complete travel
 	*/
 
 	getTravelHTML ( classPrefix ) {
@@ -257,8 +237,6 @@ class TravelHTMLViewsFactory {
 
 @desc The one and only one instance of TravelHTMLViewsFactory  class
 @type {TravelHTMLViewsFactory }
-@constant
-@global
 
 @------------------------------------------------------------------------------------------------------------------------------
 */

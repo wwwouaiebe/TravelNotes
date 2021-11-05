@@ -26,24 +26,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file RouteHTMLViewsFactory.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module viewsFactories
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import ObjId from '../data/ObjId.js';
 import SvgProfileBuilder from '../coreLib/SvgProfileBuilder.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
@@ -58,9 +40,7 @@ import { ZERO, DISTANCE, ICON_DIMENSIONS } from '../main/Constants.js';
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class RouteHTMLViewsFactory
-@classdesc coming soon...
-@hideconstructor
+@classdesc This class creates HTMLElements for routes
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -73,7 +53,7 @@ class RouteHTMLViewsFactory {
 	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
 	@param {Object} routeAndManeuver An object with the maneuver, the route to witch the maneuver is linked and the distance
 	between the beginning of the route and the maneuver
-	@return {HTMLElement}
+	@return {HTMLElement} An HTMLElement with the Maneuver
 	*/
 
 	#getManeuverHTML ( classPrefix, routeAndManeuver ) {
@@ -154,8 +134,8 @@ class RouteHTMLViewsFactory {
 		return maneuverHTML;
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -181,7 +161,8 @@ class RouteHTMLViewsFactory {
 	beginning of the route
 	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
 	@param {Route} route The route for witch the HTMLElement will be created
-	@return {HTMLElement}
+	@param {Boolean} addDataset When true, objId and objType are added to the dataset of the HTMLElement
+	@return {HTMLElement} An HTMLElement with all the notes and maneuvers linked to the route
 	*/
 
 	getRouteManeuversAndNotesHTML ( classPrefix, route, addDataset ) {
@@ -251,7 +232,7 @@ class RouteHTMLViewsFactory {
 	route ascent (if any) and route descent (if any)
 	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
 	@param {Route} route The route for witch the HTMLElement will be created
-	@return {HTMLElement}
+	@return {HTMLElement} An HTMLElement with the Route header
 	*/
 
 	getRouteHeaderHTML ( classPrefix, route ) {
@@ -343,7 +324,7 @@ class RouteHTMLViewsFactory {
 	Gives an HTMLElement with the provider and transit mode used for the itinerary creation
 	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
 	@param {Route} route The route for witch the HTMLElement will be created
-	@return {HTMLElement}
+	@return {HTMLElement} An HTMLElement with the Route footer
 	*/
 
 	getRouteFooterHTML ( classPrefix, route ) {
@@ -370,6 +351,16 @@ class RouteHTMLViewsFactory {
 	}
 
 }
+
+/**
+@------------------------------------------------------------------------------------------------------------------------------
+
+@desc The one and only one instance of RouteHTMLViewsFactory  class
+@type {RouteHTMLViewsFactory }
+
+@------------------------------------------------------------------------------------------------------------------------------
+*/
+
 const theRouteHTMLViewsFactory = new RouteHTMLViewsFactory ( );
 
 export default theRouteHTMLViewsFactory;

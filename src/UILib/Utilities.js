@@ -110,7 +110,7 @@ class Utilities {
 	/**
 	Open a file
 	@param {function|Object} eventListener a change event listener to use when the file is opened
-	@param {String} acceptFileType The extension of the file, included the dot. 
+	@param {String} acceptFileType The extension of the file, included the dot.
 	*/
 
 	openFile ( eventListener, acceptFileType ) {

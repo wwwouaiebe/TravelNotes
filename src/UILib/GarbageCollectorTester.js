@@ -38,9 +38,9 @@ class MemoryTest {
 	A big array...
 	@type {Array.<Number>}
 	*/
-	
+
 	#array;
-	
+
 	/**
 	The constructor
 	*/
@@ -48,9 +48,9 @@ class MemoryTest {
 	constructor ( ) {
 		this.#array = [];
 		let counter = 0;
-		
-	// eslint-disable-next-line no-magic-numbers
-		while ( counter < 10000000 ) {
+
+		// eslint-disable-next-line no-magic-numbers
+		while ( 10000000 > counter ) {
 			this.#array.push ( counter ++ );
 		}
 	}

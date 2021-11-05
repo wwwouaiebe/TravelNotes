@@ -59,14 +59,14 @@ class IndexedDb {
 	*/
 
 	#data;
-	
+
 	/**
 	The version of the db to use
 	@type {Number}
 	*/
-	
+
 	// eslint-disable-next-line no-magic-numbers
-	static get #DB_VERSION ( ) { return 1;}
+	static get #DB_VERSION ( ) { return 1; }
 
 	/**
 	Perform the open operations

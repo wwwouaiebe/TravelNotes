@@ -26,24 +26,6 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteHTMLViewsFactory.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module viewsFactories
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import theTranslator from '../UILib/Translator.js';
@@ -53,23 +35,34 @@ import theTravelNotesData from '../data/TravelNotesData.js';
 
 import { ICON_DIMENSIONS, ZERO, ONE } from '../main/Constants.js';
 
-const OUR_LINKS_MAX_LENGTH = 40;
-const OUR_MIN_NOTES_DISTANCE = 9;
-
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@class NoteHTMLViewsFactory
-@classdesc coming soon...
-@hideconstructor
+@classdesc This class creates HTMLElements for notes
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 class NoteHTMLViewsFactory {
 
-	/*
-	constructor
+	/**
+	The max length for displayed links
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #LINKS_MAX_LENGTH ( ) { return 40; }
+
+	/**
+	// The minimal distance between note to display the 'Next note after' value
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #MIN_NOTES_DISTANCE ( ) { return 40; }
+
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -80,7 +73,7 @@ class NoteHTMLViewsFactory {
 	Gives an HTMLElement with the note icon and sames values than the this.getNoteTextHTML method
 	@param {String} classPrefix A string that will be added to all the className of the created HTMLElement
 	@param {NoteAndRoute} noteAndRoute A NoteAndRoute object with the note and the route to witch the note is attached
-	@return {HTMLElement}
+	@return {HTMLElement} An HTMLElement with the icon and texts for a Note
 	*/
 
 	getNoteTextAndIconHTML ( classPrefix, noteAndRoute ) {
@@ -183,7 +176,7 @@ class NoteHTMLViewsFactory {
 					'</span><a href=' +
 					note.url +
 					' target="_blank" >' +
-					note.url.substr ( ZERO, OUR_LINKS_MAX_LENGTH ) +
+					note.url.substr ( ZERO, NoteHTMLViewsFactory.#LINKS_MAX_LENGTH ) +
 					'...</a>',
 				theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'NoteHtml-Url' }, noteHTMLElement )
 			);
@@ -261,7 +254,7 @@ class NoteHTMLViewsFactory {
 			const nextNote = noteAndRoute.route.notes.next ( note.objId );
 			if ( nextNote ) {
 				const nextDistance = nextNote.distance - note.distance;
-				if ( OUR_MIN_NOTES_DISTANCE < nextDistance ) {
+				if ( NoteHTMLViewsFactory.#MIN_NOTES_DISTANCE < nextDistance ) {
 					theHTMLSanitizer.sanitizeToHtmlElement (
 						'<span>' +
 						theTranslator.getText ( 'NoteHTMLViewsFactory - Next note after' ) +
@@ -284,7 +277,7 @@ class NoteHTMLViewsFactory {
 	/**
 	Gives an HTMLElement with all the travel notes
 	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
-	@return {HTMLElement}
+	@return {HTMLElement} An HTMLElement with all the travel notes
 	*/
 
 	getTravelNotesHTML ( classPrefix ) {
@@ -302,6 +295,15 @@ class NoteHTMLViewsFactory {
 	}
 
 }
+
+/**
+@------------------------------------------------------------------------------------------------------------------------------
+
+@desc The one and only one instance of NoteHTMLViewsFactory  class
+@type {NoteHTMLViewsFactory }
+
+@------------------------------------------------------------------------------------------------------------------------------
+*/
 
 const theNoteHTMLViewsFactory = new NoteHTMLViewsFactory ( );
 
