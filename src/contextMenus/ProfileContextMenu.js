@@ -33,13 +33,11 @@ import theTranslator from '../UILib/Translator.js';
 import theNoteEditor from '../core/NoteEditor.js';
 import Zoomer from '../core/Zoomer.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@classdesc this class implements the BaseContextMenu class for the profiles
-
-@--------------------------------------------------------------------------------------------------------------------------
+this class implements the BaseContextMenu class for the profiles
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class ProfileContextMenu extends BaseContextMenu {
 

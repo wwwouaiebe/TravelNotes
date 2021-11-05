@@ -41,16 +41,14 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
 @typedef {Object} WayPointOsmData
-@desc An object with the name and address found for the WayPoint with Nominatim
+An object with the name and address found for the WayPoint with Nominatim
 @property {String} name
 @property {String} address
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 import theConfig from '../data/Config.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
@@ -63,14 +61,12 @@ import theRouter from '../coreLib/Router.js';
 
 import { ROUTE_EDITION_STATUS, TWO } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class contains methods fot WayPoints creation or modifications
+This class contains methods fot WayPoints creation or modifications
 See theWayPointEditor for the one and only one instance of this class
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class WayPointEditor {
 
@@ -299,16 +295,12 @@ class WayPointEditor {
 	}
 }
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of WayPointEditor class
+The one and only one instance of WayPointEditor class
 @type {WayPointEditor}
-@constant
-@global
-
-@--------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 const theWayPointEditor = new WayPointEditor ( );
 

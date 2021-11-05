@@ -36,14 +36,12 @@ import BaseDialog from '../dialogBase/BaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import { EyeMouseDownEL, EyeMouseUpEL } from '../dialogPassword/PasswordDialogEventListeners.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class is the password dialog
+This class is the password dialog
 @extends BaseDialog
-
-@--------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class PasswordDialog extends BaseDialog {
 

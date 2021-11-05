@@ -37,13 +37,11 @@ import FileCompactor from '../coreLib/FileCompactor.js';
 import Zoomer from '../core/Zoomer.js';
 import { ROUTE_EDITION_STATUS, INVALID_OBJ_ID } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class load a file from a web server and display the travel
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class load a file from a web server and display the travel
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class ViewerFileLoader {
 

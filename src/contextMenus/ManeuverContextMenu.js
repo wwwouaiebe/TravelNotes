@@ -32,13 +32,11 @@ import { BaseContextMenu, MenuItem } from '../contextMenus/BaseContextMenu.js';
 import Zoomer from '../core/Zoomer.js';
 import theTranslator from '../UILib/Translator.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@classdesc this class implements the BaseContextMenu class for the maneuvers
-
-@--------------------------------------------------------------------------------------------------------------------------
+this class implements the BaseContextMenu class for the maneuvers
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class ManeuverContextMenu extends BaseContextMenu {
 

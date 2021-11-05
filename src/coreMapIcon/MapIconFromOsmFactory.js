@@ -46,13 +46,11 @@ import TranslationRotationFinder from '../coreMapIcon/TranslationRotationFinder.
 
 import { ICON_POSITION, ICON_DIMENSIONS, LAT_LNG, INVALID_OBJ_ID, ZERO, ONE } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@desc An object with data used to build the Note
-
-@--------------------------------------------------------------------------------------------------------------------------
+An object with data used to build the Note
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class NoteDataForMapIcon {
 
@@ -93,14 +91,12 @@ class NoteDataForMapIcon {
 	latLng = [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ];
 }
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@desc An object with data shared between the differents objects that are building the note ( TranslationRotationFinder,
+An object with data shared between the differents objects that are building the note ( TranslationRotationFinder,
 ArrowAndTooltipFinder, StreetFinder and SvgBuilder )
-
-@--------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class ComputeDataForMapIcon {
 
@@ -170,13 +166,11 @@ class ComputeDataForMapIcon {
 	translation = [ ZERO, ZERO ];
 }
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class is used to create  an svg icon for a route note
-
-@--------------------------------------------------------------------------------------------------------------------------
+This class is used to create  an svg icon for a route note
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class MapIconFromOsmFactory {
 

@@ -39,14 +39,12 @@ import ItineraryControlUI from '../UI/ItineraryControlUI.js';
 import ItineraryDataUI from '../UI/ItineraryDataUI.js';
 import { INVALID_OBJ_ID, PANE_ID } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class manages the itinerary pane UI
+This class manages the itinerary pane UI
 See PanesManagerUI for pane UI management
-
-@--------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class ItineraryPaneUI extends PaneUI {
 

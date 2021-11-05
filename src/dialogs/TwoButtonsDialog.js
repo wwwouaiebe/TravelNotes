@@ -32,10 +32,9 @@ Tests ...
 import BaseDialog from '../dialogBase/BaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc A customizable dialog with two buttons.
+A customizable dialog with two buttons.
 Create an instance of the dialog, then execute the show ( ) method. The Promise returned by the show ( ) method fullfil
 when the first button is used and reject when the second button or the cancel button on the topbar is used
 @example
@@ -50,9 +49,8 @@ newTwoButtonsDialog (
 	.show ( )
 	.then ( ... )
 	.catch ( ... );
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class TwoButtonsDialog extends BaseDialog {
 

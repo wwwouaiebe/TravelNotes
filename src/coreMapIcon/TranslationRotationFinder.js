@@ -32,17 +32,15 @@ import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
 
 import { ICON_DIMENSIONS, ZERO, ONE, TWO, DEGREES, ICON_POSITION } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc Search:<br/>
+Search:<br/>
 - the translation needed to have the icon point in the middle of the icon<br/>
 - the rotation needed to have the entry point at the bottom of the icon<br/>
 - the direction to follow<br/>
 - adapt the icon if icon is on the start or the end point<br/>
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class TranslationRotationFinder {
 
@@ -273,6 +271,5 @@ export default TranslationRotationFinder;
 @------------------------------------------------------------------------------------------------------------------------------
 
 end of ArrowAndTooltipFinder.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/

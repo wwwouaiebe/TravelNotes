@@ -36,14 +36,12 @@ Tests ...
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc Show the attributons of the current map, OpenStreetMap, leaflet and TravelNotes.
+Show the attributons of the current map, OpenStreetMap, leaflet and TravelNotes.
 See theAttributionsUI for the one and only one instance of this class
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class AttributionsUI {
 
@@ -90,14 +88,12 @@ class AttributionsUI {
 	}
 }
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of AttributionsUI class
+The one and only one instance of AttributionsUI class
 @type {AttributionsUI}
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 const theAttributionsUI = new AttributionsUI ( );
 

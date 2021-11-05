@@ -94,19 +94,17 @@ Latitude Longitude	Latitude	Longitude  	Change In  	Change In  	Encoded 	Encoded
 Encoded polyline: _p~iF~ps|U_ulLnnqC_mqNvxq`@
 */
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc Encoder/decoder to encode or decode a polyline into a string.
+Encoder/decoder to encode or decode a polyline into a string.
 See thePolylineEncoder for the one and only one instance of this class <br/>
 Based on Mark McClure polyline encoder (more info needed...) <br/>
 See https://github.com/Project-OSRM/osrm-frontend/blob/master/WebContent/routing/OSRM.RoutingGeometry.js <br/>
 See https://github.com/graphhopper/directions-api-js-client/blob/master/src/GHUtil.js GHUtil.prototype.decodePath<br/>
 See https://developers.google.com/maps/documentation/utilities/polylinealgorithm<br/>
 See https://github.com/mapbox/polyline<br/>
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class PolylineEncoder {
 

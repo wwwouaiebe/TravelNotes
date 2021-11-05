@@ -35,13 +35,11 @@ import theDataSearchEngine from '../data/DataSearchEngine.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import { INVALID_OBJ_ID } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class implements a zoom command on multiple objects
-
-@--------------------------------------------------------------------------------------------------------------------------
+This class implements a zoom command on multiple objects
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class Zoomer {
 

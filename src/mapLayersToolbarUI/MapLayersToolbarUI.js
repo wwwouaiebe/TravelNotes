@@ -47,13 +47,11 @@ import theAPIKeysManager from '../core/APIKeysManager.js';
 
 import { MOUSE_WHEEL_FACTORS, ZERO } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc A simple container for data exchange between the ButtonsContainerWheelEL and the MapLayersToolbarUI
-
-@------------------------------------------------------------------------------------------------------------------------------
+A simple container for data exchange between the ButtonsContainerWheelEL and the MapLayersToolbarUI
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class WheelEventData {
 
@@ -94,13 +92,11 @@ class WheelEventData {
 	buttonTop = ZERO;
 }
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc Wheel event listeners on the map layer buttons. Scroll the buttons
-
-@------------------------------------------------------------------------------------------------------------------------------
+Wheel event listeners on the map layer buttons. Scroll the buttons
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class ButtonsContainerWheelEL {
 
@@ -160,15 +156,13 @@ class ButtonsContainerWheelEL {
 	}
 }
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class is the Layer Toolbar on the left of the screen.
+This class is the Layer Toolbar on the left of the screen.
 Displays buttons to change the background maps and manages the background maps list<br/>
 See theMapLayersToolbarUI for the one and only one instance of this class
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class MapLayersToolbarUI {
 
@@ -359,14 +353,12 @@ class MapLayersToolbarUI {
 	}
 }
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of MapLayersToolbarUI class
+The one and only one instance of MapLayersToolbarUI class
 @type {MapLayersToolbarUI}
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 const theMapLayersToolbarUI = new MapLayersToolbarUI ( );
 

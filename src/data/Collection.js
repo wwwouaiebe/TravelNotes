@@ -34,13 +34,11 @@ Tests ...
 
 import { ZERO, ONE, NEXT, PREVIOUS, TWO, NOT_FOUND } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@classdesc iterator for Collection class
-
-@--------------------------------------------------------------------------------------------------------------------------
+iterator for Collection class
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class CollectionIterator {
 
@@ -118,13 +116,11 @@ class CollectionIterator {
 	get index ( ) { return this.#index; }
 }
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@classdesc Class used to store objects in an iterable
-
-@--------------------------------------------------------------------------------------------------------------------------
+Class used to store objects in an iterable
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class Collection {
 
@@ -285,7 +281,7 @@ class Collection {
 	}
 
 	/**
-	@desc gives the next object in the collection that fullfil a given condition
+	gives the next object in the collection that fullfil a given condition
 	@param {Number} objId The objId of the object from witch the search start
 	@param {?function} condition A fonction used to compare the objects. If null, ( ) => true is used
 	@return {?Object} An object or null if nothing found
@@ -295,7 +291,7 @@ class Collection {
 	next ( objId, condition ) { return this.#nextOrPrevious ( objId, condition, NEXT ); }
 
 	/**
-	@desc gives the previous object in the collection that fullfil a given condition
+	gives the previous object in the collection that fullfil a given condition
 	@param {Number} objId The objId of the object from witch the search start
 	@param {?function} condition A fonction used to compare the objects. If null, ( ) => true is used
 	@return {?Object} An object or null if nothing found

@@ -71,14 +71,12 @@ import { WayPointContextMenuEL, WayPointDragEndEL } from '../coreMapEditor/WayPo
 import { RouteContextMenuEL } from '../coreMapEditor/RouteEventListeners.js';
 import { ROUTE_EDITION_STATUS, LAT_LNG, INVALID_OBJ_ID, TWO, WAY_POINT_ICON_SIZE } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class performs all the read/write updates on the map<br/>
+This class performs all the read/write updates on the map<br/>
 See theMapEditor for the one and only one instance of this class
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class MapEditor	extends MapEditorViewer {
 
@@ -397,14 +395,12 @@ class MapEditor	extends MapEditorViewer {
 	}
 }
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of MapEditor class
+The one and only one instance of MapEditor class
 @type {MapEditor}
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 const theMapEditor = new MapEditor ( );
 

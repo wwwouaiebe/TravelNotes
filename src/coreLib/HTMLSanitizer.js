@@ -28,41 +28,35 @@ Doc reviewed 20210914
 Tests ...
 */
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
 @typedef {Object} UrlValidationReult
-@desc An object returned by the sanitizeToUrl function
+An object returned by the sanitizeToUrl function
 @property {String} url the validated url or an empty string if the url is invalid
 @property {String} errorsString an empty string or an error description if the url is invalid
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
 @typedef {Object} HtmlStringValidationReult
-@desc An object returned by the sanitizeToHtmlString function
+An object returned by the sanitizeToHtmlString function
 @property {String} htmlString the validated string
 @property {String} errorsString an empty string or an error description if the url is invalid
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 import HTMLSanitizerData from '../coreLib/HTMLSanitizerData.js';
 
 import { SVG_NS, ZERO, NOT_FOUND } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class contains methods to sanitize url and string, filtering html tags and attributes
+This class contains methods to sanitize url and string, filtering html tags and attributes
 present in the string.<br/>
 See theHTMLSanitizer for the one and only one instance of this class
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class HTMLSanitizer {
 
@@ -550,14 +544,12 @@ class HTMLSanitizer {
 	}
 }
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of HTMLSanitizer class
+The one and only one instance of HTMLSanitizer class
 @type {HTMLSanitizer}
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 const theHTMLSanitizer = new HTMLSanitizer ( );
 

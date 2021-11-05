@@ -34,14 +34,11 @@ import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
 
 import { ZERO, TWO, LAT, LNG, ELEVATION, LAT_LNG, HTTP_STATUS_OK, DISTANCE } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class GraphHopperRouteProvider
-@classdesc This class implements the BaseRouteProvider interface for Graphhopper.
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class implements the BaseRouteProvider interface for Graphhopper.
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class GraphHopperRouteProvider extends BaseRouteProvider {
 

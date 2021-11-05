@@ -34,15 +34,13 @@ import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
 
 import { ZERO, HTTP_STATUS_OK, DISTANCE } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class implements the BaseRouteProvider for MapzenValhalla. It's not possible to instanciate
+This class implements the BaseRouteProvider for MapzenValhalla. It's not possible to instanciate
 this class because the class is not exported from the module. Only one instance is created and added to the list
 of Providers of TravelNotes
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class MapzenValhallaRouteProvider extends BaseRouteProvider {
 

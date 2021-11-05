@@ -36,14 +36,12 @@ Tests ...
 
 import { ZERO, ONE, DEGREES, EARTH_RADIUS } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class contains methods for spherical trigonometry operations.
+This class contains methods for spherical trigonometry operations.
 See theSphericalTrigonometry for the one and only one instance of this class
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class SphericalTrigonometry {
 
@@ -139,14 +137,12 @@ class SphericalTrigonometry {
 	}
 }
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of SphericalTrigonometry class
+The one and only one instance of SphericalTrigonometry class
 @type {SphericalTrigonometry}
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 const theSphericalTrigonometry = new SphericalTrigonometry ( );
 

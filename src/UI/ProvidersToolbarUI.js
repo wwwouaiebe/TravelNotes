@@ -47,13 +47,11 @@ import ProviderToolbarProviderButton from '../UI/ProviderToolbarProviderButton.j
 import theAPIKeysManager from '../core/APIKeysManager.js';
 import { NOT_FOUND, ZERO } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class is the provider and transitModes toolbar at the bottom of the UI
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class is the provider and transitModes toolbar at the bottom of the UI
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class ProvidersToolbarUI {
 

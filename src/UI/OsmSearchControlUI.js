@@ -30,13 +30,11 @@ import OsmSearchToolbarUI from '../UI/OsmSearchToolbarUI.js';
 import OsmSearchTreeUI from '../UI/OsmSearchTreeUI.js';
 import OsmSearchWaitUI from '../UI/OsmSearchWaitUI.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class add or remove the search toolbar and search tree on the pane control
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class add or remove the search toolbar and search tree on the pane control
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class OsmSearchControlUI {
 

@@ -39,13 +39,11 @@ import ObjType from '../data/ObjType.js';
 import TravelObject from '../data/TravelObject.js';
 import { ELEV, LAT_LNG, DISTANCE, ZERO, ONE, INVALID_OBJ_ID } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class represent an itinerary point
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class represent an itinerary point
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class ItineraryPoint extends TravelObject {
 

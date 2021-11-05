@@ -53,13 +53,11 @@ import AllManeuverNotesBuilder from '../core/AllManeuverNotesBuilder.js';
 
 import { ROUTE_EDITION_STATUS, ZERO } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@classdesc this class implements the BaseContextMenu class for the routes
-
-@--------------------------------------------------------------------------------------------------------------------------
+this class implements the BaseContextMenu class for the routes
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class RouteContextMenu extends BaseContextMenu {
 

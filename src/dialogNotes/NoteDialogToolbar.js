@@ -33,42 +33,36 @@ Doc reviewed 20210914
 Tests ...
 */
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
 @typedef {Object} NoteDialogCfgFileContent
-@desc An object with definitions for the creation of select options and buttons for the NoteDialogToolbar
+An object with definitions for the creation of select options and buttons for the NoteDialogToolbar
 @property {Array.<NoteDialogToolbarButton>} editionButtons An array with the buttons definitions
 @property {Array.<NoteDialogToolbarSelectOption>} preDefinedIconsList An array with the select options definitions
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
 @typedef {Object} NoteDialogToolbarSelectOption
-@desc Select options definitions fot the NoteDialogToolbar
+Select options definitions fot the NoteDialogToolbar
 @property {String} name The name to be displayed in the select
 @property {String} icon The html definition of the icon associated with this option
 @property {String} tooltip The tooltip of the icon associated with this option
 @property {Number} width The width of the icon associated with this option
 @property {Number} height The height of the icon associated with this option
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
 @typedef {Object} NoteDialogToolbarButton
-@desc Buttons definitions fot the NoteDialogToolbar
+Buttons definitions fot the NoteDialogToolbar
 @property {String} title The text to be displayed on the button. Can be HTML
 @property {String} htmlBefore The text to be inserted before the cursor when clicking on the button
 @property {?string} htmlAfter The text to be inserted after the cursor when clicking on the button. Optional
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 import theNoteDialogToolbarData from '../dialogNotes/NoteDialogToolbarData.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
@@ -77,13 +71,11 @@ import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
 import { NOT_FOUND } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class is the toolbar of the NoteDialog
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class is the toolbar of the NoteDialog
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class NoteDialogToolbar {
 

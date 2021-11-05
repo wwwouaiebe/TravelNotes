@@ -26,27 +26,23 @@ Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-@typedef {Object} LayerToolbarButtonData
-@desc A layers toolbar button properties
+/*---------------------------------------------------------------------------------------------------------------------------*/
+/**@typedef {Object} LayerToolbarButtonData
+A layers toolbar button properties
 @property {String} text The text to display in the toolbar button
 @property {String} color The foreground color of the toolbar button
 @property {String} backgroundColor The background color of the toolbar button
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import { ZERO, ONE } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class represent a background map
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class represent a background map
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class MapLayer	{
 

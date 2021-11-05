@@ -39,13 +39,11 @@ import theWayPointEditor from '../core/WayPointEditor.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import { LAT_LNG, INVALID_OBJ_ID } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@classdesc this class implements the BaseContextMenu class for the OsmSearch data
-
-@--------------------------------------------------------------------------------------------------------------------------
+this class implements the BaseContextMenu class for the OsmSearch data
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class OsmSearchContextMenu extends BaseContextMenu {
 

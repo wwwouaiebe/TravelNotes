@@ -72,14 +72,12 @@ import theTranslator from '../UILib/Translator.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import { LAT_LNG, TWO, SAVE_STATUS, HTTP_STATUS_OK } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class is the entry point of the application.<br/>
+This class is the entry point of the application.<br/>
 See theTravelNotes for the one and only one instance of this class
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class TravelNotes {
 
@@ -232,16 +230,14 @@ class TravelNotes {
 	get version ( ) { return theAppVersion; }
 }
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of TravelNotes class
+The one and only one instance of TravelNotes class
 @type {TravelNotes}
 @constant
 @global
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 const theTravelNotes = new TravelNotes ( );
 

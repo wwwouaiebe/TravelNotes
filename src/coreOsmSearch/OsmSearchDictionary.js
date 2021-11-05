@@ -29,15 +29,13 @@ Tests ...
 import DictionaryItem from '../coreOsmSearch/DictionaryItem.js';
 import { NOT_FOUND, ZERO, ONE } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class contains the OsmSearch dictionary and methods to perform changes in the dictionary<br/>
+This class contains the OsmSearch dictionary and methods to perform changes in the dictionary<br/>
 See DictionaryItem for dictionary items
 See theOsmSearchDictionary for the one and only one instance of this class
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class OsmSearchDictionary {
 
@@ -248,14 +246,12 @@ class OsmSearchDictionary {
 
 }
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of OsmSearchDictionary class
+The one and only one instance of OsmSearchDictionary class
 @type {OsmSearchDictionary}
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 const theOsmSearchDictionary = new OsmSearchDictionary ( );
 
@@ -265,6 +261,5 @@ export default theOsmSearchDictionary;
 @------------------------------------------------------------------------------------------------------------------------------
 
 end of OsmSearchDictionary.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/

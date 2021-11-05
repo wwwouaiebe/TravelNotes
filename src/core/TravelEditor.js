@@ -64,14 +64,12 @@ import { INVALID_OBJ_ID, SAVE_STATUS } from '../main/Constants.js';
 import theMouseUI from '../mouseUI/MouseUI.js';
 import SaveAsDialog from '../dialogs/SaveAsDialog.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class contains methods fot Travel creation or modifications
+This class contains methods fot Travel creation or modifications
 See theTravelEditor for the one and only one instance of this class
-
-@--------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class TravelEditor {
 
@@ -231,16 +229,14 @@ class TravelEditor {
 	}
 }
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of TravelEditor class
+The one and only one instance of TravelEditor class
 @type {TravelEditor}
 @constant
 @global
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 const theTravelEditor = new TravelEditor ( );
 

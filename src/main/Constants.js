@@ -37,7 +37,7 @@ Tests ...
 @------------------------------------------------------------------------------------------------------------------------------
 
 @enum {Object}
-@desc Enum for the ColorControl
+Enum for the ColorControl
 @property {Number} minColorValue
 @property {Number} maxColorValue
 @property {Number} rowsNumber
@@ -66,7 +66,7 @@ export const COLOR_CONTROL = Object.freeze ( {
 @------------------------------------------------------------------------------------------------------------------------------
 
 @enum {Object}
-@desc Enum for the save status displayed with the coordinates and zoom values
+Enum for the save status displayed with the coordinates and zoom values
 @property {String} notSaved The string to display when the travel is modified since more than 5 minutes
 @property {String} modified The string to display when the travel is modified since less than 5 minutes
 @property {String} saved The string to display when the travel is not modified
@@ -85,7 +85,7 @@ export const SAVE_STATUS = Object.freeze ( {
 @------------------------------------------------------------------------------------------------------------------------------
 
 @enum {Object}
-@desc Enum for distances
+Enum for distances
 @property {Number} fixed The decimal length used for distances
 @property {Number} invalid The distance is invalid
 @property {Number} defaultValue Default value for distances
@@ -105,7 +105,7 @@ export const DISTANCE = Object.freeze ( {
 @------------------------------------------------------------------------------------------------------------------------------
 
 @enum {Object}
-@desc Enum for geolocation status
+Enum for geolocation status
 @property {Number} refusedByUser The user don't accept to be localized
 @property {Number} disabled The geolocation is not available (disabled in the browser or unsecure context)
 @property {Number} inactive The geolocation is inactive
@@ -126,7 +126,7 @@ export const GEOLOCATION_STATUS = Object.freeze ( {
 @------------------------------------------------------------------------------------------------------------------------------
 
 @enum {Object}
-@desc Enum for id's for panes in thePaneManagerUI
+Enum for id's for panes in thePaneManagerUI
 @property {String} invalidPane The current pane is invalid
 @property {String} itineraryPane The itinerary pane
 @property {String} travelNotesPane The travel notes pane
@@ -147,7 +147,7 @@ export const PANE_ID = Object.freeze ( {
 @------------------------------------------------------------------------------------------------------------------------------
 
 @enum {Object}
-@desc Enum for elevations
+Enum for elevations
 @property {Number} fixed The decimal length used for elevation
 @property {Number} defaultValue Default value for elevation
 
@@ -165,7 +165,7 @@ export const ELEV = Object.freeze ( {
 
 @enum {Object}
 Enum for latitude and longitude
-@desc @property {Number} fixed The decimal length used for latitude and longitude
+@property {Number} fixed The decimal length used for latitude and longitude
 @property {Number} defaultValue Default value for latitude and longitude
 
 @------------------------------------------------------------------------------------------------------------------------------
@@ -185,7 +185,7 @@ export const LAT_LNG = Object.freeze ( {
 @------------------------------------------------------------------------------------------------------------------------------
 
 @enum {Object}
-@desc Enum for edition status of a route
+Enum for edition status of a route
 @property {Number} notEdited The route is currently not edited
 @property {Number} editedNoChange The route is currently edited but without changes
 @property {Number} editedChanged The route is currently edited and changed
@@ -204,7 +204,7 @@ export const ROUTE_EDITION_STATUS = Object.freeze ( {
 @------------------------------------------------------------------------------------------------------------------------------
 
 @enum {Object}
-@desc Enum for default icon dimensions
+Enum for default icon dimensions
 @property {Number} width The default width
 @property {Number} height The default height
 
@@ -222,7 +222,7 @@ export const ICON_DIMENSIONS = Object.freeze ( {
 @------------------------------------------------------------------------------------------------------------------------------
 
 @enum {Object}
-@desc Enum for angular operations
+Enum for angular operations
 
 @------------------------------------------------------------------------------------------------------------------------------
  */
@@ -243,7 +243,7 @@ export const DEGREES = Object.freeze ( {
 @------------------------------------------------------------------------------------------------------------------------------
 
 @enum {Object}
-@desc Enum for map svg icons
+Enum for map svg icons
 
 @------------------------------------------------------------------------------------------------------------------------------
  */
@@ -257,7 +257,7 @@ export const ICON_POSITION = Object.freeze ( {
 /**
 
 @var {Array.<Number>} MOUSE_WHEEL_FACTORS
-@desc An array with correction factors to use in the wheel event (wheelEvent.deltaX and wheelEvent.deltaY are dependant of
+An array with correction factors to use in the wheel event (wheelEvent.deltaX and wheelEvent.deltaY are dependant of
 wheelEvent.deltaMode and deltaMode is browser dependant...)
 @constant
 */

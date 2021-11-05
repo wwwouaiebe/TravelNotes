@@ -34,41 +34,35 @@ Doc reviewed 20210914
 Tests ...
 */
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
 @typedef {Object} LatLngElevOnRoute
-@desc An object to store the latitude, longitude, elevation, ascent and distance of a point on a route
+An object to store the latitude, longitude, elevation, ascent and distance of a point on a route
 @property {Array.<Number>} latLng The latitude and longitude of the point
 @property {Number} elev The elevation of the point
 @property {Number} ascent The ascent since the previous ItineraryPoint
 @property {Number} routeDistance The distance since the beginning of the route
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
 @typedef {Object} LatLngDistance
-@desc An object to store a latitude, longitude and distance
+An object to store a latitude, longitude and distance
 @property {Array.<Number>} latLng The latitude and longitude
 @property {Number} distance The distance
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 import theTravelNotesData from '../data/TravelNotesData.js';
 import { DISTANCE, ZERO, ONE, TWO, DEGREES, LAT_LNG, EARTH_RADIUS } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class contains methods for geometry operations requiring call to Leaflet functions<br/>
+This class contains methods for geometry operations requiring call to Leaflet functions<br/>
 See theGeometry for the one and only one instance of this class
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class Geometry {
 
@@ -276,14 +270,12 @@ class Geometry {
 	}
 }
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of Geometry class
+The one and only one instance of Geometry class
 @type {Geometry}
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 const theGeometry = new Geometry ( );
 

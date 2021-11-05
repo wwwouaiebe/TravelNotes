@@ -28,14 +28,12 @@ Tests ...
 import theAPIKeysManager from '../core/APIKeysManager.js';
 import MapLayer from '../data/MapLayer.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class contains all the mapLayers<br/>
+This class contains all the mapLayers<br/>
 See theMapLayersCollection for the one and only one instance of this class
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class MapLayersCollection {
 
@@ -142,14 +140,12 @@ class MapLayersCollection {
 	get defaultMapLayer ( ) { return this.#defaultMapLayer; }
 }
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of MapLayersCollection class
+The one and only one instance of MapLayersCollection class
 @type {MapLayersCollection}
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 const theMapLayersCollection = new MapLayersCollection ( );
 

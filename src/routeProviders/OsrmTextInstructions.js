@@ -34,9 +34,8 @@ The osrmTextInstructions object code is the same than the code in the osrm-text-
 If changes are done in osrm-text-instruction, they can be reported there without major problems.
 Language json files are installed by the grunt.js file. Adapt this file if you will more languages.
 Don't rename variables for compatibility with osrm-text-instructions
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 /* eslint-disable max-lines */
 
@@ -117,16 +116,14 @@ const grammars = languages.grammars;
 
 const abbreviations = languages.abbreviations;
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
 @ignore
-@classdesc This class contains methods to write / translate moneuver instructions
+This class contains methods to write / translate moneuver instructions
 in MapboxRouteProvider and OsrmRouteProvider<br/>
 See theOsrmTextInstructions for the one and only one instance of this class
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class OsrmTextInstructions 	{
 
@@ -434,15 +431,13 @@ class OsrmTextInstructions 	{
 	}
 }
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
 @ignore
-@desc The one and only one instance of OsrmTextInstructions class
+The one and only one instance of OsrmTextInstructions class
 @type {OsrmTextInstructions}
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 const theOsrmTextInstructions = new OsrmTextInstructions ( );
 

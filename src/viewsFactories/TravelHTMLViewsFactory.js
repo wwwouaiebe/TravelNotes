@@ -50,14 +50,12 @@ import theNoteHTMLViewsFactory from '../viewsFactories/NoteHTMLViewsFactory.js';
 import theRouteHTMLViewsFactory from '../viewsFactories/RouteHTMLViewsFactory.js';
 import { DISTANCE, ZERO } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class creates HTMLElements for travels
+This class creates HTMLElements for travels
 See theTravelHTMLViewsFactory for the one and only one instance of this class
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class TravelHTMLViewsFactory {
 
@@ -232,14 +230,12 @@ class TravelHTMLViewsFactory {
 
 }
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of TravelHTMLViewsFactory  class
+The one and only one instance of TravelHTMLViewsFactory  class
 @type {TravelHTMLViewsFactory }
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 const theTravelHTMLViewsFactory = new TravelHTMLViewsFactory ( );
 

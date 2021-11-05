@@ -43,18 +43,16 @@ Tests ...
 -----------------------------------------------------------------------------------------------------------------------
 */
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
 @typedef {Object} GeoCoderAddress
-@desc An address
+An address
 @property {String} name The name of the point or an empty string
 @property {String} street The house number and the street of the point or an empty string
 @property {String} city The city of the point or an empty string
 @property {Boolean} statusOk A status indicating that all the requests are executed correctly
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 import theConfig from '../data/Config.js';
 import OverpassAPIDataLoader from '../coreLib/OverpassAPIDataLoader.js';
@@ -63,13 +61,11 @@ import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
 import { ZERO, ONE } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class call Nominatim and parse the response
-
-@--------------------------------------------------------------------------------------------------------------------------
+This class call Nominatim and parse the response
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class GeoCoder {
 

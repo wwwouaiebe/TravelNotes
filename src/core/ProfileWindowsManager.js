@@ -36,14 +36,12 @@ import ProfileSmoothingIron from '../coreLib/ProfileSmoothingIron.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import { ZERO } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class provides methods to manage the profile windows
+This class provides methods to manage the profile windows
 see theProfileWindowsManager for the one and only one instance of this class
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class ProfileWindowsManager {
 
@@ -168,16 +166,14 @@ class ProfileWindowsManager {
 
 }
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of ProfileWindowsManager class
+The one and only one instance of ProfileWindowsManager class
 @type {ProfileWindowsManager}
 @constant
 @global
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 const theProfileWindowsManager = new ProfileWindowsManager ( );
 

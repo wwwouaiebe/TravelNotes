@@ -51,13 +51,11 @@ import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import TravelObject from '../data/TravelObject.js';
 import { ROUTE_EDITION_STATUS, DISTANCE, ZERO, INVALID_OBJ_ID, LAT_LNG } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class represent a route
-
-@--------------------------------------------------------------------------------------------------------------------------
+This class represent a route
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class Route extends TravelObject {
 

@@ -35,15 +35,13 @@ import theOsrmTextInstructions from '../routeProviders/OsrmTextInstructions.js';
 import { ICON_LIST } from '../routeProviders/IconList.js';
 import { ZERO, ONE, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class implements the BaseRouteProvider for Osrm. It's not possible to instanciate
+This class implements the BaseRouteProvider for Osrm. It's not possible to instanciate
 this class because the class is not exported from the module. Only one instance is created and added to the list
 of Providers of TravelNotes
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class OsrmRouteProvider extends BaseRouteProvider {
 

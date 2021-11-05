@@ -32,14 +32,12 @@ import theAttributionsUI from '../attributionsUI/AttributionsUI.js';
 import theViewerLayersToolbarUI from '../viewerLayersToolbarUI/ViewerLayersToolbarUI.js';
 import { TWO, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@classdesc This class is the entry point of the viewer.<br>
+This class is the entry point of the viewer.<br>
 See theTravelNotesViewer for the one and only one instance of this class.
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 class TravelNotesViewer {
 
@@ -102,14 +100,12 @@ class TravelNotesViewer {
 	}
 }
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of theTravelNotesViewer class
+The one and only one instance of theTravelNotesViewer class
 @type {theTravelNotesViewer}
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 const theTravelNotesViewer = new TravelNotesViewer ( );
 
