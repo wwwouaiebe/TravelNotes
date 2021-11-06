@@ -91,7 +91,7 @@ class APIKeysManager {
 
 	/**
 	This method is called when the 'APIKkeys' file is not decoded correctly
-	@param {Error} err
+	@param {Error} err The error occured when decrypting
 	*/
 
 	#onErrorDecryptServerFile ( err ) {

@@ -97,12 +97,15 @@ Encoded polyline: _p~iF~ps|U_ulLnnqC_mqNvxq`@
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 Encoder/decoder to encode or decode a polyline into a string.
-See thePolylineEncoder for the one and only one instance of this class <br/>
-Based on Mark McClure polyline encoder (more info needed...) <br/>
-See https://github.com/Project-OSRM/osrm-frontend/blob/master/WebContent/routing/OSRM.RoutingGeometry.js <br/>
-See https://github.com/graphhopper/directions-api-js-client/blob/master/src/GHUtil.js GHUtil.prototype.decodePath<br/>
-See https://developers.google.com/maps/documentation/utilities/polylinealgorithm<br/>
-See https://github.com/mapbox/polyline<br/>
+
+See thePolylineEncoder for the one and only one instance of this class
+
+Based on Mark McClure polyline encoder (more info needed...)
+
+- See https://github.com/Project-OSRM/osrm-frontend/blob/master/WebContent/routing/OSRM.RoutingGeometry.js
+- See https://github.com/graphhopper/directions-api-js-client/blob/master/src/GHUtil.js GHUtil.prototype.decodePath
+- See https://developers.google.com/maps/documentation/utilities/polylinealgorithm
+- See https://github.com/mapbox/polyline
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 

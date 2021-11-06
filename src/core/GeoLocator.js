@@ -86,9 +86,8 @@ class GeoLocator {
 
 	/**
 	Stop the geolocation because the user don't accept the geolocation
-	@param {GeolocationPositionError} positionError
-	See <a href="https://developer.mozilla.org/en-US/docs/Web/API/GeolocationPositionError">GeolocationPositionError</a>
-	on mdn
+	@param {GeolocationPositionError} positionError See 
+	<a href="https://developer.mozilla.org/en-US/docs/Web/API/GeolocationPositionError">GeolocationPositionError</a> on mdn
 	*/
 
 	#error ( positionError ) {

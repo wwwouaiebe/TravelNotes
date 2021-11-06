@@ -118,10 +118,10 @@ const abbreviations = languages.abbreviations;
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@ignore
 This class contains methods to write / translate moneuver instructions
 in MapboxRouteProvider and OsrmRouteProvider<br/>
 See theOsrmTextInstructions for the one and only one instance of this class
+@ignore
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
@@ -433,9 +433,9 @@ class OsrmTextInstructions 	{
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@ignore
 The one and only one instance of OsrmTextInstructions class
 @type {OsrmTextInstructions}
+@ignore
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 

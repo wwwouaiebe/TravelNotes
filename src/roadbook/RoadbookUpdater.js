@@ -65,7 +65,7 @@ class RoadbookUpdater {
 	/**
 	Show or hide the notes
 	@param {String} selector The css selector for the notes to show/hide
-	@param {Boolean} show
+	@param {Boolean} show A flag indicating when the note have to be showed
 	*/
 
 	#toggleNotes ( selector, show ) {
