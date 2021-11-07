@@ -172,7 +172,7 @@ class WayPoint extends TravelObject {
 
 	/**
 	the latitude and longitude of the WayPoint
-	@type {number[]}
+	@type {Array.<number>}
 	*/
 
 	get latLng ( ) { return [ this.lat, this.lng ]; }

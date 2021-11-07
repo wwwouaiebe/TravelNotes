@@ -26,6 +26,9 @@ Doc reviewed 20210913
 Tests ...
 */
 
+import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
+import { ZERO, ONE } from '../main/Constants.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 @typedef {Object} LayerToolbarButtonData
@@ -35,9 +38,6 @@ A layers toolbar button properties
 @property {String} backgroundColor The background color of the toolbar button
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
-
-import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
-import { ZERO, ONE } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

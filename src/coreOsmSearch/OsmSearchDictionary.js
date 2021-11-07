@@ -31,8 +31,10 @@ import { NOT_FOUND, ZERO, ONE } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This class contains the OsmSearch dictionary and methods to perform changes in the dictionary<br/>
+This class contains the OsmSearch dictionary and methods to perform changes in the dictionary
+
 See DictionaryItem for dictionary items
+
 See theOsmSearchDictionary for the one and only one instance of this class
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */

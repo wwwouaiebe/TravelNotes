@@ -100,7 +100,7 @@ class TravelNotesData {
 
 	/**
 	A JS map with the provider objects. Providers objects are created and added by the plugins
-	@type {Map.provider}
+	@type {Map.<BaseRouteProvider>}
 	*/
 
 	#providers;
@@ -149,7 +149,7 @@ class TravelNotesData {
 
 	/**
 	The POI data found in OpenStreetMap
-	@type {Object[]}
+	@type {Array.<Object>}
 	*/
 
 	#searchData;
@@ -203,14 +203,14 @@ class TravelNotesData {
 
 	/**
 	The POI data found in OpenStreetMap
-	@type {Object[]}
+	@type {Array.<Object>}
 	*/
 
 	get searchData ( ) { return this.#searchData; }
 
 	/**
 	A JS map with the provider objects. Providers objects are created and added by the plugins
-	@type {Map.provider}
+	@type {Map.<BaseRouteProvider>}
 	*/
 
 	get providers ( ) { return this.#providers; }

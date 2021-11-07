@@ -38,14 +38,14 @@ class NoteDialogIconControl {
 
 	/**
 	The control container
-	@type {HTMLElements}
+	@type {HTMLElement}
 	*/
 
 	#iconDiv;
 
 	/**
 	The icon text area
-	@type {HTMLElements}
+	@type {HTMLElement}
 	*/
 
 	#iconTextArea;

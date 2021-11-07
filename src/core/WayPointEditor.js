@@ -41,15 +41,6 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-@typedef {Object} WayPointOsmData
-An object with the name and address found for the WayPoint with Nominatim
-@property {String} name
-@property {String} address
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
 import theConfig from '../data/Config.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import WayPointPropertiesDialog from '../dialogs/WayPointPropertiesDialog.js';
@@ -60,6 +51,15 @@ import theGeometry from '../coreLib/Geometry.js';
 import theRouter from '../coreLib/Router.js';
 
 import { ROUTE_EDITION_STATUS, TWO } from '../main/Constants.js';
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+@typedef {Object} WayPointOsmData
+An object with the name and address found for the WayPoint with Nominatim
+@property {String} name
+@property {String} address
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

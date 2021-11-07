@@ -33,16 +33,6 @@ Doc reviewed 20210914
 Tests ...
 */
 
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-@typedef {Object} NoteLeafletObjects
-An object with all the Leaflet objects for a note
-@property {Object} marker The marker of the note
-@property {Object} polyline The polyline of the note
-@property {Object} bullet The bullet of the note (= a Leaflet marker)
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
 import theConfig from '../data/Config.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import theGeometry from '../coreLib/Geometry.js';
@@ -57,7 +47,18 @@ import { GEOLOCATION_STATUS, ROUTE_EDITION_STATUS, ZERO, ONE, TWO } from '../mai
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This class performs all the readonly updates on the map<br/>
+@typedef {Object} NoteLeafletObjects
+An object with all the Leaflet objects for a note
+@property {Object} marker The marker of the note
+@property {Object} polyline The polyline of the note
+@property {Object} bullet The bullet of the note (= a Leaflet marker)
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+This class performs all the readonly updates on the map
+
 Ssee theMapEditor for read/write updates on the map
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */

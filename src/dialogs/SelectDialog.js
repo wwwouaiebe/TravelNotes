@@ -26,6 +26,10 @@ Doc reviewed 20210914
 Tests ...
 */
 
+import BaseDialog from '../dialogBase/BaseDialog.js';
+import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import { ZERO } from '../main/Constants.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 @typedef {Object} selectOptions
@@ -35,9 +39,6 @@ An object to store the options of the select in the SelectDialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-import BaseDialog from '../dialogBase/BaseDialog.js';
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import { ZERO } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

@@ -145,7 +145,7 @@ class ItineraryPoint extends TravelObject {
 
 	/**
 	the latitude and longitude of the ItineraryPoint
-	@type {number[]}
+	@type {Array.<number>}
 	*/
 
 	get latLng ( ) { return [ this.lat, this.lng ]; }

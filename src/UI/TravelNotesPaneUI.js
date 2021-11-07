@@ -172,7 +172,8 @@ class TravelNoteContextMenuEL {
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This class manages the travel notes pane UI<br/>
+This class manages the travel notes pane UI
+
 See PanesManagerUI for pane UI management
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */

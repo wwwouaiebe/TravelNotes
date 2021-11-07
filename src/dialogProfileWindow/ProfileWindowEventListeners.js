@@ -164,28 +164,28 @@ class SvgMouseMoveEL extends BaseSvgEL {
 
 	/**
 	The vertical svg polyline at the mouse position
-	@type {svg:polyline}
+	@type {SVGElement}
 	*/
 
 	#marker;
 
 	/**
 	The svg text with the distance since the beginning of the route at the mouse position
-	@type {svg:text}
+	@type {SVGElement}
 	*/
 
 	#distanceText;
 
 	/**
 	The svg text with the elevation at the mouse position
-	@type {svg:text}
+	@type {SVGElement}
 	*/
 
 	#elevText;
 
 	/**
 	The svg text with the ascent of the route at the mouse position
-	@type {svg:text}
+	@type {SVGElement}
 	*/
 
 	#ascentText;
@@ -215,7 +215,7 @@ class SvgMouseMoveEL extends BaseSvgEL {
 	A method to create a svg:text.
 	@param {String} text The text to add in the svg:text
 	@param {Number} markerY The vertical position of the text on the svg
-	@return {svg:text} The svg:text element
+	@return {SVGElement} The svg:text element
 	*/
 
 	#createSvgText ( text, markerY ) {

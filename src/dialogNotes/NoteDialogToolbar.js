@@ -33,6 +33,13 @@ Doc reviewed 20210914
 Tests ...
 */
 
+import theNoteDialogToolbarData from '../dialogNotes/NoteDialogToolbarData.js';
+import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import theTranslator from '../UILib/Translator.js';
+import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
+
+import { NOT_FOUND } from '../main/Constants.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 @typedef {Object} NoteDialogCfgFileContent
@@ -63,13 +70,6 @@ Buttons definitions fot the NoteDialogToolbar
 @property {?string} htmlAfter The text to be inserted after the cursor when clicking on the button. Optional
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
-
-import theNoteDialogToolbarData from '../dialogNotes/NoteDialogToolbarData.js';
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import theTranslator from '../UILib/Translator.js';
-import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
-
-import { NOT_FOUND } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

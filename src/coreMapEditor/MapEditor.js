@@ -73,7 +73,8 @@ import { ROUTE_EDITION_STATUS, LAT_LNG, INVALID_OBJ_ID, TWO, WAY_POINT_ICON_SIZE
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This class performs all the read/write updates on the map<br/>
+This class performs all the read/write updates on the map
+
 See theMapEditor for the one and only one instance of this class
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */

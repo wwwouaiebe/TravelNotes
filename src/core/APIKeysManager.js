@@ -36,14 +36,6 @@ Tests 20210903
 -----------------------------------------------------------------------------------------------------------------------
 */
 
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-@typedef {Object} APIKey
-An object to store a provider name and  API key
-@property {String} providerName The provider name
-@property {String} providerKey The provider API key
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
 
 import APIKeysDialog from '../dialogAPIKeys/APIKeysDialog.js';
 import theUtilities from '../UILib/Utilities.js';
@@ -56,6 +48,15 @@ import theTranslator from '../UILib/Translator.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 
 import { ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+@typedef {Object} APIKey
+An object to store a provider name and  API key
+@property {String} providerName The provider name
+@property {String} providerKey The provider API key
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

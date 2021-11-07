@@ -66,10 +66,11 @@ class SphericalTrigonometry {
 	/**
 
 	This method gives an arc of a spherical triangle when the 2 others arcs and the opposite summit are know.
-	It's the well know cosinus law:<br/>
-	cos a = cos b cos c + sin b sin c cos A<br/>
-	cos b =	cos c cos a + sin c sin a cos B<br/>
-	cos c = cos a cos b + sin a sin b cos C<br/>
+	It's the well know cosinus law:
+	
+	- cos a = cos b cos c + sin b sin c cos A
+	- cos b =	cos c cos a + sin c sin a cos B
+	- cos c = cos a cos b + sin a sin b cos C
 
 	@param {Number} summit the opposite summit
 	@param {Number} arc1 the first arc

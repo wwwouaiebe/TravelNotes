@@ -34,10 +34,10 @@ import { DISTANCE, ZERO, ONE, TWO, NOT_FOUND, ICON_POSITION } from '../main/Cons
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-Search:<br/>
-- the rcn ref number at the icon position<br/>
-- roundabout info at the icon position<br/>
-- street names at the icon position<br/>
+Search:
+- the rcn ref number at the icon position
+- roundabout info at the icon position
+- street names at the icon position
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 

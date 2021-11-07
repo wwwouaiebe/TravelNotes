@@ -34,11 +34,11 @@ import { ICON_DIMENSIONS, ZERO, ONE, TWO, DEGREES, ICON_POSITION } from '../main
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-Search:<br/>
-- the translation needed to have the icon point in the middle of the icon<br/>
-- the rotation needed to have the entry point at the bottom of the icon<br/>
-- the direction to follow<br/>
-- adapt the icon if icon is on the start or the end point<br/>
+Search:
+- the translation needed to have the icon point in the middle of the icon
+- the rotation needed to have the entry point at the bottom of the icon
+- the direction to follow
+- adapt the icon if icon is on the start or the end point
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 

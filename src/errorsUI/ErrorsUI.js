@@ -39,7 +39,8 @@ import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This class show a message on the screen<br/>
+This class show a message on the screen
+
 See theErrorsUI for the one and only one instance of this class
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */

@@ -43,7 +43,8 @@ import { ZERO, ONE, LAT_LNG } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This class search the osm data<br/>
+This class search the osm data
+
 See theOsmSearchEngine for the one and only one instance of this class
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */

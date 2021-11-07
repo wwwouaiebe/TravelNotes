@@ -67,7 +67,7 @@ class BaseContextMenuOperator {
 
 	/**
 	A reference to the context menu
-	@type {BaseContextMenu|derived}
+	@type {BaseContextMenu}
 	*/
 
 	#contextMenu = null;

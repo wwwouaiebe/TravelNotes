@@ -140,7 +140,7 @@ class Collection {
 
 	/**
 	The class definition of objects stored in the collection
-	@type {class}
+	@type {Class}
 	*/
 
 	#classCollection;

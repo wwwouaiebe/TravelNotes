@@ -34,6 +34,7 @@ import { GEOLOCATION_STATUS, ONE } from '../main/Constants.js';
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 This class manage the geolocation
+
 See theGeoLocator for the one and only one instance of this class
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -49,7 +50,7 @@ class GeoLocator {
 
 	/**
 	The id returned by the
-	<a href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/watchPosition">Geolocation.watchPosition ( )</a>
+	[Geolocation.watchPosition ( )](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/watchPosition)
 	method
 	@type {Number}
 	*/
@@ -87,7 +88,7 @@ class GeoLocator {
 	/**
 	Stop the geolocation because the user don't accept the geolocation
 	@param {GeolocationPositionError} positionError See 
-	<a href="https://developer.mozilla.org/en-US/docs/Web/API/GeolocationPositionError">GeolocationPositionError</a> on mdn
+	[GeolocationPositionError](https://developer.mozilla.org/en-US/docs/Web/API/GeolocationPositionError) on mdn
 	*/
 
 	#error ( positionError ) {

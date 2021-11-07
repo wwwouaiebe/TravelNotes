@@ -43,6 +43,13 @@ Tests ...
 -----------------------------------------------------------------------------------------------------------------------
 */
 
+import theConfig from '../data/Config.js';
+import OverpassAPIDataLoader from '../coreLib/OverpassAPIDataLoader.js';
+import NominatimDataLoader from '../coreLib/NominatimDataLoader.js';
+import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
+
+import { ZERO, ONE } from '../main/Constants.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 @typedef {Object} GeoCoderAddress
@@ -53,13 +60,6 @@ An address
 @property {Boolean} statusOk A status indicating that all the requests are executed correctly
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
-
-import theConfig from '../data/Config.js';
-import OverpassAPIDataLoader from '../coreLib/OverpassAPIDataLoader.js';
-import NominatimDataLoader from '../coreLib/NominatimDataLoader.js';
-import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
-
-import { ZERO, ONE } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

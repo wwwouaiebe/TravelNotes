@@ -49,7 +49,8 @@ import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 Class used to overload theConfig with the contains of theTravelNotesConfig.json file and
-finally freeze the config<br/>
+finally freeze the config.
+
 See theConfig for the one and only one instance of this class
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -57,19 +58,20 @@ See theConfig for the one and only one instance of this class
 class ConfigOverloader {
 
 	/**
-	copy the properties between two objects<br/>
-	This method:<br/>
-	- search recursively all target properties<br/>
-	- foreach found property, search the same property in source<br/>
-	- copy the property value from source to target if found<br/>
-	- search recursively all sources properties<br/>
-	- foreach found property search the same property in target<br/>
-	- copy the property value from source to target<br/>
-	So:<br/>
-	- if a property is missing in the user config, the property is selected from the default config<br/>
-	- if a property is in the user config but missing in the default config, the property is also added (and reminder<br/>
-	  that the user can have more dashChoices than the default config )<br/>
-	- if a property is changed in the user config, the property is adapted<br/>
+	copy the properties between two objects
+	
+	This method:
+	- search recursively all target properties
+	- foreach found property, search the same property in source
+	- copy the property value from source to target if found
+	- search recursively all sources properties
+	- foreach found property search the same property in target
+	- copy the property value from source to target
+	So:
+	- if a property is missing in the user config, the property is selected from the default config
+	- if a property is in the user config but missing in the default config, the property is also added (and reminder
+	  that the user can have more dashChoices than the default config )
+	- if a property is changed in the user config, the property is adapted
 	@param {Object} source The source object
 	@param {Object} target The target object
 	*/

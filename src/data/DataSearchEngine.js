@@ -86,7 +86,7 @@ class NearestRouteData {
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-Class with helper methods to search data<br/>
+Class with helper methods to search data
 See theDataSearchEngine for the one and only one instance of this class
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */

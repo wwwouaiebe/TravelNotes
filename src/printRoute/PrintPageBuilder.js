@@ -163,7 +163,7 @@ class PrintPageBuilder {
 
 	/**
 	A leaflet.polyline used to represent the route on the maps
-	@type {leaflet.polyline}
+	@type {Object}
 	*/
 
 	#routePolyline;

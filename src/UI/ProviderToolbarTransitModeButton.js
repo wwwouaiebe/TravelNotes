@@ -54,7 +54,7 @@ class ProviderToolbarTransitModeButton {
 
 	/**
 	the button HTMLElement
-	@type {HTMLelement}
+	@type {HTMLElement}
 	*/
 
 	#buttonHTMLElement;

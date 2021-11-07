@@ -40,7 +40,7 @@ class NoteDialogPreviewControl {
 
 	/**
 	The container for the preview note
-	@type {htmlElement}
+	@type {HTMLElement}
 	*/
 
 	#previewDiv;

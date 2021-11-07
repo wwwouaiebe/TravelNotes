@@ -217,7 +217,7 @@ class TravelNotes {
 
 	/**
 	get the Leaflet map object
-	@type {Leaflet.map}
+	@type {Object}
 	*/
 
 	get map ( ) { return theTravelNotesData.map; }

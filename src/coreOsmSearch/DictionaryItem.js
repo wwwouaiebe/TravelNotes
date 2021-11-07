@@ -61,7 +61,7 @@ class DictionaryItem {
 
 	/**
 	The elements type used for the item
-	@type {Array<string>}
+	@type {Array.<string>}
 	*/
 
 	#elementTypes = [ 'node', 'way', 'relation' ];
@@ -70,7 +70,7 @@ class DictionaryItem {
 	An array of arrays of objects. This is used to filter the results received from osm.
 	Each sub array is a line in the TravelNotesSearchDictionary
 	Each object in a sub array is a cell in the TravelNotesSearchDictionary
-	@type {Array.<Array.<Objects>>}
+	@type {Array.<Array.<Object>>}
 	*/
 
 	#filterTagsArray = [];
@@ -138,7 +138,7 @@ class DictionaryItem {
 
 	/**
 	The element types used for the item
-	@type {Array<string>}
+	@type {Array.<string>}
 	*/
 
 	get elementTypes ( ) { return this.#elementTypes; }
@@ -158,7 +158,7 @@ class DictionaryItem {
 	An array of arrays of objects. This is used to filter the results received from osm.
 	Each sub array is a line in the TravelNotesSearchDictionary
 	Each object in a sub array is a cell in the TravelNotesSearchDictionary
-	@type {Array.<Array.<Objects>>}
+	@type {Array.<Array.<Object>>}
 	*/
 
 	get filterTagsArray ( ) { return this.#filterTagsArray; }

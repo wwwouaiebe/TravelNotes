@@ -34,6 +34,9 @@ Doc reviewed 20210914
 Tests ...
 */
 
+import theTravelNotesData from '../data/TravelNotesData.js';
+import { DISTANCE, ZERO, ONE, TWO, DEGREES, LAT_LNG, EARTH_RADIUS } from '../main/Constants.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 @typedef {Object} LatLngElevOnRoute
@@ -54,12 +57,10 @@ An object to store a latitude, longitude and distance
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-import theTravelNotesData from '../data/TravelNotesData.js';
-import { DISTANCE, ZERO, ONE, TWO, DEGREES, LAT_LNG, EARTH_RADIUS } from '../main/Constants.js';
-
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This class contains methods for geometry operations requiring call to Leaflet functions<br/>
+This class contains methods for geometry operations requiring call to Leaflet functions
+
 See theGeometry for the one and only one instance of this class
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */

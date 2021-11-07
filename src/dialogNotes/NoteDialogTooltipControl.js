@@ -39,14 +39,14 @@ class NoteDialogTooltipControl {
 
 	/**
 	The control container
-	@type {htmlElement}
+	@type {HTMLElement}
 	*/
 
 	#tooltipDiv;
 
 	/**
 	The tooltip input
-	@type {htmlElement}
+	@type {HTMLElement}
 	*/
 
 	#tooltipInput;

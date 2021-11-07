@@ -30,7 +30,8 @@ import MapLayer from '../data/MapLayer.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This class contains all the mapLayers<br/>
+This class contains all the mapLayers
+
 See theMapLayersCollection for the one and only one instance of this class
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -39,7 +40,7 @@ class MapLayersCollection {
 
 	/**
 	A JS map to store the mapLayers, ordered by name
-	@type {Map.<MapLayers>}
+	@type {Map.<MapLayer>}
 	*/
 
 	#mapLayers;

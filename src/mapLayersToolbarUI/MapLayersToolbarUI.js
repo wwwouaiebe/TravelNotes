@@ -159,7 +159,8 @@ class ButtonsContainerWheelEL {
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 This class is the Layer Toolbar on the left of the screen.
-Displays buttons to change the background maps and manages the background maps list<br/>
+Displays buttons to change the background maps and manages the background maps list
+
 See theMapLayersToolbarUI for the one and only one instance of this class
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
