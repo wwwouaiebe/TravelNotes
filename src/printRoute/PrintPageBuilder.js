@@ -121,7 +121,7 @@ class PrintPageBuilder {
 
 	/**
 	A reference to the views to print
-	@type {Array.<Printview>}
+	@type {Array.<PrintView>}
 	*/
 
 	#printViews;
@@ -163,7 +163,7 @@ class PrintPageBuilder {
 
 	/**
 	A leaflet.polyline used to represent the route on the maps
-	@type {Object}
+	@type {LeafletObject}
 	*/
 
 	#routePolyline;

@@ -43,7 +43,7 @@ class ProviderToolbarTransitModeButton {
 	@type {HTMLElement}
 	*/
 
-	#providerToolbarUI;
+	#providersToolbarUI;
 
 	/**
 	The transit mode
@@ -121,15 +121,15 @@ class ProviderToolbarTransitModeButton {
 
 	/**
 	The constructor
-	@param {ProviderToolbarUI} providerToolbarUI The providerToolbarUI on witch the button will be added
+	@param {ProvidersToolbarUI} providersToolbarUI The providersToolbarUI on witch the button will be added
 	@param {String} transitMode The transit mode linked to the button
 	*/
 
-	constructor ( providerToolbarUI, transitMode ) {
+	constructor ( providersToolbarUI, transitMode ) {
 
 		Object.freeze ( this );
 
-		this.#providerToolbarUI = providerToolbarUI;
+		this.#providersToolbarUI = providersToolbarUI;
 		this.#transitMode = transitMode;
 
 		// HTML creation
@@ -153,7 +153,7 @@ class ProviderToolbarTransitModeButton {
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		this.#providerToolbarUI.transitMode = this.#transitMode;
+		this.#providersToolbarUI.transitMode = this.#transitMode;
 		theRouter.startRouting ( );
 	}
 

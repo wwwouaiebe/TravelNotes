@@ -36,7 +36,6 @@ Tests 20210903
 -----------------------------------------------------------------------------------------------------------------------
 */
 
-
 import APIKeysDialog from '../dialogAPIKeys/APIKeysDialog.js';
 import theUtilities from '../UILib/Utilities.js';
 import theTravelNotesData from '../data/TravelNotesData.js';

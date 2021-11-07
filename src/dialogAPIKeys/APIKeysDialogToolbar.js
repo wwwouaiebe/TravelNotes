@@ -319,7 +319,7 @@ class APIKeysDialogToolbar {
 
 	/**
 	The constructor
-	@param {ApiKeysDialog} APIKeysDialog A reference to the dialog
+	@param {APIKeysDialog} APIKeysDialog A reference to the dialog
 	@param {Map} APIKeysControls A reference to the JS map with APIKeysControl objects
 	@param {Boolean} haveAPIKeysFile  A boolean indicating when the APIKeys file was found on the server
 	*/

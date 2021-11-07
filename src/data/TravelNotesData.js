@@ -128,7 +128,7 @@ class TravelNotesData {
 
 	/**
 	The Leaflet map object
-	@type {Object}
+	@type {LeafletObject}
 	*/
 
 	#map;
@@ -172,7 +172,7 @@ class TravelNotesData {
 
 	/**
 	The Leaflet map object
-	@type {Object}
+	@type {LeafletObject}
 	*/
 
 	get map ( ) { return this.#map; }

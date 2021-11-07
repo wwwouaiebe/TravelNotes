@@ -59,7 +59,7 @@ class ConfigOverloader {
 
 	/**
 	copy the properties between two objects
-	
+
 	This method:
 	- search recursively all target properties
 	- foreach found property, search the same property in source

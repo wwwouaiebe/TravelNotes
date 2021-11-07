@@ -170,7 +170,7 @@ class IndexedDb {
 	/**
 	Write data in the indexedDb.
 	@param {String} UUID An UUID used to identify the data in the indexedDb
-	@param {any} data The data to put in the indexedDb
+	@param {String} data The data to put in the indexedDb
 	@return {Promise} A promise that fullfil when the data are written or reject when a problem occurs
 	*/
 

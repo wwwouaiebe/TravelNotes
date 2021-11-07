@@ -42,7 +42,7 @@ class ProviderToolbarProviderButton {
 	@type {HTMLElement}
 	*/
 
-	#providerToolbarUI;
+	#providersToolbarUI;
 
 	/**
 	The provider
@@ -60,15 +60,15 @@ class ProviderToolbarProviderButton {
 
 	/**
 	The constructor
-	@param {ProviderToolbarUI} providerToolbarUI The providerToolbarUI on witch the button will be added
+	@param {ProvidersToolbarUI} providersToolbarUI The providersToolbarUI on witch the button will be added
 	@param {BaseRouteProvider} provider The provider object linked to the button
 	*/
 
-	constructor ( providerToolbarUI, provider ) {
+	constructor ( providersToolbarUI, provider ) {
 
 		Object.freeze ( this );
 
-		this.#providerToolbarUI = providerToolbarUI;
+		this.#providersToolbarUI = providersToolbarUI;
 		this.#provider = provider;
 
 		// HTML creation
@@ -91,7 +91,7 @@ class ProviderToolbarProviderButton {
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		this.#providerToolbarUI.provider = this.#provider.name;
+		this.#providersToolbarUI.provider = this.#provider.name;
 		theRouter.startRouting ( );
 	}
 

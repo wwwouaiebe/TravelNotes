@@ -373,13 +373,13 @@ class HTMLSanitizer {
 	This method verify that a string contains a valid url.<br/>
 	A valid url must not contains html tags or html entities or invalid characters
 	and must start with a valid protocol.
-	
+
 	Valid protocols are http: and https:. For href attributes mailto:, sms: and tel: are also valid
 	and for src attributes, data: is also valid.
-	
+
 	sms: and tel: url's  must start with a + and contains only digits, *, # or space
 	@param {String} urlString The url to validate
-	@param {attributeName} attributeName The attribute name in witch the url will be placed. must be 'src' or
+	@param {String} attributeName The attribute name in witch the url will be placed. must be 'src' or
 	null (in this case 'href' is used as default)
 	@return {Object} a UrlValidationReult with the result of the validation
 	*/

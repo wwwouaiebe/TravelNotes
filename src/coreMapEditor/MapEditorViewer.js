@@ -318,7 +318,7 @@ class MapEditorViewer {
 	This method changes the background map.
 	This method is called by the 'layerchange' event listener of the viewer
 	and by the MapEditor.setLayer( ) method
-	@param {Layer} layer The layer to set
+	@param {MapLayer} layer The layer to set
 	@param {String} url The url to use for this layer (reminder: url !== layer.url !!! See MapEditor.setLayer)
 	*/
 

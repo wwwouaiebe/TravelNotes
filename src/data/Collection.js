@@ -231,7 +231,6 @@ class Collection {
 	/**
 	Executes a function on each object of the Collection and returns the final result
 	@param {function} funct The function to execute
-	@return {any} The final result
 	*/
 
 	forEach ( funct ) {

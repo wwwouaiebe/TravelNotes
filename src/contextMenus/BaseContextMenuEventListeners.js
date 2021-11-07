@@ -91,7 +91,7 @@ class CancelContextMenuButtonClickEL {
 
 	/**
 	Event listener method
-	@param {EVvent} clickEvent The event to handle
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {

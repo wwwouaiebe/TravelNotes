@@ -141,7 +141,7 @@ class OsmSearchDictionary {
 
 	/**
 	Mark as expanded an item and all the childrens
-	@param {DictionartItem} item The item to mark as expanded
+	@param {DictionaryItem} item The item to mark as expanded
 	*/
 
 	#expand ( item ) {
@@ -153,7 +153,7 @@ class OsmSearchDictionary {
 
 	/**
 	Mark as not expanded an item and all the childrens
-	@param {DictionartItem} item The item to mark as not expanded
+	@param {DictionaryItem} item The item to mark as not expanded
 	*/
 
 	#collapse ( item ) {

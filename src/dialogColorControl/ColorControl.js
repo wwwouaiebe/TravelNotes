@@ -296,7 +296,7 @@ class ColorControl {
 
 	/**
 	Change the default color of the control and set the inputs, sample div and newColor to the given color
-	@param {Volor} newColor The color to set as default color
+	@param {Color} newColor The color to set as default color
 	*/
 
 	set color ( newColor ) {

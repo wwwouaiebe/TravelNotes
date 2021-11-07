@@ -254,7 +254,7 @@ class ViewerLayersToolbarUI {
 
 	/**
 	Add a layer list to the list of available layers
-	@param {Array.<Layer>} mapLayers the layer list to add
+	@param {Array.<MapLayer>} mapLayers the layer list to add
 	*/
 
 	addMapLayers ( mapLayers ) {

@@ -83,7 +83,7 @@ class OsmSearchEngine	{
 	/**
 	Compare the tags of the osmElement with the tags of the filterTags
 	@param {Object} osmElement the osmElement to compare
-	@param {Array.<Objects>} filterTags The filter tags to use Seee DictionaryItem.filterTagsArray
+	@param {Array.<Object>} filterTags The filter tags to use Seee DictionaryItem.filterTagsArray
 	@return {Boolean} true when all the tags present in the filterTags are present in the osmElement with the same value
 	*/
 

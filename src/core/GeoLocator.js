@@ -87,12 +87,11 @@ class GeoLocator {
 
 	/**
 	Stop the geolocation because the user don't accept the geolocation
-	@param {GeolocationPositionError} positionError See 
-	[GeolocationPositionError](https://developer.mozilla.org/en-US/docs/Web/API/GeolocationPositionError) on mdn
+	@param {GeolocationPositionError} positionError See GeolocationPositionError on mdn
 	*/
 
 	#error ( positionError ) {
-		if ( ONE === positionError.code ) { // see positionError object in MDN
+		if ( ONE === positionError.code ) { 
 			this.#status = GEOLOCATION_STATUS.refusedByUser;
 		}
 		this.#stop ( );

@@ -373,7 +373,7 @@ class MapEditor	extends MapEditorViewer {
 	/**
 	This method changes the background map.
 	This method is called by the 'layerchange' event listener.
-	@param {Layer} layer The layer to set
+	@param {MapLayer} layer The layer to set
 	*/
 
 	setLayer ( layer ) {
