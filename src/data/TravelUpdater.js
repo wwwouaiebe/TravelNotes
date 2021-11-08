@@ -44,7 +44,7 @@ class TravelUpdater {
 
 	/**
 	The travel to update
-	@type {Object}
+	@type {JsonObject}
 	*/
 
 	#jsonTravel;
@@ -179,7 +179,7 @@ class TravelUpdater {
 
 	/**
 	Update the maneuvers when version is v1.11.0
-	@param {Object} route The route containing the maneuvers
+	@param {JsonObject} route The route containing the maneuvers
 	*/
 
 	#updateManeuversV_1_11_0 ( route ) {
@@ -194,7 +194,7 @@ class TravelUpdater {
 
 	/**
 	Update the way points when version is v1.11.0
-	@param {Object} route The route containing the way points
+	@param {JsonObject} route The route containing the way points
 	*/
 
 	#updateWayPointsV_1_11_0 ( route ) {
@@ -244,7 +244,7 @@ class TravelUpdater {
 
 	/**
 	Update a note when version is v1.13.0
-	@param {Object} note The note to update
+	@param {JsonObject} note The note to update
 	*/
 
 	#updateNote_V1_13_0 ( note ) {
@@ -335,7 +335,7 @@ class TravelUpdater {
 
 	/**
 	Update the travel
-	@param {Object} jsonTravel The travel to update
+	@param {JsonObject} jsonTravel The travel to update
 	*/
 
 	update ( jsonTravel ) {

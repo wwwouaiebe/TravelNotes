@@ -146,7 +146,7 @@ class OsmSearchDataUI {
 
 	/**
 	Temp reference to the OsmElement for witch the HTMLElement is currently build
-	@type {Object}
+	@type {OsmElement}
 	*/
 
 	#currentOsmElement;

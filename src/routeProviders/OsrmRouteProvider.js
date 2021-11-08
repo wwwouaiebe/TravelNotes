@@ -61,7 +61,7 @@ class OsrmRouteProvider extends BaseRouteProvider {
 
 	/**
 	Parse the response from the provider and add the received itinerary to the route itinerary
-	@param {Object} response the itinerary received from the provider
+	@param {JsonObject} response the itinerary received from the provider
 	@param {function} onOk a function to call when the response is parsed correctly
 	@param {function} onError a function to call when an error occurs
 	*/

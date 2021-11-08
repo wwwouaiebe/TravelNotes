@@ -47,7 +47,7 @@ class FileCompactor {
 
 	/**
 	Compress a route
-	@param {Object} routeJsonObject the route to compress. routeJsonObject is not a Route instance!
+	@param {JsonObject} routeJsonObject the route to compress. routeJsonObject is not a Route instance!
 	It's an Object created with Route.jsonObject ( ).
 	*/
 
@@ -80,7 +80,7 @@ class FileCompactor {
 
 	/**
 	Decompress a route
-	@param {Object} routeJsonObject the compressed route. routeJsonObject is not a Route instance!
+	@param {JsonObject} routeJsonObject the compressed route. routeJsonObject is not a Route instance!
 	It's an Object created with JSON.parse ( ).
 	*/
 
@@ -156,7 +156,7 @@ class FileCompactor {
 
 	/**
 	Decompress a travel
-	@param {Object} travelJsonObject the compressed travel. travelJsonObject is not a Travel instance!
+	@param {JsonObject} travelJsonObject the compressed travel. travelJsonObject is not a Travel instance!
 	It's an Object created with JSON.parse ( ).
 	*/
 
@@ -171,7 +171,7 @@ class FileCompactor {
 
 	/**
 	Compress the currently edited travel
-	@return {Object} a copy of the currently edited travel compressed and ready to be written in a file
+	@return {JsonObject} a copy of the currently edited travel compressed and ready to be written in a file
 	@param {Travel} travel The object to compress
 	*/
 

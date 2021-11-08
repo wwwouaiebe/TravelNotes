@@ -182,7 +182,7 @@ class ItineraryPoint extends TravelObject {
 	/**
 	An object literal with the ItineraryPoint properties and without any methods.
 	This object can be used with the JSON object
-	@type {Object}
+	@type {JsonObject}
 	*/
 
 	get jsonObject ( ) {

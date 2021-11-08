@@ -55,7 +55,7 @@ class ViewerFileLoader {
 
 	/**
 	Open a distant file from a web server and display the content of the file
-	@param {Object} travelJsonObject the json object readed from the file
+	@param {JsonObject} travelJsonObject the json object readed from the file
 	*/
 
 	openDistantFile ( travelJsonObject ) {

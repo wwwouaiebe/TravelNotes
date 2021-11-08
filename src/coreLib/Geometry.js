@@ -180,7 +180,7 @@ class Geometry {
 	/**
 	This method build a window.L.latLngBounds object from an array of points
 	@param {Array.<Array.<number>>} latLngs the array of latitude and longitude
-	@return {Object} a Leaflet latLngBounds object
+	@return {LeafletObject} a Leaflet latLngBounds object
 	*/
 
 	getLatLngBounds ( latLngs ) {

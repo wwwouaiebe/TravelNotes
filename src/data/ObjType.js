@@ -102,7 +102,7 @@ class ObjType {
 	/**
 	An object literal with the ObjType properties and without any methods.
 	This object can be used with the JSON object
-	@type {Object}
+	@type {JsonObject}
 	*/
 
 	get jsonObject ( ) {
@@ -114,7 +114,7 @@ class ObjType {
 
 	/**
 	Verify that the given object is an ObjType and is valid
-	@param {Object} something An object to validate
+	@param {JsonObject} something An object to validate
 	*/
 
 	validate ( something ) {

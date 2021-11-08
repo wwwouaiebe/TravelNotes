@@ -165,7 +165,7 @@ class FileLoader {
 
 	/**
 	Open a local file and display the content of the file
-	@param {Object} travelJsonObject the json object readed from the file
+	@param {JsonObject} travelJsonObject the json object readed from the file
 	*/
 
 	openLocalFile ( travelJsonObject ) {
@@ -194,7 +194,7 @@ class FileLoader {
 
 	/**
 	Open a local file and merge the content of the file with the current travel
-	@param {Object} travelJsonObject the json object readed from the file
+	@param {JsonObject} travelJsonObject the json object readed from the file
 	*/
 
 	mergeLocalFile ( travelJsonObject ) {

@@ -310,7 +310,7 @@ class MapLayer	{
 
 	/**
 	The constructor
-	@param {Object} jsonLayer A json object from TravelNotesLayers.json
+	@param {JsonObject} jsonLayer A json object from TravelNotesLayers.json
 	*/
 
 	constructor ( jsonLayer ) {

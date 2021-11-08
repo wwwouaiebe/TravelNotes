@@ -46,8 +46,8 @@ class TravelObject {
 
 	/**
 	Verify that the parameter can be transformed to a TravelObject
-	@param {Object} something an object to validate
-	@return {Object} the validated object
+	@param {JsonObject} something an object to validate
+	@return {JsonObject} the validated object
 	*/
 
 	validateObject ( something ) {
