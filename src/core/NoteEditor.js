@@ -176,7 +176,7 @@ class NoteEditor {
 				'</text></svg></div>';
 		}
 		else {
-			this.#note.iconContent = theNoteDialogToolbarData.getIconContentFromName ( osmElement.description );
+			this.#note.iconContent = theNoteDialogToolbarData.preDefinedIconDataFromName ( osmElement.description );
 		}
 
 		// Note data from the osmElement

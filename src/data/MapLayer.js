@@ -31,13 +31,76 @@ import { ZERO, ONE } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@typedef {Object} LayerToolbarButtonData
-A layers toolbar button properties
-@property {String} text The text to display in the toolbar button
-@property {String} color The foreground color of the toolbar button
-@property {String} backgroundColor The background color of the toolbar button
+A simple container for the layer toolbar buttons properties
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
+
+class LayerToolbarButtonData {
+
+	/**
+	The text displayed in the button
+	@type {String}
+	*/
+
+	#text;
+
+	/**
+	The button text color
+	@type {String}
+	*/
+
+	#color;
+
+	/**
+	The button background color
+	@type {String}
+	*/
+
+	#backgroundColor;
+
+	/**
+	The constructor
+	@param {JsonObject} jsonToolbarData a json object with the data for the button
+	*/
+
+	constructor ( jsonToolbarData ) {
+		if (
+			'string' !== typeof ( jsonToolbarData?.text )
+			||
+			'string' !== typeof ( jsonToolbarData?.color )
+			||
+			'string' !== typeof ( jsonToolbarData?.backgroundColor )
+		) {
+			throw new Error ( 'invalid toolbar for layer' );
+		}
+		Object.freeze ( this );
+		this.#text = theHTMLSanitizer.sanitizeToJsString ( jsonToolbarData.text );
+		this.#color = theHTMLSanitizer.sanitizeToColor ( jsonToolbarData.color );
+		this.#backgroundColor =	theHTMLSanitizer.sanitizeToColor ( jsonToolbarData.backgroundColor );
+	}
+
+	/**
+	The text displayed in the button
+	@type {String}
+	*/
+
+	get text ( ) { return this.#text; }
+
+	/**
+	The button text color
+	@type {String}
+	*/
+
+	get color ( ) { return this.#color; }
+
+	/**
+	The button background color
+	@type {String}
+	*/
+
+	get backgroundColor ( ) { return this.#backgroundColor; }
+
+}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -102,7 +165,7 @@ class MapLayer	{
 	@type {LayerToolbarButtonData}
 	*/
 
-	#toolbar = null;
+	#toolbarButtonData = null;
 
 	/**
 	The name of the service provider.
@@ -246,24 +309,8 @@ class MapLayer	{
 	Set the toolbar data
 	*/
 
-	#setToolbarData ( ) {
-		if (
-			'string' === typeof ( this.#jsonLayer?.toolbar?.text )
-			&&
-			'string' === typeof ( this.#jsonLayer?.toolbar?.color )
-			&&
-			'string' === typeof ( this.#jsonLayer?.toolbar?.backgroundColor )
-		) {
-			this.#toolbar = this.#jsonLayer.toolbar;
-			this.#toolbar.text = theHTMLSanitizer.sanitizeToJsString ( this.#toolbar.text );
-			this.#toolbar.color =
-				theHTMLSanitizer.sanitizeToColor ( this.#toolbar.color ) || '\u0023000000';
-			this.#toolbar.backgroundColor =
-				theHTMLSanitizer.sanitizeToColor ( this.#toolbar.backgroundColor ) || '\u0023ffffff';
-		}
-		else {
-			throw new Error ( 'invalid toolbar for layer ' + this.#name );
-		}
+	#setToolbarButtonData ( ) {
+		this.#toolbarButtonData = new LayerToolbarButtonData ( this.#jsonLayer.toolbar );
 	}
 
 	/**
@@ -322,7 +369,7 @@ class MapLayer	{
 		this.#setWmsOptions ( );
 		this.#setBounds ( );
 		this.#setMinMaxZoom ( );
-		this.#setToolbarData ( );
+		this.#setToolbarButtonData ( );
 		this.#setProviderName ( );
 		this.#setProviderKeyNeeded ( );
 		this.#setAttributions ( );
@@ -384,7 +431,7 @@ class MapLayer	{
 	@type {LayerToolbarButtonData}
 	*/
 
-	get toolbar ( ) { return this.#toolbar; }
+	get toolbarButtonData ( ) { return this.#toolbarButtonData; }
 
 	/**
 	The name of the service provider. This name will be used to find the access key to the service.

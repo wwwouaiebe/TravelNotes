@@ -42,37 +42,6 @@ import { NOT_FOUND } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@typedef {Object} NoteDialogCfgFileContent
-An object with definitions for the creation of select options and buttons for the NoteDialogToolbar
-@property {Array.<NoteDialogToolbarButton>} editionButtons An array with the buttons definitions
-@property {Array.<NoteDialogToolbarSelectOption>} preDefinedIconsList An array with the select options definitions
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-@typedef {Object} NoteDialogToolbarSelectOption
-Select options definitions fot the NoteDialogToolbar
-@property {String} name The name to be displayed in the select
-@property {String} icon The html definition of the icon associated with this option
-@property {String} tooltip The tooltip of the icon associated with this option
-@property {Number} width The width of the icon associated with this option
-@property {Number} height The height of the icon associated with this option
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-@typedef {Object} NoteDialogToolbarButton
-Buttons definitions fot the NoteDialogToolbar
-@property {String} title The text to be displayed on the button. Can be HTML
-@property {String} htmlBefore The text to be inserted before the cursor when clicking on the button
-@property {?string} htmlAfter The text to be inserted after the cursor when clicking on the button. Optional
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
 This class is the toolbar of the NoteDialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -128,7 +97,7 @@ class NoteDialogToolbar {
 			this.#rootHTMLElement
 		);
 
-		theNoteDialogToolbarData.icons.forEach (
+		theNoteDialogToolbarData.preDefinedIconsData.forEach (
 			selectOption => {
 				this.#iconSelect.add ( theHTMLElementsFactory.create ( 'option', { text : selectOption.name } ) );
 			}
@@ -168,20 +137,20 @@ class NoteDialogToolbar {
 	*/
 
 	#addEditionButtons ( ) {
-		theNoteDialogToolbarData.buttons.forEach (
-			editionButton => {
+		theNoteDialogToolbarData.editionButtonsData.forEach (
+			editionButtonData => {
 				const newButton = theHTMLElementsFactory.create (
 					'div',
 					{
 						dataset : {
-							HtmlBefore : editionButton.htmlBefore || '',
-							HtmlAfter : editionButton.htmlAfter || ''
+							HtmlBefore : editionButtonData.htmlBefore,
+							HtmlAfter : editionButtonData.htmlAfter
 						},
 						className : 'TravelNotes-NoteDialog-EditorButton'
 					},
 					this.#rootHTMLElement
 				);
-				theHTMLSanitizer.sanitizeToHtmlElement ( editionButton.title || '?', newButton );
+				theHTMLSanitizer.sanitizeToHtmlElement ( editionButtonData.title, newButton );
 				this.#editionButtons.push ( newButton );
 			}
 		);

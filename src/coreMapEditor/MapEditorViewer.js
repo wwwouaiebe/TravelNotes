@@ -47,16 +47,6 @@ import { GEOLOCATION_STATUS, ROUTE_EDITION_STATUS, ZERO, ONE, TWO } from '../mai
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@typedef {Object} NoteLeafletObjects
-An object with all the Leaflet objects for a note
-@property {LeafletObject} marker The marker of the note
-@property {LeafletObject} polyline The polyline of the note
-@property {LeafletObject} bullet The bullet of the note (= a Leaflet marker)
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
 This class performs all the readonly updates on the map
 
 Ssee theMapEditor for read/write updates on the map

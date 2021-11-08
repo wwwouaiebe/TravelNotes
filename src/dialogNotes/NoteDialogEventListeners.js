@@ -410,7 +410,7 @@ class IconSelectorChangeEL {
 
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
-		const preDefinedIcon = theNoteDialogToolbarData.getIconData ( changeEvent.target.selectedIndex );
+		const preDefinedIcon = theNoteDialogToolbarData.preDefinedIconDataAt ( changeEvent.target.selectedIndex );
 
 		if ( 'SvgIcon' === preDefinedIcon.icon ) {
 			this.#onMapIcon ( );

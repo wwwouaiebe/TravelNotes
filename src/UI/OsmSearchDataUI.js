@@ -207,7 +207,7 @@ class OsmSearchDataUI {
 				'</text></svg></div>';
 		}
 		else {
-			iconContent = theNoteDialogToolbarData.getIconContentFromName ( this.#currentOsmElement.description ) || '';
+			iconContent = theNoteDialogToolbarData.preDefinedIconDataFromName ( this.#currentOsmElement.description ) || '';
 		}
 		const iconCell = theHTMLElementsFactory.create (
 			'div',

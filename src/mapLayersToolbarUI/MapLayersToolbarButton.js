@@ -55,8 +55,8 @@ class LayerButtonMouseEnterEL {
 
 	handleEvent ( mouseEnterEvent ) {
 		const mapLayer = theMapLayersCollection.getMapLayer ( mouseEnterEvent.target.dataset.tanMapLayerName );
-		mouseEnterEvent.target.style.color = mapLayer.toolbar.backgroundColor;
-		mouseEnterEvent.target.style[ 'background-color' ] = mapLayer.toolbar.color;
+		mouseEnterEvent.target.style.color = mapLayer.toolbarButtonData.backgroundColor;
+		mouseEnterEvent.target.style[ 'background-color' ] = mapLayer.toolbarButtonData.color;
 	}
 }
 
@@ -84,8 +84,8 @@ class LayerButtonMouseLeaveEL {
 	handleEvent ( mouseLeaveEvent ) {
 		mouseLeaveEvent.stopPropagation ( );
 		const mapLayer = theMapLayersCollection.getMapLayer ( mouseLeaveEvent.target.dataset.tanMapLayerName );
-		mouseLeaveEvent.target.style.color = mapLayer.toolbar.color;
-		mouseLeaveEvent.target.style[ 'background-color' ] = mapLayer.toolbar.backgroundColor;
+		mouseLeaveEvent.target.style.color = mapLayer.toolbarButtonData.color;
+		mouseLeaveEvent.target.style[ 'background-color' ] = mapLayer.toolbarButtonData.backgroundColor;
 	}
 }
 
@@ -172,8 +172,10 @@ class MapLayersToolbarButton {
 				className : 'TravelNotes-MapLayersToolbarUI-Button',
 				title : mapLayer.name,
 				dataset : { MapLayerName : mapLayer.name },
-				textContent : mapLayer.toolbar.text,
-				style : 'color:' + mapLayer.toolbar.color + ';background-color:' + mapLayer.toolbar.backgroundColor
+				textContent : mapLayer.toolbarButtonData.text,
+				style : 'color:' +
+					mapLayer.toolbarButtonData.color +
+					';background-color:' + mapLayer.toolbarButtonData.backgroundColor
 			},
 			parentNode
 		);

@@ -33,6 +33,7 @@ Tests ...
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import theAttributionsUI from '../attributionsUI/AttributionsUI.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import MapLayer from '../data/MapLayer.js';
 import theGeoLocator from '../core/GeoLocator.js';
 import Zoomer from '../core/Zoomer.js';
 import { ZERO } from '../main/Constants.js';
@@ -160,7 +161,8 @@ class ViewerLayersToolbarUI {
 
 	constructor ( ) {
 		Object.freeze ( this );
-		this.#mapLayers = [
+		this.#mapLayers = [];
+		const osmMapLayer = new MapLayer (
 			{
 				service : 'wmts',
 				url : 'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
@@ -168,14 +170,15 @@ class ViewerLayersToolbarUI {
 				toolbar :
 				{
 					text : 'OSM',
-					color : 'red',
-					backgroundColor : 'white'
+					color : '\u0023ff0000',
+					backgroundColor : '\u0023ffffff'
 				},
 				providerName : 'OSM',
 				providerKeyNeeded : false,
 				attribution : ''
 			}
-		];
+		);
+		this.#mapLayers.push ( osmMapLayer );
 
 	}
 
@@ -228,8 +231,10 @@ class ViewerLayersToolbarUI {
 					className : 'TravelNotes-ViewerLayersToolbarUI-Button',
 					title : mapLayer.name,
 					dataset : { MapLayerId : mapLayerCounter },
-					textContent : mapLayer.toolbar.text,
-					style : 'color:' + mapLayer.toolbar.color + ';background-color:' + mapLayer.toolbar.backgroundColor
+					textContent : mapLayer.toolbarButtonData.text,
+					style : 'color:' +
+						mapLayer.toolbarButtonData.color + ';background-color:' +
+						mapLayer.toolbarButtonData.backgroundColor
 				},
 				this.#mapLayersToolbar
 			).addEventListener ( 'click', mapLayerButtonClickEL, false );
@@ -254,14 +259,15 @@ class ViewerLayersToolbarUI {
 
 	/**
 	Add a layer list to the list of available layers
-	@param {Array.<MapLayer>} mapLayers the layer list to add
+	@param {JsonObject} jsonLayers the layer list to add
 	*/
 
-	addMapLayers ( mapLayers ) {
-		mapLayers.forEach (
-			mapLayer => {
-				if ( ! mapLayer.providerKeyNeeded ) {
-					this.#mapLayers.push ( mapLayer );
+	addMapLayers ( jsonLayers ) {
+		jsonLayers.forEach (
+			jsonLayer => {
+				const newLayer = new MapLayer ( jsonLayer );
+				if ( ! newLayer.providerKeyNeeded ) {
+					this.#mapLayers.push ( newLayer );
 				}
 			}
 		);

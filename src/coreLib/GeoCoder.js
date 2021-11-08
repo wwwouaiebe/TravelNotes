@@ -52,17 +52,6 @@ import { ZERO, ONE } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@typedef {Object} GeoCoderAddress
-An address
-@property {String} name The name of the point or an empty string
-@property {String} street The house number and the street of the point or an empty string
-@property {String} city The city of the point or an empty string
-@property {Boolean} statusOk A status indicating that all the requests are executed correctly
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
 This class call Nominatim and parse the response
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -106,6 +95,7 @@ class GeoCoder {
 
 	/**
 	this method merge the data from Nominatim and theOverpassAPI
+	@return {GeoCoderAddress} the address at the given point
 	*/
 
 	#mergeData ( ) {
@@ -155,6 +145,7 @@ class GeoCoder {
 
 	/**
 	This method search the address
+	@return {GeoCoderAddress} the address at the given point.
 	*/
 
 	async #getAddressAsync ( ) {

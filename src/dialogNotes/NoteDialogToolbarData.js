@@ -32,7 +32,200 @@ import { ZERO, ONE, ICON_DIMENSIONS } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This class is a container for the edition buttons and predefined icons
+Simple container for buttons data of the NoteDialogToolbar
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class EditionButtonData {
+
+	/**
+	The text to be displayed on the button. Can be HTML
+	@type {String}
+	*/
+
+	#title;
+
+	/**
+	The text to be inserted before the cursor when clicking on the button
+	@type {String}
+	*/
+
+	#htmlBefore;
+
+	/**
+	The text to be inserted after the cursor when clicking on the button. Optional
+	@type {String}
+	*/
+
+	#htmlAfter;
+
+	/**
+	The constructor
+	@param {JsonObject} jsonEditionButton A json object with the data for the EditionButton
+	*/
+
+	constructor ( jsonEditionButton ) {
+		Object.freeze ( this );
+		if (
+			'string' !== typeof ( jsonEditionButton?.title )
+			||
+			'string' !== typeof ( jsonEditionButton?.htmlBefore )
+			||
+			( jsonEditionButton.htmlAfter && 'string' !== typeof ( jsonEditionButton.htmlAfter ) )
+		) {
+			throw new Error ( 'Invalid toolbar button' );
+		}
+		let htmlString = ( jsonEditionButton.htmlBefore || '' ) + ( jsonEditionButton.htmlAfter || '' );
+		let errorString = theHTMLSanitizer.sanitizeToHtmlString ( htmlString ).errorsString;
+		if ( '' === errorString ) {
+			this.#title = theHTMLSanitizer.sanitizeToHtmlString ( jsonEditionButton.title ).htmlString;
+			if ( '' === this.title ) {
+				this.title = '?';
+			}
+			this.#htmlBefore = jsonEditionButton.htmlBefore || '';
+			this.#htmlAfter = jsonEditionButton.htmlAfter || '';
+		}
+		else {
+			throw new Error ( 'Invalid toolbar button : ' + htmlString + errorString );
+		}
+	}
+
+	/**
+	The text to be displayed on the button. Can be HTML
+	@type {String}
+	*/
+
+	get title ( ) { return this.#title; }
+
+	/**
+	The text to be inserted before the cursor when clicking on the button
+	@type {String}
+	*/
+
+	get htmlBefore ( ) { return this.#htmlBefore; }
+
+	/**
+	The text to be inserted after the cursor when clicking on the button. Optional
+	@type {String}
+	*/
+
+	get htmlAfter ( ) { return this.#htmlAfter; }
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+Simple container for predefined icons data of the NoteDialogToolbar
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+// eslint-disable-next-line no-unused-vars
+class PredefinedIconData {
+
+	/**
+	The name of the predefined icon. This name will be displayed in the select of the NoteDialogToolbar
+	@type {String}
+	*/
+
+	#name;
+
+	/**
+	The html definition of the predefined icon
+	@type {String}
+	*/
+
+	#icon;
+
+	/**
+	The tooltip of the predefined icon
+	@type {String}
+	*/
+
+	#tooltip;
+
+	/**
+	The width of the predefined icon
+	@type {Number}
+	*/
+
+	#width;
+
+	/**
+	The height of the predefined icon
+	@type {Number}
+	*/
+
+	#height;
+
+	/**
+	The constructor
+	@param {JsonObject} jsonPredefinedIconData A json object with the data for the predefined icon
+	*/
+
+	constructor ( jsonPredefinedIconData ) {
+		this.#name =
+			'string' === typeof ( jsonPredefinedIconData?.name )
+				?
+				theHTMLSanitizer.sanitizeToJsString ( jsonPredefinedIconData.name )
+				:
+				'?';
+		this.#icon =
+			'string' === typeof ( jsonPredefinedIconData.icon )
+				?
+				theHTMLSanitizer.sanitizeToHtmlString ( jsonPredefinedIconData?.icon ).htmlString
+				:
+				'?';
+		this.#tooltip =
+			'string' === typeof ( jsonPredefinedIconData?.tooltip )
+				?
+				theHTMLSanitizer.sanitizeToHtmlString ( jsonPredefinedIconData.tooltip ).htmlString
+				:
+				'?';
+		this.#width =
+			'number' === typeof ( jsonPredefinedIconData?.width ) ? jsonPredefinedIconData.width : ICON_DIMENSIONS.width;
+		this.#height =
+			'number' === typeof ( jsonPredefinedIconData?.height ) ? jsonPredefinedIconData.height : ICON_DIMENSIONS.height;
+	}
+
+	/**
+	The name of the predefined icon. This name will be displayed in the select of the NoteDialog
+	@type {String}
+	*/
+
+	get name ( ) { return this.#name; }
+
+	/**
+	The html definition of the predefined icon
+	@type {String}
+	*/
+
+	get icon ( ) { return this.#icon; }
+
+	/**
+	The tooltip of the predefined icon
+	@type {String}
+	*/
+
+	get tooltip ( ) { return this.#tooltip; }
+
+	/**
+	The width of the predefined icon
+	@type {Number}
+	*/
+
+	get width ( ) { return this.#width; }
+
+	/**
+	The height of the predefined icon
+	@type {Number}
+	*/
+
+	get height ( ) { return this.#height; }
+
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+This class is a container for the edition buttons data and predefined icons data
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
@@ -40,24 +233,24 @@ class NoteDialogToolbarData {
 
 	/**
 	The additional buttons defined in the TravelNotesDialogXX.json file or a file loaded by the user
-	@type {Array.<NoteDialogToolbarButton>}
+	@type {Array.<EditionButtonData>}
 	*/
 
-	#editionButtons = [];
+	#editionButtonsData;
 
 	/**
 	A map with the additional icons defined in the TravelNotesDialogXX.json file or a file loaded by the user, ordered by name
-	@type {Map.<NoteDialogToolbarSelectOption>}
+	@type {Map.<PredefinedIconData>}
 	*/
 
-	#preDefinedIconsMap = new Map ( );
+	#preDefinedIconsDataMap;
 
 	/**
 	The additional icons defined in the TravelNotesDialogXX.json file or a file loaded by the user
-	@type {Array.<NoteDialogToolbarSelectOption>}
+	@type {Array.<PredefinedIconData>}
 	*/
 
-	#preDefinedIcons = [];
+	#preDefinedIconsDataArray;
 
 	/**
 	The constructor
@@ -65,99 +258,80 @@ class NoteDialogToolbarData {
 
 	constructor ( ) {
 		Object.freeze ( this );
-		this.#editionButtons = [];
-		this.#preDefinedIconsMap = new Map ( );
-		this.#preDefinedIcons = [];
+		this.#editionButtonsData = [];
+		this.#preDefinedIconsDataMap = new Map ( );
+		this.#preDefinedIconsDataArray = [];
 	}
 
 	/**
 	The additional buttons defined in the TravelNotesDialogXX.json file or a file loaded by the user
-	@type {Array.<NoteDialogToolbarButton>}
+	@type {Array.<EditionButtonData>}
 	*/
 
-	get buttons ( ) { return this.#editionButtons; }
+	get editionButtonsData ( ) { return this.#editionButtonsData; }
 
 	/**
 	The additional icons defined in the TravelNotesDialogXX.json file or a file loaded by the user
-	@type {Array.<NoteDialogToolbarSelectOption>}
+	@type {Array.<PredefinedIconData>}
 	*/
 
-	get icons ( ) {
-		return this.#preDefinedIcons;
+	get preDefinedIconsData ( ) {
+		return this.#preDefinedIconsDataArray;
 	}
 
 	/**
 	get and icon from the icon position in the array
 	@param {Number} index The icon index in the array
+	@return {PredefinedIconData} The predefinedIconData at the given index
 	*/
 
-	getIconData ( index ) {
-		return this.#preDefinedIcons [ index ];
+	preDefinedIconDataAt ( index ) {
+		return this.#preDefinedIconsDataArray [ index ];
 	}
 
 	/**
 	get an icon from the icon name
 	@param {String} iconName The icon name
+	@return {PredefinedIconData} The predefinedIconData with the name equal to the given name
 	*/
 
-	getIconContentFromName ( iconName ) {
-		const preDefinedIcon = this.#preDefinedIconsMap.get ( iconName );
+	preDefinedIconDataFromName ( iconName ) {
+		const preDefinedIcon = this.#preDefinedIconsDataMap.get ( iconName );
 		return preDefinedIcon ? preDefinedIcon.icon : '';
 	}
 
 	/**
 	Load a json file with predefined icons and / or edition buttons
-	@param {NoteDialogCfgFileContent} jsonData The file content after JSON.parse ( )
+	@param {JsonObject} jsonData The file content after JSON.parse ( )
 	*/
 
 	loadJson ( jsonData ) {
 		if ( jsonData.editionButtons ) {
 			jsonData.editionButtons.forEach (
-				editionButton => {
-					let htmlString = ( editionButton.htmlBefore || '' ) + ( editionButton.htmlAfter || '' );
-					let errorsString = theHTMLSanitizer.sanitizeToHtmlString ( htmlString ).errorsString;
-					if ( '' === errorsString ) {
-						this.#editionButtons.push ( editionButton );
+				jsonEditionButtonData => {
+					try {
+						let editionButtonData = new EditionButtonData ( jsonEditionButtonData );
+						this.#editionButtonsData.push ( editionButtonData );
 					}
-					else {
-						console.error ( 'Invalid editionButton : ' + htmlString + ' ' + errorsString );
+					catch ( err ) {
+						console.error ( err.message );
 					}
 				}
 			);
 		}
 		if ( jsonData.preDefinedIconsList ) {
 			jsonData.preDefinedIconsList.forEach (
-				predefinedIcon => {
-					predefinedIcon.name =
-						'string' === typeof ( predefinedIcon.name )
-							?
-							theHTMLSanitizer.sanitizeToJsString ( predefinedIcon.name )
-							:
-							'?';
-					predefinedIcon.icon =
-						'string' === typeof ( predefinedIcon.icon )
-							?
-							theHTMLSanitizer.sanitizeToHtmlString ( predefinedIcon.icon ).htmlString
-							:
-							'?';
-					predefinedIcon.tooltip =
-						'string' === typeof ( predefinedIcon.tooltip )
-							?
-							theHTMLSanitizer.sanitizeToHtmlString ( predefinedIcon.tooltip ).htmlString
-							:
-							'?';
-					predefinedIcon.width =
-						'number' === typeof ( predefinedIcon.width ) ? predefinedIcon.width : ICON_DIMENSIONS.width;
-					predefinedIcon.height =
-						'number' === typeof ( predefinedIcon.height ) ? predefinedIcon.height : ICON_DIMENSIONS.height;
-					this.#preDefinedIconsMap.set ( predefinedIcon.name, predefinedIcon );
+				jsonPredefinedIconData => {
+					const predefinedIconData = new PredefinedIconData ( jsonPredefinedIconData );
+					this.#preDefinedIconsDataMap.set ( predefinedIconData.name, predefinedIconData );
 				}
 			);
-			this.#preDefinedIcons.length = ZERO;
-			for ( const element of this.#preDefinedIconsMap ) {
-				this.#preDefinedIcons.push ( element [ ONE ] );
+
+			this.#preDefinedIconsDataArray.length = ZERO;
+			for ( const element of this.#preDefinedIconsDataMap ) {
+				this.#preDefinedIconsDataArray.push ( element [ ONE ] );
 			}
-			this.#preDefinedIcons = this.#preDefinedIcons.sort (
+			this.#preDefinedIconsDataArray = this.#preDefinedIconsDataArray.sort (
 				( first, second ) => first.name.localeCompare ( second.name )
 			);
 		}
