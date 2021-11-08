@@ -216,8 +216,8 @@ class TravelNotes {
 	get overpassApiUrl ( ) { return theConfig.overpassApi.url; }
 
 	/**
-	get the Leaflet map object
-	@type {Object}
+	The Leaflet map object
+	@type {LeafletObject}
 	*/
 
 	get map ( ) { return theTravelNotesData.map; }

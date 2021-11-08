@@ -122,7 +122,7 @@ class StreetFinder {
 
 	/**
 	Return the name of a way
-	@param {Object} way  A way found in the request result
+	@param {OsmElement} way  A way found in the request result
 	@return {String} the concatenation of the way.ref and way.name if any
 	*/
 

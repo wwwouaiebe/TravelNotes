@@ -76,7 +76,7 @@ class HTMLSanitizer {
 
 	/**
 	An instance of the HTMLSanitizerData
-	@type {Object}
+	@type {HTMLSanitizerData}
 	*/
 
 	static #htmlSanitizerData = new HTMLSanitizerData ( );

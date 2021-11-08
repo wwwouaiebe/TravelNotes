@@ -49,9 +49,9 @@ import { GEOLOCATION_STATUS, ROUTE_EDITION_STATUS, ZERO, ONE, TWO } from '../mai
 /**
 @typedef {Object} NoteLeafletObjects
 An object with all the Leaflet objects for a note
-@property {Object} marker The marker of the note
-@property {Object} polyline The polyline of the note
-@property {Object} bullet The bullet of the note (= a Leaflet marker)
+@property {LeafletObject} marker The marker of the note
+@property {LeafletObject} polyline The polyline of the note
+@property {LeafletObject} bullet The bullet of the note (= a Leaflet marker)
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
@@ -67,14 +67,14 @@ class MapEditorViewer {
 
 	/**
 	A reference to the L.tileLayer  object that contains the current map
-	@type {Object}
+	@type {LeafletObject}
 	*/
 
 	#currentLayer;
 
 	/**
 	A reference to the L.circleMarker object used for the geolocation
-	@type {Object}
+	@type {LeafletObject}
 	*/
 
 	#geolocationCircle;
@@ -116,7 +116,7 @@ class MapEditorViewer {
 	/**
 	Add a Leaflet object to the map
 	@param {Number} objId The objId to use
-	@param {Object} leafletObject The Leaflet object to add
+	@param {LeafletObject} leafletObject The Leaflet object to add
 	*/
 
 	addToMap ( objId, leafletObject ) {

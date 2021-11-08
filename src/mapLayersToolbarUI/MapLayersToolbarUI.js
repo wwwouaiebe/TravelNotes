@@ -102,7 +102,7 @@ class ButtonsContainerWheelEL {
 
 	/**
 	A reference to the WheelEventData Object
-	@type {Object}
+	@type {WheelEventData}
 	*/
 
 	#wheelEventData;
@@ -117,7 +117,7 @@ class ButtonsContainerWheelEL {
 
 	/**
 	The constructor
-	@param {Object} wheelEventData A reference to the WheelEventData Object
+	@param {WheelEventData} wheelEventData A reference to the WheelEventData Object
 	*/
 
 	constructor ( wheelEventData ) {

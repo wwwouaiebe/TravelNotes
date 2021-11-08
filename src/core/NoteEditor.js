@@ -162,7 +162,7 @@ class NoteEditor {
 
 	/**
 	This method add a note for a searh result from osm.
-	@param {Object} osmElement an object with osm data ( see OsmSearch...)
+	@param {OsmElement} osmElement an object with osm data ( see OsmSearch...)
 	*/
 
 	async #newSearchNote ( osmElement ) {
@@ -281,7 +281,7 @@ class NoteEditor {
 
 	/**
 	This method add a route note for a searh result from osm.
-	@param {Object} osmElement an object with osm data ( see OsmSearch...)
+	@param {OsmElement} osmElement an object with osm data ( see OsmSearch...)
 	*/
 
 	newSearchRouteNote ( osmElement ) {
@@ -299,7 +299,7 @@ class NoteEditor {
 
 	/**
 	This method add a travel note for a searh result from osm.
-	@param {Object} osmElement an object with osm data ( see OsmSearch...)
+	@param {OsmElement} osmElement an object with osm data ( see OsmSearch...)
 	*/
 
 	newSearchTravelNote ( osmElement ) {

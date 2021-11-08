@@ -49,7 +49,7 @@ class OsmSearchContextMenu extends BaseContextMenu {
 
 	/**
 	The osmElement for witch the context menu is displayed
-	@type {Object}
+	@type {OsmElement}
 	*/
 
 	#osmElement;

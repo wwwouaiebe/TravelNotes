@@ -73,17 +73,17 @@ class PasswordDialog extends BaseDialog {
 
 	/**
 	mouseDown event listener
-	@type {Object}
+	@type {EyeMouseDownEL}
 	*/
 
-	#onMouseDownEyeEventListener;
+	#eyeMouseDownEL;
 
 	/**
 	mouseup event listener
-	@type {Object}
+	@type {EyeMouseUpEL}
 	*/
 
-	#onMouseUpEyeEventListener;
+	#eyeMouseUpEL;
 
 	/**
 	The minimal length for the password
@@ -115,10 +115,10 @@ class PasswordDialog extends BaseDialog {
 		);
 
 		// Event listeners
-		this.#onMouseDownEyeEventListener = new EyeMouseDownEL ( this.#passwordInput );
-		this.#onMouseUpEyeEventListener = new EyeMouseUpEL ( this.#passwordInput );
-		this.#eyeSpan.addEventListener ( 'mousedown', this.#onMouseDownEyeEventListener, false );
-		this.#eyeSpan.addEventListener ( 'mouseup', this.#onMouseUpEyeEventListener,	false );
+		this.#eyeMouseDownEL = new EyeMouseDownEL ( this.#passwordInput );
+		this.#eyeMouseUpEL = new EyeMouseUpEL ( this.#passwordInput );
+		this.#eyeSpan.addEventListener ( 'mousedown', this.#eyeMouseDownEL, false );
+		this.#eyeSpan.addEventListener ( 'mouseup', this.#eyeMouseUpEL,	false );
 	}
 
 	/**
@@ -126,10 +126,10 @@ class PasswordDialog extends BaseDialog {
 	*/
 
 	#destructor ( ) {
-		this.#eyeSpan.removeEventListener ( 'mousedown', this.#onMouseDownEyeEventListener, false );
-		this.#eyeSpan.removeEventListener ( 'mouseup', this.#onMouseUpEyeEventListener,	false );
-		this.#onMouseDownEyeEventListener = null;
-		this.#onMouseUpEyeEventListener = null;
+		this.#eyeSpan.removeEventListener ( 'mousedown', this.#eyeMouseDownEL, false );
+		this.#eyeSpan.removeEventListener ( 'mouseup', this.#eyeMouseUpEL,	false );
+		this.#eyeMouseDownEL = null;
+		this.#eyeMouseUpEL = null;
 
 	}
 

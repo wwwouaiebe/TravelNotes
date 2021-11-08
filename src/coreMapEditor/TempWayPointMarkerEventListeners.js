@@ -42,7 +42,7 @@ class TempWayPointMarkerELData {
 
 	/**
 	A reference to the L.marker Object
-	@type {Object}
+	@type {LeafletObject}
 	*/
 
 	static marker = null;

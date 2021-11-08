@@ -109,14 +109,14 @@ class TopBarDragStartEL {
 
 	/**
 	A reference to the dragData object of the dialog
-	@type {Object}
+	@type {DragData}
 	*/
 
 	#dragData;
 
 	/**
 	The constructor
-	@param {Object} dragData A reference to the dragData object of the dialog
+	@param {DragData} dragData A reference to the dragData object of the dialog
 	*/
 
 	constructor ( dragData ) {
@@ -147,7 +147,7 @@ class TopBarDragEndEL {
 
 	/**
 	A reference to the dragData object of the dialog
-	@type {Object}
+	@type {DragData}
 	*/
 
 	#dragData;
@@ -168,7 +168,7 @@ class TopBarDragEndEL {
 
 	/**
 	The constructor
-	@param {Object} dragData A reference to the dragData object of the dialog
+	@param {DragData} dragData A reference to the dragData object of the dialog
 	@param {HTMLElement} container A reference to the dialog container
 	@param {HTMLElement} background A reference to the background of the dialog
 	*/
@@ -266,7 +266,7 @@ class BackgroundLeftPanEL {
 
 	/**
 	A leaflet LatLng object with the center of the map
-	@type {Object}
+	@type {LeafletObject}
 	*/
 
 	#mapCenter;
@@ -332,7 +332,7 @@ class BackgroundRightPanEL {
 
 	/**
 	A L.Point object containing the screen coordinates of the start point of the pan
-	@type {Object}
+	@type {LeafletObject}
 	*/
 
 	#startPoint;

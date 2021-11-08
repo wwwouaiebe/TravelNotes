@@ -162,7 +162,7 @@ class DialogOptions {
 
 	/**
 	The constructor
-	@param {Object} options An object with the options to change
+	@param {DialogOptions} options An object with the options to change
 	*/
 
 	constructor ( options ) {

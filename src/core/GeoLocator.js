@@ -91,7 +91,7 @@ class GeoLocator {
 	*/
 
 	#error ( positionError ) {
-		if ( ONE === positionError.code ) { 
+		if ( ONE === positionError.code ) {
 			this.#status = GEOLOCATION_STATUS.refusedByUser;
 		}
 		this.#stop ( );

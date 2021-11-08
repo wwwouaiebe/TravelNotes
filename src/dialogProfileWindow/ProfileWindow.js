@@ -78,21 +78,21 @@ class ProfileWindow extends FloatWindow {
 
 	/**
 	contextmenu event listener
-	@type {Object}
+	@type {SvgContextMenuEL}
 	*/
 
 	#svgContextMenuEL = null;
 
 	/**
 	mousemove event listener
-	@type {Object}
+	@type {SvgMouseMoveEL}
 	*/
 
 	#svgMouseMoveEL = null;
 
 	/**
 	mouseleave event listener
-	@type {Object}
+	@type {SvgMouseLeaveEL}
 	*/
 
 	#svgMouseLeaveEL = null;

@@ -223,7 +223,7 @@ class APIKeysManager {
 
 	/**
 	Get the url from the mapLayer
-	@param {Object} mapLayer the layer for witch the url must returned
+	@param {MapLayer} mapLayer the layer for witch the url must returned
 	@return {String} the url for the given mapLayer or null if the url cannot be given
 	*/
 

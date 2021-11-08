@@ -133,7 +133,7 @@ class FloatWindow {
 
 	/**
 	Shared data for drag and drop operations
-	@type {Object}
+	@type {DragData}
 	*/
 
 	#dragData;

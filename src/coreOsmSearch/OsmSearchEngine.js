@@ -67,7 +67,7 @@ class OsmSearchEngine	{
 
 	/**
 	A leaflet LatLngBounds object with the previous search limits
-	@type {Object}
+	@type {LeafletObject}
 	*/
 
 	#previousSearchBounds;
@@ -82,7 +82,7 @@ class OsmSearchEngine	{
 
 	/**
 	Compare the tags of the osmElement with the tags of the filterTags
-	@param {Object} osmElement the osmElement to compare
+	@param {OsmElement} osmElement the osmElement to compare
 	@param {Array.<Object>} filterTags The filter tags to use Seee DictionaryItem.filterTagsArray
 	@return {Boolean} true when all the tags present in the filterTags are present in the osmElement with the same value
 	*/
@@ -106,7 +106,7 @@ class OsmSearchEngine	{
 	/**
 	Filter the osmElement with the list of selected DictionaryItems and add the osmElement to the map of pointsOfInterest
 	if the osmElement pass the filter. Add also a description, a latitude and longitude to the osmElement
-	@param {Object} osmElement the object to analyse
+	@param {OsmElement} osmElement the object to analyse
 	@param {Map} pointsOfInterest A map with all the retained osmElements
 	*/
 
@@ -307,14 +307,14 @@ class OsmSearchEngine	{
 
 	/**
 	A leaflet LatLngBounds object with the current search limits
-	@type {Object}
+	@type {LeafletObject}
 	*/
 
 	get searchBounds ( ) { return this.#computeSearchBounds ( ); }
 
 	/**
 	A leaflet LatLngBounds object with the previous search limits
-	@type {Object}
+	@type {LeafletObject}
 	*/
 
 	get previousSearchBounds ( ) { return this.#previousSearchBounds; }

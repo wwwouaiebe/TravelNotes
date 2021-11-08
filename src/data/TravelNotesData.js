@@ -135,7 +135,7 @@ class TravelNotesData {
 
 	/**
 	The one and only one object Travel
-	@type {Object}
+	@type {Travel}
 	*/
 
 	#travel;
@@ -185,7 +185,7 @@ class TravelNotesData {
 
 	/**
 	The one and only one object Travel
-	@type {Object}
+	@type {Travel}
 	*/
 
 	get travel ( ) { return this.#travel; }

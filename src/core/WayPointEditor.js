@@ -72,7 +72,7 @@ class WayPointEditor {
 
 	/**
 	This method rename a WayPoint with data from Nominatim
-	@param {Object} wayPoint The wayPoint to rename
+	@param {WayPoint} wayPoint The wayPoint to rename
 	*/
 
 	async #renameWayPointWithGeocoder ( wayPoint ) {

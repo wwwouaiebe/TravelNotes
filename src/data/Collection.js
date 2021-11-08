@@ -68,21 +68,21 @@ class CollectionIterator {
 
 	/**
 	The object pointed by the iterator
-	@type {Object}
+	@type {TravelObject}
 	*/
 
 	get value ( ) { return this.#index < this.#collection.length ? this.#collection.at ( this.#index ) : null; }
 
 	/**
 	The object before the object pointed by the iterator or null if iterator is on the first object
-	@type {Object}
+	@type {TravelObject}
 	*/
 
 	get previous ( ) { return ZERO >= this.#index ? null : this.#collection.at ( this.#index - ONE ); }
 
 	/**
 	The object after the object pointed by the iterator or null if iterator is on the last object
-	@type {Object}
+	@type {TravelObject}
 	*/
 
 	get next ( ) { return this.#index < this.#collection.length - ONE ? this.#collection.at ( this.#index + ONE ) : null; }
@@ -208,7 +208,7 @@ class Collection {
 
 	/**
 	Add an object at the end of the collection
-	@param {Object} object The object to add
+	@param {TravelObject} object The object to add
 	*/
 
 	add ( object ) {
@@ -245,7 +245,7 @@ class Collection {
 	/**
 	Search an object in the Collection
 	@param {Number} objId The objId of the object to search
-	@return {Object} the object with the given objId or null when the object is not found
+	@return {TravelObject} the object with the given objId or null when the object is not found
 	*/
 
 	getAt ( objId ) {
@@ -324,7 +324,7 @@ class Collection {
 	/**
 	Replace an object in the Collection with another object
 	@param {Number} oldObjId the objId of the object to replace
-	@param {Object} newObject The new object
+	@param {TravelObject} newObject The new object
 	*/
 
 	replace ( oldObjId, newObject ) {
@@ -377,7 +377,7 @@ class Collection {
 
 	/**
 	The first object of the Collection
-	@type {Object}
+	@type {TravelObject}
 	*/
 
 	get first ( ) { return this.#array [ ZERO ]; }
@@ -394,7 +394,7 @@ class Collection {
 
 	/**
 	The last object of the Collection
-	@type {Object}
+	@type {TravelObject}
 	*/
 
 	get last ( ) { return this.#array [ this.#array.length - ONE ]; }
