@@ -98,7 +98,7 @@ class NoteDialogLinkControl {
 
 	/**
 	The constructor
-	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
 	@param {Array.<Number>} latLng The lat and lng to use with the 👿 button
 	*/
 

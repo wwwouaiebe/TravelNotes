@@ -60,17 +60,7 @@ import NoteDialogAddressControl from '../dialogNotes/NoteDialogAddressControl.js
 import NoteDialogLinkControl from '../dialogNotes/NoteDialogLinkControl.js';
 import NoteDialogPhoneControl from '../dialogNotes/NoteDialogPhoneControl.js';
 import NoteDialogPreviewControl from '../dialogNotes/NoteDialogPreviewControl.js';
-import {
-	AddressButtonClickEL,
-	NoteDialogGeoCoderHelper,
-	AllControlsFocusEL,
-	UrlInputBlurEL,
-	AllControlsInputEL,
-	EditionButtonsClickEL,
-	IconSelectorChangeEL,
-	ToggleContentsButtonClickEL,
-	OpenFileButtonClickEL
-} from '../dialogNotes/NoteDialogEventListeners.js';
+import { NoteDialogEventListeners, NoteDialogGeoCoderHelper } from '../dialogNotes/NoteDialogEventListeners.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import theTranslator from '../UILib/Translator.js';
 import Note from '../data/Note.js';
@@ -186,7 +176,7 @@ class NoteDialog extends BaseDialog {
 
 	/**
 	Event listeners
-	@type {Object}
+	@type {NoteDialogEventListeners}
 	*/
 
 	#eventListeners;
@@ -205,16 +195,7 @@ class NoteDialog extends BaseDialog {
 		this.#addressControl.destructor ( this.#eventListeners );
 		this.#linkControl.destructor ( this.#eventListeners );
 		this.#phoneControl.destructor ( this.#eventListeners );
-
-		this.#eventListeners.controlFocus = null;
-		this.#eventListeners.controlInput = null;
-		this.#eventListeners.addressButtonClick = null;
-		this.#eventListeners.urlInputBlur = null;
-
-		this.#eventListeners.editionButtonsClick = null;
-		this.#eventListeners.iconSelectorChange = null;
-		this.#eventListeners.toggleContentsButtonClick = null;
-		this.#eventListeners.openFileButtonClick = null;
+		this.#eventListeners.destructor ( );
 	}
 
 	/**
@@ -233,18 +214,7 @@ class NoteDialog extends BaseDialog {
 		this.#route = route;
 
 		this.#startGeoCoder = '' === this.#note.address;
-		this.#eventListeners = Object.seal (
-			{
-				controlFocus : new AllControlsFocusEL ( this ),
-				controlInput : new AllControlsInputEL ( this ),
-				addressButtonClick : new AddressButtonClickEL ( this, note.latLng ),
-				urlInputBlur : new UrlInputBlurEL ( this ),
-				editionButtonsClick : new EditionButtonsClickEL ( this ),
-				iconSelectorChange : new IconSelectorChangeEL ( this ),
-				toggleContentsButtonClick : new ToggleContentsButtonClickEL ( this ),
-				openFileButtonClick : new OpenFileButtonClickEL ( this )
-			}
-		);
+		this.#eventListeners = new NoteDialogEventListeners ( this, note.latLng );
 
 		// Cloning the note
 		this.#previewNote = new Note ( );

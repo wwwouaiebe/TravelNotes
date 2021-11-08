@@ -548,16 +548,163 @@ class OpenFileButtonClickEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+A simple container for the NoteDialog event listeners
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class NoteDialogEventListeners {
+
+	/**
+	The focus control event listener
+	@type {AllControlsFocusEL}
+	*/
+
+	#controlFocus;
+
+	/**
+	The input event listener
+	@type {AllControlsInputEL}
+	*/
+
+	#controlInput;
+
+	/**
+	The address buton click event listener
+	@type {AddressButtonClickEL}
+	*/
+
+	#addressButtonClick;
+
+	/**
+	The blur url input event listener
+	@type {UrlInputBlurEL}
+	*/
+
+	#urlInputBlur;
+
+	/**
+	The edition button click event listener
+	@type {EditionButtonsClickEL}
+	*/
+
+	#editionButtonsClick;
+
+	/**
+	The  icon selector change event listener
+	@type {IconSelectorChangeEL}
+	*/
+
+	#iconSelectorChange;
+
+	/**
+	The toggle content button click event listener
+	@type {ToggleContentsButtonClickEL}
+	*/
+
+	#toggleContentsButtonClick;
+
+	/**
+	The open file button click event listener
+	@type {OpenFileButtonClickEL}
+	*/
+
+	#openFileButtonClick;
+
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the NoteDialog object
+	@param {Array.<Number>} noteLatLng The lat and lng of the note
+	*/
+
+	constructor ( noteDialog, noteLatLng ) {
+		Object.freeze ( this );
+		this.#controlFocus = new AllControlsFocusEL ( noteDialog );
+		this.#controlInput = new AllControlsInputEL ( noteDialog );
+		this.#addressButtonClick = new AddressButtonClickEL ( noteDialog, noteLatLng );
+		this.#urlInputBlur = new UrlInputBlurEL ( noteDialog );
+		this.#editionButtonsClick = new EditionButtonsClickEL ( noteDialog );
+		this.#iconSelectorChange = new IconSelectorChangeEL ( noteDialog );
+		this.#toggleContentsButtonClick = new ToggleContentsButtonClickEL ( noteDialog );
+		this.#openFileButtonClick = new OpenFileButtonClickEL ( noteDialog );
+	}
+
+	/**
+	Set all events listeners to nul and then release all references to the dialog
+	*/
+
+	destructor ( ) {
+		this.#controlFocus = null;
+		this.#controlInput = null;
+		this.#addressButtonClick = null;
+		this.#urlInputBlur = null;
+		this.#editionButtonsClick = null;
+		this.#iconSelectorChange = null;
+		this.#toggleContentsButtonClick = null;
+		this.#openFileButtonClick = null;
+	}
+
+	/**
+	The focus control event listener
+	@type {AllControlsFocusEL}
+	*/
+
+	get controlFocus ( ) { return this.#controlFocus; }
+
+	/**
+	The input event listener
+	@type {AllControlsInputEL}
+	*/
+
+	get controlInput ( ) { return this.#controlInput; }
+
+	/**
+	The address buton click event listener
+	@type {AddressButtonClickEL}
+	*/
+
+	get addressButtonClick ( ) { return this.#addressButtonClick; }
+
+	/**
+	The blur url input event listener
+	@type {UrlInputBlurEL}
+	*/
+
+	get urlInputBlur ( ) { return this.#urlInputBlur; }
+
+	/**
+	The edition button click event listener
+	@type {EditionButtonsClickEL}
+	*/
+
+	get editionButtonsClick ( ) { return this.#editionButtonsClick; }
+
+	/**
+	The  icon selector change event listener
+	@type {IconSelectorChangeEL}
+	*/
+
+	get iconSelectorChange ( ) { return this.#iconSelectorChange; }
+
+	/**
+	The toggle content button click event listener
+	@type {ToggleContentsButtonClickEL}
+	*/
+
+	get toggleContentsButtonClick ( ) { return this.#toggleContentsButtonClick; }
+
+	/**
+	The open file button click event listener
+	@type {OpenFileButtonClickEL}
+	*/
+
+	get openFileButtonClick ( ) { return this.#openFileButtonClick; }
+}
+
 export {
-	AddressButtonClickEL,
 	NoteDialogGeoCoderHelper,
-	AllControlsFocusEL,
-	UrlInputBlurEL,
-	AllControlsInputEL,
-	EditionButtonsClickEL,
-	IconSelectorChangeEL,
-	ToggleContentsButtonClickEL,
-	OpenFileButtonClickEL
+	NoteDialogEventListeners
 };
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

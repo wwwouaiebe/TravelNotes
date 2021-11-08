@@ -200,7 +200,7 @@ class NoteDialogToolbar {
 
 	/**
 	Add the events listeners to the toolbar objects
-	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	#addEventListeners ( eventListeners ) {
@@ -214,7 +214,7 @@ class NoteDialogToolbar {
 
 	/**
 	Remove event listeners on all htmlElements
-	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	#removeEventListeners ( eventListeners ) {
@@ -228,7 +228,7 @@ class NoteDialogToolbar {
 
 	/**
 	The constructor
-	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	constructor ( eventListeners ) {
@@ -250,7 +250,7 @@ class NoteDialogToolbar {
 
 	/**
 	Destructor. Remove event listeners.
-	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	destructor ( eventListeners ) {
@@ -259,7 +259,7 @@ class NoteDialogToolbar {
 
 	/**
 	Refresh the toolbar - needed after a file upload.
-	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	update ( eventListeners ) {
