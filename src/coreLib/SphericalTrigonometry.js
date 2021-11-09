@@ -87,7 +87,8 @@ class SphericalTrigonometry {
 
 	/**
 
-	This method is also the well know cosinus law written in an other way....<br/>
+	This method is also the well know cosinus law written in an other way....
+	
 	cos C = ( cos c - cos a cos b ) / sin a sin b
 
 	@param {Number} arc1 the first arc

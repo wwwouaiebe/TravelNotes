@@ -34,7 +34,7 @@ import { SVG_NS, ZERO, NOT_FOUND } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@typedef {Object} UrlValidationReult
+@typedef {Object} UrlValidationResult
 An object returned by the sanitizeToUrl function
 @property {String} url the validated url or an empty string if the url is invalid
 @property {String} errorsString an empty string or an error description if the url is invalid
@@ -43,7 +43,7 @@ An object returned by the sanitizeToUrl function
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@typedef {Object} HtmlStringValidationReult
+@typedef {Object} HtmlStringValidationResult
 An object returned by the sanitizeToHtmlString function
 @property {String} htmlString the validated string
 @property {String} errorsString an empty string or an error description if the url is invalid
@@ -53,7 +53,8 @@ An object returned by the sanitizeToHtmlString function
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 This class contains methods to sanitize url and string, filtering html tags and attributes
-present in the string.<br/>
+present in the string.
+
 See theHTMLSanitizer for the one and only one instance of this class
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -350,7 +351,7 @@ class HTMLSanitizer {
 	HTMLSanitizerData.#validityMap variable are removed. Invalid Url in the href and src attributes are
 	also removed (see sanitizeToUrl method)
 	@param {String} htmlString the string to transform
-	@return {Object} a HtmlStringValidationReult with the result of the validation
+	@return {HtmlStringValidationResult} a HtmlStringValidationResult with the result of the validation
 	*/
 
 	sanitizeToHtmlString ( htmlString ) {
@@ -370,7 +371,8 @@ class HTMLSanitizer {
 	}
 
 	/**
-	This method verify that a string contains a valid url.<br/>
+	This method verify that a string contains a valid url.
+	
 	A valid url must not contains html tags or html entities or invalid characters
 	and must start with a valid protocol.
 
@@ -381,7 +383,7 @@ class HTMLSanitizer {
 	@param {String} urlString The url to validate
 	@param {String} attributeName The attribute name in witch the url will be placed. must be 'src' or
 	null (in this case 'href' is used as default)
-	@return {Object} a UrlValidationReult with the result of the validation
+	@return {UrlValidationResult} a UrlValidationResult with the result of the validation
 	*/
 
 	sanitizeToUrl ( urlString, attributeName ) {

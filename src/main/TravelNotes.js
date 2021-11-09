@@ -74,7 +74,8 @@ import { LAT_LNG, TWO, SAVE_STATUS, HTTP_STATUS_OK } from '../main/Constants.js'
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This class is the entry point of the application.<br/>
+This class is the entry point of the application.
+
 See theTravelNotes for the one and only one instance of this class
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */

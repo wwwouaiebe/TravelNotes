@@ -33,8 +33,8 @@ import { ICON_POSITION } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-Search:<br/>
-- the arrow to use for the direction to follow ( the arrow will be displayed in the address )<br/>
+Search:
+- the arrow to use for the direction to follow ( the arrow will be displayed in the address )
 - the tooltip content
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
