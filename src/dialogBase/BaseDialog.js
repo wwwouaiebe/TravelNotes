@@ -141,7 +141,7 @@ class DialogOptions {
 
 	/**
 	Options for the SelectDialog
-	@type {Array.<SelectOptionsData>}
+	@type {Array.<SelectOptionData>}
 	*/
 
 	#selectOptionsData = null;
@@ -205,7 +205,7 @@ class DialogOptions {
 
 	/**
 	Options for the SelectDialog
-	@type {Array.<SelectOptionsData>}
+	@type {Array.<SelectOptionData>}
 	*/
 
 	get selectOptionsData ( ) { return this.#selectOptionsData; }

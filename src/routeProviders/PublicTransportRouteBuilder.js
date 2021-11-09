@@ -326,7 +326,7 @@ class PublicTransportRouteBuilder {
 		this.#route = route;
 		this.#selectedRelationId = selectedRelationId;
 		this.#publicTransportData = new publicTransportData ( selectedRelationId );
-		this.nodes3Ways = [];
+		this.#nodes3Ways = [];
 	}
 
 	buildRoute ( response, onOk, onError ) {

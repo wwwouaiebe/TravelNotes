@@ -28,7 +28,7 @@ Tests ...
 */
 
 import { ZERO, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
-import SelectDialog from '../dialogs/SelectDialog.js';
+import { SelectOptionData, SelectDialog } from '../dialogs/SelectDialog.js';
 import PublicTransportRouteBuilder from '../routeProviders/PublicTransportRouteBuilder.js';
 import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
 
@@ -89,7 +89,7 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 		const selectOptionsData = [];
 		relations.elements.forEach (
 			relationElement => {
-				selectOptionsData.push ( { text : relationElement.tags.name, objId : relationElement.id } );
+				selectOptionsData.push ( new SelectOptionData ( relationElement.tags.name, relationElement.id ) );
 			}
 		);
 

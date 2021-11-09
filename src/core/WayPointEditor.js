@@ -54,15 +54,6 @@ import { ROUTE_EDITION_STATUS, TWO } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@typedef {Object} WayPointOsmData
-An object with the name and address found for the WayPoint with Nominatim
-@property {String} name
-@property {String} address
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
 This class contains methods fot WayPoints creation or modifications
 See theWayPointEditor for the one and only one instance of this class
 */

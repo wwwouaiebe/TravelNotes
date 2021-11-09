@@ -32,12 +32,52 @@ import { ZERO } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@typedef {Object} selectOptions
-An object to store the options of the select in the SelectDialog
-@property {String} text The text to be displayed as option HTMLElement
-@property {Number} objId An objId
+A simple container to store the The text to be displayed as option HTMLElement and an objId linked to this text
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
+
+class SelectOptionData {
+
+	/**
+	The text to be displayed as option HTMLElement
+	@type {String}
+	*/
+
+	#text;
+
+	/**
+	An objId
+	@type {Number}
+	*/
+
+	#objId;
+
+	/**
+	The constructor
+	@param {String} text The text to be displayed as option HTMLElement
+	@param {Number} objId An objId
+	*/
+
+	constructor ( text, objId ) {
+		Object.freeze ( this );
+		this.#text = text;
+		this.#objId = objId;
+	}
+
+	/**
+	The text to be displayed as option HTMLElement
+	@type {String}
+	*/
+
+	get text ( ) { return this.#text; }
+
+	/**
+	An objId
+	@type {Number}
+	*/
+
+	get objId ( ) { return this.#objId; }
+}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -119,6 +159,6 @@ class SelectDialog extends BaseDialog {
 
 }
 
-export default SelectDialog;
+export { SelectOptionData, SelectDialog };
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
