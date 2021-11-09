@@ -40,7 +40,7 @@ Changes:
 	- v1.12.0:
 		- Issue ♯120 : Review the UserInterface
 	- v2.0.0:
-		- Issue ♯142 : Transform the typedef layer to a class as specified in the layersToolbarUI.js
+		- Issue ♯142 : Transform the layer object to a class as specified in the layersToolbarUI.js
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:

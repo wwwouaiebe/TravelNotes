@@ -36,26 +36,7 @@ Tests ...
 
 import theTravelNotesData from '../data/TravelNotesData.js';
 import { DISTANCE, ZERO, ONE, TWO, DEGREES, LAT_LNG, EARTH_RADIUS } from '../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-@typedef {Object} LatLngElevOnRoute
-An object to store the latitude, longitude, elevation, ascent and distance of a point on a route
-@property {Array.<Number>} latLng The latitude and longitude of the point
-@property {Number} elev The elevation of the point
-@property {Number} ascent The ascent since the previous ItineraryPoint
-@property {Number} routeDistance The distance since the beginning of the route
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-@typedef {Object} LatLngDistance
-An object to store a latitude, longitude and distance
-@property {Array.<Number>} latLng The latitude and longitude
-@property {Number} distance The distance
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
+import { LatLngDistance, LatLngElevOnRoute } from '../coreLib/Containers.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -103,24 +84,14 @@ class Geometry {
 		const previousItineraryPoint = itineraryPointsIterator.value;
 		itineraryPointsIterator.done;
 		const scale = ( previousItineraryPoint.distance - nearestDistance + distance ) / previousItineraryPoint.distance;
-		return Object.freeze (
-			{
-				latLng :
-					[
-						previousItineraryPoint.lat +
-						( ( itineraryPointsIterator.value.lat - previousItineraryPoint.lat ) * scale ),
-						previousItineraryPoint.lng +
-						( ( itineraryPointsIterator.value.lng - previousItineraryPoint.lng ) * scale )
-					],
-				elev :
-					previousItineraryPoint.elev +
-					( ( itineraryPointsIterator.value.elev - previousItineraryPoint.elev ) * scale ),
-				ascent :
-					Geometry.#HUNDRED *
-					( itineraryPointsIterator.value.elev - previousItineraryPoint.elev ) /
-					previousItineraryPoint.distance,
-				routeDistance : distance
-			}
+
+		return new LatLngElevOnRoute (
+			previousItineraryPoint.lat + ( ( itineraryPointsIterator.value.lat - previousItineraryPoint.lat ) * scale ),
+			previousItineraryPoint.lng + ( ( itineraryPointsIterator.value.lng - previousItineraryPoint.lng ) * scale ),
+			distance,
+			previousItineraryPoint.elev + ( ( itineraryPointsIterator.value.elev - previousItineraryPoint.elev ) * scale ),
+			Geometry.#HUNDRED *
+				( itineraryPointsIterator.value.elev - previousItineraryPoint.elev ) / 	previousItineraryPoint.distance
 		);
 	}
 
@@ -168,13 +139,7 @@ class Geometry {
 			endSegmentDistance += itineraryPointIterator.value.distance;
 			point1 = point2;
 		}
-
-		return Object.freeze (
-			{
-				latLng : [ closestLatLng.lat, closestLatLng.lng ],
-				distance : closestDistance
-			}
-		);
+		return new LatLngDistance ( closestLatLng.lat, closestLatLng.lng, closestDistance );
 	}
 
 	/**

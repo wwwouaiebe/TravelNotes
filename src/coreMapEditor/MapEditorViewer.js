@@ -24,7 +24,7 @@ Changes:
 	- v1.12.0:
 		- Issue ♯120 : Review the UserInterface
 	- v2.0.0:
-		- Issue ♯142 : Transform the typedef layer to a class as specified in the layersToolbarUI.js
+		- Issue ♯142 : Transform the layer object to a class as specified in the layersToolbarUI.js
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
@@ -44,6 +44,72 @@ import { RouteMouseOverOrMoveEL } from '../coreMapEditor/RouteEventListeners.js'
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
 import { GEOLOCATION_STATUS, ROUTE_EDITION_STATUS, ZERO, ONE, TWO } from '../main/Constants.js';
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+A simple container with all the Leaflet objects for a note created by the MapEditorViewer.addNote ( )
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class NoteLeafletObjects {
+
+	/**
+	The marker of the note (= a L.Marker object)
+	@type {LeafletObject}
+	*/
+
+	#marker;
+
+	/**
+	The polyline of the note (= a L.Polyline object)
+	@type {LeafletObject}
+	*/
+
+	#polyline;
+
+	/**
+	The bullet of the note (= a L.Marker object)
+	@type {LeafletObject}
+	*/
+
+	#bullet;
+
+	/**
+	The constructor
+	@param {LeafletObject} marker The marker of the note
+	@param {LeafletObject} polyline The polyline of the note
+	@param {LeafletObject} bullet The bullet of the note
+	*/
+
+	constructor ( marker, polyline, bullet ) {
+		Object.freeze ( this );
+		this.#marker = marker;
+		this.#polyline = polyline;
+		this.#bullet = bullet;
+	}
+
+	/**
+	The marker of the note (= a L.Marker object)
+	@type {LeafletObject}
+	*/
+
+	get marker ( ) { return this.#marker; }
+
+	/**
+	The polyline of the note (= a L.Polyline object)
+	@type {LeafletObject}
+	*/
+
+	get polyline ( ) { return this.#polyline; }
+
+	/**
+	The bullet of the note (= a L.Marker object)
+	@type {LeafletObject}
+	*/
+
+	get bullet ( ) { return this.#bullet; }
+
+}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -260,7 +326,7 @@ class MapEditorViewer {
 				noteIcon => noteIcon.classList.add ( 'TravelNotes-Map-Note-Background' )
 			);
 		}
-		return Object.freeze ( { marker : marker, polyline : polyline, bullet : bullet } );
+		return new NoteLeafletObjects ( marker, polyline, bullet );
 	}
 
 	/**

@@ -25,7 +25,7 @@ Changes:
 	- v2.0.0:
 		- Issue ♯134 : Remove node.setAttribute ( 'style', blablabla) in the code
 		- Issue ♯135 : Remove innerHTML from code
-		- Issue ♯142 : Transform the typedef layer to a class as specified in the layersToolbarUI.js
+		- Issue ♯142 : Transform the layer object to a class as specified in the layersToolbarUI.js
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:

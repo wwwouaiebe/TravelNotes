@@ -294,9 +294,9 @@ class SvgMouseMoveEL extends BaseSvgEL {
 
 			// texts
 			const route = theDataSearchEngine.getRoute ( Number.parseInt ( this.#profileSvg.dataset.tanObjId ) );
-			this.#textAnchor = latLngElevOnRoute.routeDistance > route.distance / TWO ? 'end' : 'start';
+			this.#textAnchor = latLngElevOnRoute.distance > route.distance / TWO ? 'end' : 'start';
 			this.#markerX +=
-				latLngElevOnRoute.routeDistance > route.distance / TWO
+				latLngElevOnRoute.distance > route.distance / TWO
 					?
 					-SvgProfileBuilder.X_DELTA_TEXT
 					:
@@ -304,7 +304,7 @@ class SvgMouseMoveEL extends BaseSvgEL {
 
 			// distance
 			this.#distanceText = this.#createSvgText (
-				theUtilities.formatDistance ( latLngElevOnRoute.routeDistance ),
+				theUtilities.formatDistance ( latLngElevOnRoute.distance ),
 				SvgProfileBuilder.PROFILE_MARGIN + SvgProfileBuilder.Y_DELTA_TEXT,
 			);
 

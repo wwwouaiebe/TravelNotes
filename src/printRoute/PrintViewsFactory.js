@@ -26,30 +26,11 @@ Doc reviewed 20210915
 Tests ...
 */
 
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-@typedef {Object} PointCoordinates
-An object to store the latitude and longitude of a point
-@property {Number} lat The latitude
-@property {Number} lng The longitude
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
+import { LatLng } from '../coreLib/Containers.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@typedef {Object} PrintView
-An object to store a print view
-@property {PointCoordinates} bottomLeft The bottom left corner of the view
-@property {PointCoordinates} upperRight The upper right corner of the view
-@property {PointCoordinates} entryPoint The entry point of the route in the view. EntryPoint and exitPoint
-are not on the frame!
-@property {PointCoordinates} exitPoint The exit point of the route in the view
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-An object to store the width and height of a view
+A simple container to store the width and height of a view
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
@@ -98,6 +79,51 @@ class ViewSize {
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
+An simple container to store a print view
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class PrintView {
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.seal ( this );
+	}
+
+	/**
+	The bottom left corner of the view
+	@type {LatLng}
+	*/
+
+	bottomLeft;
+
+	/**
+	The upper right corner of the view
+	@type {LatLng}
+	*/
+
+	upperRight;
+
+	/**
+	The entry point of the route in the view. entryPoint and exitPoint are not on the frame!
+	@type {LatLng}
+	*/
+
+	entryPoint;
+
+	/**
+	The exit point of the route in the view
+	@type {LatLng}
+	*/
+
+	exitPoint;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
 Compute the size of the views for printing
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -131,7 +157,7 @@ class PrintViewsFactory {
 	@param {PrintView} currentView The current view
 	@param {ItineraryPoint} firstItineraryPoint The first ItineraryPoint
 	@param {ItineraryPoint} lastItineraryPoint The last ItineraryPoint
-	@return {PointCoordinates} The coordinates of the intersection or null if the line is not horizontal or vertical.
+	@return {LatLng} The coordinates of the intersection or null if the line is not horizontal or vertical.
 	*/
 
 	#isItineraryHorOrVer ( currentView, firstItineraryPoint, lastItineraryPoint ) {
@@ -139,26 +165,18 @@ class PrintViewsFactory {
 		if ( firstItineraryPoint.lng === lastItineraryPoint.lng ) {
 
 			// Itinerary is vertical
-			return {
-				lat : firstItineraryPoint.lat > lastItineraryPoint.lat
-					?
-					currentView.bottomLeft.lat
-					:
-					currentView.upperRight.lat,
-				lng : firstItineraryPoint.lng
-			};
+			return new LatLng (
+				firstItineraryPoint.lat > lastItineraryPoint.lat ? currentView.bottomLeft.lat :	currentView.upperRight.lat,
+				firstItineraryPoint.lng
+			);
 		}
 		if ( firstItineraryPoint.lat === lastItineraryPoint.lat ) {
 
 			// Itinerary is horizontal
-			return {
-				lat : firstItineraryPoint.lat,
-				lng : firstItineraryPoint.lng < lastItineraryPoint.lng
-					?
-					currentView.upperRight.lng
-					:
-					currentView.bottomLeft.lng
-			};
+			return new LatLng (
+				firstItineraryPoint.lat,
+				firstItineraryPoint.lng < lastItineraryPoint.lng ? currentView.upperRight.lng : currentView.bottomLeft.lng
+			);
 		}
 		return null;
 	}
@@ -167,7 +185,7 @@ class PrintViewsFactory {
 	Test if itineraryPoint is on the frame of currentView
 	@param {PrintView} currentView The current view
 	@param {ItineraryPoint} itineraryPoint The ItineraryPoint to test
-	@return {PointCoordinates} The coordinates of itineraryPoint or null if the itinerayPoint is not on the frame
+	@return {LatLng} The coordinates of itineraryPoint or null if the itinerayPoint is not on the frame
 	*/
 
 	#isPointOnViewFrame ( currentView, itineraryPoint ) {
@@ -185,7 +203,7 @@ class PrintViewsFactory {
 		) {
 
 			// itinerary point is really near the frame. we consider the itinerary point as intermediate point
-			return { lat : itineraryPoint.lat, lng : itineraryPoint.lng };
+			return new LatLng ( itineraryPoint.lat, itineraryPoint.lng );
 		}
 		return null;
 	}
@@ -196,7 +214,7 @@ class PrintViewsFactory {
 	@param {PrintView} currentView The current view
 	@param {ItineraryPoint} firstItineraryPoint The first ItineraryPoint
 	@param {ItineraryPoint} lastItineraryPoint The last ItineraryPoint
-	@return {PointCoordinates} The coordinates of the computed intermediate point or null
+	@return {LatLng} The coordinates of the computed intermediate point or null
 	*/
 
 	#haveViewOnlyOnePoint ( currentView, firstItineraryPoint, lastItineraryPoint ) {
@@ -209,10 +227,10 @@ class PrintViewsFactory {
 				Math.abs ( this.#maxViewSize.height / ( lastItineraryPoint.lat - firstItineraryPoint.lat ) ),
 				Math.abs ( this.#maxViewSize.width / ( lastItineraryPoint.lng - firstItineraryPoint.lng ) )
 			);
-			return {
-				lat : firstItineraryPoint.lat + ( coef * ( lastItineraryPoint.lat - firstItineraryPoint.lat ) ),
-				lng : firstItineraryPoint.lng + ( coef * ( lastItineraryPoint.lng - firstItineraryPoint.lng ) )
-			};
+			return new LatLng (
+				firstItineraryPoint.lat + ( coef * ( lastItineraryPoint.lat - firstItineraryPoint.lat ) ),
+				firstItineraryPoint.lng + ( coef * ( lastItineraryPoint.lng - firstItineraryPoint.lng ) )
+			);
 		}
 		return null;
 	}
@@ -222,7 +240,7 @@ class PrintViewsFactory {
 	@param {PrintView} currentView The current view
 	@param {ItineraryPoint} firstItineraryPoint The first ItineraryPoint
 	@param {ItineraryPoint} lastItineraryPoint The last ItineraryPoint
-	@return {PointCoordinates} The computed point
+	@return {LatLng} The computed point
 	*/
 
 	#computeIntermediatePoint ( currentView, firstItineraryPoint, lastItineraryPoint ) {
@@ -282,10 +300,7 @@ class PrintViewsFactory {
 		const coefB = firstItineraryPoint.lat - ( coefA * firstItineraryPoint.lng );
 
 		// Searching intersection with the right side of currentView
-		intermediatePoint = {
-			lat : ( coefA * currentView.upperRight.lng ) + coefB,
-			lng : currentView.upperRight.lng
-		};
+		intermediatePoint = new LatLng ( ( coefA * currentView.upperRight.lng ) + coefB, currentView.upperRight.lng );
 
 		if (
 			intermediatePoint.lat <= currentView.upperRight.lat
@@ -298,10 +313,7 @@ class PrintViewsFactory {
 		}
 
 		// Searching intersection with the top side of currentView
-		intermediatePoint = {
-			lat : currentView.upperRight.lat,
-			lng : ( currentView.upperRight.lat - coefB ) / coefA
-		};
+		intermediatePoint = new LatLng ( currentView.upperRight.lat, ( currentView.upperRight.lat - coefB ) / coefA );
 
 		if (
 			intermediatePoint.lng >= currentView.bottomLeft.lng
@@ -314,10 +326,7 @@ class PrintViewsFactory {
 		}
 
 		// Searching intersection with the left side of currentView
-		intermediatePoint = {
-			lat : ( coefA * currentView.bottomLeft.lng ) + coefB,
-			lng : currentView.bottomLeft.lng
-		};
+		intermediatePoint = new LatLng ( ( coefA * currentView.bottomLeft.lng ) + coefB, currentView.bottomLeft.lng );
 
 		if (
 			intermediatePoint.lat <= currentView.upperRight.lat
@@ -330,10 +339,7 @@ class PrintViewsFactory {
 		}
 
 		// Searching intersection with the bottom side of currentView
-		intermediatePoint = {
-			lat : currentView.bottomLeft.lat,
-			lng : ( currentView.bottomLeft.lat - coefB ) / coefA
-		};
+		intermediatePoint = new LatLng ( currentView.bottomLeft.lat, ( currentView.bottomLeft.lat - coefB ) / coefA );
 
 		if (
 			intermediatePoint.lng >= currentView.bottomLeft.lng
@@ -361,12 +367,12 @@ class PrintViewsFactory {
 
 		// First view is created with the first itineraryPoint
 		// ! Be sure that points in the views are clones and not only references...
-		let currentView = {
-			bottomLeft : { lat : itineraryPointsIterator.value.lat, lng : itineraryPointsIterator.value.lng },
-			upperRight : { lat : itineraryPointsIterator.value.lat, lng : itineraryPointsIterator.value.lng },
-			entryPoint : { lat : itineraryPointsIterator.value.lat, lng : itineraryPointsIterator.value.lng },
-			exitPoint : { lat : itineraryPointsIterator.value.lat, lng : itineraryPointsIterator.value.lng }
-		};
+
+		let currentView = new PrintView ( );
+		currentView.bottomLeft = new LatLng ( itineraryPointsIterator.value.lat, itineraryPointsIterator.value.lng );
+		currentView.upperRight = new LatLng ( itineraryPointsIterator.value.lat, itineraryPointsIterator.value.lng );
+		currentView.entryPoint = new LatLng ( itineraryPointsIterator.value.lat, itineraryPointsIterator.value.lng );
+		currentView.exitPoint = new LatLng ( itineraryPointsIterator.value.lat, itineraryPointsIterator.value.lng );
 
 		let previousItineraryPoint = itineraryPointsIterator.value;
 
@@ -376,24 +382,17 @@ class PrintViewsFactory {
 		while ( ! done ) {
 
 			// a temporary view is created, extending the current view with the current itinerary point
-			const tmpView = {
-				bottomLeft : {
-					lat : Math.min ( currentView.bottomLeft.lat, currentItineraryPoint.lat ),
-					lng : Math.min ( currentView.bottomLeft.lng, currentItineraryPoint.lng )
-				},
-				upperRight : {
-					lat : Math.max ( currentView.upperRight.lat, currentItineraryPoint.lat ),
-					lng : Math.max ( currentView.upperRight.lng, currentItineraryPoint.lng )
-				},
-				entryPoint : {
-					lat : currentView.entryPoint.lat,
-					lng : currentView.entryPoint.lng
-				},
-				exitPoint : {
-					lat : currentView.exitPoint.lat,
-					lng : currentView.exitPoint.lng
-				}
-			};
+			const tmpView = new PrintView ( );
+			tmpView.bottomLeft = new LatLng (
+				Math.min ( currentView.bottomLeft.lat, currentItineraryPoint.lat ),
+				Math.min ( currentView.bottomLeft.lng, currentItineraryPoint.lng )
+			);
+			tmpView.upperRight = new LatLng (
+				Math.max ( currentView.upperRight.lat, currentItineraryPoint.lat ),
+				Math.max ( currentView.upperRight.lng, currentItineraryPoint.lng )
+			);
+			tmpView.entryPoint = new LatLng ( currentView.entryPoint.lat, currentView.entryPoint.lng );
+			tmpView.exitPoint = new LatLng ( currentView.exitPoint.lat, currentView.exitPoint.lng );
 
 			// computing the temporary view size...
 			const tmpViewSize = new ViewSize (
@@ -413,8 +412,7 @@ class PrintViewsFactory {
 				if ( done ) {
 
 					// It's the last view. Adding the exit point
-					currentView.exitPoint.lat = previousItineraryPoint.lat;
-					currentView.exitPoint.lng = previousItineraryPoint.lng;
+					currentView.exitPoint = new LatLng ( previousItineraryPoint.lat, previousItineraryPoint.lng );
 
 					// and the view is added to the list of views
 					this.#printViews.push ( Object.freeze ( currentView ) );
@@ -431,29 +429,27 @@ class PrintViewsFactory {
 				);
 
 				// The view is extended to the intermediate point
-				currentView.bottomLeft = {
-					lat : Math.min ( currentView.bottomLeft.lat, intermediatePoint.lat ),
-					lng : Math.min ( currentView.bottomLeft.lng, intermediatePoint.lng )
-				};
-				currentView.upperRight = {
-					lat : Math.max ( currentView.upperRight.lat, intermediatePoint.lat ),
-					lng : Math.max ( currentView.upperRight.lng, intermediatePoint.lng )
-				};
+				currentView.bottomLeft = new LatLng (
+					Math.min ( currentView.bottomLeft.lat, intermediatePoint.lat ),
+					Math.min ( currentView.bottomLeft.lng, intermediatePoint.lng )
+				);
+				currentView.upperRight = new LatLng (
+					Math.max ( currentView.upperRight.lat, intermediatePoint.lat ),
+					Math.max ( currentView.upperRight.lng, intermediatePoint.lng )
+				);
 
 				// exit point is added to the view
-				currentView.exitPoint.lat = intermediatePoint.lat;
-				currentView.exitPoint.lng = intermediatePoint.lng;
+				currentView.exitPoint = new LatLng ( intermediatePoint.lat, intermediatePoint.lng );
 
 				// and the view added to the list view
 				this.#printViews.push ( Object.freeze ( currentView ) );
 
 				// and a new view is created
-				currentView = {
-					bottomLeft : { lat : intermediatePoint.lat, lng : intermediatePoint.lng },
-					upperRight : { lat : intermediatePoint.lat, lng : intermediatePoint.lng },
-					entryPoint : { lat : intermediatePoint.lat, lng : intermediatePoint.lng },
-					exitPoint : { lat : intermediatePoint.lat, lng : intermediatePoint.lng }
-				};
+				currentView = new PrintView ( );
+				currentView.bottomLeft = new LatLng ( intermediatePoint.lat, intermediatePoint.lng );
+				currentView.upperRight = new LatLng ( intermediatePoint.lat, intermediatePoint.lng );
+				currentView.entryPoint = new LatLng ( intermediatePoint.lat, intermediatePoint.lng );
+				currentView.exitPoint = new LatLng ( intermediatePoint.lat, intermediatePoint.lng );
 			}
 		} // end of while ( ! done )
 	}
