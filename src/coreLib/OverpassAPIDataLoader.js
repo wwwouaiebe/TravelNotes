@@ -129,7 +129,7 @@ class OverpassAPIDataLoader {
 	/**
 	an Object with hamlet, village, city and town properties.
 	Each properties are objects with name, distance and maxDistance properties.
-	@type {oldObject}
+	@type {Object}
 	*/
 
 	#places;
@@ -375,28 +375,38 @@ class OverpassAPIDataLoader {
 		this.#statusOk = true;
 		this.#adminNames = [];
 		this.#osmCityAdminLevel = theConfig.geoCoder.osmCityAdminLevel.DEFAULT;// myOsmCityAdminLevel
-		this.#places = {
-			hamlet : {
-				name : null,
-				distance : Number.MAX_VALUE,
-				maxDistance : theConfig.geoCoder.distances.hamlet
-			},
-			village : {
-				name : null,
-				distance : Number.MAX_VALUE,
-				maxDistance : theConfig.geoCoder.distances.village
-			},
-			city : {
-				name : null,
-				distance : Number.MAX_VALUE,
-				maxDistance : theConfig.geoCoder.distances.city
-			},
-			town : {
-				name : null,
-				distance : Number.MAX_VALUE,
-				maxDistance : theConfig.geoCoder.distances.town
+		this.#places = Object.freeze (
+			{
+				hamlet : Object.seal (
+					{
+						name : null,
+						distance : Number.MAX_VALUE,
+						maxDistance : theConfig.geoCoder.distances.hamlet
+					}
+				),
+				village : Object.seal (
+					{
+						name : null,
+						distance : Number.MAX_VALUE,
+						maxDistance : theConfig.geoCoder.distances.village
+					}
+				),
+				city : Object.seal (
+					{
+						name : null,
+						distance : Number.MAX_VALUE,
+						maxDistance : theConfig.geoCoder.distances.city
+					}
+				),
+				town : Object.seal (
+					{
+						name : null,
+						distance : Number.MAX_VALUE,
+						maxDistance : theConfig.geoCoder.distances.town
+					}
+				)
 			}
-		};
+		);
 
 		this.#place = null;
 		this.#city = null;

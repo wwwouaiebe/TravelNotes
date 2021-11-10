@@ -42,7 +42,7 @@ class Translator {
 
 	/**
 	A js Map where the translations are stored, ordered by msgid
-	@type {Map}
+	@type {Map.<String>}
 	*/
 
 	#translations = new Map ( );
@@ -57,7 +57,7 @@ class Translator {
 
 	/**
 	Load the translations
-	@param {Array.<Translation>} translations The translations to load
+	@param {JsonObject} translations The translations to load
 	*/
 
 	setTranslations ( translations ) {

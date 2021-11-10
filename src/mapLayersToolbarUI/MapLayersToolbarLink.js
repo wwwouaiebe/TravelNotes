@@ -116,7 +116,7 @@ class MapLayersToolbarLink {
 
 	/**
 	The constructor
-	@param {oldObject} linkProperties An object with the buttons properties (href, title, textContent and target)
+	@param {Object} linkProperties An object with the buttons properties (href, title, textContent and target)
 	@param {HTMLElement} parentNode The buttons container
 	*/
 
