@@ -59,7 +59,7 @@ class APIKeysDialog extends BaseDialog {
 	@type {Map}
 	*/
 
-	#APIKeysControls;
+	#apiKeysControls;
 
 	/**
 	The dialog toolbar
@@ -73,7 +73,7 @@ class APIKeysDialog extends BaseDialog {
 	@type {HTMLElement}
 	*/
 
-	#APIKeysControlsContainer;
+	#apiKeysControlsContainer;
 
 	/**
 	Api key deleted event listener
@@ -83,13 +83,13 @@ class APIKeysDialog extends BaseDialog {
 	#onAPIKeyDeletedEventListener;
 
 	/**
-	Create the #APIKeysControlsContainer
+	Create the #apiKeysControlsContainer
 	*/
 
 	#createAPIKeysControlsContainer ( ) {
-		this.#APIKeysControlsContainer = theHTMLElementsFactory.create ( 'div' );
-		this.#onAPIKeyDeletedEventListener = new APIKeyDeletedEL ( this, this.#APIKeysControls );
-		this.#APIKeysControlsContainer.addEventListener (
+		this.#apiKeysControlsContainer = theHTMLElementsFactory.create ( 'div' );
+		this.#onAPIKeyDeletedEventListener = new APIKeyDeletedEL ( this, this.#apiKeysControls );
+		this.#apiKeysControlsContainer.addEventListener (
 			'apikeydeleted',
 			this.#onAPIKeyDeletedEventListener,
 			false
@@ -98,18 +98,18 @@ class APIKeysDialog extends BaseDialog {
 
 	/**
 	The constructor
-	@param {Array.<APIKey>} APIKeys An array with the existing APIKeys
+	@param {Array.<APIKey>} apiKeys An array with the existing APIKeys
 	@param {Boolean} haveAPIKeysFile A boolean indicating when a APIKey file was found on the server
 	*/
 
-	constructor ( APIKeys, haveAPIKeysFile ) {
+	constructor ( apiKeys, haveAPIKeysFile ) {
 
 		super ( );
 
-		this.#APIKeysControls = new Map ( );
-		this.#toolbar = new APIKeysDialogToolbar ( this, this.#APIKeysControls, haveAPIKeysFile );
+		this.#apiKeysControls = new Map ( );
+		this.#toolbar = new APIKeysDialogToolbar ( this, this.#apiKeysControls, haveAPIKeysFile );
 		this.#createAPIKeysControlsContainer ( );
-		this.addAPIKeys ( APIKeys );
+		this.addAPIKeys ( apiKeys );
 	}
 
 	/**
@@ -119,7 +119,7 @@ class APIKeysDialog extends BaseDialog {
 	#destructor ( ) {
 		this.#toolbar.destructor ( );
 		this.#toolbar = null;
-		this.#APIKeysControlsContainer.removeEventListener (
+		this.#apiKeysControlsContainer.removeEventListener (
 			'apikeydeleted',
 			this.#onAPIKeyDeletedEventListener,
 			false
@@ -137,14 +137,14 @@ class APIKeysDialog extends BaseDialog {
 		this.hideError ( );
 		let haveEmptyValues = false;
 		const providersNames = [];
-		this.#APIKeysControls.forEach (
-			APIKeyControl => {
+		this.#apiKeysControls.forEach (
+			apiKeyControl => {
 				haveEmptyValues =
 					haveEmptyValues ||
-					'' === APIKeyControl.providerName
+					'' === apiKeyControl.providerName
 					||
-					'' === APIKeyControl.providerKey;
-				providersNames.push ( APIKeyControl.providerName );
+					'' === apiKeyControl.providerKey;
+				providersNames.push ( apiKeyControl.providerName );
 			}
 		);
 		let haveDuplicate = false;
@@ -172,30 +172,30 @@ class APIKeysDialog extends BaseDialog {
 
 	/**
 	Add an array of APIKeys to the dialog.
-	@param {Array.<APIKey>} APIKeys An array with the APIKeys to add
+	@param {Array.<APIKey>} apiKeys An array with the APIKeys to add
 	*/
 
-	addAPIKeys ( APIKeys ) {
-		this.#APIKeysControls.clear ( );
-		APIKeys.forEach (
-			APIKey => {
-				const APIKeyControl = new APIKeysDialogKeyControl ( APIKey );
-				this.#APIKeysControls.set ( APIKeyControl.objId, APIKeyControl );
+	addAPIKeys ( apiKeys ) {
+		this.#apiKeysControls.clear ( );
+		apiKeys.forEach (
+			apiKey => {
+				const apiKeyControl = new APIKeysDialogKeyControl ( apiKey );
+				this.#apiKeysControls.set ( apiKeyControl.objId, apiKeyControl );
 			}
 		);
 		this.refreshAPIKeys ( );
 	}
 
 	/**
-	Remove all elements from the #APIKeysControlsContainer and add the existing APIKeys
+	Remove all elements from the #apiKeysControlsContainer and add the existing APIKeys
 	*/
 
 	refreshAPIKeys ( ) {
-		while ( this.#APIKeysControlsContainer.firstChild ) {
-			this.#APIKeysControlsContainer.removeChild ( this.#APIKeysControlsContainer.firstChild );
+		while ( this.#apiKeysControlsContainer.firstChild ) {
+			this.#apiKeysControlsContainer.removeChild ( this.#apiKeysControlsContainer.firstChild );
 		}
-		this.#APIKeysControls.forEach (
-			APIKeyControl => { this.#APIKeysControlsContainer.appendChild ( APIKeyControl.HTMLElements [ ZERO ] ); }
+		this.#apiKeysControls.forEach (
+			apiKeyControl => { this.#apiKeysControlsContainer.appendChild ( apiKeyControl.HTMLElements [ ZERO ] ); }
 		);
 	}
 
@@ -234,11 +234,11 @@ class APIKeysDialog extends BaseDialog {
 	*/
 
 	onOk ( ) {
-		const APIKeys = [];
-		this.#APIKeysControls.forEach (
-			APIKeyControl => APIKeys.push ( APIKeyControl.APIKey )
+		const apiKeys = [];
+		this.#apiKeysControls.forEach (
+			apiKeyControl => apiKeys.push ( apiKeyControl.apiKey )
 		);
-		if ( super.onOk ( APIKeys ) ) {
+		if ( super.onOk ( apiKeys ) ) {
 			this.#destructor ( );
 		}
 	}
@@ -256,7 +256,7 @@ class APIKeysDialog extends BaseDialog {
 	*/
 
 	get contentHTMLElements ( ) {
-		return [ this.#toolbar.rootHTMLElement, this.#APIKeysControlsContainer ];
+		return [ this.#toolbar.rootHTMLElement, this.#apiKeysControlsContainer ];
 	}
 }
 

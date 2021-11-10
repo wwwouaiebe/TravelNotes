@@ -36,6 +36,7 @@ Tests 20210903
 -----------------------------------------------------------------------------------------------------------------------
 */
 
+import { APIKey } from '../coreLib/Containers.js';
 import APIKeysDialog from '../dialogAPIKeys/APIKeysDialog.js';
 import theUtilities from '../UILib/Utilities.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
@@ -47,15 +48,6 @@ import theTranslator from '../UILib/Translator.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 
 import { ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-@typedef {Object} APIKey
-An object to store a provider name and  API key
-@property {String} providerName The provider name
-@property {String} providerKey The provider API key
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -78,7 +70,7 @@ class APIKeysManager {
 	@type {Map.<String>}
 	*/
 
-	#APIKeysMap = new Map ( );
+	#apiKeysMap = new Map ( );
 
 	/**
 	This method is called when the 'APIKkeys' file is decoded correctly
@@ -131,7 +123,7 @@ class APIKeysManager {
 	*/
 
 	#getAPIKey ( providerName ) {
-		return this.#APIKeysMap.get ( providerName.toLowerCase ( ) );
+		return this.#apiKeysMap.get ( providerName.toLowerCase ( ) );
 	}
 
 	/**
@@ -141,7 +133,7 @@ class APIKeysManager {
 	*/
 
 	#setAPIKey ( providerName, key ) {
-		this.#APIKeysMap.set ( providerName.toLowerCase ( ), key );
+		this.#apiKeysMap.set ( providerName.toLowerCase ( ), key );
 	}
 
 	/**
@@ -173,25 +165,25 @@ class APIKeysManager {
 
 	/**
 	This method replace all the API keys from the map and storage with the given APIKeys
-	@param {Array.<APIKey>} APIKeys the new APIKeys
+	@param {Array.<APIKey>} newAPIKeys the new APIKeys
 	*/
 
-	#resetAPIKeys ( APIKeys ) {
+	#resetAPIKeys ( newAPIKeys ) {
 		sessionStorage.clear ( );
-		this.#APIKeysMap.clear ( );
+		this.#apiKeysMap.clear ( );
 		const saveToSessionStorage =
 			theUtilities.storageAvailable ( 'sessionStorage' )
 			&&
 			theConfig.APIKeys.saveToSessionStorage;
-		APIKeys.forEach (
-			APIKey => {
+		newAPIKeys.forEach (
+			newApiKey => {
 				if ( saveToSessionStorage ) {
 					sessionStorage.setItem (
-						( APIKey.providerName ).toLowerCase ( ) + 'ProviderKey',
-						btoa ( APIKey.providerKey )
+						( newApiKey.providerName ).toLowerCase ( ) + 'ProviderKey',
+						btoa ( newApiKey.providerKey )
 					);
 				}
-				this.#setAPIKey ( APIKey.providerName, APIKey.providerKey );
+				this.#setAPIKey ( newApiKey.providerName, newApiKey.providerKey );
 			}
 		);
 		theTravelNotesData.providers.forEach (
@@ -219,7 +211,7 @@ class APIKeysManager {
 	@return {Boolean} true when the provider API key is known
 	*/
 
-	hasKey ( providerName ) { return this.#APIKeysMap.has ( providerName.toLowerCase ( ) ); }
+	hasKey ( providerName ) { return this.#apiKeysMap.has ( providerName.toLowerCase ( ) ); }
 
 	/**
 	Get the url from the mapLayer
@@ -229,7 +221,7 @@ class APIKeysManager {
 
 	getUrl ( mapLayer ) {
 		if ( mapLayer.providerKeyNeeded ) {
-			const providerKey = this.#APIKeysMap.get ( mapLayer.providerName.toLowerCase ( ) );
+			const providerKey = this.#apiKeysMap.get ( mapLayer.providerName.toLowerCase ( ) );
 			if ( providerKey ) {
 				return mapLayer.url.replace ( '{providerKey}', providerKey );
 			}
@@ -282,18 +274,18 @@ class APIKeysManager {
 	setKeysFromDialog ( ) {
 
 		// preparing a list of providers and provider keys for the dialog
-		const ApiKeys = [];
-		this.#APIKeysMap.forEach (
+		const apiKeys = [];
+		this.#apiKeysMap.forEach (
 			( providerKey, providerName ) => {
-				ApiKeys.push ( Object.seal ( { providerName : providerName, providerKey : providerKey } ) );
+				apiKeys.push ( new APIKey ( providerName, providerKey ) );
 			}
 		);
-		ApiKeys.sort ( ( first, second ) => first.providerName.localeCompare ( second.providerName ) );
+		apiKeys.sort ( ( first, second ) => first.providerName.localeCompare ( second.providerName ) );
 
 		// showing dialog
-		new APIKeysDialog ( ApiKeys, this.#haveAPIKeysFile )
+		new APIKeysDialog ( apiKeys, this.#haveAPIKeysFile )
 			.show ( )
-			.then ( APIKeys => this.#resetAPIKeys ( APIKeys ) )
+			.then ( newAPIKeys => this.#resetAPIKeys ( newAPIKeys ) )
 			.catch (
 				err => {
 					if ( err instanceof Error ) {

@@ -167,6 +167,55 @@ class LatLngElevOnRoute extends LatLngDistance {
 	get ascent ( ) { return this.#ascent; }
 }
 
-export { LatLng, LatLngDistance, LatLngElevOnRoute };
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+A simple container to store a provider name and a provider API key
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class APIKey {
+
+	/**
+	The provider name
+	@type {String}
+	*/
+
+	#providerName;
+
+	/**
+	The provider API key
+	@type {String}
+	*/
+
+	#providerKey;
+
+	/**
+	The constructor
+	@param {String} providerName The provider name
+	@param {String} providerKey The provider API key
+	*/
+
+	constructor ( providerName, providerKey ) {
+		Object.freeze ( this );
+		this.#providerName = providerName;
+		this.#providerKey = providerKey;
+	}
+
+	/**
+	The provider name
+	@type {String}
+	*/
+
+	get providerName ( ) { return this.#providerName; }
+
+	/**
+	The provider API key
+	@type {String}
+	*/
+
+	get providerKey ( ) { return this.#providerKey; }
+}
+
+export { LatLng, LatLngDistance, LatLngElevOnRoute, APIKey };
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

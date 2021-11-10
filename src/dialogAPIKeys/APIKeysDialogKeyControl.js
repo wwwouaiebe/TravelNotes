@@ -29,6 +29,7 @@ Tests ...
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import { APIKey } from '../coreLib/Containers.js';
 import ObjId from '../data/ObjId.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -99,10 +100,10 @@ class APIKeysDialogKeyControl {
 
 	/**
 	The constructor
-	@param {APIKey} APIKey The APIKey to display in the control
+	@param {APIKey} apiKey The APIKey to display in the control
 	*/
 
-	constructor ( APIKey ) {
+	constructor ( apiKey ) {
 
 		this.#objId = ObjId.nextObjId;
 
@@ -117,7 +118,7 @@ class APIKeysDialogKeyControl {
 			'input',
 			{
 				className : 'TravelNotes-APIKeysDialog-ApiKeyName TravelNotes-APIKeysDialog-Input',
-				value : APIKey.providerName,
+				value : apiKey.providerName,
 				placeholder : theTranslator.getText ( 'APIKeysDialog - provider name' )
 			},
 			this.#rootHTMLElement
@@ -127,7 +128,7 @@ class APIKeysDialogKeyControl {
 			'input',
 			{
 				className : 'TravelNotes-APIKeysDialog-ApiKeyValue TravelNotes-APIKeysDialog-Input',
-				value : APIKey.providerKey,
+				value : apiKey.providerKey,
 				placeholder : theTranslator.getText ( 'APIKeysDialog - API key' ),
 				type : theConfig.APIKeysDialog.showAPIKeys ? 'text' : 'password'
 			},
@@ -182,13 +183,8 @@ class APIKeysDialogKeyControl {
 	@type {APIKey}
 	*/
 
-	get APIKey ( ) {
-		return Object.seal (
-			{
-				providerName : this.#providerNameInput.value,
-				providerKey : this.#providerKeyInput.value
-			}
-		);
+	get apiKey ( ) {
+		return new APIKey ( this.#providerNameInput.value, this.#providerKeyInput.value );
 	}
 
 }
