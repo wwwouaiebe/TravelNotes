@@ -134,7 +134,7 @@ class MapLayer	{
 	/**
 	The wmsOptions for this mapLayer
 	See the Leaflet TileLayer.WMS documentation
-	@type {Object}
+	@type {LeafletObject}
 	*/
 
 	#wmsOptions = null;
@@ -190,7 +190,7 @@ class MapLayer	{
 
 	/**
 	A temporary variable to store the layer data
-	@type {Object}
+	@type {JsonObject}
 	*/
 
 	#jsonLayer = null;
@@ -400,7 +400,7 @@ class MapLayer	{
 	/**
 	The wmsOptions for this mapLayer
 	See the Leaflet TileLayer.WMS documentation
-	@type {Object}
+	@type {LeafletObject}
 	*/
 
 	get wmsOptions ( ) { return this.#wmsOptions; }

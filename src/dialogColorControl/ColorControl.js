@@ -33,6 +33,69 @@ import Color from '../dialogColorControl/Color.js';
 
 import { ZERO, COLOR_CONTROL } from '../main/Constants.js';
 
+/**
+A simple container for the red, green and blue inputs HTMLElement
+*/
+
+class ColorInputs {
+
+	/**
+	The red input
+	@type {HTMLElement}
+	*/
+
+	#red;
+
+	/**
+	The green input
+	@type {HTMLElement}
+	*/
+
+	#green;
+
+	/**
+	The blue input
+	@type {HTMLElement}
+	*/
+
+	#blue;
+
+	/**
+	The constructor
+	@param {HTMLElement} redInput The red input
+	@param {HTMLElement} greenInput The green input
+	@param {HTMLElement} blueInput The blue input
+	*/
+
+	constructor ( redInput, greenInput, blueInput ) {
+		Object.freeze ( this );
+		this.#red = redInput;
+		this.#green = greenInput;
+		this.#blue = blueInput;
+	}
+
+	/**
+	The red input
+	@type {HTMLElement}
+	*/
+
+	get red ( ) { return this.#red; }
+
+	/**
+	The green input
+	@type {HTMLElement}
+	*/
+
+	get green ( ) { return this.#green; }
+
+	/**
+	The blue input
+	@type {HTMLElement}
+	*/
+
+	get blue ( ) { return this.#blue; }
+}
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 html control for color selection
@@ -57,7 +120,7 @@ class ColorControl {
 
 	/**
 	The red, green and blue input htmlElement of the ColorControl
-	@type {Object}
+	@type {ColorInputs}
 	*/
 
 	#inputs;
@@ -187,7 +250,6 @@ class ColorControl {
 			},
 			this.#rgbDiv
 		);
-		inputHtmlElement.addEventListener ( 'input', this.#colorInputEL, false );
 
 		return inputHtmlElement;
 	}
@@ -199,20 +261,16 @@ class ColorControl {
 	#createColorInputsDiv ( ) {
 		this.#rgbDiv = theHTMLElementsFactory.create ( 'div', null, this.#colorDiv );
 
-		this.#colorInputEL = new ColorInputEL ( this, this.#inputs );
+		this.#inputs = new ColorInputs (
+			this.#createColorInput ( theTranslator.getText ( 'ColorControl - Red' ), this.#newColor.red	),
+			this.#createColorInput ( theTranslator.getText ( 'ColorControl - Green' ), this.#newColor.green ),
+			this.#createColorInput ( theTranslator.getText ( 'ColorControl - Blue' ), this.#newColor.blue )
+		);
 
-		this.#inputs.red = this.#createColorInput (
-			theTranslator.getText ( 'ColorControl - Red' ),
-			this.#newColor.red,
-		);
-		this.#inputs.green = this.#createColorInput (
-			theTranslator.getText ( 'ColorControl - Green' ),
-			this.#newColor.green,
-		);
-		this.#inputs.blue = this.#createColorInput (
-			theTranslator.getText ( 'ColorControl - Blue' ),
-			this.#newColor.blue,
-		);
+		this.#colorInputEL = new ColorInputEL ( this, this.#inputs );
+		for ( const colorInput in this.#inputs ) {
+			this.#inputs [ colorInput ].addEventListener ( 'input', this.#colorInputEL, false );
+		}
 	}
 
 	/**
@@ -238,13 +296,6 @@ class ColorControl {
 	constructor ( cssColor ) {
 		Object.freeze ( this );
 		this.#colorButtons = [];
-		this.#inputs = Object.seal (
-			{
-				red : null,
-				green : null,
-				blue : null
-			}
-		);
 		this.#newColor = new Color ( );
 		this.#newColor.cssColor = cssColor;
 		this.#colorDiv = theHTMLElementsFactory.create (

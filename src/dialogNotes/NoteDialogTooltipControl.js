@@ -53,7 +53,7 @@ class NoteDialogTooltipControl {
 
 	/**
 	The constructor
-	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	constructor ( eventListeners ) {
@@ -85,7 +85,7 @@ class NoteDialogTooltipControl {
 
 	/**
 	Remove event listeners
-	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	destructor ( eventListeners ) {

@@ -129,7 +129,7 @@ class OverpassAPIDataLoader {
 	/**
 	an Object with hamlet, village, city and town properties.
 	Each properties are objects with name, distance and maxDistance properties.
-	@type {Object}
+	@type {oldObject}
 	*/
 
 	#places;
@@ -346,7 +346,7 @@ class OverpassAPIDataLoader {
 
 	/**
 	The constructor
-	@param {Object} options An object with the options to set
+	@param {OverpassAPIDataLoaderOptions} options An object with the options to set
 	*/
 
 	constructor ( options ) {

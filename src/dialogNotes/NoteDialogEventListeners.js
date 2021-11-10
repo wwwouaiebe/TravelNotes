@@ -49,7 +49,7 @@ class NoteDialogGeoCoderHelper {
 
 	/**
 	Success handler for the geoCoder.getAddressWithPromise ( ) method
-	@param {Object} address The address found by the geocoder
+	@param {GeoCoderAddress} address The address found by the geocoder
 	*/
 
 	#onAddressUpdatedByGeoCoder ( address ) {

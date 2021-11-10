@@ -161,7 +161,7 @@ class Zoomer {
 
 	/**
 	Performs a zoom on a poi (point of interest = a search result from osm)
-	@param {Object} poi Poi on witch the zoom must be performed
+	@param {oldObject} poi Poi on witch the zoom must be performed
 	*/
 
 	zoomToPoi ( poi ) {

@@ -360,7 +360,7 @@ class MapEditor	extends MapEditorViewer {
 	This method is called by the 'addrectangle' event listener.
 	@param {Number} objId A unique identifier to attach to the rectangle
 	@param {Array.<Array.<number>>} bounds The lower left and upper right corner of the rectangle
-	@param {Object} properties The Leaflet properties of the rectangle
+	@param {LeafletObject} properties The Leaflet properties of the rectangle
 	*/
 
 	addRectangle ( objId, bounds, properties ) {

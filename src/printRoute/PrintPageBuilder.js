@@ -107,7 +107,7 @@ class PrintPageBuilder {
 
 	/**
 	A reference to the PrintRouteMapOptions object containing the user choices
-	@type {Object}
+	@type {PrintRouteMapOptions}
 	*/
 
 	#printRouteMapOptions;
@@ -385,7 +385,8 @@ class PrintPageBuilder {
 	The constructor
 	@param {Route} route A reference to the printed route
 	@param {Array.PrintView>} printViews A reference to the views to print
-	@param {Object} printRouteMapOptions A reference to the PrintRouteMapOptions object containing the user choices
+	@param {PrintRouteMapOptions} printRouteMapOptions A reference to the PrintRouteMapOptions
+	object containing the user choices
 	*/
 
 	constructor ( route, printViews, printRouteMapOptions ) {

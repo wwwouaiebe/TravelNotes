@@ -49,7 +49,7 @@ class RouteHTMLViewsFactory {
 	Gives an HTMLElement with the icon, instruction, distance since the beginning of the travel (if the instruction is
 	linked to a chained route), distance since the beginning of the route and distance till the next maneuver
 	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
-	@param {Object} routeAndManeuver An object with the maneuver, the route to witch the maneuver is linked and the distance
+	@param {oldObject} routeAndManeuver An object with the maneuver, the route to witch the maneuver is linked and the distance
 	between the beginning of the route and the maneuver
 	@return {HTMLElement} An HTMLElement with the Maneuver
 	*/

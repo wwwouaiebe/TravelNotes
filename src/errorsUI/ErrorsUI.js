@@ -210,7 +210,7 @@ class ErrorsUI {
 
 	/**
 	Show an error message ( a white text on a red background )
-	
+
 	See theConfig.errorsUI.showError to disable or enable the error messages
 	@param {String} error The error message to display
 	*/
@@ -219,7 +219,7 @@ class ErrorsUI {
 
 	/**
 	Show an warning message ( a black text on an orange background )
-	
+
 	See theConfig.errorsUI.showWarning to disable or enable the warning messages
 	@param {String} warning The warning message to display
 	*/
@@ -236,7 +236,7 @@ class ErrorsUI {
 
 	/**
 	Show a help message ( a black text on a white background )
-	
+
 	See theConfig.errorsUI.showHelp to disable or enable the help messages and the
 	checkbox in the UI to disable the help
 	@param {String} help The help message to display

@@ -32,6 +32,45 @@ import theTranslator from '../UILib/Translator.js';
 
 import { DISTANCE, ZERO, ONE, TWO, NOT_FOUND, ICON_POSITION } from '../main/Constants.js';
 
+/**
+A simple container to store data on roundabouts
+*/
+
+class RoundaboutData {
+
+	/**
+	A boolean indicating when the roundabout is a mini roundabout
+	@type {Boolean}
+	*/
+
+	isMini;
+
+	/**
+	A boolean indicating when the icon is placed at the entry of a roundabout
+	@type {Boolean}
+	*/
+
+	isEntry;
+
+	/**
+	A boolean indicating when the icon is placed at the exit of a roundabout
+	@type {Boolean}
+	*/
+
+	isExit;
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.seal ( this );
+		this.isMini = false;
+		this.isEntry = false;
+		this.isExit = false;
+	}
+}
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 Search:
@@ -115,7 +154,7 @@ class StreetFinder {
 
 	/**
 	Roundabout data
-	@type {Object}
+	@type {RoundaboutData}
 	*/
 
 	#roundaboutData
@@ -426,11 +465,7 @@ class StreetFinder {
 		this.#outgoingOsmNodeId = NOT_FOUND;
 		this.#incomingStreetName = '';
 		this.#outgoingStreetName = '';
-		this.#roundaboutData = {
-			isMini : false,
-			isEntry : false,
-			isExit : false
-		};
+		this.#roundaboutData = new RoundaboutData ( );
 
 		this.#findOsmNodes ( );
 		this.#findMiniRoundabout ( );

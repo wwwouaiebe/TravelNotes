@@ -123,7 +123,7 @@ class NoteDialogAddressControl {
 
 	/**
 	Remove event listeners
-	@param {Object} eventListeners A reference to the eventListeners object of the NoteDialog
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
 	destructor ( eventListeners ) {

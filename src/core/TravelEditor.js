@@ -75,10 +75,10 @@ class TravelEditor {
 
 	/**
 	This method save the travel to a file, removing notes and maneuvers, depending of the user choice.
-	@param {Object} removeData an object describing witch data must be saved
+	@param {SaveAsDialogData} saveAsDialogData an object describing witch data must be saved
 	*/
 
-	#saveAsTravel ( removeData ) {
+	#saveAsTravel ( saveAsDialogData ) {
 
 		const saveAsTravel = new Travel ( );
 		saveAsTravel.jsonObject = theTravelNotesData.travel.jsonObject;
@@ -87,16 +87,16 @@ class TravelEditor {
 		while ( ! routesIterator.done ) {
 			routesIterator.value.hidden = false;
 		}
-		if ( removeData.removeTravelNotes ) {
+		if ( saveAsDialogData.removeTravelNotes ) {
 			saveAsTravel.notes.removeAll ( );
 		}
-		if ( removeData.removeRoutesNotes ) {
+		if ( saveAsDialogData.removeRoutesNotes ) {
 			routesIterator = saveAsTravel.routes.iterator;
 			while ( ! routesIterator.done ) {
 				routesIterator.value.notes.removeAll ( );
 			}
 		}
-		if ( removeData.removeManeuvers ) {
+		if ( saveAsDialogData.removeManeuvers ) {
 			routesIterator = saveAsTravel.routes.iterator;
 			while ( ! routesIterator.done ) {
 				routesIterator.value.itinerary.maneuvers.removeAll ( );

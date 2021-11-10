@@ -68,6 +68,53 @@ import theConfig from '../data/Config.js';
 
 import { ZERO, ONE } from '../main/Constants.js';
 
+/**
+A simple container to store the lat, lng and route needed to build a map icon
+*/
+
+class MapIconData {
+
+	/**
+	The lat and lng
+	@type {Array.<Number>}
+	*/
+
+	#latLng;
+
+	/**
+	The route
+	@type {Route}
+	*/
+
+	#route;
+
+	/**
+	The constructor
+	@param {Array.<Number>} latLng The lat and lng
+	@param {Route} route The route
+	*/
+
+	constructor ( latLng, route ) {
+		Object.freeze ( this );
+		this.#latLng = latLng;
+		this.#route = route;
+	}
+
+	/**
+	The lat and lng
+	@type {Array.<Number>}
+	*/
+
+	get latLng ( ) { return this.#latLng; }
+
+	/**
+	The route
+	@type {Route}
+	*/
+
+	get route ( ) { return this.#route; }
+}
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 This class create and manage the NoteDialog
@@ -246,10 +293,10 @@ class NoteDialog extends BaseDialog {
 
 	/**
 	Data needed for the MapIconFromOsmFactory
-	@type {Object}
+	@type {MapIconData}
 	*/
 
-	get mapIconData ( ) { return Object.freeze ( { latLng : this.#previewNote.latLng, route : this.#route } ); }
+	get mapIconData ( ) { return new MapIconData ( this.#previewNote.latLng, this.#route ); }
 
 	/**
 	Update the preview of the note. Used by event listeners
@@ -312,7 +359,14 @@ class NoteDialog extends BaseDialog {
 		if ( super.onOk ( ) ) {
 
 			// saving values in the note.
-			this.getControlsValues ( this.#note );
+			this.#note.iconWidth = this.#iconDimsControl.iconWidth;
+			this.#note.iconHeight = this.#iconDimsControl.iconHeight;
+			this.#note.iconContent = this.#iconControl.iconContent;
+			this.#note.tooltipContent = this.#tooltipControl.tooltipContent;
+			this.#note.popupContent = this.#popupControl.popupContent;
+			this.#note.address = this.#addressControl.address;
+			this.#note.url = this.#linkControl.url;
+			this.#note.phone = this.#phoneControl.phone;
 
 			// latLng can change for map icons, so we save the value from the preview note
 			this.#note.latLng = this.#previewNote.latLng;
@@ -371,22 +425,6 @@ class NoteDialog extends BaseDialog {
 		this.#addressControl.address = source.address || this.#addressControl.address;
 		this.#linkControl.url = source.url || this.#linkControl.url;
 		this.#phoneControl.phone = source.phone || this.#phoneControl.phone;
-	}
-
-	/**
-	put all the control values in the destination object
-	@param {Object} destination The object in witch the values will be added
-	*/
-
-	getControlsValues ( destination ) {
-		destination.iconWidth = this.#iconDimsControl.iconWidth;
-		destination.iconHeight = this.#iconDimsControl.iconHeight;
-		destination.iconContent = this.#iconControl.iconContent;
-		destination.tooltipContent = this.#tooltipControl.tooltipContent;
-		destination.popupContent = this.#popupControl.popupContent;
-		destination.address = this.#addressControl.address;
-		destination.url = this.#linkControl.url;
-		destination.phone = this.#phoneControl.phone;
 	}
 
 	/**

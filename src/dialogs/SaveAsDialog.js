@@ -33,6 +33,71 @@ import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
+A simple container with the user choices in the SaveAsDialog
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class SaveAsDialogData {
+
+	/**
+	A flag indicating that the travel notes have to be removed
+	@type {Boolean}
+	*/
+
+	#removeTravelNotes;
+
+	/**
+	A flag indicating that the route notes have to be removed
+	@type {Boolean}
+	*/
+
+	#removeRoutesNotes;
+
+	/**
+	A flag indicating that the maneuvers have to be removed
+	@type {Boolean}
+	*/
+
+	#removeManeuvers;
+
+	/**
+	The constructor
+	@param {Boolean} removeTravelNotes A flag indicating that the travel notes have to be removed
+	@param {Boolean} removeRoutesNotes A flag indicating that the route notes have to be removed
+	@param {Boolean} removeManeuvers A flag indicating that the maneuvers have to be removed
+	*/
+
+	constructor ( removeTravelNotes, removeRoutesNotes, removeManeuvers ) {
+		Object.freeze ( this );
+		this.#removeTravelNotes = removeTravelNotes;
+		this.#removeRoutesNotes = removeRoutesNotes;
+		this.#removeManeuvers = removeManeuvers;
+	}
+
+	/**
+	A flag indicating that the travel notes have to be removed
+	@type {Boolean}
+	*/
+
+	get removeTravelNotes ( ) { return this.#removeTravelNotes; }
+
+	/**
+	A flag indicating that the route notes have to be removed
+	@type {Boolean}
+	*/
+
+	get removeRoutesNotes ( ) { return this.#removeRoutesNotes; }
+
+	/**
+	A flag indicating that the maneuvers have to be removed
+	@type {Boolean}
+	*/
+
+	get removeManeuvers ( ) { return this.#removeManeuvers; }
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
 A saveAsDialog object completed for making a partial save of the edited travel
 Create an instance of the dialog, then execute the show ( ) method. The selected values are returned as parameter of the
 succes handler of the Promise returned by the show ( ) method.
@@ -124,12 +189,10 @@ class SaveAsDialog extends BaseDialog {
 
 	onOk ( ) {
 		super.onOk (
-			Object.freeze (
-				{
-					removeTravelNotes : this.#removeTravelNotesInput.checked,
-					removeRoutesNotes : this.#removeRoutesNotesInput.checked,
-					removeManeuvers : this.#removeManeuversInput.checked
-				}
+			new SaveAsDialogData (
+				this.#removeTravelNotesInput.checked,
+				this.#removeRoutesNotesInput.checked,
+				this.#removeManeuversInput.checked
 			)
 		);
 	}

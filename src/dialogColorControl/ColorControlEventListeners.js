@@ -95,7 +95,7 @@ class ColorInputEL {
 
 	/**
 	A reference to the red, green and blue input htmlElement of the ColorControl
-	@type {Object}
+	@type {ColorInputs}
 	*/
 
 	#inputs;
@@ -103,7 +103,7 @@ class ColorInputEL {
 	/**
 	The constructor
 	@param {ColorControl} colorControl A reference to the ColorControl object
-	@param {Object} inputs A reference to the red, green and blue input htmlElement of the ColorControl
+	@param {ColorInputs} inputs A reference to the red, green and blue input htmlElement of the ColorControl
 	*/
 
 	constructor ( colorControl, inputs ) {

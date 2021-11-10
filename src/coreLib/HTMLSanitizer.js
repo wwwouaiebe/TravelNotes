@@ -28,27 +28,9 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import HTMLSanitizerData from '../coreLib/HTMLSanitizerData.js';
+import { HTMLSanitizerData, HtmlStringValidationResult, UrlValidationResult } from '../coreLib/HTMLSanitizerData.js';
 
 import { SVG_NS, ZERO, NOT_FOUND } from '../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-@typedef {Object} UrlValidationResult
-An object returned by the sanitizeToUrl function
-@property {String} url the validated url or an empty string if the url is invalid
-@property {String} errorsString an empty string or an error description if the url is invalid
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-@typedef {Object} HtmlStringValidationResult
-An object returned by the sanitizeToHtmlString function
-@property {String} htmlString the validated string
-@property {String} errorsString an empty string or an error description if the url is invalid
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -365,14 +347,14 @@ class HTMLSanitizer {
 			new DOMParser ( ).parseFromString ( '<div>' + htmlString.replace ( '&nbsp;', '\u0a00' ) + '</div>', 'text/html' );
 		if ( parseResult && '\u0023document' === parseResult.nodeName ) {
 			this.#stringify ( parseResult.body.firstChild );
-			return { htmlString : this.#stringifiedHTML, errorsString : this.#stringifyErrors };
+			return new HtmlStringValidationResult ( this.#stringifiedHTML, this.#stringifyErrors );
 		}
-		return { htmlString : '', errorsString : 'Parsing error' };
+		return new HtmlStringValidationResult ( '', 'Parsing error' );
 	}
 
 	/**
 	This method verify that a string contains a valid url.
-	
+
 	A valid url must not contains html tags or html entities or invalid characters
 	and must start with a valid protocol.
 
@@ -395,7 +377,7 @@ class HTMLSanitizer {
 		if ( ! parseResult || '\u0023document' !== parseResult.nodeName ) {
 
 			// strange: no result or not a document. We return an empty string
-			return { url : '', errorsString : 'Parsing error' };
+			return new UrlValidationResult ( '', 'Parsing error' );
 		}
 
 		// Taking the first child node of the pasing and concatenate the childnodes of this node...
@@ -410,7 +392,7 @@ class HTMLSanitizer {
 			else {
 
 				// otherwise returning an empty string
-				return { url : '', errorsString : 'Invalid characters found in the url' };
+				return new UrlValidationResult ( '', 'Invalid characters found in the url' );
 			}
 		}
 
@@ -435,7 +417,7 @@ class HTMLSanitizer {
 		if ( newUrlString !== urlString ) {
 
 			// < > " ' characters found i the url. Returning an empty string
-			return { url : '', errorsString : 'Invalid characters found in the url' };
+			return new UrlValidationResult ( '', 'Invalid characters found in the url' );
 		}
 
 		// creating a list of valid protocols for the url
@@ -451,7 +433,7 @@ class HTMLSanitizer {
 			// the url contains only letters and numbers chars and start with a hash. It's a link to the document itself
 			const urlHash = newUrlString.match ( /^\u0023\w*/ );
 			if ( urlHash && newUrlString === urlHash [ ZERO ] ) {
-				return { url : newUrlString, errorsString : '' };
+				return new UrlValidationResult ( newUrlString, '' );
 			}
 		}
 		if ( 'src' === tmpAttributeName ) {
@@ -466,21 +448,21 @@ class HTMLSanitizer {
 		catch ( err ) {
 
 			// not possible to create an url. Returning an empty string
-			return { url : '', errorsString : 'Invalid url string' };
+			return new UrlValidationResult ( '', 'Invalid url string' );
 		}
 		if ( NOT_FOUND === validProtocols.indexOf ( url.protocol ) ) {
 
 			// the url protocol is not in the list of valid protocol. Returning an empty string
-			return { url : '', errorsString : 'Invalid protocol ' + url.protocol };
+			return new UrlValidationResult ( '', 'Invalid protocol ' + url.protocol );
 		}
 		if ( NOT_FOUND !== [ 'sms:', 'tel:' ].indexOf ( url.protocol ) ) {
 
 			// sms and tel url must start with a + and contains only numbers, hash or star
 			if ( url.pathname.match ( /^\+[0-9,*,\u0023]*$/ ) ) {
-				return { url : newUrlString, errorsString : '' };
+				return new UrlValidationResult ( newUrlString, '' );
 			}
 
-			return { url : '', errorsString : 'Invalid sms: or tel: url' };
+			return new UrlValidationResult ( '', 'Invalid sms: or tel: url' );
 
 		}
 
@@ -489,10 +471,9 @@ class HTMLSanitizer {
 			encodeURIComponent ( url.href );
 		}
 		catch ( err ) {
-			return { url : '', errorsString : 'Invalid character in url' };
+			return new UrlValidationResult ( '', 'Invalid character in url' );
 		}
-
-		return { url : newUrlString, errorsString : '' };
+		return new UrlValidationResult ( newUrlString, '' );
 	}
 
 	/**

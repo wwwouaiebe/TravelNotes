@@ -373,7 +373,8 @@ class MapIconFromOsmFactory {
 
 	/**
 	get the svg and the data needed for creating the icon, using a promise
-	@param {Object} mapIconData An object with the latLng of the note and a reference to the Route for witch the icon is build
+	@param {MapIconData} mapIconData An object with the latLng of the note and a reference to the
+	Route for witch the icon is build
 	@return {Promise} A Promise fullfilled with the svg data
 	*/
 
