@@ -62,7 +62,7 @@ class AllManeuverNotesBuilder {
 
 	/**
 	This method creates a new route note with data from osm
-	@param {NoteData} noteData The data needed for building the note
+	@param {Object} noteData The data needed for building the note
 	*/
 
 	#newNoteFromOsmData ( noteData ) {

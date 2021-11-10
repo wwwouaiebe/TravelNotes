@@ -46,47 +46,48 @@ A simple container with the lat, lng and geometry of a point of interest
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 class PoiData {
-	
+
 	/**
 	The lat and lng of the POI
 	@type {Array.<Number>}
 	*/
-	
+
 	#latLng;
-	
+
 	/**
 	The geometry of the POI  The lat and lng of the objects representing the POI on OSM ( POI can be a point ,
 	a polyline or a relation ).
 	@type {Array.<Array.<Array.<Number>>>}
 	*/
-	
+
 	#geometry;
-	
+
 	/**
 	The constructor
 	@param {Array.<Number>} latLng The lat and lng of the POI
 	@param {Array.<Array.<Array.<Number>>>} geometry
 	*/
-	
+
 	constructor ( latLng, geometry ) {
 		this.#latLng = latLng;
 		this.#geometry = geometry;
 	}
-	
+
 	/**
 	The lat and lng of the POI
 	@type {Array.<Number>} The geometry of the POI
 	*/
 
 	get latLng ( ) { return this.#latLng; }
-	
+
 	/**
 	The geometry of the POI  The lat and lng of the objects representing the POI on OSM ( POI can be a point ,
 	a polyline or a relation ).
 	@type {Array.<Array.<Array.<Number>>>}
 	*/
+
 	get geometry ( ) { return this.#geometry; }
-	
+
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -174,7 +175,7 @@ class OsmSearchContextMenu extends BaseContextMenu {
 			new MenuItem (
 				theTranslator.getText ( 'OsmSearchContextMenu - Zoom to this result' ),
 				true,
-				( ) => new Zoomer ( ).zoomToPoi ( new PoiData ( this.#latLng, this.#osmElement.geometry  ) )
+				( ) => new Zoomer ( ).zoomToPoi ( new PoiData ( this.#latLng, this.#osmElement.geometry ) )
 			)
 		];
 	}
