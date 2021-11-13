@@ -179,6 +179,21 @@ module.exports = function(grunt) {
 					dest : './techDoc'
 				}
 			},
+			doc: {
+				options : {
+					src : './src',
+					dest : './techDoc',
+					validate : true
+				}
+			},
+			doclaunch: {
+				options : {
+					src : './src',
+					dest : './techDoc',
+					validate : true,
+					launch : true
+				}
+			},
 			release : {
 				options : {
 					src : './src',
@@ -417,15 +432,19 @@ module.exports = function(grunt) {
 	);
 	grunt.registerTask(
 		'doc', 
-		[ 'essimpledoc:debug' ]
+		[ 'essimpledoc:doc' ]
+	);
+	grunt.registerTask(
+		'doclaunch', 
+		[ 'essimpledoc:doclaunch' ]
 	);
 	grunt.registerTask(
 		'debug',
-		[ 'eslint', 'stylelint', 'clean:beforeDebug', 'rollup:debug', 'cssmin:debug', 'copy:debug',	'clean:afterDebug' ]
+		[ 'eslint', 'stylelint', 'clean:beforeDebug', 'rollup:debug', 'cssmin:debug', 'copy:debug',	'clean:afterDebug', 'essimpledoc:debug' ]
 	);
 	grunt.registerTask(
 		'release',
-		[ 'eslint', 'stylelint', 'clean:beforeDebug', 'rollup:debug', 'cssmin:debug', 'copy:debug', 'clean:afterDebug', 'clean:beforeRelease', 'copy:beforeRelease', 'replace:release', 'rollup:release', 'terser', 'cssmin:release', 'copy:release', 'clean:afterRelease' ]
+		[ 'eslint', 'stylelint', 'clean:beforeDebug', 'rollup:debug', 'cssmin:debug', 'copy:debug', 'clean:afterDebug', 'clean:beforeRelease', 'copy:beforeRelease', 'replace:release', 'rollup:release', 'terser', 'cssmin:release', 'copy:release', 'clean:afterRelease', 'essimpledoc:release' ]
 	);
 	
 	// console
