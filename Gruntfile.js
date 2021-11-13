@@ -172,7 +172,22 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		
+		essimpledoc: {
+			debug: {
+				options : {
+					src : './src',
+					dest : './techDoc'
+				}
+			},
+			release : {
+				options : {
+					src : './src',
+					dest : './techDoc',
+					validate : true,
+					launch : true
+				}
+			}
+		},
 		// stylelint config for debug and release
 		
 		stylelint: {
@@ -392,6 +407,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	
+	grunt.loadNpmTasks('grunt-essimpledoc');
+	
 	// Register tasks
 	
 	grunt.registerTask (
@@ -400,7 +417,7 @@ module.exports = function(grunt) {
 	);
 	grunt.registerTask(
 		'doc', 
-		[ 'clean:beforeDoc', 'jsdoc' ]
+		[ 'essimpledoc:debug' ]
 	);
 	grunt.registerTask(
 		'debug',
