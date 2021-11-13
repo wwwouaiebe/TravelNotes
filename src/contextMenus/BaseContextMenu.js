@@ -33,9 +33,7 @@ import BaseContextMenuOperator from '../contextMenus/BaseContextMenuOperator.js'
 
 import { ZERO, INVALID_OBJ_ID, LAT_LNG } from '../main/Constants.js';
 
-/**
-
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------------------------------------------------*/
 /**
 Simple container to store a menu item
 */
@@ -488,7 +486,7 @@ class BaseContextMenu {
 	get menuItemHTMLElements ( ) { return this.#menuItemHTMLElements; }
 
 	/**
-	eventDdata getter
+	eventData getter
 	@type {BaseContextMenuEventData}
 	*/
 
