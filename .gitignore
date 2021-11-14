@@ -7,5 +7,5 @@ node_modules/
 backup/
 tmp/
 debug/
-TechDoc/
+docs/
 tests/
