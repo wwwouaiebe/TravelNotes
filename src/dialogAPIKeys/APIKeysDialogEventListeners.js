@@ -31,6 +31,7 @@ import DataEncryptor from '../coreLib/DataEncryptor.js';
 import theUtilities from '../UILib/Utilities.js';
 import APIKeysDialogKeyControl from '../dialogAPIKeys/APIKeysDialogKeyControl.js';
 import { DataEncryptorHandlers, SaveAPIKeysHelper } from '../dialogAPIKeys/APIKeysDialogHelpers.js';
+import { APIKey } from '../coreLib/Containers.js';
 
 import { ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
 
@@ -479,8 +480,8 @@ class NewAPIKeyButtonClickEL {
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		const APIKey = Object.seal ( { providerName : '', providerKey : '' } );
-		const APIKeyControl = new APIKeysDialogKeyControl ( APIKey );
+		const apiKey = new APIKey ( );
+		const APIKeyControl = new APIKeysDialogKeyControl ( apiKey );
 		this.#APIKeysControls.set ( APIKeyControl.objId, APIKeyControl );
 		this.#APIKeysDialog.refreshAPIKeys ( );
 	}

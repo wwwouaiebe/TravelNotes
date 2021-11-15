@@ -110,7 +110,7 @@ class LatLngDistance extends LatLng {
 	@type {Number}
 	*/
 
-	get distance ( ) { return this.distance; }
+	get distance ( ) { return this.#distance; }
 
 }
 
@@ -197,8 +197,8 @@ class APIKey {
 
 	constructor ( providerName, providerKey ) {
 		Object.freeze ( this );
-		this.#providerName = providerName;
-		this.#providerKey = providerKey;
+		this.#providerName = 'string' === typeof ( providerName ) ? providerName : '';
+		this.#providerKey = 'string' === typeof ( providerKey ) ? providerKey : '';
 	}
 
 	/**
@@ -214,6 +214,7 @@ class APIKey {
 	*/
 
 	get providerKey ( ) { return this.#providerKey; }
+
 }
 
 export { LatLng, LatLngDistance, LatLngElevOnRoute, APIKey };

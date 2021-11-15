@@ -148,7 +148,14 @@ class SaveAPIKeysHelper {
 	getAPIKeysJsonString ( ) {
 		const APIKeys = [];
 		this.#APIKeysControls.forEach (
-			APIKeyControl => { APIKeys.push ( APIKeyControl.APIKey ); }
+			APIKeyControl => {
+				APIKeys.push (
+					{
+						providerName : APIKeyControl.providerName,
+						providerKey : APIKeyControl.providerKey
+					}
+				);
+			}
 		);
 		return JSON.stringify ( APIKeys );
 	}
