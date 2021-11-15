@@ -22,93 +22,56 @@ Changes:
 		- Issue ♯120 : Review the UserInterface
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ProfileContextMenu.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module contextMenus
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-import BaseContextMenu from '../contextMenus/BaseContextMenu.js';
+import { BaseContextMenu, MenuItem } from '../contextMenus/BaseContextMenu.js';
 import theTranslator from '../UILib/Translator.js';
 import theNoteEditor from '../core/NoteEditor.js';
 import Zoomer from '../core/Zoomer.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class ProfileContextMenu
-@classdesc this class implements the BaseContextMenu class for the profiles
-@extends BaseContextMenu
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+this class implements the BaseContextMenu class for the profiles
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ProfileContextMenu extends BaseContextMenu {
 
-	/*
-	constructor
-	@param {Event} contextMenuEvent. The event that have triggered the menu
-	@param {Object} parentNode The parent node of the menu. Can be null for leaflet objects
+	/**
+	The constructor
+	@param {Event} contextMenuEvent The event that have triggered the menu
+	@param {HTMLElement} parentNode The parent node of the menu. Can be null for leaflet objects
 	*/
 
-	constructor ( contextMenuEvent, parentNode = null ) {
+	constructor ( contextMenuEvent, parentNode ) {
 		super ( contextMenuEvent, parentNode );
 	}
 
-	/* eslint-disable no-magic-numbers */
-
-	doAction ( selectedItemObjId ) {
-		switch ( selectedItemObjId ) {
-		case 0 :
-			theNoteEditor.newRouteNote (
-				{
-					routeObjId : this.eventData.targetObjId,
-					lat : this.eventData.lat,
-					lng : this.eventData.lng
-				}
-			);
-			break;
-		case 1 :
-			new Zoomer ( ).zoomToLatLng ( [ this.eventData.lat, this.eventData.lng ] );
-			break;
-		default :
-			break;
-		}
-	}
-
-	/* eslint-enable no-magic-numbers */
+	/**
+	The list of menu items to use. Implementation of the BaseContextMenu.menuItems property
+	@type {Array.<MenuItem>}
+	*/
 
 	get menuItems ( ) {
 		return [
-			{
-				itemText : theTranslator.getText ( 'ProfileContextMenu - Add a note to the route at this point' ),
-				isActive : true
-			},
-			{
-				itemText : theTranslator.getText ( 'ProfileContextMenu - Zoom to this point' ),
-				isActive : true
-			}
+			new MenuItem (
+				theTranslator.getText ( 'ProfileContextMenu - Add a note to the route at this point' ),
+				true,
+				( ) => theNoteEditor.newRouteNote ( this.eventData.targetObjId, this.eventData.latLng )
+			),
+			new MenuItem (
+				theTranslator.getText ( 'ProfileContextMenu - Zoom to this point' ),
+				true,
+				( ) => new Zoomer ( ).zoomToLatLng ( this.eventData.latLng )
+			)
 		];
 	}
 }
 
 export default ProfileContextMenu;
+
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

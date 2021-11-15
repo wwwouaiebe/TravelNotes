@@ -20,83 +20,50 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteDialogLinkControl.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogNotes
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
-import {
-	AllControlsFocusEL,
-	UrlInputBlurEL,
-	AllControlsInputEL
-} from '../dialogNotes/NoteDialogEventListeners.js';
 
 import { ZERO, ONE, LAT_LNG } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class NoteDialogLinkControl
-@classdesc This class is the url control of the NoteDialog
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class is the url control of the NoteDialog
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class NoteDialogLinkControl {
 
 	/**
-	A reference to the noteDialog
-	@private
+	The header container
+	@type {HTMLElement}
 	*/
 
-	#noteDialog = null;
+	#linkHeaderDiv;
 
 	/**
-	HTMLElements
-	@private
+	The input container
+	@type {HTMLElement}
 	*/
 
-	#linkHeaderDiv = null;
-	#linkInputDiv = null;
-	#linkInput = null;
+	#linkInputDiv;
 
 	/**
-	Event listeners
-	@private
+	The link input
+	@type {HTMLElement}
 	*/
 
-	#eventListeners = {
-		onFocusControl : null,
-		onInputUpdated : null,
-		onBlurUrlInput : null
-	}
+	#linkInput;
 
 	/**
-	The Devil button...
-	@private
+	The 👿 button...
+	@param {Array.<Number>} latLng The lat and lng used in the 👿 button
 	*/
 
 	#createTheDevilButton ( latLng ) {
@@ -129,13 +96,17 @@ class NoteDialogLinkControl {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
+	@param {Array.<Number>} latLng The lat and lng to use with the 👿 button
 	*/
 
-	constructor ( noteDialog, latLng ) {
+	constructor ( eventListeners, latLng ) {
+
 		Object.freeze ( this );
-		this.#noteDialog = noteDialog;
+
+		// HTMLElements creation
 		this.#linkHeaderDiv = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -170,33 +141,33 @@ class NoteDialogLinkControl {
 			this.#linkInputDiv
 		);
 
-		this.#eventListeners.onFocusControl = new AllControlsFocusEL ( this.#noteDialog, true );
-		this.#eventListeners.onInputUpdated = new AllControlsInputEL ( this.#noteDialog );
-		this.#eventListeners.onBlurUrlInput = new UrlInputBlurEL ( this.#noteDialog );
-		this.#linkInput.addEventListener ( 'focus', this.#eventListeners.onFocusControl );
-		this.#linkInput.addEventListener ( 'input', this.#eventListeners.onInputUpdated );
-		this.#linkInput.addEventListener ( 'blur', this.#eventListeners.onBlurUrlInput );
-	}
-
-	destructor ( ) {
-		this.#linkInput.removeEventListener ( 'focus', this.#eventListeners.onFocusControl );
-		this.#linkInput.removeEventListener ( 'input', this.#eventListeners.onInputUpdated );
-		this.#linkInput.removeEventListener ( 'blur', this.#eventListeners.onBlurUrlInput );
-		this.#eventListeners.onFocusControl.destructor ( );
-		this.#eventListeners.onInputUpdated.destructor ( );
-		this.#eventListeners.onBlurUrlInput.destructor ( );
-		this.#noteDialog = null;
+		// event listeners
+		this.#linkInput.addEventListener ( 'focus', eventListeners.controlFocus );
+		this.#linkInput.addEventListener ( 'input', eventListeners.controlInput );
+		this.#linkInput.addEventListener ( 'blur', eventListeners.urlInputBlur );
 	}
 
 	/**
-	return an array with the HTML elements of the control
-	@readonly
+	Remove event listeners
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
+	*/
+
+	destructor ( eventListeners ) {
+		this.#linkInput.removeEventListener ( 'focus', eventListeners.controlFocus );
+		this.#linkInput.removeEventListener ( 'input', eventListeners.controlInput );
+		this.#linkInput.removeEventListener ( 'blur', eventListeners.urlInputBlur );
+	}
+
+	/**
+	An array with the HTML elements of the control
+	@type {Array.<HTMLElement>}
 	*/
 
 	get HTMLElements ( ) { return [ this.#linkHeaderDiv, this.#linkInputDiv ]; }
 
 	/**
 	The url value in the control
+	@type {String}
 	*/
 
 	get url ( ) { return this.#linkInput.value; }
@@ -207,10 +178,4 @@ class NoteDialogLinkControl {
 
 export default NoteDialogLinkControl;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of NoteDialogLinkControl.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

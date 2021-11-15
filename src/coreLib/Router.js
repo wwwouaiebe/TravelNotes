@@ -20,28 +20,12 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file Router.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreLib
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theTravelNotesData from '../data/TravelNotesData.js';
@@ -55,32 +39,38 @@ import theRouteEditor from '../core/RouteEditor.js';
 
 import { DISTANCE, ZERO } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class Router
-@classdesc Start the routing and adapt the linked data after routing
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+Start the routing and adapt the linked data after routing
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class Router {
 
-	#routingRequestStarted = false;
-	#zoomToRouteAfterRouting = false;
+	/**
+	A guard to avoid that the router is called when already busy.
+	@type {Boolean}
+	*/
+
+	#routingRequestStarted;
+
+	/**
+	A flag indicating when a zoom to the route must be performed at the end of the routing
+	@type {Boolean}
+	*/
+
+	#zoomToRouteAfterRouting;
 
 	/**
 	This method compute the route, itineraryPoints and maneuvers distances
 	@param {Route} route The route for witch the distances are computed
-	@private
 	*/
 
 	#computeRouteDistances ( route ) {
 
 		// Computing the distance between itineraryPoints
-		let itineraryPointsIterator = route.itinerary.itineraryPoints.iterator;
-		let maneuverIterator = route.itinerary.maneuvers.iterator;
+		const itineraryPointsIterator = route.itinerary.itineraryPoints.iterator;
+		const maneuverIterator = route.itinerary.maneuvers.iterator;
 
 		itineraryPointsIterator.done;
 		maneuverIterator.done;
@@ -118,43 +108,32 @@ class Router {
 
 	/**
 	Error handler for the startRouting method
-	@private
+	@param {?Error} err the error to handle
 	*/
 
 	#onRoutingError ( err ) {
 		this.#routingRequestStarted = false;
-		theErrorsUI.showError ( err );
 		if ( err instanceof Error ) {
 			console.error ( err );
+			theErrorsUI.showError ( err.message );
+		}
+		else {
+			theErrorsUI.showError ( 'A network error occurs when calling the provider' );
 		}
 	}
 
 	/**
 	Success handler for the startRouting method
-	@private
 	*/
 
 	#onRoutingOk ( ) {
 
 		this.#routingRequestStarted = false;
-
-		theTravelNotesData.travel.editedRoute.itinerary.validateData ( );
-
-		let maneuversIterator = theTravelNotesData.travel.editedRoute.itinerary.maneuvers.iterator;
-		while ( ! maneuversIterator.done ) {
-			maneuversIterator.value.validateData ( );
-		}
-
-		let itineraryPointsIterator = theTravelNotesData.travel.editedRoute.itinerary.itineraryPoints.iterator;
-		while ( ! itineraryPointsIterator.done ) {
-			itineraryPointsIterator.value.validateData ( );
-		}
-
 		this.#computeRouteDistances ( theTravelNotesData.travel.editedRoute );
 
 		// Placing the waypoints on the itinerary
 		if ( 'circle' !== theTravelNotesData.travel.editedRoute.itinerary.transitMode ) {
-			let wayPointsIterator = theTravelNotesData.travel.editedRoute.wayPoints.iterator;
+			const wayPointsIterator = theTravelNotesData.travel.editedRoute.wayPoints.iterator;
 			while ( ! wayPointsIterator.done ) {
 				if ( wayPointsIterator.first ) {
 					wayPointsIterator.value.latLng =
@@ -174,9 +153,9 @@ class Router {
 		}
 
 		// the position of the notes linked to the route is recomputed
-		let notesIterator = theTravelNotesData.travel.editedRoute.notes.iterator;
+		const notesIterator = theTravelNotesData.travel.editedRoute.notes.iterator;
 		while ( ! notesIterator.done ) {
-			let latLngDistance = theGeometry.getClosestLatLngDistance (
+			const latLngDistance = theGeometry.getClosestLatLngDistance (
 				theTravelNotesData.travel.editedRoute,
 				notesIterator.value.latLng
 			);
@@ -210,8 +189,8 @@ class Router {
 		theEventDispatcher.dispatch ( 'setrouteslist' );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -220,10 +199,6 @@ class Router {
 
 	/**
 	This method start the routing for the edited route.
-	@async
-	@fires routeupdated
-	@fires showitinerary
-	@fires roadbookupdate
 	*/
 
 	startRouting ( ) {
@@ -234,7 +209,7 @@ class Router {
 		) {
 			this.#zoomToRouteAfterRouting = ZERO === theTravelNotesData.travel.editedRoute.itinerary.itineraryPoints.length;
 			this.#routingRequestStarted = true;
-			let routeProvider = theTravelNotesData.providers.get ( theTravelNotesData.routing.provider.toLowerCase ( ) );
+			const routeProvider = theTravelNotesData.providers.get ( theTravelNotesData.routing.provider.toLowerCase ( ) );
 			theTravelNotesData.travel.editedRoute.itinerary.provider = routeProvider.name;
 			theTravelNotesData.travel.editedRoute.itinerary.transitMode = theTravelNotesData.routing.transitMode;
 			routeProvider.getPromiseRoute ( theTravelNotesData.travel.editedRoute )
@@ -244,14 +219,15 @@ class Router {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+The one and only one instance of Router class
+@type {Router}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
 const theRouter = new Router ( );
 
 export default theRouter;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of Router.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

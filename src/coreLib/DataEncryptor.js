@@ -19,46 +19,36 @@ Changes:
 		- created
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 
 -------------------------------------------------------------------------------------------------------------------------------
 */
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file DataEncryptor.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class is used to encrypt an decrypt data with a password
 */
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreLib
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class DataEncryptor
-@classdesc This class is used to encrypt an decrypt data with a password
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class DataEncryptor {
 
-	#salt = null;
+	/**
+	Salt to be used for encoding and decoding operations.
+	@type {String}
+	*/
+
+	#salt;
 
 	/* eslint-disable no-magic-numbers */
+
+	/**
+	Call the importKey() method of the SubtleCrypto interface
+	@param {Uint8Array} pswd The password to use, encode with TextEncoder.encode ( )
+	@return {Promise} a Promise that fulfills with the imported key as a CryptoKey object
+	*/
 
 	#importKey ( pswd ) {
 		return window.crypto.subtle.importKey (
@@ -70,7 +60,15 @@ class DataEncryptor {
 		);
 	}
 
-	#deriveKey ( deriveKey, salt ) {
+	/**
+	Call the deriveKey() method of the SubtleCrypto interface
+	@param {CryptoKey} masterKey the CryptoKey returned by the onOk handler of the Promise returned by #importKey
+	@param {String} salt The salt to use
+	@return {Promise} a Promise which will be fulfilled with a CryptoKey object representing the secret key derived
+	from the master key
+	*/
+
+	#deriveKey ( masterKey, salt ) {
 		return window.crypto.subtle.deriveKey (
 			{
 				name : 'PBKDF2',
@@ -78,7 +76,7 @@ class DataEncryptor {
 				iterations : 1000000,
 				hash : 'SHA-256'
 			},
-			deriveKey,
+			masterKey,
 			{
 				name : 'AES-GCM',
 				length : 256
@@ -87,6 +85,14 @@ class DataEncryptor {
 			[ 'encrypt', 'decrypt' ]
 		);
 	}
+
+	/**
+	Call the decrypt() method of the SubtleCrypto interface
+	@param {CryptoKey} decryptKey The key to use for decryption
+	@param {Uint8Array} data The data to decode
+	@return {Promise} a Promise which will be fulfilled with the decrypted data as a Uint8Array.
+	Use TextDecoder.decode ( ) to transform to string
+	*/
 
 	#decrypt ( decryptKey, data ) {
 		return window.crypto.subtle.decrypt (
@@ -99,6 +105,14 @@ class DataEncryptor {
 		);
 	}
 
+	/**
+	Call the encrypt() method of the SubtleCrypto interface
+	@param {CryptoKey} encryptKey The key to use for encryption
+	@param {Uint8Array} ivBytes A Uint8Array with random values used for encoding
+	@param {Uint8Array} data the data to encode transformed to a Uint8Array with TextEncoder.encode ( )
+	@return {Promise} a Promise which will be fulfilled with the encrypted data as a Uint8Array
+	*/
+
 	#encrypt ( encryptKey, ivBytes, data ) {
 		return window.crypto.subtle.encrypt (
 			{
@@ -110,9 +124,9 @@ class DataEncryptor {
 		);
 	}
 
-	/*
-	constructor
-	@param {string} salt Salt to be used for encoding and decoding operations. If none, a default value is provided.
+	/**
+	The constructor
+	@param {String} salt Salt to be used for encoding and decoding operations. If none, a default value is provided.
 	*/
 
 	constructor ( salt ) {
@@ -133,7 +147,7 @@ class DataEncryptor {
 	encryptData ( data, onOk, onError, pswdPromise ) {
 		let ivBytes = window.crypto.getRandomValues ( new Uint8Array ( 16 ) );
 		pswdPromise
-			.then ( this.#importKey )
+			.then ( pswd => this.#importKey ( pswd ) )
 			.then ( deriveKey => this.#deriveKey ( deriveKey, this.#salt ) )
 			.then ( encryptKey => this.#encrypt ( encryptKey, ivBytes, data ) )
 			.then (
@@ -159,18 +173,16 @@ class DataEncryptor {
 
 	decryptData ( data, onOk, onError, pswdPromise ) {
 		pswdPromise
-			.then ( this.#importKey )
+			.then ( pswd => this.#importKey ( pswd ) )
 			.then ( deriveKey => this.#deriveKey ( deriveKey, this.#salt ) )
 			.then ( decryptKey => this.#decrypt ( decryptKey, data ) )
 			.then ( onOk )
 			.catch ( onError );
 	}
-	/* eslint-disable max-params */
+	/* eslint-enable max-params */
 	/* eslint-enable no-magic-numbers */
 }
 
 export default DataEncryptor;
 
-/*
---- End of DataEncryptor.js file ----------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

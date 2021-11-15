@@ -25,58 +25,47 @@ Changes:
 		- Issue ♯135 : Remove innerHTML from code
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 
 import theTranslator from '../UILib/Translator.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
-import { ZERO } from '../main/Constants.js';
+import DragData from '../dialogs/DragData.js';
+import { ZERO, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
 
-const OUR_DRAG_MARGIN = 20;
-
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file FloatWindow.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
+dragstart event listener for the top bar
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
+class FloatWindowTopBarDragStartEL {
 
-@module dialogFloatWindow
+	/**
+	A reference to the dragData object of the FloatWindow
+	@type {DragData}
+	*/
 
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+	#dragData;
 
-/**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class TopBarDragStartEL
-@classdesc dragstart event listener for the top bar
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
-*/
-
-class TopBarDragStartEL {
-
-	#dragData = null;
-
-	/*
-	constructor
+	/**
+	The constructor
+	@param {DragData} dragData A reference to the dragData object of the FloatWindow
 	*/
 
 	constructor ( dragData ) {
 		Object.freeze ( this );
 		this.#dragData = dragData;
 	}
+
+	/**
+	Event listener method
+	@param {Event} dragStartEvent The event to handle
+	*/
 
 	handleEvent ( dragStartEvent ) {
 		this.#dragData.dragStartX = dragStartEvent.screenX;
@@ -86,110 +75,113 @@ class TopBarDragStartEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class TopBarDragEndEL
-@classdesc dragend event listener for the top bar
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+dragend event listener for the top bar
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-class TopBarDragEndEL {
+class FloatWindowTopBarDragEndEL {
 
-	#dragData = null;
-	#containerDiv = null;
+	/**
+	A reference to the dragData object of the FloatWindow
+	@type {DragData}
+	*/
+
+	#dragData;
+
+	/**
+	The constructor
+	@param {DragData} dragData A reference to the dragData object of the FloatWindow
+	*/
 
 	constructor ( dragData ) {
-		Object.seal ( this );
+		Object.freeze ( this );
 		this.#dragData = dragData;
 	}
 
+	/**
+	Event listener method
+	@param {Event} dragEndEvent The event to handle
+	*/
+
 	handleEvent ( dragEndEvent ) {
-		let containerDiv = dragEndEvent.target.parentNode;
-		this.#dragData.windowX += dragEndEvent.screenX - this.#dragData.dragStartX;
-		this.#dragData.windowY += dragEndEvent.screenY - this.#dragData.dragStartY;
-		this.#dragData.windowX = Math.min (
-			Math.max ( this.#dragData.windowX, OUR_DRAG_MARGIN ),
-			theTravelNotesData.map.getContainer ( ).clientWidth - containerDiv.clientWidth - OUR_DRAG_MARGIN
+		const containerDiv = dragEndEvent.target.parentNode;
+		this.#dragData.dialogX += dragEndEvent.screenX - this.#dragData.dragStartX;
+		this.#dragData.dialogY += dragEndEvent.screenY - this.#dragData.dragStartY;
+		this.#dragData.dialogX = Math.min (
+			Math.max ( this.#dragData.dialogX, DIALOG_DRAG_MARGIN ),
+			theTravelNotesData.map.getContainer ( ).clientWidth - containerDiv.clientWidth - DIALOG_DRAG_MARGIN
 		);
-		this.#dragData.windowY = Math.max ( this.#dragData.windowY, OUR_DRAG_MARGIN );
-		let windowMaxHeight =
-			theTravelNotesData.map.getContainer ( ).clientHeight - Math.max ( this.#dragData.windowY, ZERO ) - OUR_DRAG_MARGIN;
-		containerDiv.style.top = String ( this.#dragData.windowY ) + 'px';
-		containerDiv.style.left = String ( this.#dragData.windowX ) + 'px';
+		this.#dragData.dialogY = Math.max ( this.#dragData.dialogY, DIALOG_DRAG_MARGIN );
+		const windowMaxHeight =
+			theTravelNotesData.map.getContainer ( ).clientHeight -
+			Math.max ( this.#dragData.dialogY, ZERO ) - DIALOG_DRAG_MARGIN;
+		containerDiv.style.top = String ( this.#dragData.dialogY ) + 'px';
+		containerDiv.style.left = String ( this.#dragData.dialogX ) + 'px';
 		containerDiv.style [ 'max-height' ] = String ( windowMaxHeight ) + 'px';
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class FloatWindow
-@classdesc This class is the base for all the floating windows
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+This class is the base for all the floating windows
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class FloatWindow {
 
 	/**
 	Shared data for drag and drop operations
-	@private
+	@type {DragData}
 	*/
 
-	#dragData = Object.seal (
-		{
-			dragStartX : ZERO,
-			dragStartY : ZERO,
-			windowX : ZERO,
-			windowY : ZERO
-		}
-	);
+	#dragData;
 
 	/**
-	The window container
-	@private
+	The window's container
+	@type {HTMLElement}
 	*/
 
-	#containerDiv = null;
+	#containerDiv;
 
 	/**
 	The window top bar
-	@private
+	@type {HTMLElement}
 	*/
 
-	#topBar = null;
+	#topBar;
 
 	/**
 	The window header
-	@private
+	@type {HTMLElement}
 	*/
 
-	#headerDiv = null;
+	#headerDiv;
 
 	/**
 	The window content
-	@private
+	@type {HTMLElement}
 	*/
 
-	#contentDiv = null;
+	#contentDiv;
 
 	/**
-	event listeners
-	@private
+	Top bar drag start event listener
+	@type {FloatWindowTopBarDragStartEL}
 	*/
 
-	#eventListeners = {
-		onTopBarDragStart : null,
-		onTopBarDragEnd : null
-	}
+	#topBarDragStartEL;
+
+	/**
+	Top bar drag end event listener
+	@type {FloatWindowTopBarDragEndEL}
+	*/
+
+	#topBarDragEndEL;
 
 	/**
 	This method creates the window
-	@private
 	*/
 
 	#createContainerDiv ( ) {
@@ -204,8 +196,7 @@ class FloatWindow {
 	}
 
 	/**
-	@desc This method creates the topbar
-	@private
+	This method creates the topbar
 	*/
 
 	#createTopBar ( ) {
@@ -217,8 +208,8 @@ class FloatWindow {
 			},
 			this.#containerDiv
 		);
-		this.#topBar.addEventListener ( 'dragstart', this.#eventListeners.onTopBarDragStart, false );
-		this.#topBar.addEventListener ( 'dragend', this.#eventListeners.onTopBarDragEnd, false );
+		this.#topBar.addEventListener ( 'dragstart', this.#topBarDragStartEL, false );
+		this.#topBar.addEventListener ( 'dragend', this.#topBarDragEndEL, false );
 
 		theHTMLElementsFactory.create (
 			'div',
@@ -236,38 +227,30 @@ class FloatWindow {
 	*/
 
 	#createHeaderDiv ( ) {
-		this.#headerDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-FloatWindow-HeaderDiv'
-			},
-			this.#containerDiv
-		);
+		this.#headerDiv = theHTMLElementsFactory.create ( 'div', null, this.#containerDiv );
 	}
 
 	/**
 	This method creates the content div
-	@private
 	*/
 
 	#createContentDiv ( ) {
-		this.#contentDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-FloatWindow-ContentDiv'
-			},
-			this.#containerDiv
-		);
+		this.#contentDiv = theHTMLElementsFactory.create ( 'div', null, this.#containerDiv );
 	}
 
+	/**
+	The constructor
+	*/
+
 	constructor ( ) {
-		this.#eventListeners.onTopBarDragStart = new TopBarDragStartEL ( this.#dragData );
-		this.#eventListeners.onTopBarDragEnd = new TopBarDragEndEL ( this.#dragData );
+		Object.freeze ( this );
+		this.#dragData = new DragData ( );
+		this.#topBarDragStartEL = new FloatWindowTopBarDragStartEL ( this.#dragData );
+		this.#topBarDragEndEL = new FloatWindowTopBarDragEndEL ( this.#dragData );
 		this.#createContainerDiv ( );
 		this.#createTopBar ( );
 		this.#createHeaderDiv ( );
 		this.#createContentDiv ( );
-		Object.seal ( this );
 	}
 
 	/**
@@ -275,29 +258,29 @@ class FloatWindow {
 	*/
 
 	close ( ) {
-		this.#topBar.removeEventListener ( 'dragstart', this.#eventListeners.onTopBarDragStart, false );
-		this.#topBar.removeEventListener ( 'dragend', this.#eventListeners.onTopBarDragEnd, false );
-		this.#eventListeners.onTopBarDragStart = null;
-		this.#eventListeners.onTopBarDragEnd = null;
+		this.#topBar.removeEventListener ( 'dragstart', this.#topBarDragStartEL, false );
+		this.#topBar.removeEventListener ( 'dragend', this.#topBarDragEndEL, false );
+		this.#topBarDragStartEL = null;
+		this.#topBarDragEndEL = null;
 		document.body.removeChild ( this.#containerDiv );
 	}
 
 	/**
-	Update the window
+	Update the window. To be implemented in the derived classes
 	*/
 
 	update ( ) { }
 
 	/**
 	The header of the window. Read only but remember it's an HTMLElement...
-	@readonly
+	@type {HTMLElement}
 	*/
 
 	get header ( ) { return this.#headerDiv; }
 
 	/**
 	The content of the window. Read only but remember it's an HTMLElement...
-	@readonly
+	@type {HTMLElement}
 	*/
 
 	get content ( ) { return this.#contentDiv; }
@@ -305,6 +288,4 @@ class FloatWindow {
 
 export default FloatWindow;
 
-/*
---- End of FloatWindow.js file ------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

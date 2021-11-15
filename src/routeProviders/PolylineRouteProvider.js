@@ -21,28 +21,10 @@ Changes:
 		- Issue ♯150 : Merge travelNotes and plugins
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file PolylineRouteProvider.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module routeProviders
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
@@ -52,70 +34,74 @@ import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
 
 import { ZERO, ONE, TWO, LAT, LNG, DEGREES } from '../main/Constants.js';
 
+/**
+@ignore
+*/
+
 const OUR_HALF_PI = Math.PI / TWO;
 
-const OUR_INSTRUCTIONS_LIST = Object.freeze (
-	{
-		en : Object.freeze ( { kStart : 'Start', kContinue : 'Continue', kEnd : 'Stop' } ),
-		fr : Object.freeze ( { kStart : 'Départ', kContinue : 'Continuer', kEnd : 'Arrivée' } )
-	}
-);
-
-const OUR_ICON_NAMES = Object.freeze (
-	{
-		kStart : 'kDepartDefault',
-		kContinue : 'kContinueStraight',
-		kEnd : 'kArriveDefault'
-	}
-);
-
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class PolylineRouteProvider
-@classdesc This class implements the Provider interface for a Polyline. It's not possible to instanciate
+This class implements the BaseRouteProvider for a polyline or circle. It's not possible to instanciate
 this class because the class is not exported from the module. Only one instance is created and added to the list
 of Providers of TravelNotes
-@see Provider for a description of methods
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class PolylineRouteProvider extends BaseRouteProvider {
 
-	#userLanguage = 'fr';
-
-	/**
-	The provider key. Will be set by TravelNotes
-	@private
-	*/
-
-	#providerKey = '';
-
 	/**
 	A reference to the edited route
+	@type {Route}
 	*/
 
-	#route = null;
+	#route;
+
+	/**
+	Translations for instructions
+	@type {Object}
+	*/
+
+	static get #INSTRUCTIONS_LIST ( ) {
+		return Object.freeze (
+			{
+				en : Object.freeze ( { kStart : 'Start', kContinue : 'Continue', kEnd : 'Stop' } ),
+				fr : Object.freeze ( { kStart : 'Départ', kContinue : 'Continuer', kEnd : 'Arrivée' } )
+			}
+		);
+	}
+
+	/**
+	Enum for icons names
+	@type {Object}
+	*/
+
+	static get #ICON_NAMES ( ) {
+		return Object.freeze (
+			{
+				kStart : 'kDepartDefault',
+				kContinue : 'kContinueStraight',
+				kEnd : 'kArriveDefault'
+			}
+		);
+	}
 
 	/**
 	Add a maneuver to the itinerary
-	@param {number} itineraryPointObjId the objId of the itineraryPoint linked to the maneuver
-	@param {string} position the position of the maneuver. Must be kStart or kEnd
-	@private
+	@param {Number} itineraryPointObjId the objId of the itineraryPoint linked to the maneuver
+	@param {String} position the position of the maneuver. Must be kStart or kEnd
 	*/
 
 	#addManeuver ( itineraryPointObjId, position ) {
-		let maneuver = new Maneuver ( );
+		const maneuver = new Maneuver ( );
 
-		maneuver.iconName = OUR_ICON_NAMES [ position ];
+		maneuver.iconName = PolylineRouteProvider.#ICON_NAMES [ position ];
 		maneuver.instruction =
-			OUR_INSTRUCTIONS_LIST [ this.userLanguage ]
+			PolylineRouteProvider.#INSTRUCTIONS_LIST [ this.userLanguage ]
 				?
-				OUR_INSTRUCTIONS_LIST [ this.userLanguage ] [ position ]
+				PolylineRouteProvider.#INSTRUCTIONS_LIST [ this.userLanguage ] [ position ]
 				:
-				OUR_INSTRUCTIONS_LIST.en [ position ];
+				PolylineRouteProvider.#INSTRUCTIONS_LIST.en [ position ];
 		maneuver.duration = ZERO;
 		maneuver.itineraryPointObjId = itineraryPointObjId;
 
@@ -124,13 +110,12 @@ class PolylineRouteProvider extends BaseRouteProvider {
 
 	/**
 	Add a itineraryPoint to the itineraryPoints collection
-	@param {array.<number>} latLng the position of the itineraryPoint
-	@return {number} the objId of the new itineraryPoint
-	@private
+	@param {Array.<Number>} latLng the position of the itineraryPoint
+	@return {Number} the objId of the new itineraryPoint
 	*/
 
 	#addItineraryPoint ( latLng ) {
-		let itineraryPoint = new ItineraryPoint ( );
+		const itineraryPoint = new ItineraryPoint ( );
 		itineraryPoint.latLng = latLng;
 		this.#route.itinerary.itineraryPoints.add ( itineraryPoint );
 		return itineraryPoint.objId;
@@ -139,24 +124,23 @@ class PolylineRouteProvider extends BaseRouteProvider {
 	/**
 	This method add 64 intermediates points on a stuff of great circle
 	@param {WayPoint} startWayPoint the starting wayPoint
-	@param {WayPoint} endWayPoint the ending wayPoint
-	@private
+	@param {WayPoint} endWaypoint the ending wayPoint
 	*/
 
 	#addIntermediateItineraryPoints ( startWayPoint, endWaypoint ) {
 
 		// first conversion to radian
-		let latLngStartPoint = [
+		const latLngStartPoint = [
 			startWayPoint.lat * DEGREES.toRadians,
 			startWayPoint.lng * DEGREES.toRadians
 		];
-		let latLngEndPoint = [
+		const latLngEndPoint = [
 			endWaypoint.lat * DEGREES.toRadians,
 			endWaypoint.lng * DEGREES.toRadians
 		];
 
 		// searching the direction: from west to east or east to west...
-		let WestEast =
+		const WestEast =
 			( endWaypoint.lng - startWayPoint.lng + DEGREES.d360 ) % DEGREES.d360 > DEGREES.d180
 				?
 				-ONE
@@ -164,7 +148,7 @@ class PolylineRouteProvider extends BaseRouteProvider {
 				ONE;
 
 		// computing the distance
-		let angularDistance = theSphericalTrigonometry.arcFromSummitArcArc (
+		const angularDistance = theSphericalTrigonometry.arcFromSummitArcArc (
 			latLngEndPoint [ LNG ] - latLngStartPoint [ LNG ],
 			OUR_HALF_PI - latLngStartPoint [ LAT ],
 			OUR_HALF_PI - latLngEndPoint [ LAT ]
@@ -177,35 +161,35 @@ class PolylineRouteProvider extends BaseRouteProvider {
 		}
 
 		// and the direction at the start point
-		let direction = theSphericalTrigonometry.summitFromArcArcArc (
+		const direction = theSphericalTrigonometry.summitFromArcArcArc (
 			OUR_HALF_PI - latLngStartPoint [ LAT ],
 			angularDistance,
 			OUR_HALF_PI - latLngEndPoint [ LAT ]
 		);
 
-		let addedSegments = 64;
-		let itineraryPoints = [];
+		const addedSegments = 64;
+		const itineraryPoints = [];
 
 		// loop to compute the added segments
 		for ( let counter = 1; counter <= addedSegments; counter ++ ) {
-			let partialDistance = angularDistance * counter / addedSegments;
+			const partialDistance = angularDistance * counter / addedSegments;
 
 			// computing the opposite arc to the start point
-			let tmpArc = theSphericalTrigonometry.arcFromSummitArcArc (
+			const tmpArc = theSphericalTrigonometry.arcFromSummitArcArc (
 				direction,
 				OUR_HALF_PI - latLngStartPoint [ LAT ],
 				partialDistance
 			);
 
 			// computing the lng
-			let deltaLng = theSphericalTrigonometry.summitFromArcArcArc (
+			const deltaLng = theSphericalTrigonometry.summitFromArcArcArc (
 				OUR_HALF_PI - latLngStartPoint [ LAT ],
 				tmpArc,
 				partialDistance
 			);
 
 			// adding the itinerary point to a tmp array
-			let itineraryPoint = new ItineraryPoint ( );
+			const itineraryPoint = new ItineraryPoint ( );
 			itineraryPoint.latLng = [
 				( OUR_HALF_PI - tmpArc ) * DEGREES.fromRadians,
 				( latLngStartPoint [ LNG ] + ( WestEast * deltaLng ) ) * DEGREES.fromRadians
@@ -259,7 +243,7 @@ class PolylineRouteProvider extends BaseRouteProvider {
 		while ( ! itineraryPointsIterator.done ) {
 			maxLng = Math.max ( maxLng, itineraryPointsIterator.value.lng );
 		}
-		let deltaLng = ( maxLng % DEGREES.d360 ) - maxLng;
+		const deltaLng = ( maxLng % DEGREES.d360 ) - maxLng;
 
 		itineraryPointsIterator = this.#route.itinerary.itineraryPoints.iterator;
 		while ( ! itineraryPointsIterator.done ) {
@@ -273,42 +257,41 @@ class PolylineRouteProvider extends BaseRouteProvider {
 
 	/**
 	this function set a circle as itinerary
-	@private
 	*/
 
 	#parseCircle ( ) {
 
-		let centerPoint = [
+		const centerPoint = [
 			this.#route.wayPoints.first.lat * DEGREES.toRadians,
 			this.#route.wayPoints.first.lng * DEGREES.toRadians
 		];
 
-		let distancePoint = [
+		const distancePoint = [
 			this.#route.wayPoints.last.lat * DEGREES.toRadians,
 			this.#route.wayPoints.last.lng * DEGREES.toRadians
 		];
 
-		let angularDistance = theSphericalTrigonometry.arcFromSummitArcArc (
+		const angularDistance = theSphericalTrigonometry.arcFromSummitArcArc (
 			centerPoint [ LNG ] - distancePoint [ LNG ],
 			OUR_HALF_PI - centerPoint [ LAT ],
 			OUR_HALF_PI - distancePoint [ LAT ]
 		);
 
-		let addedSegments = 360;
-		let itineraryPoints = [];
+		const addedSegments = 360;
+		const itineraryPoints = [];
 
 		// loop to compute the added segments
 		for ( let counter = 0; counter <= addedSegments; counter ++ ) {
 
-			let direction = ( Math.PI / ( TWO * addedSegments ) ) + ( ( Math.PI * counter ) / addedSegments );
+			const direction = ( Math.PI / ( TWO * addedSegments ) ) + ( ( Math.PI * counter ) / addedSegments );
 
-			let tmpArc = theSphericalTrigonometry.arcFromSummitArcArc (
+			const tmpArc = theSphericalTrigonometry.arcFromSummitArcArc (
 				direction,
 				angularDistance,
 				OUR_HALF_PI - centerPoint [ LAT ]
 			);
 
-			let deltaLng = theSphericalTrigonometry.summitFromArcArcArc (
+			const deltaLng = theSphericalTrigonometry.summitFromArcArcArc (
 				OUR_HALF_PI - centerPoint [ LAT ],
 				tmpArc,
 				angularDistance
@@ -346,7 +329,6 @@ class PolylineRouteProvider extends BaseRouteProvider {
 	Build a polyline (as stuff of a great circle) or a circle from the start and end wayPoints
 	@param {function} onOk a function to call when the response is parsed correctly
 	@param {function} onError a function to call when an error occurs
-	@private
 	*/
 
 	#parseResponse ( onOk, onError ) {
@@ -372,13 +354,31 @@ class PolylineRouteProvider extends BaseRouteProvider {
 		catch ( err ) { onError ( err ); }
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		super ( );
 	}
+
+	/**
+	Call the provider, using the waypoints defined in the route and, on success,
+	complete the route with the data from the provider
+	@param {Route} route The route to witch the data will be added
+	@return {Promise} A Promise. On success, the Route is completed with the data given by the provider.
+	*/
+
+	getPromiseRoute ( route ) {
+		this.#route = route;
+		return new Promise ( ( onOk, onError ) => this.#parseResponse ( onOk, onError ) );
+	}
+
+	/**
+	The icon used in the ProviderToolbarUI.
+	Overload of the base class icon property
+	@type {String}
+	*/
 
 	get icon ( ) {
 		return 'data:image/svg+xml;utf8,<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" > <circle cx="12" c' +
@@ -387,28 +387,40 @@ class PolylineRouteProvider extends BaseRouteProvider {
 			'255,204,0)" /> </svg>';
 	}
 
-	getPromiseRoute ( route ) {
-		this.#route = route;
-		return new Promise ( ( onOk, onError ) => this.#parseResponse ( onOk, onError ) );
-	}
+	/**
+	The provider name.
+	Overload of the base class name property
+	@type {String}
+	*/
 
 	get name ( ) { return 'Polyline'; }
 
+	/**
+	The title to display in the ProviderToolbarUI button.
+	Overload of the base class title property
+	@type {String}
+	*/
+
 	get title ( ) { return 'Polyline & Circle'; }
+
+	/**
+	The possible transit modes for the provider.
+	Overload of the base class transitModes property
+	Must be a subarray of [ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ]
+	@type {Array.<String>}
+	*/
 
 	get transitModes ( ) { return [ 'line', 'circle' ]; }
 
+	/**
+	A boolean indicating when a provider key is needed for the provider.
+	Overload of the base class providerKeyNeeded property
+	@type {Boolean}
+	*/
+
 	get providerKeyNeeded ( ) { return false; }
-
-	get providerKey ( ) { return ONE; }
-	set providerKey ( providerKey ) { }
-
-	get userLanguage ( ) { return this.#userLanguage; }
-	set userLanguage ( userLanguage ) { this.#userLanguage = userLanguage; }
 }
 
 window.TaN.addProvider ( PolylineRouteProvider );
 
-/*
---- End of PolylineRouteProvider.js file --------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

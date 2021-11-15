@@ -34,91 +34,70 @@ Changes:
 		- Issue ♯120 : Review the UserInterface
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ProvidersToolbarUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module providersToolbarUI
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import ProviderToolbarTransitModeButton from '../UI/ProviderToolbarTransitModeButton.js';
 import ProviderToolbarProviderButton from '../UI/ProviderToolbarProviderButton.js';
+import theAPIKeysManager from '../core/APIKeysManager.js';
 import { NOT_FOUND, ZERO } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class ProvidersToolbarUI
-@classdesc This class is the provider and transitModes toolbar at the bottom of the UI
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class is the provider and transitModes toolbar at the bottom of the UI
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ProvidersToolbarUI {
 
 	/**
 	The toolbar HTMLElement
-	@private
+	@type {HTMLElement}
 	*/
 
-	#toolbarHTMLElement = null;
+	#toolbarHTMLElement;
 
 	/**
-	A map with the transit mode buttons
-	@private
+	A JS map with the transit mode buttons, ordered by transitMode
+	@type {Map}
 	*/
 
-	#transitModeButtons = new Map ( );
+	#transitModeButtons;
 
 	/**
-	A map with the provider buttons
-	@private
+	A JS map with the provider buttons, ordered by provider.name
+	@type {Map}
 	*/
 
-	#providerButtons = new Map ( );
+	#providerButtons;
 
 	/**
-	the active transit mode buttonHTMLElement
-	@private
+	the active transit mode button
+	@type {ProviderToolbarTransitModeButton}
 	*/
 
-	#activeTransitModeButton = null;
+	#activeTransitModeButton;
 
 	/**
 	the active provider button
-	@private
+	@type {ProviderToolbarProviderButton}
 	*/
 
-	#activeProviderButton = null;
+	#activeProviderButton;
 
 	/**
 	Transit mode buttons creation
-	@private
 	*/
 
 	#createTransitModesButtons ( ) {
 		[ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ].forEach (
 			transitMode => {
-				let transitModeButton = new ProviderToolbarTransitModeButton ( this, transitMode );
+				const transitModeButton = new ProviderToolbarTransitModeButton ( this, transitMode );
 				this.#transitModeButtons.set ( transitMode, transitModeButton );
 				this.#toolbarHTMLElement.appendChild ( transitModeButton.buttonHTMLElement );
 			}
@@ -128,14 +107,13 @@ class ProvidersToolbarUI {
 
 	/**
 	Provider buttons creation
-	@private
 	*/
 
 	#createProvidersButtons ( ) {
 		theTravelNotesData.providers.forEach (
 			provider => {
-				if ( ZERO !== provider.providerKey ) {
-					let providerButton = new ProviderToolbarProviderButton ( this, provider );
+				if ( ! provider.providerKeyNeeded || theAPIKeysManager.hasKey ( provider.name ) ) {
+					const providerButton = new ProviderToolbarProviderButton ( this, provider );
 					this.#providerButtons.set ( provider.name, providerButton );
 					this.#toolbarHTMLElement.appendChild ( providerButton.buttonHTMLElement );
 				}
@@ -143,12 +121,19 @@ class ProvidersToolbarUI {
 		);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {HTMLElement} UIMainHTMLElement The HTMLElement in witch the toolbar must be added
 	*/
 
 	constructor ( UIMainHTMLElement ) {
+
 		Object.freeze ( this );
+
+		this.#transitModeButtons = new Map ( );
+		this.#providerButtons = new Map ( );
+
+		// toolbar creation
 		this.#toolbarHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -156,8 +141,12 @@ class ProvidersToolbarUI {
 			},
 			UIMainHTMLElement
 		);
+
+		// buttons creation
 		this.#createTransitModesButtons ( );
 		this.#createProvidersButtons ( );
+
+		// set the first provider in the map as active provider
 		this.provider = this.#providerButtons.keys ().next ().value;
 	}
 
@@ -178,7 +167,7 @@ class ProvidersToolbarUI {
 		this.#activeProviderButton.active = true;
 
 		// transit mode buttons activation
-		let provider = theTravelNotesData.providers.get ( providerName.toLowerCase ( ) );
+		const provider = theTravelNotesData.providers.get ( providerName.toLowerCase ( ) );
 		this.#transitModeButtons.forEach (
 			transitModeButton => {
 				transitModeButton.visible = NOT_FOUND !== provider.transitModes.indexOf ( transitModeButton.transitMode );
@@ -238,7 +227,7 @@ class ProvidersToolbarUI {
 		this.#createTransitModesButtons ( );
 		this.#createProvidersButtons ( );
 		this.provider = this.#providerButtons.keys ().next ().value;
-		let providerName = this.#providerButtons.keys ( ).next ( ).value;
+		const providerName = this.#providerButtons.keys ( ).next ( ).value;
 		this.provider = providerName;
 		this.transitMode = theTravelNotesData.providers.get ( providerName.toLowerCase ( ) ).transitModes [ ZERO ];
 	}
@@ -247,6 +236,4 @@ class ProvidersToolbarUI {
 
 export default ProvidersToolbarUI;
 
-/*
---- End of ProvidersToolbarUI.js file -----------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

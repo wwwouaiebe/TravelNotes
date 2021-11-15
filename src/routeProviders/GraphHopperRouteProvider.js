@@ -21,90 +21,74 @@ Changes:
 		- Issue ♯150 : Merge travelNotes and plugins
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file GraphHopperRouteProvider.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module routeProviders
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-import thePolylineEncoder from '../coreLib/PolylineEncoder.js';
+import PolylineEncoder from '../coreLib/PolylineEncoder.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
 import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
 
 import { ZERO, TWO, LAT, LNG, ELEVATION, LAT_LNG, HTTP_STATUS_OK, DISTANCE } from '../main/Constants.js';
 
-const OUR_GRAPHHOPPER_LAT_LNG_ROUND = 5;
-const FOUR = 4;
-const OUR_ICON_LIST =
-[
-	'kUndefined',
-	'kTurnSharpLeft', // TURN_SHARP_LEFT = -3
-	'kTurnLeft', // TURN_LEFT = -2
-	'kTurnSlightLeft', // TURN_SLIGHT_LEFT = -1
-	'kContinueStraight', // CONTINUE_ON_STREET = 0
-	'kTurnSlightRight', // TURN_SLIGHT_RIGHT = 1
-	'kTurnRight', // TURN_RIGHT = 2
-	'kTurnSharpRight', // TURN_SHARP_RIGHT = 3
-	'kArriveDefault', // FINISH = 4
-	'kArriveDefault', // VIA_REACHED = 5
-	'kRoundaboutRight' // USE_ROUNDABOUT = 6
-];
-
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class GraphHopperRouteProvider
-@classdesc This class implements the Provider interface for Graphhopper. It's not possible to instanciate
-this class because the class is not exported from the module. Only one instance is created and added to the list
-of Providers of TravelNotes
-@see Provider for a description of methods
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class implements the BaseRouteProvider interface for Graphhopper.
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class GraphHopperRouteProvider extends BaseRouteProvider {
 
-	#userLanguage = 'fr';
-
 	/**
 	The provider key. Will be set by TravelNotes
-	@private
+	@type {String}
 	*/
 
-	#providerKey = '';
+	#providerKey;
 
 	/**
 	A reference to the edited route
+	@type {Route}
 	*/
 
-	#route = null;
+	#route;
+
+	/**
+	The round value used by PolylineEncoder
+	@type {Number}
+	*/
+	// eslint-disable-next-line no-magic-numbers
+	static get#ROUND_VALUE ( ) { return 5; }
+
+	/**
+	Enum for icons
+	@type {Array.<String>}
+	*/
+
+	static get #ICON_LIST ( ) {
+		return [
+			'kUndefined',
+			'kTurnSharpLeft', // TURN_SHARP_LEFT = -3
+			'kTurnLeft', // TURN_LEFT = -2
+			'kTurnSlightLeft', // TURN_SLIGHT_LEFT = -1
+			'kContinueStraight', // CONTINUE_ON_STREET = 0
+			'kTurnSlightRight', // TURN_SLIGHT_RIGHT = 1
+			'kTurnRight', // TURN_RIGHT = 2
+			'kTurnSharpRight', // TURN_SHARP_RIGHT = 3
+			'kArriveDefault', // FINISH = 4
+			'kArriveDefault', // VIA_REACHED = 5
+			'kRoundaboutRight' // USE_ROUNDABOUT = 6
+		];
+	}
 
 	/**
 	Parse the response from the provider and add the received itinerary to the route itinerary
-	@param {Object} response the itinerary received from the provider
+	@param {JsonObject} response the itinerary received from the provider
 	@param {function} onOk a function to call when the response is parsed correctly
 	@param {function} onError a function to call when an error occurs
-	@private
 	*/
 
 	#parseResponse ( response, onOk, onError ) {
@@ -114,6 +98,7 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 			return;
 		}
 
+		const polylineEncoder = new PolylineEncoder ( );
 		this.#route.itinerary.itineraryPoints.removeAll ( );
 		this.#route.itinerary.maneuvers.removeAll ( );
 		this.#route.itinerary.hasProfile = true;
@@ -121,18 +106,18 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 		this.#route.itinerary.descent = ZERO;
 		response.paths.forEach (
 			path => {
-				path.points = thePolylineEncoder.decode (
+				path.points = polylineEncoder.decode (
 					path.points,
-					[ OUR_GRAPHHOPPER_LAT_LNG_ROUND, OUR_GRAPHHOPPER_LAT_LNG_ROUND, TWO ]
+					[ GraphHopperRouteProvider.#ROUND_VALUE, GraphHopperRouteProvider.#ROUND_VALUE, TWO ]
 				);
 				/* eslint-disable-next-line camelcase */
-				path.snapped_waypoints = thePolylineEncoder.decode (
+				path.snapped_waypoints = polylineEncoder.decode (
 					path.snapped_waypoints,
-					[ OUR_GRAPHHOPPER_LAT_LNG_ROUND, OUR_GRAPHHOPPER_LAT_LNG_ROUND, TWO ]
+					[ GraphHopperRouteProvider.#ROUND_VALUE, GraphHopperRouteProvider.#ROUND_VALUE, TWO ]
 				);
-				let itineraryPoints = [];
+				const itineraryPoints = [];
 				for ( let pointsCounter = ZERO; pointsCounter < path.points.length; pointsCounter ++ ) {
-					let itineraryPoint = new ItineraryPoint ( );
+					const itineraryPoint = new ItineraryPoint ( );
 					itineraryPoint.lat = path.points [ pointsCounter ] [ LAT ];
 					itineraryPoint.lng = path.points [ pointsCounter ] [ LNG ];
 					itineraryPoint.elev = path.points [ pointsCounter ] [ ELEVATION ];
@@ -143,8 +128,9 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 				let previousIconName = '';
 				path.instructions.forEach (
 					instruction => {
-						let maneuver = new Maneuver ( );
-						maneuver.iconName = OUR_ICON_LIST [ instruction.sign + FOUR || ZERO ];
+						const maneuver = new Maneuver ( );
+						// eslint-disable-next-line no-magic-numbers
+						maneuver.iconName = GraphHopperRouteProvider.#ICON_LIST [ instruction.sign + 4 || ZERO ];
 						if ( 'kArriveDefault' === previousIconName && 'kContinueStraight' === maneuver.iconName ) {
 							maneuver.iconName = 'kDepartDefault';
 						}
@@ -158,7 +144,7 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 					}
 				);
 
-				let wayPointsIterator = this.#route.wayPoints.iterator;
+				const wayPointsIterator = this.#route.wayPoints.iterator;
 				path.snapped_waypoints.forEach (
 					latLngElev => {
 						if ( ! wayPointsIterator.done ) {
@@ -175,8 +161,7 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 
 	/**
 	Gives the url to call
-	@return {string} a string with the url, wayPoints, transitMode, user language and API key
-	@private
+	@return {String} a string with the url, wayPoints, transitMode, user language and API key
 	*/
 
 	#getUrl ( ) {
@@ -211,6 +196,12 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 			'&vehicle=' + vehicle;
 	}
 
+	/**
+	Overload of the base class #getRoute ( ) method
+	@param {function} onOk the Promise Success handler
+	@param {function} onError the Promise Error handler
+	*/
+
 	#getRoute ( onOk, onError ) {
 		fetch ( this.#getUrl ( ) )
 			.then (
@@ -223,21 +214,40 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 						onError ( new Error ( 'Invalid status ' + response.status ) );
 					}
 				}
+			)
+			.catch (
+
+				// calling onError without parameters because fetch don't accecpt to add something as parameter :-(...
+				( ) => { onError ( ); }
 			);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		super ( );
+		this.#providerKey = '';
 	}
+
+	/**
+	Call the provider, using the waypoints defined in the route and, on success,
+	complete the route with the data from the provider
+	@param {Route} route The route to witch the data will be added
+	@return {Promise} A Promise. On success, the Route is completed with the data given by the provider.
+	*/
 
 	getPromiseRoute ( route ) {
 		this.#route = route;
 		return new Promise ( ( onOk, onError ) => this.#getRoute ( onOk, onError ) );
 	}
+
+	/**
+	The icon used in the ProviderToolbarUI.
+	Overload of the base class icon property
+	@type {String}
+	*/
 
 	get icon ( ) {
 		return '' +
@@ -260,23 +270,47 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 			'Qs/MMhAw8TPHIssirVJConsRSq1tr3/Q+O4QqEHeMWIQAAAABJRU5ErkJggg==';
 	}
 
+	/**
+	The provider name.
+	Overload of the base class name property
+	@type {String}
+	*/
+
 	get name ( ) { return 'GraphHopper'; }
+
+	/**
+	The title to display in the ProviderToolbarUI button.
+	Overload of the base class title property
+	@type {String}
+	*/
 
 	get title ( ) { return 'GraphHopper'; }
 
+	/**
+	The possible transit modes for the provider.
+	Overload of the base class transitModes property
+	Must be a subarray of [ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ]
+	@type {Array.<String>}
+	*/
+
 	get transitModes ( ) { return [ 'bike', 'pedestrian', 'car' ]; }
+
+	/**
+	A boolean indicating when a provider key is needed for the provider.
+	Overload of the base class providerKeyNeeded property
+	@type {Boolean}
+	*/
 
 	get providerKeyNeeded ( ) { return true; }
 
-	get providerKey ( ) { return this.#providerKey.length; }
-	set providerKey ( providerKey ) { this.#providerKey = providerKey; }
+	/**
+	The provider key.
+	Overload of the base class providerKey property
+	*/
 
-	get userLanguage ( ) { return this.#userLanguage; }
-	set userLanguage ( userLanguage ) { this.#userLanguage = userLanguage; }
+	set providerKey ( providerKey ) { this.#providerKey = providerKey; }
 }
 
 window.TaN.addProvider ( GraphHopperRouteProvider );
 
-/*
---- End of GraphHopperRouteProvider.js file -----------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

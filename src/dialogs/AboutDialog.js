@@ -31,29 +31,12 @@ Changes:
 		- Issue ♯138 : Protect the app - control html entries done by user.
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 
 -----------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file AboutDialog.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogs
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
@@ -62,27 +45,27 @@ import BaseDialog from '../dialogBase/BaseDialog.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import { theAppVersion } from '../data/Version.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class AboutDialog
-@classdesc This class is the 'About' dialog
-@extends BaseDialog
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+This class is the 'About' dialog
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class AboutDialog extends BaseDialog {
 
-	#aboutDiv = null;
-
-	/*
-	constructor
+	/**
+	The main
+	@type {HTMLElement}
 	*/
 
-	constructor ( options = {} ) {
-		super ( options );
+	#aboutDiv = null;
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		super ( );
 		this.#aboutDiv = theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-AboutDialog-AboutDiv' } );
 
 		theHTMLSanitizer.sanitizeToHtmlElement (
@@ -105,10 +88,15 @@ class AboutDialog extends BaseDialog {
 
 	/**
 	Get an array with the HTMLElements that have to be added in the content of the dialog.
-	@readonly
+	@type {Array.<HTMLElement>}
 	*/
 
 	get contentHTMLElements ( ) { return [ this.#aboutDiv ]; }
+
+	/**
+	Return the dialog title. Overload of the BaseDialog.title property
+	@type {String}
+	*/
 
 	get title ( ) { return theTranslator.getText ( 'AboutDialog - About Travel & Notes' ); }
 
@@ -116,6 +104,4 @@ class AboutDialog extends BaseDialog {
 
 export default AboutDialog;
 
-/*
---- End of AboutDialog.js file ------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

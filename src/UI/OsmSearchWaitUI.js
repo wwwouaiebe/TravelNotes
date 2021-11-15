@@ -20,60 +20,38 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OsmSearchWaitUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module osmSearchPaneUI
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class OsmSearchWaitUI
-@classdesc This the waitUI for the OsmSearch
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This the waitUI for the OsmSearch
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class OsmSearchWaitUI {
 
 	/**
 	The wait html element
-	@private
+	@type {HTMLElement}
 	*/
 
-	#waitDiv = null;
+	#waitDiv;
 
 	/**
 	The red bullet...
-	@private
+	@type {HTMLElement}
 	*/
 
-	#waitBullet = null;
+	#waitBullet;
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -81,6 +59,15 @@ class OsmSearchWaitUI {
 			'div',
 			{ className : 'TravelNotes-WaitAnimation' },
 		);
+
+		this.#waitBullet = theHTMLElementsFactory.create (
+			'div',
+			{
+				className : 'TravelNotes-WaitAnimationBullet'
+			},
+			this.#waitDiv
+		);
+
 		this.#waitDiv.classList.add ( 'TravelNotes-Hidden' );
 	}
 
@@ -89,13 +76,6 @@ class OsmSearchWaitUI {
 	*/
 
 	showWait ( ) {
-		this.#waitBullet = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-WaitAnimationBullet'
-			},
-			this.#waitDiv
-		);
 		this.#waitDiv.classList.remove ( 'TravelNotes-Hidden' );
 	}
 
@@ -104,22 +84,17 @@ class OsmSearchWaitUI {
 	*/
 
 	hideWait ( ) {
-		if ( this.#waitBullet ) {
-			this.#waitDiv.removeChild ( this.#waitBullet );
-			this.#waitBullet = null;
-		}
 		this.#waitDiv.classList.add ( 'TravelNotes-Hidden' );
 	}
+
+	/**
+	The wait HTMLElement of the OsmSearchWaitUI
+	@type {HTMLElement}
+	*/
 
 	get waitHTMLElement ( ) { return this.#waitDiv; }
 }
 
 export default OsmSearchWaitUI;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of OsmSearchWaitUI.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

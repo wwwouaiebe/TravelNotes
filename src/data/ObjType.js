@@ -24,77 +24,85 @@ Changes:
 		- Issue ♯65 : Time to go to ES6 modules?
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ObjType.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import { NOT_FOUND } from '../main/Constants.js';
 import { theDataVersion } from '../data/Version.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class ObjType
-@classdesc This class represent a ObjType
-
-@--------------------------------------------------------------------------------------------------------------------------
+This class represent a ObjType
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ObjType {
 
-	#objTypeName = '';
-	#validObjTypeNames = [ 'Itinerary', 'ItineraryPoint', 'Maneuver', 'Note', 'Route', 'Travel', 'WayPoint' ];
-
-	/*
-	constructor
+	/**
+	The name of the object
+	@type {String}
 	*/
 
-	constructor ( objTypeName ) {
+	#objTypeName = '';
+
+	/**
+	An array with all the valid objects names for the ObjType objects
+	@type {Array.<String>}
+	*/
+
+	#validObjTypeNames = [ 'Itinerary', 'ItineraryPoint', 'Maneuver', 'Note', 'Route', 'Travel', 'WayPoint' ];
+
+	/**
+	An array with all the valid properties for the ObjType
+	@type {Array.<String>}
+	*/
+
+	#properties = [];
+
+	/**
+	constructor
+	@param {String} objTypeName The name of the ObjType
+	@param {Array.<String>} properties The properties names of the ObjType
+	*/
+
+	constructor ( objTypeName, properties ) {
+		Object.freeze ( this );
 		if ( NOT_FOUND === this.#validObjTypeNames.indexOf ( objTypeName ) ) {
 			throw new Error ( 'Invalid ObjType name : ' + objTypeName );
 		}
 		this.#objTypeName = objTypeName;
-		Object.freeze ( this );
+		this.#properties = properties;
+		Object.freeze ( this.#properties );
 	}
 
 	/**
 	the name of the ObjType
-	@type {string}
+	@type {String}
 	*/
 
 	get name ( ) { return this.#objTypeName; }
 
 	/**
 	the version of the ObjType
-	@type {string}
+	@type {String}
 	*/
 
 	get version ( ) { return theDataVersion; }
 
 	/**
+	An array with all the valid properties for the ObjType
+	@type {Array.<String>}
+	*/
+
+	get properties ( ) { return this.#properties; }
+
+	/**
 	An object literal with the ObjType properties and without any methods.
 	This object can be used with the JSON object
-	@type {Object}
+	@type {JsonObject}
 	*/
 
 	get jsonObject ( ) {
@@ -105,8 +113,8 @@ class ObjType {
 	}
 
 	/**
-	Verify that the ObjType is valid
-	@throws when the ObjType is invalid
+	Verify that the given object is an ObjType and is valid
+	@param {JsonObject} something An object to validate
 	*/
 
 	validate ( something ) {
@@ -124,6 +132,4 @@ class ObjType {
 
 export default ObjType;
 
-/*
---- End of ObjType.js file ----------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

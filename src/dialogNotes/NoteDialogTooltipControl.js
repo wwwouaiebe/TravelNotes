@@ -20,78 +20,47 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteDialogTooltipControl.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogNotes
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
-import { AllControlsFocusEL, AllControlsInputEL } from '../dialogNotes/NoteDialogEventListeners.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class NoteDialogTooltipControl
-@classdesc This class is the tooltipContent control of the NoteDialog
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class is the tooltipContent control of the NoteDialog
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class NoteDialogTooltipControl {
 
 	/**
-	A reference to the noteDialog
-	@private
+	The control container
+	@type {HTMLElement}
 	*/
 
-	#noteDialog = null;
+	#tooltipDiv;
 
 	/**
-	HTMLElements
-	@private
+	The tooltip input
+	@type {HTMLElement}
 	*/
 
-	#tooltipDiv = null;
-	#tooltipInput = null
+	#tooltipInput;
 
 	/**
-	Event listeners
-	@private
+	The constructor
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
-	#eventListeners = {
-		onFocusControl : null,
-		onInputUpdated : null
-	}
+	constructor ( eventListeners ) {
 
-	/*
-	constructor
-	*/
-
-	constructor ( noteDialog ) {
 		Object.freeze ( this );
-		this.#noteDialog = noteDialog;
+
+		// HTMLElements creation
 		this.#tooltipDiv = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -109,43 +78,39 @@ class NoteDialogTooltipControl {
 			this.#tooltipDiv
 		);
 
-		this.#eventListeners.onFocusControl = new AllControlsFocusEL ( this.#noteDialog, false );
-		this.#eventListeners.onInputUpdated = new AllControlsInputEL ( this.#noteDialog );
-		this.#tooltipInput.addEventListener ( 'focus', this.#eventListeners.onFocusControl );
-		this.#tooltipInput.addEventListener ( 'input', this.#eventListeners.onInputUpdated );
-	}
-
-	destructor ( ) {
-		this.#tooltipInput.removeEventListener ( 'focus', this.#eventListeners.onFocusControl );
-		this.#tooltipInput.removeEventListener ( 'input', this.#eventListeners.onInputUpdated );
-		this.#eventListeners.onFocusControl.destructor ( );
-		this.#eventListeners.onInputUpdated.destructor ( );
-		this.#noteDialog = null;
+		// event listeners
+		this.#tooltipInput.addEventListener ( 'focus', eventListeners.controlFocus );
+		this.#tooltipInput.addEventListener ( 'input', eventListeners.controlInput );
 	}
 
 	/**
-	return an array with the HTML elements of the control
-	@readonly
+	Remove event listeners
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
+	*/
+
+	destructor ( eventListeners ) {
+		this.#tooltipInput.removeEventListener ( 'focus', eventListeners.controlFocus );
+		this.#tooltipInput.removeEventListener ( 'input', eventListeners.controlInput );
+	}
+
+	/**
+	An array with the HTML elements of the control
+	@type {Array.<HTMLElement>}
 	*/
 
 	get HTMLElements ( ) { return [ this.#tooltipDiv ]; }
 
 	/**
 	the tooltip value in the control
+	@type {String}
 	*/
 
 	get tooltipContent ( ) { return this.#tooltipInput.value; }
 
-	set tooltipContent ( Value ) { this.#tooltipInput.value = Value; }
+	set tooltipContent ( value ) { this.#tooltipInput.value = value; }
 
 }
 
 export default NoteDialogTooltipControl;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of NoteDialogTooltipControl.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

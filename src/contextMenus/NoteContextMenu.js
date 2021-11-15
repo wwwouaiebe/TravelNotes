@@ -25,31 +25,13 @@ Changes:
 		- Issue ♯120 : Review the UserInterface
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteContextMenu.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module contextMenus
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-import BaseContextMenu from '../contextMenus/BaseContextMenu.js';
+import { BaseContextMenu, MenuItem } from '../contextMenus/BaseContextMenu.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import theNoteEditor from '../core/NoteEditor.js';
 import Zoomer from '../core/Zoomer.js';
@@ -58,92 +40,75 @@ import theTranslator from '../UILib/Translator.js';
 
 import { INVALID_OBJ_ID } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class NoteContextMenu
-@classdesc this class implements the BaseContextMenu class for the notes
-@extends BaseContextMenu
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+this class implements the BaseContextMenu class for the notes
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class NoteContextMenu extends BaseContextMenu {
 
-	#noteObjId = INVALID_OBJ_ID;
-	#route = null;
-
-	/*
-	constructor
-	@param {Event} contextMenuEvent. The event that have triggered the menu
-	@param {Object} parentNode The parent node of the menu. Can be null for leaflet objects
+	/**
+	The route to witch the note is linked
+	@type {Route}
 	*/
 
-	constructor ( contextMenuEvent, parentNode = null ) {
+	#route;
+
+	/**
+	The constructor
+	@param {Event} contextMenuEvent The event that have triggered the menu
+	@param {HTMLElement} parentNode The parent node of the menu. Can be null for leaflet objects
+	*/
+
+	constructor ( contextMenuEvent, parentNode ) {
 		super ( contextMenuEvent, parentNode );
-		this.#noteObjId = this.eventData.targetObjId;
-		this.#route = theDataSearchEngine.getNoteAndRoute ( this.#noteObjId ).route;
+		this.#route = theDataSearchEngine.getNoteAndRoute ( this.eventData.targetObjId ).route;
 	}
 
-	/* eslint-disable no-magic-numbers */
-
-	doAction ( selectedItemObjId ) {
-		switch ( selectedItemObjId ) {
-		case 0 :
-			theNoteEditor.editNote ( this.#noteObjId );
-			break;
-		case 1 :
-			theNoteEditor.removeNote ( this.#noteObjId );
-			break;
-		case 2 :
-			new Zoomer ( ).zoomToNote ( this.#noteObjId );
-			break;
-		case 3 :
-			if ( this.#route ) {
-				theNoteEditor.detachNoteFromRoute ( this.#noteObjId );
-			}
-			else {
-				theNoteEditor.attachNoteToRoute ( this.#noteObjId );
-			}
-			break;
-		default :
-			break;
-		}
-	}
-
-	/* eslint-enable no-magic-numbers */
+	/**
+	The list of menu items to use. Implementation of the BaseContextMenu.menuItems property
+	@type {Array.<MenuItem>}
+	*/
 
 	get menuItems ( ) {
 		return [
-			{
-				itemText : theTranslator.getText ( 'NoteContextMenu - Edit this note' ),
-				isActive : true
-			},
-			{
-				itemText : theTranslator.getText ( 'NoteContextMenu - Delete this note' ),
-				isActive : true
-			},
-			{
-				itemText : theTranslator.getText ( 'NoteContextMenu - Zoom to note' ),
-				isActive : true
-			},
-			{
-				itemText : theTranslator.getText (
+			new MenuItem (
+				theTranslator.getText ( 'NoteContextMenu - Edit this note' ),
+				true,
+				( ) => theNoteEditor.editNote ( this.eventData.targetObjId )
+			),
+			new MenuItem (
+				theTranslator.getText ( 'NoteContextMenu - Delete this note' ),
+				true,
+				( ) => theNoteEditor.removeNote ( this.eventData.targetObjId )
+			),
+			new MenuItem (
+				theTranslator.getText ( 'NoteContextMenu - Zoom to note' ),
+				true,
+				( ) => new Zoomer ( ).zoomToNote ( this.eventData.targetObjId )
+			),
+			new MenuItem (
+				theTranslator.getText (
 					this.#route
 						?
 						'NoteContextMenu - Detach note from route'
 						:
-						'NoteContextMenu - Attach note to route'
-				),
-				isActive : INVALID_OBJ_ID === theTravelNotesData.editedRouteObjId
-			}
+						'NoteContextMenu - Attach note to route' ),
+				INVALID_OBJ_ID === theTravelNotesData.editedRouteObjId,
+				( ) => {
+					if ( this.#route ) {
+						theNoteEditor.detachNoteFromRoute ( this.eventData.targetObjId );
+					}
+					else {
+						theNoteEditor.attachNoteToRoute ( this.eventData.targetObjId );
+					}
+				}
+			)
 		];
 	}
 }
 
 export default NoteContextMenu;
 
-/*
---- End of NoteContextMenu.js file --------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

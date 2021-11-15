@@ -21,92 +21,79 @@ Changes:
 		- Issue ♯150 : Merge travelNotes and plugins
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OpenRouteServiceRouteProvider.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module routeProviders
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-import thePolylineEncoder from '../coreLib/PolylineEncoder.js';
+import polylineEncoder from '../coreLib/PolylineEncoder.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
 import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
 
 import { ZERO, ONE, TWO, LAT, LNG, ELEVATION, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
 
-const OUR_OPEN_ROUTE_LAT_LNG_ROUND = 5;
-
-const OUR_ICON_LIST = [
-	'kTurnLeft',
-	'kTurnRight',
-	'kTurnSharpLeft',
-	'kTurnSharpRight',
-	'kTurnSlightLeft',
-	'kTurnSlightRight',
-	'kContinueStraight',
-	'kRoundaboutRight',
-	'kRoundaboutExit',
-	'kUturnLeft',
-	'kArriveDefault',
-	'kDepartDefault',
-	'kStayLeft',
-	'kStayRight'
-];
-
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class OpenRouteServiceRouteProvider
-@classdesc This class implements the Provider interface for OpenRouteService. It's not possible to instanciate
+This class implements the BaseRouteProvider for OpenRouteService. It's not possible to instanciate
 this class because the class is not exported from the module. Only one instance is created and added to the list
 of Providers of TravelNotes
-@see Provider for a description of methods
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 
-	#userLanguage = 'fr';
-
 	/**
 	The provider key. Will be set by TravelNotes
-	@private
+	@type {String}
 	*/
 
-	#providerKey = '';
+	#providerKey;
 
 	/**
 	A reference to the edited route
+	@type {Route}
 	*/
 
-	#route = null;
+	#route;
+
+	/**
+	The round value used by PolylineEncoder
+	@type {Number}
+	*/
+	// eslint-disable-next-line no-magic-numbers
+	static get#ROUND_VALUE ( ) { return 5; }
+
+	/**
+	Enum for icons
+	@type {Array.<String>}
+	*/
+
+	static get #ICON_LIST ( ) {
+		return [
+			'kTurnLeft',
+			'kTurnRight',
+			'kTurnSharpLeft',
+			'kTurnSharpRight',
+			'kTurnSlightLeft',
+			'kTurnSlightRight',
+			'kContinueStraight',
+			'kRoundaboutRight',
+			'kRoundaboutExit',
+			'kUturnLeft',
+			'kArriveDefault',
+			'kDepartDefault',
+			'kStayLeft',
+			'kStayRight'
+		];
+	}
 
 	/**
 	Parse the response from the provider and add the received itinerary to the route itinerary
-	@param {Object} response the itinerary received from the provider
+	@param {JsonObject} response the itinerary received from the provider
 	@param {function} onOk a function to call when the response is parsed correctly
 	@param {function} onError a function to call when an error occurs
-	@private
 	*/
 
 	#parseResponse ( response, onOk, onError ) {
@@ -115,9 +102,9 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 			onError ( new Error ( 'Route not found' ) );
 			return;
 		}
-		response.routes [ ZERO ].geometry = thePolylineEncoder.decode (
+		response.routes [ ZERO ].geometry = new polylineEncoder ( ).decode (
 			response.routes [ ZERO ].geometry,
-			[ OUR_OPEN_ROUTE_LAT_LNG_ROUND, OUR_OPEN_ROUTE_LAT_LNG_ROUND, TWO ]
+			[ OpenRouteServiceRouteProvider.#ROUND_VALUE, OpenRouteServiceRouteProvider.#ROUND_VALUE, TWO ]
 		);
 		this.#route.itinerary.itineraryPoints.removeAll ( );
 		this.#route.itinerary.maneuvers.removeAll ( );
@@ -138,7 +125,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 				segment.steps.forEach (
 					step => {
 						let maneuver = new Maneuver ( );
-						maneuver.iconName = OUR_ICON_LIST [ step.type ] || 'kUndefined';
+						maneuver.iconName = OpenRouteServiceRouteProvider.#ICON_LIST [ step.type ] || 'kUndefined';
 						maneuver.instruction = step.instruction;
 						maneuver.duration = step.duration;
 						maneuver.distance = step.distance;
@@ -162,7 +149,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 				);
 			}
 		);
-		let wayPointsIterator = this.#route.wayPoints.iterator;
+		const wayPointsIterator = this.#route.wayPoints.iterator;
 		response.routes [ ZERO ].way_points.forEach (
 			wayPoint => {
 				if ( ! wayPointsIterator.done ) {
@@ -176,8 +163,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 
 	/**
 	Gives the url to call
-	@return {string} a string with the url and transitMode
-	@private
+	@return {String} a string with the url, wayPoints, transitMode, user language and API key
 	*/
 
 	#getUrl ( ) {
@@ -200,13 +186,12 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 
 	/**
 	Gives the request headers
-	@return {Array.<object>} an with the needed request headers
-	@private
+	@return {Array.<Object>} an array with the needed request headers
 	*/
 
 	#getRequestHeaders ( ) {
 
-		let orsHeaders = new Headers ( );
+		const orsHeaders = new Headers ( );
 		orsHeaders.append ( 'Accept', 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8' );
 		orsHeaders.append ( 'Content-Type', 'application/json' );
 		orsHeaders.append ( 'Authorization', this.#providerKey );
@@ -216,8 +201,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 
 	/**
 	Gives the options and wayPoints for the request body
-	@return {string} a string with the wayPoint coordinates, elevation param and language in JSON format
-	@private
+	@return {String} a string with the wayPoint coordinates, elevation param and language in JSON format
 	*/
 
 	#getBody ( ) {
@@ -237,8 +221,9 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 	}
 
 	/**
-	Implementation of the base class #getRoute ( )
-	@private
+	Overload of the base class #getRoute ( ) method
+	@param {function} onOk the Promise Success handler
+	@param {function} onError the Promise Error handler
 	*/
 
 	#getRoute ( onOk, onError ) {
@@ -253,16 +238,40 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 						onError ( new Error ( 'Invalid status ' + response.status ) );
 					}
 				}
+			)
+			.catch (
+
+				// calling onError without parameters because fetch don't accecpt to add something as parameter :-(...
+				( ) => { onError ( ); }
 			);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		super ( );
+		this.#providerKey = '';
 	}
+
+	/**
+	Call the provider, using the waypoints defined in the route and, on success,
+	complete the route with the data from the provider
+	@param {Route} route The route to witch the data will be added
+	@return {Promise} A Promise. On success, the Route is completed with the data given by the provider.
+	*/
+
+	getPromiseRoute ( route ) {
+		this.#route = route;
+		return new Promise ( ( onOk, onError ) => this.#getRoute ( onOk, onError ) );
+	}
+
+	/**
+	The icon used in the ProviderToolbarUI.
+	Overload of the base class icon property
+	@type {String}
+	*/
 
 	get icon ( ) {
 		return '' +
@@ -278,28 +287,47 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 			'ZAkopnvvT3YxkeJnZ4SHhtDYvTieBwoBYEsskkj0dHRLxesvF4eXDlra6AK+AKuAIup1+E4uxBnFG6zQAAAABJRU5ErkJggg==';
 	}
 
-	getPromiseRoute ( route ) {
-		this.#route = route;
-		return new Promise ( ( onOk, onError ) => this.#getRoute ( onOk, onError ) );
-	}
+	/**
+	The provider name.
+	Overload of the base class name property
+	@type {String}
+	*/
 
 	get name ( ) { return 'OpenRouteService'; }
 
+	/**
+	The title to display in the ProviderToolbarUI button.
+	Overload of the base class title property
+	@type {String}
+	*/
+
 	get title ( ) { return 'OpenRouteService'; }
+
+	/**
+	The possible transit modes for the provider.
+	Overload of the base class transitModes property
+	Must be a subarray of [ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ]
+	@type {Array.<String>}
+	*/
 
 	get transitModes ( ) { return [ 'bike', 'pedestrian', 'car' ]; }
 
+	/**
+	A boolean indicating when a provider key is needed for the provider.
+	Overload of the base class providerKeyNeeded property
+	@type {Boolean}
+	*/
+
 	get providerKeyNeeded ( ) { return true; }
 
-	get providerKey ( ) { return this.#providerKey.length; }
-	set providerKey ( providerKey ) { this.#providerKey = providerKey; }
+	/**
+	The provider key.
+	Overload of the base class providerKey property
+	*/
 
-	get userLanguage ( ) { return this.#userLanguage; }
-	set userLanguage ( userLanguage ) { this.#userLanguage = userLanguage; }
+	set providerKey ( providerKey ) { this.#providerKey = providerKey; }
 }
 
 window.TaN.addProvider ( OpenRouteServiceRouteProvider );
 
-/*
---- End of OpenRouteServiceRouteProvider.js file ------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

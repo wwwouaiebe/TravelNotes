@@ -20,55 +20,47 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file SvgBuilder.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreMapIcon
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theConfig from '../data/Config.js';
 import theGeometry from '../coreLib/Geometry.js';
 import { SVG_NS, ICON_DIMENSIONS, ZERO, ONE, TWO, NOT_FOUND } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class SvgBuilder
-@classdesc This class is used to create  the svg for a map icon
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+This class is used to create  the svg for a map icon
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class SvgBuilder {
 
-	#route = null;
-	#overpassAPIDataLoader = null;
-	#MapIconData = null;
+	/**
+	A reference to the computeData object of the MapIconFromOsmFactory
+	@type {ComputeDataForMapIcon}
+	*/
 
-	#svgElement = null;
+	#computeData;
+
+	/**
+	A reference to the overpassAPIDataLoader of the MapIconFromOsmFactory
+	@type {OverpassAPIDataLoader}
+	*/
+
+	#overpassAPIDataLoader
+
+	/**
+	The svg element to build
+	@type {SVGElement}
+	*/
+
+	#svgElement;
 
 	/**
 	This method creates the svgElement
-	@private
 	*/
 
 	#createSvg ( ) {
@@ -88,7 +80,6 @@ class SvgBuilder {
 
 	/**
 	This method create the SVG polyline for the route
-	@private
 	*/
 
 	#createRoute ( ) {
@@ -97,17 +88,19 @@ class SvgBuilder {
 		let index = -ONE;
 		let firstPointIndex = NOT_FOUND;
 		let lastPointIndex = NOT_FOUND;
-		let points = [];
-		this.#route.itinerary.itineraryPoints.forEach (
+		const points = [];
+		this.#computeData.route.itinerary.itineraryPoints.forEach (
 			itineraryPoint => {
 				index ++;
-				let point = theGeometry.addPoints (
+				const point = theGeometry.addPoints (
 					theGeometry.project ( itineraryPoint.latLng, theConfig.note.svgIcon.zoom ),
-					this.#MapIconData.translation
+					this.#computeData.translation
 				);
 				points.push ( point );
-				let pointIsInside =
-					point [ ZERO ] >= ZERO && point [ ONE ] >= ZERO
+				const pointIsInside =
+					point [ ZERO ] >= ZERO
+					&&
+					point [ ONE ] >= ZERO
 					&&
 					point [ ZERO ] <= ICON_DIMENSIONS.svgViewboxDim
 					&&
@@ -124,7 +117,7 @@ class SvgBuilder {
 			if ( ZERO < firstPointIndex ) {
 				firstPointIndex --;
 			}
-			if ( this.#route.itinerary.itineraryPoints.length - ONE > lastPointIndex ) {
+			if ( this.#computeData.route.itinerary.itineraryPoints.length - ONE > lastPointIndex ) {
 				lastPointIndex ++;
 			}
 			let pointsAttribute = '';
@@ -132,13 +125,13 @@ class SvgBuilder {
 				pointsAttribute += points[ index ] [ ZERO ].toFixed ( ZERO ) + ',' +
 					points[ index ] [ ONE ].toFixed ( ZERO ) + ' ';
 			}
-			let polyline = document.createElementNS ( SVG_NS, 'polyline' );
+			const polyline = document.createElementNS ( SVG_NS, 'polyline' );
 			polyline.setAttributeNS ( null, 'points', pointsAttribute );
 			polyline.setAttributeNS ( null, 'class', 'TravelNotes-OSM-Itinerary' );
 			polyline.setAttributeNS (
 				null,
 				'transform',
-				'rotate(' + this.#MapIconData.rotation +
+				'rotate(' + this.#computeData.rotation +
 					',' + ( ICON_DIMENSIONS.svgViewboxDim / TWO ) +
 					',' + ( ICON_DIMENSIONS.svgViewboxDim / TWO )
 					+ ')'
@@ -149,7 +142,6 @@ class SvgBuilder {
 
 	/**
 	This method creates the SVG elements for ways from OSM
-	@private
 	*/
 
 	#createWays ( ) {
@@ -160,17 +152,17 @@ class SvgBuilder {
 				let firstPointIndex = NOT_FOUND;
 				let lastPointIndex = NOT_FOUND;
 				let index = -ONE;
-				let points = [ ];
+				const points = [ ];
 				way.nodes.forEach (
 					nodeId => {
 						index ++;
-						let node = this.#overpassAPIDataLoader.nodes.get ( nodeId );
-						let point = theGeometry.addPoints (
+						const node = this.#overpassAPIDataLoader.nodes.get ( nodeId );
+						const point = theGeometry.addPoints (
 							theGeometry.project ( [ node.lat, node.lon ], theConfig.note.svgIcon.zoom ),
-							this.#MapIconData.translation
+							this.#computeData.translation
 						);
 						points.push ( point );
-						let pointIsInside =
+						const pointIsInside =
 							point [ ZERO ] >= ZERO
 							&&
 							point [ ONE ] >= ZERO
@@ -200,7 +192,7 @@ class SvgBuilder {
 							points[ index ] [ ONE ].toFixed ( ZERO ) + ' ';
 					}
 
-					let polyline = document.createElementNS ( SVG_NS, 'polyline' );
+					const polyline = document.createElementNS ( SVG_NS, 'polyline' );
 					polyline.setAttributeNS ( null, 'points', pointsAttribute );
 					polyline.setAttributeNS (
 						null,
@@ -210,7 +202,7 @@ class SvgBuilder {
 					polyline.setAttributeNS (
 						null,
 						'transform',
-						'rotate(' + this.#MapIconData.rotation +
+						'rotate(' + this.#computeData.rotation +
 							',' + ( ICON_DIMENSIONS.svgViewboxDim / TWO ) +
 							',' + ( ICON_DIMENSIONS.svgViewboxDim / TWO ) +
 							')'
@@ -224,25 +216,24 @@ class SvgBuilder {
 
 	/**
 	This method creates the SVG element for RcnRef from OSM
-	@private
 	*/
 
 	#createRcnRef ( ) {
 
 		const Y_TEXT = 0.6;
-		if ( '' === this.#MapIconData.rcnRef ) {
+		if ( '' === this.#computeData.rcnRef ) {
 			return;
 		}
-		let svgText = document.createElementNS ( SVG_NS, 'text' );
-		svgText.textContent = this.#MapIconData.rcnRef;
+		const svgText = document.createElementNS ( SVG_NS, 'text' );
+		svgText.textContent = this.#computeData.rcnRef;
 		svgText.setAttributeNS ( null, 'x', String ( ICON_DIMENSIONS.svgViewboxDim / TWO ) );
 		svgText.setAttributeNS ( null, 'y', String ( ICON_DIMENSIONS.svgViewboxDim * Y_TEXT ) );
 		svgText.setAttributeNS ( null, 'class', 'TravelNotes-OSM-RcnRef' );
 		this.#svgElement.appendChild ( svgText );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -251,26 +242,25 @@ class SvgBuilder {
 
 	/**
 	This method build the SVG element for the icon
-	@private
+	@param {ComputeDataForMapIcon} computeData The object with the data needed for the computations
+	@param {NoteDataForMapIcon} noteData The object with the nota data
+	@param {OverpassAPIDataLoader} overpassAPIDataLoader The OverpassAPIDataLoader object containing the data found in OSM
 	*/
 
-	buildSvg ( route, overpassAPIDataLoader, MapIconData ) {
+	buildSvg ( computeData, noteData, overpassAPIDataLoader ) {
 
-		this.#route = route;
+		this.#computeData = computeData;
 		this.#overpassAPIDataLoader = overpassAPIDataLoader;
-		this.#MapIconData = MapIconData;
 
 		this.#createSvg ( );
 		this.#createRoute ( );
 		this.#createWays ( );
 		this.#createRcnRef ( );
 
-		return this.#svgElement;
+		noteData.iconContent = this.#svgElement.outerHTML;
 	}
 }
 
 export default SvgBuilder;
 
-/*
---- End of SvgBuilder.js file ------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

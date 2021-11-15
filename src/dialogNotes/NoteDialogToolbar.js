@@ -27,128 +27,64 @@ Changes:
 		- Issue ♯144 : Add an error message when a bad json file is loaded from the noteDialog
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteDialogToolbar.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@typedef {Object} NoteDialogCfgFileContent
-@desc An object with definitions for the creation of select options and buttons for the NoteDialogToolbar
-@property {Array.<NoteDialogToolbarButton>} editionButtons An array with the buttons definitions
-@property {Array.<NoteDialogToolbarSelectOption>} preDefinedIconsList An array with the select options definitions
-@public
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@typedef {Object} NoteDialogToolbarSelectOption
-@desc Select options definitions fot the NoteDialogToolbar
-@property {string} name The name to be displayed in the select
-@property {string} icon The html definition of the icon associated with this option
-@property {string} tooltip The tooltip of the icon associated with this option
-@property {number} width The width of the icon associated with this option
-@property {number} height The height of the icon associated with this option
-@public
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@typedef {Object} NoteDialogToolbarButton
-@desc Buttons definitions fot the NoteDialogToolbar
-@property {string} title The text to be displayed on the button. Can be HTML
-@property {string} htmlBefore The text to be inserted before the cursor when clicking on the button
-@property {?string} htmlAfter The text to be inserted after the cursor when clicking on the button. Optional
-@public
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogNotes
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theNoteDialogToolbarData from '../dialogNotes/NoteDialogToolbarData.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
-import {
-	EditionButtonsClickEL,
-	IconSelectorChangeEL,
-	OpenFileButtonClickEL,
-	ToogleContentsButtonClickEL
-} from '../dialogNotes/NoteDialogToolbarEventListeners.js';
 
-import { NOT_FOUND, ZERO } from '../main/Constants.js';
+import { NOT_FOUND } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class NoteDialogToolbar
-@classdesc This class is the toolbar of the NoteDialog
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class is the toolbar of the NoteDialog
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class NoteDialogToolbar {
 
 	/**
-	A reference to the noteDialog
-	@private
+	The toolbar container
+	@type {HTMLElement}
 	*/
 
-	#noteDialog = null;
+	#rootHTMLElement;
 
 	/**
-	HTMLElements
-	@private
+	The icon selector
+	@type {HTMLElement}
 	*/
 
-	#rootHTMLElement = null;
-	#iconSelect = null;
-	#toogleContentsButton = null;
-	#openFileButton = null;
-	#editionButtons = [];
+	#iconSelect;
 
 	/**
-	Event listeners
-	@private
+	The toggle content button
+	@type {HTMLElement}
 	*/
 
-	#eventListeners = {
-		onEditionButtonClick : null,
-		onIconSelectChange : null,
-		onToogleContentsButtonClick : null,
-		onOpenFileButtonClick : null
-	};
+	#toogleContentsButton;
+
+	/**
+	The open file button
+	@type {HTMLElement}
+	*/
+
+	#openFileButton;
+
+	/**
+	The editions buttons
+	@type {Array.<HTMLElement>}
+	*/
+
+	#editionButtons;
 
 	/**
 	Add the icon selector to the toolbar
-	@private
 	*/
 
 	#addIconsSelector ( ) {
@@ -160,11 +96,10 @@ class NoteDialogToolbar {
 			},
 			this.#rootHTMLElement
 		);
-		this.#iconSelect.addEventListener ( 'change', this.#eventListeners.onIconSelectChange, false );
 
-		theNoteDialogToolbarData.icons.forEach (
+		theNoteDialogToolbarData.preDefinedIconsData.forEach (
 			selectOption => {
-				this.#iconSelect.add ( theHTMLElementsFactory.create ( 'option', { text : selectOption [ ZERO ] } ) );
+				this.#iconSelect.add ( theHTMLElementsFactory.create ( 'option', { text : selectOption.name } ) );
 			}
 		);
 		this.#iconSelect.selectedIndex = NOT_FOUND;
@@ -172,7 +107,6 @@ class NoteDialogToolbar {
 
 	/**
 	Add the toolbar buttons to the toolbar ( toogle and open file )
-	@private
 	*/
 
 	#addToolbarButtons ( ) {
@@ -186,7 +120,6 @@ class NoteDialogToolbar {
 			},
 			this.#rootHTMLElement
 		);
-		this.#toogleContentsButton.addEventListener ( 'click', this.#eventListeners.onToogleContentsButtonClick, false );
 
 		this.#openFileButton = theHTMLElementsFactory.create (
 			'div',
@@ -197,30 +130,27 @@ class NoteDialogToolbar {
 			},
 			this.#rootHTMLElement
 		);
-		this.#openFileButton.addEventListener ( 'click', this.#eventListeners.onOpenFileButtonClick, false );
 	}
 
 	/**
 	Add the edition buttons to the toolbar
-	@private
 	*/
 
 	#addEditionButtons ( ) {
-		theNoteDialogToolbarData.buttons.forEach (
-			editionButton => {
-				let newButton = theHTMLElementsFactory.create (
+		theNoteDialogToolbarData.editionButtonsData.forEach (
+			editionButtonData => {
+				const newButton = theHTMLElementsFactory.create (
 					'div',
 					{
 						dataset : {
-							HtmlBefore : editionButton.htmlBefore || '',
-							HtmlAfter : editionButton.htmlAfter || ''
+							HtmlBefore : editionButtonData.htmlBefore,
+							HtmlAfter : editionButtonData.htmlAfter
 						},
 						className : 'TravelNotes-NoteDialog-EditorButton'
 					},
 					this.#rootHTMLElement
 				);
-				theHTMLSanitizer.sanitizeToHtmlElement ( editionButton.title || '?', newButton );
-				newButton.addEventListener ( 'click', this.#eventListeners.onEditionButtonClick, false );
+				theHTMLSanitizer.sanitizeToHtmlElement ( editionButtonData.title, newButton );
 				this.#editionButtons.push ( newButton );
 			}
 		);
@@ -228,7 +158,6 @@ class NoteDialogToolbar {
 
 	/**
 	Add elements to the toolbar
-	@private
 	*/
 
 	#addToolbarElements ( ) {
@@ -239,62 +168,80 @@ class NoteDialogToolbar {
 	}
 
 	/**
-	Remove event listeners on all htmlElements
+	Add the events listeners to the toolbar objects
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
-	#removeEventListeners ( ) {
-		this.#iconSelect.removeEventListener ( 'change', this.#eventListeners.onIconSelectChange, false );
-		this.#toogleContentsButton.removeEventListener ( 'click', this.#eventListeners.onToogleContentsButtonClick, false );
-		this.#openFileButton.removeEventListener ( 'click', this.#eventListeners.onOpenFileButtonClick, false );
+	#addEventListeners ( eventListeners ) {
+		this.#iconSelect.addEventListener ( 'change', eventListeners.iconSelectorChange );
+		this.#toogleContentsButton.addEventListener ( 'click', eventListeners.toggleContentsButtonClick );
 		this.#editionButtons.forEach (
-			button => { button.removeEventListener ( 'click', this.#eventListeners.onEditionButtonClick, false ); }
+			button => { button.addEventListener ( 'click', eventListeners.editionButtonsClick ); }
 		);
+		this.#openFileButton.addEventListener ( 'click', eventListeners.openFileButtonClick, false );
 	}
 
-	/*
-	constructor
+	/**
+	Remove event listeners on all htmlElements
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
-	constructor ( noteDialog ) {
+	#removeEventListeners ( eventListeners ) {
+		this.#iconSelect.removeEventListener ( 'change', eventListeners.iconSelectorChange );
+		this.#toogleContentsButton.removeEventListener ( 'click', eventListeners.toggleContentsButtonClick );
+		this.#editionButtons.forEach (
+			button => { button.removeEventListener ( 'click', eventListeners.editionButtonsClick ); }
+		);
+		this.#openFileButton.removeEventListener ( 'click', eventListeners.openFileButtonClick, false );
+	}
+
+	/**
+	The constructor
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
+	*/
+
+	constructor ( eventListeners ) {
+
 		Object.freeze ( this );
-		this.#noteDialog = noteDialog;
+
+		this.#editionButtons = [];
+
 		this.#rootHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
 				id : 'TravelNotes-NoteDialog-ToolbarDiv'
 			}
 		);
-		this.#eventListeners.onIconSelectChange = new IconSelectorChangeEL ( this.#noteDialog );
-		this.#eventListeners.onToogleContentsButtonClick = new ToogleContentsButtonClickEL ( this.#noteDialog );
-		this.#eventListeners.onOpenFileButtonClick = new OpenFileButtonClickEL ( this );
-		this.#eventListeners.onEditionButtonClick = new EditionButtonsClickEL ( this.#noteDialog );
 
 		this.#addToolbarElements ( );
+		this.#addEventListeners ( eventListeners );
 	}
 
-	destructor ( ) {
-		this.#removeEventListeners ( );
-		this.#eventListeners.onEditionButtonClick.destructor ( );
-		this.#eventListeners.onIconSelectChange.destructor ( );
-		this.#eventListeners.onToogleContentsButtonClick.destructor ( );
-		this.#eventListeners.onOpenFileButtonClick.destructor ( );
-		this.#noteDialog = null;
+	/**
+	Destructor. Remove event listeners.
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
+	*/
+
+	destructor ( eventListeners ) {
+		this.#removeEventListeners ( eventListeners );
 	}
 
 	/**
 	Refresh the toolbar - needed after a file upload.
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
-	update ( ) {
-		this.#removeEventListeners ( );
+	update ( eventListeners ) {
+		this.#removeEventListeners ( eventListeners );
 		this.#rootHTMLElement.textContent = '';
 		this.#editionButtons = [];
 		this.#addToolbarElements ( );
+		this.#addEventListeners ( eventListeners );
 	}
 
 	/**
-	get the rootHTMLElement of the toolbar
-	@readonly
+	The rootHTMLElement of the toolbar
+	@type {HTMLElement}
 	*/
 
 	get rootHTMLElement ( ) { return this.#rootHTMLElement;	}
@@ -303,6 +250,4 @@ class NoteDialogToolbar {
 
 export default NoteDialogToolbar;
 
-/*
---- End of NoteDialogToolbar.js file ------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

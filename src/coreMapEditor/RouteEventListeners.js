@@ -20,28 +20,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests 20210902
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file RouteEventListeners.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreMapEditor
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import RouteContextMenu from '../contextMenus/RouteContextMenu.js';
@@ -51,25 +33,26 @@ import theUtilities from '../UILib/Utilities.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import { ZERO } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class RouteMouseOverOrMoveEL
-@classdesc mouseover and mousemove event listener for the routes
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+mouseover and mousemove event listener for the routes
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class RouteMouseOverOrMoveEL {
 
+	/**
+	Event listener method
+	@param {Event} mapEvent The event to handle
+	*/
+
 	static handleEvent ( mapEvent ) {
-		let route = theDataSearchEngine.getRoute ( mapEvent.target.objId );
+		const route = theDataSearchEngine.getRoute ( mapEvent.target.objId );
 		let distance = theGeometry.getClosestLatLngDistance ( route, [ mapEvent.latlng.lat, mapEvent.latlng.lng ] )
 			.distance;
 		distance += route.chainedDistance;
 		distance = theUtilities.formatDistance ( distance );
-		let polyline = theTravelNotesData.mapObjects.get ( mapEvent.target.objId );
+		const polyline = theTravelNotesData.mapObjects.get ( mapEvent.target.objId );
 		polyline.closeTooltip ( );
 		let tooltipText = route.computedName;
 		if ( ! theTravelNotesData.travel.readOnly ) {
@@ -81,17 +64,18 @@ class RouteMouseOverOrMoveEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class RouteContextMenuEL
-@classdesc contextmenu event listener for the routes
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+contextmenu event listener for the routes
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-class RouteContextMenuEL {
+class RouteMapContextMenuEL {
+
+	/**
+	Event listener method
+	@param {Event} contextMenuEvent The event to handle
+	*/
 
 	static handleEvent ( contextMenuEvent ) {
 		window.L.DomEvent.stopPropagation ( contextMenuEvent );
@@ -101,13 +85,7 @@ class RouteContextMenuEL {
 
 export {
 	RouteMouseOverOrMoveEL,
-	RouteContextMenuEL
+	RouteMapContextMenuEL
 };
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of RouteEventListeners.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

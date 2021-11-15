@@ -22,52 +22,54 @@ Changes:
 		- created
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file IndexedDb.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class contains methods for accessing the window.indexedDb.
+See theIndexedDb for the one and only one instance of this class
 */
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module UILib
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-const OUR_DB_VERSION = 1;
-
-/**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class IndexedDb
-@classdesc This class contains methods for accessing the window.indexedDb
-@see {@link theIndexedDb} for the one and only one instance of this class
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
-*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class IndexedDb {
 
-	#indexedDb = null;
+	/**
+	A reference to the opened indexedDB
+	@type {IDBFactory}
+	*/
 
-	#UUID = null;
-	#data = null;
+	#indexedDb;
+
+	/**
+	The UUID of the current travel
+	@type {String}
+	*/
+
+	#UUID;
+
+	/**
+	A temp variable used to store the data to write in the indexedDb
+	@type {String}
+	*/
+
+	#data;
+
+	/**
+	The version of the db to use
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #DB_VERSION ( ) { return 1; }
 
 	/**
 	Perform the open operations
-	@private
+	@param {function} onOk the Ok handler for the Promise
+	@param {function} onError the error handler for the Promise
 	*/
 
 	#open ( onOk, onError ) {
@@ -75,7 +77,7 @@ class IndexedDb {
 			onOk ( );
 			return;
 		}
-		let openRequest = window.indexedDB.open ( 'TravelNotesDb', OUR_DB_VERSION );
+		const openRequest = window.indexedDB.open ( 'TravelNotesDb', IndexedDb.#DB_VERSION );
 		openRequest.onerror = ( ) => {
 			this.#indexedDb = null;
 			onError ( new Error ( 'Not possible to open the db' ) );
@@ -92,7 +94,8 @@ class IndexedDb {
 
 	/**
 	Perform the read operations
-	@private
+	@param {function} onOk the Ok handler for the Promise
+	@param {function} onError the error handler for the Promise
 	*/
 
 	#read ( onOk, onError ) {
@@ -100,17 +103,18 @@ class IndexedDb {
 			onError ( new Error ( 'Database not opened' ) );
 			return;
 		}
-		let transaction = this.#indexedDb.transaction ( [ 'Travels' ], 'readonly' );
+		const transaction = this.#indexedDb.transaction ( [ 'Travels' ], 'readonly' );
 		transaction.onerror = ( ) => onError ( new Error ( 'Transaction error' ) );
 
-		let travelsObjectStore = transaction.objectStore ( 'Travels' );
-		let getRequest = travelsObjectStore.get ( this.#UUID );
+		const travelsObjectStore = transaction.objectStore ( 'Travels' );
+		const getRequest = travelsObjectStore.get ( this.#UUID );
 		getRequest.onsuccess = successEvent => onOk ( successEvent.target.result ? successEvent.target.result.data : null );
 	}
 
 	/**
 	Perform the write operations
-	@private
+	@param {function} onOk the Ok handler for the Promise
+	@param {function} onError the error handler for the Promise
 	*/
 
 	#write ( onOk, onError ) {
@@ -118,23 +122,15 @@ class IndexedDb {
 			onError ( new Error ( 'Database not opened' ) );
 			return;
 		}
-		let transaction = null;
-		try {
-			transaction = this.#indexedDb.transaction ( [ 'Travels' ], 'readwrite' );
-		}
-		catch ( err ) {
-			onError ( err );
-			return;
-		}
+		const transaction = this.#indexedDb.transaction ( [ 'Travels' ], 'readwrite' );
 		transaction.onerror = ( ) => onError ( new Error ( 'Transaction error' ) );
-		let travelsObjectStore = transaction.objectStore ( 'Travels' );
-		let putRequest = travelsObjectStore.put ( { UUID : this.#UUID, data : this.#data } );
+		const travelsObjectStore = transaction.objectStore ( 'Travels' );
+		const putRequest = travelsObjectStore.put ( { UUID : this.#UUID, data : this.#data } );
 		putRequest.onsuccess = ( ) => onOk ( );
 	}
 
 	/**
 	Perform the close operations
-	@private
 	*/
 
 	#close ( ) {
@@ -142,7 +138,7 @@ class IndexedDb {
 		this.#indexedDb = null;
 	}
 
-	/*
+	/**
 	constructor
 	*/
 
@@ -161,7 +157,7 @@ class IndexedDb {
 
 	/**
 	Read data in the indexedDb.
-	@param {string} UUID An UUID used to identify the data in the indexedDb
+	@param {String} UUID An UUID used to identify the data in the indexedDb
 	@return {Promise} A promise that fullfil when the data are read or reject when a problem occurs
 	The success handler receive the data as parameter
 	*/
@@ -173,8 +169,8 @@ class IndexedDb {
 
 	/**
 	Write data in the indexedDb.
-	@param {string} UUID An UUID used to identify the data in the indexedDb
-	@param {any} data The data to put in the indexedDb
+	@param {String} UUID An UUID used to identify the data in the indexedDb
+	@param {String} data The data to put in the indexedDb
 	@return {Promise} A promise that fullfil when the data are written or reject when a problem occurs
 	*/
 
@@ -187,7 +183,7 @@ class IndexedDb {
 
 	/**
 	Remove the data in the indexedDb and close it
-	@param {string} UUID An UUID used to identify the data in the indexedDb
+	@param {String} UUID An UUID used to identify the data in the indexedDb
 	*/
 
 	closeDb ( UUID ) {
@@ -199,32 +195,25 @@ class IndexedDb {
 			return;
 		}
 
-		let transaction = this.#indexedDb.transaction ( [ 'Travels' ], 'readwrite' );
+		const transaction = this.#indexedDb.transaction ( [ 'Travels' ], 'readwrite' );
 		transaction.onerror = ( ) => { };
-		let travelsObjectStore = transaction.objectStore ( 'Travels' );
+		const travelsObjectStore = transaction.objectStore ( 'Travels' );
 
-		let deleteRequest = travelsObjectStore.delete ( UUID );
+		const deleteRequest = travelsObjectStore.delete ( UUID );
 		deleteRequest.onerror = ( ) => this.#close ( );
 		deleteRequest.onsuccess = ( ) => this.#close ( );
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of IndexedDb class
+The one and only one instance of IndexedDb class
 @type {IndexedDb}
-@constant
-@global
-
-@--------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theIndexedDb = new IndexedDb ( );
 
 export default theIndexedDb;
 
-/*
---- End of IndexedDb.js file --------------------------------------------------------------------------------------------------
-
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

@@ -20,136 +20,126 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file RoadbookLoader.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module roadbook
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theTranslator from '../UILib/Translator.js';
 import theIndexedDb from '../UILib/IndexedDb.js';
 import theRoadbookUpdater from '../roadbook/RoadbookUpdater.js';
+
 import { ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class ShowTravelNotesChangeEL
-@classdesc change event listener for the show travel notes checkbox
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+change event listener for the show travel notes checkbox
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ShowTravelNotesChangeEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	@param {Event} changeEvent The event to handle
+	*/
 
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
 		theRoadbookUpdater.showTravelNotes = changeEvent.target.checked;
-		theRoadbookUpdater.toggleTravelNotes ( );
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class ShowRouteNotesChangeEL
-@classdesc change event listener for the show route notes checkbox
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+change event listener for the show route notes checkbox
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ShowRouteNotesChangeEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	@param {Event} changeEvent The event to handle
+	*/
 
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
 		theRoadbookUpdater.showRouteNotes = changeEvent.target.checked;
-		theRoadbookUpdater.toggleRouteNotes ( );
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class ShowManeuverNotesChangeEL
-@classdesc change event listener for the show maneuver notes checkbox
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+change event listener for the show maneuver notes checkbox
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ShowManeuverNotesChangeEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
 
+	/**
+	Event listener method
+	@param {Event} changeEvent The event to handle
+	*/
+
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
 		theRoadbookUpdater.showManeuversNotes = changeEvent.target.checked;
-		theRoadbookUpdater.toggleManeuversNotes ( );
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class StorageEL
-@classdesc storage event listener
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+storage event listener
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class StorageEL {
+
+	/**
+	The UUID of the page
+	@type {String}
+	*/
+
 	#UUID = null;
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {String} UUID The UUID of the page
 	*/
 
 	constructor ( UUID ) {
 		this.#UUID = UUID;
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( ) {
 		theIndexedDb.getReadPromise ( this.#UUID )
@@ -173,45 +163,51 @@ class StorageEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class SaveButtonClickEL
-@classdesc click event listener for the save button
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+click event listener for the save button
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-class SaveButtonClickEL {
+class SaveFileButtonClickEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
 
+	/**
+	Event listener method
+	*/
+
 	handleEvent ( ) {
 		try {
-			let fileName = document.querySelector ( '.TravelNotes-Roadbook-Travel-Header-Name' ).textContent + '-Roadbook.html';
-			let menu = document.getElementById ( 'TravelNotes-Roadbook-Menu' );
-			let saveDiv = menu.removeChild ( document.getElementById ( 'TravelNotes-SaveDiv' ) );
+			const fileName =
+				document.querySelector ( '.TravelNotes-Roadbook-Travel-Header-Name' ).textContent + '-Roadbook.html';
 
-			let mapFile = window.URL.createObjectURL (
+			// Temporary removing the save button
+			const menu = document.getElementById ( 'TravelNotes-Roadbook-Menu' );
+			const saveDiv = menu.removeChild ( document.getElementById ( 'TravelNotes-SaveDiv' ) );
+
+			// Saving
+			const mapFile = window.URL.createObjectURL (
 				new File (
 					[ '<!DOCTYPE html>', document.documentElement.outerHTML ],
 					fileName,
 					{ type : 'text/plain' }
 				)
 			);
-			let anchorElement = document.createElement ( 'a' );
+			const anchorElement = document.createElement ( 'a' );
 			anchorElement.setAttribute ( 'href', mapFile );
 			anchorElement.setAttribute ( 'download', fileName );
 			anchorElement.style.display = 'none';
 			anchorElement.click ( );
 			window.URL.revokeObjectURL ( mapFile );
+
+			// Restoring the save button
 			menu.appendChild ( saveDiv );
 		}
 		catch ( err ) {
@@ -222,42 +218,37 @@ class SaveButtonClickEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class RoadbookLoader
-@classdesc This class load the roadbook,
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class load the roadbook,
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class RoadbookLoader {
 
 	/**
 	UUID of the page
-	@private
+	@type {String}
 	*/
 
 	#UUID = null;
 
 	/**
 	The user language
-	@private
+	@type {String}
 	*/
 
 	#language = 'fr';
 
 	/**
 	A reference to the save button
-	@private
+	@type {HTMLElement}
 	*/
 
 	#saveButton = null;
 
 	/**
 	checkboxes init
-	@private
 	*/
 
 	#initCheckboxes ( ) {
@@ -268,7 +259,6 @@ class RoadbookLoader {
 
 	/**
 	Adding event listeners
-	@private
 	*/
 
 	#addEventListeners ( ) {
@@ -282,13 +272,12 @@ class RoadbookLoader {
 
 	/**
 	Adding save button
-	@private
 	*/
 
 	#addSaveButton ( ) {
 		this.#saveButton = document.createElement ( 'button' );
 		this.#saveButton.id = 'TravelNotes-SaveButton';
-		this.#saveButton.addEventListener ( 'click', new SaveButtonClickEL ( ) );
+		this.#saveButton.addEventListener ( 'click', new SaveFileButtonClickEL ( ) );
 		let saveDiv = document.createElement ( 'div' );
 		saveDiv.id = 'TravelNotes-SaveDiv';
 		saveDiv.appendChild ( this.#saveButton );
@@ -297,7 +286,6 @@ class RoadbookLoader {
 
 	/**
 	Opening the indexed db
-	@private
 	*/
 
 	#openIndexedDb ( ) {
@@ -317,7 +305,6 @@ class RoadbookLoader {
 
 	/**
 	Loading translations from server
-	@private
 	*/
 
 	#loadTranslations ( ) {
@@ -342,12 +329,13 @@ class RoadbookLoader {
 							);
 					}
 				}
+			)
+			.catch (
 			);
 	}
 
 	/**
 	Translating the page
-	@private
 	*/
 
 	#translatePage ( ) {
@@ -362,11 +350,12 @@ class RoadbookLoader {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
+		Object.freeze ( this );
 		let params = new URLSearchParams ( document.location.search.substring ( ONE ) );
 		this.#UUID = params.get ( 'page' );
 		this.#language = params.get ( 'lng' ) || 'fr';
@@ -384,19 +373,10 @@ class RoadbookLoader {
 			this.#openIndexedDb ( );
 			this.#loadTranslations ( );
 		}
-		else {
-			theRoadbookUpdater.updateIcons ( );
-		}
-		theRoadbookUpdater.toggleNotes ( );
+		theRoadbookUpdater.updateNotes ( );
 	}
 }
 
 export default RoadbookLoader;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of RoadbookLoader.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

@@ -24,28 +24,10 @@ Changes:
 		- Issue ♯120 : Review the UserInterface
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests 20210902
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file Zoomer.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module core
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
@@ -53,17 +35,18 @@ import theDataSearchEngine from '../data/DataSearchEngine.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import { INVALID_OBJ_ID } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class Zoomer
-@classdesc This class implements a zoom command on multiple objects
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+This class implements a zoom command on multiple objects
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class Zoomer {
+
+	/**
+	An array with the lat and lng of all the objects on witch the zoom have to be performed
+	@type {Array.<Array.<Number>>}
+	*/
 
 	#geometry = [];
 
@@ -80,7 +63,6 @@ class Zoomer {
 	/**
 	This method push the latitude and longitude of a route in the #geometry array
 	@param {Route} route the route to push
-	@private
 	*/
 
 	#pushRouteGeometry ( route ) {
@@ -90,18 +72,17 @@ class Zoomer {
 		);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
-		Object.seal ( this );
+		Object.freeze ( this );
 	}
 
 	/**
 	Performs a zoom on a point
-	@param {Array.<number>} latLng The latitude and longitude of the point
-	@fires zoomto
+	@param {Array.<Number>} latLng The latitude and longitude of the point
 	*/
 
 	zoomToLatLng ( latLng ) {
@@ -110,22 +91,20 @@ class Zoomer {
 
 	/**
 	Performs a zoom on a maneuver
-	@param {!number} maneuverObjId the objId of the maneuver on witch the zoom must be performed
-	@fires zoomto
+	@param {Number} maneuverObjId the objId of the maneuver on witch the zoom must be performed
 	*/
 
 	zoomToManeuver ( maneuverObjId ) {
-		let itineraryPointObjId =
+		const itineraryPointObjId =
 			theTravelNotesData.travel.editedRoute.itinerary.maneuvers.getAt ( maneuverObjId ).itineraryPointObjId;
-		let latLng =
+		const latLng =
 			theTravelNotesData.travel.editedRoute.itinerary.itineraryPoints.getAt ( itineraryPointObjId ).latLng;
 		theEventDispatcher.dispatch ( 'zoomto', { latLng : latLng } );
 	}
 
 	/**
 	Performs a zoom on a note
-	@param {!number} noteObjId the objId of the note on witch the zoom must be performed
-	@fires zoomto
+	@param {Number} noteObjId the objId of the note on witch the zoom must be performed
 	*/
 
 	zoomToNote ( noteObjId ) {
@@ -141,8 +120,7 @@ class Zoomer {
 
 	/**
 	Performs a zoom on a route
-	@param {!number} routeObjId the objId of the route on witch the zoom must be performed
-	@fires zoomto
+	@param {Number} routeObjId the objId of the route on witch the zoom must be performed
 	*/
 
 	zoomToRoute ( routeObjId ) {
@@ -160,7 +138,6 @@ class Zoomer {
 
 	/**
 	Performs a zoom on a complete travel
-	@fires zoomto
 	*/
 
 	zoomToTravel ( ) {
@@ -184,8 +161,7 @@ class Zoomer {
 
 	/**
 	Performs a zoom on a poi (point of interest = a search result from osm)
-	@param {Object} poi Poi on witch the zoom must be performed
-	@fires zoomto
+	@param {PoiData} poi Poi on witch the zoom must be performed
 	*/
 
 	zoomToPoi ( poi ) {
@@ -195,6 +171,4 @@ class Zoomer {
 
 export default Zoomer;
 
-/*
---- End of Zoomer.js file -----------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

@@ -20,28 +20,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file APIKeysDialogEventListeners.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogAPIKeys
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import PasswordDialog from '../dialogPassword/PasswordDialog.js';
@@ -52,35 +34,45 @@ import { DataEncryptorHandlers, SaveAPIKeysHelper } from '../dialogAPIKeys/APIKe
 
 import { ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class APIKeyDeletedEL
-@classdesc Event listener for the apikeydeleted event
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+Event listener for the apikeydeleted event
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class APIKeyDeletedEL {
 
-	#APIKeysDialog = null;
-	#APIKeysControls = null;
+	/**
+	A reference to the API keys dialog
+	@type {APIKeysDialog}
+	*/
 
-	/*
-	constructor
+	#APIKeysDialog;
+
+	/**
+	A reference to the Map where the APIKeysDialogKeyControl objects are stored
+	@type {Map.<APIKeysDialogKeyControl>}
+	*/
+
+	#APIKeysControls;
+
+	/**
+	The constructor
+	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
+	@param {Map.<APIKeysDialogKeyControl>} APIKeysControls A reference to the Map where the APIKeysDialogKeyControl
+	objects are stored
 	*/
 
 	constructor ( APIKeysDialog, APIKeysControls ) {
+		Object.freeze ( this );
 		this.#APIKeysDialog = APIKeysDialog;
 		this.#APIKeysControls = APIKeysControls;
-		Object.freeze ( this );
 	}
 
-	destructor ( ) {
-		this.#APIKeysDialog = null;
-		this.#APIKeysControls = null;
-	}
+	/**
+	Event listener method
+	@param {Event} ApiKeyDeletedEvent The event to handle
+	*/
 
 	handleEvent ( ApiKeyDeletedEvent ) {
 		ApiKeyDeletedEvent.stopPropagation ( );
@@ -89,36 +81,39 @@ class APIKeyDeletedEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class OpenUnsecureFileChangeEL
-@classdesc change event listener for the open unsecure file input
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+change event listener for the open unsecure file input
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class OpenUnsecureFileChangeEL {
 
-	#APIKeysDialog = null;
+	/**
+	A reference to the API keys dialog
+	@type {APIKeysDialog}
+	*/
 
-	/*
-	constructor
+	#APIKeysDialog;
+
+	/**
+	The constructor
+	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
 	*/
 
 	constructor ( APIKeysDialog ) {
-		this.#APIKeysDialog = APIKeysDialog;
 		Object.freeze ( this );
+		this.#APIKeysDialog = APIKeysDialog;
 	}
 
-	destructor ( ) {
-		this.#APIKeysDialog = null;
-	}
+	/**
+	Event listener method
+	@param {Event} changeEvent The event to handle
+	*/
 
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
-		let fileReader = new FileReader ( );
+		const fileReader = new FileReader ( );
 		fileReader.onload = ( ) => {
 			try {
 				this.#APIKeysDialog.addAPIKeys (
@@ -136,73 +131,73 @@ class OpenUnsecureFileChangeEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class RestoreFromUnsecureFileButtonClickEL
-@classdesc click event listener for the restore keys from unsecure file button
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+click event listener for the restore keys from unsecure file button
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class RestoreFromUnsecureFileButtonClickEL {
 
-	#APIKeysDialog = null;
-	#openUnsecureFileInputEventListener = null;
+	/**
+	A reference to the API keys dialog
+	@type {APIKeysDialog}
+	*/
 
-	/*
-	constructor
+	#APIKeysDialog;
+
+	/**
+	The constructor
+	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
 	*/
 
 	constructor ( APIKeysDialog ) {
-		this.#APIKeysDialog = APIKeysDialog;
-		this.#openUnsecureFileInputEventListener = new OpenUnsecureFileChangeEL ( this.#APIKeysDialog );
 		Object.freeze ( this );
+		this.#APIKeysDialog = APIKeysDialog;
 	}
 
-	destructor ( ) {
-		this.#APIKeysDialog = null;
-		this.#openUnsecureFileInputEventListener.destructor ( );
-	}
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		this.#APIKeysDialog.hideError ( );
-		theUtilities.openFile (	this.#openUnsecureFileInputEventListener, '.json' );
+		theUtilities.openFile (	new OpenUnsecureFileChangeEL ( this.#APIKeysDialog ), '.json' );
 
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class ReloadFromServerButtonClickEL
-@classdesc click event listener for the reload keys from server file button
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+click event listener for the reload keys from server file button
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ReloadFromServerButtonClickEL {
 
-	#APIKeysDialog = null;
-	#dataEncryptorHandlers = null;
+	/**
+	A reference to the API keys dialog
+	@type {APIKeysDialog}
+	*/
 
-	/*
-	constructor
+	#APIKeysDialog;
+
+	/**
+	The constructor
+	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
 	*/
 
 	constructor ( APIKeysDialog ) {
-		this.#APIKeysDialog = APIKeysDialog;
-		this.#dataEncryptorHandlers = new DataEncryptorHandlers ( this.#APIKeysDialog );
 		Object.freeze ( this );
+		this.#APIKeysDialog = APIKeysDialog;
 	}
 
-	destructor ( ) {
-		this.#APIKeysDialog = null;
-		this.#dataEncryptorHandlers.destructor ( );
-	}
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -216,23 +211,26 @@ class ReloadFromServerButtonClickEL {
 					if ( HTTP_STATUS_OK === response.status && response.ok ) {
 						response.arrayBuffer ( ).then (
 							data => {
+								const dataEncryptorHandlers = new DataEncryptorHandlers ( this.#APIKeysDialog );
 								new DataEncryptor ( ).decryptData (
 									data,
-									tmpData => { this.#dataEncryptorHandlers.onOkDecrypt ( tmpData ); },
-									err => { this.#dataEncryptorHandlers.onErrorDecrypt ( err ); },
+									tmpData => { dataEncryptorHandlers.onOkDecrypt ( tmpData ); },
+									err => { dataEncryptorHandlers.onErrorDecrypt ( err ); },
 									new PasswordDialog ( false ).show ( )
 								);
 							}
 						);
 					}
 					else {
-						this.#dataEncryptorHandlers.onErrorDecrypt ( new Error ( 'Invalid http status' ) );
+						new DataEncryptorHandlers ( this.#APIKeysDialog ).onErrorDecrypt (
+							new Error ( 'Invalid http status' )
+						);
 					}
 				}
 			)
 			.catch (
 				err => {
-					this.#dataEncryptorHandlers.onErrorDecrypt ( err );
+					new DataEncryptorHandlers ( this.#APIKeysDialog ).onErrorDecrypt ( err );
 					if ( err instanceof Error ) {
 						console.error ( err );
 					}
@@ -241,46 +239,47 @@ class ReloadFromServerButtonClickEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class OpenSecureFileChangeEL
-@classdesc Change event listener for the open secure file input
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+Change event listener for the open secure file input
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class OpenSecureFileChangeEL {
 
-	#APIKeysDialog = null;
-	#dataEncryptorHandlers = null;
+	/**
+	A reference to the API keys dialog
+	@type {APIKeysDialog}
+	*/
 
-	/*
-	constructor
+	#APIKeysDialog;
+
+	/**
+	The constructor
+	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
 	*/
 
 	constructor ( APIKeysDialog ) {
-		this.#APIKeysDialog = APIKeysDialog;
-		this.#dataEncryptorHandlers = new DataEncryptorHandlers ( this.#APIKeysDialog );
 		Object.freeze ( this );
+		this.#APIKeysDialog = APIKeysDialog;
 	}
 
-	destructor ( ) {
-		this.#APIKeysDialog = null;
-		this.#dataEncryptorHandlers.destructor ( );
-	}
+	/**
+	Event listener method
+	@param {Event} changeEvent The event to handle
+	*/
 
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
 		this.#APIKeysDialog.showWait ( );
 		this.#APIKeysDialog.keyboardELEnabled = false;
-		let fileReader = new FileReader ( );
+		const fileReader = new FileReader ( );
 		fileReader.onload = ( ) => {
+			const dataEncryptorHandlers = new DataEncryptorHandlers ( this.#APIKeysDialog );
 			new DataEncryptor ( ).decryptData (
 				fileReader.result,
-				data => { this.#dataEncryptorHandlers.onOkDecrypt ( data ); },
-				err => { this.#dataEncryptorHandlers.onErrorDecrypt ( err ); },
+				data => { dataEncryptorHandlers.onOkDecrypt ( data ); },
+				err => { dataEncryptorHandlers.onErrorDecrypt ( err ); },
 				new PasswordDialog ( false ).show ( )
 			);
 		};
@@ -288,78 +287,82 @@ class OpenSecureFileChangeEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class RestoreFromSecureFileButtonClickEL
-@classdesc click event listener for the restore keys from secure file button
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+click event listener for the restore keys from secure file button
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class RestoreFromSecureFileButtonClickEL {
 
-	#APIKeysDialog = null;
-	#openSecureFileInputEventListener = null;
+	/**
+	A reference to the API keys dialog
+	@type {APIKeysDialog}
+	*/
 
-	/*
-	constructor
+	#APIKeysDialog;
+
+	/**
+	The constructor
+	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
 	*/
 
 	constructor ( APIKeysDialog ) {
-		this.#APIKeysDialog = APIKeysDialog;
-		this.#openSecureFileInputEventListener = new OpenSecureFileChangeEL ( this.#APIKeysDialog );
 		Object.freeze ( this );
+		this.#APIKeysDialog = APIKeysDialog;
 	}
 
-	destructor ( ) {
-		this.#APIKeysDialog = null;
-		this.#openSecureFileInputEventListener.destructor ( );
-	}
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		this.#APIKeysDialog.hideError ( );
-		theUtilities.openFile (	this.#openSecureFileInputEventListener );
+		theUtilities.openFile (	new OpenSecureFileChangeEL ( this.#APIKeysDialog ) );
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class SaveToSecureFileButtonClickEL
-@classdesc Click event listener for the saveAPIKeys to secure file button
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+Click event listener for the saveAPIKeys to secure file button
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class SaveToSecureFileButtonClickEL {
 
-	#APIKeysDialog = null;
-	#APIKeysControls = null;
-	#saveAPIKeysHelper = null;
-	#dataEncryptorHandlers = null;
+	/**
+	A reference to the API keys dialog
+	@type {APIKeysDialog}
+	*/
 
-	/*
-	constructor
+	#APIKeysDialog;
+
+	/**
+	A reference to the Map where the APIKeysDialogKeyControl objects are stored
+	@type {Map.<APIKeysDialogKeyControl>}
+	*/
+
+	#APIKeysControls;
+
+	/**
+	The constructor
+	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
+	@param {Map.<APIKeysDialogKeyControl>} APIKeysControls A reference to the Map where the APIKeysDialogKeyControl
+	objects are stored
 	*/
 
 	constructor ( APIKeysDialog, APIKeysControls ) {
+		Object.freeze ( this );
 		this.#APIKeysDialog = APIKeysDialog;
 		this.#APIKeysControls = APIKeysControls;
-		this.#saveAPIKeysHelper = new SaveAPIKeysHelper ( this.#APIKeysControls );
-		this.#dataEncryptorHandlers = new DataEncryptorHandlers ( this.#APIKeysDialog );
-		Object.freeze ( this );
 	}
 
-	destructor ( ) {
-		this.#APIKeysDialog = null;
-		this.#APIKeysControls = null;
-		this.#saveAPIKeysHelper.destructor ( );
-		this.#dataEncryptorHandlers.destructor ( );
-	}
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -369,48 +372,57 @@ class SaveToSecureFileButtonClickEL {
 		this.#APIKeysDialog.showWait ( );
 
 		this.#APIKeysDialog.keyboardELEnabled = false;
-
+		const dataEncryptorHandlers = new DataEncryptorHandlers ( this.#APIKeysDialog );
 		new DataEncryptor ( ).encryptData (
-			new window.TextEncoder ( ).encode ( this.#saveAPIKeysHelper.getAPIKeysJsonString ( ) ),
-			data => this.#dataEncryptorHandlers.onOkEncrypt ( data ),
-			( ) => this.#dataEncryptorHandlers.onErrorEncrypt ( ),
+			new window.TextEncoder ( ).encode (
+				new SaveAPIKeysHelper ( this.#APIKeysControls ).getAPIKeysJsonString ( )
+			),
+			data => dataEncryptorHandlers.onOkEncrypt ( data ),
+			( ) => dataEncryptorHandlers.onErrorEncrypt ( ),
 			new PasswordDialog ( true ).show ( )
 		);
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class SaveToUnsecureFileButtonClickEL
-@classdesc Click event listener for the saveAPIKeys to unsecure file button
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+Click event listener for the saveAPIKeys to unsecure file button
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class SaveToUnsecureFileButtonClickEL {
 
-	#APIKeysDialog = null;
-	#APIKeysControls = null;
-	#saveAPIKeysHelper = null;
+	/**
+	A reference to the API keys dialog
+	@type {APIKeysDialog}
+	*/
 
-	/*
-	constructor
+	#APIKeysDialog;
+
+	/**
+	A reference to the Map where the APIKeysDialogKeyControl objects are stored
+	@type {Map.<APIKeysDialogKeyControl>}
+	*/
+
+	#APIKeysControls;
+
+	/**
+	The constructor
+	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
+	@param {Map.<APIKeysDialogKeyControl>} APIKeysControls A reference to the Map where the APIKeysDialogKeyControl
+	objects are stored
 	*/
 
 	constructor ( APIKeysDialog, APIKeysControls ) {
+		Object.freeze ( this );
 		this.#APIKeysDialog = APIKeysDialog;
 		this.#APIKeysControls = APIKeysControls;
-		this.#saveAPIKeysHelper = new SaveAPIKeysHelper ( this.#APIKeysControls );
-		Object.freeze ( this );
 	}
 
-	destructor ( ) {
-		this.#APIKeysDialog = null;
-		this.#APIKeysControls = null;
-		this.#saveAPIKeysHelper.destructor ( );
-	}
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -419,46 +431,56 @@ class SaveToUnsecureFileButtonClickEL {
 		}
 		theUtilities.saveFile (
 			'APIKeys.json',
-			this.#saveAPIKeysHelper.getAPIKeysJsonString ( ),
+			new SaveAPIKeysHelper ( this.#APIKeysControls ).getAPIKeysJsonString ( ),
 			'application/json'
 		);
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class NewAPIKeyButtonClickEL
-@classdesc Click event listener for the add new APIKey button
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+Click event listener for the add new APIKey button
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class NewAPIKeyButtonClickEL {
 
-	#APIKeysDialog = null;
-	#APIKeysControls = null;
+	/**
+	A reference to the API keys dialog
+	@type {APIKeysDialog}
+	*/
 
-	/*
-	constructor
+	#APIKeysDialog;
+
+	/**
+	A reference to the Map where the APIKeysDialogKeyControl objects are stored
+	@type {Map.<APIKeysDialogKeyControl>}
+	*/
+
+	#APIKeysControls;
+
+	/**
+	The constructor
+	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
+	@param {Map.<APIKeysDialogKeyControl>} APIKeysControls A reference to the Map where the APIKeysDialogKeyControl
+	objects are stored
 	*/
 
 	constructor ( APIKeysDialog, APIKeysControls ) {
+		Object.freeze ( this );
 		this.#APIKeysDialog = APIKeysDialog;
 		this.#APIKeysControls = APIKeysControls;
-		Object.freeze ( this );
 	}
 
-	destructor ( ) {
-		this.#APIKeysDialog = null;
-		this.#APIKeysControls = null;
-	}
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		let APIKey = Object.seal ( { providerName : '', providerKey : '' } );
-		let APIKeyControl = new APIKeysDialogKeyControl ( APIKey );
+		const APIKey = Object.seal ( { providerName : '', providerKey : '' } );
+		const APIKeyControl = new APIKeysDialogKeyControl ( APIKey );
 		this.#APIKeysControls.set ( APIKeyControl.objId, APIKeyControl );
 		this.#APIKeysDialog.refreshAPIKeys ( );
 	}
@@ -474,10 +496,4 @@ export {
 	NewAPIKeyButtonClickEL
 };
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of APIKeysDialogEventListeners.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

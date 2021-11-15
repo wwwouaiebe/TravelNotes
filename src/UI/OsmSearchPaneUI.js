@@ -33,27 +33,10 @@ Changes:
 		- Issue ♯138 : Protect the app - control html entries done by user.
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OsmSearchPaneUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module osmSearchPaneUI
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import PaneUI from '../UI/PaneUI.js';
@@ -64,121 +47,91 @@ import OsmSearchControlUI from '../UI/OsmSearchControlUI.js';
 
 import { PANE_ID } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class OsmSearchPaneUI
-@classdesc This class manages the search pane UI
-@see {@link PanesManagerUI} for pane UI management
-@implements {PaneUI}
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+This class manages the search pane UI
+See PanesManagerUI for pane UI management
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class OsmSearchPaneUI extends PaneUI {
 
 	/**
 	the data UI
-	@private
+	@type {OsmSearchDataUI}
 	*/
 
-	#osmSearchDataUI = new OsmSearchDataUI ( this.paneData );
+	#osmSearchDataUI;
 
 	/**
 	The control UI
-	@private
+	@type {OsmSearchControlUI}
 	*/
 
-	#osmSearchControlUI = new OsmSearchControlUI ( this.paneControl );
+	#osmSearchControlUI;
 
 	/**
 	The limits UI
-	@private
+	@type {OsmSearchLimitsUI}
 	*/
 
-	#osmSearchLimitsUI = new OsmSearchLimitsUI ( );
+	#osmSearchLimitsUI;
 
 	/**
-	Create the controls div
-	@private
-	*/
-
-	#addControls ( ) {
-		this.#osmSearchControlUI.addControl ( this.paneControlDiv );
-	}
-
-	/**
-	Create the pane data div content
-	@private
-	*/
-
-	#addData ( ) {
-		this.#osmSearchDataUI.addData ( this.paneDataDiv );
-	}
-
-	/**
-	Clear the pane control div
-	@private
-	*/
-
-	#clearPaneControlDiv ( ) {
-		this.#osmSearchControlUI.clearControl ( this.paneControlDiv );
-	}
-
-	/**
-	Remove all search results from the pane data div
-	@private
-	*/
-
-	#clearPaneDataDiv ( ) {
-		this.#osmSearchDataUI.clearData ( this.paneDataDiv );
-	}
-
-	/*
-	constructor
+	The constructor
+	@param {HTMLElement} paneData The HTMLElement in witch the data have to be added
+	@param {HTMLElement} paneControl The HTMLElement in witch the control have to be added
 	*/
 
 	constructor ( paneData, paneControl ) {
+
 		super ( paneData, paneControl );
+
+		this.#osmSearchDataUI = new OsmSearchDataUI ( this.paneData );
+		this.#osmSearchControlUI = new OsmSearchControlUI ( this.paneControl );
+		this.#osmSearchLimitsUI = new OsmSearchLimitsUI ( );
 	}
 
 	/**
-	This method removes all the elements from the data div and control div
+	This method removes all the elements from the paneData HTMLElement and paneControl HTMLElement
+	Overload of the PaneUI.remove ( ) method
 	*/
 
 	remove ( ) {
 		this.#osmSearchLimitsUI.hide ( );
-		this.#clearPaneDataDiv ( );
-		this.#clearPaneControlDiv ( );
+		this.#osmSearchDataUI.clearData ( );
+		this.#osmSearchControlUI.clearControl ( );
 	}
 
 	/**
-	This method add the search data to the data div and controls to the controls div
+	This method add the search results to the paneData HTMLElement and controls to the paneControl HTMLElement
+	Overload of the PaneUI.add ( ) method
 	*/
 
 	add ( ) {
 		this.#osmSearchLimitsUI.show ( );
-		this.#addControls ( );
-		this.#addData ( );
+		this.#osmSearchControlUI.addControl ( );
+		this.#osmSearchDataUI.addData ( );
 	}
 
 	/**
-	This method returns the pane id
+	A unique identifier for the pane
+	Overload of the PaneUI.paneId property
+	@type {String}
 	*/
 
-	getPaneId ( ) { return PANE_ID.searchPane; }
+	get paneId ( ) { return PANE_ID.searchPane; }
 
 	/**
-	This method returns the text to add in the pane button
+	The text to be displayer in the pane button
+	Overload of the PaneUI.buttonText property
+	@type {String}
 	*/
 
-	getButtonText ( ) { return theTranslator.getText ( 'PanesManagerUI - Search' ); }
+	get buttonText ( ) { return theTranslator.getText ( 'PanesManagerUI - Search' ); }
 
 }
 
 export default OsmSearchPaneUI;
 
-/*
---- End of OsmSearchPaneUI.js file ---------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

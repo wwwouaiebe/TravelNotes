@@ -27,49 +27,33 @@ Changes:
 		- Issue ♯138 : Protect the app - control html entries done by user.
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file AttributionsUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module attributionsUI
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class
-@classdesc The attributions UI
-@see {@link theAttributionsUI} for the one and only one instance of this class
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+Show the attributons of the current map, OpenStreetMap, leaflet and TravelNotes.
+See theAttributionsUI for the one and only one instance of this class
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class AttributionsUI {
 
-	#attributionsDiv = null;
+	/**
+	The root HTMLElement of the UI
+	@type {HTMLElement}
+	*/
 
-	/*
-	constructor
+	#mainHTMLElement = null;
+
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -81,17 +65,15 @@ class AttributionsUI {
 	*/
 
 	createUI ( ) {
-		this.#attributionsDiv = theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-AttributionsUI' }, document.body );
-
-		// this.attributions = '';
+		this.#mainHTMLElement = theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-AttributionsUI' }, document.body );
 	}
 
 	/**
-	Add/replace the given attributions to the UI. Leaflet, OpenStreetMap and TravelNotes must always be credited.
+	Add/replace the given map attributions to the UI. Leaflet, OpenStreetMap and TravelNotes are always credited.
 	*/
 
 	set attributions ( attributions ) {
-		let attributionsString =
+		const attributionsString =
 			'© <a href="https://leafletjs.com/" target="_blank" title="Leaflet">Leaflet</a> ' +
 			'| © <a href="https://www.openstreetmap.org/copyright" target="_blank" ' +
 			'title="OpenStreetMap contributors">OpenStreetMap contributors</a> ' +
@@ -99,28 +81,22 @@ class AttributionsUI {
 			'| © <a href="https://github.com/wwwouaiebe" target="_blank" ' +
 			'title="https://github.com/wwwouaiebe">Travel & Notes</a>';
 
-		while ( this.#attributionsDiv.firstChild ) {
-			this.#attributionsDiv.removeChild ( this.#attributionsDiv.firstChild );
+		while ( this.#mainHTMLElement.firstChild ) {
+			this.#mainHTMLElement.removeChild ( this.#mainHTMLElement.firstChild );
 		}
-		theHTMLSanitizer.sanitizeToHtmlElement ( attributionsString, this.#attributionsDiv );
+		theHTMLSanitizer.sanitizeToHtmlElement ( attributionsString, this.#mainHTMLElement );
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of AttributionsUI class
+The one and only one instance of AttributionsUI class
 @type {AttributionsUI}
-@constant
-@global
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theAttributionsUI = new AttributionsUI ( );
 
 export default theAttributionsUI;
 
-/*
---- End of AttributionsUI.js file ---------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

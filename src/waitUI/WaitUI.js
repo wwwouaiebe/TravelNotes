@@ -24,48 +24,38 @@ Changes:
 		- Issue ♯135 : Remove innerHTML from code
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file WaitUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module WaitUI
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class
-@classdesc This class display a Wait window on the screen with a message and an animation
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class display a Wait window on the screen with a message and an animation
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class WaitUI {
 
-	#backgroundDiv = null;
-	#messageDiv = null;
+	/**
+	The background div
+	@type {HTMLElement}
+	*/
 
-	/*
-	constructor
+	#backgroundDiv;
+
+	/**
+	The message div
+	@type {HTMLElement}
+	*/
+
+	#messageDiv;
+
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -77,11 +67,19 @@ class WaitUI {
 	*/
 
 	createUI ( ) {
-		if ( document.getElementById ( 'TravelNotes-WaitUI' ) ) {
+
+		// We can create the waitUI only once...
+		if ( this.#backgroundDiv ) {
 			return;
 		}
+
+		// Background div, so the map and controls are unavailable
 		this.#backgroundDiv = theHTMLElementsFactory.create ( 'div', { className : 'TravelNotes-Background' }, document.body );
-		let waitDiv = theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-WaitUI' }, this.#backgroundDiv );
+
+		// Wait div
+		const waitDiv = theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-WaitUI' }, this.#backgroundDiv );
+
+		// Message div
 		this.#messageDiv = theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-WaitUI-MessageDiv' }, waitDiv );
 		theHTMLElementsFactory.create (
 			'div',
@@ -93,7 +91,7 @@ class WaitUI {
 
 	/**
 	Show an info in the WaitUI
-	@param {string} info The info to be displayed
+	@param {String} info The info to be displayed
 	*/
 
 	showInfo ( info ) {
@@ -112,6 +110,4 @@ class WaitUI {
 
 export default WaitUI;
 
-/*
---- End of WaitUI.js file -----------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

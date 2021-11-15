@@ -20,79 +20,48 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteDialogPopupControl.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogNotes
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
-import { AllControlsFocusEL, AllControlsInputEL } from '../dialogNotes/NoteDialogEventListeners.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class NoteDialogPopupControl
-@classdesc This class is the popupContent control of the NoteDialog
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class is the popupContent control of the NoteDialog
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class NoteDialogPopupControl {
 
 	/**
-	A reference to the noteDialog
-	@private
+	The control container
+	@type {HTMLElement}
 	*/
 
-	#noteDialog = null;
+	#popupDiv;
 
 	/**
-	HTMLElements
-	@private
+	The popup textarea
+	@type {HTMLElement}
 	*/
 
-	#popupDiv = null;
-	#popupTextArea = null;
+	#popupTextArea;
 
 	/**
-	Event listeners
-	@private
+	The constructor
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
-	#eventListeners = {
-		onFocusControl : null,
-		onInputUpdated : null
-	}
+	constructor ( eventListeners ) {
 
-	/*
-	constructor
-	*/
-
-	constructor ( noteDialog ) {
 		Object.freeze ( this );
-		this.#noteDialog = noteDialog;
+
+		// HTMLElements creation
 		this.#popupDiv = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -110,29 +79,31 @@ class NoteDialogPopupControl {
 			this.#popupDiv
 		);
 
-		this.#eventListeners.onFocusControl = new AllControlsFocusEL ( this.#noteDialog, false );
-		this.#eventListeners.onInputUpdated = new AllControlsInputEL ( this.#noteDialog );
-		this.#popupTextArea.addEventListener ( 'focus', this.#eventListeners.onFocusControl );
-		this.#popupTextArea.addEventListener ( 'input', this.#eventListeners.onInputUpdated );
-	}
-
-	destructor ( ) {
-		this.#popupTextArea.removeEventListener ( 'focus', this.#eventListeners.onFocusControl );
-		this.#popupTextArea.removeEventListener ( 'input', this.#eventListeners.onInputUpdated );
-		this.#eventListeners.onFocusControl.destructor ( );
-		this.#eventListeners.onInputUpdated.destructor ( );
-		this.#noteDialog = null;
+		// event listeners
+		this.#popupTextArea.addEventListener ( 'focus', eventListeners.controlFocus );
+		this.#popupTextArea.addEventListener ( 'input', eventListeners.controlInput );
 	}
 
 	/**
-	return an array with the HTML elements of the control
-	@readonly
+	Remove event listeners
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
+	*/
+
+	destructor ( eventListeners ) {
+		this.#popupTextArea.removeEventListener ( 'focus', eventListeners.controlFocus );
+		this.#popupTextArea.removeEventListener ( 'input', eventListeners.controlInput );
+	}
+
+	/**
+	An array with the HTML elements of the control
+	@type {Array.<HTMLElement>}
 	*/
 
 	get HTMLElements ( ) { return [ this.#popupDiv ]; }
 
 	/**
 	The popupcontent value in the control
+	@type {String}
 	*/
 
 	get popupContent ( ) { return this.#popupTextArea.value; }
@@ -143,10 +114,4 @@ class NoteDialogPopupControl {
 
 export default NoteDialogPopupControl;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of NoteDialogPopupControl.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

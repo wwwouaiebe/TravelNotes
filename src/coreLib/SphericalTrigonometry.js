@@ -28,58 +28,35 @@ Changes:
 		- Issue ♯125 : Outphase osmSearch and add it to TravelNotes
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file SphericalTrigonometry.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreLib
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import { ZERO, ONE, DEGREES, EARTH_RADIUS } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class SphericalTrigonometry
-@classdesc This class contains methods for spherical trigonometry operations
-@see {@link theSphericalTrigonometry} for the one and only one instance of this class
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class contains methods for spherical trigonometry operations.
+See theSphericalTrigonometry for the one and only one instance of this class
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class SphericalTrigonometry {
 
 	/**
 	This method normalize a longitude (always between -180° and 180°)
-	@param {number} Lng The longitude to normalize
-	@return {number} The normalized longitude
-	@private
+	@param {Number} Lng The longitude to normalize
+	@return {Number} The normalized longitude
 	*/
 
 	#normalizeLng ( Lng ) {
 		return ( ( Lng + DEGREES.d540 ) % DEGREES.d360 ) - DEGREES.d180;
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -88,15 +65,16 @@ class SphericalTrigonometry {
 
 	/**
 
-	This method gives an arc of a spherical triangle when the 2 others arcs and the opposite summit are know
-	It's the well know cosinus law
-	cos a = cos b cos c + sin b sin c cos A
-	cos b =	cos c cos a + sin c sin a cos B
-	cos c = cos a cos b + sin a sin b cos C
+	This method gives an arc of a spherical triangle when the 2 others arcs and the opposite summit are know.
+	It's the well know cosinus law:
 
-	@param {number} summit the opposite summit
-	@param {number} arc1 the first arc
-	@param {number} arc2 the second arc
+	- cos a = cos b cos c + sin b sin c cos A
+	- cos b =	cos c cos a + sin c sin a cos B
+	- cos c = cos a cos b + sin a sin b cos C
+
+	@param {Number} summit the opposite summit
+	@param {Number} arc1 the first arc
+	@param {Number} arc2 the second arc
 
 	*/
 
@@ -110,11 +88,12 @@ class SphericalTrigonometry {
 	/**
 
 	This method is also the well know cosinus law written in an other way....
+
 	cos C = ( cos c - cos a cos b ) / sin a sin b
 
-	@param {number} arc1 the first arc
-	@param {number} arc2 the second arc
-	@param {number} oppositeArc the opposite arc
+	@param {Number} arc1 the first arc
+	@param {Number} arc2 the second arc
+	@param {Number} oppositeArc the opposite arc
 
 	*/
 
@@ -131,8 +110,8 @@ class SphericalTrigonometry {
 	(cos c = cos a cos b + sin a sin b cos C). The delta with the Leaflet method is
 	always < 10e-3 m. The error due to the earth radius is a lot bigger.
 	Notice: leaflet uses the haversine formula.
-	@param {Array.<number>} latLngStartPoint The coordinates of the start point
-	@param {Array.<number>} latLngEndPoint The coordinates of the end point
+	@param {Array.<Number>} latLngStartPoint The coordinates of the start point
+	@param {Array.<Number>} latLngEndPoint The coordinates of the end point
 	*/
 
 	pointsDistance ( latLngStartPoint, latLngEndPoint ) {
@@ -145,9 +124,9 @@ class SphericalTrigonometry {
 			// the method runs infinitely when latLngStartPoint === latLngEndPoint :-(
 			return ZERO;
 		}
-		let latStartPoint = latLngStartPoint [ ZERO ] * DEGREES.toRadians;
-		let latEndPoint = latLngEndPoint [ ZERO ] * DEGREES.toRadians;
-		let deltaLng =
+		const latStartPoint = latLngStartPoint [ ZERO ] * DEGREES.toRadians;
+		const latEndPoint = latLngEndPoint [ ZERO ] * DEGREES.toRadians;
+		const deltaLng =
 			(
 				this.#normalizeLng ( latLngEndPoint [ ONE ] ) -
 				this.#normalizeLng ( latLngStartPoint [ ONE ] )
@@ -160,21 +139,15 @@ class SphericalTrigonometry {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of SphericalTrigonometry class
+The one and only one instance of SphericalTrigonometry class
 @type {SphericalTrigonometry}
-@constant
-@global
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theSphericalTrigonometry = new SphericalTrigonometry ( );
 
 export default theSphericalTrigonometry;
 
-/*
---- End of SphericalTrigonometry.js file --------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

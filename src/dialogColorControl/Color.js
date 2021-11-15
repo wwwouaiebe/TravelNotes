@@ -20,52 +20,45 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 
+import { ZERO, TWO, THREE, HEXADECIMAL, COLOR_CONTROL } from '../main/Constants.js';
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file Color.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
+A simple helper class for the ColorControl
 */
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogColorControl
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-import { ZERO, ONE, TWO, THREE, HEXADECIMAL, COLOR_CONTROL } from '../main/Constants.js';
-
-const FIVE = 5;
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class Color
-@classdesc a simple helper class for the ColorControl
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class Color {
 
-	#red = COLOR_CONTROL.maxColorValue;
-	#green = COLOR_CONTROL.maxColorValue;
-	#blue = COLOR_CONTROL.maxColorValue;
+	/**
+	The red value of the color
+	@type {Number}
+	*/
 
-	/*
-	constructor
+	#red;
+
+	/**
+	The green value of the color
+	@type {Number}
+	*/
+
+	#green;
+
+	/**
+	The blue value of the color
+	@type {Number}
+	*/
+
+	#blue;
+
+	/**
+	The constructor
 	@param {?number} red The red value of the color. Must be between 0 and 255. If null set to 255
 	@param {?number} green The green value of the color. Must be between 0 and 255. If null set to 255
 	@param {?number} blue The blue value of the color. Must be between 0 and 255. If null set to 255
@@ -73,6 +66,7 @@ class Color {
 
 	constructor ( red, green, blue ) {
 
+		Object.freeze ( this );
 		this.#red =
 			'number' === typeof red && COLOR_CONTROL.maxColorValue >= red && COLOR_CONTROL.minColorValue <= red
 				?
@@ -93,12 +87,11 @@ class Color {
 				blue
 				:
 				COLOR_CONTROL.maxColorValue;
-
-		Object.freeze ( this );
 	}
 
 	/**
 	The red value of the color
+	@type {Number}
 	*/
 
 	get red ( ) { return this.#red; }
@@ -111,6 +104,7 @@ class Color {
 
 	/**
 	The green value of the color
+	@type {Number}
 	*/
 
 	get green ( ) { return this.#green; }
@@ -123,6 +117,7 @@ class Color {
 
 	/**
 	The blue value of the color
+	@type {Number}
 	*/
 
 	get blue ( ) { return this.#blue; }
@@ -134,7 +129,8 @@ class Color {
 	}
 
 	/**
-	get the color in the css HEX format '#RRGGBB'
+	The color in the css HEX format '#RRGGBB'
+	@type {String}
 	*/
 
 	get cssColor ( ) {
@@ -144,15 +140,14 @@ class Color {
 			this.#blue.toString ( HEXADECIMAL ).padStart ( TWO, '0' );
 	}
 
-	/**
-	set the color from a cssColor in the HEX format or the rgb () format
-	*/
-
 	set cssColor ( cssColor ) {
 		if ( '\u0023' === cssColor [ ZERO ] ) {
-			this.#red = Number.parseInt ( cssColor.substr ( ONE, TWO ), HEXADECIMAL );
-			this.#green = Number.parseInt ( cssColor.substr ( THREE, TWO ), HEXADECIMAL );
-			this.#blue = Number.parseInt ( cssColor.substr ( FIVE, TWO ), HEXADECIMAL );
+			// eslint-disable-next-line no-magic-numbers
+			this.#red = Number.parseInt ( cssColor.substr ( 1, 2 ), HEXADECIMAL );
+			// eslint-disable-next-line no-magic-numbers
+			this.#green = Number.parseInt ( cssColor.substr ( 3, 2 ), HEXADECIMAL );
+			// eslint-disable-next-line no-magic-numbers
+			this.#blue = Number.parseInt ( cssColor.substr ( 5, 2 ), HEXADECIMAL );
 		}
 		else if ( 'rgb' === cssColor.substr ( ZERO, THREE ) ) {
 			[ this.#red, this.#green, this.#blue ] =
@@ -161,7 +156,7 @@ class Color {
 	}
 
 	/**
-	return a clone of the Color
+	Clone the Color
 	@return {color} a new color Oject similar to this Color
 	*/
 
@@ -181,10 +176,4 @@ class Color {
 
 export default Color;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of Color.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

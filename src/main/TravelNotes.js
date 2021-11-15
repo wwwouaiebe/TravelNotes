@@ -48,28 +48,10 @@ Changes:
 		- Issue ♯129 : Add an indicator when the travel is modified and not saved
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file TravelNotes.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module main
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theConfig from '../data/Config.js';
@@ -78,7 +60,6 @@ import theRouteEditor from '../core/RouteEditor.js';
 import theAPIKeysManager from '../core/APIKeysManager.js';
 import theUI from '../UI/UI.js';
 import Travel from '../data/Travel.js';
-import Route from '../data/Route.js';
 import ViewerFileLoader from '../core/ViewerFileLoader.js';
 import { theAppVersion } from '../data/Version.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
@@ -88,46 +69,44 @@ import theMouseUI from '../mouseUI/MouseUI.js';
 import theAttributionsUI from '../attributionsUI/AttributionsUI.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theTranslator from '../UILib/Translator.js';
+import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import { LAT_LNG, TWO, SAVE_STATUS, HTTP_STATUS_OK } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
+This class is the entry point of the application.
 
-@class TravelNotes
-@classdesc This class is the entry point of the application.
-@see {@link theTravelNotes} for the one and only one instance of this class
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+See theTravelNotes for the one and only one instance of this class
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class TravelNotes {
 
 	/**
 	Guard to avoid a second upload
-	#private
+	@type {Boolean}
 	*/
 
 	#travelNotesLoaded = false;
 
 	/**
 	Load a travel from the server
+	@param {String} travelUrl The url of the trv file to open
 	*/
 
 	async #loadDistantTravel ( travelUrl ) {
-		let travelResponse = await fetch ( travelUrl );
+		const travelResponse = await fetch ( travelUrl );
 		if ( HTTP_STATUS_OK === travelResponse.status && travelResponse.ok ) {
-			let travelContent = await travelResponse.json ( );
-			new ViewerFileLoader ( ).openDistantFile ( travelContent );
+			new ViewerFileLoader ( ).openDistantFile ( await travelResponse.json ( ) );
 		}
 		else {
-			theTravelNotesData.map.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], TWO	);
+			theTravelNotesData.map.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], TWO );
 			document.title = 'Travel & Notes';
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -137,16 +116,17 @@ class TravelNotes {
 	/**
 	This method load TravelNotes and open a read only map passed trought the url.
 	This method can only be executed once. Others call will be ignored.
+	@param {String} travelUrl The url of the trv file to open
 	*/
 
-	addReadOnlyMap ( map, travelUrl ) {
+	addReadOnlyMap ( travelUrl ) {
+
 		if ( this.#travelNotesLoaded ) {
 			return;
 		}
+
 		this.#travelNotesLoaded = true;
-		if ( map ) {
-			theTravelNotesData.map = map;
-		}
+
 		theAttributionsUI.createUI ( );
 		theMapLayersToolbarUI.setMapLayer ( 'OSM - Color' );
 		this.#loadDistantTravel ( travelUrl );
@@ -157,20 +137,26 @@ class TravelNotes {
 	This method can only be executed once. Others call will be ignored.
 	*/
 
-	addControl ( map, divControlId ) {
+	addControl ( ) {
+
 		if ( this.#travelNotesLoaded ) {
 			return;
 		}
+
 		this.#travelNotesLoaded = true;
-		if ( map ) {
-			theTravelNotesData.map = map;
-			theTravelNotesData.map.on ( 'contextmenu', contextMenuEvent => new MapContextMenu ( contextMenuEvent ) .show ( ) );
-		}
-		theTravelNotesData.travel = new Travel ( );
-		theTravelNotesData.travel.routes.add ( new Route ( ) );
-		theUI.createUI ( document.getElementById ( divControlId ) );
+
+		// Loading the user interfaces...
+		document.title = 'Travel & Notes';
+		theTravelNotesData.map.on ( 'contextmenu', contextMenuEvent => new MapContextMenu ( contextMenuEvent ) .show ( ) );
+		theTravelNotesData.map.setView ( [ theConfig.map.center.lat, theConfig.map.center.lng ], theConfig.map.zoom );
+
+		// ... the main UI...
+		theUI.createUI ( theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-UI' }, document.body ) );
+
+		// ... the attributions UI...
 		theAttributionsUI.createUI ( );
-		theAPIKeysManager.setKeysFromServerFile ( );
+
+		// ... the map layers toolbar UI...
 		if ( theConfig.layersToolbarUI.haveLayersToolbarUI ) {
 			theMapLayersToolbarUI.createUI ( );
 		}
@@ -178,26 +164,36 @@ class TravelNotes {
 			theMapLayersToolbarUI.setMapLayer ( 'OSM - Color' );
 		}
 
+		// ... the mouse UI
 		if ( theConfig.mouseUI.haveMouseUI ) {
 			theMouseUI.createUI ( );
+			theMouseUI.saveStatus = SAVE_STATUS.saved;
 		}
-		if ( theConfig.travelEditor.startupRouteEdition ) {
-			theRouteEditor.editRoute ( theTravelNotesData.travel.routes.first.objId );
-		}
-		theEventDispatcher.dispatch ( 'setrouteslist' );
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
-		theTravelNotesData.map.setView ( [ theConfig.map.center.lat, theConfig.map.center.lng ], theConfig.map.zoom );
+
+		// ...help UI
 		theErrorsUI.showHelp (
 			'<p>' + theTranslator.getText ( 'Help - Continue with interface1' ) + '</p>' +
 			'<p>' + theTranslator.getText ( 'Help - Continue with interface2' ) + '</p>'
 		);
-		document.title = 'Travel & Notes';
-		theMouseUI.saveStatus = SAVE_STATUS.saved;
+
+		// Loading the API keys
+		theAPIKeysManager.setKeysFromServerFile ( );
+
+		// Loading a new empty travel
+		theTravelNotesData.travel.jsonObject = new Travel ( ).jsonObject;
+
+		if ( theConfig.travelEditor.startupRouteEdition ) {
+			theRouteEditor.editRoute ( theTravelNotesData.travel.routes.first.objId );
+		}
+
+		theEventDispatcher.dispatch ( 'setrouteslist' );
+		theEventDispatcher.dispatch ( 'roadbookupdate' );
+
 	}
 
 	/**
 	This method add a provider. Used by plugins.
-	@param {Provider} provider The provider to add
+	@param {class} providerClass The provider to add
 	*/
 
 	addProvider ( providerClass ) {
@@ -206,6 +202,7 @@ class TravelNotes {
 
 	/**
 	Show an info, using theErrorsUI. Used by plugins.
+	@param {String} info The info to show
 	*/
 
 	showInfo ( info ) {
@@ -213,39 +210,36 @@ class TravelNotes {
 	}
 
 	/**
-	get the overpassApi url
+	The overpassApi url to use by plugins
+	@type {String}
 	*/
 
 	get overpassApiUrl ( ) { return theConfig.overpassApi.url; }
 
 	/**
-	get the Leaflet map object
+	The Leaflet map object
+	@type {LeafletObject}
 	*/
 
 	get map ( ) { return theTravelNotesData.map; }
 
 	/**
 	theTravelNotes version
+	@type {String}
 	*/
 
 	get version ( ) { return theAppVersion; }
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of TravelNotes class
+The one and only one instance of TravelNotes class
 @type {TravelNotes}
-@constant
-@global
 
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theTravelNotes = new TravelNotes ( );
 
 export default theTravelNotes;
 
-/*
---- End of TravelNotes.js file ------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

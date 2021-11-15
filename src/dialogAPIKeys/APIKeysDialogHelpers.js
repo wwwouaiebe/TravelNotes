@@ -20,49 +20,33 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ApiKeysDialogHelpers.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogAPIKeys
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theUtilities from '../UILib/Utilities.js';
 import theTranslator from '../UILib/Translator.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class DataEncryptorHandlers
-@classdesc handlers for DataEncryptor
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+handlers for DataEncryptor
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class DataEncryptorHandlers {
 
-	#APIKeysDialog = null;
+	/**
+	A reference to the API keys dialog
+	@type {APIKeysDialog}
+	*/
 
-	/*
-	constructor
+	#APIKeysDialog;
+
+	/**
+	The constructor
+	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
 	*/
 
 	constructor ( APIKeysDialog ) {
@@ -70,12 +54,9 @@ class DataEncryptorHandlers {
 		Object.freeze ( this );
 	}
 
-	destructor ( ) {
-		this.#APIKeysDialog = null;
-	}
-
 	/**
 	onErrorDecrypt handler for the DataEncryptor
+	@param {Error|String} err The error to handle
 	*/
 
 	onErrorDecrypt ( err ) {
@@ -90,6 +71,7 @@ class DataEncryptorHandlers {
 
 	/**
 	onOkDecrypt handler for the DataEncryptor
+	@param {Uint8Array} data The decrypted data to handle
 	*/
 
 	onOkDecrypt ( data ) {
@@ -109,7 +91,7 @@ class DataEncryptorHandlers {
 
 	/**
 	onOkEncrypt handler for the DataEncryptor
-	@private
+	@param {Uint8Array} data The encrypted data to handle
 	*/
 
 	onOkEncrypt ( data ) {
@@ -121,7 +103,6 @@ class DataEncryptorHandlers {
 
 	/**
 	onErrorEncrypt handler for the DataEncryptor
-	@private
 	*/
 
 	onErrorEncrypt ( ) {
@@ -134,22 +115,25 @@ class DataEncryptorHandlers {
 
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class SaveAPIKeysHelper
-@classdesc shared methods for save to file buttons event listeners
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+shared methods for save to file buttons event listeners
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class SaveAPIKeysHelper {
 
-	#APIKeysControls = null;
+	/**
+	A reference to the Map where the APIKeysDialogKeyControl objects are stored
+	@type {Map.<APIKeysDialogKeyControl>}
+	*/
 
-	/*
-	constructor
+	#APIKeysControls;
+
+	/**
+	The constructor
+	@param {Map.<APIKeysDialogKeyControl>} APIKeysControls A reference to the Map where the APIKeysDialogKeyControl
+	objects are stored
 	*/
 
 	constructor ( APIKeysControls ) {
@@ -157,16 +141,12 @@ class SaveAPIKeysHelper {
 		Object.freeze ( this );
 	}
 
-	destructor ( ) {
-		this.#APIKeysControls = null;
-	}
-
 	/**
 	Transform the APIKeysControls value into a JSON string
 	*/
 
 	getAPIKeysJsonString ( ) {
-		let APIKeys = [];
+		const APIKeys = [];
 		this.#APIKeysControls.forEach (
 			APIKeyControl => { APIKeys.push ( APIKeyControl.APIKey ); }
 		);
@@ -177,10 +157,4 @@ class SaveAPIKeysHelper {
 
 export { DataEncryptorHandlers, SaveAPIKeysHelper };
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of ApiKeysDialogHelpers.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

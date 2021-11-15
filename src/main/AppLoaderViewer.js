@@ -20,28 +20,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file AppLoaderViewer.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module main
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theConfig from '../data/Config.js';
@@ -54,29 +36,28 @@ import MapEditorViewer from '../coreMapEditor/MapEditorViewer.js';
 import theGeoLocator from '../core/GeoLocator.js';
 import Zoomer from '../core/Zoomer.js';
 
-import { LAT_LNG, ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
+import { ZERO, ONE, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
 
-const OUR_VIEWER_DEFAULT_ZOOM = 2;
-
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class KeydownEventListener
-@classdesc keydown event listener
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
+keydown event listener, so we can use the keyboard for zoom on the travel, geolocator and maps
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class KeydownEventListener {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	@param {Event} keyBoardEvent The event to handle
+	*/
 
 	handleEvent ( keyBoardEvent ) {
 		keyBoardEvent.stopPropagation ( );
@@ -87,7 +68,7 @@ class KeydownEventListener {
 			theGeoLocator.switch ( );
 		}
 		else {
-			let charCode = keyBoardEvent.key.charCodeAt ( ZERO );
+			const charCode = keyBoardEvent.key.charCodeAt ( ZERO );
 			/* eslint-disable-next-line no-magic-numbers */
 			if ( 47 < charCode && 58 > charCode ) {
 				theViewerLayersToolbarUI.setMapLayer ( keyBoardEvent.key );
@@ -96,28 +77,59 @@ class KeydownEventListener {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class AppLoaderViewer
-@classdesc Loader for the app.Load all the json files needed (config, translations, map layers...) and add event listeners.
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+Loader for the app.Load all the json files needed (config, translations, map layers...) and add event listeners.
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class AppLoaderViewer {
 
-	#travelUrl = null;
-	#language = null;
-	#addLayerToolbar = false;
-	#originAndPath = window.location.href.substr ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'TravelNotes';
+	/**
+	The url of the trv file in the fil parameter of the url
+	@type {String}
+	*/
+
+	#travelUrl;
+
+	/**
+	the language in the lng parameter of the url
+	@type {String}
+	*/
+
+	#language;
+
+	/**
+	The path of the app + TravelNotes ( first part of the json file names )
+	@type {String}
+	*/
+
+	#originAndPath;
+
+	/**
+	A flag indicating when the layer toolbar must be added
+	@type {Boolean}
+	*/
+
+	#addLayerToolbar;
+
+	/**
+	The dafault zomm factor
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #VIEWER_DEFAULT_ZOOM ( ) { return 2; }
+
+	/**
+	The mapEditorViewer
+	@type {MapEditorViewer}
+	*/
 
 	static #mapEditorViewer = new MapEditorViewer ( );
 
 	/**
 	Loading event listeners
-	@private
 	*/
 
 	#addEventsListeners ( ) {
@@ -188,11 +200,10 @@ class AppLoaderViewer {
 
 	/**
 	Read the url. Search a 'fil' parameter, a 'lng' parameter and a 'lay' in the url.
-	@private
 	*/
 
 	#readURL ( ) {
-		let docURL = new URL ( window.location );
+		const docURL = new URL ( window.location );
 		let strTravelUrl = docURL.searchParams.get ( 'fil' );
 		if ( strTravelUrl && ZERO !== strTravelUrl.length ) {
 			try {
@@ -200,7 +211,7 @@ class AppLoaderViewer {
 				if ( strTravelUrl.match ( /[^\w-%:./]/ ) ) {
 					throw new Error ( 'invalid char in the url encoded in the fil parameter' );
 				}
-				let travelURL = new URL ( strTravelUrl );
+				const travelURL = new URL ( strTravelUrl );
 				if (
 					docURL.protocol && travelURL.protocol && docURL.protocol === travelURL.protocol
 					&&
@@ -218,7 +229,7 @@ class AppLoaderViewer {
 				}
 			}
 		}
-		let urlLng = docURL.searchParams.get ( 'lng' );
+		const urlLng = docURL.searchParams.get ( 'lng' );
 		if ( urlLng ) {
 			if ( urlLng.match ( /^[A-Z,a-z]{2}$/ ) ) {
 				this.#language = urlLng.toLowerCase ( );
@@ -234,9 +245,9 @@ class AppLoaderViewer {
 	*/
 
 	async #loadConfig ( ) {
-		let configResponse = await fetch ( this.#originAndPath + 'Config.json' );
+		const configResponse = await fetch ( this.#originAndPath + 'Config.json' );
 		if ( HTTP_STATUS_OK === configResponse.status && configResponse.ok ) {
-			let config = await configResponse.json ( );
+			const config = await configResponse.json ( );
 			config.travelNotes.language = this.#language || config.travelNotes.language;
 			if ( 'wwwouaiebe.github.io' === window.location.hostname ) {
 				config.note.haveBackground = true;
@@ -249,11 +260,10 @@ class AppLoaderViewer {
 
 	/**
 	Loading translations
-	@private
 	*/
 
 	async #loadTranslations ( ) {
-		let languageResponse = await fetch ( this.#originAndPath +	this.#language.toUpperCase ( ) + '.json' );
+		const languageResponse = await fetch ( this.#originAndPath + this.#language.toUpperCase ( ) + '.json' );
 		if ( HTTP_STATUS_OK === languageResponse.status && languageResponse.ok ) {
 			theTranslator.setTranslations ( await languageResponse.json ( ) );
 			return true;
@@ -263,11 +273,10 @@ class AppLoaderViewer {
 
 	/**
 	Loading map layers
-	@private
 	*/
 
 	async #loadMapLayers ( ) {
-		let layersResponse = await fetch ( this.#originAndPath +	'Layers.json' );
+		const layersResponse = await fetch ( this.#originAndPath +	'Layers.json' );
 		if ( HTTP_STATUS_OK === layersResponse.status && layersResponse.ok ) {
 			theViewerLayersToolbarUI.addMapLayers ( await layersResponse.json ( ) );
 			return true;
@@ -276,30 +285,30 @@ class AppLoaderViewer {
 	}
 
 	/**
-	Loading theTravelNotesViewer
-	@readonly
+	Loading TravelNotes
 	*/
 
-	#loadTravelNotesViewer ( ) {
+	#loadTravelNotes ( ) {
 
 		// mapDiv must be extensible for leaflet
-		let mapDiv = document.createElement ( 'div' );
+		const mapDiv = document.createElement ( 'div' );
 		mapDiv.id = 'TravelNotes-Map';
 		document.body.appendChild ( mapDiv );
-
-		theTravelNotesData.map =
-			window.L.map ( 'TravelNotes-Map', { attributionControl : false, zoomControl : false } );
-		theTravelNotesData.map.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], OUR_VIEWER_DEFAULT_ZOOM );
+		theTravelNotesData.map = window.L.map ( mapDiv.id, { attributionControl : false, zoomControl : false } )
+			.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], AppLoaderViewer.#VIEWER_DEFAULT_ZOOM );
 
 		theTravelNotesViewer.addReadOnlyMap ( this.#travelUrl, this.#addLayerToolbar );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#originAndPath =
+			window.location.href.substr ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'TravelNotes';
+		this.#addLayerToolbar = false;
 	}
 
 	/**
@@ -323,16 +332,10 @@ class AppLoaderViewer {
 			return;
 		}
 		this.#addEventsListeners ( );
-		this.#loadTravelNotesViewer ( );
+		this.#loadTravelNotes ( );
 	}
 }
 
 export default AppLoaderViewer;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of AppLoaderViewer.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

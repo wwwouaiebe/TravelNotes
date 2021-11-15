@@ -28,177 +28,153 @@ Changes:
 		- Issue ♯138 : Protect the app - control html entries done by user.
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ItineraryPoint.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/* eslint no-fallthrough: ["error", { "commentPattern": "eslint break omitted intentionally" }]*/
-
 import ObjId from '../data/ObjId.js';
 import ObjType from '../data/ObjType.js';
+import TravelObject from '../data/TravelObject.js';
 import { ELEV, LAT_LNG, DISTANCE, ZERO, ONE, INVALID_OBJ_ID } from '../main/Constants.js';
 
-const OUR_OBJ_TYPE = new ObjType ( 'ItineraryPoint' );
-
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class ItineraryPoint
-@classdesc This class represent an itinerary point
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class represent an itinerary point
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ItineraryPoint {
-
-	#objId = INVALID_OBJ_ID;;
-
-	/**
-	performs the upgrade from previous versions
-	@param {Object} itineraryPoint an itineraryPoint to upgrade
-	@throws {Error} when the itineraryPoint version is invalid
-	@private
-	*/
-
-	#upgradeObject ( itineraryPoint ) {
-		switch ( itineraryPoint.objType.version ) {
-		case '1.0.0' :
-		case '1.1.0' :
-		case '1.2.0' :
-		case '1.3.0' :
-		case '1.4.0' :
-		case '1.5.0' :
-		case '1.6.0' :
-			itineraryPoint.elev = ELEV.defaultValue;
-			// eslint break omitted intentionally
-		case '1.7.0' :
-		case '1.7.1' :
-		case '1.8.0' :
-		case '1.9.0' :
-		case '1.10.0' :
-		case '1.11.0' :
-		case '1.12.0' :
-		case '1.13.0' :
-		case '2.0.0' :
-		case '2.1.0' :
-		case '2.2.0' :
-			itineraryPoint.objType.version = '2.3.0';
-			break;
-		default :
-			throw new Error ( 'invalid version for ' + OUR_OBJ_TYPE.name );
-		}
-	}
+class ItineraryPoint extends TravelObject {
 
 	/**
-	Verify that the parameter can be transformed to an ItineraryPoint and performs the upgrate if needed
-	@param {Object} something an object to validate
-	@return {Object} the validated object
-	@throws {Error} when the parameter is invalid
-	@private
+	The object type for itinerary points
+	@type {ObjType}
 	*/
 
-	#validateObject ( something ) {
-		if ( ! Object.getOwnPropertyNames ( something ).includes ( 'objType' ) ) {
-			throw new Error ( 'No objType for ' + OUR_OBJ_TYPE.name );
-		}
-		OUR_OBJ_TYPE.validate ( something.objType );
-		if ( OUR_OBJ_TYPE.version !== something.objType.version ) {
-			this.#upgradeObject ( something );
-		}
-		let properties = Object.getOwnPropertyNames ( something );
-		[ 'lat', 'lng', 'distance', 'elev', 'objId' ].forEach (
-			property => {
-				if ( ! properties.includes ( property ) ) {
-					throw new Error ( 'No ' + property + ' for ' + OUR_OBJ_TYPE.name );
-				}
-			}
-		);
-		return something;
-	}
+	static #objType = new ObjType ( 'ItineraryPoint', [ 'lat', 'lng', 'distance', 'elev', 'objId' ] );
 
-	/*
-	constructor
+	/**
+	the latitude of the ItineraryPoint
+	@type {Number}
+	*/
+
+	#lat = LAT_LNG.defaultValue;
+
+	/**
+	the longitude of the ItineraryPoint
+	@type {Number}
+	*/
+
+	#lng = LAT_LNG.defaultValue;
+
+	/**
+	the distance between the beginning of the itinerary and the ItineraryPoint
+	@type {Number}
+	*/
+
+	#distance = DISTANCE.defaultValue;
+
+	/**
+	the elevation (if any)  of the ItineraryPoint
+	@type {Number}
+	*/
+
+	#elev = ELEV.defaultValue;
+
+	/**
+	the objId of the ItineraryPoint.
+	@type {Number}
+	*/
+
+	#objId = INVALID_OBJ_ID;
+
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
-
-		/**
-		the latitude of the ItineraryPoint
-		@type {number}
-		*/
-
-		this.lat = LAT_LNG.defaultValue;
-
-		/**
-		the longitude of the ItineraryPoint
-		@type {number}
-		*/
-
-		this.lng = LAT_LNG.defaultValue;
-
-		/**
-		the distance between the beginning of the itinerary and the ItineraryPoint
-		@type {number}
-		*/
-
-		this.distance = DISTANCE.defaultValue;
-
-		/**
-		the elevation (if any)  of the ItineraryPoint
-		@type {number}
-		*/
-
-		this.elev = ELEV.defaultValue;
-
+		super ( );
 		this.#objId = ObjId.nextObjId;
 
-		Object.seal ( this );
+	}
+
+	/**
+	the latitude of the ItineraryPoint
+	@type {Number}
+	*/
+
+	get lat ( ) { return this.#lat; }
+
+	set lat ( lat ) {
+		this.#lat = 'number' === typeof ( lat ) ? lat : LAT_LNG.defaultValue;
+	}
+
+	/**
+	the longitude of the ItineraryPoint
+	@type {Number}
+	*/
+
+	get lng ( ) { return this.#lng; }
+
+	set lng ( lng ) {
+		this.#lng = 'number' === typeof ( lng ) ? lng : LAT_LNG.defaultValue;
+	}
+
+	/**
+	the distance between the ItineraryPoint and the next ItineraryPoint
+	@type {Number}
+	*/
+
+	get distance ( ) { return this.#distance; }
+
+	set distance ( distance ) {
+		this.#distance = 'number' === typeof ( distance ) ? distance : DISTANCE.defaultValue;
+	}
+
+	/**
+	the elevation (if any)  of the ItineraryPoint
+	@type {Number}
+	*/
+
+	get elev ( ) { return this.#elev; }
+
+	set elev ( elev ) {
+		this.#elev = 'number' === typeof ( elev ) ? elev : LAT_LNG.defaultValue;
 	}
 
 	/**
 	the latitude and longitude of the ItineraryPoint
-	@type {number[]}
+	@type {Array.<number>}
 	*/
 
 	get latLng ( ) { return [ this.lat, this.lng ]; }
-	set latLng ( LatLng ) {
-		this.lat = LatLng [ ZERO ];
-		this.lng = LatLng [ ONE ];
+
+	set latLng ( latLng ) {
+		if (
+			'number' === typeof ( latLng [ ZERO ] )
+			&&
+			'number' === typeof ( latLng [ ONE ] )
+		) {
+			this.#lat = latLng [ ZERO ];
+			this.#lng = latLng [ ONE ];
+		}
+		else {
+			this.#lat = LAT_LNG.defaultValue;
+			this.#lng = LAT_LNG.defaultValue;
+		}
 	}
 
 	/**
 	the ObjType of the WayPoint.
 	@type {ObjType}
-	@readonly
 	*/
 
-	get objType ( ) { return OUR_OBJ_TYPE; }
+	get objType ( ) { return ItineraryPoint.#objType; }
 
 	/**
 	the objId of the ItineraryPoint. objId are unique identifier given by the code
-	@readonly
-	@type {!number}
+	@type {Number}
 	*/
 
 	get objId ( ) { return this.#objId; }
@@ -206,7 +182,7 @@ class ItineraryPoint {
 	/**
 	An object literal with the ItineraryPoint properties and without any methods.
 	This object can be used with the JSON object
-	@type {Object}
+	@type {JsonObject}
 	*/
 
 	get jsonObject ( ) {
@@ -216,45 +192,20 @@ class ItineraryPoint {
 			distance : parseFloat ( this.distance.toFixed ( DISTANCE.fixed ) ),
 			elev : parseFloat ( this.elev.toFixed ( ELEV.fixed ) ),
 			objId : this.#objId,
-			objType : OUR_OBJ_TYPE.jsonObject
+			objType : this.objType.jsonObject
 		};
 	}
 
 	set jsonObject ( something ) {
-		let otherthing = this.#validateObject ( something );
-		this.lat = otherthing.lat || LAT_LNG.defaultValue;
-		this.lng = otherthing.lng || LAT_LNG.defaultValue;
-		this.distance = otherthing.distance || DISTANCE.defaultValue;
-		this.elev = otherthing.elev || ELEV.defaultValue;
+		const otherthing = this.validateObject ( something );
+		this.lat = otherthing.lat;
+		this.lng = otherthing.lng;
+		this.distance = otherthing.distance;
+		this.elev = otherthing.elev;
 		this.#objId = ObjId.nextObjId;
-		this.validateData ( );
-	}
-
-	/*
-	This method verify that the data stored in the object have the correct type, and,
-	for html string data, that they not contains invalid tags and attributes.
-	This method must be called each time the data are modified by the user or when
-	a file is opened
-	*/
-
-	validateData ( ) {
-		if ( 'number' !== typeof ( this.lat ) ) {
-			this.lat = LAT_LNG.defaultValue;
-		}
-		if ( 'number' !== typeof ( this.lng ) ) {
-			this.lng = LAT_LNG.defaultValue;
-		}
-		if ( 'number' !== typeof ( this.distance ) ) {
-			this.distance = DISTANCE.defaultValue;
-		}
-		if ( 'number' !== typeof ( this.elev ) ) {
-			this.elev = ELEV.defaultValue;
-		}
 	}
 }
 
 export default ItineraryPoint;
 
-/*
---- End of ItineraryPoint.js file ---------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

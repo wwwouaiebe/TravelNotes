@@ -25,28 +25,10 @@ Changes:
 		- Issue ♯146 : Add the travel name in the document title...
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210922
 Tests 20210903
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ViewerFileLoader.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module core
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theTravelNotesData from '../data/TravelNotesData.js';
@@ -55,20 +37,16 @@ import FileCompactor from '../coreLib/FileCompactor.js';
 import Zoomer from '../core/Zoomer.js';
 import { ROUTE_EDITION_STATUS, INVALID_OBJ_ID } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class ViewerFileLoader
-@classdesc This class load a file from a web server and display the travel
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class load a file from a web server and display the travel
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ViewerFileLoader {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -77,16 +55,17 @@ class ViewerFileLoader {
 
 	/**
 	Open a distant file from a web server and display the content of the file
-	@param {Object} fileContent
+	@param {JsonObject} travelJsonObject the json object readed from the file
 	*/
 
-	openDistantFile ( fileContent ) {
-		new FileCompactor ( ).decompress ( fileContent );
+	openDistantFile ( travelJsonObject ) {
+		new FileCompactor ( ).decompress ( travelJsonObject );
+		theTravelNotesData.travel.jsonObject = travelJsonObject;
 		theTravelNotesData.travel.readOnly = true;
 		document.title =
 			'Travel & Notes' +
 			( '' === theTravelNotesData.travel.name ? '' : ' - ' + theTravelNotesData.travel.name );
-		let routesIterator = theTravelNotesData.travel.routes.iterator;
+		const routesIterator = theTravelNotesData.travel.routes.iterator;
 		while ( ! routesIterator.done ) {
 			if ( ROUTE_EDITION_STATUS.notEdited === routesIterator.value.editionStatus ) {
 				theEventDispatcher.dispatch (
@@ -97,7 +76,11 @@ class ViewerFileLoader {
 					}
 				);
 			}
+			else {
+				theTravelNotesData.editedRouteObjId = routesIterator.value.objId;
+			}
 		}
+
 		if ( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId ) {
 			theEventDispatcher.dispatch (
 				'routeupdated',
@@ -107,7 +90,7 @@ class ViewerFileLoader {
 				}
 			);
 		}
-		let notesIterator = theTravelNotesData.travel.notes.iterator;
+		const notesIterator = theTravelNotesData.travel.notes.iterator;
 		while ( ! notesIterator.done ) {
 			theEventDispatcher.dispatch (
 				'noteupdated',
@@ -124,6 +107,4 @@ class ViewerFileLoader {
 
 export default ViewerFileLoader;
 
-/*
---- End of ViewerFileLoader.js file -------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

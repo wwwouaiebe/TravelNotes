@@ -20,46 +20,30 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 */
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file PasswordDialogEventListeners.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
+mousedown event listener for the eye button
 */
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogPassword
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class EyeMouseDownEL
-@classdesc mousedown event listener for the eye button
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
-*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class EyeMouseDownEL {
 
+	/**
+	A reference to the password input of the dialogPassword
+	@type {HTMLElement}
+	*/
+
 	#passwordInput = null;
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {HTMLElement} passwordInput A reference to the password input of the dialogPassword
 	*/
 
 	constructor ( passwordInput ) {
@@ -67,32 +51,36 @@ class EyeMouseDownEL {
 		this.#passwordInput = passwordInput;
 	}
 
-	destructor ( ) {
-		this.#passwordInput = null;
-	}
+	/**
+	Event listener method
+	@param {Event} mouseDownEvent The event to handle
+	*/
 
 	handleEvent ( mouseDownEvent ) {
+		mouseDownEvent.currentTarget.textContent = '👀';
 		mouseDownEvent.stopPropagation;
 		this.#passwordInput.type = 'text';
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class EyeMouseUpEL
-@classdesc mouseup event listener for the eye button
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+mouseup event listener for the eye button
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class EyeMouseUpEL {
 
-	#passwordInput = null;
+	/**
+	A reference to the password input of the dialogPassword
+	@type {HTMLElement}
+	*/
 
-	/*
-	constructor
+	#passwordInput;
+
+	/**
+	The constructor
+	@param {HTMLElement} passwordInput A reference to the password input of the dialogPassword
 	*/
 
 	constructor ( passwordInput ) {
@@ -100,11 +88,13 @@ class EyeMouseUpEL {
 		this.#passwordInput = passwordInput;
 	}
 
-	destructor ( ) {
-		this.#passwordInput = null;
-	}
+	/**
+	Event listener method
+	@param {Event} mouseUpEvent The event to handle
+	*/
 
 	handleEvent ( mouseUpEvent ) {
+		mouseUpEvent.currentTarget.textContent = '👁️';
 		mouseUpEvent.stopPropagation;
 		this.#passwordInput.type = 'password';
 		this.#passwordInput.focus ( );
@@ -113,10 +103,4 @@ class EyeMouseUpEL {
 
 export { EyeMouseDownEL, EyeMouseUpEL };
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of PasswordDialogEventListeners.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

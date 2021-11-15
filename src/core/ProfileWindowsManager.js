@@ -24,53 +24,36 @@ Changes:
 		- Issue ♯98 : Elevation is not modified in the itinerary pane
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests 20210903
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ProfileWindowsManager.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module core
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theConfig from '../data/Config.js';
 import ProfileWindow from '../dialogProfileWindow/ProfileWindow.js';
-import ProfileFactory from '../coreLib/ProfileFactory.js';
+import ProfileSmoothingIron from '../coreLib/ProfileSmoothingIron.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import { ZERO } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class
-@classdesc This class provides methods to manage the profile windows
-@see {@link theProfileWindowsManager} for the one and only one instance of this class
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class provides methods to manage the profile windows
+see theProfileWindowsManager for the one and only one instance of this class
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ProfileWindowsManager {
 
+	/**
+	A map with all the profile windows currently displayed
+	@type {Map.<ProfileWindow>}
+	*/
+
 	#profileWindows = new Map ( );
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -84,27 +67,29 @@ class ProfileWindowsManager {
 	*/
 
 	createProfile ( route ) {
-		let profileWindow = this.#profileWindows.get ( route.objId );
+		const profileWindow = this.#profileWindows.get ( route.objId );
 
 		if ( route.itinerary.hasProfile ) {
 			if ( theConfig.route.elev.smooth ) {
-				new ProfileFactory ( ).smooth ( route );
+				new ProfileSmoothingIron ( ).smooth ( route );
 			}
-			route.itinerary.ascent = ZERO;
-			route.itinerary.descent = ZERO;
+			let ascent = ZERO;
+			let descent = ZERO;
 			let previousElev = route.itinerary.itineraryPoints.first.elev;
 			route.itinerary.itineraryPoints.forEach (
 				itineraryPoint => {
 					let deltaElev = itineraryPoint.elev - previousElev;
 					if ( ZERO > deltaElev ) {
-						route.itinerary.descent -= deltaElev;
+						descent -= deltaElev;
 					}
 					else {
-						route.itinerary.ascent += deltaElev;
+						ascent += deltaElev;
 					}
 					previousElev = itineraryPoint.elev;
 				}
 			);
+			route.itinerary.ascent = ascent;
+			route.itinerary.descent = descent;
 			if ( profileWindow ) {
 				profileWindow.update ( route );
 			}
@@ -115,13 +100,13 @@ class ProfileWindowsManager {
 	}
 
 	/**
-	This method creates the profile window for a Route
-	@param {!number} oldRouteObjId The objId of the Route that is in the profile window
+	This method updates the profile window for a Route
+	@param {Number} oldRouteObjId The objId of the Route that is in the profile window
 	@param {Route} newRoute The  Route for witch the profile window is updated
 	*/
 
 	updateProfile ( oldRouteObjId, newRoute ) {
-		let profileWindow = this.#profileWindows.get ( oldRouteObjId );
+		const profileWindow = this.#profileWindows.get ( oldRouteObjId );
 		if ( profileWindow ) {
 			this.#profileWindows.delete ( oldRouteObjId );
 			if ( newRoute && newRoute.itinerary.hasProfile ) {
@@ -136,11 +121,11 @@ class ProfileWindowsManager {
 
 	/**
 	This method close the profile window of a route
-	@param {!number} objId The objId of the Route that is in the profile window to close
+	@param {Number} objId The objId of the Route that is in the profile window to close
 	*/
 
 	deleteProfile ( objId ) {
-		let profileWindow = this.#profileWindows.get ( objId );
+		const profileWindow = this.#profileWindows.get ( objId );
 		if ( profileWindow ) {
 			profileWindow.close ( );
 		}
@@ -156,7 +141,7 @@ class ProfileWindowsManager {
 
 	/**
 	This method creates the profile window for a Route
-	@param {!number} routeObjId The Route objId for witch a profile window is created
+	@param {Number} routeObjId The Route objId for witch a profile window is created
 	*/
 
 	showProfile ( routeObjId ) {
@@ -164,15 +149,14 @@ class ProfileWindowsManager {
 		if ( ! profileWindow ) {
 			profileWindow = new ProfileWindow ( );
 		}
-		let route = theDataSearchEngine.getRoute ( routeObjId );
+		const route = theDataSearchEngine.getRoute ( routeObjId );
 		profileWindow.update ( route );
 		this.#profileWindows.set ( routeObjId, profileWindow );
 	}
 
 	/**
 	This method is called when a profile window is closed
-	@param {!number} objId The Route objId for witch a profile window is created
-	@listens profileclosed
+	@param {Number} objId The Route objId for witch a profile window is created
 	*/
 
 	onProfileClosed ( objId ) {
@@ -181,21 +165,15 @@ class ProfileWindowsManager {
 
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of ProfileWindowsManager class
+The one and only one instance of ProfileWindowsManager class
 @type {ProfileWindowsManager}
-@constant
-@global
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theProfileWindowsManager = new ProfileWindowsManager ( );
 
 export default theProfileWindowsManager;
 
-/*
---- End of ProfileWindowsManager.js file --------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

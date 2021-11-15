@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+
 /*
 Changes:
 	- v1.4.0:
@@ -36,42 +37,20 @@ Changes:
 		- Issue ♯139 : Remove Globals
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file Config.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
+Class used to store the configuration of the code
 */
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class Config
-@classdesc Class used to store the configuration of the code
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /* eslint-disable no-magic-numbers */
 
-let theConfig = {
+const theConfig = {
 	APIKeys : {
 		saveToSessionStorage : true
 	},
@@ -280,7 +259,7 @@ let theConfig = {
 		],
 		elev : {
 			smooth : true,
-			smoothCoefficient : 0.25,
+			smoothCoefficient : 2.5,
 			smoothPoints : 3
 		},
 		showDragTooltip : 3,
@@ -295,7 +274,6 @@ let theConfig = {
 		timeout : 1000
 	},
 	travelNotes : {
-		autoLoad : true,
 		haveBeforeUnloadWarning : true,
 		language : 'fr'
 	},
@@ -314,6 +292,4 @@ let theConfig = {
 
 export default theConfig;
 
-/*
---- End of Config.js file -----------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

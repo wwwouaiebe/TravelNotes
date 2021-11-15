@@ -20,60 +20,47 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file PublicTransportData.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module routeProviders
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 */
 
 import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
 
 import { ZERO, INVALID_OBJ_ID, ONE, TWO } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class PublicTransportData
-@classdesc coming soon...
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+coming soon...
+@ignore
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class PublicTransportData {
 
-	#newId = INVALID_OBJ_ID;
-	#selectedRelationId = INVALID_OBJ_ID;
-	#waysMap = new Map ( );
-	#nodesMap = new Map ( );
-	#stopsMap = new Map ( );
+	#newId;
+	#selectedRelationId;
+	#waysMap;
+	#nodesMap;
+	#stopsMap;
+	#nodes3WaysCounter;
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( selectedRelationId ) {
+		Object.freeze ( this );
+		this.#newId = INVALID_OBJ_ID;
 		this.#selectedRelationId = selectedRelationId;
-		this.nodes3WaysCounter = ZERO;
-		Object.seal ( this );
+		this.#waysMap = new Map ( );
+		this.#nodesMap = new Map ( );
+		this.#stopsMap = new Map ( );
+		this.#nodes3WaysCounter = ZERO;
 	}
+
+	get nodes3WaysCounter ( ) { return this.#nodes3WaysCounter; }
+	set nodes3WaysCounter ( nodes3WaysCounter ) { this.#nodes3WaysCounter = nodes3WaysCounter; }
 
 	get waysMap ( ) { return this.#waysMap; }
 	get nodesMap ( ) { return this.#nodesMap; }
@@ -81,7 +68,6 @@ class PublicTransportData {
 	get newId ( ) { return this.#newId --; }
 
 	/**
-	@private
 	*/
 
 	firstOf ( array ) {
@@ -89,7 +75,6 @@ class PublicTransportData {
 	}
 
 	/**
-	@private
 	*/
 
 	lastOf ( array ) {
@@ -97,7 +82,6 @@ class PublicTransportData {
 	}
 
 	/**
-	@private
 	*/
 
 	removeFrom ( array, value ) {
@@ -105,13 +89,12 @@ class PublicTransportData {
 	}
 
 	/**
-	@private
 	*/
 
 	#reverseWay ( way ) {
 
-		let oldStartNode = this.#nodesMap.get ( this.firstOf ( way.nodesIds ) );
-		let oldEndNode = this.#nodesMap.get ( this.lastOf ( way.nodesIds ) );
+		const oldStartNode = this.#nodesMap.get ( this.firstOf ( way.nodesIds ) );
+		const oldEndNode = this.#nodesMap.get ( this.lastOf ( way.nodesIds ) );
 
 		this.removeFrom ( oldStartNode.startingWaysIds, way.id );
 		oldStartNode.endingWaysIds.push ( way.id );
@@ -124,13 +107,12 @@ class PublicTransportData {
 	}
 
 	/**
-	@private
 	*/
 
 	mergeWays ( waysId1, waysId2 ) {
 
-		let way1 = this.#waysMap.get ( waysId1 );
-		let way2 = this.#waysMap.get ( waysId2 );
+		const way1 = this.#waysMap.get ( waysId1 );
+		const way2 = this.#waysMap.get ( waysId2 );
 
 		// reversing some ways, so :
 		// - the 2 ways have the same direction
@@ -151,7 +133,7 @@ class PublicTransportData {
 		}
 
 		// removing the node at the merging node and all the starting or ending ways of the node
-		let mergedNode = this.#nodesMap.get ( way1.nodesIds.pop ( ) );
+		const mergedNode = this.#nodesMap.get ( way1.nodesIds.pop ( ) );
 		mergedNode.startingWaysIds = [];
 		mergedNode.endingWaysIds = [];
 
@@ -160,7 +142,7 @@ class PublicTransportData {
 		way1.distance += way2.distance;
 
 		// and changing the ending ways in the last node
-		let endNode = this.#nodesMap.get ( this.lastOf ( way1.nodesIds ) );
+		const endNode = this.#nodesMap.get ( this.lastOf ( way1.nodesIds ) );
 		this.removeFrom ( endNode.endingWaysIds, way2.id );
 		endNode.endingWaysIds.push ( way1.id );
 
@@ -171,14 +153,13 @@ class PublicTransportData {
 	}
 
 	/**
-	@private
 	*/
 
 	#cloneNode ( nodeId ) {
 
-		let node = this.#nodesMap.get ( nodeId );
+		const node = this.#nodesMap.get ( nodeId );
 
-		let clonedNode = {
+		const clonedNode = {
 			id : this.newId,
 			lat : node.lat,
 			lon : node.lon,
@@ -194,14 +175,13 @@ class PublicTransportData {
 	}
 
 	/**
-	@private
 	*/
 
 	cloneWay ( wayId ) {
 
-		let way = this.#waysMap.get ( wayId );
+		const way = this.#waysMap.get ( wayId );
 
-		let clonedWay = {
+		const clonedWay = {
 			id : this.newId,
 			type : 'way',
 			nodesIds : [],
@@ -269,7 +249,7 @@ class PublicTransportData {
 		// we replace the nodeId with the node when possible
 		this.#stopsMap.forEach (
 			nodeId => {
-				let node = this.#nodesMap.get ( nodeId );
+				const node = this.#nodesMap.get ( nodeId );
 				if ( node ) {
 					this.#stopsMap.set ( nodeId, node );
 				}
@@ -293,7 +273,7 @@ class PublicTransportData {
 				let previousNode = null;
 				way.nodesIds.forEach (
 					nodeId => {
-						let node = this.#nodesMap.get ( nodeId );
+						const node = this.#nodesMap.get ( nodeId );
 						if ( previousNode ) {
 							way.distance += theSphericalTrigonometry.pointsDistance (
 								[ node.lat, node.lon ], [ previousNode.lat, previousNode.lon ]
@@ -309,10 +289,4 @@ class PublicTransportData {
 
 export default PublicTransportData;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of PublicTransportData.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

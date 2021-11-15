@@ -20,57 +20,41 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file BaseRouteProvider.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
+Base class used for RouteProviders
 */
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module routeProviders
-@todo review this module: -> split into different modules for each provider + lib for shared classes.
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class BaseRouteProvider
-@classdesc coming soon...
-@hideconstructor
-@abstract
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class BaseRouteProvider {
 
-	#userLanguage = 'fr';
-
 	/**
-	The provider key. Will be set by TravelNotes
-	@private
+	The user language
+	@type {String}
 	*/
 
-	#providerKey = '';
+	#userLanguage;
 
 	/**
 	A reference to the edited route
+	@type {Route}
 	*/
 
-	#route = null;
+	#route;
+
+	/**
+	Call the provider, using the waypoints defined in the route and, on success,
+	complete the route with the data from the provider
+	@param {function} onOk the Promise Success handler
+	@param {function} onError the Promise Error handler
+
+	*/
 
 	/* eslint-disable-next-line no-unused-vars */
 	#getRoute ( onOk, onError ) {
@@ -78,13 +62,32 @@ class BaseRouteProvider {
 		// to be implemented in the derived classes
 	}
 
-	/*
+	/**
 	constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#userLanguage = 'fr';
 	}
+
+	/**
+	Call the provider, using the waypoints defined in the route and, on success,
+	complete the route with the data from the provider
+	@param {Route} route The route to witch the data will be added
+	@return {Promise} A Promise. On success, the Route is completed with the data given by the provider.
+	*/
+
+	getPromiseRoute ( route ) {
+		this.#route = route;
+		return new Promise ( ( onOk, onError ) => this.#getRoute ( onOk, onError ) );
+	}
+
+	/**
+	The icon used in the ProviderToolbarUI.
+	Must be overloaded in the derived classes
+	@type {String}
+	*/
 
 	get icon ( ) {
 		return '' +
@@ -93,32 +96,50 @@ class BaseRouteProvider {
 			'u6NeCUAAAAAElFTkSuQmCC';
 	}
 
-	getPromiseRoute ( route ) {
-		this.#route = route;
-		return new Promise ( ( onOk, onError ) => this.#getRoute ( onOk, onError ) );
-	}
+	/**
+	The provider name.
+	Must be overloaded in the derived classes
+	@type {String}
+	*/
 
 	get name ( ) { return ''; }
 
+	/**
+	The title to display in the ProviderToolbarUI button.
+	Must be overloaded in the derived classes
+	@type {String}
+	*/
+
 	get title ( ) { return ''; }
 
-	get transitModes ( ) { return [ /* 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' */ ]; }
+	/**
+	The possible transit modes for the provider.
+	Must be overloaded in the derived classes.
+	Must be a subarray of [ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ]
+	@type {Array.<String>}
+	*/
+
+	get transitModes ( ) { return [ ]; }
+
+	/**
+	A boolean indicating when a provider key is needed for the provider.
+	Must be overloaded in the derived classes
+	@type {Boolean}
+	*/
 
 	get providerKeyNeeded ( ) { return true; }
 
-	get providerKey ( ) { return this.#providerKey.length; }
-	set providerKey ( providerKey ) { this.#providerKey = providerKey; }
+	/**
+	The user language.
+	@type {String}
+	*/
 
 	get userLanguage ( ) { return this.#userLanguage; }
-	set userLanguage ( userLanguage ) { this.#userLanguage = userLanguage; }
+	set userLanguage ( userLanguage ) {
+		this.#userLanguage = userLanguage;
+	}
 }
 
 export default BaseRouteProvider;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of BaseRouteProvider.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

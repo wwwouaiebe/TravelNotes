@@ -20,73 +20,57 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests 20210902
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file newClass.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import NoteContextMenu from '../contextMenus/NoteContextMenu.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreMapEditor
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
+contextmenu event listener for the notes marker
 */
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class NoteMarkerContextMenuEL
-@classdesc contextmenu event listener for the notes marker
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class NoteMarkerContextMenuEL {
+
+	/**
+	Event listener method
+	@param {Event} contextMenuEvent The event to handle
+	*/
 
 	static handleEvent ( contextMenuEvent ) {
 		new NoteContextMenu ( contextMenuEvent ).show ( );
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class NoteMarkerDragEndEL
-@classdesc dragend event listener for the notes marker
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+dragend event listener for the notes marker
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class NoteMarkerDragEndEL {
+
+	/**
+	Event listener method
+	@param {Event} dragEndEvent The event to handle
+	*/
 
 	static handleEvent ( dragEndEvent ) {
 
 		// The TravelNotes note linked to the marker is searched...
-		let draggedNote = theDataSearchEngine.getNoteAndRoute ( dragEndEvent.target.objId ).note;
+		const draggedNote = theDataSearchEngine.getNoteAndRoute ( dragEndEvent.target.objId ).note;
 
 		// ... new coordinates are saved in the TravelNotes note...
 		draggedNote.iconLatLng = [ dragEndEvent.target.getLatLng ( ).lat, dragEndEvent.target.getLatLng ( ).lng ];
 
 		// ... then the layerGroup is searched...
-		let draggedLayerGroup = theTravelNotesData.mapObjects.get ( dragEndEvent.target.objId );
+		const draggedLayerGroup = theTravelNotesData.mapObjects.get ( dragEndEvent.target.objId );
 
 		// ... and finally the polyline is updated with the new coordinates
 		draggedLayerGroup.getLayer (
@@ -98,25 +82,26 @@ class NoteMarkerDragEndEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class NoteMarkerDragEL
-@classdesc drag event listener for the notes marker
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+drag event listener for the notes marker
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class NoteMarkerDragEL {
+
+	/**
+	Event listener method
+	@param {Event} dragEvent The event to handle
+	*/
 
 	static handleEvent ( dragEvent ) {
 
 		// The TravelNotes note linked to the marker is searched...
-		let draggedNote = theDataSearchEngine.getNoteAndRoute ( dragEvent.target.objId ).note;
+		const draggedNote = theDataSearchEngine.getNoteAndRoute ( dragEvent.target.objId ).note;
 
 		// ... then the layerGroup is searched...
-		let draggedLayerGroup = theTravelNotesData.mapObjects.get ( dragEvent.target.objId );
+		const draggedLayerGroup = theTravelNotesData.mapObjects.get ( dragEvent.target.objId );
 
 		// ... and finally the polyline is updated with the new coordinates
 		draggedLayerGroup.getLayer ( draggedLayerGroup.polylineId )
@@ -130,10 +115,4 @@ export {
 	NoteMarkerDragEL
 };
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of NoteMarkerEventListeners.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

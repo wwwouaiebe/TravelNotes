@@ -35,40 +35,10 @@ Changes:
 		- Issue ♯170 : The apps crash when renaming a waypoint and then saving the route before the end of the renaming...
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests 20210902
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file WayPointEditor.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@typedef {Object} WayPointOsmData
-@desc An object with the name and address found for the WayPoint with Nominatim
-@property {string} name
-@property {string} address
-@public
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module core
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theConfig from '../data/Config.js';
@@ -80,57 +50,23 @@ import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import theGeometry from '../coreLib/Geometry.js';
 import theRouter from '../coreLib/Router.js';
 
-import { ROUTE_EDITION_STATUS, LAT_LNG, TWO } from '../main/Constants.js';
+import { ROUTE_EDITION_STATUS, TWO } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class
-@classdesc This class contains methods fot WayPoints creation or modifications
-@see {@link theWayPointEditor} for the one and only one instance of this class
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class contains methods fot WayPoints creation or modifications
+See theWayPointEditor for the one and only one instance of this class
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class WayPointEditor {
 
 	/**
-	This method rename a WayPoint
-	@param {WayPointOsmData} wayPointOsmData the name and address for WayPoint renaming
-	@param {!number} wayPointObjId The objId of the WayPoint to rename
-	@fires setrouteslist
-	@fires showitinerary
-	@fires roadbookupdate
-	@private
-	*/
-
-	#renameWayPoint ( wayPointOsmData, wayPointObjId ) {
-		let wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.getAt ( wayPointObjId );
-		if ( wayPoint ) {
-			theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
-			wayPoint.name = wayPointOsmData.name;
-			wayPoint.address = wayPointOsmData.address;
-			theEventDispatcher.dispatch ( 'setrouteslist' );
-			theEventDispatcher.dispatch ( 'showitinerary' );
-			theEventDispatcher.dispatch ( 'roadbookupdate' );
-		}
-		else {
-			console.error ( 'waypoint not found' );
-		}
-	}
-
-	/**
 	This method rename a WayPoint with data from Nominatim
-	@param {Array.<number>} latLng The latitude and longitude of the WayPoint
-	@param {!number} wayPointObjId The objId of the WayPoint to rename
-	@fires setrouteslist
-	@fires showitinerary
-	@fires roadbookupdate
-	@private
+	@param {WayPoint} wayPoint The wayPoint to rename
 	*/
 
-	async #renameWayPointWithGeocoder ( latLng, wayPointObjId ) {
+	async #renameWayPointWithGeocoder ( wayPoint ) {
 		if ( ! theConfig.wayPoint.reverseGeocoding ) {
 			theEventDispatcher.dispatch ( 'setrouteslist' );
 			theEventDispatcher.dispatch ( 'showitinerary' );
@@ -138,22 +74,23 @@ class WayPointEditor {
 			return;
 		}
 
-		let address = await new GeoCoder ( ).getAddressAsync ( latLng );
-		if ( address.statusOk ) {
-			let addressString = address.street;
-			if ( '' !== address.city ) {
-				addressString += ' ' + address.city;
-			}
-			let wayPointName = '';
-			if ( theConfig.wayPoint.geocodingIncludeName ) {
-				wayPointName = address.name;
-			}
-			this.#renameWayPoint ( Object.seal ( { name : wayPointName, address : addressString } ), wayPointObjId );
+		const address = await new GeoCoder ( ).getAddressAsync ( wayPoint.latLng );
+		theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
+		wayPoint.address = address.street;
+		if ( '' !== address.city ) {
+			wayPoint.address += ' ' + address.city;
 		}
+		wayPoint.name = '';
+		if ( theConfig.wayPoint.geocodingIncludeName ) {
+			wayPoint.name = address.name;
+		}
+		theEventDispatcher.dispatch ( 'setrouteslist' );
+		theEventDispatcher.dispatch ( 'updateitinerary' );
+		theEventDispatcher.dispatch ( 'roadbookupdate' );
 	}
 
-	/*
-	constructor
+	/**
+	the constructor
 	*/
 
 	constructor ( ) {
@@ -162,16 +99,15 @@ class WayPointEditor {
 
 	/**
 	This method add a WayPoint
-	@param {Array.<number>} latLng The latitude and longitude where the WayPoint will be added
-	@async
+	@param {Array.<Number>} latLng The latitude and longitude where the WayPoint will be added
 	*/
 
 	addWayPoint ( latLng ) {
 		theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
-		let wayPoint = new WayPoint ( );
+		const wayPoint = new WayPoint ( );
 		wayPoint.latLng = latLng;
 		theTravelNotesData.travel.editedRoute.wayPoints.add ( wayPoint );
-		this.#renameWayPointWithGeocoder ( latLng, wayPoint.objId );
+		this.#renameWayPointWithGeocoder ( wayPoint );
 		theEventDispatcher.dispatch (
 			'addwaypoint',
 			{
@@ -186,23 +122,22 @@ class WayPointEditor {
 	/**
 	This method add a waypoint at a given position on the edited route. It's used to add a WayPoint by
 	dragging
-	@param {Array.<number>} initialLatLng The latitude and longitude from witch the WayPoint is coming
-	@param {Array.<number>} finalLatLng The latitude and longitude where the WayPoint will be added
-	@async
+	@param {Array.<Number>} initialLatLng The latitude and longitude from witch the WayPoint is coming
+	@param {Array.<Number>} finalLatLng The latitude and longitude where the WayPoint will be added
 	*/
 
 	addWayPointOnRoute ( initialLatLng, finalLatLng ) {
-		let newWayPointDistance = theGeometry.getClosestLatLngDistance (
+		const newWayPointDistance = theGeometry.getClosestLatLngDistance (
 			theTravelNotesData.travel.editedRoute,
 			initialLatLng
 		).distance;
 		theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
-		let wayPoint = new WayPoint ( );
+		const wayPoint = new WayPoint ( );
 		wayPoint.latLng = finalLatLng;
 		let letter = '';
-		let wayPointsIterator = theTravelNotesData.travel.editedRoute.wayPoints.iterator;
+		const wayPointsIterator = theTravelNotesData.travel.editedRoute.wayPoints.iterator;
 		while ( ! wayPointsIterator.done ) {
-			let latLngDistance = theGeometry.getClosestLatLngDistance (
+			const latLngDistance = theGeometry.getClosestLatLngDistance (
 				theTravelNotesData.travel.editedRoute,
 				wayPointsIterator.value.latLng
 			);
@@ -212,7 +147,7 @@ class WayPointEditor {
 				theTravelNotesData.travel.editedRoute.wayPoints.moveTo (
 					wayPoint.objId, wayPointsIterator.value.objId, true
 				);
-				this.#renameWayPointWithGeocoder ( finalLatLng, wayPoint.objId );
+				this.#renameWayPointWithGeocoder ( wayPoint );
 				theEventDispatcher.dispatch ( 'addwaypoint', { wayPoint : wayPoint, letter : letter } );
 				theRouter.startRouting ( );
 				break;
@@ -222,7 +157,6 @@ class WayPointEditor {
 
 	/**
 	This method reverse the waypoints order
-	@async
 	*/
 
 	reverseWayPoints ( ) {
@@ -239,7 +173,7 @@ class WayPointEditor {
 				{
 					wayPoint : wayPointsIterator.value,
 					letter :
-						wayPointsIterator .first ? 'A' : ( wayPointsIterator.last ? 'B' : wayPointsIterator.index )
+						wayPointsIterator .first ? 'A' : ( wayPointsIterator.last ? 'B' : String ( wayPointsIterator.index ) )
 				}
 			);
 		}
@@ -251,8 +185,7 @@ class WayPointEditor {
 
 	/**
 	This method remove a WayPoint
-	@param {!number} wayPointObjId The objId of the WayPoint to remove
-	@async
+	@param {Number} wayPointObjId The objId of the WayPoint to remove
 	*/
 
 	removeWayPoint ( wayPointObjId ) {
@@ -264,24 +197,18 @@ class WayPointEditor {
 
 	/**
 	This method set the starting WayPoint
-	@param {Array.<number>} latLng The latitude and longitude where the WayPoint will be added
-	@async
+	@param {Array.<Number>} latLng The latitude and longitude where the WayPoint will be added
 	*/
 
 	setStartPoint ( latLng ) {
 		theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
-		if ( LAT_LNG.defaultValue !== theTravelNotesData.travel.editedRoute.wayPoints.first.lat ) {
-			theEventDispatcher.dispatch (
-				'removeobject',
-				{ objId : theTravelNotesData.travel.editedRoute.wayPoints.first.objId }
-			);
-		}
-		theTravelNotesData.travel.editedRoute.wayPoints.first.latLng = latLng;
-		this.#renameWayPointWithGeocoder ( latLng, theTravelNotesData.travel.editedRoute.wayPoints.first.objId );
+		const wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.first;
+		wayPoint.latLng = latLng;
+		this.#renameWayPointWithGeocoder ( wayPoint );
 		theEventDispatcher.dispatch (
 			'addwaypoint',
 			{
-				wayPoint : theTravelNotesData.travel.editedRoute.wayPoints.first,
+				wayPoint : wayPoint,
 				letter : 'A'
 			}
 		);
@@ -290,24 +217,18 @@ class WayPointEditor {
 
 	/**
 	This method set the ending WayPoint
-	@param {Array.<number>} latLng The latitude and longitude where the WayPoint will be added
-	@async
+	@param {Array.<Number>} latLng The latitude and longitude where the WayPoint will be added
 	*/
 
 	setEndPoint ( latLng ) {
 		theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
-		if ( LAT_LNG.defaultValue !== theTravelNotesData.travel.editedRoute.wayPoints.last.lat ) {
-			theEventDispatcher.dispatch (
-				'removeobject',
-				{ objId : theTravelNotesData.travel.editedRoute.wayPoints.last.objId }
-			);
-		}
-		theTravelNotesData.travel.editedRoute.wayPoints.last.latLng = latLng;
-		this.#renameWayPointWithGeocoder ( latLng, theTravelNotesData.travel.editedRoute.wayPoints.last.objId );
+		const wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.last;
+		wayPoint.latLng = latLng;
+		this.#renameWayPointWithGeocoder ( wayPoint );
 		theEventDispatcher.dispatch (
 			'addwaypoint',
 			{
-				wayPoint : theTravelNotesData.travel.editedRoute.wayPoints.last,
+				wayPoint : wayPoint,
 				letter : 'B'
 			}
 		);
@@ -316,32 +237,27 @@ class WayPointEditor {
 
 	/**
 	This method is called when a drag of a WayPoint ends on the map
-	@param {!number} wayPointObjId The objId of the WayPoint that was dragged
-	@async
+	@param {Number} dragEndEvent The drag event
 	*/
 
-	wayPointDragEnd ( wayPointObjId ) {
+	wayPointDragEnd ( dragEndEvent ) {
 		theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
-		this.#renameWayPointWithGeocoder (
-			theTravelNotesData.travel.editedRoute.wayPoints.getAt ( wayPointObjId ).latLng, wayPointObjId
-		);
+		const draggedWayPoint = theTravelNotesData.travel.editedRoute.wayPoints.getAt ( dragEndEvent.target.objId );
+		const latLng = dragEndEvent.target.getLatLng ( );
+		draggedWayPoint.latLng = [ latLng.lat, latLng.lng ];
+		this.#renameWayPointWithGeocoder ( draggedWayPoint );
 		theRouter.startRouting ( );
 	}
 
 	/**
 	This method shows the WayPointPropertiesDialog
-	@param {!number} wayPointObjId The objId of the WayPoint that modify
-	@async
-	@fires setrouteslist
-	@fires showitinerary
-	@fires roadbookupdate
+	@param {Number} wayPointObjId The objId of the WayPoint that modify
 	*/
 
 	wayPointProperties ( wayPointObjId ) {
-		let wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.getAt ( wayPointObjId );
-		let wayPointPropertiesDialog = new WayPointPropertiesDialog ( wayPoint );
-
-		wayPointPropertiesDialog.show ( )
+		const wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.getAt ( wayPointObjId );
+		new WayPointPropertiesDialog ( wayPoint )
+			.show ( )
 			.then (
 				( ) => {
 					theEventDispatcher.dispatch ( 'setrouteslist' );
@@ -359,21 +275,15 @@ class WayPointEditor {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of WayPointEditor class
+The one and only one instance of WayPointEditor class
 @type {WayPointEditor}
-@constant
-@global
-
-@--------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theWayPointEditor = new WayPointEditor ( );
 
 export default theWayPointEditor;
 
-/*
---- End of WayPointEditor.js file ---------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

@@ -21,76 +21,49 @@ Changes:
 		- Issue ♯150 : Merge travelNotes and plugins
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file PublicTransportRouteProvider.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module routeProviders
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-import { ZERO, ONE, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
-import SelectDialog from '../dialogs/SelectDialog.js';
+import { ZERO, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
+import { SelectOptionData, SelectDialog } from '../dialogs/SelectDialog.js';
 import PublicTransportRouteBuilder from '../routeProviders/PublicTransportRouteBuilder.js';
 import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class PublicTransportRouteProvider
-@classdesc This class implements the Provider interface for PublicTransport. It's not possible to instanciate
+This class implements the BaseRouteProvider for PublicTransport. It's not possible to instanciate
 this class because the class is not exported from the module. Only one instance is created and added to the list
 of Providers of TravelNotes
-@see Provider for a description of methods
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class PublicTransportRouteProvider extends BaseRouteProvider {
 
-	#userLanguage = 'fr';
-
-	/**
-	The provider key. Will be set by TravelNotes
-	@private
-	*/
-
-	#providerKey = '';
-
 	/**
 	A reference to the edited route
+	@type {Route}
 	*/
 
-	#route = null;
+	#route;
 
 	/**
-	@private
+	Parse the response from the provider and add the received itinerary to the route itinerary
+	@param {Object} waysNodes The ways and nodes received from OSM
+	@param {function} onOk a function to call when the response is parsed correctly
+	@param {function} onError a function to call when an error occurs
 	*/
 
 	#parseResponse ( waysNodes, onOk, onError ) {
-		let publicTransportRouteBuilder = new PublicTransportRouteBuilder ( this.#route );
-		publicTransportRouteBuilder.buildRoute ( waysNodes, onOk, onError );
+		new PublicTransportRouteBuilder ( this.#route ).buildRoute ( waysNodes, onOk, onError );
 	}
 
 	/**
-	@private
+	Get the url to obtains the ways and node Osm elements for the relation
+	@param {Number} relationId The osm relation id
+	@return {String} The complete url
 	*/
 
 	#getWaysNodesUrl ( relationId ) {
@@ -102,7 +75,9 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 	}
 
 	/**
-	@private
+	Show a SelectDialog with all the train relations between the start point and end point
+	@param {Array.<Object>} relations The relations received from OSM
+	@return {Promise} The Promise created by the selectDialog.show ( )
 	*/
 
 	#getDialogPromise ( relations ) {
@@ -111,14 +86,14 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 			return Promise.reject ( new Error ( 'No relations found' ) );
 		}
 
-		let selectOptionsData = [];
+		const selectOptionsData = [];
 		relations.elements.forEach (
 			relationElement => {
-				selectOptionsData.push ( { text : relationElement.tags.name, objId : relationElement.id } );
+				selectOptionsData.push ( new SelectOptionData ( relationElement.tags.name, relationElement.id ) );
 			}
 		);
 
-		let selectDialog = new SelectDialog (
+		const selectDialog = new SelectDialog (
 			{
 				title : 'Relations',
 				text : 'select a relation : ',
@@ -132,10 +107,11 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 	}
 
 	/**
-	@private
+	The url to use to have the relations between the start point and end point
+	@type {String}
 	*/
 
-	#getRelationsUrl ( ) {
+	get #relationsUrl ( ) {
 		return window.TaN.overpassApiUrl +
 			'?data=[out:json];node["public_transport"="stop_position"]["train"="yes"](around:400.0,' +
 			this.#route.wayPoints.first.lat.toFixed ( LAT_LNG.fixed ) +
@@ -153,11 +129,10 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 	Provider: one for the relation list and one for the ways and nodes. Notice also the dialog box between the 2 calls.
 	@param {function} onOk a function to pass to the ourParseResponse
 	@param {function} onError a function to pass to ourParseResponse or to call when an error occurs
-	@private
 	*/
 
 	#getRoute ( onOk, onError ) {
-		fetch ( this.#getRelationsUrl ( ) )
+		fetch ( this.#relationsUrl )
 			.then (
 				responseRelations => {
 					if ( HTTP_STATUS_OK === responseRelations.status && responseRelations.ok ) {
@@ -181,16 +156,40 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 						onError ( new Error ( 'An error occurs...' ) );
 					}
 				}
+			)
+			.catch (
+
+				// calling onError without parameters because fetch don't accecpt to add something as parameter :-(...
+				( ) => { onError ( ); }
 			);
+
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		super ( );
 	}
+
+	/**
+	Call the provider, using the waypoints defined in the route and, on success,
+	complete the route with the data from the provider
+	@param {Route} route The route to witch the data will be added
+	@return {Promise} A Promise. On success, the Route is completed with the data given by the provider.
+	*/
+
+	getPromiseRoute ( route ) {
+		this.#route = route;
+		return new Promise ( ( onOk, onError ) => this.#getRoute ( onOk, onError ) );
+	}
+
+	/**
+	The icon used in the ProviderToolbarUI.
+	Overload of the base class icon property
+	@type {String}
+	*/
 
 	get icon ( ) {
 		return 'data:image/svg+xml;utf8,' +
@@ -200,29 +199,40 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 			'-1,2 3,0 1,-2 z m 7,0 1,2 3,0 -1,-2 z"/></g></svg>';
 	}
 
-	getPromiseRoute ( route ) {
-		this.#route = route;
-		return new Promise ( ( onOk, onError ) => this.#getRoute ( onOk, onError ) );
-	}
+	/**
+	The provider name.
+	Overload of the base class name property
+	@type {String}
+	*/
 
 	get name ( ) { return 'PublicTransport'; }
 
+	/**
+	The title to display in the ProviderToolbarUI button.
+	Overload of the base class title property
+	@type {String}
+	*/
+
 	get title ( ) { return 'Public Transport on OpenStreetMap'; }
+
+	/**
+	The possible transit modes for the provider.
+	Overload of the base class transitModes property
+	Must be a subarray of [ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ]
+	@type {Array.<String>}
+	*/
 
 	get transitModes ( ) { return [ 'train' ]; }
 
+	/**
+	A boolean indicating when a provider key is needed for the provider.
+	Overload of the base class providerKeyNeeded property
+	@type {Boolean}
+	*/
+
 	get providerKeyNeeded ( ) { return false; }
-
-	get providerKey ( ) { return ONE; }
-	set providerKey ( providerKey ) { }
-
-	get userLanguage ( ) { return this.#userLanguage; }
-	set userLanguage ( userLanguage ) { this.#userLanguage = userLanguage; }
-
 }
 
 window.TaN.addProvider ( PublicTransportRouteProvider );
 
-/*
---- End of PublicTransportRouteProvider.js file -------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

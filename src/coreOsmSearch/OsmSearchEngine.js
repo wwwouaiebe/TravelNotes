@@ -24,27 +24,12 @@ Changes:
 		- Issue ♯138 : Protect the app - control html entries done by user.
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OsmSearchEngine.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreOsmSearch
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
@@ -56,36 +41,57 @@ import theGeometry from '../coreLib/Geometry.js';
 
 import { ZERO, ONE, LAT_LNG } from '../main/Constants.js';
 
-const SEARCH_DIMENSION = 5000;
-
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
+This class search the osm data
 
-@class OsmSearchEngine
-@classdesc This class search the osm data
-@see {@link theOsmSearchEngine} for the one and only one instance of this class
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+See theOsmSearchEngine for the one and only one instance of this class
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class OsmSearchEngine	{
 
-	#searchStarted = false;
-	#filterItems = [];
-	#previousSearchBounds = null;
+	/**
+	A flag to avoid to start a new search when a search is already ongoing
+	@type {Boolean}
+	*/
+
+	#searchStarted;
+
+	/**
+	A list of DictionaryItem objects used to filter the results received from Osm
+	@type {Array.<DictionaryItem>}
+	*/
+
+	#filterItems;
+
+	/**
+	A leaflet LatLngBounds object with the previous search limits
+	@type {LeafletObject}
+	*/
+
+	#previousSearchBounds;
+
+	/**
+	A constant with the half dimension in meter of the search area
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #SEARCH_DIMENSION ( ) { return 5000; }
 
 	/**
 	Compare the tags of the osmElement with the tags of the filterTags
-	@return {boolean} true when all the tags present in the filterTags are present in the osmElement with the same value
-	@private
+	@param {OsmElement} osmElement the osmElement to compare
+	@param {Array.<Object>} filterTags The filter tags to use Seee DictionaryItem.filterTagsArray
+	@return {Boolean} true when all the tags present in the filterTags are present in the osmElement with the same value
 	*/
 
 	#filterOsmElement ( osmElement, filterTags ) {
 		let isValidOsmElement = true;
 		filterTags.forEach (
 			filterTag => {
-				let [ key, value ] = Object.entries ( filterTag ) [ ZERO ];
+				const [ key, value ] = Object.entries ( filterTag ) [ ZERO ];
 				isValidOsmElement =
 					isValidOsmElement &&
 					osmElement.tags [ key ] &&
@@ -100,9 +106,8 @@ class OsmSearchEngine	{
 	/**
 	Filter the osmElement with the list of selected DictionaryItems and add the osmElement to the map of pointsOfInterest
 	if the osmElement pass the filter. Add also a description, a latitude and longitude to the osmElement
-	@param {Object} osmElement the object to analyse
+	@param {OsmElement} osmElement the object to analyse
 	@param {Map} pointsOfInterest A map with all the retained osmElements
-	@private
 	*/
 
 	#addPointOfInterest ( osmElement, pointsOfInterest ) {
@@ -122,20 +127,19 @@ class OsmSearchEngine	{
 
 	/**
 	Build an array of queries for calls to OSM.
-	@return {Array.<string>} An array of string to use with OverpassAPIDataLoader
-	@private
+	@return {Array.<String>} An array of string to use with OverpassAPIDataLoader
 	*/
 
 	#getSearchQueries ( ) {
-		let searchQueries = [];
-		let keysMap = new Map ( );
+		const searchQueries = [];
+		const keysMap = new Map ( );
 
 		this.#filterItems.forEach (
 			filterItem => {
 				filterItem.filterTagsArray.forEach (
 					filterTags => {
 
-						let [ key, value ] = Object.entries ( filterTags [ ZERO ] ) [ ZERO ];
+						const [ key, value ] = Object.entries ( filterTags [ ZERO ] ) [ ZERO ];
 						let valuesElements = keysMap.get ( key );
 						if ( ! valuesElements ) {
 							valuesElements = { values : new Map ( ), elements : new Map ( ) };
@@ -152,9 +156,9 @@ class OsmSearchEngine	{
 			}
 		);
 
-		let searchBounds = this.#computeSearchBounds ( );
+		const searchBounds = this.#computeSearchBounds ( );
 		this.#previousSearchBounds = searchBounds;
-		let searchBoundingBoxString = '(' +
+		const searchBoundingBoxString = '(' +
 			searchBounds.getSouthWest ( ).lat.toFixed ( LAT_LNG.fixed ) +
 			',' +
 			searchBounds.getSouthWest ( ).lng.toFixed ( LAT_LNG.fixed ) +
@@ -168,7 +172,7 @@ class OsmSearchEngine	{
 			( valuesElements, key ) => {
 				let queryTag = '"' + key + '"';
 				if ( ONE === valuesElements.values.size ) {
-					let value = valuesElements.values.values ( ).next ( ).value;
+					const value = valuesElements.values.values ( ).next ( ).value;
 					if ( value ) {
 						queryTag += '="' + value + '"';
 					}
@@ -187,7 +191,7 @@ class OsmSearchEngine	{
 				// Some overpass API servers don't know nwr...
 
 				if ( theConfig.overpassApi.useNwr ) {
-					let queryElement =
+					const queryElement =
 						ONE === valuesElements.elements.size ? valuesElements.elements.values ( ).next ( ).value : 'nwr';
 
 					searchQueries.push (
@@ -223,25 +227,26 @@ class OsmSearchEngine	{
 	and add the first tag to the root tags map.
 	@param {DictionaryItem} item The item from witch the search start. Recursive function. The first
 	call start with this.#dictionary
-	@private
 	*/
 
-	#searchFilters ( item ) {
+	#searchFilterItems ( item ) {
 		if ( item.isSelected && ( ZERO < item.filterTagsArray.length ) ) {
-			this.#filterItems = this.#filterItems.concat ( item );
+			this.#filterItems.push ( item );
 		}
-		item.items.forEach ( nextItem => this.#searchFilters ( nextItem ) );
+		item.items.forEach ( nextItem => this.#searchFilterItems ( nextItem ) );
 	}
 
 	/**
 	Compute the search bounds
-	@private
 	*/
 
 	#computeSearchBounds ( ) {
-		let mapCenter = theTravelNotesData.map.getCenter ( );
-		let searchBounds = theTravelNotesData.map.getBounds ( );
-		let maxBounds = theGeometry.getSquareBoundingBox ( [ mapCenter.lat, mapCenter.lng ], SEARCH_DIMENSION );
+		const mapCenter = theTravelNotesData.map.getCenter ( );
+		const searchBounds = theTravelNotesData.map.getBounds ( );
+		const maxBounds = theGeometry.getSquareBoundingBox (
+			[ mapCenter.lat, mapCenter.lng ],
+			OsmSearchEngine.#SEARCH_DIMENSION
+		);
 		searchBounds.getSouthWest ( ).lat =
 			Math.max ( searchBounds.getSouthWest ( ).lat, maxBounds.getSouthWest ( ).lat );
 		searchBounds.getSouthWest ( ).lng =
@@ -254,12 +259,15 @@ class OsmSearchEngine	{
 		return searchBounds;
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#searchStarted = false;
+		this.#filterItems = [];
+		this.#previousSearchBounds = null;
 	}
 
 	/**
@@ -272,10 +280,10 @@ class OsmSearchEngine	{
 		}
 		this.#searchStarted = true;
 		this.#filterItems = [];
-		this.#searchFilters ( theOsmSearchDictionary.dictionary );
-		let dataLoader = new OverpassAPIDataLoader ( { searchPlaces : false } );
+		this.#searchFilterItems ( theOsmSearchDictionary.dictionary );
+		const dataLoader = new OverpassAPIDataLoader ( { searchPlaces : false } );
 		await dataLoader.loadData ( this.#getSearchQueries ( ) );
-		let pointsOfInterest = new Map ( );
+		const pointsOfInterest = new Map ( );
 
 		[ dataLoader.nodes, dataLoader.ways, dataLoader.relations ]. forEach (
 			elementsMap => {
@@ -288,43 +296,40 @@ class OsmSearchEngine	{
 				);
 			}
 		);
-		theTravelNotesData.searchData =
-			Array.from ( pointsOfInterest.values ( ) ).sort (
-				( obj1, obj2 ) => obj1.description > obj2.description
-			);
+		theTravelNotesData.searchData.length = ZERO;
+		Array.from ( pointsOfInterest.values ( ) ).sort (
+			( obj1, obj2 ) => obj1.description > obj2.description
+		)
+			.forEach ( poi => theTravelNotesData.searchData.push ( poi ) );
 		this.#searchStarted = false;
 		theEventDispatcher.dispatch ( 'showsearch' );
 	}
 
 	/**
-	Current search bounds getter
+	A leaflet LatLngBounds object with the current search limits
+	@type {LeafletObject}
 	*/
 
 	get searchBounds ( ) { return this.#computeSearchBounds ( ); }
 
 	/**
-	Previous search bounds getter
+	A leaflet LatLngBounds object with the previous search limits
+	@type {LeafletObject}
 	*/
 
 	get previousSearchBounds ( ) { return this.#previousSearchBounds; }
 
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of OsmSearchEngine class
+The one and only one instance of OsmSearchEngine class
 @type {OsmSearchEngine}
-@constant
-@global
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theOsmSearchEngine = new OsmSearchEngine ( );
 
 export default theOsmSearchEngine;
 
-/*
---- End of OsmSearchEngine.js file --------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

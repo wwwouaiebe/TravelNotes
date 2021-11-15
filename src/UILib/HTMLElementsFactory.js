@@ -26,55 +26,35 @@ Changes:
 		- Issue ♯120 : Review the UserInterface
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file HTMLElementsFactory.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module UILib
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class HTMLElementsFactory
-@classdesc ...
-@see {@link theHTMLElementsFactory} for the one and only one instance of this class
+HTMLElements factory
+See theHTMLElementsFactory for the one and only one instance of this class
 @hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class HTMLElementsFactory {
 
 	/**
 	#addProperties
-	@desc This method add the properties to the created element
-	@private
+	This method add the properties to the created element
+	@param {HTMLElement} element The HTMLElement for witch the properties will be added
+	@param {Object} properties An object with properties to add to the HTMLElement
 	*/
 
 	#addProperties ( element, properties ) {
-		for ( let property in properties ) {
+		for ( const property in properties ) {
 			try {
 				if ( 'dataset' === property ) {
-					let datasetObject = properties.dataset;
-					for ( let valueName in datasetObject ) {
+					const datasetObject = properties.dataset;
+					for ( const valueName in datasetObject ) {
 						element.dataset [ 'tan' + valueName ] = datasetObject [ valueName ];
 					}
 				}
@@ -93,7 +73,7 @@ class HTMLElementsFactory {
 		}
 	}
 
-	/*
+	/**
 	constructor
 	*/
 
@@ -103,7 +83,7 @@ class HTMLElementsFactory {
 
 	/**
 	Create an HTMLElement Object
-	@param {string} tagName the tag of the HTMLElement to create
+	@param {String} tagName the tag of the HTMLElement to create
 	@param {?object} properties An object with properties to add to the HTMLElement
 	@param {?HTMLElement} parentNode The parent node to witch the HTMLElement will be attached
 	@return {HTMLElement} the created HTMLElement
@@ -132,21 +112,15 @@ class HTMLElementsFactory {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of HTMLElementsFactory class
+The one and only one instance of HTMLElementsFactory class
 @type {HTMLElementsFactory}
-@constant
-@global
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theHTMLElementsFactory = new HTMLElementsFactory ( );
 
 export default theHTMLElementsFactory;
 
-/*
---- End of HTMLElementsFactory.js file ----------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

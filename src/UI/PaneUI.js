@@ -21,69 +21,99 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file PaneUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module panesManagerUI
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import { PANE_ID } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class PaneUI
-@classdesc Base class for panes
-@see {@link PanesManagerUI} for pane UI management
-@abstract
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+Base class for panes
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class PaneUI {
 
-	/*
-	constructor
+	/**
+	A reference to the HTMLElement in witch the data have to be added
+	@type {HTMLElement}
+	*/
+
+	#paneData;
+
+	/**
+	A reference to the HTMLElement in witch the control have to be added
+	@type {HTMLElement}
+	*/
+
+	#paneControl;
+
+	/**
+	The constructor
+	@param {HTMLElement} paneData The HTMLElement in witch the data have to be added
+	@param {HTMLElement} paneControl The HTMLElement in witch the control have to be added
 	*/
 
 	constructor ( paneData, paneControl ) {
-		this.paneData = paneData;
-		this.paneControl = paneControl;
-		Object.seal ( this );
+		Object.freeze ( this );
+		this.#paneData = paneData;
+		this.#paneControl = paneControl;
 	}
+
+	/**
+	A reference to the HTMLElement in witch the data have to be added
+	@type {HTMLElement}
+	*/
+
+	get paneData ( ) { return this.#paneData; }
+
+	/**
+	A reference to the HTMLElement in witch the control have to be added
+	@type {HTMLElement}
+	*/
+
+	get paneControl ( ) { return this.#paneControl; }
+
+	/**
+	This method removes all the elements from the paneData HTMLElement and paneControl HTMLElement
+	Must be implemented in the derived classes
+	*/
 
 	remove ( ) {
 	}
 
+	/**
+	This method add the maneuvers and notes to the paneData HTMLElement and controls to the paneControl HTMLElement
+	Must be implemented in the derived classes
+	*/
+
 	add ( ) {
 	}
 
-	getPaneId ( ) {
+	/**
+	A unique identifier for the pane
+	Must be implemented in the derived classes
+	@type {String}
+	*/
+
+	get paneId ( ) {
 		return PANE_ID.invalidPane;
 	}
 
-	getButtonText ( ) {
+	/**
+	The text to be displayer in the pane button
+	Must be implemented in the derived classes
+	@type {String}
+	*/
+
+	get buttonText ( ) {
 		return '';
 	}
 }
 
 export default PaneUI;
+
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

@@ -21,111 +21,102 @@ Changes:
 		- Issue ♯150 : Merge travelNotes and plugins
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file MapzenValhallaRouteProvider.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module routeProviders
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-import thePolylineEncoder from '../coreLib/PolylineEncoder.js';
+import PolylineEncoder from '../coreLib/PolylineEncoder.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
 import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
 
 import { ZERO, HTTP_STATUS_OK, DISTANCE } from '../main/Constants.js';
 
-const OUR_MAPZEN_LAT_LNG_ROUND = 6;
-
-const OUR_ICON_LIST = [
-	'kUndefined', // kNone = 0;
-	'kDepartDefault', // kStart = 1;
-	'kDepartRight', // kStartRight = 2;
-	'kDepartLeft', // kStartLeft = 3;
-	'kArriveDefault', // kDestination = 4;
-	'kArriveRight', // kDestinationRight = 5;
-	'kArriveLeft', // kDestinationLeft = 6;
-	'kNewNameStraight', // kBecomes = 7;
-	'kContinueStraight', // kContinue = 8;
-	'kTurnSlightRight', // kSlightRight = 9;
-	'kTurnRight', // kRight = 10;
-	'kTurnSharpRight', // kSharpRight = 11;
-	'kUturnRight', // kUturnRight = 12;
-	'kUturnLeft', // kUturnLeft = 13;
-	'kTurnSharpLeft', // kSharpLeft = 14;
-	'kTurnLeft', // kLeft = 15;
-	'kTurnSlightLeft', // kSlightLeft = 16;
-	'kUndefined', // kRampStraight = 17;
-	'kOnRampRight', // kRampRight = 18;
-	'kOnRampLeft', // kRampLeft = 19;
-	'kOffRampRight', // kExitRight = 20;
-	'kOffRampLeft', // kExitLeft = 21;
-	'kStayStraight', // kStayStraight = 22;
-	'kStayRight', // kStayRight = 23;
-	'kStayLeft', // kStayLeft = 24;
-	'kMergeDefault', // kMerge = 25;
-	'kRoundaboutRight', // kRoundaboutEnter = 26;
-	'kRoundaboutExit', // kRoundaboutExit = 27;
-	'kFerryEnter', // kFerryEnter = 28;
-	'kFerryExit', // kFerryExit = 29;
-	'kUndefined', // kTransit = 30;
-	'kUndefined', // kTransitTransfer = 31;
-	'kUndefined', // kTransitRemainOn = 32;
-	'kUndefined', // kTransitConnectionStart = 33;
-	'kUndefined', // kTransitConnectionTransfer = 34;
-	'kUndefined', // kTransitConnectionDestination = 35;
-	'kUndefined' // kPostTransitConnectionDestination = 36;
-];
-
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class MapzenValhallaRouteProvider
-@classdesc This class implements the Provider interface for MapzenValhalla. It's not possible to instanciate
+This class implements the BaseRouteProvider for MapzenValhalla. It's not possible to instanciate
 this class because the class is not exported from the module. Only one instance is created and added to the list
 of Providers of TravelNotes
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class MapzenValhallaRouteProvider extends BaseRouteProvider {
 
-	#userLanguage = 'fr';
-
 	/**
 	The provider key. Will be set by TravelNotes
-	@private
+	@type {String}
 	*/
 
-	#providerKey = '';
+	#providerKey;
 
 	/**
 	A reference to the edited route
+	@type {Route}
 	*/
 
-	#route = null;
+	#route;
 
 	/**
-	Parse the provider response and complete the route with values received from the provider
-	@private
+	The round value used by PolylineEncoder
+	@type {Number}
+	*/
+	// eslint-disable-next-line no-magic-numbers
+	static get#ROUND_VALUE ( ) { return 6; }
+
+	/**
+	Enum for icons
+	@type {Array.<String>}
+	*/
+
+	static get #ICON_LIST ( ) {
+		return [
+			'kUndefined', // kNone = 0;
+			'kDepartDefault', // kStart = 1;
+			'kDepartRight', // kStartRight = 2;
+			'kDepartLeft', // kStartLeft = 3;
+			'kArriveDefault', // kDestination = 4;
+			'kArriveRight', // kDestinationRight = 5;
+			'kArriveLeft', // kDestinationLeft = 6;
+			'kNewNameStraight', // kBecomes = 7;
+			'kContinueStraight', // kContinue = 8;
+			'kTurnSlightRight', // kSlightRight = 9;
+			'kTurnRight', // kRight = 10;
+			'kTurnSharpRight', // kSharpRight = 11;
+			'kUturnRight', // kUturnRight = 12;
+			'kUturnLeft', // kUturnLeft = 13;
+			'kTurnSharpLeft', // kSharpLeft = 14;
+			'kTurnLeft', // kLeft = 15;
+			'kTurnSlightLeft', // kSlightLeft = 16;
+			'kUndefined', // kRampStraight = 17;
+			'kOnRampRight', // kRampRight = 18;
+			'kOnRampLeft', // kRampLeft = 19;
+			'kOffRampRight', // kExitRight = 20;
+			'kOffRampLeft', // kExitLeft = 21;
+			'kStayStraight', // kStayStraight = 22;
+			'kStayRight', // kStayRight = 23;
+			'kStayLeft', // kStayLeft = 24;
+			'kMergeDefault', // kMerge = 25;
+			'kRoundaboutRight', // kRoundaboutEnter = 26;
+			'kRoundaboutExit', // kRoundaboutExit = 27;
+			'kFerryEnter', // kFerryEnter = 28;
+			'kFerryExit', // kFerryExit = 29;
+			'kUndefined', // kTransit = 30;
+			'kUndefined', // kTransitTransfer = 31;
+			'kUndefined', // kTransitRemainOn = 32;
+			'kUndefined', // kTransitConnectionStart = 33;
+			'kUndefined', // kTransitConnectionTransfer = 34;
+			'kUndefined', // kTransitConnectionDestination = 35;
+			'kUndefined' // kPostTransitConnectionDestination = 36;
+		];
+	}
+
+	/**
+	Parse the response from the provider and add the received itinerary to the route itinerary
+	@param {JsonObject} response the itinerary received from the provider
+	@param {function} onOk a function to call when the response is parsed correctly
+	@param {function} onError a function to call when an error occurs
 	*/
 
 	#parseResponse ( response, onOk, onError ) {
@@ -139,8 +130,11 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 
 		response.trip.legs.forEach (
 			leg => {
-				leg.shape = thePolylineEncoder.decode ( leg.shape, [ OUR_MAPZEN_LAT_LNG_ROUND, OUR_MAPZEN_LAT_LNG_ROUND ] );
-				let itineraryPoints = [];
+				leg.shape = new PolylineEncoder ( ).decode (
+					leg.shape,
+					[ MapzenValhallaRouteProvider.#ROUND_VALUE, MapzenValhallaRouteProvider.#ROUND_VALUE ]
+				);
+				const itineraryPoints = [];
 				for ( let shapePointCounter = ZERO; shapePointCounter < leg.shape.length; shapePointCounter ++ ) {
 					let itineraryPoint = new ItineraryPoint ( );
 					itineraryPoint.latLng = leg.shape [ shapePointCounter ];
@@ -149,8 +143,8 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 				}
 				leg.maneuvers.forEach (
 					mapzenManeuver => {
-						let travelNotesManeuver = new Maneuver ( );
-						travelNotesManeuver.iconName = OUR_ICON_LIST [ mapzenManeuver.type || ZERO ];
+						const travelNotesManeuver = new Maneuver ( );
+						travelNotesManeuver.iconName = MapzenValhallaRouteProvider.#ICON_LIST [ mapzenManeuver.type || ZERO ];
 						travelNotesManeuver.instruction = mapzenManeuver.instruction || '';
 						travelNotesManeuver.distance = ( mapzenManeuver.length || ZERO ) * DISTANCE.metersInKm;
 						travelNotesManeuver.duration = mapzenManeuver.time || ZERO;
@@ -161,7 +155,7 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 			}
 		);
 
-		let wayPointsIterator = this.#route.wayPoints.iterator;
+		const wayPointsIterator = this.#route.wayPoints.iterator;
 		response.trip.locations.forEach (
 			curLocation => {
 				if ( ! wayPointsIterator.done ) {
@@ -174,12 +168,12 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 	}
 
 	/**
-	Get the complete url to be send to the provider
-	@private
+	Gives the url to call
+	@return {String} a string with the url, wayPoints, transitMode, user language and API key
 	*/
 
 	#getUrl ( ) {
-		let request = {
+		const request = {
 			locations : [],
 			costing : '',
 			/* eslint-disable-next-line camelcase */
@@ -188,7 +182,7 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 			costing_options : {}
 		};
 
-		let wayPointsIterator = this.#route.wayPoints.iterator;
+		const wayPointsIterator = this.#route.wayPoints.iterator;
 		while ( ! wayPointsIterator.done ) {
 			request.locations.push (
 				{
@@ -238,8 +232,9 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 	}
 
 	/**
-	Implementation of the base class #getRoute ( )
-	@private
+	Overload of the base class #getRoute ( ) method
+	@param {function} onOk the Promise Success handler
+	@param {function} onError the Promise Error handler
 	*/
 
 	#getRoute ( onOk, onError ) {
@@ -254,21 +249,40 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 						onError ( new Error ( 'Invalid status ' + response.status ) );
 					}
 				}
+			)
+			.catch (
+
+				// calling onError without parameters because fetch don't accecpt to add something as parameter :-(...
+				( ) => { onError ( ); }
 			);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		super ( );
+		this.#providerKey = '';
 	}
+
+	/**
+	Call the provider, using the waypoints defined in the route and, on success,
+	complete the route with the data from the provider
+	@param {Route} route The route to witch the data will be added
+	@return {Promise} A Promise. On success, the Route is completed with the data given by the provider.
+	*/
 
 	getPromiseRoute ( route ) {
 		this.#route = route;
 		return new Promise ( ( onOk, onError ) => this.#getRoute ( onOk, onError ) );
 	}
+
+	/**
+	The icon used in the ProviderToolbarUI.
+	Overload of the base class icon property
+	@type {String}
+	*/
 
 	get icon ( ) {
 		return '' +
@@ -297,23 +311,47 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 			'8Avw8wxqKH931rThTFaX6fgPt9sev9K07+HwD9392d/g5xBCylN3zlQgAAAABJRU5ErkJggg==';
 	}
 
+	/**
+	The provider name.
+	Overload of the base class name property
+	@type {String}
+	*/
+
 	get name ( ) { return 'MapzenValhalla'; }
+
+	/**
+	The title to display in the ProviderToolbarUI button.
+	Overload of the base class title property
+	@type {String}
+	*/
 
 	get title ( ) { return 'Mapzen Valhalla with Stadia Maps'; }
 
+	/**
+	The possible transit modes for the provider.
+	Overload of the base class transitModes property
+	Must be a subarray of [ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ]
+	@type {Array.<String>}
+	*/
+
 	get transitModes ( ) { return [ 'bike', 'pedestrian', 'car' ]; }
+
+	/**
+	A boolean indicating when a provider key is needed for the provider.
+	Overload of the base class providerKeyNeeded property
+	@type {Boolean}
+	*/
 
 	get providerKeyNeeded ( ) { return true; }
 
-	get providerKey ( ) { return this.#providerKey.length; }
-	set providerKey ( providerKey ) { this.#providerKey = providerKey; }
+	/**
+	The provider key.
+	Overload of the base class providerKey property
+	*/
 
-	get userLanguage ( ) { return this.#userLanguage; }
-	set userLanguage ( userLanguage ) { this.#userLanguage = userLanguage; }
+	set providerKey ( providerKey ) { this.#providerKey = providerKey; }
 }
 
 window.TaN.addProvider ( MapzenValhallaRouteProvider );
 
-/*
---- End of MapzenValhallaRouteProvider.js file --------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

@@ -20,32 +20,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file RouteHTMLViewsFactory.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module viewsFactories
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import ObjId from '../data/ObjId.js';
-import ProfileFactory from '../coreLib/ProfileFactory.js';
+import SvgProfileBuilder from '../coreLib/SvgProfileBuilder.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import theTranslator from '../UILib/Translator.js';
@@ -53,33 +35,28 @@ import theUtilities from '../UILib/Utilities.js';
 import theNoteHTMLViewsFactory from '../viewsFactories/NoteHTMLViewsFactory.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 
-import { ZERO, DISTANCE } from '../main/Constants.js';
+import { ZERO, DISTANCE, ICON_DIMENSIONS } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class RouteHTMLViewsFactory
-@classdesc coming soon...
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class creates HTMLElements for routes
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class RouteHTMLViewsFactory {
 
 	/**
 	Gives an HTMLElement with the icon, instruction, distance since the beginning of the travel (if the instruction is
 	linked to a chained route), distance since the beginning of the route and distance till the next maneuver
-	@param {string} classPrefix A string that will be added to all the className of the created HTMLElements
+	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
 	@param {Object} routeAndManeuver An object with the maneuver, the route to witch the maneuver is linked and the distance
 	between the beginning of the route and the maneuver
-	@return {HTMLElement}
-	@private
+	@return {HTMLElement} An HTMLElement with the Maneuver
 	*/
 
 	#getManeuverHTML ( classPrefix, routeAndManeuver ) {
-		let maneuverHTML = theHTMLElementsFactory.create ( 'div' );
-		theHTMLElementsFactory.create (
+		const maneuverHTML = theHTMLElementsFactory.create ( 'div' );
+		const maneuverIconHTML = theHTMLElementsFactory.create (
 			'div',
 			{
 				className :
@@ -90,7 +67,11 @@ class RouteHTMLViewsFactory {
 			},
 			maneuverHTML
 		);
-		let maneuverTextHTML = theHTMLElementsFactory.create (
+
+		maneuverIconHTML.style.width = String ( ICON_DIMENSIONS.width ) + 'px';
+		maneuverIconHTML.style.height = String ( ICON_DIMENSIONS.height ) + 'px';
+
+		const maneuverTextHTML = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : classPrefix + 'Route-ManeuversAndNotes-Cell'
@@ -151,8 +132,8 @@ class RouteHTMLViewsFactory {
 		return maneuverHTML;
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -161,14 +142,14 @@ class RouteHTMLViewsFactory {
 
 	/**
 	Gives an HTMLElement with the SVG profile of a route
-	@param {string} classPrefix A string that will be added to all the className of the created HTMLElements
+	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
 	@param {Route} route The route for witch the HTMLElement will be created
 	*/
 
 	getRouteProfileHTML ( classPrefix, route ) {
-		let profileDiv = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'RouteProfile' } );
+		const profileDiv = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'RouteProfile' } );
 		theHTMLSanitizer.sanitizeToHtmlElement ( theTranslator.getText ( 'RouteHTMLViewsFactory - Profile' ), profileDiv );
-		profileDiv.appendChild ( new ProfileFactory ( ).createSvg ( route ) );
+		profileDiv.appendChild ( new SvgProfileBuilder ( ).createSvg ( route ) );
 
 		return profileDiv;
 	}
@@ -176,14 +157,15 @@ class RouteHTMLViewsFactory {
 	/**
 	Gives an HTMLElement with all the notes and maneuvers linked to a route, ordered by distance since the
 	beginning of the route
-	@param {string} classPrefix A string that will be added to all the className of the created HTMLElements
+	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
 	@param {Route} route The route for witch the HTMLElement will be created
-	@return {HTMLElement}
+	@param {Boolean} addDataset When true, objId and objType are added to the dataset of the HTMLElement
+	@return {HTMLElement} An HTMLElement with all the notes and maneuvers linked to the route
 	*/
 
 	getRouteManeuversAndNotesHTML ( classPrefix, route, addDataset ) {
-		let notesAndManeuvers = [];
-		let notesIterator = route.notes.iterator;
+		const notesAndManeuvers = [];
+		const notesIterator = route.notes.iterator;
 		while ( ! notesIterator.done ) {
 			notesAndManeuvers.push (
 				{
@@ -192,7 +174,7 @@ class RouteHTMLViewsFactory {
 				}
 			);
 		}
-		let maneuversIterator = route.itinerary.maneuvers.iterator;
+		const maneuversIterator = route.itinerary.maneuvers.iterator;
 		let maneuverDistance = ZERO;
 		while ( ! maneuversIterator.done ) {
 			notesAndManeuvers.push (
@@ -204,7 +186,7 @@ class RouteHTMLViewsFactory {
 			maneuverDistance += maneuversIterator.value.distance;
 		}
 		notesAndManeuvers.sort ( ( first, second ) => first.distance - second.distance );
-		let routeNotesAndManeuversHTML = theHTMLElementsFactory.create (
+		const routeNotesAndManeuversHTML = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : classPrefix + 'Route-ManeuversAndNotes'
@@ -246,13 +228,13 @@ class RouteHTMLViewsFactory {
 	/**
 	Gives an HTMLElement with a route name, route distance, route duration ( except for bike),
 	route ascent (if any) and route descent (if any)
-	@param {string} classPrefix A string that will be added to all the className of the created HTMLElements
+	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
 	@param {Route} route The route for witch the HTMLElement will be created
-	@return {HTMLElement}
+	@return {HTMLElement} An HTMLElement with the Route header
 	*/
 
 	getRouteHeaderHTML ( classPrefix, route ) {
-		let routeHeaderHTML = theHTMLElementsFactory.create (
+		const routeHeaderHTML = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : classPrefix + 'Route-Header',
@@ -338,26 +320,28 @@ class RouteHTMLViewsFactory {
 
 	/**
 	Gives an HTMLElement with the provider and transit mode used for the itinerary creation
-	@param {string} classPrefix A string that will be added to all the className of the created HTMLElements
+	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
 	@param {Route} route The route for witch the HTMLElement will be created
-	@return {HTMLElement}
+	@return {HTMLElement} An HTMLElement with the Route footer
 	*/
 
 	getRouteFooterHTML ( classPrefix, route ) {
-		let footerText = '';
-		if ( ( '' !== route.itinerary.provider ) && ( '' !== route.itinerary.transitMode ) ) {
-			footerText = theTranslator.getText (
-				'RouteHTMLViewsFactory - Itinerary computed by {provider} and optimized for {transitMode}',
-				{
-					provider : route.itinerary.provider,
-					transitMode : theTranslator.getText (
-						'RouteHTMLViewsFactory - TransitMode ' +	route.itinerary.transitMode
-					)
-				}
-			);
-		}
+		let footerText =
+			( ( '' !== route.itinerary.provider ) && ( '' !== route.itinerary.transitMode ) )
+				?
+				theTranslator.getText (
+					'RouteHTMLViewsFactory - Itinerary computed by {provider} and optimized for {transitMode}',
+					{
+						provider : route.itinerary.provider,
+						transitMode : theTranslator.getText (
+							'RouteHTMLViewsFactory - TransitMode ' +	route.itinerary.transitMode
+						)
+					}
+				)
+				:
+				'';
 
-		let footerHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'RouteFooter' } );
+		const footerHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'RouteFooter' } );
 
 		theHTMLSanitizer.sanitizeToHtmlElement ( footerText, footerHTML );
 
@@ -365,14 +349,16 @@ class RouteHTMLViewsFactory {
 	}
 
 }
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+The one and only one instance of RouteHTMLViewsFactory  class
+@type {RouteHTMLViewsFactory }
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
 const theRouteHTMLViewsFactory = new RouteHTMLViewsFactory ( );
 
 export default theRouteHTMLViewsFactory;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of RouteHTMLViewsFactory.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

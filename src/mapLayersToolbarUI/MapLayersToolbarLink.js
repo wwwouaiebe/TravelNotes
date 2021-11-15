@@ -20,51 +20,34 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file MapLayersToolbarLink.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module mapLayersToolbarUI
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class LinkMouseEnterEL
-@classdesc mouse enter event listener for the link
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+mouse enter event listener for the link
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class LinkMouseEnterEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	@param {Event} mouseEnterEvent The event to handle
+	*/
 
 	handleEvent ( mouseEnterEvent ) {
 		mouseEnterEvent.stopPropagation ( );
@@ -73,25 +56,26 @@ class LinkMouseEnterEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class LinkMouseLeaveEL
-@classdesc mouse leave event listener for the link
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+mouse leave event listener for the link
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class LinkMouseLeaveEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	@param {Event} mouseLeaveEvent The event to handle
+	*/
 
 	handleEvent ( mouseLeaveEvent ) {
 		mouseLeaveEvent.stopPropagation ( );
@@ -101,49 +85,46 @@ class LinkMouseLeaveEL {
 
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class MapLayersToolbarLink
-@classdesc Link button for the map layers toolbar
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+Link button for the map layers toolbar
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class MapLayersToolbarLink {
 
 	/**
-	Event listeners for the buttons
-	@private
+	Mouseenter event listener
+	@type {LinkMouseEnterEL}
 	*/
 
-	#eventListeners = {
-		mouseEnter : null,
-		mouseLeave : null
-	}
+	#linkMouseEnterEL;
 
 	/**
-	A reference to the link button html element
-	@private
+	Mouseenter event listener
+	@type {LinkMouseLeaveEL}
 	*/
 
-	#linkButton = null;
+	#linkMouseLeaveEL;
 
 	/**
-	A reference to the parent node
-	@private
+	The button with the link
+	@type {HTMLElement}
 	*/
 
-	#parentNode = null;
+	#linkButton;
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {Object} linkProperties An object with the buttons properties (href, title, textContent and target)
+	@param {HTMLElement} parentNode The buttons container
 	*/
 
 	constructor ( linkProperties, parentNode ) {
+
 		Object.freeze ( this );
-		this.#parentNode = parentNode;
+
+		// HTML creation
 		this.#linkButton = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -152,25 +133,26 @@ class MapLayersToolbarLink {
 			parentNode
 		);
 		theHTMLElementsFactory.create ( 'a', linkProperties, this.#linkButton );
-		this.#eventListeners.mouseEnter = new LinkMouseEnterEL ( );
-		this.#eventListeners.mouseLeave = new LinkMouseLeaveEL ( );
-		this.#linkButton.addEventListener ( 'mouseenter', this.#eventListeners.mouseEnter, false );
-		this.#linkButton.addEventListener ( 'mouseleave', this.#eventListeners.mouseLeave, false );
+
+		// events listeners
+		this.#linkMouseEnterEL = new LinkMouseEnterEL ( );
+		this.#linkMouseLeaveEL = new LinkMouseLeaveEL ( );
+		this.#linkButton.addEventListener ( 'mouseenter', this.#linkMouseEnterEL, false );
+		this.#linkButton.addEventListener ( 'mouseleave', this.#linkMouseLeaveEL, false );
 	}
 
 	/**
-	destructor. Remove event listeners and the button html element from the buttons container.
+	destructor. Remove event listeners.
 	*/
 
 	destructor ( ) {
-		this.#linkButton.removeEventListener ( 'mouseenter', this.#eventListeners.mouseEnter, false );
-		this.#linkButton.removeEventListener ( 'mouseleave', this.#eventListeners.mouseLeave, false );
-		this.#parentNode.removeChild ( this.#linkButton );
-		this.#parentNode = null;
+		this.#linkButton.removeEventListener ( 'mouseenter', this.#linkMouseEnterEL, false );
+		this.#linkButton.removeEventListener ( 'mouseleave', this.#linkMouseLeaveEL, false );
 	}
 
 	/**
 	The height of the button
+	@type {Number}
 	*/
 
 	get height ( ) { return this.#linkButton.clientHeight; }
@@ -179,10 +161,4 @@ class MapLayersToolbarLink {
 
 export default MapLayersToolbarLink;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of MapLayersToolbarLink.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

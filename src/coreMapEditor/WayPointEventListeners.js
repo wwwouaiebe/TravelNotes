@@ -20,76 +20,51 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests 20210902
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file WayPointEventListeners.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreMapEditor
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theWayPointEditor from '../core/WayPointEditor.js';
 import WayPointContextMenu from '../contextMenus/WayPointContextMenu.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class WayPointContextMenuEL
-@classdesc contextmenu event listener for the waypoint marker
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+contextmenu event listener for the waypoint marker
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class WayPointContextMenuEL {
+
+	/**
+	Event listener method
+	@param {Event} contextMenuEvent The event to handle
+	*/
 
 	static handleEvent ( contextMenuEvent ) {
 		new WayPointContextMenu ( contextMenuEvent ).show ( );
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class WayPointDragEndEL
-@classdesc dragend event listener for the waypoint marker
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+dragend event listener for the waypoint marker
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class WayPointDragEndEL {
 
+	/**
+	Event listener method
+	@param {Event} dragEndEvent The event to handle
+	*/
+
 	static handleEvent ( dragEndEvent ) {
-		let draggedWayPoint = theTravelNotesData.travel.editedRoute.wayPoints.getAt ( dragEndEvent.target.objId );
-		draggedWayPoint.latLng = [ dragEndEvent.target.getLatLng ( ).lat, dragEndEvent.target.getLatLng ( ).lng ];
-		theWayPointEditor.wayPointDragEnd ( dragEndEvent.target.objId );
+		theWayPointEditor.wayPointDragEnd ( dragEndEvent );
 	}
 }
 
 export { WayPointContextMenuEL, WayPointDragEndEL };
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of WayPointEventListeners.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

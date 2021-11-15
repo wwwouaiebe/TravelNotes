@@ -34,27 +34,10 @@ Changes:
 		- Issue ♯135 : Remove innerHTML from code
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file UI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module UI
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theConfig from '../data/Config.js';
@@ -68,78 +51,73 @@ import TravelNotesPaneUI from '../UI/TravelNotesPaneUI.js';
 import OsmSearchPaneUI from '../UI/OsmSearchPaneUI.js';
 import { ONE } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class
-@classdesc This class is the User Interface ( UI )
-@see {@link theUI} for the one and only one instance of this class
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class is the User Interface ( UI )<br>
+See theUI for the one and only one instance of this class
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class UI {
 
-	#mainHTMLElement = null;
-
-	#travelNotesToolbarUI = null;
-	#travelUI = null;
-	#panesManagerUI = null;
-	#providersToolbarUI = null;
-
-	#timerId = null;
-	#titleHTMLElement = null;
-	#isPinned = false;
-
 	/**
-	@desc This method add the mouse events listeners (prevent defaults actions on the UI )
-	@private
+	The main UI container
+	@type {HTMLElement}
 	*/
 
-	#addMouseEventListeners ( ) {
-		this.#mainHTMLElement.addEventListener (
-			'click',
-			clickEvent => {
-				if ( clickEvent.target.id && 'TravelNotes-UI-MainDiv' === clickEvent.target.id ) {
-					clickEvent.stopPropagation ( );
-					clickEvent.preventDefault ( );
-				}
-			},
-			false
-		);
+	#mainHTMLElement;
 
-		this.#mainHTMLElement.addEventListener (
-			'dblclick',
-			dblClickEvent => {
-				dblClickEvent.stopPropagation ( );
-				dblClickEvent.preventDefault ( );
-			},
-			false
-		);
+	/**
+	The title (The black rectangle on right top)
+	@type {HTMLElement}
+	*/
 
-		this.#mainHTMLElement.addEventListener (
-			'contextmenu',
-			conextMenuEvent => {
-				conextMenuEvent.stopPropagation ( );
-				conextMenuEvent.preventDefault ( );
-			},
-			false
-		);
+	#titleHTMLElement;
 
-		this.#mainHTMLElement.addEventListener (
-			'wheel',
-			wheelEvent => {
-				wheelEvent.stopPropagation ( );
-				wheelEvent.preventDefault ( );
-			},
-			false
-		);
-	}
+	/**
+	The main toolbar
+	@type {TravelNotesToolbarUI}
+	*/
+
+	#travelNotesToolbarUI;
+
+	/**
+	The travel UI
+	@type {TravelUI}
+	*/
+
+	#travelUI;
+
+	/**
+	The panes manager UI
+	@type {PanesManagerUI}
+	*/
+
+	#panesManagerUI;
+
+	/**
+	The providers toolbar UI
+	@type {ProvidersToolbarUI}
+	*/
+
+	#providersToolbarUI;
+
+	/**
+	A Timer id. Reduce the ui when the mouse leave
+	@type {Number}
+	*/
+
+	#timerId;
+
+	/**
+	The pinned status of the UI
+	@type {Boolean}
+	*/
+
+	#isPinned;
 
 	/**
 	Event listener for the mouse leave on the UI
-	@private
 	*/
 
 	#onMouseLeave ( ) {
@@ -151,7 +129,6 @@ class UI {
 
 	/**
 	Show the UI and hide the title
-	@private
 	*/
 
 	#show ( ) {
@@ -165,7 +142,7 @@ class UI {
 		this.#mainHTMLElement.classList.remove ( 'TravelNotes-UI-Minimized' );
 		this.#titleHTMLElement.classList.add ( 'TravelNotes-Hidden' );
 
-		let children = this.#mainHTMLElement.childNodes;
+		const children = this.#mainHTMLElement.childNodes;
 		for ( let childrenCounter = ONE; childrenCounter < children.length; childrenCounter ++ ) {
 			children[ childrenCounter ].classList.remove ( 'TravelNotes-Hidden' );
 		}
@@ -174,7 +151,6 @@ class UI {
 
 	/**
 	Hide the UI and show the title
-	@private
 	*/
 
 	#hide ( ) {
@@ -184,18 +160,19 @@ class UI {
 		this.#mainHTMLElement.classList.add ( 'TravelNotes-UI-Minimized' );
 		this.#titleHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
 
-		let children = this.#mainHTMLElement.childNodes;
+		const children = this.#mainHTMLElement.childNodes;
 		for ( let childrenCounter = ONE; childrenCounter < children.length; childrenCounter ++ ) {
 			children[ childrenCounter ].classList.add ( 'TravelNotes-Hidden' );
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#isPinned = false;
 	}
 
 	/**
@@ -216,6 +193,7 @@ class UI {
 			return;
 		}
 
+		// main UI
 		this.#mainHTMLElement = theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-UI-MainDiv' }, uiHTMLElement );
 		this.#titleHTMLElement = theHTMLElementsFactory.create (
 			'div',
@@ -225,17 +203,25 @@ class UI {
 			},
 			this.#mainHTMLElement
 		);
+
+		// TravelNotes toolbar UI
 		this.#travelNotesToolbarUI = new TravelNotesToolbarUI ( this.#mainHTMLElement );
+
+		// Travel UI
 		this.#travelUI = new TravelUI ( this.#mainHTMLElement );
+
+		// PanesManager UI
 		this.#panesManagerUI = new PanesManagerUI ( this.#mainHTMLElement );
 		this.#panesManagerUI.addPane ( ItineraryPaneUI );
 		this.#panesManagerUI.addPane ( TravelNotesPaneUI );
 		this.#panesManagerUI.addPane ( OsmSearchPaneUI );
+
+		// Providers toolbar UI
 		this.#providersToolbarUI = new ProvidersToolbarUI ( this.#mainHTMLElement );
 
+		// Event listeners
 		this.#mainHTMLElement.addEventListener ( 'mouseenter', ( ) => this.#show ( ), false );
 		this.#mainHTMLElement.addEventListener ( 'mouseleave', ( ) => this.#onMouseLeave ( ), false );
-		this.#addMouseEventListeners ( );
 
 		if ( theConfig.travelEditor.startMinimized ) {
 			this.#hide ( );
@@ -247,27 +233,44 @@ class UI {
 		}
 	}
 
+	/**
+	The main toolbar
+	@type {TravelNotesToolbarUI}
+	*/
+
 	get travelNotesToolbarUI ( ) { return this.#travelNotesToolbarUI; }
+
+	/**
+	The travel UI
+	@type {TravelUI}
+	*/
+
 	get travelUI ( ) { return this.#travelUI; }
+
+	/**
+	The panes manager UI
+	@type {PanesManagerUI}
+	*/
+
 	get panesManagerUI ( ) { return this.#panesManagerUI; }
+
+	/**
+	The providers toolbar UI
+	@type {ProvidersToolbarUI}
+	*/
+
 	get providersToolbarUI ( ) { return this.#providersToolbarUI; }
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of UI class
+The one and only one instance of UI class
 @type {UI}
-@constant
-@global
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theUI = new UI ( );
 
 export default theUI;
 
-/*
---- End of UI.js file ---------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

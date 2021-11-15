@@ -27,27 +27,10 @@ Changes:
 		- Issue ♯138 : Protect the app - control html entries done by user.
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file TravelNotesToolbarUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module travelNotesToolbarUI
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theTranslator from '../UILib/Translator.js';
@@ -58,25 +41,26 @@ import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import { GEOLOCATION_STATUS } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class ApiKeysButtonClickEL
-@classdesc click on ApiKeys button event listeners
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+click on ApiKeys button event listeners
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ApiKeysButtonClickEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -84,25 +68,26 @@ class ApiKeysButtonClickEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class GeoLocatorButtonClickEL
-@classdesc GeoLocator button event listeners
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+GeoLocator button event listeners
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class GeoLocatorButtonClickEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -110,50 +95,58 @@ class GeoLocatorButtonClickEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class PinButtonClickEL
-@classdesc GeoLocator button event listeners
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+GeoLocator button event listeners
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class PinButtonClickEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
 
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
+
 	handleEvent ( clickEvent ) {
+		clickEvent.stopPropagation ( );
 		clickEvent.target.textContent = '📌' === clickEvent.target.textContent ? '❌' : '📌';
 		theEventDispatcher.dispatch ( 'uipinned' );
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class
-@classdesc This class is the Toolbar on top of the UI
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class is the Toolbar on top of the UI
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class TravelNotesToolbarUI {
 
-	#geoLocationButton = null;
-	#buttonsDiv = null;
+	/**
+	The geolocation button
+	@type {HTMLElement}
+	*/
+
+	#geoLocationButton;
+
+	/**
+	The buttons container
+	@type {HTMLElement}
+	*/
+
+	#buttonsDiv;
 
 	/**
 	This method creates the home button
-	@private
 	*/
 
 	#createHomeButton ( ) {
@@ -183,7 +176,6 @@ class TravelNotesToolbarUI {
 
 	/**
 	This method creates the help button
-	@private
 	*/
 
 	#createHelpButton ( ) {
@@ -213,7 +205,6 @@ class TravelNotesToolbarUI {
 
 	/**
 	This method creates the contact button
-	@private
 	*/
 
 	#createContactButton ( ) {
@@ -243,7 +234,6 @@ class TravelNotesToolbarUI {
 
 	/**
 	This method creates the show APIKeys dialog button
-	@private
 	*/
 
 	#createApiKeysButton ( ) {
@@ -263,7 +253,6 @@ class TravelNotesToolbarUI {
 
 	/**
 	This method creates the geo location button
-	@private
 	*/
 
 	#createGeoLocationButton ( ) {
@@ -286,11 +275,10 @@ class TravelNotesToolbarUI {
 
 	/**
 	This method creates the pin UI button
-	@private
 	*/
 
 	#createPinButton ( ) {
-		let pinButton = theHTMLElementsFactory.create (
+		const pinButton = theHTMLElementsFactory.create (
 			'div',
 			{
 				textContent : theConfig.travelEditor.startMinimized ? '📌' : '❌',
@@ -301,12 +289,16 @@ class TravelNotesToolbarUI {
 		pinButton.addEventListener ( 'click', new PinButtonClickEL ( ), false );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {HTMLElement} uiMainDiv The HTMLElement in witch the toolbar must be created
 	*/
 
 	constructor ( uiMainDiv ) {
+
 		Object.freeze ( this );
+
+		// Container creation
 		this.#buttonsDiv = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -314,6 +306,8 @@ class TravelNotesToolbarUI {
 			},
 			uiMainDiv
 		);
+
+		// Buttons creation
 		this.#createHomeButton ( );
 		this.#createHelpButton ( );
 		this.#createContactButton ( );
@@ -347,6 +341,4 @@ class TravelNotesToolbarUI {
 
 export default TravelNotesToolbarUI;
 
-/*
---- End of TravelNotesToolbarUI.js file ---------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

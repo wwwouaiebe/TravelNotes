@@ -27,95 +27,70 @@ Changes:
 		- Issue ♯138 : Protect the app - control html entries done by user.
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ErrorsUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module errorsUI
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theConfig from '../data/Config.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
-import theTranslator from '../UILib/Translator.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
+This class show a message on the screen
 
-@class
-@classdesc This class show a message on the screen
-@see {@link theErrorsUI} for the one and only one instance of this class
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+See theErrorsUI for the one and only one instance of this class
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ErrorsUI {
 
 	/**
-	@private
+	The container
+	@type {HTMLElement}
 	*/
 
-	#mainHTMLElement = null;
+	#mainHTMLElement;
 
 	/**
-	@private
+	The message area
+	@type {HTMLElement}
 	*/
 
-	#messageHTMLElement = null;
+	#messageHTMLElement;
 
 	/**
-	@private
+	A timerId for the close UI timer
+	@type {Number}
 	*/
 
-	#timerId = null;
+	#timerId;
 
 	/**
-	@private
+	The hide help input
+	@type {HTMLElement}
 	*/
 
-	#showHelpInput = null;
+	#hideHelpInput;
 
 	/**
-	@private
+	The hide help container
+	@type {HTMLElement}
 	*/
 
-	#showHelpHTMLElement = null;
+	#hideHelpHTMLElement;
 
 	/**
-	@private
+	The error level. Must be 'Info', 'Help', 'Warning' or 'Error'
+	@type {String}
 	*/
 
-	#showHelp = theConfig.errorsUI.showHelp;
-
-	/**
-	Event listener for the input change for the show help checkbox
-	@private
-	*/
-
-	#onHelpInputChange ( ) {
-		this.#showHelp = ! this.#showHelpInput.checked;
-	}
+	#currentErrorLevel;
 
 	/**
 	Hide the help window
-	@private
 	*/
 
 	#hide ( ) {
@@ -123,33 +98,24 @@ class ErrorsUI {
 			clearTimeout ( this.#timerId );
 			this.#timerId = null;
 		}
-		this.#mainHTMLElement.classList.remove ( 'TravelNotes-ErrorsUI-Error' );
-		this.#mainHTMLElement.classList.remove ( 'TravelNotes-ErrorsUI-Warning' );
-		this.#mainHTMLElement.classList.remove ( 'TravelNotes-ErrorsUI-Info' );
-		this.#mainHTMLElement.classList.remove ( 'TravelNotes-ErrorsUI-Help' );
+		this.#mainHTMLElement.classList.remove ( 'TravelNotes-ErrorsUI-' + this.#currentErrorLevel );
 		this.#mainHTMLElement.classList.add ( 'TravelNotes-Hidden' );
-		this.#showHelpHTMLElement.classList.add ( 'TravelNotes-Hidden' );
+		this.#hideHelpHTMLElement.classList.add ( 'TravelNotes-Hidden' );
 		this.#messageHTMLElement.textContent = '';
 	}
 
 	/**
 	This method show the windows
-	@param {string} message The message to be displayed
-	@param {string} errorLevel The tpe of window to display
-	@private
+	@param {String} message The message to be displayed
+	@param {String} errorLevel The tpe of window to display
 	*/
 
 	#show ( message, errorLevel ) {
+		this.#currentErrorLevel = errorLevel;
 		if (
-			( 'Error' === errorLevel && ! theConfig.errorsUI.showError )
+			( ! theConfig.errorsUI [ 'show' + this.#currentErrorLevel ] )
 			||
-			( 'Warning' === errorLevel && ! theConfig.errorsUI.showWarning )
-			||
-			( 'Info' === errorLevel && ! theConfig.errorsUI.showInfo )
-			||
-			( 'Help' === errorLevel && ! theConfig.errorsUI.showHelp )
-			||
-			( 'Help' === errorLevel && ! this.#showHelp )
+			( 'Help' === errorLevel && this.#hideHelpInput.checked )
 		) {
 			return;
 		}
@@ -157,20 +123,21 @@ class ErrorsUI {
 			clearTimeout ( this.#timerId );
 			this.#timerId = null;
 		}
+		this.#messageHTMLElement.textContent = '';
 		theHTMLSanitizer.sanitizeToHtmlElement ( message, this.#messageHTMLElement );
-		this.#mainHTMLElement.classList.add ( 'TravelNotes-ErrorsUI-' + errorLevel );
+		this.#mainHTMLElement.classList.add ( 'TravelNotes-ErrorsUI-' + this.#currentErrorLevel );
 		this.#mainHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
 
 		let timeOutDuration = theConfig.errorsUI.timeOut;
-		if ( 'Help' === errorLevel ) {
-			this.#showHelpHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
+		if ( 'Help' === this.#currentErrorLevel ) {
+			this.#hideHelpHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
 			timeOutDuration = theConfig.errorsUI.helpTimeOut;
 		}
 		this.#timerId = setTimeout ( ( ) => this.#hide ( ), timeOutDuration );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -193,7 +160,7 @@ class ErrorsUI {
 			},
 			document.body
 		);
-		let headerDiv = theHTMLElementsFactory.create ( 'div', null, this.#mainHTMLElement );
+		const headerDiv = theHTMLElementsFactory.create ( 'div', null, this.#mainHTMLElement );
 		theHTMLElementsFactory.create (
 			'span',
 			{
@@ -210,7 +177,7 @@ class ErrorsUI {
 			},
 			this.#mainHTMLElement
 		);
-		this.#showHelpHTMLElement = theHTMLElementsFactory.create (
+		this.#hideHelpHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
 				id : 'TravelNotes-ErrorsUI-HelpInputDiv',
@@ -218,38 +185,43 @@ class ErrorsUI {
 			},
 			this.#mainHTMLElement
 		);
-		this.#showHelpInput = theHTMLElementsFactory.create (
+		this.#hideHelpInput = theHTMLElementsFactory.create (
 			'input',
 			{
 				id : 'TravelNotes-ErrorsUI-HelpInput',
-				type : 'checkbox'
+				type : 'checkbox',
+				checked : ! theConfig.errorsUI.showHelp
 			},
-			this.#showHelpHTMLElement
+			this.#hideHelpHTMLElement
 		);
-		this.#showHelpInput.addEventListener ( 'change', ( ) => this.#onHelpInputChange ( ), false );
 		theHTMLElementsFactory.create (
 			'label',
 			{
 				id : 'TravelNotes-ErrorsUI-HelpInputLabel',
 				htmlFor : 'TravelNotes-ErrorsUI-HelpInput',
-				textContent : theTranslator.getText ( 'ErrorUI - Dont show again' )
+				textContent : 'Don\'t show help again'
+
+				// not possible to translate. We need the ErrorsUI for loading translations!
+				// textContent : theTranslator.getText ( 'ErrorUI - Dont show again' )
 			},
-			this.#showHelpHTMLElement
+			this.#hideHelpHTMLElement
 		);
 	}
 
 	/**
 	Show an error message ( a white text on a red background )
-	@see theConfig.errorsUI.showError to disable or enable the error messages
-	@param {string} error The error message to display
+
+	See theConfig.errorsUI.showError to disable or enable the error messages
+	@param {String} error The error message to display
 	*/
 
 	showError ( error ) { this.#show ( error, 'Error' ); }
 
 	/**
 	Show an warning message ( a black text on an orange background )
-	@see theConfig.errorsUI.showWarning to disable or enable the warning messages
-	@param {string} warning The warning message to display
+
+	See theConfig.errorsUI.showWarning to disable or enable the warning messages
+	@param {String} warning The warning message to display
 	*/
 
 	showWarning ( warning ) { this.#show ( warning, 'Warning' ); }
@@ -257,37 +229,32 @@ class ErrorsUI {
 	/**
 	Show an info message ( a black text on a white background )
 	@see theConfig.errorsUI.showInfo to disable or enable the info messages
-	@param {string} info The info message to display
+	@param {String} info The info message to display
 	*/
 
 	showInfo ( info ) { this.#show ( info, 'Info' ); }
 
 	/**
 	Show a help message ( a black text on a white background )
-	@see theConfig.errorsUI.showHelp to disable or enable the help messages and the
+
+	See theConfig.errorsUI.showHelp to disable or enable the help messages and the
 	checkbox in the UI to disable the help
-	@param {string} help The help message to display
+	@param {String} help The help message to display
 	*/
 
 	showHelp ( help ) { this.#show ( help, 'Help' ); }
 
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of ErrorsUI class
+The one and only one instance of ErrorsUI class
 @type {ErrorsUI}
-@constant
-@global
-
-@--------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theErrorsUI = new ErrorsUI ( );
 
 export default theErrorsUI;
 
-/*
---- End of ErrorsUI.js file ---------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

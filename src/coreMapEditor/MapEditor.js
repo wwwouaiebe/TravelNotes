@@ -40,30 +40,13 @@ Changes:
 	- v1.12.0:
 		- Issue ♯120 : Review the UserInterface
 	- v2.0.0:
-		- Issue ♯142 : Transform the typedef layer to a class as specified in the layersToolbarUI.js
+		- Issue ♯142 : Transform the layer object to a class as specified in the layersToolbarUI.js
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests 20210902
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file MapEditor.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreMapEditor
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theConfig from '../data/Config.js';
@@ -85,34 +68,34 @@ import {
 	NoteMarkerDragEL
 } from '../coreMapEditor/NoteMarkerEventListeners.js';
 import { WayPointContextMenuEL, WayPointDragEndEL } from '../coreMapEditor/WayPointEventListeners.js';
-import { RouteContextMenuEL } from '../coreMapEditor/RouteEventListeners.js';
+import { RouteMapContextMenuEL } from '../coreMapEditor/RouteEventListeners.js';
 import { ROUTE_EDITION_STATUS, LAT_LNG, INVALID_OBJ_ID, TWO, WAY_POINT_ICON_SIZE } from '../main/Constants.js';
 
-const OUR_MARKER_BOUNDS_PRECISION = 0.01;
-
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
+This class performs all the read/write updates on the map
 
-@class MapEditor
-@classdesc This class performs all the read/write updates on the map
-@extends MapEditorViewer
-@inheritdoc
-@see {@link theMapEditor} for the one and only one instance of this class
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+See theMapEditor for the one and only one instance of this class
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class MapEditor	extends MapEditorViewer {
 
 	/**
+	Simple constant for computing if we add a polyline or a marker for the search
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #MARKER_BOUNDS_PRECISION ( ) { return 0.01; }
+
+	/**
 	Remove a Leaflet object from the map
-	@param {!number} objId The objId of the object to remove
-	@private
+	@param {Number} objId The objId of the object to remove
 	*/
 
 	#RemoveFromMap ( objId ) {
-		let layer = theTravelNotesData.mapObjects.get ( objId );
+		const layer = theTravelNotesData.mapObjects.get ( objId );
 		if ( layer ) {
 			window.L.DomEvent.off ( layer );
 			theTravelNotesData.map.removeLayer ( layer );
@@ -120,8 +103,8 @@ class MapEditor	extends MapEditorViewer {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -133,39 +116,38 @@ class MapEditor	extends MapEditorViewer {
 	This method is also used for removing a route with the addedRouteObjId = INVALID_OBJ_ID.
 	This method is also used for adding a route with the removedRouteObjId = INVALID_OBJ_ID.
 	This method is called by the 'routeupdated' event listener.
-	@param {!number} removedRouteObjId The objId of the route to remove
-	@param {!number} addedRouteObjId The objId of the route to add
-	@listens routeupdated
+	@param {Number} removedRouteObjId The objId of the route to remove
+	@param {Number} addedRouteObjId The objId of the route to add
 	*/
 
 	updateRoute ( removedRouteObjId, addedRouteObjId ) {
 		if ( INVALID_OBJ_ID !== removedRouteObjId ) {
-			let route = theDataSearchEngine.getRoute ( removedRouteObjId );
+			const route = theDataSearchEngine.getRoute ( removedRouteObjId );
 			this.#RemoveFromMap ( route.objId );
 
-			let notesIterator = route.notes.iterator;
+			const notesIterator = route.notes.iterator;
 			while ( ! notesIterator.done ) {
 				this.#RemoveFromMap ( notesIterator.value.objId );
 			}
 
-			let wayPointsIterator = route.wayPoints.iterator;
+			const wayPointsIterator = route.wayPoints.iterator;
 			while ( ! wayPointsIterator.done ) {
 				this.#RemoveFromMap ( wayPointsIterator.value.objId );
 			}
 		}
 		if ( INVALID_OBJ_ID !== addedRouteObjId ) {
-			let route = this.addRoute ( addedRouteObjId );
-			let polyline = theTravelNotesData.mapObjects.get ( addedRouteObjId );
+			const route = this.addRoute ( addedRouteObjId );
+			const polyline = theTravelNotesData.mapObjects.get ( addedRouteObjId );
 
 			if ( ! theTravelNotesData.travel.readOnly ) {
-				window.L.DomEvent.on ( polyline, 'contextmenu', RouteContextMenuEL.handleEvent );
+				window.L.DomEvent.on ( polyline, 'contextmenu', RouteMapContextMenuEL.handleEvent );
 				window.L.DomEvent.on ( polyline, 'mouseover', EditedRouteMouseOverEL.handleEvent );
 
-				let notesIterator = route.notes.iterator;
+				const notesIterator = route.notes.iterator;
 				while ( ! notesIterator.done ) {
-					let layerGroup = theTravelNotesData.mapObjects.get ( notesIterator.value.objId );
-					let marker = layerGroup.getLayer ( layerGroup.markerId );
-					let bullet = layerGroup.getLayer ( layerGroup.bulletId );
+					const layerGroup = theTravelNotesData.mapObjects.get ( notesIterator.value.objId );
+					const marker = layerGroup.getLayer ( layerGroup.markerId );
+					const bullet = layerGroup.getLayer ( layerGroup.bulletId );
 					window.L.DomEvent.on ( bullet, 'dragend', NoteBulletDragEndEL.handleEvent );
 					window.L.DomEvent.on ( bullet, 'drag',	NoteBulletDragEL.handleEvent );
 					window.L.DomEvent.on ( bullet, 'mouseenter', NoteBulletMouseEnterEL.handleEvent );
@@ -178,7 +160,7 @@ class MapEditor	extends MapEditorViewer {
 
 			// waypoints are added
 			if ( ! theTravelNotesData.travel.readOnly && ROUTE_EDITION_STATUS.notEdited !== route.editionStatus ) {
-				let wayPointsIterator = theTravelNotesData.travel.editedRoute.wayPoints.iterator;
+				const wayPointsIterator = theTravelNotesData.travel.editedRoute.wayPoints.iterator;
 				while ( ! wayPointsIterator.done ) {
 					this.addWayPoint (
 						wayPointsIterator.value,
@@ -192,13 +174,12 @@ class MapEditor	extends MapEditorViewer {
 	/**
 	This method update the properties of a route on the map
 	This method is called by the 'routepropertiesupdated' event listener.
-	@param {!number} routeObjId The objId of the route to update
-	@listens routepropertiesupdated
+	@param {Number} routeObjId The objId of the route to update
 	*/
 
 	updateRouteProperties ( routeObjId ) {
-		let polyline = theTravelNotesData.mapObjects.get ( routeObjId );
-		let route = theDataSearchEngine.getRoute ( routeObjId );
+		const polyline = theTravelNotesData.mapObjects.get ( routeObjId );
+		const route = theDataSearchEngine.getRoute ( routeObjId );
 		polyline.setStyle (
 			{
 				color : route.color,
@@ -213,22 +194,21 @@ class MapEditor	extends MapEditorViewer {
 	This method is also used for removing a note with the addedNoteObjId = INVALID_OBJ_ID.
 	This method is also used for adding a note with the removedNoteObjId = INVALID_OBJ_ID.
 	This method is called by the 'noteupdated' event listener.
-	@param {!number} removedNoteObjId The objId of the note to remove
-	@param {!number} addedNoteObjId The objId of the note to add
-	@listens noteupdated
+	@param {Number} removedNoteObjId The objId of the note to remove
+	@param {Number} addedNoteObjId The objId of the note to add
 	*/
 
 	updateNote ( removedNoteObjId, addedNoteObjId ) {
 		let isPopupOpen = false;
 		if ( INVALID_OBJ_ID !== removedNoteObjId ) {
-			let layerGroup = theTravelNotesData.mapObjects.get ( removedNoteObjId );
+			const layerGroup = theTravelNotesData.mapObjects.get ( removedNoteObjId );
 			if ( layerGroup ) {
 				isPopupOpen = layerGroup.getLayer ( layerGroup.markerId ).isPopupOpen ( );
 			}
 			this.#RemoveFromMap ( removedNoteObjId );
 		}
 		if ( INVALID_OBJ_ID !== addedNoteObjId ) {
-			let noteObjects = this.addNote ( addedNoteObjId );
+			const noteObjects = this.addNote ( addedNoteObjId );
 			if ( isPopupOpen ) {
 				noteObjects.marker.openPopup ( );
 			}
@@ -247,8 +227,7 @@ class MapEditor	extends MapEditorViewer {
 	/**
 	This method removes an object from the map.
 	This method is called by the 'removeobject' event listener
-	@param {!number} objId The objId of the object to remove
-	@listens removeobject
+	@param {Number} objId The objId of the object to remove
 	*/
 
 	removeObject ( objId ) { this.#RemoveFromMap ( objId ); }
@@ -256,7 +235,6 @@ class MapEditor	extends MapEditorViewer {
 	/**
 	This method removes all objects from the map.
 	This method is called by the 'removeallobjects' event listener
-	@listens removeallobjects
 	*/
 
 	removeAllObjects ( ) {
@@ -274,7 +252,6 @@ class MapEditor	extends MapEditorViewer {
 	This method is called by the 'addwaypoint' event listener.
 	@param {WayPoint} wayPoint The wayPoint to add
 	@param {string|number} letter The letter or number to show with the WayPoint
-	@listens addwaypoint
 	*/
 
 	addWayPoint ( wayPoint, letter ) {
@@ -283,12 +260,12 @@ class MapEditor	extends MapEditorViewer {
 		}
 
 		// a HTML element is created, with different class name, depending of the waypont position. See also WayPoints.css
-		let iconHtml = '<div class="TravelNotes-Map-WayPoint TravelNotes-Map-WayPoint' +
+		const iconHtml = '<div class="TravelNotes-Map-WayPoint TravelNotes-Map-WayPoint' +
 		( 'A' === letter ? 'Start' : ( 'B' === letter ? 'End' : 'Via' ) ) +
 		'"></div><div class="TravelNotes-Map-WayPointText">' + letter + '</div>';
 
 		// a leaflet marker is created...
-		let marker = window.L.marker (
+		const marker = window.L.marker (
 			wayPoint.latLng,
 			{
 				icon : window.L.divIcon (
@@ -327,9 +304,8 @@ class MapEditor	extends MapEditorViewer {
 	/**
 	This method add an itinerary point marker to the map (= a leaflet.circleMarker object).
 	This method is called by the 'additinerarypointmarker' event listener.
-	@param {!number} objId A unique identifier to attach to the circleMarker
-	@param {Array.<number>} latLng The latitude and longitude of the itinerary point marker
-	@listens additinerarypointmarker
+	@param {Number} objId A unique identifier to attach to the circleMarker
+	@param {Array.<Number>} latLng The latitude and longitude of the itinerary point marker
 	*/
 
 	addItineraryPointMarker ( objId, latLng ) {
@@ -343,11 +319,10 @@ class MapEditor	extends MapEditorViewer {
 	This method add an search point marker to the map
 	(= a leaflet.circleMarker object or a polyline, depending of the zoom and the geometry parameter).
 	This method is called by the 'addsearchpointmarker' event listener.
-	@param {!number} objId A unique identifier to attach to the circleMarker
-	@param {Array.<number>} latLng The latitude and longitude of the search point marker
+	@param {Number} objId A unique identifier to attach to the circleMarker
+	@param {Array.<Number>} latLng The latitude and longitude of the search point marker
 	@param {?Array.<Array.<number>>} geometry The latitudes and longitudes of the search point marker when a polyline
 	can be showed
-	@listens addsearchpointmarker
 	*/
 
 	addSearchPointMarker ( objId, latLng, geometry ) {
@@ -357,20 +332,20 @@ class MapEditor	extends MapEditorViewer {
 			geometry.forEach (
 				geometryPart => { latLngs = latLngs.concat ( geometryPart ); }
 			);
-			let geometryBounds = theGeometry.getLatLngBounds ( latLngs );
-			let mapBounds = theTravelNotesData.map.getBounds ( );
+			const geometryBounds = theGeometry.getLatLngBounds ( latLngs );
+			const mapBounds = theTravelNotesData.map.getBounds ( );
 			showGeometry =
 				(
 					( geometryBounds.getEast ( ) - geometryBounds.getWest ( ) )
 					/
 					( mapBounds.getEast ( ) - mapBounds.getWest ( ) )
-				) > OUR_MARKER_BOUNDS_PRECISION
+				) > MapEditor.#MARKER_BOUNDS_PRECISION
 				&&
 				(
 					( geometryBounds.getNorth ( ) - geometryBounds.getSouth ( ) )
 					/
 					( mapBounds.getNorth ( ) - mapBounds.getSouth ( ) )
-				) > OUR_MARKER_BOUNDS_PRECISION;
+				) > MapEditor.#MARKER_BOUNDS_PRECISION;
 		}
 		if ( showGeometry ) {
 			this.addToMap ( objId, window.L.polyline ( geometry, theConfig.osmSearch.searchPointPolyline ) );
@@ -383,10 +358,9 @@ class MapEditor	extends MapEditorViewer {
 	/**
 	This method add a rectangle to the map.
 	This method is called by the 'addrectangle' event listener.
-	@param {!number} objId A unique identifier to attach to the rectangle
+	@param {Number} objId A unique identifier to attach to the rectangle
 	@param {Array.<Array.<number>>} bounds The lower left and upper right corner of the rectangle
-	@param {Object} properties The Leaflet properties of the rectangle
-	@listens addrectangle
+	@param {LeafletObject} properties The Leaflet properties of the rectangle
 	*/
 
 	addRectangle ( objId, bounds, properties ) {
@@ -399,12 +373,11 @@ class MapEditor	extends MapEditorViewer {
 	/**
 	This method changes the background map.
 	This method is called by the 'layerchange' event listener.
-	@param {Layer} layer The layer to set
-	@listens layerchange
+	@param {MapLayer} layer The layer to set
 	*/
 
 	setLayer ( layer ) {
-		let url = theAPIKeysManager.getUrl ( layer );
+		const url = theAPIKeysManager.getUrl ( layer );
 		if ( ! url ) {
 			return;
 		}
@@ -413,21 +386,15 @@ class MapEditor	extends MapEditorViewer {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of MapEditor class
+The one and only one instance of MapEditor class
 @type {MapEditor}
-@constant
-@global
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theMapEditor = new MapEditor ( );
 
 export default theMapEditor;
 
-/*
---- End of MapEditor.js file --------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

@@ -21,41 +21,29 @@ Changes:
 		- created
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OsrmTextInstructions.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module routeProviders
-@see https://github.com/Project-OSRM/osrm-text-instructions
-
-@desc This file is an adaptation for ES6 of the osrm-text-instruction project
+/*
+See https://github.com/Project-OSRM/osrm-text-instructions
+This file is an adaptation for ES6 of the osrm-text-instruction project
 The osrmTextInstructions object code is the same than the code in the osrm-text-instruction/index.js.
 If changes are done in osrm-text-instruction, they can be reported there without major problems.
 Language json files are installed by the grunt.js file. Adapt this file if you will more languages.
 Don't rename variables for compatibility with osrm-text-instructions
-
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 /* eslint-disable max-lines */
 
 import { ZERO, ONE, NOT_FOUND, HTTP_STATUS_OK } from '../main/Constants.js';
+
+/**
+@ignore
+*/
 
 const OUR_OSRM_LANGUAGES = [
 	'ar',
@@ -90,10 +78,17 @@ const OUR_OSRM_LANGUAGES = [
 	'zh-Hans'
 ];
 
-// working only with v5
+/**
+@ignore
+*/
+
 const OUR_VERSION = 'v5';
 
-let languages =
+/**
+@ignore
+*/
+
+const languages =
 {
 	supportedCodes : [ ],
 	instructions : {},
@@ -102,26 +97,39 @@ let languages =
 };
 
 // references to avoid rewriting OsrmTextInstructions
-let instructions = languages.instructions;
-let grammars = languages.grammars;
-let abbreviations = languages.abbreviations;
 
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class OsrmTextInstructions
-@classdesc This class contains methods to write / translate moneuver instructions in MapboxRouteProvider and OsrmRouteProvider
-@see {@link theOsrmTextInstructions} for the one and only one instance of this class
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+@ignore
 */
+
+const instructions = languages.instructions;
+
+/**
+@ignore
+*/
+
+const grammars = languages.grammars;
+
+/**
+@ignore
+*/
+
+const abbreviations = languages.abbreviations;
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+This class contains methods to write / translate moneuver instructions
+in MapboxRouteProvider and OsrmRouteProvider
+
+See theOsrmTextInstructions for the one and only one instance of this class
+@ignore
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class OsrmTextInstructions 	{
 
 	/**
 	new version of the OsrmTextInstructions.directionFromDegree ( ) method
-	@private
 	*/
 
 	#directionFromDegree ( language, degree ) {
@@ -171,9 +179,9 @@ class OsrmTextInstructions 	{
 	}
 
 	async #fetchJson ( data, lngCode ) {
-		let response = await fetch ( 'TravelNotesProviders/languages/' + data + '/' + lngCode + '.json' );
+		const response = await fetch ( 'TravelNotesProviders/languages/' + data + '/' + lngCode + '.json' );
 		if ( HTTP_STATUS_OK === response.status && response.ok ) {
-			let result = await response.json ( );
+			const result = await response.json ( );
 			languages [ data ] [ lngCode ] = result;
 		}
 	}
@@ -188,7 +196,7 @@ class OsrmTextInstructions 	{
 	}
 
 	loadLanguage ( lng ) {
-		let language = NOT_FOUND === OUR_OSRM_LANGUAGES.indexOf ( lng ) ? 'en' : lng;
+		const language = NOT_FOUND === OUR_OSRM_LANGUAGES.indexOf ( lng ) ? 'en' : lng;
 		[ 'instructions', 'grammars', 'abbreviations' ].forEach (
 			data => this.#fetchJson ( data, language )
 		);
@@ -211,7 +219,7 @@ class OsrmTextInstructions 	{
 		if ( ! step.intersections || ! step.intersections[ ZERO ].lanes ) {
 			throw new Error ( 'No lanes object' );
 		}
-		let config = [];
+		const config = [];
 		let currentLaneValidity = null;
 		step.intersections[ ZERO ].lanes.forEach ( function ( lane ) {
 			if ( null === currentLaneValidity || currentLaneValidity !== lane.valid ) {
@@ -229,7 +237,7 @@ class OsrmTextInstructions 	{
 
 	/* eslint-disable-next-line complexity */
 	getWayName ( language, step, options ) {
-		let classes = options ? options.classes || [] : [];
+		const classes = options ? options.classes || [] : [];
 		if ( 'object' !== typeof step ) {
 			throw new Error ( 'step must be an Object' );
 		}
@@ -238,14 +246,14 @@ class OsrmTextInstructions 	{
 		}
 		let wayName = '';
 		let stepName = step.name || '';
-		let ref = ( step.ref || '' ).split ( ';' )[ ZERO ];
+		const ref = ( step.ref || '' ).split ( ';' )[ ZERO ];
 		if ( stepName === step.ref ) {
 			stepName = '';
 		}
 		stepName = stepName.replace ( ' (' + step.ref + ')', '' );
-		let wayMotorway = NOT_FOUND !== classes.indexOf ( 'motorway' );
+		const wayMotorway = NOT_FOUND !== classes.indexOf ( 'motorway' );
 		if ( stepName && ref && stepName !== ref && ! wayMotorway ) {
-			let phrase = instructions[ language ][ OUR_VERSION ].phrase[ 'name and ref' ] ||
+			const phrase = instructions[ language ][ OUR_VERSION ].phrase[ 'name and ref' ] ||
 				instructions.en[ OUR_VERSION ].phrase[ 'name and ref' ];
 			wayName = this.tokenize ( language, phrase, {
 				name : stepName,
@@ -269,11 +277,11 @@ class OsrmTextInstructions 	{
 		if ( ! step.maneuver ) {
 			throw new Error ( 'No step maneuver provided' );
 		}
-		let options = opts || {};
+		const options = opts || {};
 		let type = step.maneuver.type;
-		let modifier = step.maneuver.modifier;
-		let mode = step.mode;
-		let side = step.driving_side;
+		const modifier = step.maneuver.modifier;
+		const mode = step.mode;
+		const side = step.driving_side;
 		if ( ! type ) {
 			throw new Error ( 'Missing step maneuver type' );
 		}
@@ -290,7 +298,7 @@ class OsrmTextInstructions 	{
 			instructionObject = instructions[ language ][ OUR_VERSION ].modes[ mode ];
 		}
 		else {
-			let omitSide = 'off ramp' === type && ZERO <= modifier.indexOf ( side );
+			const omitSide = 'off ramp' === type && ZERO <= modifier.indexOf ( side );
 			if ( instructions[ language ][ OUR_VERSION ][ type ][ modifier ] && ! omitSide ) {
 				instructionObject = instructions[ language ][ OUR_VERSION ][ type ][ modifier ];
 			}
@@ -323,7 +331,7 @@ class OsrmTextInstructions 	{
 			break;
 		default :
 		}
-		let wayName = this.getWayName ( language, step, options );
+		const wayName = this.getWayName ( language, step, options );
 		let instruction = instructionObject.default;
 		if ( step.destinations && step.exits && instructionObject.exit_destination ) {
 			instruction = instructionObject.exit_destination;
@@ -340,9 +348,9 @@ class OsrmTextInstructions 	{
 		else if ( options.waypointName && instructionObject.named ) {
 			instruction = instructionObject.named;
 		}
-		let destinations = step.destinations && step.destinations.split ( ': ' );
-		let destinationRef = destinations && destinations[ ZERO ].split ( ',' )[ ZERO ];
-		let destination = destinations && destinations[ ONE ] && destinations[ ONE ].split ( ',' )[ ZERO ];
+		const destinations = step.destinations && step.destinations.split ( ': ' );
+		const destinationRef = destinations && destinations[ ZERO ].split ( ',' )[ ZERO ];
+		const destination = destinations && destinations[ ONE ] && destinations[ ONE ].split ( ',' )[ ZERO ];
 		let firstDestination = '';
 		if ( destination && destinationRef ) {
 			firstDestination = destinationRef + ': ' + destination;
@@ -351,13 +359,13 @@ class OsrmTextInstructions 	{
 			firstDestination = destinationRef || destination || '';
 		}
 
-		let nthWaypoint =
+		const nthWaypoint =
 			ZERO <= options.legIndex && options.legIndex !== options.legCount - ONE
 				?
 				this.ordinalize ( language, options.legIndex + ONE )
 				:
 				'';
-		let replaceTokens = {
+		const replaceTokens = {
 			/* eslint-disable-next-line camelcase */
 			way_name : wayName,
 			destination : firstDestination,
@@ -379,12 +387,12 @@ class OsrmTextInstructions 	{
 
 	grammarize ( language, nameToProceed, grammar ) {
 		if ( grammar && grammars && grammars[ language ] && grammars[ language ][ OUR_VERSION ] ) {
-			let rules = grammars[ language ][ OUR_VERSION ][ grammar ];
+			const rules = grammars[ language ][ OUR_VERSION ][ grammar ];
 			if ( rules ) {
 				let nameWithSpace = ' ' + nameToProceed + ' ';
-				let flags = grammars[ language ].meta.regExpFlags || '';
+				const flags = grammars[ language ].meta.regExpFlags || '';
 				rules.forEach ( function ( rule ) {
-					let re = new RegExp ( rule[ ZERO ], flags );
+					const re = new RegExp ( rule[ ZERO ], flags );
 					nameWithSpace = nameWithSpace.replace ( re, rule[ ONE ] );
 				} );
 
@@ -396,9 +404,9 @@ class OsrmTextInstructions 	{
 
 	/* eslint-disable-next-line max-params */
 	tokenize ( language, instruction, tokens, options ) {
-		let that = this;
+		const that = this;
 		let startedWithToken = false;
-		let output = instruction.replace (
+		const output = instruction.replace (
 			/* eslint-disable-next-line max-params */
 			/\{(\w+)(?::(\w+))?\}/g, function ( token, tag, grammar, offset ) {
 				let value = tokens[ tag ];
@@ -424,16 +432,13 @@ class OsrmTextInstructions 	{
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of OsrmTextInstructions class
+The one and only one instance of OsrmTextInstructions class
 @type {OsrmTextInstructions}
-@constant
-@global
-
-@------------------------------------------------------------------------------------------------------------------------------
+@ignore
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theOsrmTextInstructions = new OsrmTextInstructions ( );
 
@@ -441,6 +446,4 @@ export default theOsrmTextInstructions;
 
 /* eslint-enable max-lines */
 
-/*
---- End of OsrmTextInstructions.js file ---------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

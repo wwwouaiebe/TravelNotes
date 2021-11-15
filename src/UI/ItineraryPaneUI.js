@@ -26,27 +26,10 @@ Changes:
 		- Issue ♯120 : Review the UserInterface
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ItineraryPaneUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module itineraryPaneUI
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import PaneUI from '../UI/PaneUI.js';
@@ -56,36 +39,33 @@ import ItineraryControlUI from '../UI/ItineraryControlUI.js';
 import ItineraryDataUI from '../UI/ItineraryDataUI.js';
 import { INVALID_OBJ_ID, PANE_ID } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class ItineraryPaneUI
-@classdesc This class manages the itinerary pane UI
-@see {@link PanesManagerUI} for pane UI management
-@extends PaneUI
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+This class manages the itinerary pane UI
+See PanesManagerUI for pane UI management
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ItineraryPaneUI extends PaneUI {
 
 	/**
 	the ItineraryDataUI Object
-	@private
+	@type {ItineraryDataUI}
 	*/
 
-	#itineraryDataUI = null;
+	#itineraryDataUI;
 
 	/**
 	the ItineraryControlUI Object
-	@private
+	@type {ItineraryControlUI}
 	*/
 
-	#itineraryControlUI = null;
+	#itineraryControlUI;
 
-	/*
+	/**
 	constructor
+	@param {HTMLElement} paneData The HTMLElement in witch the data have to be added
+	@param {HTMLElement} paneControl The HTMLElement in witch the control have to be added
 	*/
 
 	constructor ( paneData, paneControl ) {
@@ -95,7 +75,8 @@ class ItineraryPaneUI extends PaneUI {
 	}
 
 	/**
-	This method removes all the elements from the data div and control div
+	This method removes all the elements from the paneData HTMLElement and paneControl HTMLElement
+	Overload of the PaneUI.remove ( ) method
 	*/
 
 	remove ( ) {
@@ -104,7 +85,8 @@ class ItineraryPaneUI extends PaneUI {
 	}
 
 	/**
-	This method add the  maneuver and notes to the data div and controls to the controls div
+	This method add the maneuvers and notes to the paneData HTMLElement and controls to the paneControl HTMLElement
+	Overload of the PaneUI.add ( ) method
 	*/
 
 	add ( ) {
@@ -115,21 +97,23 @@ class ItineraryPaneUI extends PaneUI {
 	}
 
 	/**
-	This method returns the pane id
+	A unique identifier for the pane
+	Overload of the PaneUI.paneId property
+	@type {String}
 	*/
 
-	getPaneId ( ) { return PANE_ID.itineraryPane; }
+	get paneId ( ) { return PANE_ID.itineraryPane; }
 
 	/**
-	This method returns the text to add in the pane button
+	The text to be displayer in the pane button
+	Overload of the PaneUI.buttonText property
+	@type {String}
 	*/
 
-	getButtonText ( ) { return theTranslator.getText ( 'PanesManagerUI - Itinerary' ); }
+	get buttonText ( ) { return theTranslator.getText ( 'PanesManagerUI - Itinerary' ); }
 
 }
 
 export default ItineraryPaneUI;
 
-/*
---- End of ItineraryPaneUI.js file ------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

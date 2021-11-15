@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+
 /*
 Changes:
 	- v1.4.0:
@@ -36,51 +37,29 @@ Changes:
 		- Issue ♯139 : Remove Globals
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ConfigOverloader.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theConfig from '../data/Config.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
+Class used to overload theConfig with the contains of theTravelNotesConfig.json file and
+finally freeze the config.
 
-@class
-@classdesc Class used to overload theConfig with the contains of theTravelNotesConfig.json file and finally freeze the config
-@see {@link theConfig} for the one and only one instance of this class
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+See theConfig for the one and only one instance of this class
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ConfigOverloader {
 
 	/**
 	copy the properties between two objects
-	@param {Object} source The source object
-	@param {Object} target The target object
-	@example
+
 	This method:
 	- search recursively all target properties
 	- foreach found property, search the same property in source
@@ -93,7 +72,8 @@ class ConfigOverloader {
 	- if a property is in the user config but missing in the default config, the property is also added (and reminder
 	  that the user can have more dashChoices than the default config )
 	- if a property is changed in the user config, the property is adapted
-	@private
+	@param {Object} source The source object
+	@param {Object} target The target object
 	*/
 
 	#copyObjectTo ( source, target ) {
@@ -102,7 +82,7 @@ class ConfigOverloader {
 		}
 
 		// iteration on target.
-		for ( let property in target ) {
+		for ( const property in target ) {
 			if ( 'object' === typeof target [ property ] ) {
 				this.#copyObjectTo ( source [ property ], target [ property ] );
 			}
@@ -128,7 +108,7 @@ class ConfigOverloader {
 		}
 
 		// iteration on source
-		for ( let property in source ) {
+		for ( const property in source ) {
 			if ( 'object' === typeof source [ property ] ) {
 				if ( '[object Array]' === Object.prototype.toString.call ( source [ property ] ) ) {
 					target [ property ] = target [ property ] || [];
@@ -151,11 +131,10 @@ class ConfigOverloader {
 	/**
 	Freeze an object recursively
 	@param {Object} object The object to freeze
-	@private
 	*/
 
 	#freeze ( object ) {
-		for ( let property in object ) {
+		for ( const property in object ) {
 			if ( 'object' === typeof object [ property ] ) {
 				this.#freeze ( object [ property ] );
 			}
@@ -163,8 +142,8 @@ class ConfigOverloader {
 		Object.freeze ( object );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -173,6 +152,8 @@ class ConfigOverloader {
 
 	/**
 	Overload the default config with another config. The config can be overloaded only once!
+	@param {JsonObject} source The object from witch theConfig will be overloaded
+	( = the contains of the TravelNotesConfig.json file )
 	*/
 
 	overload ( source ) {
@@ -183,6 +164,4 @@ class ConfigOverloader {
 
 export default ConfigOverloader;
 
-/*
---- End of ConfigOverloader.js file -------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

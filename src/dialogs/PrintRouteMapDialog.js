@@ -21,44 +21,10 @@ Changes:
 		- created
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file PrintRouteMapDialog.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@typedef {Object} PrintRouteMapOptions
-@desc An object to store the PrintRouteMapDialog options
-@property {number} paperWidth The paper width option
-@property {number} paperHeight The paper height option
-@property {number} borderWidth The border width option
-@property {number} zoomFactor The zoom factor option
-@property {boolean} pageBreak The page break option
-@property {boolean} printNotes The print notes option
-@public
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogs
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theTranslator from '../UILib/Translator.js';
@@ -66,37 +32,132 @@ import theConfig from '../data/Config.js';
 import BaseDialog from '../dialogBase/BaseDialog.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import { ZERO } from '../main/Constants.js';
 
-const OUR_MAX_ZOOM = 15;
-
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class PrintRouteMapDialog
-@classdesc This class create and manage the print route map dialog
-@extends BaseDialog
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+An object to store the PrintRouteMapDialog options
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class PrintRouteMapOptions {
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.seal ( this );
+	}
+
+	/**
+	The paper width option
+	@type {Number}
+	*/
+
+	paperWidth = ZERO;
+
+	/**
+	The paper height option
+	@type {Number}
+	*/
+
+	paperHeight = ZERO;
+
+	/**
+	The border width option
+	@type {Number}
+	*/
+
+	borderWidth = ZERO;
+
+	/**
+	The zoom factor option
+	@type {Number}
+	*/
+
+	zoomFactor = ZERO;
+
+	/**
+	The page break option
+	@type {Boolean}
+	*/
+
+	pageBreak = false;
+
+	/**
+	The print notes option
+	@type {Boolean}
+	*/
+
+	printNotes = false;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+This class create and manage the print route map dialog
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class PrintRouteMapDialog extends BaseDialog {
 
-	#paperWidthInput = null;
-	#paperHeightInput = null;
-	#borderWidthInput = null;
-	#pageBreakInput = null;
-	#printNotesInput = null;
-	#zoomFactorInput = null;
+	/**
+	The paper width input
+	@type {HTMLElement}
+	*/
+
+	#paperWidthInput;
+
+	/**
+	The paper height input
+	@type {HTMLElement}
+	*/
+
+	#paperHeightInput;
+
+	/**
+	The border width input
+	@type {HTMLElement}
+	*/
+
+	#borderWidthInput;
+
+	/**
+	The page break input
+	@type {HTMLElement}
+	*/
+
+	#pageBreakInput;
+
+	/**
+	The print notes input
+	@type {HTMLElement}
+	*/
+
+	#printNotesInput;
+
+	/**
+	The zoom factor input
+	@type {HTMLElement}
+	*/
+
+	#zoomFactorInput;
+
+	/**
+	The greatest acceptable zoom to avoid to mutch tiles asked to OSM
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #MAX_ZOOM ( ) { return 15; }
 
 	/**
 	Create the paper width div
 	@return {HTMLElement} the paper width div
-	@private
 	*/
 
 	#createPaperWidthDiv ( ) {
-		let paperWidthDiv = theHTMLElementsFactory.create (
+		const paperWidthDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-PrintRouteMapDialog-DataDiv'
@@ -132,11 +193,10 @@ class PrintRouteMapDialog extends BaseDialog {
 	/**
 	Create the paper height div
 	@return {HTMLElement} the paper height div
-	@private
 	*/
 
 	#createPaperHeightDiv ( ) {
-		let paperHeightDiv = theHTMLElementsFactory.create (
+		const paperHeightDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-PrintRouteMapDialog-DataDiv'
@@ -165,17 +225,17 @@ class PrintRouteMapDialog extends BaseDialog {
 			},
 			paperHeightDiv
 		);
+
 		return paperHeightDiv;
 	}
 
 	/**
 	Create the border width div
 	@return {HTMLElement} the border width div
-	@private
 	*/
 
 	#createBorderWidthDiv ( ) {
-		let borderWidthDiv = theHTMLElementsFactory.create (
+		const borderWidthDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-PrintRouteMapDialog-DataDiv'
@@ -211,11 +271,10 @@ class PrintRouteMapDialog extends BaseDialog {
 	/**
 	Create the zoom factor div
 	@return {HTMLElement} the zoom factor div
-	@private
 	*/
 
 	#createZoomFactorDiv ( ) {
-		let zoomFactorDiv = theHTMLElementsFactory.create (
+		const zoomFactorDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-PrintRouteMapDialog-DataDiv'
@@ -233,23 +292,23 @@ class PrintRouteMapDialog extends BaseDialog {
 			{
 				type : 'number',
 				className : 'TravelNotes-PrintRouteMapDialog-NumberInput',
-				value : Math.min ( theConfig.printRouteMap.zoomFactor, OUR_MAX_ZOOM ),
+				value : Math.min ( theConfig.printRouteMap.zoomFactor, PrintRouteMapDialog.#MAX_ZOOM ),
 				min : theTravelNotesData.map.getMinZoom ( ),
-				max : Math.min ( theTravelNotesData.map.getMaxZoom ( ), OUR_MAX_ZOOM )
+				max : Math.min ( theTravelNotesData.map.getMaxZoom ( ), PrintRouteMapDialog.#MAX_ZOOM )
 			},
 			zoomFactorDiv
 		);
+
 		return zoomFactorDiv;
 	}
 
 	/**
 	Create the page break div
 	@return {HTMLElement} the page break div
-	@private
 	*/
 
 	#createPageBreakDiv ( ) {
-		let pageBreakDiv = theHTMLElementsFactory.create (
+		const pageBreakDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-PrintRouteMapDialog-DataDiv'
@@ -270,17 +329,17 @@ class PrintRouteMapDialog extends BaseDialog {
 			},
 			pageBreakDiv
 		);
+
 		return pageBreakDiv;
 	}
 
 	/**
 	Create the print notes div
 	@return {HTMLElement} the print notes div
-	@private
 	*/
 
 	#createPrintNotesDiv ( ) {
-		let printNotesDiv = theHTMLElementsFactory.create (
+		const printNotesDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-PrintRouteMapDialog-DataDiv'
@@ -301,15 +360,16 @@ class PrintRouteMapDialog extends BaseDialog {
 			},
 			printNotesDiv
 		);
+
 		return printNotesDiv;
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
-	constructor ( options = {} ) {
-		super ( options );
+	constructor ( ) {
+		super ( );
 	}
 
 	/**
@@ -317,23 +377,22 @@ class PrintRouteMapDialog extends BaseDialog {
 	*/
 
 	onOk ( ) {
-		super.onOk (
-			Object.freeze (
-				{
-					paperWidth : parseInt ( this.#paperWidthInput.value ),
-					paperHeight : parseInt ( this.#paperHeightInput.value ),
-					borderWidth : parseInt ( this.#borderWidthInput.value ),
-					zoomFactor : parseInt ( this.#zoomFactorInput.value ),
-					pageBreak : this.#pageBreakInput.checked,
-					printNotes : this.#printNotesInput.checked
-				}
-			)
-		);
+
+		const printRouteMapOptions = new PrintRouteMapOptions ( );
+		printRouteMapOptions.paperWidth = parseInt ( this.#paperWidthInput.value );
+		printRouteMapOptions.paperHeight = parseInt ( this.#paperHeightInput.value );
+		printRouteMapOptions.borderWidth = parseInt ( this.#borderWidthInput.value );
+		printRouteMapOptions.zoomFactor = parseInt ( this.#zoomFactorInput.value );
+		printRouteMapOptions.pageBreak = this.#pageBreakInput.checked;
+		printRouteMapOptions.printNotes = this.#printNotesInput.checked;
+		Object.freeze ( printRouteMapOptions );
+
+		super.onOk ( printRouteMapOptions );
 	}
 
 	/**
 	Get an array with the HTMLElements that have to be added in the content of the dialog.
-	@readonly
+	@type {Array.<HTMLElement>}
 	*/
 
 	get contentHTMLElements ( ) {
@@ -349,7 +408,7 @@ class PrintRouteMapDialog extends BaseDialog {
 
 	/**
 	Return the dialog title. Overload of the BaseDialog.title property
-	@readonly
+	@type {String}
 	*/
 
 	get title ( ) { return theTranslator.getText ( 'PrintRouteMapDialog - Print' ); }
@@ -358,6 +417,4 @@ class PrintRouteMapDialog extends BaseDialog {
 
 export default PrintRouteMapDialog;
 
-/*
---- End of PrintRouteMapDialog.js file ----------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

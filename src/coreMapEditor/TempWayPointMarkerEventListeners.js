@@ -20,28 +20,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests 20210902
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file TempWayPointMarkerEventListeners.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreMapEditor
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theTravelNotesData from '../data/TravelNotesData.js';
@@ -50,32 +32,40 @@ import theWayPointEditor from '../core/WayPointEditor.js';
 
 import { ZERO, ONE } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class TempWayPointMarkerELData
-@classdesc This class contains shared data by the event listeners for the temp waypoint
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class contains shared data by the event listeners for the temp waypoint
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class TempWayPointMarkerELData {
+
+	/**
+	A reference to the L.marker Object
+	@type {LeafletObject}
+	*/
+
 	static marker = null;
+
+	/**
+	The initial lat and lng of the marker
+	@type {Array.<Number>}
+	*/
+
 	static initialLatLng = null;
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class TempWayPointMarkerMouseOutEL
-@classdesc mouseout event listener for the temp waypoint marker
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+mouseout event listener for the temp waypoint marker
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class TempWayPointMarkerMouseOutEL {
+
+	/**
+	Event listener method
+	*/
 
 	static handleEvent ( ) {
 		if ( TempWayPointMarkerELData.marker ) {
@@ -86,17 +76,17 @@ class TempWayPointMarkerMouseOutEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class TempWayPointMarkerDragStartEL
-@classdesc dragstart event listener for the temp waypoint marker
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+dragstart event listener for the temp waypoint marker
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class TempWayPointMarkerDragStartEL {
+
+	/**
+	Event listener method
+	*/
 
 	static handleEvent ( ) {
 		window.L.DomEvent.off (
@@ -107,17 +97,18 @@ class TempWayPointMarkerDragStartEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class TempWayPointMarkerContextMenuEL
-@classdesc contextmenu event listener for the temp waypoint marker
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+contextmenu event listener for the temp waypoint marker
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class TempWayPointMarkerContextMenuEL {
+
+	/**
+	Event listener method
+	@param {Event} contextMenuEvent The event to handle
+	*/
 
 	static handleEvent ( contextMenuEvent ) {
 		contextMenuEvent.latlng.lat = TempWayPointMarkerELData.initialLatLng [ ZERO ];
@@ -127,17 +118,18 @@ class TempWayPointMarkerContextMenuEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class TempWayPointMarkerDragEndEL
-@classdesc dragend event listener for the temp waypoint marker
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+dragend event listener for the temp waypoint marker
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class TempWayPointMarkerDragEndEL {
+
+	/**
+	Event listener method
+	@param {Event} dragEndEvent The event to handle
+	*/
 
 	static handleEvent ( dragEndEvent ) {
 		theWayPointEditor.addWayPointOnRoute (
@@ -174,10 +166,4 @@ export {
 	TempWayPointMarkerDragEndEL
 };
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of TempWayPointMarkerEventListeners.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

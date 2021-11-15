@@ -20,28 +20,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file APIKeysDialogToolbar.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogAPIKeys
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theTranslator from '../UILib/Translator.js';
@@ -56,57 +38,128 @@ import {
 	NewAPIKeyButtonClickEL
 } from '../dialogAPIKeys/APIKeysDialogEventListeners.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class APIKeysDialogToolbar
-@classdesc This is the toolbar for the APIKeysDialog. Display 5 buttons on top of dialog.
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This is the toolbar for the APIKeysDialog. Display 6 buttons on top of dialog.
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class APIKeysDialogToolbar {
 
-	#APIKeysDialog = null;
-
 	/**
-	A map where the APIKeysDialogKeyControl objects are stored
+	A reference to the APIKeysDialog Object
+	@type {APIKeysDialog}
 	*/
 
-	#APIKeysControls = null;
+	#APIKeysDialog;
+
+	/**
+	A reference to the JS map where the APIKeysDialogKeyControl objects are stored
+	@type {Map}
+	*/
+
+	#APIKeysControls;
 
 	/**
 	Store the status of the APIKeys file
-	@private
+	@type {Boolean}
 	*/
 
-	#haveAPIKeysFile = false
+	#haveAPIKeysFile;
 
 	/**
 	The root HTML element of the control
-	@private
+	@type {HTMLElement}
 	*/
 
-	#rootHTMLElement = null;
+	#rootHTMLElement;
 
-	#reloadKeysFromServerButton = null;
-	#saveKeysToSecureFileButton = null;
-	#restoreKeysFromSecureFileButton = null;
-	#newAPIKeyButton = null;
-	#saveKeysToUnsecureFileButton = null;
-	#restoreKeysFromUnsecureFileButton = null;
+	/**
+	The reload key from server button
+	@type {HTMLElement}
+	*/
 
-	#reloadKeysFromServerButtonEventListener = null;
-	#saveKeysToSecureFileButtonEventListener = null;
-	#restoreKeysFromSecureFileButtonEventListener = null;
-	#newAPIKeyButtonEventListener = null;
-	#saveKeysToUnsecureFileButtonEventListener = null;
-	#restoreKeysFromUnsecureFileButtonEventListener = null;
+	#reloadKeysFromServerButton;
+
+	/**
+	The save keys to secure file button
+	@type {HTMLElement}
+	*/
+
+	#saveKeysToSecureFileButton;
+
+	/**
+	The restore keys from secure file button
+	@type {HTMLElement}
+	*/
+
+	#restoreKeysFromSecureFileButton;
+
+	/**
+	The new APIKey button
+	@type {HTMLElement}
+	*/
+
+	#newAPIKeyButton;
+
+	/**
+	The save keys to unsecure file button
+	@type {HTMLElement}
+	*/
+
+	#saveKeysToUnsecureFileButton;
+
+	/**
+	The restore keys from unsecure file button
+	@type {HTMLElement}
+	*/
+
+	#restoreKeysFromUnsecureFileButton;
+
+	/**
+	Event listener for the reload from server button
+	@type {ReloadFromServerButtonClickEL}
+	*/
+
+	#reloadFromServerButtonClickEL;
+
+	/**
+	Event listener for the save to secure file button
+	@type {SaveToSecureFileButtonClickEL}
+	*/
+
+	#saveToSecureFileButtonClickEL;
+
+	/**
+	Event listener for the restore from secure file button
+	@type {RestoreFromSecureFileButtonClickEL}
+	*/
+
+	#restoreFromSecureFileButtonClickEL;
+
+	/**
+	Event listener for the new API key button
+	@type {NewAPIKeyButtonClickEL}
+	*/
+
+	#newAPIKeyButtonClickEL;
+
+	/**
+	Event listener for the save to unsecure file button
+	@type {SaveToUnsecureFileButtonClickEL}
+	*/
+
+	#saveToUnsecureFileButtonClickEL;
+
+	/**
+	Event listener for the restore from unsecure file button
+	@type {RestoreFromUnsecureFileButtonClickEL}
+	*/
+
+	#restoreFromUnsecureFileButtonClickEL;
 
 	/**
 	Create the ReloadKeysFromServerFile Button
-	@private
 	*/
 
 	#createReloadKeysFromServerButton ( ) {
@@ -119,18 +172,17 @@ class APIKeysDialogToolbar {
 			},
 			this.#rootHTMLElement
 		);
-		this.#reloadKeysFromServerButtonEventListener =
+		this.#reloadFromServerButtonClickEL =
 			new ReloadFromServerButtonClickEL ( this.#APIKeysDialog );
 		this.#reloadKeysFromServerButton.addEventListener (
 			'click',
-			this.#reloadKeysFromServerButtonEventListener,
+			this.#reloadFromServerButtonClickEL,
 			false
 		);
 	}
 
 	/**
 	Create the SaveKeysToSecureFile Button
-	@private
 	*/
 
 	#createSaveKeysToSecureFileButton ( ) {
@@ -143,18 +195,17 @@ class APIKeysDialogToolbar {
 			},
 			this.#rootHTMLElement
 		);
-		this.#saveKeysToSecureFileButtonEventListener =
+		this.#saveToSecureFileButtonClickEL =
 			new SaveToSecureFileButtonClickEL ( this.#APIKeysDialog, this.#APIKeysControls );
 		this.#saveKeysToSecureFileButton.addEventListener (
 			'click',
-			this.#saveKeysToSecureFileButtonEventListener,
+			this.#saveToSecureFileButtonClickEL,
 			false
 		);
 	}
 
 	/**
 	Create the RestoreKeysFromSecureFile Button
-	@private
 	*/
 
 	#createRestoreKeysFromSecureFileButton ( ) {
@@ -167,18 +218,17 @@ class APIKeysDialogToolbar {
 			},
 			this.#rootHTMLElement
 		);
-		this.#restoreKeysFromSecureFileButtonEventListener =
+		this.#restoreFromSecureFileButtonClickEL =
 			new RestoreFromSecureFileButtonClickEL ( this.#APIKeysDialog );
 		this.#restoreKeysFromSecureFileButton.addEventListener (
 			'click',
-			this.#restoreKeysFromSecureFileButtonEventListener,
+			this.#restoreFromSecureFileButtonClickEL,
 			false
 		);
 	}
 
 	/**
 	Create the AddNewAPIKey Button
-	@private
 	*/
 
 	#createNewAPIKeyButton ( ) {
@@ -191,18 +241,17 @@ class APIKeysDialogToolbar {
 			},
 			this.#rootHTMLElement
 		);
-		this.#newAPIKeyButtonEventListener =
+		this.#newAPIKeyButtonClickEL =
 			new NewAPIKeyButtonClickEL ( this.#APIKeysDialog, this.#APIKeysControls );
 		this.#newAPIKeyButton.addEventListener (
 			'click',
-			this.#newAPIKeyButtonEventListener,
+			this.#newAPIKeyButtonClickEL,
 			false
 		);
 	}
 
 	/**
 	Create the SaveKeysToUnsecureFile Button
-	@private
 	*/
 
 	#createSaveKeysToUnsecureFileButton ( ) {
@@ -215,18 +264,17 @@ class APIKeysDialogToolbar {
 			},
 			this.#rootHTMLElement
 		);
-		this.#saveKeysToUnsecureFileButtonEventListener =
+		this.#saveToUnsecureFileButtonClickEL =
 			new SaveToUnsecureFileButtonClickEL ( this.#APIKeysDialog, this.#APIKeysControls );
 		this.#saveKeysToUnsecureFileButton.addEventListener (
 			'click',
-			this.#saveKeysToUnsecureFileButtonEventListener,
+			this.#saveToUnsecureFileButtonClickEL,
 			false
 		);
 	}
 
 	/**
 	Create the RestoreKeysFromUnsecureFile Button
-	@private
 	*/
 
 	#createRestoreKeysFromUnsecureFileButton ( ) {
@@ -239,22 +287,21 @@ class APIKeysDialogToolbar {
 			},
 			this.#rootHTMLElement
 		);
-		this.#restoreKeysFromUnsecureFileButtonEventListener =
+		this.#restoreFromUnsecureFileButtonClickEL =
 			new RestoreFromUnsecureFileButtonClickEL ( this.#APIKeysDialog );
 		this.#restoreKeysFromUnsecureFileButton.addEventListener (
 			'click',
-			this.#restoreKeysFromUnsecureFileButtonEventListener,
+			this.#restoreFromUnsecureFileButtonClickEL,
 			false
 		);
 	}
 
 	/**
 	Add the buttons to the toolbar
-	@private
 	*/
 
 	#addToolbarButtons ( ) {
-		if ( window.crypto && window.crypto.subtle && window.crypto.subtle.importKey && window.isSecureContext ) {
+		if ( window?.crypto?.subtle?.importKey && window.isSecureContext ) {
 			if ( this.#haveAPIKeysFile ) {
 				this.#createReloadKeysFromServerButton ( );
 			}
@@ -270,8 +317,11 @@ class APIKeysDialogToolbar {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {APIKeysDialog} APIKeysDialog A reference to the dialog
+	@param {Map} APIKeysControls A reference to the JS map with APIKeysControl objects
+	@param {Boolean} haveAPIKeysFile  A boolean indicating when the APIKeys file was found on the server
 	*/
 
 	constructor ( APIKeysDialog, APIKeysControls, haveAPIKeysFile ) {
@@ -289,60 +339,69 @@ class APIKeysDialogToolbar {
 		Object.freeze ( this );
 	}
 
+	/**
+	Remove events listeners from the buttons
+	*/
+
 	destructor ( ) {
 		if ( this.#reloadKeysFromServerButton ) {
 			this.#reloadKeysFromServerButton.removeEventListener (
 				'click',
-				this.#reloadKeysFromServerButtonEventListener,
+				this.#reloadFromServerButtonClickEL,
 				false
 			);
-			this.#reloadKeysFromServerButtonEventListener.destructor ( );
 		}
+		this.#reloadFromServerButtonClickEL = null;
+
 		if ( this.#saveKeysToSecureFileButton ) {
 			this.#saveKeysToSecureFileButton.removeEventListener (
 				'click',
-				this.#saveKeysToSecureFileButtonEventListener,
+				this.#saveToSecureFileButtonClickEL,
 				false
 			);
-			this.#saveKeysToSecureFileButtonEventListener.destructor ( );
 		}
+		this.#saveToSecureFileButtonClickEL = null;
+
 		if ( this.#restoreKeysFromSecureFileButton ) {
 			this.#restoreKeysFromSecureFileButton.removeEventListener (
 				'click',
-				this.#restoreKeysFromSecureFileButtonEventListener,
+				this.#restoreFromSecureFileButtonClickEL,
 				false
 			);
-			this.#restoreKeysFromSecureFileButtonEventListener.destructor ( );
 		}
+		this.#restoreFromSecureFileButtonClickEL = null;
+
 		if ( this.#newAPIKeyButton ) {
 			this.#newAPIKeyButton.removeEventListener (
 				'click',
-				this.#newAPIKeyButtonEventListener,
+				this.#newAPIKeyButtonClickEL,
 				false
 			);
-			this.#newAPIKeyButtonEventListener.destructor ( );
 		}
+		this.#newAPIKeyButtonClickEL = null;
+
 		if ( this.#saveKeysToUnsecureFileButton ) {
 			this.#saveKeysToUnsecureFileButton.removeEventListener (
 				'click',
-				this.#saveKeysToUnsecureFileButtonEventListener,
+				this.#saveToUnsecureFileButtonClickEL,
 				false
 			);
-			this.#saveKeysToUnsecureFileButtonEventListener.destructor ( );
 		}
+		this.#saveToUnsecureFileButtonClickEL = null;
+
 		if ( this.#restoreKeysFromUnsecureFileButton ) {
 			this.#restoreKeysFromUnsecureFileButton.removeEventListener (
 				'click',
-				this.#restoreKeysFromUnsecureFileButtonEventListener,
+				this.#restoreFromUnsecureFileButtonClickEL,
 				false
 			);
-			this.#restoreKeysFromUnsecureFileButtonEventListener.destructor ( );
 		}
+		this.#restoreFromUnsecureFileButtonClickEL = null;
 	}
 
 	/**
-	get the rootHTMLElement of the toolbar
-	@readonly
+	The rootHTMLElement of the toolbar
+	@type {HTMLElement}
 	*/
 
 	get rootHTMLElement ( ) {
@@ -353,10 +412,4 @@ class APIKeysDialogToolbar {
 
 export default APIKeysDialogToolbar;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of APIKeysDialogToolbar.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

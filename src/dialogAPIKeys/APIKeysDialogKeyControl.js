@@ -20,110 +20,90 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file APIKeysDialogKeyControl.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogAPIKeys
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import { APIKey } from '../coreLib/Containers.js';
 import ObjId from '../data/ObjId.js';
-import { INVALID_OBJ_ID } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class DeleteButtonClickEL
-@classdesc Event listener for click event on the delete key button
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+Event listener for click event on the delete key button
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class DeleteButtonClickEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
 
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
+
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		let dispatchedEvent = new Event ( 'apikeydeleted' );
+		const dispatchedEvent = new Event ( 'apikeydeleted' );
 		dispatchedEvent.data = { objId : Number.parseInt ( clickEvent.target.dataset.tanObjId ) };
 		clickEvent.target.parentNode.parentNode.dispatchEvent ( dispatchedEvent );
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class APIKeysDialogKeyControl
-@classdesc  the APIKey control for the APIKeysDialog. Display  HTML input elements for the providerName and the providerKey
+ the APIKey control for the APIKeysDialog. Display  HTML input elements for the providerName and the providerKey
 and a button to remove the APIKey from the dialog
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class APIKeysDialogKeyControl {
 
 	/**
 	The root HTML element of the control
-	@private
+	@type {HTMLElement}
 	*/
 
-	#rootHTMLElement = null;
+	#rootHTMLElement;
 
 	/**
 	The providerName HTML input element
-	@private
+	@type {HTMLElement}
 	*/
 
-	#providerNameInput = null;
+	#providerNameInput;
 
 	/**
 	The providerKey HTML input element
-	@private
+	@type {HTMLElement}
 	*/
 
-	#providerKeyInput = null;
+	#providerKeyInput;
 
 	/**
 	A unique ObjId given to the control
-	@private
+	@type {Number}
 	*/
 
-	#objId = INVALID_OBJ_ID;
+	#objId;
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {APIKey} apiKey The APIKey to display in the control
 	*/
 
-	constructor ( APIKey ) {
+	constructor ( apiKey ) {
 
 		this.#objId = ObjId.nextObjId;
 
@@ -138,7 +118,7 @@ class APIKeysDialogKeyControl {
 			'input',
 			{
 				className : 'TravelNotes-APIKeysDialog-ApiKeyName TravelNotes-APIKeysDialog-Input',
-				value : APIKey.providerName,
+				value : apiKey.providerName,
 				placeholder : theTranslator.getText ( 'APIKeysDialog - provider name' )
 			},
 			this.#rootHTMLElement
@@ -148,7 +128,7 @@ class APIKeysDialogKeyControl {
 			'input',
 			{
 				className : 'TravelNotes-APIKeysDialog-ApiKeyValue TravelNotes-APIKeysDialog-Input',
-				value : APIKey.providerKey,
+				value : apiKey.providerKey,
 				placeholder : theTranslator.getText ( 'APIKeysDialog - API key' ),
 				type : theConfig.APIKeysDialog.showAPIKeys ? 'text' : 'password'
 			},
@@ -159,8 +139,7 @@ class APIKeysDialogKeyControl {
 			'div',
 			{
 				className :
-					'TravelNotes-BaseDialog-Button ' +
-					'TravelNotes-APIKeysDialog-AtRightButton TravelNotes-APIKeysDialog-DeleteRowButton',
+					'TravelNotes-BaseDialog-Button TravelNotes-APIKeysDialog-AtRightButton',
 				title : theTranslator.getText ( 'APIKeysDialog - delete API key' ),
 				textContent : '❌',
 				dataset : { ObjId : this.#objId }
@@ -172,55 +151,44 @@ class APIKeysDialogKeyControl {
 	}
 
 	/**
-	return the ObjId of the control
-	@readonly
+	The ObjId of the control
+	@type {Number}
 	*/
 
 	get objId ( ) { return this.#objId; }
 
 	/**
-	return an array with the HTML elements of the control
-	@readonly
+	An array with the root HTML element of the control
+	@type {Array.<HTMLElement>}
 	*/
 
 	get HTMLElements ( ) { return [ this.#rootHTMLElement ]; }
 
 	/**
-	return the providerName
-	@readonly
+	The providerName
+	@type {String}
 	*/
 
 	get providerName ( ) { return this.#providerNameInput.value; }
 
 	/**
-	return the providerKey
-	@readonly
+	The providerKey
+	@type {String}
 	*/
 
 	get providerKey ( ) { return this.#providerKeyInput.value; }
 
 	/**
-	return the APIKey
-	@readonly
+	The APIKey
+	@type {APIKey}
 	*/
 
-	get APIKey ( ) {
-		return Object.seal (
-			{
-				providerName : this.#providerNameInput.value,
-				providerKey : this.#providerKeyInput.value
-			}
-		);
+	get apiKey ( ) {
+		return new APIKey ( this.#providerNameInput.value, this.#providerKeyInput.value );
 	}
 
 }
 
 export default APIKeysDialogKeyControl;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of APIKeysDialogKeyControl.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

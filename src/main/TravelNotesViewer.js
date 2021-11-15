@@ -21,28 +21,9 @@ Changes:
 		- created
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file TravelNotesViewer.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module main
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theTravelNotesData from '../data/TravelNotesData.js';
@@ -51,30 +32,31 @@ import theAttributionsUI from '../attributionsUI/AttributionsUI.js';
 import theViewerLayersToolbarUI from '../viewerLayersToolbarUI/ViewerLayersToolbarUI.js';
 import { TWO, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class
-@classdesc This class is the entry point of the viewer.
-@see {@link theTravelNotesViewer} for the one and only one instance of this class
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class is the entry point of the viewer.<br>
+See theTravelNotesViewer for the one and only one instance of this class.
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class TravelNotesViewer {
 
-	#travelNotesLoaded = false;
+	/**
+	Guard to avoid a second upload
+	@type {Boolean}
+	*/
+
+	#travelNotesLoaded;
 
 	/**
 	Load a travel from the server
+	@param {String} travelUrl The url of the trv file to open
 	*/
 
 	async #loadDistantTravel ( travelUrl ) {
-		let travelResponse = await fetch ( travelUrl );
+		const travelResponse = await fetch ( travelUrl );
 		if ( HTTP_STATUS_OK === travelResponse.status && travelResponse.ok ) {
-			let travelContent = await travelResponse.json ( );
-			new ViewerFileLoader ( ).openDistantFile ( travelContent );
+			new ViewerFileLoader ( ).openDistantFile ( await travelResponse.json ( ) );
 		}
 		else {
 			theTravelNotesData.map.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], TWO );
@@ -82,23 +64,28 @@ class TravelNotesViewer {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#travelNotesLoaded = false;
 	}
 
 	/**
 	This method load the TravelNotes viewer and open a read only map passed trought the url.
 	This method can only be executed once. Others call will be ignored.
+	@param {String} travelUrl The url of the trv file to open
+	@param {Boolean} addLayerToolbar A bollean indicating when the map layer toolbar must be visible
 	*/
 
 	addReadOnlyMap ( travelUrl, addLayerToolbar ) {
+
 		if ( this.#travelNotesLoaded ) {
 			return;
 		}
+
 		this.#travelNotesLoaded = true;
 
 		theAttributionsUI.createUI ( );
@@ -113,21 +100,15 @@ class TravelNotesViewer {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of theTravelNotesViewer class
-@type {theTravelNotesViewer}
-@constant
-@global
-
-@------------------------------------------------------------------------------------------------------------------------------
+The one and only one instance of theTravelNotesViewer class
+@type {TravelNotesViewer}
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theTravelNotesViewer = new TravelNotesViewer ( );
 
 export default theTravelNotesViewer;
 
-/*
---- End of TravelNotesViewer.js file ------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

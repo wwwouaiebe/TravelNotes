@@ -25,31 +25,13 @@ Changes:
 		- Issue ♯120 : Review the UserInterface
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file MapContextMenu.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module contextMenus
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-import BaseContextMenu from '../contextMenus/BaseContextMenu.js';
+import { BaseContextMenu, MenuItem } from '../contextMenus/BaseContextMenu.js';
 import theWayPointEditor from '../core/WayPointEditor.js';
 import theTranslator from '../UILib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
@@ -60,135 +42,94 @@ import Zoomer from '../core/Zoomer.js';
 
 import { LAT_LNG, INVALID_OBJ_ID } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class MapContextMenu
-@classdesc this class implements the BaseContextMenu class for the map
-@extends BaseContextMenu
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+this class implements the BaseContextMenu class for the map
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class MapContextMenu extends BaseContextMenu {
 
-	#latLng = LAT_LNG.defaultValue;
-
-	/*
-	constructor
-	@param {Event} contextMenuEvent. The event that have triggered the menu
-	@param {Object} parentNode The parent node of the menu. Can be null for leaflet objects
+	/**
+	The constructor
+	@param {Event} contextMenuEvent The event that have triggered the menu
+	@param {HTMLElement} parentNode The parent node of the menu. Can be null for leaflet objects
 	*/
 
-	constructor ( contextMenuEvent, parentNode = null ) {
+	constructor ( contextMenuEvent, parentNode ) {
 		super ( contextMenuEvent, parentNode );
-		this.#latLng = [ this.eventData.lat, this.eventData.lng ];
 	}
 
-	/* eslint-disable no-magic-numbers */
-
-	doAction ( selectedItemObjId ) {
-		switch ( selectedItemObjId ) {
-		case 0 :
-			theWayPointEditor.setStartPoint ( this.#latLng );
-			break;
-		case 1 :
-			theWayPointEditor.addWayPoint ( this.#latLng );
-			break;
-		case 2 :
-			theWayPointEditor.setEndPoint ( this.#latLng );
-			break;
-		case 3 :
-			theRouteEditor.addRoute ( );
-			break;
-		case 4 :
-			theRouteEditor.hideRoutes ( );
-			break;
-		case 5 :
-			theRouteEditor.showRoutes ( );
-			break;
-		case 6 :
-			theNoteEditor.newTravelNote ( this.#latLng );
-			break;
-		case 7 :
-			theNoteEditor.hideNotes ( );
-			break;
-		case 8 :
-			theNoteEditor.showNotes ( );
-			break;
-		case 9 :
-			new Zoomer ( ).zoomToTravel ( );
-			break;
-		case 10 :
-			new AboutDialog ( ).show ( )
-				.catch ( ( ) => {} );
-			break;
-		default :
-			break;
-		}
-	}
-
-	/* eslint-enable no-magic-numbers */
+	/**
+	The list of menu items to use. Implementation of the BaseContextMenu.menuItems property
+	@type {Array.<MenuItem>}
+	*/
 
 	get menuItems ( ) {
 		return [
-			{
-				itemText : theTranslator.getText ( 'MapContextMenu - Select this point as start point' ),
-				isActive :
-					( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId )
+			new MenuItem (
+				theTranslator.getText ( 'MapContextMenu - Select this point as start point' ),
+				( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId )
 					&&
-					( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.first.lat )
-			},
-			{
-				itemText : theTranslator.getText ( 'MapContextMenu - Select this point as way point' ),
-				isActive : ( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId )
-			},
-			{
-				itemText : theTranslator.getText ( 'MapContextMenu - Select this point as end point' ),
-				isActive :
-					( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId )
+					( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.first.lat ),
+				( ) => theWayPointEditor.setStartPoint ( this.eventData.latLng )
+			),
+			new MenuItem (
+				theTranslator.getText ( 'MapContextMenu - Select this point as way point' ),
+				( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId ),
+				( ) => theWayPointEditor.addWayPoint ( this.eventData.latLng )
+			),
+			new MenuItem (
+				theTranslator.getText ( 'MapContextMenu - Select this point as end point' ),
+				( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId )
 					&&
-					( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.last.lat )
-			},
-			{
-				itemText : theTranslator.getText ( 'MapContextMenu - Add a route' ),
-				isActive : true
-			},
-			{
-				itemText : theTranslator.getText ( 'MapContextMenu - Hide all routes' ),
-				isActive : true
-			},
-			{
-				itemText : theTranslator.getText ( 'MapContextMenu - Show all routes' ),
-				isActive : true
-			},
-			{
-				itemText : theTranslator.getText ( 'MapContextMenu - New travel note' ),
-				isActive : true
-			},
-			{
-				itemText : theTranslator.getText ( 'MapContextMenu - Hide all notes' ),
-				isActive : true
-			},
-			{
-				itemText : theTranslator.getText ( 'MapContextMenu - Show all notes' ),
-				isActive : true
-			},
-			{
-				itemText : theTranslator.getText ( 'MapContextMenu - Zoom to travel' ),
-				isActive : true
-			},
-			{
-				itemText : theTranslator.getText ( 'MapContextMenu - About Travel & Notes' ),
-				isActive : true
-			}
+					( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.last.lat ),
+				( ) => theWayPointEditor.setEndPoint ( this.eventData.latLng )
+			),
+			new MenuItem ( theTranslator.getText ( 'MapContextMenu - Add a route' ),
+				true,
+				( ) => theRouteEditor.addRoute ( )
+			),
+			new MenuItem (
+				theTranslator.getText ( 'MapContextMenu - Hide all routes' ),
+				true,
+				( ) => theRouteEditor.hideRoutes ( )
+			),
+			new MenuItem (
+				theTranslator.getText ( 'MapContextMenu - Show all routes' ),
+				true,
+				( ) => theRouteEditor.showRoutes ( )
+			),
+			new MenuItem (
+				theTranslator.getText ( 'MapContextMenu - New travel note' ),
+				true,
+				( ) => theNoteEditor.newTravelNote ( this.eventData.latLng )
+			),
+			new MenuItem (
+				theTranslator.getText ( 'MapContextMenu - Hide all notes' ),
+				true,
+				( ) => theNoteEditor.hideNotes ( )
+			),
+			new MenuItem (
+				theTranslator.getText ( 'MapContextMenu - Show all notes' ),
+				true,
+				( ) => theNoteEditor.showNotes ( )
+			),
+			new MenuItem (
+				theTranslator.getText ( 'MapContextMenu - Zoom to travel' ),
+				true,
+				( ) => new Zoomer ( ).zoomToTravel ( )
+			),
+			new MenuItem (
+				theTranslator.getText ( 'MapContextMenu - About Travel & Notes' ),
+				true,
+				( ) => new AboutDialog ( ).show ( )
+					.catch ( ( ) => {} )
+			)
 		];
 	}
 }
 
 export default MapContextMenu;
 
-/*
---- End of MapContextMenu.js file ---------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

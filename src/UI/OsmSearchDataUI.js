@@ -20,28 +20,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OsmSearchDataUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module osmSearchPaneUI
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theTravelNotesData from '../data/TravelNotesData.js';
@@ -54,24 +36,26 @@ import ObjId from '../data/ObjId.js';
 
 import { ZERO } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class SearchResultContextMenuEL
-@classdesc contextmenu event listener for search result
-
-@------------------------------------------------------------------------------------------------------------------------------
+contextmenu event listener for search result
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class SearchResultContextMenuEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	@param {Event} contextMenuEvent The event to handle
+	*/
 
 	handleEvent ( contextMenuEvent ) {
 		contextMenuEvent.stopPropagation ( );
@@ -81,28 +65,30 @@ class SearchResultContextMenuEL {
 
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class SearchResultMouseEnterEL
-@classdesc mouseenter event listener for search result
-
-@------------------------------------------------------------------------------------------------------------------------------
+mouseenter event listener for search result
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class SearchResultMouseEnterEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
 
+	/**
+	Event listener method
+	@param {Event} mouseEvent The event to handle
+	*/
+
 	handleEvent ( mouseEvent ) {
 		mouseEvent.stopPropagation ( );
-		let osmElement = theTravelNotesData.searchData [ Number.parseInt ( mouseEvent.target.dataset.tanElementIndex ) ];
+		const osmElement = theTravelNotesData.searchData [ Number.parseInt ( mouseEvent.target.dataset.tanElementIndex ) ];
 		theEventDispatcher.dispatch (
 			'addsearchpointmarker',
 			{
@@ -115,24 +101,26 @@ class SearchResultMouseEnterEL {
 
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class SearchResultMouseLeaveEL
-@classdesc mouseenter event listener for search result
-
-@------------------------------------------------------------------------------------------------------------------------------
+mouseenter event listener for search result
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class SearchResultMouseLeaveEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	@param {Event} mouseEvent The event to handle
+	*/
 
 	handleEvent ( mouseEvent ) {
 		mouseEvent.stopPropagation ( );
@@ -141,31 +129,72 @@ class SearchResultMouseLeaveEL {
 
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class OsmSearchDataUI
-@classdesc This class add or remove the search data on the pane data
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class add or remove the search data on the pane data
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class OsmSearchDataUI {
 
-	#paneData = null;
-	#currentOsmElement = null;
-	#currentHtmlElement = null;
-	#elementIndex = ZERO;
-	#eventListeners = {
-		onContextMenu : null,
-		onMouseEnter : null,
-		onMouseLeave : null
-	};
+	/**
+	A reference to the HTMLElement in witch the data have to be added
+	@type {HTMLElement}
+	*/
+
+	#paneData;
+
+	/**
+	Temp reference to the OsmElement for witch the HTMLElement is currently build
+	@type {OsmElement}
+	*/
+
+	#currentOsmElement;
+
+	/**
+	Temp var to store the currently builded HTMLElement
+	@type {HTMLElement}
+	*/
+
+	#currentContainer;
+
+	/**
+	Temp var to store the currently builded HTMLElement
+	@type {HTMLElement}
+	*/
+
+	#currentSearchResultCell;
+
+	/**
+	The index of the current OsmElement in the theTravelNotesData.searchData array
+	@type {Number}
+	*/
+
+	#elementIndex;
+
+	/**
+	Search result contextmenu event listener
+	@type {SearchResultContextMenuEL}
+	*/
+
+	#searchResultContextMenuEL;
+
+	/**
+	Search result  mouseenter event listener
+	@type {SearchResultMouseEnterEL}
+	*/
+
+	#searchResultMouseEnterEL;
+
+	/**
+	Search result contextmenu event listener
+	@type {SearchResultMouseLeaveEL}
+	*/
+
+	#searchResultMouseLeaveEL;
 
 	/**
 	Icon builder
-	@private
 	*/
 
 	#buildIcon ( ) {
@@ -178,36 +207,35 @@ class OsmSearchDataUI {
 				'</text></svg></div>';
 		}
 		else {
-			iconContent = theNoteDialogToolbarData.getIconContentFromName ( this.#currentOsmElement.description ) || '';
+			iconContent = theNoteDialogToolbarData.preDefinedIconDataFromName ( this.#currentOsmElement.description ) || '';
 		}
-		let iconCell = theHTMLElementsFactory.create (
+		const iconCell = theHTMLElementsFactory.create (
 			'div',
 			{
 				className :	'TravelNotes-OsmSearchPaneUI-SearchResult-IconCell'
 			},
-			this.#currentHtmlElement
+			this.#currentContainer
 		);
 		theHTMLSanitizer.sanitizeToHtmlElement ( iconContent, iconCell );
 	}
 
 	/**
 	generic builder
-	@private
+	@param {String} osmTagValue The value of the OSM tag
 	*/
 
-	#addOsmTag ( osmTagValue, searchResultCell ) {
+	#addOsmTag ( osmTagValue ) {
 		if ( osmTagValue ) {
-			theHTMLElementsFactory.create ( 'div', { textContent : osmTagValue }, searchResultCell	);
+			theHTMLElementsFactory.create ( 'div', { textContent : osmTagValue }, this.#currentSearchResultCell	);
 		}
 	}
 
 	/**
 	Address builder
-	@private
 	*/
 
-	#addAddress ( searchResultCell ) {
-		let street =
+	#addAddress ( ) {
+		const street =
 			this.#currentOsmElement.tags [ 'addr:street' ]
 				?
 				(
@@ -220,7 +248,7 @@ class OsmSearchDataUI {
 				this.#currentOsmElement.tags [ 'addr:street' ] + ' '
 				:
 				'';
-		let city =
+		const city =
 			this.#currentOsmElement.tags [ 'addr:city' ]
 				?
 				(
@@ -233,29 +261,27 @@ class OsmSearchDataUI {
 				this.#currentOsmElement.tags [ 'addr:city' ]
 				:
 				'';
-		let address = street + city;
+		const address = street + city;
 		if ( '' !== address ) {
-			this.#addOsmTag ( address, searchResultCell );
+			this.#addOsmTag ( address, this.#currentSearchResultCell );
 		}
 	}
 
 	/**
 	Phone builder
-	@private
 	*/
 
-	#addPhone ( searchResultCell ) {
+	#addPhone ( ) {
 		if ( this.#currentOsmElement.tags.phone ) {
-			this.#addOsmTag ( '☎️ : ' + this.#currentOsmElement.tags.phone, searchResultCell );
+			this.#addOsmTag ( '☎️ : ' + this.#currentOsmElement.tags.phone, this.#currentSearchResultCell );
 		}
 	}
 
 	/**
 	Mail builder
-	@private
 	*/
 
-	#addMail ( searchResultCell ) {
+	#addMail ( ) {
 		if ( this.#currentOsmElement.tags.email ) {
 			theHTMLElementsFactory.create (
 				'a',
@@ -263,17 +289,16 @@ class OsmSearchDataUI {
 					href : 'mailto:' + this.#currentOsmElement.tags.email,
 					textContent : this.#currentOsmElement.tags.email
 				},
-				theHTMLElementsFactory.create ( 'div', { textContent : '📧 : ' }, searchResultCell )
+				theHTMLElementsFactory.create ( 'div', { textContent : '📧 : ' }, this.#currentSearchResultCell )
 			);
 		}
 	}
 
 	/**
 	Web site builder
-	@private
 	*/
 
-	#addWebSite ( searchResultCell ) {
+	#addWebSite ( ) {
 		if ( this.#currentOsmElement.tags.website ) {
 			theHTMLElementsFactory.create (
 				'a',
@@ -282,63 +307,60 @@ class OsmSearchDataUI {
 					target : '_blank',
 					textContent : this.#currentOsmElement.tags.website
 				},
-				theHTMLElementsFactory.create ( 'div', null, searchResultCell )
+				theHTMLElementsFactory.create ( 'div', null, this.#currentSearchResultCell )
 			);
 		}
 	}
 
 	/**
 	Add all osm data
-	@private
 	*/
 
 	#addOsmData ( ) {
-		let searchResultCell = theHTMLElementsFactory.create (
+		this.#currentSearchResultCell = theHTMLElementsFactory.create (
 			'div',
 			{ className :	'TravelNotes-OsmSearchPaneUI-SearchResult-Cell'	},
-			this.#currentHtmlElement
+			this.#currentContainer
 		);
 
-		this.#addOsmTag ( this.#currentOsmElement.description, searchResultCell );
-		this.#addOsmTag ( this.#currentOsmElement.tags.name, searchResultCell );
-		this.#addOsmTag ( this.#currentOsmElement.tags.rcn_ref, searchResultCell );
-		this.#addAddress ( searchResultCell );
-		this.#addPhone ( searchResultCell );
-		this.#addMail ( searchResultCell );
-		this.#addWebSite ( searchResultCell );
+		this.#addOsmTag ( this.#currentOsmElement.description );
+		this.#addOsmTag ( this.#currentOsmElement.tags.name );
+		this.#addOsmTag ( this.#currentOsmElement.tags.rcn_ref );
+		this.#addAddress ( );
+		this.#addPhone ( );
+		this.#addMail ( );
+		this.#addWebSite ( );
 
 	}
 
 	/**
 	Title builder
-	@private
 	*/
 
 	#addTitle ( ) {
 		for ( const [ KEY, VALUE ] of Object.entries ( this.#currentOsmElement.tags ) ) {
-			this.#currentHtmlElement.title += KEY + '=' + VALUE + '\n';
+			this.#currentContainer.title += KEY + '=' + VALUE + '\n';
 		}
 
 	}
 
 	/**
 	Add event listeners
-	@private
 	*/
 
 	#addEventListeners ( ) {
-		this.#currentHtmlElement.addEventListener ( 'contextmenu', this.#eventListeners.onContextMenu, false );
-		this.#currentHtmlElement.addEventListener ( 'mouseenter', this.#eventListeners.onMouseEnter, false );
-		this.#currentHtmlElement.addEventListener ( 'mouseleave', this.#eventListeners.onMouseLeave, false );
+		this.#currentContainer.addEventListener ( 'contextmenu', this.#searchResultContextMenuEL, false );
+		this.#currentContainer.addEventListener ( 'mouseenter', this.#searchResultMouseEnterEL, false );
+		this.#currentContainer.addEventListener ( 'mouseleave', this.#searchResultMouseLeaveEL, false );
 	}
 
 	/**
 	Element builder
-	@private
+	@param {HTMLElement} parentNode The parent node
 	*/
 
 	#buildHtmlElement ( parentNode ) {
-		this.#currentHtmlElement = theHTMLElementsFactory.create (
+		this.#currentContainer = theHTMLElementsFactory.create (
 			'div',
 			{
 				className :	'TravelNotes-OsmSearchPaneUI-SearchResult-Row',
@@ -352,15 +374,18 @@ class OsmSearchDataUI {
 		this.#addEventListeners ( );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {HTMLElement} paneData The HTMLElement in witch the data have to be added
 	*/
 
 	constructor ( paneData ) {
 		this.#paneData = paneData;
-		this.#eventListeners.onContextMenu = new SearchResultContextMenuEL ( );
-		this.#eventListeners.onMouseEnter = new SearchResultMouseEnterEL ( );
-		this.#eventListeners.onMouseLeave = new SearchResultMouseLeaveEL ( );
+		this.#searchResultContextMenuEL = new SearchResultContextMenuEL ( );
+		this.#searchResultMouseEnterEL = new SearchResultMouseEnterEL ( );
+		this.#searchResultMouseLeaveEL = new SearchResultMouseLeaveEL ( );
+		this.#elementIndex = ZERO;
+
 	}
 
 	/**
@@ -369,7 +394,8 @@ class OsmSearchDataUI {
 
 	addData ( ) {
 		this.#currentOsmElement = null;
-		this.#currentHtmlElement = null;
+		this.#currentContainer = null;
+		this.#currentSearchResultCell = null;
 		this.#elementIndex = ZERO;
 		theTravelNotesData.searchData.forEach (
 			osmElement => {
@@ -385,9 +411,9 @@ class OsmSearchDataUI {
 
 	clearData ( ) {
 		while ( this.#paneData.firstChild ) {
-			this.#paneData.firstChild.removeEventListener ( 'contextmenu', this.#eventListeners.onContextMenu, false );
-			this.#paneData.firstChild.removeEventListener ( 'mouseenter', this.#eventListeners.onMouseEnter, false );
-			this.#paneData.firstChild.removeEventListener ( 'mouseleave', this.#eventListeners.onMouseLeave, false );
+			this.#paneData.firstChild.removeEventListener ( 'contextmenu', this.#searchResultContextMenuEL, false );
+			this.#paneData.firstChild.removeEventListener ( 'mouseenter', this.#searchResultMouseEnterEL, false );
+			this.#paneData.firstChild.removeEventListener ( 'mouseleave', this.#searchResultMouseLeaveEL, false );
 			theEventDispatcher.dispatch (
 				'removeobject',
 				{ objId : Number.parseInt ( this.#paneData.firstChild.dataset.tanObjId ) }
@@ -399,6 +425,4 @@ class OsmSearchDataUI {
 
 export default OsmSearchDataUI;
 
-/*
---- End of OsmSearchDataUI.js file --------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

@@ -20,28 +20,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file RoutesListUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module travelUI
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theTravelNotesData from '../data/TravelNotesData.js';
@@ -49,53 +31,72 @@ import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import {
 	RouteDragStartEL,
 	RouteDropEL,
-	RouteContextMenuEL,
+	RouteUIContextMenuEL,
 	RoutesListDragOverEL,
 	RoutesListWheelEL
 } from '../UI/RoutesListUIEventListeners.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class RoutesListUI
-@classdesc This class is the Routes List part of the UI
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class is the Routes List part of the UI
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class RoutesListUI {
 
 	/**
-	The route lst HTMLElement
+	The route list HTMLElement
+	@type {HTMLElement}
 	*/
 
-	#routesListHTMLElement = null;
+	#routesListHTMLElement;
 
 	/**
-	Event listeners
+	Route contextmenu event listeners
+	@type {RouteUIContextMenuEL}
 	*/
 
-	#routeContextMenuEventListener = new RouteContextMenuEL ( );
-	#routeDropEventListener = new RouteDropEL ( );
-	#routeDragStartEventListener = new RouteDragStartEL ( );
+	#routeUIContextMenuEL;
 
-	/*
-	constructor
+	/**
+	Route drop event listeners
+	@type {RouteDropEL}
+	*/
+
+	#routeDropEL;
+
+	/**
+	Route dragstart event listeners
+	@type {RouteDropEL}
+	*/
+
+	#routeDragStartEL;
+
+	/**
+	The constructor
+	@param {HTMLElement} UIMainHTMLElement The HTMLElement in witch the RouteList must be added
 	*/
 
 	constructor ( UIMainHTMLElement ) {
+
 		Object.freeze ( this );
+
+		// container creation
 		this.#routesListHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{ className : 'TravelNotes-TravelUI-RoutesListDiv' },
 			UIMainHTMLElement
 		);
+
+		// event listeners
 		this.#routesListHTMLElement.addEventListener ( 'dragover', new RoutesListDragOverEL ( ) );
 		this.#routesListHTMLElement.addEventListener ( 'wheel', new RoutesListWheelEL ( ) );
+		this.#routeUIContextMenuEL = new RouteUIContextMenuEL ( );
+		this.#routeDropEL = new RouteDropEL ( );
+		this.#routeDragStartEL = new RouteDragStartEL ( );
 	}
 
-	/*
+	/**
 	Toogle the visibility of the routes list
 	*/
 
@@ -109,22 +110,25 @@ class RoutesListUI {
 	*/
 
 	setRoutesList ( ) {
+
+		// Removing old routes
 		while ( this.#routesListHTMLElement.firstChild ) {
-			this.#routesListHTMLElement.firstChild.removeEventListener ( 'dragstart', this.#routeDragStartEventListener );
-			this.#routesListHTMLElement.firstChild.removeEventListener ( 'drop', this.#routeDropEventListener );
-			this.#routesListHTMLElement.firstChild.removeEventListener ( 'contextmenu', this.#routeContextMenuEventListener );
+			this.#routesListHTMLElement.firstChild.removeEventListener ( 'dragstart', this.#routeDragStartEL );
+			this.#routesListHTMLElement.firstChild.removeEventListener ( 'drop', this.#routeDropEL );
+			this.#routesListHTMLElement.firstChild.removeEventListener ( 'contextmenu', this.#routeUIContextMenuEL );
 			this.#routesListHTMLElement.removeChild ( this.#routesListHTMLElement.firstChild );
 		}
 
-		let routesIterator = theTravelNotesData.travel.routes.iterator;
+		// Adding new routes
+		const routesIterator = theTravelNotesData.travel.routes.iterator;
 		while ( ! routesIterator.done ) {
-			let route = routesIterator.value.objId === theTravelNotesData.editedRouteObjId
+			const route = routesIterator.value.objId === theTravelNotesData.editedRouteObjId
 				?
 				theTravelNotesData.travel.editedRoute
 				:
 				routesIterator.value;
 
-			let routeName =
+			const routeName =
 				( routesIterator.value.objId === theTravelNotesData.editedRouteObjId ? '🔴\u00a0' : '' ) +
 				( route.chain ? '⛓\u00a0' : '' ) +
 				(
@@ -133,7 +137,7 @@ class RoutesListUI {
 						route.computedName
 				);
 
-			let routeHTMLElement = theHTMLElementsFactory.create (
+			const routeHTMLElement = theHTMLElementsFactory.create (
 				'div',
 				{
 					draggable : true,
@@ -146,15 +150,13 @@ class RoutesListUI {
 				this.#routesListHTMLElement
 			);
 
-			routeHTMLElement.addEventListener ( 'dragstart', this.#routeDragStartEventListener );
-			routeHTMLElement.addEventListener ( 'drop', this.#routeDropEventListener );
-			routeHTMLElement.addEventListener ( 'contextmenu', this.#routeContextMenuEventListener );
+			routeHTMLElement.addEventListener ( 'dragstart', this.#routeDragStartEL );
+			routeHTMLElement.addEventListener ( 'drop', this.#routeDropEL );
+			routeHTMLElement.addEventListener ( 'contextmenu', this.#routeUIContextMenuEL );
 		}
 	}
 }
 
 export default RoutesListUI;
 
-/*
---- End of RoutesListUI.js file ------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

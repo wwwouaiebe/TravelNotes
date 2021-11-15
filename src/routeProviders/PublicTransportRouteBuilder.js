@@ -20,27 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file PublicTransportRouteBuilder.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module routeProviders
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 */
 
 import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
@@ -49,7 +31,7 @@ import Maneuver from '../data/Maneuver.js';
 import publicTransportData from '../routeProviders/PublicTransportData.js';
 import PublicTransportHolesRemover from '../routeProviders/PublicTransportHolesRemover.js';
 
-import { ZERO, INVALID_OBJ_ID, ONE, TWO, THREE } from '../main/Constants.js';
+import { ZERO, ONE, TWO, THREE } from '../main/Constants.js';
 
 /*
 
@@ -102,25 +84,21 @@ And also we have to look at this:
 
 */
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class PublicTransportRouteBuilder
-@classdesc coming soon...
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+coming soon...
+@ignore
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class PublicTransportRouteBuilder {
 
-	#selectedRelationId = INVALID_OBJ_ID;
-	#nodes3Ways = [];
-	#route = null;
-	#publicTransportData = null;
+	#selectedRelationId;
+	#nodes3Ways;
+	#route;
+	#publicTransportData;
 
 	/**
-	@private
 	*/
 
 	#merge3WaysNodes ( ) {
@@ -131,10 +109,10 @@ class PublicTransportRouteBuilder {
 				// searching the shortest way starting or ending in the node
 				let shortestWaydistance = Number.MAX_VALUE;
 				let shortestWay = null;
-				let linkedWaysId = node.startingWaysIds.concat ( node.endingWaysIds );
+				const linkedWaysId = node.startingWaysIds.concat ( node.endingWaysIds );
 				linkedWaysId.forEach (
 					wayId => {
-						let way = this.#publicTransportData.waysMap.get ( wayId );
+						const way = this.#publicTransportData.waysMap.get ( wayId );
 						if ( way.distance < shortestWaydistance ) {
 							shortestWaydistance = way.distance;
 							shortestWay = way;
@@ -146,7 +124,7 @@ class PublicTransportRouteBuilder {
 				this.#publicTransportData.removeFrom ( linkedWaysId, shortestWay.id );
 
 				// cloning the shortest way
-				let clonedWay = this.#publicTransportData.waysMap.get (
+				const clonedWay = this.#publicTransportData.waysMap.get (
 					this.#publicTransportData.cloneWay ( shortestWay.id )
 				);
 
@@ -164,7 +142,7 @@ class PublicTransportRouteBuilder {
 				}
 
 				// and in the last linked way
-				let lastWay = this.#publicTransportData.waysMap.get ( linkedWaysId [ ONE ] );
+				const lastWay = this.#publicTransportData.waysMap.get ( linkedWaysId [ ONE ] );
 				lastWay.nodesIds [ lastWay.nodesIds.indexOf ( node.id ) ] = tmpNodeId;
 
 				// merging the 4 ways
@@ -182,7 +160,6 @@ class PublicTransportRouteBuilder {
 	}
 
 	/**
-	@private
 	*/
 
 	#createRoute ( route ) {
@@ -249,16 +226,16 @@ class PublicTransportRouteBuilder {
 				if ( NO_POINT_ADDED < addPoint && ALL_POINTS_ADDED > addPoint ) {
 
 					// an itinerary point is created from the node and is added to the itinerary
-					let itineraryPoint = new ItineraryPoint ( );
-					let node = this.#publicTransportData.nodesMap.get ( nodeId );
+					const itineraryPoint = new ItineraryPoint ( );
+					const node = this.#publicTransportData.nodesMap.get ( nodeId );
 					itineraryPoint.latLng = [ node.lat, node.lon ];
 					route.itinerary.itineraryPoints.add ( itineraryPoint );
 
 					// we verify that the node is not a stop, otherwise we add a maneuver.
-					let stopNode = this.#publicTransportData.stopsMap.get ( nodeId );
+					const stopNode = this.#publicTransportData.stopsMap.get ( nodeId );
 					if ( stopNode ) {
 
-						let maneuver = new Maneuver ( );
+						const maneuver = new Maneuver ( );
 						let stopName = null;
 						if ( stopNode.tags && stopNode.tags.name ) {
 							stopName = stopNode.tags.name;
@@ -311,12 +288,12 @@ class PublicTransportRouteBuilder {
 		// computing distances
 		route.distance = ZERO;
 
-		let maneuversIterator = route.itinerary.maneuvers.iterator;
+		const maneuversIterator = route.itinerary.maneuvers.iterator;
 		maneuversIterator.done;
 		let previousManeuver = maneuversIterator.value;
 		maneuversIterator.done;
 
-		let itineraryPointsIterator = route.itinerary.itineraryPoints.iterator;
+		const itineraryPointsIterator = route.itinerary.itineraryPoints.iterator;
 		itineraryPointsIterator.done;
 		let previousPoint = itineraryPointsIterator.value;
 
@@ -340,8 +317,8 @@ class PublicTransportRouteBuilder {
 
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( route, selectedRelationId ) {
@@ -349,6 +326,7 @@ class PublicTransportRouteBuilder {
 		this.#route = route;
 		this.#selectedRelationId = selectedRelationId;
 		this.#publicTransportData = new publicTransportData ( selectedRelationId );
+		this.#nodes3Ways = [];
 	}
 
 	buildRoute ( response, onOk, onError ) {
@@ -366,7 +344,7 @@ class PublicTransportRouteBuilder {
 		let nodeWithMoreThan3WaysFound = false;
 		this.#publicTransportData.nodesMap.forEach (
 			node => {
-				let waysIds = node.startingWaysIds.concat ( node.endingWaysIds );
+				const waysIds = node.startingWaysIds.concat ( node.endingWaysIds );
 				switch ( waysIds.length ) {
 				case ZERO :
 
@@ -431,10 +409,4 @@ class PublicTransportRouteBuilder {
 
 export default PublicTransportRouteBuilder;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of PublicTransportRouteBuilder.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

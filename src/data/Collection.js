@@ -26,182 +26,143 @@ Changes:
 		- Issue ♯100 : Fix circular dependancies with Collection
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
 
+import { ZERO, ONE, NEXT, PREVIOUS, TWO, NOT_FOUND } from '../main/Constants.js';
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file Collection.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
+iterator for Collection class
 */
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-import { ZERO, ONE, TWO, NOT_FOUND } from '../main/Constants.js';
-
-const OUR_SWAP_UP = -1;
-const OUR_SWAP_DOWN = 1;
-const OUR_NEXT = 1;
-const OUR_PREVIOUS = -1;
-
-/**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class CollectionIterator
-@classdesc iterator for Collection class
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
-*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class CollectionIterator {
 
 	/**
 	The collection used by the iterator
+	@type {Collection}
 	*/
 
 	#collection = null;
 
 	/**
 	The current index
+	@type {Number}
 	*/
 
 	#index = NOT_FOUND;
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {Collection} collection The collection for witch the iterator is used
 	*/
 
 	constructor ( collection ) {
-		this.#collection = collection;
 		Object.freeze ( this );
+		this.#collection = collection;
 	}
 
 	/**
 	The object pointed by the iterator
-	@type {Object}
-	@readonly
+	@type {TravelObject}
 	*/
 
 	get value ( ) { return this.#index < this.#collection.length ? this.#collection.at ( this.#index ) : null; }
 
 	/**
 	The object before the object pointed by the iterator or null if iterator is on the first object
-	@type {Object}
-	@readonly
+	@type {TravelObject}
 	*/
 
 	get previous ( ) { return ZERO >= this.#index ? null : this.#collection.at ( this.#index - ONE ); }
 
 	/**
 	The object after the object pointed by the iterator or null if iterator is on the last object
-	@type {Object}
-	@readonly
+	@type {TravelObject}
 	*/
 
 	get next ( ) { return this.#index < this.#collection.length - ONE ? this.#collection.at ( this.#index + ONE ) : null; }
 
 	/**
 	Move the iterator to the next object and return true when the end of the Collection is reached
-	@type {boolean}
-	@readonly
+	@type {Boolean}
 	*/
 
 	get done ( ) { return ++ this.#index >= this.#collection.length; }
 
 	/**
 	returns true when the iterator is on the first object
-	@type {boolean}
-	@readonly
+	@type {Boolean}
 	*/
 
 	get first ( ) { return ZERO === this.#index; }
 
 	/**
 	returns true when the iterator is on the last object
-	@type {boolean}
-	@readonly
+	@type {Boolean}
 	*/
 
 	get last ( ) { return this.#index >= this.#collection.length - ONE; }
 
 	/**
 	returns The position of the iterator in the Collection
-	@type {number}
-	@readonly
+	@type {Number}
 	*/
 
 	get index ( ) { return this.#index; }
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class Collection
-@classdesc Class used to store objects in an iterable
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+Class used to store objects in an iterable
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class Collection {
 
 	/**
 	The array where objects are stored
-	@private
+	@type {Array.<Object>}
 	*/
 
-	#array = [];
+	#array;
 
 	/**
 	The class name of objects stored in the collection
-	@private
+	@type {String}
 	*/
 
-	#objName = '';
+	#objName;
 
-	/*
+	/**
 	The class definition of objects stored in the collection
-	@private
+	@type {Class}
 	*/
 
-	#classCollection = null;
+	#classCollection;
 
 	/**
 	Return the position of an object in the Collection
-	@param {!number} objId The objId of the object to locate
-	@return {number} the position of the object in the Collection
-	@private
+	@param {Number} objId The objId of the object to locate
+	@return {Number} the position of the object in the Collection
 	*/
 
 	#indexOfObjId ( objId ) {
-		let index = this.#array.findIndex (
+		return this.#array.findIndex (
 			element => element.objId === objId
 		);
-		return index;
 	}
 
 	/**
 	Gives the previous or next object in the collection that fullfil a given condition
-	@param {!number} objId The objId of the object from witch the search start
+	@param {Number} objId The objId of the object from witch the search start
 	@param {?function} condition A fonction used to compare the objects. If null, ( ) => true is used
-	@param (!number} direction The direction to follow. Must be OUR_NEXT or OUR_PREVIOUS
-	@return (?Object) An object or null if nothing found
-	@throws When direction is not OUR_NEXT or OUR_PREVIOUS or when the starting object is not found
-	@private
+	@param {Number} direction The direction to follow. Must be NEXT or PREVIOUS
+	@return {?Object} An object or null if nothing found
 	*/
 
 	#nextOrPrevious ( objId, condition, direction ) {
@@ -209,7 +170,7 @@ class Collection {
 		if ( NOT_FOUND === index ) {
 			throw new Error ( 'invalid objId for next or previous function' );
 		}
-		if ( direction !== OUR_NEXT && direction !== OUR_PREVIOUS ) {
+		if ( direction !== NEXT && direction !== PREVIOUS ) {
 			throw new Error ( 'invalid direction' );
 		}
 
@@ -229,25 +190,25 @@ class Collection {
 		return this.#array [ index ];
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {class} classCollection The class of objects that have to be stored in the collection
 	*/
 
 	constructor ( classCollection ) {
+		Object.freeze ( this );
+		this.#array = [];
 		this.#classCollection = classCollection;
-		let tmpObject = new classCollection ( );
+		const tmpObject = new classCollection ( );
 		if ( ( ! tmpObject.objType ) || ( ! tmpObject.objType.name ) ) {
 			throw new Error ( 'invalid object name for collection' );
 		}
 		this.#objName = tmpObject.objType.name;
-		Object.freeze ( this );
 	}
 
 	/**
 	Add an object at the end of the collection
-	@param {Object} object The object to add
-	@throws when the object type is invalid
+	@param {TravelObject} object The object to add
 	*/
 
 	add ( object ) {
@@ -259,26 +220,22 @@ class Collection {
 
 	/**
 	Search an object in the collection with the index
-	@param {!number} index The position of the desired object in the array
-	@return the object at the position or null if not found
+	@param {Number} index The position of the desired object in the array
+	@return {?Object} The object at the position or null if not found
 	*/
 
 	at ( index ) {
-		if ( index < this.#array.length && index > NOT_FOUND ) {
-			return this.#array [ index ];
-		}
-		return null;
+		return ( index < this.#array.length && index > NOT_FOUND ) ? this.#array [ index ] : null;
 	}
 
 	/**
 	Executes a function on each object of the Collection and returns the final result
 	@param {function} funct The function to execute
-	@return The final result
 	*/
 
 	forEach ( funct ) {
 		let result = null;
-		let iterator = this.iterator;
+		const iterator = this.iterator;
 		while ( ! iterator.done ) {
 			result = funct ( iterator.value, result );
 		}
@@ -287,24 +244,20 @@ class Collection {
 
 	/**
 	Search an object in the Collection
-	@param {!number} objId The objId of the object to search
-	@return the object with the given objId or null when the object is not found
+	@param {Number} objId The objId of the object to search
+	@return {TravelObject} the object with the given objId or null when the object is not found
 	*/
 
 	getAt ( objId ) {
-		let index = this.#indexOfObjId ( objId );
-		if ( NOT_FOUND === index ) {
-			return null;
-		}
-		return this.#array [ index ];
+		const index = this.#indexOfObjId ( objId );
+		return NOT_FOUND === index ? null : this.#array [ index ];
 	}
 
 	/**
 	Move an object near another object in the Collection
-	@param {!number} objId The objId of the object to move
-	@param {!number} targetObjId The objId of the object near witch the object will be moved
-	@param {boolean} moveBefore When true, the object is moved before the target, when false after the target
-	@throws when objId or targetObjId are invalid
+	@param {Number} objId The objId of the object to move
+	@param {Number} targetObjId The objId of the object near witch the object will be moved
+	@param {Boolean} moveBefore When true, the object is moved before the target, when false after the target
 	*/
 
 	moveTo ( objId, targetObjId, moveBefore ) {
@@ -324,37 +277,34 @@ class Collection {
 	}
 
 	/**
-	@desc gives the next object in the collection that fullfil a given condition
-	@param {!number} objId The objId of the object from witch the search start
+	gives the next object in the collection that fullfil a given condition
+	@param {Number} objId The objId of the object from witch the search start
 	@param {?function} condition A fonction used to compare the objects. If null, ( ) => true is used
-	@return (?Object) An object or null if nothing found
-	@throws When the starting object is not found
+	@return {?Object} An object or null if nothing found
 	*/
 
-	next ( objId, condition ) { return this.#nextOrPrevious ( objId, condition, OUR_NEXT ); }
+	next ( objId, condition ) { return this.#nextOrPrevious ( objId, condition, NEXT ); }
 
 	/**
-	@desc gives the previous object in the collection that fullfil a given condition
-	@param {!number} objId The objId of the object from witch the search start
+	gives the previous object in the collection that fullfil a given condition
+	@param {Number} objId The objId of the object from witch the search start
 	@param {?function} condition A fonction used to compare the objects. If null, ( ) => true is used
-	@return (?Object) An object or null if nothing found
-	@throws When the starting object is not found
+	@return {?Object} An object or null if nothing found
 	*/
 
-	previous ( objId, condition ) { return this.#nextOrPrevious ( objId, condition, OUR_PREVIOUS ); }
+	previous ( objId, condition ) { return this.#nextOrPrevious ( objId, condition, PREVIOUS ); }
 
 	/**
 	Remove an object from the Collection
-	@param {!number} objId The objId of the object to remove
-	@throws when the object is not found
+	@param {Number} objId The objId of the object to remove
 	*/
 
 	remove ( objId ) {
-		let index = this.#indexOfObjId ( objId );
+		const index = this.#indexOfObjId ( objId );
 		if ( NOT_FOUND === index ) {
 			throw new Error ( 'invalid objId for remove function' );
 		}
-		this.#array.splice ( this.#indexOfObjId ( objId ), ONE );
+		this.#array.splice ( index, ONE );
 	}
 
 	/**
@@ -373,13 +323,12 @@ class Collection {
 
 	/**
 	Replace an object in the Collection with another object
-	@param {!number} oldObjId the objId of the object to replace
-	@param {Object} newObject The new object
-	@throws when the object type of newObject is invalid or when the object to replace is not found
+	@param {Number} oldObjId the objId of the object to replace
+	@param {TravelObject} newObject The new object
 	*/
 
 	replace ( oldObjId, newObject ) {
-		let index = this.#indexOfObjId ( oldObjId );
+		const index = this.#indexOfObjId ( oldObjId );
 		if ( NOT_FOUND === index ) {
 			throw new Error ( 'invalid objId for replace function' );
 		}
@@ -404,14 +353,13 @@ class Collection {
 
 	/**
 	Reverse an Object with the previous or next object in the Collection
-	@param {!number} objId The objId of the object to swap
-	@param {boolean} swapUp When true the object is swapped with the previous one,
+	@param {Number} objId The objId of the object to swap
+	@param {Boolean} swapUp When true the object is swapped with the previous one,
 	when false with the next one
-	@throws when the object is not found or when the swap is not possible
 	*/
 
 	swap ( objId, swapUp ) {
-		let index = this.#indexOfObjId ( objId );
+		const index = this.#indexOfObjId ( objId );
 		if (
 			( NOT_FOUND === index )
 			||
@@ -421,24 +369,23 @@ class Collection {
 		) {
 			throw new Error ( 'invalid objId for swap function' );
 		}
-		let tmp = this.#array [ index ];
-		this.#array [ index ] = this.#array [ index + ( swapUp ? OUR_SWAP_UP : OUR_SWAP_DOWN ) ];
-		this.#array [ index + ( swapUp ? OUR_SWAP_UP : OUR_SWAP_DOWN ) ] = tmp;
+		const swap = swapUp ? PREVIOUS : NEXT;
+		const tmp = this.#array [ index ];
+		this.#array [ index ] = this.#array [ index + swap ];
+		this.#array [ index + swap ] = tmp;
 	}
 
 	/**
 	The first object of the Collection
-	@type {Object}
-	@readonly
+	@type {TravelObject}
 	*/
 
 	get first ( ) { return this.#array [ ZERO ]; }
 
 	/**
-	An iterator on the Collection
+	An iterator on the Collection. See CollectionIterator
 	@type {CollectionIterator}
-	@readonly
-	@see {@link module:Collection~CollectionIterator}
+
 	*/
 
 	get iterator ( ) {
@@ -447,16 +394,14 @@ class Collection {
 
 	/**
 	The last object of the Collection
-	@type {Object}
-	@readonly
+	@type {TravelObject}
 	*/
 
 	get last ( ) { return this.#array [ this.#array.length - ONE ]; }
 
 	/**
 	The length of the Collection
-	@type {number}
-	@readonly
+	@type {Number}
 	*/
 
 	get length ( ) { return this.#array.length; }
@@ -467,21 +412,25 @@ class Collection {
 	*/
 
 	get jsonObject ( ) {
-		let array = [ ];
-		let iterator = this.iterator;
+		const array = [ ];
+		const iterator = this.iterator;
 		while ( ! iterator.done ) {
 			array.push ( iterator.value.jsonObject );
 		}
 
 		return array;
 	}
+
 	set jsonObject ( something ) {
 		this.#array.length = ZERO;
-		let newObject = null;
+
+		if ( ! Array.isArray ( something ) ) {
+			return;
+		}
 
 		something.forEach (
 			arrayObject => {
-				newObject = new this.#classCollection ( );
+				const newObject = new this.#classCollection ( );
 				newObject.jsonObject = arrayObject;
 				this.add ( newObject );
 			}
@@ -491,6 +440,4 @@ class Collection {
 
 export default Collection;
 
-/*
---- End of Collection.js file -------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

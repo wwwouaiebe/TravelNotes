@@ -20,132 +20,333 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteDialogToolbarData.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogNotes
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
 import { ZERO, ONE, ICON_DIMENSIONS } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class NoteDialogToolbarData
-@classdesc This class is a container for the edition buttons and predefined icons
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+Simple container for buttons data of the NoteDialogToolbar
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class EditionButtonData {
+
+	/**
+	The text to be displayed on the button. Can be HTML
+	@type {String}
+	*/
+
+	#title;
+
+	/**
+	The text to be inserted before the cursor when clicking on the button
+	@type {String}
+	*/
+
+	#htmlBefore;
+
+	/**
+	The text to be inserted after the cursor when clicking on the button. Optional
+	@type {String}
+	*/
+
+	#htmlAfter;
+
+	/**
+	The constructor
+	@param {JsonObject} jsonEditionButton A json object with the data for the EditionButton
+	*/
+
+	constructor ( jsonEditionButton ) {
+		Object.freeze ( this );
+		if (
+			'string' !== typeof ( jsonEditionButton?.title )
+			||
+			'string' !== typeof ( jsonEditionButton?.htmlBefore )
+			||
+			( jsonEditionButton.htmlAfter && 'string' !== typeof ( jsonEditionButton.htmlAfter ) )
+		) {
+			throw new Error ( 'Invalid toolbar button' );
+		}
+		let htmlString = ( jsonEditionButton.htmlBefore || '' ) + ( jsonEditionButton.htmlAfter || '' );
+		let errorString = theHTMLSanitizer.sanitizeToHtmlString ( htmlString ).errorsString;
+		if ( '' === errorString ) {
+			this.#title = theHTMLSanitizer.sanitizeToHtmlString ( jsonEditionButton.title ).htmlString;
+			if ( '' === this.title ) {
+				this.title = '?';
+			}
+			this.#htmlBefore = jsonEditionButton.htmlBefore || '';
+			this.#htmlAfter = jsonEditionButton.htmlAfter || '';
+		}
+		else {
+			throw new Error ( 'Invalid toolbar button : ' + htmlString + errorString );
+		}
+	}
+
+	/**
+	The text to be displayed on the button. Can be HTML
+	@type {String}
+	*/
+
+	get title ( ) { return this.#title; }
+
+	/**
+	The text to be inserted before the cursor when clicking on the button
+	@type {String}
+	*/
+
+	get htmlBefore ( ) { return this.#htmlBefore; }
+
+	/**
+	The text to be inserted after the cursor when clicking on the button. Optional
+	@type {String}
+	*/
+
+	get htmlAfter ( ) { return this.#htmlAfter; }
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+Simple container for predefined icons data of the NoteDialogToolbar
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+// eslint-disable-next-line no-unused-vars
+class PredefinedIconData {
+
+	/**
+	The name of the predefined icon. This name will be displayed in the select of the NoteDialogToolbar
+	@type {String}
+	*/
+
+	#name;
+
+	/**
+	The html definition of the predefined icon
+	@type {String}
+	*/
+
+	#icon;
+
+	/**
+	The tooltip of the predefined icon
+	@type {String}
+	*/
+
+	#tooltip;
+
+	/**
+	The width of the predefined icon
+	@type {Number}
+	*/
+
+	#width;
+
+	/**
+	The height of the predefined icon
+	@type {Number}
+	*/
+
+	#height;
+
+	/**
+	The constructor
+	@param {JsonObject} jsonPredefinedIconData A json object with the data for the predefined icon
+	*/
+
+	constructor ( jsonPredefinedIconData ) {
+		this.#name =
+			'string' === typeof ( jsonPredefinedIconData?.name )
+				?
+				theHTMLSanitizer.sanitizeToJsString ( jsonPredefinedIconData.name )
+				:
+				'?';
+		this.#icon =
+			'string' === typeof ( jsonPredefinedIconData.icon )
+				?
+				theHTMLSanitizer.sanitizeToHtmlString ( jsonPredefinedIconData?.icon ).htmlString
+				:
+				'?';
+		this.#tooltip =
+			'string' === typeof ( jsonPredefinedIconData?.tooltip )
+				?
+				theHTMLSanitizer.sanitizeToHtmlString ( jsonPredefinedIconData.tooltip ).htmlString
+				:
+				'?';
+		this.#width =
+			'number' === typeof ( jsonPredefinedIconData?.width ) ? jsonPredefinedIconData.width : ICON_DIMENSIONS.width;
+		this.#height =
+			'number' === typeof ( jsonPredefinedIconData?.height ) ? jsonPredefinedIconData.height : ICON_DIMENSIONS.height;
+	}
+
+	/**
+	The name of the predefined icon. This name will be displayed in the select of the NoteDialog
+	@type {String}
+	*/
+
+	get name ( ) { return this.#name; }
+
+	/**
+	The html definition of the predefined icon
+	@type {String}
+	*/
+
+	get icon ( ) { return this.#icon; }
+
+	/**
+	The tooltip of the predefined icon
+	@type {String}
+	*/
+
+	get tooltip ( ) { return this.#tooltip; }
+
+	/**
+	The width of the predefined icon
+	@type {Number}
+	*/
+
+	get width ( ) { return this.#width; }
+
+	/**
+	The height of the predefined icon
+	@type {Number}
+	*/
+
+	get height ( ) { return this.#height; }
+
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+This class is a container for the edition buttons data and predefined icons data
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class NoteDialogToolbarData {
 
-	#editionButtons = [];
-	#preDefinedIconsMap = new Map ( );
-	#preDefinedIcons = [];
+	/**
+	The additional buttons defined in the TravelNotesDialogXX.json file or a file loaded by the user
+	@type {Array.<EditionButtonData>}
+	*/
 
-	/*
-	constructor
+	#editionButtonsData;
+
+	/**
+	A map with the additional icons defined in the TravelNotesDialogXX.json file or a file loaded by the user, ordered by name
+	@type {Map.<PredefinedIconData>}
+	*/
+
+	#preDefinedIconsDataMap;
+
+	/**
+	The additional icons defined in the TravelNotesDialogXX.json file or a file loaded by the user
+	@type {Array.<PredefinedIconData>}
+	*/
+
+	#preDefinedIconsDataArray;
+
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#editionButtonsData = [];
+		this.#preDefinedIconsDataMap = new Map ( );
+		this.#preDefinedIconsDataArray = [];
 	}
 
 	/**
-	the edition buttons
+	The additional buttons defined in the TravelNotesDialogXX.json file or a file loaded by the user
+	@type {Array.<EditionButtonData>}
 	*/
 
-	get buttons ( ) { return this.#editionButtons; }
+	get editionButtonsData ( ) { return this.#editionButtonsData; }
 
 	/**
-	the predefined icons
+	The additional icons defined in the TravelNotesDialogXX.json file or a file loaded by the user
+	@type {Array.<PredefinedIconData>}
 	*/
 
-	get icons ( ) {
-		return this.#preDefinedIcons;
+	get preDefinedIconsData ( ) {
+		return this.#preDefinedIconsDataArray;
 	}
 
 	/**
 	get and icon from the icon position in the array
+	@param {Number} index The icon index in the array
+	@return {PredefinedIconData} The predefinedIconData at the given index
 	*/
 
-	getIconData ( index ) {
-		return this.#preDefinedIcons [ index ] [ ONE ];
+	preDefinedIconDataAt ( index ) {
+		return this.#preDefinedIconsDataArray [ index ];
 	}
 
 	/**
-	get and icon from the icon name
+	get an icon from the icon name
+	@param {String} iconName The icon name
+	@return {PredefinedIconData} The predefinedIconData with the name equal to the given name
 	*/
 
-	getIconContentFromName ( iconName ) {
-		let preDefinedIcon = this.#preDefinedIconsMap.get ( iconName );
+	preDefinedIconDataFromName ( iconName ) {
+		const preDefinedIcon = this.#preDefinedIconsDataMap.get ( iconName );
 		return preDefinedIcon ? preDefinedIcon.icon : '';
 	}
 
 	/**
 	Load a json file with predefined icons and / or edition buttons
+	@param {JsonObject} jsonData The file content after JSON.parse ( )
 	*/
 
 	loadJson ( jsonData ) {
 		if ( jsonData.editionButtons ) {
-			this.#editionButtons = this.#editionButtons.concat ( jsonData.editionButtons );
+			jsonData.editionButtons.forEach (
+				jsonEditionButtonData => {
+					try {
+						let editionButtonData = new EditionButtonData ( jsonEditionButtonData );
+						this.#editionButtonsData.push ( editionButtonData );
+					}
+					catch ( err ) {
+						console.error ( err.message );
+					}
+				}
+			);
 		}
-		jsonData.preDefinedIconsList.forEach (
-			predefinedIcon => {
-				predefinedIcon.name = theHTMLSanitizer.sanitizeToJsString ( predefinedIcon.name ) || '?';
-				predefinedIcon.icon = theHTMLSanitizer.sanitizeToHtmlString ( predefinedIcon.icon ).htmlString || '?';
-				predefinedIcon.tooltip = theHTMLSanitizer.sanitizeToJsString ( predefinedIcon.tooltip ) || '?';
-				predefinedIcon.width = predefinedIcon.width || ICON_DIMENSIONS.width;
-				predefinedIcon.height = predefinedIcon.height || ICON_DIMENSIONS.height;
-				this.#preDefinedIconsMap.set ( predefinedIcon.name, predefinedIcon );
+		if ( jsonData.preDefinedIconsList ) {
+			jsonData.preDefinedIconsList.forEach (
+				jsonPredefinedIconData => {
+					const predefinedIconData = new PredefinedIconData ( jsonPredefinedIconData );
+					this.#preDefinedIconsDataMap.set ( predefinedIconData.name, predefinedIconData );
+				}
+			);
+
+			this.#preDefinedIconsDataArray.length = ZERO;
+			for ( const element of this.#preDefinedIconsDataMap ) {
+				this.#preDefinedIconsDataArray.push ( element [ ONE ] );
 			}
-		);
-		this.#preDefinedIcons = Array.from ( this.#preDefinedIconsMap ).sort (
-			( first, second ) => first [ ZERO ].localeCompare ( second [ ZERO ] )
-		);
+			this.#preDefinedIconsDataArray = this.#preDefinedIconsDataArray.sort (
+				( first, second ) => first.name.localeCompare ( second.name )
+			);
+		}
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of NoteDialogToolbarData class
+The one and only one instance of NoteDialogToolbarData class
 @type {NoteDialogToolbarData}
-@constant
-@global
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theNoteDialogToolbarData = new NoteDialogToolbarData ( );
 
 export default theNoteDialogToolbarData;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of NoteDialogToolbarData.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

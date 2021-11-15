@@ -20,177 +20,148 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file RoadbookUpdater.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class performs the updates of the roadbook after changes in the Travel
 */
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module roadbook
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class RoadbookUpdater
-@classdesc coming soon...
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class RoadbookUpdater {
 
-	#travelNotesHtmlElement = document.getElementById ( 'TravelNotes' );
+	/**
+	The HTMLElement in witch the roadbook content is placed
+	@type {HTMLElement}
+	*/
 
-	/*
-	constructor
+	#travelNotesHtmlElement;
+
+	/**
+	The visibility status of the travel notes
+	@type {Boolean}
+	*/
+
+	#showTravelNotes;
+
+	/**
+	The visibility status of the route notes
+	@type {Boolean}
+	*/
+
+	#showRouteNotes;
+
+	/**
+	The visibility status of the maneuver notes
+	@type {Boolean}
+	*/
+
+	#showManeuversNotes;
+
+	/**
+	Show or hide the notes
+	@param {String} selector The css selector for the notes to show/hide
+	@param {Boolean} show A flag indicating when the note have to be showed
+	*/
+
+	#toggleNotes ( selector, show ) {
+		document.querySelectorAll ( selector ).forEach (
+			note => {
+				if ( show ) {
+					note.classList.remove ( 'TravelNotes-Hidden' );
+				}
+				else {
+					note.classList.add ( 'TravelNotes-Hidden' );
+				}
+			}
+		);
+	}
+
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
-		this.showTravelNotes = true;
-		this.showRouteNotes = true;
-		this.showManeuversNotes = false;
-
-		Object.seal ( this );
+		Object.freeze ( this );
+		this.#travelNotesHtmlElement = document.getElementById ( 'TravelNotes' );
+		this.#showTravelNotes = true;
+		this.#showRouteNotes = true;
+		this.#showManeuversNotes = false;
 	}
 
 	/**
-	Toogle the visibility of the travel notes
+	The visibility status of the travel notes
+	@type {Boolean}
 	*/
 
-	toggleTravelNotes ( ) {
-		document.querySelectorAll ( '.TravelNotes-Roadbook-Travel-Notes-Row' ).forEach (
-			note => {
-				if ( this.showTravelNotes ) {
-					note.classList.remove ( 'TravelNotes-Hidden' );
-				}
-				else {
-					note.classList.add ( 'TravelNotes-Hidden' );
-				}
-			}
-		);
+	get showTravelNotes ( ) { return this.#showTravelNotes; }
+	set showTravelNotes ( show ) {
+		this.#showTravelNotes = show;
+		this.#toggleNotes ( '.TravelNotes-Roadbook-Travel-Notes-Row', show );
 	}
 
 	/**
-	Toogle the visibility of the route notes
+	The visibility status of the route notes
+	@type {Boolean}
 	*/
 
-	toggleRouteNotes ( ) {
-		document.querySelectorAll ( '.TravelNotes-Roadbook-Route-Notes-Row' ).forEach (
-			note => {
-				if ( this.showRouteNotes ) {
-					note.classList.remove ( 'TravelNotes-Hidden' );
-				}
-				else {
-					note.classList.add ( 'TravelNotes-Hidden' );
-				}
-			}
-		);
+	get showRouteNotes ( ) { return this.#showRouteNotes; }
+	set showRouteNotes ( show ) {
+		this.#showRouteNotes = show;
+		this.#toggleNotes ( '.TravelNotes-Roadbook-Route-Notes-Row', show );
 	}
 
 	/**
-	Toogle the visibility of the maneuver notes
+	The visibility status of the maneuver notes
+	@type {Boolean}
 	*/
 
-	toggleManeuversNotes ( ) {
-		document.querySelectorAll ( '.TravelNotes-Roadbook-Route-Maneuvers-Row' ).forEach (
-			note => {
-				if ( this.showManeuversNotes ) {
-					note.classList.remove ( 'TravelNotes-Hidden' );
-				}
-				else {
-					note.classList.add ( 'TravelNotes-Hidden' );
-				}
-			}
-		);
+	get showManeuversNotes ( ) { return this.#showManeuversNotes; }
+	set showManeuversNotes ( show ) {
+		this.#showManeuversNotes = show;
+		this.#toggleNotes ( '.TravelNotes-Roadbook-Route-Maneuvers-Row', show );
 	}
 
 	/**
-	Toogle the visibility of the all notes
+	Update the notes visibility
 	*/
 
-	toggleNotes ( ) {
-		this.toggleTravelNotes ( );
-		this.toggleRouteNotes ( );
-		this.toggleManeuversNotes ( );
-	}
-
-	/**
-	Updating icons width and height
-	*/
-
-	updateIcons ( ) {
-		document.querySelectorAll (
-			'.TravelNotes-Roadbook-Route-ManeuversAndNotes-IconCell, .TravelNotes-Roadbook-Travel-Notes-IconCell'
-		).forEach (
-			icon => {
-				let width = icon.getAttribute ( 'tanwidth' );
-				if ( width ) {
-					icon.style.width = width;
-				}
-				let height = icon.getAttribute ( 'tanheight' );
-				if ( height ) {
-					icon.style.height = height;
-				}
-			}
-		);
+	updateNotes ( ) {
+		this.showTravelNotes = this.#showTravelNotes;
+		this.showRouteNotes = this.#showRouteNotes;
+		this.showManeuversNotes = this.#showManeuversNotes;
 	}
 
 	/**
 	Updating roadbook
+	@param {String} pageContent An html string with the travel, routes and notes
 	*/
 
 	updateRoadbook ( pageContent ) {
-		this.#travelNotesHtmlElement.textContent = '';
-		theHTMLSanitizer.sanitizeToHtmlElement ( pageContent, this.#travelNotesHtmlElement );
-		let headerName = document.querySelector ( '.TravelNotes-Roadbook-Travel-Header-Name' );
+		this.#travelNotesHtmlElement.innerHTML = pageContent;
+		const headerName = document.querySelector ( '.TravelNotes-Roadbook-Travel-Header-Name' );
 		if ( headerName ) {
 			document.title =
 				'' === headerName.textContent ? 'roadbook' : headerName.textContent + ' - roadbook';
 		}
-		this.updateIcons ( );
-		this.toggleNotes ( );
+		this.updateNotes ( );
 	}
 
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of RoadbookUpdater class
+The one and only one instance of RoadbookUpdater class
 @type {RoadbookUpdater}
-@constant
-@global
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theRoadbookUpdater = new RoadbookUpdater ( );
 
 export default theRoadbookUpdater;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of RoadbookUpdater.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

@@ -24,43 +24,33 @@ Doc reviewed 20210901
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteDialogEventListeners.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogNotes
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import theTranslator from '../UILib/Translator.js';
 import GeoCoder from '../coreLib/GeoCoder.js';
+import theUtilities from '../UILib/Utilities.js';
+import theNoteDialogToolbarData from '../dialogNotes/NoteDialogToolbarData.js';
+import MapIconFromOsmFactory from '../coreMapIcon/MapIconFromOsmFactory.js';
+import { ZERO } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class NoteDialogGeoCoderHelper
-@classdesc Helper class for the address button
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+Helper class for the address button
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class NoteDialogGeoCoderHelper {
 
-	#noteDialog = null;
+	/**
+	A reference to the NoteDialog object
+	@type {NoteDialog}
+	*/
+
+	#noteDialog;
+
+	/**
+	Success handler for the geoCoder.getAddressWithPromise ( ) method
+	@param {GeoCoderAddress} address The address found by the geocoder
+	*/
 
 	#onAddressUpdatedByGeoCoder ( address ) {
 		this.#noteDialog.hideWait ( );
@@ -73,8 +63,9 @@ class NoteDialogGeoCoderHelper {
 		this.#noteDialog.updatePreview ( { address : addressString } );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the Notedialog object
 	*/
 
 	constructor ( noteDialog ) {
@@ -82,9 +73,10 @@ class NoteDialogGeoCoderHelper {
 		this.#noteDialog = noteDialog;
 	}
 
-	destructor ( ) {
-		this.#noteDialog = null;
-	}
+	/**
+	Set the address in the dialog, using GeoCoder
+	@param {Array.<Number>} latLng The lat and lng of the address to find
+	*/
 
 	setAddressWithGeoCoder ( latLng ) {
 		this.#noteDialog.showWait ( );
@@ -105,76 +97,84 @@ class NoteDialogGeoCoderHelper {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class AddressButtonClickEL
-@classdesc Click event listener for the AddressButtonClickEL class
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+Click event listener for the AddressButtonClickEL class
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class AddressButtonClickEL {
 
-	#noteDialog = null;
-	#latLng = null;
-	#geoCoderHelper = null;
+	/**
+	A reference to the NoteDialog object
+	@type {NoteDialog}
+	*/
 
-	/*
-	constructor
+	#noteDialog;
+
+	/**
+	The lat and lng for witch the address must be found
+	@type {Array.<Number>}
+	*/
+
+	#latLng;
+
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the Notedialog object
+	@param {Array.<Number>} latLng The lat and lng for witch the address must be found
 	*/
 
 	constructor ( noteDialog, latLng ) {
 		Object.freeze ( this );
 		this.#noteDialog = noteDialog;
 		this.#latLng = latLng;
-		this.#geoCoderHelper = new NoteDialogGeoCoderHelper ( this.#noteDialog );
 	}
 
-	destructor ( ) {
-		this.#noteDialog = null;
-		this.#geoCoderHelper.destructor ( );
-	}
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		this.#geoCoderHelper.setAddressWithGeoCoder ( this.#latLng );
+		new NoteDialogGeoCoderHelper ( this.#noteDialog ).setAddressWithGeoCoder ( this.#latLng );
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class AllControlsFocusEL
-@classdesc Focus event listener for all controls
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+Focus event listener for all controls
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class AllControlsFocusEL {
 
-	#noteDialog = null;
-	#disableFocusControl = false;
-
-	/*
-	constructor
+	/**
+	A reference to the NoteDialog object
+	@type {NoteDialog}
 	*/
 
-	constructor ( noteDialog, disableFocusControl ) {
+	#noteDialog;
+
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the Notedialog object
+	*/
+
+	constructor ( noteDialog ) {
 		Object.freeze ( this );
 		this.#noteDialog = noteDialog;
-		this.#disableFocusControl = disableFocusControl;
 	}
 
-	destructor ( ) {
-		this.#noteDialog = null;
-	}
+	/**
+	Event listener method
+	@param {Event} focusEvent The event to handle
+	*/
 
 	handleEvent ( focusEvent ) {
 		focusEvent.stopPropagation ( );
-		if ( this.#disableFocusControl ) {
+		if ( 'url' === focusEvent.target.dataset.tanName ) {
 			this.#noteDialog.focusControl = null;
 		}
 		else {
@@ -183,22 +183,24 @@ class AllControlsFocusEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class UrlInputBlurEL
-@classdesc blur event listener for url input
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+blur event listener for url input
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class UrlInputBlurEL {
 
-	#noteDialog = null;
+	/**
+	A reference to the NoteDialog object
+	@type {NoteDialog}
+	*/
 
-	/*
-	constructor
+	#noteDialog;
+
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the Notedialog object
 	*/
 
 	constructor ( noteDialog ) {
@@ -206,9 +208,10 @@ class UrlInputBlurEL {
 		this.#noteDialog = noteDialog;
 	}
 
-	destructor ( ) {
-		this.#noteDialog = null;
-	}
+	/**
+	Event listener method
+	@param {Event} blurEvent The event to handle
+	*/
 
 	handleEvent ( blurEvent ) {
 		blurEvent.stopPropagation ( );
@@ -217,7 +220,7 @@ class UrlInputBlurEL {
 			return;
 		}
 
-		let verifyResult = theHTMLSanitizer.sanitizeToUrl ( blurEvent.target.value );
+		const verifyResult = theHTMLSanitizer.sanitizeToUrl ( blurEvent.target.value );
 		if ( '' === verifyResult.errorsString ) {
 			this.#noteDialog.hideError ( );
 		}
@@ -227,22 +230,24 @@ class UrlInputBlurEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class AllControlsInputEL
-@classdesc input event listener for all control
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+input event listener for all control
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class AllControlsInputEL {
 
-	#noteDialog = null;
+	/**
+	A reference to the NoteDialog object
+	@type {NoteDialog}
+	*/
 
-	/*
-	constructor
+	#noteDialog;
+
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the Notedialog object
 	*/
 
 	constructor ( noteDialog ) {
@@ -250,30 +255,456 @@ class AllControlsInputEL {
 		this.#noteDialog = noteDialog;
 	}
 
-	destructor ( ) {
-		this.#noteDialog = null;
-	}
+	/**
+	Event listener method
+	@param {Event} inputUpdatedEvent The event to handle
+	*/
 
 	handleEvent ( inputUpdatedEvent ) {
 		inputUpdatedEvent.stopPropagation ( );
-		let noteData = {};
+		const noteData = {};
 		noteData [ inputUpdatedEvent.target.dataset.tanName ] = inputUpdatedEvent.target.value;
 		this.#noteDialog.updatePreview ( noteData );
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+click event listener for the edition buttons
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class EditionButtonsClickEL {
+
+	/**
+	A reference to the NoteDialog object
+	@type {NoteDialog}
+	*/
+
+	#noteDialog;
+
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the Notedialog object
+	*/
+
+	constructor ( noteDialog ) {
+		Object.freeze ( this );
+		this.#noteDialog = noteDialog;
+	}
+
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
+
+	handleEvent ( clickEvent ) {
+		if ( ! this.#noteDialog.focusControl ) {
+			return;
+		}
+		const button = clickEvent.currentTarget;
+		let selectionStart = this.#noteDialog.focusControl.selectionStart;
+		let selectionEnd = this.#noteDialog.focusControl.selectionEnd;
+
+		this.#noteDialog.focusControl.value =
+			this.#noteDialog.focusControl.value.slice ( ZERO, selectionStart ) +
+			button.dataset.tanHtmlBefore +
+			(
+				ZERO === button.dataset.tanHtmlAfter.length
+					?
+					''
+					:
+					this.#noteDialog.focusControl.value.slice ( selectionStart, selectionEnd )
+			) +
+			button.dataset.tanHtmlAfter +
+			this.#noteDialog.focusControl.value.slice ( selectionEnd );
+
+		if ( selectionStart === selectionEnd || ZERO === button.dataset.tanHtmlAfter.length ) {
+			selectionStart += button.dataset.tanHtmlBefore.length;
+			selectionEnd = selectionStart;
+		}
+		else {
+			selectionEnd += button.dataset.tanHtmlBefore.length + button.dataset.tanHtmlAfter.length;
+		}
+		this.#noteDialog.focusControl.setSelectionRange ( selectionStart, selectionEnd );
+		this.#noteDialog.focusControl.focus ( );
+		const noteData = {};
+		noteData [ this.#noteDialog.focusControl.dataset.tanName ] = this.#noteDialog.focusControl.value;
+		this.#noteDialog.updatePreview ( noteData );
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+change event listener for the icon selector
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class IconSelectorChangeEL {
+
+	/**
+	A reference to the NoteDialog object
+	@type {NoteDialog}
+	*/
+
+	#noteDialog;
+
+	/**
+	Helper method for the onIconSelectChange mehod
+	@param {Object} noteData An object with the note properties to update
+	*/
+
+	#updatePreviewAndControls ( noteData )	{
+		this.#noteDialog.setControlsValues ( noteData );
+		this.#noteDialog.updatePreview ( noteData );
+	}
+
+	/**
+	Svg Map icon creation
+	*/
+
+	#onMapIcon ( ) {
+		const mapIconData = this.#noteDialog.mapIconData;
+		if ( ! mapIconData.route ) {
+			this.#noteDialog.showError (
+				theTranslator.getText ( 'Notedialog - not possible to create a SVG icon for a travel note' )
+			);
+			return;
+		}
+
+		this.#noteDialog.showWait ( );
+		new MapIconFromOsmFactory ( ).getIconAndAdressWithPromise ( mapIconData )
+			.then (
+				noteData => {
+					this.#noteDialog.hideWait ( );
+					this.#updatePreviewAndControls ( noteData );
+				}
+			)
+			.catch (
+				err => {
+					if ( err instanceof Error ) {
+						console.error ( err );
+					}
+					this.#noteDialog.hideWait ( );
+					this.#noteDialog.showError (
+						theTranslator.getText ( 'Notedialog - an error occurs when creating the SVG icon' )
+					);
+				}
+			);
+	}
+
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the Notedialog object
+	*/
+
+	constructor ( noteDialog ) {
+		Object.freeze ( this );
+		this.#noteDialog = noteDialog;
+	}
+
+	/**
+	Event listener method
+	@param {Event} changeEvent The event to handle
+	*/
+
+	handleEvent ( changeEvent ) {
+		changeEvent.stopPropagation ( );
+		const preDefinedIcon = theNoteDialogToolbarData.preDefinedIconDataAt ( changeEvent.target.selectedIndex );
+
+		if ( 'SvgIcon' === preDefinedIcon.icon ) {
+			this.#onMapIcon ( );
+			return;
+		}
+
+		this.#updatePreviewAndControls (
+			{
+				iconContent : preDefinedIcon.icon,
+				iconHeight : preDefinedIcon.height,
+				iconWidth : preDefinedIcon.width,
+				tooltipContent : preDefinedIcon.tooltip
+			}
+		);
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+click event listener for the toogle button
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class ToggleContentsButtonClickEL {
+
+	/**
+	A reference to the NoteDialog object
+	@type {NoteDialog}
+	*/
+
+	#noteDialog;
+
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the Notedialog object
+	*/
+
+	constructor ( noteDialog ) {
+		Object.freeze ( this );
+		this.#noteDialog = noteDialog;
+	}
+
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
+
+	handleEvent ( clickEvent ) {
+		clickEvent.target.textContent = '▼' === clickEvent.target.textContent ? '▶' : '▼';
+		this.#noteDialog.toogleContents ( );
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+change event listener for the temp open file input
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class OpenFileInputChangeEL {
+
+	/**
+	A reference to the NoteDialog object
+	@type {NoteDialog}
+	*/
+
+	#noteDialog;
+
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the Notedialog object
+	*/
+
+	constructor ( noteDialog ) {
+		Object.freeze ( this );
+		this.#noteDialog = noteDialog;
+	}
+
+	/**
+	Event listener method
+	@param {Event} changeEvent The event to handle
+	*/
+
+	handleEvent ( changeEvent ) {
+		changeEvent.stopPropagation ( );
+		const fileReader = new FileReader ( );
+		fileReader.onload = ( ) => {
+			try {
+				theNoteDialogToolbarData.loadJson ( JSON.parse ( fileReader.result ) );
+				this.#noteDialog.updateToolbar ( );
+			}
+			catch ( err ) {
+				if ( err instanceof Error ) {
+					console.error ( err );
+				}
+			}
+		};
+		fileReader.readAsText ( changeEvent.target.files [ ZERO ] );
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+click event listener for the open file button
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class OpenFileButtonClickEL {
+
+	/**
+	A reference to the NoteDialog object
+	@type {NoteDialog}
+	*/
+
+	#noteDialog;
+
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the Notedialog object
+	*/
+
+	constructor ( noteDialog ) {
+		Object.freeze ( this );
+		this.#noteDialog = noteDialog;
+	}
+
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
+
+	handleEvent ( clickEvent ) {
+		clickEvent.stopPropagation ( );
+		theUtilities.openFile ( new OpenFileInputChangeEL ( this.#noteDialog ), '.json' );
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+A simple container for the NoteDialog event listeners
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class NoteDialogEventListeners {
+
+	/**
+	The focus control event listener
+	@type {AllControlsFocusEL}
+	*/
+
+	#controlFocus;
+
+	/**
+	The input event listener
+	@type {AllControlsInputEL}
+	*/
+
+	#controlInput;
+
+	/**
+	The address buton click event listener
+	@type {AddressButtonClickEL}
+	*/
+
+	#addressButtonClick;
+
+	/**
+	The blur url input event listener
+	@type {UrlInputBlurEL}
+	*/
+
+	#urlInputBlur;
+
+	/**
+	The edition button click event listener
+	@type {EditionButtonsClickEL}
+	*/
+
+	#editionButtonsClick;
+
+	/**
+	The  icon selector change event listener
+	@type {IconSelectorChangeEL}
+	*/
+
+	#iconSelectorChange;
+
+	/**
+	The toggle content button click event listener
+	@type {ToggleContentsButtonClickEL}
+	*/
+
+	#toggleContentsButtonClick;
+
+	/**
+	The open file button click event listener
+	@type {OpenFileButtonClickEL}
+	*/
+
+	#openFileButtonClick;
+
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the NoteDialog object
+	@param {Array.<Number>} noteLatLng The lat and lng of the note
+	*/
+
+	constructor ( noteDialog, noteLatLng ) {
+		Object.freeze ( this );
+		this.#controlFocus = new AllControlsFocusEL ( noteDialog );
+		this.#controlInput = new AllControlsInputEL ( noteDialog );
+		this.#addressButtonClick = new AddressButtonClickEL ( noteDialog, noteLatLng );
+		this.#urlInputBlur = new UrlInputBlurEL ( noteDialog );
+		this.#editionButtonsClick = new EditionButtonsClickEL ( noteDialog );
+		this.#iconSelectorChange = new IconSelectorChangeEL ( noteDialog );
+		this.#toggleContentsButtonClick = new ToggleContentsButtonClickEL ( noteDialog );
+		this.#openFileButtonClick = new OpenFileButtonClickEL ( noteDialog );
+	}
+
+	/**
+	Set all events listeners to nul and then release all references to the dialog
+	*/
+
+	destructor ( ) {
+		this.#controlFocus = null;
+		this.#controlInput = null;
+		this.#addressButtonClick = null;
+		this.#urlInputBlur = null;
+		this.#editionButtonsClick = null;
+		this.#iconSelectorChange = null;
+		this.#toggleContentsButtonClick = null;
+		this.#openFileButtonClick = null;
+	}
+
+	/**
+	The focus control event listener
+	@type {AllControlsFocusEL}
+	*/
+
+	get controlFocus ( ) { return this.#controlFocus; }
+
+	/**
+	The input event listener
+	@type {AllControlsInputEL}
+	*/
+
+	get controlInput ( ) { return this.#controlInput; }
+
+	/**
+	The address buton click event listener
+	@type {AddressButtonClickEL}
+	*/
+
+	get addressButtonClick ( ) { return this.#addressButtonClick; }
+
+	/**
+	The blur url input event listener
+	@type {UrlInputBlurEL}
+	*/
+
+	get urlInputBlur ( ) { return this.#urlInputBlur; }
+
+	/**
+	The edition button click event listener
+	@type {EditionButtonsClickEL}
+	*/
+
+	get editionButtonsClick ( ) { return this.#editionButtonsClick; }
+
+	/**
+	The  icon selector change event listener
+	@type {IconSelectorChangeEL}
+	*/
+
+	get iconSelectorChange ( ) { return this.#iconSelectorChange; }
+
+	/**
+	The toggle content button click event listener
+	@type {ToggleContentsButtonClickEL}
+	*/
+
+	get toggleContentsButtonClick ( ) { return this.#toggleContentsButtonClick; }
+
+	/**
+	The open file button click event listener
+	@type {OpenFileButtonClickEL}
+	*/
+
+	get openFileButtonClick ( ) { return this.#openFileButtonClick; }
+}
+
 export {
-	AddressButtonClickEL,
 	NoteDialogGeoCoderHelper,
-	AllControlsFocusEL,
-	UrlInputBlurEL,
-	AllControlsInputEL
+	NoteDialogEventListeners
 };
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of NoteDialogEventListeners.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

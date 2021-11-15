@@ -30,27 +30,10 @@ Changes:
 		- Issue ♯137 : Remove html tags from json files
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file APIKeysDialog.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogAPIKeys
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import BaseDialog from '../dialogBase/BaseDialog.js';
@@ -59,97 +42,109 @@ import { APIKeyDeletedEL } from '../dialogAPIKeys/APIKeysDialogEventListeners.js
 import theTranslator from '../UILib/Translator.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import APIKeysDialogKeyControl from '../dialogAPIKeys/APIKeysDialogKeyControl.js';
+import theErrorsUI from '../errorsUI/ErrorsUI.js';
 
 import { ZERO } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class APIKeysDialog
-@classdesc This class is the APIKeys dialog
-@extends BaseDialog
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class is the APIKeys dialog
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class APIKeysDialog extends BaseDialog {
 
 	/**
 	A map to store the APIKeyControl object
-	@private
+	@type {Map}
 	*/
 
-	#APIKeysControls = new Map ( );
+	#apiKeysControls;
 
 	/**
 	The dialog toolbar
-	@private
+	@type {APIKeysDialogToolbar}
 	*/
 
-	#toolbar = null;
+	#toolbar;
 
 	/**
 	A div that contains the APIKeyControls
-	@private
+	@type {HTMLElement}
 	*/
 
-	#APIKeysControlsContainer = null
-
-	#onAPIKeyDeletedEventListener = null;
+	#apiKeysControlsContainer;
 
 	/**
-	Create the #APIKeysControlsContainer
-	@private
+	Api key deleted event listener
+	@type {APIKeyDeletedEL}
+	*/
+
+	#onAPIKeyDeletedEventListener;
+
+	/**
+	Create the #apiKeysControlsContainer
 	*/
 
 	#createAPIKeysControlsContainer ( ) {
-		this.#APIKeysControlsContainer = theHTMLElementsFactory.create ( 'div' );
-		this.#onAPIKeyDeletedEventListener = new APIKeyDeletedEL ( this, this.#APIKeysControls );
-		this.#APIKeysControlsContainer.addEventListener (
+		this.#apiKeysControlsContainer = theHTMLElementsFactory.create ( 'div' );
+		this.#onAPIKeyDeletedEventListener = new APIKeyDeletedEL ( this, this.#apiKeysControls );
+		this.#apiKeysControlsContainer.addEventListener (
 			'apikeydeleted',
 			this.#onAPIKeyDeletedEventListener,
 			false
 		);
 	}
 
-	constructor ( APIKeys, haveAPIKeysFile ) {
+	/**
+	The constructor
+	@param {Array.<APIKey>} apiKeys An array with the existing APIKeys
+	@param {Boolean} haveAPIKeysFile A boolean indicating when a APIKey file was found on the server
+	*/
+
+	constructor ( apiKeys, haveAPIKeysFile ) {
 
 		super ( );
 
-		this.#toolbar = new APIKeysDialogToolbar ( this, this.#APIKeysControls, haveAPIKeysFile );
+		this.#apiKeysControls = new Map ( );
+		this.#toolbar = new APIKeysDialogToolbar ( this, this.#apiKeysControls, haveAPIKeysFile );
 		this.#createAPIKeysControlsContainer ( );
-		this.addAPIKeys ( APIKeys );
+		this.addAPIKeys ( apiKeys );
 	}
+
+	/**
+	Remove all events listeners on the toolbar and controls, so all references to the dialog are released.
+	*/
 
 	#destructor ( ) {
 		this.#toolbar.destructor ( );
-		this.#APIKeysControlsContainer.removeEventListener (
+		this.#toolbar = null;
+		this.#apiKeysControlsContainer.removeEventListener (
 			'apikeydeleted',
 			this.#onAPIKeyDeletedEventListener,
 			false
 		);
-		this.#onAPIKeyDeletedEventListener.destructor ( );
+		this.#onAPIKeyDeletedEventListener = null;
 	}
 
 	/**
 	Validate the APIKeys. Each APIKey must have a not empty name and a not empty key.
 	Duplicate APIKey names are not allowed
-	@return {boolean} true when all the keys are valid and not duplicated
+	@return {Boolean} true when all the keys are valid and not duplicated
 	*/
 
 	validateAPIKeys ( ) {
 		this.hideError ( );
 		let haveEmptyValues = false;
-		let providersNames = [];
-		this.#APIKeysControls.forEach (
-			APIKeyControl => {
+		const providersNames = [];
+		this.#apiKeysControls.forEach (
+			apiKeyControl => {
 				haveEmptyValues =
 					haveEmptyValues ||
-					'' === APIKeyControl.providerName
+					'' === apiKeyControl.providerName
 					||
-					'' === APIKeyControl.providerKey;
-				providersNames.push ( APIKeyControl.providerName );
+					'' === apiKeyControl.providerKey;
+				providersNames.push ( apiKeyControl.providerName );
 			}
 		);
 		let haveDuplicate = false;
@@ -177,35 +172,48 @@ class APIKeysDialog extends BaseDialog {
 
 	/**
 	Add an array of APIKeys to the dialog.
-	@param {Array.<APIKey>} APIKeys An array with the APIKeys to add
+	@param {Array.<APIKey>} apiKeys An array with the APIKeys to add
 	*/
 
-	addAPIKeys ( APIKeys ) {
-		this.#APIKeysControls.clear ( );
-		APIKeys.forEach (
-			APIKey => {
-				let APIKeyControl = new APIKeysDialogKeyControl ( APIKey );
-				this.#APIKeysControls.set ( APIKeyControl.objId, APIKeyControl );
+	addAPIKeys ( apiKeys ) {
+		this.#apiKeysControls.clear ( );
+		apiKeys.forEach (
+			apiKey => {
+				const apiKeyControl = new APIKeysDialogKeyControl ( apiKey );
+				this.#apiKeysControls.set ( apiKeyControl.objId, apiKeyControl );
 			}
 		);
 		this.refreshAPIKeys ( );
 	}
 
 	/**
-	Remove all elements from the #APIKeysControlsContainer and add the existing APIKeys
+	Remove all elements from the #apiKeysControlsContainer and add the existing APIKeys
 	*/
 
 	refreshAPIKeys ( ) {
-		while ( this.#APIKeysControlsContainer.firstChild ) {
-			this.#APIKeysControlsContainer.removeChild ( this.#APIKeysControlsContainer.firstChild );
+		while ( this.#apiKeysControlsContainer.firstChild ) {
+			this.#apiKeysControlsContainer.removeChild ( this.#apiKeysControlsContainer.firstChild );
 		}
-		this.#APIKeysControls.forEach (
-			APIKeyControl => { this.#APIKeysControlsContainer.appendChild ( APIKeyControl.HTMLElements [ ZERO ] ); }
+		this.#apiKeysControls.forEach (
+			apiKeyControl => { this.#apiKeysControlsContainer.appendChild ( apiKeyControl.HTMLElements [ ZERO ] ); }
+		);
+	}
+
+	/**
+	Overload of the BaseDialog.onShow ( ) method.
+	*/
+
+	onShow ( ) {
+		theErrorsUI.showHelp (
+			'<p>' + theTranslator.getText ( 'Help - Complete the APIKeys1' ) + '</p>' +
+			'<p>' + theTranslator.getText ( 'Help - Complete the APIKeys2' ) + '</p>' +
+			'<p>' + theTranslator.getText ( 'Help - Complete the APIKeys3' ) + '</p>'
 		);
 	}
 
 	/**
 	Overload of the BaseDialog.canClose ( ) method.
+	@return {Boolean} true when all the APIKeys have a name and a value and there are no duplicate keys name
 	*/
 
 	canClose ( ) {
@@ -226,34 +234,32 @@ class APIKeysDialog extends BaseDialog {
 	*/
 
 	onOk ( ) {
-		let APIKeys = [];
-		this.#APIKeysControls.forEach (
-			APIKeyControl => APIKeys.push ( APIKeyControl.APIKey )
+		const apiKeys = [];
+		this.#apiKeysControls.forEach (
+			apiKeyControl => apiKeys.push ( apiKeyControl.apiKey )
 		);
-		if ( super.onOk ( APIKeys ) ) {
+		if ( super.onOk ( apiKeys ) ) {
 			this.#destructor ( );
 		}
 	}
 
 	/**
-	Return the dialog title. Overload of the BaseDialog.title property
-	@readonly
+	The dialog title. Overload of the BaseDialog.title property
+	@type {String}
 	*/
 
 	get title ( ) { return theTranslator.getText ( 'APIKeysDialog - API keys' ); }
 
 	/**
-	Get an array with the HTMLElements that have to be added in the content of the dialog.
-	@readonly
+	An array with the HTMLElements that have to be added in the content of the dialog.
+	@type {Array.<HTMLElement>}
 	*/
 
 	get contentHTMLElements ( ) {
-		return [ this.#toolbar.rootHTMLElement, this.#APIKeysControlsContainer ];
+		return [ this.#toolbar.rootHTMLElement, this.#apiKeysControlsContainer ];
 	}
 }
 
 export default APIKeysDialog;
 
-/*
---- End of APIKeysDialog.js file --------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

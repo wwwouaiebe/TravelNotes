@@ -44,27 +44,10 @@ Changes:
 		- Issue ♯64 : Improve geocoding
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteDialog.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogNotes
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import BaseDialog from '../dialogBase/BaseDialog.js';
@@ -77,7 +60,7 @@ import NoteDialogAddressControl from '../dialogNotes/NoteDialogAddressControl.js
 import NoteDialogLinkControl from '../dialogNotes/NoteDialogLinkControl.js';
 import NoteDialogPhoneControl from '../dialogNotes/NoteDialogPhoneControl.js';
 import NoteDialogPreviewControl from '../dialogNotes/NoteDialogPreviewControl.js';
-import { NoteDialogGeoCoderHelper } from '../dialogNotes/NoteDialogEventListeners.js';
+import { NoteDialogEventListeners, NoteDialogGeoCoderHelper } from '../dialogNotes/NoteDialogEventListeners.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import theTranslator from '../UILib/Translator.js';
 import Note from '../data/Note.js';
@@ -86,129 +69,238 @@ import theConfig from '../data/Config.js';
 import { ZERO, ONE } from '../main/Constants.js';
 
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class NoteDialog
-@classdesc This class create and manage the NoteDialog
-@extends BaseDialog
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+A simple container to store the lat, lng and route needed to build a map icon
 */
+
+class MapIconData {
+
+	/**
+	The lat and lng
+	@type {Array.<Number>}
+	*/
+
+	#latLng;
+
+	/**
+	The route
+	@type {Route}
+	*/
+
+	#route;
+
+	/**
+	The constructor
+	@param {Array.<Number>} latLng The lat and lng
+	@param {Route} route The route
+	*/
+
+	constructor ( latLng, route ) {
+		Object.freeze ( this );
+		this.#latLng = latLng;
+		this.#route = route;
+	}
+
+	/**
+	The lat and lng
+	@type {Array.<Number>}
+	*/
+
+	get latLng ( ) { return this.#latLng; }
+
+	/**
+	The route
+	@type {Route}
+	*/
+
+	get route ( ) { return this.#route; }
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+This class create and manage the NoteDialog
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class NoteDialog extends BaseDialog {
 
 	/**
-	the currently edited note
-	@private
+	A reference to the currently edited note
+	@type {Note}
 	*/
 
-	#note = null;
+	#note;
 
 	/**
 	A boolean indicating to start the geocoder when opening the dialog box.
-	@private
+	@type {Boolean}
 	*/
 
-	#startGeoCoder = false;
+	#startGeoCoder;
 
 	/**
-	The route ObjId on witch the note is attached
-	@private
+	A reference to the route on witch the note is attached
+	@type {Route}
 	*/
 
-	#routeObjId = null;
+	#route;
 
 	/**
 	A clone of the #note used to store the modifications and display the preview
-	@private
+	@type {Note}
 	*/
 
-	#previewNote = null;
+	#previewNote;
 
 	/**
-	The controls
-	@private
+	The icon dims control
+	@type {NoteDialogIconDimsControl}
 	*/
 
-	#iconDimsControl = null;
-	#iconControl = null;
-	#tooltipControl = null;
-	#popupControl = null;
-	#addressControl = null;
-	#linkControl = null;
-	#phoneControl = null;
-	#previewControl = null;
+	#iconDimsControl;
+
+	/**
+	The icon control
+	@type {NoteDialogIconControl}
+	*/
+
+	#iconControl;
+
+	/**
+	The tooltip control
+	@type {NoteDialogTooltipControl}
+	*/
+
+	#tooltipControl;
+
+	/**
+	The popup control
+	@type {NoteDialogPopupControl}
+	*/
+
+	#popupControl;
+
+	/**
+	The address control
+	@type {NoteDialogAddressControl}
+	*/
+
+	#addressControl;
+
+	/**
+	The link control
+	@type {NoteDialogLinkControl}
+	*/
+
+	#linkControl;
+
+	/**
+	The phone control
+	@type {NoteDialogPhoneControl}
+	*/
+
+	#phoneControl;
+
+	/**
+	The preview control
+	@type {NoteDialogPreviewControl}
+	*/
+
+	#previewControl;
 
 	/**
 	the toolbar
-	@private
+	@type {NoteDialogToolbar}
 	*/
 
-	#toolbar = null;
+	#toolbar;
 
 	/**
 	The control that have currently the focusControl
-	@private
+	@type {HTMLElement}
 	*/
 
-	#focusControl = null;
+	#focusControl;
 
-	/*
-	constructor
+	/**
+	Event listeners
+	@type {NoteDialogEventListeners}
 	*/
 
-	constructor ( note, routeObjId, startGeoCoder ) {
+	#eventListeners;
+
+	/**
+	Destructor. Remove event listeners before closing the dialog and set event listeners objects
+	to null, so all references to the dialog are released
+	*/
+
+	#destructor ( ) {
+		this.#toolbar.destructor ( this.#eventListeners );
+		this.#iconDimsControl.destructor ( this.#eventListeners );
+		this.#iconControl.destructor ( this.#eventListeners );
+		this.#tooltipControl.destructor ( this.#eventListeners );
+		this.#popupControl.destructor ( this.#eventListeners );
+		this.#addressControl.destructor ( this.#eventListeners );
+		this.#linkControl.destructor ( this.#eventListeners );
+		this.#phoneControl.destructor ( this.#eventListeners );
+		this.#eventListeners.destructor ( );
+	}
+
+	/**
+	The constructor
+	@param {Note} note The edited note
+	@param {Route} route The route to witch the note is linked
+	*/
+
+	constructor ( note, route ) {
 		super ( );
-		this.#note = note;
-		this.#startGeoCoder = startGeoCoder;
-		this.#routeObjId = routeObjId;
 
+		this.#focusControl = null;
+
+		// Saving parameters
+		this.#note = note;
+		this.#route = route;
+
+		this.#startGeoCoder = '' === this.#note.address;
+		this.#eventListeners = new NoteDialogEventListeners ( this, note.latLng );
+
+		// Cloning the note
 		this.#previewNote = new Note ( );
 		this.#previewNote.jsonObject = note.jsonObject;
 
-		this.#toolbar = new NoteDialogToolbar ( this );
-		this.#iconDimsControl = new NoteDialogIconDimsControl ( this );
-		this.#iconControl = new NoteDialogIconControl ( this );
-		this.#tooltipControl = new NoteDialogTooltipControl ( this );
-		this.#popupControl = new NoteDialogPopupControl ( this );
-		this.#addressControl = new NoteDialogAddressControl ( this, note.latLng, startGeoCoder );
-		this.#linkControl = new NoteDialogLinkControl ( this, note.latLng );
-		this.#phoneControl = new NoteDialogPhoneControl ( this );
+		// creting toolbar and controls
+		this.#toolbar = new NoteDialogToolbar ( this.#eventListeners );
+		this.#iconDimsControl = new NoteDialogIconDimsControl ( this.#eventListeners );
+		this.#iconControl = new NoteDialogIconControl ( this.#eventListeners );
+		this.#tooltipControl = new NoteDialogTooltipControl ( this.#eventListeners );
+		this.#popupControl = new NoteDialogPopupControl ( this.#eventListeners );
+		this.#addressControl = new NoteDialogAddressControl ( this.#eventListeners, this.#startGeoCoder );
+		this.#linkControl = new NoteDialogLinkControl ( this.#eventListeners, note.latLng );
+		this.#phoneControl = new NoteDialogPhoneControl ( this.#eventListeners );
 		this.#previewControl = new NoteDialogPreviewControl ( this.#previewNote );
 
+		// copy the notes values into the controls
 		this.setControlsValues ( note );
-	}
-
-	#destructor ( ) {
-		this.#toolbar.destructor ( );
-		this.#iconDimsControl.destructor ( );
-		this.#iconControl.destructor ( );
-		this.#tooltipControl.destructor ( );
-		this.#popupControl.destructor ( );
-		this.#addressControl.destructor ( );
-		this.#linkControl.destructor ( );
-		this.#phoneControl.destructor ( );
-
 	}
 
 	/**
 	The control that have currently the focus. Used for toolbar buttons
+	@type {HTMLElement}
 	*/
-
-	set focusControl ( focusControl ) { this.#focusControl = focusControl; }
 
 	get focusControl ( ) { return this.#focusControl; }
 
+	set focusControl ( focusControl ) { this.#focusControl = focusControl; }
+
 	/**
-	Data needed for the map svg icon
-	@readonly
+	Data needed for the MapIconFromOsmFactory
+	@type {MapIconData}
 	*/
 
-	get mapIconData ( ) { return Object.freeze ( { latLng : this.#previewNote.latLng, routeObjId : this.#routeObjId } ); }
+	get mapIconData ( ) { return new MapIconData ( this.#previewNote.latLng, this.#route ); }
 
 	/**
-	Update the preview of the icons. Used by event listeners
+	Update the preview of the note. Used by event listeners
+	@param {Object} noteData An object with properties to copy in the preview note
 	*/
 
 	updatePreview ( noteData ) {
@@ -231,7 +323,8 @@ class NoteDialog extends BaseDialog {
 	}
 
 	/**
-	Overload of the BaseDialog.canClose ( ) method.
+	Overload of the BaseDialog.canClose ( ) method. Verify that the url is valid and the iconContent completed
+	@return {Boolean} true when the url is valid and the iconContent completed
 	*/
 
 	canClose ( ) {
@@ -249,36 +342,50 @@ class NoteDialog extends BaseDialog {
 		return true;
 	}
 
+	/**
+	Overload of the BaseDialog.onCancel ( ) method.
+	*/
+
 	onCancel ( ) {
 		this.#destructor ( );
 		super.onCancel ( );
 	}
 
+	/**
+	Overload of the BaseDialog.onOk ( ) method.
+	*/
+
 	onOk ( ) {
 		if ( super.onOk ( ) ) {
 
 			// saving values in the note.
-			this.getControlsValues ( this.#note );
+			this.#note.iconWidth = this.#iconDimsControl.iconWidth;
+			this.#note.iconHeight = this.#iconDimsControl.iconHeight;
+			this.#note.iconContent = this.#iconControl.iconContent;
+			this.#note.tooltipContent = this.#tooltipControl.tooltipContent;
+			this.#note.popupContent = this.#popupControl.popupContent;
+			this.#note.address = this.#addressControl.address;
+			this.#note.url = this.#linkControl.url;
+			this.#note.phone = this.#phoneControl.phone;
 
 			// latLng can change for map icons, so we save the value from the preview note
 			this.#note.latLng = this.#previewNote.latLng;
 
-			// Sanitizing the html code entered by the user
-			this.#note.validateData ( );
 			this.#destructor ( );
 		}
 	}
 
 	/**
-	Return the dialog title. Overload of the BaseDialog.title property
-	@readonly
+	The dialog title. Overload of the BaseDialog.title property
+	@type {String}
 	*/
 
 	get title ( ) { return theTranslator.getText ( 'NoteDialog - Note' ); }
 
 	/**
-	Get an array with the HTMLElements that have to be added in the content of the dialog.
-	@readonly
+	An array with the HTMLElements that have to be added in the content of the dialog.
+	Overload of the BaseDialog.contentHTMLElements property
+	@type {Array.<HTMLElement>}
 	*/
 
 	get contentHTMLElements ( ) {
@@ -295,8 +402,9 @@ class NoteDialog extends BaseDialog {
 	}
 
 	/**
-	Get an array with the HTMLElements that have to be added in the footer of the dialog
-	@readonly
+	An array with the HTMLElements that have to be added in the footer of the dialog
+	Overload of the BaseDialog.footerHTMLElements property
+	@type {Array.<HTMLElement>}
 	*/
 
 	get footerHTMLElements ( ) {
@@ -304,7 +412,7 @@ class NoteDialog extends BaseDialog {
 	}
 
 	/**
-	set the control values
+	set the control's values
 	@param {Object} source An object with all the properties to update
 	*/
 
@@ -317,22 +425,6 @@ class NoteDialog extends BaseDialog {
 		this.#addressControl.address = source.address || this.#addressControl.address;
 		this.#linkControl.url = source.url || this.#linkControl.url;
 		this.#phoneControl.phone = source.phone || this.#phoneControl.phone;
-	}
-
-	/**
-	put all the control values in the destination object
-	@param {Object} destination. The object in witch the values will be added
-	*/
-
-	getControlsValues ( destination ) {
-		destination.iconWidth = this.#iconDimsControl.iconHeight;
-		destination.iconHeight = this.#iconDimsControl.iconWidth;
-		destination.iconContent = this.#iconControl.iconContent;
-		destination.tooltipContent = this.#tooltipControl.tooltipContent;
-		destination.popupContent = this.#popupControl.popupContent;
-		destination.address = this.#addressControl.address;
-		destination.url = this.#linkControl.url;
-		destination.phone = this.#phoneControl.phone;
 	}
 
 	/**
@@ -366,10 +458,16 @@ class NoteDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	Update the toolbar after an upload of a config file
+	*/
+
+	updateToolbar ( ) {
+		this.#toolbar.update ( this.#eventListeners );
+	}
+
 }
 
 export default NoteDialog;
 
-/*
---- End of NoteDialog.js file -------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

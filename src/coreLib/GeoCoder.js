@@ -35,249 +35,241 @@ Changes:
 		- Issue ♯64 : Improve geocoding
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
 
 -----------------------------------------------------------------------------------------------------------------------
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file GeoCoder.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@typedef {Object} GeoCoderAddress
-@desc An address
-@property {string} name The name of the point or an empty string
-@property {string} street The house number and the street of the point or an empty string
-@property {string} city The city of the point or an empty string
-@property {boolean} statusOk A status indicating that all the requests are executed correctly
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module coreLib
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theConfig from '../data/Config.js';
 import OverpassAPIDataLoader from '../coreLib/OverpassAPIDataLoader.js';
+import NominatimDataLoader from '../coreLib/NominatimDataLoader.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
-import { ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
+import { ZERO, ONE } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class GeoCoder
-@classdesc This class call Nominatim and parse the response
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+A simple container to store an address created by the geocoder
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class GeoCoderAddress {
+
+	/**
+	The name found in OSM by the GeoCoder or an empty string
+	@type {String}
+	*/
+
+	#name;
+
+	/**
+	The house number and the street found in OSM by the GeoCoder or an empty string
+	@type {String}
+	*/
+
+	#street;
+
+	/**
+	The city and eventually the place found in OSM by the GeoCoder or an empty string
+	@type {String}
+	*/
+
+	#city;
+
+	/**
+	The constructor
+	@param {String} nominatimName The name found in OSM
+	@param {String} street The house number and the street found in OSM
+	@param {String} city The city and eventually the place found in OSM
+	*/
+
+	constructor ( nominatimName, street, city ) {
+		Object.freeze ( this );
+		this.#name = theHTMLSanitizer.sanitizeToJsString ( nominatimName );
+		this.#street = theHTMLSanitizer.sanitizeToJsString ( street );
+		this.#city = theHTMLSanitizer.sanitizeToJsString ( city );
+	}
+
+	/**
+	The name found in OSM by the GeoCoder or an empty string
+	@type {String}
+	*/
+
+	get name ( ) { return this.#name; }
+
+	/**
+	The house number and the street found in OSM by the GeoCoder or an empty string
+	@type {String}
+	*/
+
+	get street ( ) { return this.#street; }
+
+	/**
+	The city and eventually the place found in OSM by the GeoCoder or an empty string
+	@type {String}
+	*/
+
+	get city ( ) { return this.#city; }
+
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+This class call Nominatim and parse the response
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class GeoCoder {
 
-	#nominatimStatusOk = true;
-
-	#queryDistance = Math.max (
-		theConfig.geoCoder.distances.hamlet,
-		theConfig.geoCoder.distances.village,
-		theConfig.geoCoder.distances.city,
-		theConfig.geoCoder.distances.town
-	);
-
-	#latLng = null;
-
-	#overpassAPIDataLoader = null;
-
-	#nominatimData = null;
-
 	/**
-	this method merge the data from Nominatim and theOverpassAPI
-	@private
+	The distance used in the OverpassAPI query for places
+	@type {Number}
 	*/
 
-	#mergeData ( ) {
-		let city = null;
-		if ( this.#overpassAPIDataLoader.city ) {
-			city = this.#overpassAPIDataLoader.city;
-			if ( this.#overpassAPIDataLoader.place ) {
-				city += ' (' + this.#overpassAPIDataLoader.place + ')';
-			}
-			if ( ! city ) {
-				city = this.#overpassAPIDataLoader.country;
-			}
-		}
-		let street = null;
-		let nameDetails = null;
-		if ( this.#nominatimData ) {
-			street = this.#nominatimData.street;
-			nameDetails = this.#nominatimData.nameDetails || '';
-			if ( ! city ) {
-				city = this.#nominatimData.country;
-			}
-		}
-
-		city = city || '';
-		street = street || '';
-		nameDetails = nameDetails || '';
-
-		if ( street.includes ( nameDetails ) || city.includes ( nameDetails ) ) {
-			nameDetails = '';
-		}
-
-		return Object.freeze (
-			{
-				name : theHTMLSanitizer.sanitizeToJsString ( nameDetails ),
-				street : theHTMLSanitizer.sanitizeToJsString ( street ),
-				city : theHTMLSanitizer.sanitizeToJsString ( city ),
-				statusOk : this.#nominatimStatusOk // && this.#overpassAPIDataLoader.statusOk
-			}
+	static get #queryDistance ( ) {
+		return Math.max (
+			theConfig.geoCoder.distances.hamlet,
+			theConfig.geoCoder.distances.village,
+			theConfig.geoCoder.distances.city,
+			theConfig.geoCoder.distances.town
 		);
 	}
 
 	/**
-	This method...
-	@private
+	The Lat and Lng for thr geocoding
+	@type {Array.<Number>}
 	*/
 
-	#parseNominatimData ( nominatimData ) {
-		let street = '';
-		if ( nominatimData.error ) {
-			this.#nominatimStatusOk = false;
-		}
-		else {
+	#latLng;
 
-			// street
-			if ( nominatimData.address.house_number ) {
-				street += nominatimData.address.house_number + ' ';
-			}
-			if ( nominatimData.address.road ) {
-				street += nominatimData.address.road + ' ';
-			}
-			else if ( nominatimData.address.pedestrian ) {
-				street += nominatimData.address.pedestrian + ' ';
-			}
-			this.#nominatimData = {
-				street : street,
-				nameDetails : nominatimData.namedetails.name,
-				country : nominatimData.address.country
-			};
+	/**
+	The OverpassAPIDataLoader object
+	@type {OverpassAPIDataLoader}
+	*/
+
+	#overpassAPIDataLoader;
+
+	/**
+	The NominatimDataLoader object
+	@type {NominatimDataLoader}
+	*/
+
+	#nominatimDataLoader;
+
+	/**
+	this method merge the data from Nominatim and theOverpassAPI
+	@return {GeoCoderAddress} the address at the given point
+	*/
+
+	#mergeData ( ) {
+		let city =
+			this.#nominatimDataLoader.city
+			||
+			this.#nominatimDataLoader.country
+			||
+			'';
+
+		const place = this.#overpassAPIDataLoader.place;
+		if ( place && place !== city ) {
+			city += ' (' + place + ')';
 		}
+
+		let street = ( this.#nominatimDataLoader.street || '' ).replaceAll ( ';', ' ' );
+
+		let nominatimName = this.#nominatimDataLoader.name || '';
+
+		if ( street.includes ( nominatimName ) || city.includes ( nominatimName ) ) {
+			nominatimName = '';
+		}
+
+		return new GeoCoderAddress ( nominatimName, street, city );
 	}
 
 	/**
-	This method...
-	@private
-	*/
-
-	async #loadNominatimData ( ) {
-		let nominatimUrl =
-			theConfig.nominatim.url + 'reverse?format=json&lat=' +
-			this.#latLng [ ZERO ] + '&lon=' + this.#latLng [ ONE ] +
-			'&zoom=18&addressdetails=1&namedetails=1';
-		let nominatimLanguage = theConfig.nominatim.language;
-		if ( nominatimLanguage && '*' !== nominatimLanguage ) {
-			nominatimUrl += '&accept-language=' + nominatimLanguage;
-		}
-		let nominatimHeaders = new Headers ( );
-		if ( nominatimLanguage && '*' === nominatimLanguage ) {
-			nominatimHeaders.append ( 'accept-language', '' );
-		}
-
-		let nominatimResponse = await fetch ( nominatimUrl, { headers : nominatimHeaders } );
-		if (
-			HTTP_STATUS_OK === nominatimResponse.status
-			&&
-			nominatimResponse.ok
-		) {
-			this.#nominatimStatusOk = this.#nominatimStatusOk && true;
-			let nominatimData = await nominatimResponse.json ( );
-			this.#parseNominatimData ( nominatimData );
-		}
-		else {
-			this.#nominatimStatusOk = false;
-		}
-	}
-
-	/**
-	This method...
-	@private
+	This method get the Overpass query
 	*/
 
 	#getOverpassQueries ( ) {
 		return [
-			'is_in(' + this.#latLng [ ZERO ] + ',' + this.#latLng [ ONE ] +
-			')->.e;area.e[admin_level][boundary="administrative"];out;' +
-			'node(around:' + this.#queryDistance + ',' + this.#latLng [ ZERO ] + ',' + this.#latLng [ ONE ] +
+
+			/* 'is_in(' + this.#latLng [ ZERO ] + ',' + this.#latLng [ ONE ] +
+			')->.e;area.e[admin_level][boundary="administrative"];out;' +*/
+
+			'node(around:' + GeoCoder.#queryDistance + ',' + this.#latLng [ ZERO ] + ',' + this.#latLng [ ONE ] +
 			')[place];out;'
 		];
 	}
 
-	async #execGetAddress ( ) {
-		this.#nominatimStatusOk = true;
-		this.#nominatimData = null;
-		this.#overpassAPIDataLoader = new OverpassAPIDataLoader (
-			{ searchWays : false, searchRelations : false, setGeometry : true }
-		);
+	/**
+	This method search the address
+	@return {GeoCoderAddress} the address at the given point.
+	*/
+
+	async #getAddressAsync ( ) {
+
 		await this.#overpassAPIDataLoader.loadData ( this.#getOverpassQueries ( ), this.#latLng );
-		await this.#loadNominatimData ( );
+		await this.#nominatimDataLoader.loadData ( this.#latLng );
 		return this.#mergeData ( );
 	}
 
-	async #exeGetAdressWithPromise ( onOk, onError ) {
-		let result = await this.#execGetAddress ( );
-		if ( result.statusOk ) {
-			onOk ( result );
-		}
-		else {
-			onError ( 'An error occurs...' );
-		}
+	/**
+	This method is executed by the Promise to search an address. The #getAddressAsync return always a response,
+	eventually with empty strings, so the onError function is never called
+	@param {function} onOk The ok handler
+	@param {function} onError The error handler
+	*/
+
+	// eslint-disable-next-line no-unused-vars
+	async #getAddressWithPromise ( onOk, onError ) {
+		onOk ( await this.#getAddressAsync ( ) );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#overpassAPIDataLoader = new OverpassAPIDataLoader (
+			{ searchWays : false, searchRelations : false, setGeometry : true }
+		);
+		this.#nominatimDataLoader = new NominatimDataLoader (
+			{
+				searchPlaces : true,
+				searchWays : false,
+				searchRelations : false,
+				setGeometry : false
+			}
+		);
 	}
 
 	/**
-	This method search an address from a latitude and longitude
-	@param {Array.<number>} latLng the latitude and longitude to be used to search the address
+	This async method search an address from a latitude and longitude
+	@param {Array.<Number>} latLng the latitude and longitude to be used to search the address
 	@return {GeoCoderAddress} the address at the given point. The GeoCoderAddress.statusOk must be verified
 	before using the data.
 	*/
 
 	async getAddressAsync ( latLng ) {
 		this.#latLng = latLng;
-		return this.#execGetAddress ( );
+		return this.#getAddressAsync ( );
 	}
+
+	/**
+	This method search an address from a latitude and longitude with a Promise.
+	@param {Array.<Number>} latLng the latitude and longitude to be used to search the address
+	@return {Promise} A promise that fulfill with the address at the given point.
+	*/
 
 	getAddressWithPromise ( latLng ) {
 		this.#latLng = latLng;
-		return new Promise ( ( onOk, onError ) => this.#exeGetAdressWithPromise ( onOk, onError ) );
+		return new Promise ( ( onOk, onError ) => this.#getAddressWithPromise ( onOk, onError ) );
 	}
 
 }
 export default GeoCoder;
 
-/*
---- End of GeoCoder.js file ---------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

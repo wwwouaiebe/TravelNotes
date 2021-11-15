@@ -20,60 +20,50 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteDialogPreviewControl.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogNotes
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theNoteHTMLViewsFactory from '../viewsFactories/NoteHTMLViewsFactory.js';
+import NoteAndRoute from '../data/NoteAndRoute.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class NoteDialogPreviewControl
-@classdesc This class is the notePreview control of the NotDialog
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class is the notePreview control of the NotDialog
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class NoteDialogPreviewControl {
 
 	/**
-	HTMLElements
-	@private
+	The container for the preview note
+	@type {HTMLElement}
 	*/
 
-	#previewNote = null;
-	#previewDiv = null;
+	#previewDiv;
 
-	/*
-	constructor
+	/**
+	A reference to the note displayed in the control
+	@type {Note}
+	*/
+
+	#previewNote;
+
+	/**
+	The constructor
+	@param {Note} previewNote A reference to the note displayed in the control
 	*/
 
 	constructor ( previewNote ) {
+
 		Object.freeze ( this );
+
 		this.#previewNote = previewNote;
+
+		// HTMLElements creation
 		this.#previewDiv = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -83,10 +73,14 @@ class NoteDialogPreviewControl {
 		this.#previewDiv.appendChild (
 			theNoteHTMLViewsFactory.getNoteTextAndIconHTML (
 				'TravelNotes-NoteDialog-',
-				{ note : this.#previewNote, route : null }
+				new NoteAndRoute ( this.#previewNote, null )
 			)
 		);
 	}
+
+	/**
+	Update the control
+	*/
 
 	update ( ) {
 		this.#previewDiv.textContent = '';
@@ -99,8 +93,8 @@ class NoteDialogPreviewControl {
 	}
 
 	/**
-	return an array with the HTML elements of the control
-	@readonly
+	An array with the HTML elements of the control
+	@type {Array.<HTMLElement>}
 	*/
 
 	get HTMLElements ( ) { return [ this.#previewDiv ]; }
@@ -109,10 +103,4 @@ class NoteDialogPreviewControl {
 
 export default NoteDialogPreviewControl;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of NoteDialogPreviewControl.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

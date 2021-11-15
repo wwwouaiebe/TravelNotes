@@ -24,95 +24,62 @@ Doc reviewed 20210901
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteDialogAddressControl.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogNotes
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
-import {
-	AddressButtonClickEL,
-	AllControlsFocusEL,
-	AllControlsInputEL
-} from '../dialogNotes/NoteDialogEventListeners.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class NoteDialogAddressControl
-@classdesc This class is the address control of the NoteDialog
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class is the address control of the NoteDialog
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class NoteDialogAddressControl {
 
 	/**
-	A reference to the noteDialog
-	@private
+	The header container
+	@type {HTMLElement}
 	*/
 
-	#noteDialog = null;
+	#addressHeaderDiv;
 
 	/**
-	HTMLElements
-	@private
+	The address input container
+	@type {HTMLElement}
 	*/
 
-	#addressHeaderDiv = null;
-	#addressInputDiv = null;
-	#addressInput = null;
-	#addressButton = null;
+	#addressInputDiv;
 
 	/**
-	The latLng used for geocoding
-	@private
+	The address input
+	@type {HTMLElement}
 	*/
 
-	#latLng = null;
+	#addressInput;
 
 	/**
-	Event listeners
-	@private
+	The reset address buton
+	@type {HTMLElement}
 	*/
 
-	#eventListeners = {
-		onFocusControl : null,
-		onInputUpdated : null,
-		onAddressButtonClick : null
-	}
+	#addressButton;
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
-	constructor ( noteDialog, latLng ) {
+	constructor ( eventListeners ) {
+
 		Object.freeze ( this );
-		this.#noteDialog = noteDialog;
-		this.#latLng = latLng;
+
+		// HTMLElements creation
 		this.#addressHeaderDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-NoteDialog-DataDiv'
 			}
 		);
+
 		this.#addressButton = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -137,6 +104,7 @@ class NoteDialogAddressControl {
 				className : 'TravelNotes-NoteDialog-DataDiv'
 			}
 		);
+
 		this.#addressInput = theHTMLElementsFactory.create (
 			'input',
 			{
@@ -147,26 +115,26 @@ class NoteDialogAddressControl {
 			this.#addressInputDiv
 		);
 
-		this.#eventListeners.onFocusControl = new AllControlsFocusEL ( this.#noteDialog, false );
-		this.#eventListeners.onInputUpdated = new AllControlsInputEL ( this.#noteDialog );
-		this.#eventListeners.onAddressButtonClick = new AddressButtonClickEL ( this.#noteDialog, this.#latLng );
-		this.#addressInput.addEventListener ( 'focus', this.#eventListeners.onFocusControl );
-		this.#addressInput.addEventListener ( 'input', this.#eventListeners.onInputUpdated );
-		this.#addressButton.addEventListener ( 'click', this.#eventListeners.onAddressButtonClick );
-	}
-
-	destructor ( ) {
-		this.#addressInput.removeEventListener ( 'focus', this.#eventListeners.onFocusControl );
-		this.#addressInput.removeEventListener ( 'input', this.#eventListeners.onInputUpdated );
-		this.#addressButton.removeEventListener ( 'click', this.#eventListeners.onAddressButtonClick );
-		this.#eventListeners.onFocusControl.destructor ( );
-		this.#eventListeners.onInputUpdated.destructor ( );
-		this.#eventListeners.onAddressButtonClick.destructor ( );
+		// event listeners
+		this.#addressInput.addEventListener ( 'focus', eventListeners.controlFocus );
+		this.#addressInput.addEventListener ( 'input', eventListeners.controlInput );
+		this.#addressButton.addEventListener ( 'click', eventListeners.addressButtonClick );
 	}
 
 	/**
-	return an array with the HTML elements of the control
-	@readonly
+	Remove event listeners
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
+	*/
+
+	destructor ( eventListeners ) {
+		this.#addressInput.removeEventListener ( 'focus', eventListeners.controlFocus );
+		this.#addressInput.removeEventListener ( 'input', eventListeners.controlInput );
+		this.#addressButton.removeEventListener ( 'click', eventListeners.addressButtonClick );
+	}
+
+	/**
+	An array with the HTML elements of the control
+	@type {Array.<HTMLElement>}
 	*/
 
 	get HTMLElements ( ) {
@@ -175,6 +143,7 @@ class NoteDialogAddressControl {
 
 	/**
 	The address value in the control
+	@type {String}
 	*/
 
 	get address ( ) { return this.#addressInput.value; }
@@ -185,10 +154,4 @@ class NoteDialogAddressControl {
 
 export default NoteDialogAddressControl;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of NoteDialogAddressControl.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

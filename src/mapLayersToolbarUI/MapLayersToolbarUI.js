@@ -25,30 +25,13 @@ Changes:
 	- v2.0.0:
 		- Issue ♯134 : Remove node.setAttribute ( 'style', blablabla) in the code
 		- Issue ♯135 : Remove innerHTML from code
-		- Issue ♯142 : Transform the typedef layer to a class as specified in the layersToolbarUI.js
+		- Issue ♯142 : Transform the layer object to a class as specified in the layersToolbarUI.js
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file MapLayersToolbarUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module mapLayersToolbarUI
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
@@ -64,33 +47,88 @@ import theAPIKeysManager from '../core/APIKeysManager.js';
 
 import { MOUSE_WHEEL_FACTORS, ZERO } from '../main/Constants.js';
 
-const OUR_MIN_BUTTONS_VISIBLE = 3;
-
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class ButtonsContainerWheelEL
-@classdesc Wheel event listeners on the map layer buttons. Scroll the buttons
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+A simple container for data exchange between the ButtonsContainerWheelEL and the MapLayersToolbarUI
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class WheelEventData {
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.seal ( this );
+	}
+
+	/**
+	The current margin-top in pixels css value for the buttons container
+	@type {Number}
+	*/
+
+	marginTop = ZERO;
+
+	/**
+	The height of 1 button in pixel;
+	@type {Number}
+	*/
+
+	buttonHeight = ZERO;
+
+	/**
+	The total height of all butons in pixels
+	@type {Number}
+	*/
+
+	buttonsHeight = ZERO;
+
+	/**
+	The top css value of the first button
+	@type {Number}
+	*/
+
+	buttonTop = ZERO;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+Wheel event listeners on the map layer buttons. Scroll the buttons
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ButtonsContainerWheelEL {
 
-	#mapLayersToolbarUI = null;
-
-	#wheelEventData = null;
-
-	/*
-	constructor
+	/**
+	A reference to the WheelEventData Object
+	@type {WheelEventData}
 	*/
 
-	constructor ( mapLayersToolbarUI, wheelEventData ) {
+	#wheelEventData;
+
+	/**
+	The min buttons that have to be always visible
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #MIN_BUTTONS_VISIBLE ( ) { return 3; }
+
+	/**
+	The constructor
+	@param {WheelEventData} wheelEventData A reference to the WheelEventData Object
+	*/
+
+	constructor ( wheelEventData ) {
 		Object.freeze ( this );
-		this.#mapLayersToolbarUI = mapLayersToolbarUI;
 		this.#wheelEventData = wheelEventData;
 	}
+
+	/**
+	Event listener method
+	@param {Event} wheelEvent The event to handle
+	*/
 
 	handleEvent ( wheelEvent ) {
 		wheelEvent.stopPropagation ( );
@@ -104,84 +142,75 @@ class ButtonsContainerWheelEL {
 					this.#wheelEventData.marginTop;
 			this.#wheelEventData.marginTop =
 				this.#wheelEventData.marginTop < this.#wheelEventData.buttonTop - this.#wheelEventData.buttonsHeight +
-				( OUR_MIN_BUTTONS_VISIBLE * this.#wheelEventData.buttonHeight )
+				( ButtonsContainerWheelEL.#MIN_BUTTONS_VISIBLE * this.#wheelEventData.buttonHeight )
 					?
 					(
 						this.#wheelEventData.buttonTop -
 						this.#wheelEventData.buttonsHeight +
-						( OUR_MIN_BUTTONS_VISIBLE * this.#wheelEventData.buttonHeight )
+						( ButtonsContainerWheelEL.#MIN_BUTTONS_VISIBLE * this.#wheelEventData.buttonHeight )
 					)
 					:
 					this.#wheelEventData.marginTop;
-			this.#mapLayersToolbarUI.buttonsHTMLElement.style.marginTop = String ( this.#wheelEventData.marginTop ) + 'px';
+			wheelEvent.currentTarget.style.marginTop = String ( this.#wheelEventData.marginTop ) + 'px';
 		}
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class MapLayersToolbarUI
-@classdesc This class is the Layer Toolbar on the left of the screen.
+This class is the Layer Toolbar on the left of the screen.
 Displays buttons to change the background maps and manages the background maps list
-@see {@link theMapLayersToolbarUI} for the one and only one instance of this class
-@hideconstructor
 
-@------------------------------------------------------------------------------------------------------------------------------
+See theMapLayersToolbarUI for the one and only one instance of this class
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class MapLayersToolbarUI {
 
 	/**
 	The main HTMLElement of the UI
-	@private
+	@type {HTMLElement}
 	*/
 
-	#mainHTMLElement = null;
+	#mainHTMLElement;
 
 	/**
 	The HTML element that contains the map layer buttons
-	@private
+	@type {HTMLElement}
 	*/
 
-	#buttonsHTMLElement = null;
+	#buttonsHTMLElement;
 
 	/**
 	An array with the map layer buttons and links
-	@private
+	@type {Array.<Object>}
 	*/
 
-	#buttonsAndLinks = [];
+	#buttonsAndLinks;
 
 	/**
-	Data for the wheel event listener
-	@private
+	Data shared with the wheel event listener
+	@type {WheelEventData}
 	*/
 
-	#wheelEventData = {
-		marginTop : ZERO,
-		buttonHeight : ZERO,
-		buttonsHeight : ZERO,
-		buttonTop : ZERO
-	}
+	#wheelEventData;
 
 	/**
 	Timer id for the mouse leave event
-	@private
+	@type {Number}
 	*/
 
-	#timerId = null;
+	#timerId;
 
 	/**
-	The wheel eveny listener
-	@private
+	The wheel event listener
+	@type {ButtonsContainerWheelEL}
 	*/
 
-	#onWheelButtonsEventListener = null;
+	#onWheelButtonsEventListener;
 
 	/**
 	Show the map layer buttons. Called by the mouseenter event
-	@private
 	*/
 
 	#show ( ) {
@@ -213,7 +242,7 @@ class MapLayersToolbarUI {
 					( mapLayer.providerKeyNeeded && theAPIKeysManager.hasKey ( mapLayer.providerName.toLowerCase ( ) ) )
 					|| ! mapLayer.providerKeyNeeded
 				) {
-					let mapLayerButton =
+					const mapLayerButton =
 						new MapLayersToolbarButton ( mapLayer, this.#buttonsHTMLElement );
 					this.#wheelEventData.buttonHeight = mapLayerButton.height;
 					this.#wheelEventData.buttonsHeight += mapLayerButton.height;
@@ -223,8 +252,8 @@ class MapLayersToolbarUI {
 		);
 
 		// Adding link buttons
-		if ( theConfig.layersToolbarUI.theDevil && theConfig.layersToolbarUI.theDevil.addButton ) {
-			let theDevilButton = new MapLayersToolbarLink (
+		if ( theConfig.layersToolbarUI?.theDevil?.addButton ) {
+			const theDevilButton = new MapLayersToolbarLink (
 				{
 					href : 'https://www.google.com/maps/@' +
 						theTravelNotesData.map.getCenter ( ).lat +
@@ -254,7 +283,6 @@ class MapLayersToolbarUI {
 
 	/**
 	Hide the toolbar
-	@private
 	*/
 
 	#hide ( ) {
@@ -273,20 +301,21 @@ class MapLayersToolbarUI {
 
 	/**
 	The mouseleave event listener. Start a timer
-	@private
 	*/
 
 	#onMouseLeave ( ) {
 		this.#timerId = setTimeout ( ( ) => this.#hide ( ), theConfig.layersToolbarUI.toolbarTimeOut );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
-		this.#onWheelButtonsEventListener = new ButtonsContainerWheelEL ( this, this.#wheelEventData );
 		Object.freeze ( this );
+		this.#onWheelButtonsEventListener = new ButtonsContainerWheelEL ( this.#wheelEventData );
+		this.#buttonsAndLinks = [];
+		this.#wheelEventData = new WheelEventData ( );
 	}
 
 	/**
@@ -314,39 +343,26 @@ class MapLayersToolbarUI {
 	Set a mapLayer as background map. If a provider key is needed and the key not available
 	the 'OSM - Color' mapLayer is set. If the mapLayer is not found, the 'OSM - Color' mapLayer
 	is set
-	@param {string} mapLayerName the name of the mapLayer to set
+	@param {String} mapLayerName the name of the mapLayer to set
 	*/
 
 	setMapLayer ( mapLayerName ) {
-		let theLayer = theMapLayersCollection.getMapLayer ( mapLayerName );
-		theEventDispatcher.dispatch ( 'layerchange', { layer : theLayer } );
-		theAttributionsUI.attributions = theLayer.attribution;
-		theTravelNotesData.travel.layerName = theLayer.name;
+		const mapLayer = theMapLayersCollection.getMapLayer ( mapLayerName );
+		theEventDispatcher.dispatch ( 'layerchange', { layer : mapLayer } );
+		theAttributionsUI.attributions = mapLayer.attribution;
+		theTravelNotesData.travel.layerName = mapLayer.name;
 	}
-
-	/**
-	The map layer buttons container
-	@readonly
-	*/
-
-	get buttonsHTMLElement ( ) { return this.#buttonsHTMLElement; }
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of MapLayersToolbarUI class
+The one and only one instance of MapLayersToolbarUI class
 @type {MapLayersToolbarUI}
-@constant
-@global
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theMapLayersToolbarUI = new MapLayersToolbarUI ( );
 
 export default theMapLayersToolbarUI;
 
-/*
---- End of MapLayersToolbarUI.js file -----------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

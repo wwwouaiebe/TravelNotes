@@ -20,27 +20,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteHTMLViewsFactory.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module viewsFactories
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
@@ -52,23 +35,32 @@ import theTravelNotesData from '../data/TravelNotesData.js';
 
 import { ICON_DIMENSIONS, ZERO, ONE } from '../main/Constants.js';
 
-const OUR_LINKS_MAX_LENGTH = 40;
-const OUR_MIN_NOTES_DISTANCE = 9;
-
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class NoteHTMLViewsFactory
-@classdesc coming soon...
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class creates HTMLElements for notes
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class NoteHTMLViewsFactory {
 
-	/*
-	constructor
+	/**
+	The max length for displayed links
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #LINKS_MAX_LENGTH ( ) { return 40; }
+
+	/**
+	// The minimal distance between note to display the 'Next note after' value
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #MIN_NOTES_DISTANCE ( ) { return 40; }
+
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -77,19 +69,19 @@ class NoteHTMLViewsFactory {
 
 	/**
 	Gives an HTMLElement with the note icon and sames values than the this.getNoteTextHTML method
-	@param {string} classPrefix A string that will be added to all the className of the created HTMLElement
+	@param {String} classPrefix A string that will be added to all the className of the created HTMLElement
 	@param {NoteAndRoute} noteAndRoute A NoteAndRoute object with the note and the route to witch the note is attached
-	@return {HTMLElement}
+	@return {HTMLElement} An HTMLElement with the icon and texts for a Note
 	*/
 
 	getNoteTextAndIconHTML ( classPrefix, noteAndRoute ) {
-		let NoteTextAndIconHTML = theHTMLElementsFactory.create (
+		const NoteTextAndIconHTML = theHTMLElementsFactory.create (
 			'div',
 			{
 				dataset : { ObjId : noteAndRoute.note.objId }
 			}
 		);
-		let iconHTML = theHTMLElementsFactory.create (
+		const iconHTML = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : classPrefix + ( noteAndRoute.route ? 'Route-ManeuversAndNotes-IconCell' : 'Travel-Notes-IconCell' )
@@ -110,19 +102,11 @@ class NoteHTMLViewsFactory {
 			else if ( iconHTML.firstChild.classList.contains ( 'TravelNotes-MapNoteCategory-0073' ) ) {
 				dimCoeficient = theConfig.note.svgIcon.roadbookFactor;
 			}
-			iconHTML.setAttribute (
-				'tanwidth', String ( noteAndRoute.note.iconWidth * dimCoeficient ) + 'px'
-			);
-			iconHTML.setAttribute (
-				'tanheight', String ( noteAndRoute.note.iconWidth * dimCoeficient ) + 'px'
-			);
 		}
-		else {
-			iconHTML.style.width = String ( noteAndRoute.note.iconWidth ) + 'px';
-			iconHTML.style.height = String ( noteAndRoute.note.iconHeight ) + 'px';
-		}
+		iconHTML.style.width = String ( noteAndRoute.note.iconWidth * dimCoeficient ) + 'px';
+		iconHTML.style.height = String ( noteAndRoute.note.iconHeight * dimCoeficient ) + 'px';
 
-		let noteTextHTMLElement = this.getNoteTextHTML ( classPrefix, noteAndRoute );
+		const noteTextHTMLElement = this.getNoteTextHTML ( classPrefix, noteAndRoute );
 		noteTextHTMLElement.className =
 			classPrefix +
 			( noteAndRoute.route ? 'Route-ManeuversAndNotes-Cell' : 'Travel-Notes-Cell' );
@@ -136,14 +120,14 @@ class NoteHTMLViewsFactory {
 	url (if any), latitude, longitude, distance since the start of the travel (if the note is attached to a chained node),
 	distance since the start of the route (if the note is a route note) and distance till the next note(if the note
 	is a route note)
-	@param {string} classPrefix A string that will be added to all the className of the created HTMLElements
+	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
 	@param {NoteAndRoute} noteAndRoute A NoteAndRoute object with the note and the route to witch the note is attached
 	@return {HTMLElement} an HTMLElement
 	*/
 
 	getNoteTextHTML ( classPrefix, noteAndRoute ) {
-		let note = noteAndRoute.note;
-		let noteHTMLElement = theHTMLElementsFactory.create ( 'div' );
+		const note = noteAndRoute.note;
+		const noteHTMLElement = theHTMLElementsFactory.create ( 'div' );
 		if ( ZERO !== note.tooltipContent.length ) {
 			theHTMLSanitizer.sanitizeToHtmlElement (
 				note.tooltipContent,
@@ -190,7 +174,7 @@ class NoteHTMLViewsFactory {
 					'</span><a href=' +
 					note.url +
 					' target="_blank" >' +
-					note.url.substr ( ZERO, OUR_LINKS_MAX_LENGTH ) +
+					note.url.substr ( ZERO, NoteHTMLViewsFactory.#LINKS_MAX_LENGTH ) +
 					'...</a>',
 				theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'NoteHtml-Url' }, noteHTMLElement )
 			);
@@ -199,8 +183,8 @@ class NoteHTMLViewsFactory {
 		if ( ZERO !== note.phone.length ) {
 			let phoneText = note.phone;
 			if ( note.phone.match ( /^\+[0-9, ,*,\u0023]*$/ ) ) {
-				let phoneNumber = note.phone.replaceAll ( /\u0020/g, '' );
-				let phoneNumberDisplay = note.phone.replaceAll ( /\u0020/g, '\u00a0' );
+				const phoneNumber = note.phone.replaceAll ( /\u0020/g, '' );
+				const phoneNumberDisplay = note.phone.replaceAll ( /\u0020/g, '\u00a0' );
 				phoneText =
 					theTranslator.getText ( 'NoteHTMLViewsFactory - Phone' ) + '\u00a0:\u00a0' +
 					theTranslator.getText ( 'NoteHTMLViewsFactory - call' ) +
@@ -265,10 +249,10 @@ class NoteHTMLViewsFactory {
 				)
 			);
 
-			let nextNote = noteAndRoute.route.notes.next ( note.objId );
+			const nextNote = noteAndRoute.route.notes.next ( note.objId );
 			if ( nextNote ) {
-				let nextDistance = nextNote.distance - note.distance;
-				if ( OUR_MIN_NOTES_DISTANCE < nextDistance ) {
+				const nextDistance = nextNote.distance - note.distance;
+				if ( NoteHTMLViewsFactory.#MIN_NOTES_DISTANCE < nextDistance ) {
 					theHTMLSanitizer.sanitizeToHtmlElement (
 						'<span>' +
 						theTranslator.getText ( 'NoteHTMLViewsFactory - Next note after' ) +
@@ -290,15 +274,15 @@ class NoteHTMLViewsFactory {
 
 	/**
 	Gives an HTMLElement with all the travel notes
-	@param {string} classPrefix A string that will be added to all the className of the created HTMLElements
-	@return {HTMLElement}
+	@param {String} classPrefix A string that will be added to all the className of the created HTMLElements
+	@return {HTMLElement} An HTMLElement with all the travel notes
 	*/
 
 	getTravelNotesHTML ( classPrefix ) {
-		let travelNotesHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'Travel-Notes' } );
-		let travelNotesIterator = theTravelNotesData.travel.notes.iterator;
+		const travelNotesHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'Travel-Notes' } );
+		const travelNotesIterator = theTravelNotesData.travel.notes.iterator;
 		while ( ! travelNotesIterator.done ) {
-			let noteTextAndIconHTML = this.getNoteTextAndIconHTML (
+			const noteTextAndIconHTML = this.getNoteTextAndIconHTML (
 				classPrefix,
 				{ note : travelNotesIterator.value, route : null }
 			);
@@ -310,14 +294,15 @@ class NoteHTMLViewsFactory {
 
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+The one and only one instance of NoteHTMLViewsFactory  class
+@type {NoteHTMLViewsFactory }
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
 const theNoteHTMLViewsFactory = new NoteHTMLViewsFactory ( );
 
 export default theNoteHTMLViewsFactory;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of NoteHTMLViewsFactory.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

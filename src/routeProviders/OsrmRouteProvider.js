@@ -21,31 +21,13 @@ Changes:
 		- Issue ♯150 : Merge travelNotes and plugins
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OsrmRouteProvider.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module routeProviders
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-import thePolylineEncoder from '../coreLib/PolylineEncoder.js';
+import PolylineEncoder from '../coreLib/PolylineEncoder.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
 import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
@@ -53,44 +35,35 @@ import theOsrmTextInstructions from '../routeProviders/OsrmTextInstructions.js';
 import { ICON_LIST } from '../routeProviders/IconList.js';
 import { ZERO, ONE, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
 
-const OUR_OSRM_ROUTE_LAT_LNG_ROUND = 6;
-
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class OsrmRouteProvider
-@classdesc This class implements the Provider interface for Osrm. It's not possible to instanciate
+This class implements the BaseRouteProvider for Osrm. It's not possible to instanciate
 this class because the class is not exported from the module. Only one instance is created and added to the list
 of Providers of TravelNotes
-@see Provider for a description of methods
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class OsrmRouteProvider extends BaseRouteProvider {
 
-	#userLanguage = 'fr';
-
-	/**
-	The provider key. Will be set by TravelNotes
-	@private
-	*/
-
-	#providerKey = '';
-
 	/**
 	A reference to the edited route
+	@type {Route}
 	*/
 
-	#route = null;
+	#route;
 
 	/**
-	Parse the response from the provider and add the received itinerary to the this.#route itinerary
-	@param {Object} response the itinerary received from the provider
+	The round value used by PolylineEncoder
+	@type {Number}
+	*/
+	// eslint-disable-next-line no-magic-numbers
+	static get#ROUND_VALUE ( ) { return 6; }
+
+	/**
+	Parse the response from the provider and add the received itinerary to the route itinerary
+	@param {JsonObject} response the itinerary received from the provider
 	@param {function} onOk a function to call when the response is parsed correctly
 	@param {function} onError a function to call when an error occurs
-	@private
 	*/
 
 	#parseResponse ( response, onOk, onError ) {
@@ -111,9 +84,10 @@ class OsrmRouteProvider extends BaseRouteProvider {
 		this.#route.itinerary.ascent = ZERO;
 		this.#route.itinerary.descent = ZERO;
 
-		response.routes [ ZERO ].geometry = thePolylineEncoder.decode (
+		const polylineEncoder = new PolylineEncoder ( );
+		response.routes [ ZERO ].geometry = polylineEncoder.decode (
 			response.routes [ ZERO ].geometry,
-			[ OUR_OSRM_ROUTE_LAT_LNG_ROUND, OUR_OSRM_ROUTE_LAT_LNG_ROUND ]
+			[ OsrmRouteProvider.#ROUND_VALUE, OsrmRouteProvider.#ROUND_VALUE ]
 		);
 
 		response.routes [ ZERO ].legs.forEach (
@@ -121,11 +95,11 @@ class OsrmRouteProvider extends BaseRouteProvider {
 				let lastPointWithDistance = ZERO;
 				leg.steps.forEach (
 					step => {
-						step.geometry = thePolylineEncoder.decode (
+						step.geometry = polylineEncoder.decode (
 							step.geometry,
-							[ OUR_OSRM_ROUTE_LAT_LNG_ROUND, OUR_OSRM_ROUTE_LAT_LNG_ROUND ]
+							[ OsrmRouteProvider.#ROUND_VALUE, OsrmRouteProvider.#ROUND_VALUE ]
 						);
-						let maneuver = new Maneuver ( );
+						const maneuver = new Maneuver ( );
 						maneuver.iconName =
 							ICON_LIST [ step.maneuver.type ]
 								?
@@ -135,7 +109,7 @@ class OsrmRouteProvider extends BaseRouteProvider {
 								:
 								ICON_LIST [ 'default' ] [ 'default' ];
 
-						maneuver.instruction = theOsrmTextInstructions.compile ( this.#userLanguage, step );
+						maneuver.instruction = theOsrmTextInstructions.compile ( this.userLanguage, step );
 						maneuver.duration = step.duration;
 						let distance = ZERO;
 						for (
@@ -146,7 +120,7 @@ class OsrmRouteProvider extends BaseRouteProvider {
 								:
 								( geometryCounter < step.geometry.length );
 							geometryCounter ++ ) {
-							let itineraryPoint = new ItineraryPoint ( );
+							const itineraryPoint = new ItineraryPoint ( );
 							itineraryPoint.latLng = [
 								step.geometry [ geometryCounter ] [ ZERO ],
 								step.geometry [ geometryCounter ] [ ONE ]
@@ -174,7 +148,7 @@ class OsrmRouteProvider extends BaseRouteProvider {
 			}
 		);
 
-		let wayPointsIterator = this.#route.wayPoints.iterator;
+		const wayPointsIterator = this.#route.wayPoints.iterator;
 		response.waypoints.forEach (
 			wayPoint => {
 				if ( ! wayPointsIterator.done ) {
@@ -188,8 +162,7 @@ class OsrmRouteProvider extends BaseRouteProvider {
 
 	/**
 	Gives the url to call
-	@return {string} a string with the url, wayPoints, transitMode, user language and API key
-	@private
+	@return {String} a string with the url, wayPoints, transitMode, user language and API key
 	*/
 
 	#getUrl ( ) {
@@ -226,6 +199,12 @@ class OsrmRouteProvider extends BaseRouteProvider {
 			'?geometries=polyline6&overview=full&steps=true&annotations=distance';
 	}
 
+	/**
+	Implementation of the base class #getRoute ( )
+	@param {function} onOk the Promise Success handler
+	@param {function} onError the Promise Error handler
+	*/
+
 	#getRoute ( onOk, onError ) {
 		fetch ( this.#getUrl ( ) )
 			.then (
@@ -241,13 +220,31 @@ class OsrmRouteProvider extends BaseRouteProvider {
 			);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		super ( );
 	}
+
+	/**
+	Call the provider, using the waypoints defined in the route and, on success,
+	complete the route with the data from the provider
+	@param {Route} route The route to witch the data will be added
+	@return {Promise} A Promise. On success, the Route is completed with the data given by the provider.
+	*/
+
+	getPromiseRoute ( route ) {
+		this.#route = route;
+		return new Promise ( ( onOk, onError ) => this.#getRoute ( onOk, onError ) );
+	}
+
+	/**
+	The icon used in the ProviderToolbarUI.
+	Overload of the base class icon property
+	@type {String}
+	*/
 
 	get icon ( ) {
 		return '' +
@@ -273,30 +270,51 @@ class OsrmRouteProvider extends BaseRouteProvider {
 			'jok8Lk4anYm263h2Jv//+FeRjlHxKxS4in4X1YAAAAAElFTkSuQmCC';
 	}
 
-	getPromiseRoute ( route ) {
-		this.#route = route;
-		return new Promise ( ( onOk, onError ) => this.#getRoute ( onOk, onError ) );
-	}
+	/**
+	The provider name.
+	Overload of the base class name property
+	@type {String}
+	*/
 
 	get name ( ) { return 'OSRM'; }
 
+	/**
+	The title to display in the ProviderToolbarUI button.
+	Overload of the base class title property
+	@type {String}
+	*/
+
 	get title ( ) { return 'OSRM'; }
+
+	/**
+	The possible transit modes for the provider.
+	Overload of the base class transitModes property
+	Must be a subarray of [ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ]
+	@type {Array.<String>}
+	*/
 
 	get transitModes ( ) { return [ 'bike', 'pedestrian', 'car' ]; }
 
+	/**
+	A boolean indicating when a provider key is needed for the provider.
+	Overload of the base class providerKeyNeeded property
+	@type {Boolean}
+	*/
+
 	get providerKeyNeeded ( ) { return false; }
 
-	get providerKey ( ) { return ONE; }
-	set providerKey ( ProviderKey ) { }
+	/**
+	The user language. Overload of the base class userLanguage property.
+	It's needed to overload the setter AND the getter otherwise the getter returns undefined
+	@type {String}
+	*/
 
-	get userLanguage ( ) { return this.#userLanguage; }
+	get userLanguage ( ) { return super.userLanguage; }
 	set userLanguage ( userLanguage ) {
-		this.#userLanguage = theOsrmTextInstructions.loadLanguage ( userLanguage );
+		super.userLanguage = theOsrmTextInstructions.loadLanguage ( userLanguage );
 	}
 }
 
 window.TaN.addProvider ( OsrmRouteProvider );
 
-/*
---- End of OsrmRouteProvider.js file ------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

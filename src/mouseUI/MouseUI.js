@@ -27,27 +27,10 @@ Changes:
 		- Issue ♯129 : Add an indicator when the travel is modified and not saved
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file MouseUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module mouseUI
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
@@ -56,27 +39,61 @@ import theConfig from '../data/Config.js';
 import theUtilities from '../UILib/Utilities.js';
 import { SAVE_STATUS } from '../main/Constants.js';
 
-const OUR_SAVE_TIME = 300000;
-
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class MouseUI
-@classdesc This class show the mouse position and the zoom on the screen
-@see {@link theMouseUI} for the one and only one instance of this class
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class show the mouse position and the zoom on the screen
+See theMouseUI for the one and only one instance of this class
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class MouseUI {
 
-	#mouseUISpan = null;
-	#saveStatus = SAVE_STATUS.saved;
-	#mousePosition = '';
-	#zoom = ''
+	/**
+	The HTMLElement with the status, mouse and zoom infos
+	@type {HTMLElement}
+	*/
 
-	#saveTimer = null;
+	#mouseUISpan;
+
+	/**
+	The save status
+	@type {String}
+	*/
+
+	#saveStatus;
+
+	/**
+	The mouse position
+	@type {String}
+	*/
+
+	#mousePosition;
+
+	/**
+	The zoom factor
+	@type {String}
+	*/
+
+	#zoom;
+
+	/**
+	The save timer id
+	@type {Number}
+	*/
+
+	#saveTimer;
+
+	/**
+	The time in milliseconds between the first change and the moment the SAVE_STATUS.notSaved is displayed
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #SAVE_TIME ( ) { return 300000; }
+
+	/**
+	Update the UI with the changed saveStatus, mouse position or zoom
+	*/
 
 	#updateUI ( ) {
 		if ( this.#mouseUISpan ) {
@@ -85,30 +102,41 @@ class MouseUI {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#saveStatus = SAVE_STATUS.saved;
+		this.#mousePosition = '';
+		this.#zoom = '';
+		this.#saveTimer = null;
 	}
 
 	/**
 	change the save status on the UI
+	@param {String} saveStatus the new saveStatus
 	*/
 
-	set saveStatus ( SaveStatus ) {
-		if ( SAVE_STATUS.modified === SaveStatus && SAVE_STATUS.notSaved === this.#saveStatus ) {
+	set saveStatus ( saveStatus ) {
+
+		// Status unchanged... return directly
+		if ( SAVE_STATUS.modified === saveStatus && SAVE_STATUS.notSaved === this.#saveStatus ) {
 			return;
 		}
-		this.#saveStatus = SaveStatus;
-		if ( SAVE_STATUS.modified === SaveStatus && ! this.#saveTimer ) {
+		this.#saveStatus = saveStatus;
+		if ( SAVE_STATUS.modified === saveStatus && ! this.#saveTimer ) {
+
+			// Starting the timer
 			this.#saveTimer = setTimeout (
 				( ) => this.#saveStatus = SAVE_STATUS.notSaved,
-				OUR_SAVE_TIME
+				MouseUI.#SAVE_TIME
 			);
 		}
-		if ( SAVE_STATUS.saved === SaveStatus && this.#saveTimer ) {
+		else if ( SAVE_STATUS.saved === saveStatus && this.#saveTimer ) {
+
+			// clear the timer
 			clearTimeout ( this.#saveTimer );
 			this.#saveTimer = null;
 		}
@@ -120,17 +148,23 @@ class MouseUI {
 	*/
 
 	createUI ( ) {
+
+		// HTML creation
 		this.#mouseUISpan =
 			theHTMLElementsFactory.create (
 				'span',
 				null,
 				theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-MouseUI' }, document.body )
 			);
+
+		// init vars for mouse and zoom
 		this.#zoom = theTravelNotesData.map.getZoom ( );
 		this.#mousePosition =
 			theUtilities.formatLat ( theConfig.map.center.lat ) +
 			'\u00a0-\u00a0' +
 			theUtilities.formatLng ( theConfig.map.center.lng );
+
+		// Event listeners for mouse and zoom
 		theTravelNotesData.map.on (
 			'mousemove',
 			mouseMoveEvent => {
@@ -149,21 +183,15 @@ class MouseUI {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of MouseUI class
+The one and only one instance of MouseUI class
 @type {MouseUI}
-@constant
-@global
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theMouseUI = new MouseUI ( );
 
 export default theMouseUI;
 
-/*
---- End of MouseUI.js file ----------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

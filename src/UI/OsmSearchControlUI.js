@@ -20,76 +20,55 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OsmSearchControlUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module osmSearchPaneUI
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import OsmSearchToolbarUI from '../UI/OsmSearchToolbarUI.js';
 import OsmSearchTreeUI from '../UI/OsmSearchTreeUI.js';
 import OsmSearchWaitUI from '../UI/OsmSearchWaitUI.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class OsmSearchControlUI
-@classdesc This class add or remove the search toolbar and search tree on the pane control
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class add or remove the search toolbar and search tree on the pane control
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class OsmSearchControlUI {
 
 	/**
 	A reference to the OsmSearchTreeUI object
-	@private
+	@type {OsmSearchTreeUI}
 	*/
 
-	#osmSearchTreeUI = null;
+	#osmSearchTreeUI;
 
 	/**
 	A reference to the OsmSearchToolbarUI object
-	@private
+	@type {OsmSearchToolbarUI}
 	*/
 
-	#osmSearchToolbar = null;
+	#osmSearchToolbar;
 
 	/**
 	A reference to the OsmSearchWaitUI Object
-	@private
+	@type {OsmSearchWaitUI}
 	*/
 
-	#osmSearchWaitUI = null;
+	#osmSearchWaitUI;
 
 	/**
-	A reference to the pane control html element
-	@private
+	The HTMLElement in witch the control have to be added
+	@type {HTMLElement}
 	*/
 
-	#paneControl = null;
+	#paneControl;
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {HTMLElement} paneControl The HTMLElement in witch the control have to be added
 	*/
 
 	constructor ( paneControl ) {
@@ -101,7 +80,7 @@ class OsmSearchControlUI {
 	}
 
 	/**
-	Add the treeHTMLElement to the paneControl
+	Add the HTMLElements to the controlPane
 	*/
 
 	addControl ( ) {
@@ -111,7 +90,7 @@ class OsmSearchControlUI {
 	}
 
 	/**
-	Remove thetreeHTMLElement from the paneControl
+	remove the HTMLElements from the controlPane
 	*/
 
 	clearControl ( ) {
@@ -124,6 +103,4 @@ class OsmSearchControlUI {
 
 export default OsmSearchControlUI;
 
-/*
---- End of osmSearchControlUI.js file -----------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

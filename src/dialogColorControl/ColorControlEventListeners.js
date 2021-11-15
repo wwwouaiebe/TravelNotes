@@ -20,70 +20,48 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ColorControlEventListeners.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogColorControl
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import Color from '../dialogColorControl/Color.js';
 import { ZERO, COLOR_CONTROL } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class RedSliderInputEL
-@classdesc Input event listener for the red slider
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+Input event listener for the red slider
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class RedSliderInputEL {
 
-	#redSlider = null;
-	#colorButtons = null;
-
-	/*
-	constructor
+	/**
+	A reference to the array with the color buttons of the ColorControl
+	@type {Array.<HTMLElement>}
 	*/
 
-	constructor ( redSlider, colorButtons ) {
-		this.#redSlider = redSlider;
-		this.#colorButtons = colorButtons;
-		Object.freeze ( this );
-	}
+	#colorButtons;
 
-	destructor ( ) {
-		this.#redSlider = null;
-		this.#colorButtons = null;
+	/**
+	The constructor
+	@param {Array.<HTMLElement>} colorButtons A reference to the array with the color buttons of the ColorControl
+	*/
+
+	constructor ( colorButtons ) {
+		Object.freeze ( this );
+		this.#colorButtons = colorButtons;
 	}
 
 	/**
-	Event listener method
+	Event listener
+	@param {Event} inputEvent The event to handle
 	*/
 
 	handleEvent ( inputEvent ) {
 		inputEvent.stopPropagation ( );
-		let newColor = new Color ( );
+		const newColor = new Color ( );
 
 		// Math.ceil because with JS 100 * 2.55 = 254.99999....
 		newColor.red =
@@ -100,43 +78,48 @@ class RedSliderInputEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class ColorInputEL
-@classdesc Input event for the color inputs
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+Input event for the color inputs
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ColorInputEL {
 
-	#colorControl = null;
-	#inputs = null;
+	/**
+	A reference to the ColorControl object
+	@type {ColorControl}
+	*/
 
-	/*
-	constructor
+	#colorControl;
+
+	/**
+	A reference to the red, green and blue input htmlElement of the ColorControl
+	@type {ColorInputs}
+	*/
+
+	#inputs;
+
+	/**
+	The constructor
+	@param {ColorControl} colorControl A reference to the ColorControl object
+	@param {ColorInputs} inputs A reference to the red, green and blue input htmlElement of the ColorControl
 	*/
 
 	constructor ( colorControl, inputs ) {
+		Object.freeze ( this );
 		this.#colorControl = colorControl;
 		this.#inputs = inputs;
-		Object.freeze ( this );
-	}
-
-	destructor ( ) {
-		this.#colorControl = null;
-		this.#inputs = null;
 	}
 
 	/**
 	Event listener method
+	@param {Event} inputEvent The event to handle
 	*/
 
 	handleEvent ( inputEvent ) {
 		inputEvent.stopPropagation ( );
-		let newColor = new Color (
+		const newColor = new Color (
 			Number.parseInt ( this.#inputs.red.value ),
 			Number.parseInt ( this.#inputs.green.value ),
 			Number.parseInt ( this.#inputs.blue.value )
@@ -145,40 +128,39 @@ class ColorInputEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class ColorButtonClickEL
-@classdesc click event listener for the color buttons
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+click event listener for the color buttons
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ColorButtonClickEL {
 
+	/**
+	A reference to the ColorControl object
+	@type {ColorControl}
+	*/
+
 	#colorControl = null;
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {ColorControl} colorControl A reference to the ColorControl object
 	*/
 
 	constructor ( colorControl ) {
-		this.#colorControl = colorControl;
 		Object.freeze ( this );
-	}
-
-	destructor ( ) {
-		this.#colorControl = null;
+		this.#colorControl = colorControl;
 	}
 
 	/**
 	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		let newColor = new Color ( );
+		const newColor = new Color ( );
 		newColor.cssColor = clickEvent.target.style [ 'background-color' ];
 		this.#colorControl.color = newColor;
 	}
@@ -191,10 +173,4 @@ export {
 	ColorButtonClickEL
 };
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of ColorControlEventListeners.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

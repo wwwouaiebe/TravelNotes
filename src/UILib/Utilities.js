@@ -21,46 +21,25 @@ Changes:
 		- Issue ♯174 : UUID generator is not rfc 4122 compliant
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file Utilities.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module UILib
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theTranslator from '../UILib/Translator.js';
 import { LAT_LNG, ZERO, ONE, TWO, THREE, HEXADECIMAL, DISTANCE } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class Utilities
-@classdesc This class contains utility methods
-@see {@link theUtilities} for the one and only one instance of this class
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class contains utility methods.
+See theUtilities for the one and only one instance of this class
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class Utilities {
 
-	/*
+	/**
 	constructor
 	*/
 
@@ -70,13 +49,14 @@ class Utilities {
 
 	/**
 	Gives an UUID conform to the rfc 4122 section 4.4
+	@type {String}
 	*/
 
 	get UUID ( ) {
 		const UUID_LENGHT = 16;
 		const UUID_STRLENGHT = 2;
-		let randomValues = new Uint8Array ( UUID_LENGHT );
 		const UUID_SEPARATORS = [ '', '', '', '-', '', '-', '', '-', '', '-', '', '', '', '', '', '' ];
+		const randomValues = new Uint8Array ( UUID_LENGHT );
 
 		window.crypto.getRandomValues ( randomValues );
 
@@ -109,13 +89,13 @@ class Utilities {
 
 	/**
 	Test the availibility of the storage
-	@param {string} type The type of storage. Must be 'sessionStorage' or 'localStorage'
+	@param {String} type The type of storage. Must be 'sessionStorage' or 'localStorage'
 	*/
 
 	storageAvailable ( type ) {
 		try {
-			let storage = window [ type ];
-			let	testString = '__storage_test__';
+			const storage = window [ type ];
+			const testString = '__storage_test__';
 			storage.setItem ( testString, testString );
 			storage.removeItem ( testString );
 			return true;
@@ -127,12 +107,12 @@ class Utilities {
 
 	/**
 	Open a file
-	@param {function} eventListener a change event listener to use when the file is opened
-
+	@param {function|Object} eventListener a change event listener to use when the file is opened
+	@param {String} acceptFileType The extension of the file, included the dot.
 	*/
 
 	openFile ( eventListener, acceptFileType ) {
-		let openFileInput = document.createElement ( 'input' );
+		const openFileInput = document.createElement ( 'input' );
 		openFileInput.type = 'file';
 		if ( acceptFileType ) {
 			openFileInput.accept = acceptFileType;
@@ -147,23 +127,20 @@ class Utilities {
 
 	/**
 	Save a string to a file
-	@param {string} fileName The file name
-	@param {string} fileContent The file content
+	@param {String} fileName The file name
+	@param {String} fileContent The file content
 	@param {?string} fileMimeType The mime type of the file. Default to 'text/plain'
 	*/
 
 	saveFile ( fileName, fileContent, fileMimeType ) {
 		try {
-			let objURL = null;
-			if ( fileMimeType ) {
-				objURL = window.URL.createObjectURL (
-					new File ( [ fileContent ], fileName, { type : fileMimeType } )
-				);
-			}
-			else {
-				objURL = URL.createObjectURL ( fileContent );
-			}
-			let element = document.createElement ( 'a' );
+			const objURL =
+				fileMimeType
+					?
+					window.URL.createObjectURL ( new File ( [ fileContent ], fileName, { type : fileMimeType } ) )
+					:
+					URL.createObjectURL ( fileContent );
+			const element = document.createElement ( 'a' );
 			element.setAttribute ( 'href', objURL );
 			element.setAttribute ( 'download', fileName );
 			element.click ( );
@@ -178,21 +155,21 @@ class Utilities {
 
 	/**
 	Transform a time to a string
-	@param {number} time The time in seconds
+	@param {Number} time The time in seconds
 	*/
 
 	formatTime ( time ) {
 		const SECOND_IN_DAY = 86400;
 		const SECOND_IN_HOUR = 3600;
 		const SECOND_IN_MINUT = 60;
-		let iTtime = Math.floor ( time );
+		const iTtime = Math.floor ( time );
 		if ( ZERO === iTtime ) {
 			return '';
 		}
-		let days = Math.floor ( iTtime / SECOND_IN_DAY );
-		let hours = Math.floor ( iTtime % SECOND_IN_DAY / SECOND_IN_HOUR );
-		let minutes = Math.floor ( iTtime % SECOND_IN_HOUR / SECOND_IN_MINUT );
-		let seconds = Math.floor ( iTtime % SECOND_IN_MINUT );
+		const days = Math.floor ( iTtime / SECOND_IN_DAY );
+		const hours = Math.floor ( iTtime % SECOND_IN_DAY / SECOND_IN_HOUR );
+		const minutes = Math.floor ( iTtime % SECOND_IN_HOUR / SECOND_IN_MINUT );
+		const seconds = Math.floor ( iTtime % SECOND_IN_MINUT );
 		if ( ZERO < days ) {
 			return days +
 				'\u00A0'
@@ -221,13 +198,13 @@ class Utilities {
 
 	/**
 	Transform a distance to a string
-	@param {number} distance The distance in meters
+	@param {Number} distance The distance in meters
 	*/
 
 	formatDistance ( distance ) {
 		const DISTANCE_ROUND = 10;
 
-		let iDistance = Math.floor ( distance );
+		const iDistance = Math.floor ( distance );
 		if ( ZERO >= iDistance ) {
 			return '0\u00A0km';
 		}
@@ -241,7 +218,7 @@ class Utilities {
 
 	/**
 	Transform a latitude to a string
-	@param {number} lat The latitude
+	@param {Number} lat The latitude
 	*/
 
 	formatLat ( lat ) {
@@ -256,7 +233,7 @@ class Utilities {
 
 	/**
 	Transform a longitude to a string
-	@param {number} lng The longitude
+	@param {Number} lng The longitude
 	*/
 
 	formatLng ( lng ) {
@@ -271,7 +248,7 @@ class Utilities {
 
 	/**
 	Transform a latitude + longitude to a string
-	@param {Array.<number>} latLng The latitude and longitude
+	@param {Array.<Number>} latLng The latitude and longitude
 	*/
 
 	formatLatLng ( latLng ) {
@@ -282,21 +259,15 @@ class Utilities {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of Utilities class
+The one and only one instance of Utilities class
 @type {Utilities}
-@constant
-@global
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theUtilities = new Utilities ( );
 
 export default theUtilities;
 
-/*
---- End of Utilities.js file --------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

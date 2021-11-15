@@ -28,44 +28,15 @@ Changes:
 		- Issue ♯137 : Remove html tags from json files
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests 20210903
 
 -----------------------------------------------------------------------------------------------------------------------
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file APIKeysManager.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@typedef {Object} APIKey
-@desc An object to store a provider name and  API key
-@property {string} providerName The provider name
-@property {string} providerKey The provider API key
-@public
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module core
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
+import { APIKey } from '../coreLib/Containers.js';
 import APIKeysDialog from '../dialogAPIKeys/APIKeysDialog.js';
 import theUtilities from '../UILib/Utilities.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
@@ -78,38 +49,41 @@ import theErrorsUI from '../errorsUI/ErrorsUI.js';
 
 import { ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class
-@classdesc API keys manager
-@see {@link theAPIKeysManager} for the one and only one instance of this class
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+API keys manager
+See theAPIKeysManager for the one and only one instance of this class
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class APIKeysManager {
 
+	/**
+	A flag indicating that a APIKkeys file was found on the server when launching the app
+	@type {Boolean}
+	*/
+
 	#haveAPIKeysFile = false;
 
-	#APIKeysMap = new Map;
+	/**
+	A map with the APIKeys
+	@type {Map.<String>}
+	*/
+
+	#apiKeysMap = new Map ( );
 
 	/**
 	This method is called when the 'APIKkeys' file is decoded correctly
-	@param {string} decryptedData the decoded API keys as JSON string
-	@private
+	@param {String} decryptedData the decoded API keys as JSON string
 	*/
 
 	#onOkDecryptServerFile ( decryptedData ) {
-		let APIKeys = JSON.parse ( new TextDecoder ( ).decode ( decryptedData ) );
-		this.#resetAPIKeys ( APIKeys );
+		this.#resetAPIKeys ( JSON.parse ( new TextDecoder ( ).decode ( decryptedData ) ) );
 	}
 
 	/**
 	This method is called when the 'APIKkeys' file is not decoded correctly
-	@param {Error} err
-	@private
+	@param {Error} err The error occured when decrypting
 	*/
 
 	#onErrorDecryptServerFile ( err ) {
@@ -129,11 +103,10 @@ class APIKeysManager {
 	This method is called when a 'APIKeys' file is found on the web server
 	The methos ask a password to the user and try to decode the file
 	@param {ArrayBuffer} data the data to decode
-	@private
 	*/
 
 	#onServerFileFound ( data ) {
-		if ( window.isSecureContext && window.crypto && window.crypto.subtle && window.crypto.subtle.importKey ) {
+		if ( window.isSecureContext && ( window?.crypto?.subtle?.importKey ) ) {
 			new DataEncryptor ( ).decryptData (
 				data,
 				decryptedData => this.#onOkDecryptServerFile ( decryptedData ),
@@ -145,84 +118,87 @@ class APIKeysManager {
 
 	/**
 	This method get an API key from the JS map
-	@param {string} providerName the provider name
-	@return {string} the API key
-	@private
+	@param {String} providerName the provider name
+	@return {String} the API key
 	*/
 
 	#getAPIKey ( providerName ) {
-		return this.#APIKeysMap.get ( providerName.toLowerCase ( ) );
+		return this.#apiKeysMap.get ( providerName.toLowerCase ( ) );
 	}
 
 	/**
 	 This method add an API key to the JS map
-	@param {string} providerName the provider name
-	@param {string} key the API key
-	@private
+	@param {String} providerName the provider name
+	@param {String} key the API key
 	*/
 
 	#setAPIKey ( providerName, key ) {
-		this.#APIKeysMap.set ( providerName.toLowerCase ( ), key );
+		this.#apiKeysMap.set ( providerName.toLowerCase ( ), key );
 	}
 
 	/**
 	This method set the API keys from the session storage
-	@return {!number} the number of API keys restored
-	@private
+	@return {Number} the number of API keys restored
 	*/
 
 	#setAPIKeysFromSessionStorage ( ) {
 		let APIKeysCounter = ZERO;
 		for ( let counter = ZERO; counter < sessionStorage.length; counter ++ ) {
-			let keyName = sessionStorage.key ( counter );
-			if ( 'ProviderKey' === keyName.substr ( keyName.length - 'ProviderKey'.length ) ) {
+			const keyName = sessionStorage.key ( counter );
+			if ( keyName.match ( /^\w*ProviderKey$/ ) ) {
 				this.#setAPIKey (
-					keyName.substr ( ZERO, keyName.length - 'ProviderKey'.length ),
+					keyName.replace ( 'ProviderKey', '' ),
 					atob ( sessionStorage.getItem ( keyName ) )
 				);
 				APIKeysCounter ++;
 			}
 		}
 		theTravelNotesData.providers.forEach (
-			provider => { provider.providerKey = ( this.#getAPIKey ( provider.name ) || '' ); }
+			provider => {
+				if ( provider.providerKeyNeeded ) {
+					provider.providerKey = ( this.#getAPIKey ( provider.name ) || '' );
+				}
+			}
 		);
 		return APIKeysCounter;
 	}
 
 	/**
 	This method replace all the API keys from the map and storage with the given APIKeys
-	@param {Array.<APIKey>} APIKeys the new APIKeys
-	@fires providersadded
-	@private
+	@param {Array.<APIKey>} newAPIKeys the new APIKeys
 	*/
 
-	#resetAPIKeys ( APIKeys ) {
+	#resetAPIKeys ( newAPIKeys ) {
 		sessionStorage.clear ( );
-		this.#APIKeysMap.clear ( );
-		let saveToSessionStorage =
+		this.#apiKeysMap.clear ( );
+		const saveToSessionStorage =
 			theUtilities.storageAvailable ( 'sessionStorage' )
 			&&
 			theConfig.APIKeys.saveToSessionStorage;
-		APIKeys.forEach (
-			APIKey => {
+		newAPIKeys.forEach (
+			newApiKey => {
 				if ( saveToSessionStorage ) {
 					sessionStorage.setItem (
-						( APIKey.providerName ).toLowerCase ( ) + 'ProviderKey',
-						btoa ( APIKey.providerKey )
+						( newApiKey.providerName ).toLowerCase ( ) + 'ProviderKey',
+						btoa ( newApiKey.providerKey )
 					);
 				}
-				this.#setAPIKey ( APIKey.providerName, APIKey.providerKey );
+				this.#setAPIKey ( newApiKey.providerName, newApiKey.providerKey );
 			}
 		);
 		theTravelNotesData.providers.forEach (
-			provider => { provider.providerKey = ( this.#getAPIKey ( provider.name ) || '' ); }
+			provider => {
+				if ( provider.providerKeyNeeded ) {
+					provider.providerKey = ( this.#getAPIKey ( provider.name ) || '' );
+				}
+			}
 		);
 
 		theEventDispatcher.dispatch ( 'providersadded' );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -231,35 +207,33 @@ class APIKeysManager {
 
 	/**
 	Verify that a provider key is known
-	@param {string} providerName the provider name for witch the API key is searched
-	@return {boolean} true when the provider API key is known
+	@param {String} providerName the provider name for witch the API key is searched
+	@return {Boolean} true when the provider API key is known
 	*/
 
-	hasKey ( providerName ) { return this.#APIKeysMap.has ( providerName.toLowerCase ( ) ); }
+	hasKey ( providerName ) { return this.#apiKeysMap.has ( providerName.toLowerCase ( ) ); }
 
 	/**
-	Get the url from the layer
-	@param {Object} layer the layer for witch the url must returned
-	@return {string} the url for the given layer or null if the url cannot be given
+	Get the url from the mapLayer
+	@param {MapLayer} mapLayer the layer for witch the url must returned
+	@return {String} the url for the given mapLayer or null if the url cannot be given
 	*/
 
-	getUrl ( layer ) {
-		if ( layer.providerKeyNeeded ) {
-			let providerKey = this.#APIKeysMap.get ( layer.providerName.toLowerCase ( ) );
+	getUrl ( mapLayer ) {
+		if ( mapLayer.providerKeyNeeded ) {
+			const providerKey = this.#apiKeysMap.get ( mapLayer.providerName.toLowerCase ( ) );
 			if ( providerKey ) {
-				return layer.url.replace ( '{providerKey}', providerKey );
+				return mapLayer.url.replace ( '{providerKey}', providerKey );
 			}
 			return null;
 		}
-		return layer.url;
+		return mapLayer.url;
 	}
 
 	/**
 	This method try to restore the API keys from the storage. If not possible the method search
 	a file named 'APIKeys' on the web server. If the file is found, ask the file password to the user
 	and try to decode the file.
-	@fires providersadded
-	@async
 	*/
 
 	setKeysFromServerFile ( ) {
@@ -295,25 +269,23 @@ class APIKeysManager {
 
 	/**
 	This method show the APIKeys dialog and update the APIKeys when the user close the dialog.
-	@fires providersadded
-	@async
 	*/
 
 	setKeysFromDialog ( ) {
 
 		// preparing a list of providers and provider keys for the dialog
-		let ApiKeys = [];
-		this.#APIKeysMap.forEach (
+		const apiKeys = [];
+		this.#apiKeysMap.forEach (
 			( providerKey, providerName ) => {
-				ApiKeys.push ( Object.seal ( { providerName : providerName, providerKey : providerKey } ) );
+				apiKeys.push ( new APIKey ( providerName, providerKey ) );
 			}
 		);
-		ApiKeys.sort ( ( first, second ) => first.providerName.localeCompare ( second.providerName ) );
+		apiKeys.sort ( ( first, second ) => first.providerName.localeCompare ( second.providerName ) );
 
 		// showing dialog
-		new APIKeysDialog ( ApiKeys, this.#haveAPIKeysFile )
+		new APIKeysDialog ( apiKeys, this.#haveAPIKeysFile )
 			.show ( )
-			.then ( APIKeys => this.#resetAPIKeys ( APIKeys ) )
+			.then ( newAPIKeys => this.#resetAPIKeys ( newAPIKeys ) )
 			.catch (
 				err => {
 					if ( err instanceof Error ) {
@@ -324,13 +296,13 @@ class APIKeysManager {
 	}
 
 	/**
-	This method add a provider
-	@param {Provider} provider the provider to add
+	This method add a provider. Used by plugins
+	@param {class} providerClass The JS class of the provider to add
 	*/
 
 	addProvider ( providerClass ) {
-		let provider = new providerClass ( );
-		let providerName = provider.name.toLowerCase ( );
+		const provider = new providerClass ( );
+		const providerName = provider.name.toLowerCase ( );
 
 		// searching if we have already the provider key
 		let providerKey = this.#getAPIKey ( providerName );
@@ -355,21 +327,15 @@ class APIKeysManager {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of APIKeysManager class
+The one and only one instance of APIKeysManager class
 @type {APIKeysManager}
-@constant
-@global
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theAPIKeysManager = new APIKeysManager ( );
 
 export default theAPIKeysManager;
 
-/*
---- End of APIKeysManager.js file ---------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

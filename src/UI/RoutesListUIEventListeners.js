@@ -20,28 +20,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file RoutesListUIEventListeners.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module travelUI
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import RouteContextMenu from '../contextMenus/RouteContextMenu.js';
@@ -49,19 +31,16 @@ import theTravelEditor from '../core/TravelEditor.js';
 
 import { MOUSE_WHEEL_FACTORS } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class RoutesListDragOverEL
-@classdesc dragover event listener for the RoutesList based on the EventListener API.
-
-@------------------------------------------------------------------------------------------------------------------------------
+dragover event listener for the RoutesList based on the EventListener API.
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class RoutesListDragOverEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -69,7 +48,8 @@ class RoutesListDragOverEL {
 	}
 
 	/**
-	dragover event listener
+	Event listener method
+	@param {Event} dragEvent The event to handle
 	*/
 
 	handleEvent ( dragEvent ) {
@@ -77,19 +57,16 @@ class RoutesListDragOverEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class RouteDragStartEL
-@classdesc dragstart event listener for the routes based on the EventListener API.
-
-@------------------------------------------------------------------------------------------------------------------------------
+dragstart event listener for the routes based on the EventListener API.
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class RouteDragStartEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -97,7 +74,8 @@ class RouteDragStartEL {
 	}
 
 	/**
-	@desc dragstart event listener
+	Event listener method
+	@param {Event} dragEvent The event to handle
 	*/
 
 	handleEvent ( dragEvent ) {
@@ -114,19 +92,16 @@ class RouteDragStartEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class RouteDropEL
-@classdesc drop event listener for the routes based on the EventListener API.
-
-@------------------------------------------------------------------------------------------------------------------------------
+drop event listener for the routes based on the EventListener API.
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class RouteDropEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -134,13 +109,14 @@ class RouteDropEL {
 	}
 
 	/**
-	drop event listener
+	Event listener method
+	@param {Event} dropEvent The event to handle
 	*/
 
 	handleEvent ( dropEvent ) {
 		dropEvent.preventDefault ( );
-		let targetElement = dropEvent.target;
-		let clientRect = targetElement.getBoundingClientRect ( );
+		const targetElement = dropEvent.target;
+		const clientRect = targetElement.getBoundingClientRect ( );
 		theTravelEditor.routeDropped (
 			Number.parseInt ( dropEvent.dataTransfer.getData ( 'ObjId' ) ),
 			Number.parseInt ( targetElement.dataset.tanObjId ),
@@ -149,24 +125,26 @@ class RouteDropEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class RoutesListWheelEL
-@classdesc wheel event listener for the RoutesList based on the EventListener API.
-
-@------------------------------------------------------------------------------------------------------------------------------
+wheel event listener for the RoutesList based on the EventListener API.
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class RoutesListWheelEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	@param {Event} wheelEvent The event to handle
+	*/
 
 	handleEvent ( wheelEvent ) {
 		wheelEvent.stopPropagation ( );
@@ -179,24 +157,26 @@ class RoutesListWheelEL {
 
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class RouteContextMenuEL
-@classdesc contextmenu event listener for the routes based on the EventListener API.
-
-@------------------------------------------------------------------------------------------------------------------------------
+contextmenu event listener for the routes based on the EventListener API.
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-class RouteContextMenuEL {
+class RouteUIContextMenuEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	@param {Event} contextMenuEvent The event to handle
+	*/
 
 	handleEvent ( contextMenuEvent ) {
 		contextMenuEvent.stopPropagation ( );
@@ -208,15 +188,9 @@ class RouteContextMenuEL {
 export {
 	RouteDragStartEL,
 	RouteDropEL,
-	RouteContextMenuEL,
+	RouteUIContextMenuEL,
 	RoutesListDragOverEL,
 	RoutesListWheelEL
 };
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of RoutesListUIEventListeners.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

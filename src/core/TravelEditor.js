@@ -42,28 +42,12 @@ Changes:
 		- Issue ♯129 : Add an indicator when the travel is modified and not saved
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests 20210902
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file TravelEditor.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module core
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theTranslator from '../UILib/Translator.js';
@@ -72,7 +56,6 @@ import theConfig from '../data/Config.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theRouteEditor from '../core/RouteEditor.js';
 import theUtilities from '../UILib/Utilities.js';
-import Route from '../data/Route.js';
 import Travel from '../data/Travel.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import FileCompactor from '../coreLib/FileCompactor.js';
@@ -81,50 +64,45 @@ import { INVALID_OBJ_ID, SAVE_STATUS } from '../main/Constants.js';
 import theMouseUI from '../mouseUI/MouseUI.js';
 import SaveAsDialog from '../dialogs/SaveAsDialog.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class
-@classdesc This class contains methods fot Travel creation or modifications
-@see {@link theTravelEditor} for the one and only one instance of this class
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+This class contains methods fot Travel creation or modifications
+See theTravelEditor for the one and only one instance of this class
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class TravelEditor {
 
 	/**
 	This method save the travel to a file, removing notes and maneuvers, depending of the user choice.
-	@param {Object} removeData an object describing witch data must be saved
-	@private
+	@param {SaveAsDialogData} saveAsDialogData an object describing witch data must be saved
 	*/
 
-	#saveAsTravel ( removeData ) {
+	#saveAsTravel ( saveAsDialogData ) {
 
-		let saveAsTravel = new Travel ( );
+		const saveAsTravel = new Travel ( );
 		saveAsTravel.jsonObject = theTravelNotesData.travel.jsonObject;
 		saveAsTravel.name += '-partial';
 		let routesIterator = saveAsTravel.routes.iterator;
 		while ( ! routesIterator.done ) {
 			routesIterator.value.hidden = false;
 		}
-		if ( removeData.removeTravelNotes ) {
+		if ( saveAsDialogData.removeTravelNotes ) {
 			saveAsTravel.notes.removeAll ( );
 		}
-		if ( removeData.removeRoutesNotes ) {
+		if ( saveAsDialogData.removeRoutesNotes ) {
 			routesIterator = saveAsTravel.routes.iterator;
 			while ( ! routesIterator.done ) {
 				routesIterator.value.notes.removeAll ( );
 			}
 		}
-		if ( removeData.removeManeuvers ) {
+		if ( saveAsDialogData.removeManeuvers ) {
 			routesIterator = saveAsTravel.routes.iterator;
 			while ( ! routesIterator.done ) {
 				routesIterator.value.itinerary.maneuvers.removeAll ( );
 			}
 		}
-		let compressedSaveAsTravel = new FileCompactor ( ).compress ( saveAsTravel );
+		const compressedSaveAsTravel = new FileCompactor ( ).compress ( saveAsTravel );
 		theUtilities.saveFile (
 			compressedSaveAsTravel.name + '.trv',
 			JSON.stringify ( compressedSaveAsTravel ),
@@ -132,8 +110,8 @@ class TravelEditor {
 		);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -142,23 +120,21 @@ class TravelEditor {
 
 	/**
 	This method is called when a route is dropped in the TravelUI and then routes reordered.
-	@param {!number} draggedRouteObjId The objId of the dragged route
-	@param {!number} targetRouteObjId The objId of the route on witch the drop was executed
-	@param {boolean} draggedBefore when true the dragged route is moved before the target route
+	@param {Number} draggedRouteObjId The objId of the dragged route
+	@param {Number} targetRouteObjId The objId of the route on witch the drop was executed
+	@param {Boolean} draggedBefore when true the dragged route is moved before the target route
 	when false after
-	@fires setrouteslist
-	@fires roadbookupdate
 	*/
 
 	routeDropped ( draggedRouteObjId, targetRouteObjId, draggedBefore ) {
-		let newDraggedRouteObjId =
+		const newDraggedRouteObjId =
 			draggedRouteObjId === theTravelNotesData.travel.editedRoute.objId
 				?
 				theTravelNotesData.editedRouteObjId
 				:
 				draggedRouteObjId;
 
-		let newTargetRouteObjId =
+		const newTargetRouteObjId =
 			targetRouteObjId === theTravelNotesData.travel.editedRoute.objId
 				?
 				theTravelNotesData.editedRouteObjId
@@ -208,22 +184,17 @@ class TravelEditor {
 			theErrorsUI.showError ( theTranslator.getText ( 'TravelEditor - Gives a name to the travel' ) );
 			return;
 		}
-		let routesIterator = theTravelNotesData.travel.routes.iterator;
+		const routesIterator = theTravelNotesData.travel.routes.iterator;
 		while ( ! routesIterator.done ) {
 			routesIterator.value.hidden = false;
 		}
-		let compressedTravel = new FileCompactor ( ).compress ( theTravelNotesData.travel );
+		const compressedTravel = new FileCompactor ( ).compress ( theTravelNotesData.travel );
 		theUtilities.saveFile ( compressedTravel.name + '.trv', JSON.stringify ( compressedTravel ), 'application/json' );
 		theMouseUI.saveStatus = SAVE_STATUS.saved;
 	}
 
 	/**
 	This method clear the current travel and start a new travel
-	@fires removeallobjects
-	@fires setrouteslist
-	@fires showitinerary
-	@fires travelnameupdated
-	@fires roadbookupdate
 	*/
 
 	newTravel ( ) {
@@ -236,10 +207,10 @@ class TravelEditor {
 		}
 		theProfileWindowsManager.deleteAllProfiles ( );
 		theEventDispatcher.dispatch ( 'removeallobjects' );
-		theTravelNotesData.travel.editedRoute = new Route ( );
+
 		theTravelNotesData.editedRouteObjId = INVALID_OBJ_ID;
-		theTravelNotesData.travel = new Travel ( );
-		theTravelNotesData.travel.routes.add ( new Route ( ) );
+		theTravelNotesData.travel.jsonObject = new Travel ( ).jsonObject;
+
 		theEventDispatcher.dispatch ( 'setrouteslist' );
 		theEventDispatcher.dispatch ( 'showitinerary' );
 		theEventDispatcher.dispatch ( 'roadbookupdate' );
@@ -251,21 +222,15 @@ class TravelEditor {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of TravelEditor class
+The one and only one instance of TravelEditor class
 @type {TravelEditor}
-@constant
-@global
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theTravelEditor = new TravelEditor ( );
 
 export default theTravelEditor;
 
-/*
---- End of TravelEditor.js file -----------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

@@ -31,28 +31,10 @@ Changes:
 		- Issue ♯120 : Review the UserInterface
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
-Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file RoutePropertiesDialog.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogs
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
+ests ...
 */
 
 import BaseDialog from '../dialogBase/BaseDialog.js';
@@ -62,77 +44,84 @@ import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theConfig from '../data/Config.js';
 import { ZERO } from '../main/Constants.js';
 
-const OUR_ROUTE_MIN_WIDTH = 1;
-const OUR_ROUTE_MAX_WIDTH = 40;
-
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class RoutePropertiesDialog
-@classdesc This class is the route properties dialog
-@extends BaseDialog
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class is the route properties dialog
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class RoutePropertiesDialog extends BaseDialog {
 
 	/**
 	A reference to the route
-	@private
+	@type {Route}
 	*/
 
-	#route = null;
+	#route;
 
 	/**
 	The colorControl object used in the dialog
-	@private
+	@type {ColorControl}
 	*/
 
-	#colorControl = null;
+	#colorControl;
 
 	/**
 	The route name input in the dialog
-	@private
+	@type {HTMLElement}
 	*/
 
-	#nameInput = null;
+	#nameInput;
 
 	/**
 	The route width input in the dialog
-	@private
+	@type {HTMLElement}
 	*/
 
-	#widthInput = null;
+	#widthInput;
 
 	/**
 	The route dash select in the dialog
-	@private
+	@type {HTMLElement}
 	*/
 
-	#dashSelect = null;
+	#dashSelect;
 
 	/**
 	The route chain check box in the dialog
-	@private
+	@type {HTMLElement}
 	*/
 
-	#chainInput = null;
+	#chainInput;
+
+	/**
+	The minimal width for a Route polyline
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #ROUTE_MIN_WIDTH ( ) { return 1; }
+
+	/**
+	The maximal width for a Route polyline
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #ROUTE_MAX_WIDTH ( ) { return 40; }
 
 	/**
 	This method creates the name div
-	@private
 	*/
 
 	#createNameDiv ( ) {
-		let nameHeaderDiv = theHTMLElementsFactory.create (
+		const nameHeaderDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				textContent : theTranslator.getText ( 'RoutePropertiesDialog - Name' )
 			}
 		);
-		let nameInputDiv = theHTMLElementsFactory.create (
+		const nameInputDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-RoutePropertiesDialog-DataDiv',
@@ -153,11 +142,10 @@ class RoutePropertiesDialog extends BaseDialog {
 
 	/**
 	This method creates the route width div
-	@private
 	*/
 
 	#createWidthDiv ( ) {
-		let widthDiv = theHTMLElementsFactory.create (
+		const widthDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-RoutePropertiesDialog-DataDiv'
@@ -177,8 +165,8 @@ class RoutePropertiesDialog extends BaseDialog {
 				type : 'number',
 				id : 'TravelNotes-RoutePropertiesDialog-WidthInput',
 				value : this.#route.width,
-				min : OUR_ROUTE_MIN_WIDTH,
-				max : OUR_ROUTE_MAX_WIDTH
+				min : RoutePropertiesDialog.#ROUTE_MIN_WIDTH,
+				max : RoutePropertiesDialog.#ROUTE_MAX_WIDTH
 			},
 			widthDiv
 		);
@@ -188,11 +176,10 @@ class RoutePropertiesDialog extends BaseDialog {
 
 	/**
 	This method creates the route dash div
-	@private
 	*/
 
 	#createDashDiv ( ) {
-		let dashDiv = theHTMLElementsFactory.create (
+		const dashDiv = theHTMLElementsFactory.create (
 			'div',
 			{ className : 'TravelNotes-RoutePropertiesDialog-DataDiv' }
 		);
@@ -204,22 +191,23 @@ class RoutePropertiesDialog extends BaseDialog {
 			theHTMLElementsFactory.create ( 'span', null, dashDiv )
 		);
 		this.#dashSelect = theHTMLElementsFactory.create ( 'select', null, dashDiv );
-		let dashChoices = theConfig.route.dashChoices;
-		for ( let optionsCounter = ZERO; optionsCounter < dashChoices.length; optionsCounter ++ ) {
-			this.#dashSelect.add ( theHTMLElementsFactory.create ( 'option', { text : dashChoices [ optionsCounter ].text } ) );
-		}
-		this.#dashSelect.selectedIndex = this.#route.dashArray < dashChoices.length ? this.#route.dashArray : ZERO;
+		const dashChoices = theConfig.route.dashChoices;
 
+		dashChoices.forEach (
+			dashChoice => {
+				this.#dashSelect.add ( theHTMLElementsFactory.create ( 'option', { text : dashChoice.text } ) );
+			}
+		);
+		this.#dashSelect.selectedIndex = this.#route.dashArray < dashChoices.length ? this.#route.dashArray : ZERO;
 		return dashDiv;
 	}
 
 	/**
 	This method creates the route chain div
-	@private
 	*/
 
 	#createChainDiv ( ) {
-		let chainDiv = theHTMLElementsFactory.create (
+		const chainDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-RoutePropertiesDialog-DataDiv',
@@ -248,7 +236,6 @@ class RoutePropertiesDialog extends BaseDialog {
 
 	/**
 	This method creates the color header div
-	@private
 	*/
 
 	#createColorHeaderDiv ( ) {
@@ -261,8 +248,8 @@ class RoutePropertiesDialog extends BaseDialog {
 		);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	@param {Route} route The route for witch the properties are edited
 	*/
 
@@ -295,8 +282,6 @@ class RoutePropertiesDialog extends BaseDialog {
 		this.#route.width = parseInt ( this.#widthInput.value );
 		this.#route.chain = this.#chainInput.checked;
 		this.#route.dashArray = this.#dashSelect.selectedIndex;
-
-		this.#route.validateData ( );
 		this.#colorControl.destructor ( );
 
 		super.onOk ( );
@@ -304,7 +289,7 @@ class RoutePropertiesDialog extends BaseDialog {
 
 	/**
 	Get the title of the dialog
-	@readonly
+	@type {String}
 	*/
 
 	get title ( ) { return theTranslator.getText ( 'RoutePropertiesDialog - Route properties' ); }
@@ -312,12 +297,11 @@ class RoutePropertiesDialog extends BaseDialog {
 	/**
 	Overload of the BaseDialog.contentHTMLElements property.
 	Get an array with the HTMLElements that have to be added in the content of the dialog.
-	@readonly
+	@type {Array.<HTMLElement>}
 	*/
 
 	get contentHTMLElements ( ) {
 		return [].concat (
-
 			this.#createNameDiv ( ),
 			this.#createWidthDiv ( ),
 			this.#createDashDiv ( ),
@@ -330,6 +314,4 @@ class RoutePropertiesDialog extends BaseDialog {
 
 export default RoutePropertiesDialog;
 
-/*
---- End of RoutePropertiesDialog.js file --------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

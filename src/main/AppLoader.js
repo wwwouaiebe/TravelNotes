@@ -20,27 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
-Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file AppLoader.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module main
-
-@------------------------------------------------------------------------------------------------------------------------------
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 */
 
 /* eslint-disable max-lines */
@@ -60,45 +42,51 @@ import theTranslator from '../UILib/Translator.js';
 import theNoteDialogToolbarData from '../dialogNotes/NoteDialogToolbarData.js';
 import theOsmSearchDictionary from '../coreOsmSearch/OsmSearchDictionary.js';
 import theMapLayersCollection from '../data/MapLayersCollection.js';
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 
-import { SAVE_STATUS, LAT_LNG, ZERO, ONE, NOT_FOUND, HTTP_STATUS_OK, PANE_ID } from '../main/Constants.js';
+import { LAT_LNG, SAVE_STATUS, ZERO, ONE, NOT_FOUND, HTTP_STATUS_OK, PANE_ID } from '../main/Constants.js';
 
-const OUR_DEMO_PRINT_MAX_TILES = 120;
-const OUR_DEMO_MAX_MANEUVERS_NOTES = 10;
-
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class RoadbookUpdateEL
-@classdesc 'roadbookupdate' event listener
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+roadbookupdate event listener
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class RoadbookUpdateEL {
 
-	/*
-	constructor
+	/**
+	A boolean indicating when the local storage is available
+	@type {Boolean}
+	*/
+
+	#storageAvailable;
+
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#storageAvailable = theUtilities.storageAvailable ( 'localStorage' );
 	}
+
+	/**
+	Event listener method
+	*/
 
 	handleEvent ( ) {
 		theMouseUI.saveStatus = SAVE_STATUS.modified;
 
-		if ( theUtilities.storageAvailable ( 'localStorage' ) ) {
+		if ( this.#storageAvailable ) {
 			theIndexedDb.getOpenPromise ( )
-				.then ( ( ) => {
-					theIndexedDb.getWritePromise (
-						theTravelNotesData.UUID,
-						theTravelHTMLViewsFactory.getTravelHTML ( 'TravelNotes-Roadbook-' ).outerHTML
-					);
-				} )
+				.then (
+					( ) => {
+						theIndexedDb.getWritePromise (
+							theTravelNotesData.UUID,
+							theTravelHTMLViewsFactory.getTravelHTML ( 'TravelNotes-Roadbook-' ).outerHTML
+						);
+					}
+				)
 				.then ( ( ) => localStorage.setItem ( theTravelNotesData.UUID, Date.now ( ) ) )
 				.catch ( err => {
 					if ( err instanceof Error ) {
@@ -110,27 +98,45 @@ class RoadbookUpdateEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class AppLoader
-@classdesc Loader for the app.Load all the json files needed (config, translations, map layers...) and add event listeners
+Loader for the app. Load all the json files needed (config, translations, map layers...) and add event listeners
 to the document
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class AppLoader {
 
-	#travelUrl = null;
-	#language = null;
-	#originAndPath = window.location.href.substr ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'TravelNotes';
-	#errorMessage = '';
+	/**
+	The url of the trv file in the fil parameter of the url
+	@type {String}
+	*/
+
+	#travelUrl;
+
+	/**
+	the language in the lng parameter of the url
+	@type {String}
+	*/
+
+	#language;
+
+	/**
+	The path of the app + TravelNotes ( first part of the json file names )
+	@type {String}
+	*/
+
+	#originAndPath;
+
+	/**
+	An error message used when loading the json files
+	@type {String}
+	*/
+
+	#errorMessage;
 
 	/**
 	Loading event listeners
-	@private
 	*/
 
 	#addEventsListeners ( ) {
@@ -327,7 +333,7 @@ class AppLoader {
 		document.addEventListener (
 			'setprovider',
 			setProviderEvent => {
-				if ( setProviderEvent.data && setProviderEvent.data.provider ) {
+				if ( setProviderEvent?.data?.provider ) {
 					theUI.providersToolbarUI.provider = setProviderEvent.data.provider;
 				}
 			},
@@ -336,7 +342,7 @@ class AppLoader {
 		document.addEventListener (
 			'settransitmode',
 			setTransitModeEvent => {
-				if ( setTransitModeEvent.data && setTransitModeEvent.data.transitMode ) {
+				if ( setTransitModeEvent?.data?.transitMode ) {
 					theUI.providersToolbarUI.transitMode = setTransitModeEvent.data.transitMode;
 				}
 			},
@@ -346,7 +352,6 @@ class AppLoader {
 
 	/**
 	Loading unload and beforeunload event listeners
-	@private
 	*/
 
 	#addUnloadEventsListeners ( ) {
@@ -365,11 +370,10 @@ class AppLoader {
 
 	/**
 	Read the url. Search a 'fil' parameter and a 'lng' parameter in the url.
-	@private
 	*/
 
 	#readURL ( ) {
-		let docURL = new URL ( window.location );
+		const docURL = new URL ( window.location );
 
 		// 'fil' parameter
 		let strTravelUrl = docURL.searchParams.get ( 'fil' );
@@ -384,7 +388,7 @@ class AppLoader {
 				}
 
 				// Verify that the given url is on the same server and uses the same protocol
-				let travelURL = new URL ( strTravelUrl );
+				const travelURL = new URL ( strTravelUrl );
 				if (
 					docURL.protocol && travelURL.protocol && docURL.protocol === travelURL.protocol
 					&&
@@ -403,8 +407,8 @@ class AppLoader {
 			}
 		}
 
-		// 'lng' parameter. lng must be 2 letters...
-		let urlLng = docURL.searchParams.get ( 'lng' );
+		// 'lng' parameter (lng as 'language and not lng as longitude...). lng must be 2 letters...
+		const urlLng = docURL.searchParams.get ( 'lng' );
 		if ( urlLng ) {
 			if ( urlLng.match ( /^[A-Z,a-z]{2}$/ ) ) {
 				this.#language = urlLng.toLowerCase ( );
@@ -417,10 +421,10 @@ class AppLoader {
 	*/
 
 	async #loadConfig ( ) {
-		let configResponse = await fetch ( this.#originAndPath + 'Config.json' );
+		const configResponse = await fetch ( this.#originAndPath + 'Config.json' );
 
 		if ( HTTP_STATUS_OK === configResponse.status && configResponse.ok ) {
-			let config = await configResponse.json ( );
+			const config = await configResponse.json ( );
 
 			// overload of language
 			config.travelNotes.language = this.#language || config.travelNotes.language;
@@ -430,10 +434,12 @@ class AppLoader {
 				config.APIKeysDialog.haveUnsecureButtons = true;
 				config.errorsUI.showHelp = true;
 				config.layersToolbarUI.theDevil.addButton = false;
-				config.note.maxManeuversNotes = OUR_DEMO_MAX_MANEUVERS_NOTES;
+				// eslint-disable-next-line no-magic-numbers
+				config.note.maxManeuversNotes = 120;
 				config.note.haveBackground = true;
 				config.noteDialog.theDevil.addButton = false;
-				config.printRouteMap.maxTiles = OUR_DEMO_PRINT_MAX_TILES;
+				// eslint-disable-next-line no-magic-numbers
+				config.printRouteMap.maxTiles = 10;
 				config.route.showDragTooltip = NOT_FOUND;
 			}
 
@@ -453,7 +459,8 @@ class AppLoader {
 
 	/**
 	Loading translations
-	@private
+	@param {Object} translationPromiseResult The response of the fetch for the TravelNotesXX.json file
+	@param {Object} defaultTranslationPromiseResult The response of the fetch for the TravelNotesEN.json file
 	*/
 
 	async #loadTranslations ( translationPromiseResult, defaultTranslationPromiseResult ) {
@@ -487,7 +494,8 @@ class AppLoader {
 
 	/**
 	Loading the NoteDialog config
-	@private
+	@param {Object} noteDialogPromiseResult The response of the fetch for the TravelNotesNoteDialogXX.json file
+	@param {Object} defaultNoteDialogPromiseResult The response of the fetch for the TravelNotesNoteDialogEN.json file
 	*/
 
 	async #loadNoteDialogConfig ( noteDialogPromiseResult, defaultNoteDialogPromiseResult ) {
@@ -498,7 +506,7 @@ class AppLoader {
 			&&
 			noteDialogPromiseResult.value.ok
 		) {
-			let noteDialogData = await noteDialogPromiseResult.value.json ( );
+			const noteDialogData = await noteDialogPromiseResult.value.json ( );
 			theNoteDialogToolbarData.loadJson ( noteDialogData );
 			return true;
 		}
@@ -509,7 +517,7 @@ class AppLoader {
 			&&
 			defaultNoteDialogPromiseResult.value.ok
 		) {
-			let defaultNoteDialogData = await defaultNoteDialogPromiseResult.value.json ( );
+			const defaultNoteDialogData = await defaultNoteDialogPromiseResult.value.json ( );
 			theNoteDialogToolbarData.loadJson ( defaultNoteDialogData );
 			this.#errorMessage +=
 				'Not possible to load the TravelNotesNoteDialog' +
@@ -523,7 +531,8 @@ class AppLoader {
 
 	/**
 	Loading the OsmSearch dictionary
-	@private
+	@param {Object} searchDictPromiseResult The response of the fetch for the TravelNotesSearchDictionaryXX.csv file
+	@param {Object} defaultSearchDictPromiseResult The response of the fetch for the TravelNotesSearchDictionaryEN.csv file
 	*/
 
 	async #loadOsmSearchDictionary ( searchDictPromiseResult, defaultSearchDictPromiseResult ) {
@@ -557,7 +566,7 @@ class AppLoader {
 
 	/**
 	Loading map layers
-	@private
+	@param {Object} layersPromiseResult The response of the fetch for the TravelNotesLayers.json file
 	*/
 
 	async #loadMapLayers ( layersPromiseResult ) {
@@ -578,12 +587,12 @@ class AppLoader {
 
 	/**
 	Loading json files from the server
-	@private
 	*/
 
 	async #loadJsonFiles ( ) {
 
-		let results = await Promise.allSettled ( [
+		// loading the files in //
+		const results = await Promise.allSettled ( [
 			fetch ( this.#originAndPath +	this.#language.toUpperCase ( ) + '.json' ),
 			fetch ( this.#originAndPath + 'EN.json' ),
 			fetch ( this.#originAndPath + 'NoteDialog' + this.#language.toUpperCase ( ) + '.json' ),
@@ -594,7 +603,7 @@ class AppLoader {
 		] );
 
 		/* eslint-disable no-magic-numbers */
-		let jsonSuccess =
+		const jsonSuccess =
 			await this.#loadTranslations ( results [ 0 ], results [ 1 ] )
 			&&
 			await this.#loadNoteDialogConfig ( results [ 2 ], results [ 3 ] )
@@ -617,39 +626,35 @@ class AppLoader {
 
 	/**
 	Loading theTravelNotes
-	@readonly
 	*/
 
 	#loadTravelNotes ( ) {
-		if ( theConfig.travelNotes.autoLoad ) {
 
-			// mapDiv must be extensible for leaflet
-			let mapDiv = document.createElement ( 'div' );
-			mapDiv.id = 'TravelNotes-Map';
-			document.body.appendChild ( mapDiv );
+		// mapDiv must be extensible for leaflet
+		const mapDiv = document.createElement ( 'div' );
+		mapDiv.id = 'TravelNotes-Map';
+		document.body.appendChild ( mapDiv );
+		theTravelNotesData.map = window.L.map ( mapDiv.id, { attributionControl : false, zoomControl : false } )
+			.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], ZERO );
 
-			theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-UI' }, document.body );
-
-			let map = window.L.map ( 'TravelNotes-Map', { attributionControl : false, zoomControl : false } )
-				.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], ZERO );
-
-			if ( this.#travelUrl ) {
-				theTravelNotes.addReadOnlyMap ( map, this.#travelUrl );
-			}
-			else {
-				this.#addUnloadEventsListeners ( );
-				theTravelNotes.addControl ( map, 'TravelNotes-UI' );
-			}
-			mapDiv.focus ( );
+		if ( this.#travelUrl ) {
+			theTravelNotes.addReadOnlyMap ( this.#travelUrl );
+		}
+		else {
+			this.#addUnloadEventsListeners ( );
+			theTravelNotes.addControl ( 'TravelNotes-UI' );
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#originAndPath =
+			window.location.href.substr ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'TravelNotes';
+		this.#errorMessage = '';
 	}
 
 	/**
@@ -658,9 +663,6 @@ class AppLoader {
 
 	async loadApp ( ) {
 		this.#addEventsListeners ( );
-		this.#originAndPath =
-			window.location.href.substr ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'TravelNotes';
-
 		window.TaN = theTravelNotes;
 		this.#readURL ( );
 
@@ -683,10 +685,4 @@ export default AppLoader;
 
 /* eslint-enable max-lines */
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of AppLoader.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

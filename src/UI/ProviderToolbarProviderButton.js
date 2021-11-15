@@ -20,74 +20,58 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ProviderToolbarProviderButton.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module providersToolbarUI
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theRouter from '../coreLib/Router.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class ProviderToolbarProviderButton
-@classdesc Provider buttons on the ProvidersToolbarUI
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+Provider buttons on the ProvidersToolbarUI
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ProviderToolbarProviderButton {
 
 	/**
 	A reference to the toolbar
-	@private
+	@type {HTMLElement}
 	*/
 
-	#providerToolbarUI = null;
+	#providersToolbarUI;
 
 	/**
 	The provider
-	@private
+	@type {BaseRouteProvider}
 	*/
 
-	#provider = null;
+	#provider;
 
 	/**
-	the button HTMLElements
+	the button HTMLElement
+	@type {HTMLElement}
 	*/
 
-	#buttonHTMLElement = null;
+	#buttonHTMLElement;
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {ProvidersToolbarUI} providersToolbarUI The providersToolbarUI on witch the button will be added
+	@param {BaseRouteProvider} provider The provider object linked to the button
 	*/
 
-	constructor ( providerToolbarUI, provider ) {
+	constructor ( providersToolbarUI, provider ) {
+
 		Object.freeze ( this );
-		this.#providerToolbarUI = providerToolbarUI;
+
+		this.#providersToolbarUI = providersToolbarUI;
 		this.#provider = provider;
 
+		// HTML creation
 		this.#buttonHTMLElement = theHTMLElementsFactory.create (
 			'img',
 			{
@@ -101,23 +85,26 @@ class ProviderToolbarProviderButton {
 	}
 
 	/**
-	click event listener
+	click event listener. The button is also it's own event listener.
+	@param {Event} clickEvent The event to handle
 	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		this.#providerToolbarUI.provider = this.#provider.name;
+		this.#providersToolbarUI.provider = this.#provider.name;
 		theRouter.startRouting ( );
 	}
 
 	/**
 	the button HTMLElements
+	@type {HTMLElement}
 	*/
 
 	get buttonHTMLElement ( ) { return this.#buttonHTMLElement; }
 
 	/**
 	The provider
+	@type {BaseRouteProvider}
 	*/
 
 	get provider ( ) { return this.#provider; }
@@ -138,10 +125,4 @@ class ProviderToolbarProviderButton {
 
 export default ProviderToolbarProviderButton;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of ProviderToolbarProviderButton.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

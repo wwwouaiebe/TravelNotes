@@ -20,28 +20,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OsmSearchLimitsUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module osmSearchPaneUI
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import ObjId from '../data/ObjId.js';
@@ -51,34 +33,31 @@ import theTravelNotesData from '../data/TravelNotesData.js';
 import theOsmSearchEngine from '../coreOsmSearch/OsmSearchEngine.js';
 import { INVALID_OBJ_ID } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class OsmSearchLimitsUI
-@classdesc This class manages the search limits on the map
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class manages the search limits on the map
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class OsmSearchLimitsUI {
 
 	/**
-	ObjId's for the limits
-	@private
+	ObjId for the previous search limits
+	@type {Number}
 	*/
 
-	#previousSearchLimitObjId = INVALID_OBJ_ID;
-	#searchLimitObjId = INVALID_OBJ_ID;
+	#previousSearchLimitObjId;
+
+	/**
+	ObjId for the  search limits
+	@type {Number}
+	*/
+
+	#searchLimitObjId;
 
 	/**
 	Draw the search limit on the map.
 	Also used as event listener for pan and zoom operations on the map.
-	@fires removeobject
-	@fires addrectangle
-	@listens zoom
-	@listens move
-	@private
 	*/
 
 	#drawSearchLimit ( ) {
@@ -101,13 +80,10 @@ class OsmSearchLimitsUI {
 
 	/**
 	Draw the previous search limit on the map
-	@fires removeobject
-	@fires addrectangle
-	@private
 	*/
 
 	#drawPreviousSearchlimit ( ) {
-		let previousSearchBounds = theOsmSearchEngine.previousSearchBounds;
+		const previousSearchBounds = theOsmSearchEngine.previousSearchBounds;
 		if ( ! previousSearchBounds ) {
 			return;
 		}
@@ -130,12 +106,14 @@ class OsmSearchLimitsUI {
 		);
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#previousSearchLimitObjId = INVALID_OBJ_ID;
+		this.#searchLimitObjId = INVALID_OBJ_ID;
 	}
 
 	/**
@@ -169,10 +147,4 @@ class OsmSearchLimitsUI {
 
 export default OsmSearchLimitsUI;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of OsmSearchLimitsUI.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

@@ -34,31 +34,11 @@ Changes:
 		- Issue ♯138 : Protect the app - control html entries done by user.
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file Route.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/* eslint no-fallthrough: ["error", { "commentPattern": "eslint break omitted intentionally" }]*/
 
 import theConfig from '../data/Config.js';
 import ObjId from '../data/ObjId.js';
@@ -68,82 +48,24 @@ import WayPoint from '../data/WayPoint.js';
 import Itinerary from '../data/Itinerary.js';
 import Note from '../data/Note.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
+import TravelObject from '../data/TravelObject.js';
 import { ROUTE_EDITION_STATUS, DISTANCE, ZERO, INVALID_OBJ_ID, LAT_LNG } from '../main/Constants.js';
 
-const OUR_OBJ_TYPE = new ObjType ( 'Route' );
-
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class Route
-@classdesc This class represent a route
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+This class represent a route
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-class Route {
-
-	#objId = INVALID_OBJ_ID;;
-
-	/**
-	Performs the upgrade
-	@param {Object} route a route to upgrade
-	@throws {Error} when the route version is invalid
-	@private
-	*/
-
-	#upgradeObject ( route ) {
-		switch ( route.objType.version ) {
-		case '1.0.0' :
-			route.dashArray = ZERO;
-			route.hidden = false;
-			// eslint break omitted intentionally
-		case '1.1.0' :
-		case '1.2.0' :
-		case '1.3.0' :
-		case '1.4.0' :
-			route.edited = ROUTE_EDITION_STATUS.notEdited;
-			// eslint break omitted intentionally
-		case '1.5.0' :
-		case '1.6.0' :
-		case '1.7.0' :
-		case '1.7.1' :
-		case '1.8.0' :
-		case '1.9.0' :
-		case '1.10.0' :
-		case '1.11.0' :
-			route.editionStatus = route.edited;
-			// eslint break omitted intentionally
-		case '1.12.0' :
-		case '1.13.0' :
-		case '2.0.0' :
-		case '2.1.0' :
-		case '2.2.0' :
-			route.objType.version = '2.3.0';
-			break;
-		default :
-			throw new Error ( 'invalid version for ' + OUR_OBJ_TYPE.name );
-		}
-	}
+class Route extends TravelObject {
 
 	/**
-	Verify that the parameter can be transformed to a Route and performs the upgrate if needed
-	@param {Object} something an object to validate
-	@return {Object} the validated object
-	@throws {Error} when the parameter is invalid
-	@private
+	The object type for routes
+	@type {ObjType}
 	*/
 
-	#validateObject ( something ) {
-		if ( ! Object.getOwnPropertyNames ( something ).includes ( 'objType' ) ) {
-			throw new Error ( 'No objType for ' + OUR_OBJ_TYPE.name );
-		}
-		OUR_OBJ_TYPE.validate ( something.objType );
-		if ( OUR_OBJ_TYPE.version !== something.objType.version ) {
-			this.#upgradeObject ( something );
-		}
-		let properties = Object.getOwnPropertyNames ( something );
+	static #objType = new ObjType (
+		'Route',
 		[
 			'name',
 			'wayPoints',
@@ -153,136 +75,285 @@ class Route {
 			'color',
 			'dashArray',
 			'chain',
+			'chainedDistance',
 			'distance',
 			'duration',
 			'editionStatus',
 			'hidden',
-			'chainedDistance',
 			'objId'
-		].forEach (
-			property => {
-				if ( ! properties.includes ( property ) ) {
-					throw new Error ( 'No ' + property + ' for ' + OUR_OBJ_TYPE.name );
-				}
-			}
-		);
-		return something;
-	}
+		]
+	);
 
-	/*
-	constructor
+	/**
+	the name of the Route
+	@type {String}
+	*/
+
+	#name = '';
+
+	/**
+	a Collection of WayPoints
+	@type {Collection.<WayPoint>}
+	*/
+
+	#wayPoints = new Collection ( WayPoint );
+
+	/**
+	a Collection of Notes
+	@type {Collection.<Note>}
+	*/
+
+	#notes = new Collection ( Note );
+
+	/**
+	the Route Itinerary
+	@type {Itinerary}
+	*/
+
+	#itinerary = new Itinerary ( );
+
+	/**
+	the width of the Leaflet polyline used to represent the Route on the map
+	@type {Number}
+	*/
+
+	#width = theConfig.route.width;
+
+	/**
+	the color of the Leaflet polyline used to represent the Route on the map
+	using the css format '#rrggbb'
+	@type {String}
+	*/
+
+	#color = theConfig.route.color;
+
+	/**
+	the dash of the Leaflet polyline used to represent the Route on the map.
+	It's the index of the dash in the array Config.route.dashChoices
+	@type {Number}
+	*/
+
+	#dashArray = theConfig.route.dashArray;
+
+	/**
+	boolean indicates if the route is chained
+	@type {Boolean}
+	*/
+
+	#chain = true;
+
+	/**
+	the distance between the starting point of the travel and the starting point
+	of the route if the route is chained, otherwise DISTANCE.defaultValue
+	@type {Number}
+	*/
+
+	#chainedDistance = DISTANCE.defaultValue;
+
+	/**
+	the length of the route or DISTANCE.defaultValue if the Itinerary is not anymore computed
+	@type {Number}
+	*/
+
+	#distance = DISTANCE.defaultValue;
+
+	/**
+	the duration of the route or DISTANCE.defaultValue if the Itinerary is not anymore computed
+	@type {Number}
+	*/
+
+	#duration = DISTANCE.defaultValue;
+
+	/**
+	A number indicating the status of the route.
+	See ROUTE_EDITION_STATUS for possible values
+	@type {Number}
+	*/
+
+	#editionStatus = ROUTE_EDITION_STATUS.notEdited;
+
+	/**
+	a boolean set to true when the route is hidden on the map
+	@type {Boolean}
+	*/
+
+	#hidden = false;
+
+	/**
+	the objId of the route
+	@type {Number}
+	*/
+
+	#objId = INVALID_OBJ_ID;;
+
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
-
-		/**
-		the name of the Route
-		@type {string}
-		*/
-
-		this.name = '';
-
-		/**
-		a Collection of WayPoints
-		@type {Collection.<WayPoint>}
-		@readonly
-		*/
-
-		this.wayPoints = new Collection ( WayPoint );
-		this.wayPoints.add ( new WayPoint ( ) );
-		this.wayPoints.add ( new WayPoint ( ) );
-
-		/**
-		a Collection of Notes
-		@type {Collection.<Note>}
-		@readonly
-		*/
-
-		this.notes = new Collection ( Note );
-
-		/**
-		the Route Itinerary
-		@type {Itinerary}
-		*/
-
-		this.itinerary = new Itinerary ( );
-
-		/**
-		the width of the Leaflet polyline used to represent the Route on the map
-		@type {!number}
-		*/
-
-		this.width = theConfig.route.width;
-
-		/**
-		the color of the Leaflet polyline used to represent the Route on the map
-		using the css format '#rrggbb'
-		@type {string}
-		*/
-
-		this.color = theConfig.route.color;
-
-		/**
-		the dash of the Leaflet polyline used to represent the Route on the map.
-		It's the index of the dash in the array Config.route.dashChoices
-		@type {!number}
-		*/
-
-		this.dashArray = theConfig.route.dashArray;
-
-		/**
-		boolean indicates if the route is chained
-		@type {boolean}
-		*/
-
-		this.chain = true;
-
-		/**
-		the distance betwween the starting point of the traval and the starting point
-		of the route if the route is chained, otherwise DISTANCE.defaultValue
-		@type {!number}
-		*/
-
-		this.chainedDistance = DISTANCE.defaultValue;
-
-		/**
-		the length of the route or DISTANCE.defaultValue if the Itinerary is not anymore computed
-		@type {number}
-		*/
-
-		this.distance = DISTANCE.defaultValue;
-
-		/**
-		the duration of the route or DISTANCE.defaultValue if the Itinerary is not anymore computed
-		@type {number}
-		*/
-
-		this.duration = DISTANCE.defaultValue;
-
-		/**
-		A number indicating the status of the route.
-		See ROUTE_EDITION_STATUS for possible values
-		@type {!number}
-		*/
-
-		this.editionStatus = ROUTE_EDITION_STATUS.notEdited;
-
-		/**
-		a boolean set to true when the route is hidden on the map
-		@type {boolean}
-		*/
-
-		this.hidden = false;
-
+		super ( );
+		this.#wayPoints.add ( new WayPoint ( ) );
+		this.#wayPoints.add ( new WayPoint ( ) );
 		this.#objId = ObjId.nextObjId;
+	}
 
-		Object.seal ( this );
+	/**
+	the name of the Route
+	@type {String}
+	*/
+
+	get name ( ) { return this.#name; }
+
+	set name ( Name ) {
+		this.#name =
+			'string' === typeof ( Name )
+				?
+				theHTMLSanitizer.sanitizeToJsString ( Name )
+				:
+				'';
+	}
+
+	/**
+	a Collection of WayPoints
+	@type {Collection.<WayPoint>}
+	*/
+
+	get wayPoints ( ) { return this.#wayPoints; }
+
+	/**
+	a Collection of Notes
+	@type {Collection.<Note>}
+	*/
+
+	get notes ( ) { return this.#notes; }
+
+	/**
+	the Route Itinerary
+	@type {Itinerary}
+	*/
+
+	get itinerary ( ) { return this.#itinerary; }
+
+	/**
+	the width of the Leaflet polyline used to represent the Route on the map
+	@type {Number}
+	*/
+
+	get width ( ) { return this.#width; }
+
+	set width ( width ) {
+		this.#width = 'number' === typeof ( width ) ? width : theConfig.route.width;
+	}
+
+	/**
+	the color of the Leaflet polyline used to represent the Route on the map
+	using the css format '#rrggbb'
+	@type {String}
+	*/
+
+	get color ( ) { return this.#color; }
+
+	set color ( color ) {
+		this.#color =
+			'string' === typeof ( color )
+				?
+				theHTMLSanitizer.sanitizeToColor ( color ) || theConfig.route.color
+				:
+				theConfig.route.color;
+	}
+
+	/**
+	the dash of the Leaflet polyline used to represent the Route on the map.
+	It's the index of the dash in the array Config.route.dashChoices
+	@type {Number}
+	*/
+
+	get dashArray ( ) { return this.#dashArray; }
+
+	set dashArray ( dashArray ) {
+		this.#dashArray =
+			'number' === typeof ( dashArray ) && theConfig.route.dashChoices [ dashArray ]
+				?
+				dashArray
+				:
+				ZERO;
+	}
+
+	/**
+	A boolean indicating if the route is chained
+	@type {Boolean}
+	*/
+
+	get chain ( ) { return this.#chain; }
+
+	set chain ( chain ) { this.#chain = 'boolean' === typeof ( chain ) ? chain : false; }
+
+	/**
+	the distance betwween the starting point of the travel and the starting point
+	of the route if the route is chained, otherwise DISTANCE.defaultValue
+	@type {Number}
+	*/
+
+	get chainedDistance ( ) { return this.#chainedDistance; }
+
+	set chainedDistance ( chainedDistance ) {
+		this.#chainedDistance = 'number' === typeof ( chainedDistance ) ? chainedDistance : DISTANCE.defaultValue;
+	}
+
+	/**
+	the length of the route or DISTANCE.defaultValue if the Itinerary is not anymore computed
+	@type {Number}
+	*/
+
+	get distance ( ) { return this.#distance; }
+
+	set distance ( distance ) {
+		this.#distance = 'number' === typeof ( distance ) ? distance : DISTANCE.defaultValue;
+	}
+
+	/**
+	the duration of the route or DISTANCE.defaultValue if the Itinerary is not anymore computed
+	@type {Number}
+	*/
+
+	get duration ( ) { return this.#duration; }
+
+	set duration ( duration ) {
+		this.#duration = 'number' === typeof ( duration ) ? duration : DISTANCE.defaultValue;
+
+	}
+
+	/**
+	A number indicating the status of the route.
+	See ROUTE_EDITION_STATUS for possible values
+	@type {Number}
+	*/
+
+	get editionStatus ( ) { return this.#editionStatus; }
+
+	set editionStatus ( editionStatus ) {
+		this.#editionStatus =
+			'number' === typeof ( editionStatus )
+				?
+				editionStatus
+				:
+				ROUTE_EDITION_STATUS.notEdited;
+	}
+
+	/**
+	a boolean set to true when the route is hidden on the map
+	@type {Boolean}
+	*/
+
+	get hidden ( ) { return this.#hidden; }
+
+	set hidden ( hidden ) {
+		this.#hidden = 'boolean' === typeof ( hidden ) ? hidden : false;
 	}
 
 	/**
 	A name computed from the starting WayPoint and ending WayPoint names and addresses
-	@type {string}
-	@readonly
+	@type {String}
 	*/
 
 	get computedName ( ) {
@@ -299,8 +370,7 @@ class Route {
 
 	/**
 	the objId of the Route. objId are unique identifier given by the code
-	@readonly
-	@type {!number}
+	@type {Number}
 	*/
 
 	get objId ( ) { return this.#objId; }
@@ -308,16 +378,14 @@ class Route {
 	/**
 	the ObjType of the Route.
 	@type {ObjType}
-	@readonly
 	*/
 
-	get objType ( ) { return OUR_OBJ_TYPE; }
+	get objType ( ) { return Route.#objType; }
 
 	/**
 	This method verify that all waypoints have valid coordinates ( reminder: a route have always a startpoint
 	and an endpoint!)
-	@return {boolean} true when all waypoints have valid coordinates
-	@private
+	@return {Boolean} true when all waypoints have valid coordinates
 	*/
 
 	haveValidWayPoints ( ) {
@@ -338,7 +406,7 @@ class Route {
 	/**
 	An object literal with the WayPoint properties and without any methods.
 	This object can be used with the JSON object
-	@type {Object}
+	@type {JsonObject}
 	*/
 
 	get jsonObject ( ) {
@@ -357,80 +425,29 @@ class Route {
 			hidden : this.hidden,
 			chainedDistance : parseFloat ( this.chainedDistance.toFixed ( DISTANCE.fixed ) ),
 			objId : this.#objId,
-			objType : OUR_OBJ_TYPE.jsonObject
+			objType : this.objType.jsonObject
 		};
 	}
+
 	set jsonObject ( something ) {
-		let otherthing = this.#validateObject ( something );
-		this.name = otherthing.name || '';
-		this.wayPoints.jsonObject = otherthing.wayPoints || [];
-		this.notes.jsonObject = otherthing.notes || [];
-		this.itinerary.jsonObject = otherthing.itinerary || new Itinerary ( ).jsonObject;
-		this.width = otherthing.width || theConfig.route.width;
-		this.color = otherthing.color || '\u0023000000';
-		this.dashArray = otherthing.dashArray || ZERO;
-		this.chain = otherthing.chain || false;
+		const otherthing = this.validateObject ( something );
+		this.name = otherthing.name;
+		this.wayPoints.jsonObject = otherthing.wayPoints;
+		this.notes.jsonObject = otherthing.notes;
+		this.itinerary.jsonObject = otherthing.itinerary;
+		this.width = otherthing.width;
+		this.color = otherthing.color;
+		this.dashArray = otherthing.dashArray;
+		this.chain = otherthing.chain;
 		this.distance = otherthing.distance;
 		this.duration = otherthing.duration;
-		this.editionStatus = otherthing.editionStatus || ROUTE_EDITION_STATUS.notEdited;
-		this.hidden = otherthing.hidden || false;
+		this.editionStatus = otherthing.editionStatus;
+		this.hidden = otherthing.hidden;
 		this.chainedDistance = otherthing.chainedDistance;
 		this.#objId = ObjId.nextObjId;
-		this.validateData ( );
-	}
-
-	/*
-	This method verify that the data stored in the object have the correct type, and,
-	for html string data, that they not contains invalid tags and attributes.
-	This method must be called each time the data are modified by the user or when
-	a file is opened
-	*/
-
-	validateData ( ) {
-		if ( 'string' === typeof ( this.name ) ) {
-			this.name = theHTMLSanitizer.sanitizeToJsString ( this.name );
-		}
-		else {
-			this.name = '';
-		}
-		if ( 'number' !== typeof ( this.width ) ) {
-			this.width = theConfig.route.width;
-		}
-		if ( 'string' === typeof ( this.color ) ) {
-			this.color = theHTMLSanitizer.sanitizeToColor ( this.color ) || theConfig.route.color;
-		}
-		else {
-			this.color = theConfig.route.color;
-		}
-		if ( 'number' !== typeof ( this.dashArray ) ) {
-			this.dashArray = ZERO;
-		}
-		if ( this.dashArray >= theConfig.route.dashChoices.length ) {
-			this.dashArray = ZERO;
-		}
-		if ( 'boolean' !== typeof ( this.chain ) ) {
-			this.chain = false;
-		}
-		if ( 'number' !== typeof ( this.distance ) ) {
-			this.distance = DISTANCE.defaultValue;
-		}
-		if ( 'number' !== typeof ( this.duration ) ) {
-			this.duration = DISTANCE.defaultValue;
-		}
-		if ( 'number' !== typeof ( this.editionStatus ) ) {
-			this.editionStatus = ROUTE_EDITION_STATUS.notEdited;
-		}
-		if ( 'boolean' !== typeof ( this.hidden ) ) {
-			this.hidden = false;
-		}
-		if ( 'number' !== typeof ( this.chainedDistance ) ) {
-			this.chainedDistance = DISTANCE.defaultValue;
-		}
 	}
 }
 
 export default Route;
 
-/*
---- End of Route.js file ------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

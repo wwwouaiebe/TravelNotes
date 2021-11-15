@@ -20,53 +20,89 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file SelectDialog.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogs
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import BaseDialog from '../dialogBase/BaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import { ZERO } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class SelectDialog
-@classdesc Simple dialog with a text and a select element
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+A simple container to store the The text to be displayed as option HTMLElement and an objId linked to this text
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class SelectOptionData {
+
+	/**
+	The text to be displayed as option HTMLElement
+	@type {String}
+	*/
+
+	#text;
+
+	/**
+	An objId
+	@type {Number}
+	*/
+
+	#objId;
+
+	/**
+	The constructor
+	@param {String} text The text to be displayed as option HTMLElement
+	@param {Number} objId An objId
+	*/
+
+	constructor ( text, objId ) {
+		Object.freeze ( this );
+		this.#text = text;
+		this.#objId = objId;
+	}
+
+	/**
+	The text to be displayed as option HTMLElement
+	@type {String}
+	*/
+
+	get text ( ) { return this.#text; }
+
+	/**
+	An objId
+	@type {Number}
+	*/
+
+	get objId ( ) { return this.#objId; }
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+Simple dialog with a text and a select element
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class SelectDialog extends BaseDialog {
 
-	#options = null;
-	#selectHtmlElement = null;
+	/**
+	The selector
+	@type {HTMLElement}
+	*/
+
+	#selectHtmlElement;
+
+	/**
+	the selector container
+	@type {HTMLElement}
+	*/
 
 	get #selectDiv ( ) {
-		let selectDiv = theHTMLElementsFactory.create ( 'div' );
+		const selectDiv = theHTMLElementsFactory.create ( 'div' );
 		this.#selectHtmlElement = theHTMLElementsFactory.create ( 'select', null, selectDiv );
-		this.#options.selectOptionsData.forEach (
+		this.options.selectOptionsData.forEach (
 			optionData => theHTMLElementsFactory.create (
 				'option',
 				{
@@ -79,26 +115,26 @@ class SelectDialog extends BaseDialog {
 		return selectDiv;
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {DialogOptions|Object} options An Object with the needed options. See DialogOptions class.
 	*/
 
-	constructor ( options = {} ) {
+	constructor ( options ) {
 		super ( options );
-		this.#options = options;
 	}
 
 	/**
 	Get the title of the dialog. Can be overloaded in the derived classes
-	@readonly
+	@type {String}
 	*/
 
-	get title ( ) { return this.#options.title || ''; }
+	get title ( ) { return this.options.title || ''; }
 
 	/**
 	Get an array with the HTMLElements that have to be added in the content of the dialog.
 	Can be overloaded in the derived classes
-	@readonly
+	@type {Array.<HTMLElement>}
 	*/
 
 	get contentHTMLElements ( ) {
@@ -106,7 +142,7 @@ class SelectDialog extends BaseDialog {
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					textContent : this.#options.text || ''
+					textContent : this.options.text || ''
 				}
 			),
 			this.#selectDiv
@@ -115,21 +151,14 @@ class SelectDialog extends BaseDialog {
 
 	/**
 	Overload of the BaseDialog.onOk ( ) method.
-	@return the password encoded with TextEncoder
 	*/
 
 	onOk ( ) {
-		super.onOk ( this.#options.selectOptionsData [ this.#selectHtmlElement.selectedIndex ].objId );
+		super.onOk ( this.options.selectOptionsData [ this.#selectHtmlElement.selectedIndex ].objId );
 	}
 
 }
 
-export default SelectDialog;
+export { SelectOptionData, SelectDialog };
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of SelectDialog.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

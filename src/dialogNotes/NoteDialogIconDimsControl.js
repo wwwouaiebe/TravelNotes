@@ -20,79 +20,55 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteDialogIconDimsControl.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogNotes
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
-import { AllControlsInputEL } from '../dialogNotes/NoteDialogEventListeners.js';
 import { ICON_DIMENSIONS } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class NoteDialogIconDimsControl
-@classdesc This class is the icnWidth and iconHeight control of the NoteDialog
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class is the icnWidth and iconHeight control of the NoteDialog
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class NoteDialogIconDimsControl {
 
 	/**
-	A reference to the noteDialog
-	@private
-	*/
-
-	#noteDialog = null;
-
-	/**
-	HTMLElements
-	@private
+	The control container
+	@type {HTMLElement}
 	*/
 
 	#iconDimsDiv = null;
+
+	/**
+	The width input
+	@type {HTMLElement}
+	*/
+
 	#iconWidthInput = null;
+
+	/**
+	The height input
+	@type {HTMLElement}
+	*/
+
 	#iconHeightInput = null;
 
 	/**
-	Event listeners
-	@private
+	The constructor
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
-	#eventListeners = {
-		onInputUpdated : null
-	}
+	constructor ( eventListeners ) {
 
-	/*
-	constructor
-	*/
-
-	constructor ( noteDialog ) {
 		Object.freeze ( this );
-		this.#noteDialog = noteDialog;
+
+		// HTMLElements creation
 		this.#iconDimsDiv = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -135,27 +111,31 @@ class NoteDialogIconDimsControl {
 			this.#iconDimsDiv
 		);
 
-		this.#eventListeners.onInputUpdated = new AllControlsInputEL ( this.#noteDialog );
-		this.#iconWidthInput.addEventListener ( 'input', this.#eventListeners.onInputUpdated );
-		this.#iconHeightInput.addEventListener ( 'input', this.#eventListeners.onInputUpdated );
-	}
-
-	destructor ( ) {
-		this.#iconWidthInput.removeEventListener ( 'input', this.#eventListeners.onInputUpdated );
-		this.#iconHeightInput.removeEventListener ( 'input', this.#eventListeners.onInputUpdated );
-		this.#eventListeners.onInputUpdated.destructor ( );
-		this.#noteDialog = null;
+		// event listeners
+		this.#iconWidthInput.addEventListener ( 'input', eventListeners.controlInput );
+		this.#iconHeightInput.addEventListener ( 'input', eventListeners.controlInput );
 	}
 
 	/**
-	return an array with the HTML elements of the control
-	@readonly
+	Remove event listeners
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
+	*/
+
+	destructor ( eventListeners ) {
+		this.#iconWidthInput.removeEventListener ( 'input', eventListeners.controlInput );
+		this.#iconHeightInput.removeEventListener ( 'input', eventListeners.controlInput );
+	}
+
+	/**
+	An array with the HTML elements of the control
+	@type {Array.<HTMLElement>}
 	*/
 
 	get HTMLElements ( ) { return [ this.#iconDimsDiv ]; }
 
 	/**
 	The icon width value in the control
+	@type {Number}
 	*/
 
 	get iconWidth ( ) { return Number.parseInt ( this.#iconWidthInput.value ); }
@@ -164,6 +144,7 @@ class NoteDialogIconDimsControl {
 
 	/**
 	The icon width height in the control
+	@type {Number}
 	*/
 
 	get iconHeight ( ) { return Number.parseInt ( this.#iconHeightInput.value ); }
@@ -174,10 +155,4 @@ class NoteDialogIconDimsControl {
 
 export default NoteDialogIconDimsControl;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of NoteDialogIconDimsControl.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

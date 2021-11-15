@@ -44,27 +44,10 @@ Changes:
 		- Issue ♯146 : Add the travel name in the document title...
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file TravelUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module travelUI
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theTranslator from '../UILib/Translator.js';
@@ -76,16 +59,26 @@ import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import TravelToolbarUI from '../UI/TravelToolbarUI.js';
 import RoutesListUI from '../UI/RoutesListUI.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class TravelNameChangeEL
-@classdesc change event listener for the TravelName input
-
-@------------------------------------------------------------------------------------------------------------------------------
+change event listener for the TravelName input
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class TravelNameChangeEL {
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
+	/**
+	Event listener method
+	@param {Event} changeEvent The event to handle
+	*/
 
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
@@ -98,25 +91,38 @@ class TravelNameChangeEL {
 
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class ExpandButtonClickEL
-@classdesc click event listener for the ExpandRoutes button
-
-@------------------------------------------------------------------------------------------------------------------------------
+click event listener for the ExpandRoutes button
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ExpandButtonClickEL {
+class ExpandRouteListButtonClickEL {
+
+	/**
+	A reference to the RoutesListUI object
+	@type {RoutesListUI}
+	*/
 
 	#routesListUI = null;
+
+	/**
+	The constructor
+	@param {RoutesListUI} routesListUI A reference to the RoutesListUI object
+	*/
+
 	constructor ( routesListUI ) {
 		this.#routesListUI = routesListUI;
 	}
 
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
+
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		let hiddenList = this.#routesListUI.toogleExpand ( );
+		const hiddenList = this.#routesListUI.toogleExpand ( );
 		clickEvent.target.textContent =
 			hiddenList ? '▶' : '▼'; // 25b6 = '▶'  25bc = ▼
 		clickEvent.target.title =
@@ -129,16 +135,26 @@ class ExpandButtonClickEL {
 
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class AddRouteButtonClickEL
-@classdesc click event listener for the addRoute button
-
-@------------------------------------------------------------------------------------------------------------------------------
+click event listener for the addRoute button
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class AddRouteButtonClickEL {
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -146,36 +162,57 @@ class AddRouteButtonClickEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class TravelUI
-@classdesc This class is the Travel part of the UI
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class is the Travel part of the UI
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class TravelUI {
 
-	#routesHeaderDiv = null;
-	#travelNameInput = null;
-	#routesListUI = null;
-	#expandRoutesButton = null;
+	/**
+	The routes list header
+	@type {HTMLElement}
+	*/
+
+	#routesHeaderDiv;
+
+	/**
+	The travel name input
+	@type {HTMLElement}
+	*/
+
+	#travelNameInput;
+
+	/**
+	The routes list UI
+	@type {RoutesListUI}
+	*/
+
+	#routesListUI;
+
+	/**
+	The expand routes list UI button
+	@type {HTMLElement}
+	*/
+
+	#expandRoutesButton;
 
 	/**
 	This method creates the travel name div
-	@private
+	@param {HTMLElement} uiMainDiv The HTMLElement in witch the travel name div must be created
 	*/
 
 	#createTravelNameDiv ( uiMainDiv ) {
-		let travelNameDiv = theHTMLElementsFactory.create (
+
+		const travelNameDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-UI-FlexRowDiv'
 			},
 			uiMainDiv
 		);
+
 		theHTMLElementsFactory.create (
 			'span',
 			{
@@ -183,6 +220,7 @@ class TravelUI {
 			},
 			travelNameDiv
 		);
+
 		this.#travelNameInput = theHTMLElementsFactory.create (
 			'input',
 			{
@@ -197,7 +235,6 @@ class TravelUI {
 
 	/**
 	This method creates the add route button
-	@private
 	*/
 
 	#createAddRouteButton ( ) {
@@ -215,7 +252,7 @@ class TravelUI {
 
 	/**
 	This method creates the routes list header div
-	@private
+	@param {HTMLElement} uiMainDiv The HTMLElement in witch the route list header must be created
 	*/
 
 	#createRoutesListHeaderDiv ( uiMainDiv ) {
@@ -247,19 +284,26 @@ class TravelUI {
 		this.#createAddRouteButton ( this.#routesHeaderDiv );
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {HTMLElement} uiMainDiv The HTMLElement in witch the UI must be created
 	*/
 
 	constructor ( uiMainDiv ) {
+
 		Object.freeze ( this );
+
 		this.#createTravelNameDiv ( uiMainDiv );
+
 		new TravelToolbarUI ( uiMainDiv );
+
 		this.#createRoutesListHeaderDiv ( uiMainDiv );
+
 		this.#routesListUI = new RoutesListUI ( uiMainDiv );
+
 		this.#expandRoutesButton.addEventListener (
 			'click',
-			new ExpandButtonClickEL ( this.#routesListUI ),
+			new ExpandRouteListButtonClickEL ( this.#routesListUI ),
 			false
 		);
 	}
@@ -272,11 +316,14 @@ class TravelUI {
 		this.#travelNameInput.value = theTravelNotesData.travel.name;
 	}
 
+	/**
+	Areference to the routes list UI
+	@type {RoutesListUI}
+	*/
+
 	get routesListUI ( ) { return this.#routesListUI; }
 }
 
 export default TravelUI;
 
-/*
---- End of TravelUI.js file ---------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

@@ -20,28 +20,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ItineraryControlUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module itineraryPaneUI
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
@@ -50,27 +32,35 @@ import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class NotesCheckboxInputEL
-@classdesc input event listener for the show notes checkbox
-
-@------------------------------------------------------------------------------------------------------------------------------
+input event listener for the show notes checkbox
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class NotesCheckboxInputEL {
 
-	#itineraryDataUI = null;
+	/**
+	A reference to the ItineraryDataUI Object
+	@type {ItineraryDataUI}
+	*/
 
-	/*
-	constructor
+	#itineraryDataUI;
+
+	/**
+	The constructor
+	@param {ItineraryDataUI} itineraryDataUI A reference to the ItineraryDataUI Object
 	*/
 
 	constructor ( itineraryDataUI ) {
 		Object.freeze ( this );
 		this.#itineraryDataUI = itineraryDataUI;
 	}
+
+	/**
+	Event listener method
+	@param {Event} inputEvent The event to handle
+	*/
 
 	handleEvent ( inputEvent ) {
 		inputEvent.stopPropagation ( );
@@ -78,21 +68,24 @@ class NotesCheckboxInputEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class ManeuverCheckboxInputEL
-@classdesc input event listener for the show maneuver checkbox
-
-@------------------------------------------------------------------------------------------------------------------------------
+input event listener for the show maneuver checkbox
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ManeuverCheckboxInputEL {
+class ManeuversCheckboxInputEL {
 
-	#itineraryDataUI = null;
+	/**
+	A reference to the ItineraryDataUI Object
+	@type {ItineraryDataUI}
+	*/
 
-	/*
-	constructor
+	#itineraryDataUI;
+
+	/**
+	The constructor
+	@param {ItineraryDataUI} itineraryDataUI A reference to the ItineraryDataUI Object
 	*/
 
 	constructor ( itineraryDataUI ) {
@@ -100,69 +93,109 @@ class ManeuverCheckboxInputEL {
 		this.#itineraryDataUI = itineraryDataUI;
 	}
 
+	/**
+	Event listener method
+	@param {Event} inputEvent The event to handle
+	*/
+
 	handleEvent ( inputEvent ) {
 		inputEvent.stopPropagation ( );
 		this.#itineraryDataUI.toggleManeuvers ( );
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class ItineraryControlUI
-@classdesc This class manages the controlPane for the itineraries
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class manages the controlPane for the itineraries
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ItineraryControlUI {
 
 	/**
-	HTMLElements of the paneControl
-	@private
+	The header of the route with the route name , distance and ascent
+	@type {HTMLElement}
 	*/
 
-	#routeHeaderHTMLElement = null;
-	#checkBoxesHTMLElement = null;
-	#showNotesCheckBoxHTMLElement = null;
-	#showManeuversCheckBoxHTMLElement = null;
+	#routeHeaderHTMLElement;
+
+	/**
+	The checkboxes container
+	@type {HTMLElement}
+	*/
+
+	#checkBoxesHTMLElement;
+
+	/**
+	The show notes checkbox
+	@type {HTMLElement}
+	*/
+
+	#showNotesCheckBoxHTMLElement;
+
+	/**
+	The show maneuvers checkbox
+	@type {HTMLElement}
+	*/
+
+	#showManeuversCheckBoxHTMLElement;
+
+	/**
+	The current status of the notes
+	@type {Boolean}
+	*/
 
 	#showNotes = theConfig.itineraryPaneUI.showNotes;
+
+	/**
+	The current status of the maneuvers
+	@type {Boolean}
+	*/
+
 	#showManeuvers = theConfig.itineraryPaneUI.showManeuvers;
 
 	/**
-	Event listeners
-	@private
+	event listener for the notes checkbox
+	@type {NotesCheckboxInputEL}
 	*/
 
-	#eventListeners = {
-		onInputNotesCheckbox : null,
-		onInputManeuverCheckbox : null
-	};
+	#notesCheckboxInputEL = null;
 
 	/**
-	A reference to the paneControl
-	@private
+	event listener for the maneuver checkbox
+	@type {ManeuversCheckboxInputEL}
+	*/
+
+	#maneuversCheckboxInputEL = null
+
+	/**
+	A reference to the HTMLElement in witch the control have to be added
+	@type {HTMLElement}
 	*/
 
 	#paneControl = null;
 
 	/**
-	A referebce to the DataPane manager
+	A reference to the associated ItineraryDataUI
+	@type {ItineraryDataUI}
 	*/
 
 	#itineraryDataUI = null;
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {HTMLElement} paneControl The HTMLElement in witch the control have to be added
+	@param {ItineraryDataUI} itineraryDataUI A reference to the associated ItineraryDataUI
 	*/
 
 	constructor ( paneControl, itineraryDataUI ) {
+
+		Object.freeze ( this );
+
 		this.#paneControl = paneControl;
-		this.#eventListeners.onInputNotesCheckbox = new NotesCheckboxInputEL ( itineraryDataUI );
-		this.#eventListeners.onInputManeuverCheckbox = new ManeuverCheckboxInputEL ( itineraryDataUI );
 		this.#itineraryDataUI = itineraryDataUI;
+		this.#notesCheckboxInputEL = new NotesCheckboxInputEL ( itineraryDataUI );
+		this.#maneuversCheckboxInputEL = new ManeuversCheckboxInputEL ( itineraryDataUI );
 	}
 
 	/**
@@ -171,6 +204,8 @@ class ItineraryControlUI {
 
 	addControl ( ) {
 		this.#checkBoxesHTMLElement = theHTMLElementsFactory.create ( 'div', null, this.#paneControl );
+
+		// Notes
 		theHTMLElementsFactory.create (
 			'text',
 			{
@@ -187,7 +222,9 @@ class ItineraryControlUI {
 			},
 			this.#checkBoxesHTMLElement
 		);
-		this.#showNotesCheckBoxHTMLElement.addEventListener ( 'click', this.#eventListeners.onInputNotesCheckbox );
+		this.#showNotesCheckBoxHTMLElement.addEventListener ( 'click', this.#notesCheckboxInputEL );
+
+		// Maneuvers
 		theHTMLElementsFactory.create (
 			'text',
 			{
@@ -204,12 +241,16 @@ class ItineraryControlUI {
 			},
 			this.#checkBoxesHTMLElement
 		);
-		this.#showManeuversCheckBoxHTMLElement.addEventListener ( 'click', this.#eventListeners.onInputManeuverCheckbox );
+		this.#showManeuversCheckBoxHTMLElement.addEventListener ( 'click', this.#maneuversCheckboxInputEL );
+
+		// Route header
 		this.#routeHeaderHTMLElement = theRouteHTMLViewsFactory.getRouteHeaderHTML (
 			'TravelNotes-ItineraryPaneUI-',
 			theTravelNotesData.travel.editedRoute
 		);
+
 		this.#paneControl.appendChild ( this.#routeHeaderHTMLElement );
+
 		if ( ! this.#showManeuvers ) {
 			this.#itineraryDataUI.toggleManeuvers ( );
 		}
@@ -224,18 +265,22 @@ class ItineraryControlUI {
 
 	clearControl ( ) {
 		if ( this.#checkBoxesHTMLElement ) {
+
+			// maneuvers
 			if ( this.#showManeuversCheckBoxHTMLElement ) {
 				this.#showManeuvers = this.#showManeuversCheckBoxHTMLElement.checked;
 				this.#showManeuversCheckBoxHTMLElement.removeEventListener (
 					'click',
-					this.#eventListeners.onInputManeuverCheckbox
+					this.#maneuversCheckboxInputEL
 				);
 				this.#checkBoxesHTMLElement.removeChild ( this.#showManeuversCheckBoxHTMLElement );
 				this.#showManeuversCheckBoxHTMLElement = null;
 			}
+
+			// notes
 			if ( this.#showNotesCheckBoxHTMLElement ) {
 				this.#showNotes = this.#showNotesCheckBoxHTMLElement.checked;
-				this.#showNotesCheckBoxHTMLElement.addEventListener ( 'click', this.#eventListeners.onInputNotesCheckbox );
+				this.#showNotesCheckBoxHTMLElement.removeEventListener ( 'click', this.#notesCheckboxInputEL );
 				this.#checkBoxesHTMLElement.removeChild ( this.#showNotesCheckBoxHTMLElement );
 				this.#showNotesCheckBoxHTMLElement = null;
 			}
@@ -251,10 +296,4 @@ class ItineraryControlUI {
 
 export default ItineraryControlUI;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of ItineraryControlUI.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

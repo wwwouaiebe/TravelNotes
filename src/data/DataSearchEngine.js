@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+
 /*
 Changes:
 	- v1.4.0:
@@ -25,66 +26,85 @@ Changes:
 		- Issue ♯65 : Time to go to ES6 modules?
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file DataSearchEngine.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@typedef {Object} NoteAndRoute
-@desc An object to store a Note and the Route on witch the Note is attached
-@property {?Note} note the searched Note or null if the note is not found
-@property {?Route} route the Route on witch the Note is attached or null if the Note is a travel note
-@public
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theGeometry from '../coreLib/Geometry.js';
 import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
+import NoteAndRoute from '../data/NoteAndRoute.js';
 
 import { ZERO, INVALID_OBJ_ID, LAT_LNG } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class DataSearchEngine
-@classdesc Class with helper methods to search data
-@see {@link theDataSearchEngine} for the one and only one instance of this class
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+A container with data found when searching the nearest route from a point
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class NearestRouteData {
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.seal ( this );
+	}
+
+	/**
+	The distance between the given point and the nearest point on the route
+	@type {Number}
+	*/
+
+	distance = Number.MAX_VALUE;
+
+	/**
+	The route on witch the point was found
+	@type {Route}
+	*/
+
+	route = null;
+
+	/**
+	The distance between the beginning of the route and the nearest point
+	@type {Number}
+	*/
+
+	distanceOnRoute = ZERO;
+
+	/**
+	The lat and lng of the nearest point on the route
+	@type {Array.<Number>}
+	*/
+
+	latLngOnRoute = [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ];
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+Class with helper methods to search data
+See theDataSearchEngine for the one and only one instance of this class
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class DataSearchEngine {
 
+	/**
+	Helper method for the getNearestRouteData method
+	@param {Route} route The route that must be treated
+	@param {Array.<Number>} latLng The latitude and longitude of the nearest point on route
+	@param {NearestRouteData} nearestRouteData the NearestRouteData object used
+	*/
+
 	#setNearestRouteData ( route, latLng, nearestRouteData ) {
 		if ( route.objId !== theTravelNotesData.editedRouteObjId ) {
-			let pointAndDistance = theGeometry.getClosestLatLngDistance ( route, latLng );
+			const pointAndDistance = theGeometry.getClosestLatLngDistance ( route, latLng );
 			if ( pointAndDistance ) {
-				let distanceToRoute = theSphericalTrigonometry.pointsDistance (
+				const distanceToRoute = theSphericalTrigonometry.pointsDistance (
 					latLng,
 					pointAndDistance.latLng
 				);
@@ -98,8 +118,8 @@ class DataSearchEngine {
 		}
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -108,18 +128,12 @@ class DataSearchEngine {
 
 	/**
 	This method search route data for the nearest route of a given point
-	@param {Array.<number>} latLng The latitude and longitude of the point
-	@return {RouteData} A routeData object
-	@private
+	@param {Array.<Number>} latLng The latitude and longitude of the point
+	@return {NearestRouteData} A NearestRouteData object
 	*/
 
 	getNearestRouteData ( latLng ) {
-		let nearestRouteData = {
-			distance : Number.MAX_VALUE,
-			route : null,
-			distanceOnRoute : ZERO,
-			latLngOnRoute : [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ]
-		};
+		const nearestRouteData = new NearestRouteData ( );
 
 		theTravelNotesData.travel.routes.forEach ( route => this.#setNearestRouteData ( route, latLng, nearestRouteData ) );
 		if ( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId ) {
@@ -131,8 +145,8 @@ class DataSearchEngine {
 
 	/**
 	Search a route with the route objId
-	@param {!number} objId the objId of the route to search
-	@return (?Route) the searched route or null if not found
+	@param {Number} routeObjId the objId of the route to search
+	@return {?Route} the searched route or null if not found
 	*/
 
 	getRoute ( routeObjId ) {
@@ -147,9 +161,9 @@ class DataSearchEngine {
 	}
 
 	/**
-	Search a Note and a Route with the Note objId
-	@param {!number} objId the objId of the note to search
-	@return (NoteAndRoute) a NoteAndRoute object with the route and note
+	Search a Note and a the Route to witch the Note is attached with the Note objId
+	@param {Number} noteObjId the objId of the note to search
+	@return {NoteAndRoute} a NoteAndRoute object with the route and note
 	*/
 
 	getNoteAndRoute ( noteObjId ) {
@@ -157,7 +171,7 @@ class DataSearchEngine {
 		let route = null;
 		note = theTravelNotesData.travel.notes.getAt ( noteObjId );
 		if ( ! note ) {
-			let routeIterator = theTravelNotesData.travel.routes.iterator;
+			const routeIterator = theTravelNotesData.travel.routes.iterator;
 			while ( ! ( routeIterator.done || note ) ) {
 				note = routeIterator.value.notes.getAt ( noteObjId );
 				if ( note ) {
@@ -171,19 +185,19 @@ class DataSearchEngine {
 				}
 			}
 		}
-		return Object.freeze ( { note : note, route : route } );
+		return new NoteAndRoute ( note, route );
 	}
 
 	/**
 	Search a WayPoint with the WayPoint objId
-	@param {!number} objId the objId of the note to search
-	@return (NoteAndRoute) a NoteAndRoute object with the route and note
+	@param {Number} wayPointObjId the objId of the WayPoint to search
+	@return {WayPoint} a WayPoint
 	*/
 
 	getWayPoint ( wayPointObjId ) {
 		let wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.getAt ( wayPointObjId );
 		if ( ! wayPoint ) {
-			let routeIterator = theTravelNotesData.travel.routes.iterator;
+			const routeIterator = theTravelNotesData.travel.routes.iterator;
 			while ( ! ( routeIterator.done || wayPoint ) ) {
 				wayPoint = routeIterator.value.wayPoints.getAt ( wayPointObjId );
 			}
@@ -192,21 +206,15 @@ class DataSearchEngine {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of DataSearchEngine class
+The one and only one instance of DataSearchEngine class
 @type {DataSearchEngine}
-@constant
-@global
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theDataSearchEngine = new DataSearchEngine ( );
 
 export default theDataSearchEngine;
 
-/*
---- End of DataSearchEngine.js file -------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

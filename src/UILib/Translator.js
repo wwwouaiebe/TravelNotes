@@ -23,60 +23,31 @@ Changes:
 		- Issue ♯137 : Remove html tags from json files
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file Translator.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@typedef {Object} Translation
-@desc An object used to store translated messages
-@property {string} msgid an id to use to identify the message
-@property {string} msgstr The message translated
-@public
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module UILib
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class
-@classdesc This class is used to translate the messages in another language
-@see {@link theTranslator} for the one and only one instance of this class
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class is used to translate the messages in another language
+See theTranslator for the one and only one instance of this class
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class Translator {
 
+	/**
+	A js Map where the translations are stored, ordered by msgid
+	@type {Map.<String>}
+	*/
+
 	#translations = new Map ( );
 
-	/*
+	/**
 	constructor
 	*/
 
@@ -86,7 +57,7 @@ class Translator {
 
 	/**
 	Load the translations
-	@param {Array.<Translation>} translations The translations to load
+	@param {JsonObject} translations The translations to load
 	*/
 
 	setTranslations ( translations ) {
@@ -100,9 +71,9 @@ class Translator {
 
 	/**
 	get a message translated
-	@param {string} msgid The id to identify the message
+	@param {String} msgid The id to identify the message
 	@param {?Object} params Parameters to include in the message
-	@return {string} The message corresponding to the id, eventually with params added, or the
+	@return {String} The message corresponding to the id, eventually with params added, or the
 	id if the corresponding Translation was not found
 	*/
 
@@ -117,21 +88,15 @@ class Translator {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of Translator class
+The one and only one instance of Translator class
 @type {Translator}
-@constant
-@global
-
-@--------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theTranslator = new Translator ( );
 
 export default theTranslator;
 
-/*
---- End of Translator.js file -----------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

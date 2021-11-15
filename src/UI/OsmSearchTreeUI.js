@@ -20,49 +20,34 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OsmSearchTreeUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module osmSearchPaneUI
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theOsmSearchDictionary from '../coreOsmSearch/OsmSearchDictionary.js';
 import { ZERO, MOUSE_WHEEL_FACTORS } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class TreeCheckboxChangeEL
-@classdesc change event listener for the tree checkboxes
-
-@------------------------------------------------------------------------------------------------------------------------------
+change event listener for the tree checkboxes
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class TreeCheckboxChangeEL {
 
+	/**
+	A reference to the osmSearchTreeUI Object
+	@type {OsmSearchTreeUI}
+	*/
+
 	#osmSearchTreeUI = null;
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {OsmSearchTreeUI} osmSearchTreeUI A reference to the OsmSearchTreeUI object
 	*/
 
 	constructor ( osmSearchTreeUI ) {
@@ -70,9 +55,14 @@ class TreeCheckboxChangeEL {
 		this.#osmSearchTreeUI = osmSearchTreeUI;
 	}
 
+	/**
+	Event listener method
+	@param {Event} changeEvent The event to handle
+	*/
+
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
-		theOsmSearchDictionary.selectItemObjId (
+		theOsmSearchDictionary.selectItem (
 			Number.parseInt ( changeEvent.target.parentNode.dataset.tanObjId ),
 			changeEvent.target.checked
 		);
@@ -81,24 +71,26 @@ class TreeCheckboxChangeEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class TreeWheelEL
-@classdesc wheel event listener
-
-@------------------------------------------------------------------------------------------------------------------------------
+wheel event listener
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class TreeWheelEL {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	@param {Event} wheelEvent The event to handle
+	*/
 
 	handleEvent ( wheelEvent ) {
 		wheelEvent.stopPropagation ( );
@@ -110,21 +102,24 @@ class TreeWheelEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class TreeArrowClickEL
-@classdesc cick event listener for the tree arrows
-
-@------------------------------------------------------------------------------------------------------------------------------
+cick event listener for the tree arrows
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class TreeArrowClickEL {
 
+	/**
+	A reference to the OsmSearchTreeUI object
+	@type {OsmSearchTreeUI}
+	*/
+
 	#osmSearchTreeUI = null;
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {OsmSearchTreeUI} osmSearchTreeUI A reference to the OsmSearchTreeUI object
 	*/
 
 	constructor ( osmSearchTreeUI ) {
@@ -132,59 +127,66 @@ class TreeArrowClickEL {
 		this.#osmSearchTreeUI = osmSearchTreeUI;
 	}
 
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
+
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		theOsmSearchDictionary.changeExpanded ( Number.parseInt ( clickEvent.target.parentNode.dataset.tanObjId ) );
+		theOsmSearchDictionary.expandItem ( Number.parseInt ( clickEvent.target.parentNode.dataset.tanObjId ) );
 		this.#osmSearchTreeUI.redraw ( );
 	}
 
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class OsmSearchTreeUI
-@classdesc This class build the search tree and contains also methods to modify this tree
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class build the search tree and contains also methods to modify this tree
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class OsmSearchTreeUI {
 
 	/**
 	A reference to the tree HTMLElement
-	@private
+	@type {HTMLElement}
 	*/
 
-	#treeHTMLElement = null;
+	#treeHTMLElement;
 
 	/**
-	Event listeners
-	@private
+	Tree arrow click event listener
+	@type {TreeArrowClickEL}
 	*/
 
-	#eventListeners = {
-		onClickArrow : null,
-		onChangeCheckbox : null
-	}
+	#treeArrowClickEL;
+
+	/**
+	Tree checkbox change event listener
+	@type {TreeCheckboxChangeEL}
+	*/
+
+	#treeCheckboxChangeEL;
 
 	/**
 	Recursivity counter for the #addItem method
-	@private
+	@type {Number}
 	*/
 
-	#deepTree = ZERO;
+	#deepTree;
 
 	/**
 	Add a dictionary item in the SearchTree and do the same for all descendants
-	@private
+	@param {DictionaryItem} item The dictionary item to add
 	*/
 
 	#addItem ( item ) {
 
 		this.#deepTree ++;
-		let itemDiv = theHTMLElementsFactory.create (
+
+		// Container for the item
+		const itemDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-OsmSearchPaneUI-SearchItem ' +
@@ -193,8 +195,10 @@ class OsmSearchTreeUI {
 			},
 			this.#treeHTMLElement
 		);
+
+		// checkbox
 		if ( ! item.isRoot ) {
-			let itemCheckbox = theHTMLElementsFactory.create (
+			const itemCheckbox = theHTMLElementsFactory.create (
 				'input',
 				{
 					type : 'checkbox',
@@ -202,10 +206,12 @@ class OsmSearchTreeUI {
 				},
 				itemDiv
 			);
-			itemCheckbox.addEventListener ( 'change', this.#eventListeners.onChangeCheckbox, false );
+			itemCheckbox.addEventListener ( 'change', this.#treeCheckboxChangeEL, false );
 		}
+
+		// arrow
 		if ( ZERO === item.filterTagsArray.length ) {
-			let itemArrow = theHTMLElementsFactory.create (
+			const itemArrow = theHTMLElementsFactory.create (
 				'div',
 				{
 					className : 'TravelNotes-UI-Button TravelNotes-OsmSearchPaneUI-TreeArrow',
@@ -213,8 +219,10 @@ class OsmSearchTreeUI {
 				},
 				itemDiv
 			);
-			itemArrow.addEventListener ( 'click', this.#eventListeners.onClickArrow, false );
+			itemArrow.addEventListener ( 'click', this.#treeArrowClickEL, false );
 		}
+
+		// text
 		theHTMLElementsFactory.create (
 			'text',
 			{
@@ -222,31 +230,40 @@ class OsmSearchTreeUI {
 			},
 			itemDiv
 		);
+
+		// Recurse on sub items
 		if ( item.isExpanded ) {
 			item.items.forEach ( tmpItem => this.#addItem ( tmpItem ) );
 		}
+
+		// return to parent item
 		this.#deepTree --;
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
+
 		Object.freeze ( this );
 
-		this.#eventListeners.onChangeCheckbox = new TreeCheckboxChangeEL ( this );
-		this.#eventListeners.onClickArrow = new TreeArrowClickEL ( this );
+		this.#deepTree = ZERO;
 
+		// Container creation
 		this.#treeHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
 				id : 'TravelNotes-OsmSearchPaneUI-SearchTree'
 			}
 		);
-		this.#treeHTMLElement.addEventListener ( 'wheel', new TreeWheelEL ( ), false );
 
-		theOsmSearchDictionary.dictionary.name = '';
+		// event listeners
+		this.#treeHTMLElement.addEventListener ( 'wheel', new TreeWheelEL ( ), false );
+		this.#treeCheckboxChangeEL = new TreeCheckboxChangeEL ( this );
+		this.#treeArrowClickEL = new TreeArrowClickEL ( this );
+
+		// items
 		this.#addItem ( theOsmSearchDictionary.dictionary );
 	}
 
@@ -260,7 +277,8 @@ class OsmSearchTreeUI {
 	}
 
 	/**
-	tree HTML element getter
+	The tree HTML element
+	@type {HTMLElement}
 	*/
 
 	get treeHTMLElement ( ) { return this.#treeHTMLElement; }
@@ -268,10 +286,4 @@ class OsmSearchTreeUI {
 
 export default OsmSearchTreeUI;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of OsmSearchTreeUI.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

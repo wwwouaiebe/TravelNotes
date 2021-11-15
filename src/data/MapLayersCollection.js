@@ -19,55 +19,54 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file MapLayersCollection.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module data
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theAPIKeysManager from '../core/APIKeysManager.js';
 import MapLayer from '../data/MapLayer.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
+This class contains all the mapLayers
 
-@class MapLayersCollection
-@classdesc This class contains all the mapLayers
-@see {@link theMapLayersCollection} for the one and only one instance of this class
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+See theMapLayersCollection for the one and only one instance of this class
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class MapLayersCollection {
 
-	#mapLayers = new Map ( );
-	#defaultMapLayer = null;
-	#mapLayersAdded = false;
+	/**
+	A JS map to store the mapLayers, ordered by name
+	@type {Map.<MapLayer>}
+	*/
 
-	/*
-	constructor
+	#mapLayers;
+
+	/**
+	The mapLayer to use by default
+	@type {MapLayer}
+	*/
+
+	#defaultMapLayer;
+
+	/**
+	A guard to block a second upload of the mapLayers
+	@type {Boolean}
+	*/
+
+	#mapLayersAdded;
+
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
+		Object.freeze ( this );
+		this.#mapLayers = new Map ( );
+		this.#mapLayersAdded = false;
 		this.#defaultMapLayer = new MapLayer (
 			{
 				service : 'wmts',
@@ -85,38 +84,37 @@ class MapLayersCollection {
 			}
 		);
 		this.#mapLayers.set ( this.#defaultMapLayer.name, this.#defaultMapLayer );
-		Object.freeze ( this );
 	}
 
 	/**
 	gives a MapLayer object
-	@param {string} mapLayerName the name of the MapLayer to give
+	@param {String} mapLayerName the name of the MapLayer to give
 	@return {MapLayer} The asked MapLayer. If a provider key is needed and the key not available
 	the defaultMapLayer is returned. If the layer is not found, the defaultMapLayer
 	is returned
 	*/
 
 	getMapLayer ( mapLayerName ) {
-
-		let theLayer = this.#mapLayers.get ( mapLayerName ) || this.#defaultMapLayer;
-		if ( theLayer.providerKeyNeeded ) {
-			if ( ! theAPIKeysManager.hasKey ( theLayer.providerName.toLowerCase ( ) ) ) {
-				theLayer = this.#defaultMapLayer;
+		let mapLayer = this.#mapLayers.get ( mapLayerName ) || this.#defaultMapLayer;
+		if ( mapLayer.providerKeyNeeded ) {
+			if ( ! theAPIKeysManager.hasKey ( mapLayer.providerName.toLowerCase ( ) ) ) {
+				mapLayer = this.#defaultMapLayer;
 			}
 		}
 
-		return theLayer;
+		return mapLayer;
 	}
 
 	/**
 	Executes a function on each MapLayer in the collection
+	@param {Function} fct The function to execute
 	*/
 
 	forEach ( fct ) { this.#mapLayers.forEach ( fct ); }
 
 	/**
 	Add a MapLayer list to the list of available MapLayers. This method can only be called once
-	@param {Array.<Object>} layers the layer list to add (json object from TravelNotesLayers.json))
+	@param {Array.<Object>} jsonLayers the layer list to add (json object from TravelNotesLayers.json)
 	*/
 
 	addMapLayers ( jsonLayers ) {
@@ -126,7 +124,7 @@ class MapLayersCollection {
 		}
 		jsonLayers.forEach (
 			jsonLayer => {
-				let newLayer = new MapLayer ( jsonLayer );
+				const newLayer = new MapLayer ( jsonLayer );
 				if ( ! this.#mapLayers.get ( newLayer.name ) ) {
 					this.#mapLayers.set ( newLayer.name, newLayer );
 				}
@@ -137,15 +135,21 @@ class MapLayersCollection {
 
 	/**
 	get the defaultMapLayer
+	@type {MapLayer}
 	*/
 
 	get defaultMapLayer ( ) { return this.#defaultMapLayer; }
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+The one and only one instance of MapLayersCollection class
+@type {MapLayersCollection}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
 const theMapLayersCollection = new MapLayersCollection ( );
 
 export default theMapLayersCollection;
 
-/*
---- End of MapLayersToolbarUI.js file -----------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

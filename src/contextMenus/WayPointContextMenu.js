@@ -25,71 +25,49 @@ Changes:
 		- Issue ♯120 : Review the UserInterface
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210913
 Tests ...
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file WayPointContextMenu.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module contextMenus
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-import BaseContextMenu from '../contextMenus/BaseContextMenu.js';
+import { BaseContextMenu, MenuItem } from '../contextMenus/BaseContextMenu.js';
 import theWayPointEditor from '../core/WayPointEditor.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theTranslator from '../UILib/Translator.js';
-import { INVALID_OBJ_ID } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class WayPointContextMenu
-@classdesc this class implements the BaseContextMenu class for the wayPoints
-@extends BaseContextMenu
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+this class implements the BaseContextMenu class for the wayPoints
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class WayPointContextMenu extends BaseContextMenu {
 
-	#wayPointObjId = INVALID_OBJ_ID;
-
-	/*
-	constructor
-	@param {Event} contextMenuEvent. The event that have triggered the menu
-	@param {Object} parentNode The parent node of the menu. Can be null for leaflet objects
+	/**
+	The constructor
+	@param {Event} contextMenuEvent The event that have triggered the menu
+	@param {HTMLElement} parentNode The parent node of the menu. Can be null for leaflet objects
 	*/
 
-	constructor ( contextMenuEvent, parentNode = null ) {
+	constructor ( contextMenuEvent, parentNode ) {
 		super ( contextMenuEvent, parentNode );
-		this.#wayPointObjId = this.eventData.targetObjId;
 	}
 
 	/* eslint-disable no-magic-numbers */
 
+	/**
+	Perform the action selected by the user. Implementation of the base class doAction method
+	@param {Number} selectedItemObjId The id of the item selected by the user
+	*/
+
 	doAction ( selectedItemObjId ) {
 		switch ( selectedItemObjId ) {
 		case 0 :
-			theWayPointEditor.removeWayPoint ( this.#wayPointObjId );
+			theWayPointEditor.removeWayPoint ( this.eventData.targetObjId );
 			break;
 		case 1 :
-			theWayPointEditor.wayPointProperties ( this.#wayPointObjId );
+			theWayPointEditor.wayPointProperties ( this.eventData.targetObjId );
 			break;
 		default :
 			break;
@@ -98,25 +76,27 @@ class WayPointContextMenu extends BaseContextMenu {
 
 	/* eslint-enable no-magic-numbers */
 
+	/**
+	The list of menu items to use. Implementation of the BaseContextMenu.menuItems property
+	@type {Array.<MenuItem>}
+	*/
+
 	get menuItems ( ) {
 		return [
-			{
-				itemText : theTranslator.getText ( 'WayPointContextMenu - Delete this waypoint' ),
-				isActive :
-					theTravelNotesData.travel.editedRoute.wayPoints.first.objId !== this.#wayPointObjId
+			new MenuItem (
+				theTranslator.getText ( 'WayPointContextMenu - Delete this waypoint' ),
+				theTravelNotesData.travel.editedRoute.wayPoints.first.objId !== this.eventData.targetObjId
 					&&
-					theTravelNotesData.travel.editedRoute.wayPoints.last.objId !== this.#wayPointObjId
-			},
-			{
-				itemText : theTranslator.getText ( 'WayPointContextMenu - Modify properties' ),
-				isActive : true
-			}
+					theTravelNotesData.travel.editedRoute.wayPoints.last.objId !== this.eventData.targetObjId
+			),
+			new MenuItem (
+				theTranslator.getText ( 'WayPointContextMenu - Modify properties' ),
+				true
+			)
 		];
 	}
 }
 
 export default WayPointContextMenu;
 
-/*
---- End of WayPointContextMenu.js file ----------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

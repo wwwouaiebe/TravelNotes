@@ -20,81 +20,54 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteDialogPhoneControl.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogNotes
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
-import { AllControlsFocusEL, AllControlsInputEL } from '../dialogNotes/NoteDialogEventListeners.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class NoteDialogPhoneControl
-@classdesc This class is the phone control of the NoteDialog
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class is the phone control of the NoteDialog
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class NoteDialogPhoneControl {
 
 	/**
-	A reference to the noteDialog
-	@private
+	The header container
+	@type {HTMLElement}
 	*/
 
-	#noteDialog = null;
+	#phoneHeaderDiv;
 
 	/**
-	HTMLElements
-	@private
+	The input container
+	@type {HTMLElement}
 	*/
 
-	#phoneHeaderDiv = null;
-	#phoneInputDiv = null;
-	#phoneInput = null;
+	#phoneInputDiv;
 
 	/**
-	Event listeners
-	@private
+	The phone input
+	@type {HTMLElement}
 	*/
 
-	#eventListeners = {
-		onFocusControl : null,
-		onInputUpdated : null
-	}
+	#phoneInput;
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
-	constructor ( noteDialog ) {
+	constructor ( eventListeners ) {
+
 		Object.freeze ( this );
 
-		this.#noteDialog = noteDialog;
-
+		// HTMLElements creation
 		this.#phoneHeaderDiv = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -127,29 +100,31 @@ class NoteDialogPhoneControl {
 			this.#phoneInputDiv
 		);
 
-		this.#eventListeners.onFocusControl = new AllControlsFocusEL ( this.#noteDialog, false );
-		this.#eventListeners.onInputUpdated = new AllControlsInputEL ( this.#noteDialog );
-		this.#phoneInput.addEventListener ( 'focus', this.#eventListeners.onFocusControl );
-		this.#phoneInput.addEventListener ( 'input', this.#eventListeners.onInputUpdated );
-	}
-
-	destructor ( ) {
-		this.#phoneInput.removeEventListener ( 'focus', this.#eventListeners.onFocusControl );
-		this.#phoneInput.removeEventListener ( 'input', this.#eventListeners.onInputUpdated );
-		this.#eventListeners.onFocusControl.destructor ( );
-		this.#eventListeners.onInputUpdated.destructor ( );
-		this.#noteDialog = null;
+		// event listeners
+		this.#phoneInput.addEventListener ( 'focus', eventListeners.controlFocus );
+		this.#phoneInput.addEventListener ( 'input', eventListeners.controlInput );
 	}
 
 	/**
-	return an array with the HTML elements of the control
-	@readonly
+	Remove event listeners
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
+	*/
+
+	destructor ( eventListeners ) {
+		this.#phoneInput.removeEventListener ( 'focus', eventListeners.controlFocus );
+		this.#phoneInput.removeEventListener ( 'input', eventListeners.controlInput );
+	}
+
+	/**
+	An array with the HTMLElements of the control
+	@type {Array.<HTMLElement>}
 	*/
 
 	get HTMLElements ( ) { return [ this.#phoneHeaderDiv, this.#phoneInputDiv ]; }
 
 	/**
 	The phone number in the control
+	@type {String}
 	*/
 
 	get phone ( ) { return this.#phoneInput.value; }
@@ -160,10 +135,4 @@ class NoteDialogPhoneControl {
 
 export default NoteDialogPhoneControl;
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of NoteDialogPhoneControl.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

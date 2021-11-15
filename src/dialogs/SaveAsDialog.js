@@ -21,71 +21,142 @@ Changes:
 		- created
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file SaveAsDialog.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogs
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theTranslator from '../UILib/Translator.js';
 import BaseDialog from '../dialogBase/BaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
+A simple container with the user choices in the SaveAsDialog
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-@class SaveAsDialog
-@classdesc A saveAsDialog object completed for making a partial save of the edited travel
+class SaveAsDialogData {
+
+	/**
+	A flag indicating that the travel notes have to be removed
+	@type {Boolean}
+	*/
+
+	#removeTravelNotes;
+
+	/**
+	A flag indicating that the route notes have to be removed
+	@type {Boolean}
+	*/
+
+	#removeRoutesNotes;
+
+	/**
+	A flag indicating that the maneuvers have to be removed
+	@type {Boolean}
+	*/
+
+	#removeManeuvers;
+
+	/**
+	The constructor
+	@param {Boolean} removeTravelNotes A flag indicating that the travel notes have to be removed
+	@param {Boolean} removeRoutesNotes A flag indicating that the route notes have to be removed
+	@param {Boolean} removeManeuvers A flag indicating that the maneuvers have to be removed
+	*/
+
+	constructor ( removeTravelNotes, removeRoutesNotes, removeManeuvers ) {
+		Object.freeze ( this );
+		this.#removeTravelNotes = removeTravelNotes;
+		this.#removeRoutesNotes = removeRoutesNotes;
+		this.#removeManeuvers = removeManeuvers;
+	}
+
+	/**
+	A flag indicating that the travel notes have to be removed
+	@type {Boolean}
+	*/
+
+	get removeTravelNotes ( ) { return this.#removeTravelNotes; }
+
+	/**
+	A flag indicating that the route notes have to be removed
+	@type {Boolean}
+	*/
+
+	get removeRoutesNotes ( ) { return this.#removeRoutesNotes; }
+
+	/**
+	A flag indicating that the maneuvers have to be removed
+	@type {Boolean}
+	*/
+
+	get removeManeuvers ( ) { return this.#removeManeuvers; }
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+A saveAsDialog object completed for making a partial save of the edited travel
 Create an instance of the dialog, then execute the show ( ) method. The selected values are returned as parameter of the
 succes handler of the Promise returned by the show ( ) method.
-@extends BaseDialog
-@example
-new SaveAsDialog (  )
-	.show ( )
-	.then ( removeData => doSomethingWithTheDataToRemove )
-	.catch ( error => doSomethingWithTheError );
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class SaveAsDialog extends BaseDialog {
 
-	#removeTravelNotesInput = null;
-	#removeRoutesNotesInput = null;
-	#removeManeuversInput = null;
-	#removeTravelNotesDiv = null;
-	#removeRoutesNotesDiv = null;
-	#removeManeuversDiv = null;
+	/**
+	The remove travel notes input
+	@type {HTMLElement}
+	*/
+
+	#removeTravelNotesInput;
+
+	/**
+	The remove route notes input
+	@type {HTMLElement}
+	*/
+
+	#removeRoutesNotesInput;
+
+	/**
+	The remove maneuvers input
+	@type {HTMLElement}
+	*/
+
+	#removeManeuversInput;
+
+	/**
+	The remove travel notes div
+	@type {HTMLElement}
+	*/
+
+	#removeTravelNotesDiv;
+
+	/**
+	The remove route notes div
+	@type {HTMLElement}
+	*/
+
+	#removeRoutesNotesDiv;
+
+	/**
+	The remove maneuvers div
+	@type {HTMLElement}
+	*/
+
+	#removeManeuversDiv;
 
 	/**
 	Create an input div and an input HTMLelements
-	@param {string} inputText The text to display near the input
+	@param {String} inputText The text to display near the input
 	@return {Array.<HTMLElement>} An array with the div and the input HTMLelement
-	@private
 	*/
 
 	#createInputDiv ( inputText ) {
-		let inputDiv = theHTMLElementsFactory.create ( 'div', null );
-		let input = theHTMLElementsFactory.create (
+		const inputDiv = theHTMLElementsFactory.create ( 'div', null );
+		const input = theHTMLElementsFactory.create (
 			'input',
 			{
 				type : 'checkbox',
@@ -97,11 +168,12 @@ class SaveAsDialog extends BaseDialog {
 		return [ inputDiv, input ];
 	}
 
-	/*
-	constructor
+	/**
+	The constructor
+	@param {DialogOptions|Object} options An Object with the needed options. See DialogOptions class.
 	*/
 
-	constructor ( options = {} ) {
+	constructor ( options ) {
 		super ( options );
 		[ this.#removeTravelNotesDiv, this.#removeTravelNotesInput ] =
 			this.#createInputDiv ( theTranslator.getText ( 'SaveAsDialog - Remove Travel Notes' ) );
@@ -117,19 +189,17 @@ class SaveAsDialog extends BaseDialog {
 
 	onOk ( ) {
 		super.onOk (
-			Object.freeze (
-				{
-					removeTravelNotes : this.#removeTravelNotesInput.checked,
-					removeRoutesNotes : this.#removeRoutesNotesInput.checked,
-					removeManeuvers : this.#removeManeuversInput.checked
-				}
+			new SaveAsDialogData (
+				this.#removeTravelNotesInput.checked,
+				this.#removeRoutesNotesInput.checked,
+				this.#removeManeuversInput.checked
 			)
 		);
 	}
 
 	/**
 	Get an array with the HTMLElements that have to be added in the content of the dialog.
-	@readonly
+	@type {Array.<HTMLElement>}
 	*/
 
 	get contentHTMLElements ( ) {
@@ -142,7 +212,7 @@ class SaveAsDialog extends BaseDialog {
 
 	/**
 	Get the title of the dialog
-	@readonly
+	@type {String}
 	*/
 
 	get title ( ) { return theTranslator.getText ( 'SaveAsDialog - SaveAs' ); }
@@ -151,6 +221,4 @@ class SaveAsDialog extends BaseDialog {
 
 export default SaveAsDialog;
 
-/*
---- End of SaveAsDialog.js file -----------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

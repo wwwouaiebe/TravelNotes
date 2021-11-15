@@ -20,27 +20,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file TravelToolbarUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module travelToolbarUI
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theTranslator from '../UILib/Translator.js';
@@ -54,16 +37,26 @@ import theUtilities from '../UILib/Utilities.js';
 
 import { INVALID_OBJ_ID, ZERO } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class SaveAsButtonClickEL
-@classdesc click event listener for the SaveAs button
-
-@------------------------------------------------------------------------------------------------------------------------------
+click event listener for the SaveAs button
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class SaveAsButtonClickEL {
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -72,16 +65,26 @@ class SaveAsButtonClickEL {
 
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class CancelButtonClickEL
-@classdesc click event listener for the Cancel button
-
-@------------------------------------------------------------------------------------------------------------------------------
+click event listener for the Cancel button
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-class CancelButtonClickEL {
+class CancelTravelButtonClickEL {
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ();
@@ -92,16 +95,26 @@ class CancelButtonClickEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class SaveButtonClickEL
-@classdesc click event listener for the Save button
-
-@------------------------------------------------------------------------------------------------------------------------------
+click event listener for the Save button
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-class SaveButtonClickEL {
+class SaveTravelButtonClickEL {
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -109,29 +122,38 @@ class SaveButtonClickEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class OpenInputChangeEL
-@classdesc change event listener for the input associated to the open button
-
-@------------------------------------------------------------------------------------------------------------------------------
+change event listener for the input associated to the open button
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class OpenInputChangeEL {
 
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
+	/**
+	Event listener method
+	@param {Event} changeEvent The event to handle
+	*/
+
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
-		let fileReader = new FileReader ( );
+		const fileReader = new FileReader ( );
 		fileReader.onload = ( ) => {
-			let fileContent = {};
 			try {
-				fileContent = JSON.parse ( fileReader.result );
-				new FileLoader ( ).openLocalFile ( fileContent );
+				new FileLoader ( ).openLocalFile ( JSON.parse ( fileReader.result ) );
 			}
 			catch ( err ) {
 				if ( err instanceof Error ) {
 					console.error ( err );
+					theErrorsUI.showError ( 'An error occurs when reading the file : ' + err.message );
 				}
 			}
 		};
@@ -139,16 +161,26 @@ class OpenInputChangeEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class OpenButtonClickEL
-@classdesc click event listener for the open button
-
-@------------------------------------------------------------------------------------------------------------------------------
+click event listener for the open button
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class OpenButtonClickEL {
+
+	/**
+	the constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -168,29 +200,38 @@ class OpenButtonClickEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class ImportInputChangeEL
-@classdesc change event listener for the input associated to the import button
-
-@------------------------------------------------------------------------------------------------------------------------------
+change event listener for the input associated to the import button
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ImportInputChangeEL {
 
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
+	/**
+	Event listener method
+	@param {Event} changeEvent The event to handle
+	*/
+
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
-		let fileReader = new FileReader ( );
+		const fileReader = new FileReader ( );
 		fileReader.onload = ( ) => {
-			let fileContent = {};
 			try {
-				fileContent = JSON.parse ( fileReader.result );
-				new FileLoader ( ).mergeLocalFile ( fileContent );
+				new FileLoader ( ).mergeLocalFile ( JSON.parse ( fileReader.result ) );
 			}
 			catch ( err ) {
 				if ( err instanceof Error ) {
 					console.error ( err );
+					theErrorsUI.showError ( 'An error occurs when reading the file : ' + err.message );
 				}
 			}
 		};
@@ -199,16 +240,26 @@ class ImportInputChangeEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class ImportButtonClickEL
-@classdesc click event listener for the import button
-
-@------------------------------------------------------------------------------------------------------------------------------
+click event listener for the import button
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ImportButtonClickEL {
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -223,23 +274,23 @@ class ImportButtonClickEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class TravelToolbarUI
-@classdesc This class is the TravelToolbar part of the UI
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class is the TravelToolbar part of the UI
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class TravelToolbarUI {
 
-	#buttonsDiv = null;
+	/**
+	The buttons container
+	@type {HTMLElement}
+	*/
+
+	#buttonsDiv;
 
 	/**
 	This method creates the save travel button
-	@private
 	*/
 
 	#createSaveAsTravelButton ( ) {
@@ -257,7 +308,6 @@ class TravelToolbarUI {
 
 	/**
 	This method creates the cancel travel button
-	@private
 	*/
 
 	#createCancelTravelButton ( ) {
@@ -270,12 +320,11 @@ class TravelToolbarUI {
 			},
 			this.#buttonsDiv
 		)
-			.addEventListener ( 'click', new CancelButtonClickEL ( ), false );
+			.addEventListener ( 'click', new CancelTravelButtonClickEL ( ), false );
 	}
 
 	/**
 	This method creates the save travel button
-	@private
 	*/
 
 	#createSaveTravelButton ( ) {
@@ -288,12 +337,11 @@ class TravelToolbarUI {
 			},
 			this.#buttonsDiv
 		)
-			.addEventListener ( 'click', new SaveButtonClickEL ( ), false );
+			.addEventListener ( 'click', new SaveTravelButtonClickEL ( ), false );
 	}
 
 	/**
 	This method creates the open travel button
-	@private
 	*/
 
 	#createOpenTravelButton ( ) {
@@ -312,7 +360,6 @@ class TravelToolbarUI {
 
 	/**
 	This method creates the import travel button
-	@private
 	*/
 
 	#createImportTravelButton ( ) {
@@ -330,7 +377,6 @@ class TravelToolbarUI {
 
 	/**
 	This method creates the roadbook button
-	@private
 	*/
 
 	#createRoadbookButton ( ) {
@@ -361,12 +407,16 @@ class TravelToolbarUI {
 		);
 	}
 
-	/*
-	constructor
+	/**
+	the constructor
+	@param {HTMLElement} uiMainDiv The HTMLElement in witch the toolbar must be created
 	*/
 
 	constructor ( uiMainDiv ) {
+
 		Object.freeze ( this );
+
+		// Container creation
 		this.#buttonsDiv = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -375,6 +425,7 @@ class TravelToolbarUI {
 			uiMainDiv
 		);
 
+		// Buttons creation
 		this.#createSaveAsTravelButton ( );
 		this.#createCancelTravelButton ( );
 		this.#createSaveTravelButton ( );
@@ -386,6 +437,4 @@ class TravelToolbarUI {
 
 export default TravelToolbarUI;
 
-/*
---- End of TravelToolbarUI.js file --------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

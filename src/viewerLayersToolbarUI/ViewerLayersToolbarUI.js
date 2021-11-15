@@ -24,52 +24,38 @@ Changes:
 		- Issue ♯135 : Remove innerHTML from code
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ViewerLayersToolbarUI.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module ViewerLayersToolbarUI
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import theAttributionsUI from '../attributionsUI/AttributionsUI.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import MapLayer from '../data/MapLayer.js';
 import theGeoLocator from '../core/GeoLocator.js';
 import Zoomer from '../core/Zoomer.js';
 import { ZERO } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class MapLayerButtonClickEL
-@classdesc Click event listener for the map layer buttons
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+Click event listener for the map layer buttons
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class MapLayerButtonClickEL {
 
-	#mapLayers = null;
+	/**
+	A reference to the array of MapLayer objects
+	@type {Array.<MapLayer>}
+	*/
 
-	/*
-	constructor
+	#mapLayers;
+
+	/**
+	The constructor
+	@param {Array.<MapLayer>} mapLayers A reference to the array of MapLayer objects
 	*/
 
 	constructor ( mapLayers ) {
@@ -77,102 +63,29 @@ class MapLayerButtonClickEL {
 		this.#mapLayers = mapLayers;
 	}
 
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
+
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		let mapLayer = this.#mapLayers [ Number.parseInt ( clickEvent.target.dataset.tanMapLayerId ) ];
+		const mapLayer = this.#mapLayers [ Number.parseInt ( clickEvent.target.dataset.tanMapLayerId ) ];
 		theEventDispatcher.dispatch ( 'layerchange', { layer : mapLayer } );
 		theAttributionsUI.attributions = mapLayer.attribution;
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class GeoLocationButtonClickEL
-@classdesc Click event listener for the geo location button
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+Click event listener for the geo location button
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class GeoLocationButtonClickEL {
 
-	/*
-	constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-	}
-
-	handleEvent ( clickEvent ) {
-		clickEvent.stopPropagation ( );
-		theGeoLocator.switch ( );
-	}
-}
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class ZoomButtonClickEL
-@classdesc Click event listener for the zoom to travel button
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-class ZoomButtonClickEL {
-
-	/*
-	constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-	}
-
-	handleEvent ( clickEvent ) {
-		clickEvent.stopPropagation ( );
-		new Zoomer ( ).zoomToTravel ( );
-	}
-}
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class ViewerLayersToolbarUI
-@classdesc This class is the Layer Toolbar on the left of the viewer screen.
- Displays buttons to change the background maps and manages the background maps list.
- Displays also a geo location button and a zoom to travel button.
-@see {@link theViewerLayersToolbarUI} for the one and only one instance of this class
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-class ViewerLayersToolbarUI {
-
-	#mapLayersToolbar = null;
-
-	#mapLayers = [
-		{
-			service : 'wmts',
-			url : 'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
-			name : 'OSM - Color',
-			toolbar :
-			{
-				text : 'OSM',
-				color : 'red',
-				backgroundColor : 'white'
-			},
-			providerName : 'OSM',
-			providerKeyNeeded : false,
-			attribution : ''
-		}
-	];
-
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -180,16 +93,109 @@ class ViewerLayersToolbarUI {
 	}
 
 	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
+
+	handleEvent ( clickEvent ) {
+		clickEvent.stopPropagation ( );
+		theGeoLocator.switch ( );
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+Click event listener for the zoom to travel button
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class ZoomButtonClickEL {
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
+
+	handleEvent ( clickEvent ) {
+		clickEvent.stopPropagation ( );
+		new Zoomer ( ).zoomToTravel ( );
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+This class is the Layer Toolbar on the left of the viewer screen.
+- Displays buttons to change the background maps and manages the background maps list.
+- Displays also a geo location button and a zoom to travel button.
+See theViewerLayersToolbarUI for the one and only one instance of this class
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class ViewerLayersToolbarUI {
+
+	/**
+	The toolbar
+	@type {HTMLElement}
+	*/
+
+	#mapLayersToolbar;
+
+	/**
+	An array with the available MapLayer objects
+	@type {Array.<MapLayer>}
+	*/
+
+	#mapLayers;
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+		this.#mapLayers = [];
+		const osmMapLayer = new MapLayer (
+			{
+				service : 'wmts',
+				url : 'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
+				name : 'OSM - Color',
+				toolbar :
+				{
+					text : 'OSM',
+					color : '\u0023ff0000',
+					backgroundColor : '\u0023ffffff'
+				},
+				providerName : 'OSM',
+				providerKeyNeeded : false,
+				attribution : ''
+			}
+		);
+		this.#mapLayers.push ( osmMapLayer );
+
+	}
+
+	/**
 	creates the user interface
 	*/
 
 	createUI ( ) {
+
+		// Toolbar
 		this.#mapLayersToolbar = theHTMLElementsFactory.create (
 			'div',
 			{ id : 'TravelNotes-ViewerLayersToolbarUI' },
 			document.body
 		);
 
+		// Geolocation button
 		// Don't test the https protocol. On some mobile devices with an integreted GPS
 		// the geolocation is working also on http protocol
 		theHTMLElementsFactory.create (
@@ -203,6 +209,7 @@ class ViewerLayersToolbarUI {
 			this.#mapLayersToolbar
 		).addEventListener ( 'click', new GeoLocationButtonClickEL ( ), false );
 
+		// Zoom button
 		theHTMLElementsFactory.create (
 			'div',
 			{
@@ -214,30 +221,33 @@ class ViewerLayersToolbarUI {
 			this.#mapLayersToolbar
 		).addEventListener ( 'click', new ZoomButtonClickEL ( ), false );
 
-		let clickMapLayerButtonEventListener = new MapLayerButtonClickEL ( this.#mapLayers );
+		// MapLayer buttons
+		const mapLayerButtonClickEL = new MapLayerButtonClickEL ( this.#mapLayers );
 		for ( let mapLayerCounter = 0; mapLayerCounter < this.#mapLayers.length; mapLayerCounter ++ ) {
-			let mapLayer = this.#mapLayers [ mapLayerCounter ];
+			const mapLayer = this.#mapLayers [ mapLayerCounter ];
 			theHTMLElementsFactory.create (
 				'div',
 				{
 					className : 'TravelNotes-ViewerLayersToolbarUI-Button',
 					title : mapLayer.name,
 					dataset : { MapLayerId : mapLayerCounter },
-					textContent : mapLayer.toolbar.text,
-					style : 'color:' + mapLayer.toolbar.color + ';background-color:' + mapLayer.toolbar.backgroundColor
+					textContent : mapLayer.toolbarButtonData.text,
+					style : 'color:' +
+						mapLayer.toolbarButtonData.color + ';background-color:' +
+						mapLayer.toolbarButtonData.backgroundColor
 				},
 				this.#mapLayersToolbar
-			).addEventListener ( 'click', clickMapLayerButtonEventListener, false );
+			).addEventListener ( 'click', mapLayerButtonClickEL, false );
 		}
 	}
 
 	/**
 	Set a layer as background map. If the layer is not found, the 'OSM - Color' layer is set
-	@param {string} layerName the name of the layer to set
+	@param {String} layerName the name of the layer to set or the index of theMapLayer in the #mapLayers
 	*/
 
 	setMapLayer ( layerName ) {
-		let newLayer =
+		const newLayer =
 			( layerName.match ( /^[0-9]$/ ) )
 				?
 				this.#mapLayers [ Number.parseInt ( layerName ) ] || this.#mapLayers [ ZERO ]
@@ -249,35 +259,30 @@ class ViewerLayersToolbarUI {
 
 	/**
 	Add a layer list to the list of available layers
-	@param {Array.<Layer>} layers the layer list to add
+	@param {JsonObject} jsonLayers the layer list to add
 	*/
 
-	addMapLayers ( mapLayers ) {
-		mapLayers.forEach (
-			mapLayer => {
-				if ( ! mapLayer.providerKeyNeeded ) {
-					this.#mapLayers.push ( mapLayer );
+	addMapLayers ( jsonLayers ) {
+		jsonLayers.forEach (
+			jsonLayer => {
+				const newLayer = new MapLayer ( jsonLayer );
+				if ( ! newLayer.providerKeyNeeded ) {
+					this.#mapLayers.push ( newLayer );
 				}
 			}
 		);
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of ViewerLayersToolbarUI class
+The one and only one instance of ViewerLayersToolbarUI class
 @type {ViewerLayersToolbarUI}
-@constant
-@global
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theViewerLayersToolbarUI = new ViewerLayersToolbarUI ( );
 
 export default theViewerLayersToolbarUI;
 
-/*
---- End of ViewerLayersToolbarUI.js file --------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

@@ -48,28 +48,10 @@ Changes:
 		- Issue ♯138 : Protect the app - control html entries done by user.
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests 20210902
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file RouteEditor.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module core
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import theTranslator from '../UILib/Translator.js';
@@ -87,21 +69,17 @@ import RoutePrinter from '../printRoute/RoutePrinter.js';
 
 import { ROUTE_EDITION_STATUS, DISTANCE, INVALID_OBJ_ID } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@class
-@classdesc This class contains methods fot Routes creation or modifications
-@see {@link theRouteEditor} for the one and only one instance of this class
-@hideconstructor
-
-@------------------------------------------------------------------------------------------------------------------------------
+This class contains methods fot Routes creation or modifications
+See theRouteEditor for the one and only one instance of this class
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class RouteEditor {
 
-	/*
-	constructor
+	/**
+	The constructor
 	*/
 
 	constructor ( ) {
@@ -111,16 +89,10 @@ class RouteEditor {
 	/**
 	This method add a route to the Travel and, if no other route is beind edited,
 	start the edition of this new route
-	@fires setprovider
-	@fires settransitmode
-	@fires routeupdated
-	@fires showitinerary
-	@fires setrouteslist
-	@fires roadbookupdate
 	*/
 
 	addRoute ( ) {
-		let route = new Route ( );
+		const route = new Route ( );
 		theTravelNotesData.travel.routes.add ( route );
 		if ( ROUTE_EDITION_STATUS.editedChanged === theTravelNotesData.travel.editedRoute.editionStatus ) {
 			this.chainRoutes ( );
@@ -134,21 +106,15 @@ class RouteEditor {
 
 	/**
 	This method start the edition of a route
-	@param {!number} routeObjId The objId of the route to edit.
-	@fires setprovider
-	@fires settransitmode
-	@fires routeupdated
-	@fires showitinerary
-	@fires setrouteslist
-	@fires roadbookupdate
+	@param {Number} routeObjId The objId of the route to edit.
 	*/
 
 	editRoute ( routeObjId ) {
 
 		// We verify that the provider  for this route is available
-		let initialRoute = theDataSearchEngine.getRoute ( routeObjId );
-		let providerName = initialRoute.itinerary.provider;
-		let provider = theTravelNotesData.providers.get ( providerName.toLowerCase ( ) );
+		const initialRoute = theDataSearchEngine.getRoute ( routeObjId );
+		const providerName = initialRoute.itinerary.provider;
+		const provider = theTravelNotesData.providers.get ( providerName.toLowerCase ( ) );
 		if (
 			providerName
 			&&
@@ -171,7 +137,7 @@ class RouteEditor {
 
 		if ( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId ) {
 
-			// the current edited route is not changed. Cleaning the editors
+			// the current edited route is not changed (we have verified in the RouteContextMenu ). Cleaning the editors
 			this.cancelEdition ( );
 		}
 
@@ -179,7 +145,7 @@ class RouteEditor {
 		if ( providerName && '' !== providerName ) {
 			theEventDispatcher.dispatch ( 'setprovider', { provider : providerName } );
 		}
-		let transitMode = initialRoute.itinerary.transitMode;
+		const transitMode = initialRoute.itinerary.transitMode;
 		if ( transitMode && '' !== transitMode ) {
 			theEventDispatcher.dispatch ( 'settransitmode', { transitMode : transitMode } );
 		}
@@ -213,11 +179,7 @@ class RouteEditor {
 
 	/**
 	This method removes a route from the travel
-	@param {!number} routeObjId The objId of the Route to remove.
-	@fires routeupdated
-	@fires showitinerary
-	@fires setrouteslist
-	@fires roadbookupdate
+	@param {Number} routeObjId The objId of the Route to remove.
 	*/
 
 	removeRoute ( routeObjId ) {
@@ -251,7 +213,7 @@ class RouteEditor {
 
 	/**
 	This method save the route to a gpx file
-	@param {!number} routeObjId The objId of the Route to save.
+	@param {Number} routeObjId The objId of the Route to save.
 	*/
 
 	saveGpx ( routeObjId ) {
@@ -263,7 +225,7 @@ class RouteEditor {
 	*/
 
 	chainRoutes ( ) {
-		let routesIterator = theTravelNotesData.travel.routes.iterator;
+		const routesIterator = theTravelNotesData.travel.routes.iterator;
 		let chainedDistance = DISTANCE.defaultValue;
 		while ( ! routesIterator.done ) {
 			if ( routesIterator.value.chain ) {
@@ -273,7 +235,7 @@ class RouteEditor {
 			else {
 				routesIterator.value.chainedDistance = DISTANCE.defaultValue;
 			}
-			let notesIterator = routesIterator.value.notes.iterator;
+			const notesIterator = routesIterator.value.notes.iterator;
 			while ( ! notesIterator.done ) {
 				notesIterator.value.chainedDistance = routesIterator.value.chainedDistance;
 			}
@@ -282,36 +244,30 @@ class RouteEditor {
 
 	/**
 	This method save the edited route
-	@fires routeupdated
-	@fires showitinerary
-	@fires setrouteslist
-	@fires roadbookupdate
 	*/
 
 	saveEdition ( ) {
 
 		// the edited route is cloned
-		let clonedRoute = new Route ( );
+		const clonedRoute = new Route ( );
 		clonedRoute.jsonObject = theTravelNotesData.travel.editedRoute.jsonObject;
 
 		// and the initial route replaced with the clone
 		theTravelNotesData.travel.routes.replace ( theTravelNotesData.editedRouteObjId, clonedRoute );
 		theTravelNotesData.editedRouteObjId = clonedRoute.objId;
+
+		// cleaning editor
 		this.cancelEdition ( );
 	}
 
 	/**
 	This method cancel the route edition
-	@fires routeupdated
-	@fires showitinerary
-	@fires setrouteslist
-	@fires roadbookupdate
 	*/
 
 	cancelEdition ( ) {
 
 		// !!! order is important!!!
-		let editedRoute = theDataSearchEngine.getRoute ( theTravelNotesData.editedRouteObjId );
+		const editedRoute = theDataSearchEngine.getRoute ( theTravelNotesData.editedRouteObjId );
 		editedRoute.editionStatus = ROUTE_EDITION_STATUS.notEdited;
 
 		theProfileWindowsManager.updateProfile (
@@ -338,35 +294,30 @@ class RouteEditor {
 
 	/**
 	This method show the RoutePropertiesDialog
-	@param {!number} routeObjId The objId of the Route for witch the properties must be edited
-	@async
-	@fires routepropertiesupdated
-	@fires setrouteslist
-	@fires roadbookupdate
-	@fires updateitinerary
+	@param {Number} routeObjId The objId of the Route for witch the properties must be edited
 	*/
 
 	routeProperties ( routeObjId ) {
-		let route = theDataSearchEngine.getRoute ( routeObjId );
-		let routePropertiesDialog = new RoutePropertiesDialog ( route );
+		const route = theDataSearchEngine.getRoute ( routeObjId );
+		new RoutePropertiesDialog ( route )
+			.show ( )
+			.then (
+				( ) => {
+					this.chainRoutes ( );
 
-		routePropertiesDialog.show ( ).then (
-			( ) => {
-				this.chainRoutes ( );
-
-				if ( route.haveValidWayPoints ( ) ) {
-					theEventDispatcher.dispatch (
-						'routepropertiesupdated',
-						{
-							routeObjId : route.objId
-						}
-					);
+					if ( route.haveValidWayPoints ( ) ) {
+						theEventDispatcher.dispatch (
+							'routepropertiesupdated',
+							{
+								routeObjId : route.objId
+							}
+						);
+					}
+					theEventDispatcher.dispatch ( 'roadbookupdate' );
+					theEventDispatcher.dispatch ( 'setrouteslist' );
+					theEventDispatcher.dispatch ( 'updateitinerary' );
 				}
-				theEventDispatcher.dispatch ( 'roadbookupdate' );
-				theEventDispatcher.dispatch ( 'setrouteslist' );
-				theEventDispatcher.dispatch ( 'updateitinerary' );
-			}
-		)
+			)
 			.catch (
 				err => {
 					if ( err instanceof Error ) {
@@ -378,14 +329,13 @@ class RouteEditor {
 
 	/**
 	This method show the PrintRouteMapDialog and then print the maps
-	@param {!number} routeObjId The objId of the Route for witch the maps must be printed
-	@async
+	@param {Number} routeObjId The objId of the Route for witch the maps must be printed
 	*/
 
 	printRouteMap ( routeObjId ) {
 		new PrintRouteMapDialog ( )
 			.show ( )
-			.then ( printData => new RoutePrinter ( ).print ( printData, routeObjId ) )
+			.then ( printRouteMapOptions => new RoutePrinter ( ).print ( printRouteMapOptions, routeObjId ) )
 			.catch (
 				err => {
 					if ( err instanceof Error ) {
@@ -397,7 +347,7 @@ class RouteEditor {
 
 	/**
 	This method show a route on the map
-	@param {!number} routeObjId The objId of the Route to show
+	@param {Number} routeObjId The objId of the Route to show
 	*/
 
 	showRoute ( routeObjId ) {
@@ -414,7 +364,7 @@ class RouteEditor {
 
 	/**
 	This method hide a route on the map
-	@param {!number} routeObjId The objId of the Route to show
+	@param {Number} routeObjId The objId of the Route to show
 	*/
 
 	hideRoute ( routeObjId ) {
@@ -434,7 +384,7 @@ class RouteEditor {
 	*/
 
 	showRoutes ( ) {
-		let routesIterator = theTravelNotesData.travel.routes.iterator;
+		const routesIterator = theTravelNotesData.travel.routes.iterator;
 		while ( ! routesIterator.done ) {
 			if ( routesIterator.value.hidden ) {
 				routesIterator.value.hidden = false;
@@ -455,7 +405,7 @@ class RouteEditor {
 	*/
 
 	hideRoutes ( ) {
-		let routesIterator = theTravelNotesData.travel.routes.iterator;
+		const routesIterator = theTravelNotesData.travel.routes.iterator;
 		while ( ! routesIterator.done ) {
 			if (
 				! routesIterator.value.hidden
@@ -476,21 +426,15 @@ class RouteEditor {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@desc The one and only one instance of RouteEditor class
+The one and only one instance of RouteEditor class
 @type {RouteEditor}
-@constant
-@global
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theRouteEditor = new RouteEditor ( );
 
 export default theRouteEditor;
 
-/*
---- End of RouteEditor.js file ------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

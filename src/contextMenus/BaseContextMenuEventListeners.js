@@ -20,52 +20,43 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210915
 Tests ...
 */
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file BaseContextMenuEventListeners.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
+keydown event listener for the context menus
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
+class ContextMenuKeyboardKeydownEL {
 
-@module contextMenus
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class KeyboardKeydownEL
-@classdesc keydown event listener for the context menus
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
-*/
-
-class KeyboardKeydownEL {
+	/**
+	A reference to the menuOperator Object
+	@type {BaseContextMenuOperator}
+	*/
 
 	#menuOperator = null;
 
+	/**
+	The constructor
+	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
+	*/
+
 	constructor ( menuOperator ) {
-		this.#menuOperator = menuOperator;
 		Object.freeze ( this );
+		this.#menuOperator = menuOperator;
 	}
 
-	destructor ( ) {
-		this.#menuOperator = null;
-	}
+	/**
+	Event listener method
+	@param {Event} keydownEvent The event to handle
+	*/
 
 	handleEvent ( keydownEvent ) {
 		keydownEvent.stopPropagation ( );
@@ -73,28 +64,35 @@ class KeyboardKeydownEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class CancelButtonClickEL
-@classdesc click event listener on the cancel button for the context menus
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+click event listener on the cancel button for the context menus
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-class CancelButtonClickEL {
+class CancelContextMenuButtonClickEL {
+
+	/**
+	A reference to the menuOperator Object
+	@type {BaseContextMenuOperator}
+	*/
 
 	#menuOperator = null;
 
+	/**
+	The constructor
+	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
+	*/
+
 	constructor ( menuOperator ) {
-		this.#menuOperator = menuOperator;
 		Object.freeze ( this );
+		this.#menuOperator = menuOperator;
 	}
 
-	destructor ( ) {
-		this.#menuOperator = null;
-	}
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
@@ -102,115 +100,143 @@ class CancelButtonClickEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class MenuItemMouseLeaveEL
-@classdesc mouseleave event listener on the menuItems for the context menus
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+mouseleave event listener on the menuItems for the context menus
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class MenuItemMouseLeaveEL {
 
+	/**
+	A reference to the menuOperator Object
+	@type {BaseContextMenuOperator}
+	*/
+
 	#menuOperator = null;
 
+	/**
+	The constructor
+	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
+	*/
+
 	constructor ( menuOperator ) {
-		this.#menuOperator = menuOperator;
 		Object.freeze ( this );
+		this.#menuOperator = menuOperator;
 	}
 
-	destructor ( ) {
-		this.#menuOperator = null;
-	}
+	/**
+	Event listener method
+	@param {Event} mouseLeaveEvent The event to handle
+	*/
 
 	handleEvent ( mouseLeaveEvent ) {
 		mouseLeaveEvent.stopPropagation ( );
-		this.#menuOperator.onMouseLeaveMenuItem ( mouseLeaveEvent.target );
+		this.#menuOperator.onMouseLeaveMenuItem ( mouseLeaveEvent.currentTarget );
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class MenuItemMouseEnterEL
-@classdesc mouseenter event listener on the menuItems for the context menus
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+mouseenter event listener on the menuItems for the context menus
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class MenuItemMouseEnterEL {
 
+	/**
+	A reference to the menuOperator Object
+	@type {BaseContextMenuOperator}
+	*/
+
 	#menuOperator = null;
 
+	/**
+	the constructor
+	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
+	*/
+
 	constructor ( menuOperator ) {
-		this.#menuOperator = menuOperator;
 		Object.freeze ( this );
+		this.#menuOperator = menuOperator;
 	}
 
-	destructor ( ) {
-		this.#menuOperator = null;
-	}
+	/**
+	Event listener method
+	@param {Event} mouseEnterEvent The event to handle
+	*/
 
 	handleEvent ( mouseEnterEvent ) {
 		mouseEnterEvent.stopPropagation ( );
-		this.#menuOperator.onMouseEnterMenuItem ( mouseEnterEvent.target );
+		this.#menuOperator.onMouseEnterMenuItem ( mouseEnterEvent.currentTarget );
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class MenuItemClickEL
-@classdesc click event listener on the menuItems for the context menus
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+click event listener on the menuItems for the context menus
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class MenuItemClickEL {
 
+	/**
+	A reference to the menuOperator Object
+	@type {BaseContextMenuOperator}
+	*/
+
 	#menuOperator = null;
 
+	/**
+	The constructor
+	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
+	*/
+
 	constructor ( menuOperator ) {
-		this.#menuOperator = menuOperator;
 		Object.freeze ( this );
+		this.#menuOperator = menuOperator;
 	}
 
-	destructor ( ) {
-		this.#menuOperator = null;
-	}
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		this.#menuOperator.selectItem ( Number.parseInt ( clickEvent.target.dataset.tanObjId ) );
+		this.#menuOperator.selectItem ( Number.parseInt ( clickEvent.currentTarget.dataset.tanObjId ) );
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class ContainerMouseLeaveEL
-@classdesc mouseleave event listener on the container for the context menus
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+mouseleave event listener on the container for the context menus
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ContainerMouseLeaveEL {
 
+	/**
+	A reference to the menuOperator Object
+	@type {BaseContextMenuOperator}
+	*/
+
 	#menuOperator = null;
 
+	/**
+	The constructor
+	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
+	*/
+
 	constructor ( menuOperator ) {
-		this.#menuOperator = menuOperator;
 		Object.freeze ( this );
+		this.#menuOperator = menuOperator;
 	}
 
-	destructor ( ) {
-		this.#menuOperator = null;
-	}
+	/**
+	Event listener method
+	@param {Event} mouseLeaveEvent The event to handle
+	*/
 
 	handleEvent ( mouseLeaveEvent ) {
 		mouseLeaveEvent.stopPropagation ( );
@@ -218,28 +244,35 @@ class ContainerMouseLeaveEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class ContainerMouseEnterEL
-@classdesc  mouseenter event listener on the container for the context menus
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+ mouseenter event listener on the container for the context menus
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ContainerMouseEnterEL {
 
+	/**
+	A reference to the menuOperator Object
+	@type {BaseContextMenuOperator}
+	*/
+
 	#menuOperator = null;
 
+	/**
+	The constructor
+	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
+	*/
+
 	constructor ( menuOperator ) {
-		this.#menuOperator = menuOperator;
 		Object.freeze ( this );
+		this.#menuOperator = menuOperator;
 	}
 
-	destructor ( ) {
-		this.#menuOperator = null;
-	}
+	/**
+	Event listener method
+	@param {Event} mouseEnterEvent The event to handle
+	*/
 
 	handleEvent ( mouseEnterEvent ) {
 		mouseEnterEvent.stopPropagation ( );
@@ -248,8 +281,8 @@ class ContainerMouseEnterEL {
 }
 
 export {
-	KeyboardKeydownEL,
-	CancelButtonClickEL,
+	ContextMenuKeyboardKeydownEL,
+	CancelContextMenuButtonClickEL,
 	MenuItemMouseLeaveEL,
 	MenuItemMouseEnterEL,
 	MenuItemClickEL,
@@ -257,10 +290,4 @@ export {
 	ContainerMouseEnterEL
 };
 
-/*
-@------------------------------------------------------------------------------------------------------------------------------
-
-end of BaseContextMenuEventListeners.js file
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

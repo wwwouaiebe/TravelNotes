@@ -26,27 +26,10 @@ Changes:
 		- Issue ♯64 : Improve geocoding
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
+Doc reviewed 20210914
 Tests ...
-*/
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file WayPointPropertiesDialog.js
-@copyright Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
-@license GNU General Public License
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@module dialogs
-@private
-
-@------------------------------------------------------------------------------------------------------------------------------
 */
 
 import BaseDialog from '../dialogBase/BaseDialog.js';
@@ -55,50 +38,45 @@ import theTranslator from '../UILib/Translator.js';
 import GeoCoder from '../coreLib/GeoCoder.js';
 import theConfig from '../data/Config.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@--------------------------------------------------------------------------------------------------------------------------
-
-@class WayPointPropertiesDialog
-@classdesc This is the WayPointProerties dialog
-@extends BaseDialog
-@hideconstructor
-
-@--------------------------------------------------------------------------------------------------------------------------
+This is the WayPointProerties dialog
 */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class WayPointPropertiesDialog extends BaseDialog {
 
 	/**
 	A reference to the edited wayPoint
-	@private
+	@type {WayPoint}
 	*/
 
-	#wayPoint = null;
+	#wayPoint;
 
 	/**
 	The address input HTMLElement
-	@private
+	@type {HTMLElement}
 	*/
 
-	#addressInput = null;
+	#addressInput;
 
 	/**
 	The reser address button
-	@private
+	@type {HTMLElement}
 	*/
 
-	#resetAddressButton = null;
+	#resetAddressButton;
 
 	/**
 	The name input HTMLElement
-	@private
+	@type {HTMLElement}
 	*/
 
-	#nameInput = null;
+	#nameInput;
 
 	/**
 	Click on the reset address button event listener
-	@private
+	@param {Event} clickEvent The event to handle
 	*/
 
 	async handleEvent ( clickEvent ) {
@@ -107,28 +85,24 @@ class WayPointPropertiesDialog extends BaseDialog {
 			return;
 		}
 		this.showWait ( );
-		let geoCoder = new GeoCoder ( );
-		let address = await geoCoder.getAddressAsync ( this.#wayPoint.latLng );
+		const address = await new GeoCoder ( ).getAddressAsync ( this.#wayPoint.latLng );
 		this.hideWait ( );
-		if ( address.statusOk ) {
-			if ( theConfig.wayPoint.geocodingIncludeName ) {
-				this.#nameInput.value = address.name;
-			}
-			let addressString = address.street;
-			if ( '' !== address.city ) {
-				addressString += ' ' + address.city;
-			}
-			this.#addressInput.value = addressString;
+		if ( theConfig.wayPoint.geocodingIncludeName ) {
+			this.#nameInput.value = address.name;
 		}
+		let addressString = address.street;
+		if ( '' !== address.city ) {
+			addressString += ' ' + address.city;
+		}
+		this.#addressInput.value = addressString;
 	}
 
 	/**
 	Create the address control HTMLElements
-	@private
 	*/
 
 	#createAddressControl ( ) {
-		let addressHeaderDiv = theHTMLElementsFactory.create ( 'div' );
+		const addressHeaderDiv = theHTMLElementsFactory.create ( 'div' );
 		this.#resetAddressButton = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -147,7 +121,7 @@ class WayPointPropertiesDialog extends BaseDialog {
 			addressHeaderDiv
 		);
 
-		let addressInputDiv = theHTMLElementsFactory.create ( 'div' );
+		const addressInputDiv = theHTMLElementsFactory.create ( 'div' );
 		this.#addressInput = theHTMLElementsFactory.create (
 			'input',
 			{
@@ -163,17 +137,16 @@ class WayPointPropertiesDialog extends BaseDialog {
 
 	/**
 	Create the name control HTMLElements
-	@private
 	*/
 
 	#createNameControl ( ) {
-		let nameHeaderDiv = theHTMLElementsFactory.create (
+		const nameHeaderDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				textContent : theTranslator.getText ( 'WayPointPropertiesDialog - Name' )
 			}
 		);
-		let nameInputDiv = theHTMLElementsFactory.create ( 'div' );
+		const nameInputDiv = theHTMLElementsFactory.create ( 'div' );
 		this.#nameInput = theHTMLElementsFactory.create (
 			'input',
 			{
@@ -187,9 +160,9 @@ class WayPointPropertiesDialog extends BaseDialog {
 		return [ nameHeaderDiv, nameInputDiv ];
 	}
 
-	/*
-	constructor
-	@param {WayPoint} The wayPoint to modify
+	/**
+	The constructor
+	@param {WayPoint} wayPoint The wayPoint to modify
 	*/
 
 	constructor ( wayPoint ) {
@@ -219,8 +192,9 @@ class WayPointPropertiesDialog extends BaseDialog {
 	}
 
 	/**
-	Get an array with the HTMLElements that have to be added in the content of the dialog.
-	@readonly
+	An array with the HTMLElements that have to be added in the content of the dialog.
+	Overload of the BaseDialog contentHTMLElements property.
+	@type {Array.<HTMLElement>}
 	*/
 
 	get contentHTMLElements ( ) {
@@ -231,8 +205,8 @@ class WayPointPropertiesDialog extends BaseDialog {
 	}
 
 	/**
-	The title of the dialog
-	@readonly
+	The title of the dialog. Overload of the BaseDialog title property.
+	@type {String}
 	*/
 
 	get title ( ) { return theTranslator.getText ( 'WayPointPropertiesDialog - Waypoint properties' ); }
@@ -240,6 +214,4 @@ class WayPointPropertiesDialog extends BaseDialog {
 
 export default WayPointPropertiesDialog;
 
-/*
---- End of NoteDialog.js file -------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */
