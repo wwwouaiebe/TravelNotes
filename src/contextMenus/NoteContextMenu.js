@@ -63,7 +63,9 @@ class NoteContextMenu extends BaseContextMenu {
 
 	constructor ( contextMenuEvent, parentNode ) {
 		super ( contextMenuEvent, parentNode );
-		this.#route = theDataSearchEngine.getNoteAndRoute ( this.eventData.targetObjId ).route;
+		if ( this.eventData ) {
+			this.#route = theDataSearchEngine.getNoteAndRoute ( this.eventData.targetObjId ).route;
+		}
 	}
 
 	/**

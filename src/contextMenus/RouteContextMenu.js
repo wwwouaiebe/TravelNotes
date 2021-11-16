@@ -76,7 +76,9 @@ class RouteContextMenu extends BaseContextMenu {
 
 	constructor ( contextMenuEvent, parentNode ) {
 		super ( contextMenuEvent, parentNode );
-		this.#route = theDataSearchEngine.getRoute ( this.eventData.targetObjId );
+		if ( this.eventData ) {
+			this.#route = theDataSearchEngine.getRoute ( this.eventData.targetObjId );
+		}
 	}
 
 	/**
