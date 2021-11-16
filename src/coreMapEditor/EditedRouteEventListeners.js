@@ -30,6 +30,8 @@ import theConfig from '../data/Config.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theTranslator from '../UILib/Translator.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
+import theGeometry from '../coreLib/Geometry.js';
+import theUtilities from '../UILib/Utilities.js';
 import {
 	TempWayPointMarkerELData,
 	TempWayPointMarkerMouseOutEL,
@@ -91,17 +93,21 @@ class EditedRouteMouseOverEL {
 			);
 
 			// adding tooltip
+			let tooltipText = '';
 			if (
 				NOT_FOUND === theConfig.route.showDragTooltip
 				||
 				EditedRouteMouseOverEL.#showDragTooltip <= theConfig.route.showDragTooltip
 			) {
 				EditedRouteMouseOverEL.#showDragTooltip ++;
-				TempWayPointMarkerELData.marker.bindTooltip (
-					theTranslator.getText ( 'MapEditor - Drag and drop to add a waypoint' )
-				);
-				TempWayPointMarkerELData.marker.getTooltip ( ).options.offset = [	ZERO, ZERO ];
+				tooltipText = theTranslator.getText ( 'MapEditor - Drag and drop to add a waypoint' );
 			}
+			let distance = theGeometry.getClosestLatLngDistance ( route, [ mapEvent.latlng.lat, mapEvent.latlng.lng ] )
+				.distance;
+			distance += route.chainedDistance;
+			tooltipText += theUtilities.formatDistance ( distance );
+			TempWayPointMarkerELData.marker.bindTooltip ( tooltipText );
+			TempWayPointMarkerELData.marker.getTooltip ( ).options.offset = [ ZERO, ZERO ];
 
 			// adding marker to the map
 			TempWayPointMarkerELData.marker.addTo ( theTravelNotesData.map );

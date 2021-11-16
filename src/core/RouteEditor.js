@@ -94,8 +94,8 @@ class RouteEditor {
 	addRoute ( ) {
 		const route = new Route ( );
 		theTravelNotesData.travel.routes.add ( route );
+		this.chainRoutes ( );
 		if ( ROUTE_EDITION_STATUS.editedChanged === theTravelNotesData.travel.editedRoute.editionStatus ) {
-			this.chainRoutes ( );
 			theEventDispatcher.dispatch ( 'setrouteslist' );
 			theEventDispatcher.dispatch ( 'roadbookupdate' );
 		}
@@ -239,6 +239,18 @@ class RouteEditor {
 			while ( ! notesIterator.done ) {
 				notesIterator.value.chainedDistance = routesIterator.value.chainedDistance;
 			}
+			if ( routesIterator.value.objId === theTravelNotesData.editedRouteObjId ) {
+				theTravelNotesData.travel.editedRoute.chainedDistance =
+					theTravelNotesData.travel.editedRoute.chain
+						?
+						routesIterator.value.chainedDistance
+						:
+						DISTANCE.defaultValue;
+				const editedRouteNotesIterator = theTravelNotesData.travel.editedRoute.notes.iterator;
+				while ( ! editedRouteNotesIterator.done ) {
+					editedRouteNotesIterator.value.chainedDistance = theTravelNotesData.travel.editedRoute.chainedDistance;
+				}
+			}
 		}
 	}
 
@@ -304,7 +316,6 @@ class RouteEditor {
 			.then (
 				( ) => {
 					this.chainRoutes ( );
-
 					if ( route.haveValidWayPoints ( ) ) {
 						theEventDispatcher.dispatch (
 							'routepropertiesupdated',
