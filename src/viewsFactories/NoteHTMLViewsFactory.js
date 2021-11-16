@@ -99,7 +99,7 @@ class NoteHTMLViewsFactory {
 				);
 				dimCoeficient = theConfig.note.svgIcon.roadbookFactor;
 			}
-			else if ( iconHTML.firstChild.classList.contains ( 'TravelNotes-MapNoteCategory-0073' ) ) {
+			else if ( iconHTML?.firstChild?.classList?.contains ( 'TravelNotes-MapNoteCategory-0073' ) ) {
 				dimCoeficient = theConfig.note.svgIcon.roadbookFactor;
 			}
 		}
