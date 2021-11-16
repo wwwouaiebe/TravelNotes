@@ -54,28 +54,6 @@ class WayPointContextMenu extends BaseContextMenu {
 		super ( contextMenuEvent, parentNode );
 	}
 
-	/* eslint-disable no-magic-numbers */
-
-	/**
-	Perform the action selected by the user. Implementation of the base class doAction method
-	@param {Number} selectedItemObjId The id of the item selected by the user
-	*/
-
-	doAction ( selectedItemObjId ) {
-		switch ( selectedItemObjId ) {
-		case 0 :
-			theWayPointEditor.removeWayPoint ( this.eventData.targetObjId );
-			break;
-		case 1 :
-			theWayPointEditor.wayPointProperties ( this.eventData.targetObjId );
-			break;
-		default :
-			break;
-		}
-	}
-
-	/* eslint-enable no-magic-numbers */
-
 	/**
 	The list of menu items to use. Implementation of the BaseContextMenu.menuItems property
 	@type {Array.<MenuItem>}
@@ -87,11 +65,13 @@ class WayPointContextMenu extends BaseContextMenu {
 				theTranslator.getText ( 'WayPointContextMenu - Delete this waypoint' ),
 				theTravelNotesData.travel.editedRoute.wayPoints.first.objId !== this.eventData.targetObjId
 					&&
-					theTravelNotesData.travel.editedRoute.wayPoints.last.objId !== this.eventData.targetObjId
+					theTravelNotesData.travel.editedRoute.wayPoints.last.objId !== this.eventData.targetObjId,
+				( ) => theWayPointEditor.removeWayPoint ( this.eventData.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'WayPointContextMenu - Modify properties' ),
-				true
+				true,
+				( ) => theWayPointEditor.wayPointProperties ( this.eventData.targetObjId )
 			)
 		];
 	}

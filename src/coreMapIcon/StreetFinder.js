@@ -380,7 +380,7 @@ class StreetFinder {
 			this.#noteData.address +=
 				' <span class="TravelNotes-NoteHtml-Address-City">' + this.#overpassAPIDataLoader.city + '</span>';
 		}
-		if ( this.#overpassAPIDataLoader?.place !== this.#overpassAPIDataLoader.city ) {
+		if ( this.#overpassAPIDataLoader.place && this.#overpassAPIDataLoader.place !== this.#overpassAPIDataLoader.city ) {
 			this.#noteData.address += ' (' + this.#overpassAPIDataLoader.place + ')';
 		}
 	}
