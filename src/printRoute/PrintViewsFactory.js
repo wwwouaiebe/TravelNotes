@@ -202,7 +202,7 @@ class PrintViewsFactory {
 		) {
 
 			// itinerary point is really near the frame. we consider the itinerary point as intermediate point
-			return new LatLng ( itineraryPoint.lat, itineraryPoint.lng );
+			return LatLng.clone ( itineraryPoint );
 		}
 		return null;
 	}
@@ -368,13 +368,13 @@ class PrintViewsFactory {
 		// ! Be sure that points in the views are clones and not only references...
 
 		let currentView = new PrintView ( );
-		currentView.bottomLeft = new LatLng ( itineraryPointsIterator.value.lat, itineraryPointsIterator.value.lng );
-		currentView.upperRight = new LatLng ( itineraryPointsIterator.value.lat, itineraryPointsIterator.value.lng );
-		currentView.entryPoint = new LatLng ( itineraryPointsIterator.value.lat, itineraryPointsIterator.value.lng );
+		currentView.bottomLeft = LatLng.clone ( itineraryPointsIterator.value );
+		currentView.upperRight = LatLng.clone ( itineraryPointsIterator.value );
+		currentView.entryPoint = LatLng.clone ( itineraryPointsIterator.value );
 
 		let previousItineraryPoint = itineraryPointsIterator.value;
 
-		let intermediatePoint = new LatLng ( itineraryPointsIterator.value.lat, itineraryPointsIterator.value.lng );
+		let intermediatePoint = LatLng.clone ( itineraryPointsIterator.value );
 
 		// we go to the next point
 		done = itineraryPointsIterator.done;
@@ -391,7 +391,7 @@ class PrintViewsFactory {
 				Math.max ( currentView.upperRight.lat, currentItineraryPoint.lat ),
 				Math.max ( currentView.upperRight.lng, currentItineraryPoint.lng )
 			);
-			tmpView.entryPoint = new LatLng ( currentView.entryPoint.lat, currentView.entryPoint.lng );
+			tmpView.entryPoint = LatLng.clone ( currentView.entryPoint );
 
 			// computing the temporary view size and comparing with the desired max view size
 			if (
@@ -404,7 +404,7 @@ class PrintViewsFactory {
 				// the temporary view becomes the current view and we go to the next itinerary point
 				currentView = tmpView;
 				previousItineraryPoint = itineraryPointsIterator.value;
-				intermediatePoint = new LatLng ( itineraryPointsIterator.value.lat, itineraryPointsIterator.value.lng );
+				intermediatePoint = LatLng.clone ( itineraryPointsIterator.value );
 				done = itineraryPointsIterator.done;
 				currentItineraryPoint = itineraryPointsIterator.value;
 				if ( done ) {
@@ -440,9 +440,9 @@ class PrintViewsFactory {
 
 				// and a new view is created
 				currentView = new PrintView ( );
-				currentView.bottomLeft = new LatLng ( intermediatePoint.lat, intermediatePoint.lng );
-				currentView.upperRight = new LatLng ( intermediatePoint.lat, intermediatePoint.lng );
-				currentView.entryPoint = new LatLng ( intermediatePoint.lat, intermediatePoint.lng );
+				currentView.bottomLeft = LatLng.clone ( intermediatePoint );
+				currentView.upperRight = LatLng.clone ( intermediatePoint );
+				currentView.entryPoint = LatLng.clone ( intermediatePoint );
 			}
 		} // end of while ( ! done )
 	}
