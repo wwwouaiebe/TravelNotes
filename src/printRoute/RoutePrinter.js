@@ -109,8 +109,8 @@ class RoutePrinter {
 
 		// computing the size and return.
 		return new ViewSize (
-			Math.abs ( topLeftScreen [ LAT ] - bottomRightScreen [ LAT ] ) * scale,
-			Math.abs ( topLeftScreen [ LNG ] - bottomRightScreen [ LNG ] ) * scale
+			Math.abs ( topLeftScreen [ LNG ] - bottomRightScreen [ LNG ] ) * scale,
+			Math.abs ( topLeftScreen [ LAT ] - bottomRightScreen [ LAT ] ) * scale
 		);
 	}
 
@@ -148,8 +148,8 @@ class RoutePrinter {
 		);
 		console.log ( 'views :' + printViewsFactory.printViews.length );
 		*/
-
 		// Verify the tiles needed and stop the command if too mutch tiles needed
+
 		if ( theConfig.printRouteMap.maxTiles < printViewsFactory.printViews.length * this.#tilesPerPage ) {
 			theErrorsUI.showError ( theTranslator.getText ( 'RoutePrinter - The maximum of allowed pages is reached.' ) );
 			return;

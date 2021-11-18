@@ -107,7 +107,7 @@ class EditedRouteMouseOverEL {
 				.distance;
 			distance += route.chainedDistance;
 			tooltipText += theUtilities.formatDistance ( distance );
-			
+
 			TempWayPointMarkerELData.marker.bindTooltip ( tooltipText );
 			TempWayPointMarkerELData.marker.getTooltip ( ).options.offset = [ ZERO, ZERO ];
 

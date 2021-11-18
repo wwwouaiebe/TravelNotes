@@ -161,12 +161,11 @@ class PrintViewsFactory {
 	*/
 
 	#isItineraryHorOrVer ( currentView, firstItineraryPoint, lastItineraryPoint ) {
-
 		if ( firstItineraryPoint.lng === lastItineraryPoint.lng ) {
 
 			// Itinerary is vertical
 			return new LatLng (
-				firstItineraryPoint.lat > lastItineraryPoint.lat ? currentView.bottomLeft.lat :	currentView.upperRight.lat,
+				firstItineraryPoint.lat > lastItineraryPoint.lat ? currentView.bottomLeft.lat : currentView.upperRight.lat,
 				firstItineraryPoint.lng
 			);
 		}
@@ -372,9 +371,10 @@ class PrintViewsFactory {
 		currentView.bottomLeft = new LatLng ( itineraryPointsIterator.value.lat, itineraryPointsIterator.value.lng );
 		currentView.upperRight = new LatLng ( itineraryPointsIterator.value.lat, itineraryPointsIterator.value.lng );
 		currentView.entryPoint = new LatLng ( itineraryPointsIterator.value.lat, itineraryPointsIterator.value.lng );
-		currentView.exitPoint = new LatLng ( itineraryPointsIterator.value.lat, itineraryPointsIterator.value.lng );
 
 		let previousItineraryPoint = itineraryPointsIterator.value;
+
+		let intermediatePoint = new LatLng ( itineraryPointsIterator.value.lat, itineraryPointsIterator.value.lng );
 
 		// we go to the next point
 		done = itineraryPointsIterator.done;
@@ -392,29 +392,23 @@ class PrintViewsFactory {
 				Math.max ( currentView.upperRight.lng, currentItineraryPoint.lng )
 			);
 			tmpView.entryPoint = new LatLng ( currentView.entryPoint.lat, currentView.entryPoint.lng );
-			tmpView.exitPoint = new LatLng ( currentView.exitPoint.lat, currentView.exitPoint.lng );
 
-			// computing the temporary view size...
-			const tmpViewSize = new ViewSize (
-				tmpView.upperRight.lat - tmpView.bottomLeft.lat,
-				tmpView.upperRight.lng - tmpView.bottomLeft.lng
-			);
-
-			// and comparing with the desired max view size
-			if ( this.#maxViewSize.height > tmpViewSize.height && this.#maxViewSize.width > tmpViewSize.width ) {
+			// computing the temporary view size and comparing with the desired max view size
+			if (
+				this.#maxViewSize.height > tmpView.upperRight.lat - tmpView.bottomLeft.lat
+				&&
+				this.#maxViewSize.width > tmpView.upperRight.lng - tmpView.bottomLeft.lng
+			) {
 
 				// the current itineraryPoint is inside the temporary view.
 				// the temporary view becomes the current view and we go to the next itinerary point
 				currentView = tmpView;
 				previousItineraryPoint = itineraryPointsIterator.value;
+				intermediatePoint = new LatLng ( itineraryPointsIterator.value.lat, itineraryPointsIterator.value.lng );
 				done = itineraryPointsIterator.done;
 				currentItineraryPoint = itineraryPointsIterator.value;
 				if ( done ) {
-
-					// It's the last view. Adding the exit point
-					currentView.exitPoint = new LatLng ( previousItineraryPoint.lat, previousItineraryPoint.lng );
-
-					// and the view is added to the list of views
+					currentView.exitPoint = intermediatePoint;
 					this.#printViews.push ( Object.freeze ( currentView ) );
 				}
 			}
@@ -422,7 +416,7 @@ class PrintViewsFactory {
 
 				// the itineraryPoint is outside the view. We have to compute an intermediate
 				// point (where the route intersect with the max size view).
-				const intermediatePoint = this.#computeIntermediatePoint (
+				intermediatePoint = this.#computeIntermediatePoint (
 					currentView,
 					previousItineraryPoint,
 					currentItineraryPoint
@@ -439,7 +433,7 @@ class PrintViewsFactory {
 				);
 
 				// exit point is added to the view
-				currentView.exitPoint = new LatLng ( intermediatePoint.lat, intermediatePoint.lng );
+				currentView.exitPoint = intermediatePoint;
 
 				// and the view added to the list view
 				this.#printViews.push ( Object.freeze ( currentView ) );
@@ -449,7 +443,6 @@ class PrintViewsFactory {
 				currentView.bottomLeft = new LatLng ( intermediatePoint.lat, intermediatePoint.lng );
 				currentView.upperRight = new LatLng ( intermediatePoint.lat, intermediatePoint.lng );
 				currentView.entryPoint = new LatLng ( intermediatePoint.lat, intermediatePoint.lng );
-				currentView.exitPoint = new LatLng ( intermediatePoint.lat, intermediatePoint.lng );
 			}
 		} // end of while ( ! done )
 	}
@@ -461,12 +454,9 @@ class PrintViewsFactory {
 	*/
 
 	constructor ( route, maxViewSize ) {
-
 		Object.freeze ( this );
-
 		this.#route = route;
 		this.#maxViewSize = maxViewSize;
-
 		this.#computePrintViews ( );
 	}
 
@@ -479,6 +469,7 @@ class PrintViewsFactory {
 
 }
 
+// export default PrintViewsFactory;
 export { PrintViewsFactory, ViewSize };
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
