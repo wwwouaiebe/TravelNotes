@@ -68,9 +68,10 @@ noscript
 
 #noscript #TravelNotes-Noscript-Bike {
 	position: absolute;
-	top: 0;
+	top: 10vh;
 	left: 0;
 	width: 100vw;
+	overflow: hidden;
 }
 
 #noscript #TravelNotes-Noscript-BikeIcon {
@@ -79,7 +80,7 @@ noscript
 	background-repeat: no-repeat;
 	width: 100px;
 	height: 100px;
-	animation: 10s ease-in 0s infinite AnimationBike;
+	animation: 5s ease-in-out 0s infinite AnimationBike;
 }
 
 @keyframes AnimationBike {

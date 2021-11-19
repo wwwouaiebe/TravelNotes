@@ -57,11 +57,11 @@ class LatLng {
 	}
 
 	/**
-	Create a new LatLng object from another object that have a lat and lng property ( the given object 
+	Create a new LatLng object from another object that have a lat and lng property ( the given object
 	can be any other class... )
 	@param {Object} something An object with a lat and a lng property
 	*/
-	
+
 	static clone ( something ) {
 		return new LatLng ( something.lat, something.lng );
 	}
