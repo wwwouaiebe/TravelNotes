@@ -424,6 +424,10 @@
 		"msgstr" : "Update the address with Nominatim"
 	},
 	{
+		"msgid" : "NoteDialog - show hidden contents",
+		"msgstr" : "Show or hide some parts of the dialog"
+	},
+	{
 		"msgid" : "NoteDialog - Text",
 		"msgstr" : "Text\u00A0:\u00A0"
 	},
