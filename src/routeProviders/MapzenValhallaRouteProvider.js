@@ -63,7 +63,7 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 	@type {Number}
 	*/
 	// eslint-disable-next-line no-magic-numbers
-	static get#ROUND_VALUE ( ) { return 6; }
+	static get #ROUND_VALUE ( ) { return 6; }
 
 	/**
 	Enum for icons

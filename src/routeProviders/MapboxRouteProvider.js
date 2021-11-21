@@ -66,7 +66,7 @@ class MapboxRouteProvider extends BaseRouteProvider {
 	@type {Number}
 	*/
 	// eslint-disable-next-line no-magic-numbers
-	static get#ROUND_VALUE ( ) { return 6; }
+	static get #ROUND_VALUE ( ) { return 6; }
 
 	/**
 	Parse the response from the provider and add the received itinerary to the route itinerary

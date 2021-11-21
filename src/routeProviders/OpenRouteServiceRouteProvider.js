@@ -63,7 +63,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 	@type {Number}
 	*/
 	// eslint-disable-next-line no-magic-numbers
-	static get#ROUND_VALUE ( ) { return 5; }
+	static get #ROUND_VALUE ( ) { return 5; }
 
 	/**
 	Enum for icons
