@@ -32,11 +32,11 @@ Changes:
 */
 
 .TravelNotes-BaseDialog-Container {
-	max-width: 44em;
+	max-width: 13cm;
 }
 
 #TravelNotes-NoteDialog-ToolbarDiv {
-	max-width: 39em;
+	max-width: 12cm;
 }
 
 #TravelNotes-NoteDialog-IconSelect {
@@ -63,11 +63,13 @@ Changes:
 }
 
 .TravelNotes-NoteDialog-TextArea {
-	width: 39em;
+	width: 12cm;
+	display: block;
 }
 
 .TravelNotes-NoteDialog-InputText {
-	width: 38em;
+	width: 12cm;
+	display: block;
 }
 
 .TravelNotes-NoteDialog-NumberInput {
