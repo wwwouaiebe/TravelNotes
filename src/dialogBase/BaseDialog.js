@@ -436,7 +436,7 @@ class BaseDialog {
 		this.#backgroundDiv.addEventListener ( 'dragover', this.#backgroundDragOverEL, false );
 
 		this.#backgroundWheelEL = new BackgroundWheelEL ( );
-		this.#backgroundDiv.addEventListener ( 'wheel', this.#backgroundWheelEL, false	);
+		this.#backgroundDiv.addEventListener ( 'wheel', this.#backgroundWheelEL, { passive : true }	);
 
 		this.#backgroundContextMenuEL = new BackgroundContextMenuEL ( );
 		this.#backgroundDiv.addEventListener ( 'contextmenu', this.#backgroundContextMenuEL, false );
@@ -724,7 +724,7 @@ class BaseDialog {
 		this.#backgroundDiv.removeEventListener ( 'rightpan', this.#backgroundRightPanEL, false );
 		this.#backgroundRightPanEL = null;
 
-		this.#backgroundDiv.removeEventListener ( 'wheel', this.#backgroundWheelEL, false	);
+		this.#backgroundDiv.removeEventListener ( 'wheel', this.#backgroundWheelEL, { passive : true }	);
 		this.#backgroundWheelEL = null;
 
 		this.#backgroundDiv.removeEventListener ( 'contextmenu', this.#backgroundContextMenuEL, false );

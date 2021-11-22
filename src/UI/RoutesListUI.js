@@ -90,7 +90,7 @@ class RoutesListUI {
 
 		// event listeners
 		this.#routesListHTMLElement.addEventListener ( 'dragover', new RoutesListDragOverEL ( ) );
-		this.#routesListHTMLElement.addEventListener ( 'wheel', new RoutesListWheelEL ( ) );
+		this.#routesListHTMLElement.addEventListener ( 'wheel', new RoutesListWheelEL ( ), { passive : true } );
 		this.#routeUIContextMenuEL = new RouteUIContextMenuEL ( );
 		this.#routeDropEL = new RouteDropEL ( );
 		this.#routeDragStartEL = new RouteDragStartEL ( );

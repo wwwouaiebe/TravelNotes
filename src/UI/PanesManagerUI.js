@@ -200,7 +200,7 @@ class PanesManagerUI {
 			},
 			uiMainDiv
 		);
-		this.#paneData.addEventListener ( 'wheel', new PaneDataDivWheelEL ( ) );
+		this.#paneData.addEventListener ( 'wheel', new PaneDataDivWheelEL ( ), { passive : true } );
 	}
 
 	/**

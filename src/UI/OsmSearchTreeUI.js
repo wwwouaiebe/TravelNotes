@@ -259,7 +259,7 @@ class OsmSearchTreeUI {
 		);
 
 		// event listeners
-		this.#treeHTMLElement.addEventListener ( 'wheel', new TreeWheelEL ( ), false );
+		this.#treeHTMLElement.addEventListener ( 'wheel', new TreeWheelEL ( ), { passive : true } );
 		this.#treeCheckboxChangeEL = new TreeCheckboxChangeEL ( this );
 		this.#treeArrowClickEL = new TreeArrowClickEL ( this );
 

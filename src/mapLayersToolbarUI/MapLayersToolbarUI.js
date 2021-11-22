@@ -278,7 +278,7 @@ class MapLayersToolbarUI {
 		this.#buttonsHTMLElement.style.marginTop = String ( this.#wheelEventData.marginTop ) + 'px';
 
 		// adding wheel event
-		this.#buttonsHTMLElement.addEventListener ( 'wheel', this.#onWheelButtonsEventListener, false );
+		this.#buttonsHTMLElement.addEventListener ( 'wheel', this.#onWheelButtonsEventListener, { passive : true } );
 	}
 
 	/**
@@ -292,7 +292,7 @@ class MapLayersToolbarUI {
 		this.#buttonsAndLinks.length = ZERO;
 
 		// Removing wheel event listener
-		this.#buttonsHTMLElement.removeEventListener ( 'wheel', this.#onWheelButtonsEventListener, false );
+		this.#buttonsHTMLElement.removeEventListener ( 'wheel', this.#onWheelButtonsEventListener, { passive : true } );
 
 		// removing buttons container
 		this.#mainHTMLElement.removeChild ( this.#buttonsHTMLElement );
@@ -313,9 +313,9 @@ class MapLayersToolbarUI {
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#wheelEventData = new WheelEventData ( );
 		this.#onWheelButtonsEventListener = new ButtonsContainerWheelEL ( this.#wheelEventData );
 		this.#buttonsAndLinks = [];
-		this.#wheelEventData = new WheelEventData ( );
 	}
 
 	/**

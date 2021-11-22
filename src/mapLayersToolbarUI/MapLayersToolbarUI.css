@@ -71,6 +71,13 @@ Changes:
 	height: 1.1em;
 }
 
+.TravelNotes-MapLayersToolbarUI-LinkButton {
+	padding: 0.5em;
+	text-align: center;
+	margin: 0;
+	height: 1.1em;
+}
+
 .TravelNotes-MapLayersToolbarUI-LinkButton-Enter {
 	color: white;
 	background-color: black;
