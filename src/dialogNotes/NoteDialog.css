@@ -77,6 +77,10 @@ Changes:
 	width: 3em;
 }
 
+.TravelNotes-NoteDialog-DataDiv > .TravelNotes-BaseDialog-Button {
+	margin-right: 0.5em;
+}
+
 .TravelNotes-NoteDialog-PreviewDiv > div {
 	margin-top: 1em;
 	padding-top: 1em;
