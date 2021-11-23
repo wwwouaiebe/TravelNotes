@@ -1,6 +1,6 @@
 {
   "name": "travelnotes",
-  "version": "3.1.0-beta",
+  "version": "3.1.0-RC1",
   "description": "A mapping and routing application.",
   "main": "src/main/Main.js",
   "dependencies": {
@@ -11,13 +11,13 @@
     "@babel/eslint-parser": "latest",
     "clean-css": "latest",
     "eslint": "latest",
-    "essimpledoc": "^0.1.2",
+    "essimpledoc": "latest",
     "grunt": "latest",
     "grunt-contrib-clean": "latest",
     "grunt-contrib-copy": "latest",
     "grunt-contrib-cssmin": "latest",
     "grunt-eslint": "latest",
-    "grunt-essimpledoc": "^0.1.2",
+    "grunt-essimpledoc": "latest",
     "grunt-rollup": "latest",
     "grunt-stylelint": "latest",
     "grunt-terser": "latest",
