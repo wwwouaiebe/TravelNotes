@@ -127,6 +127,9 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 
 		this.#route.itinerary.itineraryPoints.removeAll ( );
 		this.#route.itinerary.maneuvers.removeAll ( );
+		this.#route.itinerary.hasProfile = false;
+		this.#route.itinerary.ascent = ZERO;
+		this.#route.itinerary.descent = ZERO;
 
 		response.trip.legs.forEach (
 			leg => {
