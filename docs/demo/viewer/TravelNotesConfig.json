@@ -1,0 +1,249 @@
+{
+	"APIKeys":
+	{
+		"saveToSessionStorage":true
+	},
+	"APIKeysDialog":{
+		"haveUnsecureButtons":true,
+		"showAPIKeys":false,
+		"showButton":true
+	},
+	"contextMenu":
+	{
+		"timeout": 1500
+	},
+	"errorsUI":
+	{
+		"helpTimeOut":30000,
+		"showError":true,
+		"showHelp":false,
+		"showInfo":true,
+		"showWarning":true,
+		"timeOut":10000
+	},
+	"geoCoder" : {
+		"distances" : {
+			"city":1200,
+			"hamlet":200,
+			"town":1500,
+			"village":400
+		},
+		"osmCityAdminLevel" : { 
+			"DEFAULT" : "8",
+			"GB" : "10"
+		}
+	},
+	"geoLocation":{
+		"marker":{
+			"color":"#ff0000",
+			"radius":10
+		},
+		"options":{
+			"enableHighAccuracy":false, 
+			"maximumAge":0, 
+			"timeout":3600000
+		},
+		"zoomFactor":17,
+		"zoomToPosition":true
+	},
+	"itineraryPaneUI" : {	
+		"showManeuvers" : false,
+		"showNotes" : true
+	},
+	"itineraryPoint": {
+		"marker":{
+			"color":"#ff0000",
+			"fill":false,
+			"radius":7,
+			"weight":2
+		},
+		"zoomFactor":17
+	},
+	"layersToolbarUI":
+	{
+		"haveLayersToolbarUI":true,
+		"toolbarTimeOut":1500,
+		"theDevil": {
+			"addButton": true
+		}
+	},
+	"map":
+	{
+		"center": {
+			"lat":50.50923,
+			"lng":5.49542
+		},
+		"zoom":12
+	},
+	"mouseUI":
+	{
+		"haveMouseUI":true
+	},
+	"nominatim":
+	{
+		"url":"https://nominatim.openstreetmap.org/",
+		"language": "*"
+	},
+	"note":
+	{
+		"grip":
+		{
+			"size":10,
+			"opacity":0,
+			"moveOpacity":1
+		},
+		"haveBackground":false,
+		"maxManeuversNotes":100,
+		"polyline":
+		{
+			"color":"#808080",
+			"weight":1
+		},
+		"reverseGeocoding":true,
+		"svgIcon":{
+			"angleDistance":10,
+			"angleDirection":
+			{
+				"right":35,
+				"slightRight":80,
+				"continue":100,
+				"slightLeft":145,
+				"left":200,
+				"sharpLeft":270,
+				"sharpRight":340
+			},
+			"rcnRefDistance":20,
+			"roadbookFactor":6,
+			"zoom":17
+		}
+	},
+	"noteDialog":{
+		"areaHeight" : {
+			"icon":2,
+			"popupContent":8
+		},
+		"mask" : {
+			"iconsDimension":true,
+			"iconTextArea":false,
+			"tooltip":false,
+			"popupContent":false,
+			"address":false,
+			"link":false,
+			"phone":true
+		},
+		"theDevil": {
+			"addButton": true,
+			"zoomFactor" : 17
+		}
+	},
+	"osmSearch": {
+		"nextSearchLimit" : {
+			"color" : "#ff0000",
+			"fill" : false,
+			"weight" : 1
+		},
+		"previousSearchLimit" : {
+			"color" : "#006400",
+			"fill" : false,
+			"weight" : 1
+		},
+		"searchPointMarker" : {
+			"color" : "#006400",
+			"fill" : false,
+			"radius" : 20,
+			"weight" : 4
+		},
+		"searchPointPolyline" : {
+			"color" : "#006400",
+			"fill" : false,
+			"weight" : 4
+		},
+		"showSearchNoteDialog":false
+	},
+	"overpassApi": {
+		"useNwr":true,
+		"timeOut":40,
+		"url":"https://lz4.overpass-api.de/api/interpreter"
+	},
+	"printRouteMap":
+	{
+		"isEnabled" : true,
+		"maxTiles" : 720,
+		"paperWidth":287,
+		"paperHeight":200,
+		"pageBreak":false,
+		"printNotes":true,
+		"borderWidth":10,
+		"zoomFactor":15,
+		"entryPointMarker" : {
+			"color" : "#00ff00",
+			"weight" : 4,
+			"radius" : 10,
+			"fill" : true,
+			"fillOpacity" : 1
+		},
+		"exitPointMarker" : {
+			"color" : "#ff0000",
+			"weight" : 4,
+			"radius" : 10,
+			"fill" : true,
+			"fillOpacity" : 1
+		}
+	},
+	"route":
+	{
+		"color":"#ff0000",
+		"dashArray": 0,
+		"dashChoices": [
+			{ 
+				"text":"——————",
+				"iDashArray" : [0]
+			}, 
+			{
+				"text":"— — — — —",
+				"iDashArray":[4,2] 
+			}, 
+			{
+				"text":"—‧—‧—‧—‧—",
+				"iDashArray":[4,2,0,2] 
+			}, 
+			{
+				"text":"················",
+				"iDashArray":[0,2] 
+			}
+		],
+		"elev":
+		{
+			"smooth":true,
+			"smoothCoefficient":2.5,
+			"smoothPoints":3
+		},
+		"showDragTooltip":0,
+		"width":5	
+	},
+	"routeEditor":
+	{
+		"showEditedRouteInRoadbook" : true
+	},
+	"travelEditor":
+	{
+		"startMinimized":true,
+		"startupRouteEdition":true,
+		"timeout":1500
+	},
+	"travelNotes" : {
+		"haveBeforeUnloadWarning":true,
+		"language":"fr"
+	},
+	"travelNotesToolbarUI":
+	{
+		"contactMail": {
+			"url":"https://github.com/wwwouaiebe/TravelNotes/issues"
+		}
+	},
+	"wayPoint":
+	{
+		"reverseGeocoding":true,
+		"geocodingIncludeName":true
+	}
+}
