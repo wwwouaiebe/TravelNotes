@@ -128,7 +128,7 @@ Et la même [démo](https://wwwouaiebe.github.io/TravelNotes/samples/Liege/index
 
 D'autres exemples:
 
-[Un grand voyage en vélo depuis la Belgique jusqu'au Nord de la norvège et retour jusqu'à Stockholm](https://wwwouaiebe.github.io/TravelNotes/demo/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL25vcmQvMjAxNS0yMDE4LU5vcmQudHJ2) (Patientez... 8000 km 2Mb)
+[Un grand voyage en vélo depuis la Belgique jusqu'au Nord de la Norvège et retour jusqu'à Stockholm](https://wwwouaiebe.github.io/TravelNotes/demo/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL25vcmQvMjAxNS0yMDE4LU5vcmQudHJ2) (Patientez... 8000 km 2Mb)
 
 [Un extrait de mon dernier voyage en vélo de Dover à Chester](https://wwwouaiebe.github.io/TravelNotes/demo/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL1VLMjAxOS9VSzIwMTkudHJ2) 
 
