@@ -215,7 +215,7 @@ Move the mouse over this rectangle to see the complete interface:
 At the top of the interface is a first toolbar:
 - the button 🏠 redirects to your home page
 - the button ? redirects to
-[the Travel & Notes help page on Github](https://github.com/wwwouaiebe/TravelNotes/tree/gh-pages/TravelNotesGuides)
+[the Travel & Notes help page on Github](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0/TravelNotesGuides#en)
 - the @ button redirects to a contact page. By default it is
 [the Travel & Notes issues page on Github](https://github.com/wwwouaiebe/TravelNotes/issues).
 the url can be modified via the TravelNotes Config.json file (travelNotesToolbarUI.contactMail.url)
