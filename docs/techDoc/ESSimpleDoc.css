@@ -1,0 +1,362 @@
+/*
+Copyright - 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
+
+This  program is free software;
+you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation;
+either version 3 of the License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+/*
+Changes:
+	- v1.0.0:
+		- created
+Doc reviewed 20211111
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/* start reset */
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+html, body, div, span, object,
+h1, h2, h3, h4, h5, h6, p,
+a, img, sub, sup, ul, li,
+figure, figcaption
+{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+	box-sizing: border-box;	
+}
+body
+{
+	line-height: 1.2;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/* body */
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+body
+{
+	font-family: sans-serif;
+	margin-top: 2cm;
+	margin-bottom: 2cm;
+	width : 30cm;
+	margin-left : auto;
+	margin-right : auto;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/* Navigation */
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+nav
+{
+	position : fixed;
+	top : 0;
+	left : 0;
+}
+
+nav > div
+{
+	position : absolute;
+	top : 0;
+	margin-left : 0;
+	padding: 0.25cm;
+	color : white;
+	height: 1cm;
+	width: 2cm;
+	text-align: center;
+	border-style: solid;
+	border-width: 0.5mm;
+	cursor: pointer;
+}
+
+#sourcesNav 
+{
+	background-color : blue;
+	border-color : blue;
+	left : 1cm;
+}
+
+#homeNav
+{
+	color : black;
+	left:0;
+	width: 1cm;
+}
+
+#variablesNav 
+{
+	background-color : green;
+	border-color : green;
+	left : 3cm;	
+}
+
+#classesNav
+{
+	background-color : red;
+	border-color : red;
+	left : 5cm;
+}
+
+#showPrivateNav
+{
+	color : black;
+	left : 7cm;
+	width: 2cm;
+	display: none;
+}
+
+body.havePrivateButton #showPrivateNav {
+	display: inherit;
+}
+
+#showPrivateNav::before {
+	content : "✔️"
+}
+
+body.showPrivate #showPrivateNav::before {
+	content : "❌"
+}
+
+nav > div ~ ul 
+{
+	position : absolute;
+	top : 1cm;
+	left : 1cm;
+	width: 0;
+	max-height: 80vh;
+	overflow: scroll;
+	transform : scale(0);
+	transform-origin: top left;
+}
+
+nav > div ~ ul > li
+{	
+	display : inline;
+	padding-right : 0.5cm;
+}
+
+nav  > div ~ ul > li.navLetter
+{
+	display : block;
+	margin-top : 3mm;
+	margin-bottom : 3mm;
+	padding-top : 1mm;
+	padding-bottom : 1mm;
+	padding-left : 1cm;
+	background-color: gray;
+	color: white;
+}
+
+nav > div#sourcesNav:hover ~ ul#sourcesNavList,
+nav > div#variablesNav:hover ~ ul#variablesNavList,
+nav > div#classesNav:hover ~ ul#classesNavList,
+nav > div ~ ul:hover
+{
+	width: calc(100vw - 2cm);
+	display : block;
+	padding : 1cm;
+	z-index : 100;
+	background-color : lightgrey;
+	border-bottom-style : solid;
+	border-bottom-width : 0.1mm;
+	transform : scale(1);
+	transform-origin: top left;
+	transition: transform 0.5s ease-out;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/* Heading */
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+h1 
+{
+	font-size: 200%;
+	margin-left : 1cm;
+}
+h1 > span
+{
+	font-size : 64%;
+	color : gray;
+}
+
+h2 
+{
+	font-size: 141%;
+	margin-left : 2cm;
+}
+
+h3 
+{
+	font-size: 120%;
+	margin-left : 3cm;
+}
+
+h3 > span
+{
+	color : gray;
+	font-size : 80%;
+}
+h4 
+{
+	margin-left : 4cm;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/* div and tables */
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+div,
+table
+{
+	margin-left : 6cm;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/* private or public div */
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+div.public,
+div.private
+{
+	margin-left : 0;
+}
+	
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/* params tables */
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+table.params
+{
+	table-layout:auto;
+	border-collapse: collapse;
+}
+
+table.params tr > th,
+table.params tr > td
+ {
+  border: 1px solid;
+  padding : 0.1cm;
+}
+
+table.params tr > th
+{
+	background-color: lightgray;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/* sources. Sources are displayed in a table */
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+table.srcCode {
+	font-family : monospace;
+	margin-left : 0;
+	border-style:solid;
+	border-width: 0.5mm;
+	width: 100%;
+	padding: 0.5cm;
+}
+
+table.srcCode pre
+{
+	margin : 0;
+	padding : 0;
+	font-weight: bolder;
+}
+
+table.srcCode tr > td:first-child
+{
+	color : gray;
+	text-align: right;
+	padding-right: 1cm;
+}
+
+/* code comments in green */
+
+.codeComments,
+.codeComments > .jsKeyword,
+.codeComments > .classLink,
+.codeComments > .variableLink
+{
+	color : green;
+	font-weight: normal;
+}
+
+/* JS keywords in blue*/ 
+
+.jsKeyword {
+	color : blue;
+}
+
+/* classes links in red */
+
+.classLink {
+	color: red;
+}
+
+/* variables links in dark red */
+
+.variableLink
+{
+	color: darkred;
+}
+
+/* marker on the line */
+
+.hash,
+.hash ~ td
+{
+	background-color : yellow;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/* Hide private */
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+.private 
+{
+	display: none;
+}
+
+body.showPrivate .private 
+{
+	display : inherit;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/* Footer */
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+footer
+{
+	margin-top : 1cm;
+	padding-top: 1cm;
+	border-top-style : solid;
+	border-top-width : 0.1mm;
+	padding-bottom: 1cm;
+	border-bottom-style : solid;
+	border-bottom-width : 0.1mm;
+}
+
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

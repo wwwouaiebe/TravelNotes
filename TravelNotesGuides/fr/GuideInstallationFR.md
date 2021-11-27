@@ -25,7 +25,7 @@ Voir https://www.mozilla.org/en-US/security/advisories/mfsa2019-21/#CVE-2019-117
 <a id="GuideNull"></a>
 ## Guide d'installation pour les null
 
-Pas de grandes connaissances informatiques? [Téléchargez la dernière version](https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v3.1.0-doc.zip),
+Pas de grandes connaissances informatiques? [Téléchargez la dernière version](https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v3.1.0.zip),
 copiez le contenu du répertoire docs/demo/ dans un répertoire sur votre serveur et ouvrez le fichier index.html. That's all :-).
 
 <a id="GuideGeeks"></a>
