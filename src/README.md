@@ -19,11 +19,11 @@ so you have to correct all the errors before you can run the application.
 
 In debug mode, the application is installed in the TravelNotess/debug folder and uses directly the sources files as ES6 modules. that's the more easy way to develop and debug the application.
 
-In release mode the application is installed in the TravelNotess/dist folder and in the TravelNotess/gh-page folder. The TravelNotess/gh-page folder contains all the needed files
+In release mode the application is installed in the TravelNotes/dist folder and in the TravelNotes/docs/demo folder. The TravelNotes/docs/demo folder contains all the needed files
 to run the application, included last version of leaflet. 
 
 In release mode, all the js sources files are grouped in one big js file with rollup, the private fields and methods transformed in public fields and method for compatibility with old browsers,
-and then this file is minified with terser, so the file is quite imposible to understand if an error occurs at the execution time.
+and then this file is minified with Terser, so the file is quite imposible to understand if an error occurs at the execution time.
 
 # How the application works
 
