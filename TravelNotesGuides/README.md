@@ -73,7 +73,7 @@ The [master branch](https://github.com/wwwouaiebe/TravelNotes/tree/master) is th
 
 Version 2.0.0 is a major release containing significant changes in travel files. Files made with a previous version are no 
 longer fully compatible with this version and some data in the notes may be lost. See the 
-[user guide - en](https://github.com/wwwouaiebe/TravelNotes/TravelNotesGuides/en/UserGuideEN.md#OpenFileWithV200)
+[user guide - en](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/en/UserGuideEN.md#OpenFileWithV200)
 how to convert files made with an earlier version.
 
 ## What's new in the last release
@@ -83,7 +83,7 @@ how to convert files made with an earlier version.
 Version 3.1.0 contains no new features for users. On the other hand, important modifications were made to the code,
 due to the use of 'private' and 'static' variables and methods.
 
-For other versions, see the document ['What's new?' - en ](https://github.com/wwwouaiebe/TravelNotes/TravelNotesGuides/en/WhatsNew.md)
+For other versions, see the document ['What's new?' - en ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/en/WhatsNew.md)
 
 <a id="fr" />
 
@@ -156,7 +156,7 @@ La [branche master](https://github.com/wwwouaiebe/TravelNotes/tree/master) est l
 ## Avertissement avant d'installer et utiliser la version 2.0.0 ou une version supérieure à 2.0.0
 
 La version 2.0.0 est une version majeure contenant des changements importants dans les fichiers de voyage. Les fichiers réalisés avec une version précédente ne sont plus entièrement compatibles avec cette version 
-et quelques données présentes dans les notes peuvent être perdues. Voyez dans le [guide pour les utilisateurs - fr](https://github.com/wwwouaiebe/TravelNotes/TravelNotesGuides/fr/GuideUtilisateurFR.md#OpenFileWithV200) 
+et quelques données présentes dans les notes peuvent être perdues. Voyez dans le [guide pour les utilisateurs - fr](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/fr/GuideUtilisateurFR.md#OpenFileWithV200) 
 comment convertir des fichiers réalisés avec une version antérieure.
 
 ## Quoi de neuf dans la dernière version
@@ -166,4 +166,4 @@ comment convertir des fichiers réalisés avec une version antérieure.
 La version 3.1.0 ne contient pas de nouveautés pour les utilisateurs. Par contre, d'importantes modifications ont été apportées au code, 
 suite à l'utilisation des variables et méthodes 'private' et 'static'.
 
-Pour les autres versions, reportez-vous au document ['quoi de neuf?' - fr ](https://github.com/wwwouaiebe/TravelNotes/TravelNotesGuides/fr/QuoiDeNeuf.md)
+Pour les autres versions, reportez-vous au document ['quoi de neuf?' - fr ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/fr/QuoiDeNeuf.md)
