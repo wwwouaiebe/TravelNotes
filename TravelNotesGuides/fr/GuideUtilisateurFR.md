@@ -858,7 +858,7 @@ https://wwwouaiebe.github.io/TravelNotes/demo/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpd
 
 aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg== 
 est l'équivalent de
-https://wwwouaiebe.github.io/samples/Liege/StationToYouthHostel.trv encodé en base64
+https://wwwouaiebe.github.io/TravelNotes/samples/Liege/StationToYouthHostel.trv encodé en base64
 
 Voir l'exemple sur la [démo](https://wwwouaiebe.github.io/TravelNotes/demo/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==)
 
