@@ -2,6 +2,8 @@
 
 <a href="#fr" >Vers la version française</a>
 
+<a id="en" />
+
 # Travel & Notes 
 
 Travel & Notes allows you to plan a trip from the map. You can :
@@ -17,9 +19,9 @@ Travel & Notes allows you to plan a trip from the map. You can :
 
 ## Guides
 
-[User guide - en ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/en/UserGuideEN.md)
+[User guide - en ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0-doc/TravelNotesGuides/en/UserGuideEN.md)
 
-[Installation guide - en ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/en/InstallationGuideEN.md)
+[Installation guide - en ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0-doc/TravelNotesGuides/en/InstallationGuideEN.md)
 
 [JS code documentation](https://wwwouaiebe.github.io/TravelNotes/techDoc/ )
 
@@ -50,12 +52,12 @@ Other samples:
 
 ### v3.1.0 branch
 
-The [v3.1.0 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.1.0) and the [v3.1.0 branch](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0)
+The [v3.1.0 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.1.0) and the [v3.1.0 branch](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0-doc)
 contains the files of the last stable version.
 
-The [dist folder](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0/dist) contains all the needed files to run Travel & Notes, but not the sources.
+The [dist folder](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0-doc/dist) contains all the needed files to run Travel & Notes, but not the sources.
 
-Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0/src)
+Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0-doc/src)
 
 ### master branch
 
@@ -99,9 +101,9 @@ Travel & Notes vous permet de préparer un voyage à partir de la carte. Vous po
 
 ## Guides
 
-[Guide pour les utilisateurs - fr ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/fr/GuideUtilisateurFR.md)
+[Guide pour les utilisateurs - fr ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0-doc/TravelNotesGuides/fr/GuideUtilisateurFR.md)
 
-[Guide d'installation - fr ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/fr/GuideInstallationFR.md)
+[Guide d'installation - fr ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0-doc/TravelNotesGuides/fr/GuideInstallationFR.md)
 
 [Documentation du code JS](https://wwwouaiebe.github.io/TravelNotes/techDoc/)
 
@@ -133,12 +135,12 @@ D'autres exemples:
 
 ### branche v3.1.0
 
-La [version v3.1.0](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.1.0) et la [branche v3.1.0](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0)
+La [version v3.1.0](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.1.0) et la [branche v3.1.0](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0-doc)
 contiennent les fichiers de la dernière version stable.
 
-Le [répertoire dist](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0/dist) contient tous les fichiers pour exécuter Travel & Notes, mais ne contient pas les sources.
+Le [répertoire dist](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0-doc/dist) contient tous les fichiers pour exécuter Travel & Notes, mais ne contient pas les sources.
 
-Les sources sont disponibles dans le [répertoire src](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0/src)
+Les sources sont disponibles dans le [répertoire src](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0-doc/src)
 
 ### branche master
 
