@@ -25,12 +25,8 @@ Voir https://www.mozilla.org/en-US/security/advisories/mfsa2019-21/#CVE-2019-117
 <a id="GuideNull"></a>
 ## Guide d'installation pour les null
 
-Pas de grandes connaissances informatiques? Si la démo vous convient, vous pouvez télécharger celle-ci 
-en vous rendant dans la branche gh-pages.
-Encore trop compliqué? suivez directement ce 
-[lien](https://github.com/wwwouaiebe/TravelNotes/archive/gh-pages.zip)
- qui vous permet de télécharger la démo. Ouvrez le fichier zip et installez son contenu dans 
- un répertoire sur votre serveur et ouvrez le fichier index.html. That's all :-).
+Pas de grandes connaissances informatiques? [Téléchargez la dernière version](https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v3.1.0.zip),
+copiez le contenu du répertoire docs/demo/ dans un répertoire sur votre serveur et ouvrez le fichier index.html. That's all :-).
 
 <a id="GuideGeeks"></a>
 ## Guide d'installation pour les geeks
@@ -80,7 +76,7 @@ Travel & Notes créera automatiquement la carte et tous les contrôles nécessai
 <a id="MoreOnJS"></a>
 ### Quelques explications complémentaires sur le Javascript
 
-Voyez la [documentation du code JS](https://github.com/wwwouaiebe/TravelNotes/blob/gh-pages/TechDoc/index.html )
+Voyez la [documentation du code JS](https://wwwouaiebe.github.io/TravelNotes/techDoc/index.html )
 pour plus d'informations.
 
 Notez cependant que seul l'objet TravelNotes est accessible depuis du code JS additionnel 

@@ -39,6 +39,7 @@ import theAPIKeysManager from '../core/APIKeysManager.js';
 import theGeoLocator from '../core/GeoLocator.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
+import { theAppVersion } from '../data/Version.js';
 import { GEOLOCATION_STATUS } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -188,7 +189,10 @@ class TravelNotesToolbarUI {
 				'a',
 				{
 					className : 'TravelNotes-UI-LinkButton',
-					href : 'https://github.com/wwwouaiebe/TravelNotes/tree/gh-pages/TravelNotesGuides',
+					href : 'https://github.com/wwwouaiebe/TravelNotes/tree/' +
+						theAppVersion +
+						'/TravelNotesGuides\u0023' +
+						theConfig.travelNotes.language,
 					target : '_blank'
 				},
 				theHTMLElementsFactory.create (

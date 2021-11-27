@@ -137,5 +137,10 @@ Les bugs suivants sont corrigés:
 
 Et les améliorations suivantes ont été apportées:
 
-- Issue #175: Les variables et méthodes Private et static sont disponible dans Firefox. Une grande mise à jour du code a été effectuée.
+- Issue #175: Les variables et méthodes private et static sont disponible dans Firefox. Une grande mise à jour du code a été effectuée.
 - Issue #173: Le generateur de UUID ne suit pas la norme publiée dans la rfc 4122.
+
+### Quoi de neuf dans la version 3.1.0
+
+La version 3.1.0 ne contient pas de nouveautés pour les utilisateurs. Par contre, d'importantes modifications ont été apportées au code, 
+suite à l'utilisation des variables et méthodes 'private' et 'static'.
