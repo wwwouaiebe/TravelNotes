@@ -228,7 +228,7 @@ Déplacez la souris sur ce rectangle pour voir l'interface complète:
 
 En haut de l'interface se trouve une première barre d'outils:
 - le bouton 🏠 redirige vers votre page d'accueil
-- le bouton ? redirige vers [la page d'aide sur Github](https://github.com/wwwouaiebe/TravelNotes/tree/gh-pages/TravelNotesGuides)
+- le bouton ? redirige vers [la page d'aide sur Github](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0/TravelNotesGuides#fr)
 - le bouton @ redirige vers une page de contact. Par défaut, c'est [la page des issues de Travel & Notes sur Github](https://github.com/wwwouaiebe/TravelNotes/issues).
 L'url peut être modifiée via le fichier TravelNotesConfig.json (travelNotesToolbarUI.contactMail.url)
 - le bouton 🔑 affiche la boite de dialogue des clefs d'accès
