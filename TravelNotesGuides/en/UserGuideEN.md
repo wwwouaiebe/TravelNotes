@@ -97,8 +97,7 @@ __**ATTENTION : It is not possible to open with version 1.x.x a file saved with 
 
 You may still need the older version to make corrections in the notes.
 You can do two installations of Travel & Notes without any problem. You just have to place them 
-in different directories. You can also use the demo of version v2.0.0 installed on 
-[https://wwwouaiebe.github.io/TravelNotes/?lng=en](https://wwwouaiebe.github.io/TravelNotes/?lng=en).
+in different directories.
 
 - **Make a backup copy of your travel files**.
 - Open Travel & Notes v2.0.0 and also open the browser's web console.
