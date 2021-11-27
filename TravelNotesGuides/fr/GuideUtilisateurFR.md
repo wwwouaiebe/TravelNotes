@@ -101,8 +101,7 @@ __**ATTENTION : Il n'est pas possible d'ouvrir avec une version 1.x.x un fichier
 
 Il est possible que vous ayez encore besoin de la version antérieure pour faire des corrections dans les notes.
 Vous pouvez faire deux installations de Travel & Notes sans problème. Il suffit de les placer dans des répertoires
-différents. Vous pouvez aussi utiliser la démo de la version v2.0.0 installée sur 
-[https://wwwouaiebe.github.io/TravelNotes/](https://wwwouaiebe.github.io/TravelNotes/).
+différents. 
 
 - **Faites une copie de sauvegarde de vos fichiers de voyage**
 - Ouvrez Travel & Notes v2.0.0 et ouvrez également la console web du navigateur.
