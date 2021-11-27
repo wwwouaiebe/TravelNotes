@@ -17,9 +17,9 @@ Travel & Notes allows you to plan a trip from the map. You can :
 
 ## Guides
 
-[User guide - en ](https://wwwouaiebe.github.io/TravelNotes/TravelNotesGuides/en/UserGuideEN.md)
+[User guide - en ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/en/UserGuideEN.md)
 
-[Installation guide - en ](https://wwwouaiebe.github.io/TravelNotes/TravelNotesGuides/en/InstallationGuideEN.md)
+[Installation guide - en ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/en/InstallationGuideEN.md)
 
 [JS code documentation](https://wwwouaiebe.github.io/TravelNotes/techDoc/ )
 
@@ -99,9 +99,9 @@ Travel & Notes vous permet de préparer un voyage à partir de la carte. Vous po
 
 ## Guides
 
-[Guide pour les utilisateurs - fr ](https://github.com/wwwouaiebe/TravelNotes/TravelNotesGuides/fr/GuideUtilisateurFR.md)
+[Guide pour les utilisateurs - fr ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/fr/GuideUtilisateurFR.md)
 
-[Guide d'installation - fr ](https://github.com/wwwouaiebe/TravelNotes/TravelNotesGuides/fr/GuideInstallationFR.md)
+[Guide d'installation - fr ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/fr/GuideInstallationFR.md)
 
 [Documentation du code JS](https://wwwouaiebe.github.io/TravelNotes/techDoc/)
 
