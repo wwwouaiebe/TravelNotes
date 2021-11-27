@@ -135,3 +135,8 @@ And following enhancements are done:
 
 - Issue #175: Private and static fields and methods are coming with next Firefox... 
 - Issue #173: UUID generator is not rfc 4122 compliant
+
+### What's new in release 3.1.0
+
+Version 3.1.0 contains no new features for users. On the other hand, important modifications were made to the code,
+due to the use of 'private' and 'static' variables and methods.

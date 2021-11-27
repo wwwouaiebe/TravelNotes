@@ -2,6 +2,8 @@
 
 <a href="#fr" >Vers la version française</a>
 
+<a id="en" />
+
 # Travel & Notes 
 
 Travel & Notes allows you to plan a trip from the map. You can :
@@ -15,11 +17,17 @@ Travel & Notes allows you to plan a trip from the map. You can :
 - display the trip in a web page.
 - use different basemap
 
+## About your browser
+
+Your browser must be recent. I don't do development for old versions of the browser. The code has been tested
+with the most recent versions of Firefox, Microsoft Edge, Brave and Vivaldi. If TravelNotes is not working in your
+browser, update it.
+
 ## Guides
 
-[User guide - en ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/en/UserGuideEN.md)
+[User guide - en ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0-doc/TravelNotesGuides/en/UserGuideEN.md)
 
-[Installation guide - en ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/en/InstallationGuideEN.md)
+[Installation guide - en ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0-doc/TravelNotesGuides/en/InstallationGuideEN.md)
 
 [JS code documentation](https://wwwouaiebe.github.io/TravelNotes/techDoc/ )
 
@@ -50,12 +58,12 @@ Other samples:
 
 ### v3.1.0 branch
 
-The [v3.1.0 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.1.0) and the [v3.1.0 branch](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0)
+The [v3.1.0 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.1.0) and the [v3.1.0 branch](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0-doc)
 contains the files of the last stable version.
 
-The [dist folder](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0/dist) contains all the needed files to run Travel & Notes, but not the sources.
+The [dist folder](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0-doc/dist) contains all the needed files to run Travel & Notes, but not the sources.
 
-Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0/src)
+Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0-doc/src)
 
 ### master branch
 
@@ -70,15 +78,10 @@ how to convert files made with an earlier version.
 
 ## What's new in the last release
 
-Following bugs are corrected:
+### What's new in release 3.1.0
 
-- Issue #179: Reordering the route list with drag and drop don't work when the dragged route is edited.
-- Issue #173: Bad message displayed in the console for rel attribute when opening a file
-
-And following enhancements are done:
-
-- Issue #175: Private and static fields and methods are coming with next Firefox... 
-- Issue #173: UUID generator is not rfc 4122 compliant
+Version 3.1.0 contains no new features for users. On the other hand, important modifications were made to the code,
+due to the use of 'private' and 'static' variables and methods.
 
 For other versions, see the document ['What's new?' - en ](https://github.com/wwwouaiebe/TravelNotes/TravelNotesGuides/en/WhatsNew.md)
 
@@ -97,11 +100,17 @@ Travel & Notes vous permet de préparer un voyage à partir de la carte. Vous po
 - afficher le voyage dans une page web.
 - utiliser différents fond de carte
 
+## À propos de votre navigateur
+
+Votre navigateur doit être récent. Je ne fais pas de développement pour des vieilles versions du navigateur. Le code a été testé
+avec les versions les plus récentes de Firefox, Microsoft Edge, Brave et Vivaldi. Si TravelNotes ne fonctionne pas dans votre
+navigateur, faites une mise à jour de celui-ci.
+
 ## Guides
 
-[Guide pour les utilisateurs - fr ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/fr/GuideUtilisateurFR.md)
+[Guide pour les utilisateurs - fr ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0-doc/TravelNotesGuides/fr/GuideUtilisateurFR.md)
 
-[Guide d'installation - fr ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/fr/GuideInstallationFR.md)
+[Guide d'installation - fr ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0-doc/TravelNotesGuides/fr/GuideInstallationFR.md)
 
 [Documentation du code JS](https://wwwouaiebe.github.io/TravelNotes/techDoc/)
 
@@ -133,12 +142,12 @@ D'autres exemples:
 
 ### branche v3.1.0
 
-La [version v3.1.0](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.1.0) et la [branche v3.1.0](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0)
+La [version v3.1.0](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.1.0) et la [branche v3.1.0](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0-doc)
 contiennent les fichiers de la dernière version stable.
 
-Le [répertoire dist](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0/dist) contient tous les fichiers pour exécuter Travel & Notes, mais ne contient pas les sources.
+Le [répertoire dist](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0-doc/dist) contient tous les fichiers pour exécuter Travel & Notes, mais ne contient pas les sources.
 
-Les sources sont disponibles dans le [répertoire src](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0/src)
+Les sources sont disponibles dans le [répertoire src](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0-doc/src)
 
 ### branche master
 
@@ -152,14 +161,9 @@ comment convertir des fichiers réalisés avec une version antérieure.
 
 ## Quoi de neuf dans la dernière version
 
-Les bugs suivants sont corrigés:
+### Quoi de neuf dans la version 3.1.0
 
-- Issue #179: Réordonner la liste des routes avec un glisser/déposer ne fonctionne pas quand la route sélectionnée est la route en cours d'édition.
-- Issue #173: Un message incorrect pour l'attribut "rel" est affiché dans la console quand un fichier est ouvert.
-
-Et les améliorations suivantes ont été apportées:
-
-- Issue #175: Les variables et méthodes Private et static sont disponible dans Firefox. Une grande mise à jour du code a été effectuée.
-- Issue #173: Le generateur de UUID ne suit pas la norme publiée dans la rfc 4122.
+La version 3.1.0 ne contient pas de nouveautés pour les utilisateurs. Par contre, d'importantes modifications ont été apportées au code, 
+suite à l'utilisation des variables et méthodes 'private' et 'static'.
 
 Pour les autres versions, reportez-vous au document ['quoi de neuf?' - fr ](https://github.com/wwwouaiebe/TravelNotes/TravelNotesGuides/fr/QuoiDeNeuf.md)
