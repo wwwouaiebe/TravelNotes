@@ -828,10 +828,10 @@ https://wwwouaiebe.github.io/TravelNotes/demo/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpd
 
 aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==
 is 
-https://wwwouaiebe.github.io/samples/Liege/StationToYouthHostel.trv
+https://wwwouaiebe.github.io/TravelNotes/samples/Liege/StationToYouthHostel.trv
 base64 encoded
 
-See the sample on the [demo](https://wwwouaiebe.github.io/TravelNotes/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==&lng=en)
+See the sample on the [demo](https://wwwouaiebe.github.io/TravelNotes/demo?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==&lng=en)
 
 When such a file is displayed, it is not possible to modify it. The TravelNotes interface is not 
 visible and all context menus are disabled.
