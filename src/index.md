@@ -2,9 +2,9 @@
 
 First, you need Node.js and a local web server installed on your computer. Having GitHub Desktop and a Git shell will also facilitate your life.
 
-Then clone TravelNotess in your GitHub repository and install it on your computer.
+Then clone TravelNotes in your GitHub repository and install it on your computer.
 
-Open a Node.js command prompt or a Git shell and go to the directory where TravelNotes is installed and run __npm install TravelNotess__. All the needed Node packages wil be installed.
+Open a Node.js command prompt or a Git shell and go to the directory where TravelNotes is installed and run __npm install TravelNotes__. All the needed Node packages wil be installed.
 
 From the Node.js command prompt or Git shell run:
 - __grunt__ to verify the sources with eslint
@@ -17,7 +17,7 @@ so you have to correct all the errors before you can run the application.
 
 ## What's the difference between debug and release modes?
 
-In debug mode, the application is installed in the TravelNotess/debug folder and uses directly the sources files as ES6 modules. that's the more easy way to develop and debug the application.
+In debug mode, the application is installed in the TravelNotes/debug folder and uses directly the sources files as ES6 modules. that's the more easy way to develop and debug the application.
 
 In release mode the application is installed in the TravelNotes/dist folder and in the TravelNotes/docs/demo folder. The TravelNotes/docs/demo folder contains all the needed files
 to run the application, included last version of leaflet. 
