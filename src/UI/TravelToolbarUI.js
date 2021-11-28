@@ -148,7 +148,18 @@ class OpenInputChangeEL {
 		const fileReader = new FileReader ( );
 		fileReader.onload = ( ) => {
 			try {
-				new FileLoader ( ).openLocalFile ( JSON.parse ( fileReader.result ) );
+				const fileExtension = changeEvent.target.files [ ZERO ].name.split ( '.' ).pop ( )
+					.toLowerCase ( );
+				switch ( fileExtension ) {
+				case 'trv' :
+					new FileLoader ( ).openLocalFile ( fileReader.result );
+					break;
+				case 'gpx' :
+					new FileLoader ( ).openLocalGpxFile ( fileReader.result );
+					break;
+				default :
+					break;
+				}
 			}
 			catch ( err ) {
 				if ( err instanceof Error ) {
@@ -196,7 +207,7 @@ class OpenButtonClickEL {
 			return;
 		}
 
-		theUtilities.openFile ( new OpenInputChangeEL ( ), '.trv' );
+		theUtilities.openFile ( new OpenInputChangeEL ( ), '.trv,.gpx' );
 	}
 }
 

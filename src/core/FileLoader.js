@@ -42,6 +42,7 @@ Tests 20210903
 
 import theTranslator from '../UILib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
+import GpxParser from '../coreLib/GpxParser.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theMouseUI from '../mouseUI/MouseUI.js';
 import theMapLayersToolbarUI from '../mapLayersToolbarUI/MapLayersToolbarUI.js';
@@ -165,7 +166,29 @@ class FileLoader {
 
 	/**
 	Open a local file and display the content of the file
-	@param {JsonObject} travelJsonObject the json object readed from the file
+	@param {String} fileContent The xml content of the selected file
+	*/
+
+	openLocalGpxFile ( fileContent ) {
+
+		// Closing all profiles
+		theProfileWindowsManager.deleteAllProfiles ( );
+
+		// Parsing the gpx
+		theTravelNotesData.travel.jsonObject = new GpxParser ( ).parse ( fileContent ).jsonObject;
+		theTravelNotesData.editedRouteObjId = INVALID_OBJ_ID;
+
+		// display the travel
+		this.#display ( );
+
+		// Updating theMouseUI
+		theMouseUI.saveStatus = SAVE_STATUS.saved;
+
+	}
+
+	/**
+	Open a local file and display the content of the file
+	@param {String} fileContent The json content of the selected file
 	*/
 
 	openLocalFile ( travelJsonObject ) {
@@ -197,7 +220,9 @@ class FileLoader {
 	@param {JsonObject} travelJsonObject the json object readed from the file
 	*/
 
-	mergeLocalFile ( travelJsonObject ) {
+	mergeLocalFile ( fileContent ) {
+
+		const travelJsonObject = JSON.parse ( fileContent );
 
 		// Decompress the json file content and uploading the travel in a new Travel object
 		new FileCompactor ( ).decompress ( travelJsonObject );

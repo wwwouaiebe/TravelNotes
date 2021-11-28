@@ -68,28 +68,35 @@ class GpxFactory {
 	@type {String}
 	*/
 
-	static get#TAB0 ( ) { return '\n'; }
+	static get #TAB0 ( ) { return '\n'; }
 
 	/**
 	Simple constant for gpx presentation
 	@type {String}
 	*/
 
-	static get#TAB1 ( ) { return '\n\t'; }
+	static get #TAB1 ( ) { return '\n\t'; }
 
 	/**
 	Simple constant for gpx presentation
 	@type {String}
 	*/
 
-	static get#TAB2 ( ) { return '\n\t\t'; }
+	static get #TAB2 ( ) { return '\n\t\t'; }
 
 	/**
 	Simple constant for gpx presentation
 	@type {String}
 	*/
 
-	static get#TAB3 ( ) { return '\n\t\t\t'; }
+	static get #TAB3 ( ) { return '\n\t\t\t'; }
+
+	/**
+	Simple constant for gpx presentation
+	@type {String}
+	*/
+
+	static get #TAB4 ( ) { return '\n\t\t\t\t'; }
 
 	/**
 	Creates the header of the gpx file
@@ -105,6 +112,15 @@ class GpxFactory {
 		'version="1.1" creator="TravelNotes">';
 	}
 
+	#replaceEntities ( text ) {
+		return ( text.replaceAll ( '&', '&amp;' )
+			.replaceAll ( /\u0027/g, '&apos;' )
+			.replaceAll ( /"/g, '&quot;' )
+			.replaceAll ( /</g, '&lt;' )
+			.replaceAll ( />/g, '&gt;' )
+		);
+	}
+
 	/**
 	Add the waypoints to the gpx file
 	*/
@@ -113,8 +129,10 @@ class GpxFactory {
 		const wayPointsIterator = this.#route.wayPoints.iterator;
 		while ( ! wayPointsIterator.done ) {
 			this.#gpxString +=
-				GpxFactory.#TAB1 + '<wpt lat="' + wayPointsIterator.value.lat + '" lon="' + wayPointsIterator.value.lng + '" ' +
-				this.#timeStamp + '/>';
+				GpxFactory.#TAB1 + '<wpt lat="' + wayPointsIterator.value.lat + '" lon="' + wayPointsIterator.value.lng + '">' +
+				GpxFactory.#TAB2 + this.#timeStamp +
+				GpxFactory.#TAB2 + '<name>' + this.#replaceEntities ( wayPointsIterator.value.fullName ) + '</name>' +
+				GpxFactory.#TAB1 + '</wpt>';
 
 		}
 	}
@@ -125,26 +143,17 @@ class GpxFactory {
 
 	#addRoute ( ) {
 		this.#gpxString += GpxFactory.#TAB1 + '<rte>';
+		this.#gpxString += GpxFactory.#TAB2 + '<name>' + this.#replaceEntities ( this.#route.computedName ) + '</name>';
 		const maneuverIterator = this.#route.itinerary.maneuvers.iterator;
 		while ( ! maneuverIterator.done ) {
 			const wayPoint = this.#route.itinerary.itineraryPoints.getAt (
 				maneuverIterator.value.itineraryPointObjId
 			);
-			const instruction = maneuverIterator.value.instruction
-				.replaceAll ( /\u0027/g, '&apos;' )
-				.replaceAll ( /"/g, '&quot;' )
-				.replaceAll ( /</g, '&lt;' )
-				.replaceAll ( />/g, '&gt;' );
 			this.#gpxString +=
-				GpxFactory.#TAB2 +
-				'<rtept lat="' +
-				wayPoint.lat +
-				'" lon="' +
-				wayPoint.lng +
-				'" ' +
-				this.#timeStamp +
-				'desc="' +
-				instruction + '" />';
+				GpxFactory.#TAB2 + '<rtept lat="' + wayPoint.lat + '" lon="' + wayPoint.lng + '">' +
+				GpxFactory.#TAB3 + this.#timeStamp +
+				GpxFactory.#TAB3 + '<desc>' + this.#replaceEntities ( maneuverIterator.value.instruction ) + '</desc>' +
+				GpxFactory.#TAB2 + '</rtept>';
 		}
 		this.#gpxString += GpxFactory.#TAB1 + '</rte>';
 	}
@@ -155,17 +164,16 @@ class GpxFactory {
 
 	#addTrack ( ) {
 		this.#gpxString += GpxFactory.#TAB1 + '<trk>';
+		this.#gpxString += GpxFactory.#TAB2 + '<name>' + this.#replaceEntities ( this.#route.computedName ) + '</name>';
 		this.#gpxString += GpxFactory.#TAB2 + '<trkseg>';
 		const itineraryPointsIterator = this.#route.itinerary.itineraryPoints.iterator;
 		while ( ! itineraryPointsIterator.done ) {
 			this.#gpxString +=
 				GpxFactory.#TAB3 +
-				'<trkpt lat="' + itineraryPointsIterator.value.lat +
-				'" lon="' +
-				itineraryPointsIterator.value.lng +
-				'" ' +
-				this.#timeStamp +
-				' />';
+				'<trkpt lat="' + itineraryPointsIterator.value.lat + '" lon="' + itineraryPointsIterator.value.lng + '">' +
+				GpxFactory.#TAB4 + this.#timeStamp +
+				GpxFactory.#TAB4 + '<ele>' + itineraryPointsIterator.value.elev + '</ele>' +
+				GpxFactory.#TAB3 + '</trkpt>';
 		}
 		this.#gpxString += GpxFactory.#TAB2 + '</trkseg>';
 		this.#gpxString += GpxFactory.#TAB1 + '</trk>';
@@ -211,7 +219,7 @@ class GpxFactory {
 		if ( ! this.#route ) {
 			return;
 		}
-		this.#timeStamp = 'time="' + new Date ( ).toISOString ( ) + '" ';
+		this.#timeStamp = '<time>' + new Date ( ).toISOString ( ) + '</time>';
 
 		this.#addHeader ( );
 		this.#addWayPoints ( );

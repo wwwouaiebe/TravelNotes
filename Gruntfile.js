@@ -419,7 +419,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-terser');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-clean');
-	
 	grunt.loadNpmTasks('grunt-essimpledoc');
 	
 	// Register tasks
@@ -438,11 +437,11 @@ module.exports = function(grunt) {
 	);
 	grunt.registerTask(
 		'debug',
-		[ 'eslint', 'stylelint', 'clean:beforeDebug', 'rollup:debug', 'cssmin:debug', 'copy:debug',	'clean:afterDebug', 'essimpledoc:debug' ]
+		[ 'eslint', 'stylelint', 'clean:beforeDebug', 'rollup:debug', 'cssmin:debug', 'copy:debug',	'clean:afterDebug' /*, 'essimpledoc:debug' */ ]
 	);
 	grunt.registerTask(
 		'release',
-		[ 'eslint', 'stylelint', 'clean:beforeDebug', 'rollup:debug', 'cssmin:debug', 'copy:debug', 'clean:afterDebug', 'clean:beforeRelease', 'copy:beforeRelease', 'replace:release', 'rollup:release', 'terser', 'cssmin:release', 'copy:release', 'clean:afterRelease', 'essimpledoc:release' ]
+		[ 'eslint', 'stylelint', 'clean:beforeDebug', 'rollup:debug', 'cssmin:debug', 'copy:debug', 'clean:afterDebug', 'clean:beforeRelease', 'copy:beforeRelease', 'replace:release', 'rollup:release', 'terser', 'cssmin:release', 'copy:release', 'clean:afterRelease' /*, 'essimpledoc:release'*/ ]
 	);
 	
 	// console
