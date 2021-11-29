@@ -152,7 +152,7 @@ class OpenInputChangeEL {
 					.toLowerCase ( );
 				switch ( fileExtension ) {
 				case 'trv' :
-					new FileLoader ( ).openLocalFile ( fileReader.result );
+					new FileLoader ( ).openLocalTrvFile ( fileReader.result );
 					break;
 				case 'gpx' :
 					new FileLoader ( ).openLocalGpxFile ( fileReader.result );
@@ -237,7 +237,18 @@ class ImportInputChangeEL {
 		const fileReader = new FileReader ( );
 		fileReader.onload = ( ) => {
 			try {
-				new FileLoader ( ).mergeLocalFile ( JSON.parse ( fileReader.result ) );
+				const fileExtension = changeEvent.target.files [ ZERO ].name.split ( '.' ).pop ( )
+					.toLowerCase ( );
+				switch ( fileExtension ) {
+				case 'trv' :
+					new FileLoader ( ).mergeLocalTrvFile ( fileReader.result );
+					break;
+				case 'gpx' :
+					new FileLoader ( ).mergeLocalGpxFile ( fileReader.result );
+					break;
+				default :
+					break;
+				}
 			}
 			catch ( err ) {
 				if ( err instanceof Error ) {
@@ -275,7 +286,7 @@ class ImportButtonClickEL {
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		if ( INVALID_OBJ_ID === theTravelNotesData.editedRouteObjId ) {
-			theUtilities.openFile ( new ImportInputChangeEL ( ), '.trv' );
+			theUtilities.openFile ( new ImportInputChangeEL ( ), '.trv,.gpx' );
 		}
 		else {
 			theErrorsUI.showError (

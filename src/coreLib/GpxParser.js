@@ -29,6 +29,9 @@ class GpxParser {
 			switch ( childs [ nodeCounter ].nodeName ) {
 			case 'ele' :
 				itineraryPoint.elev = Number.parseFloat ( childs [ nodeCounter ].textContent );
+				if ( ZERO !== itineraryPoint.elev ) {
+					this.#route.itinerary.hasProfile = true;
+				}
 				break;
 			default :
 				break;
@@ -50,6 +53,24 @@ class GpxParser {
 		}
 	}
 
+	#computeAscentAndDescent ( ) {
+		let ascent = ZERO;
+		let descent = ZERO;
+		let itineraryPointsIterator = this.#route.itinerary.itineraryPoints.iterator;
+		itineraryPointsIterator.done;
+		while ( ! itineraryPointsIterator.done ) {
+			let deltaElev = itineraryPointsIterator.value.elev - itineraryPointsIterator.previous.elev;
+			if ( ZERO > deltaElev ) {
+				descent -= deltaElev;
+			}
+			else {
+				ascent += deltaElev;
+			}
+		}
+		this.#route.itinerary.ascent = ascent;
+		this.#route.itinerary.descent = descent;
+	}
+
 	#parseTrkNode ( trkNode ) {
 		this.#route = new Route ( );
 		const childs = trkNode.childNodes;
@@ -64,6 +85,9 @@ class GpxParser {
 			default :
 				break;
 			}
+		}
+		if ( this.#route.itinerary.hasProfile ) {
+			this.#computeAscentAndDescent ( );
 		}
 		this.#travel.routes.add ( this.#route );
 	}

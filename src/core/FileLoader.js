@@ -191,7 +191,7 @@ class FileLoader {
 	@param {String} fileContent The json content of the selected file
 	*/
 
-	openLocalFile ( fileContent ) {
+	openLocalTrvFile ( fileContent ) {
 
 		// Closing all profiles
 		theProfileWindowsManager.deleteAllProfiles ( );
@@ -217,19 +217,7 @@ class FileLoader {
 		theMouseUI.saveStatus = SAVE_STATUS.saved;
 	}
 
-	/**
-	Open a local file and merge the content of the file with the current travel
-	@param {JsonObject} travelJsonObject the json object readed from the file
-	*/
-
-	mergeLocalFile ( travelJsonObject ) {
-
-		// const travelJsonObject = JSON.parse ( fileContent );
-
-		// Decompress the json file content and uploading the travel in a new Travel object
-		new FileCompactor ( ).decompress ( travelJsonObject );
-		const mergedTravel = new Travel ( );
-		mergedTravel.jsonObject = travelJsonObject;
+	#mergeTravel ( mergedTravel ) {
 
 		// routes are added with their notes
 		const routesIterator = mergedTravel.routes.iterator;
@@ -248,6 +236,27 @@ class FileLoader {
 
 		// Updating theMouseUI
 		theMouseUI.saveStatus = SAVE_STATUS.modified;
+	}
+
+	mergeLocalGpxFile ( fileContent ) {
+		this.#mergeTravel ( new GpxParser ( ).parse ( fileContent ) );
+	}
+
+	/**
+	Open a local file and merge the content of the file with the current travel
+	@param {JsonObject} travelJsonObject the json object readed from the file
+	*/
+
+	mergeLocalTrvFile ( fileContent ) {
+
+		const travelJsonObject = JSON.parse ( fileContent );
+
+		// Decompress the json file content and uploading the travel in a new Travel object
+		new FileCompactor ( ).decompress ( travelJsonObject );
+		const mergedTravel = new Travel ( );
+		mergedTravel.jsonObject = travelJsonObject;
+
+		this.#mergeTravel ( mergedTravel );
 	}
 }
 
