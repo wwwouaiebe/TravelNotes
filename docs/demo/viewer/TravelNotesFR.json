@@ -116,6 +116,14 @@
 		"msgstr" : "Impossible de sélectionner {provider}"
 	},
 	{
+		"msgid" : "GpxParser - Network node",
+		"msgstr" : "Nœud "
+	},
+	{
+		"msgid" : "GpxParser - Go to network node",
+		"msgstr" : " - se diriger vers le nœud "
+	},
+	{
 		"msgid" : "NoteHTMLViewsFactory - Address",
 		"msgstr" : "Adresse"
 	},

@@ -112,6 +112,12 @@ class GpxFactory {
 		'version="1.1" creator="TravelNotes">';
 	}
 
+	/**
+	Replace the chars &, ', ", < and > with entities
+	@param {String} text The text containing reserved chars
+	@return {String} The text with reserved chars replaced by entities
+	*/
+
 	#replaceEntities ( text ) {
 		return ( text.replaceAll ( '&', '&amp;' )
 			.replaceAll ( /\u0027/g, '&apos;' )

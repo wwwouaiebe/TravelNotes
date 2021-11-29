@@ -217,6 +217,11 @@ class FileLoader {
 		theMouseUI.saveStatus = SAVE_STATUS.saved;
 	}
 
+	/**
+	Merge a Travel with the curently displayed Travel
+	@param {Travel} mergedTravel The travel to merge
+	*/
+
 	#mergeTravel ( mergedTravel ) {
 
 		// routes are added with their notes
@@ -238,13 +243,18 @@ class FileLoader {
 		theMouseUI.saveStatus = SAVE_STATUS.modified;
 	}
 
+	/**
+	Merge the content of a gpx file with the curently displayed Travel
+	@param {String} fileContent The gpx file content to merge
+	*/
+
 	mergeLocalGpxFile ( fileContent ) {
 		this.#mergeTravel ( new GpxParser ( ).parse ( fileContent ) );
 	}
 
 	/**
-	Open a local file and merge the content of the file with the current travel
-	@param {JsonObject} travelJsonObject the json object readed from the file
+	Merge the content of a trv file with the currently displayed Travel
+	@param {String} fileContent The trv file content to merge
 	*/
 
 	mergeLocalTrvFile ( fileContent ) {

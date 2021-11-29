@@ -1,3 +1,28 @@
+/*
+Copyright - 2017 2021 - wwwouaiebe - Contact: http//www.ouaie.be/
+
+This  program is free software;
+you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation;
+either version 3 of the License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+/*
+Changes:
+	- v3.2.0:
+		- Issue #7 : How to open a gpx file
+Doc reviewed 20211129
+Tests ...
+*/
 
 import Travel from '../data/Travel.js';
 import Route from '../data/Route.js';
@@ -10,15 +35,46 @@ import theGeometry from '../coreLib/Geometry.js';
 import theTranslator from '../UILib/Translator.js';
 import { INVALID_OBJ_ID, ZERO, ONE, DISTANCE } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+Parser to transform a gpx file into a Travel object
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
 class GpxParser {
+
+	/**
+	The gpx document
+	@type {XMLDocument}
+	*/
 
 	#gpxDocument;
 
+	/**
+	The destination Travel
+	@type {Travel}
+	*/
+
 	#travel;
+
+	/**
+	The currently loaded Route
+	@type {Route}
+	*/
 
 	#route;
 
+	/**
+	A boolean set to true when the gpx file comes from a node network
+	@type {Boolean}
+	*/
+
 	#isNodeNetwork;
+
+	/**
+	Parse a trkpt xml node
+	@param {Node} trkPtNode A Node with a trkpt tag
+	*/
 
 	#parseTrkPtNode ( trkPtNode ) {
 		let itineraryPoint = new ItineraryPoint ( );
@@ -40,6 +96,11 @@ class GpxParser {
 		this.#route.itinerary.itineraryPoints.add ( itineraryPoint );
 	}
 
+	/**
+	Parse a trkseg xml node
+	@param {Node} trkSegNode A Node with a trkseg tag
+	*/
+
 	#parseTrkSegNode ( trkSegNode ) {
 		const childs = trkSegNode.childNodes;
 		for ( let nodeCounter = ZERO; nodeCounter < childs.length; nodeCounter ++ ) {
@@ -52,6 +113,10 @@ class GpxParser {
 			}
 		}
 	}
+
+	/**
+	Compute the ascent and descent of the currently parsed Route
+	*/
 
 	#computeAscentAndDescent ( ) {
 		let ascent = ZERO;
@@ -70,6 +135,11 @@ class GpxParser {
 		this.#route.itinerary.ascent = ascent;
 		this.#route.itinerary.descent = descent;
 	}
+
+	/**
+	Parse a trk xml node
+	@param {Node} trkNode A Node with a trk tag
+	*/
 
 	#parseTrkNode ( trkNode ) {
 		this.#route = new Route ( );
@@ -92,6 +162,11 @@ class GpxParser {
 		this.#travel.routes.add ( this.#route );
 	}
 
+	/**
+	Search the nearest ItineraryPoint objId of the currently parsed route from a given point
+	@param {Array.<Number>} latLng The lat and lng of the given point
+	*/
+
 	#nearestItineraryPointObjId ( latLng ) {
 		let distance = Number.MAX_VALUE;
 		let itineraryPointObjId = INVALID_OBJ_ID;
@@ -106,6 +181,11 @@ class GpxParser {
 		);
 		return itineraryPointObjId;
 	}
+
+	/**
+	Parse a rtept xml node
+	@param {Node} rtePtNode A Node with a rtept tag
+	*/
 
 	#parseRtePtNode ( rtePtNode ) {
 		const maneuver = new Maneuver ( );
@@ -126,6 +206,11 @@ class GpxParser {
 		this.#route.itinerary.maneuvers.add ( maneuver );
 	}
 
+	/**
+	Parse a rte xml node
+	@param {Node} rteNode A Node with a rte tag
+	*/
+
 	#parseRteNode ( rteNode ) {
 		const childs = rteNode.childNodes;
 		for ( let nodeCounter = ZERO; nodeCounter < childs.length; nodeCounter ++ ) {
@@ -141,6 +226,11 @@ class GpxParser {
 			}
 		}
 	}
+
+	/**
+	Add a note at the same position than a way node (only for node networks gpx files)
+	@param {WayPoint} wayPoint The wayPoint for witch a Note must be created
+	*/
 
 	#addWptNote ( wayPoint ) {
 		const note = new Note ( );
@@ -160,6 +250,11 @@ class GpxParser {
 		note.distance = theGeometry.getClosestLatLngDistance ( this.#route, note.latLng ).distance;
 		this.#route.notes.add ( note );
 	}
+
+	/**
+	Parse a wpt xml node
+	@param {Node} wptNode A Node with a wpt tag
+	*/
 
 	#parseWptNode ( wptNode ) {
 		let wayPoint = new WayPoint ( );
@@ -182,11 +277,20 @@ class GpxParser {
 		}
 	}
 
+	/**
+	Parse a NodeList of wpt xml node
+	@param {NodeList} wptNodes A NodeList of Nodes with a wpt tag
+	*/
+
 	#parseWptNodes ( wptNodes ) {
 		for ( let wptNodeCounter = 0; wptNodeCounter < wptNodes.length; wptNodeCounter ++ ) {
 			this.#parseWptNode ( wptNodes [ wptNodeCounter ] );
 		}
 	}
+
+	/**
+	Add a starting and an ending waypoint on each route of the parsed Travel
+	*/
 
 	#createWayPoints ( ) {
 		this.#travel.routes.forEach (
@@ -252,9 +356,19 @@ class GpxParser {
 		}
 	}
 
+	/**
+	The constructor
+	*/
+
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Parse a gpx string and load the data found in the gpx in a Travel Object
+	@param {String} gpxString The string to parse
+	@return {Travel} A travel cpmpleted with Routes and Notes found in the gpx string
+	*/
 
 	parse ( gpxString ) {
 		this.#gpxDocument = new DOMParser ( ).parseFromString ( gpxString, 'text/xml' );
@@ -306,3 +420,5 @@ class GpxParser {
 }
 
 export default GpxParser;
+
+/* --- End of file --------------------------------------------------------------------------------------------------------- */
