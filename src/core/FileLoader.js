@@ -191,10 +191,12 @@ class FileLoader {
 	@param {String} fileContent The json content of the selected file
 	*/
 
-	openLocalFile ( travelJsonObject ) {
+	openLocalFile ( fileContent ) {
 
 		// Closing all profiles
 		theProfileWindowsManager.deleteAllProfiles ( );
+
+		const travelJsonObject = JSON.parse ( fileContent );
 
 		// Decompress the json file content and uploading the travel in theTravelNotesData object
 		new FileCompactor ( ).decompress ( travelJsonObject );
@@ -220,9 +222,9 @@ class FileLoader {
 	@param {JsonObject} travelJsonObject the json object readed from the file
 	*/
 
-	mergeLocalFile ( fileContent ) {
+	mergeLocalFile ( travelJsonObject ) {
 
-		const travelJsonObject = JSON.parse ( fileContent );
+		// const travelJsonObject = JSON.parse ( fileContent );
 
 		// Decompress the json file content and uploading the travel in a new Travel object
 		new FileCompactor ( ).decompress ( travelJsonObject );

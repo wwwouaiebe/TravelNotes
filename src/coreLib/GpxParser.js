@@ -4,7 +4,10 @@ import Route from '../data/Route.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
 import WayPoint from '../data/WayPoint.js';
+import Note from '../data/Note.js';
 import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
+import theGeometry from '../coreLib/Geometry.js';
+import theTranslator from '../UILib/Translator.js';
 import { INVALID_OBJ_ID, ZERO, ONE, DISTANCE } from '../main/Constants.js';
 
 class GpxParser {
@@ -14,6 +17,8 @@ class GpxParser {
 	#travel;
 
 	#route;
+
+	#isNodeNetwork;
 
 	#parseTrkPtNode ( trkPtNode ) {
 		let itineraryPoint = new ItineraryPoint ( );
@@ -113,6 +118,25 @@ class GpxParser {
 		}
 	}
 
+	#addWptNote ( wayPoint ) {
+		const note = new Note ( );
+		note.latLng = wayPoint.latLng;
+		note.iconLatLng = wayPoint.latLng;
+		const names = wayPoint.name.split ( '+' );
+		note.iconContent =
+			'<div class="TravelNotes-MapNote TravelNotes-MapNoteCategory-0073">' +
+			'<svg viewBox="0 0 20 20"><text x="10" y="14">' +
+			names [ ZERO ] + '</text></svg></div>';
+
+		note.tooltipContent = theTranslator.getText ( 'GpxParser - Network node' ) + names [ ZERO ];
+		if ( names [ ONE ] ) {
+			note.tooltipContent += theTranslator.getText ( 'GpxParser - Go to network node' ) + names [ ONE ];
+		}
+
+		note.distance = theGeometry.getClosestLatLngDistance ( this.#route, note.latLng ).distance;
+		this.#route.notes.add ( note );
+	}
+
 	#parseWptNode ( wptNode ) {
 		let wayPoint = new WayPoint ( );
 		wayPoint.lat = Number.parseFloat ( wptNode.getAttributeNS ( null, 'lat' ) );
@@ -129,6 +153,9 @@ class GpxParser {
 			}
 		}
 		this.#route.wayPoints.add ( wayPoint );
+		if ( this.#isNodeNetwork ) {
+			this.#addWptNote ( wayPoint );
+		}
 	}
 
 	#parseWptNodes ( wptNodes ) {
@@ -207,13 +234,20 @@ class GpxParser {
 
 	parse ( gpxString ) {
 		this.#gpxDocument = new DOMParser ( ).parseFromString ( gpxString, 'text/xml' );
+
+		this.#isNodeNetwork =
+			Boolean (
+				this.#gpxDocument.querySelector ( 'gpx' )
+					.getAttributeNS ( null, 'creator' )
+					.match ( /fietsnet/g )
+			);
+
 		this.#travel = new Travel ( );
 		this.#travel.routes.remove ( this.#travel.routes.first.objId );
 		const trkNodes = this.#gpxDocument.querySelectorAll ( 'trk' );
 		for ( let trkNodeCounter = 0; trkNodeCounter < trkNodes.length; trkNodeCounter ++ ) {
 			this.#parseTrkNode ( trkNodes [ trkNodeCounter ] );
 		}
-
 		const rteNodes = this.#gpxDocument.querySelectorAll ( 'rte' );
 
 		if (
@@ -223,6 +257,10 @@ class GpxParser {
 		) {
 			this.#parseRteNode ( rteNodes [ ZERO ] );
 		}
+
+		this.#travel.routes.forEach (
+			route => this.#computeRouteDistances ( route )
+		);
 
 		const wptNodes = this.#gpxDocument.querySelectorAll ( 'wpt' );
 
@@ -238,10 +276,6 @@ class GpxParser {
 		else {
 			this.#createWayPoints ( );
 		}
-
-		this.#travel.routes.forEach (
-			route => this.#computeRouteDistances ( route )
-		);
 
 		return this.#travel;
 	}
