@@ -78,7 +78,7 @@ class NoteDialogPhoneControl {
 		theHTMLElementsFactory.create (
 			'text',
 			{
-				value : '\u00a0' + theTranslator.getText ( 'NoteDialog - Phone' )
+				value : '\u00a0' + theTranslator.getText ( 'NoteDialogPhoneControl - Phone' )
 			},
 			this.#phoneHeaderDiv
 		);

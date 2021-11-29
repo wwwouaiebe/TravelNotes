@@ -303,7 +303,7 @@ class StreetFinder {
 		if ( this.#rcnRefOsmNode ) {
 			this.#computeData.rcnRef = this.#rcnRefOsmNode.tags.rcn_ref;
 			this.#noteData.tooltipContent +=
-				theTranslator.getText ( 'MapIconDataBuilder - rcnRef', { rcnRef : this.#computeData.rcnRef } );
+				theTranslator.getText ( 'StreetFinder - rcnRef', { rcnRef : this.#computeData.rcnRef } );
 		}
 	}
 
@@ -424,18 +424,18 @@ class StreetFinder {
 
 	#addRoundaboutInfo ( ) {
 		if ( this.#roundaboutData.isEntry && ! this.#roundaboutData.isExit ) {
-			this.#noteData.tooltipContent += theTranslator.getText ( 'MapIconDataBuilder - entry roundabout' );
+			this.#noteData.tooltipContent += theTranslator.getText ( 'StreetFinder - entry roundabout' );
 		}
 		else if ( ! this.#roundaboutData.isEntry && this.#roundaboutData.isExit ) {
-			this.#noteData.tooltipContent += theTranslator.getText ( 'MapIconDataBuilder - exit roundabout' );
+			this.#noteData.tooltipContent += theTranslator.getText ( 'StreetFinder - exit roundabout' );
 		}
 		else if ( this.#roundaboutData.isEntry && this.#roundaboutData.isExit ) {
 			this.#noteData.tooltipContent +=
-				theTranslator.getText ( 'MapIconDataBuilder - continue roundabout' ); // strange but correct
+				theTranslator.getText ( 'StreetFinder - continue roundabout' ); // strange but correct
 		}
 		if ( this.#roundaboutData.isMini ) {
 			this.#noteData.tooltipContent +=
-				theTranslator.getText ( 'MapIconDataBuilder - at the small roundabout on the ground' );
+				theTranslator.getText ( 'StreetFinder - at the small roundabout on the ground' );
 		}
 	}
 

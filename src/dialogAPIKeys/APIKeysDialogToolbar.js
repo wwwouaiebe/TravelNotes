@@ -167,7 +167,7 @@ class APIKeysDialogToolbar {
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-Button',
-				title : theTranslator.getText ( 'APIKeysDialog - Reload from server' ),
+				title : theTranslator.getText ( 'APIKeysDialogToolbar - Reload from server' ),
 				textContent : '🔄'
 			},
 			this.#rootHTMLElement
@@ -190,7 +190,7 @@ class APIKeysDialogToolbar {
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-Button',
-				title : theTranslator.getText ( 'APIKeysDialog - Save to file' ),
+				title : theTranslator.getText ( 'APIKeysDialogToolbar - Save to file' ),
 				textContent : '💾'
 			},
 			this.#rootHTMLElement
@@ -213,7 +213,7 @@ class APIKeysDialogToolbar {
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-Button',
-				title : theTranslator.getText ( 'APIKeysDialog - Open file' ),
+				title : theTranslator.getText ( 'APIKeysDialogToolbar - Open file' ),
 				textContent : '📂'
 			},
 			this.#rootHTMLElement
@@ -236,7 +236,7 @@ class APIKeysDialogToolbar {
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-Button',
-				title : theTranslator.getText ( 'APIKeysDialog - new API key' ),
+				title : theTranslator.getText ( 'APIKeysDialogToolbar - new API key' ),
 				textContent : '+'
 			},
 			this.#rootHTMLElement
@@ -259,7 +259,7 @@ class APIKeysDialogToolbar {
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-Button TravelNotes-APIKeysDialog-AtRightButton',
-				title : theTranslator.getText ( 'APIKeysDialog - Save to json file' ),
+				title : theTranslator.getText ( 'APIKeysDialogToolbar - Save to json file' ),
 				textContent : '💾'
 			},
 			this.#rootHTMLElement
@@ -282,7 +282,7 @@ class APIKeysDialogToolbar {
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-Button',
-				title : theTranslator.getText ( 'APIKeysDialog - Open json file' ),
+				title : theTranslator.getText ( 'APIKeysDialogToolbar - Open json file' ),
 				textContent : '📂'
 			},
 			this.#rootHTMLElement

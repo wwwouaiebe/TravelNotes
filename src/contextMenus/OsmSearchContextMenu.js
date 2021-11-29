@@ -133,19 +133,19 @@ class OsmSearchContextMenu extends BaseContextMenu {
 	get menuItems ( ) {
 		return [
 			new MenuItem (
-				theTranslator.getText ( 'MapContextMenu - Select this point as start point' ),
+				theTranslator.getText ( 'OsmSearchContextMenu - Select this point as start point' ),
 				( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId )
 				&&
 				( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.first.lat ),
 				( ) => theWayPointEditor.setStartPoint ( this.#latLng )
 			),
 			new MenuItem (
-				theTranslator.getText ( 'MapContextMenu - Select this point as way point' ),
+				theTranslator.getText ( 'OsmSearchContextMenu - Select this point as way point' ),
 				INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId,
 				( ) => theWayPointEditor.addWayPoint ( this.#latLng )
 			),
 			new MenuItem (
-				theTranslator.getText ( 'MapContextMenu - Select this point as end point' ),
+				theTranslator.getText ( 'OsmSearchContextMenu - Select this point as end point' ),
 				( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId )
 				&&
 				( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.last.lat ),

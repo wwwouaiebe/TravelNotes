@@ -119,7 +119,7 @@ class NoteDialogLinkControl {
 		theHTMLElementsFactory.create (
 			'text',
 			{
-				value : theTranslator.getText ( 'NoteDialog - Link' )
+				value : theTranslator.getText ( 'NoteDialogLinkControl - Link' )
 			},
 			this.#linkHeaderDiv
 		);

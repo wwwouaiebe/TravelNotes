@@ -65,7 +65,7 @@ class NoteDialogTooltipControl {
 			'div',
 			{
 				className : 'TravelNotes-NoteDialog-DataDiv',
-				textContent : theTranslator.getText ( 'NoteDialog - Tooltip content' )
+				textContent : theTranslator.getText ( 'NoteDialogTooltipControl - Tooltip content' )
 			}
 		);
 		this.#tooltipInput = theHTMLElementsFactory.create (

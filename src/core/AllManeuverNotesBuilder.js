@@ -96,7 +96,7 @@ class AllManeuverNotesBuilder {
 		while ( ! maneuverIterator.done ) {
 			waitUI.showInfo (
 				theTranslator.getText (
-					'NoteEditor - Creating note',
+					'AllManeuverNotesBuilder - Creating note',
 					{ noteNumber : maneuverIterator.index + ONE, notesLength : this.#maneuversLength }
 				)
 			);
@@ -137,7 +137,8 @@ class AllManeuverNotesBuilder {
 
 		if ( theConfig.note.maxManeuversNotes < this.#maneuversLength ) {
 			theErrorsUI.showError (
-				theTranslator.getText ( 'NoteEditor - max maneuvers notes reached {maneuversLength}{maxManeuversNotes}',
+				theTranslator.getText (
+					'AllManeuverNotesBuilder - max maneuvers notes reached {maneuversLength}{maxManeuversNotes}',
 					{ maneuversLength : this.#maneuversLength, maxManeuversNotes : theConfig.note.maxManeuversNotes } )
 			);
 			return;
@@ -145,9 +146,9 @@ class AllManeuverNotesBuilder {
 
 		new TwoButtonsDialog (
 			{
-				title : theTranslator.getText ( 'NoteEditor - Add a note for each maneuver' ),
+				title : theTranslator.getText ( 'AllManeuverNotesBuilder - Add a note for each maneuver' ),
 				text : theTranslator.getText (
-					'NoteEditor - Add a note for each maneuver. Are you sure?',
+					'AllManeuverNotesBuilder - Add a note for each maneuver. Are you sure?',
 					{ noteLength : this.#maneuversLength }
 				),
 				secondButtonText : '❌'

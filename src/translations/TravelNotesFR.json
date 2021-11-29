@@ -8,19 +8,15 @@
 		"msgstr" : "Abandonner"
 	},
 	{
-		"msgid" : "APIKeysDialog - An error occurs when loading the APIKeys file",
-		"msgstr" : "Une erreur est survenue lors du chargement des clefs d'accès sur le serveur web"
-	},
-	{
-		"msgid" : "APIKeysDialog - An error occurs when saving the keys",
+		"msgid" : "DataEncryptorHandlers - An error occurs when saving the keys",
 		"msgstr" : "Une erreur est survenue lors de la sauvegarde des clés d'accès"
 	},
 	{
-		"msgid" : "APIKeysDialog - An error occurs when reading the file",
+		"msgid" : "DataEncryptorHandlers - An error occurs when reading the file",
 		"msgstr" : "Une erreur est survenue lors de la lecture du fichier"
 	},
 	{
-		"msgid" : "APIKeysDialog - API key",
+		"msgid" : "APIKeysDialogKeyControl - API key",
 		"msgstr" : "Clé d'accès"
 	},
 	{
@@ -28,7 +24,7 @@
 		"msgstr" : "Clés d'accès"
 	},
 	{
-		"msgid" : "APIKeysDialog - delete API key",
+		"msgid" : "APIKeysDialogKeyControl - delete API key",
 		"msgstr" : "effacer la clé d'accès"
 	},
 	{
@@ -36,31 +32,31 @@
 		"msgstr" : "Un nom de clé ou une clé d'accès n'est pas complété"
 	},
 	{
-		"msgid" : "APIKeysDialog - new API key",
+		"msgid" : "APIKeysDialogToolbar - new API key",
 		"msgstr" : "Nouvelle clé d'accès"
 	},
 	{
-		"msgid" : "APIKeysDialog - Open file",
+		"msgid" : "APIKeysDialogToolbar - Open file",
 		"msgstr" : "Ouvrir un fichier avec mot de passe"
 	},
 	{
-		"msgid" : "APIKeysDialog - Open json file",
+		"msgid" : "APIKeysDialogToolbar - Open json file",
 		"msgstr" : "Ouvrir un fichier sans mot de passe"
 	},
 	{
-		"msgid" : "APIKeysDialog - provider name",
+		"msgid" : "APIKeysDialogKeyControl - provider name",
 		"msgstr" : "Fournisseur"
 	},
 	{
-		"msgid" : "APIKeysDialog - Reload from server",
+		"msgid" : "APIKeysDialogToolbar - Reload from server",
 		"msgstr" : "Recharger les clefs d'accès depuis le serveur web"
 	},
 	{
-		"msgid" : "APIKeysDialog - Save to file",
+		"msgid" : "APIKeysDialogToolbar - Save to file",
 		"msgstr" : "Sauver dans un fichier avec mot de passe"
 	},
 	{
-		"msgid" : "APIKeysDialog - Save to json file",
+		"msgid" : "APIKeysDialogToolbar - Save to json file",
 		"msgstr" : "Sauver dans un fichier SANS mot de passe"
 	},
 	{
@@ -80,31 +76,19 @@
 		"msgstr" : "Rouge"
 	},
 	{
-		"msgid" : "ContextMenu - Close",
+		"msgid" : "BaseContextMenu - Close",
 		"msgstr" : "Fermer"
 	},
 	{
-		"msgid" : "PanesManagerUI - Hide",
-		"msgstr" : "Masquer"
-	},
-	{
-		"msgid" : "PanesManagerUI - Itinerary",
+		"msgid" : "ItineraryPaneUI - Itinerary",
 		"msgstr" : "Itinéraire"
 	},
 	{
-		"msgid" : "PanesManagerUI - Itinerary and notes",
-		"msgstr" : "Itinéraire et notes"
-	},
-	{
-		"msgid" : "PanesManagerUI - Search",
+		"msgid" : "OsmSearchPaneUI - Search",
 		"msgstr" : "Rechercher dans OpenStreetMap"
 	},
 	{
-		"msgid" : "PanesManagerUI - Show",
-		"msgstr" : "Afficher"
-	},
-	{
-		"msgid" : "PanesManagerUI - Travel notes",
+		"msgid" : "TravelNotesPaneUI - Travel notes",
 		"msgstr" : "Notes de voyage"
 	},
 	{
@@ -196,22 +180,6 @@
 		"msgstr" : "Longueur du trajet"
 	},
 	{
-		"msgid" : "RouteHTMLViewsFactory - TransitMode bike",
-		"msgstr" : "un vélo"
-	},
-	{
-		"msgid" : "RouteHTMLViewsFactory - TransitMode car",
-		"msgstr" : "une voiture"
-	},
-	{
-		"msgid" : "RouteHTMLViewsFactory - TransitMode pedestrian",
-		"msgstr" : "un piéton"
-	},
-	{
-		"msgid" : "RouteHTMLViewsFactory - TransitMode train",
-		"msgstr" : "le train"
-	},
-	{
 		"msgid" : "travelHTMLViewsFactory - Travel ascent",
 		"msgstr" : "Montées du voyage"
 	},
@@ -228,20 +196,12 @@
 		"msgstr" : "Réalisé avec "
 	},
 	{
-		"msgid" : "ItineraryPaneUI - Show notes",
+		"msgid" : "ItineraryControlUI - Show notes",
 		"msgstr" : "Notes"
 	},
 	{
-		"msgid" : "ItineraryPaneUI - Show maneuvers",
+		"msgid" : "ItineraryControlUI - Show maneuvers",
 		"msgstr" : "Manœuvres"
-	},
-	{
-		"msgid" : "ManeuverContextMenu - Replace with a maneuver note",
-		"msgstr" : "Remplacer par une note"
-	},
-	{
-		"msgid" : "ManeuverContextMenu - Delete this maneuver",
-		"msgstr" : "Supprimer cette manœuvre"
 	},
 	{
 		"msgid" : "ManeuverContextMenu - Zoom to this maneuver",
@@ -272,11 +232,23 @@
 		"msgstr" : "Sélectionner cet endroit comme point d'arrivée"
 	},
 	{
+		"msgid" : "OsmSearchContextMenu - Select this point as end point",
+		"msgstr" : "Sélectionner cet endroit comme point d'arrivée"
+	},
+	{
 		"msgid" : "MapContextMenu - Select this point as start point",
 		"msgstr" : "Sélectionner cet endroit comme point de départ"
 	},
 	{
+		"msgid" : "OsmSearchContextMenu - Select this point as start point",
+		"msgstr" : "Sélectionner cet endroit comme point de départ"
+	},
+	{
 		"msgid" : "MapContextMenu - Select this point as way point",
+		"msgstr" : "Sélectionner cet endroit comme point intermédiaire"
+	},
+	{
+		"msgid" : "OsmSearchContextMenu - Select this point as way point",
 		"msgstr" : "Sélectionner cet endroit comme point intermédiaire"
 	},
 	{
@@ -292,63 +264,63 @@
 		"msgstr" : "Zoom sur le voyage"
 	},
 	{
-		"msgid" : "MapEditor - Drag and drop to add a waypoint",
+		"msgid" : "EditedRouteMouseOverEL - Drag and drop to add a waypoint",
 		"msgstr" : "Faites glisser et déposez pour ajouter un point de passage ou faites un clic droit pour le menu"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - at the small roundabout on the ground",
+		"msgid" : "StreetFinder - at the small roundabout on the ground",
 		"msgstr" : " au petit rond-point au sol"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Start",
+		"msgid" : "ArrowAndTooltipFinder - Start",
 		"msgstr" : "Départ"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Stop",
+		"msgid" : "ArrowAndTooltipFinder - Stop",
 		"msgstr" : "Arrivée"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Continue",
+		"msgid" : "ArrowAndTooltipFinder - Continue",
 		"msgstr" : "Continuer"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Turn right",
+		"msgid" : "ArrowAndTooltipFinder - Turn right",
 		"msgstr" : "Tourner à droite"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Turn slight right",
+		"msgid" : "ArrowAndTooltipFinder - Turn slight right",
 		"msgstr" : "Tourner légèrement à droite"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Turn slight left",
+		"msgid" : "ArrowAndTooltipFinder - Turn slight left",
 		"msgstr" : "Tourner légèrement à gauche"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Turn left",
+		"msgid" : "ArrowAndTooltipFinder - Turn left",
 		"msgstr" : "Tourner à gauche"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Turn sharp left",
+		"msgid" : "ArrowAndTooltipFinder - Turn sharp left",
 		"msgstr" : "Tourner fortement à gauche"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Turn sharp right",
+		"msgid" : "ArrowAndTooltipFinder - Turn sharp right",
 		"msgstr" : "Tourner fortement à droite"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - rcnRef",
+		"msgid" : "StreetFinder - rcnRef",
 		"msgstr" : " (point-nœud  {rcnRef})"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - entry roundabout",
+		"msgid" : "StreetFinder - entry roundabout",
 		"msgstr" : " pour entrer dans le rond-point"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - exit roundabout",
+		"msgid" : "StreetFinder - exit roundabout",
 		"msgstr" : " pour sortir du rond-point"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - continue roundabout",
+		"msgid" : "StreetFinder - continue roundabout",
 		"msgstr" : " et continuer dans le rond-point"
 	},
 	{
@@ -376,15 +348,15 @@
 		"msgstr" : "Zoom sur cette note"
 	},
 	{
-		"msgid" : "NoteDialog - Address",
+		"msgid" : "NoteDialogAddressControl - Address",
 		"msgstr" : " Adresse :"
 	},
 	{
-		"msgid" : "Notedialog - an error occurs when creating the SVG icon",
+		"msgid" : "IconSelectorChangeEL - an error occurs when creating the SVG icon",
 		"msgstr" : "Une erreur s'est produite lors de la création de l'icône SVG"
 	},
 	{
-		"msgid" : "Notedialog - an error occurs when searching the adress",
+		"msgid" : "NoteDialogGeoCoderHelper - an error occurs when searching the adress",
 		"msgstr" : "Une erreur est survenue en recherchant l'adresse"
 	},
 	{
@@ -392,15 +364,15 @@
 		"msgstr" : "Le contenu de l'icône doit être complété."
 	},
 	{
-		"msgid" : "NoteDialog - Icon height",
+		"msgid" : "NoteDialogIconDimsControl - Icon height",
 		"msgstr" : "Hauteur de l'icône : "
 	},
 	{
-		"msgid" : "NoteDialog - Icon width",
+		"msgid" : "NoteDialogIconDimsControl - Icon width",
 		"msgstr" : "Largeur de l'icône : "
 	},
 	{
-		"msgid" : "NoteDialog - Icon content",
+		"msgid" : "NoteDialogIconControl - Icon content",
 		"msgstr" : "Contenu de l'icône\u00a0:\u00a0"
 	},
 	{
@@ -408,7 +380,11 @@
 		"msgstr" : "Lien non valide"
 	},
 	{
-		"msgid" : "NoteDialog - Link",
+		"msgid" : "UrlInputBlurEL - invalidUrl",
+		"msgstr" : "Lien non valide"
+	},
+	{
+		"msgid" : "NoteDialogLinkControl - Link",
 		"msgstr" : "Lien : "
 	},
 	{
@@ -416,55 +392,47 @@
 		"msgstr" : "Note"
 	},
 	{
-		"msgid" : "NoteDialog - Open a configuration file",
+		"msgid" : "NoteDialogToolbar - Open a configuration file",
 		"msgstr" : "Ouvrir un fichier de configuration"
 	},
 	{
-		"msgid" : "NoteDialog - Phone",
+		"msgid" : "NoteDialogPhoneControl - Phone",
 		"msgstr" : "Téléphone\u00a0:\u00a0"
 	},
 	{
-		"msgid" : "Notedialog - not possible to create a SVG icon for a travel note",
+		"msgid" : "IconSelectorChangeEL - not possible to create a SVG icon for a travel note",
 		"msgstr" : "Il n'est pas possible de créer une icône SVG pour une note de voyage."
 	},
 	{
-		"msgid" : "NoteDialog - Reset address",
+		"msgid" : "NoteDialogAddressControl - Reset address",
 		"msgstr" : "Mettre l'adresse à jour avec Nominatim"
 	},
 	{
-		"msgid" : "NoteDialog - show hidden contents",
+		"msgid" : "NoteDialogToolbar - show hidden contents",
 		"msgstr" : "Afficher ou masquer une partie du dialogue"
 	},
 	{
-		"msgid" : "NoteDialog - Text",
+		"msgid" : "NoteDialogPopupControl - Text",
 		"msgstr" : "Texte\u00a0:\u00a0"
 	},
 	{
-		"msgid" : "NoteDialog - Tooltip content",
+		"msgid" : "NoteDialogTooltipControl - Tooltip content",
 		"msgstr" : "Contenu du tooltip\u00a0:\u00a0"
 	},
 	{
-		"msgid" : "NoteDialog - Invalid phone number",
-		"msgstr" : "Numéro invalide"
-	},
-	{
-		"msgid" : "NoteDialogToolbar - An error was found in the json file",
-		"msgstr" : "Une erreur a été trouvée dans le fichier JSON ({error})"
-	},
-	{
-		"msgid" : "NoteEditor - Add a note for each maneuver",
+		"msgid" : "AllManeuverNotesBuilder - Add a note for each maneuver",
 		"msgstr" : "Ajouter une note pour chaque manœuvre"
 	},
 	{
-		"msgid" : "NoteEditor - Add a note for each maneuver. Are you sure?",
+		"msgid" : "AllManeuverNotesBuilder - Add a note for each maneuver. Are you sure?",
 		"msgstr" : "Vous allez ajouter {noteLength} notes. Cela va consommer beaucoup de ressources sur le serveur OpenStreetMap et prendre du temps. Êtes vous sûr de vouloir continuer?"
 	},
 	{
-		"msgid" : "NoteEditor - Creating note",
+		"msgid" : "AllManeuverNotesBuilder - Creating note",
 		"msgstr" : "Création de la note {noteNumber} de {notesLength}"
 	},
 	{
-		"msgid" : "NoteEditor - max maneuvers notes reached {maneuversLength}{maxManeuversNotes}",
+		"msgid" : "AllManeuverNotesBuilder - max maneuvers notes reached {maneuversLength}{maxManeuversNotes}",
 		"msgstr" : "Vous voulez créer {maneuversLength} notes. Pour des raisons de performance, le nombre de notes est limité à {maxManeuversNotes} pour cette démo. Modifiez votre trajet."
 	},
 	{
@@ -492,24 +460,20 @@
 		"msgstr" : "Zoom sur ce résultat"
 	},
 	{
-		"msgid" : "OsmSearchPaneUI - Search OpenStreetMap",
+		"msgid" : "OsmSearchToolbarUI - Search OpenStreetMap",
 		"msgstr" : "Rechercher dans OpenStreetMap"
 	},
 	{
-		"msgid" : "OsmSearchPaneUI - Expand tree",
+		"msgid" : "OsmSearchToolbarUI - Expand tree",
 		"msgstr" : "Étendre l'arborescence"
 	},
 	{
-		"msgid" : "OsmSearchPaneUI - Collapse tree",
+		"msgid" : "OsmSearchToolbarUI - Collapse tree",
 		"msgstr" : "Réduire l'arborescence"
 	},
 	{
-		"msgid" : "OsmSearchPaneUI - Clear tree",
+		"msgid" : "OsmSearchToolbarUI - Clear tree",
 		"msgstr" : "Tout déselectionner"
-	},
-	{
-		"msgid" : "OsmSearchPaneUI - dictionary name",
-		"msgstr" : "Tout rechercher"
 	},
 	{
 		"msgid" : "PasswordDialog - password",
@@ -539,6 +503,23 @@
 		"msgid" : "PasswordDialog - Password rules6",
 		"msgstr" : "Au moins un caractère spécial"
 	},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	{
 		"msgid" : "PrintPageBuilder - Print",
 		"msgstr" : "Imprimer"

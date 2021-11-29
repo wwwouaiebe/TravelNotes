@@ -209,7 +209,7 @@ class ItineraryControlUI {
 		theHTMLElementsFactory.create (
 			'text',
 			{
-				value : theTranslator.getText ( 'ItineraryPaneUI - Show notes' )
+				value : theTranslator.getText ( 'ItineraryControlUI - Show notes' )
 			},
 			this.#checkBoxesHTMLElement
 		);
@@ -228,7 +228,7 @@ class ItineraryControlUI {
 		theHTMLElementsFactory.create (
 			'text',
 			{
-				value : theTranslator.getText ( 'ItineraryPaneUI - Show maneuvers' )
+				value : theTranslator.getText ( 'ItineraryControlUI - Show maneuvers' )
 			},
 			this.#checkBoxesHTMLElement
 		);

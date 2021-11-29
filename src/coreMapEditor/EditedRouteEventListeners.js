@@ -100,7 +100,7 @@ class EditedRouteMouseOverEL {
 				EditedRouteMouseOverEL.#showDragTooltip <= theConfig.route.showDragTooltip
 			) {
 				EditedRouteMouseOverEL.#showDragTooltip ++;
-				tooltipText = theTranslator.getText ( 'MapEditor - Drag and drop to add a waypoint' ) + ' - ';
+				tooltipText = theTranslator.getText ( 'EditedRouteMouseOverEL - Drag and drop to add a waypoint' ) + ' - ';
 			}
 			tooltipText += route.computedName + ' - ';
 			let distance = theGeometry.getClosestLatLngDistance ( route, [ mapEvent.latlng.lat, mapEvent.latlng.lng ] )

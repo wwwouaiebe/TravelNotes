@@ -128,7 +128,7 @@ class OsmSearchPaneUI extends PaneUI {
 	@type {String}
 	*/
 
-	get buttonText ( ) { return theTranslator.getText ( 'PanesManagerUI - Search' ); }
+	get buttonText ( ) { return theTranslator.getText ( 'OsmSearchPaneUI - Search' ); }
 
 }
 

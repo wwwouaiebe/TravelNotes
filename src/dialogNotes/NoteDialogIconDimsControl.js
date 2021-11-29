@@ -78,7 +78,7 @@ class NoteDialogIconDimsControl {
 		theHTMLElementsFactory.create (
 			'text',
 			{
-				value : theTranslator.getText ( 'NoteDialog - Icon width' )
+				value : theTranslator.getText ( 'NoteDialogIconDimsControl - Icon width' )
 			},
 			this.#iconDimsDiv
 		);
@@ -96,7 +96,7 @@ class NoteDialogIconDimsControl {
 		theHTMLElementsFactory.create (
 			'text',
 			{
-				value : theTranslator.getText ( 'NoteDialog - Icon height' )
+				value : theTranslator.getText ( 'NoteDialogIconDimsControl - Icon height' )
 			},
 			this.#iconDimsDiv
 		);

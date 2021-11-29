@@ -84,7 +84,7 @@ class NoteDialogAddressControl {
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-Button',
-				title : theTranslator.getText ( 'NoteDialog - Reset address' ),
+				title : theTranslator.getText ( 'NoteDialogAddressControl - Reset address' ),
 				textContent : '🔄'
 			},
 			this.#addressHeaderDiv
@@ -93,7 +93,7 @@ class NoteDialogAddressControl {
 		theHTMLElementsFactory.create (
 			'text',
 			{
-				value : theTranslator.getText ( 'NoteDialog - Address' )
+				value : theTranslator.getText ( 'NoteDialogAddressControl - Address' )
 			},
 			this.#addressHeaderDiv
 		);

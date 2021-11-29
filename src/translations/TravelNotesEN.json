@@ -8,19 +8,15 @@
 		"msgstr" : "Cancel"
 	},
 	{
-		"msgid" : "APIKeysDialog - An error occurs when loading the APIKeys file",
-		"msgstr" : "An error occurs when loading the API keys from web server"
-	},
-	{
-		"msgid" : "APIKeysDialog - An error occurs when saving the keys",
+		"msgid" : "DataEncryptorHandlers - An error occurs when saving the keys",
 		"msgstr" : "An error occurs when saving the API keys"
 	},
 	{
-		"msgid" : "APIKeysDialog - An error occurs when reading the file",
+		"msgid" : "DataEncryptorHandlers - An error occurs when reading the file",
 		"msgstr" : "An error occurs when reading the file"
 	},
 	{
-		"msgid" : "APIKeysDialog - API key",
+		"msgid" : "APIKeysDialogKeyControl - API key",
 		"msgstr" : "API key"
 	},
 	{
@@ -28,7 +24,7 @@
 		"msgstr" : "API keys"
 	},
 	{
-		"msgid" : "APIKeysDialog - delete API key",
+		"msgid" : "APIKeysDialogKeyControl - delete API key",
 		"msgstr" : "delete API key"
 	},
 	{
@@ -36,31 +32,31 @@
 		"msgstr" : "empty API key name or value"
 	},
 	{
-		"msgid" : "APIKeysDialog - new API key",
+		"msgid" : "APIKeysDialogToolbar - new API key",
 		"msgstr" : "new API key"
 	},
 	{
-		"msgid" : "APIKeysDialog - Open file",
+		"msgid" : "APIKeysDialogToolbar - Open file",
 		"msgstr" : "Open a file with password"
 	},
 	{
-		"msgid" : "APIKeysDialog - Open json file",
+		"msgid" : "APIKeysDialogToolbar - Open json file",
 		"msgstr" : "Open a file without password"
 	},
 	{
-		"msgid" : "APIKeysDialog - provider name",
+		"msgid" : "APIKeysDialogKeyControl - provider name",
 		"msgstr" : "Provider name"
 	},
 	{
-		"msgid" : "APIKeysDialog - Reload from server",
+		"msgid" : "APIKeysDialogToolbar - Reload from server",
 		"msgstr" : "Reload the API keys from web server"
 	},
 	{
-		"msgid" : "APIKeysDialog - Save to file",
+		"msgid" : "APIKeysDialogToolbar - Save to file",
 		"msgstr" : "Save to file with password"
 	},
 	{
-		"msgid" : "APIKeysDialog - Save to json file",
+		"msgid" : "APIKeysDialogToolbar - Save to json file",
 		"msgstr" : "Save to file WITHOUT password"
 	},
 	{
@@ -80,31 +76,19 @@
 		"msgstr" : "Red"
 	},
 	{
-		"msgid" : "ContextMenu - Close",
+		"msgid" : "BaseContextMenu - Close",
 		"msgstr" : "Close"
 	},
 	{
-		"msgid" : "PanesManagerUI - Hide",
-		"msgstr" : "Hide"
-	},
-	{
-		"msgid" : "PanesManagerUI - Itinerary",
+		"msgid" : "ItineraryPaneUI - Itinerary",
 		"msgstr" : "Itinerary"
 	},
 	{
-		"msgid" : "PanesManagerUI - Itinerary and notes",
-		"msgstr" : "Itinerary and notes"
-	},
-	{
-		"msgid" : "PanesManagerUI - Search",
+		"msgid" : "OsmSearchPaneUI - Search",
 		"msgstr" : "Search OpenStreetMap"
 	},
 	{
-		"msgid" : "PanesManagerUI - Show",
-		"msgstr" : "Show"
-	},
-	{
-		"msgid" : "PanesManagerUI - Travel notes",
+		"msgid" : "TravelNotesPaneUI - Travel notes",
 		"msgstr" : "Travel notes"
 	},
 	{
@@ -196,22 +180,6 @@
 		"msgstr" : "Route distance"
 	},
 	{
-		"msgid" : "RouteHTMLViewsFactory - TransitMode bike",
-		"msgstr" : "a bike"
-	},
-	{
-		"msgid" : "RouteHTMLViewsFactory - TransitMode car",
-		"msgstr" : "a car"
-	},
-	{
-		"msgid" : "RouteHTMLViewsFactory - TransitMode pedestrian",
-		"msgstr" : "a pedestrian"
-	},
-	{
-		"msgid" : "RouteHTMLViewsFactory - TransitMode train",
-		"msgstr" : "the train"
-	},
-	{
 		"msgid" : "travelHTMLViewsFactory - Travel ascent",
 		"msgstr" : "Travel ascent"
 	},
@@ -228,20 +196,12 @@
 		"msgstr" : "Done with "
 	},
 	{
-		"msgid" : "ItineraryPaneUI - Show notes",
+		"msgid" : "ItineraryControlUI - Show notes",
 		"msgstr" : "Notes"
 	},
 	{
-		"msgid" : "ItineraryPaneUI - Show maneuvers",
+		"msgid" : "ItineraryControlUI - Show maneuvers",
 		"msgstr" : "Maneuvers"
-	},
-	{
-		"msgid" : "ManeuverContextMenu - Replace with a maneuver note",
-		"msgstr" : "Replace with a maneuver note"
-	},
-	{
-		"msgid" : "ManeuverContextMenu - Delete this maneuver",
-		"msgstr" : "Delete this maneuver"
 	},
 	{
 		"msgid" : "ManeuverContextMenu - Zoom to this maneuver",
@@ -272,11 +232,23 @@
 		"msgstr" : "Select this point as end point"
 	},
 	{
+		"msgid" : "OsmSearchContextMenu - Select this point as end point",
+		"msgstr" : "Select this point as end point"
+	},
+	{
 		"msgid" : "MapContextMenu - Select this point as start point",
 		"msgstr" : "Select this point as start point"
 	},
 	{
+		"msgid" : "OsmSearchContextMenu - Select this point as start point",
+		"msgstr" : "Select this point as start point"
+	},
+	{
 		"msgid" : "MapContextMenu - Select this point as way point",
+		"msgstr" : "Select this point as waypoint"
+	},
+	{
+		"msgid" : "OsmSearchContextMenu - Select this point as way point",
 		"msgstr" : "Select this point as waypoint"
 	},
 	{
@@ -292,63 +264,63 @@
 		"msgstr" : "Zoom to travel"
 	},
 	{
-		"msgid" : "MapEditor - Drag and drop to add a waypoint",
+		"msgid" : "EditedRouteMouseOverEL - Drag and drop to add a waypoint",
 		"msgstr" : "Drag and drop to add a waypoint or right click for the menu"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - at the small roundabout on the ground",
+		"msgid" : "StreetFinder - at the small roundabout on the ground",
 		"msgstr" : " at the small roundabout on the ground"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Start",
+		"msgid" : "ArrowAndTooltipFinder - Start",
 		"msgstr" : "Start"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Stop",
+		"msgid" : "ArrowAndTooltipFinder - Stop",
 		"msgstr" : "End"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Continue",
+		"msgid" : "ArrowAndTooltipFinder - Continue",
 		"msgstr" : "Continue"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Turn right",
+		"msgid" : "ArrowAndTooltipFinder - Turn right",
 		"msgstr" : "Turn right"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Turn slight right",
+		"msgid" : "ArrowAndTooltipFinder - Turn slight right",
 		"msgstr" : "Turn slight right"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Turn slight left",
+		"msgid" : "ArrowAndTooltipFinder - Turn slight left",
 		"msgstr" : "Turn slight left"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Turn left",
+		"msgid" : "ArrowAndTooltipFinder - Turn left",
 		"msgstr" : "Turn left"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Turn sharp left",
+		"msgid" : "ArrowAndTooltipFinder - Turn sharp left",
 		"msgstr" : "Turn sharp left"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Turn sharp right",
+		"msgid" : "ArrowAndTooltipFinder - Turn sharp right",
 		"msgstr" : "Turn sharp right"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - rcnRef",
+		"msgid" : "StreetFinder - rcnRef",
 		"msgstr" : " (node-point {rcnRef})"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - entry roundabout",
+		"msgid" : "StreetFinder - entry roundabout",
 		"msgstr" : " to enter the roundabout"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - exit roundabout",
+		"msgid" : "StreetFinder - exit roundabout",
 		"msgstr" : " to exit the roundabout"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - continue roundabout",
+		"msgid" : "StreetFinder - continue roundabout",
 		"msgstr" : " and continue in the roundabout"
 	},
 	{
@@ -376,15 +348,15 @@
 		"msgstr" : "Zoom to note"
 	},
 	{
-		"msgid" : "NoteDialog - Address",
+		"msgid" : "NoteDialogAddressControl - Address",
 		"msgstr" : "Address :"
 	},
 	{
-		"msgid" : "Notedialog - an error occurs when creating the SVG icon",
+		"msgid" : "IconSelectorChangeEL - an error occurs when creating the SVG icon",
 		"msgstr" : "An error occurs when creating the SVG icon"
 	},
 	{
-		"msgid" : "Notedialog - an error occurs when searching the adress",
+		"msgid" : "NoteDialogGeoCoderHelper - an error occurs when searching the adress",
 		"msgstr" : "An error occurs when searching the adress"
 	},
 	{
@@ -392,15 +364,15 @@
 		"msgstr" : "The icon content cannot be empty."
 	},
 	{
-		"msgid" : "NoteDialog - Icon height",
+		"msgid" : "NoteDialogIconDimsControl - Icon height",
 		"msgstr" : "Icon height : "
 	},
 	{
-		"msgid" : "NoteDialog - Icon width",
+		"msgid" : "NoteDialogIconDimsControl - Icon width",
 		"msgstr" : "Icon width : "
 	},
 	{
-		"msgid" : "NoteDialog - Icon content",
+		"msgid" : "NoteDialogIconControl - Icon content",
 		"msgstr" : "Icon content\u00A0:\u00A0"
 	},
 	{
@@ -408,7 +380,11 @@
 		"msgstr" : "Invalid link"
 	},
 	{
-		"msgid" : "NoteDialog - Link",
+		"msgid" : "UrlInputBlurEL - invalidUrl",
+		"msgstr" : "Invalid link"
+	},
+	{
+		"msgid" : "NoteDialogLinkControl - Link",
 		"msgstr" : "Link : "
 	},
 	{
@@ -416,55 +392,47 @@
 		"msgstr" : "Note"
 	},
 	{
-		"msgid" : "NoteDialog - Open a configuration file",
+		"msgid" : "NoteDialogToolbar - Open a configuration file",
 		"msgstr" : "Open a configuration file"
 	},
 	{
-		"msgid" : "NoteDialog - Phone",
+		"msgid" : "NoteDialogPhoneControl - Phone",
 		"msgstr" : "Phone\u00A0:\u00A0"
 	},
 	{
-		"msgid" : "Notedialog - not possible to create a SVG icon for a travel note",
+		"msgid" : "IconSelectorChangeEL - not possible to create a SVG icon for a travel note",
 		"msgstr" : "It's impossible to create a SVG icon for a travel note"
 	},
 	{
-		"msgid" : "NoteDialog - Reset address",
+		"msgid" : "NoteDialogAddressControl - Reset address",
 		"msgstr" : "Update the address with Nominatim"
 	},
 	{
-		"msgid" : "NoteDialog - show hidden contents",
+		"msgid" : "NoteDialogToolbar - show hidden contents",
 		"msgstr" : "Show or hide some parts of the dialog"
 	},
 	{
-		"msgid" : "NoteDialog - Text",
+		"msgid" : "NoteDialogPopupControl - Text",
 		"msgstr" : "Text\u00A0:\u00A0"
 	},
 	{
-		"msgid" : "NoteDialog - Tooltip content",
+		"msgid" : "NoteDialogTooltipControl - Tooltip content",
 		"msgstr" : "Tooltip content\u00A0:\u00A0"
 	},
 	{
-		"msgid" : "NoteDialog - Invalid phone number",
-		"msgstr" : "Invalid number"
-	},
-	{
-		"msgid" : "NoteDialogToolbar - An error was found in the json file",
-		"msgstr" : "An error was found in the JSON file ({error})"
-	},
-	{
-		"msgid" : "NoteEditor - Add a note for each maneuver",
+		"msgid" : "AllManeuverNotesBuilder - Add a note for each maneuver",
 		"msgstr" : "Add a note for each maneuver"
 	},
 	{
-		"msgid" : "NoteEditor - Add a note for each maneuver. Are you sure?",
+		"msgid" : "AllManeuverNotesBuilder - Add a note for each maneuver. Are you sure?",
 		"msgstr" : "You'll add {noteLength} notes. This will consume a lot of resources on the OpenStreetMap server and take time. Are you sure you want to continue?"
 	},
 	{
-		"msgid" : "NoteEditor - Creating note",
+		"msgid" : "AllManeuverNotesBuilder - Creating note",
 		"msgstr" : "Creating note {noteNumber} of {notesLength}"
 	},
 	{
-		"msgid" : "NoteEditor - max maneuvers notes reached {maneuversLength}{maxManeuversNotes}",
+		"msgid" : "AllManeuverNotesBuilder - max maneuvers notes reached {maneuversLength}{maxManeuversNotes}",
 		"msgstr" : "You want to create {maneuversLength} notes. For performance reasons, the number of notes is limited to {maxManeuversNotes} for the demo. Change your route."
 	},
 	{
@@ -492,24 +460,20 @@
 		"msgstr" : "Zoom to this result"
 	},
 	{
-		"msgid" : "OsmSearchPaneUI - Search OpenStreetMap",
+		"msgid" : "OsmSearchToolbarUI - Search OpenStreetMap",
 		"msgstr" : "Search OpenStreetMap"
 	},
 	{
-		"msgid" : "OsmSearchPaneUI - Expand tree",
+		"msgid" : "OsmSearchToolbarUI - Expand tree",
 		"msgstr" : "Expand the tree"
 	},
 	{
-		"msgid" : "OsmSearchPaneUI - Collapse tree",
+		"msgid" : "OsmSearchToolbarUI - Collapse tree",
 		"msgstr" : "Collapse the tree"
 	},
 	{
-		"msgid" : "OsmSearchPaneUI - Clear tree",
+		"msgid" : "OsmSearchToolbarUI - Clear tree",
 		"msgstr" : "Unselect all"
-	},
-	{
-		"msgid" : "OsmSearchPaneUI - dictionary name",
-		"msgstr" : "Search all"
 	},
 	{
 		"msgid" : "PasswordDialog - password",
@@ -539,6 +503,23 @@
 		"msgid" : "PasswordDialog - Password rules6",
 		"msgstr" : "At least one special character"
 	},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	{
 		"msgid" : "PrintPageBuilder - Print",
 		"msgstr" : "Print"
