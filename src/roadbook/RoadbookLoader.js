@@ -340,13 +340,13 @@ class RoadbookLoader {
 
 	#translatePage ( ) {
 		document.getElementById ( 'TravelNotes-Travel-ShowNotesLabel' ).textContent =
-		theTranslator.getText ( 'Roadbook - show travel notes' );
+		theTranslator.getText ( 'RoadbookLoader - show travel notes' );
 		document.getElementById ( 'TravelNotes-Routes-ShowManeuversLabel' ).textContent =
-		theTranslator.getText ( 'Roadbook - show maneuver' );
+		theTranslator.getText ( 'RoadbookLoader - show maneuver' );
 		document.getElementById ( 'TravelNotes-Routes-ShowNotesLabel' ).textContent =
-		theTranslator.getText ( 'Roadbook - show routes notes' );
+		theTranslator.getText ( 'RoadbookLoader - show routes notes' );
 		if ( this.#saveButton ) {
-			this.#saveButton.textContent = theTranslator.getText ( 'Roadbook - Save' );
+			this.#saveButton.textContent = theTranslator.getText ( 'RoadbookLoader - Save' );
 		}
 	}
 

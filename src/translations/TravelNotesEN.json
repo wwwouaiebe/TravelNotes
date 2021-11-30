@@ -503,23 +503,6 @@
 		"msgid" : "PasswordDialog - Password rules6",
 		"msgstr" : "At least one special character"
 	},
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	{
 		"msgid" : "PrintPageBuilder - Print",
 		"msgstr" : "Print"
@@ -581,43 +564,19 @@
 		"msgstr" : "Profile {name}"
 	},
 	{
-		"msgid" : "ProvidersToolbarUI - bike",
-		"msgstr" : "Cycling route"
-	},
-	{
-		"msgid" : "ProvidersToolbarUI - pedestrian",
-		"msgstr" : "Walking route"
-	},
-	{
-		"msgid" : "ProvidersToolbarUI - car",
-		"msgstr" : "Car route"
-	},
-	{
-		"msgid" : "ProvidersToolbarUI - train",
-		"msgstr" : "Train route"
-	},
-	{
-		"msgid" : "ProvidersToolbarUI - line",
-		"msgstr" : "Directions as the crow flies"
-	},
-	{
-		"msgid" : "ProvidersToolbarUI - circle",
-		"msgstr" : "Circle"
-	},
-	{
-		"msgid" : "Roadbook - show travel notes",
+		"msgid" : "RoadbookLoader - show travel notes",
 		"msgstr" : "Show travel notes"
 	},
 	{
-		"msgid" : "Roadbook - show maneuver",
+		"msgid" : "RoadbookLoader - show maneuver",
 		"msgstr" : "Show maneuver"
 	},
 	{
-		"msgid" : "Roadbook - show routes notes",
+		"msgid" : "RoadbookLoader - show routes notes",
 		"msgstr" : "Show routes notes"
 	},
 	{
-		"msgid" : "Roadbook - Save",
+		"msgid" : "RoadbookLoader - Save",
 		"msgstr" : "Save"
 	},
 	{
@@ -741,7 +700,11 @@
 		"msgstr" : "This page ask to close; data are perhaps not saved."
 	},
 	{
-		"msgid" : "TravelUI - Cancel travel",
+		"msgid" : "OpenButtonClickEL - This page ask to close; data are perhaps not saved.",
+		"msgstr" : "This page ask to close; data are perhaps not saved."
+	},
+	{
+		"msgid" : "TravelToolbarUI - Cancel travel",
 		"msgstr" : "Cancel travel"
 	},
 	{
@@ -749,7 +712,7 @@
 		"msgstr" : "Hide"
 	},
 	{
-		"msgid" : "TravelUI - Import travel",
+		"msgid" : "TravelToolbarUI - Import travel",
 		"msgstr" : "Import routes and notes from another travel"
 	},
 	{
@@ -757,27 +720,23 @@
 		"msgstr" : "Add a route"
 	},
 	{
-		"msgid" : "TravelUI - Not possible to merge a travel when a route is edited",
+		"msgid" : "TravelToolbarUI - Not possible to merge a travel when a route is edited",
 		"msgstr" : "Not possible to merge a travel when a route is edited"
 	},
 	{
-		"msgid" : "TravelUI - Open travel",
+		"msgid" : "TravelToolbarUI - Open travel",
 		"msgstr" : "Open a file"
 	},
 	{
-		"msgid" : "TravelUI - Open travel roadbook",
+		"msgid" : "TravelToolbarUI - Open travel roadbook",
 		"msgstr" : "Open the roadbook"
 	},
 	{
-		"msgid" : "TravelUI - Route",
-		"msgstr" : "Route"
-	},
-	{
-		"msgid" : "TravelUI - Save as travel",
+		"msgid" : "TravelToolbarUI - Save as travel",
 		"msgstr" : "☢️ Partial save ☢️"
 	},
 	{
-		"msgid" : "TravelUI - Save travel",
+		"msgid" : "TravelToolbarUI - Save travel",
 		"msgstr" : "Save the travel in a file"
 	},
 	{

@@ -202,7 +202,7 @@ class OpenButtonClickEL {
 			&&
 			(
 				! window.confirm (
-					theTranslator.getText ( 'TravelEditor - This page ask to close; data are perhaps not saved.' )
+					theTranslator.getText ( 'OpenButtonClickEL - This page ask to close; data are perhaps not saved.' )
 				)
 			)
 		) {
@@ -292,7 +292,7 @@ class ImportButtonClickEL {
 		}
 		else {
 			theErrorsUI.showError (
-				theTranslator.getText ( 'TravelUI - Not possible to merge a travel when a route is edited' )
+				theTranslator.getText ( 'TravelToolbarUI - Not possible to merge a travel when a route is edited' )
 			);
 		}
 	}
@@ -322,7 +322,7 @@ class TravelToolbarUI {
 			'div',
 			{
 				className : 'TravelNotes-UI-Button TravelNotes-TravelUI-SaveAsButton',
-				title : theTranslator.getText ( 'TravelUI - Save as travel' ),
+				title : theTranslator.getText ( 'TravelToolbarUI - Save as travel' ),
 				textContent : '💾'
 			},
 			this.#buttonsDiv
@@ -339,7 +339,7 @@ class TravelToolbarUI {
 			'div',
 			{
 				className : 'TravelNotes-UI-Button',
-				title : theTranslator.getText ( 'TravelUI - Cancel travel' ),
+				title : theTranslator.getText ( 'TravelToolbarUI - Cancel travel' ),
 				textContent : '❌'
 			},
 			this.#buttonsDiv
@@ -356,7 +356,7 @@ class TravelToolbarUI {
 			'div',
 			{
 				className : 'TravelNotes-UI-Button',
-				title : theTranslator.getText ( 'TravelUI - Save travel' ),
+				title : theTranslator.getText ( 'TravelToolbarUI - Save travel' ),
 				textContent : '💾'
 			},
 			this.#buttonsDiv
@@ -374,7 +374,7 @@ class TravelToolbarUI {
 			'div',
 			{
 				className : 'TravelNotes-UI-Button',
-				title : theTranslator.getText ( 'TravelUI - Open travel' ),
+				title : theTranslator.getText ( 'TravelToolbarUI - Open travel' ),
 				textContent : '📂'
 			},
 			this.#buttonsDiv
@@ -391,7 +391,7 @@ class TravelToolbarUI {
 			'div',
 			{
 				className : 'TravelNotes-UI-Button',
-				title : theTranslator.getText ( 'TravelUI - Import travel' ),
+				title : theTranslator.getText ( 'TravelToolbarUI - Import travel' ),
 				textContent : '🌏'
 			},
 			this.#buttonsDiv
@@ -423,7 +423,7 @@ class TravelToolbarUI {
 					'div',
 					{
 						className : 'TravelNotes-UI-Button',
-						title : theTranslator.getText ( 'TravelUI - Open travel roadbook' )
+						title : theTranslator.getText ( 'TravelToolbarUI - Open travel roadbook' )
 					},
 					this.#buttonsDiv
 				)
