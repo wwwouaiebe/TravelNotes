@@ -29,6 +29,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.2.0:
+		- Issue ♯4 : Line type and line width for routes are not adapted on the print views
 Doc reviewed 20210914
 Tests ...
 */
@@ -43,7 +45,7 @@ import theNoteHTMLViewsFactory from '../viewsFactories/NoteHTMLViewsFactory.js';
 import { RouteMouseOverOrMoveEL } from '../coreMapEditor/RouteEventListeners.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
-import { GEOLOCATION_STATUS, ROUTE_EDITION_STATUS, ZERO, ONE, TWO } from '../main/Constants.js';
+import { GEOLOCATION_STATUS, ROUTE_EDITION_STATUS, ZERO, TWO } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -205,7 +207,7 @@ class MapEditorViewer {
 			{
 				color : route.color,
 				weight : route.width,
-				dashArray : this.getDashArray ( route )
+				dashArray : route.dashString
 			}
 		);
 		this.addToMap ( route.objId, polyline );
@@ -327,30 +329,6 @@ class MapEditorViewer {
 			);
 		}
 		return new NoteLeafletObjects ( marker, polyline, bullet );
-	}
-
-	/**
-	This method compute the dashArray to use for a route
-	@param {Route} route The route for witch the dashArray must be computed
-	@return {String} the dashArray to use for the route
-	*/
-
-	getDashArray ( route ) {
-		if ( route.dashArray >= theConfig.route.dashChoices.length ) {
-			route.dashArray = ZERO;
-		}
-		const iDashArray = theConfig.route.dashChoices [ route.dashArray ].iDashArray;
-		if ( iDashArray ) {
-			let dashArray = '';
-			let dashCounter = ZERO;
-			for ( dashCounter = ZERO; dashCounter < iDashArray.length - ONE; dashCounter ++ ) {
-				dashArray += ( iDashArray [ dashCounter ] * route.width ) + ',';
-			}
-			dashArray += iDashArray [ dashCounter ] * route.width;
-
-			return dashArray;
-		}
-		return null;
 	}
 
 	/**

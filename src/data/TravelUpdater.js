@@ -22,6 +22,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.2.0:
+		- Issue ♯4 : Line type and line width for routes are not adapted on the print views
 Doc reviewed ...
 Tests ...
 */
@@ -223,6 +225,15 @@ class TravelUpdater {
 		this.#updateWayPointsV_1_11_0 ( this.#jsonTravel.editedRoute );
 	}
 
+	#updateRouteV_2_3_0 ( ) {
+		this.#jsonTravel.routes.forEach (
+			route => {
+				route.dashIndex = route.dashArray;
+			}
+		);
+		this.#jsonTravel.editedRoute.dashIndex = this.#jsonTravel.editedRoute.dashArray;
+	}
+
 	/**
 	Update a note style when version is v1.13.0
 	@param {String} somethingText A text containing HTML with style attributes
@@ -318,8 +329,11 @@ class TravelUpdater {
 		case '2.0.0' :
 		case '2.1.0' :
 		case '2.2.0' :
-			this.#jsonTravel.objType.version = '2.3.0';
+		case '2.3.0' :
+			this.#updateRouteV_2_3_0 ( );
+			this.#jsonTravel.objType.version = '2.4.0';
 			break;
+
 		default :
 			throw new Error ( 'invalid version for travel' );
 		}

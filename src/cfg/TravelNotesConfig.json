@@ -193,7 +193,7 @@
 	"route":
 	{
 		"color":"#ff0000",
-		"dashArray": 0,
+		"dashIndex": 0,
 		"dashChoices": [
 			{ 
 				"text":"——————",

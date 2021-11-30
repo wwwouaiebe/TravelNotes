@@ -39,6 +39,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.2.0:
+		- Issue ♯4 : Line type and line width for routes are not adapted on the print views
 Doc reviewed 20210913
 Tests ...
 */
@@ -238,7 +240,7 @@ const theConfig = {
 	},
 	route : {
 		color : '\u0023ff0000',
-		dashArray : 0,
+		dashIndex : 0,
 		dashChoices : [
 			{
 				text : '——————',

@@ -36,6 +36,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.2.0:
+		- Issue ♯4 : Line type and line width for routes are not adapted on the print views
 Doc reviewed 20210913
 Tests ...
 */
@@ -49,7 +51,7 @@ import Itinerary from '../data/Itinerary.js';
 import Note from '../data/Note.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import TravelObject from '../data/TravelObject.js';
-import { ROUTE_EDITION_STATUS, DISTANCE, ZERO, INVALID_OBJ_ID, LAT_LNG } from '../main/Constants.js';
+import { ROUTE_EDITION_STATUS, DISTANCE, ZERO, ONE, INVALID_OBJ_ID, LAT_LNG } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -73,7 +75,7 @@ class Route extends TravelObject {
 			'itinerary',
 			'width',
 			'color',
-			'dashArray',
+			'dashIndex',
 			'chain',
 			'chainedDistance',
 			'distance',
@@ -133,7 +135,7 @@ class Route extends TravelObject {
 	@type {Number}
 	*/
 
-	#dashArray = theConfig.route.dashArray;
+	#dashIndex = theConfig.route.dashIndex;
 
 	/**
 	boolean indicates if the route is chained
@@ -263,20 +265,33 @@ class Route extends TravelObject {
 	}
 
 	/**
-	the dash of the Leaflet polyline used to represent the Route on the map.
-	It's the index of the dash in the array Config.route.dashChoices
+	The index of the dash in the array Config.route.dashChoices
 	@type {Number}
 	*/
 
-	get dashArray ( ) { return this.#dashArray; }
+	get dashIndex ( ) { return this.#dashIndex; }
 
-	set dashArray ( dashArray ) {
-		this.#dashArray =
-			'number' === typeof ( dashArray ) && theConfig.route.dashChoices [ dashArray ]
+	set dashIndex ( dashIndex ) {
+		this.#dashIndex =
+			'number' === typeof ( dashIndex ) && theConfig.route.dashChoices [ dashIndex ]
 				?
-				dashArray
+				dashIndex
 				:
 				ZERO;
+	}
+
+	/**
+	The string used by Leaflet for the dash to display the route
+	@return {String} The string to use for the leaflet polyline
+	*/
+
+	get dashString ( ) {
+		let dashString = '';
+		theConfig.route.dashChoices [ this.#dashIndex ].iDashArray.forEach (
+			iDash => dashString += String ( iDash * this.#width ) + ','
+		);
+
+		return dashString.substr ( ZERO, dashString.length - ONE );
 	}
 
 	/**
@@ -417,7 +432,7 @@ class Route extends TravelObject {
 			itinerary : this.itinerary.jsonObject,
 			width : this.width,
 			color : this.color,
-			dashArray : this.dashArray,
+			dashIndex : this.dashIndex,
 			chain : this.chain,
 			distance : parseFloat ( this.distance.toFixed ( DISTANCE.fixed ) ),
 			duration : this.duration,
@@ -437,7 +452,7 @@ class Route extends TravelObject {
 		this.itinerary.jsonObject = otherthing.itinerary;
 		this.width = otherthing.width;
 		this.color = otherthing.color;
-		this.dashArray = otherthing.dashArray;
+		this.dashIndex = otherthing.dashIndex;
 		this.chain = otherthing.chain;
 		this.distance = otherthing.distance;
 		this.duration = otherthing.duration;
