@@ -282,7 +282,7 @@ class Route extends TravelObject {
 
 	/**
 	The string used by Leaflet for the dash to display the route
-	@return {String} The string to use for the leaflet polyline
+	@type {String}
 	*/
 
 	get dashString ( ) {

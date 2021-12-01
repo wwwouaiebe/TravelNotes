@@ -225,6 +225,10 @@ class TravelUpdater {
 		this.#updateWayPointsV_1_11_0 ( this.#jsonTravel.editedRoute );
 	}
 
+	/**
+	Update the routes when version is v2.3.0
+	*/
+
 	#updateRouteV_2_3_0 ( ) {
 		this.#jsonTravel.routes.forEach (
 			route => {
