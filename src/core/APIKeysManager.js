@@ -30,6 +30,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.2.0:
+		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
 Doc reviewed 20210914
 Tests 20210903
 
@@ -247,7 +249,7 @@ class APIKeysManager {
 		}
 
 		// otherwise searching on the server
-		fetch ( window.location.href.substr ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'APIKeys' )
+		fetch ( window.location.href.substring ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'APIKeys' )
 			.then (
 				response => {
 					if ( HTTP_STATUS_OK === response.status && response.ok ) {

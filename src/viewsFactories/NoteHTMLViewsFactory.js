@@ -22,6 +22,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.2.0:
+		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
 Doc reviewed 20210915
 Tests ...
 */
@@ -174,7 +176,7 @@ class NoteHTMLViewsFactory {
 					'</span><a href=' +
 					note.url +
 					' target="_blank" >' +
-					note.url.substr ( ZERO, NoteHTMLViewsFactory.#LINKS_MAX_LENGTH ) +
+					note.url.substring ( ZERO, NoteHTMLViewsFactory.#LINKS_MAX_LENGTH ) +
 					'...</a>',
 				theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'NoteHtml-Url' }, noteHTMLElement )
 			);

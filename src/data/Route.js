@@ -38,6 +38,7 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v3.2.0:
 		- Issue ♯4 : Line type and line width for routes are not adapted on the print views
+		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
 Doc reviewed 20210913
 Tests ...
 */
@@ -291,7 +292,7 @@ class Route extends TravelObject {
 			iDash => dashString += String ( iDash * this.#width ) + ','
 		);
 
-		return dashString.substr ( ZERO, dashString.length - ONE );
+		return dashString.substring ( ZERO, dashString.length - ONE );
 	}
 
 	/**

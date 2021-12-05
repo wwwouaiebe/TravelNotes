@@ -22,6 +22,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.2.0:
+		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
 Doc reviewed 20210914
 Tests ...
 */
@@ -143,13 +145,13 @@ class Color {
 	set cssColor ( cssColor ) {
 		if ( '\u0023' === cssColor [ ZERO ] ) {
 			// eslint-disable-next-line no-magic-numbers
-			this.#red = Number.parseInt ( cssColor.substr ( 1, 2 ), HEXADECIMAL );
+			this.#red = Number.parseInt ( cssColor.substring ( 1, 3 ), HEXADECIMAL );
 			// eslint-disable-next-line no-magic-numbers
-			this.#green = Number.parseInt ( cssColor.substr ( 3, 2 ), HEXADECIMAL );
+			this.#green = Number.parseInt ( cssColor.substring ( 3, 5 ), HEXADECIMAL );
 			// eslint-disable-next-line no-magic-numbers
-			this.#blue = Number.parseInt ( cssColor.substr ( 5, 2 ), HEXADECIMAL );
+			this.#blue = Number.parseInt ( cssColor.substring ( 5, 7 ), HEXADECIMAL );
 		}
-		else if ( 'rgb' === cssColor.substr ( ZERO, THREE ) ) {
+		else if ( 'rgb' === cssColor.substring ( ZERO, THREE ) ) {
 			[ this.#red, this.#green, this.#blue ] =
 				Array.from ( cssColor.match ( /[0-9]{1,3}/g ), value => Number.parseInt ( value ) );
 		}

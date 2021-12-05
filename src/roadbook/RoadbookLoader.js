@@ -22,6 +22,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.2.0:
+		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
 Doc reviewed 20210915
 Tests ...
 */
@@ -309,7 +311,7 @@ class RoadbookLoader {
 
 	#loadTranslations ( ) {
 		fetch (
-			window.location.href.substr ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) +
+			window.location.href.substring ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) +
 			'TravelNotes' +
 			this.#language.toUpperCase ( ) +
 			'.json'
