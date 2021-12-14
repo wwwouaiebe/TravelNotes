@@ -377,9 +377,8 @@ class GpxParser {
 			Boolean (
 				this.#gpxDocument.querySelector ( 'gpx' )
 					.getAttributeNS ( null, 'creator' )
-					.match ( /fietsnet/g )
+					.match ( /fietsnet|knooppuntnet/g )
 			);
-
 		this.#travel = new Travel ( );
 		this.#travel.routes.remove ( this.#travel.routes.first.objId );
 		const trkNodes = this.#gpxDocument.querySelectorAll ( 'trk' );
