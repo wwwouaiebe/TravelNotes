@@ -346,10 +346,10 @@ class GpxParser {
 					) {
 
 						// 2 maneuvers on the same itineraryPoint. We skip the first maneuver
-						maneuverIterator.done;
+						maneuverDone = maneuverIterator.done;
 						maneuverIterator.value.distance = DISTANCE.defaultValue;
 					}
-					maneuverIterator.done;
+					maneuverDone = maneuverIterator.done;
 
 				}
 			}
