@@ -144,10 +144,10 @@ class APIKeysManager {
 	*/
 
 	#setAPIKeysFromSessionStorage ( ) {
-		if ( ! theUtilities.storageAvailable ( 'session' ) ){
+		if ( ! theUtilities.storageAvailable ( 'session' ) ) {
 			return ZERO;
 		}
-		
+
 		let APIKeysCounter = ZERO;
 		for ( let counter = ZERO; counter < sessionStorage.length; counter ++ ) {
 			const keyName = sessionStorage.key ( counter );

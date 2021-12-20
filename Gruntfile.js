@@ -367,7 +367,12 @@ module.exports = function(grunt) {
 					{ expand: true, cwd: 'node_modules/osrm-text-instructions/languages/translations/', src: ['fr.json', 'en.json'], dest: 'docs/demo/TravelNotesProviders/languages/instructions/' },
 					{ expand: true, cwd: 'node_modules/osrm-text-instructions/languages/grammar/', src: ['fr.json'], dest: 'docs/demo/TravelNotesProviders/languages/grammars/' },
 					{ expand: true, cwd: 'node_modules/leaflet/dist/', src: ['leaflet.js', 'leaflet.css' ], dest: 'docs/demo/leaflet/' },
-					{ expand: true, cwd: 'node_modules/leaflet/dist/images/', src: ['*.png' ], dest: 'docs/demo/leaflet/images/' }
+					{ expand: true, cwd: 'node_modules/leaflet/dist/images/', src: ['*.png' ], dest: 'docs/demo/leaflet/images/' },
+					
+					// README.md
+					
+					{ expand: true, cwd: 'TravelNotesGuides', src: ['README.md' ], dest: '' }
+					
 					
 				]
 			},
