@@ -147,11 +147,11 @@ class OpenInputChangeEL {
 
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
+		const fileExtension = changeEvent.target.files [ ZERO ].name.split ( '.' ).pop ( ).toLowerCase ( );
 		const fileReader = new FileReader ( );
 		fileReader.onload = ( ) => {
-			try {
-				const fileExtension = changeEvent.target.files [ ZERO ].name.split ( '.' ).pop ( )
-					.toLowerCase ( );
+			try
+			{
 				switch ( fileExtension ) {
 				case 'trv' :
 					new FileLoader ( ).openLocalTrvFile ( fileReader.result );
