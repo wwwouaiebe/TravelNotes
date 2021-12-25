@@ -149,7 +149,7 @@
 	},
 	{
 		"msgid": "GpxParser - Network node",
-		"msgstr": "Node "
+		"msgstr": "Network node "
 	},
 	{
 		"msgid": "Help - Complete the APIKeys1",
@@ -733,7 +733,7 @@
 	},
 	{
 		"msgid": "TravelToolbarUI - Import travel",
-		"msgstr": "Import routes and notes from another travel"
+		"msgstr": "Import routes and notes from another travel or from a gpx file"
 	},
 	{
 		"msgid": "TravelToolbarUI - Not possible to merge a travel when a route is edited",
@@ -741,7 +741,7 @@
 	},
 	{
 		"msgid": "TravelToolbarUI - Open travel",
-		"msgstr": "Open a file"
+		"msgstr": "Open a travel file (.trv) or a .gpx file"
 	},
 	{
 		"msgid": "TravelToolbarUI - Open travel roadbook",
