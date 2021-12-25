@@ -733,7 +733,7 @@
 	},
 	{
 		"msgid": "TravelToolbarUI - Import travel",
-		"msgstr": "Importer des trajets et des notes depuis un autre voyage"
+		"msgstr": "Importer des trajets et des notes depuis \nun autre voyage ou depuis un fichier .gpx"
 	},
 	{
 		"msgid": "TravelToolbarUI - Not possible to merge a travel when a route is edited",
@@ -741,7 +741,7 @@
 	},
 	{
 		"msgid": "TravelToolbarUI - Open travel",
-		"msgstr": "Ouvrir un fichier"
+		"msgstr": "Ouvrir un fichier de voyage (.trv) ou un fichier .gpx"
 	},
 	{
 		"msgid": "TravelToolbarUI - Open travel roadbook",

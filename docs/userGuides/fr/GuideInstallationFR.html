@@ -1,0 +1,395 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><link type="text/css" rel="stylesheet" href="../index.css"></head><body><h1 id="travel--notes---guide-dinstallation">Travel &amp; Notes - Guide d&#39;installation</h1>
+<ol>
+<li><a href="#WhereInstall">Où installer Travel &amp; Notes?</a></li>
+<li><a href="#GuideNull">Guide d&#39;installation pour les null</a></li>
+<li><a href="#GuideGeeks">Guide d&#39;installation pour les geeks</a><ol>
+<li><a href="#HtmlPage">Que faut-il faire dans le fichier HTML?</a></li>
+<li><a href="#MoreOnJS">Quelques explications complémentaires sur le Javascript</a></li>
+<li><a href="#TravelNotesConfigJson">Le contenu du fichier TravelNotesConfig.json</a></li>
+<li><a href="#TravelNotesLayersJson">Le contenu du fichier TravelNotesLayers.json</a></li>
+<li><a href="#TravelNotesNoteDialogJson">Le contenu des fichiers TravelNotesNoteDialogFR.json et TravelNotesNoteDialogEN.json</a></li>
+<li><a href="#myTravelNotesNoteDialogJson">Le contenu du fichier de configuration pouvant être chargé avec le bouton 📂 dans la boite d&#39;édition des notes</a></li>
+<li><a href="#OsmSearch">Configurer &quot;Rechercher dans OpenStreetMap&quot;</a></li>
+</ol>
+</li>
+<li><a href="#Viewer">Utiliser le viewer</a></li>
+<li><a href="#Translations">Traductions</a></li>
+<li><a href="#Plugins">Plugins</a></li>
+</ol>
+<p><a id="WhereInstall"></a></p>
+<h2 id="1-où-installer-travel--notes">1. Où installer Travel &amp; Notes?</h2>
+<p>Pour des raisons de sécurité, il n&#39;est plus possible d&#39;utiliser Travel &amp; Notes depuis le disque d&#39;un 
+ordinateur. Il est indispensable de passer par l&#39;intermédiaire soit d&#39;un serveur web distant, soit
+d&#39;un serveur web local de type LAMP or MAMP.
+Voir <a href="https://www.mozilla.org/en-US/security/advisories/mfsa2019-21/#CVE-2019-11730">https://www.mozilla.org/en-US/security/advisories/mfsa2019-21/#CVE-2019-11730</a></p>
+<p><a id="GuideNull"></a></p>
+<h2 id="2-guide-dinstallation-pour-les-null">2. Guide d&#39;installation pour les null</h2>
+<p>Pas de grandes connaissances informatiques? <a href="https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v3.2.0.zip">Téléchargez la dernière version</a>,
+copiez le contenu du répertoire docs/demo/ dans un répertoire sur votre serveur et ouvrez le fichier index.html. That&#39;s all :-).</p>
+<p><a id="GuideGeeks"></a></p>
+<h2 id="3-guide-dinstallation-pour-les-geeks">3. Guide d&#39;installation pour les geeks</h2>
+<p><a id="HtmlPage"></a></p>
+<h3 id="31-que-faut-il-faire-dans-le-fichier-html">3.1. Que faut-il faire dans le fichier HTML?</h3>
+<p>Travel &amp; Notes utilise <a href="http://leafletjs.com/">Leaflet</a> pour afficher la carte. Vous devez donc 
+télécharger et installer Leaflet.</p>
+<p>Dans le &lt;head&gt; du fichier, chargez la feuille de style de Leaflet et de TravelNotes</p>
+<pre><code>&lt;head&gt;
+    ...
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;leaflet/leaflet.css&quot; /&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;TravelNotes.min.css&quot; /&gt;
+    ...
+&lt;/head&gt;
+</code></pre>
+<p>Et dans le &lt;body&gt; chargez les Javascript de Leaflet, de TravelNotes et des plugins de TravelNotes</p>
+<pre><code>&lt;body&gt;
+    ...
+    &lt;script src=&quot;leaflet/leaflet.js&quot;&gt;&lt;/script&gt;
+    &lt;noscript&gt;Oh oh. Javascript is not enabled. It&#39;s impossible to display this page without javascript.&lt;/noscript&gt;
+    &lt;script src=&quot;TravelNotes.min.js&quot;&gt;&lt;/script&gt;
+    &lt;!-- 
+        Route providers scripts for Mapbox, Stadia Maps (MapzenValhalla), GraphHopper and OpenRouteService have only to be installed 
+        if you have an API key for Mapbox, Stadia Maps, GraphHopper or openRouteService.
+        Route providers scripts for OSRM, public transport and polyline have only to be installed 
+        if you will work with these providers.  --&gt;
+    &lt;script src=&quot;TravelNotesProviders/MapboxRouteProvider.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;TravelNotesProviders/MapzenValhallaRouteProvider.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;TravelNotesProviders/GraphHopperRouteProvider.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;TravelNotesProviders/OpenRouteServiceRouteProvider.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;TravelNotesProviders/OSRMRouteProvider.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;TravelNotesProviders/PublicTransportRouteProvider.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;TravelNotesProviders/PolylineRouteProvider.min.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<p>Travel &amp; Notes créera automatiquement la carte et tous les contrôles nécessaires.</p>
+<p><a id="MoreOnJS"></a></p>
+<h3 id="32-quelques-explications-complémentaires-sur-le-javascript">3.2. Quelques explications complémentaires sur le Javascript</h3>
+<p>Voyez la <a href="https://wwwouaiebe.github.io/TravelNotes/techDoc/index.html">documentation du code JS</a>
+pour plus d&#39;informations.</p>
+<p>Notez cependant que seul l&#39;objet TravelNotes est accessible depuis du code JS additionnel 
+(via window.TaN - window.L.TravelNotes est déprécié mais continue à fonctionner pour l&#39;instant).</p>
+<p>Si vous désirez utiliser d&#39;autres objets, vous devez télécharger les sources et les importer dans votre code comme 
+des modules EcmaScript.</p>
+<p><a id="TravelNotesConfigJson"></a></p>
+<h3 id="33-le-contenu-du-fichier-travelnotesconfigjson">3.3. Le contenu du fichier TravelNotesConfig.json</h3>
+<p>Ce fichier permet de modifier certains comportements de TravelNotes. Soyez prudent quand vous 
+modifiez ce fichier. Vous devez suivre <strong>toutes</strong> les règles d&#39;écriture des fichiers json.</p>
+<p>Le contenu du fichier TravelNotesConfig.json:</p>
+<ul>
+<li><strong>APIKeys.saveToSessionStorage</strong> : quand cette valeur est true, les clefs d&#39;accès sont sauvées dans le &#39;sessionStorage&#39; ( valeur par défaut : true )</li>
+<li><strong>APIKeysDialog.haveUnsecureButtons</strong> : quand cette valeur est true, des  boutons pour enrégistrer ou restaurer les clefs d&#39;accès dans un fichier non sécurisé sont présents ( valeur par défaut : false )</li>
+<li><strong>APIKeysDialog.showAPIKeys</strong> : quand cette valeur est true, les clefs d&#39;accès sont lisibles dans la boite de dialogue ( valeur par défaut : false )</li>
+<li><strong>APIKeysDialog.showButton</strong> : quand cette valeur est true, le bouton 🔑 est présent dans la barre d&#39;outils ( valeur par défaut : true )</li>
+<li><strong>colorDialog.haveSlider</strong> : quand cette valeur est true, le dialogue des propriétés des routes a un slider pour la couleur rouge, autrement il a des boutons ( valeur par défaut : true )</li>
+<li><strong>colorDialog.initialRed</strong> : la valeur initiale pour le slider rouge ( valeur par défaut : 0 )</li>
+<li><strong>contextMenu.timeout</strong> : le temps qui va s&#39;écouler, en millisecondes, entre le moment où la souris ne se trouve plus sur le menu contextuel et le moment ou le menu se ferme automatiquement ( valeur par défaut : 1500 )</li>
+<li><strong>errorsUI.helpTimeOut</strong> : le temps qui va s&#39;écouler, en millisecondes, entre le moment où un message d&#39;aide est affiché et le moment où il est effacé ( valeur par défaut : 30000 )</li>
+<li><strong>errorsUI.showError</strong> : quand cette valeur est true, les messages d&#39;erreur sont affichés ( valeur par défaut : true )</li>
+<li><strong>errorsUI.showHelp</strong> : quand cette valeur est true, les messages d&#39;aide sont affichés ( valeur par défaut : false )</li>
+<li><strong>errorsUI.showInfo</strong> : quand cette valeur est true, les messages d&#39;information sont affichés ( valeur par défaut : true )</li>
+<li><strong>errorsUI.showWarning</strong> : quand cette valeur est true, les messages d&#39;avertissement sont affichés ( valeur par défaut : true )</li>
+<li><strong>errorsUI.timeOut</strong> : le temps qui va s&#39;écouler, en millisecondes, entre le moment où un message est affiché et le moment où il est effacé ( valeur par défaut : 10000 )</li>
+<li><strong>geoCoder.distances.city</strong> : la distance maximum en mètres entre le point donné par l&#39;utilisateur pour une adresse et un point avec le tag place=city dans OSM, pour que ce tag soit utilisé dans l&#39;adresse ( valeur par défaut : 1200 )</li>
+<li><strong>geoCoder.distances.hamlet</strong> : la distance maximum en mètres entre le point donné par l&#39;utilisateur pour une adresse et un point avec le tag place=hamlet dans OSM, pour que ce tag soit utilisé dans l&#39;adresse ( valeur par défaut : 200 )</li>
+<li><strong>geoCoder.distances.town</strong> : la distance maximum en mètres entre le point donné par l&#39;utilisateur pour une adresse et un point avec le tag place=town dans OSM, pour que ce tag soit utilisé dans l&#39;adresse ( valeur par défaut : 1500 )</li>
+<li><strong>geoCoder.distances.village</strong> : la distance maximum en mètres entre le point donné par l&#39;utilisateur pour une adresse et un point avec le tag place=village dans OSM, pour que ce tag soit utilisé dans l&#39;adresse ( valeur par défaut : 400 )</li>
+<li><strong>geoCoder.osmCityAdminLevel.DEFAULT</strong> : la valeur utilisée dans le tag OSM admin_level pour une municipalité ( valeur par défaut : 8 )</li>
+<li><strong>geoCoder.osmCityAdminLevel.GB</strong> : la valeur utilisée dans le tag OSM admin_level pour une municipalité dans un pays qui ne suit pas la règle par défaut de OSM. GB doit être remplacé par le code ISO 3166-1 du pays en question.</li>
+<li><strong>geoLocation.marker.color</strong> : la couleur du cercle utilisé pour indiquer la geolocalisation ( valeur par défaut : #ff0000 )</li>
+<li><strong>geoLocation.marker.radius</strong> : le rayon du cercle utilisé pour indiquer la geolocalisation ( valeur par défaut : 10 )</li>
+<li><strong>geoLocation.options.enableHighAccuracy</strong> : voir les options Javascript des fonctions de localisation ( valeur par défaut : false )</li>
+<li><strong>geoLocation.options.maximumAge</strong> : voir les options Javascript des fonctions de localisation ( valeur par défaut : 0 )</li>
+<li><strong>geoLocation.options.timeout</strong> : voir les options Javascript des fonctions de localisation ( valeur par défaut : 3600000 )</li>
+<li><strong>geoLocation.zoomFactor</strong> : le facteur de zoom utilisé pour la geolocalisation ( valeur par défaut : 17 )</li>
+<li><strong>geoLocation.zoomToPosition</strong> : quand cette valeur est true, un zoom sur la position sera effectué lors de la première geolocalisation ( valeur par défaut : true )</li>
+<li><strong>itineraryPaneUI.showManeuvers</strong> : quand cette valeur est true, les manoeuvres sont visibles dans la description de l&#39;itinéraire ( valeur par défaut : false )</li>
+<li><strong>itineraryPaneUI.showNotes</strong> : quand cette valeur est true, les notes sont visibles dans la description de l&#39;itinéraire ( valeur par défaut : true )</li>
+<li><strong>itineraryPoint.marker.color</strong> : la couleur du cercle utilisé pour indiquer sur la carte un point de l&#39;itinéraire ( valeur par défaut : #ff0000 )</li>
+<li><strong>itineraryPoint.marker.fill</strong> : le remplissage du cercle utilisé pour indiquer sur la carte un point de l&#39;itinéraire ( valeur par défaut : false )</li>
+<li><strong>itineraryPoint.marker.radius</strong> : le rayon du cercle utilisé pour indiquer sur la carte un point de l&#39;itinéraire ( valeur par défaut : 7 )</li>
+<li><strong>itineraryPoint.marker.weight</strong> : l&#39;épaisseur du cercle utilisé pour indiquer sur la carte un point de l&#39;itinéraire ( valeur par défaut : 2 )</li>
+<li><strong>itineraryPoint.zoomFactor</strong> : le facteur de zoom utilisé lorsqu&#39;un zoom est fait sur un point de l&#39;itinéraire ( valeur par défaut : 17 )</li>
+<li><strong>layersToolbarUI.haveLayersToolbarUI</strong> : quand cette valeur est true, la barre d&#39;outils des fonds de carte est présente ( valeur par défaut : true )</li>
+<li><strong>layersToolbarUI.toolbarTimeOut</strong> : le temps qui va s&#39;écouler, en millisecondes, entre le moment où la souris ne se trouve plus sur la barre d&#39;outils et le moment où cette barre d&#39;outils se ferme automatiquement ( valeur par défaut : 1500 )</li>
+<li><strong>layersToolbarUI.theDevil.addButton</strong> : quand cette valeur est true, un bouton &quot;theDevil&quot; est ajouté à la barre d&#39;outils ( valeur par défaut : true )</li>
+<li><strong>map.center.lat</strong> : la latitude utilisée pour le centre de la carte au démarage ( valeur par défaut : 50.50923 )</li>
+<li><strong>map.center.lng</strong> : la longitude utilisée pour le centre de la carte au démarage ( valeur par défaut : 5.49542 )</li>
+<li><strong>map.zoom</strong> : le zoom utilisé pour la carte au démarage ( valeur par défaut : 12 )</li>
+<li><strong>mouseUI.haveMouseUI</strong> : quand cette valeur est true, un contrôle est affiché en haut de l&#39;écran, indiquant les coordonnées de la souris, la valeur du zoom ainsi que le statut de la sauvegarde ( valeur par défaut : true )</li>
+<li><strong>nominatim.url</strong> : l&#39;url à utiliser pour Nominatim ( valeur par défaut : &quot;<a href="https://nominatim.openstreetmap.org/&quot;">https://nominatim.openstreetmap.org/&quot;</a> )</li>
+<li><strong>nominatim.language</strong> : la langue à utiliser pour Nominatim ( valeur par défaut : * )</li>
+<li><strong>note.grip.size</strong> : la dimension de la poignée à l&#39;extrémité de la ligne de rappel d&#39;une note ( valeur par défaut : 10 )</li>
+<li><strong>note.grip.opacity</strong> : l&#39;opacité de la poignée à l&#39;extrémité de la ligne de rappel d&#39;une note - rappel : 0 = invisible ( valeur par défaut : 0 )</li>
+<li><strong>note.grip.moveOpacity</strong> : l&#39;opacité de la poignée à l&#39;extrémité de la ligne de rappel d&#39;une note quand la souris se trouve sur la poignée ( valeur par défaut : 1 )</li>
+<li><strong>note.haveBackground</strong> : quand cette valeur est true, un arrière-plan blanc est affiché avec la note ( valeur par défaut : false )</li>
+<li><strong>note.maxManeuversNotes</strong> : le maximum de notes qui peuvent être créées avec la commande &quot;Créer une note pour chaque maneoeuvre du trajet&quot; ( valeur par défaut : 100 )</li>
+<li><strong>note.polyline.color</strong> : la couleur de la ligne de rappel d&#39;une note ( valeur par défaut : #808080 )</li>
+<li><strong>note.polyline.weight</strong> : l&#39;épaisseur de la ligne de rappel d&#39;une note ( valeur par défaut : 1 )</li>
+<li><strong>note.reverseGeocoding</strong> : quand cette valeur est true, les coordonnées des notes sont remplacées par une adresse ( valeur par défaut : true )</li>
+<li><strong>note.svgIcon.angleDistance</strong> : la distance minimale à utiliser entre le centre de l&#39;icône SVG et le point de l&#39;itinéraire utilisé pour calculer la rotation de l&#39;icône ( valeur par défaut : 10 )</li>
+<li><strong>note.svgIcon.angleDirection.right</strong> : l&#39;angle maximum de la direction à suivre pour l&#39;indication &quot;Tourner à droite&quot; dans le tooltip des icones SVG ( valeur par défaut : 35 )</li>
+<li><strong>note.svgIcon.angleDirection.slightRight</strong> : l&#39;angle maximum de la direction à suivre pour l&#39;indication &quot;Tourner légèrement à droite&quot; dans le tooltip des icones SVG ( valeur par défaut : 80 )</li>
+<li><strong>note.svgIcon.angleDirection.continue</strong> : l&#39;angle maximum de la direction à suivre pour l&#39;indication &quot;Continuer&quot; dans le tooltip des icones SVG ( valeur par défaut : 100 )</li>
+<li><strong>note.svgIcon.angleDirection.slightLeft</strong> : l&#39;angle maximum de la direction à suivre pour l&#39;indication &quot;Tourner légèrement à gauche&quot; dans le tooltip des icones SVG ( valeur par défaut : 145 )</li>
+<li><strong>note.svgIcon.angleDirection.left</strong> : l&#39;angle maximum de la direction à suivre pour l&#39;indication &quot;Tourner à gauche&quot; dans le tooltip des icones SVG ( valeur par défaut : 200 )</li>
+<li><strong>note.svgIcon.angleDirection.sharpLeft</strong> : l&#39;angle maximum de la direction à suivre pour l&#39;indication &quot;Tourner fortement à gauche&quot; dans le tooltip des icones SVG ( valeur par défaut : 270 )</li>
+<li><strong>note.svgIcon.angleDirection.sharpRight</strong> : l&#39;angle maximum de la direction à suivre pour l&#39;indication &quot;Tourner fortement à droite&quot; dans le tooltip des icones SVG ( valeur par défaut : 340 )</li>
+<li><strong>note.svgIcon.rcnRefDistance</strong> : la plus grande distance acceptable entre la note et le noeud OSM ayant une clef rcn_ref ( valeur par défaut : 20 )</li>
+<li><strong>note.svgIcon.roadbookFactor</strong> : le facteur d&#39;agrandissement des icônes SVG dans le roadbook ( valeur par défaut : 6 )</li>
+<li><strong>note.svgIcon.zoom</strong> : la valeur du zoom utilisé pour réaliser les icônes SVG ( valeur par défaut : 17 )</li>
+<li><strong>noteDialog.areaHeight.icon</strong> : le nombre de lignes de la zone d&#39;édition de l&#39;icône ( valeur par défaut : 2 )</li>
+<li><strong>noteDialog.areaHeight.popupContent</strong> : le nombre de lignes de la zone d&#39;édition du texte ( valeur par défaut : 8 )</li>
+<li><strong>noteDialog.mask.iconsDimension</strong> : quand cette valeur est true, les contrôles de dimension de l&#39;icône sont masqués ( valeur par défaut : true )</li>
+<li><strong>noteDialog.mask.iconTextArea</strong> :  quand cette valeur est true, la zone d&#39;édition de l&#39;icône est masquée ( valeur par défaut : false )</li>
+<li><strong>noteDialog.mask.tooltip</strong> : quand cette valeur est true, la zone d&#39;édition du tooltip est masquée ( valeur par défaut : false )</li>
+<li><strong>noteDialog.mask.popupContent</strong> : quand cette valeur est true, la zone d&#39;édition du texte est masquée ( valeur par défaut : false )</li>
+<li><strong>noteDialog.mask.address</strong> : quand cette valeur est true, la zone d&#39;édition de l&#39;adresse est masquée ( valeur par défaut : false )</li>
+<li><strong>noteDialog.mask.link</strong> : quand cette valeur est true, la zone d&#39;édition du lien est masquée ( valeur par défaut : false )</li>
+<li><strong>noteDialog.mask.phone</strong> : quand cette valeur est true, la zone d&#39;édition du téléphone est masquée ( valeur par défaut : true )</li>
+<li><strong>noteDialog.theDevil.addButton</strong> : quand cette valeur est true, un bouton &quot;theDevil&quot; est ajouté à la boite de dialogue d&#39;édition ( valeur par défaut : true )</li>
+<li><strong>noteDialog.theDevil.zoomFactor</strong> : le zoom utilisé pour le bouton &quot;theDevil&quot; ( valeur par défaut : 17 )</li>
+<li><strong>osmSearch.nextSearchLimit.color</strong> : la couleur de la polyline utilisée pour indiquer sur la carte la zone de la prochaine recherche ( valeur par défaut : &quot;#ff0000&quot; )</li>
+<li><strong>osmSearch.nextSearchLimit.fill</strong> : le remplissage de la polyline utilisée pour indiquer sur la carte la zone de la prochaine recherche ( valeur par défaut : false )</li>
+<li><strong>osmSearch.nextSearchLimit.weight</strong> : l&#39;épaisseur de la polyline utilisée pour indiquer sur la carte la zone de la prochaine recherche ( valeur par défaut : 1 )</li>
+<li><strong>osmSearch.previousSearchLimit.color</strong> : la couleur de la polyline utilisée pour indiquer sur la carte la zone de la dernière recherche effectuée ( valeur par défaut : &quot;#006400&quot; )</li>
+<li><strong>osmSearch.previousSearchLimit.fill</strong> : le remplissage de la polyline utilisée pour indiquer sur la carte la zone de la dernière recherche effectuée ( valeur par défaut : false )</li>
+<li><strong>osmSearch.previousSearchLimit.weight</strong> : l&#39;épaisseur de la polyline utilisée pour indiquer sur la carte la zone de la dernière recherche effectuée ( valeur par défaut : 1 )</li>
+<li><strong>osmSearch.searchPointMarker.color</strong> : la couleur du cercle utilisé pour indiquer sur la carte la position d&#39;un résultat de recherche lorsque ce résultat est sous forme de point ( valeur par défaut : &quot;#006400&quot; )</li>
+<li><strong>osmSearch.searchPointMarker.fill</strong> : le remplissage du cercle utilisé pour indiquer sur la carte la position d&#39;un résultat de recherche lorsque ce résultat est sous forme de point ( valeur par défaut : false )</li>
+<li><strong>osmSearch.searchPointMarker.radius</strong> : le rayon du cercle utilisé pour indiquer sur la carte la position d&#39;un résultat de recherche lorsque ce résultat est sous forme de point ( valeur par défaut : 20 )</li>
+<li><strong>osmSearch.searchPointMarker.weight</strong> : l&#39;épaisseur du cercle utilisé pour indiquer sur la carte la position d&#39;un résultat de recherche lorsque ce résultat est sous forme de point ( valeur par défaut : 4 )</li>
+<li><strong>osmSearch.searchPointPolyline.color</strong> : la couleur de la polyline utilisée pour indiquer sur la carte la position d&#39;un résultat de recherche lorsque ce résultat est sous forme de polyline ( valeur par défaut : &quot;#006400&quot; )</li>
+<li><strong>osmSearch.searchPointPolyline.fill</strong> : le remplissage de la polyline utilisée pour indiquer sur la carte la position d&#39;un résultat de recherche lorsque ce résultat est sous forme de polyline ( valeur par défaut : false )</li>
+<li><strong>osmSearch.searchPointPolyline.weight</strong> : l&#39;épaisseur de la polyline utilisée pour indiquer sur la carte la position d&#39;un résultat de recherche lorsque ce résultat est sous forme de polyline ( valeur par défaut : 4 )</li>
+<li><strong>osmSearch.showSearchNoteDialog</strong> : quand cette valeur est true, la boite de dialogue d&#39;édition des notes est affichée lorsqu&#39;une note est créée à partir d&#39;un résultat de recherche ( valeur par défaut : false )</li>
+<li><strong>overpassApi.useNwr</strong> : certaines instances de OverpassAPI ne connaissent pas l&#39;instruction nwr. Dans ce cas il faut mettre useNwr = false ( valeur par defaut: true )</li>
+<li><strong>overpassApi.timeOut</strong> : le temps qui va s&#39;écouler, en secondes, entre le moment où une requête vers OverpassAPI est lancée et celui où un timeout sera déclenché ( valeur par défaut : 40 )</li>
+<li><strong>overpassApi.url</strong> : l&#39;url à utiliser pour OverpassAPI ( valeur par défaut : &quot;<a href="https://lz4.overpass-api.de/api/interpreter&quot;">https://lz4.overpass-api.de/api/interpreter&quot;</a> )</li>
+<li><strong>printRouteMap.isEnabled</strong> : quand cette valeur est true, la commande pour imprimer les cartes d&#39;un trajet est active ( valeur par défaut : true )</li>
+<li><strong>printRouteMap.borderWidth</strong> : la largeur en millimètres du bord de carte qui sera dupliqué dans chaque carte ( valeur par défaut : 10 )</li>
+<li><strong>printRouteMap.maxTiles</strong> : le maximum de tuiles pouvant être utilisées pour imprimer un trajet ( valeur par défaut : 720 )</li>
+<li><strong>printRouteMap.paperWidth</strong> : la largeur du papier en millimètres ( valeur par défaut : 287 )</li>
+<li><strong>printRouteMap.paperHeight</strong> : la hauteur du papier en millimètres ( valeur par défaut : 200 )</li>
+<li><strong>printRouteMap.pageBreak</strong> : quand cette valeur est true, un saut de page est inséré après chaque carte ( valeur par défaut : false )</li>
+<li><strong>printRouteMap.printNotes</strong> : quand cette valeur est true, l&#39;icône des notes est également imprimée ( valeur par défaut : true ) </li>
+<li><strong>printRouteMap.zoomFactor</strong> : le facteur de zoom à utiliser pour l&#39;impression ( valeur par défaut : 15 )</li>
+<li><strong>printRouteMap.entryPointMarker.color</strong> : la couleur du marqueur de début de trajet sur chaque carte ( valeur par défaut : &quot;#00ff00&quot; )</li>
+<li><strong>printRouteMap.entryPointMarker.weight</strong> : l&#39;épaisseur du marqueur de début de trajet sur chaque carte ( valeur par défaut : 4 )</li>
+<li><strong>printRouteMap.entryPointMarker.radius</strong> : le rayon du marqueur de début de trajet sur chaque carte ( valeur par défaut : 10 )</li>
+<li><strong>printRouteMap.entryPointMarker.fill</strong> : le remplissage du marqueur de début de trajet sur chaque carte ( valeur par défaut : true )</li>
+<li><strong>printRouteMap.entryPointMarker.fillOpacity</strong> : l&#39;opacité du marqueur de début de trajet sur chaque carte ( valeur par défaut : 1 )</li>
+<li><strong>printRouteMap.exitPointMarker.color</strong> : la couleur du marqueur de fin de trajet sur chaque carte ( valeur par défaut : &quot;#ff0000&quot;</li>
+<li><strong>printRouteMap.exitPointMarker.weight</strong> : l&#39;épaisseur du marqueur de fin de trajet sur chaque carte ( valeur par défaut : 4 )</li>
+<li><strong>printRouteMap.exitPointMarker.radius</strong> : le rayon du marqueur de fin de trajet sur chaque carte ( valeur par défaut : 10 )</li>
+<li><strong>printRouteMap.exitPointMarker.fill</strong> : le remplissage du marqueur de fin de trajet sur chaque carte ( valeur par défaut : true )</li>
+<li><strong>printRouteMap.exitPointMarker.fillOpacity</strong> : l&#39;opacité du marqueur de fin de trajet sur chaque carte ( valeur par défaut : 1 )</li>
+<li><strong>route.color</strong> : la couleur par défaut d&#39;un trajet ( valeur par défaut : &quot;#ff0000&quot; )</li>
+<li><strong>route.dashArray</strong> : le type de ligne à utiliser par défaut = un nombre correspondant à l&#39;indice du type de ligne dans le tableau dashChoices ( valeur par défaut : 0 )</li>
+<li><strong>route.dashChoices</strong> : un tableau reprenant les différents type de lignes affichés dans la boite de dialogue RoutesPropertiesDialog. 
+Text sera affiché dans le sélecteur du type de ligne et iDashArray est le template du type de ligne. 
+Attention: les valeurs contenues dans ce tableau sont des valeurs numériques et seront multipliées par l&#39;épaisseur de la ligne (width) et transformées en texte avant d&#39;être utilisées pour adapter le type de ligne 
+( valeur par défaut : &quot;[ { text : &quot;——————&quot; , iDashArray :  [0] }, { text :  &quot;—————&quot;, iDashArray : [ 4, 2 ] }, { text : &quot;—‧—‧—‧—‧—&quot; , iDashArray : [ 4, 2, 0, 2] }, { text : &quot;················&quot;, iDashArray : [ 0,2 ] } ]&quot; )</li>
+<li><strong>route.elev.smooth</strong> : quand cette valeur est true, le profil du trajet est lissé ( valeur par défaut : true )</li>
+<li><strong>route.elev.smoothCoefficient</strong> : un coefficient utilisé pour calculer la distance entre deux points pour le lissage de l&#39;élévation ( valeur par défaut : 0.25 )</li>
+<li><strong>route.elev.smoothPoints</strong> : le nombre de points avant et après le point courant dans les calculs de lissage ( valeur par défaut : 3 )</li>
+<li><strong>route.showDragTooltip</strong> : le nombre de fois que le tooltip affiché lors de l&#39;ajout d&#39;un point de passage est montré ( -1 = toujours ; valeur par défaut : 0 )</li>
+<li><strong>route.width</strong> : l&#39;épaisseur par défaut d&#39;un trajet ( valeur par défaut : 5    )</li>
+<li><strong>routeEditor.showEditedRouteInRoadbook</strong> : quand cette valeur est true les modifications du trajet en cours d&#39;édition seront immédiatement importées dans le livre de voyage ( valeur par défaut : true )</li>
+<li><strong>travelEditor.startMinimized</strong> : quand cette valeur est true, Travel &amp; Notes est affiché sous forme réduite au départ ( valeur par défaut : true )</li>
+<li><strong>travelEditor.startupRouteEdition</strong> : quand cette valeur est true, un trajet est directement édité au chargement d&#39;un nouveau voyage ( valeur par défaut : true )</li>
+<li><strong>travelEditor.timeout</strong> : le temps qui va s&#39;écouler, en millisecondes entre le moment où la souris ne se trouve plus dans Travel &amp; Notes et le moment où celui-ci sera réduit ( valeur par défaut : 1500 )</li>
+<li><strong>travelNotes.autoLoad</strong> : quand cette valeur est true, la carte et tous les contrôles sont construits automatiquement au chargement du javascript de Travel &amp; Notes ( valeur par défaut : true )</li>
+<li><strong>travelNotes.haveBeforeUnloadWarning</strong> : quand cette valeur est true, un message de confirmation est affiché chaque fois que le voyage en cours d&#39;édition va être effacé ( valeur par défaut : true )</li>
+<li><strong>travelNotes.language</strong> : la langue utilisée par Travel&amp; Notes, sauf si une autre langue est précisée dans l&#39;url ( valeur par défaut : &quot;fr&quot; )</li>
+<li><strong>travelNotesToolbarUI.contactMail.url</strong> : l&#39;adresse mail utilisée dans le bouton contact ( valeur par défaut : &quot;<a href="https://github.com/wwwouaiebe/TravelNotes/issues&quot;">https://github.com/wwwouaiebe/TravelNotes/issues&quot;</a> )</li>
+<li><strong>wayPoint.reverseGeocoding</strong> : quand cette valeur est true, les coordonnées des points de passage sont remplacées par une adresse ( valeur par défaut : true )</li>
+<li><strong>wayPoint.geocodingIncludeName</strong> : quand cette valeur est true, un nom est si possible ajouté à l&#39;adresse ( valeur par défaut : true )</li>
+</ul>
+<p><a id="TravelNotesLayersJson"></a></p>
+<h3 id="34-le-contenu-du-fichier-travelnoteslayersjson">3.4. Le contenu du fichier TravelNotesLayers.json</h3>
+<p>Ce fichier contient les définitions des fonds de carte de la barre d&#39;outils &quot;Cartes&quot;
+Ces définitions peuvent être adaptées.</p>
+<p>Un exemple de fichier avec deux fond de carte différents, l&#39;un avec la carte de Ferraris 
+de la Belgique en 1771, l&#39;autre avec la carte de OpenCycleMap de Thunderforest</p>
+<pre><code>[
+    {
+        &quot;service&quot;:&quot;wms&quot;,
+        &quot;url&quot;:&quot;http://geoservices.wallonie.be/arcgis/services/CARTES_ANCIENNES/FERRARIS/MapServer/WMSServer&quot;,
+        &quot;wmsOptions&quot;:
+        {
+            &quot;layers&quot;:&quot;0&quot;,
+            &quot;format&quot;:&quot;image/png&quot;,
+            &quot;transparent&quot;:true
+        },
+        &quot;bounds&quot;:[ [ 49.15, 2.56 ], [ 50.95, 6.49 ] ],
+        &quot;minZoom&quot;:7,
+        &quot;name&quot;:&quot;Service Public de Wallonie - Ferraris map 1770 - 1776&quot;,
+        &quot;toolbar&quot;:
+        {
+            &quot;text&quot;:&quot;1771&quot;,
+            &quot;color&quot;:&quot;black&quot;,
+            &quot;backgroundColor&quot;:&quot;white&quot;
+        },
+        &quot;providerName&quot;:&quot;SPW&quot;,
+        &quot;providerKeyNeeded&quot;:false,
+        &quot;attribution&quot;:&quot;| &lt;a href=&#39;http://geoportail.wallonie.be/home.html&#39; target=&#39;_blank&#39;&gt;Service public de Wallonie (SPW)&lt;/a&gt;&quot;,
+        &quot;getCapabilitiesUrl&quot;:&quot;https://geoservices.wallonie.be/arcgis/services/CARTES_ANCIENNES/FERRARIS/MapServer/WMSServer?REQUEST=GetCapabilities&amp;SERVICE=WMS&quot;
+    },
+    {
+        &quot;service&quot;:&quot;wmts&quot;,
+        &quot;url&quot;:&quot;https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={providerKey}&quot;,
+        &quot;name&quot;:&quot;Thunderforest - OpenCycleMap&quot;,
+        &quot;toolbar&quot;:
+        {
+            &quot;text&quot;:&quot;🚴&quot;,
+            &quot;color&quot;:&quot;black&quot;,
+            &quot;backgroundColor&quot;:&quot;white&quot;
+        },
+        &quot;providerName&quot;:&quot;Thunderforest&quot;,
+        &quot;providerKeyNeeded&quot;:true,
+        &quot;attribution&quot;:&quot;| Tiles courtesy of &lt;a href=&#39;http://www.thunderforest.com/&#39; target=&#39;_blank&#39; title=&#39;Andy Allan&#39;&gt;Andy Allan&lt;/a&gt; &quot;
+    }
+]
+</code></pre>
+<p>Quelques explications sur le contenu du fichier pour chaque fond de carte</p>
+<ul>
+<li><strong>service</strong> : le type de service: wms ou wmts</li>
+<li><strong>url</strong>: l&#39;url à utiliser pour obtenir la carte. Les valeurs {s}, {x}, {y} et {z} 
+seront remplacées par Leaflet, la valeur {providerKey} sera remplacée par Travel &amp; Notes par la clef d&#39;accès
+éventuelle pour ce fournisseur. Ne jamais remplacer directement {providerKey} par votre propre clef d&#39;accès!!!</li>
+<li><strong>wmsOptions</strong> : ce sont les options à passer à Leaflet pour un service wms. 
+Voir la documentation de <a href="https://leafletjs.com/reference-1.7.1.html#tilelayer-wms">TileLayer.WMS</a> de Leaflet.
+Au minimum, &quot;layers&quot;, &quot;format&quot; et &quot;transparent&quot; devraient être présents.</li>
+<li><strong>bounds</strong> : le coin inférieur gauche et supérieur droit de la carte.</li>
+<li><strong>minZoom</strong> : le plus petit zoom possible pour cette carte</li>
+<li><strong>maxZoom</strong> : le plus grand zoom possible pour cette carte</li>
+<li><strong>name</strong> : le nom de la carte.Il sera utilisé dans le tooltip du bouton de la barre d&#39;outils &quot;Cartes&quot;.</li>
+<li><strong>toolbar.text</strong> : le texte à afficher dans le bouton de la barre d&#39;outils &quot;Cartes&quot;</li>
+<li><strong>toolbar.color</strong> : la couleur d&#39;avant-plan du bouton de la barre d&#39;outils &quot;Cartes&quot;</li>
+<li><strong>toolbar.backgroundColor</strong> : la couleur d&#39;arrière-plan du bouton de la barre d&#39;outils &quot;Cartes&quot;</li>
+<li><strong>providerName</strong> : le nom du fournisseur de service. Ce nom sera utilisé pour retrouver la clef d&#39;accès au service et doit donc être identique au nom fourni dans le fichier ou la boite de dialogue des clefs d&#39;accès.</li>
+<li><strong>providerKeyNeeded</strong> : quand cette valeur est true, une clef d&#39;accès est nécessaire pour obtenir la carte.</li>
+<li><strong>attribution</strong> : les attributions de la carte. Pour les cartes basées sur OpenStreetMap, il n&#39;est pas nécessaire d&#39;ajouter les attributions de OpenStreetMap car celles-ci sont toujours présentes dans Travel &amp; Notes.</li>
+<li><strong>getCapabilitiesUrl</strong> : l&#39;url du fichier getCapabilities quand celle-ci est connue.</li>
+</ul>
+<p><a id="TravelNotesNoteDialogJson"></a></p>
+<h3 id="35-le-contenu-des-fichiers-travelnotesnotedialogfrjson-et-travelnotesnotedialogenjson">3.5. Le contenu des fichiers TravelNotesNoteDialogFR.json et TravelNotesNoteDialogEN.json</h3>
+<p>Ce fichier contient les définitions des boutons et de la liste des icônes prédéfinies de la boite 
+d&#39;édition des notes. Ces définitions peuvent être adaptées à vos besoins.</p>
+<p>Exemple de fichier comprenant 3 boutons et 2 icônes prédéfinies:</p>
+<pre><code>{ &quot;editionButtons&quot; : 
+    [
+        {
+            &quot;title&quot; : &quot;&lt;span class=&#39;TravelNotes-Note-WhiteRed&#39; title=&#39;Insert a red background&#39;&gt;Red&lt;/span&gt;&quot;,
+            &quot;htmlBefore&quot; : &quot;&lt;span class=&#39;TravelNotes-Note-WhiteRed&#39;&gt;&quot;,
+            &quot;htmlAfter&quot; : &quot;&lt;/span&gt;&quot;
+        }, 
+        {
+            &quot;title&quot; : &quot;&lt;span class=&#39;TravelNotes-Note-WhiteGreen&#39; title=&#39;Insert a green background&#39;&gt;Green&lt;/span&gt;&quot;,
+            &quot;htmlBefore&quot; : &quot;&lt;span class=&#39;TravelNotes-Note-WhiteGreen&#39;&gt;&quot;,
+            &quot;htmlAfter&quot; : &quot;&lt;/span&gt;&quot;
+        }, 
+        {
+            &quot;title&quot;: &quot;Ø&quot;,
+            &quot;htmlBefore&quot;: &quot;Ø&quot;
+        }
+    ],
+    &quot;preDefinedIconsList&quot; :
+    [
+        {
+            &quot;name&quot; : &quot;Bikes allowed&quot;,
+            &quot;icon&quot; : &quot;&lt;div class=&#39;TravelNotes-MapNote TravelNotes-MapNoteCategory-0005&#39;&gt;&lt;/div&gt;&quot;,
+            &quot;tooltip&quot; : &quot;Bikes allowed&quot;,
+            &quot;width&quot; : 40,
+            &quot;height&quot; : 40
+        },
+        {
+            &quot;name&quot; : &quot;Bus station&quot;,
+            &quot;icon&quot; : &quot;&lt;div class=&#39;TravelNotes-MapNote TravelNotes-MapNoteCategory-0006&#39;&gt;&lt;/div&gt;&quot;,
+            &quot;tooltip&quot; : &quot;Bus station&quot;,
+            &quot;width&quot; : 40,
+            &quot;height&quot; : 40
+        }
+    ]
+}
+</code></pre>
+<p>Deux collections d&#39;objets <strong>doivent</strong> être présentes dans le fichier : &quot;editionButtons&quot; pour les 
+boutons supplémentaires et &quot;preDefinedIconsList&quot; pour les icônes prédéfinies. Ces collections peuvent 
+être vides mais doivent être présentes.</p>
+<p>Chaque objet de la collection &quot;editionButtons&quot; a deux ou trois propriétés;</p>
+<ul>
+<li><strong>title</strong> : le texte qui apparaitra sur le bouton dans la boite de dialogue</li>
+<li><strong>htmlBefore</strong> : le texte qui sera inséré avant la sélection lorsque l&#39;on cliquera sur le bouton</li>
+<li><strong>htmlAfter</strong> : le texte qui sera inséré après la sélection lorsque l&#39;on cliquera sur le bouton. Cette propriété est optionnelle.</li>
+</ul>
+<p>Chaque objet de la collection &quot;preDefinedIconsList&quot; a cinq propriétés:</p>
+<ul>
+<li><strong>name</strong> : le nom qui sera affiché dans la liste déroulante (texte)</li>
+<li><strong>icon</strong> : le contenu de l&#39;icône (html)</li>
+<li><strong>tooltip</strong> : le contenu du tooltip (html)</li>
+<li><strong>width</strong> : la largeur de l&#39;icône en pixels</li>
+<li><strong>height</strong> : la hauteur de l&#39;icône en pixels</li>
+</ul>
+<p><a id="myTravelNotesNoteDialogJson"></a></p>
+<h3 id="36-le-contenu-du-fichier-de-configuration-pouvant-être-chargé-avec-le-bouton-📂-dans-la-boite-dédition-des-notes">3.6. Le contenu du fichier de configuration pouvant être chargé avec le bouton 📂 dans la boite d&#39;édition des notes</h3>
+<p>L&#39;organisation de ce fichier est identique aux fichiers TravelNotesNoteDialogFR.json et TravelNotesNoteDialogEN.json</p>
+<p><a id="OsmSearch"></a></p>
+<h3 id="37-configurer-rechercher-dans-openstreetmap">3.7. Configurer &quot;Rechercher dans OpenStreetMap&quot;</h3>
+<p>Le fichier TravelNotesSearchDictionaryFR.csv (en français)  ou TravelNotesSearchDictionaryEN.csv (en anglais) contient toutes les informations nécessaires 
+pour configurer la recherche dans OpenStreetMap. Le fichier peut être édité avec LibreOffice ou n&#39;importe quel autre programme capable de lire les fichiers CSV.
+Le fichier doit être sauvé avec Unicode comme jeu de caractères et encodé en utf-8. le point-virgule doit être utilisé comme séparateur.</p>
+<p>L&#39;arborescence telle qu&#39;elle est visible dans Travel &amp; Notes:</p>
+<img src="OSMSearchTransportFR.PNG" />
+
+<p>Et le contenu du fichier avec la même arborescence ( les cellules avec un fond rouge clair ):</p>
+<img src = "TravelNotesSearchDictionaryFR.PNG" />
+
+<p>Les cellules avec un fond jaune clair, vert clair ou bleu clair repreésentent les tags des objets à rechercher dans OpenStreetMap.</p>
+<ul>
+<li>sur fond jaune, les cas simples où un seul tag est suffisant pour rechercher les objets. La clef et la valeur désirée sont indiquées dans la cellule,
+séparées par un signe =</li>
+<li>sur fond vert, des cas plus complexes où plusieurs clefs/valeurs sont nécessaires pour sélectionner un objet. Ces différentes clefs/valeurs sont indiquées sur une seule ligne
+et doivent être TOUTES vérifiées pour sélectionner l&#39;objet dans OpenStreetMap ( ET logique).</li>
+<li>sur fond bleu, des cas où plusieurs clefs/valeurs sont possibles. Ces différentes clefs/valeurs sont indiquées sur plusieurs lignes 
+et il suffit d&#39;une seule clef/valeur vérifiée pour sélectionner l&#39;objet dans OpenStreetMap ( OU logique).</li>
+<li>lorsqu&#39;on veut limiter la recherche à un seul type d&#39;élément OpenStreetMap, il faut le préciser dans une cellule supplémentaire ( element=node ou element=way ou element=relation ).</li>
+<li>lorsque toutes les valeurs d&#39;un tag sont acceptables, il faut indiquer la clef, suivie du signe égal suivi du signe *.</li>
+</ul>
+<p><a id="Viewer"></a></p>
+<h2 id="4-utiliser-le-viewer">4. Utiliser le viewer</h2>
+<p>Le viewer permet de visualiser des fichiers qui ont été réalisés avec Travel &amp; Notes. Il ne possède
+pas de contrôles ni de menus et ne permet donc pas la modification d&#39;un voyage.
+Son intérêt réside dans le fait qu&#39;il n&#39;utilise pas trop de Javascript et qu&#39;il est
+plus léger que TravelNotes. </p>
+<p>Il s&#39;installe comme Travel &amp; Notes, avec deux balises &lt;link&gt; et deux balises &lt;script&gt;,
+une pour Leaflet et l&#39;autre pour le viewer:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot; /&gt;
+        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+        &lt;meta name=&quot;ROBOTS&quot; content=&quot;NOINDEX, NOFOLLOW&quot; /&gt;
+        &lt;title&gt;Travel &amp; Notes by wwwouaiebe&lt;/title&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;leaflet/leaflet.css&quot; /&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;TravelNotesViewer.min.css&quot; /&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;script src=&quot;leaflet/leaflet.js&quot;&gt;&lt;/script&gt;&lt;noscript&gt;Oh oh. Javascript is not enabled. It&#39;s impossible to display this page without javascript.&lt;/noscript&gt;
+        &lt;script src=&quot;TravelNotesViewer.min.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Les fichiers TravelNotesViewer.min.css et TravelNotesViewer.min.js ainsi que les fichiers JSON
+de configuration se trouvent dans le sous-répertoire &quot;viewer&quot;.</p>
+<p><a id="Translations"></a></p>
+<h2 id="5-traductions">5. Traductions</h2>
+<p>Travel &amp; Notes est traduit en &#39;fr&#39; et en &#39;en&#39;. Si vous désirez traduire Travel &amp; Notes dans une autre 
+langue, copiez le fichier TravelNotesEN.json et renommez-le en fonction de la langue utilisée. Ensuite,
+éditez ce fichier et traduisez toutes les lignes msgstr dans la langue souhaitée.
+Pour charger Travel &amp; Notes dans une autre langue, ajoutez à l&#39;url lng= et la langue à utiliser 
+(exemple pour utiliser Travel &amp; Notes en en: <a href="https://wwwouaiebe.github.io/TravelNotes/?lng=en">https://wwwouaiebe.github.io/TravelNotes/?lng=en</a>.</p>
+<p>L&#39;organisation de ces fichiers est la plus proche possible de celle de 
+<a href="https://en.wikipedia.org/wiki/Gettext">GNU getText</a></p>
+<p><a id="Plugins"></a></p>
+<h2 id="6-plugins">6. Plugins</h2>
+<p>Pour utiliser un plugin, chargez simplement celui-ci à partir de la page html en utilisant le tag &lt;script&gt;</p>
+</body></html>

@@ -1,7 +1,4 @@
-# Travel & Notes 
-
 <a href="#fr" >Vers la version française</a>
-
 <a id="en" />
 
 # Travel & Notes 
@@ -25,9 +22,9 @@ browser, update it.
 
 ## Guides
 
-[User guide - en ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/en/UserGuideEN.md)
+[User guide - en ](https://wwwouaiebe.github.io/TravelNotes/userGuides/en/UserGuideEN.html)
 
-[Installation guide - en ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/en/InstallationGuideEN.md)
+[Installation guide - en ](https://wwwouaiebe.github.io/TravelNotes/userGuides/en/InstallationGuideEN.html)
 
 [JS code documentation](https://wwwouaiebe.github.io/TravelNotes/techDoc/ )
 
@@ -56,14 +53,14 @@ Other samples:
   
 ## Releases and branches
 
-### v3.1.0 branch
+### v3.2.0 branch
 
-The [v3.1.0 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.1.0) and the [v3.1.0 branch](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0)
+The [v3.2.0 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.2.0) and the [v3.2.0 branch](https://github.com/wwwouaiebe/TravelNotes/tree/v3.2.0)
 contains the files of the last stable version.
 
-The [dist folder](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0/dist) contains all the needed files to run Travel & Notes, but not the sources.
+The [dist folder](https://github.com/wwwouaiebe/TravelNotes/tree/v3.2.0/dist) contains all the needed files to run Travel & Notes, but not the sources.
 
-Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0/src)
+Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v3.2.0/src)
 
 ### master branch
 
@@ -73,17 +70,21 @@ The [master branch](https://github.com/wwwouaiebe/TravelNotes/tree/master) is th
 
 Version 2.0.0 is a major release containing significant changes in travel files. Files made with a previous version are no 
 longer fully compatible with this version and some data in the notes may be lost. See the 
-[user guide - en](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/en/UserGuideEN.md#OpenFileWithV200)
+[user guide - en](https://wwwouaiebe.github.io/TravelNotes/userGuides/en/UserGuideEN.html#OpenFileWithV200)
 how to convert files made with an earlier version.
 
 ## What's new in the last release
 
-### What's new in release 3.1.0
+It is now possible to open .gpx files as a travel file or to insert .gpx files into a travel that is being edited.
+See the [User guide - en ](https://wwwouaiebe.github.io/TravelNotes/userGuides/en/UserGuideEN.html#GpxFiles)
 
-Version 3.1.0 contains no new features for users. On the other hand, important modifications were made to the code,
-due to the use of 'private' and 'static' variables and methods.
+Following issues are corrected:
 
-For other versions, see the document ['What's new?' - en ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/en/WhatsNew.md)
+- Issue #4 : Line type and line width for routes are not adapted on the print views
+- Issue #8 : Review the translation files.
+- Issue #9 : String.substr ( ) is deprecated... Replace...
+
+For other versions, see the document ['What's new?' - en ](https://wwwouaiebe.github.io/TravelNotes/userGuides/en/WhatsNew.html)
 
 <a id="fr" />
 
@@ -108,9 +109,9 @@ navigateur, faites une mise à jour de celui-ci.
 
 ## Guides
 
-[Guide pour les utilisateurs - fr ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/fr/GuideUtilisateurFR.md)
+[Guide pour les utilisateurs - fr ](https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/GuideUtilisateurFR.html)
 
-[Guide d'installation - fr ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/fr/GuideInstallationFR.md)
+[Guide d'installation - fr ](https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/GuideInstallationFR.html)
 
 [Documentation du code JS](https://wwwouaiebe.github.io/TravelNotes/techDoc/)
 
@@ -140,14 +141,14 @@ D'autres exemples:
 
 ## Versions et branches
 
-### branche v3.1.0
+### branche v3.2.0
 
-La [version v3.1.0](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.1.0) et la [branche v3.1.0](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0)
+La [version v3.2.0](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.2.0) et la [branche v3.2.0](https://github.com/wwwouaiebe/TravelNotes/tree/v3.2.0)
 contiennent les fichiers de la dernière version stable.
 
-Le [répertoire dist](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0/dist) contient tous les fichiers pour exécuter Travel & Notes, mais ne contient pas les sources.
+Le [répertoire dist](https://github.com/wwwouaiebe/TravelNotes/tree/v3.2.0/dist) contient tous les fichiers pour exécuter Travel & Notes, mais ne contient pas les sources.
 
-Les sources sont disponibles dans le [répertoire src](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0/src)
+Les sources sont disponibles dans le [répertoire src](https://github.com/wwwouaiebe/TravelNotes/tree/v3.2.0/src)
 
 ### branche master
 
@@ -156,14 +157,18 @@ La [branche master](https://github.com/wwwouaiebe/TravelNotes/tree/master) est l
 ## Avertissement avant d'installer et utiliser la version 2.0.0 ou une version supérieure à 2.0.0
 
 La version 2.0.0 est une version majeure contenant des changements importants dans les fichiers de voyage. Les fichiers réalisés avec une version précédente ne sont plus entièrement compatibles avec cette version 
-et quelques données présentes dans les notes peuvent être perdues. Voyez dans le [guide pour les utilisateurs - fr](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/fr/GuideUtilisateurFR.md#OpenFileWithV200) 
+et quelques données présentes dans les notes peuvent être perdues. Voyez dans le [guide pour les utilisateurs - fr](https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/GuideUtilisateurFR.html#OpenFileWithV200) 
 comment convertir des fichiers réalisés avec une version antérieure.
 
 ## Quoi de neuf dans la dernière version
 
-### Quoi de neuf dans la version 3.1.0
+Il est désormais possible d'ouvrir des fichiers .gpx comme fichier de voyage ou d'insérer des fichiers .gpx dans un voyage en cours d'édition.
+Voir le [guide pour les utilisateurs - fr](https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/GuideUtilisateurFR.html#GpxFiles)
 
-La version 3.1.0 ne contient pas de nouveautés pour les utilisateurs. Par contre, d'importantes modifications ont été apportées au code, 
-suite à l'utilisation des variables et méthodes 'private' et 'static'.
+les issues suivantes sont corrigées:
 
-Pour les autres versions, reportez-vous au document ['quoi de neuf?' - fr ](https://github.com/wwwouaiebe/TravelNotes/blob/v3.1.0/TravelNotesGuides/fr/QuoiDeNeuf.md)
+- Issue #4 : Line type and line width for routes are not adapted on the print views
+- Issue #8 : Review the translation files.
+- Issue #9 : String.substr ( ) is deprecated... Replace...
+
+Pour les autres versions, reportez-vous au document ['quoi de neuf?' - fr ](https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/QuoiDeNeuf.html)

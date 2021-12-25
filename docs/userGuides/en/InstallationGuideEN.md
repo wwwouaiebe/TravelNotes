@@ -1,37 +1,37 @@
 # Travel & Notes - Installation guide
 
-- [Where to install Travel & Notes?](#WhereInstall)
-- [Installation Guide for Nulls](#GuideNull)
-- [Installation guide for geeks](#GuideGeeks)
-	- [What to do in the HTML file?](#HtmlPage)
-	- [Some additional explanations on Javascript](#MoreOnJS)
-	- [The contents of the TravelNotesConfig.json file](#TravelNotesConfigJson)
-	- [The contents of the TravelNotesLayers.json file](#TravelNotesLayersJson)
-	- [The contents of the TravelNotesNoteDialogFR.json and TravelNotesNoteDialogEN.json file](#TravelNotesNoteDialogJson)
-	- [The contents of the configuration file that can be loaded with the button 📂 in the notes dialog](#myTravelNotesNoteDialogJson)
-	- ["Search OpenStreetMap" settings](#OsmSearch)
-- [Using the viewer](#Viewer)
-- [Translations](#Translations)
-- [Plugins](#Plugins)
+1. [Where to install Travel & Notes?](#WhereInstall)
+2. [Installation Guide for Nulls](#GuideNull)
+3. [Installation guide for geeks](#GuideGeeks)
+	1. [What to do in the HTML file?](#HtmlPage)
+	2. [Some additional explanations on Javascript](#MoreOnJS)
+	3. [The contents of the TravelNotesConfig.json file](#TravelNotesConfigJson)
+	4. [The contents of the TravelNotesLayers.json file](#TravelNotesLayersJson)
+	5. [The contents of the TravelNotesNoteDialogFR.json and TravelNotesNoteDialogEN.json file](#TravelNotesNoteDialogJson)
+	6. [The contents of the configuration file that can be loaded with the button 📂 in the notes dialog](#myTravelNotesNoteDialogJson)
+	7. ["Search OpenStreetMap" settings](#OsmSearch)
+4. [Using the viewer](#Viewer)
+5. [Translations](#Translations)
+6. [Plugins](#Plugins)
 
 <a id="WhereInstall"></a>
-## Where to install Travel & Notes?
+## 1. Where to install Travel & Notes?
 
 For security reasons, it is no longer possible to use Travel & Notes from a computer disc. 
 It is essential to go through either a remote web server, or a local LAMP or MAMP web server.
 See https://www.mozilla.org/en-US/security/advisories/mfsa2019-21/#CVE-2019-11730
 
 <a id="GuideNull"></a>
-## Installation Guide for Nulls
+## 2. Installation Guide for Nulls
 
-No great computer skills? [Download the last version](https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v3.1.0.zip),
+No great computer skills? [Download the last version](https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v3.2.0.zip),
 and install the contents of the docs/demo/ directory in a directory on your server and open the index.html file. That's all :-).
 
 <a id="GuideGeeks"></a>
-## Installation guide for geeks
+## 3. Installation guide for geeks
 
 <a id="HtmlPage"></a>
-### What to do in the HTML file?
+### 3.1. What to do in the HTML file?
 
 Travel & Notes uses [Leaflet](http://leafletjs.com/) to display the map. You must therefore download 
 and install Leaflet.
@@ -73,7 +73,7 @@ And in the &lt;body&gt; load Leaflet, TravelNotes and TravelNotes plugins
 Travel & Notes will automatically create the map and all necessary controls.
 
 <a id="MoreOnJS"></a>
-### Some additional explanations on Javascript
+### 3.2. Some additional explanations on Javascript
 
 See the [JS code documentation](https://wwwouaiebe.github.io/TravelNotes/techDoc/index.html)
 for more information.
@@ -85,7 +85,7 @@ If you want to use other objects, you need to download the sources and import th
 as EcmaScript modules.
 
 <a id="TravelNotesConfigJson"></a>
-### The contents of the TravelNotesConfig.json file
+### 3.3. The contents of the TravelNotesConfig.json file
 
 This file is used to modify certain behavior of TravelNotes. Be careful when editing this file. 
 You must follow __all__ the rules for writing json files.
@@ -222,7 +222,7 @@ Warning: the values in this array are numerical values and will be multiplied by
 - __wayPoint.geocodingIncludeName__ : when this value is true, a name is if possible added to the address ( default value : true )
 
 <a id="TravelNotesLayersJson"></a>
-### The contents of the TravelNotesLayers.json file
+### 3.4. The contents of the TravelNotesLayers.json file
 
 This file contains the definitions of background maps of the "Maps" toolbar
 These definitions can be adapted.
@@ -294,7 +294,7 @@ the attributions of OpenStreetMap because they are always present in Travel & No
 - __getCapabilitiesUrl__ : the url of the getCapabilities file when it is known.
 
 <a id="TravelNotesNoteDialogJson"></a>
-### The contents of the TravelNotesNoteDialogFR.json and TravelNotesNoteDialogEN.json file
+### 3.5. The contents of the TravelNotesNoteDialogFR.json and TravelNotesNoteDialogEN.json file
 
 This file contains the definitions of the buttons and list of predefined icons of the note editing box. 
 These definitions can be adapted to your needs.
@@ -359,12 +359,12 @@ Each object in the "preDefinedIconsList" collection has five properties:
 - __height__ : the height of the icon in pixels
 
 <a id="myTravelNotesNoteDialogJson"></a>
-### The contents of the configuration file that can be loaded with the button 📂 in the notes dialog
+### 3.6. The contents of the configuration file that can be loaded with the button 📂 in the notes dialog
 
 The organization of this file is identical to the files TravelNotesNoteDialogFR.json and TravelNotesNoteDialogEN.json
 
 <a id="OsmSearch"></a>
-### "Search OpenstreetMap" settings
+### 3.7. "Search OpenstreetMap" settings
 
 The TravelNotesSearchDictionaryFR.csv (in French) or TravelNotesSearchDictionaryEN.csv (in English) file contains all the information needed to configure the search in OpenStreetMap. The file can be edited with LibreOffice or any other program capable of reading CSV files.
 The file must be saved with Unicode as the character set and encoded in utf-8. the semicolon must be used as a separator.
@@ -387,7 +387,7 @@ and a single key / verified value is enough to select the object in OpenStreetMa
 - when all the values of a tag are acceptable, the key must be indicated, followed by the equal sign followed by the sign *.
 
 <a id="Viewer"></a>
-## Using the viewer
+## 4. Using the viewer
 
 The viewer allows you to view files that have been made with TravelNotes. It does not have 
 controls or menus and therefore does not allow modification of a travel. Its interest lies in the fact that it does not use too much JavaScript and that it is lighter than TravelNotes
@@ -417,7 +417,7 @@ The TravelNotesViewer.min.css and TravelNotesViewer.min.js files as well as the 
 files are in the "viewer" sub-directory
 
 <a id="Translations"></a>
-## Translations
+## 5. Translations
 
 Travel & Notes is translated into 'fr' and 'en'. If you want to translate Travel & Notes into 
 another language, copy the TravelNotesEN.json file and rename it according to the language used. Then,
@@ -429,6 +429,6 @@ The organization of these files is as close as possible to that of
 [GNU getText](https://en.wikipedia.org/wiki/Gettext)
 
 <a id="Plugins"></a>
-## Plugins
+## 6. Plugins
 
 To use a plugin, simply load it from the html page using the tag <script>

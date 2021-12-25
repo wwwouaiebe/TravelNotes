@@ -1,0 +1,117 @@
+/**
+@------------------------------------------------------------------------------------------------------------------------------
+
+reset all used elements to avoid problems with the browser css
+
+@------------------------------------------------------------------------------------------------------------------------------
+*/
+
+article,
+body,
+div,
+figure,
+figcaption,
+header,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+img,
+nav,
+object,
+p,
+section,
+span,
+sub,
+sup
+{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	font-weight: normal;
+	vertical-align: baseline;
+	background: transparent;
+	box-sizing: border-box;
+	text-decoration: none;
+	color: black ;
+}
+
+body {
+	line-height: normal;
+}
+
+/* end reset */
+
+body {
+	max-width: 22cm;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 3cm;
+	padding-left: 1cm;
+	padding-right: 1cm;
+	font-family: Helvetica, Arial, sans-serif;
+	
+}
+
+code{
+	overflow: scroll;
+	display:block;
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+
+h1 {
+	font-size: 200%;
+	padding-bottom : 3em;
+	padding-top : 3em;
+	font-weight : bold;
+}
+
+h2 {
+	font-size: 175%;
+	padding-bottom : 2em;
+	padding-top : 2em;
+	font-weight : bold;
+}
+
+h3 {
+	font-size: 152%;
+	padding-bottom : 1em;
+	padding-top : 1em;
+	color : gray;
+	font-weight : bold;
+}
+
+h4 {
+	font-size: 132%;
+	padding-bottom : 1em;
+	padding-top : 1em;
+	color : gray;
+	font-weight : bold;
+}
+h5 {
+	font-size: 115%;
+	padding-bottom : 1em;
+	padding-top : 1em;
+	color : gray;
+	font-weight : bold;
+}
+
+img {
+	margin-top: 1em;
+}
+
+img.icon{
+	margin-top: 0;
+}
+p {
+	margin-top: 0.5em;
+}
+ul, ol {
+	padding-left : 1em;;
+	list-style-position: inside;
+}

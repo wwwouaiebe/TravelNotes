@@ -1,59 +1,60 @@
 # Travel & Notes - Guide de l'utilisateur
 
-- [Pourquoi Travel & Notes](#WhyTravelNotes)
-- [Quelques explications sur les termes utilisés](#SomeExplanations)
-- [Ouvrir un fichier de voyage créé avec un version antérieure à v2.0.0](#OpenFileWithV200)
-- [Avant de commencer à utiliser Travel & Notes](#BeforeStart)
-	- [Comment introduire vos clefs d'accès dans Travel & Notes](#APIKeys)
-- [Menus contextuels](#ContextMenus)
-- [Interface](#Interface1)
-	- [Barre d'outils en haut de l'interface](#InterfaceToolbar)
-	- [Voyage](#Travel)
-		- [Nom du voyage](#TravelName)
-		- [Boutons de la barre d'outils "Trajets du voyage"](#RouteToolbar)
-		- [Trajets du voyage](#RoutesTravel)
-	- [Itinéraire et notes](#ItineraryAndNotes)
-	- [Rechercher dans OpenStreetMap](#OsmSearch)
-	- [Barre d'outils des modes de parcours et des fournisseurs d'itinéraire](#RouterButtons)
-- [Boites d'édition](#EditBoxes)
-- [Trajets et points de passage](#Routes)	
-	- [Créer un point de passage](#AddWayPoint)
-	- [Ajouter un point de passage avec un glisser/déposer ](#AddWayPointDragDrop)
-	- [Modifier un point de passage ](#ModifyWayPoint)
-	- [Supprimer un point de passage](#DeleteWayPoint)
-	- [Renommer un point de passage ou changer son adresse](#RenameWayPoint)
-	- [Choisir un mode de parcours et un fournisseur d'itinéraire](#ItineraryModeAndProvider)
-	- [Calcul de l'itinéraire](#ComputingItinerary)
-	- [Sauver ou abandonner les modifications](#SaveOrDiscardRoute)
-	- [Profil d'un trajet](#RouteProfile)
-	- [Trajet en train](#TrainItinerary)
-	- [Dessiner une ligne entre deux points sur la carte](#LineItinerary)
-	- [Dessiner un cercle sur la carte](#CircleItinerary)
-	- [La boite d'édition des propriétés d'un trajet](#RouteDlg)
-	- [Imprimer les cartes d'un trajet](#PrintRouteMaps)
-- [Notes](#Notes1)
-	- [Créer une note de voyage](#NewTravelNote)
-	- [Modifier l'ordre des notes de voyage](#ReorderTravelNote)
-	- [Créer une note de trajet](#NewRouteNote)
-	- [Consulter une note](#ViewNote)
-	- [Modifier le contenu d'une note](#ModifyNote)
-	- [Effacer une note](#DeleteNote)
-	- [Déplacer l'icône d'une note](#MoveNote)
-	- [Modifier la latitude et la longitude d'une note](#LatLngNote)
-	- [Transformer une note de trajet en note de voyage](#RouteToTravelNote)
-	- [Transformer une note de voyage en note de trajet](#TravelToRouteNote)
-	- [Créer une note pour chaque manœuvre du trajet](#AllManeuverNotesFromOsm)
-	- [La boite d'édition d'une note](#NoteDlg)
-		- [Insérer du texte en html](#AddHtmltext)
-		- [Note de trajet prédéfinie "Icône SVG depuis OSM"](#SvgNoteFromOsm)
-		- [Quelques exemples de notes](#NoteSamples)
-- [Menu des fonds de carte](#MapsMenu)
-- [Livre de voyage](#Roadbook)
-- [Préparer un voyage et le consulter depuis internet](#PrepareTravel)
-- [Viewer](#Viewer)
+1. [Pourquoi Travel & Notes](#WhyTravelNotes)
+2. [Quelques explications sur les termes utilisés](#SomeExplanations)
+3. [Ouvrir un fichier de voyage créé avec un version antérieure à v2.0.0](#OpenFileWithV200)
+4. [Avant de commencer à utiliser Travel & Notes](#BeforeStart)
+	1. [Comment introduire vos clefs d'accès dans Travel & Notes](#APIKeys)
+5. [Menus contextuels](#ContextMenus)
+6. [Interface](#Interface1)
+	1. [Barre d'outils en haut de l'interface](#InterfaceToolbar)
+	2. [Voyage](#Travel)
+		1. [Nom du voyage](#TravelName)
+		2. [Boutons de la barre d'outils "Voyage"](#RouteToolbar)
+		3. [Trajets du voyage](#RoutesTravel)
+	3. [Itinéraire et notes](#ItineraryAndNotes)
+	4. [Rechercher dans OpenStreetMap](#OsmSearch)
+	5. [Barre d'outils des modes de parcours et des fournisseurs d'itinéraire](#RouterButtons)
+7. [Boites d'édition](#EditBoxes)
+8. [Trajets et points de passage](#Routes)	
+	1. [Créer un point de passage](#AddWayPoint)
+	2. [Ajouter un point de passage avec un glisser/déposer ](#AddWayPointDragDrop)
+	3. [Modifier un point de passage ](#ModifyWayPoint)
+	4. [Supprimer un point de passage](#DeleteWayPoint)
+	5. [Renommer un point de passage ou changer son adresse](#RenameWayPoint)
+	6. [Choisir un mode de parcours et un fournisseur d'itinéraire](#ItineraryModeAndProvider)
+	7. [Calcul de l'itinéraire](#ComputingItinerary)
+	8. [Sauver ou abandonner les modifications](#SaveOrDiscardRoute)
+	9. [Profil d'un trajet](#RouteProfile)
+	10. [Trajet en train](#TrainItinerary)
+	11. [Dessiner une ligne entre deux points sur la carte](#LineItinerary)
+	12. [Dessiner un cercle sur la carte](#CircleItinerary)
+	13. [La boite d'édition des propriétés d'un trajet](#RouteDlg)
+	14. [Imprimer les cartes d'un trajet](#PrintRouteMaps)
+9. [Notes](#Notes1)
+	1. [Créer une note de voyage](#NewTravelNote)
+	2. [Modifier l'ordre des notes de voyage](#ReorderTravelNote)
+	3. [Créer une note de trajet](#NewRouteNote)
+	4. [Consulter une note](#ViewNote)
+	5. [Modifier le contenu d'une note](#ModifyNote)
+	6. [Effacer une note](#DeleteNote)
+	7. [Déplacer l'icône d'une note](#MoveNote)
+	8. [Modifier la latitude et la longitude d'une note](#LatLngNote)
+	9. [Transformer une note de trajet en note de voyage](#RouteToTravelNote)
+	10. [Transformer une note de voyage en note de trajet](#TravelToRouteNote)
+	11. [Créer une note pour chaque manœuvre du trajet](#AllManeuverNotesFromOsm)
+	12. [La boite d'édition d'une note](#NoteDlg)
+		1. [Insérer du texte en html](#AddHtmltext)
+		2. [Note de trajet prédéfinie "Icône SVG depuis OSM"](#SvgNoteFromOsm)
+		3. [Quelques exemples de notes](#NoteSamples)
+10. [Fichiers GPX](#GpxFiles)
+11. [Menu des fonds de carte](#MapsMenu)
+12. [Livre de voyage](#Roadbook)
+13. [Préparer un voyage et le consulter depuis internet](#PrepareTravel)
+14. [Viewer](#Viewer)
 
 <a id="WhyTravelNotes"></a>
-## __Pourquoi Travel & Notes__
+## 1. Pourquoi Travel & Notes
 
 Je pars de temps en temps en voyage en vélo pour plusieurs semaines, parfois dans des régions isolées. 
 Ce genre de voyage ne s'improvise pas, même si il y a toujours une part d'imprévu. 
@@ -70,7 +71,7 @@ il n'y a pas toujours de réseau mobile ni de possibilité de recharger une batt
 Une bonne vieille copie papier est souvent précieuse.
 
 <a id="SomeExplanations"></a>
-## __Quelques explications sur les termes utilisés__
+## 2. Quelques explications sur les termes utilisés
 
 Un **trajet** relie deux points. Sur la carte, il est représenté par une polyligne.
 
@@ -95,9 +96,9 @@ Le **livre de voyage** est une page HTML qui regroupe toute l'information du voy
 les trajets et les itinéraires.
 
 <a id="OpenFileWithV200"></a>
-## __Ouvrir un fichier de voyage créé avec un version antérieure à v2.0.0__
+## 3. Ouvrir un fichier de voyage créé avec un version antérieure à v2.0.0
 
-__**ATTENTION : Il n'est pas possible d'ouvrir avec une version 1.x.x un fichier sauvé avec la version 2.0.0**__
+**ATTENTION : Il n'est pas possible d'ouvrir avec une version 1.x.x un fichier sauvé avec la version 2.0.0**
 
 Il est possible que vous ayez encore besoin de la version antérieure pour faire des corrections dans les notes.
 Vous pouvez faire deux installations de Travel & Notes sans problème. Il suffit de les placer dans des répertoires
@@ -114,7 +115,7 @@ avec la version 2.0.0. OU effectuez directement les corrections nécessaires dan
 incorrects et ne menaient donc à rien.
 
 <a id="BeforeStart"></a>
-## __Avant de commencer à utiliser Travel & Notes__
+## 4. Avant de commencer à utiliser Travel & Notes
 
 Si vous utilisez Travel & Notes uniquement pour créer des notes, vous pouvez ignorer toute la partie 
 qui concernent les clefs d'accès. Celles-ci ne sont utilisées que pour le calcul des trajets et 
@@ -143,7 +144,7 @@ qu'il peut y avoir une facturation qui est faite sur la base de ces clefs d'acc�
 à n'importe qui, ne les laissez pas trainer n'importe où.
 
 <a id="APIKeys"></a>
-### Comment introduire vos clefs d'accès dans Travel & Notes
+### 4.1. Comment introduire vos clefs d'accès dans Travel & Notes
 
 Les clefs d'accès sont gérées à partir de la boite de dialogue des clefs d'accès. Pour afficher celle-ci,
 cliquez sur le bouton 🔑 dans la barre d'outil en haut de l'interface.
@@ -190,7 +191,7 @@ Si un fichier protégé par un mot de passe et nommé **APIKeys** est placé dan
 Travel & Notes sur le serveur, Travel & Notes vous demandera le mot de passe à l'ouverture pour 
 pouvoir utiliser les clefs contenues dans ce fichier.
 
-Pour les geeks et les paranos voyez aussi ,dans le [guide d'installation](GuideInstallationFR.md#TravelNotesConfigJson) et dans le fichier 
+Pour les geeks et les paranos voyez aussi ,dans le [guide d'installation](GuideInstallationFR.html#TravelNotesConfigJson) et dans le fichier 
 TravelNotesConfig.json:
 - APIKeys.saveToSessionStorage pour sauver ou non les clefs dans le sessionStorage
 - APIKeysDialog.showButton pour afficher ou masquer le bouton 🔑 dans la barre d'outils
@@ -202,7 +203,7 @@ et 📂 à __droite__
 L'ancienne méthode consistant à introduire les clefs d'accès via l'url est supprimée.
 
 <a id="ContextMenus"></a>
-## __Menus contextuels__
+## 5. Menus contextuels
 
 Tous les objets de la carte (points de passage, notes, trajets, carte) ont un menu contextuel. Toutes les commandes relatives à ces
 objets se trouvent dans ces menus contextuels. 
@@ -213,7 +214,7 @@ liste des notes de voyage affichera un menu contextuel pour cette note et un cli
 l'itinéraire affichera un menu contextuel pour cette manœuvre.
 
 <a id="Interface1"></a>
-## __Interface__
+## 6. Interface
 
 Lorsque la carte s'affiche, seul un petit rectangle noir est est visible dans le coin supérieur droit de la carte:
 
@@ -224,11 +225,11 @@ Déplacez la souris sur ce rectangle pour voir l'interface complète:
 <img src="InterfaceFR.PNG" />
 
 <a id="InterfaceToolbar"></a>
-### Barre d'outils en haut de l'interface
+### 6.1. Barre d'outils en haut de l'interface
 
 En haut de l'interface se trouve une première barre d'outils:
-- le bouton 🏠 redirige vers votre page d'accueil
-- le bouton ? redirige vers [la page d'aide sur Github](https://github.com/wwwouaiebe/TravelNotes/tree/v3.1.0/TravelNotesGuides#fr)
+- le bouton 🏠 redirige vers votre page d'accueil.
+- le bouton ? redirige vers la page d'aide sur Github (ce document ).
 - le bouton @ redirige vers une page de contact. Par défaut, c'est [la page des issues de Travel & Notes sur Github](https://github.com/wwwouaiebe/TravelNotes/issues).
 L'url peut être modifiée via le fichier TravelNotesConfig.json (travelNotesToolbarUI.contactMail.url)
 - le bouton 🔑 affiche la boite de dialogue des clefs d'accès
@@ -236,28 +237,28 @@ L'url peut être modifiée via le fichier TravelNotesConfig.json (travelNotesToo
 - le bouton 📌 affiche l'interface en permanence.
 
 <a id="Travel"></a>
-### Voyage
+### 6.2. Voyage
 
 <a id="TravelName"></a>
-#### Nom du voyage
+#### 6.2.1 Nom du voyage
 
 Dans cette boite d"édition vous pouvez donner un nom au voyage. Ce nom sera par la suite proposé comme nom par défaut 
 pour tous les fichiers que vous créerez à partir de ce voyage. Il est nécessaire de donner un nom au voyage avant
 de pouvoir sauver celui-ci.
 
 <a id="RouteToolbar"></a>
-#### Boutons de la barre d'outils "Voyage"
+#### 6.2.2 Boutons de la barre d'outils "Voyage"
 
 - le bouton 💾 sur fond **rouge** sauve le voyage en cours d'édition SANS les notes ni les manœuvres.
 - le bouton ❌ efface toutes les données du voyage et commence l'édition d'un nouveau voyage.
 - le bouton 💾 sauve le voyage en cours d'édition dans un fichier sur votre ordinateur
-- le bouton 📂 ouvre un voyage préalablement sauvé dans un fichier
+- le bouton 📂 ouvre un voyage préalablement sauvé dans un fichier ou ouvre un fichier .GPX
 - le bouton 🌏 ouvre un voyage préalablement sauvé dans un fichier et inclut tous les trajets 
-et toutes les notes de ce voyage dans le voyage en cours d'édition
+et toutes les notes de ce voyage dans le voyage en cours d'édition ou insère le contenu d'un fichier .GPX 
 - le bouton 📋 ouvre le livre de voyage
 
 <a id="RoutesTravel"></a>
-#### Trajets du voyage
+#### 6.2.3 Trajets du voyage
 
 Dans cette partie, les différents trajets du voyage sont affichés.
 
@@ -277,7 +278,7 @@ de l'adresse du point d'arrivée. Il est possible de modifier ce nom en sélecti
 'Modifier les propriétés de ce trajet' dans le menu contextuel.
 
 <a id="ItineraryAndNotes"></a>
-### Itinéraire et notes
+### 6.3. Itinéraire et notes
 
 Cette partie comprend les manœuvres de l'itinéraire ainsi que les notes liées au trajet.
 Vous pouvez choisir ce que vous désirez voir en cochant les notes et / ou les manœuvres
@@ -289,7 +290,7 @@ Un clic droit sur une ligne de l'itinéraire affichera un menu contextuel avec d
 qui permettent de faires des opérations sur la manœuvre ou la note.
 
 <a id="OsmSearch"></a>
-### Rechercher dans OpenStreetMap
+### 6.4. Rechercher dans OpenStreetMap
 
 Dans cette partie, il est possible de rechercher des points d'intérêts (POI) dans OpenStreetMap.
 Une barre d'outils est affichée dans le haut et ensuite une liste arborescente permettant de choisir les 
@@ -303,7 +304,7 @@ POI à rechercher est affichée.
 - le bouton ❌ désélecte toute la liste arborescente
 
 La liste arborescente peut être facilement modifiée et adaptée à vos besoins. 
-Voir le [guide d'installation](GuideInstallationFR.md#OsmSearch).
+Voir le [guide d'installation](GuideInstallationFR.html#OsmSearch).
 
 Sélectionnez le type de POI à rechercher dans la liste arborescente et ensuite cliquez sur le bouton 🔎.
 Après quelques instants, les résultats sont affichés:
@@ -322,7 +323,7 @@ Lorsque le panneau "Rechercher dans OpenStreetMap" est activé, un carré rouge 
 est affiché à l'écran. Le carré vert montre les limites de la recherche précédente.
 
 <a id="RouterButtons"></a>
-### Barre d'outils des modes de parcours et des fournisseurs d'itinéraire
+### 6.5. Barre d'outils des modes de parcours et des fournisseurs d'itinéraire
 
 Les différents modes de parcours (vélo, piéton, voiture,train ou ligne) ainsi que les différents 
 fournisseurs d'itinéraires sont sélectionnés sur cette barre d'outils.
@@ -338,14 +339,14 @@ Seuls les boutons utilisables sont visibles dans la barre d'outils:
 et si la clef d'accès pour ce fournisseur est connue (qund une clef d'accès est nécessaire).
 
 <a id="EditBoxes"></a>
-## Boites d'édition
+## 7. Boites d'édition
 
 Parfois, une boite d'édition peut masquer un objet de la carte que l'on désire consulter. Il est 
 toujours possible, soit de déplacer / modifier la carte avec un zoom ou un pan, soit de glisser / déposer la
 boite d'édition en la saississant par la barre dans la partie supérieure.
 
 <a id="Routes"></a>
-## Trajets et points de passage
+## 8. Trajets et points de passage
 
 Pour ajouter, modifier ou supprimer des points de passage, il est nécessaire d'éditer le trajet depuis l'interface
 ou via le menu contextuel du trajet si celui-ci existe déjà.
@@ -354,7 +355,7 @@ Les autres modifications (notes, propriétés du trajet) peuvent se faire, que l
 soit édité ou non.
 
 <a id="AddWayPoint"></a>
-### Créer un point de passage
+### 8.1. Créer un point de passage
 
 Pour créer un point de passage, faites un clic droit sur la carte à l'endroit souhaité et choissisez
 "Sélectionner cet endroit comme point de départ", "Sélectionner cet endroit comme point intermédiaire"
@@ -369,7 +370,7 @@ Un point intermédiaire ajouté via le menu contextuel sera toujours ajouté à 
 liste des points intermédiaires.
 
 <a id="AddWayPointDragDrop"></a>
-### Ajouter un point de passage avec un glisser/déposer
+### 8.2. Ajouter un point de passage avec un glisser/déposer
 
 Amenez la souris sur le trajet pour voir apparaître un point de passage temporaire gris.
 En faisant ensuite un glisser / déposer de celui-ci, le point de passage est ajouté au trajet.
@@ -377,23 +378,23 @@ En faisant ensuite un glisser / déposer de celui-ci, le point de passage est aj
 <img src="AddWayPointFR.PNG" />
 
 <a id="ModifyWayPoint"></a>
-### Modifier un point de passage 
+### 8.3. Modifier un point de passage 
 
 Faites un glisser / déposer du point de passage sur la carte pour modifier un point de passage
 
 <a id="DeleteWayPoint"></a>
-### Supprimer un point de passage
+### 8.4. Supprimer un point de passage
 
 Faites un clic droit sur le point de passage et choisissez "supprimer ce point de passage" dans le menu.
 Il n'est pas possible de supprimer le point de départ ni le point de fin. Seul un glisser / déposer 
 est possible.
 
 <a id="RenameWayPoint"></a>
-### Renommer un point de passage ou changer son adresse
+### 8.5. Renommer un point de passage ou changer son adresse
 
 Quand un point de passage est créé, son adresse est recherchée avec Nominatim. Si un nom, tel que 
 un nom de magasin ou d'immeuble est trouvé par Nominatim, celui-ci sera également ajouté 
-( voir wayPoint.geocodingIncludeName dans le fichier TravelNotesConfig.json pour désactiver cette possibilité ) .
+( voir wayPoint.geocodingIncludeName dans le fichier TravelNotesConfig.json pour désactiver cette possibilité ).
 
 Vous pouvez modifier ce nom et cette adresse en faisant un clic droit sur le point de passage et en 
 sélectionnant "Modifier les propriétés de ce point de passage" dans le menu contextuel.
@@ -403,7 +404,7 @@ modifiés par Nominatim et vos modificatons perdues. Il vaut donc mieux faire ce
 certain de ne plus déplacer ce point de passage.
 
 <a id="ItineraryModeAndProvider"></a>
-### Choisir un mode de parcours et un fournisseur d'itinéraire
+### 8.6. Choisir un mode de parcours et un fournisseur d'itinéraire
 
 Utilisez les boutons dans le bas du contrôle pour modifier le mode de déplacement (vélo, piéton, 
 voiture ou train) ainsi que le fournisseur de trajet.
@@ -411,7 +412,7 @@ voiture ou train) ainsi que le fournisseur de trajet.
 <img src="RouterButtons.PNG" />
 
 <a id="ComputingItinerary"></a>
-### Calcul de l'itinéraire
+### 8.7. Calcul de l'itinéraire
 
 Lorsque le point de départ et le point de fin sont connus, l'itinéraire est calculé et affiché sur 
 la carte. Il en est de même chaque fois qu'un point intermédiaire est ajouté ou qu'un point de 
@@ -420,7 +421,7 @@ passage est déplacé.
 La description de l'itinéraire est également affichée dans la partie "Itinéraire et notes".
 
 <a id="SaveOrDiscardRoute"></a>
-### Sauver ou abandonner les modifications
+### 8.8 Sauver ou abandonner les modifications
 
 Lorsque l'édition d'un trajet est terminée, il faut sauver celle-ci. Faites un clic droit sur le trajet 
 et sélectionnez 'Sauver les modifications de ce trajet' dans le menu contextuel.
@@ -431,7 +432,7 @@ les modifications seront perdues, y compris les propriétés modifiées et les n
 depuis le début de l'édition.
 
 <a id="RouteProfile"></a>
-### Profil d'un trajet
+### 8.9 Profil d'un trajet
 
 Lorsque un trajet est calculé avec GraphHopper ou OpenRouteService, il est possible d'afficher un profil de ce trajet.
 Faites un clic droit sur le __trajet__ et sélectionnez "Voir le profil du trajet" dans le menu contextuel.
@@ -443,9 +444,10 @@ Il peut y avoir plusieurs fenêtres affichant des profils ouvertes.
 Il est possible de déplacer un profil sur l'écran en faisant un glisser/déposer de la barre supérieure de la fenêtre.
 
 <a id="TrainItinerary"></a>
-### Trajet en train
+### 8.10 Trajet en train
 
-- sélectionnez TravelNotesPublicTransport comme fournisseur de trajet en cliquant sur l'icône <img src="PublicTransportButton.PNG" /> dans le bas de l'interface
+- sélectionnez TravelNotesPublicTransport comme fournisseur de trajet en cliquant sur l'icône <img src="trainRed.svg" width="20px" height="20px" />
+dans le bas de l'interface
 - faites un clic droit sur la carte à proximité de la gare de départ et choisissez "Sélectionner cet endroit comme point de départ" dans le menu contextuel.
 - faites un clic droit sur la carte à proximité de la gare de destination et choisissez "Sélectionner cet endroit comme point de fin" dans le menu contextuel.
 - après quelques instants, une liste de tous les trains reliant les deux gares est affichée 
@@ -467,13 +469,11 @@ et sélectionnez le train correspondant au trajet souhaité et terminez en cliqu
 <img src="TrainItinerary.PNG" />
 
 <a id="LineItinerary"></a>
-### Dessiner une ligne entre deux points sur la carte
+### 8.11. Dessiner une ligne entre deux points sur la carte
 
-- sélectionnez "Polyline & Circle" comme fournisseur de trajet en cliquant sur l'icône <img src="PolylineCircleButton.PNG" /> dans le bas de l'interface et "Itinéraire à vol d'oiseau" 
-comme mode de déplacement en cliquant sur l'icône <img src="PolylineButton.PNG" />.
-
-- indiquez le point de départ et le point de fin ainsi que éventuellement des points intermédiaires. Entre chacun des points
-indiqués, une portion de "grand cercle" est dessinée.
+- sélectionnez "Polyline & Circle" comme fournisseur de trajet en cliquant sur l'icône <img class="icon" src="polyline.svg" width="20px" height="20px"/> 
+dans le bas de l'interface et "Itinéraire à vol d'oiseau" comme mode de déplacement en cliquant sur l'icône <img class="icon" src="line.svg" width="20px" height="20px"/>.
+- indiquez le point de départ et le point de fin ainsi que éventuellement des points intermédiaires. Entre chacun des points indiqués, une portion de "grand cercle" est dessinée.
 
 Notez que, en fonction des points choisis, le résultat sur la carte peut être une ligne, un arc de cercle ou une partie de sinusoïde,
 mais dans tous les cas ce sera la représentation d'une portion de grand cercle sur le globe terrestre ( = le plus court chemin entre les deux points).
@@ -481,11 +481,10 @@ mais dans tous les cas ce sera la représentation d'une portion de grand cercle 
 <img src="HELJFK.PNG" />
 
 <a id="CircleItinerary"></a>
-### Dessiner un cercle sur la carte
+### 8.12. Dessiner un cercle sur la carte
 
-- sélectionnez "Polyline & Circle" comme fournisseur de trajet en cliquant sur l'icône <img src="PolylineCircleButton.PNG" /> 
-dans le bas de l'interface et "Cercle" comme mode de déplacement en cliquant sur l'icône <img src="CircleButton.PNG" />.
-
+- sélectionnez "Polyline & Circle" comme fournisseur de trajet en cliquant sur l'icône <img class="icon" src="polyline.svg" width="20px" height="20px"/> 
+dans le bas de l'interface et "Cercle" comme mode de déplacement en cliquant sur l'icône <img class="icon" src="circle.svg" width="20px" height="20px"/>.
 - Indiquez le centre du cercle en utilisant la commande "Sélectionner cet endroit comme point de départ" et un point devant être sur
 le cercle en utilisant la commande "Sélectionner cet endroit comme point de fin".
 
@@ -493,7 +492,7 @@ Ici aussi, le résultat peut être une ellipse, un rectangle ou une sinusoïde m
 cercle sur le globe terrestre.
 
 <a id="RouteDlg"></a>
-### La boite d'édition des propriétés d'un trajet
+### 8.13 La boite d'édition des propriétés d'un trajet
 
 Faites un clic droit sur le trajet et sélectionnez "Modifier les propriétés de ce trajet" dans le menu contextuel.
 
@@ -516,13 +515,13 @@ Chaque nuance de rouge, vert et bleu pour la couleur désirée peut également �
 via les 3 zones d'édition des couleurs.
 
 <a id="PrintRouteMaps"></a>
-### Imprimer les cartes d'un trajet
+### 8.14 Imprimer les cartes d'un trajet
 
 Attention: cette commande est expérimentale. Elle peut ne pas fonctionner avec votre installation de Travel & Notes
 si vous avez ajouté d'autres éléments à la page. De plus, tous les browsers n'ont pas implémenté toutes
 les balises css nécessaires. Si cette commande ne vous convient pas, vous pouvez la désactiver à partir 
 du fichier TravelNotesConfig.json (printRouteMap.isEnabled). 
-Voir le [guide d'installation](GuideInstallationFR.md#TravelNotesConfigJson).
+Voir le [guide d'installation](GuideInstallationFR.html#TravelNotesConfigJson).
 
 Faites un clic droit sur le trajet pour lequel vous voulez imprimer les cartes et sélectionnez 
 "Imprimer les cartes de ce trajet" dans le menu contextuel.
@@ -556,7 +555,7 @@ Lorsque la commande d'impression du browser est fermée, les vues d'impression s
 et la carte réaffichée.
 
 Toutes les valeurs par défaut de la boite d'édition peuvent être modifiées dans le fichier TravelNotesConfig.json.
-Voir le [guide d'installation](GuideInstallationFR.md#TravelNotesConfigJson).
+Voir le [guide d'installation](GuideInstallationFR.html#TravelNotesConfigJson).
 
 Évitez de surcharger les serveurs de tuiles. Ne lancez cette commande que si vous en avez réellement besoin.
 Diminuer les dimensions du papier, la dimension de la marge et le zoom diminuera également le nombre de tuiles
@@ -589,7 +588,7 @@ moins 1 mm (à vérifier avec votre imprimante...). Vérifiez que tout est corre
 de Firefox.
 
 <a id="Notes1"></a>
-## __Notes__
+## 9. Notes
 
 Il y a deux sortes de notes: les notes de voyage et les notes de trajet. La position des notes de voyage 
 est totalement libre et elles seront toutes affichées au début du livre de voyage.
@@ -597,45 +596,45 @@ Les notes de trajet sont toujours positionnées sur un trajet et affichées avec
 livre de voyage.
 
 <a id="NewTravelNote"></a>
-### Créer une note de voyage
+### 9.1. Créer une note de voyage
 
 Faite un clic droit à l'endroit souhaité sur la __carte__ et sélectionnez "Ajouter une note de voyage" dans le 
 menu contextuel.
 
 <a id="ReorderTravelNote"></a>
-### Modifier l'ordre des notes de voyage
+### 9.2. Modifier l'ordre des notes de voyage
 
 L'ordre des notes de voyage peut se modifier en faisant du glisser / déposer dans la liste des notes de voyage de l'interface utilisateur.
 
 <a id="NewRouteNote"></a>
-### Créer une note de trajet
+### 9.3. Créer une note de trajet
 
 Faite un clic droit à l'endroit souhaité sur le __trajet__ et sélectionnez "Ajouter une note à ce trajet" 
 dans le menu contextuel.
 
 <a id="ViewNote"></a>
-### Consulter une note
+### 9.4. Consulter une note
 
 Faites un clic gauche sur l'icône de la note.
 
 <a id="ModifyNote"></a>
-### Modifier le contenu d'une note
+### 9.5 Modifier le contenu d'une note
 
 Faites un clic droit sur l'icône de la note et sélectionnez "Éditer cette note" dans le menu contextuel.
 
 <a id="DeleteNote"></a>
-### Effacer une note
+### 9.6. Effacer une note
 
 Faites un clic droit sur l'icône de la note et sélectionnez "Effacer cette note" dans le menu contextuel.
 
 <a id="MoveNote"></a>
-### Déplacer l'icône d'une note
+### 9.7. Déplacer l'icône d'une note
 
 Faites un glisser / déposer de la note. Une ligne sera tracée entre l'icône de la note et le point 
 choisi pour l'insertion de la note. La latitude et longitude de la note ne sont pas modifiées.
 
 <a id="LatLngNote"></a>
-### Modifier la latitude et la longitude d'une note
+### 9.8. Modifier la latitude et la longitude d'une note
 
 Déplacez l'icône de la note pour que la ligne soit visible. Déplacez la souris près de l'extrémité de la ligne.
 Lorsque un petit carré noir apparait sur celle-ci, faites un glisser / déposer de ce carré et de la ligne.
@@ -644,20 +643,20 @@ Une note de trajet a toujours sa latitude et longitude sur le trajet. Lorsque la
 le point le plus proche sur le trajet est recherché et l'extrémité libre de la ligne déplacé vers ce point.
 
 <a id="RouteToTravelNote"></a>
-### Transformer une note de trajet en note de voyage
+### 9.9. Transformer une note de trajet en note de voyage
 
 Faites un clic droit sur l'icône de la note et sélectionnez "Transformer en note de voyage" dans le menu 
 contextuel. La transformation n'est possible que si aucun trajet n'est en cours d'édition.
 
 <a id="TravelToRouteNote"></a>
-### Transformer une note de voyage en note de trajet
+### 9.10. Transformer une note de voyage en note de trajet
 
 Faites un clic droit sur l'icône de la note et sélectionnez "Transformer en note de trajet" dans le menu 
 contextuel. La transformation n'est possible que si aucun trajet n'est en cours d'édition. La note sera 
 attachée au trajet le plus proche de celle-ci.
 
 <a id="AllManeuverNotesFromOsm"></a>
-### Créer une note pour chaque manœuvre du trajet
+### 9.11 Créer une note pour chaque manœuvre du trajet
 
 Faites un clic droit sur le trajet et sélectionnez "Créer une note pour chaque manœuvre du trajet" dans le menu 
 contextuel. Une demande de confirmation est affichée. 
@@ -665,22 +664,22 @@ Pour chaque manœuvre du trajet, [une note en SVG à partir des données OpenStr
 
 
 <a id="NoteDlg"></a>
-### La boite d'édition d'une note
+### 9.12. La boite d'édition d'une note
 
 <img src="NoteEditionFR.PNG" />
 
 Dans le haut de la boite, une liste déroulante permet de choisir des notes prédéfinies. Il est possible 
-de modifier cette liste. Consultez le [guide d'installation](GuideInstallationFR.md#TravelNotesNoteDialogJson).
+de modifier cette liste. Consultez le [guide d'installation](GuideInstallationFR.html#TravelNotesNoteDialogJson).
 
 Le bouton ▼ cache ou affiche certaines zones d'édition qui sont masquées par défaut (les deux contrôles permettant de 
 modifier les dimensions de l'icône et le n° de téléphone ). Il est possible de choisir quelles zones sont masquées par défaut.
-Consultez le [guide d'installation](GuideInstallationFR.md#TravelNotesConfigJson)
+Consultez le [guide d'installation](GuideInstallationFR.html#TravelNotesConfigJson)
 
 Le bouton 📂 vous permet de charger votre propre fichier avec des notes prédéfinies dans 
-Travel & Notes. Consultez le [guide d'installation](GuideInstallationFR.md#TravelNotesNoteDialogJson). pour savoir comment créer ce fichier.
+Travel & Notes. Consultez le [guide d'installation](GuideInstallationFR.html#TravelNotesNoteDialogJson). pour savoir comment créer ce fichier.
 
 Tous les autres boutons sont modifiables et permettent d'insérer des balises html ou du texte prédéfini dans les zones d'édition. 
-Voir le [guide d'installation](GuideInstallationFR.md#TravelNotesNoteDialogJson).
+Voir le [guide d'installation](GuideInstallationFR.html#TravelNotesNoteDialogJson).
 
 La zone "Contenu de l'icône" sera utilisée pour représenter la note sur la carte et ne peut pas être 
 vide (laisser cette zone vide empêcherait toute modification ultérieure de la note).
@@ -698,12 +697,12 @@ téléphone sera affiché avec un lien tel: et un lien sms:.
 Chaque zone d'édition peut contenir du texte simple ou du html, à l'exception de la zone "Lien" qui ne peut contenir qu'un lien valide.
 
 <a id="AddHtmltext"></a>
-#### Insérer du texte en html
+#### 9.12.1 Insérer du texte en html
 
 Seules les balises html et attributs suivantes peuvent être utilisé·e·s:
 - la balise &lt;div&gt; (bloc de texte)
 - la balise &lt;p&gt; (paragraphe)
-- les balises &lt;h1&gt; à &lt;h6'&gt; (titres)
+- les balises &lt;h1&gt; à &lt;h6&gt; (titres)
 - la balise &lt;hr&gt; (ligne horizontale)
 - la balise &lt;ol&gt; (liste à puces ou liste numérotée)
 - la balise &lt;li&gt; (élément de liste à puce)
@@ -754,7 +753,7 @@ adapte la prévisualisation de la note en conséquence. Lorsque la boite d'édit
 le texte que vous avez introduit est remplacé par celui produit par l'interprétation que l'apps en a fait.
 
 <a id="SvgNoteFromOsm"></a>
-#### Note de trajet prédéfinie "Icône SVG depuis OSM"
+#### 9.12.2 Note de trajet prédéfinie "Icône SVG depuis OSM"
 
 Lorsque l'on crée une note de trajet, il est possible de choisir "Icône SVG depuis OSM" dans la 
 liste des notes prédéfinies. Dans ce cas, Travel & Notes va rechercher dans Openstreetmap
@@ -772,7 +771,7 @@ Si un nom de hameau ou de village est trouvé à proximité de l'intersection, c
 ajouté entre parenthèses.
 
 <a id="NoteSamples"></a>
-#### Quelques exemples de notes 
+#### 9.12.3 Quelques exemples de notes 
 
 ##### Une note simple créée à partir d'une note prédéfinie
 
@@ -815,8 +814,23 @@ Et le résultat dans TravelNotes:
 
 <img src="NotePhoto2FR.PNG" />
 
+<a id="GpxFiles"></a>
+## 10. Fichiers GPX
+
+Lorsque un fichier .GPX est ouvert avec le bouton 📂 ou importé avec le bouton 🌏, les règles suivantes sont appliquées:
+
+- Pour chaque balise &lt;trk&gt; trouvée dans le fichier .gpx, une route est créée dans TravelNotes
+- Les contenus de toutes les balises &lt;trkseg&gt; trouvées à l'intérieur d'une balise &lt;trk&gt; sont fusionnés en une seule balise &lt;trkseg&gt;
+et, par conséquent, les tronçons manquants de la route, dus à une interruption de la réception gps, sont remplacés par une ligne droite.
+- Si une et une seule balise &lt;rte&gt; est trouvée dans le fichier .gpx, alors:
+	- Si une balise &lt;name&gt; est trouvée dans la balise &lt;rte&gt;, le contenu de cette balise sera utilisé comme nom pour la route créée.
+	- Pour chaque balise &lt;rtept&gt; trouvée dans la balise &lt;rte&gt;,une manœuvre est créée, à partir du contenu de cette balise et ajoutée à la route. Cependant, aucune icône ne sera créée pour cette manœuvre.
+- Si des balises &lt;wpt&gt; sont trouvées dans le fichier .gpx et si une seule route a été ajoutée, alors un point de passage est créé pour chaque balise &lt;wpt&gt; et ce point de passage sera ajouté à la route.
+De plus, si le fichier .GPX a été créé à partir des sites [fietsnet.be](https://www.fietsnet.be/routeplanner/default.aspx) ou [knooppuntnet.be](https://knooppuntnet.be/fr/), une note avec le numéro du point noeud sera créée.
+- Dans le cas contraire, des points de passage seront créés au début et à la fin de chaque route ajoutée.
+
 <a id="MapsMenu"></a>
-## __Menu des fonds de carte__
+## 11. Menu des fonds de carte
 
 À gauche de l'écran une barre d'outils permet de choisir différents fond de cartes. Seul un petit 
 rectangle noir est visible à l'écran:
@@ -829,12 +843,12 @@ Amenez la souris sur ce rectangle pour afficher toute la barre d'outils:
 
 Pour chaque fond de carte un bouton est présent dans la barre d'outils. La composition de la barre 
 d'outils dépend des cartes définies dans le fichier TravelNotesLayers.json ainsi que des clefs 
-d'accès qui ont été introduites. Consultez le [guide d'installation](GuideInstallationFR.md#TravelNotesLayersJson).
+d'accès qui ont été introduites. Consultez le [guide d'installation](GuideInstallationFR.html#TravelNotesLayersJson).
 
 Il est possible de se déplacer dans la barre d'outils en utilisant la roulette de la souris.
 
 <a id="Roadbook"></a>
-## __Livre de voyage__
+## 12. Livre de voyage
 
 Cliquez sur le bouton 📋. Un nouvel onglet est créé avec le livre de voyage. Celui-ci contient 
 tous les trajets ainsi que toutes les notes qui ont été créées sur la carte. Il est possible de choisir
@@ -843,7 +857,7 @@ ce que l'on désire voir présent dans le livre de voyage via le menu en haut de
 <img src="RoadbookFR.PNG" />
 
 <a id="PrepareTravel"></a>
-## __Préparer un voyage et le consulter depuis internet__
+## 13. Préparer un voyage et le consulter depuis internet
 
 Il est possible de préparer un voyage, sauver celui-ci dans un fichier sur un serveur web et consulter 
 celui-ci depuis internet.
@@ -866,7 +880,7 @@ Quand un tel fichier est affiché, il n'est pas possible de modifier celui-ci. L
 visible et tous les menus contextuels sont désactivés.
 
 <a id="Viewer"></a>
-## __Viewer__
+## 14. Viewer
 
 Certains browsers anciens, surtout sur des mobiles, ne comprennent pas toujours tout le code JavaScript
 de Travel & Notes. Dans ce cas, vous pouvez essayer une version simplifiée de Travel & Notes qui permet 
