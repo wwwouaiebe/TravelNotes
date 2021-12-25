@@ -367,7 +367,12 @@ module.exports = function(grunt) {
 					{ expand: true, cwd: 'node_modules/osrm-text-instructions/languages/translations/', src: ['fr.json', 'en.json'], dest: 'docs/demo/TravelNotesProviders/languages/instructions/' },
 					{ expand: true, cwd: 'node_modules/osrm-text-instructions/languages/grammar/', src: ['fr.json'], dest: 'docs/demo/TravelNotesProviders/languages/grammars/' },
 					{ expand: true, cwd: 'node_modules/leaflet/dist/', src: ['leaflet.js', 'leaflet.css' ], dest: 'docs/demo/leaflet/' },
-					{ expand: true, cwd: 'node_modules/leaflet/dist/images/', src: ['*.png' ], dest: 'docs/demo/leaflet/images/' }
+					{ expand: true, cwd: 'node_modules/leaflet/dist/images/', src: ['*.png' ], dest: 'docs/demo/leaflet/images/' },
+					
+					// README.md
+					
+					{ expand: true, cwd: 'TravelNotesGuides', src: ['README.md' ], dest: '' }
+					
 					
 				]
 			},
@@ -419,7 +424,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-terser');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-clean');
-	
 	grunt.loadNpmTasks('grunt-essimpledoc');
 	
 	// Register tasks
@@ -438,11 +442,11 @@ module.exports = function(grunt) {
 	);
 	grunt.registerTask(
 		'debug',
-		[ 'eslint', 'stylelint', 'clean:beforeDebug', 'rollup:debug', 'cssmin:debug', 'copy:debug',	'clean:afterDebug', 'essimpledoc:debug' ]
+		[ 'eslint', 'stylelint', 'clean:beforeDebug', 'rollup:debug', 'cssmin:debug', 'copy:debug',	'clean:afterDebug' /*, 'essimpledoc:debug' */ ]
 	);
 	grunt.registerTask(
 		'release',
-		[ 'eslint', 'stylelint', 'clean:beforeDebug', 'rollup:debug', 'cssmin:debug', 'copy:debug', 'clean:afterDebug', 'clean:beforeRelease', 'copy:beforeRelease', 'replace:release', 'rollup:release', 'terser', 'cssmin:release', 'copy:release', 'clean:afterRelease', 'essimpledoc:release' ]
+		[ 'eslint', 'stylelint', 'clean:beforeDebug', 'rollup:debug', 'cssmin:debug', 'copy:debug', 'clean:afterDebug', 'clean:beforeRelease', 'copy:beforeRelease', 'replace:release', 'rollup:release', 'terser', 'cssmin:release', 'copy:release', 'clean:afterRelease' /*, 'essimpledoc:release'*/ ]
 	);
 	
 	// console

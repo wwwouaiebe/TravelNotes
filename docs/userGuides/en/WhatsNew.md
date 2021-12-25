@@ -140,3 +140,14 @@ And following enhancements are done:
 
 Version 3.1.0 contains no new features for users. On the other hand, important modifications were made to the code,
 due to the use of 'private' and 'static' variables and methods.
+
+### What's new in release 3.2.0
+
+It is now possible to open .gpx files as a travel file or to insert .gpx files into a travel that is being edited.
+See the [User guide - en ](https://wwwouaiebe.github.io/TravelNotes/userGuides/en/UserGuideEN.html#GpxFiles)
+
+Following issues are corrected:
+
+- Issue #4 : Line type and line width for routes are not adapted on the print views
+- Issue #8 : Review the translation files.
+- Issue #9 : String.substr ( ) is deprecated... Replace...

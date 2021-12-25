@@ -33,6 +33,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.2.0:
+		- Issue ♯4 : Line type and line width for routes are not adapted on the print views
 Doc reviewed 20210914
 ests ...
 */
@@ -198,7 +200,7 @@ class RoutePropertiesDialog extends BaseDialog {
 				this.#dashSelect.add ( theHTMLElementsFactory.create ( 'option', { text : dashChoice.text } ) );
 			}
 		);
-		this.#dashSelect.selectedIndex = this.#route.dashArray < dashChoices.length ? this.#route.dashArray : ZERO;
+		this.#dashSelect.selectedIndex = this.#route.dashIndex < dashChoices.length ? this.#route.dashIndex : ZERO;
 		return dashDiv;
 	}
 
@@ -281,7 +283,7 @@ class RoutePropertiesDialog extends BaseDialog {
 		}
 		this.#route.width = parseInt ( this.#widthInput.value );
 		this.#route.chain = this.#chainInput.checked;
-		this.#route.dashArray = this.#dashSelect.selectedIndex;
+		this.#route.dashIndex = this.#dashSelect.selectedIndex;
 		this.#colorControl.destructor ( );
 
 		super.onOk ( );

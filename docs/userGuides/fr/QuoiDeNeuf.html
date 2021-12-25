@@ -1,0 +1,154 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><link type="text/css" rel="stylesheet" href="../index.css"></head><body><h2 id="quoi-de-neuf">Quoi de neuf</h2>
+<h3 id="quoi-de-neuf-dans-la-version-160">Quoi de neuf dans la version 1.6.0</h3>
+<ul>
+<li>La gestion des clefs d&#39;accès a été entièrement revue. Celle-ci se fait maintenant via une boite de dialogue et il est
+possible de lire / sauver ces clefs d&#39;accès depuis / vers un fichier protégé par mot de passe.</li>
+<li>L&#39;affichage des erreurs a été amélioré</li>
+<li>Une barre d&#39;outils permettant des gérer les fonds de cartes a été ajoutée.</li>
+<li>Un viewer léger a été créé. Celui-ci permet la visualisation d&#39;un voyage sur un appareil ancien qui ne comprend pas
+toutes les nouveautés de JavaScript</li>
+</ul>
+<p>De nombreuses modifications techniques ont également été faites:</p>
+<ul>
+<li>Tout le code a été migré vers ES6 et utilise les modules ES6 au lieu de modules nodeJS</li>
+<li>eslint est utilisé pour vérifier la qualité du code</li>
+<li>toutes les boites de dialogue sont basées sur l&#39;utilisation de Promise</li>
+<li>les mises à jour de l&#39;interface utilisateur et de la carte se font via des events, ce qui réduit fortement
+les dépendances dans le code.</li>
+</ul>
+<h3 id="quoi-de-neuf-dans-la-version-170">Quoi de neuf dans la version 1.7.0</h3>
+<ul>
+<li>Lorsque OpenRouteService ou GraphHopper sont utilisés comme fournisseurs d&#39;itinéraire, il est également possible d&#39;afficher le profil de la route.</li>
+<li>Lorsque un trajet entre deux points est fait avec TravelNotesPolyline ce trajet n&#39;est plus représente sous forme de ligne droite,
+mais bien sous forme d&#39;un segment de grand cercle. Voir la documentation de <a href="https://github.com/wwwouaiebe/TravelNotesPolyline/blob/master/README.md">TravelNotesPolyline</a></li>
+<li>Il est également possible de tracer des cercles avec TravelNotesPolyline. Voir la documentation de <a href="https://github.com/wwwouaiebe/TravelNotesPolyline/blob/master/README.md">TravelNotesPolyline</a></li>
+</ul>
+<h3 id="quoi-de-neuf-dans-la-version-180">Quoi de neuf dans la version 1.8.0</h3>
+<ul>
+<li>Ajouter un point de passage à un trajet a été amélioré. Il suffit maintenant d&#39;amener la souris sur le trajet pour voir apparaître un point de passage temporaire.
+En faisant ensuite un glisser / déposer de celui-ci, le point de passage est ajouté au trajet.</li>
+</ul>
+<h3 id="quoi-de-neuf-dans-la-version-190">Quoi de neuf dans la version 1.9.0</h3>
+<ul>
+<li>Il est maintenant possible d&#39;imprimer les cartes d&#39;un trajet.</li>
+</ul>
+<h3 id="quoi-de-neuf-dans-la-version-1100">Quoi de neuf dans la version 1.10.0</h3>
+<ul>
+<li>Un nouveau fournisseur de service, basé sur Mapzen Valhalla, a été ajouté: Stadia Maps</li>
+<li>Un bouton permettant de recharger les clefs d&#39;accès a été ajouté dans la boite de dialogue de gestion des clefs d&#39;accès</li>
+<li>Un message d&#39;erreur est affiché quand un problème survient lors de la lecture du fichier des clefs d&#39;accès</li>
+<li>Quelques bugs sont corrigés</li>
+</ul>
+<h3 id="quoi-de-neuf-dans-la-version-1110">Quoi de neuf dans la version 1.11.0</h3>
+<ul>
+<li>Les notes de trajet prédéfinie &quot;Icône SVG depuis OSM&quot; ont été améliorées pour les entrées et sorties des rond-points</li>
+<li>Il est possible de créer une note pour toutes les manoeuvres d&#39;un trajet en une opération</li>
+<li>L&#39;affichage des erreurs lors de la lecture du fichier &quot;APIKeys&quot; a été amélioré</li>
+<li>Quelques bugs sont corrigés ( Issues #113, #115, #116, #117 et #118)</li>
+</ul>
+<h3 id="quoi-de-neuf-dans-la-version-1120">Quoi de neuf dans la version 1.12.0</h3>
+<ul>
+<li>L&#39;interface utilisateur a été modifiée. Consultez le <a href="https://github.com/wwwouaiebe/TravelNotes/blob/gh-pages/TravelNotesGuides/fr/GuideUtilisateurFR.md">guide pour les utilisateurs - fr </a>.</li>
+<li>Toutes les commandes sont uniformisées. Chaque objet (carte, route, note, point de passage, manoeuvre) est créé, modifié ou supprimé via des commandes
+dans des menus contextuels qui sont disponibles sur la carte ou dans l&#39;interface utilisateur.</li>
+<li>Les performances sont améliorées. L&#39;utilisation de la mémoire a fortement diminué et les temps de chargement réduits. Cela est particulièrement sensible pour de longs voyages.</li>
+<li><a href="https://wwwouaiebe.github.io/TravelNotes/TechDoc/">Tout le code est documenté</a></li>
+</ul>
+<h3 id="quoi-de-neuf-dans-la-version-1130">Quoi de neuf dans la version 1.13.0</h3>
+<ul>
+<li>Il est possible de rechercher des points d&#39;intérêt dans OpenStreetMap.</li>
+<li>Des notes peuvent être créées à partir des résultats de recherche dans OpenStreetMap.</li>
+<li>De nouvelles notes prédéfinies ont été ajoutées. Il y a maintenant plus de 70 notes prédéfinies.</li>
+<li>L&#39;arrière-plan des notes peut être transparent.</li>
+<li>Toutes les icônes des notes prédéfinies sont désormais en svg.</li>
+</ul>
+<h3 id="quoi-de-neuf-dans-la-version-200">Quoi de neuf dans la version 2.0.0</h3>
+<p>Pour éviter des <a href="https://fr.wikipedia.org/wiki/Cross-site_scripting">attaques xss</a>, notamment lors de l&#39;échange de fichiers, toute la sécurité de l&#39;apps a été revue, 
+ce qui entraine un certain nombre de limitations et de modifications:</p>
+<ul>
+<li><a href="https://developer.mozilla.org/fr/docs/Web/HTTP/CSP">Content Security Policy</a> est activé par défaut via une balise &lt;meta&gt; dans le fichier index.html. 
+Grâce à cela, il n&#39;est plus possible d&#39;exécuter du javascript depuis un autre site que celui où est installé Travel &amp; Notes, d&#39;exécuter des scripts en inline 
+dans le html ni de télécharger des images ou des fichiers depuis un autre site.
+Si vous en avez la possibilité, il est cependant préférable d&#39;activer Content Securty Policy via un header installé par le serveur plutôt que via une balise &lt;meta&gt;.</li>
+<li>les balises html pouvant être utilisées lors de la création des notes sont restreintes, de même que les attributs attachés à ces balises html.
+Consultez le <a href="https://github.com/wwwouaiebe/TravelNotes/blob/gh-pages/TravelNotesGuides/fr/GuideUtilisateurFR.md#AddHtmltext">guide pour les utilisateurs - fr </a>.</li>
+<li>lors de l&#39;ouverture d&#39;un fichier de voyage réalisé avec une version antérieure, toutes les balises et les attributs non autorisés sont effacé·e·s.</li>
+<li>afin d&#39;éviter une attaque xss via un lien envoyé par mail, il n&#39;est plus possible d&#39;ouvrir automatiquement un fichier de voyage via l&#39;url de l&#39;apps quand ce fichier
+de voyage provient d&#39;un autre site, même si Content Security Policy est complètement désactivé.</li>
+<li>il n&#39;est plus possible de définir des styles en inline. Si vous désirez créer un style personnalisé, il faut le créer dans un fichier css et importer celui-ci
+avec une balise &lt;link&gt;</li>
+<li>il n&#39;est évidemment plus possible d&#39;utiliser une balise &lt;script&gt; ni aucun gestionnaire d&#39;événements attaché à une balise html (onmouseover, onclick...).</li>
+<li>les liens présents dans les attributs href et src doivent être corrects et complets. Dans un attribut src, le protocole ne peut être que https: (et http: si l&#39;apps
+est installée sur un site http:). Dans les attributs href, le protocole doit être http:, https:, mailto:, sms: ou tel:. En outre, les liens sms: et tel: doivent commencer par
+un + et ne peuvent comprendre que les caractères #, * espace et des chiffres de 0 à 9.</li>
+<li>il n&#39;est plus possible d&#39;entrer les clefs API des fournisseurs de service via des paramètres de l&#39;url.</li>
+</ul>
+<p>En outre, les améliorations suivantes on été apportées:</p>
+<ul>
+<li>les icônes SVG depuis OSM contiennent le numéro du point-noeud lorsque l&#39;icône se trouve sur ce point-noeud et que l&#39;itinéraire est calculé pour un vélo (N.B. les 
+points-noeuds sont une particularité des itinéraires vélo en Belgique, aux Pays-Bas et partiellement en Allemagne).</li>
+<li>il est nécessaire de nommer le voyage avant de pouvoir sauver celui-ci dans un fichier</li>
+<li>une solution temporaire a été créée pour contourner les erreurs de noms de commune retournés par Nominatim.</li>
+<li>une prévisualisation de la note en cours d&#39;édition a été ajoutée à la boite d&#39;édition des notes.</li>
+<li>il est possible de cacher ou activer certaines parties de cette même boite d&#39;édition.</li>
+</ul>
+<h3 id="quoi-de-neuf-dans-la-version-210">Quoi de neuf dans la version 2.1.0</h3>
+<p>La version 2.1.0. est avant tout une version contenant des changements pour les dévelopeurs:</p>
+<ul>
+<li>tous les repositories de plugins on été fusionnés dans TravelNotes et il n&#39;y a donc plus qu&#39;un seul repository. Grâce à celà,
+les tailles de certains plugins ont été considérablement réduites.</li>
+<li>@mapbox\polyline n&#39;est plus utilisé pour la compression des données et a été remplacé par un dévelopement 
+interne, ce qui permet également de réduire fortement la taille des fichiers de donnée.</li>
+</ul>
+<h3 id="quoi-de-neuf-dans-la-version-220">Quoi de neuf dans la version 2.2.0</h3>
+<ul>
+<li>le fichier TravelNotesConfig.json a été entièrement revu. Si vous utilisez une version modifiée de ce fichier, il est important
+de revoir celle-ci. Voyez le guide d&#39;installation.</li>
+<li>un indicateur du statut de la dernière utilisation de la commande &quot;Sauver dans un fichier&quot; a été ajoutée (vert : voyage sauvé - jaune :
+voyage modifié depuis la dernière sauvegarde - rouge : voyage modifié et non sauvé depuis au mins 5 minutes).</li>
+<li>la méthode utilisée pour rechercher la commune d&#39;une adresse a été revue.</li>
+<li>la recherche de points d&#39;intérêts dans OpenStreetMap a été améliorée et est beaucoup plus rapide.</li>
+<li>une commande &quot;Sauvegarde partielle&quot; a été ajoutée. Celle-ci permet de sauver un voyage SANS les notes de voyage et/ou SANS les notes de
+trajet et/ou SANS les manoeuvres. Cette commande permet d&#39;avoir un fichier beaucoup plus léger pour des présentations de carte sur Internet</li>
+<li>les css ont été réorganisés et revus. De nombreux petits bugs de présentation liés à CSS ont été corrigés.</li>
+<li>il est possible de faire des zooms et des pans sur la carte quand un dialogue est affiché.</li>
+<li>il est possible d&#39;utiliser le clavier pour les commandes du viewer. Voir 
+le <a href="https://github.com/wwwouaiebe/TravelNotes/blob/gh-pages/TravelNotesGuides/fr/GuideUtilisateurFR.md#Viewer">guide pour les utilisateurs - fr </a></li>
+<li>et de nombreuses modifications purement techniques ainsi qie la correction de nombreux petits bugs.</li>
+</ul>
+<h3 id="quoi-de-neuf-dans-la-version-230">Quoi de neuf dans la version 2.3.0</h3>
+<p>Les bugs suivants sont corrigés:</p>
+<ul>
+<li>Issue #158: la distance entre une note de trajet et le début du trajet est 0 quand cette note est créée depuis un résultat de recherche dans OpenStreetMap.</li>
+<li>Issue #159: l&#39;adresse doit être vérifiée quand une note est créée depuis un résultat de recherche dans OpenStreetMap.</li>
+<li>Issue #160: noopener noreferrer sont ajoutés automatiquement quand un lien est créé avec target=&#39;_blank&#39;</li>
+<li>Issue #162: le zoom ne fonctionne pas quand un dialogue est affiché ( Firefox ).</li>
+<li>Issue #163: les icônes en svg intégrées dans les fichiers JS ne sont pas affichées correctement ( Chrome ).</li>
+<li>Issue #164: polylineProvider et PublicTransportProvider crash quand les providers sont sélectionnés </li>
+<li>Issue #168: La couleur des références RCN-REF est modifiée dans les icônes.</li>
+<li>Issue #170: un crash survient lorsque un trajet édité est sauvé avant qu&#39;un point de passage soit entièrement renommé.</li>
+</ul>
+<h3 id="quoi-de-neuf-dans-la-version-300">Quoi de neuf dans la version 3.0.0</h3>
+<p>Les bugs suivants sont corrigés:</p>
+<ul>
+<li>Issue #179: Réordonner la liste des routes avec un glisser/déposer ne fonctionne pas quand la route sélectionnée est la route en cours d&#39;édition.</li>
+<li>Issue #173: Un message incorrect pour l&#39;attribut &quot;rel&quot; est affiché dans la console quand un fichier est ouvert.</li>
+</ul>
+<p>Et les améliorations suivantes ont été apportées:</p>
+<ul>
+<li>Issue #175: Les variables et méthodes private et static sont disponible dans Firefox. Une grande mise à jour du code a été effectuée.</li>
+<li>Issue #173: Le generateur de UUID ne suit pas la norme publiée dans la rfc 4122.</li>
+</ul>
+<h3 id="quoi-de-neuf-dans-la-version-310">Quoi de neuf dans la version 3.1.0</h3>
+<p>La version 3.1.0 ne contient pas de nouveautés pour les utilisateurs. Par contre, d&#39;importantes modifications ont été apportées au code, 
+suite à l&#39;utilisation des variables et méthodes &#39;private&#39; et &#39;static&#39;.</p>
+<h3 id="quoi-de-neuf-dans-la-version-320">Quoi de neuf dans la version 3.2.0</h3>
+<p>Il est désormais possible d&#39;ouvrir des fichiers .gpx comme fichier de voyage ou d&#39;insérer des fichiers .gpx dans un voyage en cours d&#39;édition.
+Voir le <a href="https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/GuideUtilisateurFR.html#GpxFiles">guide pour les utilisateurs - fr</a></p>
+<p>les issues suivantes sont corrigées:</p>
+<ul>
+<li>Issue #4 : Line type and line width for routes are not adapted on the print views</li>
+<li>Issue #8 : Review the translation files.</li>
+<li>Issue #9 : String.substr ( ) is deprecated... Replace...</li>
+</ul>
+</body></html>

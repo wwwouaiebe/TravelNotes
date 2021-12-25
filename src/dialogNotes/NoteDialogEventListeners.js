@@ -90,7 +90,7 @@ class NoteDialogGeoCoderHelper {
 					}
 					this.#noteDialog.hideWait ( );
 					this.#noteDialog.showError (
-						theTranslator.getText ( 'Notedialog - an error occurs when searching the adress' )
+						theTranslator.getText ( 'NoteDialogGeoCoderHelper - an error occurs when searching the adress' )
 					);
 				}
 			);
@@ -225,7 +225,7 @@ class UrlInputBlurEL {
 			this.#noteDialog.hideError ( );
 		}
 		else {
-			this.#noteDialog.showError ( theTranslator.getText ( 'NoteDialog - invalidUrl' ) );
+			this.#noteDialog.showError ( theTranslator.getText ( 'UrlInputBlurEL - invalidUrl' ) );
 		}
 	}
 }
@@ -367,7 +367,7 @@ class IconSelectorChangeEL {
 		const mapIconData = this.#noteDialog.mapIconData;
 		if ( ! mapIconData.route ) {
 			this.#noteDialog.showError (
-				theTranslator.getText ( 'Notedialog - not possible to create a SVG icon for a travel note' )
+				theTranslator.getText ( 'IconSelectorChangeEL - not possible to create a SVG icon for a travel note' )
 			);
 			return;
 		}
@@ -387,7 +387,7 @@ class IconSelectorChangeEL {
 					}
 					this.#noteDialog.hideWait ( );
 					this.#noteDialog.showError (
-						theTranslator.getText ( 'Notedialog - an error occurs when creating the SVG icon' )
+						theTranslator.getText ( 'IconSelectorChangeEL - an error occurs when creating the SVG icon' )
 					);
 				}
 			);

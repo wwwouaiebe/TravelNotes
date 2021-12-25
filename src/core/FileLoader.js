@@ -42,6 +42,7 @@ Tests 20210903
 
 import theTranslator from '../UILib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
+import GpxParser from '../coreLib/GpxParser.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theMouseUI from '../mouseUI/MouseUI.js';
 import theMapLayersToolbarUI from '../mapLayersToolbarUI/MapLayersToolbarUI.js';
@@ -165,13 +166,37 @@ class FileLoader {
 
 	/**
 	Open a local file and display the content of the file
-	@param {JsonObject} travelJsonObject the json object readed from the file
+	@param {String} fileContent The xml content of the selected file
 	*/
 
-	openLocalFile ( travelJsonObject ) {
+	openLocalGpxFile ( fileContent ) {
 
 		// Closing all profiles
 		theProfileWindowsManager.deleteAllProfiles ( );
+
+		// Parsing the gpx
+		theTravelNotesData.travel.jsonObject = new GpxParser ( ).parse ( fileContent ).jsonObject;
+		theTravelNotesData.editedRouteObjId = INVALID_OBJ_ID;
+
+		// display the travel
+		this.#display ( );
+
+		// Updating theMouseUI
+		theMouseUI.saveStatus = SAVE_STATUS.saved;
+
+	}
+
+	/**
+	Open a local file and display the content of the file
+	@param {String} fileContent The json content of the selected file
+	*/
+
+	openLocalTrvFile ( fileContent ) {
+
+		// Closing all profiles
+		theProfileWindowsManager.deleteAllProfiles ( );
+
+		const travelJsonObject = JSON.parse ( fileContent );
 
 		// Decompress the json file content and uploading the travel in theTravelNotesData object
 		new FileCompactor ( ).decompress ( travelJsonObject );
@@ -193,16 +218,11 @@ class FileLoader {
 	}
 
 	/**
-	Open a local file and merge the content of the file with the current travel
-	@param {JsonObject} travelJsonObject the json object readed from the file
+	Merge a Travel with the curently displayed Travel
+	@param {Travel} mergedTravel The travel to merge
 	*/
 
-	mergeLocalFile ( travelJsonObject ) {
-
-		// Decompress the json file content and uploading the travel in a new Travel object
-		new FileCompactor ( ).decompress ( travelJsonObject );
-		const mergedTravel = new Travel ( );
-		mergedTravel.jsonObject = travelJsonObject;
+	#mergeTravel ( mergedTravel ) {
 
 		// routes are added with their notes
 		const routesIterator = mergedTravel.routes.iterator;
@@ -221,6 +241,32 @@ class FileLoader {
 
 		// Updating theMouseUI
 		theMouseUI.saveStatus = SAVE_STATUS.modified;
+	}
+
+	/**
+	Merge the content of a gpx file with the curently displayed Travel
+	@param {String} fileContent The gpx file content to merge
+	*/
+
+	mergeLocalGpxFile ( fileContent ) {
+		this.#mergeTravel ( new GpxParser ( ).parse ( fileContent ) );
+	}
+
+	/**
+	Merge the content of a trv file with the currently displayed Travel
+	@param {String} fileContent The trv file content to merge
+	*/
+
+	mergeLocalTrvFile ( fileContent ) {
+
+		const travelJsonObject = JSON.parse ( fileContent );
+
+		// Decompress the json file content and uploading the travel in a new Travel object
+		new FileCompactor ( ).decompress ( travelJsonObject );
+		const mergedTravel = new Travel ( );
+		mergedTravel.jsonObject = travelJsonObject;
+
+		this.#mergeTravel ( mergedTravel );
 	}
 }
 

@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v1.0.0:
 		- created
+	- v1.1.0:
+		- Issue ♯1 : Improve colorization of sources files...
 Doc reviewed 20211111
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -232,6 +234,10 @@ table
 {
 	margin-left : 6cm;
 }
+ul
+{
+	padding-left: 1cm;
+}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /* private or public div */
@@ -294,13 +300,33 @@ table.srcCode tr > td:first-child
 
 /* code comments in green */
 
-.codeComments,
-.codeComments > .jsKeyword,
-.codeComments > .classLink,
-.codeComments > .variableLink
+.Comment,
+.Comment > .jsKeyword,
+.Comment > .classLink,
+.Comment > .variableLink
 {
 	color : green;
 	font-weight: normal;
+}
+
+.TemplateLiteral,
+.TemplateLiteral > .jsKeyword,
+.TemplateLiteral > .classLink,
+.TemplateLiteral > .variableLink,
+.RegExpLiteral,
+.RegExpLiteral > .jsKeyword,
+.RegExpLiteral > .classLink,
+.RegExpLiteral > .variableLink,
+.RegExpLiteral,
+.RegExpLiteral > .jsKeyword,
+.RegExpLiteral > .classLink,
+.RegExpLiteral > .variableLink,
+.StringLiteral,
+.StringLiteral > .jsKeyword,
+.StringLiteral > .classLink,
+.StringLiteral > .variableLink
+{
+	color : gray;
 }
 
 /* JS keywords in blue*/ 

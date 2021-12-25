@@ -66,7 +66,7 @@ class NoteDialogPopupControl {
 			'div',
 			{
 				className : 'TravelNotes-NoteDialog-DataDiv',
-				textContent : theTranslator.getText ( 'NoteDialog - Text' )
+				textContent : theTranslator.getText ( 'NoteDialogPopupControl - Text' )
 			}
 		);
 		this.#popupTextArea = theHTMLElementsFactory.create (

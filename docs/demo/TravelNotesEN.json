@@ -1,874 +1,822 @@
 [
 	{
-		"msgid" : "AboutDialog - About Travel & Notes",
-		"msgstr" : "About Travel & Notes"
+		"msgid": "AboutDialog - About Travel & Notes",
+		"msgstr": "About Travel & Notes"
 	},
 	{
-		"msgid" : "BaseDialog - Cancel",
-		"msgstr" : "Cancel"
+		"msgid": "AllManeuverNotesBuilder - Add a note for each maneuver",
+		"msgstr": "Add a note for each maneuver"
 	},
 	{
-		"msgid" : "APIKeysDialog - An error occurs when loading the APIKeys file",
-		"msgstr" : "An error occurs when loading the API keys from web server"
+		"msgid": "AllManeuverNotesBuilder - Add a note for each maneuver. Are you sure?",
+		"msgstr": "You'll add {noteLength} notes. This will consume a lot of resources on the OpenStreetMap server and take time. Are you sure you want to continue?"
 	},
 	{
-		"msgid" : "APIKeysDialog - An error occurs when saving the keys",
-		"msgstr" : "An error occurs when saving the API keys"
+		"msgid": "AllManeuverNotesBuilder - Creating note",
+		"msgstr": "Creating note {noteNumber} of {notesLength}"
 	},
 	{
-		"msgid" : "APIKeysDialog - An error occurs when reading the file",
-		"msgstr" : "An error occurs when reading the file"
+		"msgid": "AllManeuverNotesBuilder - max maneuvers notes reached {maneuversLength}{maxManeuversNotes}",
+		"msgstr": "You want to create {maneuversLength} notes. For performance reasons, the number of notes is limited to {maxManeuversNotes} for the demo. Change your route."
 	},
 	{
-		"msgid" : "APIKeysDialog - API key",
-		"msgstr" : "API key"
+		"msgid": "APIKeysDialog - API keys",
+		"msgstr": "API keys"
 	},
 	{
-		"msgid" : "APIKeysDialog - API keys",
-		"msgstr" : "API keys"
+		"msgid": "APIKeysDialog - empty API key name or value",
+		"msgstr": "empty API key name or value"
 	},
 	{
-		"msgid" : "APIKeysDialog - delete API key",
-		"msgstr" : "delete API key"
+		"msgid": "APIKeysDialogKeyControl - API key",
+		"msgstr": "API key"
 	},
 	{
-		"msgid" : "APIKeysDialog - empty API key name or value",
-		"msgstr" : "empty API key name or value"
+		"msgid": "APIKeysDialogKeyControl - delete API key",
+		"msgstr": "delete API key"
 	},
 	{
-		"msgid" : "APIKeysDialog - new API key",
-		"msgstr" : "new API key"
+		"msgid": "APIKeysDialogKeyControl - provider name",
+		"msgstr": "Provider name"
 	},
 	{
-		"msgid" : "APIKeysDialog - Open file",
-		"msgstr" : "Open a file with password"
+		"msgid": "APIKeysDialogToolbar - new API key",
+		"msgstr": "new API key"
 	},
 	{
-		"msgid" : "APIKeysDialog - Open json file",
-		"msgstr" : "Open a file without password"
+		"msgid": "APIKeysDialogToolbar - Open file",
+		"msgstr": "Open a file with password"
 	},
 	{
-		"msgid" : "APIKeysDialog - provider name",
-		"msgstr" : "Provider name"
+		"msgid": "APIKeysDialogToolbar - Open json file",
+		"msgstr": "Open a file without password"
 	},
 	{
-		"msgid" : "APIKeysDialog - Reload from server",
-		"msgstr" : "Reload the API keys from web server"
+		"msgid": "APIKeysDialogToolbar - Reload from server",
+		"msgstr": "Reload the API keys from web server"
 	},
 	{
-		"msgid" : "APIKeysDialog - Save to file",
-		"msgstr" : "Save to file with password"
+		"msgid": "APIKeysDialogToolbar - Save to file",
+		"msgstr": "Save to file with password"
 	},
 	{
-		"msgid" : "APIKeysDialog - Save to json file",
-		"msgstr" : "Save to file WITHOUT password"
+		"msgid": "APIKeysDialogToolbar - Save to json file",
+		"msgstr": "Save to file WITHOUT password"
 	},
 	{
-		"msgid" : "APIKeysManager - An error occurs when reading the APIKeys file",
-		"msgstr" : "An error occurs when reading the API keys"
+		"msgid": "APIKeysManager - An error occurs when reading the APIKeys file",
+		"msgstr": "An error occurs when reading the API keys"
 	},
 	{
-		"msgid" : "ColorControl - Blue",
-		"msgstr" : "Blue"
+		"msgid": "ArrowAndTooltipFinder - Continue",
+		"msgstr": "Continue"
 	},
 	{
-		"msgid" : "ColorControl - Green",
-		"msgstr" : "Green"
+		"msgid": "ArrowAndTooltipFinder - Start",
+		"msgstr": "Start"
 	},
 	{
-		"msgid" : "ColorControl - Red",
-		"msgstr" : "Red"
+		"msgid": "ArrowAndTooltipFinder - Stop",
+		"msgstr": "End"
 	},
 	{
-		"msgid" : "ContextMenu - Close",
-		"msgstr" : "Close"
+		"msgid": "ArrowAndTooltipFinder - Turn left",
+		"msgstr": "Turn left"
 	},
 	{
-		"msgid" : "PanesManagerUI - Hide",
-		"msgstr" : "Hide"
+		"msgid": "ArrowAndTooltipFinder - Turn right",
+		"msgstr": "Turn right"
 	},
 	{
-		"msgid" : "PanesManagerUI - Itinerary",
-		"msgstr" : "Itinerary"
+		"msgid": "ArrowAndTooltipFinder - Turn sharp left",
+		"msgstr": "Turn sharp left"
 	},
 	{
-		"msgid" : "PanesManagerUI - Itinerary and notes",
-		"msgstr" : "Itinerary and notes"
+		"msgid": "ArrowAndTooltipFinder - Turn sharp right",
+		"msgstr": "Turn sharp right"
 	},
 	{
-		"msgid" : "PanesManagerUI - Search",
-		"msgstr" : "Search OpenStreetMap"
+		"msgid": "ArrowAndTooltipFinder - Turn slight left",
+		"msgstr": "Turn slight left"
 	},
 	{
-		"msgid" : "PanesManagerUI - Show",
-		"msgstr" : "Show"
+		"msgid": "ArrowAndTooltipFinder - Turn slight right",
+		"msgstr": "Turn slight right"
 	},
 	{
-		"msgid" : "PanesManagerUI - Travel notes",
-		"msgstr" : "Travel notes"
+		"msgid": "BaseContextMenu - Close",
+		"msgstr": "Close"
 	},
 	{
-		"msgid" : "ErrorUI - Dont show again",
-		"msgstr" : "Don't show help again"
+		"msgid": "BaseDialog - Cancel",
+		"msgstr": "Cancel"
 	},
 	{
-		"msgid" : "FileLoader - Not possible to select as provider",
-		"msgstr" : "Not possible to select {provider}"
+		"msgid": "ColorControl - Blue",
+		"msgstr": "Blue"
 	},
 	{
-		"msgid" : "NoteHTMLViewsFactory - Address",
-		"msgstr" : "Address"
+		"msgid": "ColorControl - Green",
+		"msgstr": "Green"
 	},
 	{
-		"msgid" : "RouteHTMLViewsFactory - Ascent",
-		"msgstr" : "Ascent"
+		"msgid": "ColorControl - Red",
+		"msgstr": "Red"
 	},
 	{
-		"msgid" : "RouteHTMLViewsFactory - Descent",
-		"msgstr" : "Descent"
+		"msgid": "DataEncryptorHandlers - An error occurs when reading the file",
+		"msgstr": "An error occurs when reading the file"
 	},
 	{
-		"msgid" : "NoteHTMLViewsFactory - Distance from start of travel",
-		"msgstr" : "Distance from start of travel"
+		"msgid": "DataEncryptorHandlers - An error occurs when saving the keys",
+		"msgstr": "An error occurs when saving the API keys"
 	},
 	{
-		"msgid" : "NoteHTMLViewsFactory - Distance from start of route",
-		"msgstr" : "Distance from start of route"
+		"msgid": "EditedRouteMouseOverEL - Drag and drop to add a waypoint",
+		"msgstr": "Drag and drop to add a waypoint or right click for the menu"
 	},
 	{
-		"msgid" : "RouteHTMLViewsFactory - Distance from start of travel",
-		"msgstr" : "Distance from start of travel"
+		"msgid": "ErrorUI - Dont show again",
+		"msgstr": "Don't show help again"
 	},
 	{
-		"msgid" : "RouteHTMLViewsFactory - Distance from start of route",
-		"msgstr" : "Distance from start of route"
+		"msgid": "FileLoader - Not possible to select as provider",
+		"msgstr": "Not possible to select {provider}"
 	},
 	{
-		"msgid" : "RouteHTMLViewsFactory - Duration",
-		"msgstr" : "Time"
+		"msgid": "GpxParser - Go to network node",
+		"msgstr": " - go to node "
 	},
 	{
-		"msgid" : "RouteHTMLViewsFactory - Itinerary computed by {provider} and optimized for {transitMode}",
-		"msgstr" : "Itinerary computed by {provider} and optimized for {transitMode}"
+		"msgid": "GpxParser - Network node",
+		"msgstr": "Network node "
 	},
 	{
-		"msgid" : "NoteHTMLViewsFactory - Link",
-		"msgstr" : "Link\u00A0:\u00A0"
+		"msgid": "Help - Complete the APIKeys1",
+		"msgstr": "Use the + button to add a provider"
 	},
 	{
-		"msgid" : "RouteHTMLViewsFactory - Next maneuver after",
-		"msgstr" : "Next maneuver after"
+		"msgid": "Help - Complete the APIKeys2",
+		"msgstr": "Enter the name of the service provider on the left. This must be 'Mapbox', 'GraphHopper', 'OpenRouteservice' or 'MapzenValhalla' for a route provider or 'Mapbox', Thunderforest' or 'Lantmateriet' for a map provider."
 	},
 	{
-		"msgid" : "NoteHTMLViewsFactory - Next note after",
-		"msgstr" : "Next note after"
+		"msgid": "Help - Complete the APIKeys3",
+		"msgstr": "Complete on the right with your access key"
 	},
 	{
-		"msgid" : "TravelHTMLViewsFactory - OpenStreetMap contributors",
-		"msgstr" : "OpenStreetMap contributors"
+		"msgid": "Help - Continue with interface1",
+		"msgstr": "Move your mouse over the black rectangle \"Travel & Notes\" in the upper right corner to display the interface."
 	},
 	{
-		"msgid" : "NoteHTMLViewsFactory - Phone",
-		"msgstr" : "☎️"
+		"msgid": "Help - Continue with interface2",
+		"msgstr": "If you have a Mapbox, GraphHopper, OpenRouteService, Thunderforest or Lantmateriet access key, open the dialog for editing access keys (🔑 button on top of interface) to enter your access key."
 	},
 	{
-		"msgid" : "NoteHTMLViewsFactory - Send a sms to",
-		"msgstr" : " or send a sms to "
+		"msgid": "IconSelectorChangeEL - an error occurs when creating the SVG icon",
+		"msgstr": "An error occurs when creating the SVG icon"
 	},
 	{
-		"msgid" : "NoteHTMLViewsFactory - call",
-		"msgstr" : "Call "
+		"msgid": "IconSelectorChangeEL - not possible to create a SVG icon for a travel note",
+		"msgstr": "It's impossible to create a SVG icon for a travel note"
 	},
 	{
-		"msgid" : "RouteHTMLViewsFactory - Profile",
-		"msgstr" : "Profile"
+		"msgid": "ItineraryControlUI - Show maneuvers",
+		"msgstr": "Maneuvers"
 	},
 	{
-		"msgid" : "RouteHTMLViewsFactory - Route distance",
-		"msgstr" : "Route distance"
+		"msgid": "ItineraryControlUI - Show notes",
+		"msgstr": "Notes"
 	},
 	{
-		"msgid" : "RouteHTMLViewsFactory - TransitMode bike",
-		"msgstr" : "a bike"
+		"msgid": "ItineraryPaneUI - Itinerary",
+		"msgstr": "Itinerary"
 	},
 	{
-		"msgid" : "RouteHTMLViewsFactory - TransitMode car",
-		"msgstr" : "a car"
+		"msgid": "ManeuverContextMenu - Zoom to this maneuver",
+		"msgstr": "Zoom to this maneuver"
 	},
 	{
-		"msgid" : "RouteHTMLViewsFactory - TransitMode pedestrian",
-		"msgstr" : "a pedestrian"
+		"msgid": "MapContextMenu - About Travel & Notes",
+		"msgstr": "About Travel & Notes"
 	},
 	{
-		"msgid" : "RouteHTMLViewsFactory - TransitMode train",
-		"msgstr" : "the train"
+		"msgid": "MapContextMenu - Add a route",
+		"msgstr": "Add a route"
 	},
 	{
-		"msgid" : "travelHTMLViewsFactory - Travel ascent",
-		"msgstr" : "Travel ascent"
+		"msgid": "MapContextMenu - Hide all notes",
+		"msgstr": "Hide all notes"
 	},
 	{
-		"msgid" : "TravelHTMLViewsFactory - Travel descent",
-		"msgstr" : "Travel descent"
+		"msgid": "MapContextMenu - Hide all routes",
+		"msgstr": "Hide all routes"
 	},
 	{
-		"msgid" : "TravelHTMLViewsFactory - Travel distance",
-		"msgstr" : "Travel distance"
+		"msgid": "MapContextMenu - New travel note",
+		"msgstr": "Add a travel note"
 	},
 	{
-		"msgid" : "TravelHTMLViewsFactory - Travel footer",
-		"msgstr" : "Done with "
+		"msgid": "MapContextMenu - Select this point as end point",
+		"msgstr": "Select this point as end point"
 	},
 	{
-		"msgid" : "ItineraryPaneUI - Show notes",
-		"msgstr" : "Notes"
+		"msgid": "MapContextMenu - Select this point as start point",
+		"msgstr": "Select this point as start point"
 	},
 	{
-		"msgid" : "ItineraryPaneUI - Show maneuvers",
-		"msgstr" : "Maneuvers"
+		"msgid": "MapContextMenu - Select this point as way point",
+		"msgstr": "Select this point as waypoint"
 	},
 	{
-		"msgid" : "ManeuverContextMenu - Replace with a maneuver note",
-		"msgstr" : "Replace with a maneuver note"
+		"msgid": "MapContextMenu - Show all notes",
+		"msgstr": "Show all notes"
 	},
 	{
-		"msgid" : "ManeuverContextMenu - Delete this maneuver",
-		"msgstr" : "Delete this maneuver"
+		"msgid": "MapContextMenu - Show all routes",
+		"msgstr": "Show all routes"
 	},
 	{
-		"msgid" : "ManeuverContextMenu - Zoom to this maneuver",
-		"msgstr" : "Zoom to this maneuver"
+		"msgid": "MapContextMenu - Zoom to travel",
+		"msgstr": "Zoom to travel"
 	},
 	{
-		"msgid" : "MapContextMenu - About Travel & Notes",
-		"msgstr" : "About Travel & Notes"
+		"msgid": "MapLayersToolbarUI - Layers",
+		"msgstr": "Maps"
 	},
 	{
-		"msgid" : "MapContextMenu - Add a route",
-		"msgstr" : "Add a route"
+		"msgid": "NoteContextMenu - Attach note to route",
+		"msgstr": "transform to route note"
 	},
 	{
-		"msgid" : "MapContextMenu - Hide all routes",
-		"msgstr" : "Hide all routes"
+		"msgid": "NoteContextMenu - Delete this note",
+		"msgstr": "Delete this note"
 	},
 	{
-		"msgid" : "MapContextMenu - Hide all notes",
-		"msgstr" : "Hide all notes"
+		"msgid": "NoteContextMenu - Detach note from route",
+		"msgstr": "Transform to travel note"
 	},
 	{
-		"msgid" : "MapContextMenu - New travel note",
-		"msgstr" : "Add a travel note"
+		"msgid": "NoteContextMenu - Edit this note",
+		"msgstr": "Edit this note"
 	},
 	{
-		"msgid" : "MapContextMenu - Select this point as end point",
-		"msgstr" : "Select this point as end point"
+		"msgid": "NoteContextMenu - Zoom to note",
+		"msgstr": "Zoom to note"
 	},
 	{
-		"msgid" : "MapContextMenu - Select this point as start point",
-		"msgstr" : "Select this point as start point"
+		"msgid": "NoteDialog - invalidUrl",
+		"msgstr": "Invalid link"
 	},
 	{
-		"msgid" : "MapContextMenu - Select this point as way point",
-		"msgstr" : "Select this point as waypoint"
+		"msgid": "NoteDialog - Note",
+		"msgstr": "Note"
 	},
 	{
-		"msgid" : "MapContextMenu - Show all routes",
-		"msgstr" : "Show all routes"
+		"msgid": "Notedialog - The icon content cannot be empty",
+		"msgstr": "The icon content cannot be empty."
 	},
 	{
-		"msgid" : "MapContextMenu - Show all notes",
-		"msgstr" : "Show all notes"
+		"msgid": "NoteDialogAddressControl - Address",
+		"msgstr": "Address :"
 	},
 	{
-		"msgid" : "MapContextMenu - Zoom to travel",
-		"msgstr" : "Zoom to travel"
+		"msgid": "NoteDialogAddressControl - Reset address",
+		"msgstr": "Update the address with Nominatim"
 	},
 	{
-		"msgid" : "MapEditor - Drag and drop to add a waypoint",
-		"msgstr" : "Drag and drop to add a waypoint or right click for the menu"
+		"msgid": "NoteDialogGeoCoderHelper - an error occurs when searching the adress",
+		"msgstr": "An error occurs when searching the adress"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - at the small roundabout on the ground",
-		"msgstr" : " at the small roundabout on the ground"
+		"msgid": "NoteDialogIconControl - Icon content",
+		"msgstr": "Icon content : "
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Start",
-		"msgstr" : "Start"
+		"msgid": "NoteDialogIconDimsControl - Icon height",
+		"msgstr": "Icon height : "
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Stop",
-		"msgstr" : "End"
+		"msgid": "NoteDialogIconDimsControl - Icon width",
+		"msgstr": "Icon width : "
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Continue",
-		"msgstr" : "Continue"
+		"msgid": "NoteDialogLinkControl - Link",
+		"msgstr": "Link : "
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Turn right",
-		"msgstr" : "Turn right"
+		"msgid": "NoteDialogPhoneControl - Phone",
+		"msgstr": "Phone : "
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Turn slight right",
-		"msgstr" : "Turn slight right"
+		"msgid": "NoteDialogPopupControl - Text",
+		"msgstr": "Text : "
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Turn slight left",
-		"msgstr" : "Turn slight left"
+		"msgid": "NoteDialogToolbar - Open a configuration file",
+		"msgstr": "Open a configuration file"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Turn left",
-		"msgstr" : "Turn left"
+		"msgid": "NoteDialogToolbar - show hidden contents",
+		"msgstr": "Show or hide some parts of the dialog"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Turn sharp left",
-		"msgstr" : "Turn sharp left"
+		"msgid": "NoteDialogTooltipControl - Tooltip content",
+		"msgstr": "Tooltip content : "
 	},
 	{
-		"msgid" : "MapIconDataBuilder - Turn sharp right",
-		"msgstr" : "Turn sharp right"
+		"msgid": "NoteEditor - No route was found",
+		"msgstr": "No route was found."
 	},
 	{
-		"msgid" : "MapIconDataBuilder - rcnRef",
-		"msgstr" : " (node-point {rcnRef})"
+		"msgid": "NoteHTMLViewsFactory - Address",
+		"msgstr": "Address"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - entry roundabout",
-		"msgstr" : " to enter the roundabout"
+		"msgid": "NoteHTMLViewsFactory - call",
+		"msgstr": "Call "
 	},
 	{
-		"msgid" : "MapIconDataBuilder - exit roundabout",
-		"msgstr" : " to exit the roundabout"
+		"msgid": "NoteHTMLViewsFactory - Distance from start of route",
+		"msgstr": "Distance from start of route"
 	},
 	{
-		"msgid" : "MapIconDataBuilder - continue roundabout",
-		"msgstr" : " and continue in the roundabout"
+		"msgid": "NoteHTMLViewsFactory - Distance from start of travel",
+		"msgstr": "Distance from start of travel"
 	},
 	{
-		"msgid" : "MapLayersToolbarUI - Layers",
-		"msgstr" : "Maps"
+		"msgid": "NoteHTMLViewsFactory - Link",
+		"msgstr": "Link : "
 	},
 	{
-		"msgid" : "NoteContextMenu - Attach note to route",
-		"msgstr" : "transform to route note"
+		"msgid": "NoteHTMLViewsFactory - Next note after",
+		"msgstr": "Next note after"
 	},
 	{
-		"msgid" : "NoteContextMenu - Delete this note",
-		"msgstr" : "Delete this note"
+		"msgid": "NoteHTMLViewsFactory - Phone",
+		"msgstr": "☎️"
 	},
 	{
-		"msgid" : "NoteContextMenu - Detach note from route",
-		"msgstr" : "Transform to travel note"
+		"msgid": "NoteHTMLViewsFactory - Send a sms to",
+		"msgstr": " or send a sms to "
 	},
 	{
-		"msgid" : "NoteContextMenu - Edit this note",
-		"msgstr" : "Edit this note"
- 	},
-	{
-		"msgid" : "NoteContextMenu - Zoom to note",
-		"msgstr" : "Zoom to note"
-	},
-	{
-		"msgid" : "NoteDialog - Address",
-		"msgstr" : "Address :"
-	},
-	{
-		"msgid" : "Notedialog - an error occurs when creating the SVG icon",
-		"msgstr" : "An error occurs when creating the SVG icon"
-	},
-	{
-		"msgid" : "Notedialog - an error occurs when searching the adress",
-		"msgstr" : "An error occurs when searching the adress"
-	},
-	{
-		"msgid" : "Notedialog - The icon content cannot be empty",
-		"msgstr" : "The icon content cannot be empty."
-	},
-	{
-		"msgid" : "NoteDialog - Icon height",
-		"msgstr" : "Icon height : "
-	},
-	{
-		"msgid" : "NoteDialog - Icon width",
-		"msgstr" : "Icon width : "
-	},
-	{
-		"msgid" : "NoteDialog - Icon content",
-		"msgstr" : "Icon content\u00A0:\u00A0"
-	},
-	{
-		"msgid" : "NoteDialog - invalidUrl",
-		"msgstr" : "Invalid link"
-	},
-	{
-		"msgid" : "NoteDialog - Link",
-		"msgstr" : "Link : "
-	},
-	{
-		"msgid" : "NoteDialog - Note",
-		"msgstr" : "Note"
-	},
-	{
-		"msgid" : "NoteDialog - Open a configuration file",
-		"msgstr" : "Open a configuration file"
-	},
-	{
-		"msgid" : "NoteDialog - Phone",
-		"msgstr" : "Phone\u00A0:\u00A0"
+		"msgid": "OpenButtonClickEL - This page ask to close; data are perhaps not saved.",
+		"msgstr": "This page ask to close; data are perhaps not saved."
 	},
 	{
-		"msgid" : "Notedialog - not possible to create a SVG icon for a travel note",
-		"msgstr" : "It's impossible to create a SVG icon for a travel note"
+		"msgid": "OsmSearchContextMenu - Create a route note with this result",
+		"msgstr": "Add a route note with this result"
 	},
 	{
-		"msgid" : "NoteDialog - Reset address",
-		"msgstr" : "Update the address with Nominatim"
+		"msgid": "OsmSearchContextMenu - Create a travel note with this result",
+		"msgstr": "Add a travel note with this result"
 	},
 	{
-		"msgid" : "NoteDialog - show hidden contents",
-		"msgstr" : "Show or hide some parts of the dialog"
+		"msgid": "OsmSearchContextMenu - Hide note dialog",
+		"msgstr": "Hide Notes Dialog"
 	},
 	{
-		"msgid" : "NoteDialog - Text",
-		"msgstr" : "Text\u00A0:\u00A0"
+		"msgid": "OsmSearchContextMenu - Select this point as end point",
+		"msgstr": "Select this point as end point"
 	},
 	{
-		"msgid" : "NoteDialog - Tooltip content",
-		"msgstr" : "Tooltip content\u00A0:\u00A0"
+		"msgid": "OsmSearchContextMenu - Select this point as start point",
+		"msgstr": "Select this point as start point"
 	},
 	{
-		"msgid" : "NoteDialog - Invalid phone number",
-		"msgstr" : "Invalid number"
+		"msgid": "OsmSearchContextMenu - Select this point as way point",
+		"msgstr": "Select this point as waypoint"
 	},
 	{
-		"msgid" : "NoteDialogToolbar - An error was found in the json file",
-		"msgstr" : "An error was found in the JSON file ({error})"
+		"msgid": "OsmSearchContextMenu - Show note dialog",
+		"msgstr": "Show Notes Dialog"
 	},
 	{
-		"msgid" : "NoteEditor - Add a note for each maneuver",
-		"msgstr" : "Add a note for each maneuver"
+		"msgid": "OsmSearchContextMenu - Zoom to this result",
+		"msgstr": "Zoom to this result"
 	},
 	{
-		"msgid" : "NoteEditor - Add a note for each maneuver. Are you sure?",
-		"msgstr" : "You'll add {noteLength} notes. This will consume a lot of resources on the OpenStreetMap server and take time. Are you sure you want to continue?"
+		"msgid": "OsmSearchPaneUI - Search",
+		"msgstr": "Search OpenStreetMap"
 	},
 	{
-		"msgid" : "NoteEditor - Creating note",
-		"msgstr" : "Creating note {noteNumber} of {notesLength}"
+		"msgid": "OsmSearchToolbarUI - Clear tree",
+		"msgstr": "Unselect all"
 	},
 	{
-		"msgid" : "NoteEditor - max maneuvers notes reached {maneuversLength}{maxManeuversNotes}",
-		"msgstr" : "You want to create {maneuversLength} notes. For performance reasons, the number of notes is limited to {maxManeuversNotes} for the demo. Change your route."
+		"msgid": "OsmSearchToolbarUI - Collapse tree",
+		"msgstr": "Collapse the tree"
 	},
 	{
-		"msgid" : "NoteEditor - No route was found",
-		"msgstr" : "No route was found."
+		"msgid": "OsmSearchToolbarUI - Expand tree",
+		"msgstr": "Expand the tree"
 	},
 	{
-		"msgid" : "OsmSearchContextMenu - Create a route note with this result",
-		"msgstr" : "Add a route note with this result"
+		"msgid": "OsmSearchToolbarUI - Search OpenStreetMap",
+		"msgstr": "Search OpenStreetMap"
 	},
 	{
-		"msgid" : "OsmSearchContextMenu - Create a travel note with this result",
-		"msgstr" : "Add a travel note with this result"
+		"msgid": "PasswordDialog - password",
+		"msgstr": "Password"
 	},
 	{
-		"msgid" : "OsmSearchContextMenu - Hide note dialog",
-		"msgstr" : "Hide Notes Dialog"
+		"msgid": "PasswordDialog - Password rules1",
+		"msgstr": "Password rules : "
 	},
 	{
-		"msgid" : "OsmSearchContextMenu - Show note dialog",
-		"msgstr" : "Show Notes Dialog"
+		"msgid": "PasswordDialog - Password rules2",
+		"msgstr": "At least 12 characters"
 	},
 	{
-		"msgid" : "OsmSearchContextMenu - Zoom to this result",
-		"msgstr" : "Zoom to this result"
+		"msgid": "PasswordDialog - Password rules3",
+		"msgstr": "At least 1 uppercase"
 	},
 	{
-		"msgid" : "OsmSearchPaneUI - Search OpenStreetMap",
-		"msgstr" : "Search OpenStreetMap"
+		"msgid": "PasswordDialog - Password rules4",
+		"msgstr": "At least 1 lowercase"
 	},
 	{
-		"msgid" : "OsmSearchPaneUI - Expand tree",
-		"msgstr" : "Expand the tree"
+		"msgid": "PasswordDialog - Password rules5",
+		"msgstr": "At least one number"
 	},
 	{
-		"msgid" : "OsmSearchPaneUI - Collapse tree",
-		"msgstr" : "Collapse the tree"
+		"msgid": "PasswordDialog - Password rules6",
+		"msgstr": "At least one special character"
 	},
 	{
-		"msgid" : "OsmSearchPaneUI - Clear tree",
-		"msgstr" : "Unselect all"
+		"msgid": "PrintPageBuilder - Cancel print",
+		"msgstr": "Cancel print"
 	},
 	{
-		"msgid" : "OsmSearchPaneUI - dictionary name",
-		"msgstr" : "Search all"
+		"msgid": "PrintPageBuilder - Print",
+		"msgstr": "Print"
 	},
 	{
-		"msgid" : "PasswordDialog - password",
-		"msgstr" : "Password"
+		"msgid": "PrintRouteMapDialog - Border width",
+		"msgstr": "Border width:"
 	},
 	{
-		"msgid" : "PasswordDialog - Password rules1",
-		"msgstr" : "Password rules : "
+		"msgid": "PrintRouteMapDialog - Border width units",
+		"msgstr": "mm."
 	},
 	{
-		"msgid" : "PasswordDialog - Password rules2",
-		"msgstr" : "At least 12 characters"
+		"msgid": "PrintRouteMapDialog - Page break",
+		"msgstr": "Insert a page break"
 	},
 	{
-		"msgid" : "PasswordDialog - Password rules3",
-		"msgstr" : "At least 1 uppercase"
+		"msgid": "PrintRouteMapDialog - Paper height",
+		"msgstr": "Paper height"
 	},
 	{
-		"msgid" : "PasswordDialog - Password rules4",
-		"msgstr" : "At least 1 lowercase"
+		"msgid": "PrintRouteMapDialog - Paper height units",
+		"msgstr": "mm."
 	},
 	{
-		"msgid" : "PasswordDialog - Password rules5",
-		"msgstr" : "At least one number"
+		"msgid": "PrintRouteMapDialog - Paper width",
+		"msgstr": "Paper width"
 	},
 	{
-		"msgid" : "PasswordDialog - Password rules6",
-		"msgstr" : "At least one special character"
+		"msgid": "PrintRouteMapDialog - Paper width units",
+		"msgstr": "mm."
 	},
 	{
-		"msgid" : "PrintPageBuilder - Print",
-		"msgstr" : "Print"
+		"msgid": "PrintRouteMapDialog - Print",
+		"msgstr": "Print a route map"
 	},
 	{
-		"msgid" : "PrintPageBuilder - Cancel print",
-		"msgstr" : "Cancel print"
+		"msgid": "PrintRouteMapDialog - Print notes",
+		"msgstr": "Print notes"
 	},
 	{
-		"msgid" : "RoutePrinter - The maximum of allowed pages is reached.",
-		"msgstr" : "The maximum of allowed pages is reached."
+		"msgid": "PrintRouteMapDialog - Zoom factor",
+		"msgstr": "Zoom:"
 	},
 	{
-		"msgid" : "PrintRouteMapDialog - Border width",
-		"msgstr" : "Border width:"
+		"msgid": "ProfileContextMenu - Add a note to the route at this point",
+		"msgstr": "Add a note to the route at this point"
 	},
 	{
-		"msgid" : "PrintRouteMapDialog - Border width units",
-		"msgstr" : "mm."
+		"msgid": "ProfileContextMenu - Zoom to this point",
+		"msgstr": "Zoom to this point"
 	},
 	{
-		"msgid" : "PrintRouteMapDialog - Paper height",
-		"msgstr" : "Paper height"
+		"msgid": "ProfileWindow - Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}",
+		"msgstr": "Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}"
 	},
 	{
-		"msgid" : "PrintRouteMapDialog - Paper height units",
-		"msgstr" : "mm."
+		"msgid": "ProfileWindow - Profile {name}",
+		"msgstr": "Profile {name}"
 	},
 	{
-		"msgid" : "PrintRouteMapDialog - Paper width",
-		"msgstr" : "Paper width"
+		"msgid": "RoadbookLoader - Save",
+		"msgstr": "Save"
 	},
 	{
-		"msgid" : "PrintRouteMapDialog - Paper width units",
-		"msgstr" : "mm."
+		"msgid": "RoadbookLoader - show maneuver",
+		"msgstr": "Show maneuver"
 	},
 	{
-		"msgid" : "PrintRouteMapDialog - Page break",
-		"msgstr" : "Insert a page break"
+		"msgid": "RoadbookLoader - show routes notes",
+		"msgstr": "Show routes notes"
 	},
 	{
-		"msgid" : "PrintRouteMapDialog - Print notes",
-		"msgstr" : "Print notes"
+		"msgid": "RoadbookLoader - show travel notes",
+		"msgstr": "Show travel notes"
 	},
 	{
-		"msgid" : "PrintRouteMapDialog - Print",
-		"msgstr" : "Print a route map"
+		"msgid": "RouteContextMenu - Add a note on the route",
+		"msgstr": "Add a note on the route"
 	},
 	{
-		"msgid" : "PrintRouteMapDialog - Zoom factor",
-		"msgstr" : "Zoom:"
+		"msgid": "RouteContextMenu - Cancel modifications on this route",
+		"msgstr": "Cancel the modifications on this route"
 	},
 	{
-		"msgid" : "ProfileWindow - Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}",
-		"msgstr" : "Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}"
+		"msgid": "RouteContextMenu - Create a note for each route maneuver",
+		"msgstr": "Create a note for each route maneuver"
 	},
 	{
-		"msgid" : "ProfileWindow - Profile {name}",
-		"msgstr" : "Profile {name}"
+		"msgid": "RouteContextMenu - Delete this route",
+		"msgstr": "Delete this route"
 	},
 	{
-		"msgid" : "ProvidersToolbarUI - bike",
-		"msgstr" : "Cycling route"
+		"msgid": "RouteContextMenu - Edit this route",
+		"msgstr": "Edit this route"
 	},
 	{
-		"msgid" : "ProvidersToolbarUI - pedestrian",
-		"msgstr" : "Walking route"
+		"msgid": "RouteContextMenu - Hide this route",
+		"msgstr": "Hide this route"
 	},
 	{
-		"msgid" : "ProvidersToolbarUI - car",
-		"msgstr" : "Car route"
+		"msgid": "RouteContextMenu - Invert waypoints",
+		"msgstr": "Invert waypoints of this route"
 	},
 	{
-		"msgid" : "ProvidersToolbarUI - train",
-		"msgstr" : "Train route"
+		"msgid": "RouteContextMenu - Print route map",
+		"msgstr": "Print the maps for this route"
 	},
 	{
-		"msgid" : "ProvidersToolbarUI - line",
-		"msgstr" : "Directions as the crow flies"
+		"msgid": "RouteContextMenu - Properties",
+		"msgstr": "Modify the properties of this route"
 	},
 	{
-		"msgid" : "ProvidersToolbarUI - circle",
-		"msgstr" : "Circle"
+		"msgid": "RouteContextMenu - Save modifications on this route",
+		"msgstr": "Save the modifications on this route"
 	},
 	{
-		"msgid" : "Roadbook - show travel notes",
-		"msgstr" : "Show travel notes"
+		"msgid": "RouteContextMenu - Save this route in a GPX file",
+		"msgstr": "Save this route in a GPX file"
 	},
 	{
-		"msgid" : "Roadbook - show maneuver",
-		"msgstr" : "Show maneuver"
+		"msgid": "RouteContextMenu - Show this route",
+		"msgstr": "Show this route"
 	},
 	{
-		"msgid" : "Roadbook - show routes notes",
-		"msgstr" : "Show routes notes"
+		"msgid": "RouteContextMenu - View the elevation",
+		"msgstr": "View the profile of this route"
 	},
 	{
-		"msgid" : "Roadbook - Save",
-		"msgstr" : "Save"
+		"msgid": "RouteContextMenu - Zoom to route",
+		"msgstr": "Zoom to route"
 	},
 	{
-		"msgid" : "RouteContextMenu - Add a note on the route",
-		"msgstr" : "Add a note on the route"
+		"msgid": "RouteEditor - Not possible to edit a route created with this provider",
+		"msgstr": "It's impossible to edit a route created with this provider ({provider})."
 	},
 	{
-		"msgid" : "RouteContextMenu - Cancel modifications on this route",
-		"msgstr" : "Cancel the modifications on this route"
+		"msgid": "RouteHTMLViewsFactory - Ascent",
+		"msgstr": "Ascent"
 	},
 	{
-		"msgid" : "RouteContextMenu - Create a note for each route maneuver",
-		"msgstr" : "Create a note for each route maneuver"
+		"msgid": "RouteHTMLViewsFactory - Descent",
+		"msgstr": "Descent"
 	},
 	{
-		"msgid" : "RouteContextMenu - Delete this route",
-		"msgstr" : "Delete this route"
+		"msgid": "RouteHTMLViewsFactory - Distance from start of route",
+		"msgstr": "Distance from start of route"
 	},
 	{
-		"msgid" : "RouteContextMenu - Edit this route",
-		"msgstr" : "Edit this route"
+		"msgid": "RouteHTMLViewsFactory - Distance from start of travel",
+		"msgstr": "Distance from start of travel"
 	},
 	{
-		"msgid" : "RouteContextMenu - Hide this route",
-		"msgstr" : "Hide this route"
+		"msgid": "RouteHTMLViewsFactory - Duration",
+		"msgstr": "Time"
 	},
 	{
-		"msgid" : "RouteContextMenu - Invert waypoints",
-		"msgstr" : "Invert waypoints of this route"
+		"msgid": "RouteHTMLViewsFactory - Itinerary computed by {provider} and optimized for {transitMode}",
+		"msgstr": "Itinerary computed by {provider} and optimized for {transitMode}"
 	},
 	{
-		"msgid" : "RouteContextMenu - Print route map",
-		"msgstr" : "Print the maps for this route"
+		"msgid": "RouteHTMLViewsFactory - Next maneuver after",
+		"msgstr": "Next maneuver after"
 	},
 	{
-		"msgid" : "RouteContextMenu - Properties",
-		"msgstr" : "Modify the properties of this route"
+		"msgid": "RouteHTMLViewsFactory - Profile",
+		"msgstr": "Profile"
 	},
 	{
-		"msgid" : "RouteContextMenu - Save modifications on this route",
-		"msgstr" : "Save the modifications on this route"
+		"msgid": "RouteHTMLViewsFactory - Route distance",
+		"msgstr": "Route distance"
 	},
 	{
-		"msgid" : "RouteContextMenu - Save this route in a GPX file",
-		"msgstr" : "Save this route in a GPX file"
+		"msgid": "RoutePrinter - The maximum of allowed pages is reached.",
+		"msgstr": "The maximum of allowed pages is reached."
 	},
 	{
-		"msgid" : "RouteContextMenu - Show this route",
-		"msgstr" : "Show this route"
+		"msgid": "RoutePropertiesDialog - Chained route",
+		"msgstr": "Chained route : "
 	},
 	{
-		"msgid" : "RouteContextMenu - View the elevation",
-		"msgstr" : "View the profile of this route"
+		"msgid": "RoutePropertiesDialog - Color",
+		"msgstr": "Color : "
 	},
 	{
-		"msgid" : "RouteContextMenu - Zoom to route",
-		"msgstr" : "Zoom to route"
+		"msgid": "RoutePropertiesDialog - Linetype",
+		"msgstr": "Linetype : "
 	},
 	{
-		"msgid" : "RouteEditor - Not possible to edit a route created with this provider",
-		"msgstr" : "It's impossible to edit a route created with this provider ({provider})."
+		"msgid": "RoutePropertiesDialog - Name",
+		"msgstr": "Route name : "
 	},
 	{
-		"msgid" : "RoutePropertiesDialog - Chained route",
-		"msgstr" : "Chained route : "
+		"msgid": "RoutePropertiesDialog - Route properties",
+		"msgstr": "Route properties"
 	},
 	{
-		"msgid" : "RoutePropertiesDialog - Color",
-		"msgstr" : "Color : "
+		"msgid": "RoutePropertiesDialog - Width",
+		"msgstr": "Width : "
 	},
 	{
-		"msgid" : "RoutePropertiesDialog - Linetype",
-		"msgstr" : "Linetype : "
+		"msgid": "SaveAsDialog - Remove Maneuvers",
+		"msgstr": "Remove Maneuvers"
 	},
 	{
-		"msgid" : "RoutePropertiesDialog - Name",
-		"msgstr" : "Route name : "
+		"msgid": "SaveAsDialog - Remove Routes Notes",
+		"msgstr": "Remove Routes Notes"
 	},
 	{
-		"msgid" : "RoutePropertiesDialog - Route properties",
-		"msgstr" : "Route properties"
+		"msgid": "SaveAsDialog - Remove Travel Notes",
+		"msgstr": "Remove Travel Notes"
 	},
 	{
-		"msgid" : "RoutePropertiesDialog - Width",
-		"msgstr" : "Width : "
+		"msgid": "SaveAsDialog - SaveAs",
+		"msgstr": "Select :"
 	},
 	{
-		"msgid" : "ProfileContextMenu - Add a note to the route at this point",
-		"msgstr" : "Add a note to the route at this point"
+		"msgid": "StreetFinder - at the small roundabout on the ground",
+		"msgstr": " at the small roundabout on the ground"
 	},
 	{
-		"msgid" : "ProfileContextMenu - Zoom to this point",
-		"msgstr" : "Zoom to this point"
+		"msgid": "StreetFinder - continue roundabout",
+		"msgstr": " and continue in the roundabout"
 	},
 	{
-		"msgid" : "SaveAsDialog - SaveAs",
-		"msgstr" : "Select\u00a0:"
+		"msgid": "StreetFinder - entry roundabout",
+		"msgstr": " to enter the roundabout"
 	},
 	{
-		"msgid" : "SaveAsDialog - Remove Travel Notes",
-		"msgstr" : "Remove Travel Notes"
+		"msgid": "StreetFinder - exit roundabout",
+		"msgstr": " to exit the roundabout"
 	},
 	{
-		"msgid" : "SaveAsDialog - Remove Routes Notes",
-		"msgstr" : "Remove Routes Notes"
+		"msgid": "StreetFinder - rcnRef",
+		"msgstr": " (node-point {rcnRef})"
 	},
 	{
-		"msgid" : "SaveAsDialog - Remove Maneuvers",
-		"msgstr" : "Remove Maneuvers"
+		"msgid": "TravelEditor - Gives a name to the travel",
+		"msgstr": "Gives first a name to the travel"
 	},
 	{
-		"msgid" : "TravelEditor - Gives a name to the travel",
-		"msgstr" : "Gives first a name to the travel"
+		"msgid": "TravelEditor - Not possible to partial save when a route is edited.",
+		"msgstr": "Not possible to partial save when a route is edited."
 	},
 	{
-		"msgid" : "TravelEditor - Not possible to partial save when a route is edited.",
-		"msgstr" : "Not possible to partial save when a route is edited."
+		"msgid": "TravelEditor - This page ask to close; data are perhaps not saved.",
+		"msgstr": "This page ask to close; data are perhaps not saved."
 	},
 	{
-		"msgid" : "TravelEditor - This page ask to close; data are perhaps not saved.",
-		"msgstr" : "This page ask to close; data are perhaps not saved."
+		"msgid": "TravelHTMLViewsFactory - OpenStreetMap contributors",
+		"msgstr": "OpenStreetMap contributors"
 	},
 	{
-		"msgid" : "TravelUI - Cancel travel",
-		"msgstr" : "Cancel travel"
+		"msgid": "travelHTMLViewsFactory - Travel ascent",
+		"msgstr": "Travel ascent"
 	},
 	{
-		"msgid" : "TravelUI - Hide",
-		"msgstr" : "Hide"
+		"msgid": "TravelHTMLViewsFactory - Travel descent",
+		"msgstr": "Travel descent"
 	},
 	{
-		"msgid" : "TravelUI - Import travel",
-		"msgstr" : "Import routes and notes from another travel"
+		"msgid": "TravelHTMLViewsFactory - Travel distance",
+		"msgstr": "Travel distance"
 	},
 	{
-		"msgid" : "TravelUI - Add a route",
-		"msgstr" : "Add a route"
+		"msgid": "TravelHTMLViewsFactory - Travel footer",
+		"msgstr": "Done with "
 	},
 	{
-		"msgid" : "TravelUI - Not possible to merge a travel when a route is edited",
-		"msgstr" : "Not possible to merge a travel when a route is edited"
+		"msgid": "TravelNotesPaneUI - Travel notes",
+		"msgstr": "Travel notes"
 	},
 	{
-		"msgid" : "TravelUI - Open travel",
-		"msgstr" : "Open a file"
+		"msgid": "TravelNotesToolbarUI - API keys",
+		"msgstr": "API keys management"
 	},
 	{
-		"msgid" : "TravelUI - Open travel roadbook",
-		"msgstr" : "Open the roadbook"
+		"msgid": "TravelNotesToolbarUI - Geo location",
+		"msgstr": "Localisation"
 	},
 	{
-		"msgid" : "TravelUI - Route",
-		"msgstr" : "Route"
+		"msgid": "TravelToolbarUI - Cancel travel",
+		"msgstr": "Cancel travel"
 	},
 	{
-		"msgid" : "TravelUI - Save as travel",
-		"msgstr" : "☢️ Partial save ☢️"
+		"msgid": "TravelToolbarUI - Import travel",
+		"msgstr": "Import routes and notes from another travel or from a gpx file"
 	},
 	{
-		"msgid" : "TravelUI - Save travel",
-		"msgstr" : "Save the travel in a file"
+		"msgid": "TravelToolbarUI - Not possible to merge a travel when a route is edited",
+		"msgstr": "Not possible to merge a travel when a route is edited"
 	},
 	{
-		"msgid" : "TravelUI - Show",
-		"msgstr" : "Show"
+		"msgid": "TravelToolbarUI - Open travel",
+		"msgstr": "Open a travel file (.trv) or a .gpx file"
 	},
 	{
-		"msgid" : "TravelUI - Travel",
-		"msgstr" : "Travel\u00A0:\u00A0"
+		"msgid": "TravelToolbarUI - Open travel roadbook",
+		"msgstr": "Open the roadbook"
 	},
 	{
-		"msgid" : "TravelUI - Travel routes",
-		"msgstr" : "Travel routes\u00A0:"
+		"msgid": "TravelToolbarUI - Save as travel",
+		"msgstr": "☢️ Partial save ☢️"
 	},
 	{
-		"msgid" : "TravelNotesToolbarUI - API keys",
-		"msgstr" : "API keys management"
+		"msgid": "TravelToolbarUI - Save travel",
+		"msgstr": "Save the travel in a file"
 	},
 	{
-		"msgid" : "TravelNotesToolbarUI - Geo location",
-		"msgstr" : "Localisation"
+		"msgid": "TravelUI - Add a route",
+		"msgstr": "Add a route"
 	},
 	{
-		"msgid" : "Utilities - Day",
-		"msgstr" : "days"
+		"msgid": "TravelUI - Hide",
+		"msgstr": "Hide"
 	},
 	{
-		"msgid" : "Utilities - Hour",
-		"msgstr" : "h"
+		"msgid": "TravelUI - Show",
+		"msgstr": "Show"
 	},
 	{
-		"msgid" : "Utilities - Minute",
-		"msgstr" : "min"
+		"msgid": "TravelUI - Travel",
+		"msgstr": "Travel : "
 	},
 	{
-		"msgid" : "Utilities - Second",
-		"msgstr" : "sec"
+		"msgid": "TravelUI - Travel routes",
+		"msgstr": "Travel routes :"
 	},
 	{
-		"msgid" : "WayPointContextMenu - Delete this waypoint",
-		"msgstr" : "Delete this waypoint"
+		"msgid": "UrlInputBlurEL - invalidUrl",
+		"msgstr": "Invalid link"
 	},
 	{
-		"msgid" : "WayPointContextMenu - Modify properties",
-		"msgstr" : "Modify the properties of this waypoint"
+		"msgid": "Utilities - Day",
+		"msgstr": "days"
 	},
 	{
-		"msgid" : "WayPointPropertiesDialog - Address",
-		"msgstr" : "Address : "
+		"msgid": "Utilities - Hour",
+		"msgstr": "h"
 	},
 	{
-		"msgid" : "WayPointPropertiesDialog - Name",
-		"msgstr" : "Name : "
+		"msgid": "Utilities - Minute",
+		"msgstr": "min"
 	},
 	{
-		"msgid" : "WayPointPropertiesDialog - Reset address",
-		"msgstr" : "Update the address with Nominatim"
+		"msgid": "Utilities - Second",
+		"msgstr": "sec"
 	},
 	{
-		"msgid" : "WayPointPropertiesDialog - Waypoint properties",
-		"msgstr" : "Waypoint properties"
+		"msgid": "WayPointContextMenu - Delete this waypoint",
+		"msgstr": "Delete this waypoint"
 	},
 	{
-		"msgid" : "Help - Continue with interface1",
-		"msgstr" : "Move your mouse over the black rectangle \"Travel & Notes\" in the upper right corner to display the interface."
+		"msgid": "WayPointContextMenu - Modify properties",
+		"msgstr": "Modify the properties of this waypoint"
 	},
 	{
-		"msgid" : "Help - Continue with interface2",
-		"msgstr" : "If you have a Mapbox, GraphHopper, OpenRouteService, Thunderforest or Lantmateriet access key, open the dialog for editing access keys (🔑 button on top of interface) to enter your access key."
+		"msgid": "WayPointPropertiesDialog - Address",
+		"msgstr": "Address : "
 	},
 	{
-		"msgid" : "Help - Complete the APIKeys1",
-		"msgstr" : "Use the + button to add a provider"
+		"msgid": "WayPointPropertiesDialog - Name",
+		"msgstr": "Name : "
 	},
 	{
-		"msgid" : "Help - Complete the APIKeys2",
-		"msgstr" : "Enter the name of the service provider on the left. This must be 'Mapbox', 'GraphHopper', 'OpenRouteservice' or 'MapzenValhalla' for a route provider or 'Mapbox', Thunderforest' or 'Lantmateriet' for a map provider."
+		"msgid": "WayPointPropertiesDialog - Reset address",
+		"msgstr": "Update the address with Nominatim"
 	},
 	{
-		"msgid" : "Help - Complete the APIKeys3",
-		"msgstr" : "Complete on the right with your access key"
+		"msgid": "WayPointPropertiesDialog - Waypoint properties",
+		"msgstr": "Waypoint properties"
 	}
 ]

@@ -64,7 +64,7 @@ class DataEncryptorHandlers {
 		this.#APIKeysDialog.keyboardELEnabled = true;
 		if ( err && 'Canceled by user' !== err ) {
 			this.#APIKeysDialog.showError (
-				theTranslator.getText ( 'APIKeysDialog - An error occurs when reading the file' )
+				theTranslator.getText ( 'DataEncryptorHandlers - An error occurs when reading the file' )
 			);
 		}
 	}
@@ -107,7 +107,7 @@ class DataEncryptorHandlers {
 
 	onErrorEncrypt ( ) {
 		this.#APIKeysDialog.showError (
-			theTranslator.getText ( 'APIKeysDialog - An error occurs when saving the keys' )
+			theTranslator.getText ( 'DataEncryptorHandlers - An error occurs when saving the keys' )
 		);
 		this.#APIKeysDialog.hideWait ( );
 		this.#APIKeysDialog.keyboardELEnabled = true;

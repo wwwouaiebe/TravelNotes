@@ -119,7 +119,7 @@ class APIKeysDialogKeyControl {
 			{
 				className : 'TravelNotes-APIKeysDialog-ApiKeyName TravelNotes-APIKeysDialog-Input',
 				value : apiKey.providerName,
-				placeholder : theTranslator.getText ( 'APIKeysDialog - provider name' )
+				placeholder : theTranslator.getText ( 'APIKeysDialogKeyControl - provider name' )
 			},
 			this.#rootHTMLElement
 		);
@@ -129,7 +129,7 @@ class APIKeysDialogKeyControl {
 			{
 				className : 'TravelNotes-APIKeysDialog-ApiKeyValue TravelNotes-APIKeysDialog-Input',
 				value : apiKey.providerKey,
-				placeholder : theTranslator.getText ( 'APIKeysDialog - API key' ),
+				placeholder : theTranslator.getText ( 'APIKeysDialogKeyControl - API key' ),
 				type : theConfig.APIKeysDialog.showAPIKeys ? 'text' : 'password'
 			},
 			this.#rootHTMLElement
@@ -140,7 +140,7 @@ class APIKeysDialogKeyControl {
 			{
 				className :
 					'TravelNotes-BaseDialog-Button TravelNotes-APIKeysDialog-AtRightButton',
-				title : theTranslator.getText ( 'APIKeysDialog - delete API key' ),
+				title : theTranslator.getText ( 'APIKeysDialogKeyControl - delete API key' ),
 				textContent : '❌',
 				dataset : { ObjId : this.#objId }
 			},

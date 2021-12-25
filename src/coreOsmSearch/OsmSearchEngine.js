@@ -28,6 +28,8 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.2.0:
+		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
 Doc reviewed 20210914
 Tests ...
 */
@@ -184,7 +186,7 @@ class OsmSearchEngine	{
 							queryTag += value + '|';
 						}
 					);
-					queryTag = queryTag.substr ( ZERO, queryTag.length - ONE ) + '"';
+					queryTag = queryTag.substring ( ZERO, queryTag.length - ONE ) + '"';
 				}
 
 				// This modification due to slow response from https://lz4.overpass-api.de/api/interpreter

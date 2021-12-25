@@ -1,0 +1,118 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><link type="text/css" rel="stylesheet" href="index.css"></head><body><p><a href="#fr" >Vers la version française</a>
+<a id="en" /></p>
+<h1 id="travel--notes">Travel &amp; Notes</h1>
+<p>Travel &amp; Notes allows you to plan a trip from the map. You can :</p>
+<ul>
+<li>draw one or more routes on the map</li>
+<li>add notes to these different routes or to the trip</li>
+<li>search for points of interest in OpenStreetMap and create notes from these results</li>
+<li>save your work to a file and reopen it later for editing or viewing</li>
+<li>create a travel book containing the different itineraries and notes created</li>
+<li>print route maps</li>
+<li>export routes to gpx files</li>
+<li>display the trip in a web page.</li>
+<li>use different basemap</li>
+</ul>
+<h2 id="about-your-browser">About your browser</h2>
+<p>Your browser must be recent. I don&#39;t do development for old versions of the browser. The code has been tested
+with the most recent versions of Firefox, Microsoft Edge, Brave and Vivaldi. If TravelNotes is not working in your
+browser, update it.</p>
+<h2 id="guides">Guides</h2>
+<p><a href="https://wwwouaiebe.github.io/TravelNotes/userGuides/en/UserGuideEN.html">User guide - en </a></p>
+<p><a href="https://wwwouaiebe.github.io/TravelNotes/userGuides/en/InstallationGuideEN.html">Installation guide - en </a></p>
+<p><a href="https://wwwouaiebe.github.io/TravelNotes/techDoc/">JS code documentation</a></p>
+<h2 id="demo">Demo</h2>
+<p><a href="https://wwwouaiebe.github.io/TravelNotes/demo/?lng=en">Demo - en </a></p>
+<p>If you have a Mapbox, Stadia Maps, GraphHopper or OpenRouteService API key, you can also use this demo with Mapbox, Stadia Maps, GraphHopper and/or OpenRouteService. 
+Simply add your API key via the access key management dialog (button 🔑 on the toolbar at the top of the control).</p>
+<p>Also see this <a href="https://wwwouaiebe.github.io/TravelNotes/demo/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==">demo</a>.
+which displays a travel with a route and notes, without any edit box or interface, and therefore without the possibility of modifications.
+And the same <a href="https://wwwouaiebe.github.io/TravelNotes/samples/Liege/index.html">demo</a> inside a web page</p>
+<p>Other samples:</p>
+<p><a href="https://wwwouaiebe.github.io/TravelNotes/demo/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL25vcmQvMjAxNS0yMDE4LU5vcmQudHJ2">A great travel bike from Belgium to the North of Norway and return to Stockholm</a> (Keep calm... 8000 km 2Mb)</p>
+<p><a href="https://wwwouaiebe.github.io/TravelNotes/demo/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL1VLMjAxOS9VSzIwMTkudHJ2">An excerpt from my last bike trip from Dover to Chester</a> </p>
+<p><a href="https://wwwouaiebe.github.io/TravelNotes/samples/UK2019/UK2019.pdf">The printed maps for the first route of Dover to Chester in a pdf file</a></p>
+<p><a href="https://wwwouaiebe.github.io/TravelNotes/demo/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL0xpZWdlLVRyb21zby9zdW9taTIwMTgwNjA4LnRydg==">A train, bus and bicycle trip from Liège to Tromsø</a></p>
+<p><a href="https://wwwouaiebe.github.io/TravelNotes/samples/Liege-Tromso/suomi20180608-Roadbook.pdf">And the roadbook from Liège to Tromsø</a></p>
+<h2 id="releases-and-branches">Releases and branches</h2>
+<h3 id="v320-branch">v3.2.0 branch</h3>
+<p>The <a href="https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.2.0">v3.2.0 release</a> and the <a href="https://github.com/wwwouaiebe/TravelNotes/tree/v3.2.0">v3.2.0 branch</a>
+contains the files of the last stable version.</p>
+<p>The <a href="https://github.com/wwwouaiebe/TravelNotes/tree/v3.2.0/dist">dist folder</a> contains all the needed files to run Travel &amp; Notes, but not the sources.</p>
+<p>Sources are available in the <a href="https://github.com/wwwouaiebe/TravelNotes/tree/v3.2.0/src">src folder</a></p>
+<h3 id="master-branch">master branch</h3>
+<p>The <a href="https://github.com/wwwouaiebe/TravelNotes/tree/master">master branch</a> is the development branch and is unstable. </p>
+<h2 id="warning-before-installing-and-using-version-200-or-greater">Warning before installing and using version 2.0.0 or greater</h2>
+<p>Version 2.0.0 is a major release containing significant changes in travel files. Files made with a previous version are no 
+longer fully compatible with this version and some data in the notes may be lost. See the 
+<a href="https://wwwouaiebe.github.io/TravelNotes/userGuides/en/UserGuideEN.html#OpenFileWithV200">user guide - en</a>
+how to convert files made with an earlier version.</p>
+<h2 id="whats-new-in-the-last-release">What&#39;s new in the last release</h2>
+<p>It is now possible to open .gpx files as a travel file or to insert .gpx files into a travel that is being edited.
+See the <a href="https://wwwouaiebe.github.io/TravelNotes/userGuides/en/UserGuideEN.html#GpxFiles">User guide - en </a></p>
+<p>Following issues are corrected:</p>
+<ul>
+<li>Issue #4 : Line type and line width for routes are not adapted on the print views</li>
+<li>Issue #8 : Review the translation files.</li>
+<li>Issue #9 : String.substr ( ) is deprecated... Replace...</li>
+</ul>
+<p>For other versions, see the document <a href="https://wwwouaiebe.github.io/TravelNotes/userGuides/en/WhatsNew.html">&#39;What&#39;s new?&#39; - en </a></p>
+<a id="fr" />
+
+<h1 id="travel--notes-1">Travel &amp; Notes</h1>
+<p>Travel &amp; Notes vous permet de préparer un voyage à partir de la carte. Vous pouvez :</p>
+<ul>
+<li>tracer un ou plusieurs itinéraires sur la carte</li>
+<li>ajouter des notes à ces différents itinéraires ou au voyage</li>
+<li>faire des recherches de points d&#39;intérets dans OpenStreetMap et créer des notes à partir de ces résultats</li>
+<li>sauvegarder votre travail dans un fichier et le réouvrir plus tard pour modifications ou consultation</li>
+<li>créer un livre de voyage reprenant les différents itinéraires et notes créées</li>
+<li>imprimer les cartes d&#39;un itinéraire</li>
+<li>exporter les itinéraires vers des fichiers gpx</li>
+<li>afficher le voyage dans une page web.</li>
+<li>utiliser différents fond de carte</li>
+</ul>
+<h2 id="à-propos-de-votre-navigateur">À propos de votre navigateur</h2>
+<p>Votre navigateur doit être récent. Je ne fais pas de développement pour des vieilles versions du navigateur. Le code a été testé
+avec les versions les plus récentes de Firefox, Microsoft Edge, Brave et Vivaldi. Si TravelNotes ne fonctionne pas dans votre
+navigateur, faites une mise à jour de celui-ci.</p>
+<h2 id="guides-1">Guides</h2>
+<p><a href="https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/GuideUtilisateurFR.html">Guide pour les utilisateurs - fr </a></p>
+<p><a href="https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/GuideInstallationFR.html">Guide d&#39;installation - fr </a></p>
+<p><a href="https://wwwouaiebe.github.io/TravelNotes/techDoc/">Documentation du code JS</a></p>
+<h2 id="démo">Démo</h2>
+<p><a href="https://wwwouaiebe.github.io/TravelNotes/demo/?">Demo - fr </a></p>
+<p>Si vous disposez d&#39;une API key pour Mapbox, Stadia Maps, GraphHopper ou OpenRouteService, vous pouvez également utiliser cette démo avec Mapbox, Stadia Maps, GraphHopper et / ou OpenRouteService.
+Ajoutez simplement votre API key via la boite de dialogue de gestion des clefs d&#39;accès ( bouton 🔑 sur la barre d&#39;outils en haut du contrôle ).</p>
+<p>Voyez aussi cette <a href="https://wwwouaiebe.github.io/TravelNotes/demo/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==">démo</a>
+qui affiche un voyage avec un trajet et des notes, sans aucune boite d&#39;édition ou interface, et donc sans possibilité de modifications.</p>
+<p>Et la même <a href="https://wwwouaiebe.github.io/TravelNotes/samples/Liege/index.html">démo</a> intégrée dans une page web</p>
+<p>D&#39;autres exemples:</p>
+<p><a href="https://wwwouaiebe.github.io/TravelNotes/demo/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL25vcmQvMjAxNS0yMDE4LU5vcmQudHJ2">Un grand voyage en vélo depuis la Belgique jusqu&#39;au Nord de la Norvège et retour jusqu&#39;à Stockholm</a> (Patientez... 8000 km 2Mb)</p>
+<p><a href="https://wwwouaiebe.github.io/TravelNotes/demo/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL1VLMjAxOS9VSzIwMTkudHJ2">Un extrait de mon dernier voyage en vélo de Dover à Chester</a> </p>
+<p><a href="https://wwwouaiebe.github.io/TravelNotes/samples/UK2019/UK2019.pdf">Les cartes imprimées dans un pdf du premier trajet de Dover à Chester</a></p>
+<p><a href="https://wwwouaiebe.github.io/TravelNotes/demo/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL0xpZWdlLVRyb21zby9zdW9taTIwMTgwNjA4LnRydg==">Un voyage en train, bus et vélo de Liège à Tromsø</a></p>
+<p><a href="https://wwwouaiebe.github.io/samples/Liege-Tromso/suomi20180608-Roadbook.pdf">Et le livre de voyage de Liège à Tromsø</a></p>
+<h2 id="versions-et-branches">Versions et branches</h2>
+<h3 id="branche-v320">branche v3.2.0</h3>
+<p>La <a href="https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.2.0">version v3.2.0</a> et la <a href="https://github.com/wwwouaiebe/TravelNotes/tree/v3.2.0">branche v3.2.0</a>
+contiennent les fichiers de la dernière version stable.</p>
+<p>Le <a href="https://github.com/wwwouaiebe/TravelNotes/tree/v3.2.0/dist">répertoire dist</a> contient tous les fichiers pour exécuter Travel &amp; Notes, mais ne contient pas les sources.</p>
+<p>Les sources sont disponibles dans le <a href="https://github.com/wwwouaiebe/TravelNotes/tree/v3.2.0/src">répertoire src</a></p>
+<h3 id="branche-master">branche master</h3>
+<p>La <a href="https://github.com/wwwouaiebe/TravelNotes/tree/master">branche master</a> est la branche de développement et est instable.</p>
+<h2 id="avertissement-avant-dinstaller-et-utiliser-la-version-200-ou-une-version-supérieure-à-200">Avertissement avant d&#39;installer et utiliser la version 2.0.0 ou une version supérieure à 2.0.0</h2>
+<p>La version 2.0.0 est une version majeure contenant des changements importants dans les fichiers de voyage. Les fichiers réalisés avec une version précédente ne sont plus entièrement compatibles avec cette version 
+et quelques données présentes dans les notes peuvent être perdues. Voyez dans le <a href="https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/GuideUtilisateurFR.html#OpenFileWithV200">guide pour les utilisateurs - fr</a> 
+comment convertir des fichiers réalisés avec une version antérieure.</p>
+<h2 id="quoi-de-neuf-dans-la-dernière-version">Quoi de neuf dans la dernière version</h2>
+<p>Il est désormais possible d&#39;ouvrir des fichiers .gpx comme fichier de voyage ou d&#39;insérer des fichiers .gpx dans un voyage en cours d&#39;édition.
+Voir le <a href="https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/GuideUtilisateurFR.html#GpxFiles">guide pour les utilisateurs - fr</a></p>
+<p>les issues suivantes sont corrigées:</p>
+<ul>
+<li>Issue #4 : Line type and line width for routes are not adapted on the print views</li>
+<li>Issue #8 : Review the translation files.</li>
+<li>Issue #9 : String.substr ( ) is deprecated... Replace...</li>
+</ul>
+<p>Pour les autres versions, reportez-vous au document <a href="https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/QuoiDeNeuf.html">&#39;quoi de neuf?&#39; - fr </a></p>
+</body></html>

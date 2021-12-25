@@ -59,44 +59,44 @@ class ArrowAndTooltipFinder {
 
 		if ( null !== computeData.direction ) {
 			if ( computeData.direction < theConfig.note.svgIcon.angleDirection.right ) {
-				noteData.tooltipContent = theTranslator.getText ( 'MapIconDataBuilder - Turn right' );
+				noteData.tooltipContent = theTranslator.getText ( 'ArrowAndTooltipFinder - Turn right' );
 				computeData.directionArrow = '🢂';
 			}
 			else if ( computeData.direction < theConfig.note.svgIcon.angleDirection.slightRight ) {
-				noteData.tooltipContent = theTranslator.getText ( 'MapIconDataBuilder - Turn slight right' );
+				noteData.tooltipContent = theTranslator.getText ( 'ArrowAndTooltipFinder - Turn slight right' );
 				computeData.directionArrow = '🢅';
 			}
 			else if ( computeData.direction < theConfig.note.svgIcon.angleDirection.continue ) {
-				noteData.tooltipContent = theTranslator.getText ( 'MapIconDataBuilder - Continue' );
+				noteData.tooltipContent = theTranslator.getText ( 'ArrowAndTooltipFinder - Continue' );
 				computeData.directionArrow = '🢁';
 			}
 			else if ( computeData.direction < theConfig.note.svgIcon.angleDirection.slightLeft ) {
-				noteData.tooltipContent = theTranslator.getText ( 'MapIconDataBuilder - Turn slight left' );
+				noteData.tooltipContent = theTranslator.getText ( 'ArrowAndTooltipFinder - Turn slight left' );
 				computeData.directionArrow = '🢄';
 			}
 			else if ( computeData.direction < theConfig.note.svgIcon.angleDirection.left ) {
-				noteData.tooltipContent = theTranslator.getText ( 'MapIconDataBuilder - Turn left' );
+				noteData.tooltipContent = theTranslator.getText ( 'ArrowAndTooltipFinder - Turn left' );
 				computeData.directionArrow = '🢀';
 			}
 			else if ( computeData.direction < theConfig.note.svgIcon.angleDirection.sharpLeft ) {
-				noteData.tooltipContent = theTranslator.getText ( 'MapIconDataBuilder - Turn sharp left' );
+				noteData.tooltipContent = theTranslator.getText ( 'ArrowAndTooltipFinder - Turn sharp left' );
 				computeData.directionArrow = '🢇';
 			}
 			else if ( computeData.direction < theConfig.note.svgIcon.angleDirection.sharpRight ) {
-				noteData.tooltipContent = theTranslator.getText ( 'MapIconDataBuilder - Turn sharp right' );
+				noteData.tooltipContent = theTranslator.getText ( 'ArrowAndTooltipFinder - Turn sharp right' );
 				computeData.directionArrow = '🢆';
 			}
 			else {
-				noteData.tooltipContent = theTranslator.getText ( 'MapIconDataBuilder - Turn right' );
+				noteData.tooltipContent = theTranslator.getText ( 'ArrowAndTooltipFinder - Turn right' );
 				computeData.directionArrow = '🢂';
 			}
 		}
 
 		if ( ICON_POSITION.atStart === computeData.positionOnRoute ) {
-			noteData.tooltipContent = theTranslator.getText ( 'MapIconDataBuilder - Start' );
+			noteData.tooltipContent = theTranslator.getText ( 'ArrowAndTooltipFinder - Start' );
 		}
 		else if ( ICON_POSITION.atEnd === computeData.positionOnRoute ) {
-			noteData.tooltipContent = theTranslator.getText ( 'MapIconDataBuilder - Stop' );
+			noteData.tooltipContent = theTranslator.getText ( 'ArrowAndTooltipFinder - Stop' );
 		}
 	}
 }

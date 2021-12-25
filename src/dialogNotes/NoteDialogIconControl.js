@@ -64,7 +64,7 @@ class NoteDialogIconControl {
 			'div',
 			{
 				className : 'TravelNotes-NoteDialog-DataDiv',
-				textContent : theTranslator.getText ( 'NoteDialog - Icon content' )
+				textContent : theTranslator.getText ( 'NoteDialogIconControl - Icon content' )
 			}
 		);
 		this.#iconTextArea = theHTMLElementsFactory.create (

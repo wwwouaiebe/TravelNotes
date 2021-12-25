@@ -22,6 +22,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.2.0:
+		- Issue #7 : How to open a gpx file
 Doc reviewed 20210915
 Tests ...
 */
@@ -145,10 +147,21 @@ class OpenInputChangeEL {
 
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
+		const fileExtension = changeEvent.target.files [ ZERO ].name.split ( '.' ).pop ( )
+			.toLowerCase ( );
 		const fileReader = new FileReader ( );
 		fileReader.onload = ( ) => {
 			try {
-				new FileLoader ( ).openLocalFile ( JSON.parse ( fileReader.result ) );
+				switch ( fileExtension ) {
+				case 'trv' :
+					new FileLoader ( ).openLocalTrvFile ( fileReader.result );
+					break;
+				case 'gpx' :
+					new FileLoader ( ).openLocalGpxFile ( fileReader.result );
+					break;
+				default :
+					break;
+				}
 			}
 			catch ( err ) {
 				if ( err instanceof Error ) {
@@ -189,14 +202,14 @@ class OpenButtonClickEL {
 			&&
 			(
 				! window.confirm (
-					theTranslator.getText ( 'TravelEditor - This page ask to close; data are perhaps not saved.' )
+					theTranslator.getText ( 'OpenButtonClickEL - This page ask to close; data are perhaps not saved.' )
 				)
 			)
 		) {
 			return;
 		}
 
-		theUtilities.openFile ( new OpenInputChangeEL ( ), '.trv' );
+		theUtilities.openFile ( new OpenInputChangeEL ( ), '.trv,.gpx' );
 	}
 }
 
@@ -226,7 +239,18 @@ class ImportInputChangeEL {
 		const fileReader = new FileReader ( );
 		fileReader.onload = ( ) => {
 			try {
-				new FileLoader ( ).mergeLocalFile ( JSON.parse ( fileReader.result ) );
+				const fileExtension = changeEvent.target.files [ ZERO ].name.split ( '.' ).pop ( )
+					.toLowerCase ( );
+				switch ( fileExtension ) {
+				case 'trv' :
+					new FileLoader ( ).mergeLocalTrvFile ( fileReader.result );
+					break;
+				case 'gpx' :
+					new FileLoader ( ).mergeLocalGpxFile ( fileReader.result );
+					break;
+				default :
+					break;
+				}
 			}
 			catch ( err ) {
 				if ( err instanceof Error ) {
@@ -264,11 +288,11 @@ class ImportButtonClickEL {
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		if ( INVALID_OBJ_ID === theTravelNotesData.editedRouteObjId ) {
-			theUtilities.openFile ( new ImportInputChangeEL ( ), '.trv' );
+			theUtilities.openFile ( new ImportInputChangeEL ( ), '.trv,.gpx' );
 		}
 		else {
 			theErrorsUI.showError (
-				theTranslator.getText ( 'TravelUI - Not possible to merge a travel when a route is edited' )
+				theTranslator.getText ( 'TravelToolbarUI - Not possible to merge a travel when a route is edited' )
 			);
 		}
 	}
@@ -298,7 +322,7 @@ class TravelToolbarUI {
 			'div',
 			{
 				className : 'TravelNotes-UI-Button TravelNotes-TravelUI-SaveAsButton',
-				title : theTranslator.getText ( 'TravelUI - Save as travel' ),
+				title : theTranslator.getText ( 'TravelToolbarUI - Save as travel' ),
 				textContent : '💾'
 			},
 			this.#buttonsDiv
@@ -315,7 +339,7 @@ class TravelToolbarUI {
 			'div',
 			{
 				className : 'TravelNotes-UI-Button',
-				title : theTranslator.getText ( 'TravelUI - Cancel travel' ),
+				title : theTranslator.getText ( 'TravelToolbarUI - Cancel travel' ),
 				textContent : '❌'
 			},
 			this.#buttonsDiv
@@ -332,7 +356,7 @@ class TravelToolbarUI {
 			'div',
 			{
 				className : 'TravelNotes-UI-Button',
-				title : theTranslator.getText ( 'TravelUI - Save travel' ),
+				title : theTranslator.getText ( 'TravelToolbarUI - Save travel' ),
 				textContent : '💾'
 			},
 			this.#buttonsDiv
@@ -350,7 +374,7 @@ class TravelToolbarUI {
 			'div',
 			{
 				className : 'TravelNotes-UI-Button',
-				title : theTranslator.getText ( 'TravelUI - Open travel' ),
+				title : theTranslator.getText ( 'TravelToolbarUI - Open travel' ),
 				textContent : '📂'
 			},
 			this.#buttonsDiv
@@ -367,7 +391,7 @@ class TravelToolbarUI {
 			'div',
 			{
 				className : 'TravelNotes-UI-Button',
-				title : theTranslator.getText ( 'TravelUI - Import travel' ),
+				title : theTranslator.getText ( 'TravelToolbarUI - Import travel' ),
 				textContent : '🌏'
 			},
 			this.#buttonsDiv
@@ -399,7 +423,7 @@ class TravelToolbarUI {
 					'div',
 					{
 						className : 'TravelNotes-UI-Button',
-						title : theTranslator.getText ( 'TravelUI - Open travel roadbook' )
+						title : theTranslator.getText ( 'TravelToolbarUI - Open travel roadbook' )
 					},
 					this.#buttonsDiv
 				)
@@ -408,7 +432,7 @@ class TravelToolbarUI {
 	}
 
 	/**
-	the constructor
+	The constructor
 	@param {HTMLElement} uiMainDiv The HTMLElement in witch the toolbar must be created
 	*/
 

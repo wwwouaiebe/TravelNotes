@@ -115,7 +115,7 @@ class NoteDialogToolbar {
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-Button',
-				title : theTranslator.getText ( 'NoteDialog - show hidden contents' ),
+				title : theTranslator.getText ( 'NoteDialogToolbar - show hidden contents' ),
 				textContent : '▼' // 25b6 = '▶'  25bc = ▼
 			},
 			this.#rootHTMLElement
@@ -125,7 +125,7 @@ class NoteDialogToolbar {
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-Button',
-				title : theTranslator.getText ( 'NoteDialog - Open a configuration file' ),
+				title : theTranslator.getText ( 'NoteDialogToolbar - Open a configuration file' ),
 				textContent : '📂'
 			},
 			this.#rootHTMLElement

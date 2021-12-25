@@ -285,7 +285,7 @@ class TravelNotesPaneUI extends PaneUI {
 	@type {String}
 	*/
 
-	get buttonText ( ) { return theTranslator.getText ( 'PanesManagerUI - Travel notes' ); }
+	get buttonText ( ) { return theTranslator.getText ( 'TravelNotesPaneUI - Travel notes' ); }
 
 }
 

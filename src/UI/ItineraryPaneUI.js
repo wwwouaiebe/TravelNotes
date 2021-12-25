@@ -110,7 +110,7 @@ class ItineraryPaneUI extends PaneUI {
 	@type {String}
 	*/
 
-	get buttonText ( ) { return theTranslator.getText ( 'PanesManagerUI - Itinerary' ); }
+	get buttonText ( ) { return theTranslator.getText ( 'ItineraryPaneUI - Itinerary' ); }
 
 }
 

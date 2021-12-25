@@ -234,7 +234,7 @@ class OsmSearchToolbarUI {
 			'div',
 			{
 				className : 'TravelNotes-UI-Button',
-				title : theTranslator.getText ( 'OsmSearchPaneUI - Search OpenStreetMap' ),
+				title : theTranslator.getText ( 'OsmSearchToolbarUI - Search OpenStreetMap' ),
 				textContent : '🔎'
 			},
 			this.#toolbarHTMLElement
@@ -246,7 +246,7 @@ class OsmSearchToolbarUI {
 			'div',
 			{
 				className : 'TravelNotes-UI-Button',
-				title : theTranslator.getText ( 'OsmSearchPaneUI - Expand tree' ),
+				title : theTranslator.getText ( 'OsmSearchToolbarUI - Expand tree' ),
 				textContent : '▼'
 			},
 			this.#toolbarHTMLElement
@@ -258,7 +258,7 @@ class OsmSearchToolbarUI {
 			'div',
 			{
 				className : 'TravelNotes-UI-Button',
-				title : theTranslator.getText ( 'OsmSearchPaneUI - Collapse tree' ),
+				title : theTranslator.getText ( 'OsmSearchToolbarUI - Collapse tree' ),
 				textContent : '▶'
 			},
 			this.#toolbarHTMLElement
@@ -271,7 +271,7 @@ class OsmSearchToolbarUI {
 			{
 				id : 'TravelNotes-OsmSearchPaneUI-ClearAllButton',
 				className : 'TravelNotes-UI-Button',
-				title : theTranslator.getText ( 'OsmSearchPaneUI - Clear tree' ),
+				title : theTranslator.getText ( 'OsmSearchToolbarUI - Clear tree' ),
 				textContent : '❌'
 			},
 			this.#toolbarHTMLElement

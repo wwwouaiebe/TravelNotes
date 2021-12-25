@@ -305,7 +305,7 @@ class BaseContextMenu {
 			{
 				textContent : '❌',
 				className : 'TravelNotes-ContextMenu-CloseButton',
-				title : theTranslator.getText ( 'ContextMenu - Close' )
+				title : theTranslator.getText ( 'BaseContextMenu - Close' )
 			},
 			this.#container
 		);

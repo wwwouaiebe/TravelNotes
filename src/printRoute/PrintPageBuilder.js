@@ -22,6 +22,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.2.0:
+		- Issue ♯4 : Line type and line width for routes are not adapted on the print views
 Doc reviewed 20210915
 Tests ...
 */
@@ -438,11 +440,13 @@ class PrintPageBuilder {
 		while ( ! pointsIterator.done ) {
 			latLngs.push ( pointsIterator.value.latLng );
 		}
+
 		this.#routePolyline = window.L.polyline (
 			latLngs,
 			{
 				color : this.#route.color,
-				weight : this.#route.width
+				weight : this.#route.width,
+				dashArray : this.#route.dashString
 			}
 		);
 
