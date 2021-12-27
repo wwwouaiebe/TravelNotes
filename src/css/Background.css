@@ -38,7 +38,7 @@ Changes:
 	left: 0;
 	z-index: 1200;
 	overflow: hidden;
-	background-color: rgba(0, 0, 0, 0.4);
+	background-color: rgb(0 0 0 / 40%);
 }
 
 .TravelNotes-Background:hover {

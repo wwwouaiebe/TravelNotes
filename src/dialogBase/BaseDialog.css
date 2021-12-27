@@ -38,7 +38,7 @@ Changes:
 	border-width: 0.1em;
 	cursor: default;
 	max-height: 90vh;
-	box-shadow: 0 3px 14px rgba(0, 0, 0, 0.6);
+	box-shadow: 0 3px 14px rgb(0 0 0 / 60%);
 }
 
 .TravelNotes-BaseDialog-TopBar {

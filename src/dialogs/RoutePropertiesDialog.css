@@ -51,9 +51,7 @@ Changes:
 
 #TravelNotes-RoutePropertiesDialog-NameInputDiv,
 #TravelNotes-RoutePropertiesDialog-ChainDiv {
-	border-bottom-style: solid;
-	border-bottom-width: 0.1em;
-	border-bottom-color: lightgray;
+	border-bottom: 0.1em solid lightgray;
 	margin-bottom: 1em;
 	padding-bottom: 1em;
 }

@@ -44,10 +44,7 @@ Changes:
 
 .TravelNotes-PanesManagerUI-PaneButton {
 	border-style: solid;
-	border-top-width: 0.3em;
-	border-right-width: 0.1em;
-	border-bottom-width: 0.1em;
-	border-left-width: 0.3em;
+	border-width: 0.3em 0.1em 0.1em 0.3em;
 	border-color: gray;
 	background-color: lightgray;
 	margin-left: 0.1em;

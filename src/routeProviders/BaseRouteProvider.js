@@ -46,6 +46,7 @@ class BaseRouteProvider {
 	@type {Route}
 	*/
 
+	/* eslint-disable-next-line no-unused-private-class-members */
 	#route;
 
 	/**

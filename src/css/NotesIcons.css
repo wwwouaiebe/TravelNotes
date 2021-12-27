@@ -97,7 +97,7 @@ classes for knoppunten
 
 .TravelNotes-OSM-RcnRef {
 	font: bold 50px sans-serif;
-	fill: rgb(0, 0, 0);
+	fill: rgb(0 0 0);
 	fill-opacity: 75%;
 	text-anchor: middle;
 }
@@ -485,7 +485,7 @@ the 73 predefined icons
 
 .TravelNotes-MapNoteCategory-0073 > svg > text {
 	font: bold 10px sans-serif;
-	fill: rgb(0, 191, 191);
+	fill: rgb(0 191 191);
 	text-anchor: middle;
 }
 

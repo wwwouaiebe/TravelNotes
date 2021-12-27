@@ -32,9 +32,7 @@ Changes:
 .TravelNotes-ItineraryPaneUI-Route-Notes-Row {
 	display: flex;
 	flex-direction: row;
-	border-bottom-style: solid;
-	border-bottom-width: 0.1em;
-	border-bottom-color: lightgray;
+	border-bottom: 0.1em solid lightgray;
 }
 
 .TravelNotes-ItineraryPaneUI-Route-ManeuversAndNotes-Cell {

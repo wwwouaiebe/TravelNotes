@@ -44,13 +44,6 @@ class OsmSearchWaitUI {
 	#waitDiv;
 
 	/**
-	The red bullet...
-	@type {HTMLElement}
-	*/
-
-	#waitBullet;
-
-	/**
 	The constructor
 	*/
 
@@ -60,7 +53,7 @@ class OsmSearchWaitUI {
 			{ className : 'TravelNotes-WaitAnimation' }
 		);
 
-		this.#waitBullet = theHTMLElementsFactory.create (
+		theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-WaitAnimationBullet'
