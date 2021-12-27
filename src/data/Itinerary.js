@@ -67,7 +67,7 @@ class Itinerary	extends TravelObject {
 	@type {Number}
 	*/
 
-	#objId = INVALID_OBJ_ID;;
+	#objId = INVALID_OBJ_ID;
 
 	/**
 	a boolean set to true when the itinerary have a profile

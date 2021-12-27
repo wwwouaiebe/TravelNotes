@@ -56,7 +56,7 @@ class Routing {
 	@type {String}
 	*/
 
-	#transitMode = ''
+	#transitMode = '';
 
 	/**
 	The constructor

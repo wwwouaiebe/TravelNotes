@@ -264,7 +264,7 @@ class ItineraryDataUI {
 	@type {NoteOrManeuverMouseLeaveEL}
 	*/
 
-	#noteOrManeuverMouseLeaveEL
+	#noteOrManeuverMouseLeaveEL;
 
 	/**
 	toggle the visibility of notes or maneuvers

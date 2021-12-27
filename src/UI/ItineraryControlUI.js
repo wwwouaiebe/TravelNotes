@@ -166,7 +166,7 @@ class ItineraryControlUI {
 	@type {ManeuversCheckboxInputEL}
 	*/
 
-	#maneuversCheckboxInputEL = null
+	#maneuversCheckboxInputEL = null;
 
 	/**
 	A reference to the HTMLElement in witch the control have to be added

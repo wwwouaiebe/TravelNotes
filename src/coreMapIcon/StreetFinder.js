@@ -157,7 +157,7 @@ class StreetFinder {
 	@type {RoundaboutData}
 	*/
 
-	#roundaboutData
+	#roundaboutData;
 
 	/**
 	Return the name of a way

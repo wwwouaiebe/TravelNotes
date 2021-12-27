@@ -57,7 +57,7 @@ class OsmSearchWaitUI {
 	constructor ( ) {
 		this.#waitDiv = theHTMLElementsFactory.create (
 			'div',
-			{ className : 'TravelNotes-WaitAnimation' },
+			{ className : 'TravelNotes-WaitAnimation' }
 		);
 
 		this.#waitBullet = theHTMLElementsFactory.create (

@@ -53,7 +53,7 @@ class OsmSearchDictionary {
 	@type {Map}
 	*/
 
-	#itemsMap
+	#itemsMap;
 
 	/**
 	the currentItem treated by the #parseLine method

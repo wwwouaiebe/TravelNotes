@@ -177,7 +177,7 @@ class Note extends TravelObject {
 	@type {Number}
 	*/
 
-	#objId = INVALID_OBJ_ID;;
+	#objId = INVALID_OBJ_ID;
 
 	/**
 	The constructor

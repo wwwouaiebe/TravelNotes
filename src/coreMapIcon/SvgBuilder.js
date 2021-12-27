@@ -50,7 +50,7 @@ class SvgBuilder {
 	@type {OverpassAPIDataLoader}
 	*/
 
-	#overpassAPIDataLoader
+	#overpassAPIDataLoader;
 
 	/**
 	The svg element to build
