@@ -31,7 +31,11 @@
     "url": "git+https://github.com/wwwouaiebe/TravelNotes.git"
   },
   "scripts": {
-    "guides": "node ../HtmlFromMarkdown/main.js --src=docs/userGuides"
+    "guides": "node ../HtmlFromMarkdown/main.js --src=docs/userGuides",
+    "doc" : "node node_modules/grunt/bin/grunt doc",
+    "doclaunch" : "node node_modules/grunt/bin/grunt doclaunch",
+    "debug" : "node node_modules/grunt/bin/grunt debug",
+    "release" : "node node_modules/grunt/bin/grunt release"
   },  
   "keywords": [
     "Leaflet",
