@@ -33,18 +33,61 @@ module.exports = function ( grunt ) {
 		cssmin : require ( './grunt/CssminConfig.js' ),
 		terser : require ( './grunt/TerserConfig.js' ),
 		copy : require ( './grunt/CopyConfig.js' ),
-		clean : require ( './grunt/CleanConfig.js' )
+		clean : require ( './grunt/CleanConfig.js' ),
+		buildnumber : {
+			options : {
+				file : 'buildNumber.json'
+			},
+			start : {
+				action : 'read',
+				values : [
+					{
+						name : 'build',
+						initialValue : 0,
+						transform : value => {
+							console.error ( '-'.repeat ( 128 ) );
+							console.error (
+								'\n' +
+								grunt.config.data.pkg.name + ' - ' +
+								grunt.config.data.pkg.version + ' - build: ' +
+								String ( value ).padStart ( 5, '0' ) + ' - ' +
+								grunt.template.today ( 'isoDateTime' ) +
+								' start\n'
+							);
+							console.error ( '-'.repeat ( 128 ) );
+							return String ( value ).padStart ( 5, '0' );
+						}
+					}
+				]
+			},
+			end : {
+				action : 'write',
+				values : [
+					{
+						name : 'build',
+						initialValue : 0,
+						transform : value => {
+							console.error ( '-'.repeat ( 128 ) );
+							console.error (
+								'\n' +
+								grunt.config.data.pkg.name + ' - ' +
+								grunt.config.data.pkg.version + ' - build: ' +
+								grunt.config.data.build + ' - ' +
+								grunt.template.today ( 'isoDateTime' ) +
+								' done\n'
+							);
+							console.error ( '-'.repeat ( 128 ) );
+							return value + 1;
+						}
+					}
+				]
+			}
+		}
 	} );
-
-	// Build number
-
-	grunt.config.data.pkg.buildNumber = grunt.file.readJSON ( 'buildNumber.json' ).buildNumber;
-	grunt.config.data.pkg.buildNumber =
-		( '00000' + ( Number.parseInt ( grunt.config.data.pkg.buildNumber ) + 1 ) ).substr ( -5, 5 );
-	grunt.file.write ( 'buildNumber.json', '{ "buildNumber" : "' + grunt.config.data.pkg.buildNumber + '"}' );
 
 	// Load tasks
 
+	grunt.loadNpmTasks ( 'grunt-buildnumber' );
 	grunt.loadNpmTasks ( 'grunt-eslint' );
 	grunt.loadNpmTasks ( 'grunt-text-replace' );
 	grunt.loadNpmTasks ( 'grunt-rollup' );
@@ -72,13 +115,15 @@ module.exports = function ( grunt ) {
 	grunt.registerTask (
 		'debug',
 		[
+			'buildnumber:start',
 			'eslint',
 			'stylelint',
 			'clean:beforeDebug',
 			'rollup:debug',
 			'cssmin:debug',
 			'copy:debug',
-			'clean:afterDebug'
+			'clean:afterDebug',
+			'buildnumber:end'
 
 			/* , 'essimpledoc:debug' */
 
@@ -87,6 +132,7 @@ module.exports = function ( grunt ) {
 	grunt.registerTask (
 		'release',
 		[
+			'buildnumber:start',
 			'eslint',
 			'stylelint',
 			'clean:beforeDebug',
@@ -101,24 +147,13 @@ module.exports = function ( grunt ) {
 			'terser',
 			'cssmin:release',
 			'copy:release',
-			'clean:afterRelease'
+			'clean:afterRelease',
+			'buildnumber:end'
 
 			/* , 'essimpledoc:release'*/
 
 		]
 	);
-
-	// console
-	console.error ( '-'.repeat ( 128 ) );
-	console.error (
-		'\n' +
-		grunt.config.data.pkg.name + ' - ' +
-		grunt.config.data.pkg.version + ' - build: ' +
-		grunt.config.data.pkg.buildNumber + ' - ' +
-		grunt.template.today ( 'isoDateTime' ) +
-		'\n'
-	);
-	console.error ( '-'.repeat ( 128 ) );
 };
 
 // end of file
