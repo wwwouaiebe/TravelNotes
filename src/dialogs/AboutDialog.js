@@ -1,5 +1,5 @@
 /*
-Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
+Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
 
 This  program is free software;
 you can redistribute it and/or modify it under the terms of the
@@ -72,7 +72,7 @@ class AboutDialog extends BaseDialog {
 			'<p>This  program is free software; you can redistribute it and/or modify it under the terms of the ' +
 				'GNU General Public License as published by the Free Software Foundation; either version 3 of the License, ' +
 				'or any later version.</p>' +
-				'<p>Copyright - 2017 2021 - wwwouaiebe</p>' +
+				'<p>Copyright - 2017 2022 - wwwouaiebe</p>' +
 				'<p>Contact : <a href="https://www.ouaie.be/pages/Contact" target="_blank">https://www.ouaie.be/</a></p>' +
 				'<p>GitHub : <a href="https://github.com/wwwouaiebe/TravelNotes" target="_blank">' +
 				'https://github.com/wwwouaiebe/TravelNotes</a></p>' +
