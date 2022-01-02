@@ -19,31 +19,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 module.exports = function ( grunt ) {
 
 	// The banner inserted in the generated js files
-
-	let banner =
-		'/**\n * ' +
-		'\n * @source: <%= pkg.sources %>\n * ' +
-		'\n * @licstart  The following is the entire license notice for the' +
-		'\n * JavaScript code in this page.\n * \n * <%= pkg.name %> - version <%= pkg.version %>' +
-		'\n * Build <%= pkg.buildNumber %> - <%= grunt.template.today("isoDateTime") %> ' +
-		'\n * Copyright 2017 <%= grunt.template.today("yyyy") %> wwwouaiebe ' +
-		'\n * Contact: https://www.ouaie.be/' +
-		'\n * License: <%= pkg.license %>' +
-		'\n * \n * The JavaScript code in this page is free software: you can' +
-		'\n * redistribute it and/or modify it under the terms of the GNU' +
-		'\n * General Public License (GNU GPL) as published by the Free Software' +
-		'\n * Foundation, either version 3 of the License, or (at your option)' +
-		'\n * any later version.  The code is distributed WITHOUT ANY WARRANTY;' +
-		'\n * without even the implied warranty of MERCHANTABILITY or FITNESS' +
-		'\n * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.' +
-		'\n * \n * As additional permission under GNU GPL version 3 section 7, you' +
-		'\n * may distribute non-source (e.g., minimized or compacted) forms of' +
-		'\n * that code without the copy of the GNU GPL normally required by' +
-		'\n * section 4, provided you include this license notice and a URL' +
-		'\n * through which recipients can access the Corresponding Source.' +
-		'\n * \n * @licend  The above is the entire license notice' +
-		'\n * for the JavaScript code in this page.' +
-		'\n * \n */\n\n';
+	let banner = require ( './BannerConfig.js' );
 
 	// css files needed for TravelNotes
 
@@ -119,92 +95,9 @@ module.exports = function ( grunt ) {
 
 	grunt.initConfig ( {
 		pkg : grunt.file.readJSON ( 'package.json' ),
-
-		// eslint config
-
-		eslint : {
-			options : {
-				fix : true
-			},
-			target : [ 'src/**/*.js', 'Gruntfile.js' ]
-		},
-
-		// replace config
-
-		replace : {
-
-			// release mode
-
-			release : {
-				src : [ 'tmpRelease/src/**/*.js' ],
-				overwrite : true,
-				replacements : [
-
-					// # are replaced with _private_ so the code can be executed by old browsers
-					{
-						from : '#',
-						to : '_private_'
-					},
-
-					// Object.freeze in the constructors is removed
-					{
-						from : 'Object.freeze ( this );',
-						to : '/* Object.freeze ( this ); */'
-					},
-
-					// and Object.seal in the constructors is removed
-					{
-						from : 'Object.seal ( this );',
-						to : '/* Object.seal ( this ); */'
-					}
-				]
-			}
-		},
-
-		// rollup config
-
-		rollup : {
-
-			// debug mode. Files are created but not used, so import and export errors are detected
-
-			debug : {
-				options : {
-					format : 'iife'
-				},
-				files : {
-					'tmpDebug/TravelNotes.min.js' : [ 'src/main/Main.js' ],
-					'tmpDebug/TravelNotesViewer.min.js' : [ 'src/main/MainViewer.js' ],
-					'tmpDebug/TravelNotesRoadbook.min.js' : [ 'src/roadbook/roadbook.js' ],
-					'tmpDebug/GraphHopperRouteProvider.min.js' : [ 'src/routeProviders/GraphHopperRouteProvider.js' ],
-					'tmpDebug/MapboxRouteProvider.min.js' : [ 'src/routeProviders/MapboxRouteProvider.js' ],
-					'tmpDebug/MapzenValhallaRouteProvider.min.js' : [ 'src/routeProviders/MapzenValhallaRouteProvider.js' ],
-					'tmpDebug/OpenRouteServiceRouteProvider.min.js' : [ 'src/routeProviders/OpenRouteServiceRouteProvider.js' ],
-					'tmpDebug/OsrmRouteProvider.min.js' : [ 'src/routeProviders/OsrmRouteProvider.js' ],
-					'tmpDebug/PolylineRouteProvider.min.js' : [ 'src/routeProviders/PolylineRouteProvider.js' ],
-					'tmpDebug/PublicTransportRouteProvider.min.js' : [ 'src/routeProviders/PublicTransportRouteProvider.js' ]
-				}
-			},
-
-			// release mode
-
-			release : {
-				options : {
-					format : 'iife'
-				},
-				files : {
-					'tmpRelease/TravelNotes.min.js' : [ 'tmpRelease/src/main/Main.js' ],
-					'tmpRelease/TravelNotesViewer.min.js' : [ 'tmpRelease/src/main/MainViewer.js' ],
-					'tmpRelease/TravelNotesRoadbook.min.js' : [ 'tmpRelease/src/roadbook/roadbook.js' ],
-					'tmpRelease/GraphHopperRouteProvider.min.js' : [ 'tmpRelease/src/routeProviders/GraphHopperRouteProvider.js' ],
-					'tmpRelease/MapboxRouteProvider.min.js' : [ 'tmpRelease/src/routeProviders/MapboxRouteProvider.js' ],
-					'tmpRelease/MapzenValhallaRouteProvider.min.js' : [ 'tmpRelease/src/routeProviders/MapzenValhallaRouteProvider.js' ],
-					'tmpRelease/OpenRouteServiceRouteProvider.min.js' : [ 'tmpRelease/src/routeProviders/OpenRouteServiceRouteProvider.js' ],
-					'tmpRelease/OsrmRouteProvider.min.js' : [ 'tmpRelease/src/routeProviders/OsrmRouteProvider.js' ],
-					'tmpRelease/PolylineRouteProvider.min.js' : [ 'tmpRelease/src/routeProviders/PolylineRouteProvider.js' ],
-					'tmpRelease/PublicTransportRouteProvider.min.js' : [ 'tmpRelease/src/routeProviders/PublicTransportRouteProvider.js' ]
-				}
-			}
-		},
+		eslint : require ( './EslintConfig.js' ),
+		replace : require ( './ReplaceConfig.js' ),
+		rollup : require ( './RollupConfig.js' ),
 		essimpledoc : {
 			debug : {
 				options : {
