@@ -4,7 +4,7 @@ const banner =
     '\n * @source: <%= pkg.sources %>\n * ' +
     '\n * @licstart  The following is the entire license notice for the' +
     '\n * JavaScript code in this page.\n * \n * <%= pkg.name %> - version <%= pkg.version %>' +
-    '\n * Build <%= pkg.buildNumber %> - <%= grunt.template.today("isoDateTime") %> ' +
+    '\n * Build <%= build %> - <%= grunt.template.today("isoDateTime") %> ' +
     '\n * Copyright 2017 <%= grunt.template.today("yyyy") %> wwwouaiebe ' +
     '\n * Contact: https://www.ouaie.be/' +
     '\n * License: <%= pkg.license %>' +

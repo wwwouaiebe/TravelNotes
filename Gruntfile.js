@@ -100,7 +100,7 @@ module.exports = function ( grunt ) {
 			'cssmin:release',
 			'copy:release',
 			'clean:afterRelease',
-			'essimpledoc:release',
+			/* 'essimpledoc:release', */
 			'buildnumber:end'
 		]
 	);
