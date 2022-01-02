@@ -109,8 +109,7 @@ module.exports = function ( grunt ) {
 	);
 
 	// console
-	const line = '----------------------------------------------------------------';
-	console.error ( line + line );
+	console.error ( '-'.repeat ( 128 ) );
 	console.error (
 		'\n' +
 		grunt.config.data.pkg.name + ' - ' +
@@ -119,7 +118,7 @@ module.exports = function ( grunt ) {
 		grunt.template.today ( 'isoDateTime' ) +
 		'\n'
 	);
-	console.error ( line + line );
+	console.error ( '-'.repeat ( 128 ) );
 };
 
 // end of file
