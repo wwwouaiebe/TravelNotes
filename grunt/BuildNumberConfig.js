@@ -1,4 +1,23 @@
+/*
+Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
+
+This  program is free software;
+you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation;
+either version 3 of the License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
 /* eslint-disable no-magic-numbers */
+
 // eslint-disable-next-line no-undef
 module.exports = {
 	options : {
@@ -10,19 +29,7 @@ module.exports = {
 			{
 				name : 'build',
 				initialValue : 0,
-				transform : ( value, grunt ) => {
-					console.error ( '-'.repeat ( 128 ) );
-					console.error (
-						'\n' +
-                        grunt.config.data.pkg.name + ' - ' +
-                        grunt.config.data.pkg.version + ' - build: ' +
-                        String ( value ).padStart ( 5, '0' ) + ' - ' +
-                        grunt.template.today ( 'isoDateTime' ) +
-                        ' start\n'
-					);
-					console.error ( '-'.repeat ( 128 ) );
-					return String ( value ).padStart ( 5, '0' );
-				}
+				transform : value => String ( value ).padStart ( 5, '0' )
 			}
 		]
 	},
@@ -32,20 +39,10 @@ module.exports = {
 			{
 				name : 'build',
 				initialValue : 0,
-				transform : ( value, grunt ) => {
-					console.error ( '-'.repeat ( 128 ) );
-					console.error (
-						'\n' +
-                        grunt.config.data.pkg.name + ' - ' +
-                        grunt.config.data.pkg.version + ' - build: ' +
-                        grunt.config.data.build + ' - ' +
-                        grunt.template.today ( 'isoDateTime' ) +
-                        ' done\n'
-					);
-					console.error ( '-'.repeat ( 128 ) );
-					return value + 1;
-				}
+				transform : value => value + 1
 			}
 		]
 	}
 };
+
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

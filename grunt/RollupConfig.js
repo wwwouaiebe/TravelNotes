@@ -1,6 +1,22 @@
+/*
+Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
 
-// rollup config
+This  program is free software;
+you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation;
+either version 3 of the License, or any later version.
 
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+// eslint-disable-next-line no-undef
 module.exports = {
 
 	// debug mode. Files are created but not used, so import and export errors are detected
@@ -35,11 +51,16 @@ module.exports = {
 			'tmpRelease/TravelNotesRoadbook.min.js' : [ 'tmpRelease/src/roadbook/roadbook.js' ],
 			'tmpRelease/GraphHopperRouteProvider.min.js' : [ 'tmpRelease/src/routeProviders/GraphHopperRouteProvider.js' ],
 			'tmpRelease/MapboxRouteProvider.min.js' : [ 'tmpRelease/src/routeProviders/MapboxRouteProvider.js' ],
-			'tmpRelease/MapzenValhallaRouteProvider.min.js' : [ 'tmpRelease/src/routeProviders/MapzenValhallaRouteProvider.js' ],
-			'tmpRelease/OpenRouteServiceRouteProvider.min.js' : [ 'tmpRelease/src/routeProviders/OpenRouteServiceRouteProvider.js' ],
+			'tmpRelease/MapzenValhallaRouteProvider.min.js' :
+				[ 'tmpRelease/src/routeProviders/MapzenValhallaRouteProvider.js' ],
+			'tmpRelease/OpenRouteServiceRouteProvider.min.js' :
+				[ 'tmpRelease/src/routeProviders/OpenRouteServiceRouteProvider.js' ],
 			'tmpRelease/OsrmRouteProvider.min.js' : [ 'tmpRelease/src/routeProviders/OsrmRouteProvider.js' ],
 			'tmpRelease/PolylineRouteProvider.min.js' : [ 'tmpRelease/src/routeProviders/PolylineRouteProvider.js' ],
-			'tmpRelease/PublicTransportRouteProvider.min.js' : [ 'tmpRelease/src/routeProviders/PublicTransportRouteProvider.js' ]
+			'tmpRelease/PublicTransportRouteProvider.min.js' :
+				[ 'tmpRelease/src/routeProviders/PublicTransportRouteProvider.js' ]
 		}
 	}
 };
+
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

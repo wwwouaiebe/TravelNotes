@@ -53,6 +53,38 @@ module.exports = function ( grunt ) {
 	// Register tasks
 
 	grunt.registerTask (
+		'hello',
+		'hello',
+		function () {
+			console.error ( '\n\n\n\x1b[34m' + '-'.repeat ( 128 ) );
+			console.error (
+				'\nStart build of ' +
+				grunt.config.data.pkg.name + ' - ' +
+				grunt.config.data.pkg.version + ' - ' +
+				grunt.template.today ( 'isoDateTime' )
+			);
+			console.error ( '-'.repeat ( 128 ) + '\n\n\n\x1b[0m');
+		}
+	);
+
+	grunt.registerTask (
+		'bye',
+		'bye',
+		function () {
+			console.error ( '\n\n\n\x1b[32m' + '-'.repeat ( 128 ) );
+			console.error (
+				'\n' +
+				grunt.config.data.pkg.name + ' - ' +
+				grunt.config.data.pkg.version + ' - build: ' +
+				grunt.config.data.build + ' - ' +
+				grunt.template.today ( 'isoDateTime' ) +
+				' done\n'
+			);
+			console.error ( '-'.repeat ( 128 ) + '\n\n\n\x1b[0m' );
+		}
+	);
+
+	grunt.registerTask (
 		'default',
 		[ 'eslint' ]
 	);
@@ -67,6 +99,7 @@ module.exports = function ( grunt ) {
 	grunt.registerTask (
 		'debug',
 		[
+			'hello',
 			'buildnumber:start',
 			'eslint',
 			'stylelint',
@@ -75,7 +108,8 @@ module.exports = function ( grunt ) {
 			'cssmin:debug',
 			'copy:debug',
 			'clean:afterDebug',
-			'buildnumber:end'
+			'buildnumber:end',
+			'bye'
 
 			/* , 'essimpledoc:debug' */
 
@@ -84,6 +118,7 @@ module.exports = function ( grunt ) {
 	grunt.registerTask (
 		'release',
 		[
+			'hello',
 			'buildnumber:start',
 			'eslint',
 			'stylelint',
@@ -100,8 +135,11 @@ module.exports = function ( grunt ) {
 			'cssmin:release',
 			'copy:release',
 			'clean:afterRelease',
+
 			/* 'essimpledoc:release', */
-			'buildnumber:end'
+
+			'buildnumber:end',
+			'bye'
 		]
 	);
 };
