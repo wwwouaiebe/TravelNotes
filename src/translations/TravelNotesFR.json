@@ -224,6 +224,10 @@
 		"msgstr": "Sélectionner cet endroit comme point de départ"
 	},
 	{
+		"msgid": "MapContextMenu - Select this point as start and end point",
+		"msgstr": "Sélectionner cet endroit comme point de départ et d'arrivée"
+	},	
+	{
 		"msgid": "MapContextMenu - Select this point as way point",
 		"msgstr": "Sélectionner cet endroit comme point intermédiaire"
 	},

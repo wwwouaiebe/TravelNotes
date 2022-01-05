@@ -86,6 +86,15 @@ class MapContextMenu extends BaseContextMenu {
 					( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.last.lat ),
 				( ) => theWayPointEditor.setEndPoint ( this.eventData.latLng )
 			),
+			new MenuItem (
+				theTranslator.getText ( 'MapContextMenu - Select this point as start and end point' ),
+				( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId )
+					&&
+					( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.first.lat )
+					&&
+					( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.last.lat ),
+				( ) => theWayPointEditor.setStartAndEndPoint ( this.eventData.latLng )
+			),
 			new MenuItem ( theTranslator.getText ( 'MapContextMenu - Add a route' ),
 				true,
 				( ) => theRouteEditor.addRoute ( )

@@ -90,6 +90,42 @@ class WayPointEditor {
 	}
 
 	/**
+	This method set the starting WayPoint
+	@param {Array.<Number>} latLng The latitude and longitude where the WayPoint will be added
+	*/
+
+	#setStartPoint ( latLng ) {
+		const wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.first;
+		wayPoint.latLng = latLng;
+		this.#renameWayPointWithGeocoder ( wayPoint );
+		theEventDispatcher.dispatch (
+			'addwaypoint',
+			{
+				wayPoint : wayPoint,
+				letter : 'A'
+			}
+		);
+	}
+
+	/**
+	This method set the ending WayPoint
+	@param {Array.<Number>} latLng The latitude and longitude where the WayPoint will be added
+	*/
+
+	#setEndPoint ( latLng ) {
+		const wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.last;
+		wayPoint.latLng = latLng;
+		this.#renameWayPointWithGeocoder ( wayPoint );
+		theEventDispatcher.dispatch (
+			'addwaypoint',
+			{
+				wayPoint : wayPoint,
+				letter : 'B'
+			}
+		);
+	}
+
+	/**
 	the constructor
 	*/
 
@@ -202,16 +238,7 @@ class WayPointEditor {
 
 	setStartPoint ( latLng ) {
 		theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
-		const wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.first;
-		wayPoint.latLng = latLng;
-		this.#renameWayPointWithGeocoder ( wayPoint );
-		theEventDispatcher.dispatch (
-			'addwaypoint',
-			{
-				wayPoint : wayPoint,
-				letter : 'A'
-			}
-		);
+		this.#setStartPoint ( latLng );
 		theRouter.startRouting ( );
 	}
 
@@ -222,17 +249,22 @@ class WayPointEditor {
 
 	setEndPoint ( latLng ) {
 		theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
-		const wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.last;
-		wayPoint.latLng = latLng;
-		this.#renameWayPointWithGeocoder ( wayPoint );
-		theEventDispatcher.dispatch (
-			'addwaypoint',
-			{
-				wayPoint : wayPoint,
-				letter : 'B'
-			}
-		);
+		this.#setEndPoint ( latLng );
 		theRouter.startRouting ( );
+	}
+
+	/**
+	This method set the starting and ending WayPoint
+	@param {Array.<Number>} latLng The latitude and longitude where the WayPoints will be added
+	*/
+
+	setStartAndEndPoint ( latLng ) {
+		theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
+		this.#setStartPoint ( latLng );
+		this.#setEndPoint ( latLng );
+		if ( TWO < theTravelNotesData.travel.editedRoute.wayPoints.length ) {
+			theRouter.startRouting ( );
+		}
 	}
 
 	/**
