@@ -334,7 +334,7 @@ class RouteHTMLViewsFactory {
 					{
 						provider : route.itinerary.provider,
 						transitMode : theTranslator.getText (
-							'RouteHTMLViewsFactory - TransitMode ' +	route.itinerary.transitMode
+							'RouteHTMLViewsFactory - TransitMode ' + route.itinerary.transitMode
 						)
 					}
 				)

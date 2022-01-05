@@ -624,6 +624,18 @@
 		"msgstr": "Route distance"
 	},
 	{
+		"msgid": "RouteHTMLViewsFactory - TransitMode bike",
+		"msgstr": " a bike"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - TransitMode car",
+		"msgstr": " a car"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - TransitMode pedestrian",
+		"msgstr": " a pedestrian"
+	},
+	{
 		"msgid": "RoutePrinter - The maximum of allowed pages is reached.",
 		"msgstr": "The maximum of allowed pages is reached."
 	},
