@@ -94,6 +94,8 @@ class NominatimDataLoader {
 				||
 				nominatimDataZoom10.address.town
 				||
+				nominatimDataZoom10.address.municipality
+				||
 				nominatimDataZoom10.address.village
 				||
 				'';
