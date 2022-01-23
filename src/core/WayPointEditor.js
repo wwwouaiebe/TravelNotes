@@ -37,6 +37,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.3.0:
+		- Issue ♯15 : Not possible to edit a route due to slow response of the Geocoder.
 Doc reviewed 20210914
 Tests 20210902
 */
@@ -75,7 +77,12 @@ class WayPointEditor {
 		}
 
 		const address = await new GeoCoder ( ).getAddressAsync ( wayPoint.latLng );
-		theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
+
+		// Due to slow response of the geocoder, sometime the edited route is not anymore edited...
+		// See issue ♯15
+		if ( theTravelNotesData.editedRouteObjId === theTravelNotesData.travel.editedRoute.objId ) {
+			theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
+		}
 		wayPoint.address = address.street;
 		if ( '' !== address.city ) {
 			wayPoint.address += ' ' + address.city;
