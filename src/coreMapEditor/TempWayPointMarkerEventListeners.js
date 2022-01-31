@@ -22,6 +22,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.3.0:
+		- Issue ♯17 :  Add a click event on the temp itinerary point of the edited route, so the popup of the route can be show
 Doc reviewed 20210914
 Tests 20210902
 */
@@ -99,6 +101,24 @@ class TempWayPointMarkerDragStartEL {
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
+click event listener for the temp waypoint marker
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class TempWayPointMarkerClickEL {
+
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
+
+	static handleEvent ( clickEvent ) {
+		theTravelNotesData.mapObjects.get ( theTravelNotesData.travel.editedRoute.objId ).openPopup ( clickEvent.latlng );
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
 contextmenu event listener for the temp waypoint marker
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -163,6 +183,7 @@ export {
 	TempWayPointMarkerMouseOutEL,
 	TempWayPointMarkerDragStartEL,
 	TempWayPointMarkerContextMenuEL,
+	TempWayPointMarkerClickEL,
 	TempWayPointMarkerDragEndEL
 };
 

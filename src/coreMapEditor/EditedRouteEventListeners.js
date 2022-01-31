@@ -22,6 +22,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.3.0:
+		- Issue ♯17 :  Add a click event on the temp itinerary point of the edited route, so the popup of the route can be show
 Doc reviewed 20210914
 Tests 20210902
 */
@@ -37,6 +39,7 @@ import {
 	TempWayPointMarkerMouseOutEL,
 	TempWayPointMarkerDragStartEL,
 	TempWayPointMarkerContextMenuEL,
+	TempWayPointMarkerClickEL,
 	TempWayPointMarkerDragEndEL
 } from '../coreMapEditor/TempWayPointMarkerEventListeners.js';
 import { ROUTE_EDITION_STATUS, NOT_FOUND, ZERO, ONE, TWO, WAY_POINT_ICON_SIZE } from '../main/Constants.js';
@@ -134,6 +137,11 @@ class EditedRouteMouseOverEL {
 				TempWayPointMarkerELData.marker,
 				'contextmenu',
 				TempWayPointMarkerContextMenuEL.handleEvent
+			);
+			window.L.DomEvent.on (
+				TempWayPointMarkerELData.marker,
+				'click',
+				TempWayPointMarkerClickEL.handleEvent
 			);
 		}
 	}
