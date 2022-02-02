@@ -25,7 +25,7 @@ Changes:
 	- v3.2.0:
 		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
 	- v3.3.0:
-		- Issue ♯18 : Add flags in rhe config, so the user can choose when panes are show in the UI after modifications 
+		- Issue ♯18 : Add flags in rhe config, so the user can choose when panes are show in the UI after modifications
 Doc reviewed 20210913
 */
 

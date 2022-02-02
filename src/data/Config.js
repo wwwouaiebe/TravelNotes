@@ -42,7 +42,7 @@ Changes:
 	- v3.2.0:
 		- Issue ♯4 : Line type and line width for routes are not adapted on the print views
 	- v3.3.0:
-		- Issue ♯18 : Add flags in rhe config, so the user can choose when panes are show in the UI after modifications 
+		- Issue ♯18 : Add flags in rhe config, so the user can choose when panes are show in the UI after modifications
 Doc reviewed 20210913
 Tests ...
 */
