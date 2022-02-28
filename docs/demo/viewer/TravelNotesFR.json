@@ -224,6 +224,10 @@
 		"msgstr": "Sélectionner cet endroit comme point de départ"
 	},
 	{
+		"msgid": "MapContextMenu - Select this point as start and end point",
+		"msgstr": "Sélectionner cet endroit comme point de départ et d'arrivée"
+	},	
+	{
 		"msgid": "MapContextMenu - Select this point as way point",
 		"msgstr": "Sélectionner cet endroit comme point intermédiaire"
 	},
@@ -618,6 +622,18 @@
 	{
 		"msgid": "RouteHTMLViewsFactory - Route distance",
 		"msgstr": "Longueur du trajet"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - TransitMode bike",
+		"msgstr": " un vélo"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - TransitMode car",
+		"msgstr": " une voiture"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - TransitMode pedestrian",
+		"msgstr": " un piéton"
 	},
 	{
 		"msgid": "RoutePrinter - The maximum of allowed pages is reached.",

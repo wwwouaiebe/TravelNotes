@@ -1,5 +1,5 @@
 /*
-Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
+Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
 
 This  program is free software;
 you can redistribute it and/or modify it under the terms of the
@@ -41,6 +41,8 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v3.2.0:
 		- Issue ♯4 : Line type and line width for routes are not adapted on the print views
+	- v3.3.0:
+		- Issue ♯18 : Add flags in rhe config, so the user can choose when panes are show in the UI after modifications
 Doc reviewed 20210913
 Tests ...
 */
@@ -212,6 +214,11 @@ const theConfig = {
 		useNwr : true,
 		timeOut : 40,
 		url : 'https://lz4.overpass-api.de/api/interpreter' // "https://overpass.openstreetmap.fr/api/interpreter"
+	},
+	paneUI : {
+		switchToItinerary : false,
+		switchToTravelNotes : false,
+		switchToSearch : true
 	},
 	printRouteMap :
 	{

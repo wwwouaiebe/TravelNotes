@@ -1,5 +1,5 @@
 /*
-Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
+Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
 
 This  program is free software;
 you can redistribute it and/or modify it under the terms of the
@@ -24,6 +24,8 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v3.2.0:
 		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
+	- v3.3.0:
+		- Issue ♯18 : Add flags in rhe config, so the user can choose when panes are show in the UI after modifications
 Doc reviewed 20210913
 */
 
@@ -303,7 +305,14 @@ class AppLoader {
 		document.addEventListener ( 'setrouteslist', ( ) => theUI.travelUI.routesListUI.setRoutesList ( ), false );
 		document.addEventListener (
 			'showitinerary',
-			( ) => theUI.panesManagerUI.showPane ( PANE_ID.itineraryPane ),
+			( ) => {
+				if ( theConfig.paneUI.switchToItinerary ) {
+					theUI.panesManagerUI.showPane ( PANE_ID.itineraryPane );
+				}
+				else {
+					theUI.panesManagerUI.updatePane ( PANE_ID.itineraryPane );
+				}
+			},
 			false
 		);
 		document.addEventListener (
@@ -313,7 +322,14 @@ class AppLoader {
 		);
 		document.addEventListener (
 			'showtravelnotes',
-			( ) => theUI.panesManagerUI.showPane ( PANE_ID.travelNotesPane ),
+			( ) => {
+				if ( theConfig.paneUI.switchToTravelNotes ) {
+					theUI.panesManagerUI.showPane ( PANE_ID.travelNotesPane );
+				}
+				else {
+					theUI.panesManagerUI.updatePane ( PANE_ID.travelNotesPane );
+				}
+			},
 			false
 		);
 		document.addEventListener (
@@ -323,7 +339,14 @@ class AppLoader {
 		);
 		document.addEventListener (
 			'showsearch',
-			( ) => theUI.panesManagerUI.showPane ( PANE_ID.searchPane ),
+			( ) => {
+				if ( theConfig.paneUI.switchToSearch ) {
+					theUI.panesManagerUI.showPane ( PANE_ID.searchPane );
+				}
+				else {
+					theUI.panesManagerUI.updatePane ( PANE_ID.searchPane );
+				}
+			},
 			false
 		);
 		document.addEventListener (

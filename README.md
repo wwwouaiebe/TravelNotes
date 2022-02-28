@@ -53,36 +53,31 @@ Other samples:
   
 ## Releases and branches
 
-### v3.2.0 branch
+### v3.3.0 branch
 
-The [v3.2.0 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.2.0) and the [v3.2.0 branch](https://github.com/wwwouaiebe/TravelNotes/tree/v3.2.0)
+The [v3.3.0 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.3.0) and the [v3.3.0 branch](https://github.com/wwwouaiebe/TravelNotes/tree/v3.3.0)
 contains the files of the last stable version.
 
-The [dist folder](https://github.com/wwwouaiebe/TravelNotes/tree/v3.2.0/dist) contains all the needed files to run Travel & Notes, but not the sources.
+The [dist folder](https://github.com/wwwouaiebe/TravelNotes/tree/v3.3.0/dist) contains all the needed files to run Travel & Notes, but not the sources.
 
-Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v3.2.0/src)
+Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v3.3.0/src)
 
 ### master branch
 
 The [master branch](https://github.com/wwwouaiebe/TravelNotes/tree/master) is the development branch and is unstable. 
 
-## Warning before installing and using version 2.0.0 or greater
-
-Version 2.0.0 is a major release containing significant changes in travel files. Files made with a previous version are no 
-longer fully compatible with this version and some data in the notes may be lost. See the 
-[user guide - en](https://wwwouaiebe.github.io/TravelNotes/userGuides/en/UserGuideEN.html#OpenFileWithV200)
-how to convert files made with an earlier version.
-
 ## What's new in the last release
 
-It is now possible to open .gpx files as a travel file or to insert .gpx files into a travel that is being edited.
-See the [User guide - en ](https://wwwouaiebe.github.io/TravelNotes/userGuides/en/UserGuideEN.html#GpxFiles)
+- It is possible to make loop travels by selecting a point on the map as both the starting point and the ending point.
+- It is possible to see the data of the route being edited by clicking on it
+- It is possible to choose in the configuration if the panels of the route, the travel notes and the OSM search are activated
+or not during each modification.
 
 Following issues are corrected:
 
-- Issue #4 : Line type and line width for routes are not adapted on the print views
-- Issue #8 : Review the translation files.
-- Issue #9 : String.substr ( ) is deprecated... Replace...
+- Issue #14 : Cities are sometime not correct in address
+- Issue #15 : Not possible to edit a route due to slow response of the Geocoder
+- Issue #16 : Password is asked each time the page is refreshed
 
 For other versions, see the document ['What's new?' - en ](https://wwwouaiebe.github.io/TravelNotes/userGuides/en/WhatsNew.html)
 
@@ -141,34 +136,28 @@ D'autres exemples:
 
 ## Versions et branches
 
-### branche v3.2.0
+### branche v3.3.0
 
-La [version v3.2.0](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.2.0) et la [branche v3.2.0](https://github.com/wwwouaiebe/TravelNotes/tree/v3.2.0)
+La [version v3.3.0](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.3.0) et la [branche v3.3.0](https://github.com/wwwouaiebe/TravelNotes/tree/v3.3.0)
 contiennent les fichiers de la dernière version stable.
 
-Le [répertoire dist](https://github.com/wwwouaiebe/TravelNotes/tree/v3.2.0/dist) contient tous les fichiers pour exécuter Travel & Notes, mais ne contient pas les sources.
+Le [répertoire dist](https://github.com/wwwouaiebe/TravelNotes/tree/v3.3.0/dist) contient tous les fichiers pour exécuter Travel & Notes, mais ne contient pas les sources.
 
-Les sources sont disponibles dans le [répertoire src](https://github.com/wwwouaiebe/TravelNotes/tree/v3.2.0/src)
+Les sources sont disponibles dans le [répertoire src](https://github.com/wwwouaiebe/TravelNotes/tree/v3.3.0/src)
 
 ### branche master
 
 La [branche master](https://github.com/wwwouaiebe/TravelNotes/tree/master) est la branche de développement et est instable.
 
-## Avertissement avant d'installer et utiliser la version 2.0.0 ou une version supérieure à 2.0.0
-
-La version 2.0.0 est une version majeure contenant des changements importants dans les fichiers de voyage. Les fichiers réalisés avec une version précédente ne sont plus entièrement compatibles avec cette version 
-et quelques données présentes dans les notes peuvent être perdues. Voyez dans le [guide pour les utilisateurs - fr](https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/GuideUtilisateurFR.html#OpenFileWithV200) 
-comment convertir des fichiers réalisés avec une version antérieure.
-
 ## Quoi de neuf dans la dernière version
 
-Il est désormais possible d'ouvrir des fichiers .gpx comme fichier de voyage ou d'insérer des fichiers .gpx dans un voyage en cours d'édition.
-Voir le [guide pour les utilisateurs - fr](https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/GuideUtilisateurFR.html#GpxFiles)
+- Il est possible de faire des trajets en boucle en sélectionnant un point sur la carte comme étant à la fois le point de départ et le point d'arrivée.
+- Il est possible de voir les données de la route en cours d'édition en faisant un click sur celle-ci
+- Il est possible de choisir dans la configuration si les panneaux de l'itinéraire, des notes de voyage et de la recherche OSM sont activés
+ou non lors de chaque modification.
 
-les issues suivantes sont corrigées:
+Les issues suivantes sont corrigées:
 
-- Issue #4 : Line type and line width for routes are not adapted on the print views
-- Issue #8 : Review the translation files.
-- Issue #9 : String.substr ( ) is deprecated... Replace...
-
-Pour les autres versions, reportez-vous au document ['quoi de neuf?' - fr ](https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/QuoiDeNeuf.html)
+- Issue #14 : Cities are sometime not correct in address
+- Issue #15 : Not possible to edit a route due to slow response of the Geocoder
+- Issue #16 : Password is asked each time the page is refreshed

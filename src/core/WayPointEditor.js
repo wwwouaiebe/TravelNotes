@@ -1,5 +1,5 @@
 /*
-Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
+Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
 
 This  program is free software;
 you can redistribute it and/or modify it under the terms of the
@@ -37,6 +37,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.3.0:
+		- Issue ♯15 : Not possible to edit a route due to slow response of the Geocoder.
 Doc reviewed 20210914
 Tests 20210902
 */
@@ -75,7 +77,12 @@ class WayPointEditor {
 		}
 
 		const address = await new GeoCoder ( ).getAddressAsync ( wayPoint.latLng );
-		theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
+
+		// Due to slow response of the geocoder, sometime the edited route is not anymore edited...
+		// See issue ♯15
+		if ( theTravelNotesData.editedRouteObjId === theTravelNotesData.travel.editedRoute.objId ) {
+			theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
+		}
 		wayPoint.address = address.street;
 		if ( '' !== address.city ) {
 			wayPoint.address += ' ' + address.city;
@@ -87,6 +94,42 @@ class WayPointEditor {
 		theEventDispatcher.dispatch ( 'setrouteslist' );
 		theEventDispatcher.dispatch ( 'updateitinerary' );
 		theEventDispatcher.dispatch ( 'roadbookupdate' );
+	}
+
+	/**
+	This method set the starting WayPoint
+	@param {Array.<Number>} latLng The latitude and longitude where the WayPoint will be added
+	*/
+
+	#setStartPoint ( latLng ) {
+		const wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.first;
+		wayPoint.latLng = latLng;
+		this.#renameWayPointWithGeocoder ( wayPoint );
+		theEventDispatcher.dispatch (
+			'addwaypoint',
+			{
+				wayPoint : wayPoint,
+				letter : 'A'
+			}
+		);
+	}
+
+	/**
+	This method set the ending WayPoint
+	@param {Array.<Number>} latLng The latitude and longitude where the WayPoint will be added
+	*/
+
+	#setEndPoint ( latLng ) {
+		const wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.last;
+		wayPoint.latLng = latLng;
+		this.#renameWayPointWithGeocoder ( wayPoint );
+		theEventDispatcher.dispatch (
+			'addwaypoint',
+			{
+				wayPoint : wayPoint,
+				letter : 'B'
+			}
+		);
 	}
 
 	/**
@@ -202,16 +245,7 @@ class WayPointEditor {
 
 	setStartPoint ( latLng ) {
 		theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
-		const wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.first;
-		wayPoint.latLng = latLng;
-		this.#renameWayPointWithGeocoder ( wayPoint );
-		theEventDispatcher.dispatch (
-			'addwaypoint',
-			{
-				wayPoint : wayPoint,
-				letter : 'A'
-			}
-		);
+		this.#setStartPoint ( latLng );
 		theRouter.startRouting ( );
 	}
 
@@ -222,17 +256,22 @@ class WayPointEditor {
 
 	setEndPoint ( latLng ) {
 		theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
-		const wayPoint = theTravelNotesData.travel.editedRoute.wayPoints.last;
-		wayPoint.latLng = latLng;
-		this.#renameWayPointWithGeocoder ( wayPoint );
-		theEventDispatcher.dispatch (
-			'addwaypoint',
-			{
-				wayPoint : wayPoint,
-				letter : 'B'
-			}
-		);
+		this.#setEndPoint ( latLng );
 		theRouter.startRouting ( );
+	}
+
+	/**
+	This method set the starting and ending WayPoint
+	@param {Array.<Number>} latLng The latitude and longitude where the WayPoints will be added
+	*/
+
+	setStartAndEndPoint ( latLng ) {
+		theTravelNotesData.travel.editedRoute.editionStatus = ROUTE_EDITION_STATUS.editedChanged;
+		this.#setStartPoint ( latLng );
+		this.#setEndPoint ( latLng );
+		if ( TWO < theTravelNotesData.travel.editedRoute.wayPoints.length ) {
+			theRouter.startRouting ( );
+		}
 	}
 
 	/**

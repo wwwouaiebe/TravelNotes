@@ -1,5 +1,5 @@
 /*
-Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
+Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
 
 This  program is free software;
 you can redistribute it and/or modify it under the terms of the
@@ -53,7 +53,7 @@ class OsmSearchDictionary {
 	@type {Map}
 	*/
 
-	#itemsMap
+	#itemsMap;
 
 	/**
 	the currentItem treated by the #parseLine method

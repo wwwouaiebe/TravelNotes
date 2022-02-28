@@ -1,5 +1,5 @@
 /*
-Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
+Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
 
 This  program is free software;
 you can redistribute it and/or modify it under the terms of the
@@ -85,6 +85,15 @@ class MapContextMenu extends BaseContextMenu {
 					&&
 					( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.last.lat ),
 				( ) => theWayPointEditor.setEndPoint ( this.eventData.latLng )
+			),
+			new MenuItem (
+				theTranslator.getText ( 'MapContextMenu - Select this point as start and end point' ),
+				( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId )
+					&&
+					( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.first.lat )
+					&&
+					( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.last.lat ),
+				( ) => theWayPointEditor.setStartAndEndPoint ( this.eventData.latLng )
 			),
 			new MenuItem ( theTranslator.getText ( 'MapContextMenu - Add a route' ),
 				true,

@@ -305,7 +305,7 @@ class SvgMouseMoveEL extends BaseSvgEL {
 			// distance
 			this.#distanceText = this.#createSvgText (
 				theUtilities.formatDistance ( latLngElevOnRoute.distance ),
-				SvgProfileBuilder.PROFILE_MARGIN + SvgProfileBuilder.Y_DELTA_TEXT,
+				SvgProfileBuilder.PROFILE_MARGIN + SvgProfileBuilder.Y_DELTA_TEXT
 			);
 
 			this.#elevText = this.#createSvgText (

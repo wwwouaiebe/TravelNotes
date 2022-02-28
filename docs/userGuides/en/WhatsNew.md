@@ -151,3 +151,16 @@ Following issues are corrected:
 - Issue #4 : Line type and line width for routes are not adapted on the print views
 - Issue #8 : Review the translation files.
 - Issue #9 : String.substr ( ) is deprecated... Replace...
+
+### What's new in release 3.3.0
+
+- It is possible to make loop travels by selecting a point on the map as both the starting point and the ending point.
+- It is possible to see the data of the route being edited by clicking on it
+- It is possible to choose in the configuration if the panels of the route, the travel notes and the OSM search are activated
+or not during each modification.
+
+Following issues are corrected:
+
+- Issue #14 : Cities are sometime not correct in address
+- Issue #15 : Not possible to edit a route due to slow response of the Geocoder
+- Issue #16 : Password is asked each time the page is refreshed

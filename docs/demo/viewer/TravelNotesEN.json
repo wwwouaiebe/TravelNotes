@@ -224,6 +224,10 @@
 		"msgstr": "Select this point as start point"
 	},
 	{
+		"msgid": "MapContextMenu - Select this point as start and end point",
+		"msgstr": "Select this point as start and end point"
+	},	
+	{
 		"msgid": "MapContextMenu - Select this point as way point",
 		"msgstr": "Select this point as waypoint"
 	},
@@ -618,6 +622,18 @@
 	{
 		"msgid": "RouteHTMLViewsFactory - Route distance",
 		"msgstr": "Route distance"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - TransitMode bike",
+		"msgstr": " a bike"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - TransitMode car",
+		"msgstr": " a car"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - TransitMode pedestrian",
+		"msgstr": " a pedestrian"
 	},
 	{
 		"msgid": "RoutePrinter - The maximum of allowed pages is reached.",

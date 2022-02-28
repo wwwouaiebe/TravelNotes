@@ -1,5 +1,5 @@
 /*
-Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
+Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
 
 This  program is free software;
 you can redistribute it and/or modify it under the terms of the
@@ -67,7 +67,7 @@ class Itinerary	extends TravelObject {
 	@type {Number}
 	*/
 
-	#objId = INVALID_OBJ_ID;;
+	#objId = INVALID_OBJ_ID;
 
 	/**
 	a boolean set to true when the itinerary have a profile

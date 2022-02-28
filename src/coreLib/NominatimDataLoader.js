@@ -1,5 +1,5 @@
 /*
-Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
+Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
 
 This  program is free software;
 you can redistribute it and/or modify it under the terms of the
@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 /*
 Changes:
+	- v3.1.0:
+		- Issue ♯14 : Cities are sometime not correct in address #14
 Doc reviewed ...
 Tests ...
 */
@@ -93,6 +95,8 @@ class NominatimDataLoader {
 				nominatimDataZoom10.address.city
 				||
 				nominatimDataZoom10.address.town
+				||
+				nominatimDataZoom10.address.municipality
 				||
 				nominatimDataZoom10.address.village
 				||

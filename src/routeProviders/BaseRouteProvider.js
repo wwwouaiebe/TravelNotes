@@ -1,5 +1,5 @@
 /*
-Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
+Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
 
 This  program is free software;
 you can redistribute it and/or modify it under the terms of the
@@ -46,6 +46,7 @@ class BaseRouteProvider {
 	@type {Route}
 	*/
 
+	/* eslint-disable-next-line no-unused-private-class-members */
 	#route;
 
 	/**

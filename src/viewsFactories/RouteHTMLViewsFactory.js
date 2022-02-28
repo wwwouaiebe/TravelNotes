@@ -1,5 +1,5 @@
 /*
-Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
+Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
 
 This  program is free software;
 you can redistribute it and/or modify it under the terms of the
@@ -334,7 +334,7 @@ class RouteHTMLViewsFactory {
 					{
 						provider : route.itinerary.provider,
 						transitMode : theTranslator.getText (
-							'RouteHTMLViewsFactory - TransitMode ' +	route.itinerary.transitMode
+							'RouteHTMLViewsFactory - TransitMode ' + route.itinerary.transitMode
 						)
 					}
 				)

@@ -1,5 +1,5 @@
 /*
-Copyright - 2017 2021 - wwwouaiebe - Contact: https://www.ouaie.be/
+Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
 
 This  program is free software;
 you can redistribute it and/or modify it under the terms of the
@@ -32,6 +32,8 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v3.2.0:
 		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
+	- v3.3.0:
+		- Issue ♯16 :  Password is asked each time the page is refreshed
 Doc reviewed 20210914
 Tests 20210903
 
@@ -144,7 +146,7 @@ class APIKeysManager {
 	*/
 
 	#setAPIKeysFromSessionStorage ( ) {
-		if ( ! theUtilities.storageAvailable ( 'session' ) ) {
+		if ( ! theUtilities.storageAvailable ( 'sessionStorage' ) ) {
 			return ZERO;
 		}
 
