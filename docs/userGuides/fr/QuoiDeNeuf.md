@@ -150,20 +150,21 @@ suite à l'utilisation des variables et méthodes 'private' et 'static'.
 Il est désormais possible d'ouvrir des fichiers .gpx comme fichier de voyage ou d'insérer des fichiers .gpx dans un voyage en cours d'édition.
 Voir le [guide pour les utilisateurs - fr](https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/GuideUtilisateurFR.html#GpxFiles)
 
-les issues suivantes sont corrigées:
+Les issues suivantes sont corrigées:
 
 - Issue #4 : Line type and line width for routes are not adapted on the print views
 - Issue #8 : Review the translation files.
 - Issue #9 : String.substr ( ) is deprecated... Replace...
 
+### Quoi de neuf dans la version 3.3.0
 
+- Il est possible de faire des trajets en boucle en sélectionnant un point sur la carte comme étant à la fois le point de départ et le point d'arrivée.
+- Il est possible de voir les données de la route en cours d'édition en faisant un click sur celle-ci
+- Il est possible de choisir dans la configuration si les panneaux de l'itinéraire, des notes de voyage et de la recherche OSM sont activés
+ou non lors de chaque modification.
 
+Les issues suivantes sont corrigées:
 
-
-
-
-
-
-
-
-
+- Issue #14 : Cities are sometime not correct in address
+- Issue #15 : Not possible to edit a route due to slow response of the Geocoder
+- Issue #16 : Password is asked each time the page is refreshed
