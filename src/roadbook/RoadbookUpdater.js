@@ -22,6 +22,9 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.4.0:
+		- Issue ♯21 : When CSP is enabled, it's needed to set width and height for icons with JS to avoid
+		to add an 'unsafe-inline' for style in CSP
 Doc reviewed 20210915
 Tests ...
 */
@@ -148,6 +151,17 @@ class RoadbookUpdater {
 			document.title =
 				'' === headerName.textContent ? 'roadbook' : headerName.textContent + ' - roadbook';
 		}
+
+		// when CSP is enabled, it's needed to set width and height with JS to avoid to add an 'unsafe-inline' for style in CSP
+		document.querySelectorAll (
+			'.TravelNotes-Roadbook-Travel-Notes-IconCell, .TravelNotes-Roadbook-Route-ManeuversAndNotes-IconCell'
+		).forEach (
+			icon => {
+				icon.style.width = icon.dataset.tanWidth;
+				icon.style.height = icon.dataset.tanHeight;
+			}
+		);
+
 		this.updateNotes ( );
 	}
 

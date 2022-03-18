@@ -24,6 +24,9 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v3.2.0:
 		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
+	- v3.4.0:
+		- Issue ♯21 : When CSP is enabled, it's needed to set width and height for icons with JS to avoid
+		to add an 'unsafe-inline' for style in CSP
 Doc reviewed 20210915
 Tests ...
 */
@@ -105,8 +108,10 @@ class NoteHTMLViewsFactory {
 				dimCoeficient = theConfig.note.svgIcon.roadbookFactor;
 			}
 		}
-		iconHTML.style.width = String ( noteAndRoute.note.iconWidth * dimCoeficient ) + 'px';
-		iconHTML.style.height = String ( noteAndRoute.note.iconHeight * dimCoeficient ) + 'px';
+
+		// when CSP is enabled, it's needed to set width and height with JS to avoid to add an 'unsafe-inline' for style in CSP
+		iconHTML.dataset.tanWidth = String ( noteAndRoute.note.iconWidth * dimCoeficient ) + 'px';
+		iconHTML.dataset.tanHeight = String ( noteAndRoute.note.iconHeight * dimCoeficient ) + 'px';
 
 		const noteTextHTMLElement = this.getNoteTextHTML ( classPrefix, noteAndRoute );
 		noteTextHTMLElement.className =
