@@ -30,7 +30,8 @@ Changes:
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-.TravelNotes-BigNotes .TravelNotes-Roadbook-NoteHtml-TooltipContent {
+.TravelNotes-Roadbook-Route-Maneuver-TooltipContent,
+.TravelNotes-Roadbook-NoteHtml-TooltipContent {
 	font-weight: bold;
 }
 

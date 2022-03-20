@@ -80,15 +80,21 @@ class RouteHTMLViewsFactory {
 		maneuverIconHTML.dataset.tanWidth = String ( ICON_DIMENSIONS.width ) + 'px';
 		maneuverIconHTML.dataset.tanHeight = String ( ICON_DIMENSIONS.height ) + 'px';
 
-		// maneuverIconHTML.style.width = String ( ICON_DIMENSIONS.width ) + 'px';
-		// maneuverIconHTML.style.height = String ( ICON_DIMENSIONS.height ) + 'px';
-
 		const maneuverTextHTML = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : classPrefix + 'Route-ManeuversAndNotes-Cell'
 			},
 			maneuverHTML
+		);
+
+		theHTMLElementsFactory.create (
+			'div',
+			{
+				className : classPrefix + 'Route-Maneuver-TooltipContent',
+				textContent : theTranslator.getText ( 'RouteHTMLViewsFactory - ' + routeAndManeuver.maneuver.iconName )
+			},
+			maneuverTextHTML
 		);
 
 		theHTMLSanitizer.sanitizeToHtmlElement (
