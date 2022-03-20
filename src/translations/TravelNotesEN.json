@@ -617,39 +617,39 @@
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kArriveDefault",
-		"msgstr": "Arrivée"
+		"msgstr": "Arrival"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kArriveLeft",
-		"msgstr": "Arrivée à gauche"
+		"msgstr": "Arrival on the left"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kArriveRight",
-		"msgstr": "Arrivée à droite"
+		"msgstr": "Arrival on the right"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kContinueLeft",
-		"msgstr": "Continuer - la route tourne à gauche"
+		"msgstr": "Continue - the road turns left"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kContinueRight",
-		"msgstr": "Continuer - la route tourne à droite"
+		"msgstr": "Continue - the road turns right"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kContinueSharpLeft",
-		"msgstr": "Continuer - la route tourne fortement à gauche"
+		"msgstr": "Continue - the road turns sharp left"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kContinueSharpRight",
-		"msgstr": "Continuer - la route tourne fortement à droite"
+		"msgstr": "Continue - the road turns sharp right"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kContinueSlightLeft",
-		"msgstr": "Continuer - la route tourne légèrement à gauche"
+		"msgstr": "Continue - the road turns slight left"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kContinueSlightRight",
-		"msgstr": "Continuer - la route tourne légèrement à droite"
+		"msgstr": "Continue - the road turns slight right"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kContinueStraight",
@@ -657,187 +657,187 @@
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kDepartDefault",
-		"msgstr": "Départ"
+		"msgstr": "Start"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kDepartLeft",
-		"msgstr": "Départ à gauche"
+		"msgstr": "Start on the left"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kDepartRight",
-		"msgstr": "Départ à droite"
+		"msgstr": "Start on the right"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kEndOfRoadLeft",
-		"msgstr": "Tourner à gauche à la fin de la route"
+		"msgstr": "Turn left at the end of the road"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kEndOfRoadRight",
-		"msgstr": "Tourner à droite à la fin de la route"
+		"msgstr": "Turn right at the end of the road"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kFerryEnter",
-		"msgstr": "Monter dans le ferry"
+		"msgstr": "Get on the ferry"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kFerryExit",
-		"msgstr": "Sortir du ferry"
+		"msgstr": "Get off the ferry"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kForkLeft",
-		"msgstr": "Tourner à gauche à la fourche"
+		"msgstr": "Turn left at the fork"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kForkRight",
-		"msgstr": "Tourner à droite à la fourche"
+		"msgstr": "Turn right at the fork"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kMergeDefault",
-		"msgstr": "Rejoindre l'autre route"
+		"msgstr": "Join the other road"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kMergeLeft",
-		"msgstr": "Rejoindre la route à gauche"
+		"msgstr": "Join the road on the left"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kMergeRight",
-		"msgstr": "Rejoindre la route à droite"
+		"msgstr": "Join the road on the left"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kNewNameLeft",
-		"msgstr": "La route change de nom et tourne à gauche"
+		"msgstr": "The road changes name and turns left"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kNewNameRight",
-		"msgstr": "La route change de nom et tourne à droite"
+		"msgstr": "The road changes name and turns right"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kNewNameSharpLeft",
-		"msgstr": "La route change de nom et tourne fortement à gauche"
+		"msgstr": "The road changes name and turns sharp left"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kNewNameSharpRight",
-		"msgstr": "La route change de nom et tourne fortement à droite"
+		"msgstr": "The road changes name and turns sharp right"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kNewNameSlightLeft",
-		"msgstr": "La route change de nom et tourne légèrement à gauche"
+		"msgstr": "The road changes name and turns slight left"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kNewNameSlightRight",
-		"msgstr": "La route change de nom et tourne légèrement à droite"
+		"msgstr": "The road changes name and turns slight right"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kNewNameStraight",
-		"msgstr": "La route change de nom et continue"
+		"msgstr": "The road changes name and continues"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kOffRampLeft",
-		"msgstr": "Sortir par la rampe à gauche"
+		"msgstr": "Exit via the ramp on the left"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kOffRampRight",
-		"msgstr": "Sortir par la rampe à droite"
+		"msgstr": "Exit via the ramp on the right"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kOnRampLeft",
-		"msgstr": "Quitter la rampe en serrant à gauche"
+		"msgstr": "Exit the ramp keeping to the left"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kOnRampRight",
-		"msgstr": "Quitter la rampe en serrant à droite"
+		"msgstr": "Exit the ramp keeping to the right"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kRotaryLeft",
-		"msgstr": "Entrer dans le rond-point dans le sens horaire"
+		"msgstr": "Enter the roundabout clockwise"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kRotaryRight",
-		"msgstr": "Entrer dans le rond-point dans le sens anti-horaire"
+		"msgstr": "Enter the roundabout counterclockwise"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kRoundaboutExit",
-		"msgstr": "Sortir du rond-point"
+		"msgstr": "Exit the roundabout"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kRoundaboutLeft",
-		"msgstr": "Entrer dans le rond-point dans le sens horaire"
+		"msgstr": "Enter the roundabout clockwise"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kRoundaboutRight",
-		"msgstr": "Entrer dans le rond-point dans le sens anti-horaire"
+		"msgstr": "Enter the roundabout counterclockwise"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kRoundaboutTurnLeft",
-		"msgstr": "Tourner à gauche au mini rond-point"
+		"msgstr": "Turn left at the small roundabout"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kRoundaboutTurnRight",
-		"msgstr": "Tourner à droite au mini rond-point"
+		"msgstr": "Turn right at the small roundabout"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kRoundaboutTurnSharpLeft",
-		"msgstr": "Tourner fortement à gauche au mini rond-point"
+		"msgstr": "Turn sharp left at the small roundabout"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kRoundaboutTurnSharpRight",
-		"msgstr": "Tourner fortement à droite au mini rond-point"
+		"msgstr": "Turn sharp right at the small roundabout"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kRoundaboutTurnSlightLeft",
-		"msgstr": "Tourner légèrement à gauche au mini rond-point"
+		"msgstr": "Turn slight left at the small roundabout"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kRoundaboutTurnSlightRight",
-		"msgstr": "Tourner légèrement à droite au mini rond-point"
+		"msgstr": "Turn slight right at the small roundabout"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kRoundaboutTurnStraight",
-		"msgstr": "Continuer au mini rond-point"
+		"msgstr": "Continue at the small roundabout"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kStayLeft",
-		"msgstr": "Serrer à gauche"
+		"msgstr": "Stay left"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kStayRight",
-		"msgstr": "Serrer à droite"
+		"msgstr": "Stay right"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kStayStraight",
-		"msgstr": "Rester au milieu"
+		"msgstr": "Stay straight"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kTurnLeft",
-		"msgstr": "Tourner à gauche"
+		"msgstr": "Turn left"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kTurnRight",
-		"msgstr": "Tourner à droite"
+		"msgstr": "Turn right"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kTurnSharpLeft",
-		"msgstr": "Tourner fortement à gauche"
+		"msgstr": "Turn sharp left"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kTurnSharpRight",
-		"msgstr": "Tourner fortement à droite"
+		"msgstr": "Turn sharp right"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kTurnSlightLeft",
-		"msgstr": "Tourner légèrement à gauche"
+		"msgstr": "Turn slight left"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kTurnSlightRight",
-		"msgstr": "Tourner légèrement à droite"
+		"msgstr": "Turn slight right"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kTurnStraight",
-		"msgstr": "Continuer"
+		"msgstr": "Continue"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kTurnUturn",
-		"msgstr": "Faites demi-tour"
+		"msgstr": "Make a U-turn"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kUndefined",
@@ -845,23 +845,23 @@
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kUturnLeft",
-		"msgstr": "Faites demi-tour par la gauche"
+		"msgstr": "Make a U-turn on the left"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kUturnRight",
-		"msgstr": "Faites demi-tour par la droite"
+		"msgstr": "Make a U-turn on the right"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kTrainStart",
-		"msgstr": "Prendre le train"
+		"msgstr": "Take the train"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kTrainContinue",
-		"msgstr": "Rester sur le train"
+		"msgstr": "Stay on the train"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - kTrainEnd",
-		"msgstr": "Descendre du train"
+		"msgstr": "Get off the train"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - Next maneuver after",
