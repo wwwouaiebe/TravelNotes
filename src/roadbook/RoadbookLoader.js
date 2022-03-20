@@ -24,6 +24,8 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v3.2.0:
 		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
+	- v3.4.0:
+		- Issue ♯22 : Nice to have a table view for notes in the roadbook
 Doc reviewed 20210915
 Tests ...
 */
@@ -112,6 +114,33 @@ class ShowManeuverNotesChangeEL {
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
 		theRoadbookUpdater.showManeuversNotes = changeEvent.target.checked;
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+change event listener for the show small notes checkbox
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class ShowSmallNotesChangeEL {
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
+	/**
+	Event listener method
+	@param {Event} changeEvent The event to handle
+	*/
+
+	handleEvent ( changeEvent ) {
+		changeEvent.stopPropagation ( );
+		theRoadbookUpdater.showSmallNotes = changeEvent.target.checked;
 	}
 }
 
@@ -257,6 +286,7 @@ class RoadbookLoader {
 		document.getElementById ( 'TravelNotes-Travel-ShowNotes' ).checked = theRoadbookUpdater.showTravelNotes;
 		document.getElementById ( 'TravelNotes-Routes-ShowNotes' ).checked = theRoadbookUpdater.showRouteNotes;
 		document.getElementById ( 'TravelNotes-Routes-ShowManeuvers' ).checked = theRoadbookUpdater.showManeuversNotes;
+		document.getElementById ( 'TravelNotes-Routes-ShowSmallNotes' ).checked = theRoadbookUpdater.showSmallNotes;
 	}
 
 	/**
@@ -270,6 +300,8 @@ class RoadbookLoader {
 			.addEventListener ( 'change', new ShowRouteNotesChangeEL ( ) );
 		document.getElementById ( 'TravelNotes-Routes-ShowManeuvers' )
 			.addEventListener ( 'change', new ShowManeuverNotesChangeEL ( ) );
+		document.getElementById ( 'TravelNotes-Routes-ShowSmallNotes' )
+			.addEventListener ( 'change', new ShowSmallNotesChangeEL ( ) );
 	}
 
 	/**
@@ -342,11 +374,14 @@ class RoadbookLoader {
 
 	#translatePage ( ) {
 		document.getElementById ( 'TravelNotes-Travel-ShowNotesLabel' ).textContent =
-		theTranslator.getText ( 'RoadbookLoader - show travel notes' );
+			theTranslator.getText ( 'RoadbookLoader - show travel notes' );
 		document.getElementById ( 'TravelNotes-Routes-ShowManeuversLabel' ).textContent =
-		theTranslator.getText ( 'RoadbookLoader - show maneuver' );
+			theTranslator.getText ( 'RoadbookLoader - show maneuver' );
 		document.getElementById ( 'TravelNotes-Routes-ShowNotesLabel' ).textContent =
-		theTranslator.getText ( 'RoadbookLoader - show routes notes' );
+			theTranslator.getText ( 'RoadbookLoader - show routes notes' );
+		document.getElementById ( 'TravelNotes-Routes-ShowSmallNotesLabel' ).textContent =
+			theTranslator.getText ( 'RoadbookLoader - show small routes notes' );
+
 		if ( this.#saveButton ) {
 			this.#saveButton.textContent = theTranslator.getText ( 'RoadbookLoader - Save' );
 		}
@@ -375,6 +410,7 @@ class RoadbookLoader {
 			this.#openIndexedDb ( );
 			this.#loadTranslations ( );
 		}
+
 		theRoadbookUpdater.updateNotes ( );
 	}
 }

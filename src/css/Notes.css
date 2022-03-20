@@ -26,6 +26,8 @@ Changes:
 		- Issue #120 : Review the UserInterface
 	- v2.0.0:
 		- Issue #138 : Protect the app - control html entries done by user.
+	- v3.4.0:
+		- Issue ♯22 : Nice to have a table view for notes in the roadbook
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -38,6 +40,7 @@ Changes:
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
+.TravelNotes-ManeuverNote,
 .TravelNotes-MapNote {
 	width: 100%;
 	height: 100%;

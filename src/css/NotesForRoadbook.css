@@ -24,22 +24,67 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v1.0.0:
 		- created
+	- v3.4.0:
+		- Issue ♯22 : Nice to have a table view for notes in the roadbook
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-.TravelNotes-Roadbook-NoteHtml-TooltipContent {
+.TravelNotes-BigNotes .TravelNotes-Roadbook-NoteHtml-TooltipContent {
 	font-weight: bold;
 }
 
-.TravelNotes-Roadbook-NoteHtml-LatLng > span,
-.TravelNotes-Roadbook-NoteHtml-Address > span:first-child,
-.TravelNotes-Roadbook-NoteHtml-Phone > span:first-child,
-.TravelNotes-Roadbook-NoteHtml-Url > span:first-child,
-.TravelNotes-Roadbook-NoteHtml-Distance > span:first-child,
-.TravelNotes-Roadbook-NoteHtml-NextDistance > span:first-child,
-.TravelNotes-Roadbook-NoteHtml-Address-City {
+.TravelNotes-BigNotes .TravelNotes-Roadbook-NoteHtml-LatLng > span,
+.TravelNotes-BigNotes .TravelNotes-Roadbook-NoteHtml-Address > span:first-child,
+.TravelNotes-BigNotes .TravelNotes-Roadbook-NoteHtml-Phone > span:first-child,
+.TravelNotes-BigNotes .TravelNotes-Roadbook-NoteHtml-Url > span:first-child,
+.TravelNotes-BigNotes .TravelNotes-Roadbook-NoteHtml-TravelDistance > span:first-child,
+.TravelNotes-BigNotes .TravelNotes-Roadbook-NoteHtml-RouteDistance > span:first-child,
+.TravelNotes-BigNotes .TravelNotes-Roadbook-NoteHtml-NextDistance > span:first-child,
+.TravelNotes-BigNotes .TravelNotes-Roadbook-NoteHtml-Address-City {
 	text-decoration: underline;
+}
+
+.TravelNotes-SmallNotes .TravelNotes-Roadbook-Route-Maneuver-TravelDistance::before,
+.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-TravelDistance::before {
+	content: "🡸";
+}
+
+.TravelNotes-SmallNotes .TravelNotes-Roadbook-Route-Maneuver-RouteDistance::before,
+.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-RouteDistance::before {
+	content: "🢤";
+}
+
+.TravelNotes-SmallNotes .TravelNotes-Roadbook-Route-Maneuver-NextDistance::before,
+.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-NextDistance::before {
+	content: "🡺";
+}
+
+.TravelNotes-SmallNotes .TravelNotes-Roadbook-Route-Maneuver-Instruction,
+.TravelNotes-SmallNotes .TravelNotes-Roadbook-Route-Maneuver-TravelDistance > span:first-child,
+.TravelNotes-SmallNotes .TravelNotes-Roadbook-Route-Maneuver-RouteDistance > span:first-child,
+.TravelNotes-SmallNotes .TravelNotes-Roadbook-Route-Maneuver-NextDistance > span:first-child,
+.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-PopupContent,
+.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-LatLng,
+.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-Address,
+.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-Phone,
+.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-Url,
+.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-TravelDistance > span:first-child,
+.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-RouteDistance > span:first-child,
+.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-NextDistance > span:first-child,
+.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-Address-City {
+	display: none;
+	width: 0;
+	height: 0;
+	margin: 0;
+	padding: 0;
+	top: 0;
+	left: 0;
+	border-width: 0;
+	border-style: none;
+	animation: none;
+	visibility: hidden;
+	transform: scale(0);
 }
 
 /*

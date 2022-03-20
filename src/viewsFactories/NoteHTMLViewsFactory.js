@@ -27,6 +27,8 @@ Changes:
 	- v3.4.0:
 		- Issue ♯21 : When CSP is enabled, it's needed to set width and height for icons with JS to avoid
 		to add an 'unsafe-inline' for style in CSP
+	- v3.4.0:
+		- Issue ♯22 : Nice to have a table view for notes in the roadbook
 Doc reviewed 20210915
 Tests ...
 */
@@ -235,7 +237,7 @@ class NoteHTMLViewsFactory {
 					theHTMLElementsFactory.create (
 						'div',
 						{
-							className : classPrefix + 'NoteHtml-Distance'
+							className : classPrefix + 'NoteHtml-TravelDistance'
 						},
 						noteHTMLElement
 					)
@@ -250,7 +252,7 @@ class NoteHTMLViewsFactory {
 				theHTMLElementsFactory.create (
 					'div',
 					{
-						className : classPrefix + 'NoteHtml-Distance'
+						className : classPrefix + 'NoteHtml-RouteDistance'
 					},
 					noteHTMLElement
 				)

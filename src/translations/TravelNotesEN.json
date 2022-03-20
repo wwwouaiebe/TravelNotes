@@ -524,6 +524,10 @@
 		"msgstr": "Show routes notes"
 	},
 	{
+		"msgid": "RoadbookLoader - show small routes notes",
+		"msgstr": "Small notes"
+	},
+	{
 		"msgid": "RoadbookLoader - show travel notes",
 		"msgstr": "Show travel notes"
 	},

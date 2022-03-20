@@ -524,6 +524,10 @@
 		"msgstr": "Notes de l'itinéraire"
 	},
 	{
+		"msgid": "RoadbookLoader - show small routes notes",
+		"msgstr": "Petites notes"
+	},
+	{
 		"msgid": "RoadbookLoader - show travel notes",
 		"msgstr": "Notes du voyage"
 	},

@@ -25,6 +25,8 @@ Changes:
 	- v3.4.0:
 		- Issue ♯21 : When CSP is enabled, it's needed to set width and height for icons with JS to avoid
 		to add an 'unsafe-inline' for style in CSP
+	- v3.4.0:
+		- Issue ♯22 : Nice to have a table view for notes in the roadbook
 Doc reviewed 20210915
 Tests ...
 */
@@ -66,6 +68,13 @@ class RoadbookUpdater {
 	#showManeuversNotes;
 
 	/**
+	The visibility status of the small notes
+	@type {Boolean}
+	*/
+
+	#showSmallNotes;
+
+	/**
 	Show or hide the notes
 	@param {String} selector The css selector for the notes to show/hide
 	@param {Boolean} show A flag indicating when the note have to be showed
@@ -85,6 +94,30 @@ class RoadbookUpdater {
 	}
 
 	/**
+	Show or hide the small notes
+	@param {Boolean} show A flag indicating when the note have to be small
+	*/
+
+	#toggleSmallNotes ( small ) {
+		if ( small ) {
+			this.#travelNotesHtmlElement.classList.add ( 'TravelNotes-SmallNotes' );
+			this.#travelNotesHtmlElement.classList.remove ( 'TravelNotes-BigNotes' );
+		}
+		else {
+			this.#travelNotesHtmlElement.classList.add ( 'TravelNotes-BigNotes' );
+			this.#travelNotesHtmlElement.classList.remove ( 'TravelNotes-SmallNotes' );
+		}
+		document.querySelectorAll (
+			'.TravelNotes-Roadbook-Travel-Notes-IconCell, .TravelNotes-Roadbook-Route-ManeuversAndNotes-IconCell'
+		).forEach (
+			icon => {
+				icon.style.width = small ? '6cm' : icon.dataset.tanWidth;
+				icon.style.height = small ? '6cm' : icon.dataset.tanHeight;
+			}
+		);
+	}
+
+	/**
 	The constructor
 	*/
 
@@ -94,6 +127,7 @@ class RoadbookUpdater {
 		this.#showTravelNotes = true;
 		this.#showRouteNotes = true;
 		this.#showManeuversNotes = false;
+		this.#showSmallNotes = false;
 	}
 
 	/**
@@ -130,6 +164,17 @@ class RoadbookUpdater {
 	}
 
 	/**
+	The visibility status of the small notes
+	@type {Boolean}
+	*/
+
+	get showSmallNotes ( ) { return this.#showSmallNotes; }
+	set showSmallNotes ( small ) {
+		this.#showSmallNotes = small;
+		this.#toggleSmallNotes ( small );
+	}
+
+	/**
 	Update the notes visibility
 	*/
 
@@ -137,6 +182,7 @@ class RoadbookUpdater {
 		this.showTravelNotes = this.#showTravelNotes;
 		this.showRouteNotes = this.#showRouteNotes;
 		this.showManeuversNotes = this.#showManeuversNotes;
+		this.showSmallNotes = this.#showSmallNotes;
 	}
 
 	/**

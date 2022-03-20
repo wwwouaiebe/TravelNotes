@@ -22,6 +22,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.4.0:
+		- Issue ♯22 : Nice to have a table view for notes in the roadbook
 Doc reviewed 20210915
 Tests ...
 */
@@ -60,16 +62,26 @@ class RouteHTMLViewsFactory {
 			'div',
 			{
 				className :
-					classPrefix +
-					'Route-ManeuversAndNotes-IconCell ' +
-					'TravelNotes-ManeuverNote-' +
-					routeAndManeuver.maneuver.iconName
+					classPrefix + 'Route-ManeuversAndNotes-IconCell'
 			},
 			maneuverHTML
 		);
 
-		maneuverIconHTML.style.width = String ( ICON_DIMENSIONS.width ) + 'px';
-		maneuverIconHTML.style.height = String ( ICON_DIMENSIONS.height ) + 'px';
+		theHTMLElementsFactory.create (
+			'div',
+			{
+				className :
+					'TravelNotes-ManeuverNote TravelNotes-ManeuverNote-' +
+					routeAndManeuver.maneuver.iconName
+			},
+			maneuverIconHTML
+		);
+
+		maneuverIconHTML.dataset.tanWidth = String ( ICON_DIMENSIONS.width ) + 'px';
+		maneuverIconHTML.dataset.tanHeight = String ( ICON_DIMENSIONS.height ) + 'px';
+
+		// maneuverIconHTML.style.width = String ( ICON_DIMENSIONS.width ) + 'px';
+		// maneuverIconHTML.style.height = String ( ICON_DIMENSIONS.height ) + 'px';
 
 		const maneuverTextHTML = theHTMLElementsFactory.create (
 			'div',
@@ -81,7 +93,13 @@ class RouteHTMLViewsFactory {
 
 		theHTMLSanitizer.sanitizeToHtmlElement (
 			routeAndManeuver.maneuver.instruction,
-			theHTMLElementsFactory.create ( 'div', null, maneuverTextHTML )
+			theHTMLElementsFactory.create (
+				'div',
+				{
+					className : classPrefix + 'Route-Maneuver-Instruction'
+				},
+				maneuverTextHTML
+			)
 		);
 
 		if ( routeAndManeuver.route.chain ) {
@@ -93,7 +111,7 @@ class RouteHTMLViewsFactory {
 				theHTMLElementsFactory.create (
 					'div',
 					{
-						className : classPrefix + 'Route-Maneuver-Distance'
+						className : classPrefix + 'Route-Maneuver-TravelDistance'
 					},
 					maneuverTextHTML
 				)
@@ -108,7 +126,7 @@ class RouteHTMLViewsFactory {
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					className : classPrefix + 'Route-Maneuver-Distance'
+					className : classPrefix + 'Route-Maneuver-RouteDistance'
 				},
 				maneuverTextHTML
 			)
@@ -123,7 +141,7 @@ class RouteHTMLViewsFactory {
 				theHTMLElementsFactory.create (
 					'div',
 					{
-						className : classPrefix + 'Route-Maneuver-Distance'
+						className : classPrefix + 'Route-Maneuver-NextDistance'
 					},
 					maneuverTextHTML
 				)
