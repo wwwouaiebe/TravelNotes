@@ -1,20 +1,6 @@
 [
 	{
 		"service":"wmts",
-		"url":"https://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png",
-		"name":"OSM - Black and White",
-		"toolbar":
-		{
-			"text":"OSM",
-			"color":"#000000",
-			"backgroundColor":"#d3d3d3"
-		},
-		"providerName":"OSM",
-		"providerKeyNeeded":false,
-		"attribution":""
-	},
-	{
-		"service":"wmts",
 		"url":"https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey={providerKey}",
 		"name":"Thunderforest - Transport",
 		"toolbar":

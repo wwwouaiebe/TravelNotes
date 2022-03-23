@@ -70,7 +70,7 @@ The current version of TravelNotes
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-const theAppVersion = 'v3.4.0-dev';
+const theAppVersion = 'v3.4.0-alpha';
 
 export { theDataVersion, theAppVersion };
 
