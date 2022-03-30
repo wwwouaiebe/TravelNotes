@@ -176,7 +176,9 @@ class TravelHTMLViewsFactory {
 			'<a href="https://github.com/wwwouaiebe/TravelNotes"' +
 			' target="_blank" title="https://github.com/wwwouaiebe/TravelNotes" >Travel & Notes</a>, © ' +
 			'<a href="https://www.ouaie.be/"' +
-			' target="_blank" title="https://www.ouaie.be/" >wwwouaiebe 2017 2021</a> © ' +
+			' target="_blank" title="https://www.ouaie.be/" >wwwouaiebe 2017 ' +
+			new Date ( Date.now () ).getFullYear () +
+			'</a> © ' +
 			'<a href="https://www.openstreetmap.org/copyright"' +
 			' target="_blank" title="https://www.openstreetmap.org/copyright">' +
 			theTranslator.getText ( 'TravelHTMLViewsFactory - OpenStreetMap contributors' ) + '</a>';
