@@ -43,6 +43,8 @@ Changes:
 		- Issue ♯4 : Line type and line width for routes are not adapted on the print views
 	- v3.3.0:
 		- Issue ♯18 : Add flags in rhe config, so the user can choose when panes are show in the UI after modifications
+	- v3.4.0:
+		- Issue ♯24 : Review the print process
 Doc reviewed 20210913
 Tests ...
 */
@@ -222,13 +224,13 @@ const theConfig = {
 	},
 	printRouteMap :
 	{
+		firefoxBrowser : true,
 		isEnabled : true,
 		maxTiles : 240,
 		paperWidth : 287,
 		paperHeight : 200,
-		pageBreak : false,
 		printNotes : true,
-		borderWidth : 30,
+		borderWidth : 10,
 		zoomFactor : 15,
 		entryPointMarker : {
 			color : '\u002300ff00',

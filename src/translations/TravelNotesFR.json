@@ -456,16 +456,16 @@
 		"msgstr": "Imprimer"
 	},
 	{
+		"msgid": "PrintRouteMapDialog - Another browser",
+		"msgstr": "un autre navigateur"
+	},
+	{
 		"msgid": "PrintRouteMapDialog - Border width",
 		"msgstr": "Dimension de la marge:"
 	},
 	{
 		"msgid": "PrintRouteMapDialog - Border width units",
 		"msgstr": "mm."
-	},
-	{
-		"msgid": "PrintRouteMapDialog - Page break",
-		"msgstr": "Insérer un saut de page"
 	},
 	{
 		"msgid": "PrintRouteMapDialog - Paper height",
@@ -490,6 +490,10 @@
 	{
 		"msgid": "PrintRouteMapDialog - Print notes",
 		"msgstr": "Imprimer les notes du trajet"
+	},
+	{
+		"msgid": "PrintRouteMapDialog - Print with",
+		"msgstr": "J'utilise"
 	},
 	{
 		"msgid": "PrintRouteMapDialog - Zoom factor",
