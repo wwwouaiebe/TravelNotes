@@ -516,10 +516,6 @@
 		"msgstr": "Profil {name}"
 	},
 	{
-		"msgid": "RoadbookLoader - Save",
-		"msgstr": "Enrégistrer"
-	},
-	{
 		"msgid": "RoadbookLoader - show maneuver",
 		"msgstr": "Itinéraire"
 	},

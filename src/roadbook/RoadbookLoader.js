@@ -26,6 +26,7 @@ Changes:
 		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
 	- v3.4.0:
 		- Issue ♯22 : Nice to have a table view for notes in the roadbook
+		- Issue ♯25 : Add a print button to the roadbook page
 Doc reviewed 20210915
 Tests ...
 */
@@ -196,6 +197,31 @@ class StorageEL {
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
+click event listener for the print button
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class PrintRoadbookClickEL {
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
+	/**
+	Event listener method
+	*/
+
+	handleEvent ( ) {
+		window.print ( );
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
 click event listener for the save button
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -220,8 +246,8 @@ class SaveFileButtonClickEL {
 				document.querySelector ( '.TravelNotes-Roadbook-Travel-Header-Name' ).textContent + '-Roadbook.html';
 
 			// Temporary removing the save button
-			const menu = document.getElementById ( 'TravelNotes-Roadbook-Menu' );
-			const saveDiv = menu.removeChild ( document.getElementById ( 'TravelNotes-SaveDiv' ) );
+			const buttonsDiv = document.getElementById ( 'TravelNotes-ButtonsDiv' );
+			const saveButton = buttonsDiv.removeChild ( document.getElementById ( 'TravelNotes-SaveButton' ) );
 
 			// Saving
 			const mapFile = window.URL.createObjectURL (
@@ -239,7 +265,7 @@ class SaveFileButtonClickEL {
 			window.URL.revokeObjectURL ( mapFile );
 
 			// Restoring the save button
-			menu.appendChild ( saveDiv );
+			buttonsDiv.appendChild ( saveButton );
 		}
 		catch ( err ) {
 			if ( err instanceof Error ) {
@@ -302,6 +328,9 @@ class RoadbookLoader {
 			.addEventListener ( 'change', new ShowManeuverNotesChangeEL ( ) );
 		document.getElementById ( 'TravelNotes-Routes-ShowSmallNotes' )
 			.addEventListener ( 'change', new ShowSmallNotesChangeEL ( ) );
+		document.getElementById ( 'TravelNotes-PrintButton' )
+			.addEventListener ( 'click', new PrintRoadbookClickEL ( ) );
+
 	}
 
 	/**
@@ -309,13 +338,12 @@ class RoadbookLoader {
 	*/
 
 	#addSaveButton ( ) {
-		this.#saveButton = document.createElement ( 'button' );
+		this.#saveButton = document.createElement ( 'div' );
 		this.#saveButton.id = 'TravelNotes-SaveButton';
+		this.#saveButton.textContent = '💾';
+		this.#saveButton.className = 'TravelNotes-RoadbookButton';
 		this.#saveButton.addEventListener ( 'click', new SaveFileButtonClickEL ( ) );
-		let saveDiv = document.createElement ( 'div' );
-		saveDiv.id = 'TravelNotes-SaveDiv';
-		saveDiv.appendChild ( this.#saveButton );
-		document.getElementById ( 'TravelNotes-Roadbook-Menu' ).appendChild ( saveDiv );
+		document.getElementById ( 'TravelNotes-ButtonsDiv' ).appendChild ( this.#saveButton );
 	}
 
 	/**
@@ -381,10 +409,6 @@ class RoadbookLoader {
 			theTranslator.getText ( 'RoadbookLoader - show routes notes' );
 		document.getElementById ( 'TravelNotes-Routes-ShowSmallNotesLabel' ).textContent =
 			theTranslator.getText ( 'RoadbookLoader - show small routes notes' );
-
-		if ( this.#saveButton ) {
-			this.#saveButton.textContent = theTranslator.getText ( 'RoadbookLoader - Save' );
-		}
 	}
 
 	/**

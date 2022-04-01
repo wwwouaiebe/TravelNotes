@@ -28,7 +28,7 @@ Changes:
 		- Issue #138 : Protect the app - control html entries done by user.
 	- v3.4.0:
 		- Issue ♯22 : Nice to have a table view for notes in the roadbook
-
+		- Issue ♯25 : Add a print button to the roadbook page
 -----------------------------------------------------------------------------------------------------------------------
 */
 
@@ -42,6 +42,17 @@ Menu on top of screen and always there
 	left: 0;
 	background-color: white;
 	z-index: 200;
+}
+
+.TravelNotes-RoadbookButton {
+	display: inline;
+	width: 2em;
+	border: 0.1em solid white;
+	padding: 0.5em;
+}
+
+.TravelNotes-RoadbookButton:hover {
+	border: 0.1em solid black;
 }
 
 /*
@@ -99,6 +110,10 @@ Arrow in the menu
 @media screen and (min-width: 768px) and (max-resolution: 200dpi),
 	screen and (min-width: 1600px) and (min-resolution: 200dpi),
 	print {
+	#TravelNotes-ButtonsDiv {
+		margin-top: 1em;
+	}
+
 	.TravelNotes-Roadbook-Travel {
 		width: 19.2cm;
 		margin-left: auto;
@@ -157,12 +172,12 @@ Arrow in the menu
 	}
 
 	.TravelNotes-Roadbook-Route-Header {
-		page-break-before: always;
+		break-before: page;
 	}
 
 	.TravelNotes-Roadbook-Travel-Notes-Row,
 	.TravelNotes-Roadbook-Route-Maneuvers-Row,
 	.TravelNotes-Roadbook-Route-Notes-Row {
-		page-break-inside: avoid;
+		break-inside: avoid-page;
 	}
 }
