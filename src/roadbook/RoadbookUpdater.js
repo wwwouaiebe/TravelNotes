@@ -95,7 +95,7 @@ class RoadbookUpdater {
 
 	/**
 	Show or hide the small notes
-	@param {Boolean} show A flag indicating when the note have to be small
+	@param {Boolean} small A flag indicating when the note have to be small
 	*/
 
 	#toggleSmallNotes ( small ) {
