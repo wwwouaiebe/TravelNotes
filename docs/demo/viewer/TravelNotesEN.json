@@ -456,16 +456,16 @@
 		"msgstr": "Print"
 	},
 	{
+		"msgid": "PrintRouteMapDialog - Another browser",
+		"msgstr": "another browser"
+	},
+	{
 		"msgid": "PrintRouteMapDialog - Border width",
 		"msgstr": "Border width:"
 	},
 	{
 		"msgid": "PrintRouteMapDialog - Border width units",
 		"msgstr": "mm."
-	},
-	{
-		"msgid": "PrintRouteMapDialog - Page break",
-		"msgstr": "Insert a page break"
 	},
 	{
 		"msgid": "PrintRouteMapDialog - Paper height",
@@ -492,6 +492,10 @@
 		"msgstr": "Print notes"
 	},
 	{
+		"msgid": "PrintRouteMapDialog - Print with",
+		"msgstr": "I use"
+	},
+	{
 		"msgid": "PrintRouteMapDialog - Zoom factor",
 		"msgstr": "Zoom:"
 	},
@@ -510,10 +514,6 @@
 	{
 		"msgid": "ProfileWindow - Profile {name}",
 		"msgstr": "Profile {name}"
-	},
-	{
-		"msgid": "RoadbookLoader - Save",
-		"msgstr": "Save"
 	},
 	{
 		"msgid": "RoadbookLoader - show maneuver",
