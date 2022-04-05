@@ -429,9 +429,9 @@ via les 3 zones d&#39;édition des couleurs.</p>
 <p><a id="PrintRouteMaps"></a></p>
 <h3 id="814-imprimer-les-cartes-dun-trajet">8.14 Imprimer les cartes d&#39;un trajet</h3>
 <p>Attention: cette commande est expérimentale. Elle peut ne pas fonctionner avec votre installation de Travel &amp; Notes
-si vous avez ajouté d&#39;autres éléments à la page. De plus, tous les browsers n&#39;ont pas implémenté toutes
-les balises css nécessaires. Si cette commande ne vous convient pas, vous pouvez la désactiver à partir 
-du fichier TravelNotesConfig.json (printRouteMap.isEnabled). 
+si vous avez ajouté d&#39;autres éléments à la page. De plus, les browsers ne réagissent pas tous de la même façon aux
+balises css, spécialement celles qui imposent un saut de page à l&#39;impression.</p>
+<p>Si cette commande ne vous convient pas, vous pouvez la désactiver à partir du fichier TravelNotesConfig.json (printRouteMap.isEnabled). 
 Voir le <a href="GuideInstallationFR.html#TravelNotesConfigJson">guide d&#39;installation</a>.</p>
 <p>Faites un clic droit sur le trajet pour lequel vous voulez imprimer les cartes et sélectionnez 
 &quot;Imprimer les cartes de ce trajet&quot; dans le menu contextuel.</p>
@@ -445,8 +445,9 @@ dans la carte suivante.</p>
 <p>&quot;Zoom&quot; : le zoom à utiliser pour les cartes. Il est indépendant du zoom utilisé pour afficher la carte 
 avant le lancement de la commande. Pour des raisons de performance des serveurs de tuiles, il n&#39;est
 pas possible d&#39;utiliser un zoom plus grand que 15.</p>
-<p>&quot;Insérer un saut de page&quot;: quand cette case est cochée, un saut de page est inséré après chaque carte.</p>
 <p>&quot;Imprimer les notes du trajet&quot; quand cette case est cochée, l&#39;icône des notes est imprimée sur la carte.</p>
+<p>Enfin, sélectionnez le browser que vous utilisez (soit Firefox, soit un autre browser basé sur Chrome).
+Ce choix est important : la carte peut être mal découpée en bas de page dans le cas d&#39;un mauvais choix.</p>
 <p>Lorsque la boite d&#39;édition est fermée avec le bouton &quot;ok&quot;, la carte et les contrôles sont remplacés par
 des vues de la carte qui ont les dimensions souhaitées et deux boutons sont présents en haut à droite:</p>
 <img src="PrintRouteMapToolbar.PNG" />
@@ -461,9 +462,8 @@ Diminuer les dimensions du papier, la dimension de la marge et le zoom diminuera
 nécessaires.</p>
 <p>Lorsque la boite d&#39;édition est fermée, le programme calcule le nombre de tuiles nécessaires. Si ce nombre est
 trop important, la commande est arrêtée.</p>
-<h4 id="quelques-astuces-pour-imprimer-avec-un-browser-basé-sur-chrome--brave-vivaldi-ms-edge-dernière-version-chromium-chrome-">Quelques astuces pour imprimer avec un browser basé sur Chrome ( Brave, Vivaldi, MS Edge dernière version, Chromium, Chrome )</h4>
+<h4 id="quelques-astuces-pour-imprimer">Quelques astuces pour imprimer</h4>
 <ul>
-<li>Cochez la case &quot;Insérer un saut de page&quot;</li>
 <li>indiquez comme &quot;hauteur de papier&quot; la hauteur réelle de votre papier moins les marges d&#39;impression haut et bas
 moins 1 mm</li>
 <li>pour les geeks: vous pouvez insérer un fichier css dans la page html avec une règle css @page pour fixer les
@@ -474,13 +474,8 @@ dimensions, orientation et marges du papier:</li>
   margin: 7mm;
 }
 </code></pre>
-<h4 id="quelques-astuces-pour-imprimer-avec-firefox">Quelques astuces pour imprimer avec Firefox</h4>
 <ul>
-<li>Ne jamais cocher la case &quot;Insérer un saut de page&quot; ni utiliser une règle css @page. Si vous faites cela,
-le trajet ne sera pas imprimé correctement après le saut de page.</li>
-<li>indiquez comme &quot;hauteur de papier&quot; la hauteur réelle de votre papier moins les marges d&#39;impression haut et bas
-moins 1 mm (à vérifier avec votre imprimante...). Vérifiez que tout est correct avec la commande &quot;Aperçu avant impression&quot;
-de Firefox.</li>
+<li>vérifiez que tout est correct avec la commande &quot;Aperçu avant impression&quot;</li>
 </ul>
 <p><a id="Notes1"></a></p>
 <h2 id="9-notes">9. Notes</h2>

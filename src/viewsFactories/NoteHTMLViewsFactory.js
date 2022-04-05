@@ -112,8 +112,13 @@ class NoteHTMLViewsFactory {
 		}
 
 		// when CSP is enabled, it's needed to set width and height with JS to avoid to add an 'unsafe-inline' for style in CSP
+		// Adding tanWidth and tanHeight for the roadbook
 		iconHTML.dataset.tanWidth = String ( noteAndRoute.note.iconWidth * dimCoeficient ) + 'px';
 		iconHTML.dataset.tanHeight = String ( noteAndRoute.note.iconHeight * dimCoeficient ) + 'px';
+
+		// and style.width and heigth for the icon preview
+		iconHTML.style.width = String ( noteAndRoute.note.iconWidth * dimCoeficient ) + 'px';
+		iconHTML.style.height = String ( noteAndRoute.note.iconHeight * dimCoeficient ) + 'px';
 
 		const noteTextHTMLElement = this.getNoteTextHTML ( classPrefix, noteAndRoute );
 		noteTextHTMLElement.className =

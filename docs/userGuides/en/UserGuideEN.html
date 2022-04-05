@@ -404,10 +404,9 @@ colored buttons. The slider under the colored buttons adds more or less shade of
 <p><a id="PrintRouteMaps"></a></p>
 <h3 id="814-print-route-maps">8.14. Print route maps</h3>
 <p>Please note: this command is experimental. It may not work with your Travel &amp; Notes installation 
-if you have added other elements to the page. In addition, not all browsers have implemented all 
-the necessary css tags. If this command does not suit you, you can disable it from the 
-TravelNotesConfig.json file (printRouteMap.isEnabled).
-See the <a href="InstallationGuideEN.html#TravelNotesConfigJson">installation guide</a>.</p>
+if you have added other elements to the page. Moreover, browsers do not all react in the same way to
+css tags, especially those that force a page break when printed.
+If this command does not suit you, you can disable it from the TravelNotesConfig.json file (printRouteMap.isEnabled). See the <a href="InstallationGuideEN.html#TravelNotesConfigJson">installation guide</a>.</p>
 <p>Right-click on the route for which you want to print the maps and select &quot;Print the maps for this route&quot; 
 from the context menu.</p>
 <p>The edit box is displayed:</p>
@@ -420,8 +419,9 @@ following map.</p>
 <p>&quot;Zoom&quot; : the zoom to use for maps. It is independent of the zoom used to display the map before launching 
 the command. For reasons of performance of the tile servers, it is not possible to use a zoom 
 larger than 15.</p>
-<p>&quot;Insert a page break&quot;: when this box is checked, a page break is inserted after each map.</p>
 <p>&quot;Print notes&quot; when this box is checked, the notes icon is printed on the map.</p>
+<p>Finally, select the browser you are using (either Firefox or another Chrome-based browser).
+This choice is important: the map can be badly cut at the bottom of the page in the case of a bad choice.</p>
 <p>When the edit box is closed with the &quot;ok&quot; button, the map and controls are replaced by views of the map that 
 have the desired dimensions and two buttons are present at the top right:</p>
 <img src="PrintRouteMapToolbar.PNG" />
@@ -436,9 +436,8 @@ See the <a href="InstallationGuideEN.html#TravelNotesConfigJson">installation gu
 Decreasing the paper size, the margin size and the zoom will also decrease the number of tiles required.</p>
 <p>When the edit box is closed, the program calculates the number of tiles required. If this number is too 
 large, the command is stopped.</p>
-<h4 id="some-tips-for-printing-with-a-browser-based-on-chrome-brave-vivaldi-ms-edge-latest-version-chromium-chrome">Some tips for printing with a browser based on Chrome (Brave, Vivaldi, MS Edge latest version, Chromium, Chrome)</h4>
+<h4 id="some-tips-for-printing">Some tips for printing</h4>
 <ul>
-<li>Check the box &quot;Insert a page break&quot;</li>
 <li>indicate as &quot;paper height&quot; the actual height of your paper minus the top and bottom printing margins minus 1 mm</li>
 <li>for geeks: you can insert a css file in the html page with a css @page rule to fix the dimensions,
  orientation and margins of the paper:<pre><code>@page {
@@ -448,14 +447,7 @@ margin: 7mm;
 </code></pre>
 </li>
 </ul>
-<h4 id="some-tips-for-printing-with-firefox">Some tips for printing with Firefox</h4>
-<ul>
-<li>Never check the &quot;Insert page break&quot; box or use a css @page rule. If you do this, the route will not be 
-printed correctly after the page break.</li>
-<li>indicate as &quot;paper height&quot; the actual height of your paper minus the top and bottom printing 
-margins minus 1 mm (to be checked with your printer ...). Check that everything is correct with the
- &quot;Print preview&quot; command in Firefox.</li>
-</ul>
+<p>Check that everything is correct with the &quot;Print preview&quot; command.</p>
 <p><a id="Notes1"></a></p>
 <h2 id="9-notes">9. Notes</h2>
 <p>There are two kinds of notes: travel notes and route notes. The position of the travel notes 

@@ -263,7 +263,16 @@ class AllControlsInputEL {
 	handleEvent ( inputUpdatedEvent ) {
 		inputUpdatedEvent.stopPropagation ( );
 		const noteData = {};
-		noteData [ inputUpdatedEvent.target.dataset.tanName ] = inputUpdatedEvent.target.value;
+		if (
+			'iconWidth' === inputUpdatedEvent.target.dataset.tanName
+			||
+			'iconHeight' === inputUpdatedEvent.target.dataset.tanName
+		) {
+			noteData [ inputUpdatedEvent.target.dataset.tanName ] = Number.parseInt ( inputUpdatedEvent.target.value );
+		}
+		else {
+			noteData [ inputUpdatedEvent.target.dataset.tanName ] = inputUpdatedEvent.target.value;
+		}
 		this.#noteDialog.updatePreview ( noteData );
 	}
 }

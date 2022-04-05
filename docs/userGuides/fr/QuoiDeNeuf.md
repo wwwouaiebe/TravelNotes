@@ -168,3 +168,11 @@ Les issues suivantes sont corrigées:
 - Issue #14 : Cities are sometime not correct in address
 - Issue #15 : Not possible to edit a route due to slow response of the Geocoder
 - Issue #16 : Password is asked each time the page is refreshed
+
+### Quoi de neuf dans la version 3.4.0
+
+- Il n'est plus nécessaire d'avoir un unsafe-inline pour le style quand Content Security Policy est activé (ceci concerne uniquement les supergeek).
+- Il est possible de visualiser les notes dans des tables plutôt qu'en lignes dans le livre de voyage.
+- L'url pour obtenir les tuiles OpenStreetMap a été modifiées.
+- Le processus d'impression des cartes d'un trajet a été revu et est maintenant correct dans Firefox
+- Un bouton pour imprimer le livre de voyage a été ajouté dans le menu de celui-ci

@@ -25,7 +25,7 @@ Voir https://www.mozilla.org/en-US/security/advisories/mfsa2019-21/#CVE-2019-117
 <a id="GuideNull"></a>
 ## 2. Guide d'installation pour les null
 
-Pas de grandes connaissances informatiques? [Téléchargez la dernière version](https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v3.2.0.zip),
+Pas de grandes connaissances informatiques? [Téléchargez la dernière version](https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v3.4.0.zip),
 copiez le contenu du répertoire docs/demo/ dans un répertoire sur votre serveur et ouvrez le fichier index.html. That's all :-).
 
 <a id="GuideGeeks"></a>
@@ -184,12 +184,12 @@ Le contenu du fichier TravelNotesConfig.json:
 - __paneUI.switchToItinerary__ : le panneau de l'itinéraire est activé chaque fois que celui-ci est modifié ( valeur par défaut : false )
 - __paneUI.switchToTravelNotes__ : le panneau des notes de voyage est activé chaque fois que une note est modifiée ( valeur par défaut : false )
 - __paneUI.switchToSearch__ : le panneau de la recherche OSM est activé chaque fois que celle-ci est mise à jour ( valeur par défaut : true )
+- __printRouteMap.firefoxBrowser__ : quand cette valeur est true, la commande utilise les css pour firefox par défaut
 - __printRouteMap.isEnabled__ : quand cette valeur est true, la commande pour imprimer les cartes d'un trajet est active ( valeur par défaut : true )
 - __printRouteMap.borderWidth__ : la largeur en millimètres du bord de carte qui sera dupliqué dans chaque carte ( valeur par défaut : 10 )
 - __printRouteMap.maxTiles__ : le maximum de tuiles pouvant être utilisées pour imprimer un trajet ( valeur par défaut : 720 )
 - __printRouteMap.paperWidth__ : la largeur du papier en millimètres ( valeur par défaut : 287 )
 - __printRouteMap.paperHeight__ : la hauteur du papier en millimètres ( valeur par défaut : 200 )
-- __printRouteMap.pageBreak__ : quand cette valeur est true, un saut de page est inséré après chaque carte ( valeur par défaut : false )
 - __printRouteMap.printNotes__ : quand cette valeur est true, l'icône des notes est également imprimée ( valeur par défaut : true ) 
 - __printRouteMap.zoomFactor__ : le facteur de zoom à utiliser pour l'impression ( valeur par défaut : 15 )
 - __printRouteMap.entryPointMarker.color__ : la couleur du marqueur de début de trajet sur chaque carte ( valeur par défaut : "#00ff00" )

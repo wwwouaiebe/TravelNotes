@@ -164,3 +164,11 @@ Following issues are corrected:
 - Issue #14 : Cities are sometime not correct in address
 - Issue #15 : Not possible to edit a route due to slow response of the Geocoder
 - Issue #16 : Password is asked each time the page is refreshed
+
+### What's new in release 3.4.0
+
+- It is no longer necessary to have an unsafe-inline for the style when Content Security Policy is activated (this only concerns supergeeks).
+- It is possible to view the notes in tables rather than in lines in the roadbook.
+- The url to get OpenStreetMap tiles has been changed.
+- The process for printing maps from a route has been revised and is now correct in Firefox.
+- A button to print the roadbook has been added to its menu.
