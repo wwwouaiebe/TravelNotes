@@ -26,8 +26,37 @@ Changes:
 		- Issue #120 : Review the UserInterface
 	- v2.0.0:
 		- Issue #138 : Protect the app - control html entries done by user.
-
+	- v3.4.0:
+		- Issue ♯22 : Nice to have a table view for notes in the roadbook
+		- Issue ♯25 : Add a print button to the roadbook page
 -----------------------------------------------------------------------------------------------------------------------
+*/
+
+/*
+Menu on top of screen and always there
+*/
+
+#TravelNotes-Roadbook-Menu {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: white;
+	z-index: 200;
+}
+
+.TravelNotes-RoadbookButton {
+	display: inline;
+	width: 2em;
+	border: 0.1em solid white;
+	padding: 0.5em;
+}
+
+.TravelNotes-RoadbookButton:hover {
+	border: 0.1em solid black;
+}
+
+/*
+Arrow in the menu
 */
 
 #TravelNotes-Roadbook-GoTop > a {
@@ -39,37 +68,6 @@ Changes:
 .TravelNotes-Roadbook-Route-ManeuversAndNotes {
 	margin-top: 1em;
 	margin-bottom: 2em;
-}
-
-.TravelNotes-Roadbook-Travel-Notes-Row,
-.TravelNotes-Roadbook-Route-Maneuvers-Row,
-.TravelNotes-Roadbook-Route-Notes-Row {
-	border-bottom-style: solid;
-	border-bottom-width: 0.1em;
-	padding-top: 1em;
-	padding-bottom: 1em;
-	display: flex;
-	flex-direction: row;
-}
-
-.TravelNotes-Roadbook-Travel-Notes-IconCell,
-.TravelNotes-Roadbook-Route-ManeuversAndNotes-IconCell {
-	background-repeat: no-repeat;
-	vertical-align: top;
-	flex-shrink: 0;
-}
-
-.TravelNotes-Roadbook-Travel-Notes-Cell,
-.TravelNotes-Roadbook-Route-ManeuversAndNotes-Cell {
-	padding-left: 0.5em;
-	flex-shrink: 2;
-}
-
-#TravelNotes-Roadbook-Menu {
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 200;
 }
 
 @media screen and (max-width: 320px) {
@@ -87,27 +85,14 @@ Changes:
 		margin-left: 0;
 	}
 
-	.TravelNotes-Roadbook-Travel-Notes-Row,
-	.TravelNotes-Roadbook-Route-Maneuvers-Row,
-	.TravelNotes-Roadbook-Route-Notes-Row {
-		display: flex;
-		flex-direction: column;
-	}
-
 	.TravelNotes-Roadbook-NoteHtml-Url {
 		overflow: hidden;
 	}
-
-	.TravelNotes-Roadbook-Travel-Notes-Cell,
-	.TravelNotes-Roadbook-Route-ManeuversAndNotes-Cell {
-		padding-left: 0;
-		flex-shrink: 2;
-	}
 }
 
-@media screen and (min-width: 321px) and (max-width: 70em) {
+@media screen and (min-width: 321px) and (max-width: 1023px) {
 	.TravelNotes-Roadbook-Travel {
-		padding-top: 3.5em;
+		padding-top: 4em;
 	}
 
 	#TravelNotes-Roadbook-Menu {
@@ -122,11 +107,56 @@ Changes:
 	}
 }
 
-@media screen and (min-width: 70em) {
+@media screen and (min-width: 768px) and (max-resolution: 200dpi),
+	screen and (min-width: 1600px) and (min-resolution: 200dpi),
+	print {
+	#TravelNotes-ButtonsDiv {
+		margin-top: 1em;
+	}
+
 	.TravelNotes-Roadbook-Travel {
-		width: 50em;
-		margin-left: calc(50% - 50em / 2);
-		margin-right: calc(50% - 50em / 2);
+		width: 19.2cm;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.TravelNotes-BigNotes .TravelNotes-Roadbook-Travel-Notes-Row,
+	.TravelNotes-BigNotes .TravelNotes-Roadbook-Route-Maneuvers-Row,
+	.TravelNotes-BigNotes .TravelNotes-Roadbook-Route-Notes-Row {
+		border-bottom-style: solid;
+		border-bottom-width: 0.1em;
+		padding-top: 1em;
+		padding-bottom: 1em;
+		display: flex;
+		flex-direction: row;
+	}
+
+	.TravelNotes-BigNotes .TravelNotes-Roadbook-Travel-Notes-IconCell,
+	.TravelNotes-BigNotes .TravelNotes-Roadbook-Route-ManeuversAndNotes-IconCell {
+		background-repeat: no-repeat;
+		vertical-align: top;
+		flex-shrink: 0;
+	}
+
+	.TravelNotes-BigNotes .TravelNotes-Roadbook-Travel-Notes-Cell,
+	.TravelNotes-BigNotes .TravelNotes-Roadbook-Route-ManeuversAndNotes-Cell {
+		padding-left: 0.5em;
+		flex-shrink: 2;
+	}
+
+	.TravelNotes-SmallNotes .TravelNotes-Roadbook-Route-ManeuversAndNotes-IconCell {
+		border-style: solid;
+		border-color: black;
+		border-width: 0.1em;
+	}
+
+	.TravelNotes-SmallNotes .TravelNotes-SvgIcon {
+		border-style: none;
+	}
+
+	.TravelNotes-SmallNotes .TravelNotes-Roadbook-Route-ManeuversAndNotes {
+		display: grid;
+		grid-template-columns: repeat(3, 6.4cm);
 	}
 }
 
@@ -142,12 +172,12 @@ Changes:
 	}
 
 	.TravelNotes-Roadbook-Route-Header {
-		page-break-before: always;
+		break-before: page;
 	}
 
 	.TravelNotes-Roadbook-Travel-Notes-Row,
 	.TravelNotes-Roadbook-Route-Maneuvers-Row,
 	.TravelNotes-Roadbook-Route-Notes-Row {
-		page-break-inside: avoid;
+		break-inside: avoid-page;
 	}
 }

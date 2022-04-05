@@ -24,6 +24,8 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v3.2.0:
 		- Issue ♯4 : Line type and line width for routes are not adapted on the print views
+	- v3.4.0:
+		- Issue ♯24 : Review the print process
 Doc reviewed 20210915
 Tests ...
 */
@@ -294,10 +296,6 @@ class PrintPageBuilder {
 		document.body.appendChild ( viewDiv );
 		this.#viewsDiv.push ( viewDiv );
 
-		if ( this.#printRouteMapOptions.pageBreak ) {
-			viewDiv.classList.add ( 'TravelNotes-PrintPageBreak' );
-		}
-
 		// setting the size given by the user in mm
 		viewDiv.style.width = String ( this.#printRouteMapOptions.paperWidth ) + 'mm';
 		viewDiv.style.height = String ( this.#printRouteMapOptions.paperHeight ) + 'mm';
@@ -413,6 +411,12 @@ class PrintPageBuilder {
 	*/
 
 	preparePage ( ) {
+		if ( this.#printRouteMapOptions.firefoxBrowser ) {
+			document.body.classList.add ( 'TravelNotes-Maps-FirefoxBrowser' );
+		}
+		else {
+			document.body.classList.remove ( 'TravelNotes-Maps-FirefoxBrowser' );
+		}
 
 		// adding classes to the body, so all existing elements are hidden
 

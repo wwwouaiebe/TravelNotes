@@ -493,10 +493,9 @@ Each shade of red, green and blue for the desired color can also be set individu
 ### 8.14. Print route maps
 
 Please note: this command is experimental. It may not work with your Travel & Notes installation 
-if you have added other elements to the page. In addition, not all browsers have implemented all 
-the necessary css tags. If this command does not suit you, you can disable it from the 
-TravelNotesConfig.json file (printRouteMap.isEnabled).
-See the [installation guide](InstallationGuideEN.html#TravelNotesConfigJson).
+if you have added other elements to the page. Moreover, browsers do not all react in the same way to
+css tags, especially those that force a page break when printed.
+If this command does not suit you, you can disable it from the TravelNotesConfig.json file (printRouteMap.isEnabled). See the [installation guide](InstallationGuideEN.html#TravelNotesConfigJson).
 
 Right-click on the route for which you want to print the maps and select "Print the maps for this route" 
 from the context menu.
@@ -515,9 +514,10 @@ following map.
 the command. For reasons of performance of the tile servers, it is not possible to use a zoom 
 larger than 15.
 
-"Insert a page break": when this box is checked, a page break is inserted after each map.
-
 "Print notes" when this box is checked, the notes icon is printed on the map.
+
+Finally, select the browser you are using (either Firefox or another Chrome-based browser).
+This choice is important: the map can be badly cut at the bottom of the page in the case of a bad choice.
 
 When the edit box is closed with the "ok" button, the map and controls are replaced by views of the map that 
 have the desired dimensions and two buttons are present at the top right:
@@ -539,9 +539,8 @@ Decreasing the paper size, the margin size and the zoom will also decrease the n
 When the edit box is closed, the program calculates the number of tiles required. If this number is too 
 large, the command is stopped.
 
-#### Some tips for printing with a browser based on Chrome (Brave, Vivaldi, MS Edge latest version, Chromium, Chrome)
+#### Some tips for printing
 
-- Check the box "Insert a page break"
 - indicate as "paper height" the actual height of your paper minus the top and bottom printing margins minus 1 mm
 - for geeks: you can insert a css file in the html page with a css @page rule to fix the dimensions,
  orientation and margins of the paper:
@@ -552,13 +551,7 @@ large, the command is stopped.
 }
 ```
 
-#### Some tips for printing with Firefox
-
-- Never check the "Insert page break" box or use a css @page rule. If you do this, the route will not be 
-printed correctly after the page break.
-- indicate as "paper height" the actual height of your paper minus the top and bottom printing 
-margins minus 1 mm (to be checked with your printer ...). Check that everything is correct with the
- "Print preview" command in Firefox.
+Check that everything is correct with the "Print preview" command.
 
 <a id="Notes1"></a>
 ## 9. Notes

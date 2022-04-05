@@ -23,6 +23,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.4.0:
+		- Issue ♯24 : Review the print process
 Doc reviewed 20210914
 Tests ...
 */
@@ -79,18 +81,18 @@ class PrintRouteMapOptions {
 	zoomFactor = ZERO;
 
 	/**
-	The page break option
-	@type {Boolean}
-	*/
-
-	pageBreak = false;
-
-	/**
 	The print notes option
 	@type {Boolean}
 	*/
 
 	printNotes = false;
+
+	/**
+	The used browser ( true = firefox; false = others browsers )
+	@type {Boolean}
+	 */
+
+	firefoxBrowser = true;
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -123,13 +125,6 @@ class PrintRouteMapDialog extends BaseDialog {
 	#borderWidthInput;
 
 	/**
-	The page break input
-	@type {HTMLElement}
-	*/
-
-	#pageBreakInput;
-
-	/**
 	The print notes input
 	@type {HTMLElement}
 	*/
@@ -142,6 +137,13 @@ class PrintRouteMapDialog extends BaseDialog {
 	*/
 
 	#zoomFactorInput;
+
+	/**
+	The Firefox browser input
+	@type {HTMLElement}
+	*/
+
+	#firefoxBrowserInput;
 
 	/**
 	The greatest acceptable zoom to avoid to mutch tiles asked to OSM
@@ -303,37 +305,6 @@ class PrintRouteMapDialog extends BaseDialog {
 	}
 
 	/**
-	Create the page break div
-	@return {HTMLElement} the page break div
-	*/
-
-	#createPageBreakDiv ( ) {
-		const pageBreakDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-PrintRouteMapDialog-DataDiv'
-			}
-		);
-		this.#pageBreakInput = theHTMLElementsFactory.create (
-			'input',
-			{
-				type : 'checkbox',
-				checked : theConfig.printRouteMap.pageBreak
-			},
-			pageBreakDiv
-		);
-		theHTMLElementsFactory.create (
-			'text',
-			{
-				value : theTranslator.getText ( 'PrintRouteMapDialog - Page break' )
-			},
-			pageBreakDiv
-		);
-
-		return pageBreakDiv;
-	}
-
-	/**
 	Create the print notes div
 	@return {HTMLElement} the print notes div
 	*/
@@ -365,6 +336,67 @@ class PrintRouteMapDialog extends BaseDialog {
 	}
 
 	/**
+	Create the browser div
+	@return {HTMLElement} the browser div
+	*/
+
+	#createBrowserDiv ( ) {
+
+		const browserDiv = theHTMLElementsFactory.create (
+			'div',
+			{
+				className : 'TravelNotes-PrintRouteMapDialog-DataDiv'
+			}
+		);
+
+		theHTMLElementsFactory.create (
+			'text',
+			{
+				value : theTranslator.getText ( 'PrintRouteMapDialog - Print with' )
+			},
+			browserDiv
+		);
+		this.#firefoxBrowserInput = theHTMLElementsFactory.create (
+			'input',
+			{
+				type : 'radio',
+				checked : theConfig.printRouteMap.firefoxBrowser,
+				id : 'TravelNotes-PrintRouteMapDialog-FirefoxBrowser',
+				name : 'Browser'
+			},
+			browserDiv
+		);
+		theHTMLElementsFactory.create (
+			'label',
+			{
+				htmlFor : 'TravelNotes-PrintRouteMapDialog-FirefoxBrowser',
+				innerText : 'Firefox'
+			},
+			browserDiv
+		);
+		theHTMLElementsFactory.create (
+			'input',
+			{
+				type : 'radio',
+				checked : ! theConfig.printRouteMap.firefoxBrowser,
+				id : 'TravelNotes-PrintRouteMapDialog-OtherBrowser',
+				name : 'Browser'
+			},
+			browserDiv
+		);
+		theHTMLElementsFactory.create (
+			'label',
+			{
+				htmlFor : 'TravelNotes-PrintRouteMapDialog-OtherBrowser',
+				innerText : theTranslator.getText ( 'PrintRouteMapDialog - Another browser' )
+			},
+			browserDiv
+		);
+
+		return browserDiv;
+	}
+
+	/**
 	The constructor
 	*/
 
@@ -383,8 +415,8 @@ class PrintRouteMapDialog extends BaseDialog {
 		printRouteMapOptions.paperHeight = parseInt ( this.#paperHeightInput.value );
 		printRouteMapOptions.borderWidth = parseInt ( this.#borderWidthInput.value );
 		printRouteMapOptions.zoomFactor = parseInt ( this.#zoomFactorInput.value );
-		printRouteMapOptions.pageBreak = this.#pageBreakInput.checked;
 		printRouteMapOptions.printNotes = this.#printNotesInput.checked;
+		printRouteMapOptions.firefoxBrowser = this.#firefoxBrowserInput.checked;
 		Object.freeze ( printRouteMapOptions );
 
 		super.onOk ( printRouteMapOptions );
@@ -401,8 +433,8 @@ class PrintRouteMapDialog extends BaseDialog {
 			this.#createPaperHeightDiv ( ),
 			this.#createBorderWidthDiv ( ),
 			this.#createZoomFactorDiv ( ),
-			this.#createPageBreakDiv ( ),
-			this.#createPrintNotesDiv ( )
+			this.#createPrintNotesDiv ( ),
+			this.#createBrowserDiv ( )
 		];
 	}
 

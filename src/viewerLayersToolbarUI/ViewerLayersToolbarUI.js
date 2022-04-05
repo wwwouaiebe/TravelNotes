@@ -165,7 +165,7 @@ class ViewerLayersToolbarUI {
 		const osmMapLayer = new MapLayer (
 			{
 				service : 'wmts',
-				url : 'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
+				url : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
 				name : 'OSM - Color',
 				toolbar :
 				{

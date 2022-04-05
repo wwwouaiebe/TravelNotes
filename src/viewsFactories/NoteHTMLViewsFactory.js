@@ -24,6 +24,11 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v3.2.0:
 		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
+	- v3.4.0:
+		- Issue ♯21 : When CSP is enabled, it's needed to set width and height for icons with JS to avoid
+		to add an 'unsafe-inline' for style in CSP
+	- v3.4.0:
+		- Issue ♯22 : Nice to have a table view for notes in the roadbook
 Doc reviewed 20210915
 Tests ...
 */
@@ -105,6 +110,13 @@ class NoteHTMLViewsFactory {
 				dimCoeficient = theConfig.note.svgIcon.roadbookFactor;
 			}
 		}
+
+		// when CSP is enabled, it's needed to set width and height with JS to avoid to add an 'unsafe-inline' for style in CSP
+		// Adding tanWidth and tanHeight for the roadbook
+		iconHTML.dataset.tanWidth = String ( noteAndRoute.note.iconWidth * dimCoeficient ) + 'px';
+		iconHTML.dataset.tanHeight = String ( noteAndRoute.note.iconHeight * dimCoeficient ) + 'px';
+
+		// and style.width and heigth for the icon preview
 		iconHTML.style.width = String ( noteAndRoute.note.iconWidth * dimCoeficient ) + 'px';
 		iconHTML.style.height = String ( noteAndRoute.note.iconHeight * dimCoeficient ) + 'px';
 
@@ -230,7 +242,7 @@ class NoteHTMLViewsFactory {
 					theHTMLElementsFactory.create (
 						'div',
 						{
-							className : classPrefix + 'NoteHtml-Distance'
+							className : classPrefix + 'NoteHtml-TravelDistance'
 						},
 						noteHTMLElement
 					)
@@ -245,7 +257,7 @@ class NoteHTMLViewsFactory {
 				theHTMLElementsFactory.create (
 					'div',
 					{
-						className : classPrefix + 'NoteHtml-Distance'
+						className : classPrefix + 'NoteHtml-RouteDistance'
 					},
 					noteHTMLElement
 				)

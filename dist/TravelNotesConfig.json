@@ -172,11 +172,11 @@
 	},
 	"printRouteMap":
 	{
+		"firefoxBrowser" : true,
 		"isEnabled" : true,
 		"maxTiles" : 720,
 		"paperWidth":287,
 		"paperHeight":200,
-		"pageBreak":false,
 		"printNotes":true,
 		"borderWidth":10,
 		"zoomFactor":15,

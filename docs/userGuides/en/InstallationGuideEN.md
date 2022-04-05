@@ -24,7 +24,7 @@ See https://www.mozilla.org/en-US/security/advisories/mfsa2019-21/#CVE-2019-1173
 <a id="GuideNull"></a>
 ## 2. Installation Guide for Nulls
 
-No great computer skills? [Download the last version](https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v3.2.0.zip),
+No great computer skills? [Download the last version](https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v3.4.0.zip),
 and install the contents of the docs/demo/ directory in a directory on your server and open the index.html file. That's all :-).
 
 <a id="GuideGeeks"></a>
@@ -184,12 +184,12 @@ The contents of the TravelNotesConfig.json file:
 - __paneUI.switchToItinerary__ : the route panel is activated each time the route is modified ( default value: false )
 - __paneUI.switchToTravelNotes__ : the travel notes panel is activated each time a note is modified ( default value: false )
 - __paneUI.switchToSearch__ : the OSM search panel is activated each time it is updated ( default value: true )
+- __printRouteMap.firefoxBrowser__ : when this value is true, the command uses css for firefox by default
 - __printRouteMap.isEnabled__ : when this value is true, the command to print the maps of a route is active ( default value : true )
 - __printRouteMap.borderWidth__ : the width in millimeters of the map edge that will be duplicated in each map ( default value : 10 )
 - __printRouteMap.maxTiles__ : the maximum number of tiles that can be used to print a route ( default value : 720 )
 - __printRouteMap.paperWidth__ : the width of the paper in millimeters ( default value : 287 )
 - __printRouteMap.paperHeight__ : the height of the paper in millimeters ( default value : 200 )
-- __printRouteMap.pageBreak__ : when this value is true, a page break is inserted after each map ( default value : false )
 - __printRouteMap.printNotes__ : when this value is true, the notes icon is also printed ( default value : true ) 
 - __printRouteMap.zoomFactor__ : the zoom factor to use for printing ( default value : 15 )
 - __printRouteMap.entryPointMarker.color__ : the color of the start of route marker on each map ( default value : "#00ff00" )

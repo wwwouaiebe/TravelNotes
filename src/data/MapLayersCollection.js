@@ -21,6 +21,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.4.0:
+		- Issue ♯23 : URL have changed for OSM.
 Doc reviewed 20210913
 Tests ...
 */
@@ -70,7 +72,7 @@ class MapLayersCollection {
 		this.#defaultMapLayer = new MapLayer (
 			{
 				service : 'wmts',
-				url : 'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
+				url : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
 				name : 'OSM - Color',
 				toolbar :
 				{

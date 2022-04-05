@@ -456,16 +456,16 @@
 		"msgstr": "Imprimer"
 	},
 	{
+		"msgid": "PrintRouteMapDialog - Another browser",
+		"msgstr": "un autre navigateur"
+	},
+	{
 		"msgid": "PrintRouteMapDialog - Border width",
 		"msgstr": "Dimension de la marge:"
 	},
 	{
 		"msgid": "PrintRouteMapDialog - Border width units",
 		"msgstr": "mm."
-	},
-	{
-		"msgid": "PrintRouteMapDialog - Page break",
-		"msgstr": "Insérer un saut de page"
 	},
 	{
 		"msgid": "PrintRouteMapDialog - Paper height",
@@ -492,6 +492,10 @@
 		"msgstr": "Imprimer les notes du trajet"
 	},
 	{
+		"msgid": "PrintRouteMapDialog - Print with",
+		"msgstr": "J'utilise"
+	},
+	{
 		"msgid": "PrintRouteMapDialog - Zoom factor",
 		"msgstr": "Zoom:"
 	},
@@ -512,16 +516,16 @@
 		"msgstr": "Profil {name}"
 	},
 	{
-		"msgid": "RoadbookLoader - Save",
-		"msgstr": "Enrégistrer"
-	},
-	{
 		"msgid": "RoadbookLoader - show maneuver",
 		"msgstr": "Itinéraire"
 	},
 	{
 		"msgid": "RoadbookLoader - show routes notes",
 		"msgstr": "Notes de l'itinéraire"
+	},
+	{
+		"msgid": "RoadbookLoader - show small routes notes",
+		"msgstr": "Petites notes"
 	},
 	{
 		"msgid": "RoadbookLoader - show travel notes",
@@ -610,6 +614,254 @@
 	{
 		"msgid": "RouteHTMLViewsFactory - Itinerary computed by {provider} and optimized for {transitMode}",
 		"msgstr": "Cet itinéraire à été calculé par {provider} et optimisé pour {transitMode}"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kArriveDefault",
+		"msgstr": "Arrivée"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kArriveLeft",
+		"msgstr": "Arrivée à gauche"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kArriveRight",
+		"msgstr": "Arrivée à droite"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kContinueLeft",
+		"msgstr": "Continuer - la route tourne à gauche"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kContinueRight",
+		"msgstr": "Continuer - la route tourne à droite"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kContinueSharpLeft",
+		"msgstr": "Continuer - la route tourne fortement à gauche"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kContinueSharpRight",
+		"msgstr": "Continuer - la route tourne fortement à droite"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kContinueSlightLeft",
+		"msgstr": "Continuer - la route tourne légèrement à gauche"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kContinueSlightRight",
+		"msgstr": "Continuer - la route tourne légèrement à droite"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kContinueStraight",
+		"msgstr": "Continuer"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kDepartDefault",
+		"msgstr": "Départ"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kDepartLeft",
+		"msgstr": "Départ à gauche"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kDepartRight",
+		"msgstr": "Départ à droite"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kEndOfRoadLeft",
+		"msgstr": "Tourner à gauche à la fin de la route"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kEndOfRoadRight",
+		"msgstr": "Tourner à droite à la fin de la route"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kFerryEnter",
+		"msgstr": "Monter dans le ferry"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kFerryExit",
+		"msgstr": "Sortir du ferry"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kForkLeft",
+		"msgstr": "Tourner à gauche à la fourche"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kForkRight",
+		"msgstr": "Tourner à droite à la fourche"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kMergeDefault",
+		"msgstr": "Rejoindre l'autre route"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kMergeLeft",
+		"msgstr": "Rejoindre la route à gauche"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kMergeRight",
+		"msgstr": "Rejoindre la route à droite"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kNewNameLeft",
+		"msgstr": "La route change de nom et tourne à gauche"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kNewNameRight",
+		"msgstr": "La route change de nom et tourne à droite"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kNewNameSharpLeft",
+		"msgstr": "La route change de nom et tourne fortement à gauche"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kNewNameSharpRight",
+		"msgstr": "La route change de nom et tourne fortement à droite"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kNewNameSlightLeft",
+		"msgstr": "La route change de nom et tourne légèrement à gauche"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kNewNameSlightRight",
+		"msgstr": "La route change de nom et tourne légèrement à droite"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kNewNameStraight",
+		"msgstr": "La route change de nom et continue"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kOffRampLeft",
+		"msgstr": "Sortir par la rampe à gauche"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kOffRampRight",
+		"msgstr": "Sortir par la rampe à droite"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kOnRampLeft",
+		"msgstr": "Quitter la rampe en serrant à gauche"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kOnRampRight",
+		"msgstr": "Quitter la rampe en serrant à droite"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kRotaryLeft",
+		"msgstr": "Entrer dans le rond-point dans le sens horaire"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kRotaryRight",
+		"msgstr": "Entrer dans le rond-point dans le sens anti-horaire"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kRoundaboutExit",
+		"msgstr": "Sortir du rond-point"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kRoundaboutLeft",
+		"msgstr": "Entrer dans le rond-point dans le sens horaire"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kRoundaboutRight",
+		"msgstr": "Entrer dans le rond-point dans le sens anti-horaire"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kRoundaboutTurnLeft",
+		"msgstr": "Tourner à gauche au mini rond-point"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kRoundaboutTurnRight",
+		"msgstr": "Tourner à droite au mini rond-point"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kRoundaboutTurnSharpLeft",
+		"msgstr": "Tourner fortement à gauche au mini rond-point"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kRoundaboutTurnSharpRight",
+		"msgstr": "Tourner fortement à droite au mini rond-point"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kRoundaboutTurnSlightLeft",
+		"msgstr": "Tourner légèrement à gauche au mini rond-point"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kRoundaboutTurnSlightRight",
+		"msgstr": "Tourner légèrement à droite au mini rond-point"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kRoundaboutTurnStraight",
+		"msgstr": "Continuer au mini rond-point"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kStayLeft",
+		"msgstr": "Serrer à gauche"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kStayRight",
+		"msgstr": "Serrer à droite"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kStayStraight",
+		"msgstr": "Rester au milieu"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kTurnLeft",
+		"msgstr": "Tourner à gauche"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kTurnRight",
+		"msgstr": "Tourner à droite"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kTurnSharpLeft",
+		"msgstr": "Tourner fortement à gauche"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kTurnSharpRight",
+		"msgstr": "Tourner fortement à droite"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kTurnSlightLeft",
+		"msgstr": "Tourner légèrement à gauche"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kTurnSlightRight",
+		"msgstr": "Tourner légèrement à droite"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kTurnStraight",
+		"msgstr": "Continuer"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kTurnUturn",
+		"msgstr": "Faites demi-tour"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kUndefined",
+		"msgstr": "???"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kUturnLeft",
+		"msgstr": "Faites demi-tour par la gauche"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kUturnRight",
+		"msgstr": "Faites demi-tour par la droite"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kTrainStart",
+		"msgstr": "Prendre le train"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kTrainContinue",
+		"msgstr": "Rester sur le train"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - kTrainEnd",
+		"msgstr": "Descendre du train"
 	},
 	{
 		"msgid": "RouteHTMLViewsFactory - Next maneuver after",

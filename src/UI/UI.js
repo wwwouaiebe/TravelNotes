@@ -36,6 +36,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.4.0:
+		- Issue ♯22 : Nice to have a table view for notes in the roadbook
 Doc reviewed 20210915
 Tests ...
 */
@@ -49,7 +51,7 @@ import TravelNotesToolbarUI from '../UI/TravelNotesToolbarUI.js';
 import ItineraryPaneUI from '../UI/ItineraryPaneUI.js';
 import TravelNotesPaneUI from '../UI/TravelNotesPaneUI.js';
 import OsmSearchPaneUI from '../UI/OsmSearchPaneUI.js';
-import { ONE } from '../main/Constants.js';
+import { ONE, PANE_ID } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -215,6 +217,7 @@ class UI {
 		this.#panesManagerUI.addPane ( ItineraryPaneUI );
 		this.#panesManagerUI.addPane ( TravelNotesPaneUI );
 		this.#panesManagerUI.addPane ( OsmSearchPaneUI );
+		this.#panesManagerUI.showPane ( PANE_ID.itineraryPane );
 
 		// Providers toolbar UI
 		this.#providersToolbarUI = new ProvidersToolbarUI ( this.#mainHTMLElement );
