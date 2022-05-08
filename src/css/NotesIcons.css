@@ -37,7 +37,8 @@ classes for ways and itinerary on svg icons from osm
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
-#TravelNotes-Map .TravelNotes-OSM-Itinerary {
+
+.TravelNotes-OSM-Itinerary {
 	fill: none;
 	stroke: red;
 	stroke-width: 8;
@@ -100,7 +101,7 @@ classes for knoppunten
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-#TravelNotes-Map .TravelNotes-OSM-RcnRef {
+.TravelNotes-OSM-RcnRef {
 	font-size: 500%;
 	font-weight: bold;
 	fill: black;
