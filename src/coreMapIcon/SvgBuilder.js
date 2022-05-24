@@ -220,14 +220,13 @@ class SvgBuilder {
 
 	#createRcnRef ( ) {
 
-		const Y_TEXT = 0.6;
 		if ( '' === this.#computeData.rcnRef ) {
 			return;
 		}
 		const svgText = document.createElementNS ( SVG_NS, 'text' );
 		svgText.textContent = this.#computeData.rcnRef;
 		svgText.setAttributeNS ( null, 'x', String ( ICON_DIMENSIONS.svgViewboxDim / TWO ) );
-		svgText.setAttributeNS ( null, 'y', String ( ICON_DIMENSIONS.svgViewboxDim * Y_TEXT ) );
+		svgText.setAttributeNS ( null, 'y', String ( ICON_DIMENSIONS.svgViewboxDim / TWO ) );
 		svgText.setAttributeNS ( null, 'class', 'TravelNotes-OSM-RcnRef' );
 		this.#svgElement.appendChild ( svgText );
 	}

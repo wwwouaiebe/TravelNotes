@@ -5,6 +5,8 @@ Shops;;;;;;
 ;;amenity=pharmacy;;;;
 ;Travel agency;;;;;
 ;;shop=travel_agency;;;;
+;Bikes;;;;;
+;;shop=bicycle;;;;
 ;Food;;;;;
 ;;Supermarket;;;;
 ;;;shop=supermarket;;;
