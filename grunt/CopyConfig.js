@@ -54,6 +54,12 @@ const debugFiles = [
 		cwd : 'node_modules/osrm-text-instructions/languages/grammar/',
 		src : [ '*.json' ],
 		dest : 'debug/TravelNotesProviders/languages/grammars/'
+	},
+	{
+		expand : true,
+		cwd : 'src',
+		src : [ '**/*.*' ],
+		dest : 'c:/MAMP/htdocs/TaN/src'
 	}
 ];
 
