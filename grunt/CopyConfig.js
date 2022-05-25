@@ -55,54 +55,55 @@ const debugFiles = [
 	}
 ];
 
-const localServerPath = 'c:/MAMP/htdocs/TaN/';
+// eslint-disable-next-line no-undef
+const localServerPath = require ( './LocalServerPath.js' );
 
 const debugAndroidFiles = [
-	{ expand : true, cwd : 'src/cfg/', src : [ '*.json', '*.csv' ], dest : localServerPath },
-	{ expand : true, cwd : 'src/translations/', src : [ '*.json' ], dest : localServerPath },
+	{ expand : true, cwd : 'src/cfg/', src : [ '*.json', '*.csv' ], dest : localServerPath + 'debug/' },
+	{ expand : true, cwd : 'src/translations/', src : [ '*.json' ], dest : localServerPath + 'debug/' },
 	{
 		expand : true,
 		cwd : 'src/html/',
-		src : 'indexDebugAndroid.html',
-		rename : function ( ) { return localServerPath + 'index.html'; }
+		src : 'indexDebug.html',
+		rename : function ( ) { return localServerPath + 'debug/index.html'; }
 	},
 	{
 		expand : true,
 		cwd : 'src/html/',
-		src : 'TravelNotesRoadbookDebugAndroid.html',
-		rename : function ( ) { return localServerPath + 'TravelNotesRoadbook.html'; }
+		src : 'TravelNotesRoadbookDebug.html',
+		rename : function ( ) { return localServerPath + 'debug/TravelNotesRoadbook.html'; }
 	},
 	{
 		expand : true,
 		cwd : 'src/cfg/',
 		src : [ 'TravelNotesConfig.json', 'TravelNotesLayers.json' ],
-		dest : localServerPath + 'viewer/'
+		dest : localServerPath + 'debug/viewer/'
 	},
-	{ expand : true, cwd : 'src/translations/', src : [ '*.json' ], dest : localServerPath + 'viewer/' },
+	{ expand : true, cwd : 'src/translations/', src : [ '*.json' ], dest : localServerPath + 'debug/viewer/' },
 	{
 		expand : true,
 		cwd : 'src/html/',
-		src : 'TravelNotesViewerDebugAndroid.html',
-		rename : function ( ) { return localServerPath + 'viewer/index.html'; }
+		src : 'TravelNotesViewerDebug.html',
+		rename : function ( ) { return localServerPath + 'debug/viewer/index.html'; }
 	},
-	{ expand : true, cwd : 'tmpDebug/', src : [ 'TravelNotesViewer.min.css' ], dest : localServerPath + 'viewer/' },
+	{ expand : true, cwd : 'tmpDebug/', src : [ 'TravelNotesViewer.min.css' ], dest : localServerPath + 'debug/viewer/' },
 	{
 		expand : true,
 		cwd : 'node_modules/osrm-text-instructions/languages/abbreviations/',
 		src : [ '*.json' ],
-		dest : localServerPath + 'TravelNotesProviders/languages/abbreviations/'
+		dest : localServerPath + 'debug/TravelNotesProviders/languages/abbreviations/'
 	},
 	{
 		expand : true,
 		cwd : 'node_modules/osrm-text-instructions/languages/translations/',
 		src : [ '*.json' ],
-		dest : localServerPath + 'TravelNotesProviders/languages/instructions/'
+		dest : localServerPath + 'debug/TravelNotesProviders/languages/instructions/'
 	},
 	{
 		expand : true,
 		cwd : 'node_modules/osrm-text-instructions/languages/grammar/',
 		src : [ '*.json' ],
-		dest : localServerPath + 'TravelNotesProviders/languages/grammars/'
+		dest : localServerPath + 'debug/TravelNotesProviders/languages/grammars/'
 	},
 	{
 		expand : true,
@@ -112,15 +113,15 @@ const debugAndroidFiles = [
 	},
 	{
 		expand : true,
-		cwd : 'node_modules/leaflet/dist/',
-		src : [ 'leaflet.js', 'leaflet.css' ],
-		dest : localServerPath + 'leaflet/'
+		cwd : 'node_modules/leaflet/',
+		src : [ '**/*.*' ],
+		dest : localServerPath + 'node_modules/leaflet/'
 	},
 	{
 		expand : true,
 		cwd : 'node_modules/leaflet/dist/images/',
 		src : [ '*.png' ],
-		dest : localServerPath + 'leaflet/images/'
+		dest : localServerPath + 'debug/leaflet/images/'
 	}
 ];
 

@@ -88,7 +88,8 @@ const travelNotesRoadbookCss = [
 	'src/css/Hidden.css'
 ];
 
-const localServerPath = 'c:/MAMP/htdocs/TaN/';
+// eslint-disable-next-line no-undef
+const localServerPath = require ( './LocalServerPath.js' );
 
 // eslint-disable-next-line no-undef
 module.exports = {
@@ -111,9 +112,9 @@ module.exports = {
 			'debug/TravelNotes.min.css' : travelNotesCss,
 			'debug/viewer/TravelNotesViewer.min.css' : travelNotesViewerCss,
 			'debug/TravelNotesRoadbook.min.css' : travelNotesRoadbookCss,
-			[ localServerPath + 'TravelNotes.min.css' ] : travelNotesCss,
-			[ localServerPath + 'viewer/TravelNotesViewer.min.css' ] : travelNotesViewerCss,
-			[ localServerPath + 'TravelNotesRoadbook.min.css' ] : travelNotesRoadbookCss
+			[ localServerPath + 'debug/TravelNotes.min.css' ] : travelNotesCss,
+			[ localServerPath + 'debug/viewer/TravelNotesViewer.min.css' ] : travelNotesViewerCss,
+			[ localServerPath + 'debug/TravelNotesRoadbook.min.css' ] : travelNotesRoadbookCss
 		}
 	},
 
