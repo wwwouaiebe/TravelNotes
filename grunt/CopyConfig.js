@@ -26,8 +26,6 @@ const debugFiles = [
 		src : 'TravelNotesRoadbookDebug.html',
 		rename : function ( ) { return 'debug/TravelNotesRoadbook.html'; }
 	},
-	{ expand : true, cwd : 'tmpDebug/', src : [ 'TravelNotesRoadbook.min.css' ], dest : 'debug/' },
-	{ expand : true, cwd : 'tmpDebug/', src : [ 'TravelNotes.min.css' ], dest : 'debug/' },
 	{ expand : true, cwd : 'src/cfg/', src : [ 'TravelNotesConfig.json', 'TravelNotesLayers.json' ], dest : 'debug/viewer/' },
 	{ expand : true, cwd : 'src/translations/', src : [ '*.json' ], dest : 'debug/viewer/' },
 	{
@@ -54,12 +52,75 @@ const debugFiles = [
 		cwd : 'node_modules/osrm-text-instructions/languages/grammar/',
 		src : [ '*.json' ],
 		dest : 'debug/TravelNotesProviders/languages/grammars/'
+	}
+];
+
+const localServerPath = 'c:/MAMP/htdocs/TaN/';
+
+const debugAndroidFiles = [
+	{ expand : true, cwd : 'src/cfg/', src : [ '*.json', '*.csv' ], dest : localServerPath },
+	{ expand : true, cwd : 'src/translations/', src : [ '*.json' ], dest : localServerPath },
+	{
+		expand : true,
+		cwd : 'src/html/',
+		src : 'indexDebugAndroid.html',
+		rename : function ( ) { return localServerPath + 'index.html'; }
+	},
+	{
+		expand : true,
+		cwd : 'src/html/',
+		src : 'TravelNotesRoadbookDebugAndroid.html',
+		rename : function ( ) { return localServerPath + 'TravelNotesRoadbook.html'; }
+	},
+	{
+		expand : true,
+		cwd : 'src/cfg/',
+		src : [ 'TravelNotesConfig.json', 'TravelNotesLayers.json' ],
+		dest : localServerPath + 'viewer/'
+	},
+	{ expand : true, cwd : 'src/translations/', src : [ '*.json' ], dest : localServerPath + 'viewer/' },
+	{
+		expand : true,
+		cwd : 'src/html/',
+		src : 'TravelNotesViewerDebugAndroid.html',
+		rename : function ( ) { return localServerPath + 'viewer/index.html'; }
+	},
+	{ expand : true, cwd : 'tmpDebug/', src : [ 'TravelNotesViewer.min.css' ], dest : localServerPath + 'viewer/' },
+	{
+		expand : true,
+		cwd : 'node_modules/osrm-text-instructions/languages/abbreviations/',
+		src : [ '*.json' ],
+		dest : localServerPath + 'TravelNotesProviders/languages/abbreviations/'
+	},
+	{
+		expand : true,
+		cwd : 'node_modules/osrm-text-instructions/languages/translations/',
+		src : [ '*.json' ],
+		dest : localServerPath + 'TravelNotesProviders/languages/instructions/'
+	},
+	{
+		expand : true,
+		cwd : 'node_modules/osrm-text-instructions/languages/grammar/',
+		src : [ '*.json' ],
+		dest : localServerPath + 'TravelNotesProviders/languages/grammars/'
 	},
 	{
 		expand : true,
 		cwd : 'src',
 		src : [ '**/*.*' ],
-		dest : 'c:/MAMP/htdocs/TaN/src'
+		dest : localServerPath + 'src'
+	},
+	{
+		expand : true,
+		cwd : 'node_modules/leaflet/dist/',
+		src : [ 'leaflet.js', 'leaflet.css' ],
+		dest : localServerPath + 'leaflet/'
+	},
+	{
+		expand : true,
+		cwd : 'node_modules/leaflet/dist/images/',
+		src : [ '*.png' ],
+		dest : localServerPath + 'leaflet/images/'
 	}
 ];
 
@@ -151,7 +212,8 @@ const releaseFiles = [
 module.exports = {
 	beforeRelease : { files : beforeReleaseFiles },
 	release : {	files : releaseFiles },
-	debug : { files : debugFiles }
+	debug : { files : debugFiles },
+	debugAndroid : { files : debugAndroidFiles }
 };
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
