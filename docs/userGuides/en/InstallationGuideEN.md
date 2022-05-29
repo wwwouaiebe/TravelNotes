@@ -24,7 +24,7 @@ See https://www.mozilla.org/en-US/security/advisories/mfsa2019-21/#CVE-2019-1173
 <a id="GuideNull"></a>
 ## 2. Installation Guide for Nulls
 
-No great computer skills? [Download the last version](https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v3.4.0.zip),
+No great computer skills? [Download the last version](https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v3.6.0.zip),
 and install the contents of the docs/demo/ directory in a directory on your server and open the index.html file. That's all :-).
 
 <a id="GuideGeeks"></a>
@@ -116,6 +116,7 @@ The contents of the TravelNotesConfig.json file:
 - __geoLocation.options.enableHighAccuracy__ : see the Javascript options of the geolocation functions  ( default value : false )
 - __geoLocation.options.maximumAge__ : see the Javascript options of the geolocation functions  ( default value : 0 )
 - __geoLocation.options.timeout__ : see the Javascript options of the geolocation functions  ( default value : 3600000 )
+- __geoLocation.watch__ : when this value is true, the function watchPosition ( ) is used. Warning this function crash the  geolocation with Firefox Android.
 - __geoLocation.zoomFactor__ : the zoom factor used for geolocation ( default value : 17 )
 - __geoLocation.zoomToPosition__ : when this value is true, a zoom on the position will be performed during the first geolocation ( default value : true )
 - __itineraryPaneUI.showManeuvers__ : when this value is true, the maneuvers are visible in the route description ( default value : false )

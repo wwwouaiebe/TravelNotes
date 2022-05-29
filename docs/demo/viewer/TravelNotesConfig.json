@@ -36,13 +36,14 @@
 	"geoLocation":{
 		"marker":{
 			"color":"#ff0000",
-			"radius":10
+			"radius":0
 		},
 		"options":{
-			"enableHighAccuracy":false, 
+			"enableHighAccuracy":true, 
 			"maximumAge":0, 
 			"timeout":3600000
 		},
+		"watch":false,
 		"zoomFactor":17,
 		"zoomToPosition":true
 	},

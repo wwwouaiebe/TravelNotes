@@ -216,6 +216,11 @@ class Utilities {
 			'\u00A0km';
 	}
 
+	/**
+	Transform a number to a string with degree minutes and seconds
+	@param {Number} number The number to transform
+	*/
+
 	numberToDMS ( number ) {
 		const MINUTES_IN_DEGREE = 60.0;
 		const SECONDS_IN_DEGREE = 3600.0;
@@ -232,6 +237,11 @@ class Utilities {
 		return degrees.toString ( ) + '° ' + minutes.toString ( ) + '\' ' + seconds + '" ' + remind;
 	}
 
+	/**
+	Transform a latitude to a string with degree minutes and seconds
+	@param {Number} lat The latitude
+	*/
+
 	formatLatDMS ( lat ) {
 		return (
 			lat > ZERO
@@ -242,6 +252,11 @@ class Utilities {
 		);
 	}
 
+	/**
+	Transform a longitude to a string with degree minutes and seconds
+	@param {Number} lng The longitude
+	*/
+
 	formatLngDMS ( lng ) {
 		return (
 			lng > ZERO
@@ -251,6 +266,11 @@ class Utilities {
 				this.numberToDMS ( -lng ) + '\u00A0W'
 		);
 	}
+
+	/**
+	Transform a latitude + longitude to a string with degree minutes and seconds
+	@param {Array.<Number>} latLng The latitude and longitude
+	*/
 
 	formatLatLngDMS ( latLng ) {
 		if ( ZERO === latLng [ ZERO ] && ZERO === latLng [ ONE ] ) {

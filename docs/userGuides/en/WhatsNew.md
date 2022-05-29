@@ -172,3 +172,13 @@ Following issues are corrected:
 - The url to get OpenStreetMap tiles has been changed.
 - The process for printing maps from a route has been revised and is now correct in Firefox.
 - A button to print the roadbook has been added to its menu.
+
+### What's new in release 3.5.0
+
+- Issue #30 : RCN REF numbers are difficult to read on the roadbook icons
+- Issue #31 : Leaflet v1.8.0 released and shipped with TravelNotes
+- Issue #32 : Geo Location don't work correctly with FF Android.
+
+### What's new in release 3.6.0
+
+- Issue #32 : Geo Location don't work correctly with FF Android.

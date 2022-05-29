@@ -53,14 +53,14 @@ Other samples:
   
 ## Releases and branches
 
-### v3.4.0 branch
+### v3.6.0 branch
 
-The [v3.4.0 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.4.0) and the [v3.4.0 branch](https://github.com/wwwouaiebe/TravelNotes/tree/v3.4.0)
+The [v3.6.0 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.6.0) and the [v3.6.0 branch](https://github.com/wwwouaiebe/TravelNotes/tree/v3.6.0)
 contains the files of the last stable version.
 
-The [dist folder](https://github.com/wwwouaiebe/TravelNotes/tree/v3.4.0/dist) contains all the needed files to run Travel & Notes, but not the sources.
+The [dist folder](https://github.com/wwwouaiebe/TravelNotes/tree/v3.6.0/dist) contains all the needed files to run Travel & Notes, but not the sources.
 
-Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v3.4.0/src)
+Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v3.6.0/src)
 
 ### master branch
 
@@ -68,11 +68,9 @@ The [master branch](https://github.com/wwwouaiebe/TravelNotes/tree/master) is th
 
 ## What's new in the last release
 
-- It is no longer necessary to have an unsafe-inline for the style when Content Security Policy is activated (this only concerns supergeeks).
-- It is possible to view the notes in tables rather than in lines in the roadbook.
-- The url to get OpenStreetMap tiles has been changed.
-- The process for printing maps from a route has been revised and is now correct in Firefox.
-- A button to print the roadbook has been added to its menu.
+- Issue #30 : RCN REF numbers are difficult to read on the roadbook icons
+- Issue #31 : Leaflet v1.8.0 released and shipped with TravelNotes
+- Issue #32 : Geo Location don't work correctly with FF Android. Hiding the geolocation icon removed.
 
 For other versions, see the document ['What's new?' - en ](https://wwwouaiebe.github.io/TravelNotes/userGuides/en/WhatsNew.html)
 
@@ -131,14 +129,14 @@ D'autres exemples:
 
 ## Versions et branches
 
-### branche v3.4.0
+### branche v3.6.0
 
-La [version v3.4.0](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.4.0) et la [branche v3.4.0](https://github.com/wwwouaiebe/TravelNotes/tree/v3.4.0)
+La [version v3.6.0](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.6.0) et la [branche v3.6.0](https://github.com/wwwouaiebe/TravelNotes/tree/v3.6.0)
 contiennent les fichiers de la dernière version stable.
 
-Le [répertoire dist](https://github.com/wwwouaiebe/TravelNotes/tree/v3.4.0/dist) contient tous les fichiers pour exécuter Travel & Notes, mais ne contient pas les sources.
+Le [répertoire dist](https://github.com/wwwouaiebe/TravelNotes/tree/v3.6.0/dist) contient tous les fichiers pour exécuter Travel & Notes, mais ne contient pas les sources.
 
-Les sources sont disponibles dans le [répertoire src](https://github.com/wwwouaiebe/TravelNotes/tree/v3.4.0/src)
+Les sources sont disponibles dans le [répertoire src](https://github.com/wwwouaiebe/TravelNotes/tree/v3.6.0/src)
 
 ### branche master
 
@@ -146,8 +144,8 @@ La [branche master](https://github.com/wwwouaiebe/TravelNotes/tree/master) est l
 
 ## Quoi de neuf dans la dernière version
 
-- Il n'est plus nécessaire d'avoir un unsafe-inline pour le style quand Content Security Policy est activé (ceci concerne uniquement les supergeek).
-- Il est possible de visualiser les notes dans des tables plutôt qu'en lignes dans le livre de voyage.
-- L'url pour obtenir les tuiles OpenStreetMap a été modifiée.
-- Le processus d'impression des cartes d'un trajet a été revu et est maintenant correct dans Firefox.
-- Un bouton pour imprimer le livre de voyage a été ajouté dans le menu de celui-ci.
+- Issue #30 : les indications RCN REF sont difficiles à lire dans le livre de voyage
+- Issue #31 : Leaflet v1.8.0 a été publié et est distribué avec Travel Notes
+- Issue #32 : la Geo Location ne fonctionne toujours pas correctement avec FF Android. Masquer le bouton de geo location a été supprimé
+
+Pour les autres versions, voir le document ['Quoi de neuf?' - fr ](https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/QuoiDeNeuf.html)

@@ -176,3 +176,13 @@ Les issues suivantes sont corrigées:
 - L'url pour obtenir les tuiles OpenStreetMap a été modifiées.
 - Le processus d'impression des cartes d'un trajet a été revu et est maintenant correct dans Firefox
 - Un bouton pour imprimer le livre de voyage a été ajouté dans le menu de celui-ci
+
+### Quoi de neuf dans la version 3.5.0
+
+- Issue #30 : les indications RCN REF sont difficiles à lire dans le livre de voyage
+- Issue #31 : Leaflet v1.8.0 a été publié et est distribué avec Travel Notes
+- Issue #32 : la Geo Location ne fonctionne pas correctement avec FF Android
+
+### Quoi de neuf dans la version 3.6.0
+
+- Issue #32 : la Geo Location ne fonctionne toujours pas correctement avec FF Android. Masquer le bouton de geo location a été supprimé
