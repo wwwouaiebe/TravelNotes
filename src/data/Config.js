@@ -99,6 +99,7 @@ const theConfig = {
 			maximumAge : 0,
 			timeout : Infinity
 		},
+		watch : true,
 		zoomFactor : 17,
 		zoomToPosition : true
 	},

@@ -75,14 +75,12 @@ class GeoLocator {
 			this.#status = GEOLOCATION_STATUS.inactive;
 		}
 
-		/*
-			if ( this.#watchId )
-			FF: the this.#watchId is always 0 so we cannot use this.#watchId to see if the geolocation is running
-		*/
-
 		theEventDispatcher.dispatch ( 'geolocationstatuschanged', { status : this.#status } );
-		navigator.geolocation.clearWatch ( this.#watchId );
-		this.#watchId = null;
+
+		if ( this.#watchId ) {
+			navigator.geolocation.clearWatch ( this.#watchId );
+			this.#watchId = null;
+		}
 	}
 
 	/**
@@ -105,11 +103,19 @@ class GeoLocator {
 		this.#status = GEOLOCATION_STATUS.active;
 		theEventDispatcher.dispatch ( 'geolocationstatuschanged', { status : this.#status } );
 
-		this.#watchId = navigator.geolocation.watchPosition (
+		navigator.geolocation.getCurrentPosition (
 			position => this.#showPosition ( position ),
 			positionError => this.#error ( positionError ),
 			theConfig.geoLocation.options
 		);
+
+		if ( theConfig.geoLocation.watch ) {
+			this.#watchId = navigator.geolocation.watchPosition (
+				position => this.#showPosition ( position ),
+				positionError => this.#error ( positionError ),
+				theConfig.geoLocation.options
+			);
+		}
 	}
 
 	/**
