@@ -25,7 +25,7 @@ Voir https://www.mozilla.org/en-US/security/advisories/mfsa2019-21/#CVE-2019-117
 <a id="GuideNull"></a>
 ## 2. Guide d'installation pour les null
 
-Pas de grandes connaissances informatiques? [Téléchargez la dernière version](https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v3.4.0.zip),
+Pas de grandes connaissances informatiques? [Téléchargez la dernière version](https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v3.6.0.zip),
 copiez le contenu du répertoire docs/demo/ dans un répertoire sur votre serveur et ouvrez le fichier index.html. That's all :-).
 
 <a id="GuideGeeks"></a>
@@ -116,6 +116,7 @@ Le contenu du fichier TravelNotesConfig.json:
 - __geoLocation.options.enableHighAccuracy__ : voir les options Javascript des fonctions de localisation ( valeur par défaut : false )
 - __geoLocation.options.maximumAge__ : voir les options Javascript des fonctions de localisation ( valeur par défaut : 0 )
 - __geoLocation.options.timeout__ : voir les options Javascript des fonctions de localisation ( valeur par défaut : 3600000 )
+- __geoLocation.watch__ : quand cette valeur est true, la fonction watchPosition ( ) est utilisée. Attention, cette fonction plante le geolocation avec Firefox Android
 - __geoLocation.zoomFactor__ : le facteur de zoom utilisé pour la geolocalisation ( valeur par défaut : 17 )
 - __geoLocation.zoomToPosition__ : quand cette valeur est true, un zoom sur la position sera effectué lors de la première geolocalisation ( valeur par défaut : true )
 - __itineraryPaneUI.showManeuvers__ : quand cette valeur est true, les manoeuvres sont visibles dans la description de l'itinéraire ( valeur par défaut : false )

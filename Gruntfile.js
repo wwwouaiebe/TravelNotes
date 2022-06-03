@@ -107,6 +107,7 @@ module.exports = function ( grunt ) {
 			'rollup:debug',
 			'cssmin:debug',
 			'copy:debug',
+			'copy:debugAndroid',
 			'clean:afterDebug',
 			'buildnumber:end',
 			'bye'
@@ -126,6 +127,7 @@ module.exports = function ( grunt ) {
 			'rollup:debug',
 			'cssmin:debug',
 			'copy:debug',
+			'copy:debugAndroid',
 			'clean:afterDebug',
 			'clean:beforeRelease',
 			'copy:beforeRelease',

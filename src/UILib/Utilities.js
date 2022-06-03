@@ -217,6 +217,69 @@ class Utilities {
 	}
 
 	/**
+	Transform a number to a string with degree minutes and seconds
+	@param {Number} number The number to transform
+	*/
+
+	numberToDMS ( number ) {
+		const MINUTES_IN_DEGREE = 60.0;
+		const SECONDS_IN_DEGREE = 3600.0;
+		const SECONDS_DECIMALS = 100.0;
+		let remind = number;
+		let degrees = Math.floor ( number );
+		remind -= degrees;
+		let minutes = Math.floor ( remind * MINUTES_IN_DEGREE );
+		remind -= minutes / MINUTES_IN_DEGREE;
+		remind *= SECONDS_IN_DEGREE;
+		let seconds = Math.floor ( remind );
+		remind -= seconds;
+		remind = Math.floor ( remind * SECONDS_DECIMALS );
+		return degrees.toString ( ) + '° ' + minutes.toString ( ) + '\' ' + seconds + '" ' + remind;
+	}
+
+	/**
+	Transform a latitude to a string with degree minutes and seconds
+	@param {Number} lat The latitude
+	*/
+
+	formatLatDMS ( lat ) {
+		return (
+			lat > ZERO
+				?
+				this.numberToDMS ( lat ) + '\u00A0N'
+				:
+				this.numberToDMS ( -lat ) + '\u00A0S'
+		);
+	}
+
+	/**
+	Transform a longitude to a string with degree minutes and seconds
+	@param {Number} lng The longitude
+	*/
+
+	formatLngDMS ( lng ) {
+		return (
+			lng > ZERO
+				?
+				this.numberToDMS ( lng ) + '\u00A0E'
+				:
+				this.numberToDMS ( -lng ) + '\u00A0W'
+		);
+	}
+
+	/**
+	Transform a latitude + longitude to a string with degree minutes and seconds
+	@param {Array.<Number>} latLng The latitude and longitude
+	*/
+
+	formatLatLngDMS ( latLng ) {
+		if ( ZERO === latLng [ ZERO ] && ZERO === latLng [ ONE ] ) {
+			return '';
+		}
+		return this.formatLatDMS ( latLng [ ZERO ] ) + '\u00A0-\u00A0' + this.formatLngDMS ( latLng [ ONE ] );
+	}
+
+	/**
 	Transform a latitude to a string
 	@param {Number} lat The latitude
 	*/

@@ -427,15 +427,35 @@ class MapEditorViewer {
 			zoomToPosition = false;
 		}
 
-		this.#geolocationCircle = window.L.circleMarker (
-			window.L.latLng ( position.coords.latitude, position.coords.longitude ),
-			theConfig.geoLocation.marker
-		)
-			.bindTooltip (
-				theUtilities.formatLatLng ( [ position.coords.latitude, position.coords.longitude ] )
-			)
-			.addTo ( theTravelNotesData.map );
+		let tooltip =
+			'Position (+/- ' + position.coords.accuracy.toFixed ( ZERO ) + ' m) : <br/>'
+			+ theUtilities.formatLatLngDMS ( [ position.coords.latitude, position.coords.longitude ] )
+			+ '<br/>'
+			+ theUtilities.formatLatLng ( [ position.coords.latitude, position.coords.longitude ] )
+			+ '<br/>';
+		if ( position.coords.altitude ) {
+			tooltip += '<br/> Altitude (+/- ' + position.coords.altitudeAccuracy.toFixed ( ZERO ) + ' m) :<br/>'
+			+ position.coords.altitude.toFixed ( ZERO ) + ' m';
+		}
 
+		if ( ZERO === theConfig.geoLocation.marker.radius ) {
+			this.#geolocationCircle = window.L.circle (
+				window.L.latLng ( position.coords.latitude, position.coords.longitude ),
+				theConfig.geoLocation.marker
+			)
+				.setRadius ( position.coords.accuracy.toFixed ( ZERO ) );
+		}
+		else {
+			this.#geolocationCircle = window.L.circleMarker (
+				window.L.latLng ( position.coords.latitude, position.coords.longitude ),
+				theConfig.geoLocation.marker
+			);
+		}
+		this.#geolocationCircle
+			.bindTooltip ( tooltip )
+			.bindPopup ( tooltip )
+			.addTo ( theTravelNotesData.map );
+		this.#geolocationCircle.openPopup ( );
 		if ( zoomToPosition ) {
 			theTravelNotesData.map.setView (
 				window.L.latLng ( position.coords.latitude, position.coords.longitude ),
