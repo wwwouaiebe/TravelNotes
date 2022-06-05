@@ -22,14 +22,17 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.7.0:
+		- Issue ♯38 : Review mouse and touch events on the background div of dialogs
 Doc reviewed 20210914
 Tests ...
 */
 
 import theGeometry from '../coreLib/Geometry.js';
+import theConfig from '../data/Config.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 
-import { ZERO, ONE, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
+import { ZERO, ONE, TWO, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -353,11 +356,25 @@ touch event listener on the background
 class BackgroundTouchEL {
 
 	/**
+	A reference to the dialog
+	@type {BaseDialog}
+	*/
+
+	#baseDialog;
+
+	/**
 	A flag set to true when a pan is ongoing
 	@type {Boolean}
 	*/
 
 	#panOngoing = false;
+
+	/**
+	A flag set to true when a zoom is ongoing
+	@type {Boolean}
+	*/
+
+	#zoomOngoing = false;
 
 	/**
 	The X screen coordinate of the beginning of the pan
@@ -380,81 +397,145 @@ class BackgroundTouchEL {
 
 	#mapCenter;
 
+	#initialZoom;
+
+	#initialZoomDistance;
+
+	#startPoint;
+
 	/**
 	Execute the pan when a touchmove or toucheend event occurs after a touchestart event
+	@param {Touch} touch The touch object to process
 	*/
 
-	#processPan ( touche ) {
-		const latLngAtStart = theGeometry.screenCoordToLatLng ( this.#startPanX, this.#startPanY );
-		const latLngAtEnd = theGeometry.screenCoordToLatLng ( touche.screenX, touche.screenY );
-		theTravelNotesData.map.panTo (
-			[
-				this.#mapCenter.lat +
-					latLngAtStart [ ZERO ] -
-					latLngAtEnd [ ZERO ],
-				this.#mapCenter.lng +
-					latLngAtStart [ ONE ] -
-					latLngAtEnd [ ONE ]
-			]
+	#processPan ( touch ) {
+		if (
+			this.#panOngoing
+			&&
+			( this.#startPanX !== touch.screenX || this.#startPanY !== touch.screenY )
+		) {
+			if (
+				theConfig.baseDialog.cancelTouchY > this.#startPanY
+				&&
+				touch.screenY < this.#startPanY
+				&&
+				theConfig.baseDialog.cancelTouchX > this.#startPanX ) {
+				this.#baseDialog.onCancel ( );
+			}
+			const latLngAtStart = theGeometry.screenCoordToLatLng ( this.#startPanX, this.#startPanY );
+			const latLngAtEnd = theGeometry.screenCoordToLatLng ( touch.screenX, touch.screenY );
+			theTravelNotesData.map.panTo (
+				[
+					this.#mapCenter.lat +
+						latLngAtStart [ ZERO ] -
+						latLngAtEnd [ ZERO ],
+					this.#mapCenter.lng +
+						latLngAtStart [ ONE ] -
+						latLngAtEnd [ ONE ]
+				]
+			);
+		}
+	}
+
+	#processZoom ( targetTouches ) {
+		let zoomDistance = Math.sqrt (
+			( ( targetTouches.item ( ZERO ).clientX - targetTouches.item ( ONE ).clientX ) ** TWO )
+			+
+			( ( targetTouches.item ( ZERO ).clientY - targetTouches.item ( ONE ).clientY ) ** TWO )
 		);
+		let zoom = this.#initialZoom;
+		let deltaZoom = zoomDistance - this.#initialZoomDistance;
+		if ( theConfig.baseDialog.deltaZoomDistance < deltaZoom ) {
+			zoom ++;
+		}
+		else if ( -theConfig.baseDialog.deltaZoomDistance > deltaZoom ) {
+			zoom --;
+		}
+
+		zoom = Math.min ( theTravelNotesData.map.getMaxZoom ( ), zoom );
+		zoom = Math.max ( theTravelNotesData.map.getMinZoom ( ), zoom );
+		if ( zoom !== this.#initialZoom ) {
+			theTravelNotesData.map.setZoomAround ( this.#startPoint, zoom );
+			this.#initialZoom = zoom;
+			this.#initialZoomDistance = zoomDistance;
+		}
+	}
+
+	#handleEndEvent ( touchEvent ) {
+		if ( this.#panOngoing && ONE === touchEvent.changedTouches.length ) {
+			this.#processPan ( touchEvent.changedTouches.item ( ZERO ) );
+			this.#panOngoing = false;
+		}
+	}
+
+	#handleMoveEvent ( touchEvent ) {
+		if ( this.#panOngoing && ONE === touchEvent.changedTouches.length ) {
+			this.#processPan ( touchEvent.changedTouches.item ( ZERO ) );
+		}
+		else if ( this.#zoomOngoing && TWO === touchEvent.targetTouches.length ) {
+			this.#processZoom ( touchEvent.targetTouches );
+		}
+	}
+
+	#handleStartEvent ( touchEvent ) {
+		if ( ONE === touchEvent.targetTouches.length ) {
+			const touch = touchEvent.changedTouches.item ( ZERO );
+			this.#startPanX = touch.screenX;
+			this.#startPanY = touch.screenY;
+			this.#mapCenter = theTravelNotesData.map.getCenter ( );
+			this.#panOngoing = true;
+			this.#zoomOngoing = false;
+		}
+		if ( TWO === touchEvent.targetTouches.length ) {
+			this.#initialZoom = theTravelNotesData.map.getZoom ( );
+			this.#startPoint = window.L.point (
+				( touchEvent.targetTouches.item ( ZERO ).clientX + touchEvent.targetTouches.item ( ONE ).clientX ) / TWO,
+				( touchEvent.targetTouches.item ( ZERO ).clientY + touchEvent.targetTouches.item ( ONE ).clientY ) / TWO
+			);
+			this.#initialZoomDistance = Math.sqrt (
+				( ( touchEvent.targetTouches.item ( ZERO ).clientX - touchEvent.targetTouches.item ( ONE ).clientX ) ** TWO )
+				+
+				( ( touchEvent.targetTouches.item ( ZERO ).clientY - touchEvent.targetTouches.item ( ONE ).clientY ) ** TWO )
+			);
+			this.#panOngoing = false;
+			this.#zoomOngoing = true;
+		}
 	}
 
 	/**
 	The constructor
-	@param {HTMLElement} target The target for the event listener
-	@param {Number} button The button used. must be PanEventDispatcher.LEFT_BUTTON or PanEventDispatcher.MIDDLE_BUTTON
-	or PanEventDispatcher.RIGHT_BUTTON. Default value: PanEventDispatcher.LEFT_BUTTON
 	*/
 
-	constructor ( ) {
+	constructor ( baseDialog ) {
 		Object.freeze ( this );
+		this.#baseDialog = baseDialog;
 	}
 
 	/**
 	Event listener method
-	@param {Event} mouseEvent The event to handle
+	@param {Event} touchEvent The event to handle
 	*/
 
-	handleEvent ( mouseEvent ) {
-		const touches = mouseEvent.changedTouches;
-		switch ( mouseEvent.type ) {
-		case 'touchstart' :
+	handleEvent ( touchEvent ) {
 
-			// mouseEvent.preventDefault ( );
-			if ( touches && touches.length === ONE ) {
-				this.#startPanX = touches.item ( ZERO ).screenX;
-				this.#startPanY = touches.item ( ZERO ).screenY;
-				this.#mapCenter = theTravelNotesData.map.getCenter ( );
-				this.#panOngoing = true;
-			}
+		touchEvent.preventDefault ( );
+
+		// console.log ( touchEvent.type + ' ' + touchEvent.targetTouches.length + ' ' + touchEvent.changedTouches.length );
+
+		switch ( touchEvent.type ) {
+		case 'touchstart' :
+			this.#handleStartEvent ( touchEvent );
 			break;
 		case 'touchmove' :
-
-			// mouseEvent.preventDefault ( );
-			if ( touches && touches.length === ONE ) {
-				this.#processPan ( touches.item ( ZERO ) );
-			}
+			this.#handleMoveEvent ( touchEvent );
 			break;
 		case 'touchend' :
-
-			// mouseEvent.preventDefault ( );
-			if (
-				( touches && touches.length === ONE )
-				&&
-				this.#panOngoing
-				&&
-				( this.#startPanX !== touches.item ( ZERO ).screenX || this.#startPanY !== touches.item ( ZERO ).screenY )
-			) {
-				this.#processPan ( touches.item ( ZERO ) );
-			}
-			this.#panOngoing = false;
-			break;
-		case 'touchcancel' :
-			this.#panOngoing = false;
+			this.#handleEndEvent ( touchEvent );
 			break;
 		default :
 			break;
 		}
+
 	}
 }
 
@@ -503,6 +584,7 @@ class BackgroundMouseEL {
 
 	/**
 	Execute the pan when a mousemove or mouseup event occurs after a mousedown event
+	@param { Event } mouseEvent The mouse event to process
 	*/
 
 	#processPan ( mouseEvent ) {
@@ -522,9 +604,6 @@ class BackgroundMouseEL {
 
 	/**
 	The constructor
-	@param {HTMLElement} target The target for the event listener
-	@param {Number} button The button used. must be PanEventDispatcher.LEFT_BUTTON or PanEventDispatcher.MIDDLE_BUTTON
-	or PanEventDispatcher.RIGHT_BUTTON. Default value: PanEventDispatcher.LEFT_BUTTON
 	*/
 
 	constructor ( ) {

@@ -41,6 +41,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.7.0:
+		- Issue ♯38 : Review mouse and touch events on the background div of dialogs
 Doc reviewed 20210914
 Tests ...
 */
@@ -417,7 +419,7 @@ class BaseDialog {
 		this.#backgroundContextMenuEL = new BackgroundContextMenuEL ( );
 		this.#backgroundDiv.addEventListener ( 'contextmenu', this.#backgroundContextMenuEL, false );
 
-		this.#backgroundTouchEL = new BackgroundTouchEL ( );
+		this.#backgroundTouchEL = new BackgroundTouchEL ( this );
 		this.#backgroundDiv.addEventListener ( 'touchstart', this.#backgroundTouchEL, false );
 		this.#backgroundDiv.addEventListener ( 'touchmove', this.#backgroundTouchEL, false );
 		this.#backgroundDiv.addEventListener ( 'touchend', this.#backgroundTouchEL, false );
