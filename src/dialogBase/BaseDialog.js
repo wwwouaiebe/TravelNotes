@@ -104,13 +104,12 @@ import {
 	TopBarDragStartEL,
 	TopBarDragEndEL,
 	DialogKeyboardKeydownEL,
-	BackgroundLeftPanEL,
-	BackgroundRightPanEL,
 	BackgroundWheelEL,
 	BackgroundContextMenuEL,
-	BackgroundDragOverEL
+	BackgroundDragOverEL,
+	BackgroundTouchEL,
+	BackgroundMouseEL
 } from '../dialogbase/BaseDialogEventListeners.js';
-import PanEventDispatcher from '../dialogPanEventDispatcher/PanEventDispatcher.js';
 import DragData from '../dialogs/DragData.js';
 
 // import GarbageCollectorTester from '../UILib/GarbageCollectorTester.js';
@@ -296,20 +295,6 @@ class BaseDialog {
 	#secondButton;
 
 	/**
-	An event dispatcher for pans with the left button
-	@type {PanEventDispatcher}
-	*/
-
-	#leftPanEventDispatcher;
-
-	/**
-	An event dispatcher for pans with the right button
-	@type {PanEventDispatcher}
-	*/
-
-	#rightPanEventDispatcher;
-
-	/**
 	A flag to avoid all dialogs close when using the esc or enter keys
 	@type {Boolean}
 	*/
@@ -324,25 +309,25 @@ class BaseDialog {
 	#dragData;
 
 	/**
-	Background left pan event listener
-	@type {BackgroundLeftPanEL}
-	*/
-
-	#backgroundLeftPanEL;
-
-	/**
-	Background right pan event listener
-	@type {BackgroundRightPanEL}
-	*/
-
-	#backgroundRightPanEL;
-
-	/**
 	Drog over the background event listener
 	@type {BackgroundDragOverEL}
 	*/
 
 	#backgroundDragOverEL;
+
+	/**
+	Touch on the background event listener
+	@type {BackgroundTouchEL}
+	*/
+
+	#backgroundTouchEL;
+
+	/**
+	mouseup, mousedown and mousemove event listeners  on the background
+	@type {BackgroundMouseEL}
+	*/
+
+	#backgroundMouseEL;
 
 	/**
 	Wheel event listener on the background
@@ -423,15 +408,6 @@ class BaseDialog {
 		// A new element covering the entire screen is created, with drag and drop event listeners
 		this.#backgroundDiv = theHTMLElementsFactory.create ( 'div', { className : 'TravelNotes-Background' } );
 
-		this.#leftPanEventDispatcher = new PanEventDispatcher ( this.#backgroundDiv, PanEventDispatcher.LEFT_BUTTON );
-		this.#rightPanEventDispatcher = new PanEventDispatcher ( this.#backgroundDiv, PanEventDispatcher.RIGHT_BUTTON );
-
-		this.#backgroundLeftPanEL = new BackgroundLeftPanEL ( );
-		this.#backgroundDiv.addEventListener ( 'leftpan', this.#backgroundLeftPanEL, false );
-
-		this.#backgroundRightPanEL = new BackgroundRightPanEL ( );
-		this.#backgroundDiv.addEventListener ( 'rightpan', this.#backgroundRightPanEL, false );
-
 		this.#backgroundDragOverEL = new BackgroundDragOverEL ( );
 		this.#backgroundDiv.addEventListener ( 'dragover', this.#backgroundDragOverEL, false );
 
@@ -440,6 +416,17 @@ class BaseDialog {
 
 		this.#backgroundContextMenuEL = new BackgroundContextMenuEL ( );
 		this.#backgroundDiv.addEventListener ( 'contextmenu', this.#backgroundContextMenuEL, false );
+
+		this.#backgroundTouchEL = new BackgroundTouchEL ( );
+		this.#backgroundDiv.addEventListener ( 'touchstart', this.#backgroundTouchEL, false );
+		this.#backgroundDiv.addEventListener ( 'touchmove', this.#backgroundTouchEL, false );
+		this.#backgroundDiv.addEventListener ( 'touchend', this.#backgroundTouchEL, false );
+		this.#backgroundDiv.addEventListener ( 'touchcancel', this.#backgroundTouchEL, false );
+
+		this.#backgroundMouseEL = new BackgroundMouseEL ( );
+		this.#backgroundDiv.addEventListener ( 'mouseup', this.#backgroundMouseEL, false );
+		this.#backgroundDiv.addEventListener ( 'mousemove', this.#backgroundMouseEL, false );
+		this.#backgroundDiv.addEventListener ( 'mousedown', this.#backgroundMouseEL, false );
 	}
 
 	/**
@@ -718,12 +705,6 @@ class BaseDialog {
 		this.#okButton.removeEventListener ( 'click', this.#okButtonClickEL, false );
 		this.#okButtonClickEL = null;
 
-		this.#backgroundDiv.removeEventListener ( 'leftpan', this.#backgroundLeftPanEL, false );
-		this.#backgroundLeftPanEL = null;
-
-		this.#backgroundDiv.removeEventListener ( 'rightpan', this.#backgroundRightPanEL, false );
-		this.#backgroundRightPanEL = null;
-
 		this.#backgroundDiv.removeEventListener ( 'wheel', this.#backgroundWheelEL, { passive : true }	);
 		this.#backgroundWheelEL = null;
 
@@ -733,8 +714,16 @@ class BaseDialog {
 		this.#backgroundDiv.removeEventListener ( 'dragover', this.#backgroundDragOverEL, false );
 		this.#backgroundDragOverEL = null;
 
-		this.#leftPanEventDispatcher.detach ( );
-		this.#rightPanEventDispatcher.detach ( );
+		this.#backgroundDiv.removeEventListener ( 'touchstart', this.#backgroundTouchEL, false );
+		this.#backgroundDiv.removeEventListener ( 'touchmove', this.#backgroundTouchEL, false );
+		this.#backgroundDiv.removeEventListener ( 'touchend', this.#backgroundTouchEL, false );
+		this.#backgroundDiv.removeEventListener ( 'touchcancel', this.#backgroundTouchEL, false );
+		this.#backgroundTouchEL = null;
+
+		this.#backgroundDiv.removeEventListener ( 'mouseup', this.#backgroundMouseEL, false );
+		this.#backgroundDiv.removeEventListener ( 'mousemove', this.#backgroundMouseEL, false );
+		this.#backgroundDiv.removeEventListener ( 'mousedown', this.#backgroundMouseEL, false );
+		this.#backgroundMouseEL = null;
 
 		document.body.removeChild ( this.#backgroundDiv );
 	}

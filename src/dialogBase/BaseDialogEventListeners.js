@@ -212,6 +212,32 @@ class TopBarDragEndEL {
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
+BaseDialog drag over event listener based on the EventListener API.
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class BackgroundDragOverEL {
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
+	/**
+	Event listener method
+	@param {Event} dragEvent The event to handle
+	*/
+
+	handleEvent ( dragEvent ) {
+		dragEvent.preventDefault ( );
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
 keydown event listener
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -253,116 +279,6 @@ class DialogKeyboardKeydownEL {
 			this.#baseDialog.onOk ( );
 		}
 
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-leftpan event listener for the background
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class BackgroundLeftPanEL {
-
-	/**
-	A leaflet LatLng object with the center of the map
-	@type {LeafletObject}
-	*/
-
-	#mapCenter;
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-	}
-
-	/**
-	Event listener method
-	@param {Event} leftPanEvent The event to handle
-	*/
-
-	handleEvent ( leftPanEvent ) {
-		if ( 'start' === leftPanEvent.action ) {
-			this.#mapCenter = theTravelNotesData.map.getCenter ( );
-			return;
-		}
-		const latLngAtStart = theGeometry.screenCoordToLatLng (
-			leftPanEvent.startX,
-			leftPanEvent.startY
-		);
-		const latLngAtEnd = theGeometry.screenCoordToLatLng ( leftPanEvent.endX, leftPanEvent.endY );
-		theTravelNotesData.map.panTo (
-			[
-				this.#mapCenter.lat +
-					latLngAtStart [ ZERO ] -
-					latLngAtEnd [ ZERO ],
-				this.#mapCenter.lng +
-					latLngAtStart [ ONE ] -
-					latLngAtEnd [ ONE ]
-			]
-		);
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-rightpan event listener for the background. Zoom on the map
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class BackgroundRightPanEL {
-
-	/**
-	The minimal value in pixels for the pan displacement triggering a zoom
-	@type {Number}
-	*/
-
-	// eslint-disable-next-line no-magic-numbers
-	static get #ZOOM_DISPLACMENT ( ) { return 25; }
-
-	/**
-	The map zoom before the event
-	@type {Number}
-	*/
-
-	#initialZoom;
-
-	/**
-	A L.Point object containing the screen coordinates of the start point of the pan
-	@type {LeafletObject}
-	*/
-
-	#startPoint;
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-		this.#initialZoom = ZERO;
-	}
-
-	/**
-	Event listener method
-	@param {Event} rightPanEvent The event to handle
-	*/
-
-	handleEvent ( rightPanEvent ) {
-		if ( 'start' === rightPanEvent.action ) {
-			this.#initialZoom = theTravelNotesData.map.getZoom ( );
-			this.#startPoint = window.L.point ( rightPanEvent.clientX, rightPanEvent.clientY );
-			return;
-		}
-		let zoom = Math.floor (
-			this.#initialZoom + ( ( rightPanEvent.startY - rightPanEvent.endY ) / BackgroundRightPanEL.#ZOOM_DISPLACMENT )
-		);
-		zoom = Math.min ( theTravelNotesData.map.getMaxZoom ( ), zoom );
-		zoom = Math.max ( theTravelNotesData.map.getMinZoom ( ), zoom );
-		theTravelNotesData.map.setZoomAround ( this.#startPoint, zoom );
 	}
 }
 
@@ -430,14 +346,64 @@ class BackgroundContextMenuEL {
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-BaseDialog drag over event listener based on the EventListener API.
+touch event listener on the background
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class BackgroundDragOverEL {
+class BackgroundTouchEL {
+
+	/**
+	A flag set to true when a pan is ongoing
+	@type {Boolean}
+	*/
+
+	#panOngoing = false;
+
+	/**
+	The X screen coordinate of the beginning of the pan
+	@type {Number}
+	*/
+
+	#startPanX = ZERO;
+
+	/**
+	The Y screen coordinate of the beginning of the pan
+	@type {Number}
+	*/
+
+	#startPanY = ZERO;
+
+	/**
+	A leaflet LatLng object with the center of the map
+	@type {LeafletObject}
+	*/
+
+	#mapCenter;
+
+	/**
+	Execute the pan when a touchmove or toucheend event occurs after a touchestart event
+	*/
+
+	#processPan ( touche ) {
+		const latLngAtStart = theGeometry.screenCoordToLatLng ( this.#startPanX, this.#startPanY );
+		const latLngAtEnd = theGeometry.screenCoordToLatLng ( touche.screenX, touche.screenY );
+		theTravelNotesData.map.panTo (
+			[
+				this.#mapCenter.lat +
+					latLngAtStart [ ZERO ] -
+					latLngAtEnd [ ZERO ],
+				this.#mapCenter.lng +
+					latLngAtStart [ ONE ] -
+					latLngAtEnd [ ONE ]
+			]
+		);
+	}
 
 	/**
 	The constructor
+	@param {HTMLElement} target The target for the event listener
+	@param {Number} button The button used. must be PanEventDispatcher.LEFT_BUTTON or PanEventDispatcher.MIDDLE_BUTTON
+	or PanEventDispatcher.RIGHT_BUTTON. Default value: PanEventDispatcher.LEFT_BUTTON
 	*/
 
 	constructor ( ) {
@@ -446,11 +412,166 @@ class BackgroundDragOverEL {
 
 	/**
 	Event listener method
-	@param {Event} dragEvent The event to handle
+	@param {Event} mouseEvent The event to handle
 	*/
 
-	handleEvent ( dragEvent ) {
-		dragEvent.preventDefault ( );
+	handleEvent ( mouseEvent ) {
+		const touches = mouseEvent.changedTouches;
+		switch ( mouseEvent.type ) {
+		case 'touchstart' :
+
+			// mouseEvent.preventDefault ( );
+			if ( touches && touches.length === ONE ) {
+				this.#startPanX = touches.item ( ZERO ).screenX;
+				this.#startPanY = touches.item ( ZERO ).screenY;
+				this.#mapCenter = theTravelNotesData.map.getCenter ( );
+				this.#panOngoing = true;
+			}
+			break;
+		case 'touchmove' :
+
+			// mouseEvent.preventDefault ( );
+			if ( touches && touches.length === ONE ) {
+				this.#processPan ( touches.item ( ZERO ) );
+			}
+			break;
+		case 'touchend' :
+
+			// mouseEvent.preventDefault ( );
+			if (
+				( touches && touches.length === ONE )
+				&&
+				this.#panOngoing
+				&&
+				( this.#startPanX !== touches.item ( ZERO ).screenX || this.#startPanY !== touches.item ( ZERO ).screenY )
+			) {
+				this.#processPan ( touches.item ( ZERO ) );
+			}
+			this.#panOngoing = false;
+			break;
+		case 'touchcancel' :
+			this.#panOngoing = false;
+			break;
+		default :
+			break;
+		}
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+mouse event listener for the background
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class BackgroundMouseEL {
+
+	/**
+	constant for the left button
+	@type {Number}
+	*/
+
+	static get LEFT_BUTTON ( ) { return ZERO; }
+
+	/**
+	A flag set to true when a pan is ongoing
+	@type {Boolean}
+	*/
+
+	#panOngoing = false;
+
+	/**
+	The X screen coordinate of the beginning of the pan
+	@type {Number}
+	*/
+
+	#startPanX = ZERO;
+
+	/**
+	The Y screen coordinate of the beginning of the pan
+	@type {Number}
+	*/
+
+	#startPanY = ZERO;
+
+	/**
+	A leaflet LatLng object with the center of the map
+	@type {LeafletObject}
+	*/
+
+	#mapCenter;
+
+	/**
+	Execute the pan when a mousemove or mouseup event occurs after a mousedown event
+	*/
+
+	#processPan ( mouseEvent ) {
+		const latLngAtStart = theGeometry.screenCoordToLatLng ( this.#startPanX, this.#startPanY );
+		const latLngAtEnd = theGeometry.screenCoordToLatLng ( mouseEvent.screenX, mouseEvent.screenY );
+		theTravelNotesData.map.panTo (
+			[
+				this.#mapCenter.lat +
+					latLngAtStart [ ZERO ] -
+					latLngAtEnd [ ZERO ],
+				this.#mapCenter.lng +
+					latLngAtStart [ ONE ] -
+					latLngAtEnd [ ONE ]
+			]
+		);
+	}
+
+	/**
+	The constructor
+	@param {HTMLElement} target The target for the event listener
+	@param {Number} button The button used. must be PanEventDispatcher.LEFT_BUTTON or PanEventDispatcher.MIDDLE_BUTTON
+	or PanEventDispatcher.RIGHT_BUTTON. Default value: PanEventDispatcher.LEFT_BUTTON
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
+	/**
+	Event listener method
+	@param {Event} mouseEvent The event to handle
+	*/
+
+	handleEvent ( mouseEvent ) {
+		switch ( mouseEvent.type ) {
+		case 'mousedown' :
+			if ( mouseEvent.button === BackgroundMouseEL.LEFT_BUTTON ) {
+				this.#startPanX = mouseEvent.screenX;
+				this.#startPanY = mouseEvent.screenY;
+				this.#mapCenter = theTravelNotesData.map.getCenter ( );
+				this.#panOngoing = true;
+			}
+			break;
+		case 'mousemove' :
+			if ( mouseEvent.button === BackgroundMouseEL.LEFT_BUTTON && this.#panOngoing ) {
+				if ( document.selection ) {
+					document.selection.empty ();
+				}
+				else {
+					window.getSelection ().removeAllRanges ();
+				}
+				this.#processPan ( mouseEvent );
+			}
+			break;
+		case 'mouseup' :
+			if (
+				mouseEvent.button === BackgroundMouseEL.LEFT_BUTTON
+				&&
+				this.#panOngoing
+				&&
+				( this.#startPanX !== mouseEvent.screenX || this.#startPanY !== mouseEvent.screenY )
+			) {
+				this.#processPan ( mouseEvent );
+			}
+			this.#panOngoing = false;
+			break;
+		default :
+			break;
+		}
 	}
 }
 
@@ -459,12 +580,12 @@ export {
 	CancelDialogButtonClickEL,
 	TopBarDragStartEL,
 	TopBarDragEndEL,
+	BackgroundDragOverEL,
 	DialogKeyboardKeydownEL,
-	BackgroundLeftPanEL,
-	BackgroundRightPanEL,
 	BackgroundWheelEL,
 	BackgroundContextMenuEL,
-	BackgroundDragOverEL
+	BackgroundTouchEL,
+	BackgroundMouseEL
 };
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
