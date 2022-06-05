@@ -397,11 +397,26 @@ class BackgroundTouchEL {
 
 	#mapCenter;
 
+	/**
+	The zoom when the touchstart event is trigered
+	@type {Number}
+	*/
+
 	#initialZoom;
+
+	/**
+	The distance in pixel betwwen the touches when the touchstart event is trigered
+	@type {Number}
+	*/
 
 	#initialZoomDistance;
 
-	#startPoint;
+	/**
+	the point on the screen around witch thz zoom is performed
+	@type {LeafletObject}
+	*/
+
+	#aroundPoint;
 
 	/**
 	Execute the pan when a touchmove or toucheend event occurs after a touchestart event
@@ -437,6 +452,11 @@ class BackgroundTouchEL {
 		}
 	}
 
+	/**
+	Execute the zoom when a touchmove or toucheend event occurs after a touchestart event
+	@param {TouchList} targetTouches The touch objects to process
+	*/
+
 	#processZoom ( targetTouches ) {
 		let zoomDistance = Math.sqrt (
 			( ( targetTouches.item ( ZERO ).clientX - targetTouches.item ( ONE ).clientX ) ** TWO )
@@ -455,11 +475,16 @@ class BackgroundTouchEL {
 		zoom = Math.min ( theTravelNotesData.map.getMaxZoom ( ), zoom );
 		zoom = Math.max ( theTravelNotesData.map.getMinZoom ( ), zoom );
 		if ( zoom !== this.#initialZoom ) {
-			theTravelNotesData.map.setZoomAround ( this.#startPoint, zoom );
+			theTravelNotesData.map.setZoomAround ( this.#aroundPoint, zoom );
 			this.#initialZoom = zoom;
 			this.#initialZoomDistance = zoomDistance;
 		}
 	}
+
+	/**
+	Handle the touchend event
+	@param {Event} touchEvent The event to handle
+	*/
 
 	#handleEndEvent ( touchEvent ) {
 		if ( this.#panOngoing && ONE === touchEvent.changedTouches.length ) {
@@ -467,6 +492,11 @@ class BackgroundTouchEL {
 			this.#panOngoing = false;
 		}
 	}
+
+	/**
+	Handle the touchmove event
+	@param {Event} touchEvent The event to handle
+	*/
 
 	#handleMoveEvent ( touchEvent ) {
 		if ( this.#panOngoing && ONE === touchEvent.changedTouches.length ) {
@@ -476,6 +506,11 @@ class BackgroundTouchEL {
 			this.#processZoom ( touchEvent.targetTouches );
 		}
 	}
+
+	/**
+	Handle the touchstart event
+	@param {Event} touchEvent The event to handle
+	*/
 
 	#handleStartEvent ( touchEvent ) {
 		if ( ONE === touchEvent.targetTouches.length ) {
@@ -488,7 +523,7 @@ class BackgroundTouchEL {
 		}
 		if ( TWO === touchEvent.targetTouches.length ) {
 			this.#initialZoom = theTravelNotesData.map.getZoom ( );
-			this.#startPoint = window.L.point (
+			this.#aroundPoint = window.L.point (
 				( touchEvent.targetTouches.item ( ZERO ).clientX + touchEvent.targetTouches.item ( ONE ).clientX ) / TWO,
 				( touchEvent.targetTouches.item ( ZERO ).clientY + touchEvent.targetTouches.item ( ONE ).clientY ) / TWO
 			);
@@ -504,6 +539,7 @@ class BackgroundTouchEL {
 
 	/**
 	The constructor
+	@param {BaseDialog} baseDialog A reference to the dialog
 	*/
 
 	constructor ( baseDialog ) {
