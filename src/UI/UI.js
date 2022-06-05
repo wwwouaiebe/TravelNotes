@@ -38,6 +38,8 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v3.4.0:
 		- Issue ♯22 : Nice to have a table view for notes in the roadbook
+	- v3.7.0:
+		- Issue ♯39 : Add touch event on the UI to reducethe UI on touch devices. Mouseleave event don't work of course...
 Doc reviewed 20210915
 Tests ...
 */
@@ -51,7 +53,7 @@ import TravelNotesToolbarUI from '../UI/TravelNotesToolbarUI.js';
 import ItineraryPaneUI from '../UI/ItineraryPaneUI.js';
 import TravelNotesPaneUI from '../UI/TravelNotesPaneUI.js';
 import OsmSearchPaneUI from '../UI/OsmSearchPaneUI.js';
-import { ONE, PANE_ID } from '../main/Constants.js';
+import { ZERO, ONE, PANE_ID } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -118,9 +120,40 @@ class UI {
 
 	#isPinned;
 
+	#isShow;
+
 	/**
 	Event listener for the mouse leave on the UI
 	*/
+
+	#startX = Number.MAX_VALUE;
+
+	#onTouch ( touchEvent ) {
+
+		switch ( touchEvent.type ) {
+		case 'touchstart' :
+			if ( ONE === touchEvent.changedTouches.length ) {
+				const touch = touchEvent.changedTouches.item ( ZERO );
+				this.#startX = touch.screenX;
+				if ( ! this.#isShow ) {
+					this.#show ( );
+				}
+			}
+			break;
+		case 'touchend' :
+			if ( ONE === touchEvent.changedTouches.length ) {
+				const touch = touchEvent.changedTouches.item ( ZERO );
+				if ( 100 < touch.screenX - this.#startX ) {
+					this.#hide ( );
+				}
+			}
+			this.#startX = Number.MAX_VALUE;
+			break;
+		default :
+			break;
+
+		}
+	}
 
 	#onMouseLeave ( ) {
 		if ( this.#isPinned ) {
@@ -148,7 +181,7 @@ class UI {
 		for ( let childrenCounter = ONE; childrenCounter < children.length; childrenCounter ++ ) {
 			children[ childrenCounter ].classList.remove ( 'TravelNotes-Hidden' );
 		}
-
+		this.#isShow = true;
 	}
 
 	/**
@@ -166,6 +199,7 @@ class UI {
 		for ( let childrenCounter = ONE; childrenCounter < children.length; childrenCounter ++ ) {
 			children[ childrenCounter ].classList.add ( 'TravelNotes-Hidden' );
 		}
+		this.#isShow = false;
 	}
 
 	/**
@@ -223,6 +257,10 @@ class UI {
 		this.#providersToolbarUI = new ProvidersToolbarUI ( this.#mainHTMLElement );
 
 		// Event listeners
+		// uiHTMLElement.addEventListener ( 'touchstart', touchEvent => this.#onTouch ( touchEvent ), false );
+		// uiHTMLElement.addEventListener ( 'touchend', touchEvent => this.#onTouch ( touchEvent ), false );
+		this.#mainHTMLElement.addEventListener ( 'touchstart', touchEvent => this.#onTouch ( touchEvent ), false );
+		this.#mainHTMLElement.addEventListener ( 'touchend', touchEvent => this.#onTouch ( touchEvent ), false );
 		this.#mainHTMLElement.addEventListener ( 'mouseenter', ( ) => this.#show ( ), false );
 		this.#mainHTMLElement.addEventListener ( 'mouseleave', ( ) => this.#onMouseLeave ( ), false );
 
