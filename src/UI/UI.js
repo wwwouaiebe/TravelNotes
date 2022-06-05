@@ -120,13 +120,32 @@ class UI {
 
 	#isPinned;
 
+	/**
+	The showed status of the UI
+	@type {Boolean}
+	*/
+
 	#isShow;
 
 	/**
-	Event listener for the mouse leave on the UI
+	The X position on the screen of the touchstart event
+	@type {Number}
 	*/
 
-	#startX = Number.MAX_VALUE;
+	#touchStartX = Number.MAX_VALUE;
+
+	/**
+	The pan value needed to hide the UI
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #HIDE_X_PAN ( ) { return 100; }
+
+	/**
+	Event listener for the touch events on the UI
+	@param {Event} touchEvent The event to handle
+	*/
 
 	#onTouch ( touchEvent ) {
 
@@ -134,7 +153,7 @@ class UI {
 		case 'touchstart' :
 			if ( ONE === touchEvent.changedTouches.length ) {
 				const touch = touchEvent.changedTouches.item ( ZERO );
-				this.#startX = touch.screenX;
+				this.#touchStartX = touch.screenX;
 				if ( ! this.#isShow ) {
 					this.#show ( );
 				}
@@ -143,17 +162,21 @@ class UI {
 		case 'touchend' :
 			if ( ONE === touchEvent.changedTouches.length ) {
 				const touch = touchEvent.changedTouches.item ( ZERO );
-				if ( 100 < touch.screenX - this.#startX ) {
+				if ( UI.#HIDE_X_PAN < touch.screenX - this.#touchStartX ) {
 					this.#hide ( );
 				}
 			}
-			this.#startX = Number.MAX_VALUE;
+			this.#touchStartX = Number.MAX_VALUE;
 			break;
 		default :
 			break;
 
 		}
 	}
+
+	/**
+	Event listener for the mouse leave on the UI
+	*/
 
 	#onMouseLeave ( ) {
 		if ( this.#isPinned ) {
