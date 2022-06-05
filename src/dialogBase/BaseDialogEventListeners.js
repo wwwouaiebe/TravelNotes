@@ -518,10 +518,9 @@ class BackgroundTouchEL {
 
 	handleEvent ( touchEvent ) {
 
-		touchEvent.preventDefault ( );
-
-		// console.log ( touchEvent.type + ' ' + touchEvent.targetTouches.length + ' ' + touchEvent.changedTouches.length );
-
+		if ( touchEvent.currentTarget === touchEvent.target ) {
+			touchEvent.preventDefault ( );
+		}
 		switch ( touchEvent.type ) {
 		case 'touchstart' :
 			this.#handleStartEvent ( touchEvent );
