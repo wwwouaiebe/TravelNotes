@@ -30,7 +30,7 @@ Tests ...
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-mousedown event listener for the eye button
+mousedown and touchstart event listener for the eye button of the password dialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
@@ -55,20 +55,20 @@ class EyeMouseDownEL {
 
 	/**
 	Event listener method
-	@param {Event} mouseDownEvent The event to handle
+	@param {Event} mouseDownOrTouchStartEvent The event to handle
 	*/
 
-	handleEvent ( mouseDownEvent ) {
-		mouseDownEvent.currentTarget.textContent = '👀';
-		mouseDownEvent.preventDefault ( );
-		mouseDownEvent.stopPropagation ( );
+	handleEvent ( mouseDownOrTouchStartEvent ) {
+		mouseDownOrTouchStartEvent.currentTarget.textContent = '👀';
+		mouseDownOrTouchStartEvent.preventDefault ( );
+		mouseDownOrTouchStartEvent.stopPropagation ( );
 		this.#passwordInput.type = 'text';
 	}
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-mouseup event listener for the eye button
+mouseup and touchend event listener for the eye button of the password dialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
@@ -93,13 +93,13 @@ class EyeMouseUpEL {
 
 	/**
 	Event listener method
-	@param {Event} mouseUpEvent The event to handle
+	@param {Event} mouseUpOrTouchEndEvent The event to handle
 	*/
 
-	handleEvent ( mouseUpEvent ) {
-		mouseUpEvent.currentTarget.textContent = '👁️';
-		mouseUpEvent.preventDefault ( );
-		mouseUpEvent.stopPropagation ( );
+	handleEvent ( mouseUpOrTouchEndEvent ) {
+		mouseUpOrTouchEndEvent.currentTarget.textContent = '👁️';
+		mouseUpOrTouchEndEvent.preventDefault ( );
+		mouseUpOrTouchEndEvent.stopPropagation ( );
 		this.#passwordInput.type = 'password';
 		this.#passwordInput.focus ( );
 	}
