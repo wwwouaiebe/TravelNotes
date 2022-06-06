@@ -130,8 +130,10 @@ class PasswordDialog extends BaseDialog {
 	*/
 
 	#destructor ( ) {
-		this.#eyeSpan.removeEventListener ( 'mousedown', this.#eyeMouseDownEL, false );
+		this.#eyeSpan.removeEventListener ( 'touchend', this.#eyeMouseDownEL, false );
 		this.#eyeSpan.removeEventListener ( 'mouseup', this.#eyeMouseUpEL,	false );
+		this.#eyeSpan.removeEventListener ( 'touchstart', this.#eyeMouseDownEL, false );
+		this.#eyeSpan.removeEventListener ( 'mousedown', this.#eyeMouseUpEL,	false );
 		this.#eyeMouseDownEL = null;
 		this.#eyeMouseUpEL = null;
 
