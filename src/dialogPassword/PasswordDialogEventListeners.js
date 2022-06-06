@@ -22,6 +22,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.7.0:
+		- Issue ♯40 : The eye button of the password dialog don't work on touch devices
 Doc reviewed 20210914
 Tests ...
 */
@@ -58,7 +60,8 @@ class EyeMouseDownEL {
 
 	handleEvent ( mouseDownEvent ) {
 		mouseDownEvent.currentTarget.textContent = '👀';
-		mouseDownEvent.stopPropagation;
+		mouseDownEvent.preventDefault ( );
+		mouseDownEvent.stopPropagation ( );
 		this.#passwordInput.type = 'text';
 	}
 }
@@ -95,7 +98,8 @@ class EyeMouseUpEL {
 
 	handleEvent ( mouseUpEvent ) {
 		mouseUpEvent.currentTarget.textContent = '👁️';
-		mouseUpEvent.stopPropagation;
+		mouseUpEvent.preventDefault ( );
+		mouseUpEvent.stopPropagation ( );
 		this.#passwordInput.type = 'password';
 		this.#passwordInput.focus ( );
 	}
