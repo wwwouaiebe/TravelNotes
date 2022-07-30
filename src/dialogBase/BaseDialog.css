@@ -31,7 +31,7 @@ Changes:
 */
 
 .TravelNotes-BaseDialog-Container {
-	z-index: 1200;
+	z-index: 1250;
 	position: absolute;
 	background-color: white;
 	border-style: solid;

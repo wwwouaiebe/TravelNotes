@@ -32,7 +32,7 @@ Changes:
 	position: absolute;
 	top: 0;
 	left: calc(50vw - 5em);
-	z-index: 1200;
+	z-index: 1100;
 	text-align: center;
 	width: 10em;
 }
