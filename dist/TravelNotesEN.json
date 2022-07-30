@@ -144,6 +144,10 @@
 		"msgstr": "Not possible to select {provider}"
 	},
 	{
+		"msgid": "GeoLocator - Geolocation disabled on the device",
+		"msgstr": "The geolocation is disabled on the device"
+	},	
+	{
 		"msgid": "GpxParser - Go to network node",
 		"msgstr": " - go to node "
 	},
