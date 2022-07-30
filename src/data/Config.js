@@ -45,6 +45,9 @@ Changes:
 		- Issue ♯18 : Add flags in rhe config, so the user can choose when panes are show in the UI after modifications
 	- v3.4.0:
 		- Issue ♯24 : Review the print process
+	- v4.0.0:
+		- Issue ♯38 : Review mouse and touch events on the background div of dialogs
+
 Doc reviewed 20210913
 Tests ...
 */
@@ -64,6 +67,11 @@ const theConfig = {
 		haveUnsecureButtons : true,
 		showAPIKeys : true,
 		showButton : true
+	},
+	baseDialog : {
+		cancelTouchX : 100,
+		cancelTouchY : 150,
+		deltaZoomDistance : 75
 	},
 	contextMenu : {
 		timeout : 1500

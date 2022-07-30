@@ -31,6 +31,8 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v3.2.0:
 		- Issue ♯4 : Line type and line width for routes are not adapted on the print views
+	- v4.0.0:
+		- Issue # 44 : Always some problems with geo location on android
 Doc reviewed 20210914
 Tests ...
 */
@@ -434,8 +436,11 @@ class MapEditorViewer {
 			+ theUtilities.formatLatLng ( [ position.coords.latitude, position.coords.longitude ] )
 			+ '<br/>';
 		if ( position.coords.altitude ) {
-			tooltip += '<br/> Altitude (+/- ' + position.coords.altitudeAccuracy.toFixed ( ZERO ) + ' m) :<br/>'
+			tooltip += '<br/> Altitude  :<br/>'
 			+ position.coords.altitude.toFixed ( ZERO ) + ' m';
+			if ( position.coords.altitudeAccuracy ) {
+				tooltip += '(+/- ' + position.coords.altitudeAccuracy.toFixed ( ZERO ) + ' m)';
+			}
 		}
 
 		if ( ZERO === theConfig.geoLocation.marker.radius ) {
@@ -453,9 +458,12 @@ class MapEditorViewer {
 		}
 		this.#geolocationCircle
 			.bindTooltip ( tooltip )
-			.bindPopup ( tooltip )
 			.addTo ( theTravelNotesData.map );
-		this.#geolocationCircle.openPopup ( );
+		if ( ! theConfig.geoLocation.watch ) {
+			this.#geolocationCircle
+				.bindPopup ( tooltip )
+				.openPopup ( );
+		}
 		if ( zoomToPosition ) {
 			theTravelNotesData.map.setView (
 				window.L.latLng ( position.coords.latitude, position.coords.longitude ),

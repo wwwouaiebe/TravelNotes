@@ -41,7 +41,10 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210914
+	- v4.0.0:
+		- Issue ♯38 : Review mouse and touch events on the background div of dialogs
+		- Issue #41 : Not possible to move a dialog on touch devices
+Doc reviewed ...
 Tests ...
 */
 
@@ -101,17 +104,25 @@ import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import {
 	OkButtonClickEL,
 	CancelDialogButtonClickEL,
-	TopBarDragStartEL,
-	TopBarDragEndEL,
-	DialogKeyboardKeydownEL,
-	BackgroundLeftPanEL,
-	BackgroundRightPanEL,
+	DialogKeyboardKeydownEL
+} from '../dialogbase/BaseDialogEventListeners.js';
+import {
 	BackgroundWheelEL,
 	BackgroundContextMenuEL,
-	BackgroundDragOverEL
-} from '../dialogbase/BaseDialogEventListeners.js';
-import PanEventDispatcher from '../dialogPanEventDispatcher/PanEventDispatcher.js';
+	BackgroundDragOverEL,
+	BackgroundTouchEL,
+	BackgroundMouseEL
+} from '../dialogbase/BaseDialogBackgroundEventListeners.js';
+import {
+	TopBarDragStartEL,
+	TopBarDragEndEL,
+	TopBarTouchStartEL,
+	TopBarTouchMoveEL,
+	TopBarTouchEndEL,
+	TopBarTouchCancelEL
+} from '../dialogbase/BaseDialogTopBarEventListeners.js';
 import DragData from '../dialogs/DragData.js';
+import TouchData from '../dialogs/TouchData.js';
 
 // import GarbageCollectorTester from '../UILib/GarbageCollectorTester.js';
 
@@ -296,20 +307,6 @@ class BaseDialog {
 	#secondButton;
 
 	/**
-	An event dispatcher for pans with the left button
-	@type {PanEventDispatcher}
-	*/
-
-	#leftPanEventDispatcher;
-
-	/**
-	An event dispatcher for pans with the right button
-	@type {PanEventDispatcher}
-	*/
-
-	#rightPanEventDispatcher;
-
-	/**
 	A flag to avoid all dialogs close when using the esc or enter keys
 	@type {Boolean}
 	*/
@@ -324,18 +321,11 @@ class BaseDialog {
 	#dragData;
 
 	/**
-	Background left pan event listener
-	@type {BackgroundLeftPanEL}
+	Data for topbar touch operations
+	@type {TouchData}
 	*/
 
-	#backgroundLeftPanEL;
-
-	/**
-	Background right pan event listener
-	@type {BackgroundRightPanEL}
-	*/
-
-	#backgroundRightPanEL;
+	#touchTopBarData;
 
 	/**
 	Drog over the background event listener
@@ -343,6 +333,20 @@ class BaseDialog {
 	*/
 
 	#backgroundDragOverEL;
+
+	/**
+	Touch on the background event listener
+	@type {BackgroundTouchEL}
+	*/
+
+	#backgroundTouchEL;
+
+	/**
+	mouseup, mousedown and mousemove event listeners  on the background
+	@type {BackgroundMouseEL}
+	*/
+
+	#backgroundMouseEL;
 
 	/**
 	Wheel event listener on the background
@@ -371,6 +375,34 @@ class BaseDialog {
 	*/
 
 	#topBarDragEndEL;
+
+	/**
+	Top bar touchstart event listener
+	@type {TopBarTouchStartEL}
+	*/
+
+	#topBarTouchStartEL;
+
+	/**
+	Top bar touchmove event listener
+	@type {TopBarTouchMoveEL}
+	*/
+
+	#topBarTouchMoveEL;
+
+	/**
+	Top bar touchend event listener
+	@type {TopBarTouchEndEL}
+	*/
+
+	#topBarTouchEndEL;
+
+	/**
+	Top bar touchcancel event listener
+	@type {TopBarTouchStartEL}
+	*/
+
+	#topBarTouchCancelEL;
 
 	/**
 	Cancel button click event listener
@@ -423,15 +455,6 @@ class BaseDialog {
 		// A new element covering the entire screen is created, with drag and drop event listeners
 		this.#backgroundDiv = theHTMLElementsFactory.create ( 'div', { className : 'TravelNotes-Background' } );
 
-		this.#leftPanEventDispatcher = new PanEventDispatcher ( this.#backgroundDiv, PanEventDispatcher.LEFT_BUTTON );
-		this.#rightPanEventDispatcher = new PanEventDispatcher ( this.#backgroundDiv, PanEventDispatcher.RIGHT_BUTTON );
-
-		this.#backgroundLeftPanEL = new BackgroundLeftPanEL ( );
-		this.#backgroundDiv.addEventListener ( 'leftpan', this.#backgroundLeftPanEL, false );
-
-		this.#backgroundRightPanEL = new BackgroundRightPanEL ( );
-		this.#backgroundDiv.addEventListener ( 'rightpan', this.#backgroundRightPanEL, false );
-
 		this.#backgroundDragOverEL = new BackgroundDragOverEL ( );
 		this.#backgroundDiv.addEventListener ( 'dragover', this.#backgroundDragOverEL, false );
 
@@ -440,6 +463,17 @@ class BaseDialog {
 
 		this.#backgroundContextMenuEL = new BackgroundContextMenuEL ( );
 		this.#backgroundDiv.addEventListener ( 'contextmenu', this.#backgroundContextMenuEL, false );
+
+		this.#backgroundTouchEL = new BackgroundTouchEL ( this );
+		this.#backgroundDiv.addEventListener ( 'touchstart', this.#backgroundTouchEL, false );
+		this.#backgroundDiv.addEventListener ( 'touchmove', this.#backgroundTouchEL, false );
+		this.#backgroundDiv.addEventListener ( 'touchend', this.#backgroundTouchEL, false );
+		this.#backgroundDiv.addEventListener ( 'touchcancel', this.#backgroundTouchEL, false );
+
+		this.#backgroundMouseEL = new BackgroundMouseEL ( );
+		this.#backgroundDiv.addEventListener ( 'mouseup', this.#backgroundMouseEL, false );
+		this.#backgroundDiv.addEventListener ( 'mousemove', this.#backgroundMouseEL, false );
+		this.#backgroundDiv.addEventListener ( 'mousedown', this.#backgroundMouseEL, false );
 	}
 
 	/**
@@ -472,6 +506,15 @@ class BaseDialog {
 			},
 			this.#containerDiv
 		);
+
+		this.#topBarTouchStartEL = new TopBarTouchStartEL ( this.#touchTopBarData );
+		this.#topBar.addEventListener ( 'touchstart', this.#topBarTouchStartEL, false );
+		this.#topBarTouchMoveEL = new TopBarTouchMoveEL ( this.#touchTopBarData, this.#containerDiv );
+		this.#topBar.addEventListener ( 'touchmove', this.#topBarTouchMoveEL, false );
+		this.#topBarTouchEndEL = new TopBarTouchEndEL ( this.#touchTopBarData, this.#containerDiv, this.#backgroundDiv );
+		this.#topBar.addEventListener ( 'touchend', this.#topBarTouchEndEL, false );
+		this.#topBarTouchCancelEL = new TopBarTouchCancelEL ( this.#touchTopBarData );
+		this.#topBar.addEventListener ( 'touchcancel', this.#topBarTouchCancelEL, false );
 
 		this.#topBarDragStartEL = new TopBarDragStartEL ( this.#dragData );
 		this.#topBar.addEventListener ( 'dragstart', this.#topBarDragStartEL, false );
@@ -653,6 +696,9 @@ class BaseDialog {
 			DIALOG_DRAG_MARGIN
 		);
 
+		this.#touchTopBarData.dialogX = this.#dragData.dialogX;
+		this.#touchTopBarData.dialogY = this.#dragData.dialogY;
+
 		const dialogMaxHeight =
 			this.#backgroundDiv.clientHeight -
 			Math.max ( this.#dragData.dialogY, ZERO ) -
@@ -690,6 +736,7 @@ class BaseDialog {
 	constructor ( options ) {
 		Object.freeze ( this );
 		this.#dragData = new DragData ( );
+		this.#touchTopBarData = new TouchData ( );
 		this.#options = new DialogOptions ( options );
 		this.#keyboardELEnabled = true;
 	}
@@ -709,6 +756,18 @@ class BaseDialog {
 		this.#topBar.removeEventListener ( 'dragend', this.#topBarDragEndEL, false );
 		this.#topBarDragEndEL = null;
 
+		this.#topBar.removeEventListener ( 'touchstart', this.#topBarTouchStartEL, false );
+		this.#topBarTouchStartEL = null;
+
+		this.#topBar.removeEventListener ( 'touchmove', this.#topBarTouchMoveEL, false );
+		this.#topBarTouchMoveEL = null;
+
+		this.#topBar.removeEventListener ( 'touchend', this.#topBarTouchEndEL, false );
+		this.#topBarTouchEndEL = null;
+
+		this.#topBar.removeEventListener ( 'touchcancel', this.#topBarTouchCancelEL, false );
+		this.#topBarTouchCancelEL = null;
+
 		this.#cancelButton.removeEventListener ( 'click', this.#cancelDialogButtonClickEL, false );
 		if ( this.#options.secondButtonText ) {
 			this.#secondButton.removeEventListener ( 'click', this.#cancelDialogButtonClickEL, false	);
@@ -717,12 +776,6 @@ class BaseDialog {
 
 		this.#okButton.removeEventListener ( 'click', this.#okButtonClickEL, false );
 		this.#okButtonClickEL = null;
-
-		this.#backgroundDiv.removeEventListener ( 'leftpan', this.#backgroundLeftPanEL, false );
-		this.#backgroundLeftPanEL = null;
-
-		this.#backgroundDiv.removeEventListener ( 'rightpan', this.#backgroundRightPanEL, false );
-		this.#backgroundRightPanEL = null;
 
 		this.#backgroundDiv.removeEventListener ( 'wheel', this.#backgroundWheelEL, { passive : true }	);
 		this.#backgroundWheelEL = null;
@@ -733,8 +786,16 @@ class BaseDialog {
 		this.#backgroundDiv.removeEventListener ( 'dragover', this.#backgroundDragOverEL, false );
 		this.#backgroundDragOverEL = null;
 
-		this.#leftPanEventDispatcher.detach ( );
-		this.#rightPanEventDispatcher.detach ( );
+		this.#backgroundDiv.removeEventListener ( 'touchstart', this.#backgroundTouchEL, false );
+		this.#backgroundDiv.removeEventListener ( 'touchmove', this.#backgroundTouchEL, false );
+		this.#backgroundDiv.removeEventListener ( 'touchend', this.#backgroundTouchEL, false );
+		this.#backgroundDiv.removeEventListener ( 'touchcancel', this.#backgroundTouchEL, false );
+		this.#backgroundTouchEL = null;
+
+		this.#backgroundDiv.removeEventListener ( 'mouseup', this.#backgroundMouseEL, false );
+		this.#backgroundDiv.removeEventListener ( 'mousemove', this.#backgroundMouseEL, false );
+		this.#backgroundDiv.removeEventListener ( 'mousedown', this.#backgroundMouseEL, false );
+		this.#backgroundMouseEL = null;
 
 		document.body.removeChild ( this.#backgroundDiv );
 	}

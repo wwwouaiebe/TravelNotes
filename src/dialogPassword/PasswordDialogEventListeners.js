@@ -22,13 +22,15 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v4.0.0:
+		- Issue ♯40 : The eye button of the password dialog don't work on touch devices
 Doc reviewed 20210914
 Tests ...
 */
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-mousedown event listener for the eye button
+mousedown and touchstart event listener for the eye button of the password dialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
@@ -53,19 +55,20 @@ class EyeMouseDownEL {
 
 	/**
 	Event listener method
-	@param {Event} mouseDownEvent The event to handle
+	@param {Event} mouseDownOrTouchStartEvent The event to handle
 	*/
 
-	handleEvent ( mouseDownEvent ) {
-		mouseDownEvent.currentTarget.textContent = '👀';
-		mouseDownEvent.stopPropagation;
+	handleEvent ( mouseDownOrTouchStartEvent ) {
+		mouseDownOrTouchStartEvent.currentTarget.textContent = '👀';
+		mouseDownOrTouchStartEvent.preventDefault ( );
+		mouseDownOrTouchStartEvent.stopPropagation ( );
 		this.#passwordInput.type = 'text';
 	}
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-mouseup event listener for the eye button
+mouseup and touchend event listener for the eye button of the password dialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
@@ -90,12 +93,13 @@ class EyeMouseUpEL {
 
 	/**
 	Event listener method
-	@param {Event} mouseUpEvent The event to handle
+	@param {Event} mouseUpOrTouchEndEvent The event to handle
 	*/
 
-	handleEvent ( mouseUpEvent ) {
-		mouseUpEvent.currentTarget.textContent = '👁️';
-		mouseUpEvent.stopPropagation;
+	handleEvent ( mouseUpOrTouchEndEvent ) {
+		mouseUpOrTouchEndEvent.currentTarget.textContent = '👁️';
+		mouseUpOrTouchEndEvent.preventDefault ( );
+		mouseUpOrTouchEndEvent.stopPropagation ( );
 		this.#passwordInput.type = 'password';
 		this.#passwordInput.focus ( );
 	}

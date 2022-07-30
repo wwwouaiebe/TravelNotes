@@ -27,6 +27,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v4.0.0:
+		- Issue ♯40 : The eye button of the password dialog don't work on touch devices
 Doc reviewed 20210914
 Tests ...
 */
@@ -118,7 +120,9 @@ class PasswordDialog extends BaseDialog {
 		this.#eyeMouseDownEL = new EyeMouseDownEL ( this.#passwordInput );
 		this.#eyeMouseUpEL = new EyeMouseUpEL ( this.#passwordInput );
 		this.#eyeSpan.addEventListener ( 'mousedown', this.#eyeMouseDownEL, false );
+		this.#eyeSpan.addEventListener ( 'touchstart', this.#eyeMouseDownEL, false );
 		this.#eyeSpan.addEventListener ( 'mouseup', this.#eyeMouseUpEL,	false );
+		this.#eyeSpan.addEventListener ( 'touchend', this.#eyeMouseUpEL, false );
 	}
 
 	/**
@@ -126,8 +130,10 @@ class PasswordDialog extends BaseDialog {
 	*/
 
 	#destructor ( ) {
-		this.#eyeSpan.removeEventListener ( 'mousedown', this.#eyeMouseDownEL, false );
+		this.#eyeSpan.removeEventListener ( 'touchend', this.#eyeMouseDownEL, false );
 		this.#eyeSpan.removeEventListener ( 'mouseup', this.#eyeMouseUpEL,	false );
+		this.#eyeSpan.removeEventListener ( 'touchstart', this.#eyeMouseDownEL, false );
+		this.#eyeSpan.removeEventListener ( 'mousedown', this.#eyeMouseUpEL,	false );
 		this.#eyeMouseDownEL = null;
 		this.#eyeMouseUpEL = null;
 
