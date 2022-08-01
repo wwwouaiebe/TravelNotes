@@ -30,6 +30,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v4.0.0:
+		- Issue ♯45 : Add touch events on the map toolbar to expand or reduce the toolbar
 Doc reviewed 20210913
 Tests ...
 */
@@ -45,7 +47,7 @@ import MapLayersToolbarButton from '../mapLayersToolbarUI/MapLayersToolbarButton
 import MapLayersToolbarLink from '../mapLayersToolbarUI/MapLayersToolbarLink.js';
 import theAPIKeysManager from '../core/APIKeysManager.js';
 
-import { MOUSE_WHEEL_FACTORS, ZERO } from '../main/Constants.js';
+import { MOUSE_WHEEL_FACTORS, ZERO, ONE } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -210,6 +212,27 @@ class MapLayersToolbarUI {
 	#onWheelButtonsEventListener;
 
 	/**
+	The Y position on the screen of the header touchstart event
+	@type {Number}
+	*/
+
+	#touchHeaderStartY = Number.MAX_VALUE;
+
+	/**
+	The pan value needed to hide or show the UI
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #HIDE_Y_PAN ( ) { return 10; }
+
+	/**
+	A boolean saving the the current state of the UI
+	 */
+
+	#isShow = false;
+
+	/**
 	Show the map layer buttons. Called by the mouseenter event
 	*/
 
@@ -219,6 +242,10 @@ class MapLayersToolbarUI {
 		if ( this.#timerId ) {
 			clearTimeout ( this.#timerId );
 			this.#timerId = null;
+			return;
+		}
+
+		if ( this.#isShow ) {
 			return;
 		}
 
@@ -279,6 +306,8 @@ class MapLayersToolbarUI {
 
 		// adding wheel event
 		this.#buttonsHTMLElement.addEventListener ( 'wheel', this.#onWheelButtonsEventListener, { passive : true } );
+
+		this.#isShow = true;
 	}
 
 	/**
@@ -286,6 +315,10 @@ class MapLayersToolbarUI {
 	*/
 
 	#hide ( ) {
+
+		if ( ! this.#isShow ) {
+			return;
+		}
 
 		// Removing map layer buttons and links
 		this.#buttonsAndLinks.forEach ( buttonOrLink => buttonOrLink.destructor ( ) );
@@ -297,6 +330,8 @@ class MapLayersToolbarUI {
 		// removing buttons container
 		this.#mainHTMLElement.removeChild ( this.#buttonsHTMLElement );
 		this.#timerId = null;
+
+		this.#isShow = false;
 	}
 
 	/**
@@ -305,6 +340,48 @@ class MapLayersToolbarUI {
 
 	#onMouseLeave ( ) {
 		this.#timerId = setTimeout ( ( ) => this.#hide ( ), theConfig.layersToolbarUI.toolbarTimeOut );
+	}
+
+	#onHeaderTouch ( touchEvent ) {
+		switch ( touchEvent.type ) {
+		case 'touchstart' :
+			if ( ONE === touchEvent.changedTouches.length ) {
+				const touch = touchEvent.changedTouches.item ( ZERO );
+				this.#touchHeaderStartY = touch.screenY;
+			}
+			break;
+		case 'touchend' :
+			if ( ONE === touchEvent.changedTouches.length ) {
+				const touch = touchEvent.changedTouches.item ( ZERO );
+				const deltaPanY = touch.screenY - this.#touchHeaderStartY;
+				if (
+					ZERO < deltaPanY
+					&&
+					MapLayersToolbarUI.#HIDE_Y_PAN < deltaPanY
+				) {
+					this.#show ( );
+				}
+				else if (
+					ZERO > deltaPanY
+					&&
+					MapLayersToolbarUI.#HIDE_Y_PAN < -deltaPanY
+				) {
+					this.#hide ( );
+				}
+				else if ( ZERO === deltaPanY ) {
+					if ( this.#isShow ) {
+						this.#hide ( );
+					}
+					else {
+						this.#show ( );
+					}
+				}
+			}
+			this.#touchHeaderStartY = Number.MAX_VALUE;
+			break;
+		default :
+			break;
+		}
 	}
 
 	/**
@@ -325,7 +402,10 @@ class MapLayersToolbarUI {
 	createUI ( ) {
 		this.#mainHTMLElement =
 			theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-MapLayersToolbarUI' }, document.body );
-		theHTMLElementsFactory.create (
+		this.#mainHTMLElement.addEventListener ( 'mouseenter', ( ) => this.#show ( ), false );
+		this.#mainHTMLElement.addEventListener ( 'mouseleave', ( ) => this.#onMouseLeave ( ), false );
+
+		const headerHtmlElement = theHTMLElementsFactory.create (
 			'div',
 			{
 				id : 'TravelNotes-MapLayersToolbarUI-Header',
@@ -333,8 +413,9 @@ class MapLayersToolbarUI {
 			},
 			this.#mainHTMLElement
 		);
-		this.#mainHTMLElement.addEventListener ( 'mouseenter', ( ) => this.#show ( ), false );
-		this.#mainHTMLElement.addEventListener ( 'mouseleave', ( ) => this.#onMouseLeave ( ), false );
+		headerHtmlElement.addEventListener ( 'touchstart', touchEvent => this.#onHeaderTouch ( touchEvent ), false );
+		headerHtmlElement.addEventListener ( 'touchend', touchEvent => this.#onHeaderTouch ( touchEvent ), false );
+
 		theEventDispatcher.dispatch ( 'layerchange', { layer : theMapLayersCollection.defaultMapLayer } );
 		theAttributionsUI.attributions = theMapLayersCollection.defaultMapLayer.attribution;
 	}

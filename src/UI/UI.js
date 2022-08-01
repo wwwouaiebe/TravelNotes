@@ -280,8 +280,6 @@ class UI {
 		this.#providersToolbarUI = new ProvidersToolbarUI ( this.#mainHTMLElement );
 
 		// Event listeners
-		// uiHTMLElement.addEventListener ( 'touchstart', touchEvent => this.#onTouch ( touchEvent ), false );
-		// uiHTMLElement.addEventListener ( 'touchend', touchEvent => this.#onTouch ( touchEvent ), false );
 		this.#mainHTMLElement.addEventListener ( 'touchstart', touchEvent => this.#onTouch ( touchEvent ), false );
 		this.#mainHTMLElement.addEventListener ( 'touchend', touchEvent => this.#onTouch ( touchEvent ), false );
 		this.#mainHTMLElement.addEventListener ( 'mouseenter', ( ) => this.#show ( ), false );
