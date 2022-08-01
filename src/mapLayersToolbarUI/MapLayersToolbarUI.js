@@ -102,6 +102,11 @@ class WheelEventData {
 
 	buttonTop = ZERO;
 
+	/**
+	The top margin to be used for the toolbar
+	@type {Number}
+	*/
+
 	get marginTop ( ) { return this.#marginTop; }
 
 	set marginTop ( marginTop ) {
@@ -134,14 +139,34 @@ Touch event listener on the map layer buttons container. Scroll the buttons
 
 class ButtonsContainerTouchEL {
 
+	/**
+	A reference to the WheelEventData Object
+	@type {WheelEventData}
+	*/
+
 	#wheelEventData;
 
+	/**
+	The Y position of the previous touch event
+	@type {Number}
+	*/
+
 	#touchContainerStartY = Number.MAX_VALUE;
+
+	/**
+	The constructor
+	@param {WheelEventData} wheelEventData A reference to the WheelEventData Object
+	*/
 
 	constructor ( wheelEventData ) {
 		Object.freeze ( this );
 		this.#wheelEventData = wheelEventData;
 	}
+
+	/**
+	Event listener method
+	@param {Event} touchEvent The event to handle
+	*/
 
 	handleEvent ( touchEvent ) {
 		switch ( touchEvent.type ) {
@@ -288,6 +313,7 @@ class MapLayersToolbarUI {
 
 	/**
 	A boolean saving the the current state of the UI
+	@type {boolean}
 	 */
 
 	#isShow = false;
