@@ -67,19 +67,19 @@ class WheelEventData {
 	static get #MIN_BUTTONS_VISIBLE ( ) { return 3; }
 
 	/**
+	The current margin-top in pixels css value for the buttons container
+	@type {Number}
+	*/
+
+	#marginTop = ZERO;
+
+	/**
 	The constructor
 	*/
 
 	constructor ( ) {
 		Object.seal ( this );
 	}
-
-	/**
-	The current margin-top in pixels css value for the buttons container
-	@type {Number}
-	*/
-
-	marginTop = ZERO;
 
 	/**
 	The height of 1 button in pixel;
@@ -102,15 +102,18 @@ class WheelEventData {
 
 	buttonTop = ZERO;
 
-	setMarginTop ( ) {
-		this.marginTop =
-			this.marginTop > this.buttonTop
+	get marginTop ( ) { return this.#marginTop; }
+
+	set marginTop ( marginTop ) {
+		this.#marginTop = marginTop;
+		this.#marginTop =
+			this.#marginTop > this.buttonTop
 				?
 				this.buttonTop
 				:
-				this.marginTop;
-		this.marginTop =
-			this.marginTop < this.buttonTop - this.buttonsHeight +
+				this.#marginTop;
+		this.#marginTop =
+			this.#marginTop < this.buttonTop - this.buttonsHeight +
 			( WheelEventData.#MIN_BUTTONS_VISIBLE * this.buttonHeight )
 				?
 				(
@@ -119,7 +122,7 @@ class WheelEventData {
 					( WheelEventData.#MIN_BUTTONS_VISIBLE * this.buttonHeight )
 				)
 				:
-				this.marginTop;
+				this.#marginTop;
 	}
 }
 
@@ -155,7 +158,6 @@ class ButtonsContainerTouchEL {
 				const deltaY = this.#touchContainerStartY - touch.screenY;
 				if ( ZERO !== deltaY ) {
 					this.#wheelEventData.marginTop -= deltaY;
-					this.#wheelEventData.setMarginTop ( );
 					this.#touchContainerStartY = touch.screenY;
 					touchEvent.currentTarget.style.marginTop = String ( this.#wheelEventData.marginTop ) + 'px';
 				}
@@ -204,7 +206,6 @@ class ButtonsContainerWheelEL {
 		wheelEvent.stopPropagation ( );
 		if ( wheelEvent.deltaY ) {
 			this.#wheelEventData.marginTop -= wheelEvent.deltaY * MOUSE_WHEEL_FACTORS [ wheelEvent.deltaMode ];
-			this.#wheelEventData.setMarginTop ( );
 			wheelEvent.currentTarget.style.marginTop = String ( this.#wheelEventData.marginTop ) + 'px';
 		}
 	}
