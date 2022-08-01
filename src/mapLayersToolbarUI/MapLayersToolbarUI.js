@@ -32,6 +32,7 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v4.0.0:
 		- Issue ♯45 : Add touch events on the map toolbar to expand or reduce the toolbar
+		- Issue ♯46 : Add touch events on the map toolbar to scroll the toolbar
 Doc reviewed 20210913
 Tests ...
 */
@@ -56,6 +57,14 @@ A simple container for data exchange between the ButtonsContainerWheelEL and the
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 class WheelEventData {
+
+	/**
+	The min buttons that have to be always visible
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #MIN_BUTTONS_VISIBLE ( ) { return 3; }
 
 	/**
 	The constructor
@@ -92,11 +101,78 @@ class WheelEventData {
 	*/
 
 	buttonTop = ZERO;
+
+	setMarginTop ( ) {
+		this.marginTop =
+			this.marginTop > this.buttonTop
+				?
+				this.buttonTop
+				:
+				this.marginTop;
+		this.marginTop =
+			this.marginTop < this.buttonTop - this.buttonsHeight +
+			( WheelEventData.#MIN_BUTTONS_VISIBLE * this.buttonHeight )
+				?
+				(
+					this.buttonTop -
+					this.buttonsHeight +
+					( WheelEventData.#MIN_BUTTONS_VISIBLE * this.buttonHeight )
+				)
+				:
+				this.marginTop;
+	}
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-Wheel event listeners on the map layer buttons. Scroll the buttons
+Touch event listener on the map layer buttons container. Scroll the buttons
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class ButtonsContainerTouchEL {
+
+	#wheelEventData;
+
+	#touchContainerStartY = Number.MAX_VALUE;
+
+	constructor ( wheelEventData ) {
+		Object.freeze ( this );
+		this.#wheelEventData = wheelEventData;
+	}
+
+	handleEvent ( touchEvent ) {
+		switch ( touchEvent.type ) {
+		case 'touchstart' :
+			if ( ONE === touchEvent.changedTouches.length ) {
+				const touch = touchEvent.changedTouches.item ( ZERO );
+				this.#touchContainerStartY = touch.screenY;
+			}
+			break;
+		case 'touchmove' :
+		case 'touchend' :
+			if ( ONE === touchEvent.changedTouches.length ) {
+				const touch = touchEvent.changedTouches.item ( ZERO );
+				const deltaY = this.#touchContainerStartY - touch.screenY;
+				if ( ZERO !== deltaY ) {
+					this.#wheelEventData.marginTop -= deltaY;
+					this.#wheelEventData.setMarginTop ( );
+					this.#touchContainerStartY = touch.screenY;
+					touchEvent.currentTarget.style.marginTop = String ( this.#wheelEventData.marginTop ) + 'px';
+				}
+			}
+			break;
+		default :
+			break;
+		}
+		if ( 'touchend' === touchEvent.type ) {
+			this.#touchContainerStartY = Number.MAX_VALUE;
+		}
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+Wheel event listener on the map layer buttons container. Scroll the buttons
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
@@ -108,14 +184,6 @@ class ButtonsContainerWheelEL {
 	*/
 
 	#wheelEventData;
-
-	/**
-	The min buttons that have to be always visible
-	@type {Number}
-	*/
-
-	// eslint-disable-next-line no-magic-numbers
-	static get #MIN_BUTTONS_VISIBLE ( ) { return 3; }
 
 	/**
 	The constructor
@@ -136,23 +204,7 @@ class ButtonsContainerWheelEL {
 		wheelEvent.stopPropagation ( );
 		if ( wheelEvent.deltaY ) {
 			this.#wheelEventData.marginTop -= wheelEvent.deltaY * MOUSE_WHEEL_FACTORS [ wheelEvent.deltaMode ];
-			this.#wheelEventData.marginTop =
-				this.#wheelEventData.marginTop > this.#wheelEventData.buttonTop
-					?
-					this.#wheelEventData.buttonTop
-					:
-					this.#wheelEventData.marginTop;
-			this.#wheelEventData.marginTop =
-				this.#wheelEventData.marginTop < this.#wheelEventData.buttonTop - this.#wheelEventData.buttonsHeight +
-				( ButtonsContainerWheelEL.#MIN_BUTTONS_VISIBLE * this.#wheelEventData.buttonHeight )
-					?
-					(
-						this.#wheelEventData.buttonTop -
-						this.#wheelEventData.buttonsHeight +
-						( ButtonsContainerWheelEL.#MIN_BUTTONS_VISIBLE * this.#wheelEventData.buttonHeight )
-					)
-					:
-					this.#wheelEventData.marginTop;
+			this.#wheelEventData.setMarginTop ( );
 			wheelEvent.currentTarget.style.marginTop = String ( this.#wheelEventData.marginTop ) + 'px';
 		}
 	}
@@ -205,11 +257,18 @@ class MapLayersToolbarUI {
 	#timerId;
 
 	/**
-	The wheel event listener
+	The wheel event listener for the buttons container
 	@type {ButtonsContainerWheelEL}
 	*/
 
 	#onWheelButtonsEventListener;
+
+	/**
+	The touch event listener for the buttons container
+	@type {ButtonsContainerTouchEL}
+	*/
+
+	#onButtonsContainerTouchEL;
 
 	/**
 	The Y position on the screen of the header touchstart event
@@ -307,6 +366,10 @@ class MapLayersToolbarUI {
 		// adding wheel event
 		this.#buttonsHTMLElement.addEventListener ( 'wheel', this.#onWheelButtonsEventListener, { passive : true } );
 
+		// adding touch event listeners
+		this.#buttonsHTMLElement.addEventListener ( 'touchstart', this.#onButtonsContainerTouchEL, false );
+		this.#buttonsHTMLElement.addEventListener ( 'touchmove', this.#onButtonsContainerTouchEL, false );
+		this.#buttonsHTMLElement.addEventListener ( 'touchend', this.#onButtonsContainerTouchEL, false );
 		this.#isShow = true;
 	}
 
@@ -327,6 +390,11 @@ class MapLayersToolbarUI {
 		// Removing wheel event listener
 		this.#buttonsHTMLElement.removeEventListener ( 'wheel', this.#onWheelButtonsEventListener, { passive : true } );
 
+		// Removing touch event listeners
+		this.#buttonsHTMLElement.removeEventListener ( 'touchstart', this.#onButtonsContainerTouchEL, false );
+		this.#buttonsHTMLElement.removeEventListener ( 'touchmove', this.#onButtonsContainerTouchEL, false );
+		this.#buttonsHTMLElement.removeEventListener ( 'touchend', this.#onButtonsContainerTouchEL, false );
+
 		// removing buttons container
 		this.#mainHTMLElement.removeChild ( this.#buttonsHTMLElement );
 		this.#timerId = null;
@@ -341,6 +409,11 @@ class MapLayersToolbarUI {
 	#onMouseLeave ( ) {
 		this.#timerId = setTimeout ( ( ) => this.#hide ( ), theConfig.layersToolbarUI.toolbarTimeOut );
 	}
+
+	/**
+	The header touch event listener. Show or hide the toolbar
+	@param {Event} touchEvent The event to handle
+	*/
 
 	#onHeaderTouch ( touchEvent ) {
 		switch ( touchEvent.type ) {
@@ -392,6 +465,7 @@ class MapLayersToolbarUI {
 		Object.freeze ( this );
 		this.#wheelEventData = new WheelEventData ( );
 		this.#onWheelButtonsEventListener = new ButtonsContainerWheelEL ( this.#wheelEventData );
+		this.#onButtonsContainerTouchEL = new ButtonsContainerTouchEL ( this.#wheelEventData );
 		this.#buttonsAndLinks = [];
 	}
 
