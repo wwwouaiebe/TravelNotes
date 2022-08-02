@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v1.0.0:
 		- created
+	- v4.0.0:
+		- Issue ♯47 : Review the mouseUI
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -31,33 +33,14 @@ Changes:
 #TravelNotes-MouseUI {
 	position: absolute;
 	top: 0;
-	left: calc(50vw - 5em);
-	z-index: 1100;
+	left: calc(50% - 10em);
+	z-index: 1050;
 	text-align: center;
-	width: 10em;
-}
-
-@media screen and (min-width: 1px) and (max-width: 640px) {
-	#TravelNotes-MouseUI {
-		left: 3em;
-		width: 0;
-		text-align: left;
-		visibility: hidden;
-	}
-}
-
-@media screen and (min-width: 641px) and (max-width: 1024px) {
-	#TravelNotes-MouseUI {
-		left: 3em;
-		width: calc(100% - 33em);
-		text-align: left;
-	}
-}
-
-#TravelNotes-MouseUI > span {
-	padding: 0.3em;
+	width: 20em;
 	background-color: white;
 	opacity: 0.5;
+	padding-left: 0.3em;
+	padding-right: 0.3em;
 }
 
 /*

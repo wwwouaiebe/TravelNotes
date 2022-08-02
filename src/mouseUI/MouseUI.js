@@ -29,6 +29,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v4.0.0:
+		- Issue ♯47 : Review the mouseUI
 Doc reviewed 20210913
 Tests ...
 */
@@ -53,7 +55,7 @@ class MouseUI {
 	@type {HTMLElement}
 	*/
 
-	#mouseUISpan;
+	#mouseUIElement;
 
 	/**
 	The save status
@@ -96,8 +98,8 @@ class MouseUI {
 	*/
 
 	#updateUI ( ) {
-		if ( this.#mouseUISpan ) {
-			this.#mouseUISpan.textContent =
+		if ( this.#mouseUIElement ) {
+			this.#mouseUIElement.textContent =
 				this.#saveStatus + '\u00a0' + this.#mousePosition + '\u00a0-\u00a0Zoom\u00a0:\u00a0' + this.#zoom;
 		}
 	}
@@ -150,12 +152,8 @@ class MouseUI {
 	createUI ( ) {
 
 		// HTML creation
-		this.#mouseUISpan =
-			theHTMLElementsFactory.create (
-				'span',
-				null,
-				theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-MouseUI' }, document.body )
-			);
+		this.#mouseUIElement =
+			theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-MouseUI' }, document.body );
 
 		// init vars for mouse and zoom
 		this.#zoom = theTravelNotesData.map.getZoom ( );
@@ -164,7 +162,7 @@ class MouseUI {
 			'\u00a0-\u00a0' +
 			theUtilities.formatLng ( theConfig.map.center.lng );
 
-		// Event listeners for mouse and zoom
+		// Event listeners for mouse
 		theTravelNotesData.map.on (
 			'mousemove',
 			mouseMoveEvent => {
@@ -173,6 +171,8 @@ class MouseUI {
 				this.#updateUI ( );
 			}
 		);
+
+		// Event listeners for zoom
 		theTravelNotesData.map.on (
 			'zoomend',
 			( ) => {
