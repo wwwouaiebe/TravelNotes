@@ -14,7 +14,7 @@
 		"requireConfigFile": false
 	},
     "rules": {
-		"no-unused-private-class-members": ["error"],
+		"no-unused-private-class-members": ["warn"],
 		"curly" : [ "warn" ],
 		"complexity" : [ "warn", 20 ],
 		"default-case" : [ "warn" ],

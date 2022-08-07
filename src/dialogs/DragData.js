@@ -69,6 +69,15 @@ class DragData {
 	*/
 
 	dialogY = ZERO;
+
+	/**
+    Reset the DragData object to it's initial state
+    */
+
+	reset ( ) {
+		this.dragStartX = ZERO;
+		this.dragStartY = ZERO;
+	}
 }
 
 export default DragData;

@@ -116,6 +116,8 @@ class TopBarDragEndEL {
 
 	handleEvent ( dragEndEvent ) {
 		this.#dragData.dialogX += dragEndEvent.screenX - this.#dragData.dragStartX;
+		this.#dragData.dialogY += dragEndEvent.screenY - this.#dragData.dragStartY;
+
 		this.#dragData.dialogX =
 			Math.min (
 				Math.max ( this.#dragData.dialogX, DIALOG_DRAG_MARGIN ),
@@ -124,18 +126,16 @@ class TopBarDragEndEL {
 					DIALOG_DRAG_MARGIN
 			);
 
-		this.#dragData.dialogY += dragEndEvent.screenY - this.#dragData.dragStartY;
 		this.#dragData.dialogY =
-			Math.max ( this.#dragData.dialogY, DIALOG_DRAG_MARGIN );
-
-		const dialogMaxHeight =
+		Math.min (
+			Math.max ( this.#dragData.dialogY, DIALOG_DRAG_MARGIN ),
 			this.#background.clientHeight -
-			Math.max ( this.#dragData.dialogY, ZERO ) -
-			DIALOG_DRAG_MARGIN;
+				this.#container.clientHeight -
+				DIALOG_DRAG_MARGIN
+		);
 
 		this.#container.style.left = String ( this.#dragData.dialogX ) + 'px';
 		this.#container.style.top = String ( this.#dragData.dialogY ) + 'px';
-		this.#container.style [ 'max-height' ] = String ( dialogMaxHeight ) + 'px';
 	}
 }
 
@@ -148,20 +148,20 @@ touchstart event listener for the top bar
 class TopBarTouchStartEL {
 
 	/**
-	A reference to the touchTopBarData object of the dialog
+	A reference to the dragData object of the dialog
 	@type {DragData}
 	*/
 
-	#touchTopBarData;
+	#dragData;
 
 	/**
 	The constructor
 	@param {TouchData} touchTopBarData A reference to the touchTopBarData object of the dialog
 	*/
 
-	constructor ( touchTopBarData ) {
+	constructor ( dragData ) {
 		Object.freeze ( this );
-		this.#touchTopBarData = touchTopBarData;
+		this.#dragData = dragData;
 	}
 
 	/**
@@ -173,80 +173,26 @@ class TopBarTouchStartEL {
 		touchStartEvent.stopPropagation ( );
 		if ( ONE === touchStartEvent.targetTouches.length ) {
 			const touch = touchStartEvent.changedTouches.item ( ZERO );
-			this.#touchTopBarData.touchStartX = touch.screenX;
-			this.#touchTopBarData.touchStartY = touch.screenY;
+			this.#dragData.dragStartX = touch.screenX;
+			this.#dragData.dragStartY = touch.screenY;
 		}
 	}
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-touchmove event listener for the top bar
+touchmove and touchend event listener for the top bar
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class TopBarTouchMoveEL {
+class TopBarTouchMoveOrEndEL {
 
 	/**
-	A reference to the touchTopBarData object of the dialog
+	A reference to the dragData object of the dialog
 	@type {DragData}
 	*/
 
-	#touchTopBarData;
-
-	/**
-	A reference to the dialog container
-	@type {HTMLElement}
-	*/
-
-	#container;
-
-	/**
-	The constructor
-	@param {TouchData} touchTopBarData A reference to the touchTopBarData object of the dialog
-	@param {HTMLElement} container A reference to the dialog container
-	*/
-
-	constructor ( touchTopBarData, container ) {
-		Object.freeze ( this );
-		this.#touchTopBarData = touchTopBarData;
-		this.#container = container;
-	}
-
-	/**
-	Handle the touchmove event on the top bar
-	@param {Event} touchMoveEvent The event to handle
-	*/
-
-	handleEvent ( touchMoveEvent ) {
-		touchMoveEvent.stopPropagation ( );
-
-		if ( ONE === touchMoveEvent.changedTouches.length ) {
-			const touch = touchMoveEvent.changedTouches.item ( ZERO );
-			this.#touchTopBarData.dialogX += touch.screenX - this.#touchTopBarData.touchStartX;
-			this.#touchTopBarData.dialogY += touch.screenY - this.#touchTopBarData.touchStartY;
-			this.#touchTopBarData.touchStartX = touch.screenX;
-			this.#touchTopBarData.touchStartY = touch.screenY;
-			this.#container.style.left = String ( this.#touchTopBarData.dialogX ) + 'px';
-			this.#container.style.top = String ( this.#touchTopBarData.dialogY ) + 'px';
-		}
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-touchend event listener for the top bar
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class TopBarTouchEndEL {
-
-	/**
-	A reference to the touchTopBarData object of the dialog
-	@type {DragData}
-	*/
-
-	#touchTopBarData;
+	#dragData;
 
 	/**
 	A reference to the dialog container
@@ -269,15 +215,15 @@ class TopBarTouchEndEL {
 	@param {HTMLElement} background A reference to the background of the dialog
 	*/
 
-	constructor ( touchTopBarData, container, background ) {
+	constructor ( dragData, container, background ) {
 		Object.freeze ( this );
-		this.#touchTopBarData = touchTopBarData;
+		this.#dragData = dragData;
 		this.#container = container;
 		this.#background = background;
 	}
 
 	/**
-	Handle the touchend event on the top bar
+	Handle the touch move or touch end event on the top bar
 	@param {Event} touchEndEvent The event to handle
 	*/
 
@@ -285,29 +231,31 @@ class TopBarTouchEndEL {
 		touchEndEvent.stopPropagation ( );
 		if ( ONE === touchEndEvent.changedTouches.length ) {
 			const touch = touchEndEvent.changedTouches.item ( ZERO );
-			this.#touchTopBarData.dialogX += touch.screenX - this.#touchTopBarData.touchStartX;
-			this.#touchTopBarData.dialogY += touch.screenY - this.#touchTopBarData.touchStartY;
+			this.#dragData.dialogX += touch.screenX - this.#dragData.dragStartX;
+			this.#dragData.dialogY += touch.screenY - this.#dragData.dragStartY;
 
-			this.#touchTopBarData.dialogX =
+			this.#dragData.dragStartX = touch.screenX;
+			this.#dragData.dragStartY = touch.screenY;
+
+			this.#dragData.dialogX =
 				Math.min (
-					Math.max ( this.#touchTopBarData.dialogX, DIALOG_DRAG_MARGIN ),
+					Math.max ( this.#dragData.dialogX, DIALOG_DRAG_MARGIN ),
 					this.#background.clientWidth -
 						this.#container.clientWidth -
 						DIALOG_DRAG_MARGIN
 				);
 
-			this.#touchTopBarData.dialogY =
+			this.#dragData.dialogY =
 			Math.min (
-				Math.max ( this.#touchTopBarData.dialogY, DIALOG_DRAG_MARGIN ),
+				Math.max ( this.#dragData.dialogY, DIALOG_DRAG_MARGIN ),
 				this.#background.clientHeight -
 					this.#container.clientHeight -
 					DIALOG_DRAG_MARGIN
 			);
-			this.#container.style.left = String ( this.#touchTopBarData.dialogX ) + 'px';
-			this.#container.style.top = String ( this.#touchTopBarData.dialogY ) + 'px';
-		}
 
-		this.#touchTopBarData.reset ( );
+			this.#container.style.left = String ( this.#dragData.dialogX ) + 'px';
+			this.#container.style.top = String ( this.#dragData.dialogY ) + 'px';
+		}
 	}
 }
 
@@ -320,20 +268,20 @@ touchcancel event listener for the top bar
 class TopBarTouchCancelEL {
 
 	/**
-	A reference to the touchTopBarData object of the dialog
+	A reference to the dragData object of the dialog
 	@type {DragData}
 	*/
 
-	#touchTopBarData;
+	#dragData;
 
 	/**
 	The constructor
 	@param {TouchData} touchTopBarData A reference to the touchTopBarData object of the dialog
 	*/
 
-	constructor ( touchTopBarData ) {
+	constructor ( dragData ) {
 		Object.freeze ( this );
-		this.#touchTopBarData = touchTopBarData;
+		this.#dragData = dragData;
 	}
 
 	/**
@@ -341,7 +289,7 @@ class TopBarTouchCancelEL {
 	*/
 
 	handleEvent ( /* touchCancelEvent */ ) {
-		this.#touchTopBarData.reset ( );
+		this.#dragData.reset ( );
 	}
 }
 
@@ -349,8 +297,7 @@ export {
 	TopBarDragStartEL,
 	TopBarDragEndEL,
 	TopBarTouchStartEL,
-	TopBarTouchMoveEL,
-	TopBarTouchEndEL,
+	TopBarTouchMoveOrEndEL,
 	TopBarTouchCancelEL
 };
 

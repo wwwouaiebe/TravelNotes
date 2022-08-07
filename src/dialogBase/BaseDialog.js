@@ -118,16 +118,14 @@ import {
 	TopBarDragStartEL,
 	TopBarDragEndEL,
 	TopBarTouchStartEL,
-	TopBarTouchMoveEL,
-	TopBarTouchEndEL,
+	TopBarTouchMoveOrEndEL,
 	TopBarTouchCancelEL
 } from '../dialogbase/BaseDialogTopBarEventListeners.js';
 import DragData from '../dialogs/DragData.js';
-import TouchData from '../dialogs/TouchData.js';
 
 // import GarbageCollectorTester from '../UILib/GarbageCollectorTester.js';
 
-import { TWO, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
+import { TWO } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -322,18 +320,11 @@ class BaseDialog {
 	#keyboardELEnabled;
 
 	/**
-	Data for drag ond drop operations
+	Data for drag ond drop and touch operations
 	@type {DragData}
 	*/
 
 	#dragData;
-
-	/**
-	Data for topbar touch operations
-	@type {TouchData}
-	*/
-
-	#touchTopBarData;
 
 	/**
 	Drog over the background event listener
@@ -392,18 +383,11 @@ class BaseDialog {
 	#topBarTouchStartEL;
 
 	/**
-	Top bar touchmove event listener
-	@type {TopBarTouchMoveEL}
-	*/
-
-	#topBarTouchMoveEL;
-
-	/**
-	Top bar touchend event listener
+	Top bar touch move or touch end event listener
 	@type {TopBarTouchEndEL}
 	*/
 
-	#topBarTouchEndEL;
+	#topBarTouchMoveOrEndEL;
 
 	/**
 	Top bar touchcancel event listener
@@ -515,13 +499,12 @@ class BaseDialog {
 			this.#containerDiv
 		);
 
-		this.#topBarTouchStartEL = new TopBarTouchStartEL ( this.#touchTopBarData );
+		this.#topBarTouchStartEL = new TopBarTouchStartEL ( this.#dragData );
 		this.#topBar.addEventListener ( 'touchstart', this.#topBarTouchStartEL, false );
-		this.#topBarTouchMoveEL = new TopBarTouchMoveEL ( this.#touchTopBarData, this.#containerDiv );
-		this.#topBar.addEventListener ( 'touchmove', this.#topBarTouchMoveEL, false );
-		this.#topBarTouchEndEL = new TopBarTouchEndEL ( this.#touchTopBarData, this.#containerDiv, this.#backgroundDiv );
-		this.#topBar.addEventListener ( 'touchend', this.#topBarTouchEndEL, false );
-		this.#topBarTouchCancelEL = new TopBarTouchCancelEL ( this.#touchTopBarData );
+		this.#topBarTouchMoveOrEndEL = new TopBarTouchMoveOrEndEL ( this.#dragData, this.#containerDiv, this.#backgroundDiv );
+		this.#topBar.addEventListener ( 'touchmove', this.#topBarTouchMoveOrEndEL, false );
+		this.#topBar.addEventListener ( 'touchend', this.#topBarTouchMoveOrEndEL, false );
+		this.#topBarTouchCancelEL = new TopBarTouchCancelEL ( this.#dragData );
 		this.#topBar.addEventListener ( 'touchcancel', this.#topBarTouchCancelEL, false );
 
 		this.#topBarDragStartEL = new TopBarDragStartEL ( this.#dragData );
@@ -710,20 +693,6 @@ class BaseDialog {
 		this.#dragData.dialogY =
 			( this.#backgroundDiv.clientHeight - this.#containerDiv.clientHeight ) / TWO;
 
-		this.#dragData.dialogX = Math.min (
-			Math.max ( this.#dragData.dialogX, DIALOG_DRAG_MARGIN ),
-			this.#backgroundDiv.clientWidth -
-				this.#containerDiv.clientWidth -
-				DIALOG_DRAG_MARGIN
-		);
-		this.#dragData.dialogY = Math.max (
-			this.#dragData.dialogY,
-			DIALOG_DRAG_MARGIN
-		);
-
-		this.#touchTopBarData.dialogX = this.#dragData.dialogX;
-		this.#touchTopBarData.dialogY = this.#dragData.dialogY;
-
 		this.#containerDiv.style.left = String ( this.#dragData.dialogX ) + 'px';
 		this.#containerDiv.style.top = String ( this.#dragData.dialogY ) + 'px';
 	}
@@ -756,7 +725,6 @@ class BaseDialog {
 	constructor ( options ) {
 		Object.freeze ( this );
 		this.#dragData = new DragData ( );
-		this.#touchTopBarData = new TouchData ( );
 		this.#options = new DialogOptions ( options );
 		this.#keyboardELEnabled = true;
 	}
@@ -779,11 +747,9 @@ class BaseDialog {
 		this.#topBar.removeEventListener ( 'touchstart', this.#topBarTouchStartEL, false );
 		this.#topBarTouchStartEL = null;
 
-		this.#topBar.removeEventListener ( 'touchmove', this.#topBarTouchMoveEL, false );
-		this.#topBarTouchMoveEL = null;
-
-		this.#topBar.removeEventListener ( 'touchend', this.#topBarTouchEndEL, false );
-		this.#topBarTouchEndEL = null;
+		this.#topBar.removeEventListener ( 'touchmove', this.#topBarTouchMoveOrEndEL, false );
+		this.#topBar.removeEventListener ( 'touchend', this.#topBarTouchMoveOrEndEL, false );
+		this.#topBarTouchMoveOrEndEL = null;
 
 		this.#topBar.removeEventListener ( 'touchcancel', this.#topBarTouchCancelEL, false );
 		this.#topBarTouchCancelEL = null;
