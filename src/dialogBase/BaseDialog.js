@@ -44,6 +44,7 @@ Changes:
 	- v4.0.0:
 		- Issue ♯38 : Review mouse and touch events on the background div of dialogs
 		- Issue #41 : Not possible to move a dialog on touch devices
+		- Issue ♯48 : Review the dialogs
 Doc reviewed ...
 Tests ...
 */
@@ -126,7 +127,7 @@ import TouchData from '../dialogs/TouchData.js';
 
 // import GarbageCollectorTester from '../UILib/GarbageCollectorTester.js';
 
-import { ZERO, TWO, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
+import { TWO, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -263,6 +264,13 @@ class BaseDialog {
 	*/
 
 	#containerDiv;
+
+	/**
+	The content div of the dialog
+	@type {HTMLElement}
+	*/
+
+	#contentDiv;
 
 	/**
 	The error div of the dialog
@@ -558,11 +566,27 @@ class BaseDialog {
 	}
 
 	/**
+	Create the toolbar div
+	*/
+
+	#createToolbarDiv ( ) {
+		if ( this.toolbarHTMLElement ) {
+			theHTMLElementsFactory.create (
+				'div',
+				{
+					className : 'TravelNotes-BaseDialog-ToolbarDiv'
+				},
+				this.#containerDiv
+			).appendChild ( this.toolbarHTMLElement );
+		}
+	}
+
+	/**
 	Create the content div
 	*/
 
 	#createContentDiv ( ) {
-		const contentDiv = theHTMLElementsFactory.create (
+		this.#contentDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-ContentDiv'
@@ -571,7 +595,7 @@ class BaseDialog {
 		);
 
 		this.contentHTMLElements.forEach (
-			contentHTMLElement => contentDiv.appendChild ( contentHTMLElement )
+			contentHTMLElement => this.#contentDiv.appendChild ( contentHTMLElement )
 		);
 	}
 
@@ -668,6 +692,7 @@ class BaseDialog {
 		this.#createContainerDiv ( );
 		this.#createTopBar ( );
 		this.#createHeaderDiv ( );
+		this.#createToolbarDiv ( );
 		this.#createContentDiv ( );
 		this.#createErrorDiv ( );
 		this.#createWaitDiv ( );
@@ -699,13 +724,8 @@ class BaseDialog {
 		this.#touchTopBarData.dialogX = this.#dragData.dialogX;
 		this.#touchTopBarData.dialogY = this.#dragData.dialogY;
 
-		const dialogMaxHeight =
-			this.#backgroundDiv.clientHeight -
-			Math.max ( this.#dragData.dialogY, ZERO ) -
-			DIALOG_DRAG_MARGIN;
 		this.#containerDiv.style.left = String ( this.#dragData.dialogX ) + 'px';
 		this.#containerDiv.style.top = String ( this.#dragData.dialogY ) + 'px';
-		this.#containerDiv.style [ 'max-height' ] = String ( dialogMaxHeight ) + 'px';
 	}
 
 	/**
@@ -845,6 +865,14 @@ class BaseDialog {
 	*/
 
 	get title ( ) { return ''; }
+
+	/**
+	An HTMLElement that have to be added as toolbar for the dialog.
+	Can be overloaded in the derived classes
+	@type {?HTMLElement}
+	*/
+
+	get toolbarHTMLElement ( ) { return null; }
 
 	/**
 	An array with the HTMLElements that have to be added in the content of the dialog.

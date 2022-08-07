@@ -32,19 +32,17 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v 4.0.0:
+		- Issue ♯48 : Review the dialogs
 Doc reviewed 20210914
 Tests ...
 */
 
 import BaseDialog from '../dialogBase/BaseDialog.js';
 import APIKeysDialogToolbar from '../dialogAPIKeys/APIKeysDialogToolbar.js';
-import { APIKeyDeletedEL } from '../dialogAPIKeys/APIKeysDialogEventListeners.js';
 import theTranslator from '../UILib/Translator.js';
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import APIKeysDialogKeyControl from '../dialogAPIKeys/APIKeysDialogKeyControl.js';
+import APIKeysControl from './APIKeysControl.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
-
-import { ZERO } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -55,13 +53,6 @@ This class is the APIKeys dialog
 class APIKeysDialog extends BaseDialog {
 
 	/**
-	A map to store the APIKeyControl object
-	@type {Map}
-	*/
-
-	#apiKeysControls;
-
-	/**
 	The dialog toolbar
 	@type {APIKeysDialogToolbar}
 	*/
@@ -69,32 +60,11 @@ class APIKeysDialog extends BaseDialog {
 	#toolbar;
 
 	/**
-	A div that contains the APIKeyControls
+	A div that contains the APIKeyControl
 	@type {HTMLElement}
 	*/
 
-	#apiKeysControlsContainer;
-
-	/**
-	Api key deleted event listener
-	@type {APIKeyDeletedEL}
-	*/
-
-	#onAPIKeyDeletedEventListener;
-
-	/**
-	Create the #apiKeysControlsContainer
-	*/
-
-	#createAPIKeysControlsContainer ( ) {
-		this.#apiKeysControlsContainer = theHTMLElementsFactory.create ( 'div' );
-		this.#onAPIKeyDeletedEventListener = new APIKeyDeletedEL ( this, this.#apiKeysControls );
-		this.#apiKeysControlsContainer.addEventListener (
-			'apikeydeleted',
-			this.#onAPIKeyDeletedEventListener,
-			false
-		);
-	}
+	#apiKeysControl;
 
 	/**
 	The constructor
@@ -103,13 +73,10 @@ class APIKeysDialog extends BaseDialog {
 	*/
 
 	constructor ( apiKeys, haveAPIKeysFile ) {
-
 		super ( );
-
-		this.#apiKeysControls = new Map ( );
-		this.#toolbar = new APIKeysDialogToolbar ( this, this.#apiKeysControls, haveAPIKeysFile );
-		this.#createAPIKeysControlsContainer ( );
-		this.addAPIKeys ( apiKeys );
+		this.#apiKeysControl = new APIKeysControl ( );
+		this.#toolbar = new APIKeysDialogToolbar ( this, this.#apiKeysControl, haveAPIKeysFile );
+		this.#apiKeysControl.addAPIKeys ( apiKeys );
 	}
 
 	/**
@@ -117,14 +84,9 @@ class APIKeysDialog extends BaseDialog {
 	*/
 
 	#destructor ( ) {
+		this.#apiKeysControl.destructor ( );
 		this.#toolbar.destructor ( );
 		this.#toolbar = null;
-		this.#apiKeysControlsContainer.removeEventListener (
-			'apikeydeleted',
-			this.#onAPIKeyDeletedEventListener,
-			false
-		);
-		this.#onAPIKeyDeletedEventListener = null;
 	}
 
 	/**
@@ -135,68 +97,20 @@ class APIKeysDialog extends BaseDialog {
 
 	validateAPIKeys ( ) {
 		this.hideError ( );
-		let haveEmptyValues = false;
-		const providersNames = [];
-		this.#apiKeysControls.forEach (
-			apiKeyControl => {
-				haveEmptyValues =
-					haveEmptyValues ||
-					'' === apiKeyControl.providerName
-					||
-					'' === apiKeyControl.providerKey;
-				providersNames.push ( apiKeyControl.providerName );
-			}
-		);
-		let haveDuplicate = false;
-		providersNames.forEach (
-			providerName => {
-				haveDuplicate =
-					haveDuplicate ||
-					providersNames.indexOf ( providerName ) !== providersNames.lastIndexOf ( providerName );
-			}
-		);
-		if ( haveEmptyValues ) {
+		const HaveEmptyOrDuplicate = this.#apiKeysControl.haveEmptyOrDuplicateValues ( );
+		if ( HaveEmptyOrDuplicate.haveEmpty ) {
 			this.showError (
 				theTranslator.getText ( 'APIKeysDialog - empty API key name or value' )
 			);
 			return false;
 		}
-		else if ( haveDuplicate ) {
+		else if ( HaveEmptyOrDuplicate.haveDuplicate ) {
 			this.showError (
 				theTranslator.getText ( 'APIKeysDialog - duplicate API key name found' )
 			);
 			return false;
 		}
 		return true;
-	}
-
-	/**
-	Add an array of APIKeys to the dialog.
-	@param {Array.<APIKey>} apiKeys An array with the APIKeys to add
-	*/
-
-	addAPIKeys ( apiKeys ) {
-		this.#apiKeysControls.clear ( );
-		apiKeys.forEach (
-			apiKey => {
-				const apiKeyControl = new APIKeysDialogKeyControl ( apiKey );
-				this.#apiKeysControls.set ( apiKeyControl.objId, apiKeyControl );
-			}
-		);
-		this.refreshAPIKeys ( );
-	}
-
-	/**
-	Remove all elements from the #apiKeysControlsContainer and add the existing APIKeys
-	*/
-
-	refreshAPIKeys ( ) {
-		while ( this.#apiKeysControlsContainer.firstChild ) {
-			this.#apiKeysControlsContainer.removeChild ( this.#apiKeysControlsContainer.firstChild );
-		}
-		this.#apiKeysControls.forEach (
-			apiKeyControl => { this.#apiKeysControlsContainer.appendChild ( apiKeyControl.HTMLElements [ ZERO ] ); }
-		);
 	}
 
 	/**
@@ -234,11 +148,7 @@ class APIKeysDialog extends BaseDialog {
 	*/
 
 	onOk ( ) {
-		const apiKeys = [];
-		this.#apiKeysControls.forEach (
-			apiKeyControl => apiKeys.push ( apiKeyControl.apiKey )
-		);
-		if ( super.onOk ( apiKeys ) ) {
+		if ( super.onOk ( this.#apiKeysControl.apiKeys ) ) {
 			this.#destructor ( );
 		}
 	}
@@ -251,12 +161,31 @@ class APIKeysDialog extends BaseDialog {
 	get title ( ) { return theTranslator.getText ( 'APIKeysDialog - API keys' ); }
 
 	/**
+	An HTMLElement that have to be added as toolbar for the dialog.
+	Overload of the BaseDialog.toolbarHTMLElement property
+	@type {HTMLElement}
+	*/
+
+	get toolbarHTMLElement ( ) {
+		return this.#toolbar.rootHTMLElement;
+	}
+
+	/**
 	An array with the HTMLElements that have to be added in the content of the dialog.
 	@type {Array.<HTMLElement>}
 	*/
 
 	get contentHTMLElements ( ) {
-		return [ this.#toolbar.rootHTMLElement, this.#apiKeysControlsContainer ];
+		return [ this.#apiKeysControl.HTMLElement ];
+	}
+
+	/**
+	Add an array of APIKeys to the dialog.
+	@param {Array.<APIKey>} apiKeys An array with the APIKeys to add
+	*/
+
+	addAPIKeys ( apiKeys ) {
+		this.#apiKeysControl.addAPIKeys ( apiKeys );
 	}
 }
 

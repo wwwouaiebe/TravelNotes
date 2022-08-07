@@ -27,16 +27,14 @@ Changes:
 	- v2.0.0:
 		- Issue #138 : Protect the app - control html entries done by user.
 		- Issue #144 : Add an error message when a bad json file is loaded from the noteDialog
+	- v 4.0.0:
+		- Issue ♯48 : Review the dialogs
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
 .TravelNotes-BaseDialog-Container {
-	max-width: 13cm;
-}
-
-#TravelNotes-NoteDialog-ToolbarDiv {
-	max-width: 12cm;
+	max-width: 80vw;
 }
 
 #TravelNotes-NoteDialog-IconSelect {
@@ -63,13 +61,11 @@ Changes:
 }
 
 .TravelNotes-NoteDialog-TextArea {
-	width: 12cm;
-	display: block;
+	width: 100%;
 }
 
 .TravelNotes-NoteDialog-InputText {
-	width: 12cm;
-	display: block;
+	width: 100%;
 }
 
 .TravelNotes-NoteDialog-NumberInput {
@@ -88,7 +84,6 @@ Changes:
 	border-top-width: 0.1em;
 	display: flex;
 	flex-direction: row;
-	max-width: 43em;
 	background-color: lightgray;
 }
 

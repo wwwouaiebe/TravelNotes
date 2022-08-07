@@ -20,24 +20,24 @@
 		"msgstr": "Vous voulez créer {maneuversLength} notes. Pour des raisons de performance, le nombre de notes est limité à {maxManeuversNotes} pour cette démo. Modifiez votre trajet."
 	},
 	{
-		"msgid": "APIKeysDialog - API keys",
-		"msgstr": "Clés d'accès"
-	},
-	{
 		"msgid": "APIKeysDialog - empty API key name or value",
 		"msgstr": "Un nom de clé ou une clé d'accès n'est pas complété"
 	},
 	{
-		"msgid": "APIKeysDialogKeyControl - API key",
+		"msgid": "APIKeyControlRow - API key",
 		"msgstr": "Clé d'accès"
 	},
 	{
-		"msgid": "APIKeysDialogKeyControl - delete API key",
+		"msgid": "APIKeyControlRow - delete API key",
 		"msgstr": "effacer la clé d'accès"
 	},
 	{
-		"msgid": "APIKeysDialogKeyControl - provider name",
+		"msgid": "APIKeyControlRow - provider name",
 		"msgstr": "Fournisseur"
+	},
+	{
+		"msgid": "APIKeysDialog - API keys",
+		"msgstr": "Clés d'accès"
 	},
 	{
 		"msgid": "APIKeysDialogToolbar - new API key",

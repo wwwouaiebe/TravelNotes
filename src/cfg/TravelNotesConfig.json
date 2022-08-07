@@ -128,15 +128,6 @@
 			"icon":2,
 			"popupContent":8
 		},
-		"mask" : {
-			"iconsDimension":true,
-			"iconTextArea":false,
-			"tooltip":false,
-			"popupContent":false,
-			"address":false,
-			"link":false,
-			"phone":true
-		},
 		"theDevil": {
 			"addButton": true,
 			"zoomFactor" : 17

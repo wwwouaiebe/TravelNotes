@@ -20,12 +20,15 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
+	- v 4.0.0:
+		- Issue ♯48 : Review the dialogs
 Doc reviewed 20210901
 Tests ...
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
+import DialogControl from '../dialogBase/DialogControl.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -33,21 +36,7 @@ This class is the address control of the NoteDialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NoteDialogAddressControl {
-
-	/**
-	The header container
-	@type {HTMLElement}
-	*/
-
-	#addressHeaderDiv;
-
-	/**
-	The address input container
-	@type {HTMLElement}
-	*/
-
-	#addressInputDiv;
+class NoteDialogAddressControl extends DialogControl {
 
 	/**
 	The address input
@@ -70,16 +59,10 @@ class NoteDialogAddressControl {
 
 	constructor ( eventListeners ) {
 
-		Object.freeze ( this );
+		super ( );
 
 		// HTMLElements creation
-		this.#addressHeaderDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-NoteDialog-DataDiv'
-			}
-		);
-
+		const addressHeaderDiv = theHTMLElementsFactory.create ( 'div', null, this.HTMLElement );
 		this.#addressButton = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -87,24 +70,15 @@ class NoteDialogAddressControl {
 				title : theTranslator.getText ( 'NoteDialogAddressControl - Reset address' ),
 				textContent : '🔄'
 			},
-			this.#addressHeaderDiv
+			addressHeaderDiv
 		);
-
 		theHTMLElementsFactory.create (
 			'text',
 			{
 				value : theTranslator.getText ( 'NoteDialogAddressControl - Address' )
 			},
-			this.#addressHeaderDiv
+			addressHeaderDiv
 		);
-
-		this.#addressInputDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-NoteDialog-DataDiv'
-			}
-		);
-
 		this.#addressInput = theHTMLElementsFactory.create (
 			'input',
 			{
@@ -112,7 +86,7 @@ class NoteDialogAddressControl {
 				className : 'TravelNotes-NoteDialog-InputText',
 				dataset : { Name : 'address' }
 			},
-			this.#addressInputDiv
+			theHTMLElementsFactory.create ( 'div', null, this.HTMLElement )
 		);
 
 		// event listeners
@@ -130,15 +104,6 @@ class NoteDialogAddressControl {
 		this.#addressInput.removeEventListener ( 'focus', eventListeners.controlFocus );
 		this.#addressInput.removeEventListener ( 'input', eventListeners.controlInput );
 		this.#addressButton.removeEventListener ( 'click', eventListeners.addressButtonClick );
-	}
-
-	/**
-	An array with the HTML elements of the control
-	@type {Array.<HTMLElement>}
-	*/
-
-	get HTMLElements ( ) {
-		return [ this.#addressHeaderDiv, this.#addressInputDiv ];
 	}
 
 	/**

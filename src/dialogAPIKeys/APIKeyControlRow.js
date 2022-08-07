@@ -22,6 +22,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	-v 4.0.0:
+		- Issue ♯48 : Review the dialogs
 Doc reviewed 20210914
 Tests ...
 */
@@ -63,12 +65,12 @@ class DeleteButtonClickEL {
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
- the APIKey control for the APIKeysDialog. Display  HTML input elements for the providerName and the providerKey
+ the APIKey control row for the APIKeysDialog. Display  HTML input elements for the providerName and the providerKey
 and a button to remove the APIKey from the dialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class APIKeysDialogKeyControl {
+class APIKeyControlRow {
 
 	/**
 	The root HTML element of the control
@@ -119,7 +121,7 @@ class APIKeysDialogKeyControl {
 			{
 				className : 'TravelNotes-APIKeysDialog-ApiKeyName TravelNotes-APIKeysDialog-Input',
 				value : apiKey.providerName,
-				placeholder : theTranslator.getText ( 'APIKeysDialogKeyControl - provider name' )
+				placeholder : theTranslator.getText ( 'APIKeyControlRow - provider name' )
 			},
 			this.#rootHTMLElement
 		);
@@ -129,7 +131,7 @@ class APIKeysDialogKeyControl {
 			{
 				className : 'TravelNotes-APIKeysDialog-ApiKeyValue TravelNotes-APIKeysDialog-Input',
 				value : apiKey.providerKey,
-				placeholder : theTranslator.getText ( 'APIKeysDialogKeyControl - API key' ),
+				placeholder : theTranslator.getText ( 'APIKeyControlRow - API key' ),
 				type : theConfig.APIKeysDialog.showAPIKeys ? 'text' : 'password'
 			},
 			this.#rootHTMLElement
@@ -140,7 +142,7 @@ class APIKeysDialogKeyControl {
 			{
 				className :
 					'TravelNotes-BaseDialog-Button TravelNotes-APIKeysDialog-AtRightButton',
-				title : theTranslator.getText ( 'APIKeysDialogKeyControl - delete API key' ),
+				title : theTranslator.getText ( 'APIKeyControlRow - delete API key' ),
 				textContent : '❌',
 				dataset : { ObjId : this.#objId }
 			},
@@ -189,6 +191,6 @@ class APIKeysDialogKeyControl {
 
 }
 
-export default APIKeysDialogKeyControl;
+export default APIKeyControlRow;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

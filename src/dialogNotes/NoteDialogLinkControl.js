@@ -22,6 +22,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v 4.0.0:
+		- Issue ♯48 : Review the dialogs
 Doc reviewed 20210914
 Tests ...
 */
@@ -29,6 +31,7 @@ Tests ...
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
+import DialogControl from '../dialogBase/DialogControl.js';
 
 import { ZERO, ONE, LAT_LNG } from '../main/Constants.js';
 
@@ -38,21 +41,7 @@ This class is the url control of the NoteDialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NoteDialogLinkControl {
-
-	/**
-	The header container
-	@type {HTMLElement}
-	*/
-
-	#linkHeaderDiv;
-
-	/**
-	The input container
-	@type {HTMLElement}
-	*/
-
-	#linkInputDiv;
+class NoteDialogLinkControl extends DialogControl {
 
 	/**
 	The link input
@@ -64,9 +53,10 @@ class NoteDialogLinkControl {
 	/**
 	The 👿 button...
 	@param {Array.<Number>} latLng The lat and lng used in the 👿 button
+	@param {HTMLElement} linkHeaderDiv The HTMLElement in witch the button will be created
 	*/
 
-	#createTheDevilButton ( latLng ) {
+	#createTheDevilButton ( latLng, linkHeaderDiv ) {
 		if ( theConfig.noteDialog.theDevil.addButton ) {
 			theHTMLElementsFactory.create (
 				'text',
@@ -89,7 +79,7 @@ class NoteDialogLinkControl {
 							className : 'TravelNotes-BaseDialog-Button',
 							title : 'Reminder! The devil will know everything about you'
 						},
-						this.#linkHeaderDiv
+						linkHeaderDiv
 					)
 				)
 			);
@@ -104,33 +94,18 @@ class NoteDialogLinkControl {
 
 	constructor ( eventListeners, latLng ) {
 
-		Object.freeze ( this );
+		super ( );
 
 		// HTMLElements creation
-		this.#linkHeaderDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-NoteDialog-DataDiv'
-			}
-		);
-
-		this.#createTheDevilButton ( latLng );
-
+		const linkHeaderDiv = theHTMLElementsFactory.create ( 'div', null, this.HTMLElement );
+		this.#createTheDevilButton ( latLng, linkHeaderDiv );
 		theHTMLElementsFactory.create (
 			'text',
 			{
 				value : theTranslator.getText ( 'NoteDialogLinkControl - Link' )
 			},
-			this.#linkHeaderDiv
+			linkHeaderDiv
 		);
-
-		this.#linkInputDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-NoteDialog-DataDiv'
-			}
-		);
-
 		this.#linkInput = theHTMLElementsFactory.create (
 			'input',
 			{
@@ -138,7 +113,7 @@ class NoteDialogLinkControl {
 				className : 'TravelNotes-NoteDialog-InputText',
 				dataset : { Name : 'url' }
 			},
-			this.#linkInputDiv
+			theHTMLElementsFactory.create ( 'div', null, this.HTMLElement )
 		);
 
 		// event listeners
@@ -157,13 +132,6 @@ class NoteDialogLinkControl {
 		this.#linkInput.removeEventListener ( 'input', eventListeners.controlInput );
 		this.#linkInput.removeEventListener ( 'blur', eventListeners.urlInputBlur );
 	}
-
-	/**
-	An array with the HTML elements of the control
-	@type {Array.<HTMLElement>}
-	*/
-
-	get HTMLElements ( ) { return [ this.#linkHeaderDiv, this.#linkInputDiv ]; }
 
 	/**
 	The url value in the control

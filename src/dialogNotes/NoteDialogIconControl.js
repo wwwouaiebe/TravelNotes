@@ -20,6 +20,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
+	- v 4.0.0:
+		- Issue ♯48 : Review the dialogs
 Doc reviewed 20210901
 Tests ...
 */
@@ -27,6 +29,7 @@ Tests ...
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
+import DialogControl from '../dialogBase/DialogControl.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -34,14 +37,7 @@ This class is the iconContent control of the NoteDialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NoteDialogIconControl {
-
-	/**
-	The control container
-	@type {HTMLElement}
-	*/
-
-	#iconDiv;
+class NoteDialogIconControl extends DialogControl {
 
 	/**
 	The icon text area
@@ -57,15 +53,15 @@ class NoteDialogIconControl {
 
 	constructor ( eventListeners ) {
 
-		Object.freeze ( this );
+		super ( );
 
 		// HTMLElements creation
-		this.#iconDiv = theHTMLElementsFactory.create (
+		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-NoteDialog-DataDiv',
 				textContent : theTranslator.getText ( 'NoteDialogIconControl - Icon content' )
-			}
+			},
+			this.HTMLElement
 		);
 		this.#iconTextArea = theHTMLElementsFactory.create (
 			'textarea',
@@ -75,7 +71,7 @@ class NoteDialogIconControl {
 				rows : theConfig.noteDialog.areaHeight.icon,
 				dataset : { Name : 'iconContent' }
 			},
-			this.#iconDiv
+			theHTMLElementsFactory.create ( 'div', null, this.HTMLElement )
 		);
 
 		// event listeners
@@ -92,13 +88,6 @@ class NoteDialogIconControl {
 		this.#iconTextArea.removeEventListener ( 'focus', eventListeners.controlFocus );
 		this.#iconTextArea.removeEventListener ( 'input', eventListeners.controlInput );
 	}
-
-	/**
-	An array with the HTML elements of the control
-	@type {Array.<HTMLElement>}
-	*/
-
-	get HTMLElements ( ) { return [ this.#iconDiv ]; }
 
 	/**
 	The icon value in the control

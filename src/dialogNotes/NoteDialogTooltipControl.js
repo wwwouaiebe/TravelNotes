@@ -22,12 +22,15 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v 4.0.0:
+		- Issue ♯48 : Review the dialogs
 Doc reviewed 20210914
 Tests ...
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
+import DialogControl from '../dialogBase/DialogControl.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -35,14 +38,7 @@ This class is the tooltipContent control of the NoteDialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NoteDialogTooltipControl {
-
-	/**
-	The control container
-	@type {HTMLElement}
-	*/
-
-	#tooltipDiv;
+class NoteDialogTooltipControl extends DialogControl {
 
 	/**
 	The tooltip input
@@ -58,15 +54,15 @@ class NoteDialogTooltipControl {
 
 	constructor ( eventListeners ) {
 
-		Object.freeze ( this );
+		super ( );
 
 		// HTMLElements creation
-		this.#tooltipDiv = theHTMLElementsFactory.create (
+		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-NoteDialog-DataDiv',
 				textContent : theTranslator.getText ( 'NoteDialogTooltipControl - Tooltip content' )
-			}
+			},
+			this.HTMLElement
 		);
 		this.#tooltipInput = theHTMLElementsFactory.create (
 			'input',
@@ -75,7 +71,7 @@ class NoteDialogTooltipControl {
 				className : 'TravelNotes-NoteDialog-InputText',
 				dataset : { Name : 'tooltipContent' }
 			},
-			this.#tooltipDiv
+			theHTMLElementsFactory.create ( 'div', null, this.HTMLElement )
 		);
 
 		// event listeners
@@ -92,13 +88,6 @@ class NoteDialogTooltipControl {
 		this.#tooltipInput.removeEventListener ( 'focus', eventListeners.controlFocus );
 		this.#tooltipInput.removeEventListener ( 'input', eventListeners.controlInput );
 	}
-
-	/**
-	An array with the HTML elements of the control
-	@type {Array.<HTMLElement>}
-	*/
-
-	get HTMLElements ( ) { return [ this.#tooltipDiv ]; }
 
 	/**
 	the tooltip value in the control

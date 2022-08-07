@@ -20,6 +20,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
+	- v 4.0.0:
+		- Issue ♯48 : Review the dialogs
 Doc reviewed 20210901
 Tests ...
 */
@@ -439,42 +441,6 @@ class IconSelectorChangeEL {
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-click event listener for the toogle button
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class ToggleContentsButtonClickEL {
-
-	/**
-	A reference to the NoteDialog object
-	@type {NoteDialog}
-	*/
-
-	#noteDialog;
-
-	/**
-	The constructor
-	@param {NoteDialog} noteDialog A reference to the Notedialog object
-	*/
-
-	constructor ( noteDialog ) {
-		Object.freeze ( this );
-		this.#noteDialog = noteDialog;
-	}
-
-	/**
-	Event listener method
-	@param {Event} clickEvent The event to handle
-	*/
-
-	handleEvent ( clickEvent ) {
-		clickEvent.target.textContent = '▼' === clickEvent.target.textContent ? '▶' : '▼';
-		this.#noteDialog.toogleContents ( );
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
 change event listener for the temp open file input
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -608,13 +574,6 @@ class NoteDialogEventListeners {
 	#iconSelectorChange;
 
 	/**
-	The toggle content button click event listener
-	@type {ToggleContentsButtonClickEL}
-	*/
-
-	#toggleContentsButtonClick;
-
-	/**
 	The open file button click event listener
 	@type {OpenFileButtonClickEL}
 	*/
@@ -635,7 +594,6 @@ class NoteDialogEventListeners {
 		this.#urlInputBlur = new UrlInputBlurEL ( noteDialog );
 		this.#editionButtonsClick = new EditionButtonsClickEL ( noteDialog );
 		this.#iconSelectorChange = new IconSelectorChangeEL ( noteDialog );
-		this.#toggleContentsButtonClick = new ToggleContentsButtonClickEL ( noteDialog );
 		this.#openFileButtonClick = new OpenFileButtonClickEL ( noteDialog );
 	}
 
@@ -650,7 +608,6 @@ class NoteDialogEventListeners {
 		this.#urlInputBlur = null;
 		this.#editionButtonsClick = null;
 		this.#iconSelectorChange = null;
-		this.#toggleContentsButtonClick = null;
 		this.#openFileButtonClick = null;
 	}
 
@@ -695,13 +652,6 @@ class NoteDialogEventListeners {
 	*/
 
 	get iconSelectorChange ( ) { return this.#iconSelectorChange; }
-
-	/**
-	The toggle content button click event listener
-	@type {ToggleContentsButtonClickEL}
-	*/
-
-	get toggleContentsButtonClick ( ) { return this.#toggleContentsButtonClick; }
 
 	/**
 	The open file button click event listener

@@ -22,12 +22,15 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v 4.0.0:
+		- Issue ♯48 : Review the dialogs
 Doc reviewed 20210914
 Tests ...
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
+import DialogControl from '../dialogBase/DialogControl.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -35,21 +38,7 @@ This class is the phone control of the NoteDialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NoteDialogPhoneControl {
-
-	/**
-	The header container
-	@type {HTMLElement}
-	*/
-
-	#phoneHeaderDiv;
-
-	/**
-	The input container
-	@type {HTMLElement}
-	*/
-
-	#phoneInputDiv;
+class NoteDialogPhoneControl extends DialogControl {
 
 	/**
 	The phone input
@@ -65,31 +54,16 @@ class NoteDialogPhoneControl {
 
 	constructor ( eventListeners ) {
 
-		Object.freeze ( this );
+		super ( );
 
 		// HTMLElements creation
-		this.#phoneHeaderDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-NoteDialog-DataDiv'
-			}
-		);
-
 		theHTMLElementsFactory.create (
-			'text',
-			{
-				value : '\u00a0' + theTranslator.getText ( 'NoteDialogPhoneControl - Phone' )
-			},
-			this.#phoneHeaderDiv
-		);
-
-		this.#phoneInputDiv = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-NoteDialog-DataDiv'
-			}
+				textContent : theTranslator.getText ( 'NoteDialogPhoneControl - Phone' )
+			},
+			this.HTMLElement
 		);
-
 		this.#phoneInput = theHTMLElementsFactory.create (
 			'input',
 			{
@@ -97,7 +71,7 @@ class NoteDialogPhoneControl {
 				className : 'TravelNotes-NoteDialog-InputText',
 				dataset : { Name : 'phone' }
 			},
-			this.#phoneInputDiv
+			theHTMLElementsFactory.create ( 'div', null, this.HTMLElement )
 		);
 
 		// event listeners
@@ -114,13 +88,6 @@ class NoteDialogPhoneControl {
 		this.#phoneInput.removeEventListener ( 'focus', eventListeners.controlFocus );
 		this.#phoneInput.removeEventListener ( 'input', eventListeners.controlInput );
 	}
-
-	/**
-	An array with the HTMLElements of the control
-	@type {Array.<HTMLElement>}
-	*/
-
-	get HTMLElements ( ) { return [ this.#phoneHeaderDiv, this.#phoneInputDiv ]; }
 
 	/**
 	The phone number in the control

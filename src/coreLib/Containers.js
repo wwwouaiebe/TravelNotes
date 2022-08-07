@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.1.0:
 		- created
+	-v 4.0.0:
+		- Issue ♯48 : Review the dialogs
 Doc reviewed 20211108
 */
 
@@ -224,6 +226,14 @@ class APIKey {
 	*/
 
 	get providerKey ( ) { return this.#providerKey; }
+
+	/**
+	An object literal with the APIKey properties and without any methods.
+	This object can be used with the JSON object
+	@type {JsonObject}
+	*/
+
+	get jsonObject ( ) { return { providerName : this.providerName, providerKey : this.providerKey }; }
 
 }
 

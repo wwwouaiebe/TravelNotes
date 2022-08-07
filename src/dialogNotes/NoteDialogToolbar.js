@@ -29,6 +29,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v 4.0.0:
+		- Issue ♯48 : Review the dialogs
 Doc reviewed 20210914
 Tests ...
 */
@@ -61,13 +63,6 @@ class NoteDialogToolbar {
 	*/
 
 	#iconSelect;
-
-	/**
-	The toggle content button
-	@type {HTMLElement}
-	*/
-
-	#toogleContentsButton;
 
 	/**
 	The open file button
@@ -110,17 +105,6 @@ class NoteDialogToolbar {
 	*/
 
 	#addToolbarButtons ( ) {
-
-		this.#toogleContentsButton = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-BaseDialog-Button',
-				title : theTranslator.getText ( 'NoteDialogToolbar - show hidden contents' ),
-				textContent : '▼' // 25b6 = '▶'  25bc = ▼
-			},
-			this.#rootHTMLElement
-		);
-
 		this.#openFileButton = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -174,7 +158,6 @@ class NoteDialogToolbar {
 
 	#addEventListeners ( eventListeners ) {
 		this.#iconSelect.addEventListener ( 'change', eventListeners.iconSelectorChange );
-		this.#toogleContentsButton.addEventListener ( 'click', eventListeners.toggleContentsButtonClick );
 		this.#editionButtons.forEach (
 			button => { button.addEventListener ( 'click', eventListeners.editionButtonsClick ); }
 		);
@@ -188,7 +171,6 @@ class NoteDialogToolbar {
 
 	#removeEventListeners ( eventListeners ) {
 		this.#iconSelect.removeEventListener ( 'change', eventListeners.iconSelectorChange );
-		this.#toogleContentsButton.removeEventListener ( 'click', eventListeners.toggleContentsButtonClick );
 		this.#editionButtons.forEach (
 			button => { button.removeEventListener ( 'click', eventListeners.editionButtonsClick ); }
 		);

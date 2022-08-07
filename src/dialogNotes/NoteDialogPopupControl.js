@@ -22,6 +22,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v 4.0.0:
+		- Issue ♯48 : Review the dialogs
 Doc reviewed 20210914
 Tests ...
 */
@@ -29,6 +31,7 @@ Tests ...
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
+import DialogControl from '../dialogBase/DialogControl.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -36,14 +39,7 @@ This class is the popupContent control of the NoteDialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NoteDialogPopupControl {
-
-	/**
-	The control container
-	@type {HTMLElement}
-	*/
-
-	#popupDiv;
+class NoteDialogPopupControl extends DialogControl {
 
 	/**
 	The popup textarea
@@ -59,15 +55,15 @@ class NoteDialogPopupControl {
 
 	constructor ( eventListeners ) {
 
-		Object.freeze ( this );
+		super ( );
 
 		// HTMLElements creation
-		this.#popupDiv = theHTMLElementsFactory.create (
+		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-NoteDialog-DataDiv',
 				textContent : theTranslator.getText ( 'NoteDialogPopupControl - Text' )
-			}
+			},
+			this.HTMLElement
 		);
 		this.#popupTextArea = theHTMLElementsFactory.create (
 			'textarea',
@@ -76,7 +72,7 @@ class NoteDialogPopupControl {
 				rows : theConfig.noteDialog.areaHeight.popupContent,
 				dataset : { Name : 'popupContent' }
 			},
-			this.#popupDiv
+			theHTMLElementsFactory.create ( 'div', null, this.HTMLElement )
 		);
 
 		// event listeners
@@ -93,13 +89,6 @@ class NoteDialogPopupControl {
 		this.#popupTextArea.removeEventListener ( 'focus', eventListeners.controlFocus );
 		this.#popupTextArea.removeEventListener ( 'input', eventListeners.controlInput );
 	}
-
-	/**
-	An array with the HTML elements of the control
-	@type {Array.<HTMLElement>}
-	*/
-
-	get HTMLElements ( ) { return [ this.#popupDiv ]; }
 
 	/**
 	The popupcontent value in the control

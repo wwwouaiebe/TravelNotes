@@ -46,6 +46,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v 4.0.0:
+		- Issue ♯48 : Review the dialogs
 Doc reviewed 20210913
 Tests ...
 */
@@ -64,9 +66,6 @@ import { NoteDialogEventListeners, NoteDialogGeoCoderHelper } from '../dialogNot
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import theTranslator from '../UILib/Translator.js';
 import Note from '../data/Note.js';
-import theConfig from '../data/Config.js';
-
-import { ZERO, ONE } from '../main/Constants.js';
 
 /**
 A simple container to store the lat, lng and route needed to build a map icon
@@ -318,8 +317,6 @@ class NoteDialog extends BaseDialog {
 		if ( this.#startGeoCoder ) {
 			new NoteDialogGeoCoderHelper ( this ).setAddressWithGeoCoder ( this.#previewNote.latLng );
 		}
-
-		this.toogleContents ( );
 	}
 
 	/**
@@ -383,6 +380,16 @@ class NoteDialog extends BaseDialog {
 	get title ( ) { return theTranslator.getText ( 'NoteDialog - Note' ); }
 
 	/**
+	An HTMLElement that have to be added as toolbar for the dialog.
+	Overload of the BaseDialog.toolbarHTMLElement property
+	@type {HTMLElement}
+	*/
+
+	get toolbarHTMLElement ( ) {
+		return this.#toolbar.rootHTMLElement;
+	}
+
+	/**
 	An array with the HTMLElements that have to be added in the content of the dialog.
 	Overload of the BaseDialog.contentHTMLElements property
 	@type {Array.<HTMLElement>}
@@ -390,14 +397,13 @@ class NoteDialog extends BaseDialog {
 
 	get contentHTMLElements ( ) {
 		return [].concat (
-			this.#toolbar.rootHTMLElement,
-			this.#iconDimsControl.HTMLElements,
-			this.#iconControl.HTMLElements,
-			this.#tooltipControl.HTMLElements,
-			this.#popupControl.HTMLElements,
-			this.#addressControl.HTMLElements,
-			this.#linkControl.HTMLElements,
-			this.#phoneControl.HTMLElements
+			this.#iconDimsControl.HTMLElement,
+			this.#iconControl.HTMLElement,
+			this.#tooltipControl.HTMLElement,
+			this.#popupControl.HTMLElement,
+			this.#addressControl.HTMLElement,
+			this.#linkControl.HTMLElement,
+			this.#phoneControl.HTMLElement
 		);
 	}
 
@@ -425,37 +431,6 @@ class NoteDialog extends BaseDialog {
 		this.#addressControl.address = source.address || this.#addressControl.address;
 		this.#linkControl.url = source.url || this.#linkControl.url;
 		this.#phoneControl.phone = source.phone || this.#phoneControl.phone;
-	}
-
-	/**
-	Show or hide the dialog controls
-	*/
-
-	toogleContents ( ) {
-		if ( theConfig.noteDialog.mask.iconsDimension ) {
-			this.#iconDimsControl.HTMLElements [ ZERO ].classList.toggle ( 'TravelNotes-Hidden' );
-		}
-		if ( theConfig.noteDialog.mask.iconTextArea ) {
-			this.#iconControl.HTMLElements [ ZERO ].classList.toggle ( 'TravelNotes-Hidden' );
-		}
-		if ( theConfig.noteDialog.mask.popupContent ) {
-			this.#popupControl.HTMLElements [ ZERO ].classList.toggle ( 'TravelNotes-Hidden' );
-		}
-		if ( theConfig.noteDialog.mask.tooltip ) {
-			this.#tooltipControl.HTMLElements [ ZERO ].classList.toggle ( 'TravelNotes-Hidden' );
-		}
-		if ( theConfig.noteDialog.mask.address ) {
-			this.#addressControl.HTMLElements [ ZERO ].classList.toggle ( 'TravelNotes-Hidden' );
-			this.#addressControl.HTMLElements [ ONE ].classList.toggle ( 'TravelNotes-Hidden' );
-		}
-		if ( theConfig.noteDialog.mask.link ) {
-			this.#linkControl.HTMLElements [ ZERO ].classList.toggle ( 'TravelNotes-Hidden' );
-			this.#linkControl.HTMLElements [ ONE ].classList.toggle ( 'TravelNotes-Hidden' );
-		}
-		if ( theConfig.noteDialog.mask.phone ) {
-			this.#phoneControl.HTMLElements [ ZERO ].classList.toggle ( 'TravelNotes-Hidden' );
-			this.#phoneControl.HTMLElements [ ONE ].classList.toggle ( 'TravelNotes-Hidden' );
-		}
 	}
 
 	/**

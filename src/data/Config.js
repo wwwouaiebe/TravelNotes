@@ -47,6 +47,7 @@ Changes:
 		- Issue ♯24 : Review the print process
 	- v4.0.0:
 		- Issue ♯38 : Review mouse and touch events on the background div of dialogs
+		- Issue ♯48 : Review the dialogs
 
 Doc reviewed 20210913
 Tests ...
@@ -182,15 +183,6 @@ const theConfig = {
 		areaHeight : {
 			icon : 2,
 			popupContent : 8
-		},
-		mask : {
-			iconsDimension : true,
-			iconTextArea : false,
-			tooltip : false,
-			popupContent : false,
-			address : false,
-			link : false,
-			phone : true
 		},
 		theDevil : {
 			addButton : false,

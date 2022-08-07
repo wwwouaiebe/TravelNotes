@@ -22,6 +22,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v 4.0.0:
+		- Issue ♯48 : Review the dialogs
 Doc reviewed 20210914
 Tests ...
 */
@@ -115,53 +117,6 @@ class DataEncryptorHandlers {
 
 }
 
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-shared methods for save to file buttons event listeners
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class SaveAPIKeysHelper {
-
-	/**
-	A reference to the Map where the APIKeysDialogKeyControl objects are stored
-	@type {Map.<APIKeysDialogKeyControl>}
-	*/
-
-	#APIKeysControls;
-
-	/**
-	The constructor
-	@param {Map.<APIKeysDialogKeyControl>} APIKeysControls A reference to the Map where the APIKeysDialogKeyControl
-	objects are stored
-	*/
-
-	constructor ( APIKeysControls ) {
-		this.#APIKeysControls = APIKeysControls;
-		Object.freeze ( this );
-	}
-
-	/**
-	Transform the APIKeysControls value into a JSON string
-	*/
-
-	getAPIKeysJsonString ( ) {
-		const APIKeys = [];
-		this.#APIKeysControls.forEach (
-			APIKeyControl => {
-				APIKeys.push (
-					{
-						providerName : APIKeyControl.providerName,
-						providerKey : APIKeyControl.providerKey
-					}
-				);
-			}
-		);
-		return JSON.stringify ( APIKeys );
-	}
-
-}
-
-export { DataEncryptorHandlers, SaveAPIKeysHelper };
+export { DataEncryptorHandlers };
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

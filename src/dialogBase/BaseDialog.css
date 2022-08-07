@@ -26,6 +26,8 @@ Changes:
 		- Issue #120 : Review the UserInterface
 	- v2.2.0:
 		- Issue #155 : Enable pan and zoom on the map when a dialog is displayed
+	- v 4.0.0:
+		- Issue ♯48 : Review the dialogs
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
@@ -37,8 +39,11 @@ Changes:
 	border-style: solid;
 	border-width: 0.1em;
 	cursor: default;
+	max-width: 90vh;
 	max-height: 90vh;
 	box-shadow: 0 3px 14px rgb(0 0 0 / 60%);
+	display: flex;
+	flex-direction: column;
 }
 
 .TravelNotes-BaseDialog-TopBar {
@@ -67,6 +72,7 @@ Changes:
 }
 
 .TravelNotes-BaseDialog-HeaderDiv,
+.TravelNotes-BaseDialog-ToolbarDiv,
 .TravelNotes-BaseDialog-ContentDiv,
 .TravelNotes-BaseDialog-ErrorDiv,
 .TravelNotes-BaseDialog-WaitDiv,
@@ -84,7 +90,14 @@ Changes:
 	border-bottom-style: solid;
 	border-color: lightgray;
 	border-width: 0.1em;
-	overflow: auto;
+	overflow-y: auto;
+	flex-grow: 2;
+}
+
+.TravelNotes-BaseDialog-ContentDiv > div > div {
+	display: flex;
+	flex-direction: row;
+	margin-top: 0.3em;
 }
 
 .TravelNotes-BaseDialog-ErrorDiv {

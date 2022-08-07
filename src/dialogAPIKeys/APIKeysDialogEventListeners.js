@@ -24,6 +24,8 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v3.2.0:
 		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
+	- v 4.0.0:
+		- Issue ♯48 : Review the dialogs
 Doc reviewed 20210914
 Tests ...
 */
@@ -31,9 +33,7 @@ Tests ...
 import PasswordDialog from '../dialogPassword/PasswordDialog.js';
 import DataEncryptor from '../coreLib/DataEncryptor.js';
 import theUtilities from '../UILib/Utilities.js';
-import APIKeysDialogKeyControl from '../dialogAPIKeys/APIKeysDialogKeyControl.js';
-import { DataEncryptorHandlers, SaveAPIKeysHelper } from '../dialogAPIKeys/APIKeysDialogHelpers.js';
-import { APIKey } from '../coreLib/Containers.js';
+import { DataEncryptorHandlers } from '../dialogAPIKeys/APIKeysDialogHelpers.js';
 
 import { ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
 
@@ -53,23 +53,23 @@ class APIKeyDeletedEL {
 	#APIKeysDialog;
 
 	/**
-	A reference to the Map where the APIKeysDialogKeyControl objects are stored
-	@type {Map.<APIKeysDialogKeyControl>}
+	A reference to the Map where the APIKeyControlRow objects are stored
+	@type {Map.<APIKeyControlRow>}
 	*/
 
-	#APIKeysControls;
+	#apiKeysControlRowsMap;
 
 	/**
 	The constructor
 	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
-	@param {Map.<APIKeysDialogKeyControl>} APIKeysControls A reference to the Map where the APIKeysDialogKeyControl
+	@param {Map.<APIKeyControlRow>} apiKeysControlRowsMap A reference to the Map where the APIKeyControlRow
 	objects are stored
 	*/
 
-	constructor ( APIKeysDialog, APIKeysControls ) {
+	constructor ( APIKeysDialog, apiKeysControlRowsMap ) {
 		Object.freeze ( this );
 		this.#APIKeysDialog = APIKeysDialog;
-		this.#APIKeysControls = APIKeysControls;
+		this.#apiKeysControlRowsMap = apiKeysControlRowsMap;
 	}
 
 	/**
@@ -79,7 +79,7 @@ class APIKeyDeletedEL {
 
 	handleEvent ( ApiKeyDeletedEvent ) {
 		ApiKeyDeletedEvent.stopPropagation ( );
-		this.#APIKeysControls.delete ( ApiKeyDeletedEvent.data.objId );
+		this.#apiKeysControlRowsMap.delete ( ApiKeyDeletedEvent.data.objId );
 		this.#APIKeysDialog.refreshAPIKeys ( );
 	}
 }
@@ -343,23 +343,23 @@ class SaveToSecureFileButtonClickEL {
 	#APIKeysDialog;
 
 	/**
-	A reference to the Map where the APIKeysDialogKeyControl objects are stored
-	@type {Map.<APIKeysDialogKeyControl>}
+	A reference to the API keys control
+	@type {ApiKeysControl}
 	*/
 
-	#APIKeysControls;
+	#apiKeysControl;
 
 	/**
 	The constructor
 	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
-	@param {Map.<APIKeysDialogKeyControl>} APIKeysControls A reference to the Map where the APIKeysDialogKeyControl
+	@param {ApiKeysControl} apiKeysControl A reference to the API keys control
 	objects are stored
 	*/
 
-	constructor ( APIKeysDialog, APIKeysControls ) {
+	constructor ( APIKeysDialog, apiKeysControl ) {
 		Object.freeze ( this );
 		this.#APIKeysDialog = APIKeysDialog;
-		this.#APIKeysControls = APIKeysControls;
+		this.#apiKeysControl = apiKeysControl;
 	}
 
 	/**
@@ -377,9 +377,7 @@ class SaveToSecureFileButtonClickEL {
 		this.#APIKeysDialog.keyboardELEnabled = false;
 		const dataEncryptorHandlers = new DataEncryptorHandlers ( this.#APIKeysDialog );
 		new DataEncryptor ( ).encryptData (
-			new window.TextEncoder ( ).encode (
-				new SaveAPIKeysHelper ( this.#APIKeysControls ).getAPIKeysJsonString ( )
-			),
+			new window.TextEncoder ( ).encode ( this.#apiKeysControl.apiKeysJSON ),
 			data => dataEncryptorHandlers.onOkEncrypt ( data ),
 			( ) => dataEncryptorHandlers.onErrorEncrypt ( ),
 			new PasswordDialog ( true ).show ( )
@@ -403,23 +401,23 @@ class SaveToUnsecureFileButtonClickEL {
 	#APIKeysDialog;
 
 	/**
-	A reference to the Map where the APIKeysDialogKeyControl objects are stored
-	@type {Map.<APIKeysDialogKeyControl>}
+	A reference to the API keys control
+	@type {ApiKeysControl}
 	*/
 
-	#APIKeysControls;
+	#apiKeysControl;
 
 	/**
 	The constructor
 	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
-	@param {Map.<APIKeysDialogKeyControl>} APIKeysControls A reference to the Map where the APIKeysDialogKeyControl
+	@param {ApiKeysControl} apiKeysControl A reference to the API keys control
 	objects are stored
 	*/
 
-	constructor ( APIKeysDialog, APIKeysControls ) {
+	constructor ( APIKeysDialog, apiKeysControl ) {
 		Object.freeze ( this );
 		this.#APIKeysDialog = APIKeysDialog;
-		this.#APIKeysControls = APIKeysControls;
+		this.#apiKeysControl = apiKeysControl;
 	}
 
 	/**
@@ -434,9 +432,8 @@ class SaveToUnsecureFileButtonClickEL {
 		}
 		theUtilities.saveFile (
 			'APIKeys.json',
-			new SaveAPIKeysHelper ( this.#APIKeysControls ).getAPIKeysJsonString ( ),
-			'application/json'
-		);
+			this.#apiKeysControl.apiKeysJSON,
+			'application/json' );
 	}
 }
 
@@ -449,30 +446,20 @@ Click event listener for the add new APIKey button
 class NewAPIKeyButtonClickEL {
 
 	/**
-	A reference to the API keys dialog
-	@type {APIKeysDialog}
+	A reference to the API keys control
+	@type {ApiKeysControl}
 	*/
 
-	#APIKeysDialog;
-
-	/**
-	A reference to the Map where the APIKeysDialogKeyControl objects are stored
-	@type {Map.<APIKeysDialogKeyControl>}
-	*/
-
-	#APIKeysControls;
+	#apiKeysControl;
 
 	/**
 	The constructor
-	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
-	@param {Map.<APIKeysDialogKeyControl>} APIKeysControls A reference to the Map where the APIKeysDialogKeyControl
-	objects are stored
+	@param {ApiKeysControl} apiKeysControl A reference to the API Keys control
 	*/
 
-	constructor ( APIKeysDialog, APIKeysControls ) {
+	constructor ( apiKeysControl ) {
 		Object.freeze ( this );
-		this.#APIKeysDialog = APIKeysDialog;
-		this.#APIKeysControls = APIKeysControls;
+		this.#apiKeysControl = apiKeysControl;
 	}
 
 	/**
@@ -482,10 +469,7 @@ class NewAPIKeyButtonClickEL {
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		const apiKey = new APIKey ( );
-		const APIKeyControl = new APIKeysDialogKeyControl ( apiKey );
-		this.#APIKeysControls.set ( APIKeyControl.objId, APIKeyControl );
-		this.#APIKeysDialog.refreshAPIKeys ( );
+		this.#apiKeysControl.newApiKey ( );
 	}
 }
 

@@ -22,6 +22,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v 4.0.0:
+		- Issue ♯48 : Review the dialogs
 Doc reviewed 20210914
 Tests ...
 */
@@ -54,11 +56,11 @@ class APIKeysDialogToolbar {
 	#APIKeysDialog;
 
 	/**
-	A reference to the JS map where the APIKeysDialogKeyControl objects are stored
-	@type {Map}
+	A reference to the API keys control
+	@type {ApiKeysControl}
 	*/
 
-	#APIKeysControls;
+	#apiKeysControl;
 
 	/**
 	Store the status of the APIKeys file
@@ -196,7 +198,7 @@ class APIKeysDialogToolbar {
 			this.#rootHTMLElement
 		);
 		this.#saveToSecureFileButtonClickEL =
-			new SaveToSecureFileButtonClickEL ( this.#APIKeysDialog, this.#APIKeysControls );
+			new SaveToSecureFileButtonClickEL ( this.#APIKeysDialog, this.#apiKeysControl );
 		this.#saveKeysToSecureFileButton.addEventListener (
 			'click',
 			this.#saveToSecureFileButtonClickEL,
@@ -242,7 +244,7 @@ class APIKeysDialogToolbar {
 			this.#rootHTMLElement
 		);
 		this.#newAPIKeyButtonClickEL =
-			new NewAPIKeyButtonClickEL ( this.#APIKeysDialog, this.#APIKeysControls );
+			new NewAPIKeyButtonClickEL ( this.#apiKeysControl );
 		this.#newAPIKeyButton.addEventListener (
 			'click',
 			this.#newAPIKeyButtonClickEL,
@@ -265,7 +267,7 @@ class APIKeysDialogToolbar {
 			this.#rootHTMLElement
 		);
 		this.#saveToUnsecureFileButtonClickEL =
-			new SaveToUnsecureFileButtonClickEL ( this.#APIKeysDialog, this.#APIKeysControls );
+			new SaveToUnsecureFileButtonClickEL ( this.#APIKeysDialog, this.#apiKeysControl );
 		this.#saveKeysToUnsecureFileButton.addEventListener (
 			'click',
 			this.#saveToUnsecureFileButtonClickEL,
@@ -320,13 +322,13 @@ class APIKeysDialogToolbar {
 	/**
 	The constructor
 	@param {APIKeysDialog} APIKeysDialog A reference to the dialog
-	@param {Map} APIKeysControls A reference to the JS map with APIKeysControl objects
+	@param {Map} apiKeysControl A reference to the apiKeysControl object
 	@param {Boolean} haveAPIKeysFile  A boolean indicating when the APIKeys file was found on the server
 	*/
 
-	constructor ( APIKeysDialog, APIKeysControls, haveAPIKeysFile ) {
+	constructor ( APIKeysDialog, apiKeysControl, haveAPIKeysFile ) {
 		this.#APIKeysDialog = APIKeysDialog;
-		this.#APIKeysControls = APIKeysControls;
+		this.#apiKeysControl = apiKeysControl;
 		this.#haveAPIKeysFile = haveAPIKeysFile;
 		this.#rootHTMLElement = theHTMLElementsFactory.create (
 			'div',

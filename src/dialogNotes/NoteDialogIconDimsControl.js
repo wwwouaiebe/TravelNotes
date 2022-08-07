@@ -22,6 +22,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v 4.0.0:
+		- Issue ♯48 : Review the dialogs
 Doc reviewed 20210914
 Tests ...
 */
@@ -29,6 +31,7 @@ Tests ...
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import { ICON_DIMENSIONS } from '../main/Constants.js';
+import DialogControl from '../dialogBase/DialogControl.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -36,14 +39,7 @@ This class is the icnWidth and iconHeight control of the NoteDialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NoteDialogIconDimsControl {
-
-	/**
-	The control container
-	@type {HTMLElement}
-	*/
-
-	#iconDimsDiv = null;
+class NoteDialogIconDimsControl extends DialogControl {
 
 	/**
 	The width input
@@ -66,21 +62,15 @@ class NoteDialogIconDimsControl {
 
 	constructor ( eventListeners ) {
 
-		Object.freeze ( this );
+		super ( );
 
 		// HTMLElements creation
-		this.#iconDimsDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-NoteDialog-DataDiv'
-			}
-		);
 		theHTMLElementsFactory.create (
 			'text',
 			{
 				value : theTranslator.getText ( 'NoteDialogIconDimsControl - Icon width' )
 			},
-			this.#iconDimsDiv
+			this.HTMLElement
 		);
 		this.#iconWidthInput = theHTMLElementsFactory.create (
 			'input',
@@ -90,7 +80,7 @@ class NoteDialogIconDimsControl {
 				value : ICON_DIMENSIONS.width,
 				dataset : { Name : 'iconWidth' }
 			},
-			this.#iconDimsDiv
+			this.HTMLElement
 		);
 
 		theHTMLElementsFactory.create (
@@ -98,7 +88,7 @@ class NoteDialogIconDimsControl {
 			{
 				value : theTranslator.getText ( 'NoteDialogIconDimsControl - Icon height' )
 			},
-			this.#iconDimsDiv
+			this.HTMLElement
 		);
 		this.#iconHeightInput = theHTMLElementsFactory.create (
 			'input',
@@ -108,7 +98,7 @@ class NoteDialogIconDimsControl {
 				value : ICON_DIMENSIONS.height,
 				dataset : { Name : 'iconHeight' }
 			},
-			this.#iconDimsDiv
+			this.HTMLElement
 		);
 
 		// event listeners
@@ -125,13 +115,6 @@ class NoteDialogIconDimsControl {
 		this.#iconWidthInput.removeEventListener ( 'input', eventListeners.controlInput );
 		this.#iconHeightInput.removeEventListener ( 'input', eventListeners.controlInput );
 	}
-
-	/**
-	An array with the HTML elements of the control
-	@type {Array.<HTMLElement>}
-	*/
-
-	get HTMLElements ( ) { return [ this.#iconDimsDiv ]; }
 
 	/**
 	The icon width value in the control

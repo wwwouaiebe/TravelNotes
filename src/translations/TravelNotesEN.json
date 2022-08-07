@@ -20,24 +20,24 @@
 		"msgstr": "You want to create {maneuversLength} notes. For performance reasons, the number of notes is limited to {maxManeuversNotes} for the demo. Change your route."
 	},
 	{
-		"msgid": "APIKeysDialog - API keys",
-		"msgstr": "API keys"
-	},
-	{
 		"msgid": "APIKeysDialog - empty API key name or value",
 		"msgstr": "empty API key name or value"
 	},
 	{
-		"msgid": "APIKeysDialogKeyControl - API key",
+		"msgid": "APIKeyControlRow - API key",
 		"msgstr": "API key"
 	},
 	{
-		"msgid": "APIKeysDialogKeyControl - delete API key",
+		"msgid": "APIKeyControlRow - delete API key",
 		"msgstr": "delete API key"
 	},
 	{
-		"msgid": "APIKeysDialogKeyControl - provider name",
+		"msgid": "APIKeyControlRow - provider name",
 		"msgstr": "Provider name"
+	},
+	{
+		"msgid": "APIKeysDialog - API keys",
+		"msgstr": "API keys"
 	},
 	{
 		"msgid": "APIKeysDialogToolbar - new API key",
