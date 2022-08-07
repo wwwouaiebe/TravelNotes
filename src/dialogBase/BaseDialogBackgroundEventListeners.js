@@ -336,7 +336,9 @@ class BackgroundTouchEL {
 		}
 		switch ( touchEvent.type ) {
 		case 'touchstart' :
-			this.#handleStartEvent ( touchEvent );
+			if ( touchEvent.currentTarget === touchEvent.target ) {
+				this.#handleStartEvent ( touchEvent );
+			}
 			break;
 		case 'touchmove' :
 			this.#handleMoveEvent ( touchEvent );
