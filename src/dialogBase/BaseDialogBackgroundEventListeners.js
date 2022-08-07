@@ -430,7 +430,11 @@ class BackgroundMouseEL {
 	handleEvent ( mouseEvent ) {
 		switch ( mouseEvent.type ) {
 		case 'mousedown' :
-			if ( mouseEvent.button === BackgroundMouseEL.LEFT_BUTTON ) {
+			if (
+				mouseEvent.button === BackgroundMouseEL.LEFT_BUTTON
+				&&
+				mouseEvent.target === mouseEvent.currentTarget
+			) {
 				this.#startPanX = mouseEvent.screenX;
 				this.#startPanY = mouseEvent.screenY;
 				this.#mapCenter = theTravelNotesData.map.getCenter ( );
