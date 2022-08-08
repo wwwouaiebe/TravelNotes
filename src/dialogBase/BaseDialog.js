@@ -384,7 +384,7 @@ class BaseDialog {
 
 	/**
 	Top bar touch move or touch end event listener
-	@type {TopBarTouchEndEL}
+	@type {TopBarTouchMoveOrEndEL}
 	*/
 
 	#topBarTouchMoveOrEndEL;

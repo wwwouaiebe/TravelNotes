@@ -37,6 +37,220 @@ import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import GeoCoder from '../coreLib/GeoCoder.js';
 import theConfig from '../data/Config.js';
+import DialogControl from '../dialogBase/DialogControl.js';
+
+/**
+Click event listener for the reset address button
+*/
+
+class ResetAdressButtonClickEL {
+
+	/**
+	A reference to the dialog
+	@type {WayPointPropertiesDialog}
+	*/
+
+	#wayPointPropertiesDialog;
+
+	/**
+	 the constructor
+	 @param {WayPointPropertiesDialog} wayPointPropertiesDialog A reference to the dialog
+	 */
+
+	constructor ( wayPointPropertiesDialog ) {
+		Object.freeze ( this );
+		this.#wayPointPropertiesDialog = wayPointPropertiesDialog;
+	}
+
+	/**
+	Destructor
+	*/
+
+	destructor ( ) {
+		this.#wayPointPropertiesDialog = null;
+	}
+
+	/**
+	Event listener method
+	@param {Event} clickEvent the event to handle
+	*/
+
+	async handleEvent ( clickEvent ) {
+		clickEvent.stopPropagation ( );
+		if ( ! theConfig.wayPoint.reverseGeocoding ) {
+			return;
+		}
+		this.#wayPointPropertiesDialog.showWait ( );
+		const address = await new GeoCoder ( )
+			.getAddressAsync ( this.#wayPointPropertiesDialog.wayPoint.latLng );
+		this.#wayPointPropertiesDialog.hideWait ( );
+
+		if ( theConfig.wayPoint.geocodingIncludeName ) {
+			this.#wayPointPropertiesDialog.name = address.name;
+		}
+
+		let addressString = address.street;
+		if ( '' !== address.city ) {
+			addressString += ' ' + address.city;
+		}
+		this.#wayPointPropertiesDialog.address = addressString;
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+This class is the address control of the waypoint properties dialog
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class WayPointAddressControl extends DialogControl {
+
+	/**
+	The reset address button
+	@type {HTMLElement}
+	*/
+
+	#resetAddressButton;
+
+	/**
+	The click event listener for the reset address button
+	@type {ResetAdressButtonClickEL}
+	*/
+
+	#resetAdressButtonClickEL;
+
+	/**
+	The reset address button
+	@type {HTMLElement}
+	*/
+
+	#addressInput;
+
+	/**
+	The constructor
+	@param {wayPointPropertiesDialog} wayPointPropertiesDialog A reference to the dialog
+	 */
+
+	constructor ( wayPointPropertiesDialog ) {
+		super ( );
+		const addressHeaderDiv = theHTMLElementsFactory.create (
+			'div',
+			{
+				className : 'TravelNotes-BaseDialog-FlexRow'
+			},
+			this.HTMLElement
+		);
+		this.#resetAddressButton = theHTMLElementsFactory.create (
+			'div',
+			{
+				className : 'TravelNotes-BaseDialog-Button',
+				title : theTranslator.getText ( 'WayPointPropertiesDialog - Reset address' ),
+				textContent : '🔄'
+			},
+			addressHeaderDiv
+		);
+		this.#resetAdressButtonClickEL = new ResetAdressButtonClickEL ( wayPointPropertiesDialog );
+		this.#resetAddressButton.addEventListener ( 'click', this.#resetAdressButtonClickEL, false );
+		theHTMLElementsFactory.create (
+			'text',
+			{
+				value : theTranslator.getText ( 'WayPointPropertiesDialog - Address' )
+			},
+			addressHeaderDiv
+		);
+
+		this.#addressInput = theHTMLElementsFactory.create (
+			'input',
+			{
+				type : 'text',
+				className : 'TravelNotes-WayPointPropertiesDialog-InputText'
+			},
+			theHTMLElementsFactory.create (
+				'div',
+				{
+					className : 'TravelNotes-BaseDialog-FlexRow'
+				},
+				this.HTMLElement
+			)
+		);
+	}
+
+	/**
+	destructor
+	*/
+
+	destructor ( ) {
+		this.#resetAdressButtonClickEL.destructor ( );
+		this.#resetAddressButton.removeEventListener ( 'click', this.#resetAdressButtonClickEL, false );
+	}
+
+	/**
+	The address in the control
+	@type {String}
+	*/
+
+	get address ( ) { return this.#addressInput.value; }
+
+	set address ( Value ) { this.#addressInput.value = Value; }
+
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+This class is the name control of the waypoint properties dialog
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class WayPointNameControl extends DialogControl {
+
+	/**
+	The name input HTMLElement
+	@type {HTMLElement}
+	*/
+
+	#nameInput;
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		super ( );
+		theHTMLElementsFactory.create (
+			'div',
+			{
+				className : 'TravelNotes-BaseDialog-FlexRow',
+				textContent : theTranslator.getText ( 'WayPointPropertiesDialog - Name' )
+			},
+			this.HTMLElement
+		);
+		const nameInputDiv = theHTMLElementsFactory.create (
+			'div',
+			{
+				className : 'TravelNotes-BaseDialog-FlexRow'
+			},
+			this.HTMLElement
+		);
+		this.#nameInput = theHTMLElementsFactory.create (
+			'input',
+			{
+				type : 'text',
+				className : 'TravelNotes-WayPointPropertiesDialog-InputText'
+			},
+			nameInputDiv
+		);
+	}
+
+	/**
+	The name in the control
+	@type {String}
+	*/
+
+	get name ( ) { return this.#nameInput.value; }
+
+	set name ( value ) { this.#nameInput.value = value; }
+
+}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -54,111 +268,18 @@ class WayPointPropertiesDialog extends BaseDialog {
 	#wayPoint;
 
 	/**
-	The address input HTMLElement
-	@type {HTMLElement}
+	The waypoint name control
+	@type {WayPointNameControl}
 	*/
 
-	#addressInput;
+	#wayPointNameControl;
 
 	/**
-	The reser address button
-	@type {HTMLElement}
+	The waypoint address control
+	@type {WayPointAddressControl}
 	*/
 
-	#resetAddressButton;
-
-	/**
-	The name input HTMLElement
-	@type {HTMLElement}
-	*/
-
-	#nameInput;
-
-	/**
-	Click on the reset address button event listener
-	@param {Event} clickEvent The event to handle
-	*/
-
-	async handleEvent ( clickEvent ) {
-		clickEvent.stopPropagation ( );
-		if ( ! theConfig.wayPoint.reverseGeocoding ) {
-			return;
-		}
-		this.showWait ( );
-		const address = await new GeoCoder ( ).getAddressAsync ( this.#wayPoint.latLng );
-		this.hideWait ( );
-		if ( theConfig.wayPoint.geocodingIncludeName ) {
-			this.#nameInput.value = address.name;
-		}
-		let addressString = address.street;
-		if ( '' !== address.city ) {
-			addressString += ' ' + address.city;
-		}
-		this.#addressInput.value = addressString;
-	}
-
-	/**
-	Create the address control HTMLElements
-	*/
-
-	#createAddressControl ( ) {
-		const addressHeaderDiv = theHTMLElementsFactory.create ( 'div' );
-		this.#resetAddressButton = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-BaseDialog-Button',
-				title : theTranslator.getText ( 'WayPointPropertiesDialog - Reset address' ),
-				textContent : '🔄'
-			},
-			addressHeaderDiv
-		);
-		this.#resetAddressButton.addEventListener ( 'click', this, false ); // You understand?
-		theHTMLElementsFactory.create (
-			'text',
-			{
-				value : theTranslator.getText ( 'WayPointPropertiesDialog - Address' )
-			},
-			addressHeaderDiv
-		);
-
-		const addressInputDiv = theHTMLElementsFactory.create ( 'div' );
-		this.#addressInput = theHTMLElementsFactory.create (
-			'input',
-			{
-				type : 'text',
-				value : this.#wayPoint.address,
-				className : 'TravelNotes-WayPointPropertiesDialog-Input'
-			},
-			addressInputDiv
-		);
-
-		return [ addressHeaderDiv, addressInputDiv ];
-	}
-
-	/**
-	Create the name control HTMLElements
-	*/
-
-	#createNameControl ( ) {
-		const nameHeaderDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				textContent : theTranslator.getText ( 'WayPointPropertiesDialog - Name' )
-			}
-		);
-		const nameInputDiv = theHTMLElementsFactory.create ( 'div' );
-		this.#nameInput = theHTMLElementsFactory.create (
-			'input',
-			{
-				type : 'text',
-				value : this.#wayPoint.name,
-				className : 'TravelNotes-WayPointPropertiesDialog-Input'
-			},
-			nameInputDiv
-		);
-
-		return [ nameHeaderDiv, nameInputDiv ];
-	}
+	#wayPointAddressControl;
 
 	/**
 	The constructor
@@ -168,7 +289,10 @@ class WayPointPropertiesDialog extends BaseDialog {
 	constructor ( wayPoint ) {
 		super ( );
 		this.#wayPoint = wayPoint;
-
+		this.#wayPointNameControl = new WayPointNameControl ( );
+		this.#wayPointNameControl.name = this.#wayPoint.name;
+		this.#wayPointAddressControl = new WayPointAddressControl ( this );
+		this.#wayPointAddressControl.address = this.#wayPoint.address;
 	}
 
 	/**
@@ -176,7 +300,8 @@ class WayPointPropertiesDialog extends BaseDialog {
 	*/
 
 	onCancel ( ) {
-		this.#resetAddressButton.removeEventListener ( 'click', this, false	);
+
+		this.#wayPointAddressControl.destructor ( );
 		super.onCancel ( );
 	}
 
@@ -185,9 +310,9 @@ class WayPointPropertiesDialog extends BaseDialog {
 	*/
 
 	onOk ( ) {
-		this.#wayPoint.address = this.#addressInput.value;
-		this.#wayPoint.name = this.#nameInput.value;
-		this.#resetAddressButton.removeEventListener ( 'click', this, false	);
+		this.#wayPoint.address = this.#wayPointAddressControl.address;
+		this.#wayPoint.name = this.#wayPointNameControl.name;
+		this.#wayPointAddressControl.destructor ( );
 		super.onOk ( );
 	}
 
@@ -199,9 +324,25 @@ class WayPointPropertiesDialog extends BaseDialog {
 
 	get contentHTMLElements ( ) {
 		return [ ].concat (
-			this.#createNameControl ( ),
-			this.#createAddressControl ( )
+			this.#wayPointNameControl.HTMLElement,
+			this.#wayPointAddressControl.HTMLElement
 		);
+	}
+
+	/**
+	The name in the control
+	*/
+
+	set name ( wayPointName ) {
+		this.#wayPointNameControl.name = wayPointName;
+	}
+
+	/**
+	The address in the control
+	*/
+
+	set address ( address ) {
+		this.#wayPointAddressControl.address = address;
 	}
 
 	/**
@@ -210,6 +351,13 @@ class WayPointPropertiesDialog extends BaseDialog {
 	*/
 
 	get title ( ) { return theTranslator.getText ( 'WayPointPropertiesDialog - Waypoint properties' ); }
+
+	/**
+	The waypoint used by the dialog
+	@type {WayPoint}
+	*/
+
+	get wayPoint ( ) { return this.#wayPoint; }
 }
 
 export default WayPointPropertiesDialog;

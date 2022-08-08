@@ -28,21 +28,8 @@ Changes:
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-#TravelNotes-WayPointPropertiesDialog-DataDiv {
+.TravelNotes-WayPointPropertiesDialog-InputText {
 	width: 30em;
-}
-
-#TravelNotes-WayPointPropertiesDialog-DataDiv > div {
-	padding-top: 0.3em;
-	padding-bottom: 0.1em;
-}
-
-#TravelNotes-WayPointPropertiesDialog-DataDiv > div > div {
-	margin-right: 0.5em;
-}
-
-.TravelNotes-WayPointPropertiesDialog-Input {
-	width: calc(100% - 0.5em);
 }
 
 /*

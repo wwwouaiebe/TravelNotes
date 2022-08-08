@@ -154,7 +154,7 @@ class TopBarTouchStartEL {
 
 	/**
 	The constructor
-	@param {TouchData} touchTopBarData A reference to the touchTopBarData object of the dialog
+	@param {DragData} dragData A reference to the DragData object of the dialog
 	*/
 
 	constructor ( dragData ) {
@@ -208,7 +208,7 @@ class TopBarTouchMoveOrEndEL {
 
 	/**
 	The constructor
-	@param {TouchData} touchTopBarData A reference to the touchTopBarData object of the dialog
+	@param {DragData} dragData A reference to the DragData object of the dialog
 	@param {HTMLElement} container A reference to the dialog container
 	@param {HTMLElement} background A reference to the background of the dialog
 	*/
@@ -274,7 +274,7 @@ class TopBarTouchCancelEL {
 
 	/**
 	The constructor
-	@param {TouchData} touchTopBarData A reference to the touchTopBarData object of the dialog
+	@param {DragData} dragData A reference to the DragData object of the dialog
 	*/
 
 	constructor ( dragData ) {
