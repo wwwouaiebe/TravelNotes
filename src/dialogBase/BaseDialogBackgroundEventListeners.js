@@ -34,7 +34,7 @@ import theGeometry from '../coreLib/Geometry.js';
 import theConfig from '../data/Config.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 
-import { ZERO, ONE, TWO } from '../main/Constants.js';
+import { ZERO, ONE, TWO, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -45,11 +45,35 @@ BaseDialog drag over event listener based on the EventListener API.
 class BackgroundDragOverEL {
 
 	/**
+	A reference to the dragData object of the dialog
+	@type {DragData}
+	*/
+
+	#dragData;
+
+	/**
+	A reference to the dialog container
+	@type {HTMLElement}
+	*/
+
+	#container;
+
+	/**
+	A reference to the background of the dialog
+	@type {HTMLElement}
+	*/
+
+	#background;
+
+	/**
 	The constructor
 	*/
 
-	constructor ( ) {
+	constructor ( dragData, container, background ) {
 		Object.freeze ( this );
+		this.#dragData = dragData;
+		this.#container = container;
+		this.#background = background;
 	}
 
 	/**
@@ -59,6 +83,32 @@ class BackgroundDragOverEL {
 
 	handleEvent ( dragEvent ) {
 		dragEvent.preventDefault ( );
+
+		this.#dragData.dialogX += dragEvent.screenX - this.#dragData.dragStartX;
+		this.#dragData.dialogY += dragEvent.screenY - this.#dragData.dragStartY;
+
+		this.#dragData.dragStartX = dragEvent.screenX;
+		this.#dragData.dragStartY = dragEvent.screenY;
+
+		this.#dragData.dialogX =
+			Math.min (
+				Math.max ( this.#dragData.dialogX, DIALOG_DRAG_MARGIN ),
+				this.#background.clientWidth -
+					this.#container.clientWidth -
+					DIALOG_DRAG_MARGIN
+			);
+
+		this.#dragData.dialogY =
+		Math.min (
+			Math.max ( this.#dragData.dialogY, DIALOG_DRAG_MARGIN ),
+			this.#background.clientHeight -
+				this.#container.clientHeight -
+				DIALOG_DRAG_MARGIN
+		);
+
+		this.#container.style.left = String ( this.#dragData.dialogX ) + 'px';
+		this.#container.style.top = String ( this.#dragData.dialogY ) + 'px';
+
 	}
 }
 

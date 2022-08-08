@@ -61,8 +61,6 @@ class TopBarDragStartEL {
 	handleEvent ( dragStartEvent ) {
 		this.#dragData.dragStartX = dragStartEvent.screenX;
 		this.#dragData.dragStartY = dragStartEvent.screenY;
-		dragStartEvent.dataTransfer.dropEffect = 'move';
-		dragStartEvent.dataTransfer.effectAllowed = 'move';
 	}
 }
 

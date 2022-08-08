@@ -446,8 +446,15 @@ class BaseDialog {
 
 		// A new element covering the entire screen is created, with drag and drop event listeners
 		this.#backgroundDiv = theHTMLElementsFactory.create ( 'div', { className : 'TravelNotes-Background' } );
+	}
 
-		this.#backgroundDragOverEL = new BackgroundDragOverEL ( );
+	/**
+	Create the background div event listeners. Event listeners must be created after the container div
+	*/
+
+	#createBackgroundDivEL ( ) {
+
+		this.#backgroundDragOverEL = new BackgroundDragOverEL ( this.#dragData, this.#containerDiv, this.#backgroundDiv );
 		this.#backgroundDiv.addEventListener ( 'dragover', this.#backgroundDragOverEL, false );
 
 		this.#backgroundWheelEL = new BackgroundWheelEL ( );
@@ -673,6 +680,7 @@ class BaseDialog {
 	#createHTML ( ) {
 		this.#createBackgroundDiv ( );
 		this.#createContainerDiv ( );
+		this.#createBackgroundDivEL ( );
 		this.#createTopBar ( );
 		this.#createHeaderDiv ( );
 		this.#createToolbarDiv ( );
