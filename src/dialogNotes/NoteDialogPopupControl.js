@@ -61,6 +61,7 @@ class NoteDialogPopupControl extends DialogControl {
 		theHTMLElementsFactory.create (
 			'div',
 			{
+				className : 'TravelNotes-BaseDialog-FlexRow',
 				textContent : theTranslator.getText ( 'NoteDialogPopupControl - Text' )
 			},
 			this.HTMLElement
@@ -72,7 +73,13 @@ class NoteDialogPopupControl extends DialogControl {
 				rows : theConfig.noteDialog.areaHeight.popupContent,
 				dataset : { Name : 'popupContent' }
 			},
-			theHTMLElementsFactory.create ( 'div', null, this.HTMLElement )
+			theHTMLElementsFactory.create (
+				'div',
+				{
+					className : 'TravelNotes-BaseDialog-FlexRow'
+				},
+				this.HTMLElement
+			)
 		);
 
 		// event listeners

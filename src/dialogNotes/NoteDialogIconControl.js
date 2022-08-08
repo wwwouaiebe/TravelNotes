@@ -59,7 +59,8 @@ class NoteDialogIconControl extends DialogControl {
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				textContent : theTranslator.getText ( 'NoteDialogIconControl - Icon content' )
+				textContent : theTranslator.getText ( 'NoteDialogIconControl - Icon content' ),
+				className : 'TravelNotes-BaseDialog-FlexRow'
 			},
 			this.HTMLElement
 		);
@@ -71,7 +72,13 @@ class NoteDialogIconControl extends DialogControl {
 				rows : theConfig.noteDialog.areaHeight.icon,
 				dataset : { Name : 'iconContent' }
 			},
-			theHTMLElementsFactory.create ( 'div', null, this.HTMLElement )
+			theHTMLElementsFactory.create (
+				'div',
+				{
+					className : 'TravelNotes-BaseDialog-FlexRow'
+				},
+				this.HTMLElement
+			)
 		);
 
 		// event listeners

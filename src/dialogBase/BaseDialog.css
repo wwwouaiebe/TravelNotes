@@ -94,15 +94,15 @@ Changes:
 	flex-grow: 2;
 }
 
-.TravelNotes-BaseDialog-ContentDiv > div > div {
-	display: flex;
-	flex-direction: row;
-	margin-top: 0.3em;
-}
-
 .TravelNotes-BaseDialog-ErrorDiv {
 	background-color: red;
 	color: white;
+}
+
+.TravelNotes-BaseDialog-FlexRow {
+	display: flex;
+	flex-direction: row;
+	margin-top: 0.3em;
 }
 
 .TravelNotes-BaseDialog-Button {

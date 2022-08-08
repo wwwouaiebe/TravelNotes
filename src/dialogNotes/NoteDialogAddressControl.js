@@ -62,7 +62,12 @@ class NoteDialogAddressControl extends DialogControl {
 		super ( );
 
 		// HTMLElements creation
-		const addressHeaderDiv = theHTMLElementsFactory.create ( 'div', null, this.HTMLElement );
+		const addressHeaderDiv = theHTMLElementsFactory.create (
+			'div',
+			{
+				className : 'TravelNotes-BaseDialog-FlexRow'
+			},
+			this.HTMLElement );
 		this.#addressButton = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -86,7 +91,12 @@ class NoteDialogAddressControl extends DialogControl {
 				className : 'TravelNotes-NoteDialog-InputText',
 				dataset : { Name : 'address' }
 			},
-			theHTMLElementsFactory.create ( 'div', null, this.HTMLElement )
+			theHTMLElementsFactory.create (
+				'div',
+				{
+					className : 'TravelNotes-BaseDialog-FlexRow'
+				},
+				this.HTMLElement )
 		);
 
 		// event listeners

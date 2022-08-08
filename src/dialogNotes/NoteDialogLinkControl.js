@@ -97,7 +97,13 @@ class NoteDialogLinkControl extends DialogControl {
 		super ( );
 
 		// HTMLElements creation
-		const linkHeaderDiv = theHTMLElementsFactory.create ( 'div', null, this.HTMLElement );
+		const linkHeaderDiv = theHTMLElementsFactory.create (
+			'div',
+			{
+				className : 'TravelNotes-BaseDialog-FlexRow'
+			},
+			this.HTMLElement
+		);
 		this.#createTheDevilButton ( latLng, linkHeaderDiv );
 		theHTMLElementsFactory.create (
 			'text',
@@ -113,7 +119,13 @@ class NoteDialogLinkControl extends DialogControl {
 				className : 'TravelNotes-NoteDialog-InputText',
 				dataset : { Name : 'url' }
 			},
-			theHTMLElementsFactory.create ( 'div', null, this.HTMLElement )
+			theHTMLElementsFactory.create (
+				'div',
+				{
+					className : 'TravelNotes-BaseDialog-FlexRow'
+				},
+				this.HTMLElement
+			)
 		);
 
 		// event listeners

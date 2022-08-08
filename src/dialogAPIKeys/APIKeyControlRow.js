@@ -112,7 +112,7 @@ class APIKeyControlRow {
 		this.#rootHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-APIKeysDialog-ApiKeyRow'
+				className : 'TravelNotes-BaseDialog-FlexRow'
 			}
 		);
 

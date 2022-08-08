@@ -60,6 +60,7 @@ class NoteDialogPhoneControl extends DialogControl {
 		theHTMLElementsFactory.create (
 			'div',
 			{
+				className : 'TravelNotes-BaseDialog-FlexRow',
 				textContent : theTranslator.getText ( 'NoteDialogPhoneControl - Phone' )
 			},
 			this.HTMLElement
@@ -71,7 +72,13 @@ class NoteDialogPhoneControl extends DialogControl {
 				className : 'TravelNotes-NoteDialog-InputText',
 				dataset : { Name : 'phone' }
 			},
-			theHTMLElementsFactory.create ( 'div', null, this.HTMLElement )
+			theHTMLElementsFactory.create (
+				'div',
+				{
+					className : 'TravelNotes-BaseDialog-FlexRow'
+				},
+				this.HTMLElement
+			)
 		);
 
 		// event listeners

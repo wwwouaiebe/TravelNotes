@@ -268,9 +268,9 @@ class ColorControl {
 		);
 
 		this.#colorInputEL = new ColorInputEL ( this, this.#inputs );
-		for ( const colorInput in this.#inputs ) {
-			this.#inputs [ colorInput ].addEventListener ( 'input', this.#colorInputEL, false );
-		}
+		this.#inputs.red.addEventListener ( 'input', this.#colorInputEL, false );
+		this.#inputs.green.addEventListener ( 'input', this.#colorInputEL, false );
+		this.#inputs.blue.addEventListener ( 'input', this.#colorInputEL, false );
 	}
 
 	/**
