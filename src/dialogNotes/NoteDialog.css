@@ -33,10 +33,6 @@ Changes:
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-.TravelNotes-BaseDialog-Container {
-	max-width: 80vw;
-}
-
 #TravelNotes-NoteDialog-IconSelect {
 	margin-right: 0.2em;
 }

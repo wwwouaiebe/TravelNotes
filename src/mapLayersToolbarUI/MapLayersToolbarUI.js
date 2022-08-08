@@ -169,6 +169,7 @@ class ButtonsContainerTouchEL {
 	*/
 
 	handleEvent ( touchEvent ) {
+		touchEvent.preventDefault ( );
 		switch ( touchEvent.type ) {
 		case 'touchstart' :
 			if ( ONE === touchEvent.changedTouches.length ) {
@@ -443,6 +444,7 @@ class MapLayersToolbarUI {
 	*/
 
 	#onHeaderTouch ( touchEvent ) {
+		touchEvent.preventDefault ( );
 		switch ( touchEvent.type ) {
 		case 'touchstart' :
 			if ( ONE === touchEvent.changedTouches.length ) {

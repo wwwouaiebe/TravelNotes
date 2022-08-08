@@ -43,7 +43,7 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v4.0.0:
 		- Issue ♯38 : Review mouse and touch events on the background div of dialogs
-		- Issue #41 : Not possible to move a dialog on touch devices
+		- Issue ♯41 : Not possible to move a dialog on touch devices
 		- Issue ♯48 : Review the dialogs
 Doc reviewed ...
 Tests ...
