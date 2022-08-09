@@ -22,8 +22,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
+	- v4.0.0:
+		- Issue ♯50 : Add touch events on the menus to close the menus
 Doc reviewed 20210915
 Tests ...
 */
@@ -97,6 +97,55 @@ class CancelContextMenuButtonClickEL {
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		this.#menuOperator.onCancelMenu ( );
+	}
+}
+
+class CancelContextMenuPointerEL {
+
+	#clientX = null;
+
+	#clientY = null;
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #MIN_DELTA_CLIENT_Y ( ) { return 100; }
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #MAX_DELTA_CLIENT_X ( ) { return 30; }
+
+	/**
+	A reference to the menuOperator Object
+	@type {BaseContextMenuOperator}
+	*/
+
+	#menuOperator = null;
+	constructor ( menuOperator ) {
+		Object.freeze ( this );
+		this.#menuOperator = menuOperator;
+	}
+
+	handleEvent ( pointerEvent ) {
+		pointerEvent.preventDefault ( );
+		switch ( pointerEvent.type ) {
+		case 'pointerdown' :
+			this.#clientX = pointerEvent.clientX;
+			this.#clientY = pointerEvent.clientY;
+			break;
+		case 'pointerup' :
+			if ( this.#clientX && this.#clientY ) {
+				if (
+					CancelContextMenuPointerEL.#MIN_DELTA_CLIENT_Y < this.#clientY - pointerEvent.clientY
+					&&
+					CancelContextMenuPointerEL.#MAX_DELTA_CLIENT_X > Math.abs ( this.#clientX - pointerEvent.clientX )
+				) {
+					this.#menuOperator.onCancelMenu ( );
+				}
+			}
+			this.#clientX = null;
+			this.#clientY = null;
+			break;
+		default :
+			break;
+		}
 	}
 }
 
@@ -283,6 +332,7 @@ class ContainerMouseEnterEL {
 export {
 	ContextMenuKeyboardKeydownEL,
 	CancelContextMenuButtonClickEL,
+	CancelContextMenuPointerEL,
 	MenuItemMouseLeaveEL,
 	MenuItemMouseEnterEL,
 	MenuItemClickEL,

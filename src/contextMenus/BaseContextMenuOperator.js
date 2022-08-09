@@ -22,6 +22,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v4.0.0:
+		- Issue ♯50 : Add touch events on the menus to close the menus
 Doc reviewed 20210913
 Tests ...
 */
@@ -30,6 +32,7 @@ import theConfig from '../data/Config.js';
 import {
 	ContextMenuKeyboardKeydownEL,
 	CancelContextMenuButtonClickEL,
+	CancelContextMenuPointerEL,
 	MenuItemMouseLeaveEL,
 	MenuItemMouseEnterEL,
 	MenuItemClickEL,
@@ -99,6 +102,8 @@ class BaseContextMenuOperator {
 	*/
 
 	#cancelContextMenuButtonClickEL;
+
+	#cancelContextMenuPointerEL;
 
 	/**
 	click menu item event listener
@@ -199,6 +204,7 @@ class BaseContextMenuOperator {
 		this.#containerMouseLeaveEL = new ContainerMouseLeaveEL ( this );
 		this.#containerMouseEnterEL = new ContainerMouseEnterEL ( this );
 		this.#cancelContextMenuButtonClickEL = new CancelContextMenuButtonClickEL ( this );
+		this.#cancelContextMenuPointerEL = new CancelContextMenuPointerEL ( this );
 		this.#menuItemClickEL = new MenuItemClickEL ( this );
 		this.#menuItemMouseLeaveEL = new MenuItemMouseLeaveEL ( this );
 		this.#menuItemMouseEnterEL = new MenuItemMouseEnterEL ( this );
@@ -207,6 +213,8 @@ class BaseContextMenuOperator {
 		document.addEventListener ( 'keydown', this.#contextMenuKeyboardKeydownEL, true );
 		this.#contextMenu.container.addEventListener ( 'mouseleave', this.#containerMouseLeaveEL );
 		this.#contextMenu.container.addEventListener ( 'mouseenter', this.#containerMouseEnterEL );
+		this.#contextMenu.container.addEventListener ( 'pointerdown', this.#cancelContextMenuPointerEL );
+		this.#contextMenu.container.addEventListener ( 'pointerup', this.#cancelContextMenuPointerEL );
 		this.#contextMenu.cancelButton.addEventListener ( 'click', this.#cancelContextMenuButtonClickEL );
 		this.#contextMenu.menuItemHTMLElements.forEach (
 			menuItemHTMLElement => {
@@ -240,6 +248,8 @@ class BaseContextMenuOperator {
 			'mouseenter',
 			this.#containerMouseEnterEL
 		);
+		this.#contextMenu.container.removeEventListener ( 'pointerdown', this.#cancelContextMenuPointerEL );
+		this.#contextMenu.container.removeEventListener ( 'pointerup', this.#cancelContextMenuPointerEL );
 		this.#contextMenu.cancelButton.removeEventListener (
 			'click',
 			this.#cancelContextMenuButtonClickEL
@@ -256,6 +266,7 @@ class BaseContextMenuOperator {
 		this.#containerMouseLeaveEL = null;
 		this.#containerMouseEnterEL = null;
 		this.#cancelContextMenuButtonClickEL = null;
+		this.#cancelContextMenuPointerEL = null;
 		this.#menuItemClickEL = null;
 		this.#menuItemMouseLeaveEL = null;
 		this.#menuItemMouseEnterEL = null;
