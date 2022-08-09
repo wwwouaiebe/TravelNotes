@@ -1,0 +1,44 @@
+/*
+Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
+
+This  program is free software;
+you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation;
+either version 3 of the License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+/**
+@------------------------------------------------------------------------------------------------------------------------------
+
+@file FullScreenUI.css
+@desc CSS for the FullScreenUI
+Changes:
+	- v4.0.0:
+		- created
+
+@------------------------------------------------------------------------------------------------------------------------------
+*/
+#TravelNotes-FullScreenUI {
+	position: absolute;
+	top: 10em;
+	left: calc(50vw - 15em);
+	width: 30em;
+	height: 5em;
+	background-color: white;
+	z-index: 1500;
+	text-align: center;
+	padding-top: 2em;
+}
+
+/*
+--- End of FullScreenUI.css ---------------------------------------------------------------------------------------------------
+*/

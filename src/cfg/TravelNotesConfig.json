@@ -26,6 +26,11 @@
 		"showWarning":true,
 		"timeOut":10000
 	},
+	"FullScreenUI": 
+	{
+		"timeOut": 5000,
+		"screenMaxWidth" : 1200
+	},
 	"geoCoder" : {
 		"distances" : {
 			"city":1200,

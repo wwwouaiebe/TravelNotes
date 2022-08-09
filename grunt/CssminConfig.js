@@ -47,6 +47,7 @@ const travelNotesCss = [
 	'src/dialogPassword/PasswordDialog.css',
 	'src/AttributionsUI/AttributionsUI.css',
 	'src/ErrorsUI/ErrorsUI.css',
+	'src/fullScreenUI/FullScreenUI.css',
 	'src/UI/ItineraryPaneUI.css',
 	'src/mapLayersToolbarUI/MapLayersToolbarUI.css',
 	'src/mouseUI/MouseUI.css',

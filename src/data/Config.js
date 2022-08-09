@@ -48,7 +48,7 @@ Changes:
 	- v4.0.0:
 		- Issue ♯38 : Review mouse and touch events on the background div of dialogs
 		- Issue ♯48 : Review the dialogs
-
+		- Issue ♯49 : Add a full screen mode method
 Doc reviewed 20210913
 Tests ...
 */
@@ -85,6 +85,11 @@ const theConfig = {
 		showInfo : true,
 		showWarning : true,
 		timeOut : 10000
+	},
+	FullScreenUI :
+	{
+		timeOut : 5000,
+		screenMaxWidth : 1200
 	},
 	geoCoder : {
 		distances : {

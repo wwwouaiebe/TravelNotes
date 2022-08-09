@@ -144,6 +144,10 @@
 		"msgstr": "Not possible to select {provider}"
 	},
 	{
+		"msgid": "FullScreenUI - start full screen",
+		"msgstr": "Click here to activate the full screen mode"
+	},
+	{
 		"msgid": "GeoLocator - Geolocation disabled on the device",
 		"msgstr": "The geolocation is disabled on the device"
 	},	
@@ -206,6 +210,14 @@
 	{
 		"msgid": "MapContextMenu - Add a route",
 		"msgstr": "Add a route"
+	},
+	{
+		"msgid": "MapContextMenu - Disable full screen",
+		"msgstr": "Disable full screen"
+	},
+	{
+		"msgid": "MapContextMenu - Enable full screen",
+		"msgstr": "Enable full screen"
 	},
 	{
 		"msgid": "MapContextMenu - Hide all notes",

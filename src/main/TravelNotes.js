@@ -50,6 +50,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v4.0.0:
+		- Issue ♯49 : Add a full screen mode method
 Doc reviewed 20210913
 Tests ...
 */
@@ -70,6 +72,7 @@ import theAttributionsUI from '../attributionsUI/AttributionsUI.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theTranslator from '../UILib/Translator.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import theFullScreenUI from '../fullScreenUI/FullScreenUI.js';
 import { LAT_LNG, TWO, SAVE_STATUS, HTTP_STATUS_OK } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -188,6 +191,8 @@ class TravelNotes {
 
 		theEventDispatcher.dispatch ( 'setrouteslist' );
 		theEventDispatcher.dispatch ( 'roadbookupdate' );
+
+		theFullScreenUI.show ( );
 
 	}
 
