@@ -103,6 +103,11 @@ class BaseContextMenuOperator {
 
 	#cancelContextMenuButtonClickEL;
 
+	/**
+	cancel with pointer event listener for the context menus
+	@type {CancelContextMenuPointerEL}
+	*/
+
 	#cancelContextMenuPointerEL;
 
 	/**

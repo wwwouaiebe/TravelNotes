@@ -100,15 +100,40 @@ class CancelContextMenuButtonClickEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+cancel with pointer event listener for the context menus
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
 class CancelContextMenuPointerEL {
+
+	/**
+	The X position of the pointer of the previous event
+	@type {?Number}
+	*/
 
 	#clientX = null;
 
+	/**
+	The Y position of the pointer of the previous event
+	@type {?Number}
+	*/
+
 	#clientY = null;
+
+	/**
+	The minimal difference on the Y position between two events
+	@type {Number}
+	*/
 
 	// eslint-disable-next-line no-magic-numbers
 	static get #MIN_DELTA_CLIENT_Y ( ) { return 100; }
 
+	/**
+	The maximal difference on the X position between two events
+	@type {Number}
+	*/
 	// eslint-disable-next-line no-magic-numbers
 	static get #MAX_DELTA_CLIENT_X ( ) { return 30; }
 
@@ -118,10 +143,21 @@ class CancelContextMenuPointerEL {
 	*/
 
 	#menuOperator = null;
+
+	/**
+	The constructor
+	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
+	*/
+
 	constructor ( menuOperator ) {
 		Object.freeze ( this );
 		this.#menuOperator = menuOperator;
 	}
+
+	/**
+	Event listener method
+	@param {Event} pointerEvent The event to handle
+	*/
 
 	handleEvent ( pointerEvent ) {
 		pointerEvent.preventDefault ( );
