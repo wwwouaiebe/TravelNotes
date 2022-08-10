@@ -28,6 +28,8 @@ Doc reviewed 20210915
 Tests ...
 */
 
+import { ZERO, ONE } from '../main/Constants.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 keydown event listener for the context menus
@@ -102,11 +104,11 @@ class CancelContextMenuButtonClickEL {
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-cancel with pointer event listener for the context menus
+Touch event listener for the context menus
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class CancelContextMenuPointerEL {
+class ContextMenuTouchEL {
 
 	/**
 	The X position of the pointer of the previous event
@@ -156,31 +158,38 @@ class CancelContextMenuPointerEL {
 
 	/**
 	Event listener method
-	@param {Event} pointerEvent The event to handle
+	@param {Event} touchEvent The event to handle
 	*/
 
-	handleEvent ( pointerEvent ) {
-		pointerEvent.preventDefault ( );
-		switch ( pointerEvent.type ) {
-		case 'pointerdown' :
-			this.#clientX = pointerEvent.clientX;
-			this.#clientY = pointerEvent.clientY;
-			break;
-		case 'pointerup' :
-			if ( this.#clientX && this.#clientY ) {
-				if (
-					CancelContextMenuPointerEL.#MIN_DELTA_CLIENT_Y < this.#clientY - pointerEvent.clientY
-					&&
-					CancelContextMenuPointerEL.#MAX_DELTA_CLIENT_X > Math.abs ( this.#clientX - pointerEvent.clientX )
-				) {
-					this.#menuOperator.onCancelMenu ( );
+	handleEvent ( touchEvent ) {
+		touchEvent.preventDefault ( );
+		if ( ONE === touchEvent.changedTouches.length ) {
+			const touch = touchEvent.changedTouches.item ( ZERO );
+			switch ( touchEvent.type ) {
+			case 'touchstart' :
+				this.#clientX = touch.clientX;
+				this.#clientY = touch.clientY;
+				break;
+			case 'touchend' :
+				if ( this.#clientX && this.#clientY ) {
+					if (
+						ContextMenuTouchEL.#MIN_DELTA_CLIENT_Y < this.#clientY - touch.clientY
+							&&
+							ContextMenuTouchEL.#MAX_DELTA_CLIENT_X > Math.abs ( this.#clientX - touch.clientX )
+					) {
+						this.#menuOperator.onCancelMenu ( );
+					}
 				}
+				this.#clientX = null;
+				this.#clientY = null;
+				break;
+			case 'touchcancel' :
+				this.#clientX = null;
+				this.#clientY = null;
+				break;
+			default :
+				break;
 			}
-			this.#clientX = null;
-			this.#clientY = null;
-			break;
-		default :
-			break;
 		}
 	}
 }
@@ -368,7 +377,7 @@ class ContainerMouseEnterEL {
 export {
 	ContextMenuKeyboardKeydownEL,
 	CancelContextMenuButtonClickEL,
-	CancelContextMenuPointerEL,
+	ContextMenuTouchEL,
 	MenuItemMouseLeaveEL,
 	MenuItemMouseEnterEL,
 	MenuItemClickEL,
