@@ -39,7 +39,7 @@ module.exports = function ( grunt ) {
 
 	// Load tasks
 
-	grunt.loadNpmTasks ( 'grunt-buildnumber' );
+	grunt.loadNpmTasks ( 'grunt-wwwouaiebe-buildnumber' );
 	grunt.loadNpmTasks ( 'grunt-eslint' );
 	grunt.loadNpmTasks ( 'grunt-text-replace' );
 	grunt.loadNpmTasks ( 'grunt-rollup' );
