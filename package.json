@@ -16,6 +16,7 @@
     "grunt-contrib-cssmin": "latest",
     "grunt-eslint": "latest",
     "grunt-essimpledoc": "latest",
+    "grunt-wwwouaiebe-buildnumber": "latest",
     "grunt-rollup": "latest",
     "grunt-stylelint": "latest",
     "grunt-terser": "latest",
