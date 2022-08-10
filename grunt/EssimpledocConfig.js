@@ -21,14 +21,17 @@ module.exports = {
 	debug : {
 		options : {
 			src : './src',
-			dest : './docs/techDoc'
+			dest : './docs/techDoc',
+			validate : true,
+			noFiles : true
 		}
 	},
 	doc : {
 		options : {
 			src : './src',
 			dest : './docs/techDoc',
-			validate : true
+			validate : true,
+			noFiles : true
 		}
 	},
 	doclaunch : {
