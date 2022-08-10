@@ -162,7 +162,6 @@ class ContextMenuTouchEL {
 	*/
 
 	handleEvent ( touchEvent ) {
-		touchEvent.preventDefault ( );
 		if ( ONE === touchEvent.changedTouches.length ) {
 			const touch = touchEvent.changedTouches.item ( ZERO );
 			switch ( touchEvent.type ) {
