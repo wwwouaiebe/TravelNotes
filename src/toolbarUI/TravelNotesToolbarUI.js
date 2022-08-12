@@ -159,52 +159,57 @@ class TravelNotesToolbarUI extends BaseToolbarUI {
 	*/
 
 	createUI ( ) {
-		if ( ! super.createUI ( 'Travel & Notes', TOOLBAR_POSITION.topRight ) ) {
-			return;
-		}
-		this.addButton (
+		super.createUI ( 'Travel & Notes', TOOLBAR_POSITION.topRight );
+	}
+
+	/**
+	Add the ToolbarItems to the toolbar. Called by the #show ( ) method of the vase class
+	*/
+
+	addToolbarItems ( ) {
+		this.addToolbarItem (
 			new ToolbarItem (
 				'🏠',
 				'Home',
 				window.location.origin
 			)
 		);
-		this.addButton (
+		this.addToolbarItem (
 			new ToolbarItem (
 				'?',
 				'Help',
 				'https://wwwouaiebe.github.io/TravelNotes/userGuides/README.html\u0023'
 			)
 		);
-		this.addButton (
+		this.addToolbarItem (
 			new ToolbarItem (
 				'@',
 				'Contact',
 				( theConfig.travelNotesToolbarUI.contactMail.url || window.location.origin )
 			)
 		);
-		this.addButton (
+		this.addToolbarItem (
 			new ToolbarItem (
 				'🔑',
 				theTranslator.getText ( 'TravelNotesToolbarUI - API keys' ),
 				( ) => { theAPIKeysManager.setKeysFromDialog ( ); }
 			)
 		);
-		this.addButton (
+		this.addToolbarItem (
 			new ToolbarItem (
 				'🌐',
 				theTranslator.getText ( 'TravelNotesToolbarUI - Geo location' ),
 				( ) => { theGeoLocator.switch ( ); }
 			)
 		);
-		this.addButton (
+		this.addToolbarItem (
 			new ToolbarItem (
 				'☢️',
 				theTranslator.getText ( 'TravelToolbarUI - Save as travel' ),
 				( ) => { theTravelEditor.saveAsTravel ( ); }
 			)
 		);
-		this.addButton (
+		this.addToolbarItem (
 			new ToolbarItem (
 				'❌',
 				theTranslator.getText ( 'TravelToolbarUI - Cancel travel' ),
@@ -216,14 +221,14 @@ class TravelNotesToolbarUI extends BaseToolbarUI {
 				}
 			)
 		);
-		this.addButton (
+		this.addToolbarItem (
 			new ToolbarItem (
 				'💾',
 				theTranslator.getText ( 'TravelToolbarUI - Save travel' ),
 				( ) => { theTravelEditor.saveTravel ( ); }
 			)
 		);
-		this.addButton (
+		this.addToolbarItem (
 			new ToolbarItem (
 				'📂',
 				theTranslator.getText ( 'TravelToolbarUI - Open travel' ),
@@ -243,7 +248,7 @@ class TravelNotesToolbarUI extends BaseToolbarUI {
 				}
 			)
 		);
-		this.addButton (
+		this.addToolbarItem (
 			new ToolbarItem (
 				'🌏',
 				theTranslator.getText ( 'TravelToolbarUI - Import travel' ),
@@ -259,7 +264,7 @@ class TravelNotesToolbarUI extends BaseToolbarUI {
 				}
 			)
 		);
-		this.addButton (
+		this.addToolbarItem (
 			new ToolbarItem (
 				'📋',
 				theTranslator.getText ( 'TravelToolbarUI - Open travel roadbook' ),

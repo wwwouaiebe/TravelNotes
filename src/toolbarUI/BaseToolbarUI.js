@@ -175,6 +175,9 @@ class BaseToolbarUI {
 			this.#mainHTMLElement
 		);
 
+		this.#toolbarItems = [ ];
+		this.addToolbarItems ( );
+
 		// wheel event data computation
 		this.#wheelEventData.buttonsHeight = ZERO;
 
@@ -374,11 +377,11 @@ class BaseToolbarUI {
 	}
 
 	/**
-	Add a button on the toolbar
+	Add a ToolbarItem on the collection of ToolbarItems
 	@param {ToolbarItem} toolbarItem An object with data to configure the button
 	*/
 
-	addButton ( toolbarItem ) {
+	addToolbarItem ( toolbarItem ) {
 		this.#toolbarItems.push ( toolbarItem );
 	}
 }

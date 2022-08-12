@@ -54,9 +54,14 @@ class MapLayersToolbarUI extends BaseToolbarUI {
 	*/
 
 	createUI ( ) {
-		if ( ! super.createUI ( 'Travel & Notes', TOOLBAR_POSITION.topLeft ) ) {
-			return;
-		}
+		super.createUI ( 'Travel & Notes', TOOLBAR_POSITION.topLeft );
+	}
+
+	/**
+	Add the ToolbarItems to the toolbar. Called by the #show ( ) method of the vase class
+	*/
+
+	addToolbarItems ( ) {
 
 		// adding map layer buttons
 		theMapLayersCollection.forEach (
@@ -65,7 +70,7 @@ class MapLayersToolbarUI extends BaseToolbarUI {
 					( mapLayer.providerKeyNeeded && theAPIKeysManager.hasKey ( mapLayer.providerName.toLowerCase ( ) ) )
 					|| ! mapLayer.providerKeyNeeded
 				) {
-					this.addButton (
+					this.addToolbarItem (
 						new ToolbarItem (
 							mapLayer.toolbarButtonData.text,
 							mapLayer.name,
@@ -77,7 +82,7 @@ class MapLayersToolbarUI extends BaseToolbarUI {
 		);
 
 		if ( theConfig.layersToolbarUI?.theDevil?.addButton ) {
-			this.addButton (
+			this.addToolbarItem (
 				new ToolbarItem (
 					'👿',
 					'Reminder! The devil will know everything about you',
