@@ -38,19 +38,21 @@ click event listener for the toolbar buttons
 class ToolbarButtonClickEL {
 
 	/**
-	A reference to the ToolbarItem array of the BaseToolbarUI class
+	A reference to the ToolbarItemContainer object of the BaseToolbarUI class
 	@type {Array.<ToolbarItem>}
 	*/
 
-	#toolbarItems;
+	#toolbarItemsContainer;
 
 	/**
 	The constructor
-	@param {Array.<ToolbarItem>} toolbarItems A reference to the ToolbarItem array of the BaseToolbarUI class
+	@param {ToolbarItemsContainer} toolbarItemsContainer A reference to the toolbarItemsContainer
+	object  of the BaseToolbarUI class
+	of the BaseToolbarUI class
 	*/
 
-	constructor ( toolbarItems ) {
-		this.#toolbarItems = toolbarItems;
+	constructor ( toolbarItemsContainer ) {
+		this.#toolbarItemsContainer = toolbarItemsContainer;
 	}
 
 	/**
@@ -59,7 +61,22 @@ class ToolbarButtonClickEL {
 	*/
 
 	handleEvent ( clickEvent ) {
-		this.#toolbarItems [ Number.parseInt ( clickEvent.target.dataset.tanItemId ) ].action ( );
+		this.#toolbarItemsContainer.toolbarItems [ Number.parseInt ( clickEvent.target.dataset.tanItemId ) ].action ( );
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+A simple container to share data between the BaseToolbarUI class and the ToolbarButtonClickEL class
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class ToolbarItemsContainer {
+
+	toolbarItems;
+
+	constructor ( ) {
+		this.toolbarItems = [];
 	}
 }
 
@@ -132,7 +149,7 @@ class BaseToolbarUI {
 	@type {Array.<ToolbarItem>}
 	*/
 
-	#toolbarItems = [];
+	#toolbarItemsContainer;
 
 	/**
 	The Y position on the screen of the header touchstart event
@@ -175,14 +192,14 @@ class BaseToolbarUI {
 			this.#mainHTMLElement
 		);
 
-		this.#toolbarItems = [ ];
+		this.#toolbarItemsContainer.toolbarItems = [ ];
 		this.addToolbarItems ( );
 
 		// wheel event data computation
 		this.#wheelEventData.buttonsHeight = ZERO;
 
 		// adding buttons
-		this.#toolbarItems.forEach (
+		this.#toolbarItemsContainer.toolbarItems.forEach (
 			( toolbarItem, index ) => {
 				if ( toolbarItem.isCommand ( ) ) {
 					const buttonHTMLElement = theHTMLElementsFactory.create (
@@ -328,6 +345,7 @@ class BaseToolbarUI {
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#toolbarItemsContainer = new ToolbarItemsContainer ( );
 	}
 
 	/**
@@ -372,7 +390,7 @@ class BaseToolbarUI {
 		headerHtmlElement.addEventListener ( 'touchstart', touchEvent => this.#onHeaderTouch ( touchEvent ), false );
 		headerHtmlElement.addEventListener ( 'touchend', touchEvent => this.#onHeaderTouch ( touchEvent ), false );
 
-		this.#onToolbarButtonClickEL = new ToolbarButtonClickEL ( this.#toolbarItems );
+		this.#onToolbarButtonClickEL = new ToolbarButtonClickEL ( this.#toolbarItemsContainer );
 		return true;
 	}
 
@@ -382,7 +400,7 @@ class BaseToolbarUI {
 	*/
 
 	addToolbarItem ( toolbarItem ) {
-		this.#toolbarItems.push ( toolbarItem );
+		this.#toolbarItemsContainer.toolbarItems.push ( toolbarItem );
 	}
 }
 

@@ -160,7 +160,6 @@ class TravelNotesToolbarUI extends BaseToolbarUI {
 
 	createUI ( ) {
 		super.createUI ( 'Travel & Notes', TOOLBAR_POSITION.topRight );
-		this.addToolbarItems ( );
 	}
 
 	/**
