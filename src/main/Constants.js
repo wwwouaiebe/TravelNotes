@@ -26,6 +26,8 @@ Changes:
 		- Issue ♯129 : Add an indicator when the travel is modified and not saved
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
+	- v4.0.0:
+		- Issue ♯51 : Review completely the UI
 Doc reviewed 20210901
 Tests ...
 */
@@ -469,6 +471,44 @@ class SAVE_STATUS {
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
+Enum for the toolbars position
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class TOOLBAR_POSITION {
+
+	/**
+	The toolbar will be displayed on the top left corner of the screen
+	@type {String}
+	*/
+
+	static get topLeft ( ) { return 'TravelNotes-ToolbarUI-TopLeft'; }
+
+	/**
+	The toolbar will be displayed on the top right corner of the screen
+	@type {String}
+	*/
+
+	static get topRight ( ) { return 'TravelNotes-ToolbarUI-TopRight'; }
+
+	/**
+	The toolbar will be displayed on the bottom left corner of the screen
+	@type {String}
+	*/
+
+	static get bottomLeft ( ) { return 'TravelNotes-ToolbarUI-BottomLeft'; }
+
+	/**
+	The toolbar will be displayed on the bottom right corner of the screen
+	@type {String}
+	*/
+
+	static get bottomRight ( ) { return 'TravelNotes-ToolbarUI-BottomRight'; }
+
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
 The margin around the map where drag of dialogs is not possible
 @type {Number}
 */
@@ -651,6 +691,7 @@ export {
 	LAT_LNG, PANE_ID,
 	ROUTE_EDITION_STATUS,
 	SAVE_STATUS,
+	TOOLBAR_POSITION,
 	DIALOG_DRAG_MARGIN,
 	EARTH_RADIUS,
 	ELEVATION,

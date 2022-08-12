@@ -48,17 +48,9 @@ const travelNotesCss = [
 	'src/AttributionsUI/AttributionsUI.css',
 	'src/ErrorsUI/ErrorsUI.css',
 	'src/fullScreenUI/FullScreenUI.css',
-	'src/UI/ItineraryPaneUI.css',
 	'src/mapLayersToolbarUI/MapLayersToolbarUI.css',
 	'src/mouseUI/MouseUI.css',
-	'src/UI/OsmSearchPaneUI.css',
-	'src/UI/PanesManagerUI.css',
-	'src/UI/ProvidersToolbarUI.css',
-	'src/UI/TravelNotesPaneUI.css',
-	'src/UI/TravelNotesToolbarUI.css',
-	'src/UI/TravelUI.css',
-	'src/UI/RoutesListUI.css',
-	'src/UI/UI.css',
+	'src/toolbarUI/BaseToolbarUI.css',
 	'src/waitUI/WaitUI.css',
 	'src/css/Hidden.css' // must always be the last css
 ];

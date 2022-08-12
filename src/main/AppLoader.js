@@ -26,6 +26,8 @@ Changes:
 		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
 	- v3.3.0:
 		- Issue ♯18 : Add flags in rhe config, so the user can choose when panes are show in the UI after modifications
+	- v4.0.0:
+		- Issue ♯51 : Review completely the UI
 Doc reviewed 20210913
 */
 
@@ -37,7 +39,6 @@ import theTravelHTMLViewsFactory from '../viewsFactories/TravelHTMLViewsFactory.
 import theUtilities from '../UILib/Utilities.js';
 import theMouseUI from '../mouseUI/MouseUI.js';
 import theProfileWindowsManager from '../core/ProfileWindowsManager.js';
-import theUI from '../UI/UI.js';
 import theTravelNotes from '../main/TravelNotes.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theConfig from '../data/Config.js';
@@ -48,7 +49,7 @@ import theOsmSearchDictionary from '../coreOsmSearch/OsmSearchDictionary.js';
 import theMapLayersCollection from '../data/MapLayersCollection.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 
-import { LAT_LNG, SAVE_STATUS, ZERO, ONE, NOT_FOUND, HTTP_STATUS_OK, PANE_ID } from '../main/Constants.js';
+import { LAT_LNG, SAVE_STATUS, ZERO, ONE, NOT_FOUND, HTTP_STATUS_OK } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -285,90 +286,6 @@ class AppLoader {
 			profileClosedEvent => {
 				if ( profileClosedEvent.data ) {
 					theProfileWindowsManager.onProfileClosed ( profileClosedEvent.data.objId );
-				}
-			},
-			false
-		);
-		document.addEventListener (
-			'uipinned',
-			( ) => theUI.pin ( ),
-			false
-		);
-		document.addEventListener (
-			'geolocationstatuschanged',
-			geoLocationStatusChangedEvent => {
-				theUI.travelNotesToolbarUI.geoLocationStatusChanged ( geoLocationStatusChangedEvent.data.status );
-			},
-			false
-		);
-		document.addEventListener ( 'travelnameupdated', ( ) => theUI.travelUI.setTravelName ( ), false );
-		document.addEventListener ( 'setrouteslist', ( ) => theUI.travelUI.routesListUI.setRoutesList ( ), false );
-		document.addEventListener (
-			'showitinerary',
-			( ) => {
-				if ( theConfig.paneUI.switchToItinerary ) {
-					theUI.panesManagerUI.showPane ( PANE_ID.itineraryPane );
-				}
-				else {
-					theUI.panesManagerUI.updatePane ( PANE_ID.itineraryPane );
-				}
-			},
-			false
-		);
-		document.addEventListener (
-			'updateitinerary',
-			( ) => theUI.panesManagerUI.updatePane ( PANE_ID.itineraryPane ),
-			false
-		);
-		document.addEventListener (
-			'showtravelnotes',
-			( ) => {
-				if ( theConfig.paneUI.switchToTravelNotes ) {
-					theUI.panesManagerUI.showPane ( PANE_ID.travelNotesPane );
-				}
-				else {
-					theUI.panesManagerUI.updatePane ( PANE_ID.travelNotesPane );
-				}
-			},
-			false
-		);
-		document.addEventListener (
-			'updatetravelnotes',
-			( ) => theUI.panesManagerUI.updatePane ( PANE_ID.travelNotesPane ),
-			false
-		);
-		document.addEventListener (
-			'showsearch',
-			( ) => {
-				if ( theConfig.paneUI.switchToSearch ) {
-					theUI.panesManagerUI.showPane ( PANE_ID.searchPane );
-				}
-				else {
-					theUI.panesManagerUI.updatePane ( PANE_ID.searchPane );
-				}
-			},
-			false
-		);
-		document.addEventListener (
-			'updatesearch',
-			( ) => theUI.panesManagerUI.updatePane ( PANE_ID.searchPane ),
-			false
-		);
-		document.addEventListener ( 'providersadded', ( ) => theUI.providersToolbarUI.providersAdded ( ), false );
-		document.addEventListener (
-			'setprovider',
-			setProviderEvent => {
-				if ( setProviderEvent?.data?.provider ) {
-					theUI.providersToolbarUI.provider = setProviderEvent.data.provider;
-				}
-			},
-			false
-		);
-		document.addEventListener (
-			'settransitmode',
-			setTransitModeEvent => {
-				if ( setTransitModeEvent?.data?.transitMode ) {
-					theUI.providersToolbarUI.transitMode = setTransitModeEvent.data.transitMode;
 				}
 			},
 			false

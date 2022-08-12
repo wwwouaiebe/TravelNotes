@@ -16,33 +16,43 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
+/*
+--- BaseToolbarUI.css file --------------------------------------------------------------------------------------------
 
-@file MapLayersToolbarUI.css
-@desc CSS for the MapLayersToolbarUI
+This file contains:
+	- the css for the BaseToolbarUI
 Changes:
-	- v1.0.0:
-		- created
-
-@------------------------------------------------------------------------------------------------------------------------------
+	- v4.0.0:
+		- Created
+-----------------------------------------------------------------------------------------------------------------------
 */
 
-#TravelNotes-MapLayersToolbarUI {
+.TravelNotes-ToolbarUI-MainHTMLElement {
 	position: absolute;
 	width: 3em;
-	top: 0;
-	left: 0;
-	z-index: 1300;
+
+	/*
 	display: flex;
 	flex-direction: column;
+	*/
 	height: auto;
 	max-height: 100vh;
+	z-index: 800;
 }
 
-#TravelNotes-MapLayersToolbarUI-Header {
+.TravelNotes-ToolbarUI-TopLeft {
+	top: 0;
+	left: 0;
+}
+
+.TravelNotes-ToolbarUI-TopRight {
+	top: 0;
+	right: 0;
+}
+
+.TravelNotes-ToolbarUI-Header {
 	transform-origin: bottom right;
-	transform: rotateZ(-90deg) translateY(-6em) translateX(4em);
+	transform: rotateZ(-90deg) translateY(-6em) translateX(3em);
 	text-align: center;
 	width: 8em;
 	height: 2em;
@@ -52,18 +62,20 @@ Changes:
 	background-color: black;
 	padding: 0.5em;
 	margin: 0;
-	flex-shrink: 0;
+
+	/* flex-shrink: 0; */
 }
 
-#TravelNotes-MapLayersToolbarUI-Buttons {
+.TravelNotes-ToolbarUI-Buttons {
 	background-color: white;
 	color: black;
-	flex-shrink: 2;
-	flex-grow: 2;
+
+	/* flex-shrink: 2;
+	flex-grow: 2; */
 	overflow: hidden;
 }
 
-.TravelNotes-MapLayersToolbarUI-Button {
+.TravelNotes-ToolbarUI-Button {
 	padding: 0.5em;
 	text-align: center;
 	margin: 0;
@@ -71,35 +83,20 @@ Changes:
 	height: 1.1em;
 }
 
-.TravelNotes-MapLayersToolbarUI-LinkButton {
-	padding: 0.5em;
-	text-align: center;
-	margin: 0;
-	height: 1.1em;
-}
-
-.TravelNotes-MapLayersToolbarUI-LinkButton-Enter {
-	color: white;
+.TravelNotes-ToolbarUI-Button:hover {
 	background-color: black;
+	color: white;
 }
 
-.TravelNotes-MapLayersToolbarUI-LinkButton-Leave {
+.TravelNotes-ToolbarUI-Link {
+	text-decoration: none;
 	color: black;
-	background-color: white;
 }
 
-.TravelNotes-MapLayersToolbarUI-Button > a {
-	text-decoration: none;
+.TravelNotes-ToolbarUI-Link:hover {
+	color: white;
 }
 
-.TravelNotes-MapLayersToolbarUI-Button > a:hover {
-	text-decoration: none;
+.TravelNotes-ToolbarUI-Button:hover > .TravelNotes-ToolbarUI-Link {
+	color: white;
 }
-
-.TravelNotes-MapLayersToolbarUI-Button:hover {
-	cursor: pointer;
-}
-
-/*
---- End of MapLayersToolbarUI.css ---------------------------------------------------------------------------------------------
-*/

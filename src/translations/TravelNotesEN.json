@@ -188,18 +188,6 @@
 		"msgstr": "It's impossible to create a SVG icon for a travel note"
 	},
 	{
-		"msgid": "ItineraryControlUI - Show maneuvers",
-		"msgstr": "Maneuvers"
-	},
-	{
-		"msgid": "ItineraryControlUI - Show notes",
-		"msgstr": "Notes"
-	},
-	{
-		"msgid": "ItineraryPaneUI - Itinerary",
-		"msgstr": "Itinerary"
-	},
-	{
 		"msgid": "ManeuverContextMenu - Zoom to this maneuver",
 		"msgstr": "Zoom to this maneuver"
 	},
@@ -414,26 +402,6 @@
 	{
 		"msgid": "OsmSearchContextMenu - Zoom to this result",
 		"msgstr": "Zoom to this result"
-	},
-	{
-		"msgid": "OsmSearchPaneUI - Search",
-		"msgstr": "Search OpenStreetMap"
-	},
-	{
-		"msgid": "OsmSearchToolbarUI - Clear tree",
-		"msgstr": "Unselect all"
-	},
-	{
-		"msgid": "OsmSearchToolbarUI - Collapse tree",
-		"msgstr": "Collapse the tree"
-	},
-	{
-		"msgid": "OsmSearchToolbarUI - Expand tree",
-		"msgstr": "Expand the tree"
-	},
-	{
-		"msgid": "OsmSearchToolbarUI - Search OpenStreetMap",
-		"msgstr": "Search OpenStreetMap"
 	},
 	{
 		"msgid": "PasswordDialog - password",
@@ -998,66 +966,6 @@
 	{
 		"msgid": "TravelHTMLViewsFactory - Travel footer",
 		"msgstr": "Done with "
-	},
-	{
-		"msgid": "TravelNotesPaneUI - Travel notes",
-		"msgstr": "Travel notes"
-	},
-	{
-		"msgid": "TravelNotesToolbarUI - API keys",
-		"msgstr": "API keys management"
-	},
-	{
-		"msgid": "TravelNotesToolbarUI - Geo location",
-		"msgstr": "Localisation"
-	},
-	{
-		"msgid": "TravelToolbarUI - Cancel travel",
-		"msgstr": "Cancel travel"
-	},
-	{
-		"msgid": "TravelToolbarUI - Import travel",
-		"msgstr": "Import routes and notes from another travel or from a gpx file"
-	},
-	{
-		"msgid": "TravelToolbarUI - Not possible to merge a travel when a route is edited",
-		"msgstr": "Not possible to merge a travel when a route is edited"
-	},
-	{
-		"msgid": "TravelToolbarUI - Open travel",
-		"msgstr": "Open a travel file (.trv) or a .gpx file"
-	},
-	{
-		"msgid": "TravelToolbarUI - Open travel roadbook",
-		"msgstr": "Open the roadbook"
-	},
-	{
-		"msgid": "TravelToolbarUI - Save as travel",
-		"msgstr": "☢️ Partial save ☢️"
-	},
-	{
-		"msgid": "TravelToolbarUI - Save travel",
-		"msgstr": "Save the travel in a file"
-	},
-	{
-		"msgid": "TravelUI - Add a route",
-		"msgstr": "Add a route"
-	},
-	{
-		"msgid": "TravelUI - Hide",
-		"msgstr": "Hide"
-	},
-	{
-		"msgid": "TravelUI - Show",
-		"msgstr": "Show"
-	},
-	{
-		"msgid": "TravelUI - Travel",
-		"msgstr": "Travel : "
-	},
-	{
-		"msgid": "TravelUI - Travel routes",
-		"msgstr": "Travel routes :"
 	},
 	{
 		"msgid": "UrlInputBlurEL - invalidUrl",

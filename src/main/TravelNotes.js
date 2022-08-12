@@ -52,6 +52,7 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v4.0.0:
 		- Issue ♯49 : Add a full screen mode method
+		- Issue ♯51 : Review completely the UI
 Doc reviewed 20210913
 Tests ...
 */
@@ -60,18 +61,18 @@ import theConfig from '../data/Config.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theRouteEditor from '../core/RouteEditor.js';
 import theAPIKeysManager from '../core/APIKeysManager.js';
-import theUI from '../UI/UI.js';
 import Travel from '../data/Travel.js';
 import ViewerFileLoader from '../core/ViewerFileLoader.js';
 import { theAppVersion } from '../data/Version.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import MapContextMenu from '../contextMenus/MapContextMenu.js';
-import theMapLayersToolbarUI from '../mapLayersToolbarUI/MapLayersToolbarUI.js';
+import theMapLayersManager from '../core/MapLayersManager.js';
+import theMapLayersToolbarUI from '../toolbarUI/MapLayersToolbarUI.js';
 import theMouseUI from '../mouseUI/MouseUI.js';
 import theAttributionsUI from '../attributionsUI/AttributionsUI.js';
+import theTravelNotesToolbarUI from '../toolbarUI/TravelNotesToolbarUI.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theTranslator from '../UILib/Translator.js';
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theFullScreenUI from '../fullScreenUI/FullScreenUI.js';
 import { LAT_LNG, TWO, SAVE_STATUS, HTTP_STATUS_OK } from '../main/Constants.js';
 
@@ -131,7 +132,7 @@ class TravelNotes {
 		this.#travelNotesLoaded = true;
 
 		theAttributionsUI.createUI ( );
-		theMapLayersToolbarUI.setMapLayer ( 'OSM - Color' );
+		theMapLayersManager.setMapLayer ( 'OSM - Color' );
 		this.#loadDistantTravel ( travelUrl );
 	}
 
@@ -153,9 +154,6 @@ class TravelNotes {
 		theTravelNotesData.map.on ( 'contextmenu', contextMenuEvent => new MapContextMenu ( contextMenuEvent ) .show ( ) );
 		theTravelNotesData.map.setView ( [ theConfig.map.center.lat, theConfig.map.center.lng ], theConfig.map.zoom );
 
-		// ... the main UI...
-		theUI.createUI ( theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-UI' }, document.body ) );
-
 		// ... the attributions UI...
 		theAttributionsUI.createUI ( );
 
@@ -163,15 +161,15 @@ class TravelNotes {
 		if ( theConfig.layersToolbarUI.haveLayersToolbarUI ) {
 			theMapLayersToolbarUI.createUI ( );
 		}
-		else {
-			theMapLayersToolbarUI.setMapLayer ( 'OSM - Color' );
-		}
+		theMapLayersManager.setMapLayer ( 'OSM - Color' );
 
 		// ... the mouse UI
 		if ( theConfig.mouseUI.haveMouseUI ) {
 			theMouseUI.createUI ( );
 			theMouseUI.saveStatus = SAVE_STATUS.saved;
 		}
+
+		theTravelNotesToolbarUI.createUI ( );
 
 		// ...help UI
 		theErrorsUI.showHelp (

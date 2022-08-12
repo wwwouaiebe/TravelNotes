@@ -188,18 +188,6 @@
 		"msgstr": "Il n'est pas possible de créer une icône SVG pour une note de voyage."
 	},
 	{
-		"msgid": "ItineraryControlUI - Show maneuvers",
-		"msgstr": "Manœuvres"
-	},
-	{
-		"msgid": "ItineraryControlUI - Show notes",
-		"msgstr": "Notes"
-	},
-	{
-		"msgid": "ItineraryPaneUI - Itinerary",
-		"msgstr": "Itinéraire"
-	},
-	{
 		"msgid": "ManeuverContextMenu - Zoom to this maneuver",
 		"msgstr": "Zoom sur cette manœuvre"
 	},
@@ -414,26 +402,6 @@
 	{
 		"msgid": "OsmSearchContextMenu - Zoom to this result",
 		"msgstr": "Zoom sur ce résultat"
-	},
-	{
-		"msgid": "OsmSearchPaneUI - Search",
-		"msgstr": "Rechercher dans OpenStreetMap"
-	},
-	{
-		"msgid": "OsmSearchToolbarUI - Clear tree",
-		"msgstr": "Tout déselectionner"
-	},
-	{
-		"msgid": "OsmSearchToolbarUI - Collapse tree",
-		"msgstr": "Réduire l'arborescence"
-	},
-	{
-		"msgid": "OsmSearchToolbarUI - Expand tree",
-		"msgstr": "Étendre l'arborescence"
-	},
-	{
-		"msgid": "OsmSearchToolbarUI - Search OpenStreetMap",
-		"msgstr": "Rechercher dans OpenStreetMap"
 	},
 	{
 		"msgid": "PasswordDialog - password",
@@ -998,66 +966,6 @@
 	{
 		"msgid": "TravelHTMLViewsFactory - Travel footer",
 		"msgstr": "Réalisé avec "
-	},
-	{
-		"msgid": "TravelNotesPaneUI - Travel notes",
-		"msgstr": "Notes de voyage"
-	},
-	{
-		"msgid": "TravelNotesToolbarUI - API keys",
-		"msgstr": "Gestion des clés d'accès"
-	},
-	{
-		"msgid": "TravelNotesToolbarUI - Geo location",
-		"msgstr": "Localisation"
-	},
-	{
-		"msgid": "TravelToolbarUI - Cancel travel",
-		"msgstr": "Abandonner ce voyage"
-	},
-	{
-		"msgid": "TravelToolbarUI - Import travel",
-		"msgstr": "Importer des trajets et des notes depuis \nun autre voyage ou depuis un fichier .gpx"
-	},
-	{
-		"msgid": "TravelToolbarUI - Not possible to merge a travel when a route is edited",
-		"msgstr": "Il n'est pas possible de fusionner un voyage quand un trajet est en cours d'édition"
-	},
-	{
-		"msgid": "TravelToolbarUI - Open travel",
-		"msgstr": "Ouvrir un fichier de voyage (.trv) ou un fichier .gpx"
-	},
-	{
-		"msgid": "TravelToolbarUI - Open travel roadbook",
-		"msgstr": "Ouvrir le livre de voyage"
-	},
-	{
-		"msgid": "TravelToolbarUI - Save as travel",
-		"msgstr": "☢️ Sauvegarde partielle ☢️"
-	},
-	{
-		"msgid": "TravelToolbarUI - Save travel",
-		"msgstr": "Sauver dans un fichier"
-	},
-	{
-		"msgid": "TravelUI - Add a route",
-		"msgstr": "Ajouter un trajet"
-	},
-	{
-		"msgid": "TravelUI - Hide",
-		"msgstr": "Masquer"
-	},
-	{
-		"msgid": "TravelUI - Show",
-		"msgstr": "Afficher"
-	},
-	{
-		"msgid": "TravelUI - Travel",
-		"msgstr": "Voyage : "
-	},
-	{
-		"msgid": "TravelUI - Travel routes",
-		"msgstr": "Trajets du voyage :"
 	},
 	{
 		"msgid": "UrlInputBlurEL - invalidUrl",

@@ -36,6 +36,8 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v4.0.0:
+		- Issue ♯51 : Review completely the UI
 Doc reviewed 20210921
 Tests 20210903
 */
@@ -45,7 +47,7 @@ import theTravelNotesData from '../data/TravelNotesData.js';
 import GpxParser from '../coreLib/GpxParser.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theMouseUI from '../mouseUI/MouseUI.js';
-import theMapLayersToolbarUI from '../mapLayersToolbarUI/MapLayersToolbarUI.js';
+import theMapLayersManager from '../core/MapLayersManager.js';
 import theRouteEditor from '../core/RouteEditor.js';
 import FileCompactor from '../coreLib/FileCompactor.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
@@ -118,7 +120,7 @@ class FileLoader {
 		new Zoomer ( ).zoomToTravel ( );
 
 		// Setting the correct map
-		theMapLayersToolbarUI.setMapLayer ( theTravelNotesData.travel.layerName );
+		theMapLayersManager.setMapLayer ( theTravelNotesData.travel.layerName );
 
 		// Changing provider and transit mode if an edited route is found and if possible
 		if ( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId ) {

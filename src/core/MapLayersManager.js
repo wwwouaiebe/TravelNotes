@@ -18,76 +18,55 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 /*
 Changes:
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210915
+	- v4.0.0:
+		- created
+Doc reviewed ...
 Tests ...
 */
 
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import theMapLayersCollection from '../data/MapLayersCollection.js';
+import theTravelNotesData from '../data/TravelNotesData.js';
+import theEventDispatcher from '../coreLib/EventDispatcher.js';
+import theAttributionsUI from '../attributionsUI/AttributionsUI.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This the waitUI for the OsmSearch
+This class change the background map
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class OsmSearchWaitUI {
-
-	/**
-	The wait html element
-	@type {HTMLElement}
-	*/
-
-	#waitDiv;
+class MapLayersManager {
 
 	/**
 	The constructor
 	*/
 
 	constructor ( ) {
-		this.#waitDiv = theHTMLElementsFactory.create (
-			'div',
-			{ className : 'TravelNotes-WaitAnimation' }
-		);
-
-		theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-WaitAnimationBullet'
-			},
-			this.#waitDiv
-		);
-
-		this.#waitDiv.classList.add ( 'TravelNotes-Hidden' );
+		Object.freeze ( this );
 	}
 
 	/**
-	show the wait UI
+	Set a map layer as current map
+	@param {string} mapLayerName The name of the layer to set
 	*/
 
-	showWait ( ) {
-		this.#waitDiv.classList.remove ( 'TravelNotes-Hidden' );
+	setMapLayer ( mapLayerName ) {
+		const mapLayer = theMapLayersCollection.getMapLayer ( mapLayerName );
+		theEventDispatcher.dispatch ( 'layerchange', { layer : mapLayer } );
+		theAttributionsUI.attributions = mapLayer.attribution;
+		theTravelNotesData.travel.layerName = mapLayer.name;
 	}
-
-	/**
-	hide the wait UI
-	*/
-
-	hideWait ( ) {
-		this.#waitDiv.classList.add ( 'TravelNotes-Hidden' );
-	}
-
-	/**
-	The wait HTMLElement of the OsmSearchWaitUI
-	@type {HTMLElement}
-	*/
-
-	get waitHTMLElement ( ) { return this.#waitDiv; }
 }
 
-export default OsmSearchWaitUI;
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+The one and only one instance of MapLayersManager class
+@type {MapLayersManager}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+const theMapLayersManager = new MapLayersManager ( );
+
+export default theMapLayersManager;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
