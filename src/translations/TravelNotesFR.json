@@ -368,10 +368,6 @@
 		"msgstr": " ou envoyer un sms au "
 	},
 	{
-		"msgid": "OpenButtonClickEL - This page ask to close; data are perhaps not saved.",
-		"msgstr": "Cette page demande de confirmer sa fermeture ; des données saisies pourraient ne pas être enregistrées."
-	},
-	{
 		"msgid": "OsmSearchContextMenu - Create a route note with this result",
 		"msgstr": "Ajouter une note de trajet avec ce résultat"
 	},
@@ -966,6 +962,46 @@
 	{
 		"msgid": "TravelHTMLViewsFactory - Travel footer",
 		"msgstr": "Réalisé avec "
+	},
+	{
+		"msgid": "TravelNotesToolbarUI - API keys",
+		"msgstr": "Gestion des clés d'accès"
+	},
+	{
+		"msgid": "TravelNotesToolbarUI - Geo location",
+		"msgstr": "Localisation"
+	},
+	{
+		"msgid": "TravelNotesToolbarUI - Cancel travel",
+		"msgstr": "Abandonner ce voyage"
+	},
+	{
+		"msgid": "TravelNotesToolbarUI - Import travel",
+		"msgstr": "Importer des trajets et des notes depuis \nun autre voyage ou depuis un fichier .gpx"
+	},
+	{
+		"msgid": "TravelNotesToolbarUI - Not possible to merge a travel when a route is edited",
+		"msgstr": "Il n'est pas possible de fusionner un voyage quand un trajet est en cours d'édition"
+	},
+	{
+		"msgid": "TravelNotesToolbarUI - Open travel",
+		"msgstr": "Ouvrir un fichier de voyage (.trv) ou un fichier .gpx"
+	},
+	{
+		"msgid": "TravelNotesToolbarUI - Open travel roadbook",
+		"msgstr": "Ouvrir le livre de voyage"
+	},
+	{
+		"msgid": "TravelNotesToolbarUI - Save as travel",
+		"msgstr": "☢️ Sauvegarde partielle ☢️"
+	},
+	{
+		"msgid": "TravelNotesToolbarUI - Save travel",
+		"msgstr": "Sauver dans un fichier"
+	},
+	{
+		"msgid": "TravelNotesToolbarUI - This page ask to close; data are perhaps not saved.",
+		"msgstr": "Cette page demande de confirmer sa fermeture ; des données saisies pourraient ne pas être enregistrées."
 	},
 	{
 		"msgid": "UrlInputBlurEL - invalidUrl",

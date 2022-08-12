@@ -55,6 +55,7 @@ class MapLayersToolbarUI extends BaseToolbarUI {
 
 	createUI ( ) {
 		super.createUI ( 'Travel & Notes', TOOLBAR_POSITION.topLeft );
+		this.addToolbarItems ( );
 	}
 
 	/**

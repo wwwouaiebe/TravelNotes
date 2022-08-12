@@ -160,6 +160,7 @@ class TravelNotesToolbarUI extends BaseToolbarUI {
 
 	createUI ( ) {
 		super.createUI ( 'Travel & Notes', TOOLBAR_POSITION.topRight );
+		this.addToolbarItems ( );
 	}
 
 	/**
@@ -205,14 +206,14 @@ class TravelNotesToolbarUI extends BaseToolbarUI {
 		this.addToolbarItem (
 			new ToolbarItem (
 				'☢️',
-				theTranslator.getText ( 'TravelToolbarUI - Save as travel' ),
+				theTranslator.getText ( 'TravelNotesToolbarUI - Save as travel' ),
 				( ) => { theTravelEditor.saveAsTravel ( ); }
 			)
 		);
 		this.addToolbarItem (
 			new ToolbarItem (
 				'❌',
-				theTranslator.getText ( 'TravelToolbarUI - Cancel travel' ),
+				theTranslator.getText ( 'TravelNotesToolbarUI - Cancel travel' ),
 				( ) => {
 					theTravelEditor.newTravel ( );
 					document.title =
@@ -224,21 +225,21 @@ class TravelNotesToolbarUI extends BaseToolbarUI {
 		this.addToolbarItem (
 			new ToolbarItem (
 				'💾',
-				theTranslator.getText ( 'TravelToolbarUI - Save travel' ),
+				theTranslator.getText ( 'TravelNotesToolbarUI - Save travel' ),
 				( ) => { theTravelEditor.saveTravel ( ); }
 			)
 		);
 		this.addToolbarItem (
 			new ToolbarItem (
 				'📂',
-				theTranslator.getText ( 'TravelToolbarUI - Open travel' ),
+				theTranslator.getText ( 'TravelNotesToolbarUI - Open travel' ),
 				( ) => {
 					if (
 						theConfig.travelNotes.haveBeforeUnloadWarning
 						&&
 						(
 							! window.confirm ( theTranslator.getText (
-								'OpenButtonClickEL - This page ask to close; data are perhaps not saved.' )
+								'TravelNotesToolbarUI - This page ask to close; data are perhaps not saved.' )
 							)
 						)
 					) {
@@ -251,14 +252,16 @@ class TravelNotesToolbarUI extends BaseToolbarUI {
 		this.addToolbarItem (
 			new ToolbarItem (
 				'🌏',
-				theTranslator.getText ( 'TravelToolbarUI - Import travel' ),
+				theTranslator.getText ( 'TravelNotesToolbarUI - Import travel' ),
 				( ) => {
 					if ( INVALID_OBJ_ID === theTravelNotesData.editedRouteObjId ) {
 						theUtilities.openFile ( new ImportInputChangeEL ( ), '.trv,.gpx' );
 					}
 					else {
 						theErrorsUI.showError (
-							theTranslator.getText ( 'TravelToolbarUI - Not possible to merge a travel when a route is edited' )
+							theTranslator.getText (
+								'TravelNotesToolbarUI - Not possible to merge a travel when a route is edited'
+							)
 						);
 					}
 				}
@@ -267,7 +270,7 @@ class TravelNotesToolbarUI extends BaseToolbarUI {
 		this.addToolbarItem (
 			new ToolbarItem (
 				'📋',
-				theTranslator.getText ( 'TravelToolbarUI - Open travel roadbook' ),
+				theTranslator.getText ( 'TravelNotesToolbarUI - Open travel roadbook' ),
 				'TravelNotesRoadbook.html?lng=' +
 						theConfig.travelNotes.language + '&page=' +
 						theTravelNotesData.UUID

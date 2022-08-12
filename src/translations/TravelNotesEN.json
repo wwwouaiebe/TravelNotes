@@ -368,10 +368,6 @@
 		"msgstr": " or send a sms to "
 	},
 	{
-		"msgid": "OpenButtonClickEL - This page ask to close; data are perhaps not saved.",
-		"msgstr": "This page ask to close; data are perhaps not saved."
-	},
-	{
 		"msgid": "OsmSearchContextMenu - Create a route note with this result",
 		"msgstr": "Add a route note with this result"
 	},
@@ -966,6 +962,46 @@
 	{
 		"msgid": "TravelHTMLViewsFactory - Travel footer",
 		"msgstr": "Done with "
+	},
+	{
+		"msgid": "TravelNotesToolbarUI - API keys",
+		"msgstr": "API keys management"
+	},
+	{
+		"msgid": "TravelNotesToolbarUI - Geo location",
+		"msgstr": "Localisation"
+	},
+	{
+		"msgid": "TravelNotesToolbarUI - Cancel travel",
+		"msgstr": "Cancel travel"
+	},
+	{
+		"msgid": "TravelNotesToolbarUI - Import travel",
+		"msgstr": "Import routes and notes from another travel or from a gpx file"
+	},
+	{
+		"msgid": "TravelNotesToolbarUI - Not possible to merge a travel when a route is edited",
+		"msgstr": "Not possible to merge a travel when a route is edited"
+	},
+	{
+		"msgid": "TravelNotesToolbarUI - Open travel",
+		"msgstr": "Open a travel file (.trv) or a .gpx file"
+	},
+	{
+		"msgid": "TravelNotesToolbarUI - Open travel roadbook",
+		"msgstr": "Open the roadbook"
+	},
+	{
+		"msgid": "TravelNotesToolbarUI - Save as travel",
+		"msgstr": "☢️ Partial save ☢️"
+	},
+	{
+		"msgid": "TravelNotesToolbarUI - Save travel",
+		"msgstr": "Save the travel in a file"
+	},
+	{
+		"msgid": "TravelNotesToolbarUI - This page ask to close; data are perhaps not saved.",
+		"msgstr": "This page ask to close; data are perhaps not saved."
 	},
 	{
 		"msgid": "UrlInputBlurEL - invalidUrl",
