@@ -34,7 +34,7 @@ import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theConfig from '../data/Config.js';
 import theTranslator from '../UILib/Translator.js';
-import TwoButtonsDialog from '../dialogs/TwoButtonsDialog.js';
+import TwoButtonsDialog from '../twoButtonsDialog/TwoButtonsDialog.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 
 import { ZERO, ONE, INVALID_OBJ_ID } from '../main/Constants.js';
