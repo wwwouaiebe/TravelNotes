@@ -30,7 +30,7 @@ import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import theTranslator from '../UILib/Translator.js';
 import GeoCoder from '../coreLib/GeoCoder.js';
 import theUtilities from '../UILib/Utilities.js';
-import theNoteDialogToolbarData from '../dialogNotes/NoteDialogToolbarData.js';
+import theNoteDialogToolbarData from '../notesDialog/NoteDialogToolbarData.js';
 import MapIconFromOsmFactory from '../coreMapIcon/MapIconFromOsmFactory.js';
 import { ZERO } from '../main/Constants.js';
 

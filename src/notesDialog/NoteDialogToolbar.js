@@ -35,7 +35,7 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theNoteDialogToolbarData from '../dialogNotes/NoteDialogToolbarData.js';
+import theNoteDialogToolbarData from '../notesDialog/NoteDialogToolbarData.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';

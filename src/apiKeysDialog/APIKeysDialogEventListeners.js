@@ -30,7 +30,7 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import PasswordDialog from '../dialogPassword/PasswordDialog.js';
+import PasswordDialog from '../passwordDialog/PasswordDialog.js';
 import DataEncryptor from '../coreLib/DataEncryptor.js';
 import theUtilities from '../UILib/Utilities.js';
 import { DataEncryptorHandlers } from '../apiKeysDialog/APIKeysDialogHelpers.js';

@@ -47,7 +47,7 @@ import theTravelNotesData from '../data/TravelNotesData.js';
 import theConfig from '../data/Config.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import DataEncryptor from '../coreLib/DataEncryptor.js';
-import PasswordDialog from '../dialogPassword/PasswordDialog.js';
+import PasswordDialog from '../passwordDialog/PasswordDialog.js';
 import theTranslator from '../UILib/Translator.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 

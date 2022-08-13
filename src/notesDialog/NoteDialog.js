@@ -53,16 +53,16 @@ Tests ...
 */
 
 import BaseDialog from '../baseDialog/BaseDialog.js';
-import NoteDialogToolbar from '../dialogNotes/NoteDialogToolbar.js';
-import NoteDialogIconDimsControl from '../dialogNotes/NoteDialogIconDimsControl.js';
-import NoteDialogIconControl from '../dialogNotes/NoteDialogIconControl.js';
-import NoteDialogTooltipControl from '../dialogNotes/NoteDialogTooltipControl.js';
-import NoteDialogPopupControl from '../dialogNotes/NoteDialogPopupControl.js';
-import NoteDialogAddressControl from '../dialogNotes/NoteDialogAddressControl.js';
-import NoteDialogLinkControl from '../dialogNotes/NoteDialogLinkControl.js';
-import NoteDialogPhoneControl from '../dialogNotes/NoteDialogPhoneControl.js';
-import NoteDialogPreviewControl from '../dialogNotes/NoteDialogPreviewControl.js';
-import { NoteDialogEventListeners, NoteDialogGeoCoderHelper } from '../dialogNotes/NoteDialogEventListeners.js';
+import NoteDialogToolbar from '../notesDialog/NoteDialogToolbar.js';
+import NoteDialogIconDimsControl from '../notesDialog/NoteDialogIconDimsControl.js';
+import NoteDialogIconControl from '../notesDialog/NoteDialogIconControl.js';
+import NoteDialogTooltipControl from '../notesDialog/NoteDialogTooltipControl.js';
+import NoteDialogPopupControl from '../notesDialog/NoteDialogPopupControl.js';
+import NoteDialogAddressControl from '../notesDialog/NoteDialogAddressControl.js';
+import NoteDialogLinkControl from '../notesDialog/NoteDialogLinkControl.js';
+import NoteDialogPhoneControl from '../notesDialog/NoteDialogPhoneControl.js';
+import NoteDialogPreviewControl from '../notesDialog/NoteDialogPreviewControl.js';
+import { NoteDialogEventListeners, NoteDialogGeoCoderHelper } from '../notesDialog/NoteDialogEventListeners.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import theTranslator from '../UILib/Translator.js';
 import Note from '../data/Note.js';
