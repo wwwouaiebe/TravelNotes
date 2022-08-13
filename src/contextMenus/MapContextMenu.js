@@ -39,7 +39,7 @@ import theTranslator from '../UILib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theNoteEditor from '../core/NoteEditor.js';
 import theRouteEditor from '../core/RouteEditor.js';
-import AboutDialog from '../dialogs/AboutDialog.js';
+import AboutDialog from '../aboutDialog/AboutDialog.js';
 import Zoomer from '../core/Zoomer.js';
 import theFullScreenUI from '../fullScreenUI/FullScreenUI.js';
 
