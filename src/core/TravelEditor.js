@@ -62,7 +62,7 @@ import FileCompactor from '../coreLib/FileCompactor.js';
 import theProfileWindowsManager from '../core/ProfileWindowsManager.js';
 import { INVALID_OBJ_ID, SAVE_STATUS } from '../main/Constants.js';
 import theMouseUI from '../mouseUI/MouseUI.js';
-import SaveAsDialog from '../dialogs/SaveAsDialog.js';
+import SaveAsDialog from '../saveAsDialog/SaveAsDialog.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
