@@ -32,12 +32,12 @@
     "url": "git+https://github.com/wwwouaiebe/TravelNotes.git"
   },
   "scripts": {
+    "debug" : "node node_modules/grunt/bin/grunt debug",
+    "release" : "node node_modules/grunt/bin/grunt release",
     "guides": "node ../HtmlFromMarkdown/main.js --src=docs/userGuides",
     "doc" : "node node_modules/grunt/bin/grunt doc",
-    "doclaunch" : "node node_modules/grunt/bin/grunt doclaunch",
-    "debug" : "node node_modules/grunt/bin/grunt debug",
-    "release" : "node node_modules/grunt/bin/grunt release"
-  },  
+    "doclaunch" : "node node_modules/grunt/bin/grunt doclaunch"
+    },  
   "keywords": [
     "Leaflet",
     "Routing",
