@@ -63,6 +63,7 @@ import theProfileWindowsManager from '../core/ProfileWindowsManager.js';
 import { INVALID_OBJ_ID, SAVE_STATUS } from '../main/Constants.js';
 import theMouseUI from '../mouseUI/MouseUI.js';
 import SaveAsDialog from '../saveAsDialog/SaveAsDialog.js';
+import TravelPropertiesDialog from '../travelPropertiesDialog/TravelPropertiesDialog.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -219,6 +220,31 @@ class TravelEditor {
 			theRouteEditor.editRoute ( theTravelNotesData.travel.routes.first.objId );
 		}
 		theMouseUI.saveStatus = SAVE_STATUS.saved;
+	}
+
+	/**
+	This method show the TravelPropertiesDialog and adapt the document title and roadbook when closing the dialog
+	*/
+
+	travelProperties ( ) {
+		new TravelPropertiesDialog ( )
+			.show ( )
+			.then (
+				( ) => {
+					document.title =
+						'Travel & Notes' +
+						( '' === theTravelNotesData.travel.name ? '' : ' - ' + theTravelNotesData.travel.name );
+					theEventDispatcher.dispatch ( 'roadbookupdate' );
+				}
+			)
+			.catch (
+				err => {
+					if ( err instanceof Error ) {
+						console.error ( err );
+					}
+				}
+			);
+
 	}
 }
 

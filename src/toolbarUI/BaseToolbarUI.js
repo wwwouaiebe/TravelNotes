@@ -73,7 +73,16 @@ A simple container to share data between the BaseToolbarUI class and the Toolbar
 
 class ToolbarItemsContainer {
 
+	/**
+	 An array with the toolbar items
+	 @type {Array.<ToolbarItem>}
+	*/
+
 	toolbarItems;
+
+	/**
+	The constructor
+	*/
 
 	constructor ( ) {
 		this.toolbarItems = [];

@@ -275,6 +275,13 @@ class TravelNotesToolbarUI extends BaseToolbarUI {
 						theTravelNotesData.UUID
 			)
 		);
+		this.addToolbarItem (
+			new ToolbarItem (
+				'🧳',
+				theTranslator.getText ( 'TravelNotesToolbarUI - Travel properties' ),
+				( ) => { theTravelEditor.travelProperties ( ); }
+			)
+		);
 	}
 }
 
