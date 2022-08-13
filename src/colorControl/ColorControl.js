@@ -28,8 +28,8 @@ Tests ...
 
 import theTranslator from '../UILib/Translator.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import { RedSliderInputEL, ColorInputEL, ColorButtonClickEL } from '../dialogColorControl/ColorControlEventListeners.js';
-import Color from '../dialogColorControl/Color.js';
+import { RedSliderInputEL, ColorInputEL, ColorButtonClickEL } from '../colorControl/ColorControlEventListeners.js';
+import Color from '../colorControl/Color.js';
 
 import { ZERO, COLOR_CONTROL } from '../main/Constants.js';
 

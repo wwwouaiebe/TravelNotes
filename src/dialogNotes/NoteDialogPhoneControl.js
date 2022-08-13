@@ -30,7 +30,7 @@ Tests ...
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
-import DialogControl from '../dialogBase/DialogControl.js';
+import DialogControl from '../baseDialog/DialogControl.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

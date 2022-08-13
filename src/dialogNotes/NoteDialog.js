@@ -52,7 +52,7 @@ Doc reviewed 20210913
 Tests ...
 */
 
-import BaseDialog from '../dialogBase/BaseDialog.js';
+import BaseDialog from '../baseDialog/BaseDialog.js';
 import NoteDialogToolbar from '../dialogNotes/NoteDialogToolbar.js';
 import NoteDialogIconDimsControl from '../dialogNotes/NoteDialogIconDimsControl.js';
 import NoteDialogIconControl from '../dialogNotes/NoteDialogIconControl.js';

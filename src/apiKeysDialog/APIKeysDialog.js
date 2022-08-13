@@ -38,10 +38,10 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import BaseDialog from '../dialogBase/BaseDialog.js';
-import APIKeysDialogToolbar from '../dialogAPIKeys/APIKeysDialogToolbar.js';
+import BaseDialog from '../baseDialog/BaseDialog.js';
+import APIKeysDialogToolbar from '../apiKeysDialog/APIKeysDialogToolbar.js';
 import theTranslator from '../UILib/Translator.js';
-import APIKeysControl from './APIKeysControl.js';
+import APIKeysControl from '../apiKeysDialog/APIKeysControl.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

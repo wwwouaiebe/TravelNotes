@@ -32,12 +32,12 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import BaseDialog from '../dialogBase/BaseDialog.js';
+import BaseDialog from '../baseDialog/BaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import GeoCoder from '../coreLib/GeoCoder.js';
 import theConfig from '../data/Config.js';
-import DialogControl from '../dialogBase/DialogControl.js';
+import DialogControl from '../baseDialog/DialogControl.js';
 
 /**
 Click event listener for the reset address button

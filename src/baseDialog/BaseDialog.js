@@ -106,19 +106,19 @@ import {
 	OkButtonClickEL,
 	CancelDialogButtonClickEL,
 	DialogKeyboardKeydownEL
-} from '../dialogbase/BaseDialogEventListeners.js';
+} from '../baseDialog/BaseDialogEventListeners.js';
 import {
 	BackgroundWheelEL,
 	BackgroundContextMenuEL,
 	BackgroundDragOverEL,
 	BackgroundTouchEL,
 	BackgroundMouseEL
-} from '../dialogbase/BaseDialogBackgroundEventListeners.js';
+} from '../baseDialog/BaseDialogBackgroundEventListeners.js';
 import {
 	TopBarDragStartEL,
 	TopBarDragEndEL,
 	TopBarTouchEL
-} from '../dialogbase/BaseDialogTopBarEventListeners.js';
+} from '../baseDialog/BaseDialogTopBarEventListeners.js';
 import DragData from '../dialogs/DragData.js';
 
 // import GarbageCollectorTester from '../UILib/GarbageCollectorTester.js';

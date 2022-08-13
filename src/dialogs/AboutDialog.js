@@ -41,7 +41,7 @@ Tests ...
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
-import BaseDialog from '../dialogBase/BaseDialog.js';
+import BaseDialog from '../baseDialog/BaseDialog.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import { theAppVersion } from '../data/Version.js';
 

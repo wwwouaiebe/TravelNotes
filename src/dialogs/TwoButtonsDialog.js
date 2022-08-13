@@ -29,7 +29,7 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import BaseDialog from '../dialogBase/BaseDialog.js';
+import BaseDialog from '../baseDialog/BaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

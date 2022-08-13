@@ -38,7 +38,7 @@ import {
 	SaveToSecureFileButtonClickEL,
 	SaveToUnsecureFileButtonClickEL,
 	NewAPIKeyButtonClickEL
-} from '../dialogAPIKeys/APIKeysDialogEventListeners.js';
+} from '../apiKeysDialog/APIKeysDialogEventListeners.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

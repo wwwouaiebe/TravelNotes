@@ -31,7 +31,7 @@ Tests ...
 
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
-import BaseDialog from '../dialogBase/BaseDialog.js';
+import BaseDialog from '../baseDialog/BaseDialog.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import { ZERO } from '../main/Constants.js';

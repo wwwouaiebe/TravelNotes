@@ -33,7 +33,7 @@ Tests ...
 import PasswordDialog from '../dialogPassword/PasswordDialog.js';
 import DataEncryptor from '../coreLib/DataEncryptor.js';
 import theUtilities from '../UILib/Utilities.js';
-import { DataEncryptorHandlers } from '../dialogAPIKeys/APIKeysDialogHelpers.js';
+import { DataEncryptorHandlers } from '../apiKeysDialog/APIKeysDialogHelpers.js';
 
 import { ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
 

@@ -26,7 +26,7 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import Color from '../dialogColorControl/Color.js';
+import Color from '../colorControl/Color.js';
 import { ZERO, COLOR_CONTROL } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

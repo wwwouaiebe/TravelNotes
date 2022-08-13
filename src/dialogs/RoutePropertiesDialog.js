@@ -39,9 +39,9 @@ Doc reviewed 20210914
 ests ...
 */
 
-import BaseDialog from '../dialogBase/BaseDialog.js';
+import BaseDialog from '../baseDialog/BaseDialog.js';
 import theTranslator from '../UILib/Translator.js';
-import ColorControl from '../dialogColorControl/ColorControl.js';
+import ColorControl from '../colorControl/ColorControl.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theConfig from '../data/Config.js';
 import { ZERO } from '../main/Constants.js';

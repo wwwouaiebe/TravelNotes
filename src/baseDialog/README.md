@@ -1,4 +1,4 @@
-# dialogBase
+# baseDialog
 
 This folder is a part of the presentation layer classes.
 

@@ -23,9 +23,9 @@ Doc reviewed ...
 Tests ...
 */
 
-import DialogControl from '../dialogBase/DialogControl.js';
-import { APIKeyDeletedEL } from '../dialogAPIKeys/APIKeysDialogEventListeners.js';
-import APIKeyControlRow from '../dialogAPIKeys/APIKeyControlRow.js';
+import DialogControl from '../baseDialog/DialogControl.js';
+import { APIKeyDeletedEL } from '../apiKeysDialog/APIKeysDialogEventListeners.js';
+import APIKeyControlRow from '../apiKeysDialog/APIKeyControlRow.js';
 import { APIKey } from '../coreLib/Containers.js';
 
 import { ZERO } from '../main/Constants.js';

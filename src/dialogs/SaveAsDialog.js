@@ -28,7 +28,7 @@ Tests ...
 */
 
 import theTranslator from '../UILib/Translator.js';
-import BaseDialog from '../dialogBase/BaseDialog.js';
+import BaseDialog from '../baseDialog/BaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
