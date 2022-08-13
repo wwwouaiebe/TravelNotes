@@ -43,7 +43,7 @@ const travelNotesCss = [
 	'src/routePropertiesDialog/RoutePropertiesDialog.css',
 	'src/twoButtonsDialog/TwoButtonsDialog.css',
 	'src/wayPointPropertiesDialog/WayPointPropertiesDialog.css',
-	'src/dialogPassword/PasswordDialog.css',
+	'src/passwordDialog/PasswordDialog.css',
 	'src/dialogFloatWindow/FloatWindow.css',
 	'src/AttributionsUI/AttributionsUI.css',
 	'src/ErrorsUI/ErrorsUI.css',
