@@ -404,14 +404,6 @@ class BaseDialog {
 	get contentHTMLElements ( ) { return []; }
 
 	/**
-	An array with the HTMLElements that have to be added in the footer of the dialog
-	Can be overloaded in the derived classes
-	@type {Array.<HTMLElement>}
-	*/
-
-	get footerHTMLElements ( ) { return []; }
-
-	/**
 	Show the dialog
 	*/
 

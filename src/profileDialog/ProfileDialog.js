@@ -55,6 +55,8 @@ a float window containing a route profile
 
 class ProfileDialog extends NonModalBaseDialog {
 
+	#headerDiv;
+
 	/**
 	The svg profile
 	@type {SVGElement}
@@ -62,19 +64,14 @@ class ProfileDialog extends NonModalBaseDialog {
 
 	#svg = null;
 
+	#svgDiv;
+
 	/**
 	A div under the svg profile with some texts
 	@type {HTMLElement}
 	*/
 
-	#ascentDiv = null;
-
-	/**
-	The route for witch the profile is diplayed
-	@type {Route}
-	*/
-
-	#route = null;
+	#ascentDiv;
 
 	/**
 	contextmenu event listener
@@ -104,89 +101,91 @@ class ProfileDialog extends NonModalBaseDialog {
 
 	#markerObjId = ObjId.nextObjId;
 
-	/**
-	This method removes the svg and event listeners from the window
-	*/
+	#routeObjId;
 
 	#clean ( ) {
 		if ( this.#svg ) {
+			this.#headerDiv.textContent = '';
+
 			this.#svg.removeEventListener ( 'contextmenu', this.#svgContextMenuEL, false );
 			this.#svg.removeEventListener ( 'mousemove', this.#svgMouseMoveEL, false );
 			this.#svg.removeEventListener ( 'mouseleave', this.#svgMouseLeaveEL, false );
+			this.#svg = null;
 
 			theEventDispatcher.dispatch ( 'removeobject', { objId : this.#markerObjId } );
 
-			this.content.removeChild ( this.#ascentDiv );
-			this.content.removeChild ( this.#svg );
+			this.#ascentDiv.textContent = '';
 		}
-
-		this.#svg = null;
-		this.#ascentDiv = null;
 	}
 
-	/**
-	The constructor
-	*/
+	setContent ( route ) {
+
+		this.#routeObjId = route.objId;
+
+		this.#clean ( );
+
+		this.#headerDiv.textContent = theTranslator.getText (
+			'ProfileWindow - Profile {name}',
+			{ name : route.computedName }
+		);
+
+		this.#svg = new SvgProfileBuilder ( ).createSvg ( route );
+		this.#svg.dataset.tanObjId = route.objId;
+		this.#svg.dataset.tanMarkerObjId = this.#markerObjId;
+
+		this.#svg.addEventListener ( 'contextmenu', this.#svgContextMenuEL, false );
+		this.#svg.addEventListener ( 'mousemove', this.#svgMouseMoveEL, false );
+		this.#svg.addEventListener ( 'mouseleave', this.#svgMouseLeaveEL, false );
+
+		this.#svgDiv.appendChild ( this.#svg );
+
+		this.#ascentDiv.textContent = theTranslator.getText (
+			'ProfileWindow - Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}',
+			{
+				ascent : route.itinerary.ascent.toFixed ( ZERO ),
+				descent : route.itinerary.descent.toFixed ( ZERO ),
+				distance : theUtilities.formatDistance ( route.distance )
+			}
+		);
+	}
 
 	constructor ( ) {
 		super ( );
 		this.#svgContextMenuEL = new SvgContextMenuEL ( );
 		this.#svgMouseMoveEL = new SvgMouseMoveEL ( );
 		this.#svgMouseLeaveEL = new SvgMouseLeaveEL ( );
+		this.#headerDiv = theHTMLElementsFactory.create ( 'div' );
+		this.#svgDiv = theHTMLElementsFactory.create ( 'div' );
+		this.#ascentDiv = theHTMLElementsFactory.create ( 'div' );
 	}
 
 	/**
-	Clean and close the window
+	Overload of the BaseDialog.onCancel ( ) method.
 	*/
 
-	close ( ) {
+	onCancel ( ) {
 		this.#clean ( );
+		super.onCancel ( );
 		theEventDispatcher.dispatch (
 			'profileclosed',
 			{
-				objId : this.#route.objId
+				objId : this.#routeObjId
 			}
 		);
-		super.close ( );
 	}
 
 	/**
-	Update the window's content
-	@param {Route} route The Route for witch the profile must be updated
+	An array with the HTMLElements that have to be added in the content of the dialog.
+	Can be overloaded in the derived classes
+	@type {Array.<HTMLElement>}
 	*/
 
-	update ( route ) {
-		this.#clean ( );
-		this.#route = route;
-		this.#svg = new SvgProfileBuilder ( ).createSvg ( this.#route );
-		this.#svg.dataset.tanObjId = route.objId;
-		this.#svg.dataset.tanMarkerObjId = this.#markerObjId;
-
-		this.header.textContent = theTranslator.getText (
-			'ProfileWindow - Profile {name}',
-			{ name : this.#route.computedName }
-		);
-		this.content.appendChild ( this.#svg );
-
-		this.#svg.addEventListener ( 'contextmenu', this.#svgContextMenuEL, false );
-		this.#svg.addEventListener ( 'mousemove', this.#svgMouseMoveEL, false );
-		this.#svg.addEventListener ( 'mouseleave', this.#svgMouseLeaveEL, false );
-
-		this.#ascentDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-ProfileWindow-Ascent',
-				textContent : theTranslator.getText (
-					'ProfileWindow - Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}',
-					{
-						ascent : this.#route.itinerary.ascent.toFixed ( ZERO ),
-						descent : this.#route.itinerary.descent.toFixed ( ZERO ),
-						distance : theUtilities.formatDistance ( this.#route.distance )
-					}
-				)
-			}
-		);
-		this.content.appendChild ( this.#ascentDiv );
+	get contentHTMLElements ( ) {
+		return [
+			this.#headerDiv,
+			this.#svgDiv,
+			this.#ascentDiv
+		];
 	}
 }
 

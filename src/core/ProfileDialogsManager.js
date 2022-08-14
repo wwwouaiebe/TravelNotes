@@ -91,11 +91,11 @@ class ProfileDialogsManager {
 			route.itinerary.ascent = ascent;
 			route.itinerary.descent = descent;
 			if ( profileDialog ) {
-				profileDialog.update ( route );
+				profileDialog.setContent ( route );
 			}
 		}
 		else if ( profileDialog ) {
-			profileDialog.close ( );
+			profileDialog.onCancel ( );
 		}
 	}
 
@@ -110,11 +110,11 @@ class ProfileDialogsManager {
 		if ( profileDialog ) {
 			this.#profileDialogs.delete ( oldRouteObjId );
 			if ( newRoute && newRoute.itinerary.hasProfile ) {
-				profileDialog.update ( newRoute );
+				profileDialog.setContent ( newRoute );
 				this.#profileDialogs.set ( newRoute.objId, profileDialog );
 			}
 			else {
-				profileDialog.close ( );
+				profileDialog.onCancel ( );
 			}
 		}
 	}
@@ -127,7 +127,7 @@ class ProfileDialogsManager {
 	deleteProfile ( objId ) {
 		const profileDialog = this.#profileDialogs.get ( objId );
 		if ( profileDialog ) {
-			profileDialog.close ( );
+			profileDialog.onCancel ( );
 		}
 	}
 
@@ -136,7 +136,7 @@ class ProfileDialogsManager {
 	*/
 
 	deleteAllProfiles ( ) {
-		this.#profileDialogs.forEach ( profileDialog => profileDialog.close ( ) );
+		this.#profileDialogs.forEach ( profileDialog => profileDialog.onCancel ( ) );
 	}
 
 	/**
@@ -145,12 +145,13 @@ class ProfileDialogsManager {
 	*/
 
 	showProfile ( routeObjId ) {
+		const route = theDataSearchEngine.getRoute ( routeObjId );
 		let profileDialog = this.#profileDialogs.get ( routeObjId );
 		if ( ! profileDialog ) {
 			profileDialog = new ProfileDialog ( );
 		}
-		const route = theDataSearchEngine.getRoute ( routeObjId );
-		profileDialog.update ( route );
+		profileDialog.setContent ( route );
+		profileDialog.show ( );
 		this.#profileDialogs.set ( routeObjId, profileDialog );
 	}
 

@@ -393,6 +393,14 @@ class ModalBaseDialog extends BaseDialog {
 	}
 
 	/**
+	An array with the HTMLElements that have to be added in the footer of the dialog
+	Can be overloaded in the derived classes
+	@type {Array.<HTMLElement>}
+	*/
+
+	get footerHTMLElements ( ) { return []; }
+
+	/**
 	A flag to avoid all dialogs close when using the esc or enter keys
 	@type {Boolean}
 	*/
