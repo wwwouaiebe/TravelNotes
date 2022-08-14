@@ -28,7 +28,7 @@ Tests ...
 */
 
 import theTranslator from '../UILib/Translator.js';
-import BaseDialog from '../baseDialog/BaseDialog.js';
+import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -104,7 +104,7 @@ succes handler of the Promise returned by the show ( ) method.
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class SaveAsDialog extends BaseDialog {
+class SaveAsDialog extends ModalBaseDialog {
 
 	/**
 	The remove travel notes input

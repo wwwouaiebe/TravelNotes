@@ -51,7 +51,7 @@ import theMapLayersManager from '../core/MapLayersManager.js';
 import theRouteEditor from '../core/RouteEditor.js';
 import FileCompactor from '../coreLib/FileCompactor.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
-import theProfileWindowsManager from '../core/ProfileWindowsManager.js';
+import theProfileDialogsManager from '../core/ProfileDialogsManager.js';
 import Zoomer from '../core/Zoomer.js';
 import Travel from '../data/Travel.js';
 
@@ -174,7 +174,7 @@ class FileLoader {
 	openLocalGpxFile ( fileContent ) {
 
 		// Closing all profiles
-		theProfileWindowsManager.deleteAllProfiles ( );
+		theProfileDialogsManager.deleteAllProfiles ( );
 
 		// Parsing the gpx
 		theTravelNotesData.travel.jsonObject = new GpxParser ( ).parse ( fileContent ).jsonObject;
@@ -196,7 +196,7 @@ class FileLoader {
 	openLocalTrvFile ( fileContent ) {
 
 		// Closing all profiles
-		theProfileWindowsManager.deleteAllProfiles ( );
+		theProfileDialogsManager.deleteAllProfiles ( );
 
 		const travelJsonObject = JSON.parse ( fileContent );
 

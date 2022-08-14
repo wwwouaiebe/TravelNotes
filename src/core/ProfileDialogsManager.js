@@ -31,26 +31,26 @@ Tests 20210903
 */
 
 import theConfig from '../data/Config.js';
-import ProfileWindow from '../dialogProfileWindow/ProfileWindow.js';
+import ProfileDialog from '../profileDialog/ProfileDialog.js';
 import ProfileSmoothingIron from '../coreLib/ProfileSmoothingIron.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import { ZERO } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This class provides methods to manage the profile windows
-see theProfileWindowsManager for the one and only one instance of this class
+This class provides methods to manage the profile dialogs
+see theProfileDialogsManager for the one and only one instance of this class
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ProfileWindowsManager {
+class ProfileDialogsManager {
 
 	/**
-	A map with all the profile windows currently displayed
-	@type {Map.<ProfileWindow>}
+	A map with all the profile dialogs currently displayed
+	@type {Map.<ProfileDialog>}
 	*/
 
-	#profileWindows = new Map ( );
+	#profileDialogs = new Map ( );
 
 	/**
 	The constructor
@@ -62,12 +62,12 @@ class ProfileWindowsManager {
 
 	/**
 	This method creates the profile for a Route after a call to a provider
-	and manages the window profile
+	and manages the dialog profile
 	@param {Route} route The Route for witch a profile is created
 	*/
 
 	createProfile ( route ) {
-		const profileWindow = this.#profileWindows.get ( route.objId );
+		const profileDialog = this.#profileDialogs.get ( route.objId );
 
 		if ( route.itinerary.hasProfile ) {
 			if ( theConfig.route.elev.smooth ) {
@@ -90,90 +90,90 @@ class ProfileWindowsManager {
 			);
 			route.itinerary.ascent = ascent;
 			route.itinerary.descent = descent;
-			if ( profileWindow ) {
-				profileWindow.update ( route );
+			if ( profileDialog ) {
+				profileDialog.update ( route );
 			}
 		}
-		else if ( profileWindow ) {
-			profileWindow.close ( );
+		else if ( profileDialog ) {
+			profileDialog.close ( );
 		}
 	}
 
 	/**
-	This method updates the profile window for a Route
-	@param {Number} oldRouteObjId The objId of the Route that is in the profile window
-	@param {Route} newRoute The  Route for witch the profile window is updated
+	This method updates the profile dialog for a Route
+	@param {Number} oldRouteObjId The objId of the Route that is in the profile dialog
+	@param {Route} newRoute The  Route for witch the profile dialog is updated
 	*/
 
 	updateProfile ( oldRouteObjId, newRoute ) {
-		const profileWindow = this.#profileWindows.get ( oldRouteObjId );
-		if ( profileWindow ) {
-			this.#profileWindows.delete ( oldRouteObjId );
+		const profileDialog = this.#profileDialogs.get ( oldRouteObjId );
+		if ( profileDialog ) {
+			this.#profileDialogs.delete ( oldRouteObjId );
 			if ( newRoute && newRoute.itinerary.hasProfile ) {
-				profileWindow.update ( newRoute );
-				this.#profileWindows.set ( newRoute.objId, profileWindow );
+				profileDialog.update ( newRoute );
+				this.#profileDialogs.set ( newRoute.objId, profileDialog );
 			}
 			else {
-				profileWindow.close ( );
+				profileDialog.close ( );
 			}
 		}
 	}
 
 	/**
-	This method close the profile window of a route
-	@param {Number} objId The objId of the Route that is in the profile window to close
+	This method close the profile dialog of a route
+	@param {Number} objId The objId of the Route that is in the profile dialog to close
 	*/
 
 	deleteProfile ( objId ) {
-		const profileWindow = this.#profileWindows.get ( objId );
-		if ( profileWindow ) {
-			profileWindow.close ( );
+		const profileDialog = this.#profileDialogs.get ( objId );
+		if ( profileDialog ) {
+			profileDialog.close ( );
 		}
 	}
 
 	/**
-	This method close the all the profile windows
+	This method close the all the profile dialogs
 	*/
 
 	deleteAllProfiles ( ) {
-		this.#profileWindows.forEach ( profileWindow => profileWindow.close ( ) );
+		this.#profileDialogs.forEach ( profileDialog => profileDialog.close ( ) );
 	}
 
 	/**
-	This method creates the profile window for a Route
-	@param {Number} routeObjId The Route objId for witch a profile window is created
+	This method creates the profile dialog for a Route
+	@param {Number} routeObjId The Route objId for witch a profile dialog is created
 	*/
 
 	showProfile ( routeObjId ) {
-		let profileWindow = this.#profileWindows.get ( routeObjId );
-		if ( ! profileWindow ) {
-			profileWindow = new ProfileWindow ( );
+		let profileDialog = this.#profileDialogs.get ( routeObjId );
+		if ( ! profileDialog ) {
+			profileDialog = new ProfileDialog ( );
 		}
 		const route = theDataSearchEngine.getRoute ( routeObjId );
-		profileWindow.update ( route );
-		this.#profileWindows.set ( routeObjId, profileWindow );
+		profileDialog.update ( route );
+		this.#profileDialogs.set ( routeObjId, profileDialog );
 	}
 
 	/**
-	This method is called when a profile window is closed
-	@param {Number} objId The Route objId for witch a profile window is created
+	This method is called when a profile dialog is closed
+	@param {Number} objId The Route objId for witch a profile dialog is created
 	*/
 
 	onProfileClosed ( objId ) {
-		this.#profileWindows.delete ( objId );
+		this.#profileDialogs.delete ( objId );
 	}
 
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-The one and only one instance of ProfileWindowsManager class
-@type {ProfileWindowsManager}
+The one and only one instance of ProfileDialogsManager class
+@type {ProfileDialogsManager}
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-const theProfileWindowsManager = new ProfileWindowsManager ( );
+const theProfileDialogsManager = new ProfileDialogsManager ( );
 
-export default theProfileWindowsManager;
+export default theProfileDialogsManager;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

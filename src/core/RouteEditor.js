@@ -64,7 +64,7 @@ import GpxFactory from '../coreLib/GpxFactory.js';
 import RoutePropertiesDialog from '../routePropertiesDialog/RoutePropertiesDialog.js';
 import PrintRouteMapDialog from '../printRouteMapDialog/PrintRouteMapDialog.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
-import theProfileWindowsManager from '../core/ProfileWindowsManager.js';
+import theProfileDialogsManager from '../core/ProfileDialogsManager.js';
 import RoutePrinter from '../printRoute/RoutePrinter.js';
 
 import { ROUTE_EDITION_STATUS, DISTANCE, INVALID_OBJ_ID } from '../main/Constants.js';
@@ -159,7 +159,7 @@ class RouteEditor {
 		theTravelNotesData.editedRouteObjId = initialRoute.objId;
 		theTravelNotesData.travel.editedRoute.hidden = false;
 		initialRoute.hidden = false;
-		theProfileWindowsManager.updateProfile (
+		theProfileDialogsManager.updateProfile (
 			theTravelNotesData.editedRouteObjId,
 			theTravelNotesData.travel.editedRoute
 		);
@@ -204,7 +204,7 @@ class RouteEditor {
 		);
 
 		theTravelNotesData.travel.routes.remove ( routeToDeleteObjId );
-		theProfileWindowsManager.deleteProfile ( routeToDeleteObjId );
+		theProfileDialogsManager.deleteProfile ( routeToDeleteObjId );
 		this.chainRoutes ( );
 
 		theEventDispatcher.dispatch ( 'roadbookupdate' );
@@ -282,7 +282,7 @@ class RouteEditor {
 		const editedRoute = theDataSearchEngine.getRoute ( theTravelNotesData.editedRouteObjId );
 		editedRoute.editionStatus = ROUTE_EDITION_STATUS.notEdited;
 
-		theProfileWindowsManager.updateProfile (
+		theProfileDialogsManager.updateProfile (
 			theTravelNotesData.travel.editedRoute.objId,
 			editedRoute
 		);

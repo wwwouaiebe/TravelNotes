@@ -52,7 +52,7 @@ Doc reviewed 20210913
 Tests ...
 */
 
-import BaseDialog from '../baseDialog/BaseDialog.js';
+import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
 import NoteDialogToolbar from '../notesDialog/NoteDialogToolbar.js';
 import NoteDialogIconDimsControl from '../notesDialog/NoteDialogIconDimsControl.js';
 import NoteDialogIconControl from '../notesDialog/NoteDialogIconControl.js';
@@ -120,7 +120,7 @@ This class create and manage the NoteDialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NoteDialog extends BaseDialog {
+class NoteDialog extends ModalBaseDialog {
 
 	/**
 	A reference to the currently edited note
@@ -310,10 +310,11 @@ class NoteDialog extends BaseDialog {
 	}
 
 	/**
-	Overload of the BaseDialog.onShow ( ) method.
+	Overload of the ModalBaseDialog.show ( ) method.
 	*/
 
-	onShow ( ) {
+	show ( ) {
+		super.show ( );
 		if ( this.#startGeoCoder ) {
 			new NoteDialogGeoCoderHelper ( this ).setAddressWithGeoCoder ( this.#previewNote.latLng );
 		}

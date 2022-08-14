@@ -47,7 +47,7 @@ import theWayPointEditor from '../core/WayPointEditor.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theTranslator from '../UILib/Translator.js';
 import Zoomer from '../core/Zoomer.js';
-import theProfileWindowsManager from '../core/ProfileWindowsManager.js';
+import theProfileDialogsManager from '../core/ProfileDialogsManager.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import AllManeuverNotesBuilder from '../core/AllManeuverNotesBuilder.js';
 
@@ -141,7 +141,7 @@ class RouteContextMenu extends BaseContextMenu {
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - View the elevation' ),
 				this.#route.itinerary.hasProfile,
-				( ) => theProfileWindowsManager.showProfile ( this.eventData.targetObjId )
+				( ) => theProfileDialogsManager.showProfile ( this.eventData.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Print route map' ),

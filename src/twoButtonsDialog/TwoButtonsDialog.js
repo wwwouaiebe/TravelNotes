@@ -29,7 +29,7 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import BaseDialog from '../baseDialog/BaseDialog.js';
+import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -40,7 +40,7 @@ when the first button is used and reject when the second button or the cancel bu
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class TwoButtonsDialog extends BaseDialog {
+class TwoButtonsDialog extends ModalBaseDialog {
 
 	/**
 	The constructor

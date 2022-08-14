@@ -34,7 +34,7 @@ Tests ...
 
 import theTranslator from '../UILib/Translator.js';
 import ObjId from '../data/ObjId.js';
-import FloatWindow from '../dialogFloatWindow/FloatWindow.js';
+import NonModalBaseDialog from '../baseDialog/NonModalBaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import theUtilities from '../UILib/Utilities.js';
@@ -43,7 +43,7 @@ import {
 	SvgContextMenuEL,
 	SvgMouseLeaveEL,
 	SvgMouseMoveEL
-} from '../dialogProfileWindow/ProfileWindowEventListeners.js';
+} from '../profileDialog/ProfileDialogEventListeners.js';
 
 import { ZERO } from '../main/Constants.js';
 
@@ -53,7 +53,7 @@ a float window containing a route profile
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ProfileWindow extends FloatWindow {
+class ProfileDialog extends NonModalBaseDialog {
 
 	/**
 	The svg profile
@@ -190,6 +190,6 @@ class ProfileWindow extends FloatWindow {
 	}
 }
 
-export default ProfileWindow;
+export default ProfileDialog;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

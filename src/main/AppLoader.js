@@ -38,7 +38,7 @@ import theIndexedDb from '../UILib/IndexedDb.js';
 import theTravelHTMLViewsFactory from '../viewsFactories/TravelHTMLViewsFactory.js';
 import theUtilities from '../UILib/Utilities.js';
 import theMouseUI from '../mouseUI/MouseUI.js';
-import theProfileWindowsManager from '../core/ProfileWindowsManager.js';
+import theProfileDialogsManager from '../core/ProfileDialogsManager.js';
 import theTravelNotes from '../main/TravelNotes.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theConfig from '../data/Config.js';
@@ -285,7 +285,7 @@ class AppLoader {
 			'profileclosed',
 			profileClosedEvent => {
 				if ( profileClosedEvent.data ) {
-					theProfileWindowsManager.onProfileClosed ( profileClosedEvent.data.objId );
+					theProfileDialogsManager.onProfileClosed ( profileClosedEvent.data.objId );
 				}
 			},
 			false

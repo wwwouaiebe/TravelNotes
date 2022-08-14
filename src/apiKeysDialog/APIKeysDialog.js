@@ -38,7 +38,7 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import BaseDialog from '../baseDialog/BaseDialog.js';
+import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
 import APIKeysDialogToolbar from '../apiKeysDialog/APIKeysDialogToolbar.js';
 import theTranslator from '../UILib/Translator.js';
 import APIKeysControl from '../apiKeysDialog/APIKeysControl.js';
@@ -50,7 +50,7 @@ This class is the APIKeys dialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class APIKeysDialog extends BaseDialog {
+class APIKeysDialog extends ModalBaseDialog {
 
 	/**
 	The dialog toolbar

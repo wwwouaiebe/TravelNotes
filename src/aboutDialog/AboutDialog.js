@@ -41,7 +41,7 @@ Tests ...
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
-import BaseDialog from '../baseDialog/BaseDialog.js';
+import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import { theAppVersion } from '../data/Version.js';
 
@@ -51,7 +51,7 @@ This class is the 'About' dialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class AboutDialog extends BaseDialog {
+class AboutDialog extends ModalBaseDialog {
 
 	/**
 	The main

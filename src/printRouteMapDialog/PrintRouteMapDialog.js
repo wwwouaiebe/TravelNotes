@@ -31,7 +31,7 @@ Tests ...
 
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
-import BaseDialog from '../baseDialog/BaseDialog.js';
+import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import { ZERO } from '../main/Constants.js';
@@ -101,7 +101,7 @@ This class create and manage the print route map dialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class PrintRouteMapDialog extends BaseDialog {
+class PrintRouteMapDialog extends ModalBaseDialog {
 
 	/**
 	The paper width input

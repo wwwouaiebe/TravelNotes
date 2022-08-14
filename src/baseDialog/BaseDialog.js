@@ -101,12 +101,8 @@ Box model
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
-import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
-import {
-	OkButtonClickEL,
-	CancelDialogButtonClickEL,
-	DialogKeyboardKeydownEL
-} from '../baseDialog/BaseDialogEventListeners.js';
+import BaseDialogOptions from '../baseDialog/baseDialogOptions.js';
+import { CancelDialogButtonClickEL } from '../baseDialog/BaseDialogEventListeners.js';
 import {
 	BackgroundWheelEL,
 	BackgroundContextMenuEL,
@@ -124,114 +120,6 @@ import DragData from '../baseDialog/DragData.js';
 // import GarbageCollectorTester from '../UILib/GarbageCollectorTester.js';
 
 import { TWO } from '../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-An object to gives some options to a dialog, mainly for generic dialogs (SelectDialog, TwoButtonsDialog)
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class DialogOptions {
-
-	/**
-	The text to be displayed on the first button on the bottom of the dialog. Default to 🆗
-	@type {?String}
-	*/
-
-	#firstButtonText = null;
-
-	/**
-	The text to be displayed on the first button on the bottom of the dialog
-	@type {?String}
-	*/
-
-	#secondButtonText = null;
-
-	/**
-	Options for the SelectDialog
-	@type {Array.<SelectOptionData>}
-	*/
-
-	#selectOptionsData = null;
-
-	/**
-	title of the dialog
-	@type {?String}
-	*/
-
-	#title = null;
-
-	/**
-	A text to be displayed in the dialog
-	@type {?String}
-	*/
-
-	#text = null;
-
-	/**
-	The constructor
-	@param {DialogOptions} options An object with the options to change
-	*/
-
-	constructor ( options ) {
-		for ( const property in options ) {
-			switch ( property ) {
-			case 'firstButtonText' :
-				this.#firstButtonText = options.firstButtonText;
-				break;
-			case 'secondButtonText' :
-				this.#secondButtonText = options.secondButtonText;
-				break;
-			case 'selectOptionsData' :
-				this.#selectOptionsData = options.selectOptionsData;
-				break;
-			case 'title' :
-				this.#title = options.title;
-				break;
-			case 'text' :
-				this.#text = options.text;
-				break;
-			default :
-				break;
-			}
-		}
-	}
-
-	/**
-	The text to be displayed on the first button on the bottom of the dialog. Default to 🆗
-	@type {?String}
-	*/
-
-	get firstButtonText ( ) { return this.#firstButtonText; }
-
-	/**
-	The text to be displayed on the first button on the bottom of the dialog
-	@type {?String}
-	*/
-
-	get secondButtonText ( ) { return this.#secondButtonText; }
-
-	/**
-	Options for the SelectDialog
-	@type {Array.<SelectOptionData>}
-	*/
-
-	get selectOptionsData ( ) { return this.#selectOptionsData; }
-
-	/**
-	title of the dialog
-	@type {?String}
-	*/
-
-	get title ( ) { return this.#title; }
-
-	/**
-	A text to be displayed in the dialog
-	@type {?String}
-	*/
-
-	get text ( ) { return this.#text; }
-}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -269,28 +157,7 @@ class BaseDialog {
 	#contentDiv;
 
 	/**
-	The error div of the dialog
-	@type {HTMLElement}
-	*/
-
-	#errorDiv;
-
-	/**
-	The wait div of the dialog
-	@type {HTMLElement}
-	*/
-
-	#waitDiv;
-
-	/**
-	The ok button
-	@type {HTMLElement}
-	*/
-
-	#okButton;
-
-	/**
-	The cancel button
+	The cancel button on the top bar
 	@type {HTMLElement}
 	*/
 
@@ -302,20 +169,6 @@ class BaseDialog {
 	*/
 
 	#topBar;
-
-	/**
-	The second button if any
-	@type {?HTMLElement}
-	*/
-
-	#secondButton;
-
-	/**
-	A flag to avoid all dialogs close when using the esc or enter keys
-	@type {Boolean}
-	*/
-
-	#keyboardELEnabled;
 
 	/**
 	Data for drag ond drop and touch operations
@@ -388,39 +241,11 @@ class BaseDialog {
 	#cancelDialogButtonClickEL;
 
 	/**
-	Ok button click event listener
-	@type {OkButtonClickEL}
-	*/
-
-	#okButtonClickEL;
-
-	/**
-	Keyboard key down event listener
-	@type {DialogKeyboardKeydownEL}
-	*/
-
-	#dialogKeyboardKeydownEL;
-
-	/**
 	options parameter
 	@type {?Object}
 	*/
 
 	#options = null;
-
-	/**
-	onOk promise function
-	@type {function}
-	*/
-
-	#onPromiseOkFct;
-
-	/**
-	onError promise function
-	@type {function}
-	*/
-
-	#onPromiseErrorFct;
 
 	/**
 	Create the background
@@ -572,90 +397,6 @@ class BaseDialog {
 	}
 
 	/**
-	Create the error div
-	*/
-
-	#createErrorDiv ( ) {
-		this.#errorDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-BaseDialog-ErrorDiv TravelNotes-Hidden'
-			},
-			this.#containerDiv
-		);
-	}
-
-	/**
-	Create the dialog wait animation
-	*/
-
-	#createWaitDiv ( ) {
-		theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-WaitAnimationBullet'
-			},
-			theHTMLElementsFactory.create (
-				'div',
-				{
-					className : 'TravelNotes-WaitAnimation'
-				},
-				this.#waitDiv = theHTMLElementsFactory.create (
-					'div',
-					{
-						className : 'TravelNotes-BaseDialog-WaitDiv  TravelNotes-Hidden'
-					},
-					this.#containerDiv
-				)
-			)
-		);
-	}
-
-	/**
-	Create the dialog footer
-	*/
-
-	#createFooterDiv ( ) {
-		const footerDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-BaseDialog-FooterDiv'
-			},
-			this.#containerDiv
-		);
-
-		this.#okButton = theHTMLElementsFactory.create (
-			'div',
-			{
-				textContent : this.#options.firstButtonText || '🆗',
-				className : 'TravelNotes-BaseDialog-Button'
-			},
-			footerDiv
-		);
-		this.#okButtonClickEL = new OkButtonClickEL ( this );
-		this.#okButton.addEventListener ( 'click', this.#okButtonClickEL, false );
-
-		if ( this.#options.secondButtonText ) {
-			this.#secondButton = theHTMLElementsFactory.create (
-				'div',
-				{
-					textContent : this.#options.secondButtonText,
-					className : 'TravelNotes-BaseDialog-Button'
-				},
-				footerDiv
-			);
-			this.#secondButton.addEventListener ( 'click',	this.#cancelDialogButtonClickEL, false	);
-		}
-		else {
-			this.#secondButton = null;
-		}
-
-		this.footerHTMLElements.forEach (
-			footerHTMLElement => footerDiv.appendChild ( footerHTMLElement )
-		);
-	}
-
-	/**
 	Create the HTML dialog
 	*/
 
@@ -667,44 +408,6 @@ class BaseDialog {
 		this.#createHeaderDiv ( );
 		this.#createToolbarDiv ( );
 		this.#createContentDiv ( );
-		this.#createErrorDiv ( );
-		this.#createWaitDiv ( );
-		this.#createFooterDiv ( );
-	}
-
-	/**
-	Center the dialog o the screen
-	*/
-
-	#centerDialog ( ) {
-
-		this.#dragData.dialogX =
-			( this.#backgroundDiv.clientWidth - this.#containerDiv.clientWidth ) / TWO;
-		this.#dragData.dialogY =
-			( this.#backgroundDiv.clientHeight - this.#containerDiv.clientHeight ) / TWO;
-
-		this.#containerDiv.style.left = String ( this.#dragData.dialogX ) + 'px';
-		this.#containerDiv.style.top = String ( this.#dragData.dialogY ) + 'px';
-	}
-
-	/**
-	Build and show the dialog
-	@param {function} onPromiseOkFct The onOk Promise handler
-	@param {function} onPromiseErrorFct The onError Promise handler
-	*/
-
-	#show ( onPromiseOkFct, onPromiseErrorFct ) {
-
-		this.#onPromiseOkFct = onPromiseOkFct;
-		this.#onPromiseErrorFct = onPromiseErrorFct;
-
-		this.#createHTML ( );
-		document.body.appendChild ( this.#backgroundDiv );
-		this.#centerDialog ( );
-		this.#dialogKeyboardKeydownEL = new DialogKeyboardKeydownEL ( this );
-		document.addEventListener ( 'keydown', this.#dialogKeyboardKeydownEL, { capture : true } );
-
-		this.onShow ( );
 	}
 
 	/**
@@ -715,8 +418,7 @@ class BaseDialog {
 	constructor ( options ) {
 		Object.freeze ( this );
 		this.#dragData = new DragData ( );
-		this.#options = new DialogOptions ( options );
-		this.#keyboardELEnabled = true;
+		this.#options = new BaseDialogOptions ( options );
 	}
 
 	/**
@@ -725,8 +427,6 @@ class BaseDialog {
 	*/
 
 	#BaseDialogDestructor ( ) {
-		document.removeEventListener ( 'keydown', this.#dialogKeyboardKeydownEL, { capture : true } );
-		this.#dialogKeyboardKeydownEL = null;
 
 		this.#topBar.removeEventListener ( 'dragstart', this.#topBarDragStartEL, false );
 		this.#topBarDragStartEL = null;
@@ -740,13 +440,7 @@ class BaseDialog {
 		this.#topBarTouchEL = null;
 
 		this.#cancelButton.removeEventListener ( 'click', this.#cancelDialogButtonClickEL, false );
-		if ( this.#options.secondButtonText ) {
-			this.#secondButton.removeEventListener ( 'click', this.#cancelDialogButtonClickEL, false	);
-		}
 		this.#cancelDialogButtonClickEL = null;
-
-		this.#okButton.removeEventListener ( 'click', this.#okButtonClickEL, false );
-		this.#okButtonClickEL = null;
 
 		this.#backgroundDiv.removeEventListener ( 'wheel', this.#backgroundWheelEL, { passive : true }	);
 		this.#backgroundWheelEL = null;
@@ -772,43 +466,31 @@ class BaseDialog {
 	}
 
 	/**
+	Center the dialog o the screen
+	*/
+
+	centerDialog ( ) {
+
+		this.#dragData.dialogX =
+			( this.#backgroundDiv.clientWidth - this.#containerDiv.clientWidth ) / TWO;
+		this.#dragData.dialogY =
+			( this.#backgroundDiv.clientHeight - this.#containerDiv.clientHeight ) / TWO;
+
+		this.#containerDiv.style.left = String ( this.#dragData.dialogX ) + 'px';
+		this.#containerDiv.style.top = String ( this.#dragData.dialogY ) + 'px';
+	}
+
+	/**
 	Cancel button handler. Can be overloaded in the derived classes
 	*/
 
 	onCancel ( ) {
 		this.#BaseDialogDestructor ( );
-		this.#onPromiseErrorFct ( 'Canceled by user' );
 	}
 
-	/**
-	Called after the ok button will be clicked and before the dialog will be closed.
-	Can be overloaded in the derived classes.
-	@return {Boolean} true when the dialog can be closed (all data in the dialog are valid), false otherwise.
-	*/
-
-	canClose ( ) {
-		return true;
+	onOk ( ) {
+		this.#BaseDialogDestructor ( );
 	}
-
-	/**
-	Ok button handler. Can be overloaded in the derived classes, but you have always to call super.onOk ( ).
-	@param {} returnValue a value that will be returned to the onOk handler of the Promise
-	*/
-
-	onOk ( returnValue ) {
-		if ( this.canClose ( ) ) {
-			this.#BaseDialogDestructor ( );
-			this.#onPromiseOkFct ( returnValue );
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	Called when the dialog is show. Can be overloaded in the derived classes
-	*/
-
-	onShow ( ) {}
 
 	/**
 	The title of the dialog. Can be overloaded in the derived classes
@@ -846,55 +528,11 @@ class BaseDialog {
 	*/
 
 	show ( ) {
-		return new Promise ( ( onOk, onError ) => this.#show ( onOk, onError ) );
+		this.#createHTML ( );
+		document.body.appendChild ( this.#backgroundDiv );
 	}
 
-	/**
-	Show the wait section of the dialog and hide the okbutton
-	*/
-
-	showWait ( ) {
-		this.#waitDiv.classList.remove ( 'TravelNotes-Hidden' );
-		this.#okButton.classList.add ( 'TravelNotes-Hidden' );
-	}
-
-	/**
-	Hide the wait section of the dialog and show the okbutton
-	*/
-
-	hideWait ( ) {
-		this.#waitDiv.classList.add ( 'TravelNotes-Hidden' );
-		this.#okButton.classList.remove ( 'TravelNotes-Hidden' );
-	}
-
-	/**
-	Show the error section of the dialog
-	@param {String} errorText The text to display in the error section
-	*/
-
-	showError ( errorText ) {
-		this.#errorDiv.textContent = '';
-		theHTMLSanitizer.sanitizeToHtmlElement ( errorText, this.#errorDiv );
-		this.#errorDiv.classList.remove ( 'TravelNotes-Hidden' );
-	}
-
-	/**
-	Hide the error section of the dialog
-	*/
-
-	hideError ( ) {
-		this.#errorDiv.textContent = '';
-		this.#errorDiv.classList.add ( 'TravelNotes-Hidden' );
-	}
-
-	/**
-	A flag to avoid all dialogs close when using the esc or enter keys
-	@type {Boolean}
-	*/
-
-	get keyboardELEnabled ( ) { return this.#keyboardELEnabled; }
-
-	set keyboardELEnabled ( keyboardELEnabled ) { this.#keyboardELEnabled = keyboardELEnabled; }
+	get container ( ) { return this.#containerDiv; }
 
 	/**
 	The options of the dialog box

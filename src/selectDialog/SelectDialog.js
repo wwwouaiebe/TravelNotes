@@ -26,7 +26,7 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import BaseDialog from '../baseDialog/BaseDialog.js';
+import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import { ZERO } from '../main/Constants.js';
 
@@ -85,7 +85,7 @@ Simple dialog with a text and a select element
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class SelectDialog extends BaseDialog {
+class SelectDialog extends ModalBaseDialog {
 
 	/**
 	The selector

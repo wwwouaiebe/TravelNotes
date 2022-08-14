@@ -39,7 +39,7 @@ Doc reviewed 20210914
 ests ...
 */
 
-import BaseDialog from '../baseDialog/BaseDialog.js';
+import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
 import theTranslator from '../UILib/Translator.js';
 import ColorControl from '../colorControl/ColorControl.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
@@ -52,7 +52,7 @@ This class is the route properties dialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class RoutePropertiesDialog extends BaseDialog {
+class RoutePropertiesDialog extends ModalBaseDialog {
 
 	/**
 	A reference to the route

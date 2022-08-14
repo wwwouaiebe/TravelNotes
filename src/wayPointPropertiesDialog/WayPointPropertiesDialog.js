@@ -32,7 +32,7 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import BaseDialog from '../baseDialog/BaseDialog.js';
+import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import GeoCoder from '../coreLib/GeoCoder.js';
@@ -258,7 +258,7 @@ This is the WayPointProerties dialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class WayPointPropertiesDialog extends BaseDialog {
+class WayPointPropertiesDialog extends ModalBaseDialog {
 
 	/**
 	A reference to the edited wayPoint

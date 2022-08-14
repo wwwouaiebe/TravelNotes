@@ -23,7 +23,7 @@ Doc reviewed ...
 Tests ...
 */
 
-import BaseDialog from '../baseDialog/BaseDialog.js';
+import NonModalBaseDialog from '../baseDialog/NonModalBaseDialog.js';
 import TextInputControl from '../baseDialog/TextInputControl.js';
 import theTranslator from '../UILib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
@@ -36,7 +36,7 @@ This class is the TravelPropertiesDialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class TravelPropertiesDialog extends BaseDialog {
+class TravelPropertiesDialog extends NonModalBaseDialog {
 
 	/**
 	The travel name control

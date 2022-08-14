@@ -59,7 +59,7 @@ import theUtilities from '../UILib/Utilities.js';
 import Travel from '../data/Travel.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import FileCompactor from '../coreLib/FileCompactor.js';
-import theProfileWindowsManager from '../core/ProfileWindowsManager.js';
+import theProfileDialogsManager from '../core/ProfileDialogsManager.js';
 import { INVALID_OBJ_ID, SAVE_STATUS } from '../main/Constants.js';
 import theMouseUI from '../mouseUI/MouseUI.js';
 import SaveAsDialog from '../saveAsDialog/SaveAsDialog.js';
@@ -206,7 +206,7 @@ class TravelEditor {
 		) {
 			return;
 		}
-		theProfileWindowsManager.deleteAllProfiles ( );
+		theProfileDialogsManager.deleteAllProfiles ( );
 		theEventDispatcher.dispatch ( 'removeallobjects' );
 
 		theTravelNotesData.editedRouteObjId = INVALID_OBJ_ID;
@@ -227,24 +227,7 @@ class TravelEditor {
 	*/
 
 	travelProperties ( ) {
-		new TravelPropertiesDialog ( )
-			.show ( )
-			.then (
-				( ) => {
-					document.title =
-						'Travel & Notes' +
-						( '' === theTravelNotesData.travel.name ? '' : ' - ' + theTravelNotesData.travel.name );
-					theEventDispatcher.dispatch ( 'roadbookupdate' );
-				}
-			)
-			.catch (
-				err => {
-					if ( err instanceof Error ) {
-						console.error ( err );
-					}
-				}
-			);
-
+		new TravelPropertiesDialog ( ).show ( );
 	}
 }
 

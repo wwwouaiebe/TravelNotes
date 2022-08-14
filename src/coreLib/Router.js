@@ -34,7 +34,7 @@ import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
 import Zoomer from '../core/Zoomer.js';
-import theProfileWindowsManager from '../core/ProfileWindowsManager.js';
+import theProfileDialogsManager from '../core/ProfileDialogsManager.js';
 import theRouteEditor from '../core/RouteEditor.js';
 
 import { DISTANCE, ZERO } from '../main/Constants.js';
@@ -174,7 +174,7 @@ class Router {
 			new Zoomer ( ).zoomToRoute ( theTravelNotesData.travel.editedRoute.objId );
 		}
 
-		theProfileWindowsManager.createProfile ( theTravelNotesData.travel.editedRoute );
+		theProfileDialogsManager.createProfile ( theTravelNotesData.travel.editedRoute );
 
 		theEventDispatcher.dispatch (
 			'routeupdated',

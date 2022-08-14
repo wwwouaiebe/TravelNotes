@@ -34,7 +34,7 @@ Tests ...
 */
 
 import theTranslator from '../UILib/Translator.js';
-import BaseDialog from '../baseDialog/BaseDialog.js';
+import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import { EyeMouseDownEL, EyeMouseUpEL } from '../passwordDialog/PasswordDialogEventListeners.js';
 
@@ -44,7 +44,7 @@ This class is the password dialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class PasswordDialog extends BaseDialog {
+class PasswordDialog extends ModalBaseDialog {
 
 	/**
 	The password html div
