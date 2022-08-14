@@ -8,19 +8,19 @@ class OkButtonClickEL {
 
 	/**
 	A reference to the dialog
-	@type {BaseDialog}
+	@type {ModalBaseDialog}
 	*/
 
-	#baseDialog;
+	#modalBaseDialog;
 
 	/**
 	The constructor
-	@param {BaseDialog} baseDialog A reference to the dialog
+	@param {ModalBaseDialog} modalBaseDialog A reference to the dialog
 	*/
 
-	constructor ( baseDialog ) {
+	constructor ( modalBaseDialog ) {
 		Object.freeze ( this );
-		this.#baseDialog = baseDialog;
+		this.#modalBaseDialog = modalBaseDialog;
 	}
 
 	/**
@@ -28,7 +28,7 @@ class OkButtonClickEL {
 	*/
 
 	handleEvent ( ) {
-		this.#baseDialog.onOk ( );
+		this.#modalBaseDialog.onOk ( );
 	}
 }
 
@@ -42,19 +42,19 @@ class DialogKeyboardKeydownEL {
 
 	/**
 	A reference to the dialog
-	@type {BaseDialog}
+	@type {ModalBaseDialog}
 	*/
 
-	#baseDialog;
+	#modalBaseDialog;
 
 	/**
 	The constructor
-	@param {BaseDialog} baseDialog A reference to the dialog
+	@param {ModalBaseDialog} modalBaseDialog A reference to the dialog
 	*/
 
-	constructor ( baseDialog ) {
+	constructor ( modalBaseDialog ) {
 		Object.freeze ( this );
-		this.#baseDialog = baseDialog;
+		this.#modalBaseDialog = modalBaseDialog;
 	}
 
 	/**
@@ -64,15 +64,15 @@ class DialogKeyboardKeydownEL {
 
 	handleEvent ( keyDownEvent ) {
 
-		if ( ! this.#baseDialog.keyboardELEnabled ) {
+		if ( ! this.#modalBaseDialog.keyboardELEnabled ) {
 			return;
 		}
 
 		if ( 'Escape' === keyDownEvent.key || 'Esc' === keyDownEvent.key ) {
-			this.#baseDialog.onCancel ( );
+			this.#modalBaseDialog.onCancel ( );
 		}
 		else if ( 'Enter' === keyDownEvent.key ) {
-			this.#baseDialog.onOk ( );
+			this.#modalBaseDialog.onOk ( );
 		}
 
 	}

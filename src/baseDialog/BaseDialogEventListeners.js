@@ -36,7 +36,7 @@ click event listener for the cancel button
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class CancelDialogButtonClickEL {
+class CancelButtonClickEL {
 
 	/**
 	A reference to the dialog
@@ -64,7 +64,7 @@ class CancelDialogButtonClickEL {
 	}
 }
 export {
-	CancelDialogButtonClickEL
+	CancelButtonClickEL
 };
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

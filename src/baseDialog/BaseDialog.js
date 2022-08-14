@@ -102,14 +102,7 @@ Box model
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import BaseDialogOptions from '../baseDialog/baseDialogOptions.js';
-import { CancelDialogButtonClickEL } from '../baseDialog/BaseDialogEventListeners.js';
-import {
-	BackgroundWheelEL,
-	BackgroundContextMenuEL,
-	BackgroundDragOverEL,
-	BackgroundTouchEL,
-	BackgroundMouseEL
-} from '../baseDialog/BaseDialogBackgroundEventListeners.js';
+import { CancelButtonClickEL } from '../baseDialog/BaseDialogEventListeners.js';
 import {
 	TopBarDragStartEL,
 	TopBarDragEndEL,
@@ -136,32 +129,11 @@ class BaseDialog {
 	// #garbageCollectorTester = new GarbageCollectorTester ( );
 
 	/**
-	The background div of the dialog
-	@type {HTMLElement}
-	*/
-
-	#backgroundDiv;
-
-	/**
 	The container div of the dialog
 	@type {HTMLElement}
 	*/
 
 	#containerDiv;
-
-	/**
-	The content div of the dialog
-	@type {HTMLElement}
-	*/
-
-	#contentDiv;
-
-	/**
-	The cancel button on the top bar
-	@type {HTMLElement}
-	*/
-
-	#cancelButton;
 
 	/**
 	The topbar
@@ -171,46 +143,25 @@ class BaseDialog {
 	#topBar;
 
 	/**
+	The cancel button on the top bar
+	@type {HTMLElement}
+	*/
+
+	#cancelButton;
+
+	/**
+	The content div of the dialog
+	@type {HTMLElement}
+	*/
+
+	#contentDiv;
+
+	/**
 	Data for drag ond drop and touch operations
 	@type {DragData}
 	*/
 
-	#dragData;
-
-	/**
-	Drog over the background event listener
-	@type {BackgroundDragOverEL}
-	*/
-
-	#backgroundDragOverEL;
-
-	/**
-	Touch on the background event listener
-	@type {BackgroundTouchEL}
-	*/
-
-	#backgroundTouchEL;
-
-	/**
-	mouseup, mousedown and mousemove event listeners  on the background
-	@type {BackgroundMouseEL}
-	*/
-
-	#backgroundMouseEL;
-
-	/**
-	Wheel event listener on the background
-	@type {BackgroundWheelEL}
-	*/
-
-	#backgroundWheelEL;
-
-	/**
-	Context menu event listener on the background
-	@type {BackgroundContextMenuEL}
-	*/
-
-	#backgroundContextMenuEL;
+	dragData;
 
 	/**
 	Top bar drag start event listener
@@ -235,10 +186,10 @@ class BaseDialog {
 
 	/**
 	Cancel button click event listener
-	@type {CancelDialogButtonClickEL}
+	@type {CancelButtonClickEL}
 	*/
 
-	#cancelDialogButtonClickEL;
+	#cancelButtonClickEL;
 
 	/**
 	options parameter
@@ -246,43 +197,6 @@ class BaseDialog {
 	*/
 
 	#options = null;
-
-	/**
-	Create the background
-	*/
-
-	#createBackgroundDiv ( ) {
-
-		// A new element covering the entire screen is created, with drag and drop event listeners
-		this.#backgroundDiv = theHTMLElementsFactory.create ( 'div', { className : 'TravelNotes-Background' } );
-	}
-
-	/**
-	Create the background div event listeners. Event listeners must be created after the container div
-	*/
-
-	#createBackgroundDivEL ( ) {
-
-		this.#backgroundDragOverEL = new BackgroundDragOverEL ( this.#dragData, this.#containerDiv, this.#backgroundDiv );
-		this.#backgroundDiv.addEventListener ( 'dragover', this.#backgroundDragOverEL, false );
-
-		this.#backgroundWheelEL = new BackgroundWheelEL ( );
-		this.#backgroundDiv.addEventListener ( 'wheel', this.#backgroundWheelEL, { passive : true }	);
-
-		this.#backgroundContextMenuEL = new BackgroundContextMenuEL ( );
-		this.#backgroundDiv.addEventListener ( 'contextmenu', this.#backgroundContextMenuEL, false );
-
-		this.#backgroundTouchEL = new BackgroundTouchEL ( this );
-		this.#backgroundDiv.addEventListener ( 'touchstart', this.#backgroundTouchEL, false );
-		this.#backgroundDiv.addEventListener ( 'touchmove', this.#backgroundTouchEL, false );
-		this.#backgroundDiv.addEventListener ( 'touchend', this.#backgroundTouchEL, false );
-		this.#backgroundDiv.addEventListener ( 'touchcancel', this.#backgroundTouchEL, false );
-
-		this.#backgroundMouseEL = new BackgroundMouseEL ( );
-		this.#backgroundDiv.addEventListener ( 'mouseup', this.#backgroundMouseEL, false );
-		this.#backgroundDiv.addEventListener ( 'mousemove', this.#backgroundMouseEL, false );
-		this.#backgroundDiv.addEventListener ( 'mousedown', this.#backgroundMouseEL, false );
-	}
 
 	/**
 	Create the dialog container
@@ -295,13 +209,12 @@ class BaseDialog {
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-Container'
-			},
-			this.#backgroundDiv
+			}
 		);
 	}
 
 	/**
-	Create the animation top bar
+	Create the top bar
 	*/
 
 	#createTopBar ( ) {
@@ -315,16 +228,16 @@ class BaseDialog {
 			this.#containerDiv
 		);
 
-		this.#topBarTouchEL = new TopBarTouchEL ( this.#dragData, this.#containerDiv, this.#backgroundDiv );
+		this.#topBarTouchEL = new TopBarTouchEL ( this.dragData, this.#containerDiv );
 		this.#topBar.addEventListener ( 'touchstart', this.#topBarTouchEL, false );
 		this.#topBar.addEventListener ( 'touchmove', this.#topBarTouchEL, false );
 		this.#topBar.addEventListener ( 'touchend', this.#topBarTouchEL, false );
 		this.#topBar.addEventListener ( 'touchcancel', this.#topBarTouchEL, false );
 
-		this.#topBarDragStartEL = new TopBarDragStartEL ( this.#dragData );
+		this.#topBarDragStartEL = new TopBarDragStartEL ( this.dragData );
 		this.#topBar.addEventListener ( 'dragstart', this.#topBarDragStartEL, false );
 		this.#topBarDragEndEL =
-			new TopBarDragEndEL ( this.#dragData, this.#containerDiv, this.#backgroundDiv );
+			new TopBarDragEndEL ( this.dragData, this.#containerDiv );
 		this.#topBar.addEventListener ( 'dragend', this.#topBarDragEndEL, false );
 
 		this.#cancelButton = theHTMLElementsFactory.create (
@@ -336,8 +249,8 @@ class BaseDialog {
 			},
 			this.#topBar
 		);
-		this.#cancelDialogButtonClickEL = new CancelDialogButtonClickEL ( this );
-		this.#cancelButton.addEventListener ( 'click', this.#cancelDialogButtonClickEL, false );
+		this.#cancelButtonClickEL = new CancelButtonClickEL ( this );
+		this.#cancelButton.addEventListener ( 'click', this.#cancelButtonClickEL, false );
 	}
 
 	/**
@@ -401,9 +314,7 @@ class BaseDialog {
 	*/
 
 	#createHTML ( ) {
-		this.#createBackgroundDiv ( );
 		this.#createContainerDiv ( );
-		this.#createBackgroundDivEL ( );
 		this.#createTopBar ( );
 		this.#createHeaderDiv ( );
 		this.#createToolbarDiv ( );
@@ -416,8 +327,8 @@ class BaseDialog {
 	*/
 
 	constructor ( options ) {
+		this.dragData = new DragData ( );
 		Object.freeze ( this );
-		this.#dragData = new DragData ( );
 		this.#options = new BaseDialogOptions ( options );
 	}
 
@@ -426,8 +337,7 @@ class BaseDialog {
 	finally remove all the htmlElements from the document
 	*/
 
-	#BaseDialogDestructor ( ) {
-
+	#destructor ( ) {
 		this.#topBar.removeEventListener ( 'dragstart', this.#topBarDragStartEL, false );
 		this.#topBarDragStartEL = null;
 		this.#topBar.removeEventListener ( 'dragend', this.#topBarDragEndEL, false );
@@ -439,30 +349,8 @@ class BaseDialog {
 		this.#topBar.removeEventListener ( 'touchcancel', this.#topBarTouchEL, false );
 		this.#topBarTouchEL = null;
 
-		this.#cancelButton.removeEventListener ( 'click', this.#cancelDialogButtonClickEL, false );
-		this.#cancelDialogButtonClickEL = null;
-
-		this.#backgroundDiv.removeEventListener ( 'wheel', this.#backgroundWheelEL, { passive : true }	);
-		this.#backgroundWheelEL = null;
-
-		this.#backgroundDiv.removeEventListener ( 'contextmenu', this.#backgroundContextMenuEL, false );
-		this.#backgroundContextMenuEL = null;
-
-		this.#backgroundDiv.removeEventListener ( 'dragover', this.#backgroundDragOverEL, false );
-		this.#backgroundDragOverEL = null;
-
-		this.#backgroundDiv.removeEventListener ( 'touchstart', this.#backgroundTouchEL, false );
-		this.#backgroundDiv.removeEventListener ( 'touchmove', this.#backgroundTouchEL, false );
-		this.#backgroundDiv.removeEventListener ( 'touchend', this.#backgroundTouchEL, false );
-		this.#backgroundDiv.removeEventListener ( 'touchcancel', this.#backgroundTouchEL, false );
-		this.#backgroundTouchEL = null;
-
-		this.#backgroundDiv.removeEventListener ( 'mouseup', this.#backgroundMouseEL, false );
-		this.#backgroundDiv.removeEventListener ( 'mousemove', this.#backgroundMouseEL, false );
-		this.#backgroundDiv.removeEventListener ( 'mousedown', this.#backgroundMouseEL, false );
-		this.#backgroundMouseEL = null;
-
-		document.body.removeChild ( this.#backgroundDiv );
+		this.#cancelButton.removeEventListener ( 'click', this.#cancelButtonClickEL, false );
+		this.#cancelButtonClickEL = null;
 	}
 
 	/**
@@ -471,13 +359,13 @@ class BaseDialog {
 
 	centerDialog ( ) {
 
-		this.#dragData.dialogX =
-			( this.#backgroundDiv.clientWidth - this.#containerDiv.clientWidth ) / TWO;
-		this.#dragData.dialogY =
-			( this.#backgroundDiv.clientHeight - this.#containerDiv.clientHeight ) / TWO;
+		this.dragData.dialogX =
+			( this.dragData.background.clientWidth - this.#containerDiv.clientWidth ) / TWO;
+		this.dragData.dialogY =
+			( this.dragData.background.clientHeight - this.#containerDiv.clientHeight ) / TWO;
 
-		this.#containerDiv.style.left = String ( this.#dragData.dialogX ) + 'px';
-		this.#containerDiv.style.top = String ( this.#dragData.dialogY ) + 'px';
+		this.#containerDiv.style.left = String ( this.dragData.dialogX ) + 'px';
+		this.#containerDiv.style.top = String ( this.dragData.dialogY ) + 'px';
 	}
 
 	/**
@@ -485,11 +373,11 @@ class BaseDialog {
 	*/
 
 	onCancel ( ) {
-		this.#BaseDialogDestructor ( );
+		this.#destructor ( );
 	}
 
 	onOk ( ) {
-		this.#BaseDialogDestructor ( );
+		this.#destructor ( );
 	}
 
 	/**
@@ -529,7 +417,6 @@ class BaseDialog {
 
 	show ( ) {
 		this.#createHTML ( );
-		document.body.appendChild ( this.#backgroundDiv );
 	}
 
 	get container ( ) { return this.#containerDiv; }

@@ -71,6 +71,13 @@ class DragData {
 	dialogY = ZERO;
 
 	/**
+	The background element of the dialog
+	@type {HTMLElement}
+	*/
+
+	background = null;
+
+	/**
     Reset the DragData object to it's initial state
     */
 

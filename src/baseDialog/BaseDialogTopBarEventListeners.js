@@ -87,24 +87,15 @@ class TopBarDragEndEL {
 	#container;
 
 	/**
-	A reference to the background of the dialog
-	@type {HTMLElement}
-	*/
-
-	#background;
-
-	/**
 	The constructor
 	@param {DragData} dragData A reference to the dragData object of the dialog
 	@param {HTMLElement} container A reference to the dialog container
-	@param {HTMLElement} background A reference to the background of the dialog
 	*/
 
-	constructor ( dragData, container, background ) {
+	constructor ( dragData, container ) {
 		Object.freeze ( this );
 		this.#dragData = dragData;
 		this.#container = container;
-		this.#background = background;
 	}
 
 	/**
@@ -119,7 +110,7 @@ class TopBarDragEndEL {
 		this.#dragData.dialogX =
 			Math.min (
 				Math.max ( this.#dragData.dialogX, DIALOG_DRAG_MARGIN ),
-				this.#background.clientWidth -
+				this.#dragData.background.clientWidth -
 					this.#container.clientWidth -
 					DIALOG_DRAG_MARGIN
 			);
@@ -127,7 +118,7 @@ class TopBarDragEndEL {
 		this.#dragData.dialogY =
 		Math.min (
 			Math.max ( this.#dragData.dialogY, DIALOG_DRAG_MARGIN ),
-			this.#background.clientHeight -
+			this.#dragData.background.clientHeight -
 				this.#container.clientHeight -
 				DIALOG_DRAG_MARGIN
 		);
@@ -160,24 +151,15 @@ class TopBarTouchEL {
 	#container;
 
 	/**
-	A reference to the background of the dialog
-	@type {HTMLElement}
-	*/
-
-	#background;
-
-	/**
 	The constructor
 	@param {DragData} dragData A reference to the DragData object of the dialog
 	@param {HTMLElement} container A reference to the dialog container
-	@param {HTMLElement} background A reference to the background of the dialog
 	*/
 
-	constructor ( dragData, container, background ) {
+	constructor ( dragData, container ) {
 		Object.freeze ( this );
 		this.#dragData = dragData;
 		this.#container = container;
-		this.#background = background;
 	}
 
 	/**
@@ -205,7 +187,7 @@ class TopBarTouchEL {
 				this.#dragData.dialogX =
 						Math.min (
 							Math.max ( this.#dragData.dialogX, DIALOG_DRAG_MARGIN ),
-							this.#background.clientWidth -
+							this.#dragData.background.clientWidth -
 								this.#container.clientWidth -
 								DIALOG_DRAG_MARGIN
 						);
@@ -213,7 +195,7 @@ class TopBarTouchEL {
 				this.#dragData.dialogY =
 					Math.min (
 						Math.max ( this.#dragData.dialogY, DIALOG_DRAG_MARGIN ),
-						this.#background.clientHeight -
+						this.#dragData.background.clientHeight -
 							this.#container.clientHeight -
 							DIALOG_DRAG_MARGIN
 					);
