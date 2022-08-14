@@ -119,7 +119,7 @@ import {
 	TopBarDragEndEL,
 	TopBarTouchEL
 } from '../baseDialog/BaseDialogTopBarEventListeners.js';
-import DragData from '../dialogs/DragData.js';
+import DragData from '../baseDialog/DragData.js';
 
 // import GarbageCollectorTester from '../UILib/GarbageCollectorTester.js';
 

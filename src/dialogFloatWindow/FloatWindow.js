@@ -34,7 +34,7 @@ Tests ...
 import theTranslator from '../UILib/Translator.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
-import DragData from '../dialogs/DragData.js';
+import DragData from '../baseDialog/DragData.js';
 import { ZERO, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

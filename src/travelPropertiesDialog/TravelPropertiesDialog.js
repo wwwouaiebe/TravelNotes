@@ -27,6 +27,8 @@ import BaseDialog from '../baseDialog/BaseDialog.js';
 import TextInputControl from '../baseDialog/TextInputControl.js';
 import theTranslator from '../UILib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
+import SortableListControl from '../baseDialog/sortableListControl.js';
+import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -43,6 +45,8 @@ class TravelPropertiesDialog extends BaseDialog {
 
 	#travelNameControl;
 
+	#travelRoutesControl;
+
 	/**
 	The constructor
 	*/
@@ -51,6 +55,22 @@ class TravelPropertiesDialog extends BaseDialog {
 		super ( );
 		this.#travelNameControl = new TextInputControl ( theTranslator.getText ( 'TravelPropertiesDialog - Name' ) );
 		this.#travelNameControl.value = theTravelNotesData.travel.name;
+		this.#travelRoutesControl = new SortableListControl ( );
+
+		const contentHTMLElements = [];
+		theTravelNotesData.travel.routes.forEach (
+			route => {
+				contentHTMLElements.push (
+					theHTMLElementsFactory.create (
+						'div',
+						{
+							textContent : route.computedName
+						}
+					)
+				);
+				this.#travelRoutesControl.contentHTMLElements = contentHTMLElements;
+			}
+		);
 	}
 
 	/**
@@ -79,7 +99,8 @@ class TravelPropertiesDialog extends BaseDialog {
 
 	get contentHTMLElements ( ) {
 		return [ ].concat (
-			this.#travelNameControl.HTMLElement
+			this.#travelNameControl.HTMLElement,
+			this.#travelRoutesControl.HTMLElement
 		);
 	}
 

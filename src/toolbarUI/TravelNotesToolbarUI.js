@@ -268,7 +268,7 @@ class TravelNotesToolbarUI extends BaseToolbarUI {
 		);
 		this.addToolbarItem (
 			new ToolbarItem (
-				'📋',
+				'📙',
 				theTranslator.getText ( 'TravelNotesToolbarUI - Open travel roadbook' ),
 				'TravelNotesRoadbook.html?lng=' +
 						theConfig.travelNotes.language + '&page=' +
@@ -277,7 +277,7 @@ class TravelNotesToolbarUI extends BaseToolbarUI {
 		);
 		this.addToolbarItem (
 			new ToolbarItem (
-				'🧳',
+				'🛄',
 				theTranslator.getText ( 'TravelNotesToolbarUI - Travel properties' ),
 				( ) => { theTravelEditor.travelProperties ( ); }
 			)

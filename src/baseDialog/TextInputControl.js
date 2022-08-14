@@ -59,6 +59,7 @@ class TextInputControl extends DialogControl {
 		this.#valueInput = theHTMLElementsFactory.create (
 			'input',
 			{
+				className : 'TravelNotes-BaseDialog-InputText',
 				type : 'text'
 			},
 			theHTMLElementsFactory.create (
