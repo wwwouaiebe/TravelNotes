@@ -170,7 +170,7 @@ class SaveAsDialog extends ModalBaseDialog {
 
 	/**
 	The constructor
-	@param {DialogOptions|Object} options An Object with the needed options. See DialogOptions class.
+	@param {BaseDialogOptions|Object} options An Object with the needed options. See DialogOptions class.
 	*/
 
 	constructor ( options ) {

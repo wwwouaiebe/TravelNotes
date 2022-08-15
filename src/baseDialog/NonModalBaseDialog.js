@@ -28,6 +28,12 @@ import BaseDialog from '../BaseDialog/BaseDialog.js';
 import { BackgroundDragOverEL } from '../baseDialog/BaseDialogBackgroundEventListeners.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+Base class for non modal dialogs
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
 class NonModalBaseDialog extends BaseDialog {
 
 	/**
@@ -37,11 +43,19 @@ class NonModalBaseDialog extends BaseDialog {
 
 	#backgroundDragOverEL;
 
+	/**
+	Create the event listener for the background
+	*/
+
 	#createBackgroundDivEL ( ) {
 
 		this.#backgroundDragOverEL = new BackgroundDragOverEL ( this.dragData );
 		document.body.addEventListener ( 'dragover', this.#backgroundDragOverEL, false );
 	}
+
+	/**
+	The constructor
+	*/
 
 	constructor ( ) {
 		super ( );
@@ -57,6 +71,10 @@ class NonModalBaseDialog extends BaseDialog {
 		super.onCancel ( );
 		this.removeFromBackground ( document.body );
 	}
+
+	/**
+	Show the dialog
+	*/
 
 	show ( ) {
 		super.show ( );

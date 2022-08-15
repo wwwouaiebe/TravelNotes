@@ -82,7 +82,6 @@ class TopBarDragEndEL {
 	/**
 	The constructor
 	@param {DragData} dragData A reference to the dragData object of the dialog
-	@param {HTMLElement} container A reference to the dialog container
 	*/
 
 	constructor ( dragData ) {
@@ -138,7 +137,6 @@ class TopBarTouchEL {
 	/**
 	The constructor
 	@param {DragData} dragData A reference to the DragData object of the dialog
-	@param {HTMLElement} container A reference to the dialog container
 	*/
 
 	constructor ( dragData ) {

@@ -323,7 +323,7 @@ class BaseDialog {
 
 	/**
 	The constructor
-	@param {dialogOptions} options the options for the dialog
+	@param {BaseDialogOptions} options the options for the dialog
 	*/
 
 	constructor ( options ) {
@@ -368,6 +368,12 @@ class BaseDialog {
 		this.#containerDiv.style.top = String ( this.dragData.dialogY ) + 'px';
 	}
 
+	/**
+	Move the dialog on the screen
+	@param {Number} moveX The new X position in pixels of the upper left corner
+	@param {Number} moveY The new Y position in pixels of the upper left corner
+	*/
+
 	moveTo ( moveX, moveY ) {
 		let dialogX = Math.max (
 			Math.min (
@@ -396,6 +402,10 @@ class BaseDialog {
 	onCancel ( ) {
 		this.#destructor ( );
 	}
+
+	/**
+	Ok button handler. Can be overloaded in the derived classes
+	*/
 
 	onOk ( ) {
 		this.#destructor ( );
@@ -432,13 +442,28 @@ class BaseDialog {
 		this.#createHTML ( );
 	}
 
+	/**
+	Remove the container from the background
+	@param {HTMLElement} backgroundElement the used background
+	*/
+
 	removeFromBackground ( backgroundElement ) {
 		backgroundElement.removeChild ( this.#containerDiv );
 	}
 
+	/**
+	Add the container to the background
+	@param {HTMLElement} backgroundElement the used background
+	*/
+
 	addToBackground ( backgroundElement ) {
 		backgroundElement.appendChild ( this.#containerDiv );
 	}
+
+	/**
+	Add an element to the container
+	@param {HTMLElement} htmlElement The element to add
+	*/
 
 	addToContainer ( htmlElement ) {
 		this.#containerDiv.appendChild ( htmlElement );
@@ -446,7 +471,7 @@ class BaseDialog {
 
 	/**
 	The options of the dialog box
-	@type {DialogOptions}
+	@type {BaseDialogOptions}
 	*/
 
 	get options ( ) { return this.#options; }

@@ -69,7 +69,7 @@ class BaseDialogOptions {
 
 	/**
 	The constructor
-	@param {DialogOptions} options An object with the options to change
+	@param {Object} options An object litteral with the options to change
 	*/
 
 	constructor ( options ) {

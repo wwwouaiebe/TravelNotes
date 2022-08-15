@@ -55,6 +55,11 @@ a float window containing a route profile
 
 class ProfileDialog extends NonModalBaseDialog {
 
+	/**
+	The header div 
+	@type {HTMLElement}
+	*/
+
 	#headerDiv;
 
 	/**
@@ -63,6 +68,11 @@ class ProfileDialog extends NonModalBaseDialog {
 	*/
 
 	#svg = null;
+
+	/**
+	The svg div 
+	@type {HTMLElement}
+	*/
 
 	#svgDiv;
 
@@ -101,7 +111,16 @@ class ProfileDialog extends NonModalBaseDialog {
 
 	#markerObjId = ObjId.nextObjId;
 
+	/**
+	the displayed route objId
+	@type {Number}
+	*/
+
 	#routeObjId;
+
+	/**
+	remove all the content of the dialog and remove event listeners
+	*/
 
 	#clean ( ) {
 		if ( this.#svg ) {
@@ -117,6 +136,11 @@ class ProfileDialog extends NonModalBaseDialog {
 			this.#ascentDiv.textContent = '';
 		}
 	}
+
+	/**
+	Set the content of the dialog : heading, svg profile and ascent text
+	@param {Route} route The route for witch the profile will be displayed
+	*/
 
 	setContent ( route ) {
 
@@ -149,6 +173,10 @@ class ProfileDialog extends NonModalBaseDialog {
 		);
 	}
 
+	/**
+	The constructor
+	*/
+
 	constructor ( ) {
 		super ( );
 		this.#svgContextMenuEL = new SvgContextMenuEL ( );
@@ -176,7 +204,7 @@ class ProfileDialog extends NonModalBaseDialog {
 
 	/**
 	An array with the HTMLElements that have to be added in the content of the dialog.
-	Can be overloaded in the derived classes
+	Overload of the base class contentHTMLElements
 	@type {Array.<HTMLElement>}
 	*/
 

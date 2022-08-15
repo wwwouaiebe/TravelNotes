@@ -45,6 +45,11 @@ class TravelPropertiesDialog extends NonModalBaseDialog {
 
 	#travelNameControl;
 
+	/**
+	The routes control
+	@type {SortableListControl}
+	*/
+
 	#travelRoutesControl;
 
 	/**

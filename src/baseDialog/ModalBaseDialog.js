@@ -39,6 +39,13 @@ import {
 	BackgroundMouseEL
 } from '../baseDialog/BaseDialogBackgroundEventListeners.js';
 import BaseDialog from '../baseDialog/BaseDialog.js';
+import BaseDialogOptions from './baseDialogOptions.js';
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+Base class for modal dialogs
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ModalBaseDialog extends BaseDialog {
 
@@ -276,6 +283,10 @@ class ModalBaseDialog extends BaseDialog {
 		);
 	}
 
+	/**
+	Create the HTML for the dialog
+	*/
+
 	#createHTML ( ) {
 		this.#createBackgroundDiv ( );
 		this.#createBackgroundDivEL ( );
@@ -283,6 +294,10 @@ class ModalBaseDialog extends BaseDialog {
 		this.#createWaitDiv ( );
 		this.#createFooterDiv ( );
 	}
+
+	/**
+	The destructor. Remove and set to null the event listeners
+	*/
 
 	#destructor ( ) {
 		this.#backgroundDiv.removeEventListener ( 'wheel', this.#backgroundWheelEL, { passive : true }	);
@@ -328,10 +343,19 @@ class ModalBaseDialog extends BaseDialog {
 		this.#onPromiseErrorFct = onError;
 	}
 
+	/**
+	the constructor
+	@param {BaseDialogOptions} options The options of the dialog
+	*/
+
 	constructor ( options ) {
 		super ( options );
 		this.#keyboardELEnabled = true;
 	}
+
+	/**
+	Show the dialog
+	*/
 
 	show ( ) {
 		super.show ( );
