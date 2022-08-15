@@ -35,6 +35,7 @@ import theUtilities from '../UILib/Utilities.js';
 import FileLoader from '../core/FileLoader.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theTravelEditor from '../core/TravelEditor.js';
+import theTravelPropertiesDialog from '../travelPropertiesDialog/TravelPropertiesDialog.js';
 import { INVALID_OBJ_ID, ZERO, TOOLBAR_POSITION } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -279,7 +280,7 @@ class TravelNotesToolbarUI extends BaseToolbarUI {
 			new ToolbarItem (
 				'🛄',
 				theTranslator.getText ( 'TravelNotesToolbarUI - Travel properties' ),
-				( ) => { theTravelEditor.travelProperties ( ); }
+				( ) => { theTravelPropertiesDialog.show ( ); }
 			)
 		);
 	}

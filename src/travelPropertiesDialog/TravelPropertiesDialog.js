@@ -23,12 +23,14 @@ Doc reviewed ...
 Tests ...
 */
 
-import NonModalBaseDialog from '../baseDialog/NonModalBaseDialog.js';
+import DockableBaseDialog from '../baseDialog/DockableBaseDialog.js';
 import TextInputControl from '../baseDialog/TextInputControl.js';
 import theTranslator from '../UILib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import SortableListControl from '../baseDialog/sortableListControl.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import theTravelEditor from '../core/TravelEditor.js';
+import RouteContextMenu from '../contextMenus/RouteContextMenu.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -36,7 +38,7 @@ This class is the TravelPropertiesDialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class TravelPropertiesDialog extends NonModalBaseDialog {
+class TravelPropertiesDialog extends DockableBaseDialog {
 
 	/**
 	The travel name control
@@ -60,41 +62,12 @@ class TravelPropertiesDialog extends NonModalBaseDialog {
 		super ( );
 		this.#travelNameControl = new TextInputControl ( theTranslator.getText ( 'TravelPropertiesDialog - Name' ) );
 		this.#travelNameControl.value = theTravelNotesData.travel.name;
-		this.#travelRoutesControl = new SortableListControl ( );
-
-		const contentHTMLElements = [];
-		theTravelNotesData.travel.routes.forEach (
-			route => {
-				contentHTMLElements.push (
-					theHTMLElementsFactory.create (
-						'div',
-						{
-							textContent : route.computedName
-						}
-					)
-				);
-				this.#travelRoutesControl.contentHTMLElements = contentHTMLElements;
-			}
-		);
+		this.#travelRoutesControl = new SortableListControl ( theTravelEditor.routeDropped, RouteContextMenu );
 	}
 
 	/**
 	Overload of the BaseDialog.onCancel ( ) method.
 	*/
-
-	onCancel ( ) {
-		super.onCancel ( );
-	}
-
-	/**
-	Overload of the BaseDialog.onOk ( ) method. Called when the Ok button is clicked
-	*/
-
-	onOk ( ) {
-		if ( super.onOk ( ) ) {
-			theTravelNotesData.travel.name = this.#travelNameControl.value;
-		}
-	}
 
 	/**
 	An array with the HTMLElements that have to be added in the content of the dialog.
@@ -116,8 +89,27 @@ class TravelPropertiesDialog extends NonModalBaseDialog {
 
 	get title ( ) { return theTranslator.getText ( 'TravelPropertiesDialog - Travel properties' ); }
 
+	updateContent ( ) {
+		const contentHTMLElements = [];
+		theTravelNotesData.travel.routes.forEach (
+			route => {
+				contentHTMLElements.push (
+					theHTMLElementsFactory.create (
+						'div',
+						{
+							textContent : route.computedName,
+							dataset : { ObjId : String ( route.objId ) }
+						}
+					)
+				);
+			}
+		);
+		this.#travelRoutesControl.updateContent ( contentHTMLElements );
+	}
 }
 
-export default TravelPropertiesDialog;
+const theTravelPropertiesDialog = new TravelPropertiesDialog ( );
+
+export default theTravelPropertiesDialog;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
