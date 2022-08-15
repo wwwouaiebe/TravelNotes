@@ -360,24 +360,27 @@ class BaseDialog {
 	*/
 
 	moveTo ( moveX, moveY ) {
-		let dialogX = Math.max (
+		this.dragData.dialogX = Math.max (
 			Math.min (
 				moveX,
 				this.dragData.background.offsetWidth - this.#containerDiv.offsetWidth
 			),
 			DIALOG_DRAG_MARGIN
 		);
-		let dialogY = Math.max (
+		this.dragData.dialogY = Math.max (
 			Math.min (
 				moveY,
 				this.dragData.background.offsetHeight - this.#containerDiv.offsetHeight
 			),
 			DIALOG_DRAG_MARGIN
 		);
-		this.dragData.dialogX = dialogX;
-		this.dragData.dialogY = dialogY;
-		this.#containerDiv.style.left = String ( dialogX ) + 'px';
-		this.#containerDiv.style.top = String ( dialogY ) + 'px';
+
+		if ( DIALOG_DRAG_MARGIN === this.dragData.dialogY ) {
+			this.dragData.dialogY = this.dragData.topDragMargin ?? DIALOG_DRAG_MARGIN;
+		}
+
+		this.#containerDiv.style.left = String ( this.dragData.dialogX ) + 'px';
+		this.#containerDiv.style.top = String ( this.dragData.dialogY ) + 'px';
 	}
 
 	/**

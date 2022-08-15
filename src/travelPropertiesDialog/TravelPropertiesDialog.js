@@ -27,7 +27,7 @@ import DockableBaseDialog from '../baseDialog/DockableBaseDialog.js';
 import TextInputControl from '../baseDialog/TextInputControl.js';
 import theTranslator from '../UILib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
-import SortableListControl from '../baseDialog/sortableListControl.js';
+import SortableListControl from '../baseDialog/SortableListControl.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTravelEditor from '../core/TravelEditor.js';
 import RouteContextMenu from '../contextMenus/RouteContextMenu.js';
@@ -59,7 +59,7 @@ class TravelPropertiesDialog extends DockableBaseDialog {
 	*/
 
 	constructor ( ) {
-		super ( );
+		super ( 50, 50 );
 		this.#travelNameControl = new TextInputControl ( theTranslator.getText ( 'TravelPropertiesDialog - Name' ) );
 		this.#travelNameControl.value = theTravelNotesData.travel.name;
 		this.#travelRoutesControl = new SortableListControl ( theTravelEditor.routeDropped, RouteContextMenu );
@@ -89,15 +89,27 @@ class TravelPropertiesDialog extends DockableBaseDialog {
 
 	get title ( ) { return theTranslator.getText ( 'TravelPropertiesDialog - Travel properties' ); }
 
+	/**
+	Update the content of the dialog
+	*/
+
 	updateContent ( ) {
 		const contentHTMLElements = [];
 		theTravelNotesData.travel.routes.forEach (
 			route => {
+				const routeName =
+				( route.objId === theTravelNotesData.editedRouteObjId ? '🔴\u00a0' : '' ) +
+				( route.chain ? '⛓\u00a0' : '' ) +
+				(
+					route.objId === theTravelNotesData.editedRouteObjId ?
+						theTravelNotesData.travel.editedRoute.computedName :
+						route.computedName
+				);
 				contentHTMLElements.push (
 					theHTMLElementsFactory.create (
 						'div',
 						{
-							textContent : route.computedName,
+							textContent : routeName,
 							dataset : { ObjId : String ( route.objId ) }
 						}
 					)
@@ -107,6 +119,13 @@ class TravelPropertiesDialog extends DockableBaseDialog {
 		this.#travelRoutesControl.updateContent ( contentHTMLElements );
 	}
 }
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+The one and only one instance of TravelPropertiesDialog class
+@type {TravelPropertiesDialog}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theTravelPropertiesDialog = new TravelPropertiesDialog ( );
 

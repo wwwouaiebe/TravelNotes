@@ -26,11 +26,26 @@ Tests ...
 
 import DialogControl from '../baseDialog/DialogControl.js';
 
-class DragStartEL {
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+Drag start on an list item event listener
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class DragStartItemEL {
+
+	/**
+	The constructor
+	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
 	}
+
+	/**
+	Event listener method
+	@param {Event} dragStartEvent The event to handle
+	*/
 
 	handleEvent ( dragStartEvent ) {
 		dragStartEvent.stopPropagation ( );
@@ -46,14 +61,35 @@ class DragStartEL {
 	}
 }
 
-class DropEL {
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+Drop list item event listener
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class DropItemEL {
+
+	/**
+	The function to call when an item is droped
+	@type {function}
+	*/
 
 	#dropFunction;
+
+	/**
+	The constructor
+	@param {function} dropFunction The function to call when an item is droped
+	*/
 
 	constructor ( dropFunction ) {
 		Object.freeze ( this );
 		this.#dropFunction = dropFunction;
 	}
+
+	/**
+	Event listener method
+	@param {Event} dropEvent The event to handle
+	*/
 
 	handleEvent ( dropEvent ) {
 		dropEvent.preventDefault ( );
@@ -66,12 +102,24 @@ class DropEL {
 	}
 }
 
-class ContextMenuEL {
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+context menu on a list item event listener
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class ContextMenuItemEL {
+
+	/**
+	The context menu class to use
+	@type {class}
+	*/
 
 	#contextMenuClass;
 
 	/**
 	The constructor
+	@param {class} contextMenuClass The context menu class to use
 	*/
 
 	constructor ( contextMenuClass ) {
@@ -91,35 +139,69 @@ class ContextMenuEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
 class SortableListControl extends DialogControl {
 
-	#dragStartEL;
+	/**
+	The item drag start event listener
+	@type {DragStartItemEL}
+	*/
 
-	#dropEL;
+	#dragStartItemEL;
 
-	#contextMenuEL;
+	/**
+	The item drop event listener
+	@type {DropItemEL}
+	*/
+
+	#dropItemEL;
+
+	/**
+	The context menu on item event listener
+	@type {ContextMenuItemEL}
+	*/
+
+	#contextMenuItemEL;
+
+	/**
+	The constructor
+	@param {function} dropFunction The function to call when an item is droped
+	@param {class} contextMenuClass The context menu class to use
+	*/
 
 	constructor ( dropFunction, contextMenuClass ) {
 		super ( );
-		this.#dragStartEL = new DragStartEL ( );
-		this.#dropEL = new DropEL ( dropFunction, contextMenuClass );
-		this.#contextMenuEL = new ContextMenuEL ( contextMenuClass );
+		this.#dragStartItemEL = new DragStartItemEL ( );
+		this.#dropItemEL = new DropItemEL ( dropFunction, contextMenuClass );
+		this.#contextMenuItemEL = new ContextMenuItemEL ( contextMenuClass );
+		this.HTMLElement.classList.add ( 'TravelNotes-SortableList-Container' );
 	}
+
+	/**
+	Update the items in the control
+	@param {array.<HTMLElement>} htmlElements An array with HTMLElements to use as items
+	*/
 
 	updateContent ( htmlElements ) {
 		while ( this.HTMLElement.firstChild ) {
-			this.HTMLElement.firstChild.removeEventListener ( 'dragstart', this.#dragStartEL, false );
-			this.HTMLElement.firstChild.removeEventListener ( 'drop', this.#dropEL, false );
-			this.HTMLElement.firstChild.removeEventListener ( 'contextmenu', this.#contextMenuEL, false );
+			this.HTMLElement.firstChild.removeEventListener ( 'dragstart', this.#dragStartItemEL, false );
+			this.HTMLElement.firstChild.removeEventListener ( 'drop', this.#dropItemEL, false );
+			this.HTMLElement.firstChild.removeEventListener ( 'contextmenu', this.#contextMenuItemEL, false );
 			this.HTMLElement.removeChild ( this.HTMLElement.firstChild );
 		}
 		htmlElements.forEach (
 			htmlElement => {
 				htmlElement.draggable = true;
-				htmlElement.addEventListener ( 'dragstart', this.#dragStartEL, false );
-				htmlElement.addEventListener ( 'drop', this.#dropEL, false );
-				htmlElement.addEventListener ( 'contextmenu', this.#contextMenuEL, false );
+				htmlElement.addEventListener ( 'dragstart', this.#dragStartItemEL, false );
+				htmlElement.addEventListener ( 'drop', this.#dropItemEL, false );
+				htmlElement.addEventListener ( 'contextmenu', this.#contextMenuItemEL, false );
 				this.HTMLElement.appendChild ( htmlElement );
+				htmlElement.classList.add ( 'TravelNotes-SortableList-Item' );
 			}
 		);
 	}

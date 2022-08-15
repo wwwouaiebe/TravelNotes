@@ -114,6 +114,10 @@ class TopBarDragEndEL {
 				DIALOG_DRAG_MARGIN
 		);
 
+		if ( DIALOG_DRAG_MARGIN === this.#dragData.dialogY ) {
+			this.#dragData.dialogY = this.#dragData.topDragMargin ?? DIALOG_DRAG_MARGIN;
+		}
+
 		this.#dragData.container.style.left = String ( this.#dragData.dialogX ) + 'px';
 		this.#dragData.container.style.top = String ( this.#dragData.dialogY ) + 'px';
 	}
