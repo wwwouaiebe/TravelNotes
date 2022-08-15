@@ -54,6 +54,7 @@ Changes:
 
 .TravelNotes-BaseDialog-TopBar:hover {
 	background-color: darkred;
+	color: white;
 }
 
 .TravelNotes-BaseDialog-TopBar:hover,
@@ -65,10 +66,17 @@ Changes:
 	background-color: white;
 	width: 1.5em;
 	text-align: center;
+	display: inline-block;
 }
 
 .TravelNotes-BaseDialog-CancelButton:hover {
 	cursor: default;
+}
+
+.TravelNotes-BaseDialog-Title {
+	display: inline-block;
+	font-weight: bold;
+	padding-left: 0.5em;
 }
 
 .TravelNotes-BaseDialog-HeaderDiv,
@@ -80,12 +88,8 @@ Changes:
 	padding: 0.5em;
 }
 
-.TravelNotes-BaseDialog-HeaderDiv {
-	text-align: center;
-	font-weight: bold;
-}
-
 .TravelNotes-BaseDialog-ContentDiv {
+	padding-top: 1em;
 	border-top-style: solid;
 	border-bottom-style: solid;
 	border-color: lightgray;

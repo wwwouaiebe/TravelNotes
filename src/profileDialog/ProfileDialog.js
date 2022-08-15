@@ -56,13 +56,6 @@ a float window containing a route profile
 class ProfileDialog extends NonModalBaseDialog {
 
 	/**
-	The header div 
-	@type {HTMLElement}
-	*/
-
-	#headerDiv;
-
-	/**
 	The svg profile
 	@type {SVGElement}
 	*/
@@ -70,7 +63,7 @@ class ProfileDialog extends NonModalBaseDialog {
 	#svg = null;
 
 	/**
-	The svg div 
+	The svg div
 	@type {HTMLElement}
 	*/
 
@@ -124,7 +117,6 @@ class ProfileDialog extends NonModalBaseDialog {
 
 	#clean ( ) {
 		if ( this.#svg ) {
-			this.#headerDiv.textContent = '';
 
 			this.#svg.removeEventListener ( 'contextmenu', this.#svgContextMenuEL, false );
 			this.#svg.removeEventListener ( 'mousemove', this.#svgMouseMoveEL, false );
@@ -148,11 +140,6 @@ class ProfileDialog extends NonModalBaseDialog {
 
 		this.#clean ( );
 
-		this.#headerDiv.textContent = theTranslator.getText (
-			'ProfileWindow - Profile {name}',
-			{ name : route.computedName }
-		);
-
 		this.#svg = new SvgProfileBuilder ( ).createSvg ( route );
 		this.#svg.dataset.tanObjId = route.objId;
 		this.#svg.dataset.tanMarkerObjId = this.#markerObjId;
@@ -164,8 +151,9 @@ class ProfileDialog extends NonModalBaseDialog {
 		this.#svgDiv.appendChild ( this.#svg );
 
 		this.#ascentDiv.textContent = theTranslator.getText (
-			'ProfileWindow - Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}',
+			'ProfileWindow - Route {name} : Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}',
 			{
+				name : route.computedName,
 				ascent : route.itinerary.ascent.toFixed ( ZERO ),
 				descent : route.itinerary.descent.toFixed ( ZERO ),
 				distance : theUtilities.formatDistance ( route.distance )
@@ -182,7 +170,6 @@ class ProfileDialog extends NonModalBaseDialog {
 		this.#svgContextMenuEL = new SvgContextMenuEL ( );
 		this.#svgMouseMoveEL = new SvgMouseMoveEL ( );
 		this.#svgMouseLeaveEL = new SvgMouseLeaveEL ( );
-		this.#headerDiv = theHTMLElementsFactory.create ( 'div' );
 		this.#svgDiv = theHTMLElementsFactory.create ( 'div', { className : 'TravelNotes-ProfileDialog-SvgContainer' } );
 		this.#ascentDiv = theHTMLElementsFactory.create ( 'div' );
 	}
@@ -210,11 +197,17 @@ class ProfileDialog extends NonModalBaseDialog {
 
 	get contentHTMLElements ( ) {
 		return [
-			this.#headerDiv,
 			this.#svgDiv,
 			this.#ascentDiv
 		];
 	}
+
+	/**
+	The title of the DialogControl. Overload of the base glass get title
+	@type {String}
+	*/
+
+	get title ( ) { return theTranslator.getText ( 'ProfileWindow - Profile' ); }
 }
 
 export default ProfileDialog;

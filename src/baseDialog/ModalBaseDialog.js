@@ -39,7 +39,6 @@ import {
 	BackgroundMouseEL
 } from '../baseDialog/BaseDialogBackgroundEventListeners.js';
 import BaseDialog from '../baseDialog/BaseDialog.js';
-import BaseDialogOptions from './baseDialogOptions.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

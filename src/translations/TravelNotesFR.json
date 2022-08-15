@@ -488,12 +488,12 @@
 		"msgstr": "Zoomer sur cet endroit"
 	},
 	{
-		"msgid": "ProfileWindow - Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}",
-		"msgstr": "Montée: {ascent} m. - Descente: {descent} m. - Distance: {distance}"
+		"msgid": "ProfileWindow - Route {name} : Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}",
+		"msgstr": "Trajet {name} : Montée: {ascent} m. - Descente: {descent} m. - Distance: {distance}"
 	},
 	{
-		"msgid": "ProfileWindow - Profile {name}",
-		"msgstr": "Profil {name}"
+		"msgid": "ProfileWindow - Profile",
+		"msgstr": "Profil"
 	},
 	{
 		"msgid": "RoadbookLoader - show maneuver",

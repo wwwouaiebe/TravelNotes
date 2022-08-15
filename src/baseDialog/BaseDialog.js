@@ -249,30 +249,16 @@ class BaseDialog {
 			},
 			this.#topBar
 		);
+		theHTMLElementsFactory.create (
+			'div',
+			{
+				textContent : this.title,
+				className : 'TravelNotes-BaseDialog-Title'
+			},
+			this.#topBar
+		);
 		this.#cancelButtonClickEL = new CancelButtonClickEL ( this );
 		this.#cancelButton.addEventListener ( 'click', this.#cancelButtonClickEL, false );
-	}
-
-	/**
-	Create the header div
-	*/
-
-	#createHeaderDiv ( ) {
-
-		theHTMLElementsFactory.create (
-			'text',
-			{
-				value : this.title
-			}
-			,
-			theHTMLElementsFactory.create (
-				'div',
-				{
-					className : 'TravelNotes-BaseDialog-HeaderDiv'
-				},
-				this.#containerDiv
-			)
-		);
 	}
 
 	/**
@@ -316,7 +302,6 @@ class BaseDialog {
 	#createHTML ( ) {
 		this.#createContainerDiv ( );
 		this.#createTopBar ( );
-		this.#createHeaderDiv ( );
 		this.#createToolbarDiv ( );
 		this.#createContentDiv ( );
 	}
