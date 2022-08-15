@@ -45,14 +45,14 @@ class TravelPropertiesDialog extends DockableBaseDialog {
 	@type {TextInputControl}
 	*/
 
-	#travelNameControl;
+	#travelNameControl = null;
 
 	/**
 	The routes control
 	@type {SortableListControl}
 	*/
 
-	#travelRoutesControl;
+	#travelRoutesControl = null;
 
 	/**
 	The constructor
@@ -60,9 +60,6 @@ class TravelPropertiesDialog extends DockableBaseDialog {
 
 	constructor ( ) {
 		super ( 50, 50 );
-		this.#travelNameControl = new TextInputControl ( theTranslator.getText ( 'TravelPropertiesDialog - Name' ) );
-		this.#travelNameControl.value = theTravelNotesData.travel.name;
-		this.#travelRoutesControl = new SortableListControl ( theTravelEditor.routeDropped, RouteContextMenu );
 	}
 
 	/**
@@ -94,6 +91,22 @@ class TravelPropertiesDialog extends DockableBaseDialog {
 	*/
 
 	updateContent ( ) {
+		/*
+		 Strange but correct. When travelNameControl is created in the constructor, translations are not loaded
+		 so, the call to theTranslator.getText ( ) return the  msgid and not the msgstr...
+		*/
+
+		if ( ! this.travelNameControl ) {
+			this.#travelNameControl = new TextInputControl (
+				theTranslator.getText ( 'TravelPropertiesDialog - Name' )
+			);
+			this.#travelNameControl.value = theTravelNotesData.travel.name;
+			this.#travelRoutesControl = new SortableListControl (
+				theTravelEditor.routeDropped,
+				RouteContextMenu,
+				theTranslator.getText ( 'TravelPropertiesDialog - Routes' )
+			);
+		}
 		const contentHTMLElements = [];
 		theTravelNotesData.travel.routes.forEach (
 			route => {

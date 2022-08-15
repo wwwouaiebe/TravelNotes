@@ -1004,6 +1004,18 @@
 		"msgstr": "Cette page demande de confirmer sa fermeture ; des données saisies pourraient ne pas être enregistrées."
 	},
 	{
+		"msgid": "TravelPropertiesDialog - Name",
+		"msgstr": "Nom du voyage"
+	},
+	{
+		"msgid": "TravelPropertiesDialog - Routes",
+		"msgstr": "Trajets du voyage"
+	},
+	{
+		"msgid": "TravelPropertiesDialog - Travel properties",
+		"msgstr": "Propriétés du voyage"
+	},
+	{
 		"msgid": "UrlInputBlurEL - invalidUrl",
 		"msgstr": "Lien non valide"
 	},

@@ -1004,6 +1004,18 @@
 		"msgstr": "This page ask to close; data are perhaps not saved."
 	},
 	{
+		"msgid": "TravelPropertiesDialog - Name",
+		"msgstr": "Travel name"
+	},
+	{
+		"msgid": "TravelPropertiesDialog - Routes",
+		"msgstr": "Routes"
+	},
+	{
+		"msgid": "TravelPropertiesDialog - Travel properties",
+		"msgstr": "Travel properties"
+	},
+	{
 		"msgid": "UrlInputBlurEL - invalidUrl",
 		"msgstr": "Invalid link"
 	},
