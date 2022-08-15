@@ -1,3 +1,29 @@
+/*
+Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
+
+This  program is free software;
+you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation;
+either version 3 of the License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+/*
+Changes:
+	- v4.0.0:
+		- created
+Doc reviewed ...
+Tests ...
+*/
+
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import { CancelButtonClickEL } from '../baseDialog/BaseDialogEventListeners.js';
@@ -140,12 +166,12 @@ class ModalBaseDialog extends BaseDialog {
 	}
 
 	/**
-	Create the background div event listeners. Event listeners must be created after the container div
+	Create the background div event listeners.
 	*/
 
 	#createBackgroundDivEL ( ) {
 
-		this.#backgroundDragOverEL = new BackgroundDragOverEL ( this.dragData, this.container );
+		this.#backgroundDragOverEL = new BackgroundDragOverEL ( this.dragData );
 		this.#backgroundDiv.addEventListener ( 'dragover', this.#backgroundDragOverEL, false );
 
 		this.#backgroundWheelEL = new BackgroundWheelEL ( );
@@ -175,9 +201,9 @@ class ModalBaseDialog extends BaseDialog {
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-ErrorDiv TravelNotes-Hidden'
-			},
-			this.container
+			}
 		);
+		this.addToContainer ( this.#errorDiv );
 	}
 
 	/**
@@ -199,11 +225,10 @@ class ModalBaseDialog extends BaseDialog {
 					'div',
 					{
 						className : 'TravelNotes-BaseDialog-WaitDiv  TravelNotes-Hidden'
-					},
-					this.container
-				)
+					}				)
 			)
 		);
+		this.addToContainer ( this.#waitDiv );
 	}
 
 	/**
@@ -215,9 +240,9 @@ class ModalBaseDialog extends BaseDialog {
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-FooterDiv'
-			},
-			this.container
+			}
 		);
+		this.addToContainer ( footerDiv );
 
 		this.#okButton = theHTMLElementsFactory.create (
 			'div',
@@ -312,7 +337,7 @@ class ModalBaseDialog extends BaseDialog {
 		super.show ( );
 		this.#createHTML ( );
 		document.body.appendChild ( this.#backgroundDiv );
-		this.#backgroundDiv.appendChild ( this.container );
+		this.addToBackground ( this.#backgroundDiv );
 		this.#dialogKeyboardKeydownEL = new DialogKeyboardKeydownEL ( this );
 		document.addEventListener ( 'keydown', this.#dialogKeyboardKeydownEL, { capture : true } );
 		this.centerDialog ( );
@@ -411,3 +436,5 @@ class ModalBaseDialog extends BaseDialog {
 }
 
 export default ModalBaseDialog;
+
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

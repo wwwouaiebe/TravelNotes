@@ -112,7 +112,7 @@ import DragData from '../baseDialog/DragData.js';
 
 // import GarbageCollectorTester from '../UILib/GarbageCollectorTester.js';
 
-import { TWO } from '../main/Constants.js';
+import { DIALOG_DRAG_MARGIN, TWO } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -211,6 +211,7 @@ class BaseDialog {
 				className : 'TravelNotes-BaseDialog-Container'
 			}
 		);
+		this.dragData.container = this.#containerDiv;
 	}
 
 	/**
@@ -228,7 +229,7 @@ class BaseDialog {
 			this.#containerDiv
 		);
 
-		this.#topBarTouchEL = new TopBarTouchEL ( this.dragData, this.#containerDiv );
+		this.#topBarTouchEL = new TopBarTouchEL ( this.dragData );
 		this.#topBar.addEventListener ( 'touchstart', this.#topBarTouchEL, false );
 		this.#topBar.addEventListener ( 'touchmove', this.#topBarTouchEL, false );
 		this.#topBar.addEventListener ( 'touchend', this.#topBarTouchEL, false );
@@ -236,8 +237,7 @@ class BaseDialog {
 
 		this.#topBarDragStartEL = new TopBarDragStartEL ( this.dragData );
 		this.#topBar.addEventListener ( 'dragstart', this.#topBarDragStartEL, false );
-		this.#topBarDragEndEL =
-			new TopBarDragEndEL ( this.dragData, this.#containerDiv );
+		this.#topBarDragEndEL = new TopBarDragEndEL ( this.dragData );
 		this.#topBar.addEventListener ( 'dragend', this.#topBarDragEndEL, false );
 
 		this.#cancelButton = theHTMLElementsFactory.create (
@@ -368,6 +368,27 @@ class BaseDialog {
 		this.#containerDiv.style.top = String ( this.dragData.dialogY ) + 'px';
 	}
 
+	moveTo ( moveX, moveY ) {
+		let dialogX = Math.max (
+			Math.min (
+				moveX,
+				this.dragData.background.offsetWidth - this.#containerDiv.offsetWidth
+			),
+			DIALOG_DRAG_MARGIN
+		);
+		let dialogY = Math.max (
+			Math.min (
+				moveY,
+				this.dragData.background.offsetHeight - this.#containerDiv.offsetHeight
+			),
+			DIALOG_DRAG_MARGIN
+		);
+		this.dragData.dialogX = dialogX;
+		this.dragData.dialogY = dialogY;
+		this.#containerDiv.style.left = String ( dialogX ) + 'px';
+		this.#containerDiv.style.top = String ( dialogY ) + 'px';
+	}
+
 	/**
 	Cancel button handler. Can be overloaded in the derived classes
 	*/
@@ -411,7 +432,17 @@ class BaseDialog {
 		this.#createHTML ( );
 	}
 
-	get container ( ) { return this.#containerDiv; }
+	removeFromBackground ( backgroundElement ) {
+		backgroundElement.removeChild ( this.#containerDiv );
+	}
+
+	addToBackground ( backgroundElement ) {
+		backgroundElement.appendChild ( this.#containerDiv );
+	}
+
+	addToContainer ( htmlElement ) {
+		this.#containerDiv.appendChild ( htmlElement );
+	}
 
 	/**
 	The options of the dialog box
@@ -423,7 +454,5 @@ class BaseDialog {
 }
 
 export default BaseDialog;
-
-/* eslint-enable max-lines */
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

@@ -1,3 +1,29 @@
+/*
+Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
+
+This  program is free software;
+you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation;
+either version 3 of the License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+/*
+Changes:
+	- v4.0.0:
+		- created
+Doc reviewed ...
+Tests ...
+*/
+
 import BaseDialog from '../BaseDialog/BaseDialog.js';
 import { BackgroundDragOverEL } from '../baseDialog/BaseDialogBackgroundEventListeners.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
@@ -13,7 +39,7 @@ class NonModalBaseDialog extends BaseDialog {
 
 	#createBackgroundDivEL ( ) {
 
-		this.#backgroundDragOverEL = new BackgroundDragOverEL ( this.dragData, this.container );
+		this.#backgroundDragOverEL = new BackgroundDragOverEL ( this.dragData );
 		document.body.addEventListener ( 'dragover', this.#backgroundDragOverEL, false );
 	}
 
@@ -29,16 +55,20 @@ class NonModalBaseDialog extends BaseDialog {
 		document.body.removeEventListener ( 'dragover', this.#backgroundDragOverEL, false );
 		this.#backgroundDragOverEL = null;
 		super.onCancel ( );
-		document.body.removeChild ( this.container );
+		this.removeFromBackground ( document.body );
 	}
 
 	show ( ) {
 		super.show ( );
 		this.dragData.background = theTravelNotesData.map.getContainer ( );
 		this.#createBackgroundDivEL ( );
-		document.body.appendChild ( this.container );
-		this.centerDialog ( );
+		this.addToBackground ( document.body );
+
+		// this.centerDialog ( );
+		this.moveTo ( 0, 0 );
 	}
 }
 
 export default NonModalBaseDialog;
+
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

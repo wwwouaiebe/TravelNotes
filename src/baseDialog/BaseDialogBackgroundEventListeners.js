@@ -52,22 +52,14 @@ class BackgroundDragOverEL {
 	#dragData;
 
 	/**
-	A reference to the dialog container
-	@type {HTMLElement}
-	*/
-
-	#container;
-
-	/**
 	The constructor
 	@param {DragData} dragData A reference to the dragData object of the dialog
 	@param {HTMLElement} container A reference to the dialog container
 	*/
 
-	constructor ( dragData, container ) {
+	constructor ( dragData ) {
 		Object.freeze ( this );
 		this.#dragData = dragData;
-		this.#container = container;
 	}
 
 	/**
@@ -77,6 +69,12 @@ class BackgroundDragOverEL {
 
 	handleEvent ( dragEvent ) {
 		dragEvent.preventDefault ( );
+
+		if ( dragEvent.target.parentElement !== this.#dragData.container ) {
+			return;
+		}
+
+		dragEvent.stopPropagation ( );
 
 		this.#dragData.dialogX += dragEvent.screenX - this.#dragData.dragStartX;
 		this.#dragData.dialogY += dragEvent.screenY - this.#dragData.dragStartY;
@@ -88,7 +86,7 @@ class BackgroundDragOverEL {
 			Math.min (
 				Math.max ( this.#dragData.dialogX, DIALOG_DRAG_MARGIN ),
 				this.#dragData.background.clientWidth -
-					this.#container.clientWidth -
+					this.#dragData.container.clientWidth -
 					DIALOG_DRAG_MARGIN
 			);
 
@@ -96,12 +94,12 @@ class BackgroundDragOverEL {
 		Math.min (
 			Math.max ( this.#dragData.dialogY, DIALOG_DRAG_MARGIN ),
 			this.#dragData.background.clientHeight -
-				this.#container.clientHeight -
+				this.#dragData.container.clientHeight -
 				DIALOG_DRAG_MARGIN
 		);
 
-		this.#container.style.left = String ( this.#dragData.dialogX ) + 'px';
-		this.#container.style.top = String ( this.#dragData.dialogY ) + 'px';
+		this.#dragData.container.style.left = String ( this.#dragData.dialogX ) + 'px';
+		this.#dragData.container.style.top = String ( this.#dragData.dialogY ) + 'px';
 
 	}
 }

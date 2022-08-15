@@ -39,6 +39,7 @@ const travelNotesCss = [
 	'src/apiKeysdialog/APIKeysDialog.css',
 	'src/notesDialog/NoteDialog.css',
 	'src/printRouteMapDialog/PrintRouteMapDialog.css',
+	'src/profileDialog/ProfileDialog.css',
 	'src/colorControl/ColorControl.css',
 	'src/routePropertiesDialog/RoutePropertiesDialog.css',
 	'src/twoButtonsDialog/TwoButtonsDialog.css',
