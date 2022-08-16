@@ -75,6 +75,7 @@ import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theTranslator from '../UILib/Translator.js';
 import theFullScreenUI from '../fullScreenUI/FullScreenUI.js';
 import { LAT_LNG, TWO, SAVE_STATUS, HTTP_STATUS_OK } from '../main/Constants.js';
+import theProvidersToolbarUI from '../providersToolbarUI/ProvidersToolbarUI.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -170,6 +171,8 @@ class TravelNotes {
 		}
 
 		theTravelNotesToolbarUI.createUI ( );
+
+		theProvidersToolbarUI.createUI ( );
 
 		// ...help UI
 		theErrorsUI.showHelp (

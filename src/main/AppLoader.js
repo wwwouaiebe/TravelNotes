@@ -49,6 +49,7 @@ import theOsmSearchDictionary from '../coreOsmSearch/OsmSearchDictionary.js';
 import theMapLayersCollection from '../data/MapLayersCollection.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theDockableDialogsManager from '../core/DockableDialogsManager.js';
+import theProvidersToolbarUI from '../providersToolbarUI/ProvidersToolbarUI.js';
 
 import { LAT_LNG, SAVE_STATUS, ZERO, ONE, NOT_FOUND, HTTP_STATUS_OK } from '../main/Constants.js';
 
@@ -301,6 +302,26 @@ class AppLoader {
 			( ) => theDockableDialogsManager.travelNotesDialog.updateContent ( ),
 			false
 		);
+		document.addEventListener ( 'providersadded', ( ) => theProvidersToolbarUI.providersAdded ( ), false );
+		document.addEventListener (
+			'setprovider',
+			setProviderEvent => {
+				if ( setProviderEvent?.data?.provider ) {
+					theProvidersToolbarUI.provider = setProviderEvent.data.provider;
+				}
+			},
+			false
+		);
+		document.addEventListener (
+			'settransitmode',
+			setTransitModeEvent => {
+				if ( setTransitModeEvent?.data?.transitMode ) {
+					theProvidersToolbarUI.transitMode = setTransitModeEvent.data.transitMode;
+				}
+			},
+			false
+		);
+
 	}
 
 	/**

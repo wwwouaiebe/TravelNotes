@@ -50,6 +50,7 @@ const travelNotesCss = [
 	'src/ErrorsUI/ErrorsUI.css',
 	'src/fullScreenUI/FullScreenUI.css',
 	'src/mapLayersToolbarUI/MapLayersToolbarUI.css',
+	'src/providersToolbarUI/ProvidersToolbarUI.css',
 	'src/mouseUI/MouseUI.css',
 	'src/toolbarUI/BaseToolbarUI.css',
 	'src/waitUI/WaitUI.css',
