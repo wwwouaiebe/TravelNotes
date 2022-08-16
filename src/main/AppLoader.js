@@ -296,6 +296,11 @@ class AppLoader {
 			( ) => theDockableDialogsManager.travelPropertiesDialog.updateContent ( ),
 			false
 		);
+		document.addEventListener (
+			'updatetravelnotes',
+			( ) => theDockableDialogsManager.travelNotesDialog.updateContent ( ),
+			false
+		);
 	}
 
 	/**

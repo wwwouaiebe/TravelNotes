@@ -283,6 +283,13 @@ class TravelNotesToolbarUI extends BaseToolbarUI {
 				( ) => { theDockableDialogsManager.travelPropertiesDialog.show ( ); }
 			)
 		);
+		this.addToolbarItem (
+			new ToolbarItem (
+				'🗨️',
+				theTranslator.getText ( 'TravelNotesToolbarUI - Travel notes' ),
+				( ) => { theDockableDialogsManager.travelNotesDialog.show ( ); }
+			)
+		);
 	}
 }
 

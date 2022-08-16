@@ -107,10 +107,6 @@ class TravelPropertiesDialog extends DockableBaseDialog {
 	}
 
 	/**
-	Overload of the BaseDialog.onCancel ( ) method.
-	*/
-
-	/**
 	An array with the HTMLElements that have to be added in the content of the dialog.
 	Overload of the BaseDialog contentHTMLElements property.
 	@type {Array.<HTMLElement>}

@@ -24,6 +24,7 @@ Tests ...
 */
 
 import TravelPropertiesDialog from '../travelPropertiesDialog/TravelPropertiesDialog.js';
+import TravelNotesDialog from '../travelNotesDialog/TravelNotesDialog.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -43,6 +44,13 @@ class DockableDialogsManager {
 	#travelPropertiesDialog = null;
 
 	/**
+	The one and only one nstance of TravelNotesDialog
+	@type {TravelPropertiesDialog}
+	*/
+
+	#travelNotesDialog = null;
+
+	/**
 	The constructor
 	*/
 
@@ -60,6 +68,18 @@ class DockableDialogsManager {
 			this.#travelPropertiesDialog = new TravelPropertiesDialog ( );
 		}
 		return this.#travelPropertiesDialog;
+	}
+
+	/**
+	The one and only one nstance of TravelPropertiesDialog
+	@type {TravelPropertiesDialog}
+	*/
+
+	get travelNotesDialog ( ) {
+		if ( ! this.#travelNotesDialog ) {
+			this.#travelNotesDialog = new TravelNotesDialog ( );
+		}
+		return this.#travelNotesDialog;
 	}
 
 }

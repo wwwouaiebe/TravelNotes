@@ -300,6 +300,11 @@ const theConfig = {
 			url : 'https://github.com/wwwouaiebe/TravelNotes/issues'
 		}
 	},
+	travelNotesDialog :
+	{
+		dialogX : 250,
+		dialogY : 0
+	},
 	travelPropertiesDialog :
 	{
 		dialogX : 50,

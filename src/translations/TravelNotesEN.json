@@ -964,6 +964,10 @@
 		"msgstr": "Done with "
 	},
 	{
+		"msgid": "TravelNotesDialog - Travel notes dialog",
+		"msgstr": "Travel notes"
+	},
+	{
 		"msgid": "TravelNotesToolbarUI - API keys",
 		"msgstr": "API keys management"
 	},
@@ -1002,6 +1006,10 @@
 	{
 		"msgid": "TravelNotesToolbarUI - This page ask to close; data are perhaps not saved.",
 		"msgstr": "This page ask to close; data are perhaps not saved."
+	},
+	{
+		"msgid": "TravelNotesToolbarUI - Travel notes",
+		"msgstr": "Travel notes"
 	},
 	{
 		"msgid": "TravelPropertiesDialog - Name",
