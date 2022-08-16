@@ -23,70 +23,56 @@ Doc reviewed ...
 Tests ...
 */
 
-import DialogControl from '../baseDialog/DialogControl.js';
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import TravelPropertiesDialog from '../travelPropertiesDialog/TravelPropertiesDialog.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This class is a generic control with a input element for text
+This class manages the dockable dialogs.
+We cannot create the dockable dialogs as global objects because it's needed that the translations are loaded before
+creating the dialogs.
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class TextInputControl extends DialogControl {
+class DockableDialogsManager {
 
 	/**
-	The input HTMLElement
-	@type {HTMLElement}
+	The one and only one nstance of TravelPropertiesDialog
+	@type {TravelPropertiesDialog}
 	*/
 
-	#valueInput;
+	#travelPropertiesDialog = null;
 
 	/**
 	The constructor
-	@param {String} headerText The text to display in the header control
-	@param {?Object} inputEL An input event listener to add to the input element. Can be null
 	*/
 
-	constructor ( headerText, inputEL ) {
-		super ( );
-		theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-BaseDialog-FlexRow',
-				textContent : headerText
-			},
-			this.HTMLElement
-		);
-		this.#valueInput = theHTMLElementsFactory.create (
-			'input',
-			{
-				className : 'TravelNotes-BaseDialog-InputText',
-				type : 'text'
-			},
-			theHTMLElementsFactory.create (
-				'div',
-				{
-					className : 'TravelNotes-BaseDialog-FlexRow'
-				},
-				this.HTMLElement
-			)
-		);
-		if ( inputEL ) {
-			this.#valueInput.addEventListener ( 'input', inputEL, false );
-		}
+	constructor ( ) {
+		Object.freeze ( this );
 	}
 
 	/**
-	The value in the control
-	@type {String}
+	The one and only one nstance of TravelPropertiesDialog
+	@type {TravelPropertiesDialog}
 	*/
 
-	get value ( ) { return this.#valueInput.value; }
-
-	set value ( value ) { this.#valueInput.value = value; }
+	get travelPropertiesDialog ( ) {
+		if ( ! this.#travelPropertiesDialog ) {
+			this.#travelPropertiesDialog = new TravelPropertiesDialog ( );
+		}
+		return this.#travelPropertiesDialog;
+	}
 
 }
 
-export default TextInputControl;
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+The one and only one instance of DockableDialogsManager class
+@type {DockableDialogsManager}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+const theDockableDialogsManager = new DockableDialogsManager ( );
+
+export default theDockableDialogsManager;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

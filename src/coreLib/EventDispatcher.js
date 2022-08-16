@@ -59,13 +59,6 @@ fired when a note must be updated, added or removed on the map
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-@event travelnameupdated
-fired when a file is loaded and the travel name updated on theTravelUI
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
 @event layerchange
 fired when the background map must be changed
 */

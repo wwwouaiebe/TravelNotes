@@ -48,7 +48,7 @@ import theNoteDialogToolbarData from '../notesDialog/NoteDialogToolbarData.js';
 import theOsmSearchDictionary from '../coreOsmSearch/OsmSearchDictionary.js';
 import theMapLayersCollection from '../data/MapLayersCollection.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
-import theTravelPropertiesDialog from '../travelPropertiesDialog/TravelPropertiesDialog.js';
+import theDockableDialogsManager from '../core/DockableDialogsManager.js';
 
 import { LAT_LNG, SAVE_STATUS, ZERO, ONE, NOT_FOUND, HTTP_STATUS_OK } from '../main/Constants.js';
 
@@ -291,7 +291,11 @@ class AppLoader {
 			},
 			false
 		);
-		document.addEventListener ( 'setrouteslist', ( ) => theTravelPropertiesDialog.updateContent ( ), false );
+		document.addEventListener (
+			'setrouteslist',
+			( ) => theDockableDialogsManager.travelPropertiesDialog.updateContent ( ),
+			false
+		);
 	}
 
 	/**

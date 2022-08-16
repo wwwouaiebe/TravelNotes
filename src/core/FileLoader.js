@@ -153,7 +153,6 @@ class FileLoader {
 
 		// Editors and HTML pages are filled
 		theEventDispatcher.dispatch ( 'setrouteslist' );
-		theEventDispatcher.dispatch ( 'travelnameupdated' );
 		theEventDispatcher.dispatch ( 'showitinerary' );
 		theEventDispatcher.dispatch ( 'roadbookupdate' );
 	}

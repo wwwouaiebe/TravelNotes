@@ -31,6 +31,40 @@ import SortableListControl from '../baseDialog/SortableListControl.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTravelEditor from '../core/TravelEditor.js';
 import RouteContextMenu from '../contextMenus/RouteContextMenu.js';
+import theConfig from '../data/Config.js';
+import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
+import theEventDispatcher from '../coreLib/EventDispatcher.js';
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+change event listener for the TravelName input
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class TravelNameInput {
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
+	/**
+	Event listener method
+	@param {Event} changeEvent The event to handle
+	*/
+
+	handleEvent ( changeEvent ) {
+		changeEvent.stopPropagation ( );
+		theTravelNotesData.travel.name = theHTMLSanitizer.sanitizeToJsString ( changeEvent.target.value );
+		document.title =
+			'Travel & Notes' +
+			( '' === theTravelNotesData.travel.name ? '' : ' - ' + theTravelNotesData.travel.name );
+		theEventDispatcher.dispatch ( 'roadbookupdate' );
+	}
+}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -59,7 +93,17 @@ class TravelPropertiesDialog extends DockableBaseDialog {
 	*/
 
 	constructor ( ) {
-		super ( 50, 50 );
+		super ( theConfig.travelPropertiesDialog.dialogX, theConfig.travelPropertiesDialog.dialogY );
+		this.#travelNameControl = new TextInputControl (
+			theTranslator.getText ( 'TravelPropertiesDialog - Name' ),
+			new TravelNameInput ( )
+		);
+		this.#travelNameControl.value = theTravelNotesData.travel.name;
+		this.#travelRoutesControl = new SortableListControl (
+			theTravelEditor.routeDropped,
+			RouteContextMenu,
+			theTranslator.getText ( 'TravelPropertiesDialog - Routes' )
+		);
 	}
 
 	/**
@@ -91,22 +135,6 @@ class TravelPropertiesDialog extends DockableBaseDialog {
 	*/
 
 	updateContent ( ) {
-		/*
-		 Strange but correct. When travelNameControl is created in the constructor, translations are not loaded
-		 so, the call to theTranslator.getText ( ) return the  msgid and not the msgstr...
-		*/
-
-		if ( ! this.travelNameControl ) {
-			this.#travelNameControl = new TextInputControl (
-				theTranslator.getText ( 'TravelPropertiesDialog - Name' )
-			);
-			this.#travelNameControl.value = theTravelNotesData.travel.name;
-			this.#travelRoutesControl = new SortableListControl (
-				theTravelEditor.routeDropped,
-				RouteContextMenu,
-				theTranslator.getText ( 'TravelPropertiesDialog - Routes' )
-			);
-		}
 		const contentHTMLElements = [];
 		theTravelNotesData.travel.routes.forEach (
 			route => {
@@ -130,18 +158,10 @@ class TravelPropertiesDialog extends DockableBaseDialog {
 			}
 		);
 		this.#travelRoutesControl.updateContent ( contentHTMLElements );
+		this.#travelNameControl.value = theTravelNotesData.travel.name;
 	}
 }
 
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-The one and only one instance of TravelPropertiesDialog class
-@type {TravelPropertiesDialog}
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-const theTravelPropertiesDialog = new TravelPropertiesDialog ( );
-
-export default theTravelPropertiesDialog;
+export default TravelPropertiesDialog;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

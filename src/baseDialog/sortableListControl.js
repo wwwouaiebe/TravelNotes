@@ -169,12 +169,18 @@ class SortableListControl extends DialogControl {
 
 	#contextMenuItemEL;
 
+	/**
+	The container for the list
+	@type {HTMLElement}
+	*/
+
 	#sortableListContainer;
 
 	/**
 	The constructor
 	@param {function} dropFunction The function to call when an item is droped
 	@param {class} contextMenuClass The context menu class to use
+	@param {String} headingText The text to add in the header
 	*/
 
 	constructor ( dropFunction, contextMenuClass, headingText ) {

@@ -300,6 +300,11 @@ const theConfig = {
 			url : 'https://github.com/wwwouaiebe/TravelNotes/issues'
 		}
 	},
+	travelPropertiesDialog :
+	{
+		dialogX : 50,
+		dialogY : 0
+	},
 	wayPoint : {
 		reverseGeocoding : false,
 		geocodingIncludeName : false
