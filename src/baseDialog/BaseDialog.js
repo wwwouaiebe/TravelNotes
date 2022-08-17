@@ -112,7 +112,7 @@ import DragData from '../baseDialog/DragData.js';
 
 // import GarbageCollectorTester from '../UILib/GarbageCollectorTester.js';
 
-import { DIALOG_DRAG_MARGIN, TWO } from '../main/Constants.js';
+import { ZERO, TWO, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -374,9 +374,21 @@ class BaseDialog {
 			),
 			DIALOG_DRAG_MARGIN
 		);
+		console.log ( 'moveTo' );
+		if (
+			DIALOG_DRAG_MARGIN === this.dragData.dialogY
+			&&
+			this.dragData.container.classList.contains ( 'TravelNotes-DockableBaseDialog' )
+		) {
+			console.log ( 'a' );
+			this.dragData.dialogY = ZERO;
+		}
 
-		if ( DIALOG_DRAG_MARGIN === this.dragData.dialogY ) {
-			this.dragData.dialogY = this.dragData.topDragMargin ?? DIALOG_DRAG_MARGIN;
+		if ( ZERO === this.dragData.dialogY ) {
+			this.dragData.container.classList.add ( 'TravelNotes-BaseDialog-OnTop' );
+		}
+		else {
+			this.dragData.container.classList.remove ( 'TravelNotes-BaseDialog-OnTop' );
 		}
 
 		this.#containerDiv.style.left = String ( this.dragData.dialogX ) + 'px';

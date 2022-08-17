@@ -25,7 +25,6 @@ Tests ...
 */
 
 import NonModalBaseDialog from '../baseDialog/NonModalBaseDialog.js';
-import { ZERO } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -57,7 +56,7 @@ class MouseEnterDockableDialogEL {
 	*/
 
 	handleEvent ( ) {
-		if ( this.#dragData.dialogY === this.#dragData.topDragMargin ) {
+		if ( this.#dragData.container.classList.contains ( 'TravelNotes-BaseDialog-OnTop' ) ) {
 			for ( const node of this.#dragData.container.childNodes ) {
 				if ( node.classList.contains ( 'TravelNotes-BaseDialog-ContentDiv' ) ) {
 					node.classList.remove ( 'TravelNotes-Hidden' );
@@ -97,7 +96,7 @@ class MouseLeaveDockableDialogEL {
 	*/
 
 	handleEvent ( ) {
-		if ( this.#dragData.dialogY === this.#dragData.topDragMargin ) {
+		if ( this.#dragData.container.classList.contains ( 'TravelNotes-BaseDialog-OnTop' ) ) {
 			for ( const node of this.#dragData.container.childNodes ) {
 				if ( node.classList.contains ( 'TravelNotes-BaseDialog-ContentDiv' ) ) {
 					node.classList.add ( 'TravelNotes-Hidden' );
@@ -160,7 +159,6 @@ class DockableBaseDialog extends NonModalBaseDialog {
 		super ( );
 		this.#dialogX = dialogX;
 		this.#dialogY = dialogY;
-		this.dragData.topDragMargin = ZERO;
 		this.#mouseEnterDockableDialogEL = new MouseEnterDockableDialogEL ( this.dragData );
 		this.#mouseLeaveDockableDialogEL = new MouseLeaveDockableDialogEL ( this.dragData );
 	}
@@ -191,8 +189,8 @@ class DockableBaseDialog extends NonModalBaseDialog {
 		super.show ( );
 		this.updateContent ( );
 		this.#isShow = true;
+		this.dragData.container.classList.add ( 'TravelNotes-DockableBaseDialog' );
 		this.moveTo ( this.#dialogX, this.#dialogY );
-
 		this.dragData.container.addEventListener ( 'mouseenter', this.#mouseEnterDockableDialogEL, false );
 		this.dragData.container.addEventListener ( 'mouseleave', this.#mouseLeaveDockableDialogEL, false );
 	}

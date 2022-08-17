@@ -62,6 +62,11 @@ Changes:
 	cursor: grab;
 }
 
+.TravelNotes-DockableBaseDialog.TravelNotes-BaseDialog-OnTop > .TravelNotes-BaseDialog-TopBar {
+	background-color: black;
+	color: white;
+}
+
 .TravelNotes-BaseDialog-CancelButton {
 	background-color: white;
 	width: 1.5em;

@@ -114,8 +114,18 @@ class TopBarDragEndEL {
 				DIALOG_DRAG_MARGIN
 		);
 
-		if ( DIALOG_DRAG_MARGIN === this.#dragData.dialogY ) {
-			this.#dragData.dialogY = this.#dragData.topDragMargin ?? DIALOG_DRAG_MARGIN;
+		if (
+			DIALOG_DRAG_MARGIN === this.#dragData.dialogY
+			&&
+			this.#dragData.container.classList.contains ( 'TravelNotes-DockableBaseDialog' )
+		) {
+			this.#dragData.dialogY = ZERO;
+		}
+		if ( ZERO === this.#dragData.dialogY ) {
+			this.#dragData.container.classList.add ( 'TravelNotes-BaseDialog-OnTop' );
+		}
+		else {
+			this.#dragData.container.classList.remove ( 'TravelNotes-BaseDialog-OnTop' );
 		}
 
 		this.#dragData.container.style.left = String ( this.#dragData.dialogX ) + 'px';

@@ -85,13 +85,6 @@ class DragData {
 	container = null;
 
 	/**
-	The top margin of the dialog. When null the dialog is not dockable
-	@type {?Number}
-	*/
-
-	topDragMargin = null;
-
-	/**
     Reset the DragData object to it's initial state
     */
 
