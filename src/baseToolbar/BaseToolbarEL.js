@@ -163,8 +163,53 @@ class ToolbarButtonClickEL {
 	*/
 
 	handleEvent ( clickEvent ) {
-		console.log ( 'ToolbarButtonClickEL' );
 		this.#toolbarItemsContainer.toolbarItems [ Number.parseInt ( clickEvent.target.dataset.tanItemId ) ].action ( );
+	}
+}
+
+class ToolbarButtonTouchEL {
+
+	/**
+	A reference to the ToolbarItemContainer object of the BaseToolbarUI class
+	@type {Array.<ToolbarItem>}
+	*/
+
+	#baseToolbar;
+
+	#toolbarItemsContainer;
+
+	#touchButtonStartY;
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #MAX_DELTA_Y ( ) { return 5; }
+
+	constructor ( baseToolbar, toolbarItemsContainer ) {
+		this.#baseToolbar = baseToolbar;
+		this.#toolbarItemsContainer = toolbarItemsContainer;
+	}
+
+	handleEvent ( touchEvent ) {
+		switch ( touchEvent.type ) {
+		case 'touchstart' :
+			if ( ONE === touchEvent.changedTouches.length ) {
+				const touch = touchEvent.changedTouches.item ( ZERO );
+				this.#touchButtonStartY = touch.screenY;
+			}
+			break;
+		case 'touchend' :
+			if ( ONE === touchEvent.changedTouches.length ) {
+				const touch = touchEvent.changedTouches.item ( ZERO );
+				if ( ToolbarButtonTouchEL.#MAX_DELTA_Y > Math.abs ( touch.screenY - this.#touchButtonStartY ) ) {
+					touchEvent.stopPropagation ( );
+					this.#toolbarItemsContainer.toolbarItems [ Number.parseInt ( touchEvent.target.dataset.tanItemId ) ]
+						.action ( );
+					this.#baseToolbar.hide ( );
+				}
+			}
+			break;
+		default :
+			break;
+		}
 	}
 }
 
@@ -206,7 +251,6 @@ class ButtonsContainerTouchEL {
 	*/
 
 	handleEvent ( touchEvent ) {
-		console.log ( 'ButtonsContainerTouchEL' );
 		touchEvent.preventDefault ( );
 		switch ( touchEvent.type ) {
 		case 'touchstart' :
@@ -267,7 +311,6 @@ class ButtonsContainerWheelEL {
 	*/
 
 	handleEvent ( wheelEvent ) {
-		console.log ( 'ButtonsContainerWheelEL' );
 		wheelEvent.stopPropagation ( );
 		if ( wheelEvent.deltaY ) {
 			this.#wheelEventData.marginTop -= wheelEvent.deltaY * MOUSE_WHEEL_FACTORS [ wheelEvent.deltaMode ];
@@ -276,4 +319,11 @@ class ButtonsContainerWheelEL {
 	}
 }
 
-export { WheelEventData, ToolbarItemsContainer, ToolbarButtonClickEL, ButtonsContainerTouchEL, ButtonsContainerWheelEL };
+export {
+	WheelEventData,
+	ToolbarItemsContainer,
+	ToolbarButtonClickEL,
+	ToolbarButtonTouchEL,
+	ButtonsContainerTouchEL,
+	ButtonsContainerWheelEL
+};

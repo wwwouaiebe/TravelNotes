@@ -29,6 +29,7 @@ import {
 	WheelEventData,
 	ToolbarItemsContainer,
 	ToolbarButtonClickEL,
+	ToolbarButtonTouchEL,
 	ButtonsContainerTouchEL,
 	ButtonsContainerWheelEL
 } from '../baseToolbar/BaseToolbarEL.js';
@@ -91,6 +92,8 @@ class BaseToolbar {
 	*/
 
 	#onToolbarButtonClickEL;
+
+	#onToolbarButtonTouchEL;
 
 	/**
 	A boolean saving the the current state of the UI
@@ -170,6 +173,8 @@ class BaseToolbar {
 					this.#wheelEventData.buttonHeight = buttonHTMLElement.offsetHeight;
 					this.#wheelEventData.buttonsHeight += buttonHTMLElement.offsetHeight;
 					buttonHTMLElement.addEventListener ( 'click', this.#onToolbarButtonClickEL, false );
+					buttonHTMLElement.addEventListener ( 'touchstart', this.#onToolbarButtonTouchEL, false );
+					buttonHTMLElement.addEventListener ( 'touchend', this.#onToolbarButtonTouchEL, false );
 				}
 				else {
 					const buttonHTMLElement = theHTMLElementsFactory.create (
@@ -220,14 +225,14 @@ class BaseToolbar {
 	*/
 
 	#onMouseLeave ( ) {
-		this.#timerId = setTimeout ( ( ) => this.#hide ( ), theConfig.layersToolbarUI.toolbarTimeOut );
+		this.#timerId = setTimeout ( ( ) => this.hide ( ), theConfig.layersToolbarUI.toolbarTimeOut );
 	}
 
 	/**
 	Hide the toolbar
 	*/
 
-	#hide ( ) {
+	hide ( ) {
 
 		if ( ! this.#isShow ) {
 			return;
@@ -276,11 +281,11 @@ class BaseToolbar {
 					&&
 					BaseToolbar.#HIDE_Y_PAN < -deltaPanY
 				) {
-					this.#hide ( );
+					this.hide ( );
 				}
 				else if ( ZERO === deltaPanY ) {
 					if ( this.#isShow ) {
-						this.#hide ( );
+						this.hide ( );
 					}
 					else {
 						this.#show ( );
@@ -316,6 +321,7 @@ class BaseToolbar {
 		this.#wheelEventData = new WheelEventData ( );
 		this.#onWheelButtonsEventListener = new ButtonsContainerWheelEL ( this.#wheelEventData );
 		this.#onButtonsContainerTouchEL = new ButtonsContainerTouchEL ( this.#wheelEventData );
+		this.#onToolbarButtonTouchEL = new ToolbarButtonTouchEL ( this, this.#toolbarItemsContainer );
 
 		this.#mainHTMLElement =
 			theHTMLElementsFactory.create (

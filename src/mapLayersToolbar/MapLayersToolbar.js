@@ -32,6 +32,7 @@ import theConfig from '../data/Config.js';
 import theMapLayersCollection from '../data/MapLayersCollection.js';
 import theAPIKeysManager from '../core/APIKeysManager.js';
 import theMapLayersManager from '../core/MapLayersManager.js';
+import theTranslator from '../UILib/Translator.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -54,11 +55,11 @@ class MapLayersToolbar extends BaseToolbar {
 	*/
 
 	createUI ( ) {
-		super.createUI ( 'Travel & Notes', TOOLBAR_POSITION.topLeft );
+		super.createUI ( theTranslator.getText ( 'MapLayersToolbar - Layers' ), TOOLBAR_POSITION.topLeft );
 	}
 
 	/**
-	Add the ToolbarItems to the toolbar. Called by the #show ( ) method of the vase class
+	Add the ToolbarItems to the toolbar. Called by the #show ( ) method of the base class
 	*/
 
 	addToolbarItems ( ) {
