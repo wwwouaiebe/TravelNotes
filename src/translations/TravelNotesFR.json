@@ -496,6 +496,34 @@
 		"msgstr": "Profil"
 	},
 	{
+		"msgid": "ProvidersToolbarUI - Computed by {provider} for {transitMode}",
+		"msgstr": "Itinéraire calculé par {provider} pour {transitMode}"
+	},
+	{
+		"msgid": "ProvidersToolbarUI - TransitMode bike",
+		"msgstr": "un vélo"
+	},
+	{
+		"msgid": "ProvidersToolbarUI - TransitMode car",
+		"msgstr": "une voiture"
+	},
+	{
+		"msgid": "ProvidersToolbarUI - TransitMode circle",
+		"msgstr": "un cercle"
+	},
+	{
+		"msgid": "ProvidersToolbarUI - TransitMode line",
+		"msgstr": "une ligne"
+	},
+	{
+		"msgid": "ProvidersToolbarUI - TransitMode pedestrian",
+		"msgstr": "un piéton"
+	},
+	{
+		"msgid": "ProvidersToolbarUI - TransitMode train",
+		"msgstr": "un train"
+	},
+	{
 		"msgid": "RoadbookLoader - show maneuver",
 		"msgstr": "Itinéraire"
 	},
@@ -864,8 +892,20 @@
 		"msgstr": " une voiture"
 	},
 	{
+		"msgid": "RouteHTMLViewsFactory - TransitMode circle",
+		"msgstr": " un cercle"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - TransitMode line",
+		"msgstr": " une ligne"
+	},
+	{
 		"msgid": "RouteHTMLViewsFactory - TransitMode pedestrian",
 		"msgstr": " un piéton"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - TransitMode train",
+		"msgstr": " un train"
 	},
 	{
 		"msgid": "RoutePrinter - The maximum of allowed pages is reached.",

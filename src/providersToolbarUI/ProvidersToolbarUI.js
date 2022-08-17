@@ -47,6 +47,7 @@ import ProviderToolbarProviderButton from '../providersToolbarUI/ProviderToolbar
 import theAPIKeysManager from '../core/APIKeysManager.js';
 import { NOT_FOUND, TWO, ZERO } from '../main/Constants.js';
 import theTranslator from '../UILib/Translator.js';
+import theConfig from '../data/Config.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -99,6 +100,13 @@ class ProvidersToolbarUI {
 	Transit mode buttons creation
 	*/
 
+	/**
+	Timer id for the mouse leave event
+	@type {Number}
+	*/
+
+	#timerId;
+
 	#createTransitModesButtons ( ) {
 		[ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ].forEach (
 			transitMode => {
@@ -129,20 +137,31 @@ class ProvidersToolbarUI {
 	#hide ( ) {
 		this.#toolbarHTMLElement.classList.add ( 'TravelNotes-Hidden' );
 		this.#centerUI ( );
+		this.#timerId = null;
 	}
 
 	#show ( ) {
+
+		// cleaning the timer if needed. The buttons are always visible and we can stop.
+		if ( this.#timerId ) {
+			clearTimeout ( this.#timerId );
+			this.#timerId = null;
+		}
 		this.#toolbarHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
 		this.#centerUI ( );
 	}
 
+	#onMouseLeave ( ) {
+		this.#timerId = setTimeout ( ( ) => this.#hide ( ), theConfig.layersToolbarUI.toolbarTimeOut );
+	}
+
 	#centerUI ( ) {
 		this.#topBar.textContent = theTranslator.getText (
-			'RouteHTMLViewsFactory - Itinerary computed by {provider} and optimized for {transitMode}',
+			'ProvidersToolbarUI - Computed by {provider} for {transitMode}',
 			{
 				provider : theTravelNotesData.routing.provider,
 				transitMode : theTranslator.getText (
-					'RouteHTMLViewsFactory - TransitMode ' + theTravelNotesData.routing.transitMode
+					'ProvidersToolbarUI - TransitMode ' + theTravelNotesData.routing.transitMode
 				)
 			}
 		);
@@ -199,7 +218,7 @@ class ProvidersToolbarUI {
 
 		this.#container.addEventListener (
 			'mouseleave',
-			( ) => { this.#hide ( ); },
+			( ) => { this.#onMouseLeave ( ); },
 			false
 		);
 
