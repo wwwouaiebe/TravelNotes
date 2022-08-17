@@ -24,8 +24,8 @@ Doc reviewed ...
 Tests ...
 */
 
-import BaseToolbarUI from '../toolbarUI/BaseToolbarUI.js';
-import ToolbarItem from '../toolbarUI/ToolbarItem.js';
+import BaseToolbar from '../baseToolbar/BaseToolbar.js';
+import ToolbarItem from '../baseToolbar/ToolbarItem.js';
 import theAPIKeysManager from '../core/APIKeysManager.js';
 import theGeoLocator from '../core/GeoLocator.js';
 import theConfig from '../data/Config.js';
@@ -145,7 +145,7 @@ This class is the TravelNotes toolbar
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class TravelNotesToolbarUI extends BaseToolbarUI {
+class TravelNotesToolbar extends BaseToolbar {
 
 	/**
 	The constructor
@@ -296,12 +296,12 @@ class TravelNotesToolbarUI extends BaseToolbarUI {
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 The one and only one instance of TravelNotesToolbarUI class
-@type {TravelNotesToolbarUI}
+@type {TravelNotesToolbar}
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-const theTravelNotesToolbarUI = new TravelNotesToolbarUI ( );
+const theTravelNotesToolbar = new TravelNotesToolbar ( );
 
-export default theTravelNotesToolbarUI;
+export default theTravelNotesToolbar;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

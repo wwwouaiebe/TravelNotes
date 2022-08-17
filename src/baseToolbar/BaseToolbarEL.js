@@ -109,6 +109,67 @@ class WheelEventData {
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
+A simple container to share data between the BaseToolbarUI class and the ToolbarButtonClickEL class
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class ToolbarItemsContainer {
+
+	/**
+	 An array with the toolbar items
+	 @type {Array.<ToolbarItem>}
+	*/
+
+	toolbarItems;
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		this.toolbarItems = [];
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+click event listener for the toolbar buttons
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class ToolbarButtonClickEL {
+
+	/**
+	A reference to the ToolbarItemContainer object of the BaseToolbarUI class
+	@type {Array.<ToolbarItem>}
+	*/
+
+	#toolbarItemsContainer;
+
+	/**
+	The constructor
+	@param {ToolbarItemsContainer} toolbarItemsContainer A reference to the toolbarItemsContainer
+	object  of the BaseToolbarUI class
+	of the BaseToolbarUI class
+	*/
+
+	constructor ( toolbarItemsContainer ) {
+		this.#toolbarItemsContainer = toolbarItemsContainer;
+	}
+
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
+
+	handleEvent ( clickEvent ) {
+		console.log ( 'ToolbarButtonClickEL' );
+		this.#toolbarItemsContainer.toolbarItems [ Number.parseInt ( clickEvent.target.dataset.tanItemId ) ].action ( );
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
 Touch event listener for the buttons container
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -145,6 +206,7 @@ class ButtonsContainerTouchEL {
 	*/
 
 	handleEvent ( touchEvent ) {
+		console.log ( 'ButtonsContainerTouchEL' );
 		touchEvent.preventDefault ( );
 		switch ( touchEvent.type ) {
 		case 'touchstart' :
@@ -205,6 +267,7 @@ class ButtonsContainerWheelEL {
 	*/
 
 	handleEvent ( wheelEvent ) {
+		console.log ( 'ButtonsContainerWheelEL' );
 		wheelEvent.stopPropagation ( );
 		if ( wheelEvent.deltaY ) {
 			this.#wheelEventData.marginTop -= wheelEvent.deltaY * MOUSE_WHEEL_FACTORS [ wheelEvent.deltaMode ];
@@ -213,4 +276,4 @@ class ButtonsContainerWheelEL {
 	}
 }
 
-export { WheelEventData, ButtonsContainerTouchEL, ButtonsContainerWheelEL };
+export { WheelEventData, ToolbarItemsContainer, ToolbarButtonClickEL, ButtonsContainerTouchEL, ButtonsContainerWheelEL };

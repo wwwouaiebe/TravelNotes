@@ -25,69 +25,15 @@ Tests ...
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import { WheelEventData, ButtonsContainerTouchEL, ButtonsContainerWheelEL } from '../toolbarUI/BaseToolbarUIEL.js';
+import {
+	WheelEventData,
+	ToolbarItemsContainer,
+	ToolbarButtonClickEL,
+	ButtonsContainerTouchEL,
+	ButtonsContainerWheelEL
+} from '../baseToolbar/BaseToolbarEL.js';
 import theConfig from '../data/Config.js';
 import { ZERO, ONE } from '../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-click event listener for the toolbar buttons
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class ToolbarButtonClickEL {
-
-	/**
-	A reference to the ToolbarItemContainer object of the BaseToolbarUI class
-	@type {Array.<ToolbarItem>}
-	*/
-
-	#toolbarItemsContainer;
-
-	/**
-	The constructor
-	@param {ToolbarItemsContainer} toolbarItemsContainer A reference to the toolbarItemsContainer
-	object  of the BaseToolbarUI class
-	of the BaseToolbarUI class
-	*/
-
-	constructor ( toolbarItemsContainer ) {
-		this.#toolbarItemsContainer = toolbarItemsContainer;
-	}
-
-	/**
-	Event listener method
-	@param {Event} clickEvent The event to handle
-	*/
-
-	handleEvent ( clickEvent ) {
-		this.#toolbarItemsContainer.toolbarItems [ Number.parseInt ( clickEvent.target.dataset.tanItemId ) ].action ( );
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-A simple container to share data between the BaseToolbarUI class and the ToolbarButtonClickEL class
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class ToolbarItemsContainer {
-
-	/**
-	 An array with the toolbar items
-	 @type {Array.<ToolbarItem>}
-	*/
-
-	toolbarItems;
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		this.toolbarItems = [];
-	}
-}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -95,7 +41,7 @@ A base class for realisation of toolbars
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class BaseToolbarUI {
+class BaseToolbar {
 
 	/**
 	The main HTMLElement of the UI
@@ -321,14 +267,14 @@ class BaseToolbarUI {
 				if (
 					ZERO < deltaPanY
 					&&
-					BaseToolbarUI.#HIDE_Y_PAN < deltaPanY
+					BaseToolbar.#HIDE_Y_PAN < deltaPanY
 				) {
 					this.#show ( );
 				}
 				else if (
 					ZERO > deltaPanY
 					&&
-					BaseToolbarUI.#HIDE_Y_PAN < -deltaPanY
+					BaseToolbar.#HIDE_Y_PAN < -deltaPanY
 				) {
 					this.#hide ( );
 				}
@@ -413,6 +359,6 @@ class BaseToolbarUI {
 	}
 }
 
-export default BaseToolbarUI;
+export default BaseToolbar;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

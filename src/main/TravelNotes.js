@@ -67,10 +67,10 @@ import { theAppVersion } from '../data/Version.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import MapContextMenu from '../contextMenus/MapContextMenu.js';
 import theMapLayersManager from '../core/MapLayersManager.js';
-import theMapLayersToolbarUI from '../toolbarUI/MapLayersToolbarUI.js';
+import theMapLayersToolbar from '../mapLayersToolbar/MapLayersToolbar.js';
 import theMouseUI from '../mouseUI/MouseUI.js';
 import theAttributionsUI from '../attributionsUI/AttributionsUI.js';
-import theTravelNotesToolbarUI from '../toolbarUI/TravelNotesToolbarUI.js';
+import theTravelNotesToolbar from '../travelNotesToolbar/TravelNotesToolbar.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theTranslator from '../UILib/Translator.js';
 import theFullScreenUI from '../fullScreenUI/FullScreenUI.js';
@@ -162,7 +162,7 @@ class TravelNotes {
 
 		// ... the map layers toolbar UI...
 		if ( theConfig.layersToolbarUI.haveLayersToolbarUI ) {
-			theMapLayersToolbarUI.createUI ( );
+			theMapLayersToolbar.createUI ( );
 		}
 		theMapLayersManager.setMapLayer ( 'OSM - Color' );
 
@@ -172,7 +172,7 @@ class TravelNotes {
 			theMouseUI.saveStatus = SAVE_STATUS.saved;
 		}
 
-		theTravelNotesToolbarUI.createUI ( );
+		theTravelNotesToolbar.createUI ( );
 
 		theProvidersToolbarUI.createUI ( );
 

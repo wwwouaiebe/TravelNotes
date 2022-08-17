@@ -52,7 +52,7 @@ const travelNotesCss = [
 	'src/mapLayersToolbarUI/MapLayersToolbarUI.css',
 	'src/providersToolbarUI/ProvidersToolbarUI.css',
 	'src/mouseUI/MouseUI.css',
-	'src/toolbarUI/BaseToolbarUI.css',
+	'src/baseToolbar/BaseToolbar.css',
 	'src/waitUI/WaitUI.css',
 	'src/css/Hidden.css' // must always be the last css
 ];

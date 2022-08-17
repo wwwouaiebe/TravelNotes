@@ -25,9 +25,9 @@ Tests ...
 */
 
 import { TOOLBAR_POSITION } from '../main/Constants.js';
-import BaseToolbarUI from '../toolbarUI/BaseToolbarUI.js';
+import BaseToolbar from '../baseToolbar/BaseToolbar.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
-import ToolbarItem from '../toolbarUI/ToolbarItem.js';
+import ToolbarItem from '../baseToolbar/ToolbarItem.js';
 import theConfig from '../data/Config.js';
 import theMapLayersCollection from '../data/MapLayersCollection.js';
 import theAPIKeysManager from '../core/APIKeysManager.js';
@@ -39,7 +39,7 @@ This class is the map layers toolbar
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class MapLayersToolbarUI extends BaseToolbarUI {
+class MapLayersToolbar extends BaseToolbar {
 
 	/**
 	The constructor
@@ -102,12 +102,12 @@ class MapLayersToolbarUI extends BaseToolbarUI {
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 The one and only one instance of MapLayersToolbarUI class
-@type {MapLayersToolbarUI}
+@type {MapLayersToolbar}
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-const theMapLayersToolbarUI = new MapLayersToolbarUI ( );
+const theMapLayersToolbar = new MapLayersToolbar ( );
 
-export default theMapLayersToolbarUI;
+export default theMapLayersToolbar;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

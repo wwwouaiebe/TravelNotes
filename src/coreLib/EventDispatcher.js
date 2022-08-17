@@ -137,7 +137,7 @@ fired when the roadbook must be updated
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 @event geolocationstatuschanged
-fired when theTravelNotesToolbarUI must be updated, changing the geolocation button
+fired when theTravelNotesToolbar must be updated, changing the geolocation button
 and when the geolocation marker must be removed from the map
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
