@@ -57,7 +57,17 @@ This class is the provider and transitModes toolbar at the bottom of the UI
 
 class ProvidersToolbarUI {
 
+	/**
+	The container
+	@type {HTMLElement}
+	*/
+
 	#container;
+
+	/**
+	The top bar
+	@type {HTMLElement}
+	*/
 
 	#topBar;
 
@@ -97,15 +107,15 @@ class ProvidersToolbarUI {
 	#activeProviderButton;
 
 	/**
-	Transit mode buttons creation
-	*/
-
-	/**
 	Timer id for the mouse leave event
 	@type {Number}
 	*/
 
 	#timerId;
+
+	/**
+	Transit mode buttons creation
+	*/
 
 	#createTransitModesButtons ( ) {
 		[ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ].forEach (
@@ -134,11 +144,19 @@ class ProvidersToolbarUI {
 		);
 	}
 
+	/**
+	Hide the UI used as event listener for the timer
+	*/
+
 	#hide ( ) {
 		this.#toolbarHTMLElement.classList.add ( 'TravelNotes-Hidden' );
 		this.#centerUI ( );
 		this.#timerId = null;
 	}
+
+	/**
+	Show the UI
+	*/
 
 	#show ( ) {
 
@@ -151,9 +169,17 @@ class ProvidersToolbarUI {
 		this.#centerUI ( );
 	}
 
+	/**
+	Mouse leave event listener
+	*/
+
 	#onMouseLeave ( ) {
 		this.#timerId = setTimeout ( ( ) => this.#hide ( ), theConfig.layersToolbarUI.toolbarTimeOut );
 	}
+
+	/**
+	Center the UI on the lower side of the screen
+	*/
 
 	#centerUI ( ) {
 		this.#topBar.textContent = theTranslator.getText (
@@ -171,7 +197,6 @@ class ProvidersToolbarUI {
 
 	/**
 	The constructor
-	@param {HTMLElement} UIMainHTMLElement The HTMLElement in witch the toolbar must be added
 	*/
 
 	constructor ( ) {
@@ -182,6 +207,10 @@ class ProvidersToolbarUI {
 		this.#providerButtons = new Map ( );
 
 	}
+
+	/**
+	Creation of the UI
+	*/
 
 	createUI ( ) {
 
@@ -317,6 +346,13 @@ class ProvidersToolbarUI {
 	}
 
 }
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+The one and only one instance of ProvidersToolbarUI class
+@type {ProvidersToolbarUI}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 const theProvidersToolbarUI = new ProvidersToolbarUI ( );
 
