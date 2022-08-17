@@ -374,13 +374,11 @@ class BaseDialog {
 			),
 			DIALOG_DRAG_MARGIN
 		);
-		console.log ( 'moveTo' );
 		if (
 			DIALOG_DRAG_MARGIN === this.dragData.dialogY
 			&&
 			this.dragData.container.classList.contains ( 'TravelNotes-DockableBaseDialog' )
 		) {
-			console.log ( 'a' );
 			this.dragData.dialogY = ZERO;
 		}
 

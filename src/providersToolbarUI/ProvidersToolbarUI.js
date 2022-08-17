@@ -45,7 +45,7 @@ import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import ProviderToolbarTransitModeButton from '../providersToolbarUI/ProviderToolbarTransitModeButton.js';
 import ProviderToolbarProviderButton from '../providersToolbarUI/ProviderToolbarProviderButton.js';
 import theAPIKeysManager from '../core/APIKeysManager.js';
-import { NOT_FOUND, TWO, ZERO } from '../main/Constants.js';
+import { NOT_FOUND, ZERO, TWO } from '../main/Constants.js';
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
 
@@ -114,6 +114,14 @@ class ProvidersToolbarUI {
 	#timerId;
 
 	/**
+	The delay needed for the timer that start the #removeHidden ( ) method
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #HIDDEN_DELAY ( ) { return 100; }
+
+	/**
 	Transit mode buttons creation
 	*/
 
@@ -156,17 +164,31 @@ class ProvidersToolbarUI {
 
 	/**
 	Show the UI
+	@param {Event} mouseEnterEvent The event that have triggred the method
 	*/
 
-	#show ( ) {
+	#show ( mouseEnterEvent ) {
+		mouseEnterEvent.preventDefault ( );
+		mouseEnterEvent.stopPropagation ( );
 
 		// cleaning the timer if needed. The buttons are always visible and we can stop.
 		if ( this.#timerId ) {
 			clearTimeout ( this.#timerId );
 			this.#timerId = null;
 		}
-		this.#toolbarHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
+
 		this.#centerUI ( );
+		setTimeout ( ( ) => this.#removeHidden ( ), ProvidersToolbarUI.#HIDDEN_DELAY );
+	}
+
+	/**
+	Remove the TravelNotes-Hidden class on the toolbar. It's needed to use a timer (see the #show ( ) method) to
+	remove the class, otherwise one of the button of the toolbar is clicked when the toolbar is ishow by cicking
+	on the headeron touch devices
+	*/
+
+	#removeHidden ( ) {
+		this.#toolbarHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
 	}
 
 	/**
@@ -241,13 +263,13 @@ class ProvidersToolbarUI {
 		);
 		this.#container.addEventListener (
 			'mouseenter',
-			( ) => { this.#show ( ); },
+			mouseEnterEvent => this.#show ( mouseEnterEvent ),
 			false
 		);
 
 		this.#container.addEventListener (
 			'mouseleave',
-			( ) => { this.#onMouseLeave ( ); },
+			( ) => this.#onMouseLeave ( ),
 			false
 		);
 

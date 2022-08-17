@@ -150,6 +150,8 @@ class TravelNotes {
 
 		this.#travelNotesLoaded = true;
 
+		document.body.style [ 'font-size' ] = theConfig.fontSize;
+
 		// Loading the user interfaces...
 		document.title = 'Travel & Notes';
 		theTravelNotesData.map.on ( 'contextmenu', contextMenuEvent => new MapContextMenu ( contextMenuEvent ) .show ( ) );
