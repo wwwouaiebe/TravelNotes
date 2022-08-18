@@ -167,26 +167,60 @@ class ToolbarButtonClickEL {
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+touch event listener for the toolbar buttons
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
 class ToolbarButtonTouchEL {
+
+	/**
+	A reference to the toolbar
+	@type {BaseToolbar}
+	*/
+
+	#baseToolbar;
 
 	/**
 	A reference to the ToolbarItemContainer object of the BaseToolbarUI class
 	@type {Array.<ToolbarItem>}
 	*/
 
-	#baseToolbar;
-
 	#toolbarItemsContainer;
+
+	/**
+	The y position of the touchstart event
+	@type {Number}
+	*/
 
 	#touchButtonStartY;
 
+	/**
+	A constant with the maximum delta y between the touchstart and touchend events
+	@type {Number}
+	*/
+
 	// eslint-disable-next-line no-magic-numbers
 	static get #MAX_DELTA_Y ( ) { return 5; }
+
+	/**
+	The constructor
+	@param {BaseToolbar} baseToolbar A reference to the toolbar
+	@param {ToolbarItemsContainer} toolbarItemsContainer A reference to the toolbarItemsContainer
+	object  of the BaseToolbarUI class
+	of the BaseToolbarUI class
+	*/
 
 	constructor ( baseToolbar, toolbarItemsContainer ) {
 		this.#baseToolbar = baseToolbar;
 		this.#toolbarItemsContainer = toolbarItemsContainer;
 	}
+
+	/**
+	Event listener method
+	@param {Event} touchEvent The event to handle
+	*/
 
 	handleEvent ( touchEvent ) {
 		switch ( touchEvent.type ) {

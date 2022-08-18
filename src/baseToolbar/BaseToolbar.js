@@ -93,6 +93,11 @@ class BaseToolbar {
 
 	#onToolbarButtonClickEL;
 
+	/**
+	The touch event listener for the buttons
+	@type {ToolbarButtonTouchEL}
+	*/
+
 	#onToolbarButtonTouchEL;
 
 	/**
@@ -271,15 +276,15 @@ class BaseToolbar {
 				const deltaPanY = touch.screenY - this.#touchHeaderStartY;
 				if (
 					ZERO < deltaPanY
-					&&
-					BaseToolbar.#HIDE_Y_PAN < deltaPanY
+						&&
+						BaseToolbar.#HIDE_Y_PAN < deltaPanY
 				) {
 					this.#show ( );
 				}
 				else if (
 					ZERO > deltaPanY
-					&&
-					BaseToolbar.#HIDE_Y_PAN < -deltaPanY
+						&&
+						BaseToolbar.#HIDE_Y_PAN < -deltaPanY
 				) {
 					this.hide ( );
 				}
