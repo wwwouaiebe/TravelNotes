@@ -26,7 +26,7 @@
 		"showWarning":true,
 		"timeOut":10000
 	},
-	"fontSize" : "12px",
+	"fontSize" : "14px",
 	"FullScreenUI": 
 	{
 		"timeOut": 5000,
