@@ -26,6 +26,52 @@ Tests ...
 
 import DialogControl from '../baseDialog/DialogControl.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import { ZERO, ONE } from '../main/Constants.js';
+
+class TouchItemEL {
+
+	#timeStamp = ZERO;
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
+	/**
+	Event listener method
+	@param {Event} dragStartEvent The event to handle
+	*/
+
+	handleEvent ( touchEvent ) {
+		console.log ( touchEvent.type );
+		if ( ONE !== touchEvent.touches.length ) {
+			return;
+		}
+		switch ( touchEvent.type ) {
+		case 'touchstart' :
+			if ( 1000 > touchEvent.timeStamp - this.#timeStamp ) {
+				console.log ( 'double click' );
+				touchEvent.preventDefault ( );
+			}
+			else {
+				console.log ( 'single click' );
+			}
+			this.#timeStamp = touchEvent.timeStamp;
+			break;
+		case 'touchmove' :
+			break;
+		case 'touchend' :
+			break;
+		case 'touchcancel' :
+			break;
+		default :
+			break;
+		}
+	}
+}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -170,6 +216,13 @@ class SortableListControl extends DialogControl {
 	#contextMenuItemEL;
 
 	/**
+	The touch item event listener
+	@type {TouchItemEL}
+	*/
+
+	#touchItemEL;
+
+	/**
 	The container for the list
 	@type {HTMLElement}
 	*/
@@ -186,8 +239,9 @@ class SortableListControl extends DialogControl {
 	constructor ( dropFunction, contextMenuClass, headingText ) {
 		super ( );
 		this.#dragStartItemEL = new DragStartItemEL ( );
-		this.#dropItemEL = new DropItemEL ( dropFunction, contextMenuClass );
+		this.#dropItemEL = new DropItemEL ( dropFunction );
 		this.#contextMenuItemEL = new ContextMenuItemEL ( contextMenuClass );
+		this.#touchItemEL = new TouchItemEL ( );
 		if ( headingText ) {
 			theHTMLElementsFactory.create (
 				'div',
@@ -217,6 +271,9 @@ class SortableListControl extends DialogControl {
 			this.#sortableListContainer.firstChild.removeEventListener ( 'dragstart', this.#dragStartItemEL, false );
 			this.#sortableListContainer.firstChild.removeEventListener ( 'drop', this.#dropItemEL, false );
 			this.#sortableListContainer.firstChild.removeEventListener ( 'contextmenu', this.#contextMenuItemEL, false );
+			this.#sortableListContainer.firstChild.removeEventListener ( 'touchstart', this.#touchItemEL, false );
+			this.#sortableListContainer.firstChild.removeEventListener ( 'touchmove', this.#touchItemEL, false );
+			this.#sortableListContainer.firstChild.removeEventListener ( 'touchend', this.#touchItemEL, false );
 			this.#sortableListContainer.removeChild ( this.#sortableListContainer.firstChild );
 		}
 		htmlElements.forEach (
@@ -225,6 +282,9 @@ class SortableListControl extends DialogControl {
 				htmlElement.addEventListener ( 'dragstart', this.#dragStartItemEL, false );
 				htmlElement.addEventListener ( 'drop', this.#dropItemEL, false );
 				htmlElement.addEventListener ( 'contextmenu', this.#contextMenuItemEL, false );
+				htmlElement.addEventListener ( 'touchstart', this.#touchItemEL, false );
+				htmlElement.addEventListener ( 'touchmove', this.#touchItemEL, false );
+				htmlElement.addEventListener ( 'touchend', this.#touchItemEL, false );
 				this.#sortableListContainer.appendChild ( htmlElement );
 				htmlElement.classList.add ( 'TravelNotes-SortableList-Item' );
 			}
