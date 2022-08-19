@@ -28,33 +28,116 @@ import DialogControl from '../baseDialog/DialogControl.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import { ZERO, ONE } from '../main/Constants.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+touchstart, touchmove, touchend and touchcancel on an list item event listener
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
 class TouchItemEL {
 
-	#lastTouchTimeStamp = ZERO;
+	/**
+	The timestamp of the last touchstart event
+	@type {Number}
+	*/
+
+	#lastTouchStartTimeStamp = ZERO;
+
+	/**
+	The timestamp of the last scroll action
+	@type {Number}
+	*/
+
+	#lastScrollTimeStamp = ZERO;
+
+	/**
+	A clone of the html element selected for dragging
+	@type {HTMLElement}
+	*/
 
 	#clonedNode = null;
 
+	/**
+	The container of the displayed list
+	@type {HTMLElement}
+	*/
+
 	#listContainer;
+
+	/**
+	The container with the scroll bars
+	@type {HTMLElement}
+	*/
 
 	#scrolledContainer;
 
+	/**
+	The Y position in pixels where the top scroll will start
+	@type {Number}
+	*/
+
 	#topScrollPosition;
+
+	/**
+	The Y position in pixels where the bottom scroll will start
+	@type {Number}
+	*/
 
 	#bottomScrollPosition;
 
+	/**
+	The Y position in pixels of the current touch event
+	@type {Number}
+	*/
+
 	#touchY;
+
+	/**
+	A constant giving the max delay in ms between 2 clicks to consider it's a double click
+	@type {Number}
+	*/
 
 	// eslint-disable-next-line no-magic-numbers
 	static get #DBL_CLICK_MAX_DELAY ( ) { return 1000; }
 
+	/**
+	A constant giving the delay in ms betwwen two scroll actions for the requestAnimationFrame ( ) method
+	See also https://developer.mozilla.org/fr/docs/Web/API/Document/scroll_event
+	@type {Number}
+	*/
+
 	// eslint-disable-next-line no-magic-numbers
 	static get #SCROLL_DELAY ( ) { return 40; }
+
+	/**
+	A constant giving the number of pixels to scroll
+	@type {Number}
+	*/
 
 	// eslint-disable-next-line no-magic-numbers
 	static get #SCROLL_VALUE ( ) { return 5; }
 
+	/**
+	A constant giving the distance in pixel betwwen the top of the container and the place where
+	the scroll will start
+	@type {Number}
+	*/
+
 	// eslint-disable-next-line no-magic-numbers
-	static get #START_SCROLL_DISTANCE ( ) { return 200; }
+	static get #TOP_SCROLL_DISTANCE ( ) { return 200; }
+
+	/**
+	A constant giving the distance in pixel betwwen the bottom of the container and the place where
+	the scroll will start
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #BOTTOM_SCROLL_DISTANCE ( ) { return 100; }
+
+	/**
+	reset some variables after a touchend or touchcancel event
+	*/
 
 	#reset ( ) {
 		if ( this.#clonedNode ) {
@@ -68,7 +151,10 @@ class TouchItemEL {
 		this.#touchY = ZERO;
 	}
 
-	#lastScrollTimeStamp = ZERO;
+	/**
+	Scroll the list to the top
+	@param {Number} scrollTimeStamp The time stamp of the call to the method. See window.requestAnimationFrame ( )
+	*/
 
 	#scrollTop ( scrollTimeStamp ) {
 		if (
@@ -90,6 +176,11 @@ class TouchItemEL {
 		}
 	}
 
+	/**
+	Scroll the list to the bottom
+	@param {Number} scrollTimeStamp The time stamp of the call to the method. See window.requestAnimationFrame ( )
+	*/
+
 	#scrollBottom ( scrollTimeStamp ) {
 		if (
 			scrollTimeStamp !== this.#lastScrollTimeStamp
@@ -106,7 +197,7 @@ class TouchItemEL {
 			this.#scrolledContainer.scrollTop
 		);
 		if (
-			this.#bottomScrollPosition > this.#touchY
+			this.#bottomScrollPosition < this.#touchY
 			&&
 			! isFullyScrolledDown
 		) {
@@ -126,7 +217,7 @@ class TouchItemEL {
 
 	/**
 	Event listener method
-	@param {Event} dragStartEvent The event to handle
+	@param {Event} touchEvent The event to handle
 	*/
 
 	handleEvent ( touchEvent ) {
@@ -135,13 +226,13 @@ class TouchItemEL {
 		case 'touchstart' :
 			if ( ONE === touchEvent.touches.length ) {
 				if (
-					TouchItemEL.#DBL_CLICK_MAX_DELAY < touchEvent.timeStamp - this.#lastTouchTimeStamp
+					TouchItemEL.#DBL_CLICK_MAX_DELAY < touchEvent.timeStamp - this.#lastTouchStartTimeStamp
 					||
-					ZERO === this.#lastTouchTimeStamp
+					ZERO === this.#lastTouchStartTimeStamp
 				) {
 
 					// it's a simple click => we return, waiting a second click
-					this.#lastTouchTimeStamp = touchEvent.timeStamp;
+					this.#lastTouchStartTimeStamp = touchEvent.timeStamp;
 					return;
 				}
 
@@ -165,12 +256,10 @@ class TouchItemEL {
 					this.#listContainer.getBoundingClientRect ( ).y -
 					this.#scrolledContainer.getBoundingClientRect ( ).y +
 					this.#scrolledContainer.scrollTop +
-					TouchItemEL.#START_SCROLL_DISTANCE;
+					TouchItemEL.#TOP_SCROLL_DISTANCE;
 				this.#bottomScrollPosition =
-					this.#listContainer.getBoundingClientRect ( ).bottom -
-					this.#scrolledContainer.getBoundingClientRect ( ).y +
-					this.#scrolledContainer.scrollTop -
-					TouchItemEL.#START_SCROLL_DISTANCE;
+				this.#scrolledContainer.getBoundingClientRect ( ).bottom -
+					TouchItemEL.#BOTTOM_SCROLL_DISTANCE;
 
 			}
 			break;
