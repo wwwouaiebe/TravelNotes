@@ -30,7 +30,91 @@ import { ZERO, ONE } from '../main/Constants.js';
 
 class TouchItemEL {
 
-	#timeStamp = ZERO;
+	#lastTouchTimeStamp = ZERO;
+
+	#clonedNode = null;
+
+	#listContainer;
+
+	#scrolledContainer;
+
+	#topScrollPosition;
+
+	#bottomScrollPosition;
+
+	#touchY;
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #DBL_CLICK_MAX_DELAY ( ) { return 1000; }
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #SCROLL_DELAY ( ) { return 40; }
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #SCROLL_VALUE ( ) { return 5; }
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #START_SCROLL_DISTANCE ( ) { return 200; }
+
+	#reset ( ) {
+		if ( this.#clonedNode ) {
+
+			// removing the cloned node
+			document.body.removeChild ( this.#clonedNode );
+		}
+		this.#clonedNode = null;
+		this.#scrolledContainer = null;
+		this.#listContainer = null;
+		this.#touchY = ZERO;
+	}
+
+	#lastScrollTimeStamp = ZERO;
+
+	#scrollTop ( scrollTimeStamp ) {
+		if (
+			scrollTimeStamp !== this.#lastScrollTimeStamp
+			&&
+			TouchItemEL.#SCROLL_DELAY < scrollTimeStamp - this.#lastScrollTimeStamp
+		) {
+			this.#scrolledContainer.scrollTop -= TouchItemEL.#SCROLL_VALUE;
+			this.#lastScrollTimeStamp = scrollTimeStamp;
+		}
+		if (
+			this.#topScrollPosition > this.#touchY
+			&&
+			ZERO < this.#scrolledContainer.scrollTop
+		) {
+			window.requestAnimationFrame (
+				scrollTime => { this.#scrollTop ( scrollTime ); }
+			);
+		}
+	}
+
+	#scrollBottom ( scrollTimeStamp ) {
+		if (
+			scrollTimeStamp !== this.#lastScrollTimeStamp
+			&&
+			TouchItemEL.#SCROLL_DELAY < scrollTimeStamp - this.#lastScrollTimeStamp
+		) {
+			this.#scrolledContainer.scrollTop += TouchItemEL.#SCROLL_VALUE;
+			this.#lastScrollTimeStamp = scrollTimeStamp;
+		}
+		let isFullyScrolledDown =
+		ONE > Math.abs (
+			this.#scrolledContainer.scrollHeight -
+			this.#scrolledContainer.clientHeight -
+			this.#scrolledContainer.scrollTop
+		);
+		if (
+			this.#bottomScrollPosition > this.#touchY
+			&&
+			! isFullyScrolledDown
+		) {
+			window.requestAnimationFrame (
+				scrollTime => { this.#scrollBottom ( scrollTime ); }
+			);
+		}
+	}
 
 	/**
 	The constructor
@@ -46,26 +130,92 @@ class TouchItemEL {
 	*/
 
 	handleEvent ( touchEvent ) {
-		console.log ( touchEvent.type );
-		if ( ONE !== touchEvent.touches.length ) {
-			return;
-		}
+		const touch = touchEvent.changedTouches.item ( ZERO );
 		switch ( touchEvent.type ) {
 		case 'touchstart' :
-			if ( 1000 > touchEvent.timeStamp - this.#timeStamp ) {
-				console.log ( 'double click' );
+			if ( ONE === touchEvent.touches.length ) {
+				if (
+					TouchItemEL.#DBL_CLICK_MAX_DELAY < touchEvent.timeStamp - this.#lastTouchTimeStamp
+					||
+					ZERO === this.#lastTouchTimeStamp
+				) {
+
+					// it's a simple click => we return, waiting a second click
+					this.#lastTouchTimeStamp = touchEvent.timeStamp;
+					return;
+				}
+
+				// It's a double click. Stopping the scroll in the data div
 				touchEvent.preventDefault ( );
+
+				// Saving the position of list the container
+				this.#listContainer = touchEvent.currentTarget.parentNode;
+				this.#scrolledContainer = touchEvent.currentTarget.parentNode.parentNode.parentNode;
+
+				this.#touchY = touch.screenY;
+
+				// cloning the node and append it to the document
+				this.#clonedNode = touchEvent.currentTarget.cloneNode ( true );
+				this.#clonedNode.classList.add ( 'TravelNotes-SortableList-Dragged-Item' );
+				document.body.appendChild ( this.#clonedNode );
+				this.#clonedNode.style.left = touch.screenX + 'px';
+				this.#clonedNode.style.top = touch.screenY + 'px';
+
+				this.#topScrollPosition =
+					this.#listContainer.getBoundingClientRect ( ).y -
+					this.#scrolledContainer.getBoundingClientRect ( ).y +
+					this.#scrolledContainer.scrollTop +
+					TouchItemEL.#START_SCROLL_DISTANCE;
+				this.#bottomScrollPosition =
+					this.#listContainer.getBoundingClientRect ( ).bottom -
+					this.#scrolledContainer.getBoundingClientRect ( ).y +
+					this.#scrolledContainer.scrollTop -
+					TouchItemEL.#START_SCROLL_DISTANCE;
+
 			}
-			else {
-				console.log ( 'single click' );
-			}
-			this.#timeStamp = touchEvent.timeStamp;
 			break;
 		case 'touchmove' :
+			if ( ONE === touchEvent.touches.length ) {
+				if ( this.#clonedNode ) {
+
+					// moving the cloned node to the touch position
+					this.#clonedNode.style.left = touch.screenX + 'px';
+					this.#clonedNode.style.top = touch.screenY + 'px';
+
+					this.#touchY = touch.screenY;
+
+					if (
+						this.#topScrollPosition > this.#touchY
+						&&
+						ZERO < this.#scrolledContainer.scrollTop
+					) {
+						window.requestAnimationFrame (
+							scrollTime => { this.#scrollTop ( scrollTime ); }
+						);
+					}
+					let isFullyScrolledDown =
+						ONE > Math.abs (
+							this.#scrolledContainer.scrollHeight -
+							this.#scrolledContainer.clientHeight -
+							this.#scrolledContainer.scrollTop
+						);
+					if (
+						this.#bottomScrollPosition < this.#touchY
+						&&
+						! isFullyScrolledDown
+					) {
+						window.requestAnimationFrame (
+							scrollTime => { this.#scrollBottom ( scrollTime ); }
+						);
+					}
+				}
+			}
 			break;
 		case 'touchend' :
+			this.#reset ( );
 			break;
 		case 'touchcancel' :
+			this.#reset ( );
 			break;
 		default :
 			break;

@@ -40,3 +40,8 @@ Changes:
 .TravelNotes-SortableList-Item:first-child {
 	border-top-style: none;
 }
+
+.TravelNotes-SortableList-Dragged-Item {
+	position: absolute;
+	z-index: 1500;
+}

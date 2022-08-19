@@ -82,7 +82,7 @@ class TravelNotesDialog extends DockableBaseDialog {
 	*/
 
 	updateContent ( ) {
-		let travelNotesDiv = theNoteHTMLViewsFactory.getTravelNotesHTML ( 'TravelNotes-TravelNotesPaneUI-' );
+		let travelNotesDiv = theNoteHTMLViewsFactory.getTravelNotesHTML ( 'TravelNotes-TravelNotesDialog-' );
 		this.#travelNotesControl.updateContent ( travelNotesDiv.childNodes );
 	}
 
