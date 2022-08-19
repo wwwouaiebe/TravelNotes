@@ -208,6 +208,106 @@ class TouchItemEL {
 	}
 
 	/**
+	Handle the touchstart event
+	@param {Event} touchEvent The event to handle
+	*/
+
+	#handleStartEvent ( touchEvent ) {
+		const touch = touchEvent.changedTouches.item ( ZERO );
+		if ( ONE === touchEvent.touches.length ) {
+			if (
+				TouchItemEL.#DBL_CLICK_MAX_DELAY < touchEvent.timeStamp - this.#lastTouchStartTimeStamp
+				||
+				ZERO === this.#lastTouchStartTimeStamp
+			) {
+
+				// it's a simple click => we return, waiting a second click
+				this.#lastTouchStartTimeStamp = touchEvent.timeStamp;
+				return;
+			}
+
+			// It's a double click. Stopping the scroll in the data div
+			touchEvent.preventDefault ( );
+
+			// Saving the position of list the container
+			this.#listContainer = touchEvent.currentTarget.parentNode;
+			this.#scrolledContainer = touchEvent.currentTarget.parentNode.parentNode.parentNode;
+
+			this.#touchY = touch.screenY;
+
+			// cloning the node and append it to the document
+			this.#clonedNode = touchEvent.currentTarget.cloneNode ( true );
+			this.#clonedNode.classList.add ( 'TravelNotes-SortableList-Dragged-Item' );
+			document.body.appendChild ( this.#clonedNode );
+			this.#clonedNode.style.left = touch.screenX + 'px';
+			this.#clonedNode.style.top = touch.screenY + 'px';
+
+			this.#topScrollPosition =
+				this.#listContainer.getBoundingClientRect ( ).y -
+				this.#scrolledContainer.getBoundingClientRect ( ).y +
+				this.#scrolledContainer.scrollTop +
+				TouchItemEL.#TOP_SCROLL_DISTANCE;
+			this.#bottomScrollPosition =
+			this.#scrolledContainer.getBoundingClientRect ( ).bottom -
+				TouchItemEL.#BOTTOM_SCROLL_DISTANCE;
+		}
+	}
+
+	/**
+	Handle the touchmove event
+	@param {Event} touchEvent The event to handle
+	*/
+
+	#handleMoveEvent ( touchEvent ) {
+		const touch = touchEvent.changedTouches.item ( ZERO );
+		if ( ONE === touchEvent.touches.length ) {
+			if ( this.#clonedNode ) {
+
+				// moving the cloned node to the touch position
+				this.#clonedNode.style.left = touch.screenX + 'px';
+				this.#clonedNode.style.top = touch.screenY + 'px';
+
+				this.#touchY = touch.screenY;
+
+				if (
+					this.#topScrollPosition > this.#touchY
+					&&
+					ZERO < this.#scrolledContainer.scrollTop
+				) {
+					window.requestAnimationFrame (
+						scrollTime => { this.#scrollTop ( scrollTime ); }
+					);
+				}
+				let isFullyScrolledDown =
+					ONE > Math.abs (
+						this.#scrolledContainer.scrollHeight -
+						this.#scrolledContainer.clientHeight -
+						this.#scrolledContainer.scrollTop
+					);
+				if (
+					this.#bottomScrollPosition < this.#touchY
+					&&
+					! isFullyScrolledDown
+				) {
+					window.requestAnimationFrame (
+						scrollTime => { this.#scrollBottom ( scrollTime ); }
+					);
+				}
+			}
+		}
+
+	}
+
+	/**
+	Handle the touchend event
+	@param {Event} touchEvent The event to handle
+	*/
+
+	#handleEndEvent ( /* touchEvent */ ) {
+		this.#reset ( );
+	}
+
+	/**
 	The constructor
 	*/
 
@@ -221,87 +321,15 @@ class TouchItemEL {
 	*/
 
 	handleEvent ( touchEvent ) {
-		const touch = touchEvent.changedTouches.item ( ZERO );
 		switch ( touchEvent.type ) {
 		case 'touchstart' :
-			if ( ONE === touchEvent.touches.length ) {
-				if (
-					TouchItemEL.#DBL_CLICK_MAX_DELAY < touchEvent.timeStamp - this.#lastTouchStartTimeStamp
-					||
-					ZERO === this.#lastTouchStartTimeStamp
-				) {
-
-					// it's a simple click => we return, waiting a second click
-					this.#lastTouchStartTimeStamp = touchEvent.timeStamp;
-					return;
-				}
-
-				// It's a double click. Stopping the scroll in the data div
-				touchEvent.preventDefault ( );
-
-				// Saving the position of list the container
-				this.#listContainer = touchEvent.currentTarget.parentNode;
-				this.#scrolledContainer = touchEvent.currentTarget.parentNode.parentNode.parentNode;
-
-				this.#touchY = touch.screenY;
-
-				// cloning the node and append it to the document
-				this.#clonedNode = touchEvent.currentTarget.cloneNode ( true );
-				this.#clonedNode.classList.add ( 'TravelNotes-SortableList-Dragged-Item' );
-				document.body.appendChild ( this.#clonedNode );
-				this.#clonedNode.style.left = touch.screenX + 'px';
-				this.#clonedNode.style.top = touch.screenY + 'px';
-
-				this.#topScrollPosition =
-					this.#listContainer.getBoundingClientRect ( ).y -
-					this.#scrolledContainer.getBoundingClientRect ( ).y +
-					this.#scrolledContainer.scrollTop +
-					TouchItemEL.#TOP_SCROLL_DISTANCE;
-				this.#bottomScrollPosition =
-				this.#scrolledContainer.getBoundingClientRect ( ).bottom -
-					TouchItemEL.#BOTTOM_SCROLL_DISTANCE;
-
-			}
+			this.#handleStartEvent ( touchEvent );
 			break;
 		case 'touchmove' :
-			if ( ONE === touchEvent.touches.length ) {
-				if ( this.#clonedNode ) {
-
-					// moving the cloned node to the touch position
-					this.#clonedNode.style.left = touch.screenX + 'px';
-					this.#clonedNode.style.top = touch.screenY + 'px';
-
-					this.#touchY = touch.screenY;
-
-					if (
-						this.#topScrollPosition > this.#touchY
-						&&
-						ZERO < this.#scrolledContainer.scrollTop
-					) {
-						window.requestAnimationFrame (
-							scrollTime => { this.#scrollTop ( scrollTime ); }
-						);
-					}
-					let isFullyScrolledDown =
-						ONE > Math.abs (
-							this.#scrolledContainer.scrollHeight -
-							this.#scrolledContainer.clientHeight -
-							this.#scrolledContainer.scrollTop
-						);
-					if (
-						this.#bottomScrollPosition < this.#touchY
-						&&
-						! isFullyScrolledDown
-					) {
-						window.requestAnimationFrame (
-							scrollTime => { this.#scrollBottom ( scrollTime ); }
-						);
-					}
-				}
-			}
+			this.#handleMoveEvent ( touchEvent );
 			break;
 		case 'touchend' :
-			this.#reset ( );
+			this.#handleEndEvent ( touchEvent );
 			break;
 		case 'touchcancel' :
 			this.#reset ( );
