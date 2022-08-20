@@ -33,11 +33,15 @@ Changes:
 	left: 0;
 	bottom: 0;
 	z-index: 1000;
-	background-color: white;
+	background-color: transparent;
 	padding-left: 1em;
 	padding-right: 1em;
 	color: #0078a8;
 	font-size: 80%;
+	white-space: nowrap;
+	height: 2em;
+	transform-origin: bottom left;
+	transform: rotateZ(-90deg) translateY(2em) translateX(0);
 }
 
 #TravelNotes-AttributionsUI a {
