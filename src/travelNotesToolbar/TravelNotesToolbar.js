@@ -36,6 +36,7 @@ import FileLoader from '../core/FileLoader.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theTravelEditor from '../core/TravelEditor.js';
 import theDockableDialogsManager from '../core/DockableDialogsManager.js';
+import theFullScreenUI from '../fullScreenUI/FullScreenUI.js';
 import { INVALID_OBJ_ID, ZERO, TOOLBAR_POSITION } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -187,6 +188,19 @@ class TravelNotesToolbar extends BaseToolbar {
 				'@',
 				'Contact',
 				( theConfig.travelNotesToolbarUI.contactMail.url || window.location.origin )
+			)
+		);
+		this.addToolbarItem (
+			new ToolbarItem (
+				( ) => document.fullscreenElement ? '⬇️' : '🔝',
+				theTranslator.getText (
+					document.fullscreenElement
+						?
+						'TravelNotesToolbarUI - disable fullscreen'
+						:
+						'TravelNotesToolbarUI - enable fullscreen'
+				),
+				( ) => theFullScreenUI.toogle ( )
 			)
 		);
 		this.addToolbarItem (
