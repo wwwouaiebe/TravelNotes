@@ -156,6 +156,7 @@ class ProviderToolbarTransitModeButton {
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		this.#providersToolbarUI.transitMode = this.#transitMode;
+		this.#providersToolbarUI.hide ( );
 		theRouter.startRouting ( );
 	}
 

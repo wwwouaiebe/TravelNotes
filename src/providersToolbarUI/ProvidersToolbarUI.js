@@ -114,12 +114,27 @@ class ProvidersToolbarUI {
 	#timerId;
 
 	/**
+	A boolean saving the the current state of the UI
+	@type {boolean}
+	 */
+
+	#isShow;
+
+	/**
 	The delay needed for the timer that start the #removeHidden ( ) method
 	@type {Number}
 	*/
 
 	// eslint-disable-next-line no-magic-numbers
 	static get #HIDDEN_DELAY ( ) { return 100; }
+
+	/**
+	The delay between a mouseenter and a click event.
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #MOUSE_EVENT_MAX_DELAY ( ) { return 100; }
 
 	/**
 	Transit mode buttons creation
@@ -153,38 +168,19 @@ class ProvidersToolbarUI {
 	}
 
 	/**
-	Hide the UI used as event listener for the timer
-	*/
-
-	#hide ( ) {
-		this.#toolbarHTMLElement.classList.add ( 'TravelNotes-Hidden' );
-		this.#centerUI ( );
-		this.#timerId = null;
-	}
-
-	/**
 	Show the UI
-	@param {Event} mouseEnterEvent The event that have triggred the method
 	*/
 
-	#show ( mouseEnterEvent ) {
-		mouseEnterEvent.preventDefault ( );
-		mouseEnterEvent.stopPropagation ( );
-
-		// cleaning the timer if needed. The buttons are always visible and we can stop.
-		if ( this.#timerId ) {
-			clearTimeout ( this.#timerId );
-			this.#timerId = null;
-		}
-
+	#show ( ) {
 		this.#centerUI ( );
+		this.#isShow = true;
 		setTimeout ( ( ) => this.#removeHidden ( ), ProvidersToolbarUI.#HIDDEN_DELAY );
 	}
 
 	/**
 	Remove the TravelNotes-Hidden class on the toolbar. It's needed to use a timer (see the #show ( ) method) to
-	remove the class, otherwise one of the button of the toolbar is clicked when the toolbar is ishow by cicking
-	on the headeron touch devices
+	remove the class, otherwise one of the button of the toolbar is clicked when the toolbar is show by clicking
+	on the header on touch devices
 	*/
 
 	#removeHidden ( ) {
@@ -192,11 +188,58 @@ class ProvidersToolbarUI {
 	}
 
 	/**
+	The timestamp pf the last mouseenter or click event
+	@type {Number}
+	*/
+
+	#lastMouseEventTimestamp;
+
+	/**
+	Mouse enter event listener
+	@param {Event} mouseEvent the trigered event
+	*/
+
+	#onClick ( mouseEvent ) {
+
+		// When the delay is lower than #MOUSE_EVENT_MAX_DELAY 	we consider that the click event and the
+		// mouse enter event are trigered by the same user action on touch devices
+		// and the click event is cancelled
+		if ( ProvidersToolbarUI.#MOUSE_EVENT_MAX_DELAY > mouseEvent.timeStamp - this.#lastMouseEventTimestamp ) {
+			return;
+		}
+
+		this.#onMouseEnter ( mouseEvent );
+	}
+
+	/**
+	Mouse enter event listener
+	@param {Event} mouseEvent the trigered event
+	*/
+
+	#onMouseEnter ( mouseEvent ) {
+		this.#lastMouseEventTimestamp = mouseEvent.timeStamp;
+		if ( this.#isShow ) {
+			this.hide ( );
+		}
+		else {
+
+			// cleaning the timer
+			if ( this.#timerId ) {
+				clearTimeout ( this.#timerId );
+				this.#timerId = null;
+			}
+			this.#show ( );
+		}
+	}
+
+	/**
 	Mouse leave event listener
 	*/
 
 	#onMouseLeave ( ) {
-		this.#timerId = setTimeout ( ( ) => this.#hide ( ), theConfig.layersToolbarUI.toolbarTimeOut );
+		if ( this.#isShow ) {
+			this.#timerId = setTimeout ( ( ) => this.hide ( ), theConfig.layersToolbarUI.toolbarTimeOut );
+		}
 	}
 
 	/**
@@ -231,6 +274,22 @@ class ProvidersToolbarUI {
 	}
 
 	/**
+	Hide the UI. Used as event listener for the timer
+	*/
+
+	hide ( ) {
+
+		// cleaning the timer
+		if ( this.#timerId ) {
+			clearTimeout ( this.#timerId );
+			this.#timerId = null;
+		}
+		this.#toolbarHTMLElement.classList.add ( 'TravelNotes-Hidden' );
+		this.#centerUI ( );
+		this.#isShow = false;
+	}
+
+	/**
 	Creation of the UI
 	*/
 
@@ -261,15 +320,20 @@ class ProvidersToolbarUI {
 			},
 			this.#container
 		);
-		this.#container.addEventListener (
-			'mouseenter',
-			mouseEnterEvent => this.#show ( mouseEnterEvent ),
+
+		this.#topBar.addEventListener (
+			'click',
+			mouseEvent => this.#onClick ( mouseEvent ),
 			false
 		);
-
+		this.#container.addEventListener (
+			'mouseenter',
+			mouseEvent => this.#onMouseEnter ( mouseEvent ),
+			false
+		);
 		this.#container.addEventListener (
 			'mouseleave',
-			( ) => this.#onMouseLeave ( ),
+			mouseEvent => this.#onMouseLeave ( mouseEvent ),
 			false
 		);
 
