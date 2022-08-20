@@ -34,7 +34,7 @@ import {
 	ButtonsContainerWheelEL
 } from '../baseToolbar/BaseToolbarEL.js';
 import theConfig from '../data/Config.js';
-import { ZERO, ONE } from '../main/Constants.js';
+import { ZERO } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -49,7 +49,7 @@ class BaseToolbar {
 	@type {HTMLElement}
 	*/
 
-	#mainHTMLElement = null;
+	#mainHTMLElement;
 
 	/**
 	The HTML element that contains the buttons
@@ -105,7 +105,7 @@ class BaseToolbar {
 	@type {boolean}
 	 */
 
-	#isShow = false;
+	#isShow;
 
 	/**
 	An array with the ToolbarItems
@@ -115,36 +115,18 @@ class BaseToolbar {
 	#toolbarItemsContainer;
 
 	/**
-	The Y position on the screen of the header touchstart event
-	@type {Number}
-	*/
-
-	#touchHeaderStartY = Number.MAX_VALUE;
-
-	/**
-	The pan value needed to hide or show the UI
+	The delay between a mouseenter and a click event.
 	@type {Number}
 	*/
 
 	// eslint-disable-next-line no-magic-numbers
-	static get #HIDE_Y_PAN ( ) { return 10; }
+	static get #MOUSE_EVENT_MAX_DELAY ( ) { return 100; }
 
 	/**
 	Show the toolbar
 	*/
 
 	#show ( ) {
-
-		// cleaning the timer if needed. The buttons are always visible and we can stop.
-		if ( this.#timerId ) {
-			clearTimeout ( this.#timerId );
-			this.#timerId = null;
-			return;
-		}
-
-		if ( this.#isShow ) {
-			return;
-		}
 
 		// container for the button
 		this.#buttonsHTMLElement = theHTMLElementsFactory.create (
@@ -226,11 +208,67 @@ class BaseToolbar {
 	}
 
 	/**
+	The timestamp pf the last mouseenter or click event
+	@type {Number}
+	*/
+
+	#lastMouseEventTimestamp;
+
+	/**
+	Mouse enter event listener
+	@param {Event} mouseEvent the trigered event
+	*/
+
+	#onClick ( mouseEvent ) {
+
+		// When the delay is lower than #MOUSE_EVENT_MAX_DELAY 	we consider that the click event and the
+		// mouse enter event are trigered by the same user action on touch devices
+		// and the click event is cancelled
+		if ( BaseToolbar.#MOUSE_EVENT_MAX_DELAY > mouseEvent.timeStamp - this.#lastMouseEventTimestamp ) {
+			return;
+		}
+
+		this.#onMouseEnter ( mouseEvent );
+	}
+
+	/**
+	Mouse enter event listener
+	@param {Event} mouseEvent the trigered event
+	*/
+
+	#onMouseEnter ( mouseEvent ) {
+		this.#lastMouseEventTimestamp = mouseEvent.timeStamp;
+		if ( this.#isShow ) {
+			this.hide ( );
+		}
+		else {
+
+			// cleaning the timer
+			if ( this.#timerId ) {
+				clearTimeout ( this.#timerId );
+				this.#timerId = null;
+			}
+			this.#show ( );
+		}
+	}
+
+	/**
 	Mouse leave event listener
 	*/
 
 	#onMouseLeave ( ) {
-		this.#timerId = setTimeout ( ( ) => this.hide ( ), theConfig.layersToolbarUI.toolbarTimeOut );
+		if ( this.#isShow ) {
+			this.#timerId = setTimeout ( ( ) => this.hide ( ), theConfig.layersToolbarUI.toolbarTimeOut );
+		}
+	}
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+
 	}
 
 	/**
@@ -239,8 +277,10 @@ class BaseToolbar {
 
 	hide ( ) {
 
-		if ( ! this.#isShow ) {
-			return;
+		// cleaning the timer
+		if ( this.#timerId ) {
+			clearTimeout ( this.#timerId );
+			this.#timerId = null;
 		}
 
 		// removing wheel event
@@ -252,65 +292,8 @@ class BaseToolbar {
 		this.#buttonsHTMLElement.removeEventListener ( 'touchend', this.#onButtonsContainerTouchEL, false );
 
 		this.#mainHTMLElement.removeChild ( this.#buttonsHTMLElement );
-		this.#timerId = null;
+		this.#buttonsHTMLElement = null;
 		this.#isShow = false;
-	}
-
-	/**
-	The header touch event listener. Show or hide the toolbar
-	@param {Event} touchEvent The event to handle
-	*/
-
-	#onHeaderTouch ( touchEvent ) {
-		touchEvent.preventDefault ( );
-		switch ( touchEvent.type ) {
-		case 'touchstart' :
-			if ( ONE === touchEvent.changedTouches.length ) {
-				const touch = touchEvent.changedTouches.item ( ZERO );
-				this.#touchHeaderStartY = touch.screenY;
-			}
-			break;
-		case 'touchend' :
-			if ( ONE === touchEvent.changedTouches.length ) {
-				const touch = touchEvent.changedTouches.item ( ZERO );
-				const deltaPanY = touch.screenY - this.#touchHeaderStartY;
-				if (
-					ZERO < deltaPanY
-						&&
-						BaseToolbar.#HIDE_Y_PAN < deltaPanY
-				) {
-					this.#show ( );
-				}
-				else if (
-					ZERO > deltaPanY
-						&&
-						BaseToolbar.#HIDE_Y_PAN < -deltaPanY
-				) {
-					this.hide ( );
-				}
-				else if ( ZERO === deltaPanY ) {
-					if ( this.#isShow ) {
-						this.hide ( );
-					}
-					else {
-						this.#show ( );
-					}
-				}
-			}
-			this.#touchHeaderStartY = Number.MAX_VALUE;
-			break;
-		default :
-			break;
-		}
-	}
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-		this.#toolbarItemsContainer = new ToolbarItemsContainer ( );
 	}
 
 	/**
@@ -323,11 +306,14 @@ class BaseToolbar {
 		if ( this.#mainHTMLElement ) {
 			return false;
 		}
+		this.#timerId = null;
+		this.#isShow = false;
+		this.#lastMouseEventTimestamp = ZERO;
 		this.#wheelEventData = new WheelEventData ( );
+		this.#toolbarItemsContainer = new ToolbarItemsContainer ( );
 		this.#onWheelButtonsEventListener = new ButtonsContainerWheelEL ( this.#wheelEventData );
 		this.#onButtonsContainerTouchEL = new ButtonsContainerTouchEL ( this.#wheelEventData );
 		this.#onToolbarButtonTouchEL = new ToolbarButtonTouchEL ( this, this.#toolbarItemsContainer );
-
 		this.#mainHTMLElement =
 			theHTMLElementsFactory.create (
 				'div',
@@ -336,10 +322,9 @@ class BaseToolbar {
 				},
 				document.body
 			);
-		this.#mainHTMLElement.addEventListener ( 'mouseenter', ( ) => this.#show ( ), false );
-
-		this.#mainHTMLElement.addEventListener ( 'mouseleave', ( ) => this.#onMouseLeave ( ), false );
-
+		this.#mainHTMLElement.addEventListener ( 'click', mouseEvent => this.#onClick ( mouseEvent ), false );
+		this.#mainHTMLElement.addEventListener ( 'mouseenter', mouseEvent => this.#onMouseEnter ( mouseEvent ), false );
+		this.#mainHTMLElement.addEventListener ( 'mouseleave', mouseEvent => this.#onMouseLeave ( mouseEvent ), false );
 		const headerHtmlElement = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -349,13 +334,9 @@ class BaseToolbar {
 			this.#mainHTMLElement
 		);
 
-		// don't try to understand the next line. to the css rotation offsetWidth and offsetHeight gives
+		// don't try to understand the next line. Due to the css rotation offsetWidth and offsetHeight gives
 		// strange results... Have spend 2 hours on this...
 		this.#wheelEventData.buttonTop = headerHtmlElement.offsetWidth - headerHtmlElement.offsetHeight;
-
-		headerHtmlElement.addEventListener ( 'touchstart', touchEvent => this.#onHeaderTouch ( touchEvent ), false );
-		headerHtmlElement.addEventListener ( 'touchend', touchEvent => this.#onHeaderTouch ( touchEvent ), false );
-
 		this.#onToolbarButtonClickEL = new ToolbarButtonClickEL ( this.#toolbarItemsContainer );
 		return true;
 	}
