@@ -1008,47 +1008,63 @@
 		"msgstr": "Notes de voyage"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - API keys",
+		"msgid": "TravelNotesToolbar - disable fullscreen",
+		"msgstr": "Désactiver le mode plein écran"
+	},
+	{
+		"msgid": "TravelNotesToolbar - enable fullscreen",
+		"msgstr": "Activer le mode plein écran"
+	},
+	{
+		"msgid": "TravelNotesToolbar - Increment the font size",
+		"msgstr": "Augmenter la taille des caractères"
+	},
+	{
+		"msgid": "TravelNotesToolbar - Decrement the font size",
+		"msgstr": "Diminuer la taille des caractères"
+	},
+	{
+		"msgid": "TravelNotesToolbar - API keys",
 		"msgstr": "Notes de voyage"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - Geo location",
+		"msgid": "TravelNotesToolbar - Geo location",
 		"msgstr": "Localisation"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - Cancel travel",
+		"msgid": "TravelNotesToolbar - Cancel travel",
 		"msgstr": "Abandonner ce voyage"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - Import travel",
+		"msgid": "TravelNotesToolbar - Import travel",
 		"msgstr": "Importer des trajets et des notes depuis \nun autre voyage ou depuis un fichier .gpx"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - Not possible to merge a travel when a route is edited",
+		"msgid": "TravelNotesToolbar - Not possible to merge a travel when a route is edited",
 		"msgstr": "Il n'est pas possible de fusionner un voyage quand un trajet est en cours d'édition"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - Open travel",
+		"msgid": "TravelNotesToolbar - Open travel",
 		"msgstr": "Ouvrir un fichier de voyage (.trv) ou un fichier .gpx"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - Open travel roadbook",
+		"msgid": "TravelNotesToolbar - Open travel roadbook",
 		"msgstr": "Ouvrir le livre de voyage"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - Save as travel",
+		"msgid": "TravelNotesToolbar - Save as travel",
 		"msgstr": "☢️ Sauvegarde partielle ☢️"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - Save travel",
+		"msgid": "TravelNotesToolbar - Save travel",
 		"msgstr": "Sauver dans un fichier"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - This page ask to close; data are perhaps not saved.",
+		"msgid": "TravelNotesToolbar - This page ask to close; data are perhaps not saved.",
 		"msgstr": "Cette page demande de confirmer sa fermeture ; des données saisies pourraient ne pas être enregistrées."
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - Travel notes",
+		"msgid": "TravelNotesToolbar - Travel notes",
 		"msgstr": "Notes de voyage"
 	},
 	{

@@ -142,6 +142,62 @@ class ImportInputChangeEL {
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
+A simple container to store the font size
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class FontSizeManager {
+
+	/**
+	The font size
+	@type {Number}
+	*/
+
+	#fontSize;
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+		this.#fontSize = null;
+	}
+
+	/**
+	Increment the font size
+	*/
+
+	increment ( ) {
+		if ( ! this.#fontSize ) {
+			this.#fontSize = theConfig.fontSize;
+		}
+		document.body.style [ 'font-size' ] = String ( ++ this.#fontSize ) + 'px';
+	}
+
+	/**
+	Decrement the font size
+	*/
+
+	decrement ( ) {
+		if ( ! this.#fontSize ) {
+			this.#fontSize = theConfig.fontSize;
+		}
+		document.body.style [ 'font-size' ] = String ( -- this.#fontSize ) + 'px';
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+The one and only one instance of FontSizeManager class
+@type {FontSizeManager}
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+const theFontSizeManager = new FontSizeManager ( );
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
 This class is the TravelNotes toolbar
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -187,7 +243,7 @@ class TravelNotesToolbar extends BaseToolbar {
 			new ToolbarItem (
 				'@',
 				'Contact',
-				( theConfig.travelNotesToolbarUI.contactMail.url || window.location.origin )
+				( theConfig.TravelNotesToolbar.contactMail.url || window.location.origin )
 			)
 		);
 		this.addToolbarItem (
@@ -196,38 +252,52 @@ class TravelNotesToolbar extends BaseToolbar {
 				theTranslator.getText (
 					document.fullscreenElement
 						?
-						'TravelNotesToolbarUI - disable fullscreen'
+						'TravelNotesToolbar - disable fullscreen'
 						:
-						'TravelNotesToolbarUI - enable fullscreen'
+						'TravelNotesToolbar - enable fullscreen'
 				),
 				( ) => theFullScreenUI.toogle ( )
 			)
 		);
 		this.addToolbarItem (
 			new ToolbarItem (
+				'+',
+				theTranslator.getText ( 'TravelNotesToolbar - Increment the font size' ),
+				( ) => { theFontSizeManager.increment ( ); }
+			)
+		);
+		this.addToolbarItem (
+			new ToolbarItem (
+				'-',
+				theTranslator.getText ( 'TravelNotesToolbar - Decrement the font size' ),
+				( ) => { theFontSizeManager.decrement ( ); }
+			)
+		);
+		this.addToolbarItem (
+			new ToolbarItem (
 				'🔑',
-				theTranslator.getText ( 'TravelNotesToolbarUI - API keys' ),
+				theTranslator.getText ( 'TravelNotesToolbar - API keys' ),
 				( ) => { theAPIKeysManager.setKeysFromDialog ( ); }
 			)
 		);
 		this.addToolbarItem (
 			new ToolbarItem (
 				'🌐',
-				theTranslator.getText ( 'TravelNotesToolbarUI - Geo location' ),
+				theTranslator.getText ( 'TravelNotesToolbar - Geo location' ),
 				( ) => { theGeoLocator.switch ( ); }
 			)
 		);
 		this.addToolbarItem (
 			new ToolbarItem (
 				'☢️',
-				theTranslator.getText ( 'TravelNotesToolbarUI - Save as travel' ),
+				theTranslator.getText ( 'TravelNotesToolbar - Save as travel' ),
 				( ) => { theTravelEditor.saveAsTravel ( ); }
 			)
 		);
 		this.addToolbarItem (
 			new ToolbarItem (
 				'❌',
-				theTranslator.getText ( 'TravelNotesToolbarUI - Cancel travel' ),
+				theTranslator.getText ( 'TravelNotesToolbar - Cancel travel' ),
 				( ) => {
 					theTravelEditor.newTravel ( );
 					document.title =
@@ -239,21 +309,21 @@ class TravelNotesToolbar extends BaseToolbar {
 		this.addToolbarItem (
 			new ToolbarItem (
 				'💾',
-				theTranslator.getText ( 'TravelNotesToolbarUI - Save travel' ),
+				theTranslator.getText ( 'TravelNotesToolbar - Save travel' ),
 				( ) => { theTravelEditor.saveTravel ( ); }
 			)
 		);
 		this.addToolbarItem (
 			new ToolbarItem (
 				'📂',
-				theTranslator.getText ( 'TravelNotesToolbarUI - Open travel' ),
+				theTranslator.getText ( 'TravelNotesToolbar - Open travel' ),
 				( ) => {
 					if (
 						theConfig.travelNotes.haveBeforeUnloadWarning
 						&&
 						(
 							! window.confirm ( theTranslator.getText (
-								'TravelNotesToolbarUI - This page ask to close; data are perhaps not saved.' )
+								'TravelNotesToolbar - This page ask to close; data are perhaps not saved.' )
 							)
 						)
 					) {
@@ -266,7 +336,7 @@ class TravelNotesToolbar extends BaseToolbar {
 		this.addToolbarItem (
 			new ToolbarItem (
 				'🌏',
-				theTranslator.getText ( 'TravelNotesToolbarUI - Import travel' ),
+				theTranslator.getText ( 'TravelNotesToolbar - Import travel' ),
 				( ) => {
 					if ( INVALID_OBJ_ID === theTravelNotesData.editedRouteObjId ) {
 						theUtilities.openFile ( new ImportInputChangeEL ( ), '.trv,.gpx' );
@@ -274,7 +344,7 @@ class TravelNotesToolbar extends BaseToolbar {
 					else {
 						theErrorsUI.showError (
 							theTranslator.getText (
-								'TravelNotesToolbarUI - Not possible to merge a travel when a route is edited'
+								'TravelNotesToolbar - Not possible to merge a travel when a route is edited'
 							)
 						);
 					}
@@ -284,7 +354,7 @@ class TravelNotesToolbar extends BaseToolbar {
 		this.addToolbarItem (
 			new ToolbarItem (
 				'📙',
-				theTranslator.getText ( 'TravelNotesToolbarUI - Open travel roadbook' ),
+				theTranslator.getText ( 'TravelNotesToolbar - Open travel roadbook' ),
 				'TravelNotesRoadbook.html?lng=' +
 						theConfig.travelNotes.language + '&page=' +
 						theTravelNotesData.UUID
@@ -293,14 +363,14 @@ class TravelNotesToolbar extends BaseToolbar {
 		this.addToolbarItem (
 			new ToolbarItem (
 				'🛄',
-				theTranslator.getText ( 'TravelNotesToolbarUI - Travel properties' ),
+				theTranslator.getText ( 'TravelNotesToolbar - Travel properties' ),
 				( ) => { theDockableDialogsManager.travelPropertiesDialog.show ( ); }
 			)
 		);
 		this.addToolbarItem (
 			new ToolbarItem (
 				'🗨️',
-				theTranslator.getText ( 'TravelNotesToolbarUI - Travel notes' ),
+				theTranslator.getText ( 'TravelNotesToolbar - Travel notes' ),
 				( ) => { theDockableDialogsManager.travelNotesDialog.show ( ); }
 			)
 		);
@@ -309,7 +379,7 @@ class TravelNotesToolbar extends BaseToolbar {
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-The one and only one instance of TravelNotesToolbarUI class
+The one and only one instance of TravelNotesToolbar class
 @type {TravelNotesToolbar}
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */

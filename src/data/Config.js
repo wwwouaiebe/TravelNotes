@@ -86,7 +86,7 @@ const theConfig = {
 		showWarning : true,
 		timeOut : 10000
 	},
-	fontSize : '12px',
+	fontSize : 12,
 	FullScreenUI :
 	{
 		timeOut : 5000,
@@ -295,7 +295,7 @@ const theConfig = {
 		haveBeforeUnloadWarning : true,
 		language : 'fr'
 	},
-	travelNotesToolbarUI :
+	TravelNotesToolbar :
 	{
 		contactMail : {
 			url : 'https://github.com/wwwouaiebe/TravelNotes/issues'

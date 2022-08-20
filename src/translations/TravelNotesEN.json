@@ -1008,47 +1008,63 @@
 		"msgstr": "Travel notes"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - API keys",
+		"msgid": "TravelNotesToolbar - disable fullscreen",
+		"msgstr": "Disable fullscreen"
+	},
+	{
+		"msgid": "TravelNotesToolbar - enable fullscreen",
+		"msgstr": "Enable fullscreen"
+	},
+	{
+		"msgid": "TravelNotesToolbar - Increment the font size",
+		"msgstr": "Increment the font size"
+	},
+	{
+		"msgid": "TravelNotesToolbar - Decrement the font size",
+		"msgstr": "Decrement the font size"
+	},
+	{
+		"msgid": "TravelNotesToolbar - API keys",
 		"msgstr": "API keys management"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - Geo location",
+		"msgid": "TravelNotesToolbar - Geo location",
 		"msgstr": "Localisation"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - Cancel travel",
+		"msgid": "TravelNotesToolbar - Cancel travel",
 		"msgstr": "Cancel travel"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - Import travel",
+		"msgid": "TravelNotesToolbar - Import travel",
 		"msgstr": "Import routes and notes from another travel or from a gpx file"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - Not possible to merge a travel when a route is edited",
+		"msgid": "TravelNotesToolbar - Not possible to merge a travel when a route is edited",
 		"msgstr": "Not possible to merge a travel when a route is edited"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - Open travel",
+		"msgid": "TravelNotesToolbar - Open travel",
 		"msgstr": "Open a travel file (.trv) or a .gpx file"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - Open travel roadbook",
+		"msgid": "TravelNotesToolbar - Open travel roadbook",
 		"msgstr": "Open the roadbook"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - Save as travel",
+		"msgid": "TravelNotesToolbar - Save as travel",
 		"msgstr": "☢️ Partial save ☢️"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - Save travel",
+		"msgid": "TravelNotesToolbar - Save travel",
 		"msgstr": "Save the travel in a file"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - This page ask to close; data are perhaps not saved.",
+		"msgid": "TravelNotesToolbar - This page ask to close; data are perhaps not saved.",
 		"msgstr": "This page ask to close; data are perhaps not saved."
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - Travel notes",
+		"msgid": "TravelNotesToolbar - Travel notes",
 		"msgstr": "Travel notes"
 	},
 	{
