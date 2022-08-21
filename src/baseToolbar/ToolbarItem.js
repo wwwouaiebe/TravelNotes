@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v4.0.0:
 		- created
-Doc reviewed ...
+Doc reviewed 20220821
 Tests ...
 */
 
@@ -55,13 +55,14 @@ class ToolbarItem {
 
 	/**
 	The constructor
-	@param {String} textContent The text displayed on the toolbar button
+	@param {String|function} textContent The text displayed on the toolbar button
 	@param {String} title The tooltip text of the toolbar button
 	@param {function|String} action The action to be performed when the user click on the button. Can be a function or a link
 	*/
 
 	constructor ( textContent, title, action ) {
 		this.#textContent = textContent;
+		this.#textContent = 'function' === typeof ( textContent ) ? textContent ( ) : textContent;
 		this.#title = title;
 		this.#action = action;
 	}
@@ -71,9 +72,7 @@ class ToolbarItem {
 	@type {String}
 	*/
 
-	get textContent ( ) {
-		return 'function' === typeof ( this.#textContent ) ? this.#textContent ( ) : this.#textContent;
-	}
+	get textContent ( ) { return this.#textContent; }
 
 	/**
 	The tooltip text of the toolbar button

@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v4.0.0:
 		- created
-Doc reviewed ...
+Doc reviewed 20220821
 Tests ...
 */
 
@@ -161,6 +161,9 @@ class FontSizeManager {
 
 	constructor ( ) {
 		Object.freeze ( this );
+
+		// It's needed to initialize the fontSize in the increment or decrement functions because
+		// theFontSizeManager is a global object created before theConfig initialization
 		this.#fontSize = null;
 	}
 

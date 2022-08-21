@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v4.0.0:
 		- created
-Doc reviewed ...
+Doc reviewed 20220821
 Tests ...
 */
 
@@ -102,7 +102,7 @@ class MapLayersToolbar extends BaseToolbar {
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-The one and only one instance of MapLayersToolbarUI class
+The one and only one instance of MapLayersToolbar class
 @type {MapLayersToolbar}
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */

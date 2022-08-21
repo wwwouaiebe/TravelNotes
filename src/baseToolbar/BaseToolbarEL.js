@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v4.0.0:
 		- created
-Doc reviewed ...
+Doc reviewed 20220821
 Tests ...
 */
 
@@ -28,7 +28,9 @@ import { MOUSE_WHEEL_FACTORS, ZERO, ONE } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-A simple container to share data between the BaseToolbarUI class and the ButtonHTMLElementClickEL class
+A simple container to share data between the BaseToolbar class, the
+ButtonHTMLElementClickEL  and ButtonHTMLElementTouchEL classes.
+Neede to avoid a copy of the array in the EL constructors
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
@@ -46,6 +48,7 @@ class ToolbarItemsContainer {
 	*/
 
 	constructor ( ) {
+		Object.seal ( this );
 		this.toolbarItemsArray = [];
 	}
 }
@@ -67,11 +70,12 @@ class ButtonHTMLElementClickEL {
 
 	/**
 	The constructor
-	@param {ToolbarItemsContainer} toolbarItemsContainer A reference to the toolbarItemsContainer of the BaseToolbar class
-	object  of the BaseToolbar class
+	@param {ToolbarItemsContainer} toolbarItemsContainer A reference to the toolbarItemsContainer
+	of the BaseToolbar class object
 	*/
 
 	constructor ( toolbarItemsContainer ) {
+		Object.freeze ( this );
 		this.#toolbarItemsContainer = toolbarItemsContainer;
 	}
 
@@ -94,6 +98,11 @@ touch event listener for the toolbar buttons
 
 class ButtonHTMLElementTouchEL {
 
+	/**
+	A reference to the BaseToolbar
+	@type {BaseToolbar}
+	*/
+
 	#baseToolbar;
 
 	/**
@@ -111,7 +120,8 @@ class ButtonHTMLElementTouchEL {
 	#touchButtonStartY;
 
 	/**
-	A constant with the maximum delta y between the touchstart and touchend events
+	A constant with the maximum delta y between the touchstart and touchend events for
+	the event will be considered as a click event
 	@type {Number}
 	*/
 
@@ -120,12 +130,13 @@ class ButtonHTMLElementTouchEL {
 
 	/**
 	The constructor
-	@param {Array.<ToolbarItem>} toolbarItemsArray A reference to the toolbarItemsArray of the BaseToolbar class
-	object  of the BaseToolbarUI class
-	of the BaseToolbarUI class
+	@param {BaseToolbar} baseToolbar A reference to the BaseToolbar
+	@param {toolbarItemsContainer} toolbarItemsContainer A reference to the toolbarItemsContainer object
+	 of the BaseToolbar class
 	*/
 
 	constructor ( baseToolbar, toolbarItemsContainer ) {
+		Object.freeze ( this );
 		this.#baseToolbar = baseToolbar;
 		this.#toolbarItemsContainer = toolbarItemsContainer;
 	}
@@ -173,15 +184,15 @@ class ButtonsHTMLElementTouchEL {
 	@type {Number}
 	*/
 
-	#touchContainerStartY = Number.MAX_VALUE;
+	#touchContainerStartY;
 
 	/**
 	The constructor
-	@param {WheelEventData} wheelEventData A reference to the WheelEventData Object
 	*/
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#touchContainerStartY = Number.MAX_VALUE;
 	}
 
 	/**
@@ -203,13 +214,12 @@ class ButtonsHTMLElementTouchEL {
 			if ( ONE === touchEvent.changedTouches.length ) {
 				const touch = touchEvent.changedTouches.item ( ZERO );
 				const deltaY = this.#touchContainerStartY - touch.screenY;
-				if ( ZERO !== deltaY ) {
-					touchEvent.currentTarget.scrollTop += deltaY;
-					this.#touchContainerStartY = touch.screenY;
-				}
+				touchEvent.currentTarget.scrollTop += deltaY;
+				this.#touchContainerStartY = touch.screenY;
 			}
 			break;
 		default :
+			this.#touchContainerStartY = Number.MAX_VALUE;
 			break;
 		}
 		if ( 'touchend' === touchEvent.type ) {

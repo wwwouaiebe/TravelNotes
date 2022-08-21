@@ -17,14 +17,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 /*
---- BaseToolbarUI.css file --------------------------------------------------------------------------------------------
-
-This file contains:
-	- the css for the BaseToolbarUI
 Changes:
 	- v4.0.0:
 		- Created
------------------------------------------------------------------------------------------------------------------------
+Doc reviewed 20220821
 */
 
 .TravelNotes-BaseToolbar-ToolbarHTMLElement {
@@ -94,3 +90,5 @@ Changes:
 .TravelNotes-BaseToolbar-ButtonHTMLElement:hover > .TravelNotes-BaseToolbar-ButtonLinkHTMLElement {
 	color: white;
 }
+
+/* --- End of file --------------------------------------------------------------------------------------------------------- */
