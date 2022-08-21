@@ -64,7 +64,7 @@ Doc reviewed 20220821
 	background-color: white;
 	color: black;
 	overflow-y: hidden;
-	max-height: calc(100vh - 10em);
+	max-height: calc(100vh - 15em);
 }
 
 .TravelNotes-BaseToolbar-ButtonHTMLElement {

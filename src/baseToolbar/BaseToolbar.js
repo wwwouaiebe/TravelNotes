@@ -243,17 +243,16 @@ class BaseToolbar {
 		this.#lastMouseEventTimestamp = mouseEvent.timeStamp;
 
 		if ( this.#isShow ) {
+			if ( this.#timerId ) {
+				clearTimeout ( this.#timerId );
+				this.#timerId = null;
+				return;
+			}
 
 			// Hiding the toolbar if already show. Needed for touch devices for closing the toolbar by clicking on it
 			this.hide ( );
 		}
 		else {
-
-			// cleaning the timer if any and showing the toolbar
-			if ( this.#timerId ) {
-				clearTimeout ( this.#timerId );
-				this.#timerId = null;
-			}
 			this.#show ( );
 		}
 	}
