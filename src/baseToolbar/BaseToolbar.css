@@ -27,14 +27,9 @@ Changes:
 -----------------------------------------------------------------------------------------------------------------------
 */
 
-.TravelNotes-ToolbarUI-MainHTMLElement {
+.TravelNotes-ToolbarUI-ToolbarHTMLElement {
 	position: absolute;
 	width: 3em;
-
-	/*
-	display: flex;
-	flex-direction: column;
-	*/
 	height: auto;
 	max-height: 100vh;
 	z-index: 800;
@@ -62,16 +57,11 @@ Changes:
 	background-color: black;
 	padding: 0.5em;
 	margin: 0;
-
-	/* flex-shrink: 0; */
 }
 
 .TravelNotes-ToolbarUI-Buttons {
 	background-color: white;
 	color: black;
-
-	/* flex-shrink: 2;
-	flex-grow: 2; */
 	overflow: hidden;
 }
 

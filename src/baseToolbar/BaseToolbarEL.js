@@ -109,7 +109,7 @@ class WheelEventData {
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-A simple container to share data between the BaseToolbarUI class and the ToolbarButtonClickEL class
+A simple container to share data between the BaseToolbarUI class and the ButtonHTMLElementClickEL class
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
@@ -137,7 +137,7 @@ click event listener for the toolbar buttons
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ToolbarButtonClickEL {
+class ButtonHTMLElementClickEL {
 
 	/**
 	A reference to the ToolbarItemContainer object of the BaseToolbarUI class
@@ -173,7 +173,7 @@ touch event listener for the toolbar buttons
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ToolbarButtonTouchEL {
+class ButtonHTMLElementTouchEL {
 
 	/**
 	A reference to the toolbar
@@ -233,7 +233,7 @@ class ToolbarButtonTouchEL {
 		case 'touchend' :
 			if ( ONE === touchEvent.changedTouches.length ) {
 				const touch = touchEvent.changedTouches.item ( ZERO );
-				if ( ToolbarButtonTouchEL.#MAX_DELTA_Y > Math.abs ( touch.screenY - this.#touchButtonStartY ) ) {
+				if ( ButtonHTMLElementTouchEL.#MAX_DELTA_Y > Math.abs ( touch.screenY - this.#touchButtonStartY ) ) {
 					touchEvent.stopPropagation ( );
 					this.#toolbarItemsContainer.toolbarItems [ Number.parseInt ( touchEvent.target.dataset.tanItemId ) ]
 						.action ( );
@@ -253,7 +253,7 @@ Touch event listener for the buttons container
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ButtonsContainerTouchEL {
+class ButtonsHTMLElementTouchEL {
 
 	/**
 	A reference to the WheelEventData Object
@@ -320,7 +320,7 @@ Wheel event listener on the map layer buttons container. Scroll the buttons
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ButtonsContainerWheelEL {
+class ButtonsHTMLElementWheelEL {
 
 	/**
 	A reference to the WheelEventData Object
@@ -356,8 +356,10 @@ class ButtonsContainerWheelEL {
 export {
 	WheelEventData,
 	ToolbarItemsContainer,
-	ToolbarButtonClickEL,
-	ToolbarButtonTouchEL,
-	ButtonsContainerTouchEL,
-	ButtonsContainerWheelEL
+	ButtonHTMLElementClickEL,
+	ButtonHTMLElementTouchEL,
+	ButtonsHTMLElementTouchEL,
+	ButtonsHTMLElementWheelEL
 };
+
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

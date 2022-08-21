@@ -28,10 +28,10 @@ import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import {
 	WheelEventData,
 	ToolbarItemsContainer,
-	ToolbarButtonClickEL,
-	ToolbarButtonTouchEL,
-	ButtonsContainerTouchEL,
-	ButtonsContainerWheelEL
+	ButtonHTMLElementClickEL,
+	ButtonHTMLElementTouchEL,
+	ButtonsHTMLElementTouchEL,
+	ButtonsHTMLElementWheelEL
 } from '../baseToolbar/BaseToolbarEL.js';
 import theConfig from '../data/Config.js';
 import { ZERO } from '../main/Constants.js';
@@ -49,7 +49,9 @@ class BaseToolbar {
 	@type {HTMLElement}
 	*/
 
-	#mainHTMLElement;
+	#toolbarHTMLElement;
+
+	#headerHtmlElement;
 
 	/**
 	The HTML element that contains the buttons
@@ -57,6 +59,13 @@ class BaseToolbar {
 	*/
 
 	#buttonsHTMLElement;
+
+	/**
+	Timer id for the mouse leave event
+	@type {Number}
+	*/
+
+	#timerId;
 
 	/**
 	Data shared with the wheel event listener of the buttons container
@@ -67,38 +76,31 @@ class BaseToolbar {
 
 	/**
 	The wheel event listener for the buttons container
-	@type {ButtonsContainerWheelEL}
+	@type {ButtonsHTMLElementWheelEL}
 	*/
 
-	#onWheelButtonsEventListener;
-
-	/**
-	Timer id for the mouse leave event
-	@type {Number}
-	*/
-
-	#timerId;
+	#buttonsHTMLElementWheelEL;
 
 	/**
 	The touch event listener for the buttons container
-	@type {ButtonsContainerTouchEL}
+	@type {ButtonsHTMLElementTouchEL}
 	*/
 
-	#onButtonsContainerTouchEL;
+	#buttonsHTMLElementTouchEL;
 
 	/**
 	The click event listener for the buttons
-	@type {ToolbarButtonClickEL}
+	@type {ButtonHTMLElementClickEL}
 	*/
 
-	#onToolbarButtonClickEL;
+	#buttonHTMLElementClickEL;
 
 	/**
 	The touch event listener for the buttons
-	@type {ToolbarButtonTouchEL}
+	@type {ButtonHTMLElementTouchEL}
 	*/
 
-	#onToolbarButtonTouchEL;
+	#buttonHTMLElementTouchEL;
 
 	/**
 	A boolean saving the the current state of the UI
@@ -134,7 +136,7 @@ class BaseToolbar {
 			{
 				className : 'TravelNotes-ToolbarUI-Buttons'
 			},
-			this.#mainHTMLElement
+			this.#toolbarHTMLElement
 		);
 
 		this.#toolbarItemsContainer.toolbarItems = [ ];
@@ -142,6 +144,10 @@ class BaseToolbar {
 
 		// wheel event data computation
 		this.#wheelEventData.buttonsHeight = ZERO;
+
+		// don't try to understand the next line. Due to the css rotation offsetWidth and offsetHeight gives
+		// strange results... Have spend 2 hours on this...
+		this.#wheelEventData.buttonTop = this.#headerHtmlElement.offsetWidth - this.#headerHtmlElement.offsetHeight;
 
 		// adding buttons
 		this.#toolbarItemsContainer.toolbarItems.forEach (
@@ -159,9 +165,9 @@ class BaseToolbar {
 					);
 					this.#wheelEventData.buttonHeight = buttonHTMLElement.offsetHeight;
 					this.#wheelEventData.buttonsHeight += buttonHTMLElement.offsetHeight;
-					buttonHTMLElement.addEventListener ( 'click', this.#onToolbarButtonClickEL, false );
-					buttonHTMLElement.addEventListener ( 'touchstart', this.#onToolbarButtonTouchEL, false );
-					buttonHTMLElement.addEventListener ( 'touchend', this.#onToolbarButtonTouchEL, false );
+					buttonHTMLElement.addEventListener ( 'click', this.#buttonHTMLElementClickEL, false );
+					buttonHTMLElement.addEventListener ( 'touchstart', this.#buttonHTMLElementTouchEL, false );
+					buttonHTMLElement.addEventListener ( 'touchend', this.#buttonHTMLElementTouchEL, false );
 				}
 				else {
 					const buttonHTMLElement = theHTMLElementsFactory.create (
@@ -198,12 +204,12 @@ class BaseToolbar {
 		this.#buttonsHTMLElement.style [ 'margin-top' ] = String ( this.#wheelEventData.marginTop ) + 'px';
 
 		// adding wheel event
-		this.#buttonsHTMLElement.addEventListener ( 'wheel', this.#onWheelButtonsEventListener, { passive : true } );
+		this.#buttonsHTMLElement.addEventListener ( 'wheel', this.#buttonsHTMLElementWheelEL, { passive : true } );
 
 		// adding touch event listeners
-		this.#buttonsHTMLElement.addEventListener ( 'touchstart', this.#onButtonsContainerTouchEL, false );
-		this.#buttonsHTMLElement.addEventListener ( 'touchmove', this.#onButtonsContainerTouchEL, false );
-		this.#buttonsHTMLElement.addEventListener ( 'touchend', this.#onButtonsContainerTouchEL, false );
+		this.#buttonsHTMLElement.addEventListener ( 'touchstart', this.#buttonsHTMLElementTouchEL, false );
+		this.#buttonsHTMLElement.addEventListener ( 'touchmove', this.#buttonsHTMLElementTouchEL, false );
+		this.#buttonsHTMLElement.addEventListener ( 'touchend', this.#buttonsHTMLElementTouchEL, false );
 		this.#isShow = true;
 	}
 
@@ -219,7 +225,7 @@ class BaseToolbar {
 	@param {Event} mouseEvent the trigered event
 	*/
 
-	#onClick ( mouseEvent ) {
+	#toolbarHTMLElementClickEL ( mouseEvent ) {
 
 		// When the delay is lower than #MOUSE_EVENT_MAX_DELAY 	we consider that the click event and the
 		// mouse enter event are trigered by the same user action on touch devices
@@ -228,7 +234,7 @@ class BaseToolbar {
 			return;
 		}
 
-		this.#onMouseEnter ( mouseEvent );
+		this.#toolbarHTMLElementMouseEnterEL ( mouseEvent );
 	}
 
 	/**
@@ -236,7 +242,7 @@ class BaseToolbar {
 	@param {Event} mouseEvent the trigered event
 	*/
 
-	#onMouseEnter ( mouseEvent ) {
+	#toolbarHTMLElementMouseEnterEL ( mouseEvent ) {
 		this.#lastMouseEventTimestamp = mouseEvent.timeStamp;
 		if ( this.#isShow ) {
 			this.hide ( );
@@ -256,7 +262,7 @@ class BaseToolbar {
 	Mouse leave event listener
 	*/
 
-	#onMouseLeave ( ) {
+	#toolbarHTMLElementMouseLeaveEL ( ) {
 		if ( this.#isShow ) {
 			this.#timerId = setTimeout ( ( ) => this.hide ( ), theConfig.layersToolbarUI.toolbarTimeOut );
 		}
@@ -284,14 +290,14 @@ class BaseToolbar {
 		}
 
 		// removing wheel event
-		this.#buttonsHTMLElement.removeEventListener ( 'wheel', this.#onWheelButtonsEventListener, { passive : true } );
+		this.#buttonsHTMLElement.removeEventListener ( 'wheel', this.#buttonsHTMLElementWheelEL, { passive : true } );
 
 		// removing touch event listeners
-		this.#buttonsHTMLElement.removeEventListener ( 'touchstart', this.#onButtonsContainerTouchEL, false );
-		this.#buttonsHTMLElement.removeEventListener ( 'touchmove', this.#onButtonsContainerTouchEL, false );
-		this.#buttonsHTMLElement.removeEventListener ( 'touchend', this.#onButtonsContainerTouchEL, false );
+		this.#buttonsHTMLElement.removeEventListener ( 'touchstart', this.#buttonsHTMLElementTouchEL, false );
+		this.#buttonsHTMLElement.removeEventListener ( 'touchmove', this.#buttonsHTMLElementTouchEL, false );
+		this.#buttonsHTMLElement.removeEventListener ( 'touchend', this.#buttonsHTMLElementTouchEL, false );
 
-		this.#mainHTMLElement.removeChild ( this.#buttonsHTMLElement );
+		this.#toolbarHTMLElement.removeChild ( this.#buttonsHTMLElement );
 		this.#buttonsHTMLElement = null;
 		this.#isShow = false;
 	}
@@ -303,7 +309,7 @@ class BaseToolbar {
 	*/
 
 	createUI ( headerText, position ) {
-		if ( this.#mainHTMLElement ) {
+		if ( this.#toolbarHTMLElement ) {
 			return false;
 		}
 		this.#timerId = null;
@@ -311,34 +317,43 @@ class BaseToolbar {
 		this.#lastMouseEventTimestamp = ZERO;
 		this.#wheelEventData = new WheelEventData ( );
 		this.#toolbarItemsContainer = new ToolbarItemsContainer ( );
-		this.#onWheelButtonsEventListener = new ButtonsContainerWheelEL ( this.#wheelEventData );
-		this.#onButtonsContainerTouchEL = new ButtonsContainerTouchEL ( this.#wheelEventData );
-		this.#onToolbarButtonTouchEL = new ToolbarButtonTouchEL ( this, this.#toolbarItemsContainer );
-		this.#mainHTMLElement =
+		this.#buttonsHTMLElementWheelEL = new ButtonsHTMLElementWheelEL ( this.#wheelEventData );
+		this.#buttonsHTMLElementTouchEL = new ButtonsHTMLElementTouchEL ( this.#wheelEventData );
+		this.#buttonHTMLElementClickEL = new ButtonHTMLElementClickEL ( this.#toolbarItemsContainer );
+		this.#buttonHTMLElementTouchEL = new ButtonHTMLElementTouchEL ( this, this.#toolbarItemsContainer );
+
+		this.#toolbarHTMLElement =
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					className : 'TravelNotes-ToolbarUI-MainHTMLElement ' + position
+					className : 'TravelNotes-ToolbarUI-ToolbarHTMLElement ' + position
 				},
 				document.body
 			);
-		this.#mainHTMLElement.addEventListener ( 'click', mouseEvent => this.#onClick ( mouseEvent ), false );
-		this.#mainHTMLElement.addEventListener ( 'mouseenter', mouseEvent => this.#onMouseEnter ( mouseEvent ), false );
-		this.#mainHTMLElement.addEventListener ( 'mouseleave', mouseEvent => this.#onMouseLeave ( mouseEvent ), false );
-		const headerHtmlElement = theHTMLElementsFactory.create (
+		this.#toolbarHTMLElement.addEventListener (
+			'click',
+			mouseEvent => this.#toolbarHTMLElementClickEL ( mouseEvent ),
+			false
+		);
+		this.#toolbarHTMLElement.addEventListener (
+			'mouseenter',
+			mouseEvent => this.#toolbarHTMLElementMouseEnterEL ( mouseEvent ),
+			false
+		);
+		this.#toolbarHTMLElement.addEventListener (
+			'mouseleave',
+			mouseEvent => this.#toolbarHTMLElementMouseLeaveEL ( mouseEvent ),
+			false
+		);
+
+		this.#headerHtmlElement = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-ToolbarUI-Header',
 				textContent : headerText
 			},
-			this.#mainHTMLElement
+			this.#toolbarHTMLElement
 		);
-
-		// don't try to understand the next line. Due to the css rotation offsetWidth and offsetHeight gives
-		// strange results... Have spend 2 hours on this...
-		this.#wheelEventData.buttonTop = headerHtmlElement.offsetWidth - headerHtmlElement.offsetHeight;
-		this.#onToolbarButtonClickEL = new ToolbarButtonClickEL ( this.#toolbarItemsContainer );
-		return true;
 	}
 
 	/**
