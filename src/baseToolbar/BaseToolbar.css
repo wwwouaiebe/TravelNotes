@@ -47,14 +47,21 @@ Changes:
 }
 
 .TravelNotes-BaseToolbar-HeaderHTMLElement {
-	/* transform-origin: bottom right;
-	transform: rotateZ(-90deg) translateY(-6em) translateX(3em); */
 	text-align: center;
 	width: 2em;
 	height: 8em;
 	color: white;
 	background-color: black;
 	padding: 0.5em;
+}
+
+.TravelNotes-BaseToolbar-HeaderTextHTMLElement {
+	transform-origin: center;
+	transform: rotateZ(-90deg) translateX(-6em);
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	white-space: nowrap;
 }
 
 .TravelNotes-BaseToolbar-ButtonsHTMLElement {

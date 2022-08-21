@@ -482,28 +482,28 @@ class TOOLBAR_POSITION {
 	@type {String}
 	*/
 
-	static get topLeft ( ) { return 'TravelNotes-ToolbarUI-TopLeft'; }
+	static get topLeft ( ) { return 'TravelNotes-BaseToolbar-TopLeft'; }
 
 	/**
 	The toolbar will be displayed on the top right corner of the screen
 	@type {String}
 	*/
 
-	static get topRight ( ) { return 'TravelNotes-ToolbarUI-TopRight'; }
+	static get topRight ( ) { return 'TravelNotes-BaseToolbar-TopRight'; }
 
 	/**
 	The toolbar will be displayed on the bottom left corner of the screen
 	@type {String}
 	*/
 
-	static get bottomLeft ( ) { return 'TravelNotes-ToolbarUI-BottomLeft'; }
+	static get bottomLeft ( ) { return 'TravelNotes-BaseToolbar-BottomLeft'; }
 
 	/**
 	The toolbar will be displayed on the bottom right corner of the screen
 	@type {String}
 	*/
 
-	static get bottomRight ( ) { return 'TravelNotes-ToolbarUI-BottomRight'; }
+	static get bottomRight ( ) { return 'TravelNotes-BaseToolbar-BottomRight'; }
 
 }
 

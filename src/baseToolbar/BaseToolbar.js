@@ -322,15 +322,21 @@ class BaseToolbar {
 			false
 		);
 
-		this.#headerHTMLElement = theHTMLElementsFactory.create (
+		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseToolbar-HeaderHTMLElement'
-
-				// textContent : headerText
+				className : 'TravelNotes-BaseToolbar-HeaderTextHTMLElement',
+				textContent : headerText
 			},
-			this.#toolbarHTMLElement
+			theHTMLElementsFactory.create (
+				'div',
+				{
+					className : 'TravelNotes-BaseToolbar-HeaderHTMLElement'
+				},
+				this.#toolbarHTMLElement
+			)
 		);
+
 	}
 
 	/**
