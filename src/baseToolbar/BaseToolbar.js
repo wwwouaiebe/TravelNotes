@@ -382,6 +382,15 @@ class BaseToolbar {
 	addToolbarItem ( toolbarItem ) {
 		this.#toolbarItemsContainer.toolbarItemsArray.push ( toolbarItem );
 	}
+
+	/**
+	Add a css class to the #toolbarHTMLElement, so some css settings can be overloaded for a specific toolbar
+	@param {String} cssClass The css class to add
+	*/
+
+	addCssClass ( cssClass ) {
+		this.#toolbarHTMLElement.classList.add ( cssClass );
+	}
 }
 
 export default BaseToolbar;
