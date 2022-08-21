@@ -495,10 +495,10 @@ class DropItemEL {
 
 	handleEvent ( dropEvent ) {
 		dropEvent.preventDefault ( );
-		const clientRect = dropEvent.target.getBoundingClientRect ( );
+		const clientRect = dropEvent.currentTarget.getBoundingClientRect ( );
 		this.#dropFunction (
 			Number.parseInt ( dropEvent.dataTransfer.getData ( 'ObjId' ) ),
-			Number.parseInt ( dropEvent.target.dataset.tanObjId ),
+			Number.parseInt ( dropEvent.currentTarget.dataset.tanObjId ),
 			( dropEvent.clientY - clientRect.top < clientRect.bottom - dropEvent.clientY )
 		);
 	}
