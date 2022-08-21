@@ -41,7 +41,6 @@ import theNoteEditor from '../core/NoteEditor.js';
 import theRouteEditor from '../core/RouteEditor.js';
 import AboutDialog from '../aboutDialog/AboutDialog.js';
 import Zoomer from '../core/Zoomer.js';
-import theFullScreenUI from '../fullScreenUI/FullScreenUI.js';
 
 import { LAT_LNG, INVALID_OBJ_ID } from '../main/Constants.js';
 
@@ -131,17 +130,6 @@ class MapContextMenu extends BaseContextMenu {
 				theTranslator.getText ( 'MapContextMenu - Zoom to travel' ),
 				true,
 				( ) => new Zoomer ( ).zoomToTravel ( )
-			),
-			new MenuItem (
-				theTranslator.getText (
-					document.fullscreenElement
-						?
-						'MapContextMenu - Disable full screen'
-						:
-						'MapContextMenu - Enable full screen'
-				),
-				document.fullscreenEnabled,
-				( ) => theFullScreenUI.toogle ( )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'MapContextMenu - About Travel & Notes' ),
