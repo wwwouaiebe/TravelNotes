@@ -51,7 +51,7 @@ class BaseToolbar {
 
 	#toolbarHTMLElement;
 
-	#headerHtmlElement;
+	#headerHTMLElement;
 
 	/**
 	The HTML element that contains the buttons
@@ -134,7 +134,7 @@ class BaseToolbar {
 		this.#buttonsHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-ToolbarUI-Buttons'
+				className : 'TravelNotes-ToolbarUI-ButtonsHTMLElement'
 			},
 			this.#toolbarHTMLElement
 		);
@@ -147,7 +147,7 @@ class BaseToolbar {
 
 		// don't try to understand the next line. Due to the css rotation offsetWidth and offsetHeight gives
 		// strange results... Have spend 2 hours on this...
-		this.#wheelEventData.buttonTop = this.#headerHtmlElement.offsetWidth - this.#headerHtmlElement.offsetHeight;
+		this.#wheelEventData.buttonTop = this.#headerHTMLElement.offsetWidth - this.#headerHTMLElement.offsetHeight;
 
 		// adding buttons
 		this.#toolbarItemsContainer.toolbarItems.forEach (
@@ -156,7 +156,7 @@ class BaseToolbar {
 					const buttonHTMLElement = theHTMLElementsFactory.create (
 						'div',
 						{
-							className : 'TravelNotes-ToolbarUI-Button',
+							className : 'TravelNotes-ToolbarUI-ButtonHTMLElement',
 							textContent : toolbarItem.textContent,
 							title : toolbarItem.title,
 							dataset : { ItemId : index }
@@ -173,7 +173,7 @@ class BaseToolbar {
 					const buttonHTMLElement = theHTMLElementsFactory.create (
 						'div',
 						{
-							className : 'TravelNotes-ToolbarUI-Button',
+							className : 'TravelNotes-ToolbarUI-ButtonHTMLElement',
 							title : toolbarItem.title
 						},
 						this.#buttonsHTMLElement
@@ -186,7 +186,7 @@ class BaseToolbar {
 						theHTMLElementsFactory.create (
 							'a',
 							{
-								className : 'TravelNotes-ToolbarUI-Link',
+								className : 'TravelNotes-ToolbarUI-ButtonLinkHTMLElement',
 								href : toolbarItem.action,
 								target : '_blank'
 							},
@@ -346,10 +346,10 @@ class BaseToolbar {
 			false
 		);
 
-		this.#headerHtmlElement = theHTMLElementsFactory.create (
+		this.#headerHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-ToolbarUI-Header',
+				className : 'TravelNotes-ToolbarUI-HeaderHTMLElement',
 				textContent : headerText
 			},
 			this.#toolbarHTMLElement

@@ -45,7 +45,7 @@ Changes:
 	right: 0;
 }
 
-.TravelNotes-ToolbarUI-Header {
+.TravelNotes-ToolbarUI-HeaderHTMLElement {
 	transform-origin: bottom right;
 	transform: rotateZ(-90deg) translateY(-6em) translateX(3em);
 	text-align: center;
@@ -59,13 +59,13 @@ Changes:
 	margin: 0;
 }
 
-.TravelNotes-ToolbarUI-Buttons {
+.TravelNotes-ToolbarUI-ButtonsHTMLElement {
 	background-color: white;
 	color: black;
 	overflow: hidden;
 }
 
-.TravelNotes-ToolbarUI-Button {
+.TravelNotes-ToolbarUI-ButtonHTMLElement {
 	padding: 0.5em;
 	text-align: center;
 	margin: 0;
@@ -73,20 +73,20 @@ Changes:
 	height: 1.1em;
 }
 
-.TravelNotes-ToolbarUI-Button:hover {
+.TravelNotes-ToolbarUI-ButtonHTMLElement:hover {
 	background-color: black;
 	color: white;
 }
 
-.TravelNotes-ToolbarUI-Link {
+.TravelNotes-ToolbarUI-ButtonLinkHTMLElement {
 	text-decoration: none;
 	color: black;
 }
 
-.TravelNotes-ToolbarUI-Link:hover {
+.TravelNotes-ToolbarUI-ButtonLinkHTMLElement:hover {
 	color: white;
 }
 
-.TravelNotes-ToolbarUI-Button:hover > .TravelNotes-ToolbarUI-Link {
+.TravelNotes-ToolbarUI-ButtonHTMLElement:hover > .TravelNotes-ToolbarUI-ButtonLinkHTMLElement {
 	color: white;
 }
