@@ -180,7 +180,7 @@ class BaseToolbar {
 
 	#show ( ) {
 
-		// container for the button
+		// container for the buttons
 		this.#buttonsHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{

@@ -58,11 +58,11 @@ This class is the provider and transitModes toolbar at the bottom of the UI
 class ProvidersToolbar {
 
 	/**
-	The container
+	The main HTMLElement of the toolbar
 	@type {HTMLElement}
 	*/
 
-	#container;
+	#toolbarHTMLElement;
 
 	/**
 	The top bar
@@ -76,7 +76,7 @@ class ProvidersToolbar {
 	@type {HTMLElement}
 	*/
 
-	#toolbarHTMLElement;
+	#buttonsHTMLElement;
 
 	/**
 	A JS map with the transit mode buttons, ordered by transitMode
@@ -129,7 +129,7 @@ class ProvidersToolbar {
 	static get #HIDDEN_DELAY ( ) { return 100; }
 
 	/**
-	The delay between a mouseenter and a click event.
+	The max delay between a mouseenter and a click event to consider the two events as a single event
 	@type {Number}
 	*/
 
@@ -145,7 +145,7 @@ class ProvidersToolbar {
 			transitMode => {
 				const transitModeButton = new TransitModeButton ( this, transitMode );
 				this.#transitModeButtons.set ( transitMode, transitModeButton );
-				this.#toolbarHTMLElement.appendChild ( transitModeButton.buttonHTMLElement );
+				this.#buttonsHTMLElement.appendChild ( transitModeButton.buttonHTMLElement );
 			}
 		);
 
@@ -161,7 +161,7 @@ class ProvidersToolbar {
 				if ( ! provider.providerKeyNeeded || theAPIKeysManager.hasKey ( provider.name ) ) {
 					const providerButton = new ProviderButton ( this, provider );
 					this.#providerButtons.set ( provider.name, providerButton );
-					this.#toolbarHTMLElement.appendChild ( providerButton.buttonHTMLElement );
+					this.#buttonsHTMLElement.appendChild ( providerButton.buttonHTMLElement );
 				}
 			}
 		);
@@ -184,19 +184,19 @@ class ProvidersToolbar {
 	*/
 
 	#removeHidden ( ) {
-		this.#toolbarHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
+		this.#buttonsHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
 	}
 
 	/**
-	The timestamp pf the last mouseenter or click event
+	The timestamp of the last mouseenter or click event
 	@type {Number}
 	*/
 
 	#lastMouseEventTimestamp;
 
 	/**
-	Mouse enter event listener
-	@param {Event} mouseEvent the trigered event
+	Mouse click event listener
+	@param {Event} mouseEvent The trigered event
 	*/
 
 	#onClick ( mouseEvent ) {
@@ -257,8 +257,10 @@ class ProvidersToolbar {
 				)
 			}
 		);
-		this.#container.style.left =
-			String ( ( theTravelNotesData.map.getContainer ( ).clientWidth - this.#container.clientWidth ) / TWO ) + 'px';
+		this.#toolbarHTMLElement.style.left =
+			String (
+				( theTravelNotesData.map.getContainer ( ).clientWidth - this.#toolbarHTMLElement.clientWidth ) / TWO
+			) + 'px';
 	}
 
 	/**
@@ -266,9 +268,7 @@ class ProvidersToolbar {
 	*/
 
 	constructor ( ) {
-
 		Object.freeze ( this );
-
 		this.#transitModeButtons = new Map ( );
 		this.#providerButtons = new Map ( );
 
@@ -285,7 +285,7 @@ class ProvidersToolbar {
 			clearTimeout ( this.#timerId );
 			this.#timerId = null;
 		}
-		this.#toolbarHTMLElement.classList.add ( 'TravelNotes-Hidden' );
+		this.#buttonsHTMLElement.classList.add ( 'TravelNotes-Hidden' );
 		this.#centerToolbar ( );
 		this.#isShow = false;
 	}
@@ -296,46 +296,47 @@ class ProvidersToolbar {
 
 	createUI ( ) {
 
-		this.#container = theHTMLElementsFactory.create (
+		// Toolbar container creation
+		this.#toolbarHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-ProvidersToolbar-Container'
 			},
 			document.body
 		);
+		this.#toolbarHTMLElement.addEventListener (
+			'mouseenter',
+			mouseEvent => this.#onMouseEnter ( mouseEvent ),
+			false
+		);
+		this.#toolbarHTMLElement.addEventListener (
+			'mouseleave',
+			mouseEvent => this.#onMouseLeave ( mouseEvent ),
+			false
+		);
 
+		// Topbar creation
 		this.#topBar = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-ProvidersToolbar-TopBar',
 				textContent : theTranslator.getText ( 'TravelNotes-ProvidersToolbar - Providers' )
 			},
-			this.#container
+			this.#toolbarHTMLElement
 		);
-
-		// toolbar creation
-		this.#toolbarHTMLElement = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-ProvidersToolbar-ImgButtonsDiv TravelNotes-Hidden'
-			},
-			this.#container
-		);
-
 		this.#topBar.addEventListener (
 			'click',
 			mouseEvent => this.#onClick ( mouseEvent ),
 			false
 		);
-		this.#container.addEventListener (
-			'mouseenter',
-			mouseEvent => this.#onMouseEnter ( mouseEvent ),
-			false
-		);
-		this.#container.addEventListener (
-			'mouseleave',
-			mouseEvent => this.#onMouseLeave ( mouseEvent ),
-			false
+
+		// container for the buttons
+		this.#buttonsHTMLElement = theHTMLElementsFactory.create (
+			'div',
+			{
+				className : 'TravelNotes-ProvidersToolbar-ImgButtonsDiv TravelNotes-Hidden'
+			},
+			this.#toolbarHTMLElement
 		);
 
 		// buttons creation
@@ -344,6 +345,7 @@ class ProvidersToolbar {
 
 		// set the first provider in the map as active provider
 		this.provider = this.#providerButtons.keys ().next ().value;
+
 		this.#centerToolbar ( );
 	}
 
@@ -418,8 +420,8 @@ class ProvidersToolbar {
 	*/
 
 	providersAdded ( ) {
-		while ( this.#toolbarHTMLElement.firstChild ) {
-			this.#toolbarHTMLElement.removeChild ( this.#toolbarHTMLElement.firstChild );
+		while ( this.#buttonsHTMLElement.firstChild ) {
+			this.#buttonsHTMLElement.removeChild ( this.#buttonsHTMLElement.firstChild );
 		}
 		this.#transitModeButtons.clear ( );
 		this.#providerButtons.clear ( );
