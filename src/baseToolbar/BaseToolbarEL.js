@@ -28,6 +28,30 @@ import { MOUSE_WHEEL_FACTORS, ZERO, ONE } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
+A simple container to share data between the BaseToolbarUI class and the ButtonHTMLElementClickEL class
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class ToolbarItemsContainer {
+
+	/**
+	 An array with the toolbar items
+	 @type {Array.<ToolbarItem>}
+	*/
+
+	toolbarItemsArray;
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		this.toolbarItemsArray = [];
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
 A simple container with data shred between the BaseToolbarUI class and the wheel event listener and touch event listener
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -116,21 +140,20 @@ click event listener for the toolbar buttons
 class ButtonHTMLElementClickEL {
 
 	/**
-	A reference to the toolbarItemsArray of the BaseToolbar class
-	@type {Array.<ToolbarItem>}
+	A reference to the toolbarItemsContainer of the BaseToolbar class
+	@type {ToolbarItemsContainer}
 	*/
 
-	#toolbarItemsArray;
+	#toolbarItemsContainer;
 
 	/**
 	The constructor
-	@param {Array.<ToolbarItem>} toolbarItemsArray A reference to the toolbarItemsArray of the BaseToolbar class
-	object  of the BaseToolbarUI class
-	of the BaseToolbarUI class
+	@param {ToolbarItemsContainer} toolbarItemsContainer A reference to the toolbarItemsContainer of the BaseToolbar class
+	object  of the BaseToolbar class
 	*/
 
-	constructor ( toolbarItemsArray ) {
-		this.#toolbarItemsArray = toolbarItemsArray;
+	constructor ( toolbarItemsContainer ) {
+		this.#toolbarItemsContainer = toolbarItemsContainer;
 	}
 
 	/**
@@ -140,7 +163,8 @@ class ButtonHTMLElementClickEL {
 
 	handleEvent ( clickEvent ) {
 		console.log ( 'ButtonHTMLElementClickEL' );
-		this.#toolbarItemsArray [ Number.parseInt ( clickEvent.target.dataset.tanItemId ) ].action ( );
+		this.#toolbarItemsContainer.toolbarItemsArray [ Number.parseInt ( clickEvent.target.dataset.tanItemId ) ]
+			.action ( );
 	}
 }
 
@@ -160,11 +184,11 @@ class ButtonHTMLElementTouchEL {
 	#hideToolbarFct;
 
 	/**
-	A reference to the toolbarItemsArray of the BaseToolbar class
-	@type {Array.<ToolbarItem>}
+	A reference to the toolbarItemsContainer of the BaseToolbar class
+	@type {toolbarItemsContainer}
 	*/
 
-	#toolbarItemsArray;
+	#toolbarItemsContainer;
 
 	/**
 	The y position of the touchstart event
@@ -189,9 +213,9 @@ class ButtonHTMLElementTouchEL {
 	of the BaseToolbarUI class
 	*/
 
-	constructor ( hideToolbarFct, toolbarItemsArray ) {
+	constructor ( hideToolbarFct, toolbarItemsContainer ) {
 		this.#hideToolbarFct = hideToolbarFct;
-		this.#toolbarItemsArray = toolbarItemsArray;
+		this.#toolbarItemsContainer = toolbarItemsContainer;
 	}
 
 	/**
@@ -213,7 +237,8 @@ class ButtonHTMLElementTouchEL {
 				const touch = touchEvent.changedTouches.item ( ZERO );
 				if ( ButtonHTMLElementTouchEL.#MAX_DELTA_Y > Math.abs ( touch.screenY - this.#touchButtonStartY ) ) {
 					touchEvent.stopPropagation ( );
-					this.#toolbarItemsArray [ Number.parseInt ( touchEvent.target.dataset.tanItemId ) ].action ( );
+					this.#toolbarItemsContainer.toolbarItemsArray [ Number.parseInt ( touchEvent.target.dataset.tanItemId ) ]
+						.action ( );
 					this.#hideToolbarFct ( );
 				}
 			}
@@ -331,6 +356,7 @@ class ButtonsHTMLElementWheelEL {
 }
 
 export {
+	ToolbarItemsContainer,
 	WheelEventData,
 	ButtonHTMLElementClickEL,
 	ButtonHTMLElementTouchEL,

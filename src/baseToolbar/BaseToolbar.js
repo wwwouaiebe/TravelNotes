@@ -26,6 +26,7 @@ Tests ...
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import {
+	ToolbarItemsContainer,
 	WheelEventData,
 	ButtonHTMLElementClickEL,
 	ButtonHTMLElementTouchEL,
@@ -109,11 +110,11 @@ class BaseToolbar {
 	#isShow;
 
 	/**
-	An array with the ToolbarItems
-	@type {Array.<ToolbarItem>}
+	An object with the ToolbarItems array. Needed to have an object to share with EL.
+	@type {ToolbarItemsContainer}
 	*/
 
-	#toolbarItemsArray;
+	#toolbarItemsContainer;
 
 	/**
 	The delay between a mouseenter and a click event.
@@ -138,7 +139,7 @@ class BaseToolbar {
 			this.#toolbarHTMLElement
 		);
 
-		this.#toolbarItemsArray = [ ];
+		this.#toolbarItemsContainer.toolbarItemsArray = [ ];
 		this.addToolbarItems ( );
 
 		// wheel event data computation
@@ -149,7 +150,7 @@ class BaseToolbar {
 		this.#wheelEventData.buttonTop = this.#headerHTMLElement.offsetWidth - this.#headerHTMLElement.offsetHeight;
 
 		// adding buttons
-		this.#toolbarItemsArray.forEach (
+		this.#toolbarItemsContainer.toolbarItemsArray.forEach (
 			( toolbarItem, index ) => {
 				if ( toolbarItem.isCommand ( ) ) {
 					const buttonHTMLElement = theHTMLElementsFactory.create (
@@ -315,11 +316,11 @@ class BaseToolbar {
 		this.#isShow = false;
 		this.#lastMouseEventTimestamp = ZERO;
 		this.#wheelEventData = new WheelEventData ( );
-		this.#toolbarItemsArray = [];
+		this.#toolbarItemsContainer = new ToolbarItemsContainer ( );
 		this.#buttonsHTMLElementWheelEL = new ButtonsHTMLElementWheelEL ( this.#wheelEventData );
 		this.#buttonsHTMLElementTouchEL = new ButtonsHTMLElementTouchEL ( this.#wheelEventData );
-		this.#buttonHTMLElementClickEL = new ButtonHTMLElementClickEL ( this.#toolbarItemsArray );
-		this.#buttonHTMLElementTouchEL = new ButtonHTMLElementTouchEL ( this.hide, this.#toolbarItemsArray );
+		this.#buttonHTMLElementClickEL = new ButtonHTMLElementClickEL ( this.#toolbarItemsContainer );
+		this.#buttonHTMLElementTouchEL = new ButtonHTMLElementTouchEL ( this.hide, this.#toolbarItemsContainer );
 
 		this.#toolbarHTMLElement =
 			theHTMLElementsFactory.create (
@@ -361,7 +362,7 @@ class BaseToolbar {
 	*/
 
 	addToolbarItem ( toolbarItem ) {
-		this.#toolbarItemsArray.push ( toolbarItem );
+		this.#toolbarItemsContainer.toolbarItemsArray.push ( toolbarItem );
 	}
 }
 
