@@ -52,87 +52,6 @@ class ToolbarItemsContainer {
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-A simple container with data shred between the BaseToolbarUI class and the wheel event listener and touch event listener
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class WheelEventData {
-
-	/**
-	The min buttons that have to be always visible
-	@type {Number}
-	*/
-
-	// eslint-disable-next-line no-magic-numbers
-	static get #MIN_BUTTONS_VISIBLE ( ) { return 3; }
-
-	/**
-	The current margin-top in pixels css value for the buttons container
-	@type {Number}
-	*/
-
-	#marginTop = ZERO;
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.seal ( this );
-	}
-
-	/**
-	The height of 1 button in pixel;
-	@type {Number}
-	*/
-
-	buttonHeight = ZERO;
-
-	/**
-	The total height of all butons in pixels
-	@type {Number}
-	*/
-
-	buttonsHeight = ZERO;
-
-	/**
-	The top css value of the first button
-	@type {Number}
-	*/
-
-	buttonTop = ZERO;
-
-	/**
-	The top margin to be used for the toolbar
-	@type {Number}
-	*/
-
-	get marginTop ( ) { return this.#marginTop; }
-
-	set marginTop ( marginTop ) {
-		this.#marginTop = marginTop;
-		this.#marginTop =
-			this.#marginTop > this.buttonTop
-				?
-				this.buttonTop
-				:
-				this.#marginTop;
-		this.#marginTop =
-			this.#marginTop < this.buttonTop - this.buttonsHeight +
-			( WheelEventData.#MIN_BUTTONS_VISIBLE * this.buttonHeight )
-				?
-				(
-					this.buttonTop -
-					this.buttonsHeight +
-					( WheelEventData.#MIN_BUTTONS_VISIBLE * this.buttonHeight )
-				)
-				:
-				this.#marginTop;
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
 click event listener for the toolbar buttons
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -162,7 +81,6 @@ class ButtonHTMLElementClickEL {
 	*/
 
 	handleEvent ( clickEvent ) {
-		console.log ( 'ButtonHTMLElementClickEL' );
 		this.#toolbarItemsContainer.toolbarItemsArray [ Number.parseInt ( clickEvent.target.dataset.tanItemId ) ]
 			.action ( );
 	}
@@ -176,12 +94,7 @@ touch event listener for the toolbar buttons
 
 class ButtonHTMLElementTouchEL {
 
-	/**
-	 A function used to hide the toolbar buttons
-	@type {function}
-	*/
-
-	#hideToolbarFct;
+	#baseToolbar;
 
 	/**
 	A reference to the toolbarItemsContainer of the BaseToolbar class
@@ -207,14 +120,13 @@ class ButtonHTMLElementTouchEL {
 
 	/**
 	The constructor
-	@param {function} hideToolbarFct A function used to hide the toolbar buttons
 	@param {Array.<ToolbarItem>} toolbarItemsArray A reference to the toolbarItemsArray of the BaseToolbar class
 	object  of the BaseToolbarUI class
 	of the BaseToolbarUI class
 	*/
 
-	constructor ( hideToolbarFct, toolbarItemsContainer ) {
-		this.#hideToolbarFct = hideToolbarFct;
+	constructor ( baseToolbar, toolbarItemsContainer ) {
+		this.#baseToolbar = baseToolbar;
 		this.#toolbarItemsContainer = toolbarItemsContainer;
 	}
 
@@ -224,7 +136,6 @@ class ButtonHTMLElementTouchEL {
 	*/
 
 	handleEvent ( touchEvent ) {
-		console.log ( 'ButtonHTMLElementTouchEL' );
 		switch ( touchEvent.type ) {
 		case 'touchstart' :
 			if ( ONE === touchEvent.changedTouches.length ) {
@@ -239,7 +150,7 @@ class ButtonHTMLElementTouchEL {
 					touchEvent.stopPropagation ( );
 					this.#toolbarItemsContainer.toolbarItemsArray [ Number.parseInt ( touchEvent.target.dataset.tanItemId ) ]
 						.action ( );
-					this.#hideToolbarFct ( );
+					this.#baseToolbar.hide ( );
 				}
 			}
 			break;
@@ -258,13 +169,6 @@ Touch event listener for the buttons container
 class ButtonsHTMLElementTouchEL {
 
 	/**
-	A reference to the WheelEventData Object
-	@type {WheelEventData}
-	*/
-
-	#wheelEventData;
-
-	/**
 	The Y position of the previous touch event
 	@type {Number}
 	*/
@@ -276,9 +180,8 @@ class ButtonsHTMLElementTouchEL {
 	@param {WheelEventData} wheelEventData A reference to the WheelEventData Object
 	*/
 
-	constructor ( wheelEventData ) {
+	constructor ( ) {
 		Object.freeze ( this );
-		this.#wheelEventData = wheelEventData;
 	}
 
 	/**
@@ -301,9 +204,8 @@ class ButtonsHTMLElementTouchEL {
 				const touch = touchEvent.changedTouches.item ( ZERO );
 				const deltaY = this.#touchContainerStartY - touch.screenY;
 				if ( ZERO !== deltaY ) {
-					this.#wheelEventData.marginTop -= deltaY;
+					touchEvent.currentTarget.scrollTop += deltaY;
 					this.#touchContainerStartY = touch.screenY;
-					touchEvent.currentTarget.style.marginTop = String ( this.#wheelEventData.marginTop ) + 'px';
 				}
 			}
 			break;
@@ -325,20 +227,11 @@ Wheel event listener on the map layer buttons container. Scroll the buttons
 class ButtonsHTMLElementWheelEL {
 
 	/**
-	A reference to the WheelEventData Object
-	@type {WheelEventData}
-	*/
-
-	#wheelEventData;
-
-	/**
 	The constructor
-	@param {WheelEventData} wheelEventData A reference to the WheelEventData Object
 	*/
 
-	constructor ( wheelEventData ) {
+	constructor ( ) {
 		Object.freeze ( this );
-		this.#wheelEventData = wheelEventData;
 	}
 
 	/**
@@ -349,15 +242,14 @@ class ButtonsHTMLElementWheelEL {
 	handleEvent ( wheelEvent ) {
 		wheelEvent.stopPropagation ( );
 		if ( wheelEvent.deltaY ) {
-			this.#wheelEventData.marginTop -= wheelEvent.deltaY * MOUSE_WHEEL_FACTORS [ wheelEvent.deltaMode ];
-			wheelEvent.currentTarget.style.marginTop = String ( this.#wheelEventData.marginTop ) + 'px';
+			wheelEvent.currentTarget.scrollTop +=
+				wheelEvent.deltaY * MOUSE_WHEEL_FACTORS [ wheelEvent.deltaMode ];
 		}
 	}
 }
 
 export {
 	ToolbarItemsContainer,
-	WheelEventData,
 	ButtonHTMLElementClickEL,
 	ButtonHTMLElementTouchEL,
 	ButtonsHTMLElementTouchEL,

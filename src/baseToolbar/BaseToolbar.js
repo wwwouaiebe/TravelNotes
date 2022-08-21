@@ -27,7 +27,6 @@ Tests ...
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import {
 	ToolbarItemsContainer,
-	WheelEventData,
 	ButtonHTMLElementClickEL,
 	ButtonHTMLElementTouchEL,
 	ButtonsHTMLElementTouchEL,
@@ -66,13 +65,6 @@ class BaseToolbar {
 	*/
 
 	#timerId;
-
-	/**
-	Data shared with the wheel event listener of the buttons container
-	@type {WheelEventData}
-	*/
-
-	#wheelEventData;
 
 	/**
 	The wheel event listener for the buttons container
@@ -134,20 +126,13 @@ class BaseToolbar {
 		this.#buttonsHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-ToolbarUI-ButtonsHTMLElement'
+				className : 'TravelNotes-BaseToolbar-ButtonsHTMLElement'
 			},
 			this.#toolbarHTMLElement
 		);
 
 		this.#toolbarItemsContainer.toolbarItemsArray = [ ];
 		this.addToolbarItems ( );
-
-		// wheel event data computation
-		this.#wheelEventData.buttonsHeight = ZERO;
-
-		// don't try to understand the next line. Due to the css rotation offsetWidth and offsetHeight gives
-		// strange results... Have spend 2 hours on this...
-		this.#wheelEventData.buttonTop = this.#headerHTMLElement.offsetWidth - this.#headerHTMLElement.offsetHeight;
 
 		// adding buttons
 		this.#toolbarItemsContainer.toolbarItemsArray.forEach (
@@ -156,15 +141,13 @@ class BaseToolbar {
 					const buttonHTMLElement = theHTMLElementsFactory.create (
 						'div',
 						{
-							className : 'TravelNotes-ToolbarUI-ButtonHTMLElement',
+							className : 'TravelNotes-BaseToolbar-ButtonHTMLElement',
 							textContent : toolbarItem.textContent,
 							title : toolbarItem.title,
 							dataset : { ItemId : index }
 						},
 						this.#buttonsHTMLElement
 					);
-					this.#wheelEventData.buttonHeight = buttonHTMLElement.offsetHeight;
-					this.#wheelEventData.buttonsHeight += buttonHTMLElement.offsetHeight;
 					buttonHTMLElement.addEventListener ( 'click', this.#buttonHTMLElementClickEL, false );
 					buttonHTMLElement.addEventListener ( 'touchstart', this.#buttonHTMLElementTouchEL, false );
 					buttonHTMLElement.addEventListener ( 'touchend', this.#buttonHTMLElementTouchEL, false );
@@ -173,7 +156,7 @@ class BaseToolbar {
 					const buttonHTMLElement = theHTMLElementsFactory.create (
 						'div',
 						{
-							className : 'TravelNotes-ToolbarUI-ButtonHTMLElement',
+							className : 'TravelNotes-BaseToolbar-ButtonHTMLElement',
 							title : toolbarItem.title
 						},
 						this.#buttonsHTMLElement
@@ -186,22 +169,16 @@ class BaseToolbar {
 						theHTMLElementsFactory.create (
 							'a',
 							{
-								className : 'TravelNotes-ToolbarUI-ButtonLinkHTMLElement',
+								className : 'TravelNotes-BaseToolbar-ButtonLinkHTMLElement',
 								href : toolbarItem.action,
 								target : '_blank'
 							},
 							buttonHTMLElement
 						)
 					);
-					this.#wheelEventData.buttonHeight = buttonHTMLElement.offsetHeight;
-					this.#wheelEventData.buttonsHeight += buttonHTMLElement.offsetHeight;
 				}
 			}
 		);
-
-		// wheel event data computation
-		this.#wheelEventData.marginTop = this.#wheelEventData.buttonTop;
-		this.#buttonsHTMLElement.style [ 'margin-top' ] = String ( this.#wheelEventData.marginTop ) + 'px';
 
 		// adding wheel event
 		this.#buttonsHTMLElement.addEventListener ( 'wheel', this.#buttonsHTMLElementWheelEL, { passive : true } );
@@ -315,18 +292,17 @@ class BaseToolbar {
 		this.#timerId = null;
 		this.#isShow = false;
 		this.#lastMouseEventTimestamp = ZERO;
-		this.#wheelEventData = new WheelEventData ( );
 		this.#toolbarItemsContainer = new ToolbarItemsContainer ( );
-		this.#buttonsHTMLElementWheelEL = new ButtonsHTMLElementWheelEL ( this.#wheelEventData );
-		this.#buttonsHTMLElementTouchEL = new ButtonsHTMLElementTouchEL ( this.#wheelEventData );
+		this.#buttonsHTMLElementWheelEL = new ButtonsHTMLElementWheelEL ( );
+		this.#buttonsHTMLElementTouchEL = new ButtonsHTMLElementTouchEL ( );
 		this.#buttonHTMLElementClickEL = new ButtonHTMLElementClickEL ( this.#toolbarItemsContainer );
-		this.#buttonHTMLElementTouchEL = new ButtonHTMLElementTouchEL ( this.hide, this.#toolbarItemsContainer );
+		this.#buttonHTMLElementTouchEL = new ButtonHTMLElementTouchEL ( this, this.#toolbarItemsContainer );
 
 		this.#toolbarHTMLElement =
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					className : 'TravelNotes-ToolbarUI-ToolbarHTMLElement ' + position
+					className : 'TravelNotes-BaseToolbar-ToolbarHTMLElement ' + position
 				},
 				document.body
 			);
@@ -349,8 +325,9 @@ class BaseToolbar {
 		this.#headerHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-ToolbarUI-HeaderHTMLElement',
-				textContent : headerText
+				className : 'TravelNotes-BaseToolbar-HeaderHTMLElement'
+
+				// textContent : headerText
 			},
 			this.#toolbarHTMLElement
 		);

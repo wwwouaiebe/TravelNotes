@@ -27,7 +27,7 @@ Changes:
 -----------------------------------------------------------------------------------------------------------------------
 */
 
-.TravelNotes-ToolbarUI-ToolbarHTMLElement {
+.TravelNotes-BaseToolbar-ToolbarHTMLElement {
 	position: absolute;
 	width: 3em;
 	height: auto;
@@ -36,53 +36,54 @@ Changes:
 	font-weight: bold;
 }
 
-.TravelNotes-ToolbarUI-TopLeft {
+.TravelNotes-BaseToolbar-TopLeft {
 	top: 0;
 	left: 0;
 }
 
-.TravelNotes-ToolbarUI-TopRight {
+.TravelNotes-BaseToolbar-TopRight {
 	top: 0;
 	right: 0;
 }
 
-.TravelNotes-ToolbarUI-HeaderHTMLElement {
-	transform-origin: bottom right;
-	transform: rotateZ(-90deg) translateY(-6em) translateX(3em);
+.TravelNotes-BaseToolbar-HeaderHTMLElement {
+	/* transform-origin: bottom right;
+	transform: rotateZ(-90deg) translateY(-6em) translateX(3em); */
 	text-align: center;
-	width: 8em;
-	height: 2em;
+	width: 2em;
+	height: 8em;
 	color: white;
 	background-color: black;
 	padding: 0.5em;
 }
 
-.TravelNotes-ToolbarUI-ButtonsHTMLElement {
+.TravelNotes-BaseToolbar-ButtonsHTMLElement {
 	background-color: white;
 	color: black;
-	overflow: hidden;
+	overflow-y: hidden;
+	max-height: calc(100vh - 10em);
 }
 
-.TravelNotes-ToolbarUI-ButtonHTMLElement {
+.TravelNotes-BaseToolbar-ButtonHTMLElement {
 	padding: 0.5em;
 	text-align: center;
 	height: 1.1em;
 }
 
-.TravelNotes-ToolbarUI-ButtonHTMLElement:hover {
+.TravelNotes-BaseToolbar-ButtonHTMLElement:hover {
 	background-color: black;
 	color: white;
 }
 
-.TravelNotes-ToolbarUI-ButtonLinkHTMLElement {
+.TravelNotes-BaseToolbar-ButtonLinkHTMLElement {
 	text-decoration: none;
 	color: black;
 }
 
-.TravelNotes-ToolbarUI-ButtonLinkHTMLElement:hover {
+.TravelNotes-BaseToolbar-ButtonLinkHTMLElement:hover {
 	color: white;
 }
 
-.TravelNotes-ToolbarUI-ButtonHTMLElement:hover > .TravelNotes-ToolbarUI-ButtonLinkHTMLElement {
+.TravelNotes-BaseToolbar-ButtonHTMLElement:hover > .TravelNotes-BaseToolbar-ButtonLinkHTMLElement {
 	color: white;
 }
