@@ -50,8 +50,6 @@ class BaseToolbar {
 
 	#toolbarHTMLElement;
 
-	#headerHTMLElement;
-
 	/**
 	The HTML element that contains the buttons
 	@type {HTMLElement}
@@ -116,6 +114,49 @@ class BaseToolbar {
 	// eslint-disable-next-line no-magic-numbers
 	static get #MOUSE_EVENT_MAX_DELAY ( ) { return 100; }
 
+	#addCommandButton ( toolbarItem, index ) {
+		const buttonHTMLElement = theHTMLElementsFactory.create (
+			'div',
+			{
+				className : 'TravelNotes-BaseToolbar-ButtonHTMLElement',
+				textContent : toolbarItem.textContent,
+				title : toolbarItem.title,
+				dataset : { ItemId : index }
+			},
+			this.#buttonsHTMLElement
+		);
+		buttonHTMLElement.addEventListener ( 'click', this.#buttonHTMLElementClickEL, false );
+		buttonHTMLElement.addEventListener ( 'touchstart', this.#buttonHTMLElementTouchEL, false );
+		buttonHTMLElement.addEventListener ( 'touchend', this.#buttonHTMLElementTouchEL, false );
+
+	}
+
+	#addLinkButton ( toolbarItem ) {
+		const buttonHTMLElement = theHTMLElementsFactory.create (
+			'div',
+			{
+				className : 'TravelNotes-BaseToolbar-ButtonHTMLElement',
+				title : toolbarItem.title
+			},
+			this.#buttonsHTMLElement
+		);
+		theHTMLElementsFactory.create (
+			'text',
+			{
+				value : toolbarItem.textContent
+			},
+			theHTMLElementsFactory.create (
+				'a',
+				{
+					className : 'TravelNotes-BaseToolbar-ButtonLinkHTMLElement',
+					href : toolbarItem.action,
+					target : '_blank'
+				},
+				buttonHTMLElement
+			)
+		);
+	}
+
 	/**
 	Show the toolbar
 	*/
@@ -138,44 +179,10 @@ class BaseToolbar {
 		this.#toolbarItemsContainer.toolbarItemsArray.forEach (
 			( toolbarItem, index ) => {
 				if ( toolbarItem.isCommand ( ) ) {
-					const buttonHTMLElement = theHTMLElementsFactory.create (
-						'div',
-						{
-							className : 'TravelNotes-BaseToolbar-ButtonHTMLElement',
-							textContent : toolbarItem.textContent,
-							title : toolbarItem.title,
-							dataset : { ItemId : index }
-						},
-						this.#buttonsHTMLElement
-					);
-					buttonHTMLElement.addEventListener ( 'click', this.#buttonHTMLElementClickEL, false );
-					buttonHTMLElement.addEventListener ( 'touchstart', this.#buttonHTMLElementTouchEL, false );
-					buttonHTMLElement.addEventListener ( 'touchend', this.#buttonHTMLElementTouchEL, false );
+					this.#addCommandButton ( toolbarItem, index );
 				}
 				else {
-					const buttonHTMLElement = theHTMLElementsFactory.create (
-						'div',
-						{
-							className : 'TravelNotes-BaseToolbar-ButtonHTMLElement',
-							title : toolbarItem.title
-						},
-						this.#buttonsHTMLElement
-					);
-					theHTMLElementsFactory.create (
-						'text',
-						{
-							value : toolbarItem.textContent
-						},
-						theHTMLElementsFactory.create (
-							'a',
-							{
-								className : 'TravelNotes-BaseToolbar-ButtonLinkHTMLElement',
-								href : toolbarItem.action,
-								target : '_blank'
-							},
-							buttonHTMLElement
-						)
-					);
+					this.#addLinkButton ( toolbarItem );
 				}
 			}
 		);
