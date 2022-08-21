@@ -31,18 +31,18 @@ import theRouter from '../coreLib/Router.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-Provider buttons on the ProvidersToolbarUI
+Provider buttons on the ProvidersToolbar
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ProviderToolbarProviderButton {
+class ProviderButton {
 
 	/**
 	A reference to the toolbar
 	@type {HTMLElement}
 	*/
 
-	#providersToolbarUI;
+	#providersToolbar;
 
 	/**
 	The provider
@@ -60,15 +60,15 @@ class ProviderToolbarProviderButton {
 
 	/**
 	The constructor
-	@param {ProvidersToolbarUI} providersToolbarUI The providersToolbarUI on witch the button will be added
+	@param {ProvidersToolbar} providersToolbar The providersToolbar on witch the button will be added
 	@param {BaseRouteProvider} provider The provider object linked to the button
 	*/
 
-	constructor ( providersToolbarUI, provider ) {
+	constructor ( providersToolbar, provider ) {
 
 		Object.freeze ( this );
 
-		this.#providersToolbarUI = providersToolbarUI;
+		this.#providersToolbar = providersToolbar;
 		this.#provider = provider;
 
 		// HTML creation
@@ -76,8 +76,8 @@ class ProviderToolbarProviderButton {
 			'img',
 			{
 				src : provider.icon,
-				id : 'TravelNotes-ProvidersToolbarUI-' + provider.name + 'ImgButton',
-				className : 'TravelNotes-ProvidersToolbarUI-ImgButton',
+				id : 'TravelNotes-ProvidersToolbar-' + provider.name + 'ImgButton',
+				className : 'TravelNotes-ProvidersToolbar-ImgButton',
 				title : provider.title || provider.name
 			}
 		);
@@ -91,7 +91,7 @@ class ProviderToolbarProviderButton {
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		this.#providersToolbarUI.provider = this.#provider.name;
+		this.#providersToolbar.provider = this.#provider.name;
 		theRouter.startRouting ( );
 	}
 
@@ -115,14 +115,14 @@ class ProviderToolbarProviderButton {
 
 	set active ( active ) {
 		if ( active ) {
-			this.#buttonHTMLElement.classList.add ( 'TravelNotes-ProvidersToolbarUI-ActiveProviderImgButton' );
+			this.#buttonHTMLElement.classList.add ( 'TravelNotes-ProvidersToolbar-ActiveProviderImgButton' );
 		}
 		else {
-			this.#buttonHTMLElement.classList.remove ( 'TravelNotes-ProvidersToolbarUI-ActiveProviderImgButton' );
+			this.#buttonHTMLElement.classList.remove ( 'TravelNotes-ProvidersToolbar-ActiveProviderImgButton' );
 		}
 	}
 }
 
-export default ProviderToolbarProviderButton;
+export default ProviderButton;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

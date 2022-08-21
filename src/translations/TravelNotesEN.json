@@ -496,31 +496,31 @@
 		"msgstr": "Profile"
 	},
 	{
-		"msgid": "ProvidersToolbarUI - Computed by {provider} for {transitMode}",
+		"msgid": "ProvidersToolbar - Computed by {provider} for {transitMode}",
 		"msgstr": "Itinerary computed by {provider} for {transitMode}"
 	},
 	{
-		"msgid": "ProvidersToolbarUI - TransitMode bike",
+		"msgid": "ProvidersToolbar - TransitMode bike",
 		"msgstr": "a bike"
 	},
 	{
-		"msgid": "ProvidersToolbarUI - TransitMode car",
+		"msgid": "ProvidersToolbar - TransitMode car",
 		"msgstr": "a car"
 	},
 	{
-		"msgid": "ProvidersToolbarUI - TransitMode circle",
+		"msgid": "ProvidersToolbar - TransitMode circle",
 		"msgstr": "a circle"
 	},
 	{
-		"msgid": "ProvidersToolbarUI - TransitMode line",
+		"msgid": "ProvidersToolbar - TransitMode line",
 		"msgstr": "a line"
 	},
 	{
-		"msgid": "ProvidersToolbarUI - TransitMode pedestrian",
+		"msgid": "ProvidersToolbar - TransitMode pedestrian",
 		"msgstr": "a pedestrian"
 	},
 	{
-		"msgid": "ProvidersToolbarUI - TransitMode train",
+		"msgid": "ProvidersToolbar - TransitMode train",
 		"msgstr": "a train"
 	},
 {

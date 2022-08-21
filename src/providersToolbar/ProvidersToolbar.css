@@ -19,15 +19,15 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-@file ProvidersToolbarUI.css
-@desc CSS for the ProvidersToolbarUI
+@file ProvidersToolbar.css
+@desc CSS for the ProvidersToolbar
 Changes:
 	- v1.0.0:
 		- created
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
-.TravelNotes-ProvidersToolbarUI-Container {
+.TravelNotes-ProvidersToolbar-Container {
 	position: absolute;
 	bottom: 0;
 	left: 50vw;
@@ -38,7 +38,7 @@ Changes:
 	text-align: center;
 }
 
-.TravelNotes-ProvidersToolbarUI-TopBar {
+.TravelNotes-ProvidersToolbar-TopBar {
 	border-bottom-style: solid;
 	border-bottom-width: 0.1em;
 	color: white;
@@ -48,14 +48,14 @@ Changes:
 	padding-right: 0.5em;
 }
 
-.TravelNotes-ProvidersToolbarUI-ImgButtonsDiv {
+.TravelNotes-ProvidersToolbar-ImgButtonsDiv {
 	padding: 0.3em;
 	border-style: solid;
 	border-width: 0.1em;
 	border-color: lightgray;
 }
 
-.TravelNotes-ProvidersToolbarUI-ImgButton {
+.TravelNotes-ProvidersToolbar-ImgButton {
 	padding: 0.1em;
 	margin: 0.1em;
 	border-style: solid;
@@ -65,11 +65,11 @@ Changes:
 	height: 2em;
 }
 
-.TravelNotes-ProvidersToolbarUI-ActiveTransitModeImgButton,
-.TravelNotes-ProvidersToolbarUI-ActiveProviderImgButton {
+.TravelNotes-ProvidersToolbar-ActiveTransitModeImgButton,
+.TravelNotes-ProvidersToolbar-ActiveProviderImgButton {
 	border-color: black;
 }
 
 /*
---- End of ProvidersToolbarUI.css ---------------------------------------------------------------------------------------------
+--- End of ProvidersToolbar.css ---------------------------------------------------------------------------------------------
 */

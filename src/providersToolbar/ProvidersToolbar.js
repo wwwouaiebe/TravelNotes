@@ -42,8 +42,8 @@ Tests ...
 
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import ProviderToolbarTransitModeButton from '../providersToolbarUI/ProviderToolbarTransitModeButton.js';
-import ProviderToolbarProviderButton from '../providersToolbarUI/ProviderToolbarProviderButton.js';
+import TransitModeButton from '../providersToolbar/TransitModeButton.js';
+import ProviderButton from '../providersToolbar/ProviderButton.js';
 import theAPIKeysManager from '../core/APIKeysManager.js';
 import { NOT_FOUND, ZERO, TWO } from '../main/Constants.js';
 import theTranslator from '../UILib/Translator.js';
@@ -55,7 +55,7 @@ This class is the provider and transitModes toolbar at the bottom of the UI
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ProvidersToolbarUI {
+class ProvidersToolbar {
 
 	/**
 	The container
@@ -94,14 +94,14 @@ class ProvidersToolbarUI {
 
 	/**
 	the active transit mode button
-	@type {ProviderToolbarTransitModeButton}
+	@type {TransitModeButton}
 	*/
 
 	#activeTransitModeButton;
 
 	/**
 	the active provider button
-	@type {ProviderToolbarProviderButton}
+	@type {ProviderButton}
 	*/
 
 	#activeProviderButton;
@@ -114,7 +114,7 @@ class ProvidersToolbarUI {
 	#timerId;
 
 	/**
-	A boolean saving the the current state of the UI
+	A boolean saving the the current state of the toolbar
 	@type {boolean}
 	 */
 
@@ -143,7 +143,7 @@ class ProvidersToolbarUI {
 	#createTransitModesButtons ( ) {
 		[ 'bike', 'pedestrian', 'car', 'train', 'line', 'circle' ].forEach (
 			transitMode => {
-				const transitModeButton = new ProviderToolbarTransitModeButton ( this, transitMode );
+				const transitModeButton = new TransitModeButton ( this, transitMode );
 				this.#transitModeButtons.set ( transitMode, transitModeButton );
 				this.#toolbarHTMLElement.appendChild ( transitModeButton.buttonHTMLElement );
 			}
@@ -159,7 +159,7 @@ class ProvidersToolbarUI {
 		theTravelNotesData.providers.forEach (
 			provider => {
 				if ( ! provider.providerKeyNeeded || theAPIKeysManager.hasKey ( provider.name ) ) {
-					const providerButton = new ProviderToolbarProviderButton ( this, provider );
+					const providerButton = new ProviderButton ( this, provider );
 					this.#providerButtons.set ( provider.name, providerButton );
 					this.#toolbarHTMLElement.appendChild ( providerButton.buttonHTMLElement );
 				}
@@ -168,13 +168,13 @@ class ProvidersToolbarUI {
 	}
 
 	/**
-	Show the UI
+	Show the toolbar
 	*/
 
 	#show ( ) {
-		this.#centerUI ( );
+		this.#centerToolbar ( );
 		this.#isShow = true;
-		setTimeout ( ( ) => this.#removeHidden ( ), ProvidersToolbarUI.#HIDDEN_DELAY );
+		setTimeout ( ( ) => this.#removeHidden ( ), ProvidersToolbar.#HIDDEN_DELAY );
 	}
 
 	/**
@@ -204,7 +204,7 @@ class ProvidersToolbarUI {
 		// When the delay is lower than #MOUSE_EVENT_MAX_DELAY 	we consider that the click event and the
 		// mouse enter event are trigered by the same user action on touch devices
 		// and the click event is cancelled
-		if ( ProvidersToolbarUI.#MOUSE_EVENT_MAX_DELAY > mouseEvent.timeStamp - this.#lastMouseEventTimestamp ) {
+		if ( ProvidersToolbar.#MOUSE_EVENT_MAX_DELAY > mouseEvent.timeStamp - this.#lastMouseEventTimestamp ) {
 			return;
 		}
 
@@ -244,16 +244,16 @@ class ProvidersToolbarUI {
 	}
 
 	/**
-	Center the UI on the lower side of the screen
+	Center the toolbar on the lower side of the screen
 	*/
 
-	#centerUI ( ) {
+	#centerToolbar ( ) {
 		this.#topBar.textContent = theTranslator.getText (
-			'ProvidersToolbarUI - Computed by {provider} for {transitMode}',
+			'ProvidersToolbar - Computed by {provider} for {transitMode}',
 			{
 				provider : theTravelNotesData.routing.provider,
 				transitMode : theTranslator.getText (
-					'ProvidersToolbarUI - TransitMode ' + theTravelNotesData.routing.transitMode
+					'ProvidersToolbar - TransitMode ' + theTravelNotesData.routing.transitMode
 				)
 			}
 		);
@@ -275,7 +275,7 @@ class ProvidersToolbarUI {
 	}
 
 	/**
-	Hide the UI. Used as event listener for the timer
+	Hide the toolbar. Used as event listener for the timer
 	*/
 
 	hide ( ) {
@@ -286,12 +286,12 @@ class ProvidersToolbarUI {
 			this.#timerId = null;
 		}
 		this.#toolbarHTMLElement.classList.add ( 'TravelNotes-Hidden' );
-		this.#centerUI ( );
+		this.#centerToolbar ( );
 		this.#isShow = false;
 	}
 
 	/**
-	Creation of the UI
+	Creation of the toolbar
 	*/
 
 	createUI ( ) {
@@ -299,7 +299,7 @@ class ProvidersToolbarUI {
 		this.#container = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-ProvidersToolbarUI-Container'
+				className : 'TravelNotes-ProvidersToolbar-Container'
 			},
 			document.body
 		);
@@ -307,8 +307,8 @@ class ProvidersToolbarUI {
 		this.#topBar = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-ProvidersToolbarUI-TopBar',
-				textContent : theTranslator.getText ( 'TravelNotes-ProvidersToolbarUI - Providers' )
+				className : 'TravelNotes-ProvidersToolbar-TopBar',
+				textContent : theTranslator.getText ( 'TravelNotes-ProvidersToolbar - Providers' )
 			},
 			this.#container
 		);
@@ -317,7 +317,7 @@ class ProvidersToolbarUI {
 		this.#toolbarHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-ProvidersToolbarUI-ImgButtonsDiv TravelNotes-Hidden'
+				className : 'TravelNotes-ProvidersToolbar-ImgButtonsDiv TravelNotes-Hidden'
 			},
 			this.#container
 		);
@@ -344,7 +344,7 @@ class ProvidersToolbarUI {
 
 		// set the first provider in the map as active provider
 		this.provider = this.#providerButtons.keys ().next ().value;
-		this.#centerUI ( );
+		this.#centerToolbar ( );
 	}
 
 	/**
@@ -396,7 +396,7 @@ class ProvidersToolbarUI {
 			);
 
 		}
-		this.#centerUI ( );
+		this.#centerToolbar ( );
 	}
 
 	/**
@@ -410,7 +410,7 @@ class ProvidersToolbarUI {
 		}
 		this.#activeTransitModeButton = this.#transitModeButtons.get ( transitMode );
 		this.#activeTransitModeButton.active = true;
-		this.#centerUI ( );
+		this.#centerToolbar ( );
 	}
 
 	/**
@@ -429,20 +429,20 @@ class ProvidersToolbarUI {
 		const providerName = this.#providerButtons.keys ( ).next ( ).value;
 		this.provider = providerName;
 		this.transitMode = theTravelNotesData.providers.get ( providerName.toLowerCase ( ) ).transitModes [ ZERO ];
-		this.#centerUI ( );
+		this.#centerToolbar ( );
 	}
 
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-The one and only one instance of ProvidersToolbarUI class
-@type {ProvidersToolbarUI}
+The one and only one instance of ProvidersToolbar class
+@type {ProvidersToolbar}
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-const theProvidersToolbarUI = new ProvidersToolbarUI ( );
+const theProvidersToolbar = new ProvidersToolbar ( );
 
-export default theProvidersToolbarUI;
+export default theProvidersToolbar;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

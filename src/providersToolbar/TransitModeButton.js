@@ -32,18 +32,18 @@ import theRouter from '../coreLib/Router.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-Transit buttons on the ProvidersToolbarUI
+Transit buttons on the ProvidersToolbar
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ProviderToolbarTransitModeButton {
+class TransitModeButton {
 
 	/**
 	A reference to the toolbar
 	@type {HTMLElement}
 	*/
 
-	#providersToolbarUI;
+	#providersToolbar;
 
 	/**
 	The transit mode
@@ -123,25 +123,25 @@ class ProviderToolbarTransitModeButton {
 
 	/**
 	The constructor
-	@param {ProvidersToolbarUI} providersToolbarUI The providersToolbarUI on witch the button will be added
+	@param {ProvidersToolbar} providersToolbar The providersToolbar on witch the button will be added
 	@param {String} transitMode The transit mode linked to the button
 	*/
 
-	constructor ( providersToolbarUI, transitMode ) {
+	constructor ( providersToolbar, transitMode ) {
 
 		Object.freeze ( this );
 
-		this.#providersToolbarUI = providersToolbarUI;
+		this.#providersToolbar = providersToolbar;
 		this.#transitMode = transitMode;
 
 		// HTML creation
 		this.#buttonHTMLElement = theHTMLElementsFactory.create (
 			'img',
 			{
-				src : ProviderToolbarTransitModeButton.#TRANSIT_MODE_IMG [ transitMode ],
-				id : 'TravelNotes-ProvidersToolbarUI-' + transitMode + 'ImgButton',
-				className : 'TravelNotes-ProvidersToolbarUI-ImgButton',
-				title : theTranslator.getText ( 'ProvidersToolbarUI - ' + transitMode )
+				src : TransitModeButton.#TRANSIT_MODE_IMG [ transitMode ],
+				id : 'TravelNotes-ProvidersToolbar-' + transitMode + 'ImgButton',
+				className : 'TravelNotes-ProvidersToolbar-ImgButton',
+				title : theTranslator.getText ( 'ProvidersToolbar - TransitMode ' + transitMode )
 			}
 		);
 		this.#buttonHTMLElement.addEventListener ( 'click', this );
@@ -155,8 +155,8 @@ class ProviderToolbarTransitModeButton {
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		this.#providersToolbarUI.transitMode = this.#transitMode;
-		this.#providersToolbarUI.hide ( );
+		this.#providersToolbar.transitMode = this.#transitMode;
+		this.#providersToolbar.hide ( );
 		theRouter.startRouting ( );
 	}
 
@@ -180,10 +180,10 @@ class ProviderToolbarTransitModeButton {
 
 	set active ( active ) {
 		if ( active ) {
-			this.#buttonHTMLElement.classList.add ( 'TravelNotes-ProvidersToolbarUI-ActiveTransitModeImgButton' );
+			this.#buttonHTMLElement.classList.add ( 'TravelNotes-ProvidersToolbar-ActiveTransitModeImgButton' );
 		}
 		else {
-			this.#buttonHTMLElement.classList.remove ( 'TravelNotes-ProvidersToolbarUI-ActiveTransitModeImgButton' );
+			this.#buttonHTMLElement.classList.remove ( 'TravelNotes-ProvidersToolbar-ActiveTransitModeImgButton' );
 		}
 	}
 
@@ -201,6 +201,6 @@ class ProviderToolbarTransitModeButton {
 	}
 }
 
-export default ProviderToolbarTransitModeButton;
+export default TransitModeButton;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

@@ -74,14 +74,14 @@ fired when the route list must be updated on theTravelUI
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 @event setprovider
-fired when the provider must be updated on theProvidersToolbarUI
+fired when the provider must be updated on theProvidersToolbar
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 @event settransitmode
-fired when the transit mode must be updated on theProvidersToolbarUI
+fired when the transit mode must be updated on theProvidersToolbar
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
