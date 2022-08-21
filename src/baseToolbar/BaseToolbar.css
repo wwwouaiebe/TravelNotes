@@ -33,6 +33,7 @@ Changes:
 	height: auto;
 	max-height: 100vh;
 	z-index: 800;
+	font-weight: bold;
 }
 
 .TravelNotes-ToolbarUI-TopLeft {
@@ -51,12 +52,9 @@ Changes:
 	text-align: center;
 	width: 8em;
 	height: 2em;
-	font-size: 1em;
-	font-weight: bold;
 	color: white;
 	background-color: black;
 	padding: 0.5em;
-	margin: 0;
 }
 
 .TravelNotes-ToolbarUI-ButtonsHTMLElement {
@@ -68,8 +66,6 @@ Changes:
 .TravelNotes-ToolbarUI-ButtonHTMLElement {
 	padding: 0.5em;
 	text-align: center;
-	margin: 0;
-	font-weight: bold;
 	height: 1.1em;
 }
 

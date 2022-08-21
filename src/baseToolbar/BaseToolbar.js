@@ -27,7 +27,6 @@ Tests ...
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import {
 	WheelEventData,
-	ToolbarItemsContainer,
 	ButtonHTMLElementClickEL,
 	ButtonHTMLElementTouchEL,
 	ButtonsHTMLElementTouchEL,
@@ -114,7 +113,7 @@ class BaseToolbar {
 	@type {Array.<ToolbarItem>}
 	*/
 
-	#toolbarItemsContainer;
+	#toolbarItemsArray;
 
 	/**
 	The delay between a mouseenter and a click event.
@@ -139,7 +138,7 @@ class BaseToolbar {
 			this.#toolbarHTMLElement
 		);
 
-		this.#toolbarItemsContainer.toolbarItems = [ ];
+		this.#toolbarItemsArray = [ ];
 		this.addToolbarItems ( );
 
 		// wheel event data computation
@@ -150,7 +149,7 @@ class BaseToolbar {
 		this.#wheelEventData.buttonTop = this.#headerHTMLElement.offsetWidth - this.#headerHTMLElement.offsetHeight;
 
 		// adding buttons
-		this.#toolbarItemsContainer.toolbarItems.forEach (
+		this.#toolbarItemsArray.forEach (
 			( toolbarItem, index ) => {
 				if ( toolbarItem.isCommand ( ) ) {
 					const buttonHTMLElement = theHTMLElementsFactory.create (
@@ -316,11 +315,11 @@ class BaseToolbar {
 		this.#isShow = false;
 		this.#lastMouseEventTimestamp = ZERO;
 		this.#wheelEventData = new WheelEventData ( );
-		this.#toolbarItemsContainer = new ToolbarItemsContainer ( );
+		this.#toolbarItemsArray = [];
 		this.#buttonsHTMLElementWheelEL = new ButtonsHTMLElementWheelEL ( this.#wheelEventData );
 		this.#buttonsHTMLElementTouchEL = new ButtonsHTMLElementTouchEL ( this.#wheelEventData );
-		this.#buttonHTMLElementClickEL = new ButtonHTMLElementClickEL ( this.#toolbarItemsContainer );
-		this.#buttonHTMLElementTouchEL = new ButtonHTMLElementTouchEL ( this, this.#toolbarItemsContainer );
+		this.#buttonHTMLElementClickEL = new ButtonHTMLElementClickEL ( this.#toolbarItemsArray );
+		this.#buttonHTMLElementTouchEL = new ButtonHTMLElementTouchEL ( this.hide, this.#toolbarItemsArray );
 
 		this.#toolbarHTMLElement =
 			theHTMLElementsFactory.create (
@@ -362,7 +361,7 @@ class BaseToolbar {
 	*/
 
 	addToolbarItem ( toolbarItem ) {
-		this.#toolbarItemsContainer.toolbarItems.push ( toolbarItem );
+		this.#toolbarItemsArray.push ( toolbarItem );
 	}
 }
 

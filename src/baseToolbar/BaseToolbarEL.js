@@ -109,30 +109,6 @@ class WheelEventData {
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-A simple container to share data between the BaseToolbarUI class and the ButtonHTMLElementClickEL class
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class ToolbarItemsContainer {
-
-	/**
-	 An array with the toolbar items
-	 @type {Array.<ToolbarItem>}
-	*/
-
-	toolbarItems;
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		this.toolbarItems = [];
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
 click event listener for the toolbar buttons
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -140,21 +116,21 @@ click event listener for the toolbar buttons
 class ButtonHTMLElementClickEL {
 
 	/**
-	A reference to the ToolbarItemContainer object of the BaseToolbarUI class
+	A reference to the toolbarItemsArray of the BaseToolbar class
 	@type {Array.<ToolbarItem>}
 	*/
 
-	#toolbarItemsContainer;
+	#toolbarItemsArray;
 
 	/**
 	The constructor
-	@param {ToolbarItemsContainer} toolbarItemsContainer A reference to the toolbarItemsContainer
+	@param {Array.<ToolbarItem>} toolbarItemsArray A reference to the toolbarItemsArray of the BaseToolbar class
 	object  of the BaseToolbarUI class
 	of the BaseToolbarUI class
 	*/
 
-	constructor ( toolbarItemsContainer ) {
-		this.#toolbarItemsContainer = toolbarItemsContainer;
+	constructor ( toolbarItemsArray ) {
+		this.#toolbarItemsArray = toolbarItemsArray;
 	}
 
 	/**
@@ -163,7 +139,8 @@ class ButtonHTMLElementClickEL {
 	*/
 
 	handleEvent ( clickEvent ) {
-		this.#toolbarItemsContainer.toolbarItems [ Number.parseInt ( clickEvent.target.dataset.tanItemId ) ].action ( );
+		console.log ( 'ButtonHTMLElementClickEL' );
+		this.#toolbarItemsArray [ Number.parseInt ( clickEvent.target.dataset.tanItemId ) ].action ( );
 	}
 }
 
@@ -176,18 +153,18 @@ touch event listener for the toolbar buttons
 class ButtonHTMLElementTouchEL {
 
 	/**
-	A reference to the toolbar
-	@type {BaseToolbar}
+	 A function used to hide the toolbar buttons
+	@type {function}
 	*/
 
-	#baseToolbar;
+	#hideToolbarFct;
 
 	/**
-	A reference to the ToolbarItemContainer object of the BaseToolbarUI class
+	A reference to the toolbarItemsArray of the BaseToolbar class
 	@type {Array.<ToolbarItem>}
 	*/
 
-	#toolbarItemsContainer;
+	#toolbarItemsArray;
 
 	/**
 	The y position of the touchstart event
@@ -206,15 +183,15 @@ class ButtonHTMLElementTouchEL {
 
 	/**
 	The constructor
-	@param {BaseToolbar} baseToolbar A reference to the toolbar
-	@param {ToolbarItemsContainer} toolbarItemsContainer A reference to the toolbarItemsContainer
+	@param {function} hideToolbarFct A function used to hide the toolbar buttons
+	@param {Array.<ToolbarItem>} toolbarItemsArray A reference to the toolbarItemsArray of the BaseToolbar class
 	object  of the BaseToolbarUI class
 	of the BaseToolbarUI class
 	*/
 
-	constructor ( baseToolbar, toolbarItemsContainer ) {
-		this.#baseToolbar = baseToolbar;
-		this.#toolbarItemsContainer = toolbarItemsContainer;
+	constructor ( hideToolbarFct, toolbarItemsArray ) {
+		this.#hideToolbarFct = hideToolbarFct;
+		this.#toolbarItemsArray = toolbarItemsArray;
 	}
 
 	/**
@@ -223,6 +200,7 @@ class ButtonHTMLElementTouchEL {
 	*/
 
 	handleEvent ( touchEvent ) {
+		console.log ( 'ButtonHTMLElementTouchEL' );
 		switch ( touchEvent.type ) {
 		case 'touchstart' :
 			if ( ONE === touchEvent.changedTouches.length ) {
@@ -235,9 +213,8 @@ class ButtonHTMLElementTouchEL {
 				const touch = touchEvent.changedTouches.item ( ZERO );
 				if ( ButtonHTMLElementTouchEL.#MAX_DELTA_Y > Math.abs ( touch.screenY - this.#touchButtonStartY ) ) {
 					touchEvent.stopPropagation ( );
-					this.#toolbarItemsContainer.toolbarItems [ Number.parseInt ( touchEvent.target.dataset.tanItemId ) ]
-						.action ( );
-					this.#baseToolbar.hide ( );
+					this.#toolbarItemsArray [ Number.parseInt ( touchEvent.target.dataset.tanItemId ) ].action ( );
+					this.#hideToolbarFct ( );
 				}
 			}
 			break;
@@ -355,7 +332,6 @@ class ButtonsHTMLElementWheelEL {
 
 export {
 	WheelEventData,
-	ToolbarItemsContainer,
 	ButtonHTMLElementClickEL,
 	ButtonHTMLElementTouchEL,
 	ButtonsHTMLElementTouchEL,
