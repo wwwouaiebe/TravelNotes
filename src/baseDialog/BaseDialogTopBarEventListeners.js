@@ -26,7 +26,7 @@ Doc reviewed ...
 Tests ...
 */
 
-import { ZERO, ONE, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
+import { ZERO, ONE } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -59,8 +59,7 @@ class TopBarDragStartEL {
 	*/
 
 	handleEvent ( dragStartEvent ) {
-		this.#dragData.dragStartX = dragStartEvent.screenX;
-		this.#dragData.dragStartY = dragStartEvent.screenY;
+		this.#dragData.setDragStartPoint ( dragStartEvent );
 	}
 }
 
@@ -95,37 +94,7 @@ class TopBarDragEndEL {
 	*/
 
 	handleEvent ( dragEndEvent ) {
-		this.#dragData.dialogX += dragEndEvent.screenX - this.#dragData.dragStartX;
-		this.#dragData.dialogY += dragEndEvent.screenY - this.#dragData.dragStartY;
-		this.#dragData.dialogX =
-			Math.min (
-				Math.max ( this.#dragData.dialogX, DIALOG_DRAG_MARGIN ),
-				this.#dragData.backgroundHTMLelement.clientWidth -
-					this.#dragData.dialogHTMLElement.clientWidth -
-					DIALOG_DRAG_MARGIN
-			);
-		this.#dragData.dialogY =
-		Math.min (
-			Math.max ( this.#dragData.dialogY, DIALOG_DRAG_MARGIN ),
-			this.#dragData.backgroundHTMLelement.clientHeight -
-				this.#dragData.dialogHTMLElement.clientHeight -
-				DIALOG_DRAG_MARGIN
-		);
-		if (
-			DIALOG_DRAG_MARGIN === this.#dragData.dialogY
-			&&
-			this.#dragData.dialogHTMLElement.classList.contains ( 'TravelNotes-DockableBaseDialog' )
-		) {
-			this.#dragData.dialogY = ZERO;
-		}
-		if ( ZERO === this.#dragData.dialogY ) {
-			this.#dragData.dialogHTMLElement.classList.add ( 'TravelNotes-BaseDialog-OnTop' );
-		}
-		else {
-			this.#dragData.dialogHTMLElement.classList.remove ( 'TravelNotes-BaseDialog-OnTop' );
-		}
-		this.#dragData.dialogHTMLElement.style.left = String ( this.#dragData.dialogX ) + 'px';
-		this.#dragData.dialogHTMLElement.style.top = String ( this.#dragData.dialogY ) + 'px';
+		this.#dragData.moveDialog ( dragEndEvent );
 	}
 }
 
@@ -165,52 +134,13 @@ class TopBarTouchEL {
 			const touch = touchEvent.changedTouches.item ( ZERO );
 			switch ( touchEvent.type ) {
 			case 'touchstart' :
-				this.#dragData.dragStartX = touch.screenX;
-				this.#dragData.dragStartY = touch.screenY;
+				this.#dragData.setDragStartPoint ( touch );
 				break;
-
 			case 'touchmove' :
 			case 'touchend' :
-				this.#dragData.dialogX += touch.screenX - this.#dragData.dragStartX;
-				this.#dragData.dialogY += touch.screenY - this.#dragData.dragStartY;
-				this.#dragData.dragStartX = touch.screenX;
-				this.#dragData.dragStartY = touch.screenY;
-				this.#dragData.dialogX =
-						Math.min (
-							Math.max ( this.#dragData.dialogX, DIALOG_DRAG_MARGIN ),
-							this.#dragData.backgroundHTMLelement.clientWidth -
-								this.#dragData.dialogHTMLElement.clientWidth -
-								DIALOG_DRAG_MARGIN
-						);
-				this.#dragData.dialogY =
-					Math.min (
-						Math.max ( this.#dragData.dialogY, DIALOG_DRAG_MARGIN ),
-						this.#dragData.backgroundHTMLelement.clientHeight -
-							this.#dragData.dialogHTMLElement.clientHeight -
-							DIALOG_DRAG_MARGIN
-					);
-
-				if (
-					DIALOG_DRAG_MARGIN === this.#dragData.dialogY
-						&&
-						this.#dragData.dialogHTMLElement.classList.contains ( 'TravelNotes-DockableBaseDialog' )
-						&&
-						'touchend' === touchEvent.type
-				) {
-					this.#dragData.dialogY = ZERO;
-				}
-				if ( ZERO === this.#dragData.dialogY ) {
-					this.#dragData.dialogHTMLElement.classList.add ( 'TravelNotes-BaseDialog-OnTop' );
-				}
-				else {
-					this.#dragData.dialogHTMLElement.classList.remove ( 'TravelNotes-BaseDialog-OnTop' );
-				}
-
-				this.#dragData.dialogHTMLElement.style.left = String ( this.#dragData.dialogX ) + 'px';
-				this.#dragData.dialogHTMLElement.style.top = String ( this.#dragData.dialogY ) + 'px';
+				this.#dragData.moveDialog ( touch );
 				break;
 			case 'touchcancel' :
-				this.#dragData.reset ( );
 				break;
 			default :
 				break;

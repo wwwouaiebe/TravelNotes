@@ -34,7 +34,7 @@ import theGeometry from '../coreLib/Geometry.js';
 import theConfig from '../data/Config.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 
-import { ZERO, ONE, TWO, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
+import { ZERO, ONE, TWO } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -68,38 +68,11 @@ class BackgroundDragOverEL {
 
 	handleEvent ( dragEvent ) {
 		dragEvent.preventDefault ( );
-
 		if ( dragEvent.target.parentElement !== this.#dragData.dialogHTMLElement ) {
 			return;
 		}
-
 		dragEvent.stopPropagation ( );
-
-		this.#dragData.dialogX += dragEvent.screenX - this.#dragData.dragStartX;
-		this.#dragData.dialogY += dragEvent.screenY - this.#dragData.dragStartY;
-
-		this.#dragData.dragStartX = dragEvent.screenX;
-		this.#dragData.dragStartY = dragEvent.screenY;
-
-		this.#dragData.dialogX =
-			Math.min (
-				Math.max ( this.#dragData.dialogX, DIALOG_DRAG_MARGIN ),
-				this.#dragData.backgroundHTMLelement.clientWidth -
-					this.#dragData.dialogHTMLElement.clientWidth -
-					DIALOG_DRAG_MARGIN
-			);
-
-		this.#dragData.dialogY =
-		Math.min (
-			Math.max ( this.#dragData.dialogY, DIALOG_DRAG_MARGIN ),
-			this.#dragData.backgroundHTMLelement.clientHeight -
-				this.#dragData.dialogHTMLElement.clientHeight -
-				DIALOG_DRAG_MARGIN
-		);
-
-		this.#dragData.dialogHTMLElement.style.left = String ( this.#dragData.dialogX ) + 'px';
-		this.#dragData.dialogHTMLElement.style.top = String ( this.#dragData.dialogY ) + 'px';
-
+		this.#dragData.moveDialog ( dragEvent );
 	}
 }
 

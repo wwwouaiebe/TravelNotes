@@ -25,7 +25,7 @@ Doc reviewed 20211102
 Tests ...
 */
 
-import { ZERO } from '../main/Constants.js';
+import { ZERO, TWO, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -75,7 +75,7 @@ class DragData {
 	@type {HTMLElement}
 	*/
 
-	backgroundHTMLelement = null;
+	backgroundHTMLElement = null;
 
 	/**
 	The container element of the dialog
@@ -84,14 +84,69 @@ class DragData {
 
 	dialogHTMLElement = null;
 
-	/**
-    Reset the DragData object to it's initial state
-    */
-
-	reset ( ) {
-		this.dragStartX = ZERO;
-		this.dragStartY = ZERO;
+	setDragStartPoint ( dragOrTouchEvent ) {
+		this.dragStartX = dragOrTouchEvent.screenX;
+		this.dragStartY = dragOrTouchEvent.screenY;
 	}
+
+	moveDialog ( dragEventOrTouch ) {
+		const toX = this.dialogX + dragEventOrTouch.screenX - this.dragStartX;
+		const toY = this.dialogY + dragEventOrTouch.screenY - this.dragStartY;
+
+		this.dialogX = Math.max (
+			Math.min (
+				toX,
+				this.backgroundHTMLElement.offsetWidth - this.dialogHTMLElement.offsetWidth
+			),
+			DIALOG_DRAG_MARGIN
+		);
+		this.dialogY = Math.max (
+			Math.min (
+				toY,
+				this.backgroundHTMLElement.offsetHeight - this.dialogHTMLElement.offsetHeight
+			),
+			DIALOG_DRAG_MARGIN
+		);
+		if (
+			DIALOG_DRAG_MARGIN === this.dialogY
+			&&
+			this.dialogHTMLElement.classList.contains ( 'TravelNotes-DockableBaseDialog' )
+		) {
+			this.dialogY = ZERO;
+		}
+
+		if ( ZERO === this.dialogY ) {
+			this.dialogHTMLElement.classList.add ( 'TravelNotes-BaseDialog-OnTop' );
+		}
+		else {
+			this.dialogHTMLElement.classList.remove ( 'TravelNotes-BaseDialog-OnTop' );
+		}
+
+		this.dialogHTMLElement.style.left = String ( this.dialogX ) + 'px';
+		this.dialogHTMLElement.style.top = String ( this.dialogY ) + 'px';
+
+		this.dragStartX = dragEventOrTouch.screenX;
+		this.dragStartY = dragEventOrTouch.screenY;
+	}
+
+	/**
+	Center the dialog o the screen
+	*/
+
+	centerDialog ( ) {
+		this.dialogX =
+			( this.backgroundHTMLElement.clientWidth - this.dialogHTMLElement.clientWidth ) / TWO;
+		this.dialogY =
+			( this.backgroundHTMLElement.clientHeight - this.dialogHTMLElement.clientHeight ) / TWO;
+		this.dialogHTMLElement.style.left = String ( this.dialogX ) + 'px';
+		this.dialogHTMLElement.style.top = String ( this.dialogY ) + 'px';
+	}
+
+	moveDialogToTopLeft ( ) {
+		this.dialogHTMLElement.style.left = DIALOG_DRAG_MARGIN + 'px';
+		this.dialogHTMLElement.style.top = DIALOG_DRAG_MARGIN + 'px';
+	}
+
 }
 
 export default DragData;

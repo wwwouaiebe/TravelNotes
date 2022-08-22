@@ -62,8 +62,6 @@ import DragData from '../baseDialog/DragData.js';
 
 // import GarbageCollectorTester from '../UILib/GarbageCollectorTester.js';
 
-import { ZERO, TWO, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
-
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 Base class used for dialogs
@@ -286,61 +284,6 @@ class BaseDialog {
 
 		this.#cancelButton.removeEventListener ( 'click', this.#cancelButtonClickEL, false );
 		this.#cancelButtonClickEL = null;
-	}
-
-	/**
-	Center the dialog o the screen
-	*/
-
-	centerDialog ( ) {
-
-		this.dragData.dialogX =
-			( this.dragData.backgroundHTMLelement.clientWidth - this.#dialogHTMLElement.clientWidth ) / TWO;
-		this.dragData.dialogY =
-			( this.dragData.backgroundHTMLelement.clientHeight - this.#dialogHTMLElement.clientHeight ) / TWO;
-
-		this.#dialogHTMLElement.style.left = String ( this.dragData.dialogX ) + 'px';
-		this.#dialogHTMLElement.style.top = String ( this.dragData.dialogY ) + 'px';
-	}
-
-	/**
-	Move the dialog on the screen
-	@param {Number} moveX The new X position in pixels of the upper left corner
-	@param {Number} moveY The new Y position in pixels of the upper left corner
-	*/
-
-	moveTo ( moveX, moveY ) {
-		this.dragData.dialogX = Math.max (
-			Math.min (
-				moveX,
-				this.dragData.backgroundHTMLelement.offsetWidth - this.#dialogHTMLElement.offsetWidth
-			),
-			DIALOG_DRAG_MARGIN
-		);
-		this.dragData.dialogY = Math.max (
-			Math.min (
-				moveY,
-				this.dragData.backgroundHTMLelement.offsetHeight - this.#dialogHTMLElement.offsetHeight
-			),
-			DIALOG_DRAG_MARGIN
-		);
-		if (
-			DIALOG_DRAG_MARGIN === this.dragData.dialogY
-			&&
-			this.dragData.dialogHTMLElement.classList.contains ( 'TravelNotes-DockableBaseDialog' )
-		) {
-			this.dragData.dialogY = ZERO;
-		}
-
-		if ( ZERO === this.dragData.dialogY ) {
-			this.dragData.dialogHTMLElement.classList.add ( 'TravelNotes-BaseDialog-OnTop' );
-		}
-		else {
-			this.dragData.dialogHTMLElement.classList.remove ( 'TravelNotes-BaseDialog-OnTop' );
-		}
-
-		this.#dialogHTMLElement.style.left = String ( this.dragData.dialogX ) + 'px';
-		this.#dialogHTMLElement.style.top = String ( this.dragData.dialogY ) + 'px';
 	}
 
 	/**

@@ -27,7 +27,6 @@ Tests ...
 import BaseDialog from '../BaseDialog/BaseDialog.js';
 import { BackgroundDragOverEL } from '../baseDialog/BaseDialogBackgroundEventListeners.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
-import { ZERO } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -79,12 +78,10 @@ class NonModalBaseDialog extends BaseDialog {
 
 	show ( ) {
 		super.show ( );
-		this.dragData.backgroundHTMLelement = theTravelNotesData.map.getContainer ( );
+		this.dragData.backgroundHTMLElement = theTravelNotesData.map.getContainer ( );
 		this.#createBackgroundHTMLElementEL ( );
 		this.addToBackground ( document.body );
-
-		// this.centerDialog ( );
-		this.moveTo ( ZERO, ZERO );
+		this.dragData.moveDialogToTopLeft ( );
 	}
 }
 
