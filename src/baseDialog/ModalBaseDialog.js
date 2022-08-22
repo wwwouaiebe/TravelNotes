@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v4.0.0:
 		- created
-Doc reviewed ...
+Doc reviewed 20220822
 Tests ...
 */
 
@@ -49,25 +49,25 @@ Base class for modal dialogs
 class ModalBaseDialog extends BaseDialog {
 
 	/**
-	The background div of the dialog
+	The background HTMLElement of the dialog
 	@type {HTMLElement}
 	*/
 
-	#backgroundDiv;
+	#backgroundHTMLElement;
 
 	/**
-	The error div of the dialog
+	The error HTMLElement of the dialog
 	@type {HTMLElement}
 	*/
 
-	#errorDiv;
+	#errorHTMLElement;
 
 	/**
-	The wait div of the dialog
+	The wait HTMLElement of the dialog
 	@type {HTMLElement}
 	*/
 
-	#waitDiv;
+	#waitHTMLElement;
 
 	/**
 	A flag to avoid all dialogs close when using the esc or enter keys
@@ -109,14 +109,14 @@ class ModalBaseDialog extends BaseDialog {
 	@type {function}
 	*/
 
-	#onPromiseOkFct;
+	#onPromiseOkFunction;
 
 	/**
 	onError promise function
 	@type {function}
 	*/
 
-	#onPromiseErrorFct;
+	#onPromiseErrorFunction;
 
 	/**
 	Keyboard key down event listener
@@ -164,59 +164,58 @@ class ModalBaseDialog extends BaseDialog {
 	Create the background
 	*/
 
-	#createBackgroundDiv ( ) {
+	#createBackgroundHTMLElement ( ) {
 
 		// A new element covering the entire screen is created, with drag and drop event listeners
-		this.#backgroundDiv = theHTMLElementsFactory.create ( 'div', { className : 'TravelNotes-Background' } );
-		this.dragData.background = this.#backgroundDiv;
+		this.#backgroundHTMLElement = theHTMLElementsFactory.create ( 'div', { className : 'TravelNotes-Background' } );
+		this.dragData.background = this.#backgroundHTMLElement;
 	}
 
 	/**
-	Create the background div event listeners.
+	Create the background HTMLElement event listeners.
 	*/
 
-	#createBackgroundDivEL ( ) {
-
+	#createBackgroundHTMLElementEL ( ) {
 		this.#backgroundDragOverEL = new BackgroundDragOverEL ( this.dragData );
-		this.#backgroundDiv.addEventListener ( 'dragover', this.#backgroundDragOverEL, false );
+		this.#backgroundHTMLElement.addEventListener ( 'dragover', this.#backgroundDragOverEL, false );
 
 		this.#backgroundWheelEL = new BackgroundWheelEL ( );
-		this.#backgroundDiv.addEventListener ( 'wheel', this.#backgroundWheelEL, { passive : true }	);
+		this.#backgroundHTMLElement.addEventListener ( 'wheel', this.#backgroundWheelEL, { passive : true }	);
 
 		this.#backgroundContextMenuEL = new BackgroundContextMenuEL ( );
-		this.#backgroundDiv.addEventListener ( 'contextmenu', this.#backgroundContextMenuEL, false );
+		this.#backgroundHTMLElement.addEventListener ( 'contextmenu', this.#backgroundContextMenuEL, false );
 
 		this.#backgroundTouchEL = new BackgroundTouchEL ( this );
-		this.#backgroundDiv.addEventListener ( 'touchstart', this.#backgroundTouchEL, false );
-		this.#backgroundDiv.addEventListener ( 'touchmove', this.#backgroundTouchEL, false );
-		this.#backgroundDiv.addEventListener ( 'touchend', this.#backgroundTouchEL, false );
-		this.#backgroundDiv.addEventListener ( 'touchcancel', this.#backgroundTouchEL, false );
+		this.#backgroundHTMLElement.addEventListener ( 'touchstart', this.#backgroundTouchEL, false );
+		this.#backgroundHTMLElement.addEventListener ( 'touchmove', this.#backgroundTouchEL, false );
+		this.#backgroundHTMLElement.addEventListener ( 'touchend', this.#backgroundTouchEL, false );
+		this.#backgroundHTMLElement.addEventListener ( 'touchcancel', this.#backgroundTouchEL, false );
 
 		this.#backgroundMouseEL = new BackgroundMouseEL ( );
-		this.#backgroundDiv.addEventListener ( 'mouseup', this.#backgroundMouseEL, false );
-		this.#backgroundDiv.addEventListener ( 'mousemove', this.#backgroundMouseEL, false );
-		this.#backgroundDiv.addEventListener ( 'mousedown', this.#backgroundMouseEL, false );
+		this.#backgroundHTMLElement.addEventListener ( 'mouseup', this.#backgroundMouseEL, false );
+		this.#backgroundHTMLElement.addEventListener ( 'mousemove', this.#backgroundMouseEL, false );
+		this.#backgroundHTMLElement.addEventListener ( 'mousedown', this.#backgroundMouseEL, false );
 	}
 
 	/**
-	Create the error div
+	Create the error HTMLElement
 	*/
 
-	#createErrorDiv ( ) {
-		this.#errorDiv = theHTMLElementsFactory.create (
+	#createErrorHTMLElement ( ) {
+		this.#errorHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-ErrorDiv TravelNotes-Hidden'
+				className : 'TravelNotes-ModalBaseDialog-ErrorHTMLElement TravelNotes-Hidden'
 			}
 		);
-		this.addToContainer ( this.#errorDiv );
+		this.addToDialog ( this.#errorHTMLElement );
 	}
 
 	/**
-	Create the dialog wait animation
+	Create the dialog wait HTMLElement and animation
 	*/
 
-	#createWaitDiv ( ) {
+	#createWaitHTMLElement ( ) {
 		theHTMLElementsFactory.create (
 			'div',
 			{
@@ -227,28 +226,28 @@ class ModalBaseDialog extends BaseDialog {
 				{
 					className : 'TravelNotes-WaitAnimation'
 				},
-				this.#waitDiv = theHTMLElementsFactory.create (
+				this.#waitHTMLElement = theHTMLElementsFactory.create (
 					'div',
 					{
-						className : 'TravelNotes-BaseDialog-WaitDiv  TravelNotes-Hidden'
+						className : 'TravelNotes-ModalBaseDialog-WaitHTMLElement  TravelNotes-Hidden'
 					}				)
 			)
 		);
-		this.addToContainer ( this.#waitDiv );
+		this.addToDialog ( this.#waitHTMLElement );
 	}
 
 	/**
 	Create the dialog footer
 	*/
 
-	#createFooterDiv ( ) {
+	#createFooterHTMLElement ( ) {
 		const footerDiv = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-FooterDiv'
+				className : 'TravelNotes-ModalBaseDialog-FooterHTMLElement'
 			}
 		);
-		this.addToContainer ( footerDiv );
+		this.addToDialog ( footerDiv );
 
 		this.#okButton = theHTMLElementsFactory.create (
 			'div',
@@ -287,11 +286,11 @@ class ModalBaseDialog extends BaseDialog {
 	*/
 
 	#createHTML ( ) {
-		this.#createBackgroundDiv ( );
-		this.#createBackgroundDivEL ( );
-		this.#createErrorDiv ( );
-		this.#createWaitDiv ( );
-		this.#createFooterDiv ( );
+		this.#createBackgroundHTMLElement ( );
+		this.#createBackgroundHTMLElementEL ( );
+		this.#createErrorHTMLElement ( );
+		this.#createWaitHTMLElement ( );
+		this.#createFooterHTMLElement ( );
 	}
 
 	/**
@@ -299,24 +298,24 @@ class ModalBaseDialog extends BaseDialog {
 	*/
 
 	#destructor ( ) {
-		this.#backgroundDiv.removeEventListener ( 'wheel', this.#backgroundWheelEL, { passive : true }	);
+		this.#backgroundHTMLElement.removeEventListener ( 'wheel', this.#backgroundWheelEL, { passive : true }	);
 		this.#backgroundWheelEL = null;
 
-		this.#backgroundDiv.removeEventListener ( 'contextmenu', this.#backgroundContextMenuEL, false );
+		this.#backgroundHTMLElement.removeEventListener ( 'contextmenu', this.#backgroundContextMenuEL, false );
 		this.#backgroundContextMenuEL = null;
 
-		this.#backgroundDiv.removeEventListener ( 'dragover', this.#backgroundDragOverEL, false );
+		this.#backgroundHTMLElement.removeEventListener ( 'dragover', this.#backgroundDragOverEL, false );
 		this.#backgroundDragOverEL = null;
 
-		this.#backgroundDiv.removeEventListener ( 'touchstart', this.#backgroundTouchEL, false );
-		this.#backgroundDiv.removeEventListener ( 'touchmove', this.#backgroundTouchEL, false );
-		this.#backgroundDiv.removeEventListener ( 'touchend', this.#backgroundTouchEL, false );
-		this.#backgroundDiv.removeEventListener ( 'touchcancel', this.#backgroundTouchEL, false );
+		this.#backgroundHTMLElement.removeEventListener ( 'touchstart', this.#backgroundTouchEL, false );
+		this.#backgroundHTMLElement.removeEventListener ( 'touchmove', this.#backgroundTouchEL, false );
+		this.#backgroundHTMLElement.removeEventListener ( 'touchend', this.#backgroundTouchEL, false );
+		this.#backgroundHTMLElement.removeEventListener ( 'touchcancel', this.#backgroundTouchEL, false );
 		this.#backgroundTouchEL = null;
 
-		this.#backgroundDiv.removeEventListener ( 'mouseup', this.#backgroundMouseEL, false );
-		this.#backgroundDiv.removeEventListener ( 'mousemove', this.#backgroundMouseEL, false );
-		this.#backgroundDiv.removeEventListener ( 'mousedown', this.#backgroundMouseEL, false );
+		this.#backgroundHTMLElement.removeEventListener ( 'mouseup', this.#backgroundMouseEL, false );
+		this.#backgroundHTMLElement.removeEventListener ( 'mousemove', this.#backgroundMouseEL, false );
+		this.#backgroundHTMLElement.removeEventListener ( 'mousedown', this.#backgroundMouseEL, false );
 		this.#backgroundMouseEL = null;
 
 		document.removeEventListener ( 'keydown', this.#dialogKeyboardKeydownEL, { capture : true } );
@@ -328,7 +327,7 @@ class ModalBaseDialog extends BaseDialog {
 			this.#secondButton.removeEventListener ( 'click', this.#cancelButtonClickEL, false	);
 		}
 
-		document.body.removeChild ( this.#backgroundDiv );
+		document.body.removeChild ( this.#backgroundHTMLElement );
 	}
 
 	/**
@@ -338,8 +337,8 @@ class ModalBaseDialog extends BaseDialog {
 	*/
 
 	#show ( onOk, onError ) {
-		this.#onPromiseOkFct = onOk;
-		this.#onPromiseErrorFct = onError;
+		this.#onPromiseOkFunction = onOk;
+		this.#onPromiseErrorFunction = onError;
 	}
 
 	/**
@@ -359,8 +358,8 @@ class ModalBaseDialog extends BaseDialog {
 	show ( ) {
 		super.show ( );
 		this.#createHTML ( );
-		document.body.appendChild ( this.#backgroundDiv );
-		this.addToBackground ( this.#backgroundDiv );
+		document.body.appendChild ( this.#backgroundHTMLElement );
+		this.addToBackground ( this.#backgroundHTMLElement );
 		this.#dialogKeyboardKeydownEL = new DialogKeyboardKeydownEL ( this );
 		document.addEventListener ( 'keydown', this.#dialogKeyboardKeydownEL, { capture : true } );
 		this.centerDialog ( );
@@ -374,7 +373,7 @@ class ModalBaseDialog extends BaseDialog {
 	onCancel ( ) {
 		this.#destructor ( );
 		super.onCancel ( );
-		this.#onPromiseErrorFct ( 'Canceled by user' );
+		this.#onPromiseErrorFunction ( 'Canceled by user' );
 	}
 
 	/**
@@ -394,7 +393,7 @@ class ModalBaseDialog extends BaseDialog {
 
 	onOk ( returnValue ) {
 		if ( this.canClose ( ) ) {
-			this.#onPromiseOkFct ( returnValue );
+			this.#onPromiseOkFunction ( returnValue );
 			this.#destructor ( );
 			super.onOk ( );
 			return true;
@@ -407,7 +406,7 @@ class ModalBaseDialog extends BaseDialog {
 	*/
 
 	showWait ( ) {
-		this.#waitDiv.classList.remove ( 'TravelNotes-Hidden' );
+		this.#waitHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
 		this.#okButton.classList.add ( 'TravelNotes-Hidden' );
 	}
 
@@ -416,7 +415,7 @@ class ModalBaseDialog extends BaseDialog {
 	*/
 
 	hideWait ( ) {
-		this.#waitDiv.classList.add ( 'TravelNotes-Hidden' );
+		this.#waitHTMLElement.classList.add ( 'TravelNotes-Hidden' );
 		this.#okButton.classList.remove ( 'TravelNotes-Hidden' );
 	}
 
@@ -426,9 +425,9 @@ class ModalBaseDialog extends BaseDialog {
 	*/
 
 	showError ( errorText ) {
-		this.#errorDiv.textContent = '';
-		theHTMLSanitizer.sanitizeToHtmlElement ( errorText, this.#errorDiv );
-		this.#errorDiv.classList.remove ( 'TravelNotes-Hidden' );
+		this.#errorHTMLElement.textContent = '';
+		theHTMLSanitizer.sanitizeToHtmlElement ( errorText, this.#errorHTMLElement );
+		this.#errorHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
 	}
 
 	/**
@@ -436,8 +435,8 @@ class ModalBaseDialog extends BaseDialog {
 	*/
 
 	hideError ( ) {
-		this.#errorDiv.textContent = '';
-		this.#errorDiv.classList.add ( 'TravelNotes-Hidden' );
+		this.#errorHTMLElement.textContent = '';
+		this.#errorHTMLElement.classList.add ( 'TravelNotes-Hidden' );
 	}
 
 	/**

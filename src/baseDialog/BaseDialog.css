@@ -32,7 +32,7 @@ Changes:
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-.TravelNotes-BaseDialog-Container {
+.TravelNotes-BaseDialog-DialogHTMLElement {
 	z-index: 1250;
 	position: absolute;
 	background-color: white;
@@ -46,23 +46,23 @@ Changes:
 	flex-direction: column;
 }
 
-.TravelNotes-BaseDialog-TopBar {
+.TravelNotes-BaseDialog-TopBarHTMLElement {
 	background-color: lightgray;
 	border-bottom-style: solid;
 	border-bottom-width: 0.1em;
 }
 
-.TravelNotes-BaseDialog-TopBar:hover {
+.TravelNotes-BaseDialog-TopBarHTMLElement:hover {
 	background-color: darkred;
 	color: white;
 }
 
-.TravelNotes-BaseDialog-TopBar:hover,
-.TravelNotes-BaseDialog-TopBar:active {
+.TravelNotes-BaseDialog-TopBarHTMLElement:hover,
+.TravelNotes-BaseDialog-TopBarHTMLElement:active {
 	cursor: grab;
 }
 
-.TravelNotes-DockableBaseDialog.TravelNotes-BaseDialog-OnTop > .TravelNotes-BaseDialog-TopBar {
+.TravelNotes-DockableBaseDialog.TravelNotes-BaseDialog-OnTop > .TravelNotes-BaseDialog-TopBarHTMLElement {
 	background-color: black;
 	color: white;
 }
@@ -85,16 +85,15 @@ Changes:
 	padding-right: 0.5em;
 }
 
-.TravelNotes-BaseDialog-HeaderDiv,
-.TravelNotes-BaseDialog-ToolbarDiv,
-.TravelNotes-BaseDialog-ContentDiv,
-.TravelNotes-BaseDialog-ErrorDiv,
-.TravelNotes-BaseDialog-WaitDiv,
-.TravelNotes-BaseDialog-FooterDiv {
+.TravelNotes-BaseDialog-ToolbarHTMLElement,
+.TravelNotes-BaseDialog-ContentHTMLElement,
+.TravelNotes-ModalBaseDialog-ErrorHTMLElement,
+.TravelNotes-ModalBaseDialog-WaitHTMLElement,
+.TravelNotes-ModalBaseDialog-FooterHTMLElement {
 	padding: 0.5em;
 }
 
-.TravelNotes-BaseDialog-ContentDiv {
+.TravelNotes-BaseDialog-ContentHTMLElement {
 	margin-top: 1em;
 	border-top-style: solid;
 	border-bottom-style: solid;
@@ -104,7 +103,7 @@ Changes:
 	flex-grow: 1;
 }
 
-.TravelNotes-BaseDialog-ErrorDiv {
+.TravelNotes-ModalBaseDialog-ErrorHTMLElement {
 	background-color: red;
 	color: white;
 }

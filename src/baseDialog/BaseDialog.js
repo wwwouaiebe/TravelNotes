@@ -45,59 +45,9 @@ Changes:
 		- Issue ♯38 : Review mouse and touch events on the background div of dialogs
 		- Issue ♯41 : Not possible to move a dialog on touch devices
 		- Issue ♯48 : Review the dialogs
-Doc reviewed ...
+Doc reviewed 20220822
 Tests ...
 */
-
-/*
-
-Box model
-
-+- .TravelNotes-Background -----------------------------------------------------------------------------------------+
-|                                                                                                                   |
-| +- .TravelNotes-BaseDialog-Container -------------------------------------------------------------+               |
-| |                                                                                                 |               |
-| | +- .TravelNotes-BaseDialog-TopBar ------------------------------------------------------------+ |               |
-| | |                                                                                             | |               |
-| | | +- .TravelNotes-BaseDialog-CancelButton ---+                                                | |               |
-| | | |  BaseDialog.cancelButton                 |                                                | |               |
-| | | +------------------------------------------+                                                | |               |
-| | +---------------------------------------------------------------------------------------------+ |               |
-| |                                                                                                 |               |
-| | +- .TravelNotes-BaseDialog-HeaderDiv ---------------------------------------------------------+ |               |
-| | |  BaseDialog.title                                                                           | |               |
-| | +---------------------------------------------------------------------------------------------+ |               |
-| |                                                                                                 |               |
-| | +- .TravelNotes-BaseDialog-ContentDiv --------------------------------------------------------+ |               |
-| | |  BaseDialog.content                                                                         | |               |
-| | |                                                                                             | |               |
-| | |                                                                                             | |               |
-| | |                                                                                             | |               |
-| | |                                                                                             | |               |
-| | +---------------------------------------------------------------------------------------------+ |               |
-| |                                                                                                 |               |
-| | +- .TravelNotes-BaseDialog-ErrorDiv ----------------------------------------------------------+ |               |
-| | |                                                                                             | |               |
-| | +---------------------------------------------------------------------------------------------+ |               |
-| |                                                                                                 |               |
-| | +- .TravelNotes-BaseDialog-FooterDiv ---------------------------------------------------------+ |               |
-| | |                                                                                             | |               |
-| | | +- .TravelNotes-BaseDialog-SearchWait ----------------------------------------------------+ | |               |
-| | | |                                                                                         | | |               |
-| | | +-----------------------------------------------------------------------------------------+ | |               |
-| | |                                                                                             | |               |
-| | | +- .TravelNotes-BaseDialog-Button ---------+                                                | |               |
-| | | |  BaseDialog.okButton                     |                                                | |               |
-| | | +------------------------------------------+                                                | |               |
-| | +---------------------------------------------------------------------------------------------+ |               |
-| +-------------------------------------------------------------------------------------------------+               |
-|                                                                                                                   |
-|                                                                                                                   |
-|                                                                                                                   |
-+-------------------------------------------------------------------------------------------------------------------+
-*/
-
-/* eslint-disable max-lines */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
@@ -129,18 +79,18 @@ class BaseDialog {
 	// #garbageCollectorTester = new GarbageCollectorTester ( );
 
 	/**
-	The container div of the dialog
+	The container HTMLElement of the dialog
 	@type {HTMLElement}
 	*/
 
-	#containerDiv;
+	#dialogHTMLElement;
 
 	/**
-	The topbar
+	The topbar HTMLElement
 	@type {HTMLElement}
 	*/
 
-	#topBar;
+	#topBarHTMLElement;
 
 	/**
 	The cancel button on the top bar
@@ -150,11 +100,11 @@ class BaseDialog {
 	#cancelButton;
 
 	/**
-	The content div of the dialog
+	The content HTMLElement
 	@type {HTMLElement}
 	*/
 
-	#contentDiv;
+	#contentHTMLElement;
 
 	/**
 	Data for drag ond drop and touch operations
@@ -202,43 +152,43 @@ class BaseDialog {
 	Create the dialog container
 	*/
 
-	#createContainerDiv ( ) {
+	#createDialogHTMLElement ( ) {
 
 		// the dialog is created
-		this.#containerDiv = theHTMLElementsFactory.create (
+		this.#dialogHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-Container'
+				className : 'TravelNotes-BaseDialog-DialogHTMLElement'
 			}
 		);
-		this.dragData.container = this.#containerDiv;
+		this.dragData.container = this.#dialogHTMLElement;
 	}
 
 	/**
 	Create the top bar
 	*/
 
-	#createTopBar ( ) {
+	#createTopBarHTMLElement ( ) {
 
-		this.#topBar = theHTMLElementsFactory.create (
+		this.#topBarHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-TopBar',
+				className : 'TravelNotes-BaseDialog-TopBarHTMLElement',
 				draggable : true
 			},
-			this.#containerDiv
+			this.#dialogHTMLElement
 		);
 
 		this.#topBarTouchEL = new TopBarTouchEL ( this.dragData );
-		this.#topBar.addEventListener ( 'touchstart', this.#topBarTouchEL, false );
-		this.#topBar.addEventListener ( 'touchmove', this.#topBarTouchEL, false );
-		this.#topBar.addEventListener ( 'touchend', this.#topBarTouchEL, false );
-		this.#topBar.addEventListener ( 'touchcancel', this.#topBarTouchEL, false );
+		this.#topBarHTMLElement.addEventListener ( 'touchstart', this.#topBarTouchEL, false );
+		this.#topBarHTMLElement.addEventListener ( 'touchmove', this.#topBarTouchEL, false );
+		this.#topBarHTMLElement.addEventListener ( 'touchend', this.#topBarTouchEL, false );
+		this.#topBarHTMLElement.addEventListener ( 'touchcancel', this.#topBarTouchEL, false );
 
 		this.#topBarDragStartEL = new TopBarDragStartEL ( this.dragData );
-		this.#topBar.addEventListener ( 'dragstart', this.#topBarDragStartEL, false );
+		this.#topBarHTMLElement.addEventListener ( 'dragstart', this.#topBarDragStartEL, false );
 		this.#topBarDragEndEL = new TopBarDragEndEL ( this.dragData );
-		this.#topBar.addEventListener ( 'dragend', this.#topBarDragEndEL, false );
+		this.#topBarHTMLElement.addEventListener ( 'dragend', this.#topBarDragEndEL, false );
 
 		this.#cancelButton = theHTMLElementsFactory.create (
 			'div',
@@ -247,7 +197,7 @@ class BaseDialog {
 				className : 'TravelNotes-BaseDialog-CancelButton',
 				title : theTranslator.getText ( 'BaseDialog - Cancel' )
 			},
-			this.#topBar
+			this.#topBarHTMLElement
 		);
 		theHTMLElementsFactory.create (
 			'div',
@@ -255,43 +205,43 @@ class BaseDialog {
 				textContent : this.title,
 				className : 'TravelNotes-BaseDialog-Title'
 			},
-			this.#topBar
+			this.#topBarHTMLElement
 		);
 		this.#cancelButtonClickEL = new CancelButtonClickEL ( this );
 		this.#cancelButton.addEventListener ( 'click', this.#cancelButtonClickEL, false );
 	}
 
 	/**
-	Create the toolbar div
+	Create the toolbar HTMLElement
 	*/
 
-	#createToolbarDiv ( ) {
+	#createToolbarHTMLElement ( ) {
 		if ( this.toolbarHTMLElement ) {
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					className : 'TravelNotes-BaseDialog-ToolbarDiv'
+					className : 'TravelNotes-BaseDialog-ToolbarHTMLElement'
 				},
-				this.#containerDiv
+				this.#dialogHTMLElement
 			).appendChild ( this.toolbarHTMLElement );
 		}
 	}
 
 	/**
-	Create the content div
+	Create the content HTMLElement
 	*/
 
-	#createContentDiv ( ) {
-		this.#contentDiv = theHTMLElementsFactory.create (
+	#createContentHTMLElement ( ) {
+		this.#contentHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-ContentDiv'
+				className : 'TravelNotes-BaseDialog-ContentHTMLElement'
 			},
-			this.#containerDiv
+			this.#dialogHTMLElement
 		);
 
 		this.contentHTMLElements.forEach (
-			contentHTMLElement => this.#contentDiv.appendChild ( contentHTMLElement )
+			contentHTMLElement => this.#contentHTMLElement.appendChild ( contentHTMLElement )
 		);
 	}
 
@@ -300,10 +250,10 @@ class BaseDialog {
 	*/
 
 	#createHTML ( ) {
-		this.#createContainerDiv ( );
-		this.#createTopBar ( );
-		this.#createToolbarDiv ( );
-		this.#createContentDiv ( );
+		this.#createDialogHTMLElement ( );
+		this.#createTopBarHTMLElement ( );
+		this.#createToolbarHTMLElement ( );
+		this.#createContentHTMLElement ( );
 	}
 
 	/**
@@ -323,15 +273,15 @@ class BaseDialog {
 	*/
 
 	#destructor ( ) {
-		this.#topBar.removeEventListener ( 'dragstart', this.#topBarDragStartEL, false );
+		this.#topBarHTMLElement.removeEventListener ( 'dragstart', this.#topBarDragStartEL, false );
 		this.#topBarDragStartEL = null;
-		this.#topBar.removeEventListener ( 'dragend', this.#topBarDragEndEL, false );
+		this.#topBarHTMLElement.removeEventListener ( 'dragend', this.#topBarDragEndEL, false );
 		this.#topBarDragEndEL = null;
 
-		this.#topBar.removeEventListener ( 'touchstart', this.#topBarTouchEL, false );
-		this.#topBar.removeEventListener ( 'touchmove', this.#topBarTouchEL, false );
-		this.#topBar.removeEventListener ( 'touchend', this.#topBarTouchEL, false );
-		this.#topBar.removeEventListener ( 'touchcancel', this.#topBarTouchEL, false );
+		this.#topBarHTMLElement.removeEventListener ( 'touchstart', this.#topBarTouchEL, false );
+		this.#topBarHTMLElement.removeEventListener ( 'touchmove', this.#topBarTouchEL, false );
+		this.#topBarHTMLElement.removeEventListener ( 'touchend', this.#topBarTouchEL, false );
+		this.#topBarHTMLElement.removeEventListener ( 'touchcancel', this.#topBarTouchEL, false );
 		this.#topBarTouchEL = null;
 
 		this.#cancelButton.removeEventListener ( 'click', this.#cancelButtonClickEL, false );
@@ -345,12 +295,12 @@ class BaseDialog {
 	centerDialog ( ) {
 
 		this.dragData.dialogX =
-			( this.dragData.background.clientWidth - this.#containerDiv.clientWidth ) / TWO;
+			( this.dragData.background.clientWidth - this.#dialogHTMLElement.clientWidth ) / TWO;
 		this.dragData.dialogY =
-			( this.dragData.background.clientHeight - this.#containerDiv.clientHeight ) / TWO;
+			( this.dragData.background.clientHeight - this.#dialogHTMLElement.clientHeight ) / TWO;
 
-		this.#containerDiv.style.left = String ( this.dragData.dialogX ) + 'px';
-		this.#containerDiv.style.top = String ( this.dragData.dialogY ) + 'px';
+		this.#dialogHTMLElement.style.left = String ( this.dragData.dialogX ) + 'px';
+		this.#dialogHTMLElement.style.top = String ( this.dragData.dialogY ) + 'px';
 	}
 
 	/**
@@ -363,14 +313,14 @@ class BaseDialog {
 		this.dragData.dialogX = Math.max (
 			Math.min (
 				moveX,
-				this.dragData.background.offsetWidth - this.#containerDiv.offsetWidth
+				this.dragData.background.offsetWidth - this.#dialogHTMLElement.offsetWidth
 			),
 			DIALOG_DRAG_MARGIN
 		);
 		this.dragData.dialogY = Math.max (
 			Math.min (
 				moveY,
-				this.dragData.background.offsetHeight - this.#containerDiv.offsetHeight
+				this.dragData.background.offsetHeight - this.#dialogHTMLElement.offsetHeight
 			),
 			DIALOG_DRAG_MARGIN
 		);
@@ -389,8 +339,8 @@ class BaseDialog {
 			this.dragData.container.classList.remove ( 'TravelNotes-BaseDialog-OnTop' );
 		}
 
-		this.#containerDiv.style.left = String ( this.dragData.dialogX ) + 'px';
-		this.#containerDiv.style.top = String ( this.dragData.dialogY ) + 'px';
+		this.#dialogHTMLElement.style.left = String ( this.dragData.dialogX ) + 'px';
+		this.#dialogHTMLElement.style.top = String ( this.dragData.dialogY ) + 'px';
 	}
 
 	/**
@@ -442,20 +392,22 @@ class BaseDialog {
 
 	/**
 	Remove the container from the background
-	@param {HTMLElement} backgroundElement the used background
+	@param {HTMLElement} backgroundElement the used background. The background can be the background created
+	by the modal dialogs or the document.body for non modal dialogs
 	*/
 
 	removeFromBackground ( backgroundElement ) {
-		backgroundElement.removeChild ( this.#containerDiv );
+		backgroundElement.removeChild ( this.#dialogHTMLElement );
 	}
 
 	/**
-	Add the container to the background
-	@param {HTMLElement} backgroundElement the used background
+	Add the container to the background.
+	@param {HTMLElement} backgroundElement the used background. The background can be the background created
+	by the modal dialogs or the document.body for non modal dialogs
 	*/
 
 	addToBackground ( backgroundElement ) {
-		backgroundElement.appendChild ( this.#containerDiv );
+		backgroundElement.appendChild ( this.#dialogHTMLElement );
 	}
 
 	/**
@@ -463,8 +415,8 @@ class BaseDialog {
 	@param {HTMLElement} htmlElement The element to add
 	*/
 
-	addToContainer ( htmlElement ) {
-		this.#containerDiv.appendChild ( htmlElement );
+	addToDialog ( htmlElement ) {
+		this.#dialogHTMLElement.appendChild ( htmlElement );
 	}
 
 	/**
@@ -473,6 +425,15 @@ class BaseDialog {
 	*/
 
 	get options ( ) { return this.#options; }
+
+	/**
+	Add a css class to the #dialogHTMLElement, so some css settings can be overloaded for a specific dialog
+	@param {String} cssClass The css class to add
+	*/
+
+	addCssClass ( cssClass ) {
+		this.#dialogHTMLElement.classList.add ( cssClass );
+	}
 
 }
 

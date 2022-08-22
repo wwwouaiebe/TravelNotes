@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v4.0.0:
 		- created
-Doc reviewed ...
+Doc reviewed 20220822
 Tests ...
 */
 
@@ -48,7 +48,7 @@ class NonModalBaseDialog extends BaseDialog {
 	Create the event listener for the background
 	*/
 
-	#createBackgroundDivEL ( ) {
+	#createBackgroundHTMLElementEL ( ) {
 
 		this.#backgroundDragOverEL = new BackgroundDragOverEL ( this.dragData );
 		document.body.addEventListener ( 'dragover', this.#backgroundDragOverEL, false );
@@ -80,7 +80,7 @@ class NonModalBaseDialog extends BaseDialog {
 	show ( ) {
 		super.show ( );
 		this.dragData.background = theTravelNotesData.map.getContainer ( );
-		this.#createBackgroundDivEL ( );
+		this.#createBackgroundHTMLElementEL ( );
 		this.addToBackground ( document.body );
 
 		// this.centerDialog ( );
