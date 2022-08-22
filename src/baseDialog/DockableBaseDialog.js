@@ -43,20 +43,6 @@ class DockableBaseDialog extends NonModalBaseDialog {
 	#isShow;
 
 	/**
-	The X position of the dialog
-	@type {Number}
-	*/
-
-	#dialogX;
-
-	/**
-	The Y position of the dialog
-	@type {Number}
-	*/
-
-	#dialogY;
-
-	/**
 	mouse enter on the dialog event listener
 	@type {MouseEnterDockableDialogEL}
 	*/
@@ -76,10 +62,8 @@ class DockableBaseDialog extends NonModalBaseDialog {
 	@param {Number} dialogY The default Y position in pixels for the dialog
 	*/
 
-	constructor ( dialogX, dialogY ) {
+	constructor ( ) {
 		super ( );
-		this.#dialogX = dialogX;
-		this.#dialogY = dialogY;
 		this.#mouseEnterDockableDialogEL = new MouseEnterDockableDialogEL ( this.dragData );
 		this.#mouseLeaveDockableDialogEL = new MouseLeaveDockableDialogEL ( this.dragData );
 	}
@@ -92,8 +76,6 @@ class DockableBaseDialog extends NonModalBaseDialog {
 		if ( this.#isShow ) {
 			super.onCancel ( );
 			this.#isShow = false;
-			this.#dialogX = this.dragData.dialogX;
-			this.#dialogY = this.dragData.dialogY;
 			this.dragData.dialogHTMLElement.removeEventListener ( 'mouseenter', this.#mouseEnterDockableDialogEL, false );
 			this.dragData.dialogHTMLElement.removeEventListener ( 'mouseleave', this.#mouseLeaveDockableDialogEL, false );
 		}
@@ -112,7 +94,7 @@ class DockableBaseDialog extends NonModalBaseDialog {
 		this.#isShow = true;
 		this.addCssClass ( 'TravelNotes-DockableBaseDialog' );
 
-		// this.moveTo ( this.#dialogX, this.#dialogY );
+		this.dragData.moveDialogToSavedPosition ( );
 		this.dragData.dialogHTMLElement.addEventListener ( 'mouseenter', this.#mouseEnterDockableDialogEL, false );
 		this.dragData.dialogHTMLElement.addEventListener ( 'mouseleave', this.#mouseLeaveDockableDialogEL, false );
 	}

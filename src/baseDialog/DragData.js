@@ -36,39 +36,43 @@ A simple container with data shared between a dialog or a float window and the d
 class DragData {
 
 	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.seal ( this );
-	}
-
-	/**
 	The X screen coordinate of the mouse when dragging
 	@type {Number}
 	*/
 
-	dragStartX = ZERO;
+	#dragStartX = ZERO;
 
 	/** The Y screen coordinate of the mouse when dragging
 	@type {Number}
 	*/
 
-	dragStartY = ZERO;
+	#dragStartY = ZERO;
 
 	/**
-	The X screen coordinate of the upper left corner of the dialog before drag operations
+	The X screen coordinate of the upper left corner of the dialog
 	@type {Number}
 	*/
 
-	dialogX = ZERO;
+	#dialogX = ZERO;
 
 	/**
-	The Y screen coordinate of the upper left corner of the dialog before drag operations
+	The Y screen coordinate of the upper left corner of the dialog
 	@type {Number}
 	*/
 
-	dialogY = ZERO;
+	#dialogY = ZERO;
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.seal ( this );
+		this.#dialogX = ZERO;
+		this.#dialogY = ZERO;
+		this.#dragStartX = ZERO;
+		this.#dragStartY = ZERO;
+	}
 
 	/**
 	The background element of the dialog
@@ -84,23 +88,23 @@ class DragData {
 
 	dialogHTMLElement = null;
 
-	setDragStartPoint ( dragOrTouchEvent ) {
-		this.dragStartX = dragOrTouchEvent.screenX;
-		this.dragStartY = dragOrTouchEvent.screenY;
+	setDragStartPoint ( dragEventOrTouch ) {
+		this.#dragStartX = dragEventOrTouch.screenX;
+		this.#dragStartY = dragEventOrTouch.screenY;
 	}
 
 	moveDialog ( dragEventOrTouch ) {
-		const toX = this.dialogX + dragEventOrTouch.screenX - this.dragStartX;
-		const toY = this.dialogY + dragEventOrTouch.screenY - this.dragStartY;
+		const toX = this.#dialogX + dragEventOrTouch.screenX - this.#dragStartX;
+		const toY = this.#dialogY + dragEventOrTouch.screenY - this.#dragStartY;
 
-		this.dialogX = Math.max (
+		this.#dialogX = Math.max (
 			Math.min (
 				toX,
 				this.backgroundHTMLElement.offsetWidth - this.dialogHTMLElement.offsetWidth
 			),
 			DIALOG_DRAG_MARGIN
 		);
-		this.dialogY = Math.max (
+		this.#dialogY = Math.max (
 			Math.min (
 				toY,
 				this.backgroundHTMLElement.offsetHeight - this.dialogHTMLElement.offsetHeight
@@ -108,25 +112,21 @@ class DragData {
 			DIALOG_DRAG_MARGIN
 		);
 		if (
-			DIALOG_DRAG_MARGIN === this.dialogY
+			DIALOG_DRAG_MARGIN === this.#dialogY
 			&&
 			this.dialogHTMLElement.classList.contains ( 'TravelNotes-DockableBaseDialog' )
 		) {
-			this.dialogY = ZERO;
+			this.#dialogY = ZERO;
 		}
 
-		if ( ZERO === this.dialogY ) {
+		if ( ZERO === this.#dialogY ) {
 			this.dialogHTMLElement.classList.add ( 'TravelNotes-BaseDialog-OnTop' );
 		}
 		else {
 			this.dialogHTMLElement.classList.remove ( 'TravelNotes-BaseDialog-OnTop' );
 		}
-
-		this.dialogHTMLElement.style.left = String ( this.dialogX ) + 'px';
-		this.dialogHTMLElement.style.top = String ( this.dialogY ) + 'px';
-
-		this.dragStartX = dragEventOrTouch.screenX;
-		this.dragStartY = dragEventOrTouch.screenY;
+		this.moveDialogToSavedPosition ( );
+		this.setDragStartPoint ( dragEventOrTouch );
 	}
 
 	/**
@@ -134,19 +134,23 @@ class DragData {
 	*/
 
 	centerDialog ( ) {
-		this.dialogX =
+		this.#dialogX =
 			( this.backgroundHTMLElement.clientWidth - this.dialogHTMLElement.clientWidth ) / TWO;
-		this.dialogY =
+		this.#dialogY =
 			( this.backgroundHTMLElement.clientHeight - this.dialogHTMLElement.clientHeight ) / TWO;
-		this.dialogHTMLElement.style.left = String ( this.dialogX ) + 'px';
-		this.dialogHTMLElement.style.top = String ( this.dialogY ) + 'px';
+		this.moveDialogToSavedPosition ( );
 	}
 
 	moveDialogToTopLeft ( ) {
-		this.dialogHTMLElement.style.left = DIALOG_DRAG_MARGIN + 'px';
-		this.dialogHTMLElement.style.top = DIALOG_DRAG_MARGIN + 'px';
+		this.#dialogX = DIALOG_DRAG_MARGIN;
+		this.#dialogY = DIALOG_DRAG_MARGIN;
+		this.moveDialogToSavedPosition ( );
 	}
 
+	moveDialogToSavedPosition ( ) {
+		this.dialogHTMLElement.style.left = String ( this.#dialogX ) + 'px';
+		this.dialogHTMLElement.style.top = String ( this.#dialogY ) + 'px';
+	}
 }
 
 export default DragData;
