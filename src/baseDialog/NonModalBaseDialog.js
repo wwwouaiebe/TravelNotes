@@ -49,7 +49,7 @@ class NonModalBaseDialog extends BaseDialog {
 
 	#createBackgroundHTMLElementEL ( ) {
 
-		this.#backgroundDragOverEL = new BackgroundDragOverEL ( this.dragData );
+		this.#backgroundDragOverEL = new BackgroundDragOverEL ( this.dialogMover );
 		document.body.addEventListener ( 'dragover', this.#backgroundDragOverEL, false );
 	}
 
@@ -78,10 +78,10 @@ class NonModalBaseDialog extends BaseDialog {
 
 	show ( ) {
 		super.show ( );
-		this.dragData.backgroundHTMLElement = theTravelNotesData.map.getContainer ( );
+		this.dialogMover.backgroundHTMLElement = theTravelNotesData.map.getContainer ( );
 		this.#createBackgroundHTMLElementEL ( );
 		this.addToBackground ( document.body );
-		this.dragData.moveDialogToTopLeft ( );
+		this.dialogMover.moveDialogToTopLeft ( );
 	}
 }
 

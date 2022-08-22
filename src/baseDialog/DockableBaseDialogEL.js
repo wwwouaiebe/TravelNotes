@@ -33,20 +33,20 @@ Mouse enter on the dialog event listener. Show the content of the dialog when th
 class MouseEnterDockableDialogEL {
 
 	/**
-	A reference to the dragData object of the dialog
-	@type {DragData}
+	A reference to the DialogMover object of the dialog
+	@type {DialogMover}
 	*/
 
-	#dragData;
+	#dialogMover;
 
 	/**
 	The constructor
-	@param {DragData} dragData A reference to the dragData object of the dialog
+	@param {DialogMover} dialogMover A reference to the DialogMover object of the dialog
 	*/
 
-	constructor ( dragData ) {
+	constructor ( dialogMover ) {
 		Object.freeze ( this );
-		this.#dragData = dragData;
+		this.#dialogMover = dialogMover;
 	}
 
 	/**
@@ -54,8 +54,8 @@ class MouseEnterDockableDialogEL {
 	*/
 
 	handleEvent ( ) {
-		if ( this.#dragData.dialogHTMLElement.classList.contains ( 'TravelNotes-BaseDialog-OnTop' ) ) {
-			for ( const node of this.#dragData.dialogHTMLElement.childNodes ) {
+		if ( this.#dialogMover.dialogHTMLElement.classList.contains ( 'TravelNotes-BaseDialog-OnTop' ) ) {
+			for ( const node of this.#dialogMover.dialogHTMLElement.childNodes ) {
 				if ( node.classList.contains ( 'TravelNotes-BaseDialog-ContentHTMLElement' ) ) {
 					node.classList.remove ( 'TravelNotes-Hidden' );
 				}
@@ -73,20 +73,20 @@ Mouse leave on the dialog event listener. Hide the content of the dialog when th
 class MouseLeaveDockableDialogEL {
 
 	/**
-	A reference to the dragData object of the dialog
-	@type {DragData}
+	A reference to the DialogMover object of the dialog
+	@type {DialogMover}
 	*/
 
-	#dragData;
+	#dialogMover;
 
 	/**
 	The constructor
-	@param {DragData} dragData A reference to the dragData object of the dialog
+	@param {DialogMover} dialogMover A reference to the DialogMover object of the dialog
 	*/
 
-	constructor ( dragData ) {
+	constructor ( dialogMover ) {
 		Object.freeze ( this );
-		this.#dragData = dragData;
+		this.#dialogMover = dialogMover;
 	}
 
 	/**
@@ -94,8 +94,8 @@ class MouseLeaveDockableDialogEL {
 	*/
 
 	handleEvent ( ) {
-		if ( this.#dragData.dialogHTMLElement.classList.contains ( 'TravelNotes-BaseDialog-OnTop' ) ) {
-			for ( const node of this.#dragData.dialogHTMLElement.childNodes ) {
+		if ( this.#dialogMover.dialogHTMLElement.classList.contains ( 'TravelNotes-BaseDialog-OnTop' ) ) {
+			for ( const node of this.#dialogMover.dialogHTMLElement.childNodes ) {
 				if ( node.classList.contains ( 'TravelNotes-BaseDialog-ContentHTMLElement' ) ) {
 					node.classList.add ( 'TravelNotes-Hidden' );
 				}

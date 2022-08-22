@@ -37,20 +37,20 @@ dragstart event listener for the top bar
 class TopBarDragStartEL {
 
 	/**
-	A reference to the dragData object of the dialog
-	@type {DragData}
+	A reference to the DialogMover object of the dialog
+	@type {DialogMover}
 	*/
 
-	#dragData;
+	#dialogMover;
 
 	/**
 	The constructor
-	@param {DragData} dragData A reference to the dragData object of the dialog
+	@param {DialogMover} dialogMover A reference to the DialogMover object of the dialog
 	*/
 
-	constructor ( dragData ) {
+	constructor ( dialogMover ) {
 		Object.freeze ( this );
-		this.#dragData = dragData;
+		this.#dialogMover = dialogMover;
 	}
 
 	/**
@@ -59,7 +59,7 @@ class TopBarDragStartEL {
 	*/
 
 	handleEvent ( dragStartEvent ) {
-		this.#dragData.setDragStartPoint ( dragStartEvent );
+		this.#dialogMover.setDragStartPoint ( dragStartEvent );
 	}
 }
 
@@ -72,20 +72,20 @@ dragend event event listener for the top bar
 class TopBarDragEndEL {
 
 	/**
-	A reference to the dragData object of the dialog
-	@type {DragData}
+	A reference to the DialogMover object of the dialog
+	@type {DialogMover}
 	*/
 
-	#dragData;
+	#dialogMover;
 
 	/**
 	The constructor
-	@param {DragData} dragData A reference to the dragData object of the dialog
+	@param {DialogMover} dialogMover A reference to the DialogMover object of the dialog
 	*/
 
-	constructor ( dragData ) {
+	constructor ( dialogMover ) {
 		Object.freeze ( this );
-		this.#dragData = dragData;
+		this.#dialogMover = dialogMover;
 	}
 
 	/**
@@ -94,7 +94,7 @@ class TopBarDragEndEL {
 	*/
 
 	handleEvent ( dragEndEvent ) {
-		this.#dragData.moveDialog ( dragEndEvent );
+		this.#dialogMover.moveDialog ( dragEndEvent );
 	}
 }
 
@@ -107,20 +107,20 @@ touchstart, touchmove, touchend and touchcancel event listener for the top bar
 class TopBarTouchEL {
 
 	/**
-	A reference to the dragData object of the dialog
-	@type {DragData}
+	A reference to the DialogMover object of the dialog
+	@type {DialogMover}
 	*/
 
-	#dragData;
+	#dialogMover;
 
 	/**
 	The constructor
-	@param {DragData} dragData A reference to the DragData object of the dialog
+	@param {DialogMover} dialogMover A reference to the DialogMover object of the dialog
 	*/
 
-	constructor ( dragData ) {
+	constructor ( dialogMover ) {
 		Object.freeze ( this );
-		this.#dragData = dragData;
+		this.#dialogMover = dialogMover;
 	}
 
 	/**
@@ -134,11 +134,11 @@ class TopBarTouchEL {
 			const touch = touchEvent.changedTouches.item ( ZERO );
 			switch ( touchEvent.type ) {
 			case 'touchstart' :
-				this.#dragData.setDragStartPoint ( touch );
+				this.#dialogMover.setDragStartPoint ( touch );
 				break;
 			case 'touchmove' :
 			case 'touchend' :
-				this.#dragData.moveDialog ( touch );
+				this.#dialogMover.moveDialog ( touch );
 				break;
 			case 'touchcancel' :
 				break;

@@ -64,8 +64,8 @@ class DockableBaseDialog extends NonModalBaseDialog {
 
 	constructor ( ) {
 		super ( );
-		this.#mouseEnterDockableDialogEL = new MouseEnterDockableDialogEL ( this.dragData );
-		this.#mouseLeaveDockableDialogEL = new MouseLeaveDockableDialogEL ( this.dragData );
+		this.#mouseEnterDockableDialogEL = new MouseEnterDockableDialogEL ( this.dialogMover );
+		this.#mouseLeaveDockableDialogEL = new MouseLeaveDockableDialogEL ( this.dialogMover );
 	}
 
 	/**
@@ -76,8 +76,8 @@ class DockableBaseDialog extends NonModalBaseDialog {
 		if ( this.#isShow ) {
 			super.onCancel ( );
 			this.#isShow = false;
-			this.dragData.dialogHTMLElement.removeEventListener ( 'mouseenter', this.#mouseEnterDockableDialogEL, false );
-			this.dragData.dialogHTMLElement.removeEventListener ( 'mouseleave', this.#mouseLeaveDockableDialogEL, false );
+			this.dialogMover.dialogHTMLElement.removeEventListener ( 'mouseenter', this.#mouseEnterDockableDialogEL, false );
+			this.dialogMover.dialogHTMLElement.removeEventListener ( 'mouseleave', this.#mouseLeaveDockableDialogEL, false );
 		}
 	}
 
@@ -94,9 +94,9 @@ class DockableBaseDialog extends NonModalBaseDialog {
 		this.#isShow = true;
 		this.addCssClass ( 'TravelNotes-DockableBaseDialog' );
 
-		this.dragData.moveDialogToSavedPosition ( );
-		this.dragData.dialogHTMLElement.addEventListener ( 'mouseenter', this.#mouseEnterDockableDialogEL, false );
-		this.dragData.dialogHTMLElement.addEventListener ( 'mouseleave', this.#mouseLeaveDockableDialogEL, false );
+		this.dialogMover.moveDialogToSavedPosition ( );
+		this.dialogMover.dialogHTMLElement.addEventListener ( 'mouseenter', this.#mouseEnterDockableDialogEL, false );
+		this.dialogMover.dialogHTMLElement.addEventListener ( 'mouseleave', this.#mouseLeaveDockableDialogEL, false );
 	}
 
 	/**

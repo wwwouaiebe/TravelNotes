@@ -33,7 +33,7 @@ A simple container with data shared between a dialog or a float window and the d
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class DragData {
+class DialogMover {
 
 	/**
 	The X screen coordinate of the mouse when dragging
@@ -153,6 +153,6 @@ class DragData {
 	}
 }
 
-export default DragData;
+export default DialogMover;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

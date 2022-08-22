@@ -58,7 +58,7 @@ import {
 	TopBarDragEndEL,
 	TopBarTouchEL
 } from '../baseDialog/BaseDialogTopBarEventListeners.js';
-import DragData from '../baseDialog/DragData.js';
+import DialogMover from '../baseDialog/DialogMover.js';
 
 // import GarbageCollectorTester from '../UILib/GarbageCollectorTester.js';
 
@@ -105,11 +105,11 @@ class BaseDialog {
 	#contentHTMLElement;
 
 	/**
-	Data for drag ond drop and touch operations
-	@type {DragData}
+	DialogMover for drag ond drop and touch operations
+	@type {DialogMover}
 	*/
 
-	dragData;
+	dialogMover;
 
 	/**
 	Top bar drag start event listener
@@ -159,7 +159,7 @@ class BaseDialog {
 				className : 'TravelNotes-BaseDialog-DialogHTMLElement'
 			}
 		);
-		this.dragData.dialogHTMLElement = this.#dialogHTMLElement;
+		this.dialogMover.dialogHTMLElement = this.#dialogHTMLElement;
 	}
 
 	/**
@@ -177,15 +177,15 @@ class BaseDialog {
 			this.#dialogHTMLElement
 		);
 
-		this.#topBarTouchEL = new TopBarTouchEL ( this.dragData );
+		this.#topBarTouchEL = new TopBarTouchEL ( this.dialogMover );
 		this.#topBarHTMLElement.addEventListener ( 'touchstart', this.#topBarTouchEL, false );
 		this.#topBarHTMLElement.addEventListener ( 'touchmove', this.#topBarTouchEL, false );
 		this.#topBarHTMLElement.addEventListener ( 'touchend', this.#topBarTouchEL, false );
 		this.#topBarHTMLElement.addEventListener ( 'touchcancel', this.#topBarTouchEL, false );
 
-		this.#topBarDragStartEL = new TopBarDragStartEL ( this.dragData );
+		this.#topBarDragStartEL = new TopBarDragStartEL ( this.dialogMover );
 		this.#topBarHTMLElement.addEventListener ( 'dragstart', this.#topBarDragStartEL, false );
-		this.#topBarDragEndEL = new TopBarDragEndEL ( this.dragData );
+		this.#topBarDragEndEL = new TopBarDragEndEL ( this.dialogMover );
 		this.#topBarHTMLElement.addEventListener ( 'dragend', this.#topBarDragEndEL, false );
 
 		this.#cancelButton = theHTMLElementsFactory.create (
@@ -260,7 +260,7 @@ class BaseDialog {
 	*/
 
 	constructor ( options ) {
-		this.dragData = new DragData ( );
+		this.dialogMover = new DialogMover ( );
 		Object.freeze ( this );
 		this.#options = new BaseDialogOptions ( options );
 	}
