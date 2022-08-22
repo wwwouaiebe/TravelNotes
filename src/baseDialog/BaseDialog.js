@@ -161,7 +161,7 @@ class BaseDialog {
 				className : 'TravelNotes-BaseDialog-DialogHTMLElement'
 			}
 		);
-		this.dragData.container = this.#dialogHTMLElement;
+		this.dragData.dialogHTMLElement = this.#dialogHTMLElement;
 	}
 
 	/**
@@ -295,9 +295,9 @@ class BaseDialog {
 	centerDialog ( ) {
 
 		this.dragData.dialogX =
-			( this.dragData.background.clientWidth - this.#dialogHTMLElement.clientWidth ) / TWO;
+			( this.dragData.backgroundHTMLelement.clientWidth - this.#dialogHTMLElement.clientWidth ) / TWO;
 		this.dragData.dialogY =
-			( this.dragData.background.clientHeight - this.#dialogHTMLElement.clientHeight ) / TWO;
+			( this.dragData.backgroundHTMLelement.clientHeight - this.#dialogHTMLElement.clientHeight ) / TWO;
 
 		this.#dialogHTMLElement.style.left = String ( this.dragData.dialogX ) + 'px';
 		this.#dialogHTMLElement.style.top = String ( this.dragData.dialogY ) + 'px';
@@ -313,30 +313,30 @@ class BaseDialog {
 		this.dragData.dialogX = Math.max (
 			Math.min (
 				moveX,
-				this.dragData.background.offsetWidth - this.#dialogHTMLElement.offsetWidth
+				this.dragData.backgroundHTMLelement.offsetWidth - this.#dialogHTMLElement.offsetWidth
 			),
 			DIALOG_DRAG_MARGIN
 		);
 		this.dragData.dialogY = Math.max (
 			Math.min (
 				moveY,
-				this.dragData.background.offsetHeight - this.#dialogHTMLElement.offsetHeight
+				this.dragData.backgroundHTMLelement.offsetHeight - this.#dialogHTMLElement.offsetHeight
 			),
 			DIALOG_DRAG_MARGIN
 		);
 		if (
 			DIALOG_DRAG_MARGIN === this.dragData.dialogY
 			&&
-			this.dragData.container.classList.contains ( 'TravelNotes-DockableBaseDialog' )
+			this.dragData.dialogHTMLElement.classList.contains ( 'TravelNotes-DockableBaseDialog' )
 		) {
 			this.dragData.dialogY = ZERO;
 		}
 
 		if ( ZERO === this.dragData.dialogY ) {
-			this.dragData.container.classList.add ( 'TravelNotes-BaseDialog-OnTop' );
+			this.dragData.dialogHTMLElement.classList.add ( 'TravelNotes-BaseDialog-OnTop' );
 		}
 		else {
-			this.dragData.container.classList.remove ( 'TravelNotes-BaseDialog-OnTop' );
+			this.dragData.dialogHTMLElement.classList.remove ( 'TravelNotes-BaseDialog-OnTop' );
 		}
 
 		this.#dialogHTMLElement.style.left = String ( this.dragData.dialogX ) + 'px';

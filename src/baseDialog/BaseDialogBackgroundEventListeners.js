@@ -69,7 +69,7 @@ class BackgroundDragOverEL {
 	handleEvent ( dragEvent ) {
 		dragEvent.preventDefault ( );
 
-		if ( dragEvent.target.parentElement !== this.#dragData.container ) {
+		if ( dragEvent.target.parentElement !== this.#dragData.dialogHTMLElement ) {
 			return;
 		}
 
@@ -84,21 +84,21 @@ class BackgroundDragOverEL {
 		this.#dragData.dialogX =
 			Math.min (
 				Math.max ( this.#dragData.dialogX, DIALOG_DRAG_MARGIN ),
-				this.#dragData.background.clientWidth -
-					this.#dragData.container.clientWidth -
+				this.#dragData.backgroundHTMLelement.clientWidth -
+					this.#dragData.dialogHTMLElement.clientWidth -
 					DIALOG_DRAG_MARGIN
 			);
 
 		this.#dragData.dialogY =
 		Math.min (
 			Math.max ( this.#dragData.dialogY, DIALOG_DRAG_MARGIN ),
-			this.#dragData.background.clientHeight -
-				this.#dragData.container.clientHeight -
+			this.#dragData.backgroundHTMLelement.clientHeight -
+				this.#dragData.dialogHTMLElement.clientHeight -
 				DIALOG_DRAG_MARGIN
 		);
 
-		this.#dragData.container.style.left = String ( this.#dragData.dialogX ) + 'px';
-		this.#dragData.container.style.top = String ( this.#dragData.dialogY ) + 'px';
+		this.#dragData.dialogHTMLElement.style.left = String ( this.#dragData.dialogX ) + 'px';
+		this.#dragData.dialogHTMLElement.style.top = String ( this.#dragData.dialogY ) + 'px';
 
 	}
 }

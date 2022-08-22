@@ -25,86 +25,7 @@ Tests ...
 */
 
 import NonModalBaseDialog from '../baseDialog/NonModalBaseDialog.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-Mouse enter on the dialog event listener. Show the content of the dialog when the dialog is docked
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class MouseEnterDockableDialogEL {
-
-	/**
-	A reference to the dragData object of the dialog
-	@type {DragData}
-	*/
-
-	#dragData;
-
-	/**
-	The constructor
-	@param {DragData} dragData A reference to the dragData object of the dialog
-	*/
-
-	constructor ( dragData ) {
-		Object.freeze ( this );
-		this.#dragData = dragData;
-	}
-
-	/**
-	Event listener method
-	*/
-
-	handleEvent ( ) {
-		if ( this.#dragData.container.classList.contains ( 'TravelNotes-BaseDialog-OnTop' ) ) {
-			for ( const node of this.#dragData.container.childNodes ) {
-				if ( node.classList.contains ( 'TravelNotes-BaseDialog-ContentHTMLElement' ) ) {
-					node.classList.remove ( 'TravelNotes-Hidden' );
-				}
-			}
-		}
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-Mouse leave on the dialog event listener. Hide the content of the dialog when the dialog is docked
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class MouseLeaveDockableDialogEL {
-
-	/**
-	A reference to the dragData object of the dialog
-	@type {DragData}
-	*/
-
-	#dragData;
-
-	/**
-	The constructor
-	@param {DragData} dragData A reference to the dragData object of the dialog
-	*/
-
-	constructor ( dragData ) {
-		Object.freeze ( this );
-		this.#dragData = dragData;
-	}
-
-	/**
-	Event listener method
-	*/
-
-	handleEvent ( ) {
-		if ( this.#dragData.container.classList.contains ( 'TravelNotes-BaseDialog-OnTop' ) ) {
-			for ( const node of this.#dragData.container.childNodes ) {
-				if ( node.classList.contains ( 'TravelNotes-BaseDialog-ContentHTMLElement' ) ) {
-					node.classList.add ( 'TravelNotes-Hidden' );
-				}
-			}
-		}
-	}
-}
+import { MouseEnterDockableDialogEL, MouseLeaveDockableDialogEL } from '../baseDialog/DockableBaseDialogEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -173,8 +94,8 @@ class DockableBaseDialog extends NonModalBaseDialog {
 			this.#isShow = false;
 			this.#dialogX = this.dragData.dialogX;
 			this.#dialogY = this.dragData.dialogY;
-			this.dragData.container.removeEventListener ( 'mouseenter', this.#mouseEnterDockableDialogEL, false );
-			this.dragData.container.removeEventListener ( 'mouseleave', this.#mouseLeaveDockableDialogEL, false );
+			this.dragData.dialogHTMLElement.removeEventListener ( 'mouseenter', this.#mouseEnterDockableDialogEL, false );
+			this.dragData.dialogHTMLElement.removeEventListener ( 'mouseleave', this.#mouseLeaveDockableDialogEL, false );
 		}
 	}
 
@@ -191,8 +112,8 @@ class DockableBaseDialog extends NonModalBaseDialog {
 		this.#isShow = true;
 		this.addCssClass ( 'TravelNotes-DockableBaseDialog' );
 		this.moveTo ( this.#dialogX, this.#dialogY );
-		this.dragData.container.addEventListener ( 'mouseenter', this.#mouseEnterDockableDialogEL, false );
-		this.dragData.container.addEventListener ( 'mouseleave', this.#mouseLeaveDockableDialogEL, false );
+		this.dragData.dialogHTMLElement.addEventListener ( 'mouseenter', this.#mouseEnterDockableDialogEL, false );
+		this.dragData.dialogHTMLElement.addEventListener ( 'mouseleave', this.#mouseLeaveDockableDialogEL, false );
 	}
 
 	/**

@@ -100,32 +100,32 @@ class TopBarDragEndEL {
 		this.#dragData.dialogX =
 			Math.min (
 				Math.max ( this.#dragData.dialogX, DIALOG_DRAG_MARGIN ),
-				this.#dragData.background.clientWidth -
-					this.#dragData.container.clientWidth -
+				this.#dragData.backgroundHTMLelement.clientWidth -
+					this.#dragData.dialogHTMLElement.clientWidth -
 					DIALOG_DRAG_MARGIN
 			);
 		this.#dragData.dialogY =
 		Math.min (
 			Math.max ( this.#dragData.dialogY, DIALOG_DRAG_MARGIN ),
-			this.#dragData.background.clientHeight -
-				this.#dragData.container.clientHeight -
+			this.#dragData.backgroundHTMLelement.clientHeight -
+				this.#dragData.dialogHTMLElement.clientHeight -
 				DIALOG_DRAG_MARGIN
 		);
 		if (
 			DIALOG_DRAG_MARGIN === this.#dragData.dialogY
 			&&
-			this.#dragData.container.classList.contains ( 'TravelNotes-DockableBaseDialog' )
+			this.#dragData.dialogHTMLElement.classList.contains ( 'TravelNotes-DockableBaseDialog' )
 		) {
 			this.#dragData.dialogY = ZERO;
 		}
 		if ( ZERO === this.#dragData.dialogY ) {
-			this.#dragData.container.classList.add ( 'TravelNotes-BaseDialog-OnTop' );
+			this.#dragData.dialogHTMLElement.classList.add ( 'TravelNotes-BaseDialog-OnTop' );
 		}
 		else {
-			this.#dragData.container.classList.remove ( 'TravelNotes-BaseDialog-OnTop' );
+			this.#dragData.dialogHTMLElement.classList.remove ( 'TravelNotes-BaseDialog-OnTop' );
 		}
-		this.#dragData.container.style.left = String ( this.#dragData.dialogX ) + 'px';
-		this.#dragData.container.style.top = String ( this.#dragData.dialogY ) + 'px';
+		this.#dragData.dialogHTMLElement.style.left = String ( this.#dragData.dialogX ) + 'px';
+		this.#dragData.dialogHTMLElement.style.top = String ( this.#dragData.dialogY ) + 'px';
 	}
 }
 
@@ -178,36 +178,36 @@ class TopBarTouchEL {
 				this.#dragData.dialogX =
 						Math.min (
 							Math.max ( this.#dragData.dialogX, DIALOG_DRAG_MARGIN ),
-							this.#dragData.background.clientWidth -
-								this.#dragData.container.clientWidth -
+							this.#dragData.backgroundHTMLelement.clientWidth -
+								this.#dragData.dialogHTMLElement.clientWidth -
 								DIALOG_DRAG_MARGIN
 						);
 				this.#dragData.dialogY =
 					Math.min (
 						Math.max ( this.#dragData.dialogY, DIALOG_DRAG_MARGIN ),
-						this.#dragData.background.clientHeight -
-							this.#dragData.container.clientHeight -
+						this.#dragData.backgroundHTMLelement.clientHeight -
+							this.#dragData.dialogHTMLElement.clientHeight -
 							DIALOG_DRAG_MARGIN
 					);
 
 				if (
 					DIALOG_DRAG_MARGIN === this.#dragData.dialogY
 						&&
-						this.#dragData.container.classList.contains ( 'TravelNotes-DockableBaseDialog' )
+						this.#dragData.dialogHTMLElement.classList.contains ( 'TravelNotes-DockableBaseDialog' )
 						&&
 						'touchend' === touchEvent.type
 				) {
 					this.#dragData.dialogY = ZERO;
 				}
 				if ( ZERO === this.#dragData.dialogY ) {
-					this.#dragData.container.classList.add ( 'TravelNotes-BaseDialog-OnTop' );
+					this.#dragData.dialogHTMLElement.classList.add ( 'TravelNotes-BaseDialog-OnTop' );
 				}
 				else {
-					this.#dragData.container.classList.remove ( 'TravelNotes-BaseDialog-OnTop' );
+					this.#dragData.dialogHTMLElement.classList.remove ( 'TravelNotes-BaseDialog-OnTop' );
 				}
 
-				this.#dragData.container.style.left = String ( this.#dragData.dialogX ) + 'px';
-				this.#dragData.container.style.top = String ( this.#dragData.dialogY ) + 'px';
+				this.#dragData.dialogHTMLElement.style.left = String ( this.#dragData.dialogX ) + 'px';
+				this.#dragData.dialogHTMLElement.style.top = String ( this.#dragData.dialogY ) + 'px';
 				break;
 			case 'touchcancel' :
 				this.#dragData.reset ( );

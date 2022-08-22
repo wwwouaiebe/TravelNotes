@@ -79,7 +79,7 @@ class NonModalBaseDialog extends BaseDialog {
 
 	show ( ) {
 		super.show ( );
-		this.dragData.background = theTravelNotesData.map.getContainer ( );
+		this.dragData.backgroundHTMLelement = theTravelNotesData.map.getContainer ( );
 		this.#createBackgroundHTMLElementEL ( );
 		this.addToBackground ( document.body );
 

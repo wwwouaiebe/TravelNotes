@@ -75,14 +75,14 @@ class DragData {
 	@type {HTMLElement}
 	*/
 
-	background = null;
+	backgroundHTMLelement = null;
 
 	/**
 	The container element of the dialog
 	@type {HTMLElement}
 	*/
 
-	container = null;
+	dialogHTMLElement = null;
 
 	/**
     Reset the DragData object to it's initial state
