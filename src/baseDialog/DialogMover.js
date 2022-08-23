@@ -18,10 +18,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 /*
 Changes:
-	- v3.1.0:
-		- created
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20211102
+	- v4.0.0:
+		- created from DragData
+Doc reviewed 20220823
 Tests ...
 */
 
@@ -29,40 +28,49 @@ import { ZERO, TWO, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-A simple container with data shared between a dialog or a float window and the drag event listeners
+This class store the dialog position and expose methods to move the dialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 class DialogMover {
 
 	/**
-	The X screen coordinate of the mouse when dragging
+	The start drag X screen coordinate of the mouse
 	@type {Number}
 	*/
 
-	#dragStartX = ZERO;
+	#dragStartX;
 
-	/** The Y screen coordinate of the mouse when dragging
+	/** The start drag Y screen coordinate of the mouse
 	@type {Number}
 	*/
 
-	#dragStartY = ZERO;
+	#dragStartY;
 
 	/**
 	The X screen coordinate of the upper left corner of the dialog
 	@type {Number}
 	*/
 
-	#dialogX = ZERO;
+	#dialogX;
 
 	/**
 	The Y screen coordinate of the upper left corner of the dialog
 	@type {Number}
 	*/
 
-	#dialogY = ZERO;
+	#dialogY;
+
+	/**
+	A flag indicating that the dialog is dockable
+	@type {boolean}
+	*/
 
 	isDockable;
+
+	/**
+	Dock the dialog on top f the screen when possible
+	*/
 
 	#dockDialog ( ) {
 		if ( ! this.isDockable ) {
@@ -76,6 +84,10 @@ class DialogMover {
 			this.dialogHTMLElement.classList.remove ( 'TravelNotes-DockableBaseDialog-OnTop' );
 		}
 	}
+
+	/**
+	Finish the move dialog. Adapt the style of the dialog
+	*/
 
 	#endMoveDialog ( ) {
 		this.dialogHTMLElement.style.left = String ( this.#dialogX ) + 'px';
@@ -109,10 +121,20 @@ class DialogMover {
 
 	dialogHTMLElement = null;
 
+	/**
+	Set the drag start values
+	@param {Event|Touch} dragEventOrTouch The drag event or Touch with the drag start values
+	*/
+
 	setDragStartPoint ( dragEventOrTouch ) {
 		this.#dragStartX = dragEventOrTouch.screenX;
 		this.#dragStartY = dragEventOrTouch.screenY;
 	}
+
+	/**
+	Move the dialog to a drag event point and set the drag start values to this point
+	@param {Event|Touch} dragEventOrTouch The drag event or Touch with the drag start values
+	*/
 
 	moveDialog ( dragEventOrTouch ) {
 		const newDialogX = this.#dialogX + dragEventOrTouch.screenX - this.#dragStartX;
@@ -120,6 +142,12 @@ class DialogMover {
 		this.moveDialogTo ( newDialogX, newDialogY );
 		this.setDragStartPoint ( dragEventOrTouch );
 	}
+
+	/**
+	Move the dialog on the screen
+	@param {Number} newDialogX The new X position of the dialog in pixels
+	@param {Number} newDialogY The new Y position of the dialog in pixels
+	*/
 
 	moveDialogTo ( newDialogX, newDialogY ) {
 		const maxDialogX =
@@ -146,16 +174,30 @@ class DialogMover {
 		this.#endMoveDialog ( );
 	}
 
+	/**
+	Move the dialog to the top left corner of the screen
+	*/
+
 	moveDialogToTopLeft ( ) {
 		this.#dialogX = DIALOG_DRAG_MARGIN;
 		this.#dialogY = DIALOG_DRAG_MARGIN;
 		this.#endMoveDialog ( );
 	}
 
+	/**
+	set the position of the dialog the first time the dialog is show
+	@param {Number} dialogX The X position of the dialog in pixels
+	@param {Number} dialogY The Y position of the dialog in pixels
+	*/
+
 	setStartupPosition ( dialogX, dialogY ) {
 		this.#dialogX = dialogX;
 		this.#dialogY = dialogY;
 	}
+
+	/**
+	Move the dialog to it's last position after a hide followed by a show
+	*/
 
 	moveDialogToLastPosition ( ) {
 		this.moveDialogTo ( this.#dialogX, this.#dialogY );

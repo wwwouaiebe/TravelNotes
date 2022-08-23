@@ -35,7 +35,17 @@ Base class used for dockable dialogs
 
 class DockableBaseDialog extends NonModalBaseDialog {
 
+	/**
+	The default X position in pixels for the dialog
+	@type {?Number}
+	*/
+
 	#dialogX;
+
+	/**
+	The default Y position in pixels for the dialog
+	@type {?Number}
+	*/
 
 	#dialogY;
 

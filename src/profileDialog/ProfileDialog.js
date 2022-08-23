@@ -189,6 +189,10 @@ class ProfileDialog extends NonModalBaseDialog {
 		);
 	}
 
+	/**
+	Show the dialog
+	*/
+
 	show ( ) {
 		super.show ( );
 		this.dialogMover.moveDialogToTopLeft ( );
