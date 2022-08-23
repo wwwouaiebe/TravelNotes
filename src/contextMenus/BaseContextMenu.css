@@ -17,15 +17,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 /*
---- BaseContextMenu.css.css file ----------------------------------------------------------------------------------------------
-
-This file contains:
-	- CSS for ContextMenu
 Changes:
 	- v1.0.0:
 		- created
-
--------------------------------------------------------------------------------------------------------------------------------
+Doc reviewed ...
 */
 
 .TravelNotes-ContextMenu-Container {
@@ -73,3 +68,5 @@ Changes:
 	background-color: lightgray;
 	cursor: auto;
 }
+
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

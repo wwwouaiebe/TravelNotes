@@ -16,11 +16,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NoteDialog.css
-@desc CSS for the NoteDialog
+/*
 Changes:
 	- v1.12.0:
 		- Issue #120 : Review the UserInterface
@@ -29,8 +25,7 @@ Changes:
 		- Issue #144 : Add an error message when a bad json file is loaded from the noteDialog
 	- v 4.0.0:
 		- Issue ♯48 : Review the dialogs
-
-@------------------------------------------------------------------------------------------------------------------------------
+Doc reviewed ...
 */
 
 #TravelNotes-NoteDialog-IconSelect {
@@ -104,6 +99,4 @@ Changes:
 	background-color: white;
 }
 
-/*
---- End of NoteDialog.css -----------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

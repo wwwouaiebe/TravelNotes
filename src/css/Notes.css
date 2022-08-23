@@ -16,11 +16,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file Notes.css
-@desc CSS for Notes
+/*
 Changes:
 	- v1.12.0:
 		- Issue #120 : Review the UserInterface
@@ -28,8 +24,7 @@ Changes:
 		- Issue #138 : Protect the app - control html entries done by user.
 	- v3.4.0:
 		- Issue ♯22 : Nice to have a table view for notes in the roadbook
-
-@------------------------------------------------------------------------------------------------------------------------------
+Doc reviewed ...
 */
 
 /**
@@ -130,6 +125,4 @@ classes for old knooppunt notes maintained for backward compatibility
 	stroke-width: 10;
 }
 
-/*
---- End of Notes.css ----------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

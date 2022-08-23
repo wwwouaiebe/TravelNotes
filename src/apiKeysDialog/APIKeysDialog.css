@@ -16,16 +16,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file APIKeysDialog.css
-@desc CSS for the APIKeysDialog
+/*
 Changes:
 	- v1.12.0:
 		- Issue #120 : Review the UserInterface
-
-@------------------------------------------------------------------------------------------------------------------------------
+Doc reviewed ...
 */
 
 #TravelNotes-APIKeysDialog-DataDiv {
@@ -56,6 +51,4 @@ Changes:
 	width: 20em;
 }
 
-/*
---- End of APIKeysDialog.css --------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

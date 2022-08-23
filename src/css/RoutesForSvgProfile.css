@@ -16,16 +16,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file RoutesForSvgProfile.css
-@desc CSS for Route svg profile
+/*
 Changes:
 	- v1.0.0:
 		- created
-
-@------------------------------------------------------------------------------------------------------------------------------
+Doc reviewed ...
 */
 
 .TravelNotes-Route-SvgProfile {
@@ -57,6 +52,4 @@ Changes:
 	font: bold 24px sans-serif;
 }
 
-/*
---- End of RoutesForSvgProfile.css --------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

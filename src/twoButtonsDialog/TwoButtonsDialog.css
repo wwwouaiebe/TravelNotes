@@ -16,16 +16,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file TwoButtonsDialog.css
-@desc CSS for the TwoButtonsDialog
+/*
 Changes:
 	- v1.12.0:
 		- Issue #120 : Review the UserInterface
-
-@------------------------------------------------------------------------------------------------------------------------------
+Doc reviewed ...
 */
 
 .TravelNotes-TwoButtonsDialog-FooterDiv {
@@ -42,6 +37,4 @@ Changes:
 	width: auto;
 }
 
-/*
---- End of TwoButtonsDialog.css -----------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

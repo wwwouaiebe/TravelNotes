@@ -16,16 +16,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file ColorDialog.css
-@desc CSS for the ColorDialog
+/*
 Changes:
 	- v1.12.0:
 		- Issue #120 : Review the UserInterface
-
-@------------------------------------------------------------------------------------------------------------------------------
+Doc reviewed ...
 */
 
 #TravelNotes-ColorControl-ColorDiv {
@@ -60,6 +55,4 @@ Changes:
 	border-width: 0.1em;
 }
 
-/*
---- End of ColorDialog.css ----------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

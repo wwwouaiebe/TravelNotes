@@ -16,16 +16,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file RoutesForUI.css
-@desc CSS for Routes on the UI
+/*
 Changes:
 	- v1.0.0:
 		- created
-
-@------------------------------------------------------------------------------------------------------------------------------
+Doc reviewed ...
 */
 
 .TravelNotes-ItineraryPaneUI-Route-Header-Name {
@@ -39,6 +34,4 @@ Changes:
 	text-decoration: underline;
 }
 
-/*
---- End of RoutesForUI.css -------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

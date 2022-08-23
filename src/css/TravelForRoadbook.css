@@ -16,16 +16,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file TravelForRoadbook.css
-@desc CSS for the Travel on the Roadbook
+/*
 Changes:
 	- v1.0.0:
 		- created
-
-@------------------------------------------------------------------------------------------------------------------------------
+Doc reviewed ...
 */
 
 .TravelNotes-Roadbook-Travel {
@@ -65,6 +60,4 @@ Changes:
 	padding-bottom: 2em;
 }
 
-/*
---- End of TravelForRoadbook.css ----------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

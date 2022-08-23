@@ -17,10 +17,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 /*
---- Roadbook.css file -------------------------------------------------------------------------------------------------
-
-This file contains:
-	- the css for the Roadbook
 Changes:
 	- v1.12.0:
 		- Issue #120 : Review the UserInterface
@@ -29,7 +25,7 @@ Changes:
 	- v3.4.0:
 		- Issue ♯22 : Nice to have a table view for notes in the roadbook
 		- Issue ♯25 : Add a print button to the roadbook page
------------------------------------------------------------------------------------------------------------------------
+Doc reviewed ...
 */
 
 /*
@@ -181,3 +177,5 @@ Arrow in the menu
 		break-inside: avoid-page;
 	}
 }
+
+/* --- End of file --------------------------------------------------------------------------------------------------------- */
