@@ -16,21 +16,14 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file AboutDialog.css
-@desc CSS for the AboutDialog
-Changes:
-	- v1.12.0:
-		- Issue #120 : Review the UserInterface
-
-@------------------------------------------------------------------------------------------------------------------------------
+/* Changes:
+	- v 4.0.0:
+		- Created
+Doc reviewed ...
 */
-
-#TravelNotes-AboutDialog-AboutDiv {
-	width: 30em;
-	color: gray;
+.TravelNotes-DockableBaseDialog-OnTop > .TravelNotes-BaseDialog-TopBarHTMLElement {
+	background-color: black;
+	color: white;
 }
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

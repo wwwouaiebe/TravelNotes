@@ -35,6 +35,7 @@ const travelNotesCss = [
 	'src/css/WaitAnimation.css',
 	'src/contextMenus/BaseContextMenu.css',
 	'src/baseDialog/BaseDialog.css',
+	'src/baseDialog/DockableBaseDialog.css',
 	'src/baseDialog/SortableListControl.css',
 	'src/aboutDialog/AboutDialog.css',
 	'src/apiKeysdialog/APIKeysDialog.css',
