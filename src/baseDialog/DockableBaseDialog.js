@@ -36,13 +36,6 @@ Base class used for dockable dialogs
 class DockableBaseDialog extends NonModalBaseDialog {
 
 	/**
-	A variable to store the visibility of the dialog
-	@type {boolean}
-	*/
-
-	#isShow;
-
-	/**
 	mouse enter on the dialog event listener
 	@type {MouseEnterDockableDialogEL}
 	*/
@@ -73,12 +66,9 @@ class DockableBaseDialog extends NonModalBaseDialog {
 	*/
 
 	onCancel ( ) {
-		if ( this.#isShow ) {
-			super.onCancel ( );
-			this.#isShow = false;
-			this.dialogMover.dialogHTMLElement.removeEventListener ( 'mouseenter', this.#mouseEnterDockableDialogEL, false );
-			this.dialogMover.dialogHTMLElement.removeEventListener ( 'mouseleave', this.#mouseLeaveDockableDialogEL, false );
-		}
+		super.onCancel ( );
+		this.dialogMover.dialogHTMLElement.removeEventListener ( 'mouseenter', this.#mouseEnterDockableDialogEL, false );
+		this.dialogMover.dialogHTMLElement.removeEventListener ( 'mouseleave', this.#mouseLeaveDockableDialogEL, false );
 	}
 
 	/**
@@ -86,12 +76,8 @@ class DockableBaseDialog extends NonModalBaseDialog {
 	*/
 
 	show ( ) {
-		if ( this.#isShow ) {
-			return;
-		}
 		super.show ( );
 		this.updateContent ( );
-		this.#isShow = true;
 		this.addCssClass ( 'TravelNotes-DockableBaseDialog' );
 
 		this.dialogMover.moveDialogToSavedPosition ( );
@@ -99,12 +85,6 @@ class DockableBaseDialog extends NonModalBaseDialog {
 		this.dialogMover.dialogHTMLElement.addEventListener ( 'mouseleave', this.#mouseLeaveDockableDialogEL, false );
 	}
 
-	/**
-	The show status of the dialog
-	@type {boolean}
-	*/
-
-	get isShow ( ) { return this.#isShow; }
 }
 
 export default DockableBaseDialog;
