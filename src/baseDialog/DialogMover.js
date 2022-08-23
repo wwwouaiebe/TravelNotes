@@ -62,6 +62,26 @@ class DialogMover {
 
 	#dialogY = ZERO;
 
+	isDockable;
+
+	#dockDialog ( ) {
+		if ( ! this.isDockable ) {
+			return;
+		}
+		if ( DIALOG_DRAG_MARGIN === this.#dialogY ) {
+			this.#dialogY = ZERO;
+			this.dialogHTMLElement.classList.add ( 'TravelNotes-BaseDialog-OnTop' );
+		}
+		else {
+			this.dialogHTMLElement.classList.remove ( 'TravelNotes-BaseDialog-OnTop' );
+		}
+	}
+
+	#endMoveDialog ( ) {
+		this.dialogHTMLElement.style.left = String ( this.#dialogX ) + 'px';
+		this.dialogHTMLElement.style.top = String ( this.#dialogY ) + 'px';
+	}
+
 	/**
 	The constructor
 	*/
@@ -72,6 +92,7 @@ class DialogMover {
 		this.#dialogY = DIALOG_DRAG_MARGIN;
 		this.#dragStartX = ZERO;
 		this.#dragStartY = ZERO;
+		this.isDockable = false;
 	}
 
 	/**
@@ -94,39 +115,23 @@ class DialogMover {
 	}
 
 	moveDialog ( dragEventOrTouch ) {
-		const toX = this.#dialogX + dragEventOrTouch.screenX - this.#dragStartX;
-		const toY = this.#dialogY + dragEventOrTouch.screenY - this.#dragStartY;
-
-		this.#dialogX = Math.max (
-			Math.min (
-				toX,
-				this.backgroundHTMLElement.offsetWidth - this.dialogHTMLElement.offsetWidth
-			),
-			DIALOG_DRAG_MARGIN
-		);
-		this.#dialogY = Math.max (
-			Math.min (
-				toY,
-				this.backgroundHTMLElement.offsetHeight - this.dialogHTMLElement.offsetHeight
-			),
-			DIALOG_DRAG_MARGIN
-		);
-		if (
-			DIALOG_DRAG_MARGIN === this.#dialogY
-			&&
-			this.dialogHTMLElement.classList.contains ( 'TravelNotes-DockableBaseDialog' )
-		) {
-			this.#dialogY = ZERO;
-		}
-
-		if ( ZERO === this.#dialogY ) {
-			this.dialogHTMLElement.classList.add ( 'TravelNotes-BaseDialog-OnTop' );
-		}
-		else {
-			this.dialogHTMLElement.classList.remove ( 'TravelNotes-BaseDialog-OnTop' );
-		}
-		this.moveDialogToLastPosition ( );
+		const newDialogX = this.#dialogX + dragEventOrTouch.screenX - this.#dragStartX;
+		const newDialogY = this.#dialogY + dragEventOrTouch.screenY - this.#dragStartY;
+		this.moveDialogTo ( newDialogX, newDialogY );
 		this.setDragStartPoint ( dragEventOrTouch );
+	}
+
+	moveDialogTo ( newDialogX, newDialogY ) {
+		const maxDialogX =
+			this.backgroundHTMLElement.offsetWidth - this.dialogHTMLElement.offsetWidth - DIALOG_DRAG_MARGIN;
+		const maxDialogY =
+			this.backgroundHTMLElement.offsetHeight - this.dialogHTMLElement.offsetHeight - DIALOG_DRAG_MARGIN;
+
+		this.#dialogX = Math.max ( Math.min ( newDialogX, maxDialogX ), DIALOG_DRAG_MARGIN );
+		this.#dialogY = Math.max ( Math.min ( newDialogY, maxDialogY ), DIALOG_DRAG_MARGIN );
+
+		this.#dockDialog ( );
+		this.#endMoveDialog ( );
 	}
 
 	/**
@@ -138,18 +143,22 @@ class DialogMover {
 			( this.backgroundHTMLElement.clientWidth - this.dialogHTMLElement.clientWidth ) / TWO;
 		this.#dialogY =
 			( this.backgroundHTMLElement.clientHeight - this.dialogHTMLElement.clientHeight ) / TWO;
-		this.moveDialogToLastPosition ( );
+		this.#endMoveDialog ( );
 	}
 
 	moveDialogToTopLeft ( ) {
 		this.#dialogX = DIALOG_DRAG_MARGIN;
 		this.#dialogY = DIALOG_DRAG_MARGIN;
-		this.moveDialogToLastPosition ( );
+		this.#endMoveDialog ( );
+	}
+
+	setStartupPosition ( dialogX, dialogY ) {
+		this.#dialogX = dialogX;
+		this.#dialogY = dialogY;
 	}
 
 	moveDialogToLastPosition ( ) {
-		this.dialogHTMLElement.style.left = String ( this.#dialogX ) + 'px';
-		this.dialogHTMLElement.style.top = String ( this.#dialogY ) + 'px';
+		this.moveDialogTo ( this.#dialogX, this.#dialogY );
 	}
 }
 

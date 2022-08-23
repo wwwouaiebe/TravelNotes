@@ -55,8 +55,10 @@ class DockableBaseDialog extends NonModalBaseDialog {
 	@param {Number} dialogY The default Y position in pixels for the dialog
 	*/
 
-	constructor ( ) {
+	constructor ( dialogX, dialogY ) {
 		super ( );
+		this.dialogMover.isDockable = true;
+		this.dialogMover.setStartupPosition ( dialogX, dialogY );
 		this.#mouseEnterDockableDialogEL = new MouseEnterDockableDialogEL ( this.dialogMover );
 		this.#mouseLeaveDockableDialogEL = new MouseLeaveDockableDialogEL ( this.dialogMover );
 	}
@@ -79,7 +81,6 @@ class DockableBaseDialog extends NonModalBaseDialog {
 		super.show ( );
 		this.updateContent ( );
 		this.addCssClass ( 'TravelNotes-DockableBaseDialog' );
-
 		this.dialogMover.moveDialogToLastPosition ( );
 		this.dialogMover.dialogHTMLElement.addEventListener ( 'mouseenter', this.#mouseEnterDockableDialogEL, false );
 		this.dialogMover.dialogHTMLElement.addEventListener ( 'mouseleave', this.#mouseLeaveDockableDialogEL, false );

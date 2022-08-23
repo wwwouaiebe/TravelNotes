@@ -25,6 +25,7 @@ Tests ...
 
 import TravelPropertiesDialog from '../travelPropertiesDialog/TravelPropertiesDialog.js';
 import TravelNotesDialog from '../travelNotesDialog/TravelNotesDialog.js';
+import theConfig from '../data/Config.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -77,7 +78,10 @@ class DockableDialogsManager {
 
 	get travelNotesDialog ( ) {
 		if ( ! this.#travelNotesDialog ) {
-			this.#travelNotesDialog = new TravelNotesDialog ( );
+			this.#travelNotesDialog = new TravelNotesDialog (
+				theConfig.travelNotesDialog.dialogX,
+				theConfig.travelNotesDialog.dialogY
+			);
 		}
 		return this.#travelNotesDialog;
 	}
