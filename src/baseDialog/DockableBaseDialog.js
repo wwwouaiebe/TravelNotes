@@ -25,6 +25,7 @@ Tests ...
 */
 
 import NonModalBaseDialog from '../baseDialog/NonModalBaseDialog.js';
+import theConfig from '../data/Config.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -49,10 +50,21 @@ class DockableBaseDialog extends NonModalBaseDialog {
 	#dialogY;
 
 	/**
+	A timer id for the mouse leave event listener
+	@type {?Number}
+	*/
+
+	#mouseLeaveTimerId;
+
+	/**
 	mouse enter on the dialog event listener
 	*/
 
 	#mouseEnterDialogEL ( ) {
+		if ( this.#mouseLeaveTimerId ) {
+			clearTimeout ( this.#mouseLeaveTimerId );
+			this.#mouseLeaveTimerId = null;
+		}
 		if ( this.dialogMover.dialogDocked ) {
 			this.showContent ( );
 		}
@@ -64,7 +76,8 @@ class DockableBaseDialog extends NonModalBaseDialog {
 
 	#mouseLeaveDialogEL ( ) {
 		if ( this.dialogMover.dialogDocked ) {
-			this.hideContent ( );
+			this.#mouseLeaveTimerId =
+				setTimeout ( ( ) => { this.hideContent ( ); }, theConfig.baseDialog.timeout );
 		}
 	}
 
@@ -78,6 +91,7 @@ class DockableBaseDialog extends NonModalBaseDialog {
 		super ( );
 		this.#dialogX = dialogX;
 		this.#dialogY = dialogY;
+		this.#mouseLeaveTimerId = null;
 		this.dialogMover.isDockable = true;
 	}
 
@@ -110,6 +124,9 @@ class DockableBaseDialog extends NonModalBaseDialog {
 			( ) => this.#mouseLeaveDialogEL ( ),
 			false
 		);
+		if ( this.dialogMover.dialogDocked ) {
+			this.hideContent ( );
+		}
 	}
 
 }
