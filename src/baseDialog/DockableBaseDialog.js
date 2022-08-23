@@ -80,7 +80,7 @@ class DockableBaseDialog extends NonModalBaseDialog {
 		this.updateContent ( );
 		this.addCssClass ( 'TravelNotes-DockableBaseDialog' );
 
-		this.dialogMover.moveDialogToSavedPosition ( );
+		this.dialogMover.moveDialogToLastPosition ( );
 		this.dialogMover.dialogHTMLElement.addEventListener ( 'mouseenter', this.#mouseEnterDockableDialogEL, false );
 		this.dialogMover.dialogHTMLElement.addEventListener ( 'mouseleave', this.#mouseLeaveDockableDialogEL, false );
 	}

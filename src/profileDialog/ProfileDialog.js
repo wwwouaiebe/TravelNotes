@@ -189,6 +189,11 @@ class ProfileDialog extends NonModalBaseDialog {
 		);
 	}
 
+	show ( ) {
+		super.show ( );
+		this.dialogMover.moveDialogToTopLeft ( );
+	}
+
 	/**
 	An array with the HTMLElements that have to be added in the content of the dialog.
 	Overload of the base class contentHTMLElements

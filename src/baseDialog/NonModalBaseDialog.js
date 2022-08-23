@@ -81,7 +81,6 @@ class NonModalBaseDialog extends BaseDialog {
 		this.dialogMover.backgroundHTMLElement = theTravelNotesData.map.getContainer ( );
 		this.#createBackgroundHTMLElementEL ( );
 		this.addToBackground ( document.body );
-		this.dialogMover.moveDialogToTopLeft ( );
 	}
 }
 

@@ -68,8 +68,8 @@ class DialogMover {
 
 	constructor ( ) {
 		Object.seal ( this );
-		this.#dialogX = ZERO;
-		this.#dialogY = ZERO;
+		this.#dialogX = DIALOG_DRAG_MARGIN;
+		this.#dialogY = DIALOG_DRAG_MARGIN;
 		this.#dragStartX = ZERO;
 		this.#dragStartY = ZERO;
 	}
@@ -125,7 +125,7 @@ class DialogMover {
 		else {
 			this.dialogHTMLElement.classList.remove ( 'TravelNotes-BaseDialog-OnTop' );
 		}
-		this.moveDialogToSavedPosition ( );
+		this.moveDialogToLastPosition ( );
 		this.setDragStartPoint ( dragEventOrTouch );
 	}
 
@@ -138,16 +138,16 @@ class DialogMover {
 			( this.backgroundHTMLElement.clientWidth - this.dialogHTMLElement.clientWidth ) / TWO;
 		this.#dialogY =
 			( this.backgroundHTMLElement.clientHeight - this.dialogHTMLElement.clientHeight ) / TWO;
-		this.moveDialogToSavedPosition ( );
+		this.moveDialogToLastPosition ( );
 	}
 
 	moveDialogToTopLeft ( ) {
 		this.#dialogX = DIALOG_DRAG_MARGIN;
 		this.#dialogY = DIALOG_DRAG_MARGIN;
-		this.moveDialogToSavedPosition ( );
+		this.moveDialogToLastPosition ( );
 	}
 
-	moveDialogToSavedPosition ( ) {
+	moveDialogToLastPosition ( ) {
 		this.dialogHTMLElement.style.left = String ( this.#dialogX ) + 'px';
 		this.dialogHTMLElement.style.top = String ( this.#dialogY ) + 'px';
 	}
