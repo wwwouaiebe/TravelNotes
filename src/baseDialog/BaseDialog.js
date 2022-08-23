@@ -182,11 +182,21 @@ class BaseDialog {
 		this.#topBarHTMLElement.addEventListener ( 'touchmove', this.#topBarTouchEL, false );
 		this.#topBarHTMLElement.addEventListener ( 'touchend', this.#topBarTouchEL, false );
 		this.#topBarHTMLElement.addEventListener ( 'touchcancel', this.#topBarTouchEL, false );
-
 		this.#topBarDragStartEL = new TopBarDragStartEL ( this.dialogMover );
 		this.#topBarHTMLElement.addEventListener ( 'dragstart', this.#topBarDragStartEL, false );
 		this.#topBarDragEndEL = new TopBarDragEndEL ( this.dialogMover );
 		this.#topBarHTMLElement.addEventListener ( 'dragend', this.#topBarDragEndEL, false );
+
+		this.#topBarHTMLElement.addEventListener (
+			'click',
+			clickEvent => {
+				clickEvent.preventDefault ( );
+				if ( this.dialogMover.isDockable && this.dialogMover.dialogDocked ) {
+					this.#dialogHTMLElement.classList.toggle ( 'TravelNotes-DockableBaseDialog-HiddenContent' );
+				}
+			},
+			false
+		);
 
 		this.#cancelButton = theHTMLElementsFactory.create (
 			'div',
@@ -331,22 +341,6 @@ class BaseDialog {
 
 	show ( ) {
 		this.#createHTML ( );
-	}
-
-	/**
-	Show the content of the dialog
-	*/
-
-	showContent ( ) {
-		this.#contentHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
-	}
-
-	/**
-	Hide the content of the dialog
-	*/
-
-	hideContent ( ) {
-		this.#contentHTMLElement.classList.add ( 'TravelNotes-Hidden' );
 	}
 
 	/**

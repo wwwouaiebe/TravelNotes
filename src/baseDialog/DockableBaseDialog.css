@@ -21,9 +21,31 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 		- Created
 Doc reviewed ...
 */
-.TravelNotes-DockableBaseDialog-OnTop > .TravelNotes-BaseDialog-TopBarHTMLElement {
+.TravelNotes-DockableBaseDialog-Docked > .TravelNotes-BaseDialog-TopBarHTMLElement {
 	background-color: black;
 	color: white;
 }
+
+/* stylelint-disable max-line-length */
+
+.TravelNotes-DockableBaseDialog-Docked.TravelNotes-DockableBaseDialog-HiddenContent > .TravelNotes-BaseDialog-ContentHTMLElement,
+.TravelNotes-DockableBaseDialog-Docked.TravelNotes-DockableBaseDialog-HiddenContent > .TravelNotes-BaseDialog-ContentHTMLElement > *,
+.TravelNotes-DockableBaseDialog-Docked.TravelNotes-DockableBaseDialog-HiddenContent > .TravelNotes-BaseDialog-ContentHTMLElement > * > *,
+.TravelNotes-DockableBaseDialog-Docked.TravelNotes-DockableBaseDialog-HiddenContent > .TravelNotes-BaseDialog-ContentHTMLElement > * > * > * {
+	display: none !important;
+	width: 0;
+	height: 0;
+	margin: 0 !important;
+	padding: 0 !important;
+	top: 0;
+	left: 0;
+	border-width: 0 !important;
+	border-style: none !important;
+	animation: none;
+	visibility: hidden;
+	transform: scale(0);
+}
+
+/* stylelint-enable max-line-length */
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

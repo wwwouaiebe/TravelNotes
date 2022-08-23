@@ -57,6 +57,18 @@ class DockableBaseDialog extends NonModalBaseDialog {
 	#mouseLeaveTimerId;
 
 	/**
+	Hide the content of the dialog. Used by the timer on mouseLeave
+	*/
+
+	#hideContent ( ) {
+		if ( this.dialogMover.dialogDocked ) {
+			this.dialogMover.dialogHTMLElement.classList.add (
+				'TravelNotes-DockableBaseDialog-HiddenContent'
+			);
+		}
+	}
+
+	/**
 	mouse enter on the dialog event listener
 	*/
 
@@ -66,7 +78,7 @@ class DockableBaseDialog extends NonModalBaseDialog {
 			this.#mouseLeaveTimerId = null;
 		}
 		if ( this.dialogMover.dialogDocked ) {
-			this.showContent ( );
+			this.dialogMover.dialogHTMLElement.classList.remove ( 'TravelNotes-DockableBaseDialog-HiddenContent' );
 		}
 	}
 
@@ -76,8 +88,10 @@ class DockableBaseDialog extends NonModalBaseDialog {
 
 	#mouseLeaveDialogEL ( ) {
 		if ( this.dialogMover.dialogDocked ) {
-			this.#mouseLeaveTimerId =
-				setTimeout ( ( ) => { this.hideContent ( ); }, theConfig.baseDialog.timeout );
+			this.#mouseLeaveTimerId = setTimeout (
+				( ) => { this.#hideContent ( ); },
+				theConfig.baseDialog.timeout
+			);
 		}
 	}
 
@@ -125,7 +139,7 @@ class DockableBaseDialog extends NonModalBaseDialog {
 			false
 		);
 		if ( this.dialogMover.dialogDocked ) {
-			this.hideContent ( );
+			this.dialogMover.dialogHTMLElement.classList.add ( 'TravelNotes-DockableBaseDialog-HiddenContent' );
 		}
 	}
 

@@ -129,7 +129,9 @@ class TopBarTouchEL {
 	*/
 
 	handleEvent ( touchEvent ) {
+
 		touchEvent.stopPropagation ( );
+		let eventType = touchEvent.type;
 		if ( ONE === touchEvent.changedTouches.length ) {
 			const touch = touchEvent.changedTouches.item ( ZERO );
 			switch ( touchEvent.type ) {
@@ -137,8 +139,11 @@ class TopBarTouchEL {
 				this.#dialogMover.setDragStartPoint ( touch );
 				break;
 			case 'touchmove' :
+				touchEvent.preventDefault ( );
+				this.#dialogMover.moveDialog ( touch, eventType );
+				break;
 			case 'touchend' :
-				this.#dialogMover.moveDialog ( touch );
+				this.#dialogMover.moveDialog ( touch, eventType );
 				break;
 			case 'touchcancel' :
 				break;
