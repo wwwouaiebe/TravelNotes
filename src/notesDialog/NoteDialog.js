@@ -314,10 +314,11 @@ class NoteDialog extends ModalBaseDialog {
 	*/
 
 	show ( ) {
-		super.show ( );
+		const dialogPromise = super.show ( );
 		if ( this.#startGeoCoder ) {
 			new NoteDialogGeoCoderHelper ( this ).setAddressWithGeoCoder ( this.#previewNote.latLng );
 		}
+		return dialogPromise;
 	}
 
 	/**
