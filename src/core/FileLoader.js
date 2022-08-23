@@ -115,6 +115,7 @@ class FileLoader {
 				}
 			);
 		}
+		theEventDispatcher.dispatch ( 'updatetravelnotes' );
 
 		// zoom on travel
 		new Zoomer ( ).zoomToTravel ( );

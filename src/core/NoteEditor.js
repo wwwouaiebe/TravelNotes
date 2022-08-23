@@ -116,7 +116,7 @@ class NoteEditor {
 			}
 			else {
 				theTravelNotesData.travel.notes.add ( this.#note );
-				theEventDispatcher.dispatch ( 'showtravelnotes' );
+				theEventDispatcher.dispatch ( 'updatetravelnotes' );
 			}
 		}
 		else {
