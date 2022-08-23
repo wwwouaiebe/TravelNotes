@@ -62,7 +62,7 @@ Changes:
 	cursor: grab;
 }
 
-.TravelNotes-DockableBaseDialog.TravelNotes-BaseDialog-OnTop > .TravelNotes-BaseDialog-TopBarHTMLElement {
+.TravelNotes-DockableBaseDialog-OnTop > .TravelNotes-BaseDialog-TopBarHTMLElement {
 	background-color: black;
 	color: white;
 }

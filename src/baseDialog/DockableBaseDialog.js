@@ -35,6 +35,10 @@ Base class used for dockable dialogs
 
 class DockableBaseDialog extends NonModalBaseDialog {
 
+	#dialogX;
+
+	#dialogY;
+
 	/**
 	mouse enter on the dialog event listener
 	@type {MouseEnterDockableDialogEL}
@@ -57,8 +61,9 @@ class DockableBaseDialog extends NonModalBaseDialog {
 
 	constructor ( dialogX, dialogY ) {
 		super ( );
+		this.#dialogX = dialogX;
+		this.#dialogY = dialogY;
 		this.dialogMover.isDockable = true;
-		this.dialogMover.setStartupPosition ( dialogX, dialogY );
 		this.#mouseEnterDockableDialogEL = new MouseEnterDockableDialogEL ( this.dialogMover );
 		this.#mouseLeaveDockableDialogEL = new MouseLeaveDockableDialogEL ( this.dialogMover );
 	}
@@ -80,8 +85,14 @@ class DockableBaseDialog extends NonModalBaseDialog {
 	show ( ) {
 		super.show ( );
 		this.updateContent ( );
-		this.addCssClass ( 'TravelNotes-DockableBaseDialog' );
-		this.dialogMover.moveDialogToLastPosition ( );
+		if ( null !== this.#dialogX && null !== this.#dialogY ) {
+			this.dialogMover.moveDialogTo ( this.#dialogX, this.#dialogY );
+			this.#dialogX = null;
+			this.#dialogY = null;
+		}
+		else {
+			this.dialogMover.moveDialogToLastPosition ( );
+		}
 		this.dialogMover.dialogHTMLElement.addEventListener ( 'mouseenter', this.#mouseEnterDockableDialogEL, false );
 		this.dialogMover.dialogHTMLElement.addEventListener ( 'mouseleave', this.#mouseLeaveDockableDialogEL, false );
 	}

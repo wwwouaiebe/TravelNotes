@@ -66,7 +66,10 @@ class DockableDialogsManager {
 
 	get travelPropertiesDialog ( ) {
 		if ( ! this.#travelPropertiesDialog ) {
-			this.#travelPropertiesDialog = new TravelPropertiesDialog ( );
+			this.#travelPropertiesDialog = new TravelPropertiesDialog (
+				theConfig.travelPropertiesDialog.dialogX,
+				theConfig.travelPropertiesDialog.dialogY
+			);
 		}
 		return this.#travelPropertiesDialog;
 	}

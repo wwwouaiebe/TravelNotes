@@ -70,10 +70,10 @@ class DialogMover {
 		}
 		if ( DIALOG_DRAG_MARGIN === this.#dialogY ) {
 			this.#dialogY = ZERO;
-			this.dialogHTMLElement.classList.add ( 'TravelNotes-BaseDialog-OnTop' );
+			this.dialogHTMLElement.classList.add ( 'TravelNotes-DockableBaseDialog-OnTop' );
 		}
 		else {
-			this.dialogHTMLElement.classList.remove ( 'TravelNotes-BaseDialog-OnTop' );
+			this.dialogHTMLElement.classList.remove ( 'TravelNotes-DockableBaseDialog-OnTop' );
 		}
 	}
 
