@@ -214,6 +214,7 @@ class TravelEditor {
 		theEventDispatcher.dispatch ( 'setrouteslist' );
 		theEventDispatcher.dispatch ( 'showitinerary' );
 		theEventDispatcher.dispatch ( 'roadbookupdate' );
+		theEventDispatcher.dispatch ( 'updatetravelnotes' );
 		if ( theConfig.travelEditor.startupRouteEdition ) {
 			theRouteEditor.editRoute ( theTravelNotesData.travel.routes.first.objId );
 		}
