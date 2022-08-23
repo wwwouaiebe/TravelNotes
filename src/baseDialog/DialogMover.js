@@ -62,6 +62,13 @@ class DialogMover {
 	#dialogY;
 
 	/**
+	a flag to store the docked status of the dialog
+	@type {boolean}
+	*/
+
+	#dialogDocked;
+
+	/**
 	A flag indicating that the dialog is dockable
 	@type {boolean}
 	*/
@@ -79,9 +86,11 @@ class DialogMover {
 		if ( DIALOG_DRAG_MARGIN === this.#dialogY ) {
 			this.#dialogY = ZERO;
 			this.dialogHTMLElement.classList.add ( 'TravelNotes-DockableBaseDialog-OnTop' );
+			this.#dialogDocked = true;
 		}
 		else {
 			this.dialogHTMLElement.classList.remove ( 'TravelNotes-DockableBaseDialog-OnTop' );
+			this.#dialogDocked = false;
 		}
 	}
 
@@ -104,8 +113,16 @@ class DialogMover {
 		this.#dialogY = DIALOG_DRAG_MARGIN;
 		this.#dragStartX = ZERO;
 		this.#dragStartY = ZERO;
+		this.#dialogDocked = false;
 		this.isDockable = false;
 	}
+
+	/**
+	A method to test if a dialog is docked. True when the dialog is docked
+	@type {boolean}
+	*/
+
+	get dialogDocked ( ) { return this.#dialogDocked; }
 
 	/**
 	The background element of the dialog

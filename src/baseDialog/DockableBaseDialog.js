@@ -25,7 +25,6 @@ Tests ...
 */
 
 import NonModalBaseDialog from '../baseDialog/NonModalBaseDialog.js';
-import { MouseEnterDockableDialogEL, MouseLeaveDockableDialogEL } from '../baseDialog/DockableBaseDialogEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -51,17 +50,23 @@ class DockableBaseDialog extends NonModalBaseDialog {
 
 	/**
 	mouse enter on the dialog event listener
-	@type {MouseEnterDockableDialogEL}
 	*/
 
-	#mouseEnterDockableDialogEL;
+	#mouseEnterDialogEL ( ) {
+		if ( this.dialogMover.dialogDocked ) {
+			this.showContent ( );
+		}
+	}
 
 	/**
 	mouse leave the dialog event listener
-	@type {MouseLeaveDockableDialogEL}
 	*/
 
-	#mouseLeaveDockableDialogEL;
+	#mouseLeaveDialogEL ( ) {
+		if ( this.dialogMover.dialogDocked ) {
+			this.hideContent ( );
+		}
+	}
 
 	/**
 	The constructor
@@ -74,19 +79,11 @@ class DockableBaseDialog extends NonModalBaseDialog {
 		this.#dialogX = dialogX;
 		this.#dialogY = dialogY;
 		this.dialogMover.isDockable = true;
-		this.#mouseEnterDockableDialogEL = new MouseEnterDockableDialogEL ( this.dialogMover );
-		this.#mouseLeaveDockableDialogEL = new MouseLeaveDockableDialogEL ( this.dialogMover );
 	}
 
 	/**
 	Cancel button handler. Overload of the base class onCancel method
 	*/
-
-	onCancel ( ) {
-		super.onCancel ( );
-		this.dialogMover.dialogHTMLElement.removeEventListener ( 'mouseenter', this.#mouseEnterDockableDialogEL, false );
-		this.dialogMover.dialogHTMLElement.removeEventListener ( 'mouseleave', this.#mouseLeaveDockableDialogEL, false );
-	}
 
 	/**
 	Show the dialog. Overload of the base class show method
@@ -103,8 +100,16 @@ class DockableBaseDialog extends NonModalBaseDialog {
 		else {
 			this.dialogMover.moveDialogToLastPosition ( );
 		}
-		this.dialogMover.dialogHTMLElement.addEventListener ( 'mouseenter', this.#mouseEnterDockableDialogEL, false );
-		this.dialogMover.dialogHTMLElement.addEventListener ( 'mouseleave', this.#mouseLeaveDockableDialogEL, false );
+		this.dialogMover.dialogHTMLElement.addEventListener (
+			'mouseenter',
+			( ) => this.#mouseEnterDialogEL ( ),
+			false
+		);
+		this.dialogMover.dialogHTMLElement.addEventListener (
+			'mouseleave',
+			( ) => this.#mouseLeaveDialogEL ( ),
+			false
+		);
 	}
 
 }

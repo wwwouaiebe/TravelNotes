@@ -334,6 +334,22 @@ class BaseDialog {
 	}
 
 	/**
+	Show the content of the dialog
+	*/
+
+	showContent ( ) {
+		this.#contentHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
+	}
+
+	/**
+	Hide the content of the dialog
+	*/
+
+	hideContent ( ) {
+		this.#contentHTMLElement.classList.add ( 'TravelNotes-Hidden' );
+	}
+
+	/**
 	Remove the container from the background
 	@param {HTMLElement} backgroundElement the used background. The background can be the background created
 	by the modal dialogs or the document.body for non modal dialogs
