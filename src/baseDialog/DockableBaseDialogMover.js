@@ -25,7 +25,6 @@ Tests ...
 */
 
 import BaseDialogMover from './BaseDialogMover.js';
-import { ZERO, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -47,9 +46,10 @@ class DockableDialogMover extends BaseDialogMover {
 	*/
 
 	#dockDialog ( ) {
-		if ( DIALOG_DRAG_MARGIN === this.dialogY ) {
-			this.dialogY = ZERO;
+		if ( this.onTop ) {
 			this.dialogHTMLElement.classList.add ( 'TravelNotes-DockableBaseDialog-Docked' );
+			this.dialogHTMLElement.classList.add ( 'TravelNotes-DockableBaseDialog-HiddenContent' );
+			this.dialogHTMLElement.style.top = '0px';
 			this.#dialogDocked = true;
 		}
 		else {
@@ -76,19 +76,6 @@ class DockableDialogMover extends BaseDialogMover {
 	get dialogDocked ( ) { return this.#dialogDocked; }
 
 	/**
-	Move the dialog to a drag event point and set the drag start values to this point
-	@param {Event|Touch} dragEventOrTouch The drag event or Touch with the drag start values
-	@param {?String} eventType The type of the event that have triggered the call to the method
-	*/
-
-	moveDialog ( dragEventOrTouch, eventType ) {
-		const newDialogX = this.dialogX + dragEventOrTouch.screenX - this.dragStartX;
-		const newDialogY = this.dialogY + dragEventOrTouch.screenY - this.dragStartY;
-		this.moveDialogTo ( newDialogX, newDialogY, eventType );
-		this.setDragStartPoint ( dragEventOrTouch );
-	}
-
-	/**
 	Move the dialog on the screen
 	@param {Number} newDialogX The new X position of the dialog in pixels
 	@param {Number} newDialogY The new Y position of the dialog in pixels
@@ -96,19 +83,11 @@ class DockableDialogMover extends BaseDialogMover {
 	*/
 
 	moveDialogTo ( newDialogX, newDialogY, eventType ) {
-		const maxDialogX =
-			this.backgroundHTMLElement.offsetWidth - this.dialogHTMLElement.offsetWidth - DIALOG_DRAG_MARGIN;
-		const maxDialogY =
-			this.backgroundHTMLElement.offsetHeight - this.dialogHTMLElement.offsetHeight - DIALOG_DRAG_MARGIN;
-
-		this.dialogX = Math.max ( Math.min ( newDialogX, maxDialogX ), DIALOG_DRAG_MARGIN );
-		this.dialogY = Math.max ( Math.min ( newDialogY, maxDialogY ), DIALOG_DRAG_MARGIN );
-		if ( 'touchmove' !== eventType ) {
+		super.moveDialogTo ( newDialogX, newDialogY, eventType );
+		if ( ! eventType || 'touchmove' !== eventType ) {
 			this.#dockDialog ( );
 		}
-		this.endMoveDialog ( );
 	}
-
 }
 
 export default DockableDialogMover;

@@ -29,7 +29,7 @@ Doc reviewed ...
 	position: absolute;
 	top: 0;
 	left: calc(50% - 10em);
-	z-index: 1050;
+	z-index: 800;
 	text-align: center;
 	width: 20em;
 	background-color: white;

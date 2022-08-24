@@ -114,6 +114,13 @@ class TopBarTouchEL {
 	#mover;
 
 	/**
+	A flag to detect a click event directly followed by a touchstart and touchend events on touch devices
+	@type {boolean}
+	*/
+
+	#isClickEvent;
+
+	/**
 	The constructor
 	@param {BaseDialogMover|DockableDialogMover} mover A reference to the mover object of the dialog
 	*/
@@ -121,6 +128,7 @@ class TopBarTouchEL {
 	constructor ( mover ) {
 		Object.freeze ( this );
 		this.#mover = mover;
+		this.#isClickEvent = false;
 	}
 
 	/**
@@ -129,21 +137,24 @@ class TopBarTouchEL {
 	*/
 
 	handleEvent ( touchEvent ) {
-
 		touchEvent.stopPropagation ( );
 		let eventType = touchEvent.type;
 		if ( ONE === touchEvent.changedTouches.length ) {
 			const touch = touchEvent.changedTouches.item ( ZERO );
 			switch ( touchEvent.type ) {
 			case 'touchstart' :
+				this.#isClickEvent = true;
 				this.#mover.setDragStartPoint ( touch );
 				break;
 			case 'touchmove' :
+				this.#isClickEvent = false;
 				touchEvent.preventDefault ( );
 				this.#mover.moveDialog ( touch, eventType );
 				break;
 			case 'touchend' :
-				this.#mover.moveDialog ( touch, eventType );
+				if ( ! this.#isClickEvent ) {
+					this.#mover.moveDialog ( touch, eventType );
+				}
 				break;
 			case 'touchcancel' :
 				break;

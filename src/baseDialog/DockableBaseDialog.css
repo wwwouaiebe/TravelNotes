@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Doc reviewed ...
 */
 .TravelNotes-DockableBaseDialog {
-	z-index: 800;
+	z-index: 900;
 }
 
 .TravelNotes-DockableBaseDialog-Docked > .TravelNotes-BaseDialog-TopBarHTMLElement {

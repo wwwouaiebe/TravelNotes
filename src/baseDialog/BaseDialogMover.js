@@ -39,35 +39,42 @@ class BaseDialogMover {
 	@type {Number}
 	*/
 
-	dragStartX;
+	#dragStartX;
 
 	/** The start drag Y screen coordinate of the mouse
 	@type {Number}
 	*/
 
-	dragStartY;
+	#dragStartY;
 
 	/**
 	The X screen coordinate of the upper left corner of the dialog
 	@type {Number}
 	*/
 
-	dialogX;
+	#dialogX;
 
 	/**
 	The Y screen coordinate of the upper left corner of the dialog
 	@type {Number}
 	*/
 
-	dialogY;
+	#dialogY;
+
+	/**
+	A flag to detect if the dialog is on top of the screen 
+	@type {boolean}
+	*/
+
+	get onTop ( ) { return DIALOG_DRAG_MARGIN + TWO > this.#dialogY; }
 
 	/**
 	Finish the move dialog. Adapt the style of the dialog
 	*/
 
 	endMoveDialog ( ) {
-		this.dialogHTMLElement.style.left = String ( this.dialogX ) + 'px';
-		this.dialogHTMLElement.style.top = String ( this.dialogY ) + 'px';
+		this.dialogHTMLElement.style.left = String ( this.#dialogX ) + 'px';
+		this.dialogHTMLElement.style.top = String ( this.#dialogY ) + 'px';
 	}
 
 	/**
@@ -76,10 +83,10 @@ class BaseDialogMover {
 
 	constructor ( ) {
 		Object.seal ( this );
-		this.dialogX = DIALOG_DRAG_MARGIN;
-		this.dialogY = DIALOG_DRAG_MARGIN;
-		this.dragStartX = ZERO;
-		this.dragStartY = ZERO;
+		this.#dialogX = DIALOG_DRAG_MARGIN;
+		this.#dialogY = DIALOG_DRAG_MARGIN;
+		this.#dragStartX = ZERO;
+		this.#dragStartY = ZERO;
 	}
 
 	/**
@@ -97,13 +104,20 @@ class BaseDialogMover {
 	dialogHTMLElement = null;
 
 	/**
+	The top bar element of the dialog
+	@type {HTMLElement}
+	*/
+
+	topBarHTMLElement = null;
+
+	/**
 	Set the drag start values
 	@param {Event|Touch} dragEventOrTouch The drag event or Touch with the drag start values
 	*/
 
 	setDragStartPoint ( dragEventOrTouch ) {
-		this.dragStartX = dragEventOrTouch.screenX;
-		this.dragStartY = dragEventOrTouch.screenY;
+		this.#dragStartX = dragEventOrTouch.screenX;
+		this.#dragStartY = dragEventOrTouch.screenY;
 	}
 
 	/**
@@ -112,28 +126,36 @@ class BaseDialogMover {
 	@param {?String} eventType The type of the event that have triggered the call to the method
 	*/
 
-	moveDialog ( dragEventOrTouch ) {
-		const newDialogX = this.dialogX + dragEventOrTouch.screenX - this.dragStartX;
-		const newDialogY = this.dialogY + dragEventOrTouch.screenY - this.dragStartY;
-		this.moveDialogTo ( newDialogX, newDialogY );
+	moveDialog ( dragEventOrTouch, eventType ) {
+		const newDialogX = this.#dialogX + dragEventOrTouch.screenX - this.#dragStartX;
+		const newDialogY = this.#dialogY + dragEventOrTouch.screenY - this.#dragStartY;
+		this.moveDialogTo ( newDialogX, newDialogY, eventType );
 		this.setDragStartPoint ( dragEventOrTouch );
+	}
+
+	/**
+	Compute the new position of the dialog on the screen
+	@param {Number} newDialogX The new X position of the dialog in pixels
+	@param {Number} newDialogY The new Y position of the dialog in pixels
+	*/
+
+	computePosition ( newDialogX, newDialogY ) {
+		const maxDialogX =
+			this.backgroundHTMLElement.offsetWidth - this.dialogHTMLElement.offsetWidth - DIALOG_DRAG_MARGIN;
+		const maxDialogY =
+			this.backgroundHTMLElement.offsetHeight - this.dialogHTMLElement.offsetHeight - DIALOG_DRAG_MARGIN;
+		this.#dialogX = Math.max ( Math.min ( newDialogX, maxDialogX ), DIALOG_DRAG_MARGIN );
+		this.#dialogY = Math.max ( Math.min ( newDialogY, maxDialogY ), DIALOG_DRAG_MARGIN );
 	}
 
 	/**
 	Move the dialog on the screen
 	@param {Number} newDialogX The new X position of the dialog in pixels
 	@param {Number} newDialogY The new Y position of the dialog in pixels
-	@param {?String} eventType The type of the event that have triggered the call to the method
 	*/
 
 	moveDialogTo ( newDialogX, newDialogY ) {
-		const maxDialogX =
-			this.backgroundHTMLElement.offsetWidth - this.dialogHTMLElement.offsetWidth - DIALOG_DRAG_MARGIN;
-		const maxDialogY =
-			this.backgroundHTMLElement.offsetHeight - this.dialogHTMLElement.offsetHeight - DIALOG_DRAG_MARGIN;
-
-		this.dialogX = Math.max ( Math.min ( newDialogX, maxDialogX ), DIALOG_DRAG_MARGIN );
-		this.dialogY = Math.max ( Math.min ( newDialogY, maxDialogY ), DIALOG_DRAG_MARGIN );
+		this.computePosition ( newDialogX, newDialogY );
 		this.endMoveDialog ( );
 	}
 
@@ -142,9 +164,9 @@ class BaseDialogMover {
 	*/
 
 	centerDialog ( ) {
-		this.dialogX =
+		this.#dialogX =
 			( this.backgroundHTMLElement.clientWidth - this.dialogHTMLElement.clientWidth ) / TWO;
-		this.dialogY =
+		this.#dialogY =
 			( this.backgroundHTMLElement.clientHeight - this.dialogHTMLElement.clientHeight ) / TWO;
 		this.endMoveDialog ( );
 	}
@@ -154,8 +176,8 @@ class BaseDialogMover {
 	*/
 
 	moveDialogToTopLeft ( ) {
-		this.dialogX = DIALOG_DRAG_MARGIN;
-		this.dialogY = DIALOG_DRAG_MARGIN;
+		this.#dialogX = DIALOG_DRAG_MARGIN;
+		this.#dialogY = DIALOG_DRAG_MARGIN;
 		this.endMoveDialog ( );
 	}
 
@@ -166,8 +188,8 @@ class BaseDialogMover {
 	*/
 
 	setStartupPosition ( dialogX, dialogY ) {
-		this.dialogX = dialogX;
-		this.dialogY = dialogY;
+		this.#dialogX = dialogX;
+		this.#dialogY = dialogY;
 	}
 
 	/**
@@ -175,7 +197,7 @@ class BaseDialogMover {
 	*/
 
 	moveDialogToLastPosition ( ) {
-		this.moveDialogTo ( this.dialogX, this.dialogY );
+		this.moveDialogTo ( this.#dialogX, this.#dialogY );
 	}
 }
 

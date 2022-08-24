@@ -27,6 +27,7 @@ Tests ...
 import NonModalBaseDialog from '../baseDialog/NonModalBaseDialog.js';
 import DockableBaseDialogMover from '../baseDialog/DockableBaseDialogMover.js';
 import theConfig from '../data/Config.js';
+import { ZERO } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -57,7 +58,35 @@ class DockableBaseDialog extends NonModalBaseDialog {
 
 	#mouseLeaveTimerId;
 
+	/**
+	The mover used by the dialog
+	@type {DockableBaseDialogMover}
+	*/
+
 	#dockableBaseDialogMover;
+
+	/**
+	The last mouse event time stamp. Used to detect a mouseenter event directly followed by a click event
+	on touch devices
+	@type {Number}
+	*/
+
+	#lastMouseEventTimestamp;
+
+	/**
+	A flag to store the visibility of the dialog
+	@type {boolean}
+	*/
+
+	#isShow;
+
+	/**
+	The max delay between a mouseenter and a click event to consider the two events as a single event
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #MOUSE_EVENT_MAX_DELAY ( ) { return 100; }
 
 	/**
 	Hide the content of the dialog. Used by the timer on mouseLeave
@@ -73,9 +102,11 @@ class DockableBaseDialog extends NonModalBaseDialog {
 
 	/**
 	mouse enter on the dialog event listener
+	@param {Event} mouseEvent The event to handle
 	*/
 
-	#mouseEnterDialogEL ( ) {
+	#mouseEnterDialogEL ( mouseEvent ) {
+		this.#lastMouseEventTimestamp = mouseEvent.timeStamp;
 		if ( this.#mouseLeaveTimerId ) {
 			clearTimeout ( this.#mouseLeaveTimerId );
 			this.#mouseLeaveTimerId = null;
@@ -99,6 +130,21 @@ class DockableBaseDialog extends NonModalBaseDialog {
 	}
 
 	/**
+	Click on the top bar event listener
+	@param {Event} clickEvent The event to handle
+	*/
+
+	#topBarClickEL ( clickEvent ) {
+		clickEvent.preventDefault ( );
+		if ( DockableBaseDialog.#MOUSE_EVENT_MAX_DELAY > clickEvent.timeStamp - this.#lastMouseEventTimestamp ) {
+			return;
+		}
+		if ( this.mover.dialogDocked ) {
+			this.mover.dialogHTMLElement.classList.toggle ( 'TravelNotes-DockableBaseDialog-HiddenContent' );
+		}
+	}
+
+	/**
 	The constructor
 	@param {Number} dialogX The default X position in pixels for the dialog
 	@param {Number} dialogY The default Y position in pixels for the dialog
@@ -109,7 +155,16 @@ class DockableBaseDialog extends NonModalBaseDialog {
 		this.#dialogX = dialogX;
 		this.#dialogY = dialogY;
 		this.#mouseLeaveTimerId = null;
+		this.#dockableBaseDialogMover = null;
+		this.#lastMouseEventTimestamp = ZERO;
+		this.#isShow = false;
 	}
+
+	/**
+	Get the mover object used with this dialog. Create the object if needed.
+	Overload of the base class get mover ( )
+	@type {DockableBaseDialogMover}
+	*/
 
 	get mover ( ) {
 		return this.#dockableBaseDialogMover ?
@@ -118,10 +173,22 @@ class DockableBaseDialog extends NonModalBaseDialog {
 	}
 
 	/**
+	Overload of the base class method onCancel ( ). Close the dialog
+	*/
+
+	onCancel ( ) {
+		super.onCancel ( );
+		this.#isShow = false;
+	}
+
+	/**
 	Show the dialog. Overload of the base class show method
 	*/
 
 	show ( ) {
+		if ( this.#isShow ) {
+			return;
+		}
 		super.show ( );
 		this.addCssClass ( 'TravelNotes-DockableBaseDialog' );
 		this.updateContent ( );
@@ -135,7 +202,7 @@ class DockableBaseDialog extends NonModalBaseDialog {
 		}
 		this.mover.dialogHTMLElement.addEventListener (
 			'mouseenter',
-			( ) => this.#mouseEnterDialogEL ( ),
+			mouseEvent => this.#mouseEnterDialogEL ( mouseEvent ),
 			false
 		);
 		this.mover.dialogHTMLElement.addEventListener (
@@ -143,9 +210,17 @@ class DockableBaseDialog extends NonModalBaseDialog {
 			( ) => this.#mouseLeaveDialogEL ( ),
 			false
 		);
+
+		this.mover.topBarHTMLElement.addEventListener (
+			'click',
+			clickEvent => this.#topBarClickEL ( clickEvent ),
+			false
+		);
+
 		if ( this.mover.dialogDocked ) {
 			this.mover.dialogHTMLElement.classList.add ( 'TravelNotes-DockableBaseDialog-HiddenContent' );
 		}
+		this.#isShow = true;
 	}
 
 }

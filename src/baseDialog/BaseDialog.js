@@ -206,6 +206,7 @@ class BaseDialog {
 		);
 		this.#cancelButtonClickEL = new CancelButtonClickEL ( this );
 		this.#cancelButton.addEventListener ( 'click', this.#cancelButtonClickEL, false );
+		this.mover.topBarHTMLElement = this.#topBarHTMLElement;
 	}
 
 	/**
@@ -283,6 +284,12 @@ class BaseDialog {
 		this.#cancelButton.removeEventListener ( 'click', this.#cancelButtonClickEL, false );
 		this.#cancelButtonClickEL = null;
 	}
+
+	/**
+	Get the mover object used with this dialog. Create the object if needed.
+	Overload of the base class get mover ( )
+	@type {BaseDialogMover}
+	*/
 
 	get mover ( ) { return this.#baseDialogMover ? this.#baseDialogMover : this.#baseDialogMover = new BaseDialogMover ( ); }
 
