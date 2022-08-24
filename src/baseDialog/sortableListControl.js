@@ -20,22 +20,22 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v4.0.0:
 		- created
-Doc reviewed ...
+Doc reviewed 20220824
 Tests ...
 */
 
 import DialogControl from '../baseDialog/DialogControl.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import {
-	TouchItemEL,
-	DragStartItemEL,
-	DropItemEL,
-	ContextMenuItemEL
+	TouchListItemEL,
+	DragStartListItemEL,
+	DropListItemEL,
+	ContextMenuListItemEL
 } from '../baseDialog/SortableListControlEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-
+A control for dialogs with a list that can be sorted with drag and drop
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
@@ -43,38 +43,38 @@ class SortableListControl extends DialogControl {
 
 	/**
 	The item drag start event listener
-	@type {DragStartItemEL}
+	@type {DragStartListItemEL}
 	*/
 
-	#dragStartItemEL;
+	#dragStartListItemEL;
 
 	/**
 	The item drop event listener
-	@type {DropItemEL}
+	@type {DropListItemEL}
 	*/
 
-	#dropItemEL;
+	#dropListItemEL;
 
 	/**
 	The context menu on item event listener
-	@type {ContextMenuItemEL}
+	@type {ContextMenuListItemEL}
 	*/
 
-	#contextMenuItemEL;
+	#contextMenuListItemEL;
 
 	/**
 	The touch item event listener
-	@type {TouchItemEL}
+	@type {TouchListItemEL}
 	*/
 
-	#touchItemEL;
+	#touchListItemEL;
 
 	/**
-	The container for the list
+	The HTMLElement container for the list
 	@type {HTMLElement}
 	*/
 
-	#sortableListContainer;
+	#sortableListHTMLElement;
 
 	/**
 	The constructor
@@ -85,10 +85,10 @@ class SortableListControl extends DialogControl {
 
 	constructor ( dropFunction, contextMenuClass, headingText ) {
 		super ( );
-		this.#dragStartItemEL = new DragStartItemEL ( );
-		this.#dropItemEL = new DropItemEL ( dropFunction );
-		this.#contextMenuItemEL = new ContextMenuItemEL ( contextMenuClass );
-		this.#touchItemEL = new TouchItemEL ( dropFunction );
+		this.#dragStartListItemEL = new DragStartListItemEL ( );
+		this.#dropListItemEL = new DropListItemEL ( dropFunction );
+		this.#contextMenuListItemEL = new ContextMenuListItemEL ( contextMenuClass );
+		this.#touchListItemEL = new TouchListItemEL ( dropFunction );
 		if ( headingText ) {
 			theHTMLElementsFactory.create (
 				'div',
@@ -99,10 +99,10 @@ class SortableListControl extends DialogControl {
 				this.controlHTMLElement
 			);
 		}
-		this.#sortableListContainer = theHTMLElementsFactory.create (
+		this.#sortableListHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-SortableList-Container'
+				className : 'TravelNotes-SortableList-ListHTMLElement'
 			},
 			this.controlHTMLElement
 		);
@@ -110,30 +110,30 @@ class SortableListControl extends DialogControl {
 
 	/**
 	Update the items in the control
-	@param {array.<HTMLElement>} htmlElements An array with HTMLElements to use as items
+	@param {array.<HTMLElement>} listItemsHTMLElements An array with HTMLElements to use as items
 	*/
 
-	updateContent ( htmlElements ) {
-		while ( this.#sortableListContainer.firstChild ) {
-			this.#sortableListContainer.firstChild.removeEventListener ( 'dragstart', this.#dragStartItemEL, false );
-			this.#sortableListContainer.firstChild.removeEventListener ( 'drop', this.#dropItemEL, false );
-			this.#sortableListContainer.firstChild.removeEventListener ( 'contextmenu', this.#contextMenuItemEL, false );
-			this.#sortableListContainer.firstChild.removeEventListener ( 'touchstart', this.#touchItemEL, false );
-			this.#sortableListContainer.firstChild.removeEventListener ( 'touchmove', this.#touchItemEL, false );
-			this.#sortableListContainer.firstChild.removeEventListener ( 'touchend', this.#touchItemEL, false );
-			this.#sortableListContainer.removeChild ( this.#sortableListContainer.firstChild );
+	updateContent ( listItemsHTMLElements ) {
+		while ( this.#sortableListHTMLElement.firstChild ) {
+			this.#sortableListHTMLElement.firstChild.removeEventListener ( 'dragstart', this.#dragStartListItemEL, false );
+			this.#sortableListHTMLElement.firstChild.removeEventListener ( 'drop', this.#dropListItemEL, false );
+			this.#sortableListHTMLElement.firstChild.removeEventListener ( 'contextmenu', this.#contextMenuListItemEL, false );
+			this.#sortableListHTMLElement.firstChild.removeEventListener ( 'touchstart', this.#touchListItemEL, false );
+			this.#sortableListHTMLElement.firstChild.removeEventListener ( 'touchmove', this.#touchListItemEL, false );
+			this.#sortableListHTMLElement.firstChild.removeEventListener ( 'touchend', this.#touchListItemEL, false );
+			this.#sortableListHTMLElement.removeChild ( this.#sortableListHTMLElement.firstChild );
 		}
-		htmlElements.forEach (
-			htmlElement => {
-				htmlElement.draggable = true;
-				htmlElement.addEventListener ( 'dragstart', this.#dragStartItemEL, false );
-				htmlElement.addEventListener ( 'drop', this.#dropItemEL, false );
-				htmlElement.addEventListener ( 'contextmenu', this.#contextMenuItemEL, false );
-				htmlElement.addEventListener ( 'touchstart', this.#touchItemEL, false );
-				htmlElement.addEventListener ( 'touchmove', this.#touchItemEL, false );
-				htmlElement.addEventListener ( 'touchend', this.#touchItemEL, false );
-				this.#sortableListContainer.appendChild ( htmlElement );
-				htmlElement.classList.add ( 'TravelNotes-SortableList-Item' );
+		listItemsHTMLElements.forEach (
+			listItemHTMLElement => {
+				listItemHTMLElement.draggable = true;
+				listItemHTMLElement.addEventListener ( 'dragstart', this.#dragStartListItemEL, false );
+				listItemHTMLElement.addEventListener ( 'drop', this.#dropListItemEL, false );
+				listItemHTMLElement.addEventListener ( 'contextmenu', this.#contextMenuListItemEL, false );
+				listItemHTMLElement.addEventListener ( 'touchstart', this.#touchListItemEL, false );
+				listItemHTMLElement.addEventListener ( 'touchmove', this.#touchListItemEL, false );
+				listItemHTMLElement.addEventListener ( 'touchend', this.#touchListItemEL, false );
+				this.#sortableListHTMLElement.appendChild ( listItemHTMLElement );
+				listItemHTMLElement.classList.add ( 'TravelNotes-SortableList-ListItemHTMLElement' );
 			}
 		);
 	}

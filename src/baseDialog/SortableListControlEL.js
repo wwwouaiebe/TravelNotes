@@ -32,7 +32,7 @@ touchstart, touchmove, touchend and touchcancel on an list item event listener
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class TouchItemEL {
+class TouchListItemEL {
 
 	/**
 	The function to call when an item is droped
@@ -170,9 +170,9 @@ class TouchItemEL {
 		if (
 			scrollTimeStamp !== this.#lastScrollTimeStamp
 			&&
-			TouchItemEL.#SCROLL_DELAY < scrollTimeStamp - this.#lastScrollTimeStamp
+			TouchListItemEL.#SCROLL_DELAY < scrollTimeStamp - this.#lastScrollTimeStamp
 		) {
-			this.#scrolledContainer.scrollTop -= TouchItemEL.#SCROLL_VALUE;
+			this.#scrolledContainer.scrollTop -= TouchListItemEL.#SCROLL_VALUE;
 			this.#lastScrollTimeStamp = scrollTimeStamp;
 		}
 		if (
@@ -195,9 +195,9 @@ class TouchItemEL {
 		if (
 			scrollTimeStamp !== this.#lastScrollTimeStamp
 			&&
-			TouchItemEL.#SCROLL_DELAY < scrollTimeStamp - this.#lastScrollTimeStamp
+			TouchListItemEL.#SCROLL_DELAY < scrollTimeStamp - this.#lastScrollTimeStamp
 		) {
-			this.#scrolledContainer.scrollTop += TouchItemEL.#SCROLL_VALUE;
+			this.#scrolledContainer.scrollTop += TouchListItemEL.#SCROLL_VALUE;
 			this.#lastScrollTimeStamp = scrollTimeStamp;
 		}
 		let isFullyScrolledDown =
@@ -226,7 +226,7 @@ class TouchItemEL {
 		const touch = touchEvent.changedTouches.item ( ZERO );
 		if ( ONE === touchEvent.touches.length ) {
 			if (
-				TouchItemEL.#DBL_CLICK_MAX_DELAY < touchEvent.timeStamp - this.#lastTouchStartTimeStamp
+				TouchListItemEL.#DBL_CLICK_MAX_DELAY < touchEvent.timeStamp - this.#lastTouchStartTimeStamp
 				||
 				ZERO === this.#lastTouchStartTimeStamp
 			) {
@@ -247,7 +247,7 @@ class TouchItemEL {
 
 			// cloning the node and append it to the document
 			this.#clonedNode = touchEvent.currentTarget.cloneNode ( true );
-			this.#clonedNode.classList.add ( 'TravelNotes-SortableList-Dragged-Item' );
+			this.#clonedNode.classList.add ( 'TravelNotes-SortableList-DraggedListItemHTMLElement' );
 			document.body.appendChild ( this.#clonedNode );
 			this.#clonedNode.style.left = touch.screenX + 'px';
 			this.#clonedNode.style.top = touch.screenY + 'px';
@@ -255,10 +255,10 @@ class TouchItemEL {
 				this.#sortableListContainer.getBoundingClientRect ( ).y -
 				this.#scrolledContainer.getBoundingClientRect ( ).y +
 				this.#scrolledContainer.scrollTop +
-				TouchItemEL.#TOP_SCROLL_DISTANCE;
+				TouchListItemEL.#TOP_SCROLL_DISTANCE;
 			this.#bottomScrollPosition =
 			this.#scrolledContainer.getBoundingClientRect ( ).bottom -
-				TouchItemEL.#BOTTOM_SCROLL_DISTANCE;
+				TouchListItemEL.#BOTTOM_SCROLL_DISTANCE;
 		}
 	}
 
@@ -424,7 +424,7 @@ Drag start on an list item event listener
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class DragStartItemEL {
+class DragStartListItemEL {
 
 	/**
 	The constructor
@@ -459,7 +459,7 @@ Drop list item event listener
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class DropItemEL {
+class DropListItemEL {
 
 	/**
 	The function to call when an item is droped
@@ -500,7 +500,7 @@ context menu on a list item event listener
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ContextMenuItemEL {
+class ContextMenuListItemEL {
 
 	/**
 	The context menu class to use
@@ -532,10 +532,10 @@ class ContextMenuItemEL {
 }
 
 export {
-	TouchItemEL,
-	DragStartItemEL,
-	DropItemEL,
-	ContextMenuItemEL
+	TouchListItemEL,
+	DragStartListItemEL,
+	DropListItemEL,
+	ContextMenuListItemEL
 };
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

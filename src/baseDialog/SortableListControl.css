@@ -20,27 +20,27 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v 4.0.0:
 		- created
-Doc reviewed ...
+Doc reviewed 20220824
 */
 
-.TravelNotes-SortableList-Container {
+.TravelNotes-SortableList-ListHTMLElement {
 	margin-top: 1em;
 	border-style: solid;
 	border-width: 0.1em;
 }
 
-.TravelNotes-SortableList-Item {
+.TravelNotes-SortableList-ListItemHTMLElement {
 	border-top-style: solid;
 	border-width: 0.1em;
 	margin-left: 0.5em;
 	margin-right: 0.5em;
 }
 
-.TravelNotes-SortableList-Item:first-child {
+.TravelNotes-SortableList-ListItemHTMLElement:first-child {
 	border-top-style: none;
 }
 
-.TravelNotes-SortableList-Dragged-Item {
+.TravelNotes-SortableList-DraggedListItemHTMLElement {
 	position: absolute;
 	z-index: 1500;
 }
