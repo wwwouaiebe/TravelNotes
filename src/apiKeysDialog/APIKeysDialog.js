@@ -176,7 +176,7 @@ class APIKeysDialog extends ModalBaseDialog {
 	*/
 
 	get contentHTMLElements ( ) {
-		return [ this.#apiKeysControl.HTMLElement ];
+		return [ this.#apiKeysControl.controlHTMLElement ];
 	}
 
 	/**

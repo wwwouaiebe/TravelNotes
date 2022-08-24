@@ -324,8 +324,8 @@ class WayPointPropertiesDialog extends ModalBaseDialog {
 
 	get contentHTMLElements ( ) {
 		return [ ].concat (
-			this.#wayPointNameControl.HTMLElement,
-			this.#wayPointAddressControl.HTMLElement
+			this.#wayPointNameControl.controlHTMLElement,
+			this.#wayPointAddressControl.controlHTMLElement
 		);
 	}
 

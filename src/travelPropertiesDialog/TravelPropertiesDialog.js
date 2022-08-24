@@ -114,8 +114,8 @@ class TravelPropertiesDialog extends DockableBaseDialog {
 
 	get contentHTMLElements ( ) {
 		return [ ].concat (
-			this.#travelNameControl.HTMLElement,
-			this.#travelRoutesControl.HTMLElement
+			this.#travelNameControl.controlHTMLElement,
+			this.#travelRoutesControl.controlHTMLElement
 		);
 	}
 

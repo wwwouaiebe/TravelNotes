@@ -66,7 +66,7 @@ class TravelNotesDialog extends DockableBaseDialog {
 
 	get contentHTMLElements ( ) {
 		return [ ].concat (
-			this.#travelNotesControl.HTMLElement
+			this.#travelNotesControl.controlHTMLElement
 		);
 	}
 

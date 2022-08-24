@@ -399,13 +399,13 @@ class NoteDialog extends ModalBaseDialog {
 
 	get contentHTMLElements ( ) {
 		return [].concat (
-			this.#iconDimsControl.HTMLElement,
-			this.#iconControl.HTMLElement,
-			this.#tooltipControl.HTMLElement,
-			this.#popupControl.HTMLElement,
-			this.#addressControl.HTMLElement,
-			this.#linkControl.HTMLElement,
-			this.#phoneControl.HTMLElement
+			this.#iconDimsControl.controlHTMLElement,
+			this.#iconControl.controlHTMLElement,
+			this.#tooltipControl.controlHTMLElement,
+			this.#popupControl.controlHTMLElement,
+			this.#addressControl.controlHTMLElement,
+			this.#linkControl.controlHTMLElement,
+			this.#phoneControl.controlHTMLElement
 		);
 	}
 
