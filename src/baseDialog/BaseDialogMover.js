@@ -62,7 +62,7 @@ class BaseDialogMover {
 	#dialogY;
 
 	/**
-	A flag to detect if the dialog is on top of the screen 
+	A flag to detect if the dialog is on top of the screen
 	@type {boolean}
 	*/
 

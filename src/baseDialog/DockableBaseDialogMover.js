@@ -32,7 +32,7 @@ This class store the dialog position and expose methods to move the dialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class DockableDialogMover extends BaseDialogMover {
+class DockableBaseDialogMover extends BaseDialogMover {
 
 	/**
 	a flag to store the docked status of the dialog
@@ -90,6 +90,6 @@ class DockableDialogMover extends BaseDialogMover {
 	}
 }
 
-export default DockableDialogMover;
+export default DockableBaseDialogMover;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

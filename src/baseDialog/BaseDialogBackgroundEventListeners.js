@@ -46,14 +46,14 @@ class BackgroundDragOverEL {
 
 	/**
 	A reference to the mover object of the dialog
-	@type {BaseDialogMover|DockableDialogMover}
+	@type {BaseDialogMover|DockableBaseDialogMover}
 	*/
 
 	#mover;
 
 	/**
 	The constructor
-	@param {BaseDialogMover|DockableDialogMover} mover A reference to the mover object of the dialog
+	@param {BaseDialogMover|DockableBaseDialogMover} mover A reference to the mover object of the dialog
 	*/
 
 	constructor ( mover ) {
