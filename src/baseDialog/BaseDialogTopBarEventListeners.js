@@ -60,6 +60,7 @@ class TopBarDragStartEL {
 
 	handleEvent ( dragStartEvent ) {
 		this.#mover.setDragStartPoint ( dragStartEvent );
+		dragStartEvent.dataTransfer.setData ( 'ObjId', this.#mover.objId );
 	}
 }
 

@@ -24,6 +24,7 @@ Doc reviewed 20220824
 Tests ...
 */
 
+import ObjId from '../data/ObjId.js';
 import { ZERO, TWO, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -33,6 +34,13 @@ This class store the dialog position and expose methods to move the dialog
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 class BaseDialogMover {
+
+	/**
+	A unique identifier given to the mover for drag and drop operations
+	@type {Number}
+	*/
+
+	#objId;
 
 	/**
 	The start drag X screen coordinate of the mouse
@@ -116,6 +124,7 @@ class BaseDialogMover {
 		this.#dialogY = DIALOG_DRAG_MARGIN;
 		this.#dragStartX = ZERO;
 		this.#dragStartY = ZERO;
+		this.#objId = ObjId.nextObjId;
 	}
 
 	/**
@@ -124,6 +133,13 @@ class BaseDialogMover {
 	*/
 
 	get onTop ( ) { return DIALOG_DRAG_MARGIN + TWO > this.#dialogY; }
+
+	/**
+	A unique identifier given to the mover for drag and drop operations
+	@type {Number}
+	*/
+
+	get objId ( ) { return this.#objId; }
 
 	/**
 	Center the dialog o the screen

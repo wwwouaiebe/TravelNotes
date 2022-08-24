@@ -486,11 +486,19 @@ class DropListItemEL {
 	handleEvent ( dropEvent ) {
 		dropEvent.preventDefault ( );
 		const clientRect = dropEvent.currentTarget.getBoundingClientRect ( );
-		this.#dropFunction (
-			Number.parseInt ( dropEvent.dataTransfer.getData ( 'ObjId' ) ),
-			Number.parseInt ( dropEvent.currentTarget.dataset.tanObjId ),
-			( dropEvent.clientY - clientRect.top < clientRect.bottom - dropEvent.clientY )
-		);
+
+		// Try ... catch because a lot of thing can be dragged in the dialog and the drop function
+		// throw when an unknown objId is given
+		try {
+			this.#dropFunction (
+				Number.parseInt ( dropEvent.dataTransfer.getData ( 'ObjId' ) ),
+				Number.parseInt ( dropEvent.currentTarget.dataset.tanObjId ),
+				( dropEvent.clientY - clientRect.top < clientRect.bottom - dropEvent.clientY )
+			);
+		}
+
+		// eslint-disable-next-line no-empty
+		catch { }
 	}
 }
 

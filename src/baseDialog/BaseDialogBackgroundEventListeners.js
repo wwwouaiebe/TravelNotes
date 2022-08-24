@@ -68,7 +68,10 @@ class BackgroundDragOverEL {
 
 	handleEvent ( dragEvent ) {
 		dragEvent.preventDefault ( );
-		if ( dragEvent.target.parentElement !== this.#mover.dialogHTMLElement ) {
+		if ( Number.parseInt ( dragEvent.dataTransfer.getData ( 'ObjId' ) ) !== this.#mover.objId ) {
+
+			// A lot of things can be dragged on the background and then receive the dragover event. Before moving the dialog,
+			// we have to verify that it's the correct dialog and not something else like notes, routes or others dialog...
 			return;
 		}
 		dragEvent.stopPropagation ( );
