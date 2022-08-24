@@ -102,7 +102,7 @@ class NoteDialogLinkControl extends DialogControl {
 			{
 				className : 'TravelNotes-BaseDialog-FlexRow'
 			},
-			this.HTMLElement
+			this.controlHTMLElement
 		);
 		this.#createTheDevilButton ( latLng, linkHeaderDiv );
 		theHTMLElementsFactory.create (
@@ -124,7 +124,7 @@ class NoteDialogLinkControl extends DialogControl {
 				{
 					className : 'TravelNotes-BaseDialog-FlexRow'
 				},
-				this.HTMLElement
+				this.controlHTMLElement
 			)
 		);
 

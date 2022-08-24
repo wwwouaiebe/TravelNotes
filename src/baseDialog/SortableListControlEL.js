@@ -365,16 +365,15 @@ class TouchItemEL {
 	*/
 
 	#reset ( ) {
-		this.#scrolledContainer = null;
-		this.#isDoubleClick = false;
-		this.#lastTouchStartTimeStamp = ZERO;
-		this.#lastScrollTimeStamp = ZERO;
 		if ( this.#clonedNode ) {
 			document.body.removeChild ( this.#clonedNode );
 		}
 		this.#clonedNode = null;
-		this.#sortableListContainer = null;
 		this.#scrolledContainer = null;
+		this.#isDoubleClick = false;
+		this.#lastTouchStartTimeStamp = ZERO;
+		this.#lastScrollTimeStamp = ZERO;
+		this.#sortableListContainer = null;
 		this.#topScrollPosition = ZERO;
 		this.#bottomScrollPosition = ZERO;
 		this.#touchY = ZERO;
@@ -390,17 +389,8 @@ class TouchItemEL {
 	constructor ( dropFunction ) {
 		Object.freeze ( this );
 		this.#dropFunction = dropFunction;
-		this.#isDoubleClick = false;
-		this.#lastTouchStartTimeStamp = ZERO;
-		this.#lastScrollTimeStamp = ZERO;
 		this.#clonedNode = null;
-		this.#sortableListContainer = null;
-		this.#scrolledContainer = null;
-		this.#topScrollPosition = ZERO;
-		this.#bottomScrollPosition = ZERO;
-		this.#touchY = ZERO;
-		this.#dropTarget = null;
-		this.#dropOnTop = true;
+		this.#reset ( );
 	}
 
 	/**

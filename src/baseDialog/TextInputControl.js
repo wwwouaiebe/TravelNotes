@@ -55,7 +55,7 @@ class TextInputControl extends DialogControl {
 				className : 'TravelNotes-BaseDialog-FlexRow',
 				textContent : headerText
 			},
-			this.HTMLElement
+			this.controlHTMLElement
 		);
 		this.#valueInput = theHTMLElementsFactory.create (
 			'input',
@@ -68,7 +68,7 @@ class TextInputControl extends DialogControl {
 				{
 					className : 'TravelNotes-BaseDialog-FlexRow'
 				},
-				this.HTMLElement
+				this.controlHTMLElement
 			)
 		);
 		if ( inputEL ) {

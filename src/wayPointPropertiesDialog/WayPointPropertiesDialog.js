@@ -138,7 +138,7 @@ class WayPointAddressControl extends DialogControl {
 			{
 				className : 'TravelNotes-BaseDialog-FlexRow'
 			},
-			this.HTMLElement
+			this.controlHTMLElement
 		);
 		this.#resetAddressButton = theHTMLElementsFactory.create (
 			'div',
@@ -170,7 +170,7 @@ class WayPointAddressControl extends DialogControl {
 				{
 					className : 'TravelNotes-BaseDialog-FlexRow'
 				},
-				this.HTMLElement
+				this.controlHTMLElement
 			)
 		);
 	}
@@ -222,14 +222,14 @@ class WayPointNameControl extends DialogControl {
 				className : 'TravelNotes-BaseDialog-FlexRow',
 				textContent : theTranslator.getText ( 'WayPointPropertiesDialog - Name' )
 			},
-			this.HTMLElement
+			this.controlHTMLElement
 		);
 		const nameInputDiv = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-FlexRow'
 			},
-			this.HTMLElement
+			this.controlHTMLElement
 		);
 		this.#nameInput = theHTMLElementsFactory.create (
 			'input',

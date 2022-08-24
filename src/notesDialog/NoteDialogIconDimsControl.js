@@ -70,7 +70,7 @@ class NoteDialogIconDimsControl extends DialogControl {
 			{
 				value : theTranslator.getText ( 'NoteDialogIconDimsControl - Icon width' )
 			},
-			this.HTMLElement
+			this.controlHTMLElement
 		);
 		this.#iconWidthInput = theHTMLElementsFactory.create (
 			'input',
@@ -80,7 +80,7 @@ class NoteDialogIconDimsControl extends DialogControl {
 				value : ICON_DIMENSIONS.width,
 				dataset : { Name : 'iconWidth' }
 			},
-			this.HTMLElement
+			this.controlHTMLElement
 		);
 
 		theHTMLElementsFactory.create (
@@ -88,7 +88,7 @@ class NoteDialogIconDimsControl extends DialogControl {
 			{
 				value : theTranslator.getText ( 'NoteDialogIconDimsControl - Icon height' )
 			},
-			this.HTMLElement
+			this.controlHTMLElement
 		);
 		this.#iconHeightInput = theHTMLElementsFactory.create (
 			'input',
@@ -98,7 +98,7 @@ class NoteDialogIconDimsControl extends DialogControl {
 				value : ICON_DIMENSIONS.height,
 				dataset : { Name : 'iconHeight' }
 			},
-			this.HTMLElement
+			this.controlHTMLElement
 		);
 
 		// event listeners

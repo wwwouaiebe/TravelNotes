@@ -64,7 +64,7 @@ class NoteDialogPopupControl extends DialogControl {
 				className : 'TravelNotes-BaseDialog-FlexRow',
 				textContent : theTranslator.getText ( 'NoteDialogPopupControl - Text' )
 			},
-			this.HTMLElement
+			this.controlHTMLElement
 		);
 		this.#popupTextArea = theHTMLElementsFactory.create (
 			'textarea',
@@ -78,7 +78,7 @@ class NoteDialogPopupControl extends DialogControl {
 				{
 					className : 'TravelNotes-BaseDialog-FlexRow'
 				},
-				this.HTMLElement
+				this.controlHTMLElement
 			)
 		);
 

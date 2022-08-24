@@ -60,7 +60,7 @@ class ApiKeysControl extends DialogControl {
 		super ( );
 		this.#apiKeysControlRowsMap = new Map ( );
 		this.#onAPIKeyDeletedEventListener = new APIKeyDeletedEL ( this, this.#apiKeysControlRowsMap );
-		this.HTMLElement.addEventListener ( 'apikeydeleted', this.#onAPIKeyDeletedEventListener, false );
+		this.controlHTMLElement.addEventListener ( 'apikeydeleted', this.#onAPIKeyDeletedEventListener, false );
 	}
 
 	/**
@@ -68,7 +68,7 @@ class ApiKeysControl extends DialogControl {
 	*/
 
 	destructor ( ) {
-		this.HTMLElement.removeEventListener ( 'apikeydeleted', this.#onAPIKeyDeletedEventListener, false );
+		this.controlHTMLElement.removeEventListener ( 'apikeydeleted', this.#onAPIKeyDeletedEventListener, false );
 		this.#onAPIKeyDeletedEventListener = null;
 		this.#apiKeysControlRowsMap.clear ( );
 	}
@@ -136,11 +136,11 @@ class ApiKeysControl extends DialogControl {
 	*/
 
 	refreshAPIKeys ( ) {
-		while ( this.HTMLElement.firstChild ) {
-			this.HTMLElement.removeChild ( this.HTMLElement.firstChild );
+		while ( this.controlHTMLElement.firstChild ) {
+			this.controlHTMLElement.removeChild ( this.controlHTMLElement.firstChild );
 		}
 		this.#apiKeysControlRowsMap.forEach (
-			apiKeyControl => { this.HTMLElement.appendChild ( apiKeyControl.HTMLElements [ ZERO ] ); }
+			apiKeyControl => { this.controlHTMLElement.appendChild ( apiKeyControl.HTMLElements [ ZERO ] ); }
 		);
 	}
 

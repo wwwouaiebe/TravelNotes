@@ -212,7 +212,7 @@ class ProfileDialog extends NonModalBaseDialog {
 	}
 
 	/**
-	The title of the DialogControl. Overload of the base glass get title
+	The title of the DialogControl. Overload of the base class get title
 	@type {String}
 	*/
 

@@ -39,7 +39,7 @@ class DialogControl {
 	@type {HTMLElement}
 	*/
 
-	#HTMLElement;
+	#controlHTMLElement;
 
 	/**
 	The constructor
@@ -50,7 +50,7 @@ class DialogControl {
 		Object.freeze ( this );
 
 		// HTMLElement creation
-		this.#HTMLElement = theHTMLElementsFactory.create (
+		this.#controlHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-DataDiv'
@@ -63,8 +63,8 @@ class DialogControl {
 	@type {HTMLElement}
 	*/
 
-	get HTMLElement ( ) {
-		return this.#HTMLElement;
+	get controlHTMLElement ( ) {
+		return this.#controlHTMLElement;
 	}
 
 }

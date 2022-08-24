@@ -62,7 +62,7 @@ class NoteDialogIconControl extends DialogControl {
 				textContent : theTranslator.getText ( 'NoteDialogIconControl - Icon content' ),
 				className : 'TravelNotes-BaseDialog-FlexRow'
 			},
-			this.HTMLElement
+			this.controlHTMLElement
 		);
 		this.#iconTextArea = theHTMLElementsFactory.create (
 			'textarea',
@@ -77,7 +77,7 @@ class NoteDialogIconControl extends DialogControl {
 				{
 					className : 'TravelNotes-BaseDialog-FlexRow'
 				},
-				this.HTMLElement
+				this.controlHTMLElement
 			)
 		);
 

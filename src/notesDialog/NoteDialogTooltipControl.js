@@ -63,7 +63,7 @@ class NoteDialogTooltipControl extends DialogControl {
 				className : 'TravelNotes-BaseDialog-FlexRow',
 				textContent : theTranslator.getText ( 'NoteDialogTooltipControl - Tooltip content' )
 			},
-			this.HTMLElement
+			this.controlHTMLElement
 		);
 		this.#tooltipInput = theHTMLElementsFactory.create (
 			'input',
@@ -77,7 +77,7 @@ class NoteDialogTooltipControl extends DialogControl {
 				{
 					className : 'TravelNotes-BaseDialog-FlexRow'
 				},
-				this.HTMLElement
+				this.controlHTMLElement
 			)
 		);
 

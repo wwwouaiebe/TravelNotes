@@ -96,7 +96,7 @@ class SortableListControl extends DialogControl {
 					className : 'TravelNotes-BaseDialog-FlexRow',
 					textContent : headingText
 				},
-				this.HTMLElement
+				this.controlHTMLElement
 			);
 		}
 		this.#sortableListContainer = theHTMLElementsFactory.create (
@@ -104,7 +104,7 @@ class SortableListControl extends DialogControl {
 			{
 				className : 'TravelNotes-SortableList-Container'
 			},
-			this.HTMLElement
+			this.controlHTMLElement
 		);
 	}
 

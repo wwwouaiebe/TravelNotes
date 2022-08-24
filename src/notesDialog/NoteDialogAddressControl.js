@@ -67,7 +67,7 @@ class NoteDialogAddressControl extends DialogControl {
 			{
 				className : 'TravelNotes-BaseDialog-FlexRow'
 			},
-			this.HTMLElement );
+			this.controlHTMLElement );
 		this.#addressButton = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -96,7 +96,7 @@ class NoteDialogAddressControl extends DialogControl {
 				{
 					className : 'TravelNotes-BaseDialog-FlexRow'
 				},
-				this.HTMLElement )
+				this.controlHTMLElement )
 		);
 
 		// event listeners
