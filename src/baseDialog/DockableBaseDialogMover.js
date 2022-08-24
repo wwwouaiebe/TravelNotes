@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v4.0.0:
 		- created from DragData
-Doc reviewed 20220823
+Doc reviewed 20220824
 Tests ...
 */
 
@@ -28,7 +28,7 @@ import BaseDialogMover from './BaseDialogMover.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This class store the dialog position and expose methods to move the dialog
+This class store the dialog position and expose methods to move and dock the dialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 

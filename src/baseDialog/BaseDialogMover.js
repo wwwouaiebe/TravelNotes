@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v4.0.0:
 		- created from DragData
-Doc reviewed 20220823
+Doc reviewed 20220824
 Tests ...
 */
 
@@ -62,31 +62,27 @@ class BaseDialogMover {
 	#dialogY;
 
 	/**
-	A flag to detect if the dialog is on top of the screen
-	@type {boolean}
+	Compute the new position of the dialog on the screen
+	@param {Number} newDialogX The new X position of the dialog in pixels
+	@param {Number} newDialogY The new Y position of the dialog in pixels
 	*/
 
-	get onTop ( ) { return DIALOG_DRAG_MARGIN + TWO > this.#dialogY; }
+	#computePosition ( newDialogX, newDialogY ) {
+		const maxDialogX =
+			this.backgroundHTMLElement.offsetWidth - this.dialogHTMLElement.offsetWidth - DIALOG_DRAG_MARGIN;
+		const maxDialogY =
+			this.backgroundHTMLElement.offsetHeight - this.dialogHTMLElement.offsetHeight - DIALOG_DRAG_MARGIN;
+		this.#dialogX = Math.max ( Math.min ( newDialogX, maxDialogX ), DIALOG_DRAG_MARGIN );
+		this.#dialogY = Math.max ( Math.min ( newDialogY, maxDialogY ), DIALOG_DRAG_MARGIN );
+	}
 
 	/**
 	Finish the move dialog. Adapt the style of the dialog
 	*/
 
-	endMoveDialog ( ) {
+	#endMoveDialog ( ) {
 		this.dialogHTMLElement.style.left = String ( this.#dialogX ) + 'px';
 		this.dialogHTMLElement.style.top = String ( this.#dialogY ) + 'px';
-	}
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.seal ( this );
-		this.#dialogX = DIALOG_DRAG_MARGIN;
-		this.#dialogY = DIALOG_DRAG_MARGIN;
-		this.#dragStartX = ZERO;
-		this.#dragStartY = ZERO;
 	}
 
 	/**
@@ -111,13 +107,34 @@ class BaseDialogMover {
 	topBarHTMLElement = null;
 
 	/**
-	Set the drag start values
-	@param {Event|Touch} dragEventOrTouch The drag event or Touch with the drag start values
+	The constructor
 	*/
 
-	setDragStartPoint ( dragEventOrTouch ) {
-		this.#dragStartX = dragEventOrTouch.screenX;
-		this.#dragStartY = dragEventOrTouch.screenY;
+	constructor ( ) {
+		Object.seal ( this );
+		this.#dialogX = DIALOG_DRAG_MARGIN;
+		this.#dialogY = DIALOG_DRAG_MARGIN;
+		this.#dragStartX = ZERO;
+		this.#dragStartY = ZERO;
+	}
+
+	/**
+	A flag to detect if the dialog is on top of the screen
+	@type {boolean}
+	*/
+
+	get onTop ( ) { return DIALOG_DRAG_MARGIN + TWO > this.#dialogY; }
+
+	/**
+	Center the dialog o the screen
+	*/
+
+	centerDialog ( ) {
+		this.#dialogX =
+			( this.backgroundHTMLElement.clientWidth - this.dialogHTMLElement.clientWidth ) / TWO;
+		this.#dialogY =
+			( this.backgroundHTMLElement.clientHeight - this.dialogHTMLElement.clientHeight ) / TWO;
+		this.#endMoveDialog ( );
 	}
 
 	/**
@@ -134,41 +151,22 @@ class BaseDialogMover {
 	}
 
 	/**
-	Compute the new position of the dialog on the screen
-	@param {Number} newDialogX The new X position of the dialog in pixels
-	@param {Number} newDialogY The new Y position of the dialog in pixels
-	*/
-
-	computePosition ( newDialogX, newDialogY ) {
-		const maxDialogX =
-			this.backgroundHTMLElement.offsetWidth - this.dialogHTMLElement.offsetWidth - DIALOG_DRAG_MARGIN;
-		const maxDialogY =
-			this.backgroundHTMLElement.offsetHeight - this.dialogHTMLElement.offsetHeight - DIALOG_DRAG_MARGIN;
-		this.#dialogX = Math.max ( Math.min ( newDialogX, maxDialogX ), DIALOG_DRAG_MARGIN );
-		this.#dialogY = Math.max ( Math.min ( newDialogY, maxDialogY ), DIALOG_DRAG_MARGIN );
-	}
-
-	/**
 	Move the dialog on the screen
 	@param {Number} newDialogX The new X position of the dialog in pixels
 	@param {Number} newDialogY The new Y position of the dialog in pixels
 	*/
 
 	moveDialogTo ( newDialogX, newDialogY ) {
-		this.computePosition ( newDialogX, newDialogY );
-		this.endMoveDialog ( );
+		this.#computePosition ( newDialogX, newDialogY );
+		this.#endMoveDialog ( );
 	}
 
 	/**
-	Center the dialog o the screen
+	Move the dialog to it's last position after a hide followed by a show
 	*/
 
-	centerDialog ( ) {
-		this.#dialogX =
-			( this.backgroundHTMLElement.clientWidth - this.dialogHTMLElement.clientWidth ) / TWO;
-		this.#dialogY =
-			( this.backgroundHTMLElement.clientHeight - this.dialogHTMLElement.clientHeight ) / TWO;
-		this.endMoveDialog ( );
+	moveDialogToLastPosition ( ) {
+		this.moveDialogTo ( this.#dialogX, this.#dialogY );
 	}
 
 	/**
@@ -178,26 +176,17 @@ class BaseDialogMover {
 	moveDialogToTopLeft ( ) {
 		this.#dialogX = DIALOG_DRAG_MARGIN;
 		this.#dialogY = DIALOG_DRAG_MARGIN;
-		this.endMoveDialog ( );
+		this.#endMoveDialog ( );
 	}
 
 	/**
-	set the position of the dialog the first time the dialog is show
-	@param {Number} dialogX The X position of the dialog in pixels
-	@param {Number} dialogY The Y position of the dialog in pixels
+	Set the drag start values
+	@param {Event|Touch} dragEventOrTouch The drag event or Touch with the drag start values
 	*/
 
-	setStartupPosition ( dialogX, dialogY ) {
-		this.#dialogX = dialogX;
-		this.#dialogY = dialogY;
-	}
-
-	/**
-	Move the dialog to it's last position after a hide followed by a show
-	*/
-
-	moveDialogToLastPosition ( ) {
-		this.moveDialogTo ( this.#dialogX, this.#dialogY );
+	setDragStartPoint ( dragEventOrTouch ) {
+		this.#dragStartX = dragEventOrTouch.screenX;
+		this.#dragStartY = dragEventOrTouch.screenY;
 	}
 }
 
