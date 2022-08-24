@@ -58,7 +58,7 @@ import {
 	TopBarDragEndEL,
 	TopBarTouchEL
 } from '../baseDialog/BaseDialogTopBarEventListeners.js';
-import DialogMover from '../baseDialog/DialogMover.js';
+import BaseDialogMover from '../baseDialog/BaseDialogMover.js';
 
 // import GarbageCollectorTester from '../UILib/GarbageCollectorTester.js';
 
@@ -105,11 +105,11 @@ class BaseDialog {
 	#contentHTMLElement;
 
 	/**
-	DialogMover for drag ond drop and touch operations
-	@type {DialogMover}
+	BaseDialogMover for drag ond drop and touch operations
+	@type {BaseDialogMover}
 	*/
 
-	dialogMover;
+	#baseDialogMover;
 
 	/**
 	Top bar drag start event listener
@@ -159,7 +159,7 @@ class BaseDialog {
 				className : 'TravelNotes-BaseDialog-DialogHTMLElement'
 			}
 		);
-		this.dialogMover.dialogHTMLElement = this.#dialogHTMLElement;
+		this.mover.dialogHTMLElement = this.#dialogHTMLElement;
 	}
 
 	/**
@@ -177,26 +177,15 @@ class BaseDialog {
 			this.#dialogHTMLElement
 		);
 
-		this.#topBarTouchEL = new TopBarTouchEL ( this.dialogMover );
+		this.#topBarTouchEL = new TopBarTouchEL ( this.mover );
 		this.#topBarHTMLElement.addEventListener ( 'touchstart', this.#topBarTouchEL, false );
 		this.#topBarHTMLElement.addEventListener ( 'touchmove', this.#topBarTouchEL, false );
 		this.#topBarHTMLElement.addEventListener ( 'touchend', this.#topBarTouchEL, false );
 		this.#topBarHTMLElement.addEventListener ( 'touchcancel', this.#topBarTouchEL, false );
-		this.#topBarDragStartEL = new TopBarDragStartEL ( this.dialogMover );
+		this.#topBarDragStartEL = new TopBarDragStartEL ( this.mover );
 		this.#topBarHTMLElement.addEventListener ( 'dragstart', this.#topBarDragStartEL, false );
-		this.#topBarDragEndEL = new TopBarDragEndEL ( this.dialogMover );
+		this.#topBarDragEndEL = new TopBarDragEndEL ( this.mover );
 		this.#topBarHTMLElement.addEventListener ( 'dragend', this.#topBarDragEndEL, false );
-
-		this.#topBarHTMLElement.addEventListener (
-			'click',
-			clickEvent => {
-				clickEvent.preventDefault ( );
-				if ( this.dialogMover.isDockable && this.dialogMover.dialogDocked ) {
-					this.#dialogHTMLElement.classList.toggle ( 'TravelNotes-DockableBaseDialog-HiddenContent' );
-				}
-			},
-			false
-		);
 
 		this.#cancelButton = theHTMLElementsFactory.create (
 			'div',
@@ -270,7 +259,6 @@ class BaseDialog {
 	*/
 
 	constructor ( options ) {
-		this.dialogMover = new DialogMover ( );
 		Object.freeze ( this );
 		this.#options = new BaseDialogOptions ( options );
 	}
@@ -295,6 +283,8 @@ class BaseDialog {
 		this.#cancelButton.removeEventListener ( 'click', this.#cancelButtonClickEL, false );
 		this.#cancelButtonClickEL = null;
 	}
+
+	get mover ( ) { return this.#baseDialogMover ? this.#baseDialogMover : this.#baseDialogMover = new BaseDialogMover ( ); }
 
 	/**
 	Cancel button handler. Can be overloaded in the derived classes

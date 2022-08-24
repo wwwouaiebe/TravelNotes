@@ -168,7 +168,7 @@ class ModalBaseDialog extends BaseDialog {
 
 		// A new element covering the entire screen is created, with drag and drop event listeners
 		this.#backgroundHTMLElement = theHTMLElementsFactory.create ( 'div', { className : 'TravelNotes-Background' } );
-		this.dialogMover.backgroundHTMLElement = this.#backgroundHTMLElement;
+		this.mover.backgroundHTMLElement = this.#backgroundHTMLElement;
 	}
 
 	/**
@@ -176,7 +176,7 @@ class ModalBaseDialog extends BaseDialog {
 	*/
 
 	#createBackgroundHTMLElementEL ( ) {
-		this.#backgroundDragOverEL = new BackgroundDragOverEL ( this.dialogMover );
+		this.#backgroundDragOverEL = new BackgroundDragOverEL ( this.mover );
 		this.#backgroundHTMLElement.addEventListener ( 'dragover', this.#backgroundDragOverEL, false );
 
 		this.#backgroundWheelEL = new BackgroundWheelEL ( );
@@ -362,7 +362,7 @@ class ModalBaseDialog extends BaseDialog {
 		this.addToBackground ( this.#backgroundHTMLElement );
 		this.#dialogKeyboardKeydownEL = new DialogKeyboardKeydownEL ( this );
 		document.addEventListener ( 'keydown', this.#dialogKeyboardKeydownEL, { capture : true } );
-		this.dialogMover.centerDialog ( );
+		this.mover.centerDialog ( );
 		return new Promise ( ( onOk, onError ) => this.#show ( onOk, onError ) );
 	}
 

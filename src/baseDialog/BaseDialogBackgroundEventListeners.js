@@ -45,20 +45,20 @@ BaseDialog drag over event listener based on the EventListener API.
 class BackgroundDragOverEL {
 
 	/**
-	A reference to the DialogMover object of the dialog
-	@type {DialogMover}
+	A reference to the mover object of the dialog
+	@type {BaseDialogMover|DockableDialogMover}
 	*/
 
-	#dialogMover;
+	#mover;
 
 	/**
 	The constructor
-	@param {DialogMover} dialogMover A reference to the DialogMover object of the dialog
+	@param {BaseDialogMover|DockableDialogMover} mover A reference to the mover object of the dialog
 	*/
 
-	constructor ( dialogMover ) {
+	constructor ( mover ) {
 		Object.freeze ( this );
-		this.#dialogMover = dialogMover;
+		this.#mover = mover;
 	}
 
 	/**
@@ -68,11 +68,11 @@ class BackgroundDragOverEL {
 
 	handleEvent ( dragEvent ) {
 		dragEvent.preventDefault ( );
-		if ( dragEvent.target.parentElement !== this.#dialogMover.dialogHTMLElement ) {
+		if ( dragEvent.target.parentElement !== this.#mover.dialogHTMLElement ) {
 			return;
 		}
 		dragEvent.stopPropagation ( );
-		this.#dialogMover.moveDialog ( dragEvent );
+		this.#mover.moveDialog ( dragEvent );
 	}
 }
 

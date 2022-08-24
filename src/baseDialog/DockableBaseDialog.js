@@ -25,6 +25,7 @@ Tests ...
 */
 
 import NonModalBaseDialog from '../baseDialog/NonModalBaseDialog.js';
+import DockableBaseDialogMover from '../baseDialog/DockableBaseDialogMover.js';
 import theConfig from '../data/Config.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -56,13 +57,15 @@ class DockableBaseDialog extends NonModalBaseDialog {
 
 	#mouseLeaveTimerId;
 
+	#dockableBaseDialogMover;
+
 	/**
 	Hide the content of the dialog. Used by the timer on mouseLeave
 	*/
 
 	#hideContent ( ) {
-		if ( this.dialogMover.dialogDocked ) {
-			this.dialogMover.dialogHTMLElement.classList.add (
+		if ( this.mover.dialogDocked ) {
+			this.mover.dialogHTMLElement.classList.add (
 				'TravelNotes-DockableBaseDialog-HiddenContent'
 			);
 		}
@@ -77,8 +80,8 @@ class DockableBaseDialog extends NonModalBaseDialog {
 			clearTimeout ( this.#mouseLeaveTimerId );
 			this.#mouseLeaveTimerId = null;
 		}
-		if ( this.dialogMover.dialogDocked ) {
-			this.dialogMover.dialogHTMLElement.classList.remove ( 'TravelNotes-DockableBaseDialog-HiddenContent' );
+		if ( this.mover.dialogDocked ) {
+			this.mover.dialogHTMLElement.classList.remove ( 'TravelNotes-DockableBaseDialog-HiddenContent' );
 		}
 	}
 
@@ -87,7 +90,7 @@ class DockableBaseDialog extends NonModalBaseDialog {
 	*/
 
 	#mouseLeaveDialogEL ( ) {
-		if ( this.dialogMover.dialogDocked ) {
+		if ( this.mover.dialogDocked ) {
 			this.#mouseLeaveTimerId = setTimeout (
 				( ) => { this.#hideContent ( ); },
 				theConfig.baseDialog.timeout
@@ -106,12 +109,13 @@ class DockableBaseDialog extends NonModalBaseDialog {
 		this.#dialogX = dialogX;
 		this.#dialogY = dialogY;
 		this.#mouseLeaveTimerId = null;
-		this.dialogMover.isDockable = true;
 	}
 
-	/**
-	Cancel button handler. Overload of the base class onCancel method
-	*/
+	get mover ( ) {
+		return this.#dockableBaseDialogMover ?
+			this.#dockableBaseDialogMover :
+			this.#dockableBaseDialogMover = new DockableBaseDialogMover ( );
+	}
 
 	/**
 	Show the dialog. Overload of the base class show method
@@ -119,27 +123,28 @@ class DockableBaseDialog extends NonModalBaseDialog {
 
 	show ( ) {
 		super.show ( );
+		this.addCssClass ( 'TravelNotes-DockableBaseDialog' );
 		this.updateContent ( );
 		if ( null !== this.#dialogX && null !== this.#dialogY ) {
-			this.dialogMover.moveDialogTo ( this.#dialogX, this.#dialogY );
+			this.mover.moveDialogTo ( this.#dialogX, this.#dialogY );
 			this.#dialogX = null;
 			this.#dialogY = null;
 		}
 		else {
-			this.dialogMover.moveDialogToLastPosition ( );
+			this.mover.moveDialogToLastPosition ( );
 		}
-		this.dialogMover.dialogHTMLElement.addEventListener (
+		this.mover.dialogHTMLElement.addEventListener (
 			'mouseenter',
 			( ) => this.#mouseEnterDialogEL ( ),
 			false
 		);
-		this.dialogMover.dialogHTMLElement.addEventListener (
+		this.mover.dialogHTMLElement.addEventListener (
 			'mouseleave',
 			( ) => this.#mouseLeaveDialogEL ( ),
 			false
 		);
-		if ( this.dialogMover.dialogDocked ) {
-			this.dialogMover.dialogHTMLElement.classList.add ( 'TravelNotes-DockableBaseDialog-HiddenContent' );
+		if ( this.mover.dialogDocked ) {
+			this.mover.dialogHTMLElement.classList.add ( 'TravelNotes-DockableBaseDialog-HiddenContent' );
 		}
 	}
 

@@ -37,20 +37,20 @@ dragstart event listener for the top bar
 class TopBarDragStartEL {
 
 	/**
-	A reference to the DialogMover object of the dialog
-	@type {DialogMover}
+	A reference to the mover object of the dialog
+	@type {BaseDialogMover|DockableDialogMover}
 	*/
 
-	#dialogMover;
+	#mover;
 
 	/**
 	The constructor
-	@param {DialogMover} dialogMover A reference to the DialogMover object of the dialog
+	@param {BaseDialogMover|DockableDialogMover} mover A reference to the mover object of the dialog
 	*/
 
-	constructor ( dialogMover ) {
+	constructor ( mover ) {
 		Object.freeze ( this );
-		this.#dialogMover = dialogMover;
+		this.#mover = mover;
 	}
 
 	/**
@@ -59,7 +59,7 @@ class TopBarDragStartEL {
 	*/
 
 	handleEvent ( dragStartEvent ) {
-		this.#dialogMover.setDragStartPoint ( dragStartEvent );
+		this.#mover.setDragStartPoint ( dragStartEvent );
 	}
 }
 
@@ -72,20 +72,20 @@ dragend event event listener for the top bar
 class TopBarDragEndEL {
 
 	/**
-	A reference to the DialogMover object of the dialog
-	@type {DialogMover}
+	A reference to the mover object of the dialog
+	@type {BaseDialogMover|DockableDialogMover}
 	*/
 
-	#dialogMover;
+	#mover;
 
 	/**
 	The constructor
-	@param {DialogMover} dialogMover A reference to the DialogMover object of the dialog
+	@param {BaseDialogMover|DockableDialogMover} mover A reference to the mover object of the dialog
 	*/
 
-	constructor ( dialogMover ) {
+	constructor ( mover ) {
 		Object.freeze ( this );
-		this.#dialogMover = dialogMover;
+		this.#mover = mover;
 	}
 
 	/**
@@ -94,7 +94,7 @@ class TopBarDragEndEL {
 	*/
 
 	handleEvent ( dragEndEvent ) {
-		this.#dialogMover.moveDialog ( dragEndEvent );
+		this.#mover.moveDialog ( dragEndEvent );
 	}
 }
 
@@ -107,20 +107,20 @@ touchstart, touchmove, touchend and touchcancel event listener for the top bar
 class TopBarTouchEL {
 
 	/**
-	A reference to the DialogMover object of the dialog
-	@type {DialogMover}
+	A reference to the mover object of the dialog
+	@type {BaseDialogMover|DockableDialogMover}
 	*/
 
-	#dialogMover;
+	#mover;
 
 	/**
 	The constructor
-	@param {DialogMover} dialogMover A reference to the DialogMover object of the dialog
+	@param {BaseDialogMover|DockableDialogMover} mover A reference to the mover object of the dialog
 	*/
 
-	constructor ( dialogMover ) {
+	constructor ( mover ) {
 		Object.freeze ( this );
-		this.#dialogMover = dialogMover;
+		this.#mover = mover;
 	}
 
 	/**
@@ -136,14 +136,14 @@ class TopBarTouchEL {
 			const touch = touchEvent.changedTouches.item ( ZERO );
 			switch ( touchEvent.type ) {
 			case 'touchstart' :
-				this.#dialogMover.setDragStartPoint ( touch );
+				this.#mover.setDragStartPoint ( touch );
 				break;
 			case 'touchmove' :
 				touchEvent.preventDefault ( );
-				this.#dialogMover.moveDialog ( touch, eventType );
+				this.#mover.moveDialog ( touch, eventType );
 				break;
 			case 'touchend' :
-				this.#dialogMover.moveDialog ( touch, eventType );
+				this.#mover.moveDialog ( touch, eventType );
 				break;
 			case 'touchcancel' :
 				break;

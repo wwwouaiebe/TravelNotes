@@ -21,6 +21,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 		- Created
 Doc reviewed ...
 */
+.TravelNotes-DockableBaseDialog {
+	z-index: 800;
+}
+
 .TravelNotes-DockableBaseDialog-Docked > .TravelNotes-BaseDialog-TopBarHTMLElement {
 	background-color: black;
 	color: white;
