@@ -211,7 +211,7 @@ class OsmSearchTree {
 			const itemArrow = theHTMLElementsFactory.create (
 				'div',
 				{
-					className : 'TravelNotes-OsmSearchDialog-Button TravelNotes-OsmSearchDialog-TreeArrow',
+					className : 'TravelNotes-BaseDialog-Button TravelNotes-OsmSearchDialog-TreeArrow',
 					textContent : item.isExpanded ? '▼' : '▶'
 				},
 				itemHTMLElement
