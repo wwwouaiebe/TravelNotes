@@ -33,6 +33,8 @@ import OsmSearchWait from '../osmSearchDialog/OsmSearchWait.js';
 import OsmSearchContextMenu from '../contextMenus/OsmSearchContextMenu.js';
 import SortableListControl from '../sortableListControl/SortableListControl.js';
 import OsmSearchResultsHTMLBuilder from '../osmSearchDialog/OsmSearchResultsHTMLBuilder.js';
+import OsmSearchLimits from '../osmSearchDialog/OsmSearchLimits.js';
+import { SearchResultMouseEnterEL, SearchResultMouseLeaveEL } from '../osmSearchDialog/OsmSearchDialogEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -41,6 +43,13 @@ This class is the TravelPropertiesDialog
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 class OsmSearchDialog extends DockableBaseDialog {
+
+	/**
+	The limits of the search
+	@type {OsmSearchLimits}
+	*/
+
+	#osmSearchLimits;
 
 	/**
 	The toolbar HTMLElement
@@ -78,6 +87,20 @@ class OsmSearchDialog extends DockableBaseDialog {
 	#osmSearchResultsHTMLBuilder;
 
 	/**
+	Search result  mouseenter event listener
+	@type {SearchResultMouseEnterEL}
+	*/
+
+	#searchResultMouseEnterEL;
+
+	/**
+	Search result contextmenu event listener
+	@type {SearchResultMouseLeaveEL}
+	*/
+
+	#searchResultMouseLeaveEL;
+
+	/**
 	Toolbar creation
 	*/
 
@@ -103,6 +126,9 @@ class OsmSearchDialog extends DockableBaseDialog {
 			OsmSearchContextMenu
 		);
 		this.#osmSearchResultsHTMLBuilder = new OsmSearchResultsHTMLBuilder ( );
+		this.#osmSearchLimits = new OsmSearchLimits ( );
+		this.#searchResultMouseEnterEL = new SearchResultMouseEnterEL ( );
+		this.#searchResultMouseLeaveEL = new SearchResultMouseLeaveEL ( );
 	}
 
 	/**
@@ -113,7 +139,9 @@ class OsmSearchDialog extends DockableBaseDialog {
 
 	get contentHTMLElements ( ) {
 		return [ ].concat (
-			this.#toolbarHTMLElement,
+
+			/* this.#toolbarHTMLElement,*/
+
 			this.#osmSearchResultsControl.controlHTMLElement
 		);
 	}
@@ -129,11 +157,28 @@ class OsmSearchDialog extends DockableBaseDialog {
 	The toolbar HTMLElement
 	@type {HTMLElement}
 	*/
-	/*
+
 	get toolbarHTMLElement ( ) {
 		return this.#toolbarHTMLElement;
 	}
+
+	/**
+	Hide the dialog and the search limits
 	*/
+
+	onCancel ( ) {
+		this.#osmSearchLimits.hide ( );
+		super.onCancel ( );
+	}
+
+	/**
+	Show the dialog and the search limits
+	*/
+
+	show ( ) {
+		super.show ( );
+		this.#osmSearchLimits.show ( );
+	}
 
 	/**
 	Update the content of the dialog
@@ -141,7 +186,16 @@ class OsmSearchDialog extends DockableBaseDialog {
 
 	updateContent ( ) {
 		this.#osmSearchWait.hideWait ( );
-		this.#osmSearchResultsControl.updateContent ( this.#osmSearchResultsHTMLBuilder.resultsHTMLElements );
+		this.#osmSearchLimits.hide ( );
+		this.#osmSearchLimits.show ( );
+		const resultsHTMLElements = this.#osmSearchResultsHTMLBuilder.resultsHTMLElements;
+		resultsHTMLElements.forEach (
+			resultsHTMLElement => {
+				resultsHTMLElement.addEventListener ( 'mouseenter', this.#searchResultMouseEnterEL, false );
+				resultsHTMLElement.addEventListener ( 'mouseleave', this.#searchResultMouseLeaveEL, false );
+			}
+		);
+		this.#osmSearchResultsControl.updateContent ( resultsHTMLElements );
 	}
 }
 

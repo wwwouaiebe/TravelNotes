@@ -1,105 +1,35 @@
+/*
+Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
+
+This  program is free software;
+you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation;
+either version 3 of the License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+/*
+Changes:
+	- v4.0.0:
+		- created
+Doc reviewed ...
+Tests ...
+*/
+
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import theNoteDialogToolbarData from '../notesDialog/NoteDialogToolbarData.js';
-import OsmSearchContextMenu from '../contextMenus/OsmSearchContextMenu.js';
-import theEventDispatcher from '../coreLib/EventDispatcher.js';
 import ObjId from '../data/ObjId.js';
 
 import { ZERO } from '../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-contextmenu event listener for search result
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class SearchResultContextMenuEL {
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-	}
-
-	/**
-	Event listener method
-	@param {Event} contextMenuEvent The event to handle
-	*/
-
-	handleEvent ( contextMenuEvent ) {
-		contextMenuEvent.stopPropagation ( );
-		contextMenuEvent.preventDefault ( );
-		new OsmSearchContextMenu ( contextMenuEvent, this.paneDataDiv ).show ( );
-	}
-
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-mouseenter event listener for search result
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class SearchResultMouseEnterEL {
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-	}
-
-	/**
-	Event listener method
-	@param {Event} mouseEvent The event to handle
-	*/
-
-	handleEvent ( mouseEvent ) {
-		mouseEvent.stopPropagation ( );
-		const osmElement = theTravelNotesData.searchData [ Number.parseInt ( mouseEvent.target.dataset.tanElementIndex ) ];
-		theEventDispatcher.dispatch (
-			'addsearchpointmarker',
-			{
-				objId : Number.parseInt ( mouseEvent.target.dataset.tanObjId ),
-				latLng : [ osmElement.lat, osmElement.lon ],
-				geometry : osmElement.geometry
-			}
-		);
-	}
-
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-mouseenter event listener for search result
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class SearchResultMouseLeaveEL {
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-	}
-
-	/**
-	Event listener method
-	@param {Event} mouseEvent The event to handle
-	*/
-
-	handleEvent ( mouseEvent ) {
-		mouseEvent.stopPropagation ( );
-		theEventDispatcher.dispatch ( 'removeobject', { objId : Number.parseInt ( mouseEvent.target.dataset.tanObjId ) } );
-	}
-
-}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -145,25 +75,12 @@ class OsmSearchResultsHTMLBuilder {
 	#currentSearchResultCell;
 
 	/**
-	Search result contextmenu event listener
-	@type {SearchResultContextMenuEL}
+	The max length for displayed links
+	@type {Number}
 	*/
 
-	#searchResultContextMenuEL;
-
-	/**
-	Search result  mouseenter event listener
-	@type {SearchResultMouseEnterEL}
-	*/
-
-	#searchResultMouseEnterEL;
-
-	/**
-	Search result contextmenu event listener
-	@type {SearchResultMouseLeaveEL}
-	*/
-
-	#searchResultMouseLeaveEL;
+	// eslint-disable-next-line no-magic-numbers
+	static get #LINKS_MAX_LENGTH ( ) { return 40; }
 
 	/**
 	Icon builder
@@ -277,7 +194,15 @@ class OsmSearchResultsHTMLBuilder {
 				{
 					href : this.#currentOsmElement.tags.website,
 					target : '_blank',
-					textContent : this.#currentOsmElement.tags.website
+					textContent :
+						this.#currentOsmElement.tags.website.length > OsmSearchResultsHTMLBuilder.#LINKS_MAX_LENGTH
+							?
+							this.#currentOsmElement.tags.website.substring (
+								ZERO,
+								OsmSearchResultsHTMLBuilder.#LINKS_MAX_LENGTH
+							) + '...'
+							:
+							this.#currentOsmElement.tags.website
 				},
 				theHTMLElementsFactory.create ( 'div', null, this.#currentSearchResultCell )
 			);
@@ -317,17 +242,6 @@ class OsmSearchResultsHTMLBuilder {
 	}
 
 	/**
-	Add event listeners
-	*/
-
-	#addEventListeners ( ) {
-
-		// this.#currentContainer.addEventListener ( 'contextmenu', this.#searchResultContextMenuEL, false );
-		this.#currentContainer.addEventListener ( 'mouseenter', this.#searchResultMouseEnterEL, false );
-		this.#currentContainer.addEventListener ( 'mouseleave', this.#searchResultMouseLeaveEL, false );
-	}
-
-	/**
 	Build the html for current osm element
 	*/
 
@@ -343,7 +257,6 @@ class OsmSearchResultsHTMLBuilder {
 		this.#buildIcon ( );
 		this.#addOsmData ( );
 		this.#addTitle ( );
-		this.#addEventListeners ( );
 		this.#resultsHTMLElements.push ( this.#currentContainer );
 	}
 
@@ -353,10 +266,6 @@ class OsmSearchResultsHTMLBuilder {
 
 	constructor ( ) {
 		Object.freeze ( this );
-		this.#resultsHTMLElements = [];
-		this.#searchResultContextMenuEL = new SearchResultContextMenuEL ( );
-		this.#searchResultMouseEnterEL = new SearchResultMouseEnterEL ( );
-		this.#searchResultMouseLeaveEL = new SearchResultMouseLeaveEL ( );
 	}
 
 	/**
