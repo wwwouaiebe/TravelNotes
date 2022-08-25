@@ -17,11 +17,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 // eslint-disable-next-line no-undef
+const localServerPath = require ( './LocalServerPath.js' );
+
+// eslint-disable-next-line no-undef
 module.exports = {
 	debug : {
 		options : {
 			src : './src',
-			dest : './docs/techDoc',
+			dest : localServerPath + 'docs/techDoc',
 			validate : true,
 			noFiles : true
 		}
@@ -29,15 +32,14 @@ module.exports = {
 	doc : {
 		options : {
 			src : './src',
-			dest : './docs/techDoc',
-			validate : true,
-			noFiles : true
+			dest : localServerPath + 'docs/techDoc',
+			validate : true
 		}
 	},
 	doclaunch : {
 		options : {
 			src : './src',
-			dest : './docs/techDoc',
+			dest : localServerPath + 'docs/techDoc',
 			validate : true,
 			launch : true
 		}
