@@ -28,7 +28,7 @@ Doc reviewed 20210913
 Tests ...
 */
 
-import { BaseContextMenu, MenuItem } from '../contextMenus/BaseContextMenu.js';
+import { BaseContextMenu, MenuItem } from '../baseContextMenu/BaseContextMenu.js';
 import Zoomer from '../core/Zoomer.js';
 import theTranslator from '../UILib/Translator.js';
 

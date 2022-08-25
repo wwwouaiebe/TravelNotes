@@ -38,7 +38,7 @@ import {
 	MenuItemClickEL,
 	ContainerMouseLeaveEL,
 	ContainerMouseEnterEL
-} from '../contextMenus/BaseContextMenuEL.js';
+} from '../baseContextMenu/BaseContextMenuEL.js';
 
 import { NOT_FOUND, ZERO, ONE } from '../main/Constants.js';
 

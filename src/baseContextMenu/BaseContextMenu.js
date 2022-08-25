@@ -29,7 +29,7 @@ Tests ...
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theTranslator from '../UILib/Translator.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import BaseContextMenuOperator from '../contextMenus/BaseContextMenuOperator.js';
+import BaseContextMenuOperator from '../baseContextMenu/BaseContextMenuOperator.js';
 
 import { ZERO, INVALID_OBJ_ID, LAT_LNG } from '../main/Constants.js';
 

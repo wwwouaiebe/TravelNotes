@@ -33,7 +33,7 @@ const travelNotesCss = [
 	'src/css/WayPointsForMap.css',
 	'src/css/Background.css',
 	'src/css/WaitAnimation.css',
-	'src/contextMenus/BaseContextMenu.css',
+	'src/baseContextMenu/BaseContextMenu.css',
 	'src/baseDialog/BaseDialog.css',
 	'src/baseDialog/DockableBaseDialog.css',
 	'src/aboutDialog/AboutDialog.css',
