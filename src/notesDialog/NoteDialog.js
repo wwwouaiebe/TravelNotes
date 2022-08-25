@@ -62,7 +62,7 @@ import NoteDialogAddressControl from '../notesDialog/NoteDialogAddressControl.js
 import NoteDialogLinkControl from '../notesDialog/NoteDialogLinkControl.js';
 import NoteDialogPhoneControl from '../notesDialog/NoteDialogPhoneControl.js';
 import NoteDialogPreviewControl from '../notesDialog/NoteDialogPreviewControl.js';
-import { NoteDialogEventListeners, NoteDialogGeoCoderHelper } from '../notesDialog/NoteDialogEventListeners.js';
+import { NoteDialogEventListeners, NoteDialogGeoCoderHelper } from '../notesDialog/NoteDialogEL.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import theTranslator from '../UILib/Translator.js';
 import Note from '../data/Note.js';

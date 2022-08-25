@@ -43,7 +43,7 @@ import {
 	SvgContextMenuEL,
 	SvgMouseLeaveEL,
 	SvgMouseMoveEL
-} from '../profileDialog/ProfileDialogEventListeners.js';
+} from '../profileDialog/ProfileDialogEL.js';
 
 import { ZERO } from '../main/Constants.js';
 

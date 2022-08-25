@@ -26,18 +26,18 @@ Tests ...
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
-import { CancelButtonClickEL } from '../baseDialog/BaseDialogEventListeners.js';
+import { CancelButtonClickEL } from '../baseDialog/BaseDialogEL.js';
 import {
 	DialogKeyboardKeydownEL,
 	OkButtonClickEL
-} from '../baseDialog/ModalBaseDialogEventListeners.js';
+} from '../baseDialog/ModalBaseDialogEL.js';
 import {
 	BackgroundWheelEL,
 	BackgroundContextMenuEL,
 	BackgroundDragOverEL,
 	BackgroundTouchEL,
 	BackgroundMouseEL
-} from '../baseDialog/BaseDialogBackgroundEventListeners.js';
+} from '../baseDialog/BaseDialogBackgroundEL.js';
 import BaseDialog from '../baseDialog/BaseDialog.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
