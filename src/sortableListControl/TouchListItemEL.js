@@ -67,21 +67,21 @@ class TouchListItemEL {
 	@type {HTMLElement}
 	*/
 
-	#clonedNode;
+	#clonedListItemHTMLElement;
 
 	/**
 	The container of the displayed list
 	@type {HTMLElement}
 	*/
 
-	#sortableListContainer;
+	#sortableListHTMLElement;
 
 	/**
 	The container with the scroll bars
 	@type {HTMLElement}
 	*/
 
-	#scrolledContainer;
+	#scrolledContainerHTMLElement;
 
 	/**
 	The Y position in pixels where the top scroll will start
@@ -109,7 +109,7 @@ class TouchListItemEL {
 	@type {HTMLElement}
 	*/
 
-	#dropTarget;
+	#dropTargetHTMLElement;
 
 	/**
 	A boolean - true when the drop point is on top of the target and false when at bottom
@@ -162,49 +162,49 @@ class TouchListItemEL {
 	static get #BOTTOM_SCROLL_DISTANCE ( ) { return 100; }
 
 	/**
-	Scroll the list to the top
+	Scroll the list container to the top
 	@param {Number} scrollTimeStamp The time stamp of the call to the method. See window.requestAnimationFrame ( )
 	*/
 
-	#scrollTop ( scrollTimeStamp ) {
+	#scrollContainerToTop ( scrollTimeStamp ) {
 		if (
 			scrollTimeStamp !== this.#lastScrollTimeStamp
 			&&
 			TouchListItemEL.#SCROLL_DELAY < scrollTimeStamp - this.#lastScrollTimeStamp
 		) {
-			this.#scrolledContainer.scrollTop -= TouchListItemEL.#SCROLL_VALUE;
+			this.#scrolledContainerHTMLElement.scrollTop -= TouchListItemEL.#SCROLL_VALUE;
 			this.#lastScrollTimeStamp = scrollTimeStamp;
 		}
 		if (
 			this.#topScrollPosition > this.#touchY
 			&&
-			ZERO < this.#scrolledContainer.scrollTop
+			ZERO < this.#scrolledContainerHTMLElement.scrollTop
 		) {
 			window.requestAnimationFrame (
-				scrollTime => { this.#scrollTop ( scrollTime ); }
+				scrollTime => { this.#scrollContainerToTop ( scrollTime ); }
 			);
 		}
 	}
 
 	/**
-	Scroll the list to the bottom
+	Scroll the list container to the bottom
 	@param {Number} scrollTimeStamp The time stamp of the call to the method. See window.requestAnimationFrame ( )
 	*/
 
-	#scrollBottom ( scrollTimeStamp ) {
+	#scrollContainerToBottom ( scrollTimeStamp ) {
 		if (
 			scrollTimeStamp !== this.#lastScrollTimeStamp
 			&&
 			TouchListItemEL.#SCROLL_DELAY < scrollTimeStamp - this.#lastScrollTimeStamp
 		) {
-			this.#scrolledContainer.scrollTop += TouchListItemEL.#SCROLL_VALUE;
+			this.#scrolledContainerHTMLElement.scrollTop += TouchListItemEL.#SCROLL_VALUE;
 			this.#lastScrollTimeStamp = scrollTimeStamp;
 		}
 		let isFullyScrolledDown =
 		ONE > Math.abs (
-			this.#scrolledContainer.scrollHeight -
-			this.#scrolledContainer.clientHeight -
-			this.#scrolledContainer.scrollTop
+			this.#scrolledContainerHTMLElement.scrollHeight -
+			this.#scrolledContainerHTMLElement.clientHeight -
+			this.#scrolledContainerHTMLElement.scrollTop
 		);
 		if (
 			this.#bottomScrollPosition < this.#touchY
@@ -212,7 +212,7 @@ class TouchListItemEL {
 			! isFullyScrolledDown
 		) {
 			window.requestAnimationFrame (
-				scrollTime => { this.#scrollBottom ( scrollTime ); }
+				scrollTime => { this.#scrollContainerToBottom ( scrollTime ); }
 			);
 		}
 	}
@@ -241,23 +241,23 @@ class TouchListItemEL {
 			this.#isDoubleClick = true;
 
 			// Saving the position of the list container
-			this.#sortableListContainer = touchEvent.currentTarget.parentNode;
-			this.#scrolledContainer = touchEvent.currentTarget.parentNode.parentNode.parentNode;
+			this.#sortableListHTMLElement = touchEvent.currentTarget.parentNode;
+			this.#scrolledContainerHTMLElement = touchEvent.currentTarget.parentNode.parentNode.parentNode;
 			this.#touchY = touch.screenY;
 
 			// cloning the node and append it to the document
-			this.#clonedNode = touchEvent.currentTarget.cloneNode ( true );
-			this.#clonedNode.classList.add ( 'TravelNotes-SortableList-DraggedListItemHTMLElement' );
-			document.body.appendChild ( this.#clonedNode );
-			this.#clonedNode.style.left = touch.screenX + 'px';
-			this.#clonedNode.style.top = touch.screenY + 'px';
+			this.#clonedListItemHTMLElement = touchEvent.currentTarget.cloneNode ( true );
+			this.#clonedListItemHTMLElement.classList.add ( 'TravelNotes-SortableList-DraggedListItemHTMLElement' );
+			document.body.appendChild ( this.#clonedListItemHTMLElement );
+			this.#clonedListItemHTMLElement.style.left = touch.screenX + 'px';
+			this.#clonedListItemHTMLElement.style.top = touch.screenY + 'px';
 			this.#topScrollPosition =
-				this.#sortableListContainer.getBoundingClientRect ( ).y -
-				this.#scrolledContainer.getBoundingClientRect ( ).y +
-				this.#scrolledContainer.scrollTop +
+				this.#sortableListHTMLElement.getBoundingClientRect ( ).y -
+				this.#scrolledContainerHTMLElement.getBoundingClientRect ( ).y +
+				this.#scrolledContainerHTMLElement.scrollTop +
 				TouchListItemEL.#TOP_SCROLL_DISTANCE;
 			this.#bottomScrollPosition =
-			this.#scrolledContainer.getBoundingClientRect ( ).bottom -
+			this.#scrolledContainerHTMLElement.getBoundingClientRect ( ).bottom -
 				TouchListItemEL.#BOTTOM_SCROLL_DISTANCE;
 		}
 	}
@@ -273,26 +273,30 @@ class TouchListItemEL {
 		}
 		const touch = touchEvent.changedTouches.item ( ZERO );
 		if ( ONE === touchEvent.touches.length ) {
-			if ( this.#clonedNode ) {
+			if ( this.#clonedListItemHTMLElement ) {
 
 				// moving the cloned node to the touch position
-				this.#clonedNode.style.left = touch.screenX + 'px';
-				this.#clonedNode.style.top = touch.screenY + 'px';
+				this.#clonedListItemHTMLElement.style.left = touch.screenX + 'px';
+				this.#clonedListItemHTMLElement.style.top = touch.screenY + 'px';
+
+				// scrolling the container to the top if needed
 				this.#touchY = touch.screenY;
 				if (
 					this.#topScrollPosition > this.#touchY
 					&&
-					ZERO < this.#scrolledContainer.scrollTop
+					ZERO < this.#scrolledContainerHTMLElement.scrollTop
 				) {
 					window.requestAnimationFrame (
-						scrollTime => { this.#scrollTop ( scrollTime ); }
+						scrollTime => { this.#scrollContainerToTop ( scrollTime ); }
 					);
 				}
+
+				// scrolling the container to the bottom if needed
 				let isFullyScrolledDown =
 					ONE > Math.abs (
-						this.#scrolledContainer.scrollHeight -
-						this.#scrolledContainer.clientHeight -
-						this.#scrolledContainer.scrollTop
+						this.#scrolledContainerHTMLElement.scrollHeight -
+						this.#scrolledContainerHTMLElement.clientHeight -
+						this.#scrolledContainerHTMLElement.scrollTop
 					);
 				if (
 					this.#bottomScrollPosition < this.#touchY
@@ -300,7 +304,7 @@ class TouchListItemEL {
 					! isFullyScrolledDown
 				) {
 					window.requestAnimationFrame (
-						scrollTime => { this.#scrollBottom ( scrollTime ); }
+						scrollTime => { this.#scrollContainerToBottom ( scrollTime ); }
 					);
 				}
 			}
@@ -315,7 +319,7 @@ class TouchListItemEL {
 	#setDropTargetAndPosition ( touch ) {
 
 		// iterating on the listItems
-		this.#sortableListContainer.childNodes.forEach (
+		this.#sortableListHTMLElement.childNodes.forEach (
 			listItem => {
 				let clientRect = listItem.getBoundingClientRect ( );
 
@@ -331,7 +335,7 @@ class TouchListItemEL {
 				) {
 
 					// setting the drop target
-					this.#dropTarget = listItem;
+					this.#dropTargetHTMLElement = listItem;
 
 					// setting the dropOnTop flag depending of the y position of the touch in the bounding client rectangle
 					this.#dropOnTop = touch.clientY - clientRect.top < clientRect.height / TWO;
@@ -349,10 +353,10 @@ class TouchListItemEL {
 		if ( this.#isDoubleClick ) {
 			let touch = touchEvent.changedTouches.item ( ZERO );
 			this.#setDropTargetAndPosition ( touch );
-			if ( this.#dropTarget ) {
+			if ( this.#dropTargetHTMLElement ) {
 				this.#dropFunction (
 					Number.parseInt ( touchEvent.currentTarget.dataset.tanObjId ),
-					Number.parseInt ( this.#dropTarget.dataset.tanObjId ),
+					Number.parseInt ( this.#dropTargetHTMLElement.dataset.tanObjId ),
 					this.#dropOnTop
 				);
 			}
@@ -365,19 +369,19 @@ class TouchListItemEL {
 	*/
 
 	#reset ( ) {
-		if ( this.#clonedNode ) {
-			document.body.removeChild ( this.#clonedNode );
+		if ( this.#clonedListItemHTMLElement ) {
+			document.body.removeChild ( this.#clonedListItemHTMLElement );
 		}
-		this.#clonedNode = null;
-		this.#scrolledContainer = null;
+		this.#clonedListItemHTMLElement = null;
+		this.#scrolledContainerHTMLElement = null;
 		this.#isDoubleClick = false;
 		this.#lastTouchStartTimeStamp = ZERO;
 		this.#lastScrollTimeStamp = ZERO;
-		this.#sortableListContainer = null;
+		this.#sortableListHTMLElement = null;
 		this.#topScrollPosition = ZERO;
 		this.#bottomScrollPosition = ZERO;
 		this.#touchY = ZERO;
-		this.#dropTarget = null;
+		this.#dropTargetHTMLElement = null;
 		this.#dropOnTop = true;
 	}
 
@@ -389,7 +393,7 @@ class TouchListItemEL {
 	constructor ( dropFunction ) {
 		Object.freeze ( this );
 		this.#dropFunction = dropFunction;
-		this.#clonedNode = null;
+		this.#clonedListItemHTMLElement = null;
 		this.#reset ( );
 	}
 
@@ -418,132 +422,6 @@ class TouchListItemEL {
 	}
 }
 
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-Drag start on an list item event listener
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class DragStartListItemEL {
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-	}
-
-	/**
-	Event listener method
-	@param {Event} dragStartEvent The event to handle
-	*/
-
-	handleEvent ( dragStartEvent ) {
-		dragStartEvent.stopPropagation ( );
-		try {
-			dragStartEvent.dataTransfer.setData ( 'ObjId', dragStartEvent.target.dataset.tanObjId );
-			dragStartEvent.dataTransfer.dropEffect = 'move';
-		}
-		catch ( err ) {
-			if ( err instanceof Error ) {
-				console.error ( err );
-			}
-		}
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-Drop list item event listener
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class DropListItemEL {
-
-	/**
-	The function to call when an item is droped
-	@type {function}
-	*/
-
-	#dropFunction;
-
-	/**
-	The constructor
-	@param {function} dropFunction The function to call when an item is droped
-	*/
-
-	constructor ( dropFunction ) {
-		Object.freeze ( this );
-		this.#dropFunction = dropFunction;
-	}
-
-	/**
-	Event listener method
-	@param {Event} dropEvent The event to handle
-	*/
-
-	handleEvent ( dropEvent ) {
-		dropEvent.preventDefault ( );
-		const clientRect = dropEvent.currentTarget.getBoundingClientRect ( );
-
-		// Try ... catch because a lot of thing can be dragged in the dialog and the drop function
-		// throw when an unknown objId is given
-		try {
-			this.#dropFunction (
-				Number.parseInt ( dropEvent.dataTransfer.getData ( 'ObjId' ) ),
-				Number.parseInt ( dropEvent.currentTarget.dataset.tanObjId ),
-				( dropEvent.clientY - clientRect.top < clientRect.bottom - dropEvent.clientY )
-			);
-		}
-
-		// eslint-disable-next-line no-empty
-		catch { }
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-context menu on a list item event listener
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class ContextMenuListItemEL {
-
-	/**
-	The context menu class to use
-	@type {class}
-	*/
-
-	#contextMenuClass;
-
-	/**
-	The constructor
-	@param {class} contextMenuClass The context menu class to use
-	*/
-
-	constructor ( contextMenuClass ) {
-		Object.freeze ( this );
-		this.#contextMenuClass = contextMenuClass;
-	}
-
-	/**
-	Event listener method
-	@param {Event} contextMenuEvent The event to handle
-	*/
-
-	handleEvent ( contextMenuEvent ) {
-		contextMenuEvent.stopPropagation ( );
-		contextMenuEvent.preventDefault ( );
-		new ( this.#contextMenuClass ) ( contextMenuEvent, contextMenuEvent.target.parentNode ).show ( );
-	}
-}
-
-export {
-	TouchListItemEL,
-	DragStartListItemEL,
-	DropListItemEL,
-	ContextMenuListItemEL
-};
+export default TouchListItemEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

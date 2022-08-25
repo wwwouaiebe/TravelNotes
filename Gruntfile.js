@@ -110,8 +110,8 @@ module.exports = function ( grunt ) {
 			'copy:debugAndroid',
 			'clean:afterDebug',
 			'buildnumber:end',
-			'essimpledoc:debug',
-			'bye'
+			'bye',
+			'essimpledoc:debug'
 		]
 	);
 	grunt.registerTask (
