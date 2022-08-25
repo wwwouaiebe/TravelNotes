@@ -46,18 +46,21 @@ class OsmSearchDialog extends DockableBaseDialog {
 
 	#toolbarHTMLElement;
 
+	#osmSearchTree;
+	#osmSearchWait;
+
 	/**
 	Toolbar creation
 	*/
 
 	#createToolbar ( ) {
 		this.#toolbarHTMLElement = theHTMLElementsFactory.create ( 'div' );
-		const osmSearchTree = new OsmSearchTree ( );
-		const osmSearchToolbarButtons = new OsmSearchToolbarButtons ( osmSearchTree );
-		const osmSearchWait = new OsmSearchWait ( );
+		this.#osmSearchTree = new OsmSearchTree ( );
+		this.#osmSearchWait = new OsmSearchWait ( );
+		const osmSearchToolbarButtons = new OsmSearchToolbarButtons ( this.#osmSearchTree, this.#osmSearchWait );
 		this.#toolbarHTMLElement.appendChild ( osmSearchToolbarButtons.toolbarButtonsHTMLElement );
-		this.#toolbarHTMLElement.appendChild ( osmSearchTree.treeHTMLElement );
-		this.#toolbarHTMLElement.appendChild ( osmSearchWait.waitHTMLElement );
+		this.#toolbarHTMLElement.appendChild ( this.#osmSearchTree.treeHTMLElement );
+		this.#toolbarHTMLElement.appendChild ( this.#osmSearchWait.waitHTMLElement );
 	}
 
 	/**

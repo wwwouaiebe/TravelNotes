@@ -39,20 +39,20 @@ change event listener for the tree checkboxes
 class TreeCheckboxChangeEL {
 
 	/**
-	A reference to the osmSearchTreeUI Object
-	@type {OsmSearchTreeUI}
+	A reference to the osmSearchTree Object
+	@type {OsmSearchTree}
 	*/
 
-	#osmSearchTreeUI = null;
+	#osmSearchTree = null;
 
 	/**
 	The constructor
-	@param {OsmSearchTreeUI} osmSearchTreeUI A reference to the OsmSearchTreeUI object
+	@param {OsmSearchTree} osmSearchTree A reference to the OsmSearchTree object
 	*/
 
-	constructor ( osmSearchTreeUI ) {
+	constructor ( osmSearchTree ) {
 		Object.freeze ( this );
-		this.#osmSearchTreeUI = osmSearchTreeUI;
+		this.#osmSearchTree = osmSearchTree;
 	}
 
 	/**
@@ -67,7 +67,7 @@ class TreeCheckboxChangeEL {
 			changeEvent.target.checked
 		);
 
-		this.#osmSearchTreeUI.redraw ( );
+		this.#osmSearchTree.redraw ( );
 	}
 }
 
@@ -111,20 +111,20 @@ cick event listener for the tree arrows
 class TreeArrowClickEL {
 
 	/**
-	A reference to the OsmSearchTreeUI object
-	@type {OsmSearchTreeUI}
+	A reference to the OsmSearchTree object
+	@type {OsmSearchTree}
 	*/
 
-	#osmSearchTreeUI = null;
+	#osmSearchTree = null;
 
 	/**
 	The constructor
-	@param {OsmSearchTreeUI} osmSearchTreeUI A reference to the OsmSearchTreeUI object
+	@param {OsmSearchTree} osmSearchTree A reference to the OsmSearchTree object
 	*/
 
-	constructor ( osmSearchTreeUI ) {
+	constructor ( osmSearchTree ) {
 		Object.freeze ( this );
-		this.#osmSearchTreeUI = osmSearchTreeUI;
+		this.#osmSearchTree = osmSearchTree;
 	}
 
 	/**
@@ -135,7 +135,7 @@ class TreeArrowClickEL {
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		theOsmSearchDictionary.expandItem ( Number.parseInt ( clickEvent.target.parentNode.dataset.tanObjId ) );
-		this.#osmSearchTreeUI.redraw ( );
+		this.#osmSearchTree.redraw ( );
 	}
 
 }

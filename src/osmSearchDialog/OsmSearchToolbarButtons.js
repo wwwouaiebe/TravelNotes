@@ -44,29 +44,29 @@ click event listener for the search button
 class SearchButtonClickEL {
 
 	/**
-	A reference to the osmSearchTreeUI Object
-	@type {OsmSearchTreeUI}
+	A reference to the osmSearchTree Object
+	@type {OsmSearchTree}
 	*/
 
-	#osmSearchTreeUI;
+	#osmSearchTree;
 
 	/**
-	A reference to the osmSearchWaitUI Object
-	@type {OsmSearchWaitUI}
+	A reference to the osmSearchWait Object
+	@type {OsmSearchWait}
 	*/
 
-	#osmSearchWaitUI;
+	#osmSearchWait;
 
 	/**
 	The constructor
-	@param {OsmSearchTreeUI} osmSearchTreeUI A reference to the OsmSearchTreeUI object
-	@param {OsmSearchWaitUI} osmSearchWaitUI A reference to the OsmSearchWaitUI object
+	@param {OsmSearchTree} osmSearchTree A reference to the OsmSearchTree object
+	@param {OsmSearchWait} osmSearchWait A reference to the OsmSearchWait object
 	*/
 
-	constructor ( osmSearchTreeUI, osmSearchWaitUI ) {
+	constructor ( osmSearchTree, osmSearchWait ) {
 		Object.freeze ( this );
-		this.#osmSearchTreeUI = osmSearchTreeUI;
-		this.#osmSearchWaitUI = osmSearchWaitUI;
+		this.#osmSearchTree = osmSearchTree;
+		this.#osmSearchWait = osmSearchWait;
 	}
 
 	/**
@@ -77,10 +77,10 @@ class SearchButtonClickEL {
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		theOsmSearchDictionary.dictionary.isExpanded = false;
-		this.#osmSearchTreeUI.redraw ( );
+		this.#osmSearchTree.redraw ( );
 		theTravelNotesData.searchData.length = ZERO;
 		theEventDispatcher.dispatch ( 'showsearch' );
-		this.#osmSearchWaitUI.showWait ( );
+		this.#osmSearchWait.showWait ( );
 		theOsmSearchEngine.search ( );
 
 		// Notice: theOsmSearchEngine send a 'showsearch' event when the search is succesfully done
@@ -97,20 +97,20 @@ click event listener for the expand tree button
 class ExpandTreeButtonClickEL {
 
 	/**
-	A reference to the osmSearchTreeUI Object
-	@type {OsmSearchTreeUI}
+	A reference to the osmSearchTree Object
+	@type {OsmSearchTree}
 	*/
 
-	#osmSearchTreeUI;
+	#osmSearchTree;
 
 	/**
 	The constructor
-	@param {OsmSearchTreeUI} osmSearchTreeUI A reference to the OsmSearchTreeUI object
+	@param {OsmSearchTree} osmSearchTree A reference to the OsmSearchTree object
 	*/
 
-	constructor ( osmSearchTreeUI ) {
+	constructor ( osmSearchTree ) {
 		Object.freeze ( this );
-		this.#osmSearchTreeUI = osmSearchTreeUI;
+		this.#osmSearchTree = osmSearchTree;
 	}
 
 	/**
@@ -121,7 +121,7 @@ class ExpandTreeButtonClickEL {
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		theOsmSearchDictionary.expand ( );
-		this.#osmSearchTreeUI.redraw ( );
+		this.#osmSearchTree.redraw ( );
 	}
 }
 
@@ -134,20 +134,20 @@ click event listener for the collapse tree button
 class CollapseButtonClickEL {
 
 	/**
-	A reference to the osmSearchTreeUI Object
-	@type {OsmSearchTreeUI}
+	A reference to the osmSearchTree Object
+	@type {OsmSearchTree}
 	*/
 
-	#osmSearchTreeUI;
+	#osmSearchTree;
 
 	/**
 	The constructor
-	@param {OsmSearchTreeUI} osmSearchTreeUI A reference to the OsmSearchTreeUI object
+	@param {OsmSearchTree} osmSearchTree A reference to the OsmSearchTree object
 	*/
 
-	constructor ( osmSearchTreeUI ) {
+	constructor ( osmSearchTree ) {
 		Object.freeze ( this );
-		this.#osmSearchTreeUI = osmSearchTreeUI;
+		this.#osmSearchTree = osmSearchTree;
 	}
 
 	/**
@@ -158,7 +158,7 @@ class CollapseButtonClickEL {
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		theOsmSearchDictionary.collapse ( );
-		this.#osmSearchTreeUI.redraw ( );
+		this.#osmSearchTree.redraw ( );
 	}
 }
 
@@ -171,20 +171,20 @@ click event listener for the clear tree button
 class ClearButtonClickEL {
 
 	/**
-	A reference to the osmSearchTreeUI Object
-	@type {OsmSearchTreeUI}
+	A reference to the osmSearchTree Object
+	@type {OsmSearchTree}
 	*/
 
-	#osmSearchTreeUI;
+	#osmSearchTree;
 
 	/**
 	The constructor
-	@param {OsmSearchTreeUI} osmSearchTreeUI A reference to the OsmSearchTreeUI object
+	@param {OsmSearchTree} osmSearchTree A reference to the OsmSearchTree object
 	*/
 
-	constructor ( osmSearchTreeUI ) {
+	constructor ( osmSearchTree ) {
 		Object.freeze ( this );
-		this.#osmSearchTreeUI = osmSearchTreeUI;
+		this.#osmSearchTree = osmSearchTree;
 	}
 
 	/**
@@ -195,7 +195,7 @@ class ClearButtonClickEL {
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		theOsmSearchDictionary.unselectAll ( );
-		this.#osmSearchTreeUI.redraw ( );
+		this.#osmSearchTree.redraw ( );
 	}
 }
 
@@ -216,11 +216,11 @@ class OsmSearchToolbarButtons {
 
 	/**
 	The constructor
-	@param {OsmSearchTreeUI} osmSearchTreeUI A reference to the OsmSearchTreeUI object
-	@param {OsmSearchWaitUI} osmSearchWaitUI A reference to the OsmSearchWaitUI object
+	@param {OsmSearchTree} osmSearchTree A reference to the OsmSearchTree object
+	@param {OsmSearchWait} osmSearchWait A reference to the OsmSearchWait object
 	*/
 
-	constructor ( osmSearchTreeUI, osmSearchWaitUI ) {
+	constructor ( osmSearchTree, osmSearchWait ) {
 
 		Object.freeze ( this );
 
@@ -239,7 +239,7 @@ class OsmSearchToolbarButtons {
 			},
 			this.#toolbarButtonsHTMLElement
 		)
-			.addEventListener ( 'click', new SearchButtonClickEL ( osmSearchTreeUI, osmSearchWaitUI ), false );
+			.addEventListener ( 'click', new SearchButtonClickEL ( osmSearchTree, osmSearchWait ), false );
 
 		// Expand tree button
 		theHTMLElementsFactory.create (
@@ -251,7 +251,7 @@ class OsmSearchToolbarButtons {
 			},
 			this.#toolbarButtonsHTMLElement
 		)
-			.addEventListener ( 'click', new ExpandTreeButtonClickEL ( osmSearchTreeUI ), false );
+			.addEventListener ( 'click', new ExpandTreeButtonClickEL ( osmSearchTree ), false );
 
 		// Collapse button
 		theHTMLElementsFactory.create (
@@ -263,7 +263,7 @@ class OsmSearchToolbarButtons {
 			},
 			this.#toolbarButtonsHTMLElement
 		)
-			.addEventListener ( 'click', new CollapseButtonClickEL ( osmSearchTreeUI ), false );
+			.addEventListener ( 'click', new CollapseButtonClickEL ( osmSearchTree ), false );
 
 		// clear button
 		theHTMLElementsFactory.create (
@@ -276,7 +276,7 @@ class OsmSearchToolbarButtons {
 			},
 			this.#toolbarButtonsHTMLElement
 		)
-			.addEventListener ( 'click', new ClearButtonClickEL ( osmSearchTreeUI ), false );
+			.addEventListener ( 'click', new ClearButtonClickEL ( osmSearchTree ), false );
 
 	}
 
