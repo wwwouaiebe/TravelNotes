@@ -26,6 +26,10 @@ Tests ...
 import theConfig from '../data/Config.js';
 import theTranslator from '../UILib/Translator.js';
 import DockableBaseDialog from '../baseDialog/DockableBaseDialog.js';
+import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import OsmSearchToolbarButtons from '../osmSearchDialog/OsmSearchToolbarButtons.js';
+import OsmSearchTree from '../osmSearchDialog/OsmSearchTree.js';
+import OsmSearchWait from './OsmSearchWait.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -36,11 +40,33 @@ This class is the TravelPropertiesDialog
 class OsmSearchDialog extends DockableBaseDialog {
 
 	/**
+	The toolbar HTMLElement
+	@type {HTMLElement}
+	*/
+
+	#toolbarHTMLElement;
+
+	/**
+	Toolbar creation
+	*/
+
+	#createToolbar ( ) {
+		this.#toolbarHTMLElement = theHTMLElementsFactory.create ( 'div' );
+		const osmSearchTree = new OsmSearchTree ( );
+		const osmSearchToolbarButtons = new OsmSearchToolbarButtons ( osmSearchTree );
+		const osmSearchWait = new OsmSearchWait ( );
+		this.#toolbarHTMLElement.appendChild ( osmSearchToolbarButtons.toolbarButtonsHTMLElement );
+		this.#toolbarHTMLElement.appendChild ( osmSearchTree.treeHTMLElement );
+		this.#toolbarHTMLElement.appendChild ( osmSearchWait.waitHTMLElement );
+	}
+
+	/**
 	The constructor
 	*/
 
 	constructor ( ) {
 		super ( theConfig.osmSearchDialog.dialogX, theConfig.osmSearchDialog.dialogY );
+		this.#createToolbar ( );
 	}
 
 	/**
@@ -61,6 +87,15 @@ class OsmSearchDialog extends DockableBaseDialog {
 	*/
 
 	get title ( ) { return theTranslator.getText ( 'OsmSearchDialog - Search OpenStreetMap' ); }
+
+	/**
+	The toolbar HTMLElement
+	@type {HTMLElement}
+	*/
+
+	get toolbarHTMLElement ( ) {
+		return this.#toolbarHTMLElement;
+	}
 
 	/**
 	Update the content of the dialog
