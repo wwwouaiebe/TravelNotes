@@ -32,6 +32,7 @@ import OsmSearchTree from '../osmSearchDialog/OsmSearchTree.js';
 import OsmSearchWait from '../osmSearchDialog/OsmSearchWait.js';
 import OsmSearchContextMenu from '../contextMenus/OsmSearchContextMenu.js';
 import SortableListControl from '../sortableListControl/SortableListControl.js';
+import OsmSearchResultsHTMLBuilder from '../osmSearchDialog/OsmSearchResultsHTMLBuilder.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -55,8 +56,26 @@ class OsmSearchDialog extends DockableBaseDialog {
 
 	#osmSearchResultsControl;
 
+	/**
+	The search tree
+	@type {OsmSearchTree}
+	*/
+
 	#osmSearchTree;
+
+	/**
+	The wait bar
+	@type {OsmSearchWait}
+	*/
+
 	#osmSearchWait;
+
+	/**
+	The html builder for the results
+	@type {OsmSearchResultsHTMLBuilder}
+	*/
+
+	#osmSearchResultsHTMLBuilder;
 
 	/**
 	Toolbar creation
@@ -83,6 +102,7 @@ class OsmSearchDialog extends DockableBaseDialog {
 			null,
 			OsmSearchContextMenu
 		);
+		this.#osmSearchResultsHTMLBuilder = new OsmSearchResultsHTMLBuilder ( );
 	}
 
 	/**
@@ -93,6 +113,7 @@ class OsmSearchDialog extends DockableBaseDialog {
 
 	get contentHTMLElements ( ) {
 		return [ ].concat (
+			this.#toolbarHTMLElement,
 			this.#osmSearchResultsControl.controlHTMLElement
 		);
 	}
@@ -108,19 +129,19 @@ class OsmSearchDialog extends DockableBaseDialog {
 	The toolbar HTMLElement
 	@type {HTMLElement}
 	*/
-
+	/*
 	get toolbarHTMLElement ( ) {
 		return this.#toolbarHTMLElement;
 	}
+	*/
 
 	/**
 	Update the content of the dialog
 	*/
 
 	updateContent ( ) {
-		console.log ( 'update' );
 		this.#osmSearchWait.hideWait ( );
-		this.#osmSearchResultsControl.updateContent ( [] );
+		this.#osmSearchResultsControl.updateContent ( this.#osmSearchResultsHTMLBuilder.resultsHTMLElements );
 	}
 }
 
