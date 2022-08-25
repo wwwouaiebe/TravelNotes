@@ -377,6 +377,13 @@ class TravelNotesToolbar extends BaseToolbar {
 				( ) => { theDockableDialogsManager.travelNotesDialog.show ( ); }
 			)
 		);
+		this.addToolbarItem (
+			new ToolbarItem (
+				'🔍',
+				theTranslator.getText ( 'TravelNotesToolbar - osm search' ),
+				( ) => { theDockableDialogsManager.osmSearchDialog.show ( ); }
+			)
+		);
 	}
 }
 

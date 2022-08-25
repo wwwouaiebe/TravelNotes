@@ -23,6 +23,7 @@ Doc reviewed ...
 Tests ...
 */
 
+import OsmSearchDialog from '../osmSearchDialog/OsmSearchDialog.js';
 import TravelPropertiesDialog from '../travelPropertiesDialog/TravelPropertiesDialog.js';
 import TravelNotesDialog from '../travelNotesDialog/TravelNotesDialog.js';
 import theConfig from '../data/Config.js';
@@ -38,14 +39,21 @@ creating the dialogs.
 class DockableDialogsManager {
 
 	/**
-	The one and only one nstance of TravelPropertiesDialog
+	The one and only one instance of OsmSearchDialog
+	@type {OsmSearchDialog}
+	*/
+
+	#osmSearchDialog = null;
+
+	/**
+	The one and only one instance of TravelPropertiesDialog
 	@type {TravelPropertiesDialog}
 	*/
 
 	#travelPropertiesDialog = null;
 
 	/**
-	The one and only one nstance of TravelNotesDialog
+	The one and only one instance of TravelNotesDialog
 	@type {TravelPropertiesDialog}
 	*/
 
@@ -60,7 +68,22 @@ class DockableDialogsManager {
 	}
 
 	/**
-	The one and only one nstance of TravelPropertiesDialog
+	The one and only one instance of OsmSearchDialog
+	@type {OsmSearchDialog}
+	*/
+
+	get osmSearchDialog ( ) {
+		if ( ! this.#osmSearchDialog ) {
+			this.#osmSearchDialog = new OsmSearchDialog (
+				theConfig.osmSearchDialog.dialogX,
+				theConfig.osmSearchDialog.dialogY
+			);
+		}
+		return this.#osmSearchDialog;
+	}
+
+	/**
+	The one and only one instance of TravelPropertiesDialog
 	@type {TravelPropertiesDialog}
 	*/
 
@@ -75,7 +98,7 @@ class DockableDialogsManager {
 	}
 
 	/**
-	The one and only one nstance of TravelPropertiesDialog
+	The one and only one instance of TravelPropertiesDialog
 	@type {TravelPropertiesDialog}
 	*/
 

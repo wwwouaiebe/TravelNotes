@@ -140,6 +140,11 @@
 			"zoomFactor" : 17
 		}
 	},
+	"osmSearchDialog":
+	{
+		"dialogX": 50,
+		"dialogY": 0
+	},
 	"osmSearch": {
 		"nextSearchLimit" : {
 			"color" : "#ff0000",

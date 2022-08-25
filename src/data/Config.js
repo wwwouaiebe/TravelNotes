@@ -196,6 +196,11 @@ const theConfig = {
 			zoomFactor : 17
 		}
 	},
+	osmSearchDialog :
+	{
+		dialogX : 50,
+		dialogY : 0
+	},
 	osmSearch : {
 		nextSearchLimit : {
 			color : '\u0023ff0000',

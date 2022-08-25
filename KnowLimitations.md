@@ -1,1 +1,0 @@
-- DockableDialog are not minimzed when the dialog is showed for the first time and clicking on the map for touch devices.
