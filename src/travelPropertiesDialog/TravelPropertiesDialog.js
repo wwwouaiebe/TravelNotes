@@ -24,7 +24,7 @@ Tests ...
 */
 
 import DockableBaseDialog from '../baseDialog/DockableBaseDialog.js';
-import TextInputControl from '../baseDialog/TextInputControl.js';
+import TextInputControl from '../textInputControl/TextInputControl.js';
 import theTranslator from '../UILib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import SortableListControl from '../sortableListControl/SortableListControl.js';
