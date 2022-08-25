@@ -24,7 +24,7 @@ Doc reviewed 20220824
 Tests ...
 */
 
-import DialogControl from '../baseDialog/DialogControl.js';
+import BaseControl from '../baseControl/BaseControl.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import {
 	TouchListItemEL,
@@ -39,7 +39,7 @@ A control for dialogs with a list that can be sorted with drag and drop
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class SortableListControl extends DialogControl {
+class SortableListControl extends BaseControl {
 
 	/**
 	The item drag start event listener

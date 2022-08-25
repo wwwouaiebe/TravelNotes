@@ -31,7 +31,7 @@ Tests ...
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
-import DialogControl from '../baseDialog/DialogControl.js';
+import BaseControl from '../baseControl/BaseControl.js';
 
 import { ZERO, ONE, LAT_LNG } from '../main/Constants.js';
 
@@ -41,7 +41,7 @@ This class is the url control of the NoteDialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NoteDialogLinkControl extends DialogControl {
+class NoteDialogLinkControl extends BaseControl {
 
 	/**
 	The link input

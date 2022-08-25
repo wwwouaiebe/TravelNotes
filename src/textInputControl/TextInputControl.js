@@ -23,7 +23,7 @@ Doc reviewed ...
 Tests ...
 */
 
-import DialogControl from '../baseDialog/DialogControl.js';
+import BaseControl from '../baseControl/BaseControl.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -32,7 +32,7 @@ This class is a generic control with a input element for text
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class TextInputControl extends DialogControl {
+class TextInputControl extends BaseControl {
 
 	/**
 	The input HTMLElement

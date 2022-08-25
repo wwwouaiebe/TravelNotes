@@ -31,7 +31,7 @@ Tests ...
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import { ICON_DIMENSIONS } from '../main/Constants.js';
-import DialogControl from '../baseDialog/DialogControl.js';
+import BaseControl from '../baseControl/BaseControl.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -39,7 +39,7 @@ This class is the icnWidth and iconHeight control of the NoteDialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NoteDialogIconDimsControl extends DialogControl {
+class NoteDialogIconDimsControl extends BaseControl {
 
 	/**
 	The width input

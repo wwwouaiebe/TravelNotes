@@ -28,11 +28,11 @@ import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This class is the address control of the NoteDialog
+This class is a base class for dialog controls
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class DialogControl {
+class BaseControl {
 
 	/**
 	The control container
@@ -69,6 +69,6 @@ class DialogControl {
 
 }
 
-export default DialogControl;
+export default BaseControl;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

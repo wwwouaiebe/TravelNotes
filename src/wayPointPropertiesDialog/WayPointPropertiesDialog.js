@@ -37,7 +37,7 @@ import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import GeoCoder from '../coreLib/GeoCoder.js';
 import theConfig from '../data/Config.js';
-import DialogControl from '../baseDialog/DialogControl.js';
+import BaseControl from '../baseControl/BaseControl.js';
 
 /**
 Click event listener for the reset address button
@@ -103,7 +103,7 @@ This class is the address control of the waypoint properties dialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class WayPointAddressControl extends DialogControl {
+class WayPointAddressControl extends BaseControl {
 
 	/**
 	The reset address button
@@ -201,7 +201,7 @@ This class is the name control of the waypoint properties dialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class WayPointNameControl extends DialogControl {
+class WayPointNameControl extends BaseControl {
 
 	/**
 	The name input HTMLElement

@@ -23,7 +23,7 @@ Doc reviewed ...
 Tests ...
 */
 
-import DialogControl from '../baseDialog/DialogControl.js';
+import BaseControl from '../baseControl/BaseControl.js';
 import { APIKeyDeletedEL } from '../apiKeysDialog/APIKeysDialogEL.js';
 import APIKeyControlRow from '../apiKeysDialog/APIKeyControlRow.js';
 import { APIKey } from '../coreLib/Containers.js';
@@ -36,7 +36,7 @@ This class is the APIKeys control of the APIKeysDialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ApiKeysControl extends DialogControl {
+class ApiKeysControl extends BaseControl {
 
 	/**
 	A map to store the rows of the APIKeyControl object

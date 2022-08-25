@@ -30,7 +30,7 @@ Tests ...
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
-import DialogControl from '../baseDialog/DialogControl.js';
+import BaseControl from '../baseControl/BaseControl.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -38,7 +38,7 @@ This class is the tooltipContent control of the NoteDialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NoteDialogTooltipControl extends DialogControl {
+class NoteDialogTooltipControl extends BaseControl {
 
 	/**
 	The tooltip input
