@@ -302,6 +302,12 @@ class AppLoader {
 			( ) => theDockableDialogsManager.travelNotesDialog.updateContent ( ),
 			false
 		);
+		document.addEventListener (
+			'showsearch',
+			( ) => theDockableDialogsManager.osmSearchDialog.updateContent ( ),
+			false
+		);
+
 		document.addEventListener ( 'providersadded', ( ) => theProvidersToolbar.providersAdded ( ), false );
 		document.addEventListener (
 			'setprovider',

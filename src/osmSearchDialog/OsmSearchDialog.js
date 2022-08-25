@@ -29,7 +29,9 @@ import DockableBaseDialog from '../baseDialog/DockableBaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import OsmSearchToolbarButtons from '../osmSearchDialog/OsmSearchToolbarButtons.js';
 import OsmSearchTree from '../osmSearchDialog/OsmSearchTree.js';
-import OsmSearchWait from './OsmSearchWait.js';
+import OsmSearchWait from '../osmSearchDialog/OsmSearchWait.js';
+import OsmSearchContextMenu from '../contextMenus/OsmSearchContextMenu.js';
+import SortableListControl from '../sortableListControl/SortableListControl.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -45,6 +47,13 @@ class OsmSearchDialog extends DockableBaseDialog {
 	*/
 
 	#toolbarHTMLElement;
+
+	/**
+	The notes control
+	@type {SortableListControl}
+	*/
+
+	#osmSearchResultsControl;
 
 	#osmSearchTree;
 	#osmSearchWait;
@@ -70,6 +79,10 @@ class OsmSearchDialog extends DockableBaseDialog {
 	constructor ( ) {
 		super ( theConfig.osmSearchDialog.dialogX, theConfig.osmSearchDialog.dialogY );
 		this.#createToolbar ( );
+		this.#osmSearchResultsControl = new SortableListControl (
+			null,
+			OsmSearchContextMenu
+		);
 	}
 
 	/**
@@ -79,9 +92,9 @@ class OsmSearchDialog extends DockableBaseDialog {
 	*/
 
 	get contentHTMLElements ( ) {
-		return [ ]; /* .concat (
-			this.#travelNotesControl.controlHTMLElement
-		);*/
+		return [ ].concat (
+			this.#osmSearchResultsControl.controlHTMLElement
+		);
 	}
 
 	/**
@@ -105,6 +118,9 @@ class OsmSearchDialog extends DockableBaseDialog {
 	*/
 
 	updateContent ( ) {
+		console.log ( 'update' );
+		this.#osmSearchWait.hideWait ( );
+		this.#osmSearchResultsControl.updateContent ( [] );
 	}
 }
 
