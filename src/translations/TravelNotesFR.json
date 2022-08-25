@@ -400,6 +400,26 @@
 		"msgstr": "Zoom sur ce résultat"
 	},
 	{
+		"msgid": "OsmSearchDialog - Searching OpenStreetMap",
+		"msgstr": "Recherche OpenStreetMap"
+	},
+	{
+		"msgid": "OsmSearchToolbarButtons - Clear the tree",
+		"msgstr": "Désélectionner tout"
+	},
+	{
+		"msgid": "OsmSearchToolbarButtons - Collapse the tree",
+		"msgstr": "Réduire l'arborescence au premier niveau"
+	},
+	{
+		"msgid": "OsmSearchToolbarButtons - Expand the tree",
+		"msgstr": "Étendre l'arborescence"
+	},
+	{
+		"msgid": "OsmSearchToolbarButtons - Start the search",
+		"msgstr": "Lancer la recherche"
+	},
+	{
 		"msgid": "PasswordDialog - password",
 		"msgstr": "Mot de passe"
 	},
@@ -1050,6 +1070,10 @@
 	{
 		"msgid": "TravelNotesToolbar - Open travel roadbook",
 		"msgstr": "Ouvrir le livre de voyage"
+	},
+	{
+		"msgid": "Search with OpenStreetMap",
+		"msgstr": "Rechercher avec OpenStreetMap"
 	},
 	{
 		"msgid": "TravelNotesToolbar - Save as travel",

@@ -19,16 +19,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v4.0.0:
 		- created
-Doc reviewed ...
+Doc reviewed 20220825
 Tests ...
 */
 
-import theTravelNotesData from '../data/TravelNotesData.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import theNoteDialogToolbarData from '../notesDialog/NoteDialogToolbarData.js';
 import ObjId from '../data/ObjId.js';
-
 import { ZERO } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -40,39 +38,25 @@ HTML builder for the search results
 class OsmSearchResultsHTMLBuilder {
 
 	/**
-	An array to store the alredy build HTMLElements
-	@type {Array.<HTMLElement>}
+	The currently build search result HTMLElement
+	@type {HTMLElement}
 	*/
 
-	#resultsHTMLElements;
+	#searchResultsHTMLElement;
 
 	/**
-	Temp reference to the OsmElement for witch the HTMLElement is currently build
+	Reference to the OsmElement for witch the HTMLElement is currently build
 	@type {OsmElement}
 	*/
 
-	#currentOsmElement;
+	#osmElement;
 
 	/**
-	Temp var to store the currently builded HTMLElement
+	An HTMLElement included in the search result HTMLElement with the text data
 	@type {HTMLElement}
 	*/
 
-	#currentContainer;
-
-	/**
-	The index of the current OsmElement in the theTravelNotesData.searchData array
-	@type {Number}
-	*/
-
-	#elementIndex;
-
-	/**
-	Temp var to store the currently builded HTMLElement
-	@type {HTMLElement}
-	*/
-
-	#currentSearchResultCell;
+	#searchResultCellHTMLElement;
 
 	/**
 	The max length for displayed links
@@ -88,22 +72,22 @@ class OsmSearchResultsHTMLBuilder {
 
 	#buildIcon ( ) {
 		let iconContent = '';
-		if ( this.#currentOsmElement.tags.rcn_ref ) {
+		if ( this.#osmElement.tags.rcn_ref ) {
 			iconContent =
 				'<div class=\'TravelNotes-MapNote TravelNotes-MapNoteCategory-0073\'>' +
 				'<svg viewBox=\'0 0 20 20\'><text class=\'\' x=10 y=14>' +
-				this.#currentOsmElement.tags.rcn_ref +
+				this.#osmElement.tags.rcn_ref +
 				'</text></svg></div>';
 		}
 		else {
-			iconContent = theNoteDialogToolbarData.preDefinedIconDataFromName ( this.#currentOsmElement.description ) || '';
+			iconContent = theNoteDialogToolbarData.preDefinedIconDataFromName ( this.#osmElement.description ) || '';
 		}
 		const iconCell = theHTMLElementsFactory.create (
 			'div',
 			{
-				className :	'TravelNotes-OsmSearchPaneUI-SearchResult-IconCell'
+				className :	'TravelNotes-OsmSearchDialog-SearchResult-IconCell'
 			},
-			this.#currentContainer
+			this.#searchResultsHTMLElement
 		);
 		theHTMLSanitizer.sanitizeToHtmlElement ( iconContent, iconCell );
 	}
@@ -115,7 +99,7 @@ class OsmSearchResultsHTMLBuilder {
 
 	#addOsmTag ( osmTagValue ) {
 		if ( osmTagValue ) {
-			theHTMLElementsFactory.create ( 'div', { textContent : osmTagValue }, this.#currentSearchResultCell	);
+			theHTMLElementsFactory.create ( 'div', { textContent : osmTagValue }, this.#searchResultCellHTMLElement	);
 		}
 	}
 
@@ -125,34 +109,34 @@ class OsmSearchResultsHTMLBuilder {
 
 	#addAddress ( ) {
 		const street =
-			this.#currentOsmElement.tags [ 'addr:street' ]
+			this.#osmElement.tags [ 'addr:street' ]
 				?
 				(
-					this.#currentOsmElement.tags [ 'addr:housenumber' ]
+					this.#osmElement.tags [ 'addr:housenumber' ]
 						?
-						this.#currentOsmElement.tags [ 'addr:housenumber' ] + ' '
+						this.#osmElement.tags [ 'addr:housenumber' ] + ' '
 						:
 						''
 				) +
-				this.#currentOsmElement.tags [ 'addr:street' ] + ' '
+				this.#osmElement.tags [ 'addr:street' ] + ' '
 				:
 				'';
 		const city =
-			this.#currentOsmElement.tags [ 'addr:city' ]
+			this.#osmElement.tags [ 'addr:city' ]
 				?
 				(
-					this.#currentOsmElement.tags [ 'addr:postcode' ]
+					this.#osmElement.tags [ 'addr:postcode' ]
 						?
-						( this.#currentOsmElement.tags [ 'addr:postcode' ] + ' ' )
+						( this.#osmElement.tags [ 'addr:postcode' ] + ' ' )
 						:
 						''
 				) +
-				this.#currentOsmElement.tags [ 'addr:city' ]
+				this.#osmElement.tags [ 'addr:city' ]
 				:
 				'';
 		const address = street + city;
 		if ( '' !== address ) {
-			this.#addOsmTag ( address, this.#currentSearchResultCell );
+			this.#addOsmTag ( address );
 		}
 	}
 
@@ -161,8 +145,8 @@ class OsmSearchResultsHTMLBuilder {
 	*/
 
 	#addPhone ( ) {
-		if ( this.#currentOsmElement.tags.phone ) {
-			this.#addOsmTag ( '☎️ : ' + this.#currentOsmElement.tags.phone, this.#currentSearchResultCell );
+		if ( this.#osmElement.tags.phone ) {
+			this.#addOsmTag ( '☎️ : ' + this.#osmElement.tags.phone, this.#searchResultCellHTMLElement );
 		}
 	}
 
@@ -171,14 +155,14 @@ class OsmSearchResultsHTMLBuilder {
 	*/
 
 	#addMail ( ) {
-		if ( this.#currentOsmElement.tags.email ) {
+		if ( this.#osmElement.tags.email ) {
 			theHTMLElementsFactory.create (
 				'a',
 				{
-					href : 'mailto:' + this.#currentOsmElement.tags.email,
-					textContent : this.#currentOsmElement.tags.email
+					href : 'mailto:' + this.#osmElement.tags.email,
+					textContent : this.#osmElement.tags.email
 				},
-				theHTMLElementsFactory.create ( 'div', { textContent : '📧 : ' }, this.#currentSearchResultCell )
+				theHTMLElementsFactory.create ( 'div', { textContent : '📧 : ' }, this.#searchResultCellHTMLElement )
 			);
 		}
 	}
@@ -188,23 +172,23 @@ class OsmSearchResultsHTMLBuilder {
 	*/
 
 	#addWebSite ( ) {
-		if ( this.#currentOsmElement.tags.website ) {
+		if ( this.#osmElement.tags.website ) {
 			theHTMLElementsFactory.create (
 				'a',
 				{
-					href : this.#currentOsmElement.tags.website,
+					href : this.#osmElement.tags.website,
 					target : '_blank',
 					textContent :
-						this.#currentOsmElement.tags.website.length > OsmSearchResultsHTMLBuilder.#LINKS_MAX_LENGTH
+						this.#osmElement.tags.website.length > OsmSearchResultsHTMLBuilder.#LINKS_MAX_LENGTH
 							?
-							this.#currentOsmElement.tags.website.substring (
+							this.#osmElement.tags.website.substring (
 								ZERO,
 								OsmSearchResultsHTMLBuilder.#LINKS_MAX_LENGTH
 							) + '...'
 							:
-							this.#currentOsmElement.tags.website
+							this.#osmElement.tags.website
 				},
-				theHTMLElementsFactory.create ( 'div', null, this.#currentSearchResultCell )
+				theHTMLElementsFactory.create ( 'div', null, this.#searchResultCellHTMLElement )
 			);
 		}
 	}
@@ -214,20 +198,18 @@ class OsmSearchResultsHTMLBuilder {
 	*/
 
 	#addOsmData ( ) {
-		this.#currentSearchResultCell = theHTMLElementsFactory.create (
+		this.#searchResultCellHTMLElement = theHTMLElementsFactory.create (
 			'div',
-			{ className :	'TravelNotes-OsmSearchPaneUI-SearchResult-Cell'	},
-			this.#currentContainer
+			{ className :	'TravelNotes-OsmSearchDialog-SearchResult-Cell'	},
+			this.#searchResultsHTMLElement
 		);
-
-		this.#addOsmTag ( this.#currentOsmElement.description );
-		this.#addOsmTag ( this.#currentOsmElement.tags.name );
-		this.#addOsmTag ( this.#currentOsmElement.tags.rcn_ref );
+		this.#addOsmTag ( this.#osmElement.description );
+		this.#addOsmTag ( this.#osmElement.tags.name );
+		this.#addOsmTag ( this.#osmElement.tags.rcn_ref );
 		this.#addAddress ( );
 		this.#addPhone ( );
 		this.#addMail ( );
 		this.#addWebSite ( );
-
 	}
 
 	/**
@@ -235,29 +217,9 @@ class OsmSearchResultsHTMLBuilder {
 	*/
 
 	#addTitle ( ) {
-		for ( const [ KEY, VALUE ] of Object.entries ( this.#currentOsmElement.tags ) ) {
-			this.#currentContainer.title += KEY + '=' + VALUE + '\n';
+		for ( const [ KEY, VALUE ] of Object.entries ( this.#osmElement.tags ) ) {
+			this.#searchResultsHTMLElement.title += KEY + '=' + VALUE + '\n';
 		}
-
-	}
-
-	/**
-	Build the html for current osm element
-	*/
-
-	#buildHtmlElement ( ) {
-		this.#currentContainer = theHTMLElementsFactory.create (
-			'div',
-			{
-				className :	'TravelNotes-OsmSearchPaneUI-SearchResult-Row',
-				dataset : { ObjId : ObjId.nextObjId, ElementIndex : this.#elementIndex ++ }
-			}
-		);
-
-		this.#buildIcon ( );
-		this.#addOsmData ( );
-		this.#addTitle ( );
-		this.#resultsHTMLElements.push ( this.#currentContainer );
 	}
 
 	/**
@@ -269,28 +231,25 @@ class OsmSearchResultsHTMLBuilder {
 	}
 
 	/**
-	Get an array with the HTMLElements created from the osm elements
-	@type {Array.<HTMLElement>}
+	Build a search result htmlElement from the data in an osmElement
+	@param {OsmElement} osmElement the osmelement with to needed data
+	@param {Number} index The position of the osmElement in the array of osmElements
 	*/
 
-	get resultsHTMLElements ( ) {
-		this.#resultsHTMLElements = [];
-		this.#currentOsmElement = null;
-		this.#currentContainer = null;
-		this.#currentSearchResultCell = null;
-		this.#elementIndex = ZERO;
-
-		// loop on osm elements
-		theTravelNotesData.searchData.forEach (
-			osmElement => {
-				this.#currentOsmElement = osmElement;
-				this.#buildHtmlElement ( );
+	buildHTMLElement ( osmElement, index ) {
+		this.#osmElement = osmElement;
+		this.#searchResultsHTMLElement = theHTMLElementsFactory.create (
+			'div',
+			{
+				className :	'TravelNotes-OsmSearchDialog-SearchResultHTMLElement',
+				dataset : { ObjId : ObjId.nextObjId, ElementIndex : index }
 			}
 		);
-
-		return this.#resultsHTMLElements;
+		this.#buildIcon ( );
+		this.#addOsmData ( );
+		this.#addTitle ( );
+		return this.#searchResultsHTMLElement;
 	}
-
 }
 
 export default OsmSearchResultsHTMLBuilder;

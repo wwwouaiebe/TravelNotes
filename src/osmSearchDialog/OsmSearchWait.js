@@ -18,11 +18,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 /*
 Changes:
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210915
+	- v4.0.0:
+		- created
+Doc reviewed 20220825
 Tests ...
 */
 
@@ -30,7 +28,7 @@ import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This the waitUI for the OsmSearch
+This the wait bar for the OsmSearch
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
@@ -41,14 +39,14 @@ class OsmSearchWait {
 	@type {HTMLElement}
 	*/
 
-	#waitDiv;
+	#waitHTMLElement;
 
 	/**
 	The constructor
 	*/
 
 	constructor ( ) {
-		this.#waitDiv = theHTMLElementsFactory.create (
+		this.#waitHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{ className : 'TravelNotes-WaitAnimation' }
 		);
@@ -58,10 +56,10 @@ class OsmSearchWait {
 			{
 				className : 'TravelNotes-WaitAnimationBullet'
 			},
-			this.#waitDiv
+			this.#waitHTMLElement
 		);
 
-		this.#waitDiv.classList.add ( 'TravelNotes-Hidden' );
+		this.#waitHTMLElement.classList.add ( 'TravelNotes-Hidden' );
 	}
 
 	/**
@@ -69,7 +67,7 @@ class OsmSearchWait {
 	*/
 
 	showWait ( ) {
-		this.#waitDiv.classList.remove ( 'TravelNotes-Hidden' );
+		this.#waitHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
 	}
 
 	/**
@@ -77,7 +75,7 @@ class OsmSearchWait {
 	*/
 
 	hideWait ( ) {
-		this.#waitDiv.classList.add ( 'TravelNotes-Hidden' );
+		this.#waitHTMLElement.classList.add ( 'TravelNotes-Hidden' );
 	}
 
 	/**
@@ -85,7 +83,7 @@ class OsmSearchWait {
 	@type {HTMLElement}
 	*/
 
-	get waitHTMLElement ( ) { return this.#waitDiv; }
+	get waitHTMLElement ( ) { return this.#waitHTMLElement; }
 }
 
 export default OsmSearchWait;

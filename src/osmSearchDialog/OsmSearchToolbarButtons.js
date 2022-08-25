@@ -18,11 +18,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 /*
 Changes:
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210915
+	- v4.0.0:
+		- created
+Doc reviewed 20220825
 Tests ...
 */
 
@@ -233,8 +231,8 @@ class OsmSearchToolbarButtons {
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-UI-Button',
-				title : theTranslator.getText ( 'OsmSearchToolbarUI - Search OpenStreetMap' ),
+				className : 'TravelNotes-OsmSearchDialog-Button',
+				title : theTranslator.getText ( 'OsmSearchToolbarButtons - Start the search' ),
 				textContent : '🔎'
 			},
 			this.#toolbarButtonsHTMLElement
@@ -245,8 +243,8 @@ class OsmSearchToolbarButtons {
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-UI-Button',
-				title : theTranslator.getText ( 'OsmSearchToolbarUI - Expand tree' ),
+				className : 'TravelNotes-OsmSearchDialog-Button',
+				title : theTranslator.getText ( 'OsmSearchToolbarButtons - Expand the tree' ),
 				textContent : '▼'
 			},
 			this.#toolbarButtonsHTMLElement
@@ -257,8 +255,8 @@ class OsmSearchToolbarButtons {
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-UI-Button',
-				title : theTranslator.getText ( 'OsmSearchToolbarUI - Collapse tree' ),
+				className : 'TravelNotes-OsmSearchDialog-Button',
+				title : theTranslator.getText ( 'OsmSearchToolbarButtons - Collapse the tree' ),
 				textContent : '▶'
 			},
 			this.#toolbarButtonsHTMLElement
@@ -269,9 +267,8 @@ class OsmSearchToolbarButtons {
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				id : 'TravelNotes-OsmSearchPaneUI-ClearAllButton',
-				className : 'TravelNotes-UI-Button',
-				title : theTranslator.getText ( 'OsmSearchToolbarUI - Clear tree' ),
+				className : 'TravelNotes-OsmSearchDialog-Button',
+				title : theTranslator.getText ( 'OsmSearchToolbarButtons - Clear the tree' ),
 				textContent : '❌'
 			},
 			this.#toolbarButtonsHTMLElement

@@ -16,19 +16,14 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file OsmSearchPaneUI.css
-@desc CSS for the OsmSearchPaneUI
+/*
 Changes:
-	- v1.0.0:
+	- v4.0.0:
 		- created
-
-@------------------------------------------------------------------------------------------------------------------------------
+Doc reviewed 20220825
 */
 
-.TravelNotes-UI-Button {
+.TravelNotes-OsmSearchDialog-Button {
 	display: inline-block;
 	width: 2em;
 	text-align: center;
@@ -38,69 +33,56 @@ Changes:
 	border-color: white;
 }
 
-.TravelNotes-UI-Button:hover {
+.TravelNotes-OsmSearchDialog-Button:hover {
 	border-color: black;
 }
 
-.TravelNotes-UI-Button > a {
-	text-decoration: none;
-	color: black;
-}
-
-.TravelNotes-UI-Button > a:visited {
-	color: black;
-}
-
-#TravelNotes-OsmSearchPaneUI-SearchButton {
-	margin-right: 0.3em;
-}
-
-#TravelNotes-OsmSearchPaneUI-SearchTree {
+#TravelNotes-OsmSearchDialog-SearchTree {
 	max-height: 15em;
 	overflow: auto;
 }
 
-.TravelNotes-OsmSearchPaneUI-SearchItemMargin1 {
+.TravelNotes-OsmSearchDialog-SearchItemMargin1 {
 	margin-left: 0.5em;
 }
 
-.TravelNotes-OsmSearchPaneUI-SearchItemMargin2 {
+.TravelNotes-OsmSearchDialog-SearchItemMargin2 {
 	margin-left: 0.5em;
 }
 
-.TravelNotes-OsmSearchPaneUI-SearchItemMargin3 {
+.TravelNotes-OsmSearchDialog-SearchItemMargin3 {
 	margin-left: 2.5em;
 }
 
-.TravelNotes-OsmSearchPaneUI-SearchItemMargin4 {
+.TravelNotes-OsmSearchDialog-SearchItemMargin4 {
 	margin-left: 4.5em;
 }
 
-.TravelNotes-OsmSearchPaneUI-TreeArrow {
+.TravelNotes-OsmSearchDialog-TreeArrow {
 	color: gray;
 }
 
-.TravelNotes-OsmSearchPaneUI-TreeArrow:hover {
+.TravelNotes-OsmSearchDialog-TreeArrow:hover {
 	color: red;
 	border-color: white;
 }
 
-.TravelNotes-OsmSearchPaneUI-SearchResult-Row {
+.TravelNotes-OsmSearchDialog-SearchResultHTMLElement {
 	display: flex;
 	flex-direction: row;
 	padding: 0.3em;
 	border-bottom: 0.1em solid lightgray;
 }
 
-.TravelNotes-OsmSearchPaneUI-SearchResult-IconCell {
-	width: 40px;
-	height: 40px;
-	min-height: 20px;
+.TravelNotes-OsmSearchDialog-SearchResult-IconCell {
+	width: 4em;
+	height: 4em;
+	min-height: 2em;
 	background-repeat: no-repeat;
 	flex-shrink: 0;
 }
 
-.TravelNotes-OsmSearchPaneUI-SearchResult-Cell {
+.TravelNotes-OsmSearchDialog-SearchResult-Cell {
 	flex-shrink: 1;
 }
 

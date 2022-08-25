@@ -41,6 +41,7 @@ const travelNotesCss = [
 	'src/notesDialog/NoteDialog.css',
 	'src/osmSearchDialog/OsmSearchDialog.css',
 	'src/passwordDialog/PasswordDialog.css',
+	'src/printRoute/PrintRoute.css',
 	'src/printRouteMapDialog/PrintRouteMapDialog.css',
 	'src/profileDialog/ProfileDialog.css',
 	'src/routePropertiesDialog/RoutePropertiesDialog.css',

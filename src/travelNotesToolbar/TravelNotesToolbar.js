@@ -380,7 +380,7 @@ class TravelNotesToolbar extends BaseToolbar {
 		this.addToolbarItem (
 			new ToolbarItem (
 				'🔍',
-				theTranslator.getText ( 'TravelNotesToolbar - osm search' ),
+				theTranslator.getText ( 'Search with OpenStreetMap' ),
 				( ) => { theDockableDialogsManager.osmSearchDialog.show ( ); }
 			)
 		);

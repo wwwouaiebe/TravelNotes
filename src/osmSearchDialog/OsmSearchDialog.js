@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v4.0.0:
 		- created
-Doc reviewed ...
+Doc reviewed 20220825
 Tests ...
 */
 
@@ -35,6 +35,7 @@ import SortableListControl from '../sortableListControl/SortableListControl.js';
 import OsmSearchResultsHTMLBuilder from '../osmSearchDialog/OsmSearchResultsHTMLBuilder.js';
 import OsmSearchLimits from '../osmSearchDialog/OsmSearchLimits.js';
 import { SearchResultMouseEnterEL, SearchResultMouseLeaveEL } from '../osmSearchDialog/OsmSearchDialogEL.js';
+import theTravelNotesData from '../data/TravelNotesData.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -139,9 +140,6 @@ class OsmSearchDialog extends DockableBaseDialog {
 
 	get contentHTMLElements ( ) {
 		return [ ].concat (
-
-			/* this.#toolbarHTMLElement,*/
-
 			this.#osmSearchResultsControl.controlHTMLElement
 		);
 	}
@@ -151,7 +149,7 @@ class OsmSearchDialog extends DockableBaseDialog {
 	@type {String}
 	*/
 
-	get title ( ) { return theTranslator.getText ( 'OsmSearchDialog - Search OpenStreetMap' ); }
+	get title ( ) { return theTranslator.getText ( 'OsmSearchDialog - Searching OpenStreetMap' ); }
 
 	/**
 	The toolbar HTMLElement
@@ -188,14 +186,16 @@ class OsmSearchDialog extends DockableBaseDialog {
 		this.#osmSearchWait.hideWait ( );
 		this.#osmSearchLimits.hide ( );
 		this.#osmSearchLimits.show ( );
-		const resultsHTMLElements = this.#osmSearchResultsHTMLBuilder.resultsHTMLElements;
-		resultsHTMLElements.forEach (
-			resultsHTMLElement => {
-				resultsHTMLElement.addEventListener ( 'mouseenter', this.#searchResultMouseEnterEL, false );
-				resultsHTMLElement.addEventListener ( 'mouseleave', this.#searchResultMouseLeaveEL, false );
+		const searchResultsHTMLElements = [];
+		theTravelNotesData.searchData.forEach (
+			( osmElement, index ) => {
+				const searchResultsHTMLElement = this.#osmSearchResultsHTMLBuilder.buildHTMLElement ( osmElement, index );
+				searchResultsHTMLElement.addEventListener ( 'mouseenter', this.#searchResultMouseEnterEL, false );
+				searchResultsHTMLElement.addEventListener ( 'mouseleave', this.#searchResultMouseLeaveEL, false );
+				searchResultsHTMLElements.push ( searchResultsHTMLElement );
 			}
 		);
-		this.#osmSearchResultsControl.updateContent ( resultsHTMLElements );
+		this.#osmSearchResultsControl.updateContent ( searchResultsHTMLElements );
 	}
 }
 

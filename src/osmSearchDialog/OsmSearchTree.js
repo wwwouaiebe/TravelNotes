@@ -18,11 +18,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 /*
 Changes:
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210915
+	- v4.0.0:
+		- created
+Doc reviewed 20220825
 Tests ...
 */
 
@@ -186,11 +184,10 @@ class OsmSearchTree {
 		this.#deepTree ++;
 
 		// Container for the item
-		const itemDiv = theHTMLElementsFactory.create (
+		const itemHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-OsmSearchPaneUI-SearchItem ' +
-					'TravelNotes-OsmSearchPaneUI-SearchItemMargin' + this.#deepTree,
+				className : 'TravelNotes-OsmSearchDialog-SearchItemMargin' + this.#deepTree,
 				dataset : { ObjId : item.objId }
 			},
 			this.#treeHTMLElement
@@ -204,7 +201,7 @@ class OsmSearchTree {
 					type : 'checkbox',
 					checked : item.isSelected
 				},
-				itemDiv
+				itemHTMLElement
 			);
 			itemCheckbox.addEventListener ( 'change', this.#treeCheckboxChangeEL, false );
 		}
@@ -214,10 +211,10 @@ class OsmSearchTree {
 			const itemArrow = theHTMLElementsFactory.create (
 				'div',
 				{
-					className : 'TravelNotes-UI-Button TravelNotes-OsmSearchPaneUI-TreeArrow',
+					className : 'TravelNotes-OsmSearchDialog-Button TravelNotes-OsmSearchDialog-TreeArrow',
 					textContent : item.isExpanded ? '▼' : '▶'
 				},
-				itemDiv
+				itemHTMLElement
 			);
 			itemArrow.addEventListener ( 'click', this.#treeArrowClickEL, false );
 		}
@@ -228,7 +225,7 @@ class OsmSearchTree {
 			{
 				value : item.name
 			},
-			itemDiv
+			itemHTMLElement
 		);
 
 		// Recurse on sub items
@@ -254,7 +251,7 @@ class OsmSearchTree {
 		this.#treeHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				id : 'TravelNotes-OsmSearchPaneUI-SearchTree'
+				id : 'TravelNotes-OsmSearchDialog-SearchTree'
 			}
 		);
 
