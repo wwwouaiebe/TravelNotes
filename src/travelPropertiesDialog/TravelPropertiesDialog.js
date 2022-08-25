@@ -27,7 +27,7 @@ import DockableBaseDialog from '../baseDialog/DockableBaseDialog.js';
 import TextInputControl from '../baseDialog/TextInputControl.js';
 import theTranslator from '../UILib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
-import SortableListControl from '../baseDialog/SortableListControl.js';
+import SortableListControl from '../sortableListControl/SortableListControl.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTravelEditor from '../core/TravelEditor.js';
 import RouteContextMenu from '../contextMenus/RouteContextMenu.js';

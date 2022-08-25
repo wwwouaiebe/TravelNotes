@@ -31,7 +31,7 @@ import {
 	DragStartListItemEL,
 	DropListItemEL,
 	ContextMenuListItemEL
-} from '../baseDialog/SortableListControlEL.js';
+} from '../sortableListControl/SortableListControlEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
