@@ -236,8 +236,9 @@ class TouchListItemEL {
 				return;
 			}
 
-			// It's a double click. Stopping the scroll in the data div
+			// It's a double click. Stopping the scroll in the container HTMLelement
 			touchEvent.preventDefault ( );
+
 			this.#isDoubleClick = true;
 
 			// Saving the position of the list container
@@ -354,11 +355,19 @@ class TouchListItemEL {
 			let touch = touchEvent.changedTouches.item ( ZERO );
 			this.#setDropTargetAndPosition ( touch );
 			if ( this.#dropTargetHTMLElement ) {
-				this.#dropFunction (
-					Number.parseInt ( touchEvent.currentTarget.dataset.tanObjId ),
-					Number.parseInt ( this.#dropTargetHTMLElement.dataset.tanObjId ),
-					this.#dropOnTop
-				);
+
+				// Try ... catch because a lot of thing can be dragged in the dialog and the drop function
+				// throw when an unknown objId is given
+				try {
+					this.#dropFunction (
+						Number.parseInt ( touchEvent.currentTarget.dataset.tanObjId ),
+						Number.parseInt ( this.#dropTargetHTMLElement.dataset.tanObjId ),
+						this.#dropOnTop
+					);
+				}
+
+				// eslint-disable-next-line no-empty
+				catch { }
 			}
 		}
 		this.#reset ( );
@@ -375,7 +384,6 @@ class TouchListItemEL {
 		this.#clonedListItemHTMLElement = null;
 		this.#scrolledContainerHTMLElement = null;
 		this.#isDoubleClick = false;
-		this.#lastTouchStartTimeStamp = ZERO;
 		this.#lastScrollTimeStamp = ZERO;
 		this.#sortableListHTMLElement = null;
 		this.#topScrollPosition = ZERO;
@@ -394,6 +402,7 @@ class TouchListItemEL {
 		Object.freeze ( this );
 		this.#dropFunction = dropFunction;
 		this.#clonedListItemHTMLElement = null;
+		this.#lastTouchStartTimeStamp = ZERO;
 		this.#reset ( );
 	}
 
