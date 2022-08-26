@@ -206,6 +206,10 @@ const releaseFiles = [
 
 	// README.md
 	{ expand : true, cwd : 'TravelNotesGuides', src : [ 'README.md' ], dest : '' },
+];
+
+const afterReleaseFiles =
+[
 
 	// demo android
 	{ expand : true, cwd : 'docs/', src : [ '**/*.*' ], dest : localServerPath + 'docs/' }
@@ -216,7 +220,8 @@ module.exports = {
 	beforeRelease : { files : beforeReleaseFiles },
 	release : {	files : releaseFiles },
 	debug : { files : debugFiles },
-	debugAndroid : { files : debugAndroidFiles }
+	debugAndroid : { files : debugAndroidFiles },
+	afterRelease : { files : afterReleaseFiles }
 };
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

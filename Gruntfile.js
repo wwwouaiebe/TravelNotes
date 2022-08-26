@@ -16,6 +16,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+const { afterRelease } = require('./grunt/CopyConfig.js');
+
 /* eslint-disable no-magic-numbers */
 /* eslint-disable no-undef */
 
@@ -135,6 +137,7 @@ module.exports = function ( grunt ) {
 			'copy:release',
 			'clean:afterRelease',
 			'buildnumber:end',
+			'copy:afterRelease',
 			'bye'
 		]
 	);
