@@ -248,6 +248,10 @@
 		"msgstr": "Zoom to travel"
 	},
 	{
+		"msgid": "MapEditorViewer -Copied to clipboard",
+		"msgstr": "Copié dans le presse-papier"
+	},
+	{
 		"msgid": "MapLayersToolbar - Layers",
 		"msgstr": "Maps"
 	},

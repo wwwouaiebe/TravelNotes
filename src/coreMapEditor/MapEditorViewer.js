@@ -48,6 +48,7 @@ import { RouteMouseOverOrMoveEL } from '../coreMapEditor/RouteEventListeners.js'
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
 import { GEOLOCATION_STATUS, ROUTE_EDITION_STATUS, ZERO, TWO } from '../main/Constants.js';
+import theTranslator from '../UILib/Translator.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -464,6 +465,22 @@ class MapEditorViewer {
 				.bindPopup ( tooltip )
 				.openPopup ( );
 		}
+		this.#geolocationCircle.on (
+			'click',
+			clickEvent => {
+				const tooltipContent = clickEvent.target.getTooltip ( ).getContent ( );
+				clickEvent.target.getTooltip ( ).setContent ( tooltipContent + 'Copied' );
+				navigator.clipboard.writeText (	tooltipContent.replaceAll ( '<br/>', '\n' )	)
+					.then (
+						( ) => {
+							clickEvent.target.getTooltip ( ).setContent (
+								tooltipContent + '<br/><br/>' + theTranslator.getText ( 'MapEditorViewer -Copied to clipboard' )
+							);
+						}
+					)
+					.catch ( ( ) => console.error ( 'Failed to copy to clipboard ' ) );
+			}
+		);
 		if ( zoomToPosition ) {
 			theTravelNotesData.map.setView (
 				window.L.latLng ( position.coords.latitude, position.coords.longitude ),
