@@ -129,7 +129,6 @@ module.exports = function ( grunt ) {
 			'clean:afterDebug',
 			'clean:beforeRelease',
 			'copy:beforeRelease',
-			'replace:release',
 			'rollup:release',
 			'terser',
 			'cssmin:release',

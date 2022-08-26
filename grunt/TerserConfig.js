@@ -49,11 +49,6 @@ module.exports = {
 
 	TravelNotes : {
 		options : {
-			mangle : {
-				properties : {
-					regex : /^_private_/
-				}
-			},
 			output : {
 				preamble : banner
 			}
