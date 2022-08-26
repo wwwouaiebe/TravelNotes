@@ -108,9 +108,9 @@ module.exports = function ( grunt ) {
 			'copy:debug',
 			'copy:debugAndroid',
 			'clean:afterDebug',
+			'essimpledoc:debug',
 			'buildnumber:end',
-			'bye',
-			'essimpledoc:debug'
+			'bye'
 		]
 	);
 	grunt.registerTask (
@@ -131,12 +131,11 @@ module.exports = function ( grunt ) {
 			'rollup:release',
 			'terser',
 			'cssmin:release',
+			'essimpledoc:release',
 			'copy:release',
 			'clean:afterRelease',
 			'buildnumber:end',
-			'bye',
-			'essimpledoc:release'
-
+			'bye'
 		]
 	);
 };
