@@ -20,24 +20,24 @@
 		"msgstr": "You want to create {maneuversLength} notes. For performance reasons, the number of notes is limited to {maxManeuversNotes} for the demo. Change your route."
 	},
 	{
-		"msgid": "APIKeysDialog - API keys",
-		"msgstr": "API keys"
-	},
-	{
 		"msgid": "APIKeysDialog - empty API key name or value",
 		"msgstr": "empty API key name or value"
 	},
 	{
-		"msgid": "APIKeysDialogKeyControl - API key",
+		"msgid": "APIKeyControlRow - API key",
 		"msgstr": "API key"
 	},
 	{
-		"msgid": "APIKeysDialogKeyControl - delete API key",
+		"msgid": "APIKeyControlRow - delete API key",
 		"msgstr": "delete API key"
 	},
 	{
-		"msgid": "APIKeysDialogKeyControl - provider name",
+		"msgid": "APIKeyControlRow - provider name",
 		"msgstr": "Provider name"
+	},
+	{
+		"msgid": "APIKeysDialog - API keys",
+		"msgstr": "API keys"
 	},
 	{
 		"msgid": "APIKeysDialogToolbar - new API key",
@@ -144,6 +144,10 @@
 		"msgstr": "Not possible to select {provider}"
 	},
 	{
+		"msgid": "FullScreenUI - start full screen",
+		"msgstr": "Click here to activate the full screen mode"
+	},
+	{
 		"msgid": "GeoLocator - Geolocation disabled on the device",
 		"msgstr": "The geolocation is disabled on the device"
 	},	
@@ -184,18 +188,6 @@
 		"msgstr": "It's impossible to create a SVG icon for a travel note"
 	},
 	{
-		"msgid": "ItineraryControlUI - Show maneuvers",
-		"msgstr": "Maneuvers"
-	},
-	{
-		"msgid": "ItineraryControlUI - Show notes",
-		"msgstr": "Notes"
-	},
-	{
-		"msgid": "ItineraryPaneUI - Itinerary",
-		"msgstr": "Itinerary"
-	},
-	{
 		"msgid": "ManeuverContextMenu - Zoom to this maneuver",
 		"msgstr": "Zoom to this maneuver"
 	},
@@ -206,6 +198,14 @@
 	{
 		"msgid": "MapContextMenu - Add a route",
 		"msgstr": "Add a route"
+	},
+	{
+		"msgid": "MapContextMenu - Disable full screen",
+		"msgstr": "Disable full screen"
+	},
+	{
+		"msgid": "MapContextMenu - Enable full screen",
+		"msgstr": "Enable full screen"
 	},
 	{
 		"msgid": "MapContextMenu - Hide all notes",
@@ -248,7 +248,11 @@
 		"msgstr": "Zoom to travel"
 	},
 	{
-		"msgid": "MapLayersToolbarUI - Layers",
+		"msgid": "MapEditorViewer -Copied to clipboard",
+		"msgstr": "Copié dans le presse-papier"
+	},
+	{
+		"msgid": "MapLayersToolbar - Layers",
 		"msgstr": "Maps"
 	},
 	{
@@ -368,10 +372,6 @@
 		"msgstr": " or send a sms to "
 	},
 	{
-		"msgid": "OpenButtonClickEL - This page ask to close; data are perhaps not saved.",
-		"msgstr": "This page ask to close; data are perhaps not saved."
-	},
-	{
 		"msgid": "OsmSearchContextMenu - Create a route note with this result",
 		"msgstr": "Add a route note with this result"
 	},
@@ -404,24 +404,24 @@
 		"msgstr": "Zoom to this result"
 	},
 	{
-		"msgid": "OsmSearchPaneUI - Search",
-		"msgstr": "Search OpenStreetMap"
+		"msgid": "OsmSearchDialog - Searching OpenStreetMap",
+		"msgstr": "Searching OpenStreetMap"
 	},
 	{
-		"msgid": "OsmSearchToolbarUI - Clear tree",
-		"msgstr": "Unselect all"
+		"msgid": "OsmSearchToolbarButtons - Clear the tree",
+		"msgstr": "Clear the tree"
 	},
 	{
-		"msgid": "OsmSearchToolbarUI - Collapse tree",
+		"msgid": "OsmSearchToolbarButtons - Collapse the tree",
 		"msgstr": "Collapse the tree"
 	},
 	{
-		"msgid": "OsmSearchToolbarUI - Expand tree",
+		"msgid": "OsmSearchToolbarButtons - Expand the tree",
 		"msgstr": "Expand the tree"
 	},
 	{
-		"msgid": "OsmSearchToolbarUI - Search OpenStreetMap",
-		"msgstr": "Search OpenStreetMap"
+		"msgid": "OsmSearchToolbarButtons - Start the search",
+		"msgstr": "Searching OpenStreetMap"
 	},
 	{
 		"msgid": "PasswordDialog - password",
@@ -512,14 +512,42 @@
 		"msgstr": "Zoom to this point"
 	},
 	{
-		"msgid": "ProfileWindow - Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}",
-		"msgstr": "Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}"
+		"msgid": "ProfileWindow - Route {name} : Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}",
+		"msgstr": "Route {name} : Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}"
 	},
 	{
-		"msgid": "ProfileWindow - Profile {name}",
-		"msgstr": "Profile {name}"
+		"msgid": "ProfileWindow - Profile",
+		"msgstr": "Profile"
 	},
 	{
+		"msgid": "ProvidersToolbar - Computed by {provider} for {transitMode}",
+		"msgstr": "Itinerary computed by {provider} for {transitMode}"
+	},
+	{
+		"msgid": "ProvidersToolbar - TransitMode bike",
+		"msgstr": "a bike"
+	},
+	{
+		"msgid": "ProvidersToolbar - TransitMode car",
+		"msgstr": "a car"
+	},
+	{
+		"msgid": "ProvidersToolbar - TransitMode circle",
+		"msgstr": "a circle"
+	},
+	{
+		"msgid": "ProvidersToolbar - TransitMode line",
+		"msgstr": "a line"
+	},
+	{
+		"msgid": "ProvidersToolbar - TransitMode pedestrian",
+		"msgstr": "a pedestrian"
+	},
+	{
+		"msgid": "ProvidersToolbar - TransitMode train",
+		"msgstr": "a train"
+	},
+{
 		"msgid": "RoadbookLoader - show maneuver",
 		"msgstr": "Show maneuver"
 	},
@@ -888,8 +916,20 @@
 		"msgstr": " a car"
 	},
 	{
+		"msgid": "RouteHTMLViewsFactory - TransitMode circle",
+		"msgstr": " a circle"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - TransitMode line",
+		"msgstr": " a line"
+	},
+	{
 		"msgid": "RouteHTMLViewsFactory - TransitMode pedestrian",
 		"msgstr": " a pedestrian"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - TransitMode train",
+		"msgstr": " a train"
 	},
 	{
 		"msgid": "RoutePrinter - The maximum of allowed pages is reached.",
@@ -988,64 +1028,84 @@
 		"msgstr": "Done with "
 	},
 	{
-		"msgid": "TravelNotesPaneUI - Travel notes",
+		"msgid": "TravelNotesDialog - Travel notes dialog",
 		"msgstr": "Travel notes"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - API keys",
+		"msgid": "TravelNotesToolbar - disable fullscreen",
+		"msgstr": "Disable fullscreen"
+	},
+	{
+		"msgid": "TravelNotesToolbar - enable fullscreen",
+		"msgstr": "Enable fullscreen"
+	},
+	{
+		"msgid": "TravelNotesToolbar - Increment the font size",
+		"msgstr": "Increment the font size"
+	},
+	{
+		"msgid": "TravelNotesToolbar - Decrement the font size",
+		"msgstr": "Decrement the font size"
+	},
+	{
+		"msgid": "TravelNotesToolbar - API keys",
 		"msgstr": "API keys management"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - Geo location",
+		"msgid": "TravelNotesToolbar - Geo location",
 		"msgstr": "Localisation"
 	},
 	{
-		"msgid": "TravelToolbarUI - Cancel travel",
+		"msgid": "TravelNotesToolbar - Cancel travel",
 		"msgstr": "Cancel travel"
 	},
 	{
-		"msgid": "TravelToolbarUI - Import travel",
+		"msgid": "TravelNotesToolbar - Import travel",
 		"msgstr": "Import routes and notes from another travel or from a gpx file"
 	},
 	{
-		"msgid": "TravelToolbarUI - Not possible to merge a travel when a route is edited",
+		"msgid": "TravelNotesToolbar - Not possible to merge a travel when a route is edited",
 		"msgstr": "Not possible to merge a travel when a route is edited"
 	},
 	{
-		"msgid": "TravelToolbarUI - Open travel",
+		"msgid": "TravelNotesToolbar - Open travel",
 		"msgstr": "Open a travel file (.trv) or a .gpx file"
 	},
 	{
-		"msgid": "TravelToolbarUI - Open travel roadbook",
+		"msgid": "TravelNotesToolbar - Open travel roadbook",
 		"msgstr": "Open the roadbook"
 	},
 	{
-		"msgid": "TravelToolbarUI - Save as travel",
+		"msgid": "TravelNotesToolbar - Search with OpenStreetMap",
+		"msgstr": "Search with OpenStreetMap"
+	},
+	{
+		"msgid": "TravelNotesToolbar - Save as travel",
 		"msgstr": "☢️ Partial save ☢️"
 	},
 	{
-		"msgid": "TravelToolbarUI - Save travel",
+		"msgid": "TravelNotesToolbar - Save travel",
 		"msgstr": "Save the travel in a file"
 	},
 	{
-		"msgid": "TravelUI - Add a route",
-		"msgstr": "Add a route"
+		"msgid": "TravelNotesToolbar - This page ask to close; data are perhaps not saved.",
+		"msgstr": "This page ask to close; data are perhaps not saved."
 	},
 	{
-		"msgid": "TravelUI - Hide",
-		"msgstr": "Hide"
+		"msgid": "TravelNotesToolbar - Travel notes",
+		"msgstr": "Travel notes"
 	},
 	{
-		"msgid": "TravelUI - Show",
-		"msgstr": "Show"
+		"msgid": "TravelPropertiesDialog - Name",
+		"msgstr": "Travel name"
 	},
 	{
-		"msgid": "TravelUI - Travel",
-		"msgstr": "Travel : "
+		"msgid": "TravelPropertiesDialog - Routes",
+		"msgstr": "Routes"
 	},
 	{
-		"msgid": "TravelUI - Travel routes",
-		"msgstr": "Travel routes :"
+		"msgid": "TravelPropertiesDialog - Travel properties",
+		"msgstr": "Travel properties"
 	},
 	{
 		"msgid": "UrlInputBlurEL - invalidUrl",

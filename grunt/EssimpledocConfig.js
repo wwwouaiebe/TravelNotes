@@ -39,7 +39,7 @@ module.exports = {
 	doclaunch : {
 		options : {
 			src : './src',
-			dest : localServerPath + 'docs/techDoc',
+			dest : './docs/techDoc',
 			validate : true,
 			launch : true
 		}

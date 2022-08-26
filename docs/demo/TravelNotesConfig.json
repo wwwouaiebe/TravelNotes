@@ -11,7 +11,8 @@
 	"baseDialog":{
 		"cancelTouchX":100,
 		"cancelTouchY":150,
-		"deltaZoomDistance":75
+		"deltaZoomDistance":75,
+		"timeout":1500 
 	},
 	"contextMenu":
 	{
@@ -25,6 +26,12 @@
 		"showInfo":true,
 		"showWarning":true,
 		"timeOut":10000
+	},
+	"fontSize" : 12,
+	"FullScreenUI": 
+	{
+		"timeOut": 5000,
+		"screenMaxWidth" : 1200
 	},
 	"geoCoder" : {
 		"distances" : {
@@ -128,19 +135,15 @@
 			"icon":2,
 			"popupContent":8
 		},
-		"mask" : {
-			"iconsDimension":true,
-			"iconTextArea":false,
-			"tooltip":false,
-			"popupContent":false,
-			"address":false,
-			"link":false,
-			"phone":true
-		},
 		"theDevil": {
 			"addButton": true,
 			"zoomFactor" : 17
 		}
+	},
+	"osmSearchDialog":
+	{
+		"dialogX": 50,
+		"dialogY": 0
 	},
 	"osmSearch": {
 		"nextSearchLimit" : {
@@ -246,11 +249,21 @@
 		"haveBeforeUnloadWarning":true,
 		"language":"fr"
 	},
-	"travelNotesToolbarUI":
+	"TravelNotesToolbar":
 	{
 		"contactMail": {
 			"url":"https://github.com/wwwouaiebe/TravelNotes/issues"
 		}
+	},
+	"travelNotesDialog" :
+	{
+		"dialogX": 250,
+		"dialogY" : 0
+	},
+	"travelPropertiesDialog" :
+	{
+		"dialogX": 50,
+		"dialogY" : 0
 	},
 	"wayPoint":
 	{
