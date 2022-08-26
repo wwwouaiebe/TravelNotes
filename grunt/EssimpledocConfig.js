@@ -15,41 +15,21 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
-// eslint-disable-next-line no-undef
-const localServerPath = require ( './LocalServerPath.js' );
-
 // eslint-disable-next-line no-undef
 module.exports = {
 	debug : {
 		options : {
 			src : './src',
-			dest : localServerPath + 'docs/techDoc',
+			dest : 'docs/techDoc',
 			validate : true,
 			noFiles : true
-		}
-	},
-	doc : {
-		options : {
-			src : './src',
-			dest : localServerPath + 'docs/techDoc',
-			validate : true
-		}
-	},
-	doclaunch : {
-		options : {
-			src : './src',
-			dest : './docs/techDoc',
-			validate : true,
-			launch : true
 		}
 	},
 	release : {
 		options : {
 			src : './src',
 			dest : './docs/techDoc',
-			validate : true,
-			launch : false
+			validate : true
 		}
 	}
 };

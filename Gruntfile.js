@@ -90,14 +90,6 @@ module.exports = function ( grunt ) {
 		[ 'eslint' ]
 	);
 	grunt.registerTask (
-		'doc',
-		[ 'essimpledoc:doc' ]
-	);
-	grunt.registerTask (
-		'doclaunch',
-		[ 'essimpledoc:doclaunch' ]
-	);
-	grunt.registerTask (
 		'debug',
 		[
 			'hello',
@@ -108,7 +100,6 @@ module.exports = function ( grunt ) {
 			'rollup:debug',
 			'cssmin:debug',
 			'copy:debug',
-			'copy:debugAndroid',
 			'clean:afterDebug',
 			'essimpledoc:debug',
 			'buildnumber:end',
@@ -126,7 +117,6 @@ module.exports = function ( grunt ) {
 			'rollup:debug',
 			'cssmin:debug',
 			'copy:debug',
-			'copy:debugAndroid',
 			'clean:afterDebug',
 			'clean:beforeRelease',
 			'copy:beforeRelease',
@@ -137,7 +127,6 @@ module.exports = function ( grunt ) {
 			'copy:release',
 			'clean:afterRelease',
 			'buildnumber:end',
-			'copy:afterRelease',
 			'bye'
 		]
 	);

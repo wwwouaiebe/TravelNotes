@@ -33,9 +33,7 @@
   "scripts": {
     "debug" : "node node_modules/grunt/bin/grunt debug",
     "release" : "node node_modules/grunt/bin/grunt release",
-    "guides": "node ../HtmlFromMarkdown/main.js --src=docs/userGuides",
-    "doc" : "node node_modules/grunt/bin/grunt doc",
-    "doclaunch" : "node node_modules/grunt/bin/grunt doclaunch"
+    "guides": "node ../HtmlFromMarkdown/main.js --src=docs/userGuides"
     },  
   "keywords": [
     "Leaflet",

@@ -54,78 +54,6 @@ const debugFiles = [
 		dest : 'debug/TravelNotesProviders/languages/grammars/'
 	}
 ];
-
-// eslint-disable-next-line no-undef
-const localServerPath = require ( './LocalServerPath.js' );
-
-const debugAndroidFiles = [
-	{ expand : true, cwd : 'docs/', src : [ '**/*.*' ], dest : localServerPath + 'demo/' },
-	{ expand : true, cwd : 'src/cfg/', src : [ '*.json', '*.csv' ], dest : localServerPath + 'debug/' },
-	{ expand : true, cwd : 'src/translations/', src : [ '*.json' ], dest : localServerPath + 'debug/' },
-	{
-		expand : true,
-		cwd : 'src/html/',
-		src : 'indexDebug.html',
-		rename : function ( ) { return localServerPath + 'debug/index.html'; }
-	},
-	{
-		expand : true,
-		cwd : 'src/html/',
-		src : 'TravelNotesRoadbookDebug.html',
-		rename : function ( ) { return localServerPath + 'debug/TravelNotesRoadbook.html'; }
-	},
-	{
-		expand : true,
-		cwd : 'src/cfg/',
-		src : [ 'TravelNotesConfig.json', 'TravelNotesLayers.json' ],
-		dest : localServerPath + 'debug/viewer/'
-	},
-	{ expand : true, cwd : 'src/translations/', src : [ '*.json' ], dest : localServerPath + 'debug/viewer/' },
-	{
-		expand : true,
-		cwd : 'src/html/',
-		src : 'TravelNotesViewerDebug.html',
-		rename : function ( ) { return localServerPath + 'debug/viewer/index.html'; }
-	},
-	{ expand : true, cwd : 'tmpDebug/', src : [ 'TravelNotesViewer.min.css' ], dest : localServerPath + 'debug/viewer/' },
-	{
-		expand : true,
-		cwd : 'node_modules/osrm-text-instructions/languages/abbreviations/',
-		src : [ '*.json' ],
-		dest : localServerPath + 'debug/TravelNotesProviders/languages/abbreviations/'
-	},
-	{
-		expand : true,
-		cwd : 'node_modules/osrm-text-instructions/languages/translations/',
-		src : [ '*.json' ],
-		dest : localServerPath + 'debug/TravelNotesProviders/languages/instructions/'
-	},
-	{
-		expand : true,
-		cwd : 'node_modules/osrm-text-instructions/languages/grammar/',
-		src : [ '*.json' ],
-		dest : localServerPath + 'debug/TravelNotesProviders/languages/grammars/'
-	},
-	{
-		expand : true,
-		cwd : 'src',
-		src : [ '**/*.*' ],
-		dest : localServerPath + 'src'
-	},
-	{
-		expand : true,
-		cwd : 'node_modules/leaflet/',
-		src : [ '**/*.*' ],
-		dest : localServerPath + 'node_modules/leaflet/'
-	},
-	{
-		expand : true,
-		cwd : 'node_modules/leaflet/dist/images/',
-		src : [ '*.png' ],
-		dest : localServerPath + 'debug/leaflet/images/'
-	}
-];
-
 const beforeReleaseFiles = [
 	{ expand : true, cwd : '', src : [ 'src/**/*.js' ], dest : 'tmpRelease/' }
 ];
@@ -205,23 +133,14 @@ const releaseFiles = [
 	{ expand : true, cwd : 'node_modules/leaflet/dist/images/', src : [ '*.png' ], dest : 'docs/demo/leaflet/images/' },
 
 	// README.md
-	{ expand : true, cwd : 'TravelNotesGuides', src : [ 'README.md' ], dest : '' },
-];
-
-const afterReleaseFiles =
-[
-
-	// demo android
-	{ expand : true, cwd : 'docs/', src : [ '**/*.*' ], dest : localServerPath + 'docs/' }
+	{ expand : true, cwd : 'TravelNotesGuides', src : [ 'README.md' ], dest : '' }
 ];
 
 // eslint-disable-next-line no-undef
 module.exports = {
 	beforeRelease : { files : beforeReleaseFiles },
 	release : {	files : releaseFiles },
-	debug : { files : debugFiles },
-	debugAndroid : { files : debugAndroidFiles },
-	afterRelease : { files : afterReleaseFiles }
+	debug : { files : debugFiles }
 };
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
