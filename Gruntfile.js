@@ -26,7 +26,6 @@ module.exports = function ( grunt ) {
 	grunt.initConfig ( {
 		pkg : grunt.file.readJSON ( 'package.json' ),
 		eslint : require ( './grunt/EslintConfig.js' ),
-		replace : require ( './grunt/ReplaceConfig.js' ),
 		rollup : require ( './grunt/RollupConfig.js' ),
 		essimpledoc : require ( './grunt/EssimpledocConfig.js' ),
 		stylelint : require ( './grunt/StylelintConfig.js' ),
