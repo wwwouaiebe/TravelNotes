@@ -192,10 +192,6 @@
 		"msgstr": "Zoom to this maneuver"
 	},
 	{
-		"msgid": "MapContextMenu - About Travel & Notes",
-		"msgstr": "About Travel & Notes"
-	},
-	{
 		"msgid": "MapContextMenu - Add a route",
 		"msgstr": "Add a route"
 	},
@@ -1046,6 +1042,10 @@
 	{
 		"msgid": "TravelNotesToolbar - Decrement the font size",
 		"msgstr": "Decrement the font size"
+	},
+	{
+		"msgid": "TravelNotesToolbar - About Travel & Notes",
+		"msgstr": "About Travel & Notes"
 	},
 	{
 		"msgid": "TravelNotesToolbar - API keys",

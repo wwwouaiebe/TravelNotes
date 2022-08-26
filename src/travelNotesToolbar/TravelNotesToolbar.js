@@ -24,6 +24,7 @@ Doc reviewed 20220821
 Tests ...
 */
 
+import AboutDialog from '../aboutDialog/AboutDialog.js';
 import BaseToolbar from '../baseToolbar/BaseToolbar.js';
 import ToolbarItem from '../baseToolbar/ToolbarItem.js';
 import theAPIKeysManager from '../core/APIKeysManager.js';
@@ -251,33 +252,6 @@ class TravelNotesToolbar extends BaseToolbar {
 		);
 		this.addToolbarItem (
 			new ToolbarItem (
-				( ) => document.fullscreenElement ? '⬇️' : '🔝',
-				theTranslator.getText (
-					document.fullscreenElement
-						?
-						'TravelNotesToolbar - disable fullscreen'
-						:
-						'TravelNotesToolbar - enable fullscreen'
-				),
-				( ) => theFullScreenUI.toogle ( )
-			)
-		);
-		this.addToolbarItem (
-			new ToolbarItem (
-				'+',
-				theTranslator.getText ( 'TravelNotesToolbar - Increment the font size' ),
-				( ) => { theFontSizeManager.increment ( ); }
-			)
-		);
-		this.addToolbarItem (
-			new ToolbarItem (
-				'-',
-				theTranslator.getText ( 'TravelNotesToolbar - Decrement the font size' ),
-				( ) => { theFontSizeManager.decrement ( ); }
-			)
-		);
-		this.addToolbarItem (
-			new ToolbarItem (
 				'🔑',
 				theTranslator.getText ( 'TravelNotesToolbar - API keys' ),
 				( ) => { theAPIKeysManager.setKeysFromDialog ( ); }
@@ -382,6 +356,41 @@ class TravelNotesToolbar extends BaseToolbar {
 				'🔍',
 				theTranslator.getText ( 'Search with OpenStreetMap' ),
 				( ) => { theDockableDialogsManager.osmSearchDialog.show ( ); }
+			)
+		);
+		this.addToolbarItem (
+			new ToolbarItem (
+				( ) => document.fullscreenElement ? '⬇️' : '🔝',
+				theTranslator.getText (
+					document.fullscreenElement
+						?
+						'TravelNotesToolbar - disable fullscreen'
+						:
+						'TravelNotesToolbar - enable fullscreen'
+				),
+				( ) => theFullScreenUI.toogle ( )
+			)
+		);
+		this.addToolbarItem (
+			new ToolbarItem (
+				'+',
+				theTranslator.getText ( 'TravelNotesToolbar - Increment the font size' ),
+				( ) => { theFontSizeManager.increment ( ); }
+			)
+		);
+		this.addToolbarItem (
+			new ToolbarItem (
+				'-',
+				theTranslator.getText ( 'TravelNotesToolbar - Decrement the font size' ),
+				( ) => { theFontSizeManager.decrement ( ); }
+			)
+		);
+		this.addToolbarItem (
+			new ToolbarItem (
+				'🛠️',
+				theTranslator.getText ( 'TravelNotesToolbar - About Travel & Notes' ),
+				( ) => new AboutDialog ( ).show ( )
+					.catch ( ( ) => {} )
 			)
 		);
 	}

@@ -192,10 +192,6 @@
 		"msgstr": "Zoom sur cette manœuvre"
 	},
 	{
-		"msgid": "MapContextMenu - About Travel & Notes",
-		"msgstr": "À propos de Travel & Notes"
-	},
-	{
 		"msgid": "MapContextMenu - Add a route",
 		"msgstr": "Ajouter un trajet"
 	},
@@ -1048,8 +1044,12 @@
 		"msgstr": "Diminuer la taille des caractères"
 	},
 	{
+		"msgid": "TravelNotesToolbar - About Travel & Notes",
+		"msgstr": "À propos de Travel & Notes"
+	},
+	{
 		"msgid": "TravelNotesToolbar - API keys",
-		"msgstr": "Notes de voyage"
+		"msgstr": "Gestion des clés d'accès"
 	},
 	{
 		"msgid": "TravelNotesToolbar - Geo location",
@@ -1094,6 +1094,10 @@
 	{
 		"msgid": "TravelNotesToolbar - Travel notes",
 		"msgstr": "Notes de voyage"
+	},
+	{
+		"msgid": "TravelNotesToolbar - Travel properties",
+		"msgstr": "Propriétés du voyage"
 	},
 	{
 		"msgid": "TravelPropertiesDialog - Name",

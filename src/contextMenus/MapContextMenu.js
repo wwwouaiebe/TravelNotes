@@ -39,7 +39,6 @@ import theTranslator from '../UILib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theNoteEditor from '../core/NoteEditor.js';
 import theRouteEditor from '../core/RouteEditor.js';
-import AboutDialog from '../aboutDialog/AboutDialog.js';
 import Zoomer from '../core/Zoomer.js';
 
 import { LAT_LNG, INVALID_OBJ_ID } from '../main/Constants.js';
@@ -130,12 +129,6 @@ class MapContextMenu extends BaseContextMenu {
 				theTranslator.getText ( 'MapContextMenu - Zoom to travel' ),
 				true,
 				( ) => new Zoomer ( ).zoomToTravel ( )
-			),
-			new MenuItem (
-				theTranslator.getText ( 'MapContextMenu - About Travel & Notes' ),
-				true,
-				( ) => new AboutDialog ( ).show ( )
-					.catch ( ( ) => {} )
 			)
 		];
 	}
