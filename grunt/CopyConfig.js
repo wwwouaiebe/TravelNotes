@@ -58,7 +58,9 @@ const debugFiles = [
 // eslint-disable-next-line no-undef
 const localServerPath = require ( './LocalServerPath.js' );
 
+
 const debugAndroidFiles = [
+	{ expand : true, cwd : 'docs/', src : [ '**/*.*' ], dest : localServerPath + 'demo/' },
 	{ expand : true, cwd : 'src/cfg/', src : [ '*.json', '*.csv' ], dest : localServerPath + 'debug/' },
 	{ expand : true, cwd : 'src/translations/', src : [ '*.json' ], dest : localServerPath + 'debug/' },
 	{
@@ -130,7 +132,6 @@ const beforeReleaseFiles = [
 ];
 
 const releaseFiles = [
-
 	// dist
 	{ expand : true, cwd : 'src/cfg/', src : [ '*.json', '*.csv' ], dest : 'dist/' },
 	{ expand : true, cwd : 'src/translations/', src : [ '*.json' ], dest : 'dist/' },
@@ -204,9 +205,10 @@ const releaseFiles = [
 	{ expand : true, cwd : 'node_modules/leaflet/dist/images/', src : [ '*.png' ], dest : 'docs/demo/leaflet/images/' },
 
 	// README.md
+	{ expand : true, cwd : 'TravelNotesGuides', src : [ 'README.md' ], dest : '' },
 
-	{ expand : true, cwd : 'TravelNotesGuides', src : [ 'README.md' ], dest : '' }
-
+	// demo android
+	{ expand : true, cwd : 'docs/', src : [ '**/*.*' ], dest : localServerPath + 'demo/' }
 ];
 
 // eslint-disable-next-line no-undef
