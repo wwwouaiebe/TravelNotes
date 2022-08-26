@@ -1096,6 +1096,10 @@
 		"msgstr": "Travel notes"
 	},
 	{
+		"msgid": "TravelNotesToolbar - Travel properties",
+		"msgstr": "Travel properties"
+	},
+	{
 		"msgid": "TravelPropertiesDialog - Name",
 		"msgstr": "Travel name"
 	},

@@ -1049,7 +1049,7 @@
 	},
 	{
 		"msgid": "TravelNotesToolbar - API keys",
-		"msgstr": "Notes de voyage"
+		"msgstr": "Gestion des clés d'accès"
 	},
 	{
 		"msgid": "TravelNotesToolbar - Geo location",
@@ -1094,6 +1094,10 @@
 	{
 		"msgid": "TravelNotesToolbar - Travel notes",
 		"msgstr": "Notes de voyage"
+	},
+	{
+		"msgid": "TravelNotesToolbar - Travel properties",
+		"msgstr": "Propriétés du voyage"
 	},
 	{
 		"msgid": "TravelPropertiesDialog - Name",
