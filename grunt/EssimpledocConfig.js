@@ -49,7 +49,7 @@ module.exports = {
 			src : './src',
 			dest : './docs/techDoc',
 			validate : true,
-			launch : true
+			launch : false
 		}
 	}
 };

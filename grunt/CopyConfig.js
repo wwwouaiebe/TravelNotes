@@ -208,7 +208,7 @@ const releaseFiles = [
 	{ expand : true, cwd : 'TravelNotesGuides', src : [ 'README.md' ], dest : '' },
 
 	// demo android
-	{ expand : true, cwd : 'docs/', src : [ '**/*.*' ], dest : localServerPath + 'demo/' }
+	{ expand : true, cwd : 'docs/', src : [ '**/*.*' ], dest : localServerPath + 'docs/' }
 ];
 
 // eslint-disable-next-line no-undef

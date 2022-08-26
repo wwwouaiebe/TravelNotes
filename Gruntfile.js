@@ -133,11 +133,10 @@ module.exports = function ( grunt ) {
 			'cssmin:release',
 			'copy:release',
 			'clean:afterRelease',
-
-			/* 'essimpledoc:release', */
-
 			'buildnumber:end',
-			'bye'
+			'bye',
+			'essimpledoc:release'
+
 		]
 	);
 };
