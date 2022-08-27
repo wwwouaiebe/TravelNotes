@@ -56,14 +56,13 @@ module.exports = function ( grunt ) {
 		'hello',
 		'hello',
 		function () {
-			console.error ( `\n\x1b[30;101m\n\n${'-'.repeat ( 80 )}` );
 			console.error (
-				'\nStart build of ' +
+				`\x1b[30;101m Start build of ` +
 				grunt.config.data.pkg.name + ' - ' +
 				grunt.config.data.pkg.version + ' - ' +
 				grunt.template.today ( 'isoDateTime' )
+				+ ' \x1b[0m'
 			);
-			console.error ( '-'.repeat ( 80 ) + '\n\n\n\x1b[0m' );
 		}
 	);
 
@@ -71,16 +70,14 @@ module.exports = function ( grunt ) {
 		'bye',
 		'bye',
 		function () {
-			console.error ( `\n\x1b[30;42m\n\n${'-'.repeat ( 80 )}` );
 			console.error (
-				'\n' +
+				`\x1b[30;42m ` + 
 				grunt.config.data.pkg.name + ' - ' +
 				grunt.config.data.pkg.version + ' - build: ' +
 				grunt.config.data.build + ' - ' +
 				grunt.template.today ( 'isoDateTime' ) +
-				' done\n'
+				' done \x1b[0m'
 			);
-			console.error ( '-'.repeat ( 80 ) + '\n\n\n\x1b[0m' );
 		}
 	);
 
