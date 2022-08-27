@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v1.0.0:
 		- created
-Doc reviewed ...
+Doc reviewed 20220827
 */
 
 #TravelNotes-AttributionsUI {
@@ -29,7 +29,7 @@ Doc reviewed ...
 	bottom: 0;
 	z-index: 1000;
 	background-color: transparent;
-	padding-left: 1em;
+	padding-left: 2em;
 	padding-right: 1em;
 	color: #0078a8;
 	font-size: 80%;
@@ -37,6 +37,14 @@ Doc reviewed ...
 	height: 2em;
 	transform-origin: bottom left;
 	transform: rotateZ(-90deg) translateY(2em) translateX(0);
+	transition: all 1.5s ease;
+}
+
+#TravelNotes-AttributionsUI:hover {
+	color: black;
+	background-color: white;
+	transform: rotateZ(-90deg) translateY(2.6em) translateX(0) scale(1.3);
+	transition: all 1.5s ease;
 }
 
 #TravelNotes-AttributionsUI a {

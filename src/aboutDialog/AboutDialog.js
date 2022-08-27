@@ -33,15 +33,12 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210914
-Tests ...
-
------------------------------------------------------------------------------------------------------------------------
+Doc reviewed 20220827
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
-import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
+import NonModalBaseDialog from '../baseDialog/NonModalBaseDialog.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import { theAppVersion } from '../data/Version.js';
 
@@ -51,14 +48,14 @@ This class is the 'About' dialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class AboutDialog extends ModalBaseDialog {
+class AboutDialog extends NonModalBaseDialog {
 
 	/**
 	The main
 	@type {HTMLElement}
 	*/
 
-	#aboutDiv = null;
+	#aboutHTMLElement = null;
 
 	/**
 	The constructor
@@ -66,7 +63,7 @@ class AboutDialog extends ModalBaseDialog {
 
 	constructor ( ) {
 		super ( );
-		this.#aboutDiv = theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-AboutDialog-AboutDiv' } );
+		this.#aboutHTMLElement = theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-AboutDialog-About' } );
 
 		theHTMLSanitizer.sanitizeToHtmlElement (
 			'<p>This  program is free software; you can redistribute it and/or modify it under the terms of the ' +
@@ -82,8 +79,17 @@ class AboutDialog extends ModalBaseDialog {
 				' <a href="https://github.com/Project-OSRM/osrm-text-instructions" target="_blank">' +
 				'Project-OSRM/osrm-text-instructions</a> and ' +
 				' <a href="https://github.com/drolbr/Overpass-API" target="_blank">the Overpass API</a></p>',
-			this.#aboutDiv
+			this.#aboutHTMLElement
 		);
+	}
+
+	/**
+	Overload of the base class show
+	*/
+
+	show ( ) {
+		super.show ( );
+		this.mover.centerDialog ( );
 	}
 
 	/**
@@ -91,7 +97,7 @@ class AboutDialog extends ModalBaseDialog {
 	@type {Array.<HTMLElement>}
 	*/
 
-	get contentHTMLElements ( ) { return [ this.#aboutDiv ]; }
+	get contentHTMLElements ( ) { return [ this.#aboutHTMLElement ]; }
 
 	/**
 	Return the dialog title. Overload of the BaseDialog.title property

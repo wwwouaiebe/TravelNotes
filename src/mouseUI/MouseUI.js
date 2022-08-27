@@ -31,8 +31,7 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v4.0.0:
 		- Issue ♯47 : Review the mouseUI
-Doc reviewed 20210913
-Tests ...
+Doc reviewed 20220827
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';

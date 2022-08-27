@@ -22,7 +22,7 @@ Changes:
 		- created
 	- v4.0.0:
 		- Issue ♯47 : Review the mouseUI
-Doc reviewed ...
+Doc reviewed 20220827
 */
 
 #TravelNotes-MouseUI {
@@ -36,6 +36,12 @@ Doc reviewed ...
 	opacity: 0.5;
 	padding-left: 0.3em;
 	padding-right: 0.3em;
+	transition: all 1.5s ease;
+}
+
+#TravelNotes-MouseUI:hover {
+	opacity: 1;
+	transition: all 1.5s ease;
 }
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
