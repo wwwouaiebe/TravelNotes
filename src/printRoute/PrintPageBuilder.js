@@ -35,7 +35,7 @@ import theTravelNotesData from '../data/TravelNotesData.js';
 import theConfig from '../data/Config.js';
 import theTranslator from '../UILib/Translator.js';
 import theMapLayersCollection from '../data/MapLayersCollection.js';
-import theAPIKeysManager from '../core/APIKeysManager.js';
+import theApiKeysManager from '../core/ApiKeysManager.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 
 import { ZERO, TWO } from '../main/Constants.js';
@@ -227,7 +227,7 @@ class PrintPageBuilder {
 
 	#getMapLayer ( ) {
 		const mapLayer = theMapLayersCollection.getMapLayer ( theTravelNotesData.travel.layerName );
-		const url = theAPIKeysManager.getUrl ( mapLayer );
+		const url = theApiKeysManager.getUrl ( mapLayer );
 		const leafletLayer =
 			'wmts' === mapLayer.service.toLowerCase ( )
 				?

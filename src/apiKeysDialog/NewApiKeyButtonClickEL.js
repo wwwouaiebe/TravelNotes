@@ -17,22 +17,55 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 /*
-	Changes:
-	- v1.6.0:
-		- created
-	- v1.13.0:
-		- Issue ♯125 : Outphase osmSearch and add it to TravelNotes
-	- v2.0.0:
-		- Issue ♯133 : Outphase reading the ApiKeys with the url
+Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	- v3.2.0:
+		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
+	- v 4.0.0:
+		- Issue ♯48 : Review the dialogs
+Doc reviewed 20210914
 Tests ...
 */
 
-import AppLoader from '../main/AppLoader.js';
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+Click event listener for the add new ApiKey button
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-new AppLoader ( ).loadApp ( );
+class NewApiKeyButtonClickEL {
+
+	/**
+	A reference to the ApiKeys control
+	@type {ApiKeysControl}
+	*/
+
+	#apiKeysControl;
+
+	/**
+	The constructor
+	@param {ApiKeysControl} apiKeysControl A reference to the ApiKeys control
+	*/
+
+	constructor ( apiKeysControl ) {
+		Object.freeze ( this );
+		this.#apiKeysControl = apiKeysControl;
+	}
+
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
+
+	handleEvent ( clickEvent ) {
+		clickEvent.stopPropagation ( );
+		this.#apiKeysControl.newApiKey ( );
+	}
+}
+
+export default NewApiKeyButtonClickEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

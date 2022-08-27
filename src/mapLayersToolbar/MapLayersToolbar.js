@@ -30,7 +30,7 @@ import theTravelNotesData from '../data/TravelNotesData.js';
 import ToolbarItem from '../baseToolbar/ToolbarItem.js';
 import theConfig from '../data/Config.js';
 import theMapLayersCollection from '../data/MapLayersCollection.js';
-import theAPIKeysManager from '../core/APIKeysManager.js';
+import theApiKeysManager from '../core/ApiKeysManager.js';
 import theMapLayersManager from '../core/MapLayersManager.js';
 import theTranslator from '../UILib/Translator.js';
 
@@ -69,7 +69,7 @@ class MapLayersToolbar extends BaseToolbar {
 		theMapLayersCollection.forEach (
 			mapLayer => {
 				if (
-					( mapLayer.providerKeyNeeded && theAPIKeysManager.hasKey ( mapLayer.providerName.toLowerCase ( ) ) )
+					( mapLayer.providerKeyNeeded && theApiKeysManager.hasKey ( mapLayer.providerName.toLowerCase ( ) ) )
 					|| ! mapLayer.providerKeyNeeded
 				) {
 					this.addToolbarItem (

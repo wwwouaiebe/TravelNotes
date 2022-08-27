@@ -40,19 +40,19 @@ handlers for DataEncryptor
 class DataEncryptorHandlers {
 
 	/**
-	A reference to the API keys dialog
-	@type {APIKeysDialog}
+	A reference to the ApiKeys dialog
+	@type {ApiKeysDialog}
 	*/
 
-	#APIKeysDialog;
+	#ApiKeysDialog;
 
 	/**
 	The constructor
-	@param {APIKeysDialog} APIKeysDialog A reference to the API keys dialog
+	@param {ApiKeysDialog} ApiKeysDialog A reference to the ApiKeys dialog
 	*/
 
-	constructor ( APIKeysDialog ) {
-		this.#APIKeysDialog = APIKeysDialog;
+	constructor ( ApiKeysDialog ) {
+		this.#ApiKeysDialog = ApiKeysDialog;
 		Object.freeze ( this );
 	}
 
@@ -62,10 +62,10 @@ class DataEncryptorHandlers {
 	*/
 
 	onErrorDecrypt ( err ) {
-		this.#APIKeysDialog.hideWait ( );
-		this.#APIKeysDialog.keyboardELEnabled = true;
+		this.#ApiKeysDialog.hideWait ( );
+		this.#ApiKeysDialog.keyboardELEnabled = true;
 		if ( err && 'Canceled by user' !== err ) {
-			this.#APIKeysDialog.showError (
+			this.#ApiKeysDialog.showError (
 				theTranslator.getText ( 'DataEncryptorHandlers - An error occurs when reading the file' )
 			);
 		}
@@ -78,7 +78,7 @@ class DataEncryptorHandlers {
 
 	onOkDecrypt ( data ) {
 		try {
-			this.#APIKeysDialog.addAPIKeys (
+			this.#ApiKeysDialog.addApiKeys (
 				JSON.parse ( new TextDecoder ( ).decode ( data ) )
 			);
 		}
@@ -86,9 +86,9 @@ class DataEncryptorHandlers {
 			this.onErrorDecrypt ( err );
 			return;
 		}
-		this.#APIKeysDialog.hideWait ( );
-		this.#APIKeysDialog.hideError ( );
-		this.#APIKeysDialog.keyboardELEnabled = true;
+		this.#ApiKeysDialog.hideWait ( );
+		this.#ApiKeysDialog.hideError ( );
+		this.#ApiKeysDialog.keyboardELEnabled = true;
 	}
 
 	/**
@@ -97,10 +97,10 @@ class DataEncryptorHandlers {
 	*/
 
 	onOkEncrypt ( data ) {
-		this.#APIKeysDialog.hideError ( );
-		this.#APIKeysDialog.hideWait ( );
-		theUtilities.saveFile ( 'APIKeys', data );
-		this.#APIKeysDialog.keyboardELEnabled = true;
+		this.#ApiKeysDialog.hideError ( );
+		this.#ApiKeysDialog.hideWait ( );
+		theUtilities.saveFile ( 'ApiKeys', data );
+		this.#ApiKeysDialog.keyboardELEnabled = true;
 	}
 
 	/**
@@ -108,11 +108,11 @@ class DataEncryptorHandlers {
 	*/
 
 	onErrorEncrypt ( ) {
-		this.#APIKeysDialog.showError (
+		this.#ApiKeysDialog.showError (
 			theTranslator.getText ( 'DataEncryptorHandlers - An error occurs when saving the keys' )
 		);
-		this.#APIKeysDialog.hideWait ( );
-		this.#APIKeysDialog.keyboardELEnabled = true;
+		this.#ApiKeysDialog.hideWait ( );
+		this.#ApiKeysDialog.keyboardELEnabled = true;
 	}
 
 }

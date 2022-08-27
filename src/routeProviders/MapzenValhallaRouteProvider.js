@@ -172,7 +172,7 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 
 	/**
 	Gives the url to call
-	@return {String} a string with the url, wayPoints, transitMode, user language and API key
+	@return {String} a string with the url, wayPoints, transitMode, user language and Api key
 	*/
 
 	#getUrl ( ) {

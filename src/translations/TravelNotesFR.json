@@ -20,51 +20,51 @@
 		"msgstr": "Vous voulez créer {maneuversLength} notes. Pour des raisons de performance, le nombre de notes est limité à {maxManeuversNotes} pour cette démo. Modifiez votre trajet."
 	},
 	{
-		"msgid": "APIKeysDialog - empty API key name or value",
+		"msgid": "ApiKeysDialog - empty api key name or value",
 		"msgstr": "Un nom de clé ou une clé d'accès n'est pas complété"
 	},
 	{
-		"msgid": "APIKeyControlRow - API key",
+		"msgid": "ApiKeyControlRow - api key",
 		"msgstr": "Clé d'accès"
 	},
 	{
-		"msgid": "APIKeyControlRow - delete API key",
+		"msgid": "ApiKeyControlRow - delete api key",
 		"msgstr": "effacer la clé d'accès"
 	},
 	{
-		"msgid": "APIKeyControlRow - provider name",
+		"msgid": "ApiKeyControlRow - provider name",
 		"msgstr": "Fournisseur"
 	},
 	{
-		"msgid": "APIKeysDialog - API keys",
+		"msgid": "ApiKeysDialog - api keys",
 		"msgstr": "Clés d'accès"
 	},
 	{
-		"msgid": "APIKeysDialogToolbar - new API key",
+		"msgid": "ApiKeysDialogToolbar - new api key",
 		"msgstr": "Nouvelle clé d'accès"
 	},
 	{
-		"msgid": "APIKeysDialogToolbar - Open file",
+		"msgid": "ApiKeysDialogToolbar - Open file",
 		"msgstr": "Ouvrir un fichier avec mot de passe"
 	},
 	{
-		"msgid": "APIKeysDialogToolbar - Open json file",
+		"msgid": "ApiKeysDialogToolbar - Open json file",
 		"msgstr": "Ouvrir un fichier sans mot de passe"
 	},
 	{
-		"msgid": "APIKeysDialogToolbar - Reload from server",
+		"msgid": "ApiKeysDialogToolbar - Reload from server",
 		"msgstr": "Recharger les clefs d'accès depuis le serveur web"
 	},
 	{
-		"msgid": "APIKeysDialogToolbar - Save to file",
+		"msgid": "ApiKeysDialogToolbar - Save to file",
 		"msgstr": "Sauver dans un fichier avec mot de passe"
 	},
 	{
-		"msgid": "APIKeysDialogToolbar - Save to json file",
+		"msgid": "ApiKeysDialogToolbar - Save to json file",
 		"msgstr": "Sauver dans un fichier SANS mot de passe"
 	},
 	{
-		"msgid": "APIKeysManager - An error occurs when reading the APIKeys file",
+		"msgid": "ApiKeysManager - An error occurs when reading the ApiKeys file",
 		"msgstr": "Une erreur est survenue lors de la lecture des clefs d'accès"
 	},
 	{
@@ -160,15 +160,15 @@
 		"msgstr": "Point-nœud "
 	},
 	{
-		"msgid": "Help - Complete the APIKeys1",
+		"msgid": "Help - Complete the ApiKeys1",
 		"msgstr": "Utilisez le bouton + pour ajouter un fournisseur."
 	},
 	{
-		"msgid": "Help - Complete the APIKeys2",
+		"msgid": "Help - Complete the ApiKeys2",
 		"msgstr": "Introduisez à gauche le nom du fournisseur d'accès. Celui-ci doit être 'Mapbox', 'GraphHopper', 'OpenRouteservice' ou 'MapzenValhalla' pour un fournisseur d'itinéraires ou 'Mapbox, 'Thunderforest' ou 'Lantmateriet' pour un fournisseur de cartes."
 	},
 	{
-		"msgid": "Help - Complete the APIKeys3",
+		"msgid": "Help - Complete the ApiKeys3",
 		"msgstr": "Complétez à droite avec votre clef d'accès"
 	},
 	{
@@ -1048,7 +1048,7 @@
 		"msgstr": "À propos de Travel & Notes"
 	},
 	{
-		"msgid": "TravelNotesToolbar - API keys",
+		"msgid": "TravelNotesToolbar - api keys",
 		"msgstr": "Gestion des clés d'accès"
 	},
 	{

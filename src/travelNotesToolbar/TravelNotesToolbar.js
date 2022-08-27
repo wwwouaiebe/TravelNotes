@@ -27,7 +27,7 @@ Tests ...
 import AboutDialog from '../aboutDialog/AboutDialog.js';
 import BaseToolbar from '../baseToolbar/BaseToolbar.js';
 import ToolbarItem from '../baseToolbar/ToolbarItem.js';
-import theAPIKeysManager from '../core/APIKeysManager.js';
+import theApiKeysManager from '../core/ApiKeysManager.js';
 import theGeoLocator from '../core/GeoLocator.js';
 import theConfig from '../data/Config.js';
 import theTranslator from '../UILib/Translator.js';
@@ -250,13 +250,15 @@ class TravelNotesToolbar extends BaseToolbar {
 				( theConfig.TravelNotesToolbar.contactMail.url || window.location.origin )
 			)
 		);
-		this.addToolbarItem (
-			new ToolbarItem (
-				'🔑',
-				theTranslator.getText ( 'TravelNotesToolbar - API keys' ),
-				( ) => { theAPIKeysManager.setKeysFromDialog ( ); }
-			)
-		);
+		if ( theConfig.ApiKeysDialog.showButton ) {
+			this.addToolbarItem (
+				new ToolbarItem (
+					'🔑',
+					theTranslator.getText ( 'TravelNotesToolbar - api keys' ),
+					( ) => { theApiKeysManager.setKeysFromDialog ( ); }
+				)
+			);
+		}
 		this.addToolbarItem (
 			new ToolbarItem (
 				'🌐',

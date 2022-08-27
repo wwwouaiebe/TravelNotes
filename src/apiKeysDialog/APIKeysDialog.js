@@ -20,9 +20,9 @@ Changes:
 	- v1.6.0:
 		- created
 	- v1.10.0:
-		- Issue ♯107 : Add a button to reload the APIKeys file in the API keys dialog
+		- Issue ♯107 : Add a button to reload the ApiKeys file in the ApiKeys dialog
 	- v1.11.0:
-		- Issue ♯108 : Add a warning when an error occurs when reading the APIKeys file at startup reopened
+		- Issue ♯108 : Add a warning when an error occurs when reading the ApiKeys file at startup reopened
 	- v1.11.0:
 		- Issue ♯113 : When more than one dialog is opened, using thr Esc or Return key close all the dialogs
 	- v2.0.0:
@@ -39,28 +39,28 @@ Tests ...
 */
 
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
-import APIKeysDialogToolbar from '../apiKeysDialog/APIKeysDialogToolbar.js';
+import ApiKeysDialogToolbar from '../apiKeysDialog/ApiKeysDialogToolbar.js';
 import theTranslator from '../UILib/Translator.js';
-import APIKeysControl from '../apiKeysDialog/APIKeysControl.js';
+import ApiKeysControl from '../apiKeysDialog/ApiKeysControl.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This class is the APIKeys dialog
+This class is the ApiKeys dialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class APIKeysDialog extends ModalBaseDialog {
+class ApiKeysDialog extends ModalBaseDialog {
 
 	/**
 	The dialog toolbar
-	@type {APIKeysDialogToolbar}
+	@type {ApiKeysDialogToolbar}
 	*/
 
 	#toolbar;
 
 	/**
-	A div that contains the APIKeyControl
+	A div that contains the ApiKeysControl
 	@type {HTMLElement}
 	*/
 
@@ -68,15 +68,15 @@ class APIKeysDialog extends ModalBaseDialog {
 
 	/**
 	The constructor
-	@param {Array.<APIKey>} apiKeys An array with the existing APIKeys
-	@param {Boolean} haveAPIKeysFile A boolean indicating when a APIKey file was found on the server
+	@param {Array.<ApiKey>} apiKeys An array with the existing ApiKeys
+	@param {Boolean} haveApiKeysFile A boolean indicating when a ApiKey file was found on the server
 	*/
 
-	constructor ( apiKeys, haveAPIKeysFile ) {
+	constructor ( apiKeys, haveApiKeysFile ) {
 		super ( );
-		this.#apiKeysControl = new APIKeysControl ( );
-		this.#toolbar = new APIKeysDialogToolbar ( this, this.#apiKeysControl, haveAPIKeysFile );
-		this.#apiKeysControl.addAPIKeys ( apiKeys );
+		this.#apiKeysControl = new ApiKeysControl ( );
+		this.#toolbar = new ApiKeysDialogToolbar ( this, this.#apiKeysControl, haveApiKeysFile );
+		this.#apiKeysControl.addApiKeys ( apiKeys );
 	}
 
 	/**
@@ -90,23 +90,23 @@ class APIKeysDialog extends ModalBaseDialog {
 	}
 
 	/**
-	Validate the APIKeys. Each APIKey must have a not empty name and a not empty key.
-	Duplicate APIKey names are not allowed
+	Validate the ApiKeys. Each ApiKey must have a not empty name and a not empty key.
+	Duplicate ApiKey names are not allowed
 	@return {Boolean} true when all the keys are valid and not duplicated
 	*/
 
-	validateAPIKeys ( ) {
+	validateApiKeys ( ) {
 		this.hideError ( );
 		const HaveEmptyOrDuplicate = this.#apiKeysControl.haveEmptyOrDuplicateValues ( );
 		if ( HaveEmptyOrDuplicate.haveEmpty ) {
 			this.showError (
-				theTranslator.getText ( 'APIKeysDialog - empty API key name or value' )
+				theTranslator.getText ( 'ApiKeysDialog - empty api key name or value' )
 			);
 			return false;
 		}
 		else if ( HaveEmptyOrDuplicate.haveDuplicate ) {
 			this.showError (
-				theTranslator.getText ( 'APIKeysDialog - duplicate API key name found' )
+				theTranslator.getText ( 'ApiKeysDialog - duplicate api key name found' )
 			);
 			return false;
 		}
@@ -117,21 +117,22 @@ class APIKeysDialog extends ModalBaseDialog {
 	Overload of the BaseDialog.onShow ( ) method.
 	*/
 
-	onShow ( ) {
+	show ( ) {
 		theErrorsUI.showHelp (
-			'<p>' + theTranslator.getText ( 'Help - Complete the APIKeys1' ) + '</p>' +
-			'<p>' + theTranslator.getText ( 'Help - Complete the APIKeys2' ) + '</p>' +
-			'<p>' + theTranslator.getText ( 'Help - Complete the APIKeys3' ) + '</p>'
+			'<p>' + theTranslator.getText ( 'Help - Complete the ApiKeys1' ) + '</p>' +
+			'<p>' + theTranslator.getText ( 'Help - Complete the ApiKeys2' ) + '</p>' +
+			'<p>' + theTranslator.getText ( 'Help - Complete the ApiKeys3' ) + '</p>'
 		);
+		return super.show ( );
 	}
 
 	/**
 	Overload of the BaseDialog.canClose ( ) method.
-	@return {Boolean} true when all the APIKeys have a name and a value and there are no duplicate keys name
+	@return {Boolean} true when all the ApiKeys have a name and a value and there are no duplicate keys name
 	*/
 
 	canClose ( ) {
-		return this.validateAPIKeys ( );
+		return this.validateApiKeys ( );
 	}
 
 	/**
@@ -158,7 +159,7 @@ class APIKeysDialog extends ModalBaseDialog {
 	@type {String}
 	*/
 
-	get title ( ) { return theTranslator.getText ( 'APIKeysDialog - API keys' ); }
+	get title ( ) { return theTranslator.getText ( 'ApiKeysDialog - api keys' ); }
 
 	/**
 	An HTMLElement that have to be added as toolbar for the dialog.
@@ -180,15 +181,15 @@ class APIKeysDialog extends ModalBaseDialog {
 	}
 
 	/**
-	Add an array of APIKeys to the dialog.
-	@param {Array.<APIKey>} apiKeys An array with the APIKeys to add
+	Add an array of ApiKeys to the dialog.
+	@param {Array.<ApiKey>} apiKeys An array with the ApiKeys to add
 	*/
 
-	addAPIKeys ( apiKeys ) {
-		this.#apiKeysControl.addAPIKeys ( apiKeys );
+	addApiKeys ( apiKeys ) {
+		this.#apiKeysControl.addApiKeys ( apiKeys );
 	}
 }
 
-export default APIKeysDialog;
+export default ApiKeysDialog;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

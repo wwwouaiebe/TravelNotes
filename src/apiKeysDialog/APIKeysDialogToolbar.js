@@ -31,43 +31,42 @@ Tests ...
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import {
-	RestoreFromUnsecureFileButtonClickEL,
-	ReloadFromServerButtonClickEL,
-	RestoreFromSecureFileButtonClickEL,
-	SaveToSecureFileButtonClickEL,
-	SaveToUnsecureFileButtonClickEL,
-	NewAPIKeyButtonClickEL
-} from '../apiKeysDialog/APIKeysDialogEL.js';
+import RestoreFromUnsecureFileButtonClickEL from '../apiKeysDialog/RestoreFromUnsecureFileButtonClickEL.js';
+import ReloadFromServerButtonClickEL from '../apiKeysDialog/ReloadFromServerButtonClickEL.js';
+import RestoreFromSecureFileButtonClickEL from '../apiKeysDialog/RestoreFromSecureFileButtonClickEL.js';
+import SaveToSecureFileButtonClickEL from '../apiKeysDialog/SaveToSecureFileButtonClickEL.js';
+import SaveToUnsecureFileButtonClickEL from '../apiKeysDialog/SaveToUnsecureFileButtonClickEL.js';
+
+import NewApiKeyButtonClickEL from '../apiKeysDialog/NewApiKeyButtonClickEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This is the toolbar for the APIKeysDialog. Display 6 buttons on top of dialog.
+This is the toolbar for the ApiKeysDialog. Display 6 buttons on top of dialog.
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class APIKeysDialogToolbar {
+class ApiKeysDialogToolbar {
 
 	/**
-	A reference to the APIKeysDialog Object
-	@type {APIKeysDialog}
+	A reference to the ApiKeysDialog Object
+	@type {ApiKeysDialog}
 	*/
 
-	#APIKeysDialog;
+	#apiKeysDialog;
 
 	/**
-	A reference to the API keys control
+	A reference to the api keys control
 	@type {ApiKeysControl}
 	*/
 
 	#apiKeysControl;
 
 	/**
-	Store the status of the APIKeys file
+	Store the status of the ApiKeys file
 	@type {Boolean}
 	*/
 
-	#haveAPIKeysFile;
+	#haveApiKeysFile;
 
 	/**
 	The root HTML element of the control
@@ -98,11 +97,11 @@ class APIKeysDialogToolbar {
 	#restoreKeysFromSecureFileButton;
 
 	/**
-	The new APIKey button
+	The new ApiKey button
 	@type {HTMLElement}
 	*/
 
-	#newAPIKeyButton;
+	#newApiKeyButton;
 
 	/**
 	The save keys to unsecure file button
@@ -140,11 +139,11 @@ class APIKeysDialogToolbar {
 	#restoreFromSecureFileButtonClickEL;
 
 	/**
-	Event listener for the new API key button
-	@type {NewAPIKeyButtonClickEL}
+	Event listener for the new api key button
+	@type {NewApiKeyButtonClickEL}
 	*/
 
-	#newAPIKeyButtonClickEL;
+	#newApiKeyButtonClickEL;
 
 	/**
 	Event listener for the save to unsecure file button
@@ -169,13 +168,13 @@ class APIKeysDialogToolbar {
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-Button',
-				title : theTranslator.getText ( 'APIKeysDialogToolbar - Reload from server' ),
+				title : theTranslator.getText ( 'ApiKeysDialogToolbar - Reload from server' ),
 				textContent : '🔄'
 			},
 			this.#rootHTMLElement
 		);
 		this.#reloadFromServerButtonClickEL =
-			new ReloadFromServerButtonClickEL ( this.#APIKeysDialog );
+			new ReloadFromServerButtonClickEL ( this.#apiKeysDialog );
 		this.#reloadKeysFromServerButton.addEventListener (
 			'click',
 			this.#reloadFromServerButtonClickEL,
@@ -192,13 +191,13 @@ class APIKeysDialogToolbar {
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-Button',
-				title : theTranslator.getText ( 'APIKeysDialogToolbar - Save to file' ),
+				title : theTranslator.getText ( 'ApiKeysDialogToolbar - Save to file' ),
 				textContent : '💾'
 			},
 			this.#rootHTMLElement
 		);
 		this.#saveToSecureFileButtonClickEL =
-			new SaveToSecureFileButtonClickEL ( this.#APIKeysDialog, this.#apiKeysControl );
+			new SaveToSecureFileButtonClickEL ( this.#apiKeysDialog, this.#apiKeysControl );
 		this.#saveKeysToSecureFileButton.addEventListener (
 			'click',
 			this.#saveToSecureFileButtonClickEL,
@@ -215,13 +214,13 @@ class APIKeysDialogToolbar {
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-Button',
-				title : theTranslator.getText ( 'APIKeysDialogToolbar - Open file' ),
+				title : theTranslator.getText ( 'ApiKeysDialogToolbar - Open file' ),
 				textContent : '📂'
 			},
 			this.#rootHTMLElement
 		);
 		this.#restoreFromSecureFileButtonClickEL =
-			new RestoreFromSecureFileButtonClickEL ( this.#APIKeysDialog );
+			new RestoreFromSecureFileButtonClickEL ( this.#apiKeysDialog );
 		this.#restoreKeysFromSecureFileButton.addEventListener (
 			'click',
 			this.#restoreFromSecureFileButtonClickEL,
@@ -230,24 +229,24 @@ class APIKeysDialogToolbar {
 	}
 
 	/**
-	Create the AddNewAPIKey Button
+	Create the AddNewApiKey Button
 	*/
 
-	#createNewAPIKeyButton ( ) {
-		this.#newAPIKeyButton = theHTMLElementsFactory.create (
+	#createNewApiKeyButton ( ) {
+		this.#newApiKeyButton = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-Button',
-				title : theTranslator.getText ( 'APIKeysDialogToolbar - new API key' ),
+				title : theTranslator.getText ( 'ApiKeysDialogToolbar - new api key' ),
 				textContent : '+'
 			},
 			this.#rootHTMLElement
 		);
-		this.#newAPIKeyButtonClickEL =
-			new NewAPIKeyButtonClickEL ( this.#apiKeysControl );
-		this.#newAPIKeyButton.addEventListener (
+		this.#newApiKeyButtonClickEL =
+			new NewApiKeyButtonClickEL ( this.#apiKeysControl );
+		this.#newApiKeyButton.addEventListener (
 			'click',
-			this.#newAPIKeyButtonClickEL,
+			this.#newApiKeyButtonClickEL,
 			false
 		);
 	}
@@ -260,14 +259,14 @@ class APIKeysDialogToolbar {
 		this.#saveKeysToUnsecureFileButton = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-Button TravelNotes-APIKeysDialog-AtRightButton',
-				title : theTranslator.getText ( 'APIKeysDialogToolbar - Save to json file' ),
+				className : 'TravelNotes-BaseDialog-Button TravelNotes-ApiKeysDialog-AtRightButton',
+				title : theTranslator.getText ( 'ApiKeysDialogToolbar - Save to json file' ),
 				textContent : '💾'
 			},
 			this.#rootHTMLElement
 		);
 		this.#saveToUnsecureFileButtonClickEL =
-			new SaveToUnsecureFileButtonClickEL ( this.#APIKeysDialog, this.#apiKeysControl );
+			new SaveToUnsecureFileButtonClickEL ( this.#apiKeysDialog, this.#apiKeysControl );
 		this.#saveKeysToUnsecureFileButton.addEventListener (
 			'click',
 			this.#saveToUnsecureFileButtonClickEL,
@@ -284,13 +283,13 @@ class APIKeysDialogToolbar {
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-Button',
-				title : theTranslator.getText ( 'APIKeysDialogToolbar - Open json file' ),
+				title : theTranslator.getText ( 'ApiKeysDialogToolbar - Open json file' ),
 				textContent : '📂'
 			},
 			this.#rootHTMLElement
 		);
 		this.#restoreFromUnsecureFileButtonClickEL =
-			new RestoreFromUnsecureFileButtonClickEL ( this.#APIKeysDialog );
+			new RestoreFromUnsecureFileButtonClickEL ( this.#apiKeysDialog );
 		this.#restoreKeysFromUnsecureFileButton.addEventListener (
 			'click',
 			this.#restoreFromUnsecureFileButtonClickEL,
@@ -304,16 +303,16 @@ class APIKeysDialogToolbar {
 
 	#addToolbarButtons ( ) {
 		if ( window?.crypto?.subtle?.importKey && window.isSecureContext ) {
-			if ( this.#haveAPIKeysFile ) {
+			if ( this.#haveApiKeysFile ) {
 				this.#createReloadKeysFromServerButton ( );
 			}
 			this.#createSaveKeysToSecureFileButton ( );
 			this.#createRestoreKeysFromSecureFileButton ( );
 		}
 
-		this.#createNewAPIKeyButton ( );
+		this.#createNewApiKeyButton ( );
 
-		if ( theConfig.APIKeysDialog.haveUnsecureButtons ) {
+		if ( theConfig.ApiKeysDialog.haveUnsecureButtons ) {
 			this.#createSaveKeysToUnsecureFileButton ( );
 			this.#createRestoreKeysFromUnsecureFileButton ( );
 		}
@@ -321,19 +320,19 @@ class APIKeysDialogToolbar {
 
 	/**
 	The constructor
-	@param {APIKeysDialog} APIKeysDialog A reference to the dialog
+	@param {ApiKeysDialog} ApiKeysDialog A reference to the dialog
 	@param {Map} apiKeysControl A reference to the apiKeysControl object
-	@param {Boolean} haveAPIKeysFile  A boolean indicating when the APIKeys file was found on the server
+	@param {Boolean} haveApiKeysFile  A boolean indicating when the ApiKeys file was found on the server
 	*/
 
-	constructor ( APIKeysDialog, apiKeysControl, haveAPIKeysFile ) {
-		this.#APIKeysDialog = APIKeysDialog;
+	constructor ( apiKeysDialog, apiKeysControl, haveApiKeysFile ) {
+		this.#apiKeysDialog = apiKeysDialog;
 		this.#apiKeysControl = apiKeysControl;
-		this.#haveAPIKeysFile = haveAPIKeysFile;
+		this.#haveApiKeysFile = haveApiKeysFile;
 		this.#rootHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				id : 'TravelNotes-APIKeysDialog-ToolbarDiv'
+				id : 'TravelNotes-ApiKeysDialog-ToolbarDiv'
 			}
 		);
 
@@ -373,14 +372,14 @@ class APIKeysDialogToolbar {
 		}
 		this.#restoreFromSecureFileButtonClickEL = null;
 
-		if ( this.#newAPIKeyButton ) {
-			this.#newAPIKeyButton.removeEventListener (
+		if ( this.#newApiKeyButton ) {
+			this.#newApiKeyButton.removeEventListener (
 				'click',
-				this.#newAPIKeyButtonClickEL,
+				this.#newApiKeyButtonClickEL,
 				false
 			);
 		}
-		this.#newAPIKeyButtonClickEL = null;
+		this.#newApiKeyButtonClickEL = null;
 
 		if ( this.#saveKeysToUnsecureFileButton ) {
 			this.#saveKeysToUnsecureFileButton.removeEventListener (
@@ -412,6 +411,6 @@ class APIKeysDialogToolbar {
 
 }
 
-export default APIKeysDialogToolbar;
+export default ApiKeysDialogToolbar;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

@@ -19,27 +19,25 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v4.0.0:
 		- Created
-Doc reviewed ...
+Doc reviewed 20220827
 Tests ...
 */
 
 import BaseControl from '../baseControl/BaseControl.js';
-import { APIKeyDeletedEL } from '../apiKeysDialog/APIKeysDialogEL.js';
-import APIKeyControlRow from '../apiKeysDialog/APIKeyControlRow.js';
-import { APIKey } from '../coreLib/Containers.js';
-
-import { ZERO } from '../main/Constants.js';
+import ApiKeyDeletedEL from '../apiKeysDialog/ApiKeyDeletedEL.js';
+import ApiKeyControlRow from '../apiKeysDialog/ApiKeyControlRow.js';
+import { ApiKey } from '../coreLib/Containers.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This class is the APIKeys control of the APIKeysDialog
+This class is the ApiKeys control of the ApiKeysDialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ApiKeysControl extends BaseControl {
 
 	/**
-	A map to store the rows of the APIKeyControl object
+	A map to store the rows of the ApiKeyControl object
 	@type {Map}
 	*/
 
@@ -47,10 +45,10 @@ class ApiKeysControl extends BaseControl {
 
 	/**
 	Api key deleted event listener
-	@type {APIKeyDeletedEL}
+	@type {ApiKeyDeletedEL}
 	*/
 
-	#onAPIKeyDeletedEventListener;
+	#apiKeyDeletedEL;
 
 	/**
 	The constructor
@@ -59,8 +57,8 @@ class ApiKeysControl extends BaseControl {
 	constructor ( ) {
 		super ( );
 		this.#apiKeysControlRowsMap = new Map ( );
-		this.#onAPIKeyDeletedEventListener = new APIKeyDeletedEL ( this, this.#apiKeysControlRowsMap );
-		this.controlHTMLElement.addEventListener ( 'apikeydeleted', this.#onAPIKeyDeletedEventListener, false );
+		this.#apiKeyDeletedEL = new ApiKeyDeletedEL ( this, this.#apiKeysControlRowsMap );
+		this.controlHTMLElement.addEventListener ( 'apikeydeleted', this.#apiKeyDeletedEL, false );
 	}
 
 	/**
@@ -68,8 +66,8 @@ class ApiKeysControl extends BaseControl {
 	*/
 
 	destructor ( ) {
-		this.controlHTMLElement.removeEventListener ( 'apikeydeleted', this.#onAPIKeyDeletedEventListener, false );
-		this.#onAPIKeyDeletedEventListener = null;
+		this.controlHTMLElement.removeEventListener ( 'apikeydeleted', this.#apiKeyDeletedEL, false );
+		this.#apiKeyDeletedEL = null;
 		this.#apiKeysControlRowsMap.clear ( );
 	}
 
@@ -105,48 +103,48 @@ class ApiKeysControl extends BaseControl {
 	}
 
 	/**
-	Add an array of APIKeys to the control.
-	@param {Array.<APIKey>} apiKeys An array with the APIKeys to add
+	Add an array of ApiKeys to the control.
+	@param {Array.<ApiKey>} apiKeys An array with the ApiKeys to add
 	*/
 
-	addAPIKeys ( apiKeys ) {
+	addApiKeys ( apiKeys ) {
 		this.#apiKeysControlRowsMap.clear ( );
 		apiKeys.forEach (
 			apiKey => {
-				const apiKeyControl = new APIKeyControlRow ( apiKey );
+				const apiKeyControl = new ApiKeyControlRow ( apiKey );
 				this.#apiKeysControlRowsMap.set ( apiKeyControl.objId, apiKeyControl );
 			}
 		);
-		this.refreshAPIKeys ( );
+		this.refreshApiKeys ( );
 	}
 
 	/**
-	Add a new APIKey to the control.
+	Add a new ApiKey to the control.
 	*/
 
 	newApiKey ( ) {
-		const apiKey = new APIKey ( );
-		const apiKeyControlRow = new APIKeyControlRow ( apiKey );
+		const apiKey = new ApiKey ( );
+		const apiKeyControlRow = new ApiKeyControlRow ( apiKey );
 		this.#apiKeysControlRowsMap.set ( apiKeyControlRow.objId, apiKeyControlRow );
-		this.refreshAPIKeys ( );
+		this.refreshApiKeys ( );
 	}
 
 	/**
-	Remove all elements from the #apiKeysControl and add the existing APIKeys
+	Remove all elements from the #apiKeysControl and add the existing ApiKeys
 	*/
 
-	refreshAPIKeys ( ) {
+	refreshApiKeys ( ) {
 		while ( this.controlHTMLElement.firstChild ) {
 			this.controlHTMLElement.removeChild ( this.controlHTMLElement.firstChild );
 		}
 		this.#apiKeysControlRowsMap.forEach (
-			apiKeyControl => { this.controlHTMLElement.appendChild ( apiKeyControl.HTMLElements [ ZERO ] ); }
+			apiKeyControlRow => { this.controlHTMLElement.appendChild ( apiKeyControlRow.HTMLElement ); }
 		);
 	}
 
 	/**
-	Get an array with the APIKeys in the control
-	@type {Array.<APIKey>}
+	Get an array with the ApiKeys in the control
+	@type {Array.<ApiKey>}
 	*/
 
 	get apiKeys ( ) {
@@ -158,7 +156,7 @@ class ApiKeysControl extends BaseControl {
 	}
 
 	/**
-	Get a JSON string with the APIKeys in the control
+	Get a JSON string with the ApiKeys in the control
 	@type {String}
 	*/
 

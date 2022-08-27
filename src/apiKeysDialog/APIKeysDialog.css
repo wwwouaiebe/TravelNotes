@@ -20,34 +20,34 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v1.12.0:
 		- Issue #120 : Review the UserInterface
-Doc reviewed ...
+Doc reviewed 20220827
 */
 
-#TravelNotes-APIKeysDialog-DataDiv {
+#TravelNotes-ApiKeysDialog-DataDiv {
 	margin-top: 1em;
 	width: 39em;
 }
 
-#TravelNotes-APIKeysDialog-ToolbarDiv {
+#TravelNotes-ApiKeysDialog-ToolbarDiv {
 	margin-bottom: 0.5em;
 	display: flex;
 	flex-direction: row;
 	width: 39em;
 }
 
-.TravelNotes-APIKeysDialog-AtRightButton {
+.TravelNotes-ApiKeysDialog-AtRightButton {
 	margin-left: auto;
 }
 
-.TravelNotes-APIKeysDialog-Input {
+.TravelNotes-ApiKeysDialog-Input {
 	margin: 0.2em;
 }
 
-.TravelNotes-APIKeysDialog-ApiKeyName {
+.TravelNotes-ApiKeysDialog-ApiKeyName {
 	width: 10em;
 }
 
-.TravelNotes-APIKeysDialog-ApiKeyValue {
+.TravelNotes-ApiKeysDialog-ApiKeyValue {
 	width: 20em;
 }
 

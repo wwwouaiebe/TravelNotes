@@ -37,7 +37,7 @@ const travelNotesCss = [
 	'src/baseDialog/BaseDialog.css',
 	'src/baseDialog/DockableBaseDialog.css',
 	'src/aboutDialog/AboutDialog.css',
-	'src/apiKeysdialog/APIKeysDialog.css',
+	'src/apiKeysdialog/ApiKeysDialog.css',
 	'src/notesDialog/NoteDialog.css',
 	'src/osmSearchDialog/OsmSearchDialog.css',
 	'src/passwordDialog/PasswordDialog.css',

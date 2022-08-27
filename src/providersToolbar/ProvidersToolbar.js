@@ -44,7 +44,7 @@ import theTravelNotesData from '../data/TravelNotesData.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import TransitModeButton from '../providersToolbar/TransitModeButton.js';
 import ProviderButton from '../providersToolbar/ProviderButton.js';
-import theAPIKeysManager from '../core/APIKeysManager.js';
+import theApiKeysManager from '../core/ApiKeysManager.js';
 import { NOT_FOUND, ZERO, TWO } from '../main/Constants.js';
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
@@ -158,7 +158,7 @@ class ProvidersToolbar {
 	#createProvidersButtons ( ) {
 		theTravelNotesData.providers.forEach (
 			provider => {
-				if ( ! provider.providerKeyNeeded || theAPIKeysManager.hasKey ( provider.name ) ) {
+				if ( ! provider.providerKeyNeeded || theApiKeysManager.hasKey ( provider.name ) ) {
 					const providerButton = new ProviderButton ( this, provider );
 					this.#providerButtons.set ( provider.name, providerButton );
 					this.#buttonsHTMLElement.appendChild ( providerButton.buttonHTMLElement );

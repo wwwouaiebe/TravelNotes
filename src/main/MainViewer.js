@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 	- v1.6.0:
 		- created
 	- v2.0.0:
-		- Issue ♯133 : Outphase reading the APIKeys with the url
+		- Issue ♯133 : Outphase reading the ApiKeys with the url
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:

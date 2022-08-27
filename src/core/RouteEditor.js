@@ -55,7 +55,7 @@ Tests 20210902
 */
 
 import theTranslator from '../UILib/Translator.js';
-import theAPIKeysManager from '../core/APIKeysManager.js';
+import theApiKeysManager from '../core/ApiKeysManager.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
@@ -123,7 +123,7 @@ class RouteEditor {
 			(
 				( ! provider )
 				||
-				( provider.providerKeyNeeded && ! theAPIKeysManager.hasKey ( providerName ) )
+				( provider.providerKeyNeeded && ! theApiKeysManager.hasKey ( providerName ) )
 			)
 		) {
 			theErrorsUI.showError (

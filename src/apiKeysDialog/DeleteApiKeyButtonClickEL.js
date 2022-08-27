@@ -17,22 +17,47 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 /*
-	Changes:
-	- v1.6.0:
-		- created
-	- v1.13.0:
-		- Issue ♯125 : Outphase osmSearch and add it to TravelNotes
-	- v2.0.0:
-		- Issue ♯133 : Outphase reading the ApiKeys with the url
+Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
+	-v 4.0.0:
+		- Issue ♯48 : Review the dialogs
+Doc reviewed 20220827
 Tests ...
 */
 
-import AppLoader from '../main/AppLoader.js';
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+Event listener for click event on the delete key button
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
-new AppLoader ( ).loadApp ( );
+class DeleteApiKeyButtonClickEL {
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+	}
+
+	/**
+	Event listener method
+	@param {Event} clickEvent The event to handle
+	*/
+
+	handleEvent ( clickEvent ) {
+		clickEvent.preventDefault ( );
+		clickEvent.stopPropagation ( );
+		const dispatchedEvent = new Event ( 'apikeydeleted' );
+		dispatchedEvent.data = { objId : Number.parseInt ( clickEvent.target.dataset.tanObjId ) };
+		clickEvent.target.parentNode.parentNode.dispatchEvent ( dispatchedEvent );
+	}
+}
+
+export default DeleteApiKeyButtonClickEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

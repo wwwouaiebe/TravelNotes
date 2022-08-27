@@ -1,11 +1,11 @@
 {
-	"APIKeys":
+	"ApiKeys":
 	{
 		"saveToSessionStorage":true
 	},
-	"APIKeysDialog":{
+	"ApiKeysDialog":{
 		"haveUnsecureButtons":true,
-		"showAPIKeys":false,
+		"showApiKeys":false,
 		"showButton":true
 	},
 	"baseDialog":{

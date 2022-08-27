@@ -181,11 +181,11 @@ class LatLngElevOnRoute extends LatLngDistance {
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-A simple container to store a provider name and a provider API key
+A simple container to store a provider name and a provider api key
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class APIKey {
+class ApiKey {
 
 	/**
 	The provider name
@@ -195,7 +195,7 @@ class APIKey {
 	#providerName;
 
 	/**
-	The provider API key
+	The provider api key
 	@type {String}
 	*/
 
@@ -204,7 +204,7 @@ class APIKey {
 	/**
 	The constructor
 	@param {String} providerName The provider name
-	@param {String} providerKey The provider API key
+	@param {String} providerKey The provider api key
 	*/
 
 	constructor ( providerName, providerKey ) {
@@ -221,14 +221,14 @@ class APIKey {
 	get providerName ( ) { return this.#providerName; }
 
 	/**
-	The provider API key
+	The provider api key
 	@type {String}
 	*/
 
 	get providerKey ( ) { return this.#providerKey; }
 
 	/**
-	An object literal with the APIKey properties and without any methods.
+	An object literal with the ApiKey properties and without any methods.
 	This object can be used with the JSON object
 	@type {JsonObject}
 	*/
@@ -237,6 +237,6 @@ class APIKey {
 
 }
 
-export { LatLng, LatLngDistance, LatLngElevOnRoute, APIKey };
+export { LatLng, LatLngDistance, LatLngElevOnRoute, ApiKey };
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

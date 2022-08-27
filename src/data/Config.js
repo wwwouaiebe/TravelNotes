@@ -61,12 +61,12 @@ Class used to store the configuration of the code
 /* eslint-disable no-magic-numbers */
 
 const theConfig = {
-	APIKeys : {
+	ApiKeys : {
 		saveToSessionStorage : true
 	},
-	APIKeysDialog : {
+	ApiKeysDialog : {
 		haveUnsecureButtons : true,
-		showAPIKeys : true,
+		showApiKeys : true,
 		showButton : true
 	},
 	baseDialog : {

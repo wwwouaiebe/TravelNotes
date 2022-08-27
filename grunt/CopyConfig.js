@@ -52,7 +52,8 @@ const debugFiles = [
 		cwd : 'node_modules/osrm-text-instructions/languages/grammar/',
 		src : [ '*.json' ],
 		dest : 'debug/TravelNotesProviders/languages/grammars/'
-	}
+	},
+	{ expand : true, cwd : 'exclude/', src : [ 'ApiKeys', 'TravelNotesConfig.json' ], dest : 'debug/' }
 ];
 const beforeReleaseFiles = [
 	{ expand : true, cwd : '', src : [ 'src/**/*.js' ], dest : 'tmpRelease/' }

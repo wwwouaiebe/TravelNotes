@@ -60,7 +60,7 @@ Tests ...
 import theConfig from '../data/Config.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theRouteEditor from '../core/RouteEditor.js';
-import theAPIKeysManager from '../core/APIKeysManager.js';
+import theApiKeysManager from '../core/ApiKeysManager.js';
 import Travel from '../data/Travel.js';
 import ViewerFileLoader from '../core/ViewerFileLoader.js';
 import { theAppVersion } from '../data/Version.js';
@@ -182,8 +182,8 @@ class TravelNotes {
 			'<p>' + theTranslator.getText ( 'Help - Continue with interface2' ) + '</p>'
 		);
 
-		// Loading the API keys
-		theAPIKeysManager.setKeysFromServerFile ( );
+		// Loading the Api keys
+		theApiKeysManager.setKeysFromServerFile ( );
 
 		// Loading a new empty travel
 		theTravelNotesData.travel.jsonObject = new Travel ( ).jsonObject;
@@ -205,7 +205,7 @@ class TravelNotes {
 	*/
 
 	addProvider ( providerClass ) {
-		theAPIKeysManager.addProvider ( providerClass );
+		theApiKeysManager.addProvider ( providerClass );
 	}
 
 	/**

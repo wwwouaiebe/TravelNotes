@@ -411,7 +411,7 @@ class AppLoader {
 
 			// some special settings for the demo
 			if ( 'wwwouaiebe.github.io' === window.location.hostname ) {
-				config.APIKeysDialog.haveUnsecureButtons = true;
+				config.ApiKeysDialog.haveUnsecureButtons = true;
 				config.errorsUI.showHelp = true;
 				config.layersToolbarUI.theDevil.addButton = false;
 				// eslint-disable-next-line no-magic-numbers

@@ -24,60 +24,31 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	-v 4.0.0:
 		- Issue ♯48 : Review the dialogs
-Doc reviewed 20210914
-Tests ...
+Doc reviewed 20220827
 */
 
 import theTranslator from '../UILib/Translator.js';
 import theConfig from '../data/Config.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import { APIKey } from '../coreLib/Containers.js';
+import { ApiKey } from '../coreLib/Containers.js';
 import ObjId from '../data/ObjId.js';
+import DeleteApiKeyButtonClickEL from '../apiKeysDialog/DeleteApiKeyButtonClickEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-Event listener for click event on the delete key button
+ the ApiKey control row for the ApiKeysDialog. Display  HTML input elements for the providerName and the providerKey
+and a button to remove the ApiKey from the dialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class DeleteButtonClickEL {
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-	}
-
-	/**
-	Event listener method
-	@param {Event} clickEvent The event to handle
-	*/
-
-	handleEvent ( clickEvent ) {
-		clickEvent.stopPropagation ( );
-		const dispatchedEvent = new Event ( 'apikeydeleted' );
-		dispatchedEvent.data = { objId : Number.parseInt ( clickEvent.target.dataset.tanObjId ) };
-		clickEvent.target.parentNode.parentNode.dispatchEvent ( dispatchedEvent );
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
- the APIKey control row for the APIKeysDialog. Display  HTML input elements for the providerName and the providerKey
-and a button to remove the APIKey from the dialog
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class APIKeyControlRow {
+class ApiKeyControlRow {
 
 	/**
 	The root HTML element of the control
 	@type {HTMLElement}
 	*/
 
-	#rootHTMLElement;
+	#rowHTMLElement;
 
 	/**
 	The providerName HTML input element
@@ -102,54 +73,49 @@ class APIKeyControlRow {
 
 	/**
 	The constructor
-	@param {APIKey} apiKey The APIKey to display in the control
+	@param {ApiKey} apiKey The ApiKey to display in the control
 	*/
 
 	constructor ( apiKey ) {
-
+		Object.freeze ( this );
 		this.#objId = ObjId.nextObjId;
-
-		this.#rootHTMLElement = theHTMLElementsFactory.create (
+		this.#rowHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-FlexRow'
 			}
 		);
-
 		this.#providerNameInput = theHTMLElementsFactory.create (
 			'input',
 			{
-				className : 'TravelNotes-APIKeysDialog-ApiKeyName TravelNotes-APIKeysDialog-Input',
+				className : 'TravelNotes-ApiKeysDialog-ApiKeyName TravelNotes-ApiKeysDialog-Input',
 				value : apiKey.providerName,
-				placeholder : theTranslator.getText ( 'APIKeyControlRow - provider name' )
+				placeholder : theTranslator.getText ( 'ApiKeyControlRow - provider name' )
 			},
-			this.#rootHTMLElement
+			this.#rowHTMLElement
 		);
-
 		this.#providerKeyInput = theHTMLElementsFactory.create (
 			'input',
 			{
-				className : 'TravelNotes-APIKeysDialog-ApiKeyValue TravelNotes-APIKeysDialog-Input',
+				className : 'TravelNotes-ApiKeysDialog-ApiKeyValue TravelNotes-ApiKeysDialog-Input',
 				value : apiKey.providerKey,
-				placeholder : theTranslator.getText ( 'APIKeyControlRow - API key' ),
-				type : theConfig.APIKeysDialog.showAPIKeys ? 'text' : 'password'
+				placeholder : theTranslator.getText ( 'ApiKeyControlRow - api key' ),
+				type : theConfig.ApiKeysDialog.showApiKeys ? 'text' : 'password'
 			},
-			this.#rootHTMLElement
+			this.#rowHTMLElement
 		);
-
 		theHTMLElementsFactory.create (
 			'div',
 			{
 				className :
-					'TravelNotes-BaseDialog-Button TravelNotes-APIKeysDialog-AtRightButton',
-				title : theTranslator.getText ( 'APIKeyControlRow - delete API key' ),
+					'TravelNotes-BaseDialog-Button TravelNotes-ApiKeysDialog-AtRightButton',
+				title : theTranslator.getText ( 'ApiKeyControlRow - delete api key' ),
 				textContent : '❌',
 				dataset : { ObjId : this.#objId }
 			},
-			this.#rootHTMLElement
+			this.#rowHTMLElement
 		)
-			.addEventListener ( 'click', new DeleteButtonClickEL ( ), false );
-		Object.freeze ( this );
+			.addEventListener ( 'click', new DeleteApiKeyButtonClickEL ( ), false );
 	}
 
 	/**
@@ -160,11 +126,11 @@ class APIKeyControlRow {
 	get objId ( ) { return this.#objId; }
 
 	/**
-	An array with the root HTML element of the control
+	The root HTML element of row
 	@type {Array.<HTMLElement>}
 	*/
 
-	get HTMLElements ( ) { return [ this.#rootHTMLElement ]; }
+	get HTMLElement ( ) { return this.#rowHTMLElement; }
 
 	/**
 	The providerName
@@ -181,16 +147,15 @@ class APIKeyControlRow {
 	get providerKey ( ) { return this.#providerKeyInput.value; }
 
 	/**
-	The APIKey
-	@type {APIKey}
+	The ApiKey
+	@type {ApiKey}
 	*/
 
 	get apiKey ( ) {
-		return new APIKey ( this.#providerNameInput.value, this.#providerKeyInput.value );
+		return new ApiKey ( this.#providerNameInput.value, this.#providerKeyInput.value );
 	}
-
 }
 
-export default APIKeyControlRow;
+export default ApiKeyControlRow;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

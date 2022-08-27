@@ -27,7 +27,7 @@ Doc reviewed 20210913
 Tests ...
 */
 
-import theAPIKeysManager from '../core/APIKeysManager.js';
+import theApiKeysManager from '../core/ApiKeysManager.js';
 import MapLayer from '../data/MapLayer.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -99,7 +99,7 @@ class MapLayersCollection {
 	getMapLayer ( mapLayerName ) {
 		let mapLayer = this.#mapLayers.get ( mapLayerName ) || this.#defaultMapLayer;
 		if ( mapLayer.providerKeyNeeded ) {
-			if ( ! theAPIKeysManager.hasKey ( mapLayer.providerName.toLowerCase ( ) ) ) {
+			if ( ! theApiKeysManager.hasKey ( mapLayer.providerName.toLowerCase ( ) ) ) {
 				mapLayer = this.#defaultMapLayer;
 			}
 		}
