@@ -50,6 +50,13 @@ class SaveToSecureFileButtonClickEL {
 	#apiKeysDialog;
 
 	/**
+	A DataEncryptorHandlers object used to encode / decode the ApiKeys
+	@type {DataEncryptorHandlers}
+	*/
+
+	#dataEncryptorHandlers;
+
+	/**
 	The constructor
 	@param {ApiKeysDialog} apiKeysDialog A reference to the ApiKeys dialog
 	objects are stored
@@ -58,6 +65,7 @@ class SaveToSecureFileButtonClickEL {
 	constructor ( apiKeysDialog ) {
 		Object.freeze ( this );
 		this.#apiKeysDialog = apiKeysDialog;
+		this.#dataEncryptorHandlers = new DataEncryptorHandlers ( this.#apiKeysDialog );
 	}
 
 	/**
@@ -65,6 +73,7 @@ class SaveToSecureFileButtonClickEL {
 	*/
 
 	destructor ( ) {
+		this.#dataEncryptorHandlers.destructor ( );
 		this.#apiKeysDialog = null;
 	}
 
@@ -81,11 +90,10 @@ class SaveToSecureFileButtonClickEL {
 		this.#apiKeysDialog.showWait ( );
 
 		this.#apiKeysDialog.keyboardELEnabled = false;
-		const dataEncryptorHandlers = new DataEncryptorHandlers ( this.#apiKeysDialog );
 		new DataEncryptor ( ).encryptData (
 			new window.TextEncoder ( ).encode ( this.#apiKeysDialog.apiKeysJSON ),
-			data => dataEncryptorHandlers.onOkEncrypt ( data ),
-			( ) => dataEncryptorHandlers.onErrorEncrypt ( ),
+			data => this.#dataEncryptorHandlers.onOkEncrypt ( data ),
+			( ) => this.#dataEncryptorHandlers.onErrorEncrypt ( ),
 			new PasswordDialog ( true ).show ( )
 		);
 	}

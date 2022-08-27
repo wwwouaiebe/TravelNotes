@@ -52,6 +52,13 @@ class ReloadFromServerButtonClickEL {
 	#apiKeysDialog;
 
 	/**
+	A DataEncryptorHandlers object used to encode / decode the ApiKeys
+	@type {DataEncryptorHandlers}
+	*/
+
+	#dataEncryptorHandlers;
+
+	/**
 	The constructor
 	@param {ApiKeysDialog} apiKeysDialog A reference to the ApiKeys dialog
 	*/
@@ -59,6 +66,7 @@ class ReloadFromServerButtonClickEL {
 	constructor ( apiKeysDialog ) {
 		Object.freeze ( this );
 		this.#apiKeysDialog = apiKeysDialog;
+		this.#dataEncryptorHandlers = new DataEncryptorHandlers ( this.#apiKeysDialog );
 	}
 
 	/**
@@ -66,6 +74,7 @@ class ReloadFromServerButtonClickEL {
 	*/
 
 	destructor ( ) {
+		this.#dataEncryptorHandlers.destructor ( );
 		this.#apiKeysDialog = null;
 	}
 
@@ -86,18 +95,17 @@ class ReloadFromServerButtonClickEL {
 					if ( HTTP_STATUS_OK === response.status && response.ok ) {
 						response.arrayBuffer ( ).then (
 							data => {
-								const dataEncryptorHandlers = new DataEncryptorHandlers ( this.#apiKeysDialog );
 								new DataEncryptor ( ).decryptData (
 									data,
-									tmpData => { dataEncryptorHandlers.onOkDecrypt ( tmpData ); },
-									err => { dataEncryptorHandlers.onErrorDecrypt ( err ); },
+									tmpData => { this.#dataEncryptorHandlers.onOkDecrypt ( tmpData ); },
+									err => { this.#dataEncryptorHandlers.onErrorDecrypt ( err ); },
 									new PasswordDialog ( false ).show ( )
 								);
 							}
 						);
 					}
 					else {
-						new DataEncryptorHandlers ( this.#apiKeysDialog ).onErrorDecrypt (
+						this.#dataEncryptorHandlers.onErrorDecrypt (
 							new Error ( 'Invalid http status' )
 						);
 					}
@@ -105,7 +113,7 @@ class ReloadFromServerButtonClickEL {
 			)
 			.catch (
 				err => {
-					new DataEncryptorHandlers ( this.#apiKeysDialog ).onErrorDecrypt ( err );
+					this.#dataEncryptorHandlers.onErrorDecrypt ( err );
 					if ( err instanceof Error ) {
 						console.error ( err );
 					}

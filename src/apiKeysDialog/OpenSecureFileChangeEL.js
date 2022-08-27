@@ -51,6 +51,13 @@ class OpenSecureFileChangeEL {
 	#apiKeysDialog;
 
 	/**
+	A DataEncryptorHandlers object used to encode / decode the ApiKeys
+	@type {DataEncryptorHandlers}
+	*/
+
+	#dataEncryptorHandlers;
+
+	/**
 	The constructor
 	@param {ApiKeysDialog} apiKeysDialog A reference to the ApiKeys dialog
 	*/
@@ -58,6 +65,7 @@ class OpenSecureFileChangeEL {
 	constructor ( apiKeysDialog ) {
 		Object.freeze ( this );
 		this.#apiKeysDialog = apiKeysDialog;
+		this.#dataEncryptorHandlers = new DataEncryptorHandlers ( this.#apiKeysDialog );
 	}
 
 	/**
@@ -65,6 +73,7 @@ class OpenSecureFileChangeEL {
 	*/
 
 	destructor ( ) {
+		this.#dataEncryptorHandlers.destructor ( );
 		this.#apiKeysDialog = null;
 	}
 
@@ -79,11 +88,10 @@ class OpenSecureFileChangeEL {
 		this.#apiKeysDialog.keyboardELEnabled = false;
 		const fileReader = new FileReader ( );
 		fileReader.onload = ( ) => {
-			const dataEncryptorHandlers = new DataEncryptorHandlers ( this.#apiKeysDialog );
 			new DataEncryptor ( ).decryptData (
 				fileReader.result,
-				data => { dataEncryptorHandlers.onOkDecrypt ( data ); },
-				err => { dataEncryptorHandlers.onErrorDecrypt ( err ); },
+				data => { this.#dataEncryptorHandlers.onOkDecrypt ( data ); },
+				err => { this.#dataEncryptorHandlers.onErrorDecrypt ( err ); },
 				new PasswordDialog ( false ).show ( )
 			);
 		};

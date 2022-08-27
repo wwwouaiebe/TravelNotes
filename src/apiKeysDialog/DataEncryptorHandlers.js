@@ -24,7 +24,7 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v 4.0.0:
 		- Issue ♯48 : Review the dialogs
-Doc reviewed 20210914
+Doc reviewed 20220827
 Tests ...
 */
 
@@ -54,6 +54,14 @@ class DataEncryptorHandlers {
 	constructor ( ApiKeysDialog ) {
 		this.#ApiKeysDialog = ApiKeysDialog;
 		Object.freeze ( this );
+	}
+
+	/**
+	The destructor
+	*/
+
+	destructor ( ) {
+		this.#ApiKeysDialog = null;
 	}
 
 	/**

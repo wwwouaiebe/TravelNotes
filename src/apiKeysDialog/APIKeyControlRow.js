@@ -129,8 +129,8 @@ class ApiKeyControlRow {
 				dataset : { ObjId : this.#objId }
 			},
 			this.#rowHTMLElement
-		)
-			.addEventListener ( 'click', this.#deleteApiKeyButtonClickEL, false );
+		);
+		this.#deleteButtonHTMLElement.addEventListener ( 'click', this.#deleteApiKeyButtonClickEL, false );
 	}
 
 	/**
