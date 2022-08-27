@@ -26,7 +26,7 @@ Changes:
 		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
 	- v 4.0.0:
 		- Issue ♯48 : Review the dialogs
-Doc reviewed 20210914
+Doc reviewed 20220827
 Tests ...
 */
 
@@ -50,23 +50,22 @@ class SaveToSecureFileButtonClickEL {
 	#apiKeysDialog;
 
 	/**
-	A reference to the ApiKeys control
-	@type {ApiKeysControl}
-	*/
-
-	#apiKeysControl;
-
-	/**
 	The constructor
 	@param {ApiKeysDialog} apiKeysDialog A reference to the ApiKeys dialog
-	@param {ApiKeysControl} apiKeysControl A reference to the ApiKeys control
 	objects are stored
 	*/
 
-	constructor ( apiKeysDialog, apiKeysControl ) {
+	constructor ( apiKeysDialog ) {
 		Object.freeze ( this );
 		this.#apiKeysDialog = apiKeysDialog;
-		this.#apiKeysControl = apiKeysControl;
+	}
+
+	/**
+	The destructor
+	*/
+
+	destructor ( ) {
+		this.#apiKeysDialog = null;
 	}
 
 	/**
@@ -84,7 +83,7 @@ class SaveToSecureFileButtonClickEL {
 		this.#apiKeysDialog.keyboardELEnabled = false;
 		const dataEncryptorHandlers = new DataEncryptorHandlers ( this.#apiKeysDialog );
 		new DataEncryptor ( ).encryptData (
-			new window.TextEncoder ( ).encode ( this.#apiKeysControl.apiKeysJSON ),
+			new window.TextEncoder ( ).encode ( this.#apiKeysDialog.apiKeysJSON ),
 			data => dataEncryptorHandlers.onOkEncrypt ( data ),
 			( ) => dataEncryptorHandlers.onErrorEncrypt ( ),
 			new PasswordDialog ( true ).show ( )

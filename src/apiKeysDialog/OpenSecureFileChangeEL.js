@@ -26,7 +26,7 @@ Changes:
 		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
 	- v 4.0.0:
 		- Issue ♯48 : Review the dialogs
-Doc reviewed 20210914
+Doc reviewed 20220827
 Tests ...
 */
 
@@ -58,6 +58,14 @@ class OpenSecureFileChangeEL {
 	constructor ( apiKeysDialog ) {
 		Object.freeze ( this );
 		this.#apiKeysDialog = apiKeysDialog;
+	}
+
+	/**
+	The destructor
+	*/
+
+	destructor ( ) {
+		this.#apiKeysDialog = null;
 	}
 
 	/**

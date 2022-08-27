@@ -26,7 +26,7 @@ Changes:
 		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
 	- v 4.0.0:
 		- Issue ♯48 : Review the dialogs
-Doc reviewed 20210914
+Doc reviewed 20220827
 Tests ...
 */
 
@@ -49,6 +49,13 @@ class RestoreFromSecureFileButtonClickEL {
 	#apiKeysDialog;
 
 	/**
+	The OpenSecureFileChangeEL for theUtilities.openFile ( ) method
+	@type {OpenSecureFileChangeEL}
+	*/
+
+	#openSecureFileChangeEL;
+
+	/**
 	The constructor
 	@param {ApiKeysDialog} apiKeysDialog A reference to the ApiKeys dialog
 	*/
@@ -56,6 +63,16 @@ class RestoreFromSecureFileButtonClickEL {
 	constructor ( apiKeysDialog ) {
 		Object.freeze ( this );
 		this.#apiKeysDialog = apiKeysDialog;
+		this.#openSecureFileChangeEL = new OpenSecureFileChangeEL ( this.#apiKeysDialog );
+	}
+
+	/**
+	The destructor
+	*/
+
+	destructor ( ) {
+		this.#apiKeysDialog = null;
+		this.#openSecureFileChangeEL.destructor ( );
 	}
 
 	/**
@@ -66,7 +83,7 @@ class RestoreFromSecureFileButtonClickEL {
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		this.#apiKeysDialog.hideError ( );
-		theUtilities.openFile (	new OpenSecureFileChangeEL ( this.#apiKeysDialog ) );
+		theUtilities.openFile (	this.#openSecureFileChangeEL );
 	}
 }
 

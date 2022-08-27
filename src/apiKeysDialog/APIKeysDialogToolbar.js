@@ -24,7 +24,7 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v 4.0.0:
 		- Issue ♯48 : Review the dialogs
-Doc reviewed 20210914
+Doc reviewed 20220827
 Tests ...
 */
 
@@ -36,7 +36,6 @@ import ReloadFromServerButtonClickEL from '../apiKeysDialog/ReloadFromServerButt
 import RestoreFromSecureFileButtonClickEL from '../apiKeysDialog/RestoreFromSecureFileButtonClickEL.js';
 import SaveToSecureFileButtonClickEL from '../apiKeysDialog/SaveToSecureFileButtonClickEL.js';
 import SaveToUnsecureFileButtonClickEL from '../apiKeysDialog/SaveToUnsecureFileButtonClickEL.js';
-
 import NewApiKeyButtonClickEL from '../apiKeysDialog/NewApiKeyButtonClickEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -62,18 +61,11 @@ class ApiKeysDialogToolbar {
 	#apiKeysControl;
 
 	/**
-	Store the status of the ApiKeys file
-	@type {Boolean}
-	*/
-
-	#haveApiKeysFile;
-
-	/**
 	The root HTML element of the control
 	@type {HTMLElement}
 	*/
 
-	#rootHTMLElement;
+	#toolbarHTMLElement;
 
 	/**
 	The reload key from server button
@@ -116,6 +108,13 @@ class ApiKeysDialogToolbar {
 	*/
 
 	#restoreKeysFromUnsecureFileButton;
+
+	/**
+	Store the status of the ApiKeys file
+	@type {Boolean}
+	*/
+
+	#haveApiKeysFile;
 
 	/**
 	Event listener for the reload from server button
@@ -171,7 +170,7 @@ class ApiKeysDialogToolbar {
 				title : theTranslator.getText ( 'ApiKeysDialogToolbar - Reload from server' ),
 				textContent : '🔄'
 			},
-			this.#rootHTMLElement
+			this.#toolbarHTMLElement
 		);
 		this.#reloadFromServerButtonClickEL =
 			new ReloadFromServerButtonClickEL ( this.#apiKeysDialog );
@@ -194,10 +193,10 @@ class ApiKeysDialogToolbar {
 				title : theTranslator.getText ( 'ApiKeysDialogToolbar - Save to file' ),
 				textContent : '💾'
 			},
-			this.#rootHTMLElement
+			this.#toolbarHTMLElement
 		);
 		this.#saveToSecureFileButtonClickEL =
-			new SaveToSecureFileButtonClickEL ( this.#apiKeysDialog, this.#apiKeysControl );
+			new SaveToSecureFileButtonClickEL ( this.#apiKeysDialog );
 		this.#saveKeysToSecureFileButton.addEventListener (
 			'click',
 			this.#saveToSecureFileButtonClickEL,
@@ -217,7 +216,7 @@ class ApiKeysDialogToolbar {
 				title : theTranslator.getText ( 'ApiKeysDialogToolbar - Open file' ),
 				textContent : '📂'
 			},
-			this.#rootHTMLElement
+			this.#toolbarHTMLElement
 		);
 		this.#restoreFromSecureFileButtonClickEL =
 			new RestoreFromSecureFileButtonClickEL ( this.#apiKeysDialog );
@@ -240,7 +239,7 @@ class ApiKeysDialogToolbar {
 				title : theTranslator.getText ( 'ApiKeysDialogToolbar - new api key' ),
 				textContent : '+'
 			},
-			this.#rootHTMLElement
+			this.#toolbarHTMLElement
 		);
 		this.#newApiKeyButtonClickEL =
 			new NewApiKeyButtonClickEL ( this.#apiKeysControl );
@@ -263,10 +262,10 @@ class ApiKeysDialogToolbar {
 				title : theTranslator.getText ( 'ApiKeysDialogToolbar - Save to json file' ),
 				textContent : '💾'
 			},
-			this.#rootHTMLElement
+			this.#toolbarHTMLElement
 		);
 		this.#saveToUnsecureFileButtonClickEL =
-			new SaveToUnsecureFileButtonClickEL ( this.#apiKeysDialog, this.#apiKeysControl );
+			new SaveToUnsecureFileButtonClickEL ( this.#apiKeysDialog );
 		this.#saveKeysToUnsecureFileButton.addEventListener (
 			'click',
 			this.#saveToUnsecureFileButtonClickEL,
@@ -286,7 +285,7 @@ class ApiKeysDialogToolbar {
 				title : theTranslator.getText ( 'ApiKeysDialogToolbar - Open json file' ),
 				textContent : '📂'
 			},
-			this.#rootHTMLElement
+			this.#toolbarHTMLElement
 		);
 		this.#restoreFromUnsecureFileButtonClickEL =
 			new RestoreFromUnsecureFileButtonClickEL ( this.#apiKeysDialog );
@@ -329,7 +328,7 @@ class ApiKeysDialogToolbar {
 		this.#apiKeysDialog = apiKeysDialog;
 		this.#apiKeysControl = apiKeysControl;
 		this.#haveApiKeysFile = haveApiKeysFile;
-		this.#rootHTMLElement = theHTMLElementsFactory.create (
+		this.#toolbarHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
 				id : 'TravelNotes-ApiKeysDialog-ToolbarDiv'
@@ -351,8 +350,9 @@ class ApiKeysDialogToolbar {
 				this.#reloadFromServerButtonClickEL,
 				false
 			);
+			this.#reloadFromServerButtonClickEL.destructor ( );
+			this.#reloadFromServerButtonClickEL = null;
 		}
-		this.#reloadFromServerButtonClickEL = null;
 
 		if ( this.#saveKeysToSecureFileButton ) {
 			this.#saveKeysToSecureFileButton.removeEventListener (
@@ -360,8 +360,9 @@ class ApiKeysDialogToolbar {
 				this.#saveToSecureFileButtonClickEL,
 				false
 			);
+			this.#saveToSecureFileButtonClickEL.destructor ( );
+			this.#saveToSecureFileButtonClickEL = null;
 		}
-		this.#saveToSecureFileButtonClickEL = null;
 
 		if ( this.#restoreKeysFromSecureFileButton ) {
 			this.#restoreKeysFromSecureFileButton.removeEventListener (
@@ -369,8 +370,9 @@ class ApiKeysDialogToolbar {
 				this.#restoreFromSecureFileButtonClickEL,
 				false
 			);
+			this.#restoreFromSecureFileButtonClickEL.destructor ( );
+			this.#restoreFromSecureFileButtonClickEL = null;
 		}
-		this.#restoreFromSecureFileButtonClickEL = null;
 
 		if ( this.#newApiKeyButton ) {
 			this.#newApiKeyButton.removeEventListener (
@@ -378,8 +380,9 @@ class ApiKeysDialogToolbar {
 				this.#newApiKeyButtonClickEL,
 				false
 			);
+			this.#newApiKeyButtonClickEL.destructor ( );
+			this.#newApiKeyButtonClickEL = null;
 		}
-		this.#newApiKeyButtonClickEL = null;
 
 		if ( this.#saveKeysToUnsecureFileButton ) {
 			this.#saveKeysToUnsecureFileButton.removeEventListener (
@@ -387,8 +390,9 @@ class ApiKeysDialogToolbar {
 				this.#saveToUnsecureFileButtonClickEL,
 				false
 			);
+			this.#saveToUnsecureFileButtonClickEL.destructor ( );
+			this.#saveToUnsecureFileButtonClickEL = null;
 		}
-		this.#saveToUnsecureFileButtonClickEL = null;
 
 		if ( this.#restoreKeysFromUnsecureFileButton ) {
 			this.#restoreKeysFromUnsecureFileButton.removeEventListener (
@@ -396,8 +400,9 @@ class ApiKeysDialogToolbar {
 				this.#restoreFromUnsecureFileButtonClickEL,
 				false
 			);
+			this.#restoreFromUnsecureFileButtonClickEL.destructor ( );
+			this.#restoreFromUnsecureFileButtonClickEL = null;
 		}
-		this.#restoreFromUnsecureFileButtonClickEL = null;
 	}
 
 	/**
@@ -405,8 +410,8 @@ class ApiKeysDialogToolbar {
 	@type {HTMLElement}
 	*/
 
-	get rootHTMLElement ( ) {
-		return this.#rootHTMLElement;
+	get toolbarHTMLElement ( ) {
+		return this.#toolbarHTMLElement;
 	}
 
 }

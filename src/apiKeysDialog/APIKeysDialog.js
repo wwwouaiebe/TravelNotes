@@ -168,7 +168,7 @@ class ApiKeysDialog extends ModalBaseDialog {
 	*/
 
 	get toolbarHTMLElement ( ) {
-		return this.#toolbar.rootHTMLElement;
+		return this.#toolbar.toolbarHTMLElement;
 	}
 
 	/**
@@ -179,6 +179,13 @@ class ApiKeysDialog extends ModalBaseDialog {
 	get contentHTMLElements ( ) {
 		return [ this.#apiKeysControl.controlHTMLElement ];
 	}
+
+	/**
+	Get a JSON string with the ApiKeys in the control
+	@type {String}
+	*/
+
+	get apiKeysJSON ( ) { return this.#apiKeysControl.apiKeysJSON; }
 
 	/**
 	Add an array of ApiKeys to the dialog.
