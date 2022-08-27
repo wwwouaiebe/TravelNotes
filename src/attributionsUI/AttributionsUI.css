@@ -37,7 +37,7 @@ Doc reviewed 20220827
 	height: 2em;
 	transform-origin: bottom left;
 	transform: rotateZ(-90deg) translateY(2em) translateX(0);
-	transition: all 1.5s ease;
+	transition: all 1.5s ease 1.5s;
 }
 
 #TravelNotes-AttributionsUI:hover {

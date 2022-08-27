@@ -392,7 +392,6 @@ class TravelNotesToolbar extends BaseToolbar {
 				'🛠️',
 				theTranslator.getText ( 'TravelNotesToolbar - About Travel & Notes' ),
 				( ) => new AboutDialog ( ).show ( )
-					.catch ( ( ) => {} )
 			)
 		);
 	}
