@@ -37,11 +37,28 @@ Event listener for click event on the delete key button
 class DeleteApiKeyButtonClickEL {
 
 	/**
-	The constructor
+	A reference to the control with the ApiKeys
+	@type {ApiKeysControl}
 	*/
 
-	constructor ( ) {
+	#apiKeysControl;
+
+	/**
+	The constructor
+	@param {ApiKeysControl} apiKeysControl A reference to the control with the ApiKeys
+	*/
+
+	constructor ( apiKeysControl ) {
 		Object.freeze ( this );
+		this.#apiKeysControl = apiKeysControl;
+	}
+
+	/**
+	The destructor
+	*/
+
+	destructor ( ) {
+		this.#apiKeysControl = null;
 	}
 
 	/**
@@ -52,9 +69,7 @@ class DeleteApiKeyButtonClickEL {
 	handleEvent ( clickEvent ) {
 		clickEvent.preventDefault ( );
 		clickEvent.stopPropagation ( );
-		const dispatchedEvent = new Event ( 'apikeydeleted' );
-		dispatchedEvent.data = { objId : Number.parseInt ( clickEvent.target.dataset.tanObjId ) };
-		clickEvent.target.parentNode.parentNode.dispatchEvent ( dispatchedEvent );
+		this.#apiKeysControl.deleteApiKey ( Number.parseInt ( clickEvent.target.dataset.tanObjId ) );
 	}
 }
 

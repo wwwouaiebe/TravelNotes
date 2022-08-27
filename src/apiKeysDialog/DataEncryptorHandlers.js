@@ -117,6 +117,6 @@ class DataEncryptorHandlers {
 
 }
 
-export { DataEncryptorHandlers };
+export default DataEncryptorHandlers;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

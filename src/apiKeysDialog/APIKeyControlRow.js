@@ -32,7 +32,6 @@ import theConfig from '../data/Config.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import { ApiKey } from '../coreLib/Containers.js';
 import ObjId from '../data/ObjId.js';
-import DeleteApiKeyButtonClickEL from '../apiKeysDialog/DeleteApiKeyButtonClickEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -72,12 +71,28 @@ class ApiKeyControlRow {
 	#objId;
 
 	/**
-	The constructor
-	@param {ApiKey} apiKey The ApiKey to display in the control
+	The event listener for the delete button
+	@type {deleteApiKeyButtonClickEL}
 	*/
 
-	constructor ( apiKey ) {
+	#deleteApiKeyButtonClickEL;
+
+	/**
+	The delete button
+	@type {HTMLElement}
+	*/
+
+	#deleteButtonHTMLElement;
+
+	/**
+	The constructor
+	@param {ApiKey} apiKey The ApiKey to display in the control
+	@param {DeleteApiKeyButtonClickEL} deleteApiKeyButtonClickEL The event listener to use for the delete button
+	*/
+
+	constructor ( apiKey, deleteApiKeyButtonClickEL ) {
 		Object.freeze ( this );
+		this.#deleteApiKeyButtonClickEL = deleteApiKeyButtonClickEL;
 		this.#objId = ObjId.nextObjId;
 		this.#rowHTMLElement = theHTMLElementsFactory.create (
 			'div',
@@ -104,7 +119,7 @@ class ApiKeyControlRow {
 			},
 			this.#rowHTMLElement
 		);
-		theHTMLElementsFactory.create (
+		this.#deleteButtonHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
 				className :
@@ -115,7 +130,15 @@ class ApiKeyControlRow {
 			},
 			this.#rowHTMLElement
 		)
-			.addEventListener ( 'click', new DeleteApiKeyButtonClickEL ( ), false );
+			.addEventListener ( 'click', this.#deleteApiKeyButtonClickEL, false );
+	}
+
+	/**
+	The destructor
+	*/
+
+	destructor ( ) {
+		this.#deleteButtonHTMLElement.removeEventListener ( 'click', this.#deleteApiKeyButtonClickEL, false );
 	}
 
 	/**

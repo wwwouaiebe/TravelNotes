@@ -24,9 +24,9 @@ Tests ...
 */
 
 import BaseControl from '../baseControl/BaseControl.js';
-import ApiKeyDeletedEL from '../apiKeysDialog/ApiKeyDeletedEL.js';
 import ApiKeyControlRow from '../apiKeysDialog/ApiKeyControlRow.js';
 import { ApiKey } from '../coreLib/Containers.js';
+import DeleteApiKeyButtonClickEL from '../apiKeysDialog/DeleteApiKeyButtonClickEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -44,11 +44,11 @@ class ApiKeysControl extends BaseControl {
 	#apiKeysControlRowsMap;
 
 	/**
-	Api key deleted event listener
-	@type {ApiKeyDeletedEL}
+	The DeleteApiKeyButtonClickEL for the delete buttons
+	@type {deleteApiKeyButtonClickEL}
 	*/
 
-	#apiKeyDeletedEL;
+	#deleteApiKeyButtonClickEL;
 
 	/**
 	The constructor
@@ -57,8 +57,7 @@ class ApiKeysControl extends BaseControl {
 	constructor ( ) {
 		super ( );
 		this.#apiKeysControlRowsMap = new Map ( );
-		this.#apiKeyDeletedEL = new ApiKeyDeletedEL ( this, this.#apiKeysControlRowsMap );
-		this.controlHTMLElement.addEventListener ( 'apikeydeleted', this.#apiKeyDeletedEL, false );
+		this.#deleteApiKeyButtonClickEL = new DeleteApiKeyButtonClickEL ( this );
 	}
 
 	/**
@@ -66,9 +65,12 @@ class ApiKeysControl extends BaseControl {
 	*/
 
 	destructor ( ) {
-		this.controlHTMLElement.removeEventListener ( 'apikeydeleted', this.#apiKeyDeletedEL, false );
-		this.#apiKeyDeletedEL = null;
+		this.#apiKeysControlRowsMap.forEach (
+			apiKeysControlRow => apiKeysControlRow.destructor ( )
+		);
 		this.#apiKeysControlRowsMap.clear ( );
+		this.#deleteApiKeyButtonClickEL.destructor ( );
+		this.#deleteApiKeyButtonClickEL = null;
 	}
 
 	/**
@@ -98,7 +100,6 @@ class ApiKeysControl extends BaseControl {
 					providersNames.indexOf ( providerName ) !== providersNames.lastIndexOf ( providerName );
 			}
 		);
-
 		return { haveEmpty : haveEmpty, haveDuplicate : haveDuplicate };
 	}
 
@@ -111,7 +112,7 @@ class ApiKeysControl extends BaseControl {
 		this.#apiKeysControlRowsMap.clear ( );
 		apiKeys.forEach (
 			apiKey => {
-				const apiKeyControl = new ApiKeyControlRow ( apiKey );
+				const apiKeyControl = new ApiKeyControlRow ( apiKey, this.#deleteApiKeyButtonClickEL );
 				this.#apiKeysControlRowsMap.set ( apiKeyControl.objId, apiKeyControl );
 			}
 		);
@@ -124,8 +125,19 @@ class ApiKeysControl extends BaseControl {
 
 	newApiKey ( ) {
 		const apiKey = new ApiKey ( );
-		const apiKeyControlRow = new ApiKeyControlRow ( apiKey );
+		const apiKeyControlRow = new ApiKeyControlRow ( apiKey, this.#deleteApiKeyButtonClickEL );
 		this.#apiKeysControlRowsMap.set ( apiKeyControlRow.objId, apiKeyControlRow );
+		this.refreshApiKeys ( );
+	}
+
+	/**
+	Delete a row with an ApiKey in the control
+	@param {Number} rowObjId The objId of the row to delete
+	*/
+
+	deleteApiKey ( rowObjId ) {
+		this.#apiKeysControlRowsMap.get ( rowObjId ).destructor ( );
+		this.#apiKeysControlRowsMap.delete ( rowObjId );
 		this.refreshApiKeys ( );
 	}
 

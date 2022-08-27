@@ -320,7 +320,7 @@ class ApiKeysDialogToolbar {
 
 	/**
 	The constructor
-	@param {ApiKeysDialog} ApiKeysDialog A reference to the dialog
+	@param {ApiKeysDialog} apiKeysDialog A reference to the dialog
 	@param {Map} apiKeysControl A reference to the apiKeysControl object
 	@param {Boolean} haveApiKeysFile  A boolean indicating when the ApiKeys file was found on the server
 	*/
