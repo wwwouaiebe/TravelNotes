@@ -149,7 +149,7 @@ class BaseContextMenuOperator {
 
 	#unselectItems ( ) {
 		this.#contextMenu.menuItemHTMLElements.forEach (
-			menuitemHTMLElement => { menuitemHTMLElement.classList.remove ( 'TravelNotes-ContextMenu-ItemSelected' ); }
+			menuitemHTMLElement => { menuitemHTMLElement.classList.remove ( 'TravelNotes-ContextMenu-MenuItemSelected' ); }
 		);
 	}
 
@@ -187,7 +187,7 @@ class BaseContextMenuOperator {
 
 		// add css class
 		this.#contextMenu.menuItemHTMLElements [ this.#keyboardSelectedItemObjId ]
-			.classList.add ( 'TravelNotes-ContextMenu-ItemSelected' );
+			.classList.add ( 'TravelNotes-ContextMenu-MenuItemSelected' );
 	}
 
 	/**
@@ -214,11 +214,11 @@ class BaseContextMenuOperator {
 
 		// Adding event listeners to the html elements of the menu and to the document
 		document.addEventListener ( 'keydown', this.#contextMenuKeyboardKeydownEL, true );
-		this.#contextMenu.container.addEventListener ( 'mouseleave', this.#contextMenuMouseLeaveEL );
-		this.#contextMenu.container.addEventListener ( 'mouseenter', this.#contextMenuMouseEnterEL );
-		this.#contextMenu.container.addEventListener ( 'touchstart', this.#contextMenuTouchEL );
-		this.#contextMenu.container.addEventListener ( 'touchend', this.#contextMenuTouchEL );
-		this.#contextMenu.container.addEventListener ( 'touchcancel', this.#contextMenuTouchEL );
+		this.#contextMenu.contextMenuHTMLElement.addEventListener ( 'mouseleave', this.#contextMenuMouseLeaveEL );
+		this.#contextMenu.contextMenuHTMLElement.addEventListener ( 'mouseenter', this.#contextMenuMouseEnterEL );
+		this.#contextMenu.contextMenuHTMLElement.addEventListener ( 'touchstart', this.#contextMenuTouchEL );
+		this.#contextMenu.contextMenuHTMLElement.addEventListener ( 'touchend', this.#contextMenuTouchEL );
+		this.#contextMenu.contextMenuHTMLElement.addEventListener ( 'touchcancel', this.#contextMenuTouchEL );
 		this.#contextMenu.cancelButton.addEventListener ( 'click', this.#contextMenuCancelButtonClickEL );
 		this.#contextMenu.menuItemHTMLElements.forEach (
 			menuItemHTMLElement => {
@@ -244,17 +244,17 @@ class BaseContextMenuOperator {
 
 		// Removing event listeners
 		document.removeEventListener ( 'keydown', this.#contextMenuKeyboardKeydownEL, true );
-		this.#contextMenu.container.removeEventListener (
+		this.#contextMenu.contextMenuHTMLElement.removeEventListener (
 			'mouseleave',
 			this.#contextMenuMouseLeaveEL
 		);
-		this.#contextMenu.container.removeEventListener (
+		this.#contextMenu.contextMenuHTMLElement.removeEventListener (
 			'mouseenter',
 			this.#contextMenuMouseEnterEL
 		);
-		this.#contextMenu.container.removeEventListener ( 'touchstart', this.#contextMenuTouchEL );
-		this.#contextMenu.container.removeEventListener ( 'touchend', this.#contextMenuTouchEL );
-		this.#contextMenu.container.removeEventListener ( 'touchcancel', this.#contextMenuTouchEL );
+		this.#contextMenu.contextMenuHTMLElement.removeEventListener ( 'touchstart', this.#contextMenuTouchEL );
+		this.#contextMenu.contextMenuHTMLElement.removeEventListener ( 'touchend', this.#contextMenuTouchEL );
+		this.#contextMenu.contextMenuHTMLElement.removeEventListener ( 'touchcancel', this.#contextMenuTouchEL );
 		this.#contextMenu.cancelButton.removeEventListener (
 			'click',
 			this.#contextMenuCancelButtonClickEL
@@ -267,13 +267,21 @@ class BaseContextMenuOperator {
 			}
 		);
 
+		this.#contextMenuKeyboardKeydownEL.destructor ( );
 		this.#contextMenuKeyboardKeydownEL = null;
+		this.#contextMenuMouseLeaveEL.destructor ( );
 		this.#contextMenuMouseLeaveEL = null;
+		this.#contextMenuMouseEnterEL.destructor ( );
 		this.#contextMenuMouseEnterEL = null;
+		this.#contextMenuCancelButtonClickEL.destructor ( );
 		this.#contextMenuCancelButtonClickEL = null;
+		this.#contextMenuTouchEL.destructor ( );
 		this.#contextMenuTouchEL = null;
+		this.#menuItemClickEL.destructor ( );
 		this.#menuItemClickEL = null;
+		this.#menuItemMouseLeaveEL.destructor ( );
 		this.#menuItemMouseLeaveEL = null;
+		this.#menuItemMouseEnterEL.destructor ( );
 		this.#menuItemMouseEnterEL = null;
 
 		// removing the html elements
@@ -374,7 +382,7 @@ class BaseContextMenuOperator {
 	*/
 
 	onMouseLeaveMenuItem ( menuItem ) {
-		menuItem.classList.remove ( 'TravelNotes-ContextMenu-ItemSelected' );
+		menuItem.classList.remove ( 'TravelNotes-ContextMenu-MenuItemSelected' );
 	}
 
 	/**
@@ -385,7 +393,7 @@ class BaseContextMenuOperator {
 	onMouseEnterMenuItem ( menuItem ) {
 		this.#unselectItems ( );
 		this.#keyboardSelectedItemObjId = Number.parseInt ( menuItem.dataset.tanObjId );
-		menuItem.classList.add ( 'TravelNotes-ContextMenu-ItemSelected' );
+		menuItem.classList.add ( 'TravelNotes-ContextMenu-MenuItemSelected' );
 	}
 }
 

@@ -22,7 +22,7 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210913
+Doc reviewed 20220828
 Tests ...
  */
 
@@ -31,7 +31,6 @@ import theTranslator from '../UILib/Translator.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import BaseContextMenuOperator from '../baseContextMenu/BaseContextMenuOperator.js';
 import BaseContextMenuEventData from '../baseContextMenu/BaseContextMenuEventData.js';
-import { ZERO } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -74,7 +73,7 @@ class BaseContextMenu {
 	@type {HTMLElement}
 	*/
 
-	#container;
+	#contextMenuHTMLElement;
 
 	/**
 	The cancel button HTMLElement
@@ -116,11 +115,11 @@ class BaseContextMenu {
 	Build the menu container and add event listeners
 	*/
 
-	#createContainer ( ) {
-		this.#container = theHTMLElementsFactory.create (
+	#createContextMenuHTMLElement ( ) {
+		this.#contextMenuHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-ContextMenu-Container'
+				className : 'TravelNotes-ContextMenu-ContextMenuHTMLElement'
 			},
 			this.#parentNode
 		);
@@ -135,10 +134,10 @@ class BaseContextMenu {
 			'div',
 			{
 				textContent : '❌',
-				className : 'TravelNotes-ContextMenu-CloseButton',
+				className : 'TravelNotes-ContextMenu-CancelButton',
 				title : theTranslator.getText ( 'BaseContextMenu - Close' )
 			},
-			this.#container
+			this.#contextMenuHTMLElement
 		);
 	}
 
@@ -148,20 +147,19 @@ class BaseContextMenu {
 
 	#createMenuItemsHTMLElements ( ) {
 		this.#menuItemHTMLElements = [];
-		let menuItemCounter = ZERO;
 		this.menuItems.forEach (
-			menuItem => {
+			( menuItem, index ) => {
 				const menuItemHTMLElement = theHTMLElementsFactory.create (
 					'div',
 					{
 						textContent : menuItem.itemText,
-						className :	'TravelNotes-ContextMenu-Item',
-						dataset : { ObjId : String ( menuItemCounter ++ ) }
+						className :	'TravelNotes-ContextMenu-MenuItem',
+						dataset : { ObjId : String ( index ) }
 					},
-					this.#container
+					this.#contextMenuHTMLElement
 				);
 				if ( ! menuItem.isActive ) {
-					menuItemHTMLElement.classList.add ( 'TravelNotes-ContextMenu-ItemDisabled' );
+					menuItemHTMLElement.classList.add ( 'TravelNotes-ContextMenu-MenuItemDisabled' );
 				}
 				this.#menuItemHTMLElements.push ( menuItemHTMLElement );
 			}
@@ -172,27 +170,27 @@ class BaseContextMenu {
 	Move the container, so the top of the container is near the mouse
 	*/
 
-	#moveContainer ( ) {
+	#moveContextMenu ( ) {
 
 		// the menu is positionned ( = top left where the user have clicked but the menu must be completely in the window...
 		const menuTop = Math.min (
 			this.#eventData.clientY,
 			theTravelNotesData.map.getContainer ( ).clientHeight -
-				this.#container.clientHeight -
+				this.#contextMenuHTMLElement.clientHeight -
 				BaseContextMenu.#menuMargin
 		);
-		this.#container.style.top = String ( menuTop ) + 'px';
+		this.#contextMenuHTMLElement.style.top = String ( menuTop ) + 'px';
 		if ( this.#eventData.haveParentNode ) {
-			this.#container.style.right = String ( BaseContextMenu.#menuMargin ) + 'px';
+			this.#contextMenuHTMLElement.style.right = String ( BaseContextMenu.#menuMargin ) + 'px';
 		}
 		else {
 			const menuLeft = Math.min (
 				this.#eventData.clientX,
 				theTravelNotesData.map.getContainer ( ).clientWidth -
-				this.#container.clientWidth -
+				this.#contextMenuHTMLElement.clientWidth -
 				BaseContextMenu.#menuMargin
 			);
-			this.#container.style.left = String ( menuLeft ) + 'px';
+			this.#contextMenuHTMLElement.style.left = String ( menuLeft ) + 'px';
 		}
 	}
 
@@ -205,10 +203,10 @@ class BaseContextMenu {
 	#createMenu ( onPromiseOk, onPromiseError ) {
 		this.#onPromiseOk = onPromiseOk;
 		this.#onPromiseError = onPromiseError;
-		this.#createContainer ( );
+		this.#createContextMenuHTMLElement ( );
 		this.#createCancelButton ( );
 		this.#createMenuItemsHTMLElements ( );
-		this.#moveContainer ( );
+		this.#moveContextMenu ( );
 		this.#menuOperator = new BaseContextMenuOperator ( this );
 
 	}
@@ -300,7 +298,7 @@ class BaseContextMenu {
 	@type {HTMLElement}
 	*/
 
-	get container ( ) { return this.#container; }
+	get contextMenuHTMLElement ( ) { return this.#contextMenuHTMLElement; }
 
 	/**
 	The cancel button HTMLElement

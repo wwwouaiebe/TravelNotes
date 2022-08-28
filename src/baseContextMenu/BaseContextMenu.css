@@ -20,10 +20,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v1.0.0:
 		- created
-Doc reviewed ...
+Doc reviewed 20220828
 */
 
-.TravelNotes-ContextMenu-Container {
+.TravelNotes-ContextMenu-ContextMenuHTMLElement {
 	position: absolute;
 	z-index: 1200;
 	background-color: white;
@@ -34,16 +34,16 @@ Doc reviewed ...
 	box-shadow: 0 3px 14px rgb(0 0 0 / 40%);
 }
 
-.TravelNotes-ContextMenu-CloseButton {
+.TravelNotes-ContextMenu-CancelButton {
 	width: 1.3em;
 }
 
-.TravelNotes-ContextMenu-CloseButton:hover {
+.TravelNotes-ContextMenu-CancelButton:hover {
 	background-color: lightgray;
 	cursor: default;
 }
 
-.TravelNotes-ContextMenu-Item {
+.TravelNotes-ContextMenu-MenuItem {
 	margin-left: 2em;
 	margin-right: 1em;
 	border-bottom-style: solid;
@@ -51,20 +51,20 @@ Doc reviewed ...
 	padding: 0.2em 0.5em 0.2em 1em;
 }
 
-.TravelNotes-ContextMenu-Item:last-child {
+.TravelNotes-ContextMenu-MenuItem:last-child {
 	border-bottom-style: none;
 }
 
-.TravelNotes-ContextMenu-ItemSelected {
+.TravelNotes-ContextMenu-MenuItemSelected {
 	background-color: lightblue;
 	cursor: default;
 }
 
-.TravelNotes-ContextMenu-ItemDisabled {
+.TravelNotes-ContextMenu-MenuItemDisabled {
 	color: gray;
 }
 
-.TravelNotes-ContextMenu-ItemDisabled.TravelNotes-ContextMenu-ItemSelected {
+.TravelNotes-ContextMenu-MenuItemDisabled.TravelNotes-ContextMenu-MenuItemSelected {
 	background-color: lightgray;
 	cursor: auto;
 }
