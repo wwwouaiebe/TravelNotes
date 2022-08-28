@@ -31,7 +31,8 @@ Doc reviewed 20210913
 Tests ...
 */
 
-import { BaseContextMenu, MenuItem } from '../baseContextMenu/BaseContextMenu.js';
+import BaseContextMenu from '../baseContextMenu/BaseContextMenu.js';
+import MenuItem from '../baseContextMenu/MenuItem.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import theNoteEditor from '../core/NoteEditor.js';
 import Zoomer from '../core/Zoomer.js';

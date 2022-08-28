@@ -29,16 +29,14 @@ Tests ...
 */
 
 import theConfig from '../data/Config.js';
-import {
-	ContextMenuKeyboardKeydownEL,
-	CancelContextMenuButtonClickEL,
-	ContextMenuTouchEL,
-	MenuItemMouseLeaveEL,
-	MenuItemMouseEnterEL,
-	MenuItemClickEL,
-	ContainerMouseLeaveEL,
-	ContainerMouseEnterEL
-} from '../baseContextMenu/BaseContextMenuEL.js';
+import ContextMenuKeyboardKeydownEL from '../baseContextMenu/ContextMenuKeyboardKeydownEL.js';
+import ContextMenuCancelButtonClickEL from '../baseContextMenu/ContextMenuCancelButtonClickEL.js';
+import ContextMenuTouchEL from '../baseContextMenu/ContextMenuTouchEL.js';
+import MenuItemMouseLeaveEL from '../baseContextMenu/MenuItemMouseLeaveEL.js';
+import MenuItemMouseEnterEL from '../baseContextMenu/MenuItemMouseEnterEL.js';
+import MenuItemClickEL from '../baseContextMenu/MenuItemClickEL.js';
+import ContextMenuMouseLeaveEL from '../baseContextMenu/ContextMenuMouseLeaveEL.js';
+import ContextMenuMouseEnterEL from '../baseContextMenu/ContextMenuMouseEnterEL.js';
 
 import { NOT_FOUND, ZERO, ONE } from '../main/Constants.js';
 
@@ -84,24 +82,24 @@ class BaseContextMenuOperator {
 
 	/**
 	Mouseleave container event listener
-	@type {ContainerMouseLeaveEL}
+	@type {ContextMenuMouseLeaveEL}
 	*/
 
-	#containerMouseLeaveEL;
+	#contextMenuMouseLeaveEL;
 
 	/**
 	mouseenter container event listener
-	@type {ContainerMouseEnterEL}
+	@type {ContextMenuMouseEnterEL}
 	*/
 
-	#containerMouseEnterEL;
+	#contextMenuMouseEnterEL;
 
 	/**
 	Click cancel button event listener
-	@type {CancelContextMenuButtonClickEL}
+	@type {ContextMenuCancelButtonClickEL}
 	*/
 
-	#cancelContextMenuButtonClickEL;
+	#contextMenuCancelButtonClickEL;
 
 	/**
 	Touch event listener for the context menus
@@ -206,9 +204,9 @@ class BaseContextMenuOperator {
 
 		// Event listeners creation
 		this.#contextMenuKeyboardKeydownEL = new ContextMenuKeyboardKeydownEL ( this );
-		this.#containerMouseLeaveEL = new ContainerMouseLeaveEL ( this );
-		this.#containerMouseEnterEL = new ContainerMouseEnterEL ( this );
-		this.#cancelContextMenuButtonClickEL = new CancelContextMenuButtonClickEL ( this );
+		this.#contextMenuMouseLeaveEL = new ContextMenuMouseLeaveEL ( this );
+		this.#contextMenuMouseEnterEL = new ContextMenuMouseEnterEL ( this );
+		this.#contextMenuCancelButtonClickEL = new ContextMenuCancelButtonClickEL ( this );
 		this.#contextMenuTouchEL = new ContextMenuTouchEL ( this );
 		this.#menuItemClickEL = new MenuItemClickEL ( this );
 		this.#menuItemMouseLeaveEL = new MenuItemMouseLeaveEL ( this );
@@ -216,12 +214,12 @@ class BaseContextMenuOperator {
 
 		// Adding event listeners to the html elements of the menu and to the document
 		document.addEventListener ( 'keydown', this.#contextMenuKeyboardKeydownEL, true );
-		this.#contextMenu.container.addEventListener ( 'mouseleave', this.#containerMouseLeaveEL );
-		this.#contextMenu.container.addEventListener ( 'mouseenter', this.#containerMouseEnterEL );
+		this.#contextMenu.container.addEventListener ( 'mouseleave', this.#contextMenuMouseLeaveEL );
+		this.#contextMenu.container.addEventListener ( 'mouseenter', this.#contextMenuMouseEnterEL );
 		this.#contextMenu.container.addEventListener ( 'touchstart', this.#contextMenuTouchEL );
 		this.#contextMenu.container.addEventListener ( 'touchend', this.#contextMenuTouchEL );
 		this.#contextMenu.container.addEventListener ( 'touchcancel', this.#contextMenuTouchEL );
-		this.#contextMenu.cancelButton.addEventListener ( 'click', this.#cancelContextMenuButtonClickEL );
+		this.#contextMenu.cancelButton.addEventListener ( 'click', this.#contextMenuCancelButtonClickEL );
 		this.#contextMenu.menuItemHTMLElements.forEach (
 			menuItemHTMLElement => {
 				menuItemHTMLElement.addEventListener ( 'click', this.#menuItemClickEL );
@@ -248,18 +246,18 @@ class BaseContextMenuOperator {
 		document.removeEventListener ( 'keydown', this.#contextMenuKeyboardKeydownEL, true );
 		this.#contextMenu.container.removeEventListener (
 			'mouseleave',
-			this.#containerMouseLeaveEL
+			this.#contextMenuMouseLeaveEL
 		);
 		this.#contextMenu.container.removeEventListener (
 			'mouseenter',
-			this.#containerMouseEnterEL
+			this.#contextMenuMouseEnterEL
 		);
 		this.#contextMenu.container.removeEventListener ( 'touchstart', this.#contextMenuTouchEL );
 		this.#contextMenu.container.removeEventListener ( 'touchend', this.#contextMenuTouchEL );
 		this.#contextMenu.container.removeEventListener ( 'touchcancel', this.#contextMenuTouchEL );
 		this.#contextMenu.cancelButton.removeEventListener (
 			'click',
-			this.#cancelContextMenuButtonClickEL
+			this.#contextMenuCancelButtonClickEL
 		);
 		this.#contextMenu.menuItemHTMLElements.forEach (
 			menuItemHTMLElement => {
@@ -270,9 +268,9 @@ class BaseContextMenuOperator {
 		);
 
 		this.#contextMenuKeyboardKeydownEL = null;
-		this.#containerMouseLeaveEL = null;
-		this.#containerMouseEnterEL = null;
-		this.#cancelContextMenuButtonClickEL = null;
+		this.#contextMenuMouseLeaveEL = null;
+		this.#contextMenuMouseEnterEL = null;
+		this.#contextMenuCancelButtonClickEL = null;
 		this.#contextMenuTouchEL = null;
 		this.#menuItemClickEL = null;
 		this.#menuItemMouseLeaveEL = null;

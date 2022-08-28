@@ -18,61 +18,52 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 /*
 Changes:
-	- v1.12.0:
-		- Issue ♯120 : Review the UserInterface
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210913
+	- v4.0.0:
+		- Issue ♯50 : Add touch events on the menus to close the menus
+Doc reviewed 20210915
 Tests ...
 */
 
-import BaseContextMenu from '../baseContextMenu/BaseContextMenu.js';
-import MenuItem from '../baseContextMenu/MenuItem.js';
-import theTranslator from '../UILib/Translator.js';
-import theNoteEditor from '../core/NoteEditor.js';
-import Zoomer from '../core/Zoomer.js';
-
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-this class implements the BaseContextMenu class for the profiles
+mouseenter event listener on the menuItems for the context menus
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ProfileContextMenu extends BaseContextMenu {
+class MenuItemMouseEnterEL {
 
 	/**
-	The constructor
-	@param {Event} contextMenuEvent The event that have triggered the menu
-	@param {HTMLElement} parentNode The parent node of the menu. Can be null for leaflet objects
+	A reference to the menuOperator Object
+	@type {BaseContextMenuOperator}
 	*/
 
-	constructor ( contextMenuEvent, parentNode ) {
-		super ( contextMenuEvent, parentNode );
+	#menuOperator = null;
+
+	/**
+	the constructor
+	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
+	*/
+
+	constructor ( menuOperator ) {
+		Object.freeze ( this );
+		this.#menuOperator = menuOperator;
 	}
 
 	/**
-	The list of menu items to use. Implementation of the BaseContextMenu.menuItems property
-	@type {Array.<MenuItem>}
+	Event listener method
+	@param {Event} mouseEnterEvent The event to handle
 	*/
 
-	get menuItems ( ) {
-		return [
-			new MenuItem (
-				theTranslator.getText ( 'ProfileContextMenu - Add a note to the route at this point' ),
-				true,
-				( ) => theNoteEditor.newRouteNote ( this.eventData.targetObjId, this.eventData.latLng )
-			),
-			new MenuItem (
-				theTranslator.getText ( 'ProfileContextMenu - Zoom to this point' ),
-				true,
-				( ) => new Zoomer ( ).zoomToLatLng ( this.eventData.latLng )
-			)
-		];
+	handleEvent ( mouseEnterEvent ) {
+		mouseEnterEvent.stopPropagation ( );
+		this.#menuOperator.onMouseEnterMenuItem ( mouseEnterEvent.currentTarget );
 	}
 }
 
-export default ProfileContextMenu;
+export default MenuItemMouseEnterEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

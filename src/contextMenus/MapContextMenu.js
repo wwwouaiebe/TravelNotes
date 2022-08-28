@@ -33,7 +33,8 @@ Doc reviewed 20210913
 Tests ...
 */
 
-import { BaseContextMenu, MenuItem } from '../baseContextMenu/BaseContextMenu.js';
+import BaseContextMenu from '../baseContextMenu/BaseContextMenu.js';
+import MenuItem from '../baseContextMenu/MenuItem.js';
 import theWayPointEditor from '../core/WayPointEditor.js';
 import theTranslator from '../UILib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
