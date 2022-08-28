@@ -20,18 +20,16 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v4.0.0:
 		- created
-Doc reviewed 20220821
+Doc reviewed 20220828
 Tests ...
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import {
-	ToolbarItemsContainer,
-	ButtonHTMLElementClickEL,
-	ButtonHTMLElementTouchEL,
-	ButtonsHTMLElementTouchEL,
-	ButtonsHTMLElementWheelEL
-} from '../baseToolbar/BaseToolbarEL.js';
+import ToolbarItemsContainer from '../baseToolbar/ToolbarItemsContainer.js';
+import ButtonHTMLElementClickEL from '../baseToolbar/ButtonHTMLElementClickEL.js';
+import ButtonHTMLElementTouchEL from '../baseToolbar/ButtonHTMLElementTouchEL.js';
+import ButtonsHTMLElementTouchEL from '../baseToolbar/ButtonsHTMLElementTouchEL.js';
+import ButtonsHTMLElementWheelEL from '../baseToolbar/ButtonsHTMLElementWheelEL.js';
 import theConfig from '../data/Config.js';
 import { ZERO } from '../main/Constants.js';
 
@@ -216,7 +214,8 @@ class BaseToolbar {
 	}
 
 	/**
-	Click on the toolbar event listener. It's needed for touch devices where the mouseenter EL don't work
+	Click on the toolbar event listener. It's needed for touch devices where the mouseenter EL don't work.
+	Remember that toolbars are global objects never deleted, so we can have EL as simple member methods
 	@param {Event} mouseEvent the trigered event
 	*/
 
@@ -234,6 +233,7 @@ class BaseToolbar {
 
 	/**
 	Mouse enter on the toolbar event listener
+	Remember that toolbars are global objects never deleted, so we can have EL as simple member methods
 	@param {Event} mouseEvent the trigered event
 	*/
 
@@ -259,6 +259,7 @@ class BaseToolbar {
 
 	/**
 	Mouse leave the toolbar event listener
+	Remember that toolbars are global objects never deleted, so we can have EL as simple member methods
 	*/
 
 	#toolbarHTMLElementMouseLeaveEL ( ) {
