@@ -177,12 +177,14 @@ class ApiKeysManager {
 	*/
 
 	#resetApiKeys ( newApiKeys ) {
-		sessionStorage.clear ( );
 		this.#apiKeysMap.clear ( );
 		const saveToSessionStorage =
 			theUtilities.storageAvailable ( 'sessionStorage' )
 			&&
 			theConfig.ApiKeys.saveToSessionStorage;
+		if ( saveToSessionStorage ) {
+			sessionStorage.clear ( );
+		}
 		newApiKeys.forEach (
 			newApiKey => {
 				if ( saveToSessionStorage ) {
