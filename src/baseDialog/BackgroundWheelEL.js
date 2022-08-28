@@ -18,72 +18,57 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 /*
 Changes:
+	- v3.0.0:
+		- Issue ♯175 : Private and static fields and methods are coming
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
 	- v4.0.0:
-		- created
-Doc reviewed 20220822
+       - created from BaseDialogEventListeners.js
+		- Issue ♯38 : Review mouse and touch events on the background div of dialogs
+		- Issue #41 : Not possible to move a dialog on touch devices
+Doc reviewed 20210914
 Tests ...
 */
 
-import BaseDialog from '../BaseDialog/BaseDialog.js';
-import BackgroundDragOverEL from '../baseDialog/BackgroundDragOverEL.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
+import { ZERO, ONE } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-Base class for non modal dialogs
+wheel event listener for the background. Zoom on the map
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NonModalBaseDialog extends BaseDialog {
-
-	/**
-	Drag over the background event listener
-	@type {BackgroundDragOverEL}
-	*/
-
-	#backgroundDragOverEL;
-
-	/**
-	Create the event listener for the background
-	*/
-
-	#createBackgroundHTMLElementEL ( ) {
-
-		this.#backgroundDragOverEL = new BackgroundDragOverEL ( this.mover );
-		document.body.addEventListener ( 'dragover', this.#backgroundDragOverEL, false );
-	}
+class BackgroundWheelEL {
 
 	/**
 	The constructor
 	*/
 
 	constructor ( ) {
-		super ( );
+		Object.freeze ( this );
 	}
 
 	/**
-	Cancel button handler. Can be overloaded in the derived classes
+	Event listener method
+	@param {Event} wheelEvent The event to handle
 	*/
 
-	onCancel ( ) {
-		document.body.removeEventListener ( 'dragover', this.#backgroundDragOverEL, false );
-		this.#backgroundDragOverEL = null;
-		super.onCancel ( );
-		this.removeFromBackground ( document.body );
-	}
+	handleEvent ( wheelEvent ) {
+		if ( ! wheelEvent.target.classList.contains ( 'TravelNotes-Background' ) ) {
+			return;
+		}
 
-	/**
-	Show the dialog
-	*/
-
-	show ( ) {
-		super.show ( );
-		this.mover.backgroundHTMLElement = theTravelNotesData.map.getContainer ( );
-		this.#createBackgroundHTMLElementEL ( );
-		this.addToBackground ( document.body );
+		let zoom = theTravelNotesData.map.getZoom ( ) + ( ZERO > wheelEvent.deltaY ? ONE : -ONE );
+		zoom = Math.min ( theTravelNotesData.map.getMaxZoom ( ), zoom );
+		zoom = Math.max ( theTravelNotesData.map.getMinZoom ( ), zoom );
+		theTravelNotesData.map.setZoomAround (
+			window.L.point ( wheelEvent.clientX, wheelEvent.clientY ),
+			zoom
+		);
 	}
 }
 
-export default NonModalBaseDialog;
+export default BackgroundWheelEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

@@ -19,71 +19,49 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /*
 Changes:
 	- v4.0.0:
-		- created
-Doc reviewed 20220822
+        - created from BaseDialogEventListeners.js
+		- Issue ♯38 : Review mouse and touch events on the background div of dialogs
+		- Issue #41 : Not possible to move a dialog on touch devices
+Doc reviewed ...
 Tests ...
 */
 
-import BaseDialog from '../BaseDialog/BaseDialog.js';
-import BackgroundDragOverEL from '../baseDialog/BackgroundDragOverEL.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
-
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-Base class for non modal dialogs
+dragstart event listener for the top bar
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NonModalBaseDialog extends BaseDialog {
+class TopBarDragStartEL {
 
 	/**
-	Drag over the background event listener
-	@type {BackgroundDragOverEL}
+	A reference to the mover object of the dialog
+	@type {BaseDialogMover|DockableBaseDialogMover}
 	*/
 
-	#backgroundDragOverEL;
-
-	/**
-	Create the event listener for the background
-	*/
-
-	#createBackgroundHTMLElementEL ( ) {
-
-		this.#backgroundDragOverEL = new BackgroundDragOverEL ( this.mover );
-		document.body.addEventListener ( 'dragover', this.#backgroundDragOverEL, false );
-	}
+	#mover;
 
 	/**
 	The constructor
+	@param {BaseDialogMover|DockableBaseDialogMover} mover A reference to the mover object of the dialog
 	*/
 
-	constructor ( ) {
-		super ( );
+	constructor ( mover ) {
+		Object.freeze ( this );
+		this.#mover = mover;
 	}
 
 	/**
-	Cancel button handler. Can be overloaded in the derived classes
+	Event listener method
+	@param {Event} dragStartEvent The event to handle
 	*/
 
-	onCancel ( ) {
-		document.body.removeEventListener ( 'dragover', this.#backgroundDragOverEL, false );
-		this.#backgroundDragOverEL = null;
-		super.onCancel ( );
-		this.removeFromBackground ( document.body );
-	}
-
-	/**
-	Show the dialog
-	*/
-
-	show ( ) {
-		super.show ( );
-		this.mover.backgroundHTMLElement = theTravelNotesData.map.getContainer ( );
-		this.#createBackgroundHTMLElementEL ( );
-		this.addToBackground ( document.body );
+	handleEvent ( dragStartEvent ) {
+		this.#mover.setDragStartPoint ( dragStartEvent );
+		dragStartEvent.dataTransfer.setData ( 'ObjId', this.#mover.objId );
 	}
 }
 
-export default NonModalBaseDialog;
+export default TopBarDragStartEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

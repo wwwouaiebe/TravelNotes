@@ -51,13 +51,11 @@ Tests ...
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
-import BaseDialogOptions from '../baseDialog/baseDialogOptions.js';
-import { CancelButtonClickEL } from '../baseDialog/BaseDialogEL.js';
-import {
-	TopBarDragStartEL,
-	TopBarDragEndEL,
-	TopBarTouchEL
-} from '../baseDialog/BaseDialogTopBarEL.js';
+import BaseDialogOptions from '../baseDialog/BaseDialogOptions.js';
+import CancelButtonClickEL from '../baseDialog/CancelButtonClickEL.js';
+import TopBarDragStartEL from '../baseDialog/TopBarDragStartEL.js';
+import TopBarDragEndEL from '../baseDialog/TopBarDragEndEL.js';
+import TopBarTouchEL from '../baseDialog/TopBarTouchEL.js';
 import BaseDialogMover from '../baseDialog/BaseDialogMover.js';
 
 // import GarbageCollectorTester from '../UILib/GarbageCollectorTester.js';

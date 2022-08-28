@@ -18,53 +18,49 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 /*
 Changes:
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
 	- v4.0.0:
-		- file splitted. See BaseDialogBackgroundEventListeners.js and BaseDialogTopBarEventListeners.js
+        - created from BaseDialogEventListeners.js
 		- Issue ♯38 : Review mouse and touch events on the background div of dialogs
 		- Issue #41 : Not possible to move a dialog on touch devices
-Doc reviewed 20210914
+Doc reviewed ...
 Tests ...
 */
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-click event listener for the cancel button
+dragend event event listener for the top bar
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class CancelButtonClickEL {
+class TopBarDragEndEL {
 
 	/**
-	A reference to the dialog
-	@type {BaseDialog}
+	A reference to the mover object of the dialog
+	@type {BaseDialogMover|DockableBaseDialogMover}
 	*/
 
-	#baseDialog;
+	#mover;
 
 	/**
 	The constructor
-	@param {BaseDialog} baseDialog A reference to the dialog
+	@param {BaseDialogMover|DockableBaseDialogMover} mover A reference to the mover object of the dialog
 	*/
 
-	constructor ( baseDialog ) {
+	constructor ( mover ) {
 		Object.freeze ( this );
-		this.#baseDialog = baseDialog;
+		this.#mover = mover;
 	}
 
 	/**
 	Event listener method
+	@param {Event} dragEndEvent The event to handle
 	*/
 
-	handleEvent ( ) {
-		this.#baseDialog.onCancel ( );
+	handleEvent ( dragEndEvent ) {
+		this.#mover.moveDialog ( dragEndEvent );
 	}
 }
-export {
-	CancelButtonClickEL
-};
+
+export default TopBarDragEndEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

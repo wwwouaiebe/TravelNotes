@@ -20,70 +20,56 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v4.0.0:
 		- created
-Doc reviewed 20220822
+Doc reviewed ...
 Tests ...
 */
 
-import BaseDialog from '../BaseDialog/BaseDialog.js';
-import BackgroundDragOverEL from '../baseDialog/BackgroundDragOverEL.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
-
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-Base class for non modal dialogs
+keydown event listener
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NonModalBaseDialog extends BaseDialog {
+class ModalDialogKeyboardKeydownEL {
 
 	/**
-	Drag over the background event listener
-	@type {BackgroundDragOverEL}
+	A reference to the dialog
+	@type {ModalBaseDialog}
 	*/
 
-	#backgroundDragOverEL;
-
-	/**
-	Create the event listener for the background
-	*/
-
-	#createBackgroundHTMLElementEL ( ) {
-
-		this.#backgroundDragOverEL = new BackgroundDragOverEL ( this.mover );
-		document.body.addEventListener ( 'dragover', this.#backgroundDragOverEL, false );
-	}
+	#modalBaseDialog;
 
 	/**
 	The constructor
+	@param {ModalBaseDialog} modalBaseDialog A reference to the dialog
 	*/
 
-	constructor ( ) {
-		super ( );
+	constructor ( modalBaseDialog ) {
+		Object.freeze ( this );
+		this.#modalBaseDialog = modalBaseDialog;
 	}
 
 	/**
-	Cancel button handler. Can be overloaded in the derived classes
+	Event listener method
+	@param {Event} keyDownEvent The event to handle
 	*/
 
-	onCancel ( ) {
-		document.body.removeEventListener ( 'dragover', this.#backgroundDragOverEL, false );
-		this.#backgroundDragOverEL = null;
-		super.onCancel ( );
-		this.removeFromBackground ( document.body );
-	}
+	handleEvent ( keyDownEvent ) {
 
-	/**
-	Show the dialog
-	*/
+		if ( ! this.#modalBaseDialog.keyboardELEnabled ) {
+			return;
+		}
 
-	show ( ) {
-		super.show ( );
-		this.mover.backgroundHTMLElement = theTravelNotesData.map.getContainer ( );
-		this.#createBackgroundHTMLElementEL ( );
-		this.addToBackground ( document.body );
+		if ( 'Escape' === keyDownEvent.key || 'Esc' === keyDownEvent.key ) {
+			this.#modalBaseDialog.onCancel ( );
+		}
+		else if ( 'Enter' === keyDownEvent.key ) {
+			this.#modalBaseDialog.onOk ( );
+		}
+
 	}
 }
 
-export default NonModalBaseDialog;
+export default ModalDialogKeyboardKeydownEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

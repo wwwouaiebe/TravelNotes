@@ -26,18 +26,14 @@ Tests ...
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
-import { CancelButtonClickEL } from '../baseDialog/BaseDialogEL.js';
-import {
-	DialogKeyboardKeydownEL,
-	OkButtonClickEL
-} from '../baseDialog/ModalBaseDialogEL.js';
-import {
-	BackgroundWheelEL,
-	BackgroundContextMenuEL,
-	BackgroundDragOverEL,
-	BackgroundTouchEL,
-	BackgroundMouseEL
-} from '../baseDialog/BaseDialogBackgroundEL.js';
+import CancelButtonClickEL from '../baseDialog/CancelButtonClickEL.js';
+import ModalDialogKeyboardKeydownEL from '../baseDialog/ModalDialogKeyboardKeydownEL.js';
+import OkButtonClickEL from '../baseDialog/OkButtonClickEL.js';
+import BackgroundWheelEL from '../baseDialog/BackgroundWheelEL.js';
+import BackgroundContextMenuEL from '../baseDialog/BackgroundContextMenuEL.js';
+import BackgroundDragOverEL from '../baseDialog/BackgroundDragOverEL.js';
+import BackgroundTouchEL from '../baseDialog/BackgroundTouchEL.js';
+import BackgroundMouseEL from '../baseDialog/BackgroundMouseEL.js';
 import BaseDialog from '../baseDialog/BaseDialog.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -120,10 +116,10 @@ class ModalBaseDialog extends BaseDialog {
 
 	/**
 	Keyboard key down event listener
-	@type {DialogKeyboardKeydownEL}
+	@type {ModalDialogKeyboardKeydownEL}
 	*/
 
-	#dialogKeyboardKeydownEL;
+	#modalDialogKeyboardKeydownEL;
 
 	/**
 	Drag over the background event listener
@@ -318,8 +314,8 @@ class ModalBaseDialog extends BaseDialog {
 		this.#backgroundHTMLElement.removeEventListener ( 'mousedown', this.#backgroundMouseEL, false );
 		this.#backgroundMouseEL = null;
 
-		document.removeEventListener ( 'keydown', this.#dialogKeyboardKeydownEL, { capture : true } );
-		this.#dialogKeyboardKeydownEL = null;
+		document.removeEventListener ( 'keydown', this.#modalDialogKeyboardKeydownEL, { capture : true } );
+		this.#modalDialogKeyboardKeydownEL = null;
 
 		this.#okButton.removeEventListener ( 'click', this.#okButtonClickEL, false );
 		this.#okButtonClickEL = null;
@@ -360,8 +356,8 @@ class ModalBaseDialog extends BaseDialog {
 		this.#createHTML ( );
 		document.body.appendChild ( this.#backgroundHTMLElement );
 		this.addToBackground ( this.#backgroundHTMLElement );
-		this.#dialogKeyboardKeydownEL = new DialogKeyboardKeydownEL ( this );
-		document.addEventListener ( 'keydown', this.#dialogKeyboardKeydownEL, { capture : true } );
+		this.#modalDialogKeyboardKeydownEL = new ModalDialogKeyboardKeydownEL ( this );
+		document.addEventListener ( 'keydown', this.#modalDialogKeyboardKeydownEL, { capture : true } );
 		this.mover.centerDialog ( );
 		return new Promise ( ( onOk, onError ) => this.#show ( onOk, onError ) );
 	}

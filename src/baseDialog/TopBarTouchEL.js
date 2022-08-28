@@ -30,77 +30,6 @@ import { ZERO, ONE } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-dragstart event listener for the top bar
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class TopBarDragStartEL {
-
-	/**
-	A reference to the mover object of the dialog
-	@type {BaseDialogMover|DockableBaseDialogMover}
-	*/
-
-	#mover;
-
-	/**
-	The constructor
-	@param {BaseDialogMover|DockableBaseDialogMover} mover A reference to the mover object of the dialog
-	*/
-
-	constructor ( mover ) {
-		Object.freeze ( this );
-		this.#mover = mover;
-	}
-
-	/**
-	Event listener method
-	@param {Event} dragStartEvent The event to handle
-	*/
-
-	handleEvent ( dragStartEvent ) {
-		this.#mover.setDragStartPoint ( dragStartEvent );
-		dragStartEvent.dataTransfer.setData ( 'ObjId', this.#mover.objId );
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-dragend event event listener for the top bar
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class TopBarDragEndEL {
-
-	/**
-	A reference to the mover object of the dialog
-	@type {BaseDialogMover|DockableBaseDialogMover}
-	*/
-
-	#mover;
-
-	/**
-	The constructor
-	@param {BaseDialogMover|DockableBaseDialogMover} mover A reference to the mover object of the dialog
-	*/
-
-	constructor ( mover ) {
-		Object.freeze ( this );
-		this.#mover = mover;
-	}
-
-	/**
-	Event listener method
-	@param {Event} dragEndEvent The event to handle
-	*/
-
-	handleEvent ( dragEndEvent ) {
-		this.#mover.moveDialog ( dragEndEvent );
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
 touchstart, touchmove, touchend and touchcancel event listener for the top bar
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -166,10 +95,6 @@ class TopBarTouchEL {
 	}
 }
 
-export {
-	TopBarDragStartEL,
-	TopBarDragEndEL,
-	TopBarTouchEL
-};
+export default TopBarTouchEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
