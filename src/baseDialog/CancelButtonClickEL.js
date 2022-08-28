@@ -26,7 +26,7 @@ Changes:
 		- file splitted. See BaseDialogBackgroundEventListeners.js and BaseDialogTopBarEventListeners.js
 		- Issue ♯38 : Review mouse and touch events on the background div of dialogs
 		- Issue #41 : Not possible to move a dialog on touch devices
-Doc reviewed 20210914
+Doc reviewed 20220828
 Tests ...
 */
 

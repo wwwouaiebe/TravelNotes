@@ -45,7 +45,7 @@ Changes:
 		- Issue ♯38 : Review mouse and touch events on the background div of dialogs
 		- Issue ♯41 : Not possible to move a dialog on touch devices
 		- Issue ♯48 : Review the dialogs
-Doc reviewed 20220822
+Doc reviewed 20220828
 Tests ...
 */
 
@@ -281,11 +281,15 @@ class BaseDialog {
 
 		this.#cancelButton.removeEventListener ( 'click', this.#cancelButtonClickEL, false );
 		this.#cancelButtonClickEL = null;
+
+		if ( this.#baseDialogMover ) {
+			this.#baseDialogMover = null;
+		}
 	}
 
 	/**
 	Get the mover object used with this dialog. Create the object if needed.
-	Overload of the base class get mover ( )
+	Can be overloaded in the derived classes
 	@type {BaseDialogMover}
 	*/
 

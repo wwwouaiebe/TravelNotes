@@ -321,6 +321,7 @@ class ModalBaseDialog extends BaseDialog {
 		this.#okButtonClickEL = null;
 		if ( this.options.secondButtonText ) {
 			this.#secondButton.removeEventListener ( 'click', this.#cancelButtonClickEL, false	);
+			this.#cancelButtonClickEL = null;
 		}
 
 		document.body.removeChild ( this.#backgroundHTMLElement );
