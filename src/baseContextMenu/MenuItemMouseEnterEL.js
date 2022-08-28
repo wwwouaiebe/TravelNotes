@@ -24,7 +24,7 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v4.0.0:
 		- Issue ♯50 : Add touch events on the menus to close the menus
-Doc reviewed 20210915
+Doc reviewed 20220828
 Tests ...
 */
 
@@ -51,6 +51,14 @@ class MenuItemMouseEnterEL {
 	constructor ( menuOperator ) {
 		Object.freeze ( this );
 		this.#menuOperator = menuOperator;
+	}
+
+	/**
+	The destructor
+	*/
+
+	destructor ( ) {
+		this.#menuOperator = null;
 	}
 
 	/**
