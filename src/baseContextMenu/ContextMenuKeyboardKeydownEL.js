@@ -54,14 +54,6 @@ class ContextMenuKeyboardKeydownEL {
 	}
 
 	/**
-	The destructor
-	*/
-
-	destructor ( ) {
-		this.#menuOperator = null;
-	}
-
-	/**
 	Event listener method
 	@param {Event} keydownEvent The event to handle
 	*/

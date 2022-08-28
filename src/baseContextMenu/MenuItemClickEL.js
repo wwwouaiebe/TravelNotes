@@ -54,14 +54,6 @@ class MenuItemClickEL {
 	}
 
 	/**
-	The destructor
-	*/
-
-	destructor ( ) {
-		this.#menuOperator = null;
-	}
-
-	/**
 	Event listener method
 	@param {Event} clickEvent The event to handle
 	*/

@@ -54,14 +54,6 @@ class MenuItemMouseLeaveEL {
 	}
 
 	/**
-	The destructor
-	*/
-
-	destructor ( ) {
-		this.#menuOperator = null;
-	}
-
-	/**
 	Event listener method
 	@param {Event} mouseLeaveEvent The event to handle
 	*/

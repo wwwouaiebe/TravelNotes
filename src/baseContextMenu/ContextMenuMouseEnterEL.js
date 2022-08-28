@@ -54,14 +54,6 @@ class ContextMenuMouseEnterEL {
 	}
 
 	/**
-	The destructor
-	*/
-
-	destructor ( ) {
-		this.#menuOperator = null;
-	}
-
-	/**
 	Event listener method
 	@param {Event} mouseEnterEvent The event to handle
 	*/

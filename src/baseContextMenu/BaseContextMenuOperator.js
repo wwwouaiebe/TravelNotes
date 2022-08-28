@@ -267,21 +267,13 @@ class BaseContextMenuOperator {
 			}
 		);
 
-		this.#contextMenuKeyboardKeydownEL.destructor ( );
 		this.#contextMenuKeyboardKeydownEL = null;
-		this.#contextMenuMouseLeaveEL.destructor ( );
 		this.#contextMenuMouseLeaveEL = null;
-		this.#contextMenuMouseEnterEL.destructor ( );
 		this.#contextMenuMouseEnterEL = null;
-		this.#contextMenuCancelButtonClickEL.destructor ( );
 		this.#contextMenuCancelButtonClickEL = null;
-		this.#contextMenuTouchEL.destructor ( );
 		this.#contextMenuTouchEL = null;
-		this.#menuItemClickEL.destructor ( );
 		this.#menuItemClickEL = null;
-		this.#menuItemMouseLeaveEL.destructor ( );
 		this.#menuItemMouseLeaveEL = null;
-		this.#menuItemMouseEnterEL.destructor ( );
 		this.#menuItemMouseEnterEL = null;
 
 		// removing the html elements
