@@ -30,7 +30,7 @@ import theTravelNotesData from '../data/TravelNotesData.js';
 import theTranslator from '../UILib/Translator.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import BaseContextMenuOperator from '../baseContextMenu/BaseContextMenuOperator.js';
-import BaseContextMenuEventData from '../baseContextMenu/BaseContextMenuEventData.js';
+import { ZERO, INVALID_OBJ_ID, LAT_LNG } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -39,6 +39,42 @@ Base class used to create context menus
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 class BaseContextMenu {
+
+	/**
+	The X screen coordinate of the mouse event that have triggered the menu
+	@type {Number}
+	*/
+
+	#clientX;
+
+	/**
+	The Y screen coordinate of the mouse event that have triggered the menu
+	@type {Number}
+	*/
+
+	#clientY;
+
+	/**
+	The lat an lng at the mouse position for events triggered by the map
+	@type {Array.<Number>}
+	*/
+
+	#latLng;
+
+	/**
+	The ObjId of the TravelObject on witch the mouse is positionned if any
+	@type {Number}
+	*/
+
+	#targetObjId;
+
+	/**
+	A flag indicating when the menu must have a parent node. Menus triggered from leaflet objects don't have
+	parentNode and then the menu is added to the document body
+	@type {Boolean}
+	*/
+
+	#haveParentNode;
 
 	/**
 	The active BaseContextMenu instance. Needed to close the menu when a second menu is loaded
@@ -88,13 +124,6 @@ class BaseContextMenu {
 	*/
 
 	#menuItemHTMLElements;
-
-	/**
-	An object to store data from the Event and parentNode and shared with the derived classes
-	@type {BaseContextMenuEventData}
-	*/
-
-	#eventData;
 
 	/**
 	The associated BaseContextMenuOperator object
@@ -174,18 +203,18 @@ class BaseContextMenu {
 
 		// the menu is positionned ( = top left where the user have clicked but the menu must be completely in the window...
 		const menuTop = Math.min (
-			this.#eventData.clientY,
+			this.#clientY,
 			theTravelNotesData.map.getContainer ( ).clientHeight -
 				this.#contextMenuHTMLElement.clientHeight -
 				BaseContextMenu.#menuMargin
 		);
 		this.#contextMenuHTMLElement.style.top = String ( menuTop ) + 'px';
-		if ( this.#eventData.haveParentNode ) {
+		if ( this.#haveParentNode ) {
 			this.#contextMenuHTMLElement.style.right = String ( BaseContextMenu.#menuMargin ) + 'px';
 		}
 		else {
 			const menuLeft = Math.min (
-				this.#eventData.clientX,
+				this.#clientX,
 				theTravelNotesData.map.getContainer ( ).clientWidth -
 				this.#contextMenuHTMLElement.clientWidth -
 				BaseContextMenu.#menuMargin
@@ -228,10 +257,18 @@ class BaseContextMenu {
 			return;
 		}
 
-		this.#eventData = new BaseContextMenuEventData ( contextMenuEvent, parentNode );
-
-		// Saving data from the contextMenuEvent
-
+		// Saving data from the contextMenuEvent and parentNode
+		this.#clientX = contextMenuEvent.clientX || contextMenuEvent.originalEvent.clientX || ZERO;
+		this.#clientY = contextMenuEvent.clientY || contextMenuEvent.originalEvent.clientY || ZERO;
+		this.#latLng = [
+			contextMenuEvent.latlng ? contextMenuEvent.latlng.lat : LAT_LNG.defaultValue,
+			contextMenuEvent.latlng ? contextMenuEvent.latlng.lng : LAT_LNG.defaultValue
+		];
+		this.#targetObjId =
+			contextMenuEvent.target?.objId
+			??
+			( Number.parseInt ( contextMenuEvent?.currentTarget?.dataset?.tanObjId ) || INVALID_OBJ_ID );
+		this.#haveParentNode = Boolean ( parentNode );
 		this.#parentNode = parentNode || document.body;
 
 		BaseContextMenu.#currentMenu = this;
@@ -315,11 +352,40 @@ class BaseContextMenu {
 	get menuItemHTMLElements ( ) { return this.#menuItemHTMLElements; }
 
 	/**
-	eventData getter
-	@type {BaseContextMenuEventData}
+	The X screen coordinate of the mouse event that have triggered the menu
+	@type {Number}
 	*/
 
-	get eventData ( ) { return this.#eventData; }
+	get clientX ( ) { return this.#clientX; }
+
+	/**
+	The Y screen coordinate of the mouse event that have triggered the menu
+	@type {Number}
+	*/
+
+	get clientY ( ) { return this.#clientY; }
+
+	/**
+	The lat an lng at the mouse position for events triggered by the map
+	@type {Array.<Number>}
+	*/
+
+	get latLng ( ) { return this.#latLng; }
+
+	/**
+	The ObjId of the TravelObject on witch the mouse is positionned if any
+	@type {Number}
+	*/
+
+	get targetObjId ( ) { return this.#targetObjId; }
+
+	/**
+	A flag indicating when the menu must have a parent node. Menus triggered from leaflet objects don't have
+	parentNode and then the menu is added to the document body
+	@type {Boolean}
+	*/
+
+	get haveParentNode ( ) { return this.#haveParentNode; }
 
 }
 

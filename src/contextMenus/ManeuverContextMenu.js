@@ -24,7 +24,7 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210913
+Doc reviewed 20220828
 Tests ...
 */
 
@@ -61,7 +61,7 @@ class ManeuverContextMenu extends BaseContextMenu {
 			new MenuItem (
 				theTranslator.getText ( 'ManeuverContextMenu - Zoom to this maneuver' ),
 				true,
-				( ) => new Zoomer ( ).zoomToManeuver ( this.eventData.targetObjId )
+				( ) => new Zoomer ( ).zoomToManeuver ( this.targetObjId )
 			)
 		];
 	}

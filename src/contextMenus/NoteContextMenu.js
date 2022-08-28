@@ -27,7 +27,7 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210913
+Doc reviewed 20220828
 Tests ...
 */
 
@@ -64,9 +64,7 @@ class NoteContextMenu extends BaseContextMenu {
 
 	constructor ( contextMenuEvent, parentNode ) {
 		super ( contextMenuEvent, parentNode );
-		if ( this.eventData ) {
-			this.#route = theDataSearchEngine.getNoteAndRoute ( this.eventData.targetObjId ).route;
-		}
+		this.#route = theDataSearchEngine.getNoteAndRoute ( this.targetObjId ).route;
 	}
 
 	/**
@@ -79,17 +77,17 @@ class NoteContextMenu extends BaseContextMenu {
 			new MenuItem (
 				theTranslator.getText ( 'NoteContextMenu - Edit this note' ),
 				true,
-				( ) => theNoteEditor.editNote ( this.eventData.targetObjId )
+				( ) => theNoteEditor.editNote ( this.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'NoteContextMenu - Delete this note' ),
 				true,
-				( ) => theNoteEditor.removeNote ( this.eventData.targetObjId )
+				( ) => theNoteEditor.removeNote ( this.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'NoteContextMenu - Zoom to note' ),
 				true,
-				( ) => new Zoomer ( ).zoomToNote ( this.eventData.targetObjId )
+				( ) => new Zoomer ( ).zoomToNote ( this.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText (
@@ -101,10 +99,10 @@ class NoteContextMenu extends BaseContextMenu {
 				INVALID_OBJ_ID === theTravelNotesData.editedRouteObjId,
 				( ) => {
 					if ( this.#route ) {
-						theNoteEditor.detachNoteFromRoute ( this.eventData.targetObjId );
+						theNoteEditor.detachNoteFromRoute ( this.targetObjId );
 					}
 					else {
-						theNoteEditor.attachNoteToRoute ( this.eventData.targetObjId );
+						theNoteEditor.attachNoteToRoute ( this.targetObjId );
 					}
 				}
 			)

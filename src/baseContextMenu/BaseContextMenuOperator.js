@@ -24,7 +24,7 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v4.0.0:
 		- Issue ♯50 : Add touch events on the menus to close the menus
-Doc reviewed 20210913
+Doc reviewed 20220828
 Tests ...
 */
 
@@ -81,14 +81,14 @@ class BaseContextMenuOperator {
 	#contextMenuKeyboardKeydownEL;
 
 	/**
-	Mouseleave container event listener
+	Mouseleave context menu event listener
 	@type {ContextMenuMouseLeaveEL}
 	*/
 
 	#contextMenuMouseLeaveEL;
 
 	/**
-	mouseenter container event listener
+	mouseenter context menu event listener
 	@type {ContextMenuMouseEnterEL}
 	*/
 
@@ -137,7 +137,7 @@ class BaseContextMenuOperator {
 	#keyboardSelectedItemObjId = NOT_FOUND;
 
 	/**
-	TimerId for the mouseleave container action
+	TimerId for the mouseleave context menu action
 	@type {Number}
 	*/
 
@@ -285,14 +285,14 @@ class BaseContextMenuOperator {
 		this.#menuItemMouseEnterEL = null;
 
 		// removing the html elements
-		this.#contextMenu.parentNode.removeChild ( this.#contextMenu.container );
+		this.#contextMenu.parentNode.removeChild ( this.#contextMenu.contextMenuHTMLElement );
 
 		// cleaning the reference to the menu
 		this.#contextMenu = null;
 	}
 
 	/**
-	Mouse leave container action
+	Mouse leave context menu action
 	*/
 
 	onMouseLeaveContainer ( ) {
@@ -300,7 +300,7 @@ class BaseContextMenuOperator {
 	}
 
 	/**
-	Mouse enter container action
+	Mouse enter context menu action
 	*/
 
 	onMouseEnterContainer ( ) {

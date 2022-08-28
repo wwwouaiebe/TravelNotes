@@ -24,7 +24,7 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210913
+Doc reviewed 20220828
 Tests ...
 */
 
@@ -62,12 +62,12 @@ class ProfileContextMenu extends BaseContextMenu {
 			new MenuItem (
 				theTranslator.getText ( 'ProfileContextMenu - Add a note to the route at this point' ),
 				true,
-				( ) => theNoteEditor.newRouteNote ( this.eventData.targetObjId, this.eventData.latLng )
+				( ) => theNoteEditor.newRouteNote ( this.targetObjId, this.latLng )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'ProfileContextMenu - Zoom to this point' ),
 				true,
-				( ) => new Zoomer ( ).zoomToLatLng ( this.eventData.latLng )
+				( ) => new Zoomer ( ).zoomToLatLng ( this.latLng )
 			)
 		];
 	}

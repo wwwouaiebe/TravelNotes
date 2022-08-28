@@ -35,7 +35,7 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210913
+Doc reviewed 20220828
 Tests ...
 */
 
@@ -77,9 +77,7 @@ class RouteContextMenu extends BaseContextMenu {
 
 	constructor ( contextMenuEvent, parentNode ) {
 		super ( contextMenuEvent, parentNode );
-		if ( this.eventData ) {
-			this.#route = theDataSearchEngine.getRoute ( this.eventData.targetObjId );
-		}
+		this.#route = theDataSearchEngine.getRoute ( this.targetObjId );
 	}
 
 	/**
@@ -92,21 +90,21 @@ class RouteContextMenu extends BaseContextMenu {
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Edit this route' ),
 				(
-					( this.eventData.targetObjId !== theTravelNotesData.travel.editedRoute.objId )
+					( this.targetObjId !== theTravelNotesData.travel.editedRoute.objId )
 					&&
 					( ROUTE_EDITION_STATUS.editedChanged !== theTravelNotesData.travel.editedRoute.editionStatus )
 				),
-				( ) => theRouteEditor.editRoute ( this.eventData.targetObjId )
+				( ) => theRouteEditor.editRoute ( this.targetObjId )
 
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Delete this route' ),
 				(
-					( this.eventData.targetObjId !== theTravelNotesData.travel.editedRoute.objId )
+					( this.targetObjId !== theTravelNotesData.travel.editedRoute.objId )
 					||
 					( ROUTE_EDITION_STATUS.editedChanged !== theTravelNotesData.travel.editedRoute.editionStatus )
 				),
-				( ) => theRouteEditor.removeRoute ( this.eventData.targetObjId )
+				( ) => theRouteEditor.removeRoute ( this.targetObjId )
 
 			),
 			new MenuItem (
@@ -119,64 +117,64 @@ class RouteContextMenu extends BaseContextMenu {
 				),
 				this.#route.hidden
 				||
-				theTravelNotesData.travel.editedRoute.objId !== this.eventData.targetObjId,
+				theTravelNotesData.travel.editedRoute.objId !== this.targetObjId,
 				( ) => {
 					if ( this.#route.hidden ) {
-						theRouteEditor.showRoute ( this.eventData.targetObjId );
+						theRouteEditor.showRoute ( this.targetObjId );
 					}
 					else {
-						theRouteEditor.hideRoute ( this.eventData.targetObjId );
+						theRouteEditor.hideRoute ( this.targetObjId );
 					}
 				}
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Properties' ),
 				! this.#route.hidden,
-				( ) => theRouteEditor.routeProperties ( this.eventData.targetObjId )
+				( ) => theRouteEditor.routeProperties ( this.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Zoom to route' ),
 				! this.#route.hidden,
-				( ) => new Zoomer ( ).zoomToRoute ( this.eventData.targetObjId )
+				( ) => new Zoomer ( ).zoomToRoute ( this.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - View the elevation' ),
 				this.#route.itinerary.hasProfile,
-				( ) => theProfileDialogsManager.showProfile ( this.eventData.targetObjId )
+				( ) => theProfileDialogsManager.showProfile ( this.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Print route map' ),
 				theConfig.printRouteMap.isEnabled,
-				( ) => theRouteEditor.printRouteMap ( this.eventData.targetObjId )
+				( ) => theRouteEditor.printRouteMap ( this.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Save this route in a GPX file' ),
 				( ZERO < this.#route.itinerary.itineraryPoints.length ),
-				( ) => theRouteEditor.saveGpx ( this.eventData.targetObjId )
+				( ) => theRouteEditor.saveGpx ( this.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Invert waypoints' ),
-				theTravelNotesData.travel.editedRoute.objId === this.eventData.targetObjId,
+				theTravelNotesData.travel.editedRoute.objId === this.targetObjId,
 				( ) => theWayPointEditor.reverseWayPoints ( )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Add a note on the route' ),
-				! this.eventData.haveParentNode,
-				( ) => theNoteEditor.newRouteNote ( this.eventData.targetObjId, this.eventData.latLng )
+				! this.haveParentNode,
+				( ) => theNoteEditor.newRouteNote ( this.targetObjId, this.latLng )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Create a note for each route maneuver' ),
 				! this.#route.hidden,
-				( ) => new AllManeuverNotesBuilder ( ).addAllManeuverNotes ( this.eventData.targetObjId )
+				( ) => new AllManeuverNotesBuilder ( ).addAllManeuverNotes ( this.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Save modifications on this route' ),
-				theTravelNotesData.travel.editedRoute.objId === this.eventData.targetObjId,
+				theTravelNotesData.travel.editedRoute.objId === this.targetObjId,
 				( ) => theRouteEditor.saveEdition ( )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Cancel modifications on this route' ),
-				theTravelNotesData.travel.editedRoute.objId === this.eventData.targetObjId,
+				theTravelNotesData.travel.editedRoute.objId === this.targetObjId,
 				( ) => theRouteEditor.cancelEdition ( )
 			)
 		];

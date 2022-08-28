@@ -29,7 +29,7 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v4.0.0:
 		- Issue ♯49 : Add a full screen mode method
-Doc reviewed 20210913
+Doc reviewed 20220828
 Tests ...
 */
 
@@ -74,19 +74,19 @@ class MapContextMenu extends BaseContextMenu {
 				( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId )
 					&&
 					( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.first.lat ),
-				( ) => theWayPointEditor.setStartPoint ( this.eventData.latLng )
+				( ) => theWayPointEditor.setStartPoint ( this.latLng )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'MapContextMenu - Select this point as way point' ),
 				( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId ),
-				( ) => theWayPointEditor.addWayPoint ( this.eventData.latLng )
+				( ) => theWayPointEditor.addWayPoint ( this.latLng )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'MapContextMenu - Select this point as end point' ),
 				( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId )
 					&&
 					( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.last.lat ),
-				( ) => theWayPointEditor.setEndPoint ( this.eventData.latLng )
+				( ) => theWayPointEditor.setEndPoint ( this.latLng )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'MapContextMenu - Select this point as start and end point' ),
@@ -95,7 +95,7 @@ class MapContextMenu extends BaseContextMenu {
 					( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.first.lat )
 					&&
 					( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.last.lat ),
-				( ) => theWayPointEditor.setStartAndEndPoint ( this.eventData.latLng )
+				( ) => theWayPointEditor.setStartAndEndPoint ( this.latLng )
 			),
 			new MenuItem ( theTranslator.getText ( 'MapContextMenu - Add a route' ),
 				true,
@@ -114,7 +114,7 @@ class MapContextMenu extends BaseContextMenu {
 			new MenuItem (
 				theTranslator.getText ( 'MapContextMenu - New travel note' ),
 				true,
-				( ) => theNoteEditor.newTravelNote ( this.eventData.latLng )
+				( ) => theNoteEditor.newTravelNote ( this.latLng )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'MapContextMenu - Hide all notes' ),
