@@ -201,7 +201,6 @@ class ButtonsHTMLElementTouchEL {
 	*/
 
 	handleEvent ( touchEvent ) {
-		touchEvent.preventDefault ( );
 		switch ( touchEvent.type ) {
 		case 'touchstart' :
 			if ( ONE === touchEvent.changedTouches.length ) {
