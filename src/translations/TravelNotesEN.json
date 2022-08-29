@@ -188,10 +188,6 @@
 		"msgstr": "It's impossible to create a SVG icon for a travel note"
 	},
 	{
-		"msgid": "ManeuverContextMenu - Zoom to this maneuver",
-		"msgstr": "Zoom to this maneuver"
-	},
-	{
 		"msgid": "MapContextMenu - Add a route",
 		"msgstr": "Add a route"
 	},
