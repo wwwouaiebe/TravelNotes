@@ -111,6 +111,21 @@ class TravelEditor {
 	}
 
 	/**
+	Verify that the travel have a name.
+	Show an error and the TravelPropertiesDialog if no name
+	@return {Boolean} true when the travel is named
+	*/
+
+	#verifyTravelName ( ) {
+		if ( '' === theTravelNotesData.travel.name ) {
+			theErrorsUI.showError ( theTranslator.getText ( 'TravelEditor - Gives a name to the travel' ) );
+			theEventDispatcher.dispatch ( 'showtravelproperties' );
+			return false;
+		}
+		return true;
+	}
+
+	/**
 	The constructor
 	*/
 
@@ -152,15 +167,14 @@ class TravelEditor {
 	*/
 
 	saveAsTravel ( ) {
-		if ( '' === theTravelNotesData.travel.name ) {
-			theErrorsUI.showError ( theTranslator.getText ( 'TravelEditor - Gives a name to the travel' ) );
+		if ( ! this.#verifyTravelName ( ) ) {
 			return;
 		}
-
 		if ( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId ) {
 			theErrorsUI.showError (
 				theTranslator.getText ( 'TravelEditor - Not possible to partial save when a route is edited.' )
 			);
+			theEventDispatcher.dispatch ( 'showtravelproperties' );
 			return;
 		}
 
@@ -180,8 +194,7 @@ class TravelEditor {
 	*/
 
 	saveTravel ( ) {
-		if ( '' === theTravelNotesData.travel.name ) {
-			theErrorsUI.showError ( theTranslator.getText ( 'TravelEditor - Gives a name to the travel' ) );
+		if ( ! this.#verifyTravelName ( ) ) {
 			return;
 		}
 		const routesIterator = theTravelNotesData.travel.routes.iterator;

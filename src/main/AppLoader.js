@@ -307,7 +307,11 @@ class AppLoader {
 			( ) => theDockableDialogsManager.osmSearchDialog.updateContent ( ),
 			false
 		);
-
+		document.addEventListener (
+			'showtravelproperties',
+			( ) => theDockableDialogsManager.showTravelProperties ( ),
+			false
+		);
 		document.addEventListener ( 'providersadded', ( ) => theProvidersToolbar.providersAdded ( ), false );
 		document.addEventListener (
 			'setprovider',

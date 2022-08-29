@@ -76,6 +76,16 @@ class DockableBaseDialogMover extends BaseDialogMover {
 	get dialogDocked ( ) { return this.#dialogDocked; }
 
 	/**
+	Center the dialog on the screen. Overload of the base class method.
+	*/
+
+	centerDialog ( ) {
+		this.dialogHTMLElement.classList.remove ( 'TravelNotes-DockableBaseDialog-Docked' );
+		this.dialogHTMLElement.classList.remove ( 'TravelNotes-DockableBaseDialog-HiddenContent' );
+		super.centerDialog ( );
+	}
+
+	/**
 	Move the dialog on the screen
 	@param {Number} newDialogX The new X position of the dialog in pixels
 	@param {Number} newDialogY The new Y position of the dialog in pixels

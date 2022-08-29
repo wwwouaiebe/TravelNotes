@@ -112,6 +112,15 @@ class DockableDialogsManager {
 		return this.#travelNotesDialog;
 	}
 
+	/**
+	Show the travel properties dialog visible and centered on the screen
+	*/
+
+	showTravelProperties ( ) {
+		this.travelPropertiesDialog.show ( );
+		this.travelPropertiesDialog.mover.centerDialog ( );
+	}
+
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
