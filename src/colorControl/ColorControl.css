@@ -28,12 +28,7 @@ Doc reviewed ...
 	text-align: center;
 }
 
-#TravelNotes-ColorControl-RedButtonsRowDiv {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.TravelNotes-ColorControl-CellColorDiv {
+.TravelNotes-ColorControl-CellColorHTMLElement {
 	display: inline-block;
 	height: 1em;
 	width: 1em;
@@ -47,7 +42,7 @@ Doc reviewed ...
 	margin: 0.5em;
 }
 
-#TravelNotes-ColorControl-ColorSampleDiv {
+#TravelNotes-ColorControl-ColorSampleHTMLElement {
 	width: 5em;
 	height: 3em;
 	display: inline-block;

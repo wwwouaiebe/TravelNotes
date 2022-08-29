@@ -24,15 +24,15 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v3.2.0:
 		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
-Doc reviewed 20220828
+Doc reviewed 20220829
 Tests ...
 */
 
-import { ZERO, TWO, THREE, HEXADECIMAL, COLOR_CONTROL } from '../main/Constants.js';
+import { ZERO, TWO, THREE, HEXADECIMAL } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-A simple helper class for the ColorControl
+A simple container for a color, mainly used to convert from css format to numbers and vice-versa
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
@@ -67,29 +67,48 @@ class Color {
 	*/
 
 	constructor ( red, green, blue ) {
-
 		Object.freeze ( this );
 		this.#red =
-			'number' === typeof red && COLOR_CONTROL.maxColorValue >= red && COLOR_CONTROL.minColorValue <= red
+			'number' === typeof red && Color.MAX_COLOR >= red && Color.MIN_COLOR <= red
 				?
 				red
 				:
-				COLOR_CONTROL.maxColorValue;
-
+				Color.MAX_COLOR;
 		this.#green =
-			'number' === typeof green && COLOR_CONTROL.maxColorValue >= green && COLOR_CONTROL.minColorValue <= green
+			'number' === typeof green && Color.MAX_COLOR >= green && Color.MIN_COLOR <= green
 				?
 				green
 				:
-				COLOR_CONTROL.maxColorValue;
-
+				Color.MAX_COLOR;
 		this.#blue =
-			'number' === typeof blue && COLOR_CONTROL.maxColorValue >= blue && COLOR_CONTROL.minColorValue <= blue
+			'number' === typeof blue && Color.MAX_COLOR >= blue && Color.MIN_COLOR <= blue
 				?
 				blue
 				:
-				COLOR_CONTROL.maxColorValue;
+				Color.MAX_COLOR;
 	}
+
+	/**
+	The smallest acceptable value fo a color
+	@type {Number}
+	*/
+
+	/* eslint-disable-next-line no-magic-numbers */
+	static get MIN_COLOR ( ) { return 0; }
+
+	/**
+	The bigest acceptable value fo a color
+	@type {Number}
+	*/
+
+	/* eslint-disable-next-line no-magic-numbers */
+	static get MAX_COLOR ( ) { return 255; }
+
+	/**
+	A static method that build a Color object from a css color string
+	@param {String} cssColor The css color string
+	@return {Color} A new color object set to the color in the css string
+	*/
 
 	static fromCss ( cssColor ) {
 		let color = new Color ( );
@@ -105,7 +124,7 @@ class Color {
 	get red ( ) { return this.#red; }
 
 	set red ( red ) {
-		if ( 'number' === typeof red && COLOR_CONTROL.maxColorValue >= red && COLOR_CONTROL.minColorValue <= red ) {
+		if ( 'number' === typeof red && Color.MAX_COLOR >= red && Color.MIN_COLOR <= red ) {
 			this.#red = red;
 		}
 	}
@@ -118,7 +137,7 @@ class Color {
 	get green ( ) { return this.#green; }
 
 	set green ( green ) {
-		if ( 'number' === typeof green && COLOR_CONTROL.maxColorValue >= green && COLOR_CONTROL.minColorValue <= green ) {
+		if ( 'number' === typeof green && Color.MAX_COLOR >= green && Color.MIN_COLOR <= green ) {
 			this.#green = green;
 		}
 	}
@@ -131,13 +150,13 @@ class Color {
 	get blue ( ) { return this.#blue; }
 
 	set blue ( blue ) {
-		if ( 'number' === typeof blue && COLOR_CONTROL.maxColorValue >= blue && COLOR_CONTROL.minColorValue <= blue ) {
+		if ( 'number' === typeof blue && Color.MAX_COLOR >= blue && Color.MIN_COLOR <= blue ) {
 			this.#blue = blue;
 		}
 	}
 
 	/**
-	The color in the css HEX format '#RRGGBB'
+	The color in the css HEX format '#RRGGBB' or 'rgb( )'
 	@type {String}
 	*/
 

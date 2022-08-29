@@ -22,7 +22,7 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20220828
+Doc reviewed 20220829
 Tests ...
 */
 
@@ -42,22 +42,22 @@ class RgbInputEL {
 	#colorControl;
 
 	/**
-
-	@type {}
+	A reference to the r, g and b input htmlElement of the ColorControl
+	@type {RgbInputsControlElement}
 	*/
 
-	#rgbInputControlElement;
+	#rgbInputsControlElement;
 
 	/**
 	The constructor
 	@param {ColorControl} colorControl A reference to the ColorControl object
-	@param {ColorInputs} inputs A reference to the red, green and blue input htmlElement of the ColorControl
+	@param {RgbInputsControlElement} rgbInputsControlElement A reference to the r, g and b input htmlElement of the ColorControl
 	*/
 
-	constructor ( colorControl, rgbInputControlElement ) {
+	constructor ( colorControl, rgbInputsControlElement ) {
 		Object.freeze ( this );
 		this.#colorControl = colorControl;
-		this.#rgbInputControlElement = rgbInputControlElement;
+		this.#rgbInputsControlElement = rgbInputsControlElement;
 	}
 
 	/**
@@ -67,7 +67,7 @@ class RgbInputEL {
 
 	handleEvent ( inputEvent ) {
 		inputEvent.stopPropagation ( );
-		this.#colorControl.onRgbInput ( this.#rgbInputControlElement.color );
+		this.#colorControl.onRgbInput ( this.#rgbInputsControlElement.cssColor );
 	}
 }
 

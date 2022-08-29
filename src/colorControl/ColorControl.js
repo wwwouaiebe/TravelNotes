@@ -22,7 +22,7 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210914
+Doc reviewed 20220829
 Tests ...
 */
 
@@ -49,11 +49,31 @@ class ColorControl {
 
 	#colorHTMLElement;
 
+	/**
+	The element with the color buttons
+	@type {HTMLElement}
+	*/
+
 	#colorButtonsControlElement;
+
+	/**
+	The element with the red slider
+	@type {HTMLElement}
+	*/
 
 	#redSliderControlElement;
 
+	/**
+	The element with the r, g, and b inputs
+	@type {HTMLElement}
+	*/
+
 	#rgbInputsControlElement;
+
+	/**
+	The element with the sample color
+	@type {HTMLElement}
+	*/
 
 	#sampleControlElement;
 
@@ -70,7 +90,6 @@ class ColorControl {
 				id : 'TravelNotes-ColorControl-ColorHTMLElement'
 			}
 		);
-
 		this.#colorButtonsControlElement = new ColorButtonsControlElement ( this );
 		this.#colorButtonsControlElement.red = ZERO;
 		this.#redSliderControlElement = new RedSliderControlElement ( this );
@@ -81,7 +100,7 @@ class ColorControl {
 	}
 
 	/**
-	Remove event listeners
+	The destructor.
 	*/
 
 	destructor ( ) {
@@ -103,24 +122,40 @@ class ColorControl {
 	*/
 
 	get cssColor ( ) {
+
+		// It's needed to convert from cssColor to Color and then to cssColor because we need a css hex format #rrggbb
 		return Color.fromCss ( this.#sampleControlElement.cssColor ).cssColor;
 	}
 
-	get color ( ) {
-		return Color.fromCss ( this.#sampleControlElement.cssColor );
-	}
+	/**
+	Change the red component of the color buttons, according to the red slider value.
+	Called by the RedSliderInputEL.handleEvent ( ) method
+	@param {Number} red The value of the red component
+	*/
 
 	onRedSliderInput ( red ) {
 		this.#colorButtonsControlElement.red = red;
 	}
+
+	/**
+	Change the value of the r, g and b inputs according to the given cssColor
+	Change the sample color according to the given css color
+	Called by the ColorButtonClickEL.handleEvent method
+	@param {String} cssColor The color to use in the css format
+	*/
 
 	onColorButtonClick ( cssColor ) {
 		this.#rgbInputsControlElement.cssColor = cssColor;
 		this.#sampleControlElement.cssColor = cssColor;
 	}
 
-	onRgbInput ( color ) {
-		this.#sampleControlElement.cssColor = color.cssColor;
+	/**
+	Change the sample color according to the given Color
+	@param {String} cssColor The css color to use
+	*/
+
+	onRgbInput ( cssColor ) {
+		this.#sampleControlElement.cssColor = cssColor;
 	}
 }
 

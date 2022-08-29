@@ -23,7 +23,7 @@ Changes:
 		- Issue ♯175 : Private and static fields and methods are coming
 	- v3.1.0:
 		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20220828
+Doc reviewed 20220829
 Tests ...
 */
 
@@ -35,12 +35,25 @@ Input event listener for the red slider
 
 class RedSliderInputEL {
 
+	/**
+	A reference to the ColorControl object
+	@type {ColorControl}
+	*/
+
 	#colorControl;
+
+	/**
+	A coefficient to use to transform the slider value into a color value
+	Slider value are from 0 to RedSliderControlElement.SLIDER_MAX_VALUE, Color values are from 0 to Color.MAX_COLOR
+	@type {Number}
+	*/
 
 	#colorCoef;
 
 	/**
 	The constructor
+	@param {ColorControl} colorControl A reference to the ColorControl object
+	@param {Number} colorCoef A coefficient to use to transform the slider value into a color value
 	*/
 
 	constructor ( colorControl, colorCoef ) {
@@ -57,7 +70,13 @@ class RedSliderInputEL {
 	handleEvent ( inputEvent ) {
 		inputEvent.stopPropagation ( );
 		this.#colorControl.onRedSliderInput (
-			Math.ceil ( inputEvent.target.valueAsNumber * this.#colorCoef )
+
+			// with JS 100 * 2.55 = 254.9999999 ...
+			this.#colorCoef - Math.floor ( this.#colorCoef ) < Math.ceil ( this.#colorCoef ) - this.#colorCoef
+				?
+				Math.floor ( this.#colorCoef )
+				:
+				Math.ceil ( this.#colorCoef )
 		);
 	}
 }

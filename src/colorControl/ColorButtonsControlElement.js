@@ -1,31 +1,90 @@
+/*
+Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
+
+This  program is free software;
+you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation;
+either version 3 of the License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+/*
+Changes:
+	- v4.0.0:
+		- Created
+Doc reviewed 20220829
+Tests ...
+*/
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import { ZERO } from '../main/Constants.js';
 import Color from '../colorControl/Color.js';
 import ColorButtonClickEL from '../colorControl/ColorButtonClickEL.js';
 
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
+The element with the 36 color buttons
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
 class ColorButtonsControlElement {
+
+	/**
+	The main Element
+	@type {HTMLElement}
+	*/
 
 	#colorButtonsHTMLElement;
 
+	/**
+	An array with the buttons
+	@type {Array.<HTMLElement>}
+	*/
+
 	#colorButtons;
+
+	/**
+	The button click event listener
+	@type {ColorButtonClickEL}
+	*/
 
 	#colorButtonClickEL;
 
+	/**
+	The number of rows buttons in the control
+	@type {Number}
+	*/
 	/* eslint-disable-next-line no-magic-numbers */
 	static get #ROW_NUMBERS ( ) { return 6; }
+
+	/**
+	The number of buttons in a row
+	@type {Number}
+	*/
 
 	/* eslint-disable-next-line no-magic-numbers */
 	static get #CELL_NUMBERS ( ) { return 6; }
 
+	/**
+	The number to use for incrementation of the color between two buttons
+	@type {Number}
+	*/
+
 	/* eslint-disable-next-line no-magic-numbers */
 	static get #DELTA_COLOR ( ) { return 51; }
 
-	/* eslint-disable-next-line no-magic-numbers */
-	static get #MIN_COLOR ( ) { return 0; }
-
-	/* eslint-disable-next-line no-magic-numbers */
-	static get #MAX_COLOR ( ) { return 255; }
+	/**
+	The constructor
+	@param {ColorControl} colorControl A reference to the color control
+	*/
 
 	constructor ( colorControl ) {
 		Object.freeze ( this );
@@ -38,7 +97,7 @@ class ColorButtonsControlElement {
 				let colorButton = theHTMLElementsFactory.create (
 					'div',
 					{
-						className : 'TravelNotes-ColorControl-CellColorDiv'
+						className : 'TravelNotes-ColorControl-CellColorHTMLElement'
 					},
 					colorButtonsRowHTMLElement
 				);
@@ -48,6 +107,10 @@ class ColorButtonsControlElement {
 		}
 	}
 
+	/**
+	Destructor
+	*/
+
 	destructor ( ) {
 		this.#colorButtons.forEach (
 			colorButton => { colorButton.removeEventListener ( 'click', this.#colorButtonClickEL, false ); }
@@ -55,13 +118,17 @@ class ColorButtonsControlElement {
 		this.#colorButtonClickEL = null;
 	}
 
+	/**
+	Set the red component of the color buttons
+	*/
+
 	set red ( red ) {
-		let backgroundColor = new Color ( red, ColorButtonsControlElement.#MIN_COLOR, ColorButtonsControlElement.#MIN_COLOR );
+		let backgroundColor = new Color ( red, Color.MIN_COLOR, Color.MIN_COLOR );
 		this.#colorButtons.forEach (
 			colorButton => {
 				colorButton.style [ 'background-color' ] = backgroundColor.cssColor;
-				if ( ColorButtonsControlElement.#MAX_COLOR <= backgroundColor.green ) {
-					backgroundColor.green = ColorButtonsControlElement.#MIN_COLOR;
+				if ( Color.MAX_COLOR <= backgroundColor.green ) {
+					backgroundColor.green = Color.MIN_COLOR;
 					backgroundColor.blue += ColorButtonsControlElement.#DELTA_COLOR;
 				}
 				else {
@@ -73,3 +140,5 @@ class ColorButtonsControlElement {
 }
 
 export default ColorButtonsControlElement;
+
+/* --- End of file --------------------------------------------------------------------------------------------------------- */
