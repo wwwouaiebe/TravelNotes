@@ -24,7 +24,7 @@ Changes:
 		- Issue ♯2 : Set all properties as private and use accessors.
 	- v3.2.0:
 		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
-Doc reviewed 20210914
+Doc reviewed 20220828
 Tests ...
 */
 
@@ -91,6 +91,12 @@ class Color {
 				COLOR_CONTROL.maxColorValue;
 	}
 
+	static fromCss ( cssColor ) {
+		let color = new Color ( );
+		color.cssColor = cssColor;
+		return color;
+	}
+
 	/**
 	The red value of the color
 	@type {Number}
@@ -155,24 +161,6 @@ class Color {
 			[ this.#red, this.#green, this.#blue ] =
 				Array.from ( cssColor.match ( /[0-9]{1,3}/g ), value => Number.parseInt ( value ) );
 		}
-	}
-
-	/**
-	Clone the Color
-	@return {color} a new color Oject similar to this Color
-	*/
-
-	clone ( ) { return new Color ( this.#red, this.#green, this.#blue ); }
-
-	/**
-	copy the RGB values of th this Color to the color given as parameter
-	@param {Color} color the destination color
-	*/
-
-	copyTo ( color ) {
-		color.red = this.#red;
-		color.green = this.#green;
-		color.blue = this.#blue;
 	}
 }
 
