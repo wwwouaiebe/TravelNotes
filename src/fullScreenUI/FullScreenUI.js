@@ -112,16 +112,12 @@ class FullScreenUI {
     Toogle the full screen mode
     */
 
-	toogle ( ) {
+	async toogle ( ) {
 		if ( document.fullscreenElement ) {
-			document.exitFullscreen ()
-				.then ( ( ) => console.error ( 'Fullscreen deactivated' ) )
-				.catch ( ( ) => console.error ( 'Fullscreen not deactivated' ) );
+			await document.exitFullscreen ();
 		}
 		else {
-			document.body.requestFullscreen ()
-				.then ( ( ) => console.error ( 'Fullscreen activated' ) )
-				.catch ( ( ) => console.error ( 'Fullscreen not activated' ) );
+			await document.body.requestFullscreen ();
 		}
 	}
 

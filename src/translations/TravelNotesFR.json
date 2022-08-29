@@ -1048,8 +1048,12 @@
 		"msgstr": "Gestion des clés d'accès"
 	},
 	{
-		"msgid": "TravelNotesToolbar - Geo location",
-		"msgstr": "Localisation"
+		"msgid": "TravelNotesToolbar - Start Geo location",
+		"msgstr": "Démarer la localisation"
+	},
+	{
+		"msgid": "TravelNotesToolbar - Stop Geo location",
+		"msgstr": "Arrêter la localisation"
 	},
 	{
 		"msgid": "TravelNotesToolbar - Cancel travel",

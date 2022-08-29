@@ -38,7 +38,7 @@ import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theTravelEditor from '../core/TravelEditor.js';
 import theDockableDialogsManager from '../core/DockableDialogsManager.js';
 import theFullScreenUI from '../fullScreenUI/FullScreenUI.js';
-import { INVALID_OBJ_ID, ZERO, TOOLBAR_POSITION } from '../main/Constants.js';
+import { INVALID_OBJ_ID, ZERO, TOOLBAR_POSITION, GEOLOCATION_STATUS } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -260,11 +260,19 @@ class TravelNotesToolbar extends BaseToolbar {
 			);
 		}
 		this.addToolbarItem (
-			new ToolbarItem (
-				'🌐',
-				theTranslator.getText ( 'TravelNotesToolbar - Geo location' ),
-				( ) => { theGeoLocator.switch ( ); }
-			)
+			theGeoLocator.status === GEOLOCATION_STATUS.active
+				?
+				new ToolbarItem (
+					'🏀',
+					theTranslator.getText ( 'TravelNotesToolbar - Stop Geo location' ),
+					( ) => { theGeoLocator.switch ( ); }
+				)
+				:
+				new ToolbarItem (
+					'🌐',
+					theTranslator.getText ( 'TravelNotesToolbar - Start Geo location' ),
+					( ) => { theGeoLocator.switch ( ); }
+				)
 		);
 		this.addToolbarItem (
 			new ToolbarItem (
@@ -360,19 +368,23 @@ class TravelNotesToolbar extends BaseToolbar {
 				( ) => { theDockableDialogsManager.osmSearchDialog.show ( ); }
 			)
 		);
-		this.addToolbarItem (
-			new ToolbarItem (
-				( ) => document.fullscreenElement ? '⬇️' : '🔝',
-				theTranslator.getText (
-					document.fullscreenElement
-						?
-						'TravelNotesToolbar - disable fullscreen'
-						:
-						'TravelNotesToolbar - enable fullscreen'
-				),
-				( ) => theFullScreenUI.toogle ( )
-			)
-		);
+		if ( document.fullscreenEnabled ) {
+			this.addToolbarItem (
+				document.fullscreenElement
+					?
+					new ToolbarItem (
+						'⬇️',
+						theTranslator.getText ( 'TravelNotesToolbar - disable fullscreen' ),
+						( ) => theFullScreenUI.toogle ( )
+					)
+					:
+					new ToolbarItem (
+						'🔝',
+						theTranslator.getText ( 'TravelNotesToolbar - enable fullscreen' ),
+						( ) => theFullScreenUI.toogle ( )
+					)
+			);
+		}
 		this.addToolbarItem (
 			new ToolbarItem (
 				'+',

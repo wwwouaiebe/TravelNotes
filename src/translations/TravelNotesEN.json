@@ -1048,8 +1048,12 @@
 		"msgstr": "Api keys management"
 	},
 	{
-		"msgid": "TravelNotesToolbar - Geo location",
-		"msgstr": "Localisation"
+		"msgid": "TravelNotesToolbar - Start Geo location",
+		"msgstr": "Start the geo location"
+	},
+	{
+		"msgid": "TravelNotesToolbar - Stop Geo location",
+		"msgstr": "Stop the geo location"
 	},
 	{
 		"msgid": "TravelNotesToolbar - Cancel travel",
