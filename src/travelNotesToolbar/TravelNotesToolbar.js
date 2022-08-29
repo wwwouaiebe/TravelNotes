@@ -373,13 +373,13 @@ class TravelNotesToolbar extends BaseToolbar {
 				document.fullscreenElement
 					?
 					new ToolbarItem (
-						'⬇️',
+						'🔻',
 						theTranslator.getText ( 'TravelNotesToolbar - disable fullscreen' ),
 						( ) => theFullScreenUI.toogle ( )
 					)
 					:
 					new ToolbarItem (
-						'🔝',
+						'🔺',
 						theTranslator.getText ( 'TravelNotesToolbar - enable fullscreen' ),
 						( ) => theFullScreenUI.toogle ( )
 					)
