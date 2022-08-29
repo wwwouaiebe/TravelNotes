@@ -90,19 +90,6 @@ class Zoomer {
 	}
 
 	/**
-	Performs a zoom on a maneuver
-	@param {Number} maneuverObjId the objId of the maneuver on witch the zoom must be performed
-	*/
-
-	zoomToManeuver ( maneuverObjId ) {
-		const itineraryPointObjId =
-			theTravelNotesData.travel.editedRoute.itinerary.maneuvers.getAt ( maneuverObjId ).itineraryPointObjId;
-		const latLng =
-			theTravelNotesData.travel.editedRoute.itinerary.itineraryPoints.getAt ( itineraryPointObjId ).latLng;
-		theEventDispatcher.dispatch ( 'zoomto', { latLng : latLng } );
-	}
-
-	/**
 	Performs a zoom on a note
 	@param {Number} noteObjId the objId of the note on witch the zoom must be performed
 	*/
