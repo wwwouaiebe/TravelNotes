@@ -174,9 +174,10 @@ class FontSizeManager {
 
 	increment ( ) {
 		if ( ! this.#fontSize ) {
-			this.#fontSize = theConfig.fontSize;
+			this.#fontSize = theConfig.fontSize.initialValue;
 		}
-		document.body.style [ 'font-size' ] = String ( ++ this.#fontSize ) + 'px';
+		this.#fontSize += theConfig.fontSize.incrementValue;
+		document.body.style [ 'font-size' ] = String ( this.#fontSize ) + 'mm';
 	}
 
 	/**
@@ -185,9 +186,10 @@ class FontSizeManager {
 
 	decrement ( ) {
 		if ( ! this.#fontSize ) {
-			this.#fontSize = theConfig.fontSize;
+			this.#fontSize = theConfig.fontSize.initialValue;
 		}
-		document.body.style [ 'font-size' ] = String ( -- this.#fontSize ) + 'px';
+		this.#fontSize -= theConfig.fontSize.incrementValue;
+		document.body.style [ 'font-size' ] = String ( this.#fontSize ) + 'mm';
 	}
 }
 

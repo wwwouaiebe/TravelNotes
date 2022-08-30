@@ -106,23 +106,4 @@ svg.TravelNotes-Note-Knooppunt {
 	background-color: white;
 }
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-classes for old knooppunt notes maintained for backward compatibility
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
-
-.TravelNotes-Note-Knooppunt > text {
-	fill: green;
-	font: bold 120px sans-serif;
-}
-
-.TravelNotes-Note-Knooppunt > polyline {
-	fill: none;
-	stroke: green;
-	stroke-width: 10;
-}
-
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

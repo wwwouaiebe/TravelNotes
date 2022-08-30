@@ -87,7 +87,11 @@ const theConfig = {
 		showWarning : true,
 		timeOut : 10000
 	},
-	fontSize : 12,
+	fontSize :
+	{
+		initialValue : 3.5,
+		incrementValue : 0.5
+	},
 	FullScreenUI :
 	{
 		timeOut : 5000,

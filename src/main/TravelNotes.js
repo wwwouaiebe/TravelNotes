@@ -150,7 +150,7 @@ class TravelNotes {
 
 		this.#travelNotesLoaded = true;
 
-		document.body.style [ 'font-size' ] = String ( theConfig.fontSize ) + 'px';
+		document.body.style [ 'font-size' ] = String ( theConfig.fontSize.initialValue ) + 'mm';
 
 		// Loading the user interfaces...
 		document.title = 'Travel & Notes';

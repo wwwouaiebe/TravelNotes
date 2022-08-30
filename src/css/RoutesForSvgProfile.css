@@ -43,13 +43,15 @@ Doc reviewed ...
 
 .TravelNotes-Route-SvgProfile-elevText {
 	fill: black;
-	font: bold 30px sans-serif;
+	font-size: 1.8em;
+	font-weight: bold;
 }
 
 .TravelNotes-Route-SvgProfile-elevLegend,
 .TravelNotes-Route-SvgProfile-distLegend {
 	fill: black;
-	font: bold 24px sans-serif;
+	font-size: 1.6em;
+	font-weight: bold;
 }
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
