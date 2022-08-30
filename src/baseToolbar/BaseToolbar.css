@@ -44,19 +44,21 @@ Doc reviewed 20220828
 
 .TravelNotes-BaseToolbar-HeaderHTMLElement {
 	text-align: center;
-	width: 2em;
+	width: 3em;
 	height: 8em;
 	color: white;
 	background-color: black;
-	padding: 0.5em;
+	margin: 0;
+	padding: 0;
+
+	/* padding: 0.5em; */
 }
 
 .TravelNotes-BaseToolbar-HeaderTextHTMLElement {
-	transform-origin: center;
-	transform: rotateZ(-90deg) translateX(-6em);
-	margin: 0;
-	padding: 0;
-	text-align: center;
+	width: 8em;
+	height: 2em;
+	transform-origin: top left;
+	transform: translateY(8em) translateX(0.75em) rotateZ(-90deg);
 	white-space: nowrap;
 }
 
