@@ -62,57 +62,12 @@ import NoteDialogAddressControl from '../notesDialog/NoteDialogAddressControl.js
 import NoteDialogLinkControl from '../notesDialog/NoteDialogLinkControl.js';
 import NoteDialogPhoneControl from '../notesDialog/NoteDialogPhoneControl.js';
 import NoteDialogPreviewControl from '../notesDialog/NoteDialogPreviewControl.js';
-import { NoteDialogEventListeners, NoteDialogGeoCoderHelper } from '../notesDialog/NoteDialogEL.js';
+import NoteDialogEventListeners from '../notesDialog/NoteDialogEventListeners.js';
+import NoteDialogGeoCoderHelper from '../notesDialog/NoteDialogGeoCoderHelper.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import theTranslator from '../UILib/Translator.js';
 import Note from '../data/Note.js';
-
-/**
-A simple container to store the lat, lng and route needed to build a map icon
-*/
-
-class MapIconData {
-
-	/**
-	The lat and lng
-	@type {Array.<Number>}
-	*/
-
-	#latLng;
-
-	/**
-	The route
-	@type {Route}
-	*/
-
-	#route;
-
-	/**
-	The constructor
-	@param {Array.<Number>} latLng The lat and lng
-	@param {Route} route The route
-	*/
-
-	constructor ( latLng, route ) {
-		Object.freeze ( this );
-		this.#latLng = latLng;
-		this.#route = route;
-	}
-
-	/**
-	The lat and lng
-	@type {Array.<Number>}
-	*/
-
-	get latLng ( ) { return this.#latLng; }
-
-	/**
-	The route
-	@type {Route}
-	*/
-
-	get route ( ) { return this.#route; }
-}
+import MapIconData from '../notesDialog/MapIconData.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

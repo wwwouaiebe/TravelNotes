@@ -161,7 +161,7 @@ class NoteDialogToolbar {
 		this.#editionButtons.forEach (
 			button => { button.addEventListener ( 'click', eventListeners.editionButtonsClick ); }
 		);
-		this.#openFileButton.addEventListener ( 'click', eventListeners.openFileButtonClick, false );
+		this.#openFileButton.addEventListener ( 'click', eventListeners.openCfgFileButtonClick, false );
 	}
 
 	/**
@@ -174,7 +174,7 @@ class NoteDialogToolbar {
 		this.#editionButtons.forEach (
 			button => { button.removeEventListener ( 'click', eventListeners.editionButtonsClick ); }
 		);
-		this.#openFileButton.removeEventListener ( 'click', eventListeners.openFileButtonClick, false );
+		this.#openFileButton.removeEventListener ( 'click', eventListeners.openCfgFileButtonClick, false );
 	}
 
 	/**
