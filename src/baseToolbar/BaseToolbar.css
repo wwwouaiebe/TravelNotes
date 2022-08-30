@@ -50,15 +50,22 @@ Doc reviewed 20220828
 	background-color: black;
 	margin: 0;
 	padding: 0;
-
-	/* padding: 0.5em; */
 }
 
+/*
+About the transformation:
+- width and height are width and height before the transformation
+- transformations are applied in the order of the declaration
+- more simple to rotate as last transformation
+- height will be better fixed to 1.7em and translateX to 0.65em for normal texts but due to the fact
+that we don't have letters with descenders in the headers, it's nicer with 1.5 and 0.75.
+*/
+
 .TravelNotes-BaseToolbar-HeaderTextHTMLElement {
-	width: 8em;
-	height: 2em;
 	transform-origin: top left;
 	transform: translateY(8em) translateX(0.75em) rotateZ(-90deg);
+	width: 8em;
+	height: 1.5em;
 	white-space: nowrap;
 }
 
