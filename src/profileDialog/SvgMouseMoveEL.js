@@ -32,127 +32,12 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theGeometry from '../core/lib/Geometry.js';
 import theEventDispatcher from '../core/lib/EventDispatcher.js';
 import theUtilities from '../UILib/Utilities.js';
-import ProfileContextMenu from '../contextMenus/ProfileContextMenu.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import SvgProfileBuilder from '../core/lib/SvgProfileBuilder.js';
-import { SVG_NS, ZERO, ONE, TWO, THREE } from '../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-Base class for Svg event listeners
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class BaseSvgEL {
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-	}
-
-	/**
-	Get the lat, lng, elevation, ascent and distance from the route origin at the mouse position on the svg
-	@param {Event} mouseEvent The triggered event
-	@return {LatLngElevOnRoute} An object with the lat, lng, elevation, ascent and distance from the route origin
-	at the mouse position on the svg
-	*/
-
-	getlatLngElevOnRouteAtMousePosition ( mouseEvent ) {
-		const route = theDataSearchEngine.getRoute ( Number.parseInt ( mouseEvent.currentTarget.dataset.tanObjId ) );
-		const clientRect = mouseEvent.currentTarget.getBoundingClientRect ( );
-		const routeDist =
-			(
-				( mouseEvent.clientX - clientRect.x -
-					(
-						( SvgProfileBuilder.PROFILE_MARGIN /
-							( ( TWO * SvgProfileBuilder.PROFILE_MARGIN ) + SvgProfileBuilder.PROFILE_WIDTH )
-						) * clientRect.width )
-				) /
-				(
-					( SvgProfileBuilder.PROFILE_WIDTH /
-						( ( TWO * SvgProfileBuilder.PROFILE_MARGIN ) + SvgProfileBuilder.PROFILE_WIDTH )
-					) * clientRect.width )
-			) * route.distance;
-		if ( ZERO < routeDist && routeDist < route.distance ) {
-			return theGeometry.getLatLngElevAtDist ( route, routeDist );
-		}
-
-		return null;
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-contextmenu event listener for svg profile
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class SvgContextMenuEL extends BaseSvgEL {
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		super ( );
-	}
-
-	/**
-	Event listener method
-	@param {Event} mouseEvent The event to handle
-	*/
-
-	handleEvent ( mouseEvent ) {
-		mouseEvent.preventDefault ( );
-		mouseEvent.stopPropagation ( );
-
-		const latLngElevOnRoute = this.getlatLngElevOnRouteAtMousePosition ( mouseEvent );
-		if ( latLngElevOnRoute ) {
-			mouseEvent.latlng = {
-				lat : latLngElevOnRoute.latLng [ ZERO ],
-				lng : latLngElevOnRoute.latLng [ ONE ]
-			};
-			new ProfileContextMenu ( mouseEvent ).show ( );
-		}
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-mouseleave event listener for svg profile
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class SvgMouseLeaveEL {
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-	}
-
-	/**
-	Event listener method
-	@param {Event} mouseLeaveEvent The event to handle
-	*/
-
-	handleEvent ( mouseLeaveEvent ) {
-		mouseLeaveEvent.preventDefault ( );
-		mouseLeaveEvent.stopPropagation ( );
-		theEventDispatcher.dispatch (
-			'removeobject',
-			{ objId : Number.parseInt ( mouseLeaveEvent.currentTarget.dataset.tanMarkerObjId ) }
-		);
-	}
-}
+import BaseSvgEL from './BaseSvgEL.js';
+import { SVG_NS, ZERO, TWO, THREE } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -321,10 +206,6 @@ class SvgMouseMoveEL extends BaseSvgEL {
 	}
 }
 
-export {
-	SvgContextMenuEL,
-	SvgMouseLeaveEL,
-	SvgMouseMoveEL
-};
+export default SvgMouseMoveEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

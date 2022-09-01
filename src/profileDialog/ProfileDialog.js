@@ -39,12 +39,9 @@ import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theEventDispatcher from '../core/lib/EventDispatcher.js';
 import theUtilities from '../UILib/Utilities.js';
 import SvgProfileBuilder from '../core/lib/SvgProfileBuilder.js';
-import {
-	SvgContextMenuEL,
-	SvgMouseLeaveEL,
-	SvgMouseMoveEL
-} from '../profileDialog/ProfileDialogEL.js';
-
+import SvgContextMenuEL from './SvgContextMenuEL.js';
+import SvgMouseLeaveEL from './SvgMouseLeaveEL.js';
+import SvgMouseMoveEL from './SvgMouseMoveEL.js';
 import { ZERO } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
