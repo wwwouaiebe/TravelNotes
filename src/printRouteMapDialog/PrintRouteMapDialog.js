@@ -34,66 +34,7 @@ import theConfig from '../data/Config.js';
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import { ZERO } from '../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-An object to store the PrintRouteMapDialog options
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class PrintRouteMapOptions {
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.seal ( this );
-	}
-
-	/**
-	The paper width option
-	@type {Number}
-	*/
-
-	paperWidth = ZERO;
-
-	/**
-	The paper height option
-	@type {Number}
-	*/
-
-	paperHeight = ZERO;
-
-	/**
-	The border width option
-	@type {Number}
-	*/
-
-	borderWidth = ZERO;
-
-	/**
-	The zoom factor option
-	@type {Number}
-	*/
-
-	zoomFactor = ZERO;
-
-	/**
-	The print notes option
-	@type {Boolean}
-	*/
-
-	printNotes = false;
-
-	/**
-	The used browser ( true = firefox; false = others browsers )
-	@type {Boolean}
-	 */
-
-	firefoxBrowser = true;
-}
+import PrintRouteMapOptions from './PrintRouteMapOptions.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
