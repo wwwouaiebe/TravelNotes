@@ -29,32 +29,6 @@ import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import { ZERO } from '../main/Constants.js';
 
-/**
-Click event listener for the UI
-*/
-
-class FullScreenClickEL {
-
-	/**
-    The constructor
-    */
-
-	constructor ( ) {
-		Object.freeze ( this );
-	}
-
-	/**
-	Event listener method
-	*/
-
-	handleEvent ( /* clickEvent */ ) {
-		/* eslint-disable-next-line no-use-before-define */
-		theFullScreenUI.hide ( );
-		/* eslint-disable-next-line no-use-before-define */
-		theFullScreenUI.toogle ( );
-	}
-}
-
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 This class show a message on the screen for the fullscreen activation
@@ -80,13 +54,6 @@ class FullScreenUI {
 	#timerId = null;
 
 	/**
-    The click event listener
-    @type {FullScreenClickEL}
-    */
-
-	#fullScreenClickEL;
-
-	/**
     Hide the UI
     */
 
@@ -95,8 +62,7 @@ class FullScreenUI {
 			clearTimeout ( this.#timerId );
 			this.#timerId = null;
 		}
-		this.#mainHTMLElement.removeEventListener ( 'click', this.#fullScreenClickEL, false );
-		this.#fullScreenClickEL = null;
+		this.#mainHTMLElement.removeEventListener ( 'click', this.toggle, false );
 		document.body.removeChild ( this.#mainHTMLElement );
 	}
 
@@ -109,10 +75,10 @@ class FullScreenUI {
 	}
 
 	/**
-    Toogle the full screen mode
+    Toggle the full screen mode
     */
 
-	async toogle ( ) {
+	async toggle ( ) {
 		if ( document.fullscreenElement ) {
 			await document.exitFullscreen ();
 		}
@@ -145,8 +111,7 @@ class FullScreenUI {
 			},
 			document.body
 		);
-		this.#fullScreenClickEL = new FullScreenClickEL ( );
-		this.#mainHTMLElement.addEventListener ( 'click', this.#fullScreenClickEL, false );
+		this.#mainHTMLElement.addEventListener ( 'click', this.toggle, false );
 		this.#timerId = setTimeout ( ( ) => this.hide ( ), timeOutDuration );
 	}
 }

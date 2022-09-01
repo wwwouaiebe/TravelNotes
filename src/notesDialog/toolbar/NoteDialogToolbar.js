@@ -101,7 +101,7 @@ class NoteDialogToolbar {
 	}
 
 	/**
-	Add the toolbar buttons to the toolbar ( toogle and open file )
+	Add the toolbar buttons to the toolbar
 	*/
 
 	#addToolbarButtons ( ) {
