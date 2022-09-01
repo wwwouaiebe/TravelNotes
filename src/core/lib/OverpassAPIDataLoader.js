@@ -27,8 +27,8 @@ Tests ...
 */
 
 import theConfig from '../../data/Config.js';
-import theSphericalTrigonometry from '../../core/lib/SphericalTrigonometry.js';
-import OverpassAPIDataLoaderOptions from '../../core/lib/OverpassAPIDataLoaderOptions.js';
+import theSphericalTrigonometry from './SphericalTrigonometry.js';
+import OverpassAPIDataLoaderOptions from './OverpassAPIDataLoaderOptions.js';
 import { ZERO, TWO, LAT_LNG, HTTP_STATUS_OK, OSM_COUNTRY_ADMIN_LEVEL } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

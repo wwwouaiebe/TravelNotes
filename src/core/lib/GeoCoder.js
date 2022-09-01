@@ -44,8 +44,8 @@ Tests ...
 */
 
 import theConfig from '../../data/Config.js';
-import OverpassAPIDataLoader from '../../core/lib/OverpassAPIDataLoader.js';
-import NominatimDataLoader from '../../core/lib/NominatimDataLoader.js';
+import OverpassAPIDataLoader from './OverpassAPIDataLoader.js';
+import NominatimDataLoader from './NominatimDataLoader.js';
 import GeoCoderAddress from './GeoCoderAddress.js';
 import { ZERO, ONE } from '../../main/Constants.js';
 

@@ -29,10 +29,10 @@ Tests ...
 */
 
 import theTravelNotesData from '../../data/TravelNotesData.js';
-import theGeometry from '../../core/lib/Geometry.js';
+import theGeometry from './Geometry.js';
 import theErrorsUI from '../../errorsUI/ErrorsUI.js';
-import theEventDispatcher from '../../core/lib/EventDispatcher.js';
-import theSphericalTrigonometry from '../../core/lib/SphericalTrigonometry.js';
+import theEventDispatcher from './EventDispatcher.js';
+import theSphericalTrigonometry from './SphericalTrigonometry.js';
 import Zoomer from '../../core/Zoomer.js';
 import theProfileDialogsManager from '../../core/ProfileDialogsManager.js';
 import theRouteEditor from '../../core/RouteEditor.js';

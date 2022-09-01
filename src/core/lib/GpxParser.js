@@ -30,8 +30,8 @@ import ItineraryPoint from '../../data/ItineraryPoint.js';
 import Maneuver from '../../data/Maneuver.js';
 import WayPoint from '../../data/WayPoint.js';
 import Note from '../../data/Note.js';
-import theSphericalTrigonometry from '../../core/lib/SphericalTrigonometry.js';
-import theGeometry from '../../core/lib/Geometry.js';
+import theSphericalTrigonometry from './SphericalTrigonometry.js';
+import theGeometry from './Geometry.js';
 import theTranslator from '../../UILib/Translator.js';
 import { INVALID_OBJ_ID, ZERO, ONE, DISTANCE } from '../../main/Constants.js';
 
