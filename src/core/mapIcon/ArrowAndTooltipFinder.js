@@ -26,10 +26,10 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theConfig from '../data/Config.js';
-import theTranslator from '../UILib/Translator.js';
+import theConfig from '../../data/Config.js';
+import theTranslator from '../../UILib/Translator.js';
 
-import { ICON_POSITION } from '../main/Constants.js';
+import { ICON_POSITION } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

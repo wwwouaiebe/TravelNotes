@@ -27,7 +27,7 @@ Tests 20210903
 */
 
 import WaitUI from '../waitUI/WaitUI.js';
-import MapIconFromOsmFactory from '../coreMapIcon/MapIconFromOsmFactory.js';
+import MapIconFromOsmFactory from '../core/mapIcon/MapIconFromOsmFactory.js';
 import Note from '../data/Note.js';
 import theGeometry from '../coreLib/Geometry.js';
 import theEventDispatcher from '../coreLib/EventDispatcher.js';

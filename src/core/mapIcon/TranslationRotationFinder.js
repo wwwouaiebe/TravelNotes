@@ -26,11 +26,11 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theConfig from '../data/Config.js';
-import theGeometry from '../coreLib/Geometry.js';
-import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
+import theConfig from '../../data/Config.js';
+import theGeometry from '../../coreLib/Geometry.js';
+import theSphericalTrigonometry from '../../coreLib/SphericalTrigonometry.js';
 
-import { ICON_DIMENSIONS, ZERO, ONE, TWO, DEGREES, ICON_POSITION } from '../main/Constants.js';
+import { ICON_DIMENSIONS, ZERO, ONE, TWO, DEGREES, ICON_POSITION } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

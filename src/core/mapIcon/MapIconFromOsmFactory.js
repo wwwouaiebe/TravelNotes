@@ -36,135 +36,17 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theConfig from '../data/Config.js';
-import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
-import SvgBuilder from '../coreMapIcon/SvgBuilder.js';
-import OverpassAPIDataLoader from '../coreLib/OverpassAPIDataLoader.js';
-import StreetFinder from '../coreMapIcon/StreetFinder.js';
-import ArrowAndTooltipFinder from '../coreMapIcon/ArrowAndTooltipFinder.js';
-import TranslationRotationFinder from '../coreMapIcon/TranslationRotationFinder.js';
+import theConfig from '../../data/Config.js';
+import theSphericalTrigonometry from '../../coreLib/SphericalTrigonometry.js';
+import SvgBuilder from './SvgBuilder.js';
+import OverpassAPIDataLoader from '../../coreLib/OverpassAPIDataLoader.js';
+import StreetFinder from './StreetFinder.js';
+import ArrowAndTooltipFinder from './ArrowAndTooltipFinder.js';
+import TranslationRotationFinder from './TranslationRotationFinder.js';
+import NoteDataForMapIcon from './NoteDataForMapIcon.js';
+import ComputeDataForMapIcon from './ComputeDataForMapIcon.js';
 
-import { ICON_POSITION, ICON_DIMENSIONS, LAT_LNG, INVALID_OBJ_ID, ZERO, ONE } from '../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-An object with data used to build the Note
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class NoteDataForMapIcon {
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.seal ( this );
-	}
-
-	/**
-	The icon content ( = the outerHTML of the SVG with streets itinerary and rcnRef number )
-	@type {String}
-	*/
-
-	iconContent = '';
-
-	/**
-	The tooltip ( = the direction to follow + indications on roundabout, rcnRef and start point or end point )
-	@type {String}
-	*/
-
-	tooltipContent = '';
-
-	/**
-	The address ( = streets names at the note position and city and hamlet )
-	@type {String}
-	*/
-
-	address = '';
-
-	/**
-	The lat and lng of the note
-	@type {Array.<Number>}
-	*/
-
-	latLng = [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ];
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-An object with data shared between the differents objects that are building the note ( TranslationRotationFinder,
-ArrowAndTooltipFinder, StreetFinder and SvgBuilder )
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class ComputeDataForMapIcon {
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.seal ( this );
-	}
-
-	/**
-	The objId of the nearest itinerary point
-	@type {Number}
-	*/
-
-	nearestItineraryPointObjId = INVALID_OBJ_ID;
-
-	/**
-	the route for witch the note will be created
-	@type {Route}
-	*/
-
-	route = null;
-
-	/**
-	The position on the Route. Must be a property of the ICON_POSITION enum
-	@type {Number}
-	*/
-
-	positionOnRoute = ICON_POSITION.onRoute;
-
-	/**
-	The direction to follow ( = the angle of the outgoing street after the rotation of the svg icon )
-	@type {String}
-	*/
-
-	direction = null;
-
-	/**
-	The arrow to display in the address
-	@type {String}
-	*/
-
-	directionArrow = ' ';
-
-	/**
-	The rcnRef number for bike ( when a bike network exists near the note position )
-	@type {String}
-	*/
-
-	rcnRef = '';
-
-	/**
-	The rotation of the svg icon needed to have the incoming street oriented from the bottom of the icon
-	@type {Number}
-	*/
-
-	rotation = ZERO;
-
-	/**
-	The translation needed to have the note position at the center of the svg icon ( = the translation in
-	pixel from the map origin.)
-	@type {Array.<Number>}
-	*/
-
-	translation = [ ZERO, ZERO ];
-}
+import { ICON_POSITION, ICON_DIMENSIONS, LAT_LNG, INVALID_OBJ_ID, ZERO, ONE } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
