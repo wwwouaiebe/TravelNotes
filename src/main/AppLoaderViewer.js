@@ -34,7 +34,7 @@ import theTravelNotesViewer from '../main/TravelNotesViewer.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theTranslator from '../UILib/Translator.js';
 import theViewerLayersToolbarUI from '../viewerLayersToolbarUI/ViewerLayersToolbarUI.js';
-import MapEditorViewer from '../coreMapEditor/MapEditorViewer.js';
+import MapEditorViewer from '../core/mapEditor/MapEditorViewer.js';
 import theGeoLocator from '../core/GeoLocator.js';
 import Zoomer from '../core/Zoomer.js';
 

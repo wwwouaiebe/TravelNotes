@@ -51,27 +51,27 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-import theConfig from '../data/Config.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
-import theDataSearchEngine from '../data/DataSearchEngine.js';
-import theGeometry from '../coreLib/Geometry.js';
-import theApiKeysManager from '../core/ApiKeysManager.js';
-import MapEditorViewer from '../coreMapEditor/MapEditorViewer.js';
-import EditedRouteMouseOverEL from '../coreMapEditor/EditedRouteEventListeners.js';
+import theConfig from '../../data/Config.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
+import theDataSearchEngine from '../../data/DataSearchEngine.js';
+import theGeometry from '../../coreLib/Geometry.js';
+import theApiKeysManager from '../../core/ApiKeysManager.js';
+import MapEditorViewer from './MapEditorViewer.js';
+import EditedRouteMouseOverEL from './EditedRouteEventListeners.js';
 import {
 	NoteBulletDragEndEL,
 	NoteBulletDragEL,
 	NoteBulletMouseEnterEL,
 	NoteBulletMouseLeaveEL
-} from '../coreMapEditor/NoteBulletEventListeners.js';
+} from './NoteBulletEventListeners.js';
 import {
 	NoteMarkerContextMenuEL,
 	NoteMarkerDragEndEL,
 	NoteMarkerDragEL
-} from '../coreMapEditor/NoteMarkerEventListeners.js';
-import { WayPointContextMenuEL, WayPointDragEndEL } from '../coreMapEditor/WayPointEventListeners.js';
-import { RouteMapContextMenuEL } from '../coreMapEditor/RouteEventListeners.js';
-import { ROUTE_EDITION_STATUS, LAT_LNG, INVALID_OBJ_ID, TWO, WAY_POINT_ICON_SIZE } from '../main/Constants.js';
+} from './NoteMarkerEventListeners.js';
+import { WayPointContextMenuEL, WayPointDragEndEL } from './WayPointEventListeners.js';
+import { RouteMapContextMenuEL } from './RouteEventListeners.js';
+import { ROUTE_EDITION_STATUS, LAT_LNG, INVALID_OBJ_ID, TWO, WAY_POINT_ICON_SIZE } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

@@ -28,12 +28,12 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-import theConfig from '../data/Config.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
-import theTranslator from '../UILib/Translator.js';
-import theDataSearchEngine from '../data/DataSearchEngine.js';
-import theGeometry from '../coreLib/Geometry.js';
-import theUtilities from '../UILib/Utilities.js';
+import theConfig from '../../data/Config.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
+import theTranslator from '../../UILib/Translator.js';
+import theDataSearchEngine from '../../data/DataSearchEngine.js';
+import theGeometry from '../../coreLib/Geometry.js';
+import theUtilities from '../../UILib/Utilities.js';
 import {
 	TempWayPointMarkerELData,
 	TempWayPointMarkerMouseOutEL,
@@ -41,8 +41,8 @@ import {
 	TempWayPointMarkerContextMenuEL,
 	TempWayPointMarkerClickEL,
 	TempWayPointMarkerDragEndEL
-} from '../coreMapEditor/TempWayPointMarkerEventListeners.js';
-import { ROUTE_EDITION_STATUS, NOT_FOUND, ZERO, ONE, TWO, WAY_POINT_ICON_SIZE } from '../main/Constants.js';
+} from './TempWayPointMarkerEventListeners.js';
+import { ROUTE_EDITION_STATUS, NOT_FOUND, ZERO, ONE, TWO, WAY_POINT_ICON_SIZE } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

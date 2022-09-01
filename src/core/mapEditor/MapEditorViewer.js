@@ -37,19 +37,19 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theConfig from '../data/Config.js';
-import theDataSearchEngine from '../data/DataSearchEngine.js';
-import theGeometry from '../coreLib/Geometry.js';
-import theUtilities from '../UILib/Utilities.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
-import theRouteHTMLViewsFactory from '../viewsFactories/RouteHTMLViewsFactory.js';
-import theNoteHTMLViewsFactory from '../viewsFactories/NoteHTMLViewsFactory.js';
-import { RouteMouseOverOrMoveEL } from '../coreMapEditor/RouteEventListeners.js';
-import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
-import NoteLeafletObjects from '../coreMapEditor/NoteLeafletObjects.js';
+import theConfig from '../../data/Config.js';
+import theDataSearchEngine from '../../data/DataSearchEngine.js';
+import theGeometry from '../../coreLib/Geometry.js';
+import theUtilities from '../../UILib/Utilities.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
+import theRouteHTMLViewsFactory from '../../viewsFactories/RouteHTMLViewsFactory.js';
+import theNoteHTMLViewsFactory from '../../viewsFactories/NoteHTMLViewsFactory.js';
+import { RouteMouseOverOrMoveEL } from './RouteEventListeners.js';
+import theHTMLSanitizer from '../../coreLib/HTMLSanitizer.js';
+import NoteLeafletObjects from './NoteLeafletObjects.js';
 
-import { GEOLOCATION_STATUS, ROUTE_EDITION_STATUS, ZERO, TWO } from '../main/Constants.js';
-import theTranslator from '../UILib/Translator.js';
+import { GEOLOCATION_STATUS, ROUTE_EDITION_STATUS, ZERO, TWO } from '../../main/Constants.js';
+import theTranslator from '../../UILib/Translator.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

@@ -26,12 +26,12 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-import RouteContextMenu from '../contextMenus/RouteContextMenu.js';
-import theDataSearchEngine from '../data/DataSearchEngine.js';
-import theGeometry from '../coreLib/Geometry.js';
-import theUtilities from '../UILib/Utilities.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
-import { ZERO } from '../main/Constants.js';
+import RouteContextMenu from '../../contextMenus/RouteContextMenu.js';
+import theDataSearchEngine from '../../data/DataSearchEngine.js';
+import theGeometry from '../../coreLib/Geometry.js';
+import theUtilities from '../../UILib/Utilities.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
+import { ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

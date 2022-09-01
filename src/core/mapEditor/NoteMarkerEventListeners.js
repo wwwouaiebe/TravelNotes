@@ -26,9 +26,9 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-import theDataSearchEngine from '../data/DataSearchEngine.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
-import NoteContextMenu from '../contextMenus/NoteContextMenu.js';
+import theDataSearchEngine from '../../data/DataSearchEngine.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
+import NoteContextMenu from '../../contextMenus/NoteContextMenu.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

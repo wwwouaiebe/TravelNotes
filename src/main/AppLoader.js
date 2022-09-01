@@ -33,7 +33,7 @@ Doc reviewed 20210913
 
 /* eslint-disable max-lines */
 
-import theMapEditor from '../coreMapEditor/MapEditor.js';
+import theMapEditor from '../core/mapEditor/MapEditor.js';
 import theIndexedDb from '../UILib/IndexedDb.js';
 import theTravelHTMLViewsFactory from '../viewsFactories/TravelHTMLViewsFactory.js';
 import theUtilities from '../UILib/Utilities.js';

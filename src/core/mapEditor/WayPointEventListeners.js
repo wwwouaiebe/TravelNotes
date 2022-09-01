@@ -26,8 +26,8 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-import theWayPointEditor from '../core/WayPointEditor.js';
-import WayPointContextMenu from '../contextMenus/WayPointContextMenu.js';
+import theWayPointEditor from '../../core/WayPointEditor.js';
+import WayPointContextMenu from '../../contextMenus/WayPointContextMenu.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
