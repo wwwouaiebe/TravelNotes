@@ -34,101 +34,10 @@ import theEventDispatcher from '../core/lib/EventDispatcher.js';
 import theAttributionsUI from '../attributionsUI/AttributionsUI.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import MapLayer from '../data/MapLayer.js';
-import theGeoLocator from '../core/GeoLocator.js';
-import Zoomer from '../core/Zoomer.js';
+import MapLayerButtonClickEL from './MapLayerButtonClickEL.js';
+import GeoLocationButtonClickEL from './GeoLocationButtonClickEL.js';
+import ZoomButtonClickEL from './ZoomButtonClickEL.js';
 import { ZERO } from '../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-Click event listener for the map layer buttons
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class MapLayerButtonClickEL {
-
-	/**
-	A reference to the array of MapLayer objects
-	@type {Array.<MapLayer>}
-	*/
-
-	#mapLayers;
-
-	/**
-	The constructor
-	@param {Array.<MapLayer>} mapLayers A reference to the array of MapLayer objects
-	*/
-
-	constructor ( mapLayers ) {
-		Object.freeze ( this );
-		this.#mapLayers = mapLayers;
-	}
-
-	/**
-	Event listener method
-	@param {Event} clickEvent The event to handle
-	*/
-
-	handleEvent ( clickEvent ) {
-		clickEvent.stopPropagation ( );
-		const mapLayer = this.#mapLayers [ Number.parseInt ( clickEvent.target.dataset.tanMapLayerId ) ];
-		theEventDispatcher.dispatch ( 'layerchange', { layer : mapLayer } );
-		theAttributionsUI.attributions = mapLayer.attribution;
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-Click event listener for the geo location button
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class GeoLocationButtonClickEL {
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-	}
-
-	/**
-	Event listener method
-	@param {Event} clickEvent The event to handle
-	*/
-
-	handleEvent ( clickEvent ) {
-		clickEvent.stopPropagation ( );
-		theGeoLocator.switch ( );
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-Click event listener for the zoom to travel button
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class ZoomButtonClickEL {
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-	}
-
-	/**
-	Event listener method
-	@param {Event} clickEvent The event to handle
-	*/
-
-	handleEvent ( clickEvent ) {
-		clickEvent.stopPropagation ( );
-		new Zoomer ( ).zoomToTravel ( );
-	}
-}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
