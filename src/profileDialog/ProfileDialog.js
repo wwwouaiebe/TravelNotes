@@ -36,9 +36,9 @@ import theTranslator from '../UILib/Translator.js';
 import ObjId from '../data/ObjId.js';
 import NonModalBaseDialog from '../baseDialog/NonModalBaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import theEventDispatcher from '../coreLib/EventDispatcher.js';
+import theEventDispatcher from '../core/lib/EventDispatcher.js';
 import theUtilities from '../UILib/Utilities.js';
-import SvgProfileBuilder from '../coreLib/SvgProfileBuilder.js';
+import SvgProfileBuilder from '../core/lib/SvgProfileBuilder.js';
 import {
 	SvgContextMenuEL,
 	SvgMouseLeaveEL,

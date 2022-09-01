@@ -24,9 +24,9 @@ Doc reviewed ...
 Tests ...
 */
 
-import theConfig from '../data/Config.js';
+import theConfig from '../../data/Config.js';
 
-import { ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
+import { ZERO, ONE, HTTP_STATUS_OK } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

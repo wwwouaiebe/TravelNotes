@@ -28,16 +28,16 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theTravelNotesData from '../data/TravelNotesData.js';
-import theGeometry from '../coreLib/Geometry.js';
-import theErrorsUI from '../errorsUI/ErrorsUI.js';
-import theEventDispatcher from '../coreLib/EventDispatcher.js';
-import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
-import Zoomer from '../core/Zoomer.js';
-import theProfileDialogsManager from '../core/ProfileDialogsManager.js';
-import theRouteEditor from '../core/RouteEditor.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
+import theGeometry from '../../core/lib/Geometry.js';
+import theErrorsUI from '../../errorsUI/ErrorsUI.js';
+import theEventDispatcher from '../../core/lib/EventDispatcher.js';
+import theSphericalTrigonometry from '../../core/lib/SphericalTrigonometry.js';
+import Zoomer from '../../core/Zoomer.js';
+import theProfileDialogsManager from '../../core/ProfileDialogsManager.js';
+import theRouteEditor from '../../core/RouteEditor.js';
 
-import { DISTANCE, ZERO } from '../main/Constants.js';
+import { DISTANCE, ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

@@ -34,10 +34,10 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theTravelNotesData from '../data/TravelNotesData.js';
-import { DISTANCE, ZERO, ONE, TWO, DEGREES, LAT_LNG, EARTH_RADIUS } from '../main/Constants.js';
-import LatLngDistance from '../containers/LatLngDistance.js';
-import LatLngElevOnRoute from '../containers/LatLngElevOnRoute.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
+import { DISTANCE, ZERO, ONE, TWO, DEGREES, LAT_LNG, EARTH_RADIUS } from '../../main/Constants.js';
+import LatLngDistance from '../../containers/LatLngDistance.js';
+import LatLngElevOnRoute from '../../containers/LatLngElevOnRoute.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

@@ -60,10 +60,10 @@ import theTravelNotesData from '../data/TravelNotesData.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import Route from '../data/Route.js';
-import GpxFactory from '../coreLib/GpxFactory.js';
+import GpxFactory from '../core/lib/GpxFactory.js';
 import RoutePropertiesDialog from '../routePropertiesDialog/RoutePropertiesDialog.js';
 import PrintRouteMapDialog from '../printRouteMapDialog/PrintRouteMapDialog.js';
-import theEventDispatcher from '../coreLib/EventDispatcher.js';
+import theEventDispatcher from '../core/lib/EventDispatcher.js';
 import theProfileDialogsManager from '../core/ProfileDialogsManager.js';
 import RoutePrinter from '../printRoute/RoutePrinter.js';
 

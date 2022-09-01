@@ -37,9 +37,9 @@ Tests ...
 */
 
 import theConfig from '../../data/Config.js';
-import theSphericalTrigonometry from '../../coreLib/SphericalTrigonometry.js';
+import theSphericalTrigonometry from '../../core/lib/SphericalTrigonometry.js';
 import SvgBuilder from './SvgBuilder.js';
-import OverpassAPIDataLoader from '../../coreLib/OverpassAPIDataLoader.js';
+import OverpassAPIDataLoader from '../../core/lib/OverpassAPIDataLoader.js';
 import StreetFinder from './StreetFinder.js';
 import ArrowAndTooltipFinder from './ArrowAndTooltipFinder.js';
 import TranslationRotationFinder from './TranslationRotationFinder.js';

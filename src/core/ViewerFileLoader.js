@@ -32,8 +32,8 @@ Tests 20210903
 */
 
 import theTravelNotesData from '../data/TravelNotesData.js';
-import theEventDispatcher from '../coreLib/EventDispatcher.js';
-import FileCompactor from '../coreLib/FileCompactor.js';
+import theEventDispatcher from '../core/lib/EventDispatcher.js';
+import FileCompactor from '../core/lib/FileCompactor.js';
 import Zoomer from '../core/Zoomer.js';
 import { ROUTE_EDITION_STATUS, INVALID_OBJ_ID } from '../main/Constants.js';
 

@@ -28,8 +28,8 @@ Tests 20210902
 
 import theTravelNotesData from '../../../data/TravelNotesData.js';
 import theDataSearchEngine from '../../../data/DataSearchEngine.js';
-import theEventDispatcher from '../../../coreLib/EventDispatcher.js';
-import theGeometry from '../../../coreLib/Geometry.js';
+import theEventDispatcher from '../../../core/lib/EventDispatcher.js';
+import theGeometry from '../../../core/lib/Geometry.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

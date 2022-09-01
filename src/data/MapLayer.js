@@ -26,7 +26,7 @@ Doc reviewed 20210913
 Tests ...
 */
 
-import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
+import theHTMLSanitizer from '../core/lib/HTMLSanitizer.js';
 import { ZERO, ONE } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

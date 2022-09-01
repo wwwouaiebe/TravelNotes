@@ -31,9 +31,9 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import PolylineEncoder from '../coreLib/PolylineEncoder.js';
-import ItineraryPoint from '../data/ItineraryPoint.js';
-import { ELEV, ZERO, ONE, TWO, INVALID_OBJ_ID, LAT_LNG, DISTANCE } from '../main/Constants.js';
+import PolylineEncoder from '../../core/lib/PolylineEncoder.js';
+import ItineraryPoint from '../../data/ItineraryPoint.js';
+import { ELEV, ZERO, ONE, TWO, INVALID_OBJ_ID, LAT_LNG, DISTANCE } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

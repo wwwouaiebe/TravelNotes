@@ -41,7 +41,7 @@ import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
-import theGeometry from '../coreLib/Geometry.js';
+import theGeometry from '../core/lib/Geometry.js';
 import theConfig from '../data/Config.js';
 import theTranslator from '../UILib/Translator.js';
 import { PrintViewsFactory, ViewSize } from '../printRoute/PrintViewsFactory.js';

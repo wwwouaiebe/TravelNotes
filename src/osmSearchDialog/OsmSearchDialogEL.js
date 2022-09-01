@@ -24,7 +24,7 @@ Tests ...
 */
 
 import theTravelNotesData from '../data/TravelNotesData.js';
-import theEventDispatcher from '../coreLib/EventDispatcher.js';
+import theEventDispatcher from '../core/lib/EventDispatcher.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

@@ -35,7 +35,7 @@ Tests ...
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
-import GeoCoder from '../coreLib/GeoCoder.js';
+import GeoCoder from '../core/lib/GeoCoder.js';
 import theConfig from '../data/Config.js';
 import BaseControl from '../baseControl/BaseControl.js';
 

@@ -26,7 +26,7 @@ Doc reviewed 20210915
 Tests ...
 */
 
-import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
+import theSphericalTrigonometry from '../core/lib/SphericalTrigonometry.js';
 
 import { ZERO, ONE, TWO, THREE } from '../main/Constants.js';
 

@@ -64,7 +64,7 @@ import theApiKeysManager from '../core/ApiKeysManager.js';
 import Travel from '../data/Travel.js';
 import ViewerFileLoader from '../core/ViewerFileLoader.js';
 import { theAppVersion } from '../data/Version.js';
-import theEventDispatcher from '../coreLib/EventDispatcher.js';
+import theEventDispatcher from '../core/lib/EventDispatcher.js';
 import MapContextMenu from '../contextMenus/MapContextMenu.js';
 import theMapLayersManager from '../core/MapLayersManager.js';
 import theMapLayersToolbar from '../mapLayersToolbar/MapLayersToolbar.js';

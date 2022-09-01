@@ -38,7 +38,7 @@ Tests ...
 import theNoteDialogToolbarData from './NoteDialogToolbarData.js';
 import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
 import theTranslator from '../../UILib/Translator.js';
-import theHTMLSanitizer from '../../coreLib/HTMLSanitizer.js';
+import theHTMLSanitizer from '../../core/lib/HTMLSanitizer.js';
 
 import { NOT_FOUND } from '../../main/Constants.js';
 

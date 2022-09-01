@@ -27,7 +27,7 @@ Tests ...
 */
 
 import theConfig from '../../data/Config.js';
-import theSphericalTrigonometry from '../../coreLib/SphericalTrigonometry.js';
+import theSphericalTrigonometry from '../../core/lib/SphericalTrigonometry.js';
 import theTranslator from '../../UILib/Translator.js';
 import RoundaboutData from './RoundaboutData.js';
 import { DISTANCE, ZERO, ONE, TWO, NOT_FOUND, ICON_POSITION } from '../../main/Constants.js';

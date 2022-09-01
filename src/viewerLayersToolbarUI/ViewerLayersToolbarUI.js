@@ -30,7 +30,7 @@ Doc reviewed 20210915
 Tests ...
 */
 
-import theEventDispatcher from '../coreLib/EventDispatcher.js';
+import theEventDispatcher from '../core/lib/EventDispatcher.js';
 import theAttributionsUI from '../attributionsUI/AttributionsUI.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import MapLayer from '../data/MapLayer.js';

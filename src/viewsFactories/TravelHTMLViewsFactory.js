@@ -41,7 +41,7 @@ Tests ...
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
+import theHTMLSanitizer from '../core/lib/HTMLSanitizer.js';
 import theUtilities from '../UILib/Utilities.js';
 import theConfig from '../data/Config.js';
 import theTranslator from '../UILib/Translator.js';

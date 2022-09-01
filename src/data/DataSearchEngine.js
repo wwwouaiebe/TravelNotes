@@ -33,8 +33,8 @@ Tests ...
 */
 
 import theTravelNotesData from '../data/TravelNotesData.js';
-import theGeometry from '../coreLib/Geometry.js';
-import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
+import theGeometry from '../core/lib/Geometry.js';
+import theSphericalTrigonometry from '../core/lib/SphericalTrigonometry.js';
 import NoteAndRoute from '../data/NoteAndRoute.js';
 
 import { ZERO, INVALID_OBJ_ID, LAT_LNG } from '../main/Constants.js';

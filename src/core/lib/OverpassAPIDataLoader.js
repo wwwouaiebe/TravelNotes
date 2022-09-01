@@ -26,10 +26,10 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theConfig from '../data/Config.js';
-import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
-import OverpassAPIDataLoaderOptions from '../coreLib/OverpassAPIDataLoaderOptions.js';
-import { ZERO, TWO, LAT_LNG, HTTP_STATUS_OK, OSM_COUNTRY_ADMIN_LEVEL } from '../main/Constants.js';
+import theConfig from '../../data/Config.js';
+import theSphericalTrigonometry from '../../core/lib/SphericalTrigonometry.js';
+import OverpassAPIDataLoaderOptions from '../../core/lib/OverpassAPIDataLoaderOptions.js';
+import { ZERO, TWO, LAT_LNG, HTTP_STATUS_OK, OSM_COUNTRY_ADMIN_LEVEL } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

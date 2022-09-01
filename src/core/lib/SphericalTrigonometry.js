@@ -34,7 +34,7 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import { ZERO, ONE, DEGREES, EARTH_RADIUS } from '../main/Constants.js';
+import { ZERO, ONE, DEGREES, EARTH_RADIUS } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

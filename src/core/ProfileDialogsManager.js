@@ -32,7 +32,7 @@ Tests 20210903
 
 import theConfig from '../data/Config.js';
 import ProfileDialog from '../profileDialog/ProfileDialog.js';
-import ProfileSmoothingIron from '../coreLib/ProfileSmoothingIron.js';
+import ProfileSmoothingIron from '../core/lib/ProfileSmoothingIron.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import { ZERO } from '../main/Constants.js';
 

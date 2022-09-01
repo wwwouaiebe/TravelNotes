@@ -29,7 +29,7 @@ Tests ...
 -----------------------------------------------------------------------------------------------------------------------
 */
 
-import PolylineEncoder from '../coreLib/PolylineEncoder.js';
+import PolylineEncoder from '../core/lib/PolylineEncoder.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
 import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';

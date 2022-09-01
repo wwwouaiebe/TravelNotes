@@ -31,7 +31,7 @@ Tests ...
 */
 
 import PasswordDialog from '../passwordDialog/PasswordDialog.js';
-import DataEncryptor from '../coreLib/DataEncryptor.js';
+import DataEncryptor from '../core/lib/DataEncryptor.js';
 import DataEncryptorHandlers from '../apiKeysDialog/DataEncryptorHandlers.js';
 import { ZERO } from '../main/Constants.js';
 

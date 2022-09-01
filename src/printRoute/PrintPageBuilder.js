@@ -36,7 +36,7 @@ import theConfig from '../data/Config.js';
 import theTranslator from '../UILib/Translator.js';
 import theMapLayersCollection from '../data/MapLayersCollection.js';
 import theApiKeysManager from '../core/ApiKeysManager.js';
-import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
+import theHTMLSanitizer from '../core/lib/HTMLSanitizer.js';
 
 import { ZERO, TWO } from '../main/Constants.js';
 

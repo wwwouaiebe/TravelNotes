@@ -34,12 +34,12 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theEventDispatcher from '../coreLib/EventDispatcher.js';
+import theEventDispatcher from '../core/lib/EventDispatcher.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theConfig from '../data/Config.js';
-import OverpassAPIDataLoader from '../coreLib/OverpassAPIDataLoader.js';
+import OverpassAPIDataLoader from '../core/lib/OverpassAPIDataLoader.js';
 import theOsmSearchDictionary from '../coreOsmSearch/OsmSearchDictionary.js';
-import theGeometry from '../coreLib/Geometry.js';
+import theGeometry from '../core/lib/Geometry.js';
 
 import { ZERO, ONE, LAT_LNG } from '../main/Constants.js';
 

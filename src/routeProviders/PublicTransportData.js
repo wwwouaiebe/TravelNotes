@@ -25,7 +25,7 @@ Changes:
 Doc reviewed 20210915
 */
 
-import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
+import theSphericalTrigonometry from '../core/lib/SphericalTrigonometry.js';
 
 import { ZERO, INVALID_OBJ_ID, ONE, TWO } from '../main/Constants.js';
 

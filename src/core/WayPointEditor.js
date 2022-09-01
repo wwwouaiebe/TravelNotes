@@ -46,11 +46,11 @@ Tests 20210902
 import theConfig from '../data/Config.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import WayPointPropertiesDialog from '../wayPointPropertiesDialog/WayPointPropertiesDialog.js';
-import GeoCoder from '../coreLib/GeoCoder.js';
+import GeoCoder from '../core/lib/GeoCoder.js';
 import WayPoint from '../data/WayPoint.js';
-import theEventDispatcher from '../coreLib/EventDispatcher.js';
-import theGeometry from '../coreLib/Geometry.js';
-import theRouter from '../coreLib/Router.js';
+import theEventDispatcher from '../core/lib/EventDispatcher.js';
+import theGeometry from '../core/lib/Geometry.js';
+import theRouter from '../core/lib/Router.js';
 
 import { ROUTE_EDITION_STATUS, TWO } from '../main/Constants.js';
 

@@ -30,9 +30,9 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theDataSearchEngine from '../data/DataSearchEngine.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
-import theUtilities from '../UILib/Utilities.js';
+import theDataSearchEngine from '../../data/DataSearchEngine.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
+import theUtilities from '../../UILib/Utilities.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

@@ -27,7 +27,7 @@ Doc reviewed 20210915
 Tests ...
 */
 
-import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
+import theSphericalTrigonometry from '../core/lib/SphericalTrigonometry.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
 import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';

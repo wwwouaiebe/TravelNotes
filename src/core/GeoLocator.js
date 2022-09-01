@@ -29,7 +29,7 @@ Doc reviewed 20210921
 Tests 20210903
 */
 
-import theEventDispatcher from '../coreLib/EventDispatcher.js';
+import theEventDispatcher from '../core/lib/EventDispatcher.js';
 import theConfig from '../data/Config.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import { GEOLOCATION_STATUS, ONE, TWO } from '../main/Constants.js';

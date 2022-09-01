@@ -32,12 +32,12 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theGeometry from '../coreLib/Geometry.js';
-import theEventDispatcher from '../coreLib/EventDispatcher.js';
+import theGeometry from '../core/lib/Geometry.js';
+import theEventDispatcher from '../core/lib/EventDispatcher.js';
 import theUtilities from '../UILib/Utilities.js';
 import ProfileContextMenu from '../contextMenus/ProfileContextMenu.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
-import SvgProfileBuilder from '../coreLib/SvgProfileBuilder.js';
+import SvgProfileBuilder from '../core/lib/SvgProfileBuilder.js';
 import { SVG_NS, ZERO, ONE, TWO, THREE } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

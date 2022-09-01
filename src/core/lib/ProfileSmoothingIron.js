@@ -24,9 +24,9 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theConfig from '../data/Config.js';
+import theConfig from '../../data/Config.js';
 
-import { ZERO, ONE, TWO, THREE } from '../main/Constants.js';
+import { ZERO, ONE, TWO, THREE } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

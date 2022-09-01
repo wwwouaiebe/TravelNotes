@@ -43,7 +43,7 @@ import ObjType from '../data/ObjType.js';
 import Collection from '../data/Collection.js';
 import Route from '../data/Route.js';
 import Note from '../data/Note.js';
-import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
+import theHTMLSanitizer from '../core/lib/HTMLSanitizer.js';
 import TravelObject from '../data/TravelObject.js';
 import { INVALID_OBJ_ID } from '../main/Constants.js';
 

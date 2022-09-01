@@ -27,8 +27,8 @@ Tests ...
 */
 
 import theConfig from '../../data/Config.js';
-import theGeometry from '../../coreLib/Geometry.js';
-import theSphericalTrigonometry from '../../coreLib/SphericalTrigonometry.js';
+import theGeometry from '../../core/lib/Geometry.js';
+import theSphericalTrigonometry from '../../core/lib/SphericalTrigonometry.js';
 
 import { ICON_DIMENSIONS, ZERO, ONE, TWO, DEGREES, ICON_POSITION } from '../../main/Constants.js';
 

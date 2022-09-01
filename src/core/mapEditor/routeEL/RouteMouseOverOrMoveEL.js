@@ -27,7 +27,7 @@ Tests 20210902
 */
 
 import theDataSearchEngine from '../../../data/DataSearchEngine.js';
-import theGeometry from '../../../coreLib/Geometry.js';
+import theGeometry from '../../../core/lib/Geometry.js';
 import theUtilities from '../../../UILib/Utilities.js';
 import theTravelNotesData from '../../../data/TravelNotesData.js';
 import { ZERO } from '../../../main/Constants.js';

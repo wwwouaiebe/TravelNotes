@@ -32,7 +32,7 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import { SVG_NS, ZERO, TWO, DISTANCE } from '../main/Constants.js';
+import { SVG_NS, ZERO, TWO, DISTANCE } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

@@ -40,7 +40,7 @@ import ObjType from '../data/ObjType.js';
 import Collection from '../data/Collection.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
-import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
+import theHTMLSanitizer from '../core/lib/HTMLSanitizer.js';
 import TravelObject from '../data/TravelObject.js';
 import { ZERO, INVALID_OBJ_ID } from '../main/Constants.js';
 

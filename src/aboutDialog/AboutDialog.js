@@ -39,7 +39,7 @@ Doc reviewed 20220827
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTranslator from '../UILib/Translator.js';
 import NonModalBaseDialog from '../baseDialog/NonModalBaseDialog.js';
-import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
+import theHTMLSanitizer from '../core/lib/HTMLSanitizer.js';
 import { theAppVersion } from '../data/Version.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
