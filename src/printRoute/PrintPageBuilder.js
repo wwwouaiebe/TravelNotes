@@ -37,69 +37,9 @@ import theTranslator from '../UILib/Translator.js';
 import theMapLayersCollection from '../data/MapLayersCollection.js';
 import theApiKeysManager from '../core/ApiKeysManager.js';
 import theHTMLSanitizer from '../core/htmlSanitizer/HTMLSanitizer.js';
-
+import PrintEL from './PrintEL.js';
+import AfterPrintEL from './AfterPrintEL.js';
 import { ZERO, TWO } from '../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-click event listener for the print button
-@hideconstructor
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class PrintEL {
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-	}
-
-	/**
-	Event listener method
-	*/
-
-	handleEvent ( ) {
-		window.print ( );
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-afterprint event listener for the document and the cancel button
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class AfterPrintEL {
-
-	/**
-	A reference to the printPageBuilder Object
-	@type {PrintPageBuilder}
-	*/
-
-	#printPageBuilder = null;
-
-	/**
-	The constructor
-	@param {PrintPageBuilder} printPageBuilder A reference to the printPageBuilder Object
-	*/
-
-	constructor ( printPageBuilder ) {
-		Object.freeze ( this );
-		this.#printPageBuilder = printPageBuilder;
-	}
-
-	/**
-	Event listener method
-	*/
-
-	handleEvent ( ) {
-		this.#printPageBuilder.onAfterPrint ( );
-		this.#printPageBuilder = null;
-	}
-}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
