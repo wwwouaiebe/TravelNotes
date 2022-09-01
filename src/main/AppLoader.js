@@ -35,9 +35,6 @@ Doc reviewed 20210913
 
 import theMapEditor from '../core/mapEditor/MapEditor.js';
 import theIndexedDb from '../UILib/IndexedDb.js';
-import theTravelHTMLViewsFactory from '../viewsFactories/TravelHTMLViewsFactory.js';
-import theUtilities from '../UILib/Utilities.js';
-import theMouseUI from '../mouseUI/MouseUI.js';
 import theProfileDialogsManager from '../core/ProfileDialogsManager.js';
 import theTravelNotes from '../main/TravelNotes.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
@@ -50,60 +47,9 @@ import theMapLayersCollection from '../data/MapLayersCollection.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theDockableDialogsManager from '../core/DockableDialogsManager.js';
 import theProvidersToolbar from '../providersToolbar/ProvidersToolbar.js';
+import RoadbookUpdateEL from './RoadbookUpdateEL.js';
 
-import { LAT_LNG, SAVE_STATUS, ZERO, ONE, NOT_FOUND, HTTP_STATUS_OK } from '../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-roadbookupdate event listener
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class RoadbookUpdateEL {
-
-	/**
-	A boolean indicating when the local storage is available
-	@type {Boolean}
-	*/
-
-	#storageAvailable;
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-		this.#storageAvailable = theUtilities.storageAvailable ( 'localStorage' );
-	}
-
-	/**
-	Event listener method
-	*/
-
-	handleEvent ( ) {
-		theMouseUI.saveStatus = SAVE_STATUS.modified;
-
-		if ( this.#storageAvailable ) {
-			theIndexedDb.getOpenPromise ( )
-				.then (
-					( ) => {
-						theIndexedDb.getWritePromise (
-							theTravelNotesData.UUID,
-							theTravelHTMLViewsFactory.getTravelHTML ( 'TravelNotes-Roadbook-' ).outerHTML
-						);
-					}
-				)
-				.then ( ( ) => localStorage.setItem ( theTravelNotesData.UUID, Date.now ( ) ) )
-				.catch ( err => {
-					if ( err instanceof Error ) {
-						console.error ( err );
-					}
-				}
-				);
-		}
-	}
-}
+import { LAT_LNG, ZERO, ONE, NOT_FOUND, HTTP_STATUS_OK } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

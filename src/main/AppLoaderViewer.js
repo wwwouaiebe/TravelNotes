@@ -35,49 +35,8 @@ import theTravelNotesData from '../data/TravelNotesData.js';
 import theTranslator from '../UILib/Translator.js';
 import theViewerLayersToolbarUI from '../viewerLayersToolbarUI/ViewerLayersToolbarUI.js';
 import MapEditorViewer from '../core/mapEditor/MapEditorViewer.js';
-import theGeoLocator from '../core/GeoLocator.js';
-import Zoomer from '../core/Zoomer.js';
-
+import ViewerKeydownEL from './ViewerKeydownEL.js';
 import { ZERO, ONE, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-keydown event listener, so we can use the keyboard for zoom on the travel, geolocator and maps
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class KeydownEventListener {
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-	}
-
-	/**
-	Event listener method
-	@param {Event} keyBoardEvent The event to handle
-	*/
-
-	handleEvent ( keyBoardEvent ) {
-		keyBoardEvent.stopPropagation ( );
-		if ( 'Z' === keyBoardEvent.key || 'z' === keyBoardEvent.key ) {
-			new Zoomer ( ).zoomToTravel ( );
-		}
-		else if ( 'G' === keyBoardEvent.key || 'g' === keyBoardEvent.key ) {
-			theGeoLocator.switch ( );
-		}
-		else {
-			const charCode = keyBoardEvent.key.charCodeAt ( ZERO );
-			/* eslint-disable-next-line no-magic-numbers */
-			if ( 47 < charCode && 58 > charCode ) {
-				theViewerLayersToolbarUI.setMapLayer ( keyBoardEvent.key );
-			}
-		}
-	}
-}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -135,7 +94,7 @@ class AppLoaderViewer {
 	*/
 
 	#addEventsListeners ( ) {
-		document.addEventListener ( 'keydown', new KeydownEventListener ( ), true );
+		document.addEventListener ( 'keydown', new ViewerKeydownEL ( ), true );
 		document.addEventListener (
 			'routeupdated',
 			updateRouteEvent => {
