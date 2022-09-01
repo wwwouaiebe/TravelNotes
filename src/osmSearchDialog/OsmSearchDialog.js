@@ -34,7 +34,8 @@ import OsmSearchContextMenu from '../contextMenus/OsmSearchContextMenu.js';
 import SortableListControl from '../sortableListControl/SortableListControl.js';
 import OsmSearchResultsHTMLBuilder from '../osmSearchDialog/OsmSearchResultsHTMLBuilder.js';
 import OsmSearchLimits from '../osmSearchDialog/OsmSearchLimits.js';
-import { SearchResultMouseEnterEL, SearchResultMouseLeaveEL } from '../osmSearchDialog/OsmSearchDialogEL.js';
+import SearchResultMouseEnterEL from './SearchResultMouseEnterEL.js';
+import SearchResultMouseLeaveEL from './SearchResultMouseLeaveEL.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

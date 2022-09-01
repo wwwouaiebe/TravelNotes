@@ -62,34 +62,6 @@ class SearchResultMouseEnterEL {
 
 }
 
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-mouseenter event listener for search result
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class SearchResultMouseLeaveEL {
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-	}
-
-	/**
-	Event listener method
-	@param {Event} mouseEvent The event to handle
-	*/
-
-	handleEvent ( mouseEvent ) {
-		mouseEvent.stopPropagation ( );
-		theEventDispatcher.dispatch ( 'removeobject', { objId : Number.parseInt ( mouseEvent.target.dataset.tanObjId ) } );
-	}
-
-}
-
-export { SearchResultMouseEnterEL, SearchResultMouseLeaveEL };
+export default SearchResultMouseEnterEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
