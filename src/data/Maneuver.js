@@ -34,7 +34,7 @@ Tests ...
 
 import ObjId from '../data/ObjId.js';
 import ObjType from '../data/ObjType.js';
-import theHTMLSanitizer from '../core/lib/HTMLSanitizer.js';
+import theHTMLSanitizer from '../core/htmlSanitizer/HTMLSanitizer.js';
 import TravelObject from '../data/TravelObject.js';
 import { DISTANCE, INVALID_OBJ_ID } from '../main/Constants.js';
 

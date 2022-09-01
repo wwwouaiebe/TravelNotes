@@ -45,7 +45,7 @@ import theTravelNotesData from '../../data/TravelNotesData.js';
 import theRouteHTMLViewsFactory from '../../viewsFactories/RouteHTMLViewsFactory.js';
 import theNoteHTMLViewsFactory from '../../viewsFactories/NoteHTMLViewsFactory.js';
 import RouteMouseOverOrMoveEL from './RouteEL/RouteMouseOverOrMoveEL.js';
-import theHTMLSanitizer from '../../core/lib/HTMLSanitizer.js';
+import theHTMLSanitizer from '../htmlSanitizer/HTMLSanitizer.js';
 import NoteLeafletObjects from './NoteLeafletObjects.js';
 
 import { GEOLOCATION_STATUS, ROUTE_EDITION_STATUS, ZERO, TWO } from '../../main/Constants.js';

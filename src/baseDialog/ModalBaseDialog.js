@@ -25,7 +25,7 @@ Tests ...
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import theHTMLSanitizer from '../core/lib/HTMLSanitizer.js';
+import theHTMLSanitizer from '../core/htmlSanitizer/HTMLSanitizer.js';
 import CancelButtonClickEL from '../baseDialog/CancelButtonClickEL.js';
 import ModalDialogKeyboardKeydownEL from '../baseDialog/ModalDialogKeyboardKeydownEL.js';
 import OkButtonClickEL from '../baseDialog/OkButtonClickEL.js';

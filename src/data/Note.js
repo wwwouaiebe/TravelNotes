@@ -36,7 +36,7 @@ import ObjId from '../data/ObjId.js';
 import ObjType from '../data/ObjType.js';
 import { LAT_LNG, DISTANCE, ZERO, ONE, INVALID_OBJ_ID, ICON_DIMENSIONS } from '../main/Constants.js';
 import TravelObject from '../data/TravelObject.js';
-import theHTMLSanitizer from '../core/lib/HTMLSanitizer.js';
+import theHTMLSanitizer from '../core/htmlSanitizer/HTMLSanitizer.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

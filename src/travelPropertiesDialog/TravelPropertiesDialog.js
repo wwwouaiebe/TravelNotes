@@ -32,7 +32,7 @@ import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTravelEditor from '../core/TravelEditor.js';
 import RouteContextMenu from '../contextMenus/RouteContextMenu.js';
 import theConfig from '../data/Config.js';
-import theHTMLSanitizer from '../core/lib/HTMLSanitizer.js';
+import theHTMLSanitizer from '../core/htmlSanitizer/HTMLSanitizer.js';
 import theEventDispatcher from '../core/lib/EventDispatcher.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

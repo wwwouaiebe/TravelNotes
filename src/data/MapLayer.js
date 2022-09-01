@@ -26,7 +26,7 @@ Doc reviewed 20210913
 Tests ...
 */
 
-import theHTMLSanitizer from '../core/lib/HTMLSanitizer.js';
+import theHTMLSanitizer from '../core/htmlSanitizer/HTMLSanitizer.js';
 import MapLayerToolbarButtonData from './MapLayerToolbarButtonData.js';
 import { ZERO, ONE } from '../main/Constants.js';
 
