@@ -24,68 +24,46 @@ Doc reviewed 20220825
 Tests ...
 */
 
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import theOsmSearchDictionary from '../../core/osmSearch/OsmSearchDictionary.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This the wait bar for the OsmSearch
+cick event listener for the tree arrows
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class OsmSearchWait {
+class TreeArrowClickEL {
 
 	/**
-	The wait html element
-	@type {HTMLElement}
+	A reference to the OsmSearchTree object
+	@type {OsmSearchTree}
 	*/
 
-	#waitHTMLElement;
+	#osmSearchTree = null;
 
 	/**
 	The constructor
+	@param {OsmSearchTree} osmSearchTree A reference to the OsmSearchTree object
 	*/
 
-	constructor ( ) {
-		this.#waitHTMLElement = theHTMLElementsFactory.create (
-			'div',
-			{ className : 'TravelNotes-WaitAnimation' }
-		);
-
-		theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-WaitAnimationBullet'
-			},
-			this.#waitHTMLElement
-		);
-
-		this.#waitHTMLElement.classList.add ( 'TravelNotes-Hidden' );
+	constructor ( osmSearchTree ) {
+		Object.freeze ( this );
+		this.#osmSearchTree = osmSearchTree;
 	}
 
 	/**
-	show the wait UI
+	Event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
-	showWait ( ) {
-		this.#waitHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
+	handleEvent ( clickEvent ) {
+		clickEvent.stopPropagation ( );
+		theOsmSearchDictionary.expandItem ( Number.parseInt ( clickEvent.target.parentNode.dataset.tanObjId ) );
+		this.#osmSearchTree.redraw ( );
 	}
 
-	/**
-	hide the wait UI
-	*/
-
-	hideWait ( ) {
-		this.#waitHTMLElement.classList.add ( 'TravelNotes-Hidden' );
-	}
-
-	/**
-	The wait HTMLElement of the OsmSearchWaitUI
-	@type {HTMLElement}
-	*/
-
-	get waitHTMLElement ( ) { return this.#waitHTMLElement; }
 }
 
-export default OsmSearchWait;
+export default TreeArrowClickEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

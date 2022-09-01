@@ -27,15 +27,15 @@ import theConfig from '../data/Config.js';
 import theTranslator from '../UILib/Translator.js';
 import DockableBaseDialog from '../baseDialog/DockableBaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import OsmSearchToolbarButtons from '../osmSearchDialog/OsmSearchToolbarButtons.js';
-import OsmSearchTree from '../osmSearchDialog/OsmSearchTree.js';
-import OsmSearchWait from '../osmSearchDialog/OsmSearchWait.js';
+import OsmSearchToolbarButtons from './osmSearchToolbarButtons/OsmSearchToolbarButtons.js';
+import OsmSearchTree from './osmSearchToolbarTree/OsmSearchTree.js';
+import OsmSearchWait from './osmSearchToolbarWait/OsmSearchWait.js';
 import OsmSearchContextMenu from '../contextMenus/OsmSearchContextMenu.js';
 import SortableListControl from '../sortableListControl/SortableListControl.js';
-import OsmSearchResultsHTMLBuilder from '../osmSearchDialog/OsmSearchResultsHTMLBuilder.js';
+import OsmSearchResultsHTMLBuilder from './osmSearchResults/OsmSearchResultsHTMLBuilder.js';
 import OsmSearchLimits from '../osmSearchDialog/OsmSearchLimits.js';
-import SearchResultMouseEnterEL from './SearchResultMouseEnterEL.js';
-import SearchResultMouseLeaveEL from './SearchResultMouseLeaveEL.js';
+import SearchResultMouseEnterEL from './osmSearchResults/SearchResultMouseEnterEL.js';
+import SearchResultMouseLeaveEL from './osmSearchResults/SearchResultMouseLeaveEL.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

@@ -24,119 +24,12 @@ Doc reviewed 20220825
 Tests ...
 */
 
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import theOsmSearchDictionary from '../core/osmSearch/OsmSearchDictionary.js';
-import { ZERO, MOUSE_WHEEL_FACTORS } from '../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-change event listener for the tree checkboxes
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class TreeCheckboxChangeEL {
-
-	/**
-	A reference to the osmSearchTree Object
-	@type {OsmSearchTree}
-	*/
-
-	#osmSearchTree = null;
-
-	/**
-	The constructor
-	@param {OsmSearchTree} osmSearchTree A reference to the OsmSearchTree object
-	*/
-
-	constructor ( osmSearchTree ) {
-		Object.freeze ( this );
-		this.#osmSearchTree = osmSearchTree;
-	}
-
-	/**
-	Event listener method
-	@param {Event} changeEvent The event to handle
-	*/
-
-	handleEvent ( changeEvent ) {
-		changeEvent.stopPropagation ( );
-		theOsmSearchDictionary.selectItem (
-			Number.parseInt ( changeEvent.target.parentNode.dataset.tanObjId ),
-			changeEvent.target.checked
-		);
-
-		this.#osmSearchTree.redraw ( );
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-wheel event listener
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class TreeWheelEL {
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-	}
-
-	/**
-	Event listener method
-	@param {Event} wheelEvent The event to handle
-	*/
-
-	handleEvent ( wheelEvent ) {
-		wheelEvent.stopPropagation ( );
-		if ( wheelEvent.deltaY ) {
-			wheelEvent.target.scrollTop +=
-				wheelEvent.deltaY * MOUSE_WHEEL_FACTORS [ wheelEvent.deltaMode ];
-		}
-		wheelEvent.stopPropagation ( );
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-cick event listener for the tree arrows
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class TreeArrowClickEL {
-
-	/**
-	A reference to the OsmSearchTree object
-	@type {OsmSearchTree}
-	*/
-
-	#osmSearchTree = null;
-
-	/**
-	The constructor
-	@param {OsmSearchTree} osmSearchTree A reference to the OsmSearchTree object
-	*/
-
-	constructor ( osmSearchTree ) {
-		Object.freeze ( this );
-		this.#osmSearchTree = osmSearchTree;
-	}
-
-	/**
-	Event listener method
-	@param {Event} clickEvent The event to handle
-	*/
-
-	handleEvent ( clickEvent ) {
-		clickEvent.stopPropagation ( );
-		theOsmSearchDictionary.expandItem ( Number.parseInt ( clickEvent.target.parentNode.dataset.tanObjId ) );
-		this.#osmSearchTree.redraw ( );
-	}
-
-}
+import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theOsmSearchDictionary from '../../core/osmSearch/OsmSearchDictionary.js';
+import TreeArrowClickEL from './TreeArrowClickEL.js';
+import TreeWheelEL from './TreeWheelEL.js';
+import TreeCheckboxChangeEL from './TreeCheckboxChangeEL.js';
+import { ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+
 /*
 Changes:
 	- v4.0.0:
@@ -23,45 +24,49 @@ Doc reviewed 20220825
 Tests ...
 */
 
-import theTravelNotesData from '../data/TravelNotesData.js';
-import theEventDispatcher from '../core/lib/EventDispatcher.js';
+import theOsmSearchDictionary from '../../core/osmSearch/OsmSearchDictionary.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-mouseenter event listener for search result
+change event listener for the tree checkboxes
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class SearchResultMouseEnterEL {
+class TreeCheckboxChangeEL {
+
+	/**
+	A reference to the osmSearchTree Object
+	@type {OsmSearchTree}
+	*/
+
+	#osmSearchTree = null;
 
 	/**
 	The constructor
+	@param {OsmSearchTree} osmSearchTree A reference to the OsmSearchTree object
 	*/
 
-	constructor ( ) {
+	constructor ( osmSearchTree ) {
 		Object.freeze ( this );
+		this.#osmSearchTree = osmSearchTree;
 	}
 
 	/**
 	Event listener method
-	@param {Event} mouseEvent The event to handle
+	@param {Event} changeEvent The event to handle
 	*/
 
-	handleEvent ( mouseEvent ) {
-		mouseEvent.stopPropagation ( );
-		const osmElement = theTravelNotesData.searchData [ Number.parseInt ( mouseEvent.target.dataset.tanElementIndex ) ];
-		theEventDispatcher.dispatch (
-			'addsearchpointmarker',
-			{
-				objId : Number.parseInt ( mouseEvent.target.dataset.tanObjId ),
-				latLng : [ osmElement.lat, osmElement.lon ],
-				geometry : osmElement.geometry
-			}
+	handleEvent ( changeEvent ) {
+		changeEvent.stopPropagation ( );
+		theOsmSearchDictionary.selectItem (
+			Number.parseInt ( changeEvent.target.parentNode.dataset.tanObjId ),
+			changeEvent.target.checked
 		);
-	}
 
+		this.#osmSearchTree.redraw ( );
+	}
 }
 
-export default SearchResultMouseEnterEL;
+export default TreeCheckboxChangeEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
