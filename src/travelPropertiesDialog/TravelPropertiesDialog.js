@@ -31,40 +31,8 @@ import SortableListControl from '../sortableListControl/SortableListControl.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTravelEditor from '../core/TravelEditor.js';
 import RouteContextMenu from '../contextMenus/RouteContextMenu.js';
+import TravelNameInputEL from './TravelNameInputEL.js';
 import theConfig from '../data/Config.js';
-import theHTMLSanitizer from '../core/htmlSanitizer/HTMLSanitizer.js';
-import theEventDispatcher from '../core/lib/EventDispatcher.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-change event listener for the TravelName input
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class TravelNameInput {
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-	}
-
-	/**
-	Event listener method
-	@param {Event} changeEvent The event to handle
-	*/
-
-	handleEvent ( changeEvent ) {
-		changeEvent.stopPropagation ( );
-		theTravelNotesData.travel.name = theHTMLSanitizer.sanitizeToJsString ( changeEvent.target.value );
-		document.title =
-			'Travel & Notes' +
-			( '' === theTravelNotesData.travel.name ? '' : ' - ' + theTravelNotesData.travel.name );
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
-	}
-}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -96,7 +64,7 @@ class TravelPropertiesDialog extends DockableBaseDialog {
 		super ( theConfig.travelPropertiesDialog.dialogX, theConfig.travelPropertiesDialog.dialogY );
 		this.#travelNameControl = new TextInputControl (
 			theTranslator.getText ( 'TravelPropertiesDialog - Name' ),
-			new TravelNameInput ( )
+			new TravelNameInputEL ( )
 		);
 		this.#travelNameControl.value = theTravelNotesData.travel.name;
 		this.#travelRoutesControl = new SortableListControl (
