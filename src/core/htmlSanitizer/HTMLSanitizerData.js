@@ -21,103 +21,6 @@ Changes:
 Doc reviewed ...
 Tests ...
 */
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-An object returned by the sanitizeToUrl function
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class UrlValidationResult {
-
-	/**
-	The validated url or an empty string if the url is invalid
-	@type {String}
-	*/
-
-	#url;
-
-	/**
-	An empty string or an error description if the url is invalid
-	@type {String}
-	*/
-
-	#errorsString;
-
-	/**
-	The constructor
-	@param {String} url The validated url or an empty string if the url is invalid
-	@param {String} errorsString An empty string or an error description if the url is invalid
-	*/
-
-	constructor ( url, errorsString ) {
-		Object.freeze ( this );
-		this.#url = url;
-		this.#errorsString = errorsString;
-	}
-
-	/**
-	The validated url or an empty string if the url is invalid
-	@type {String}
-	*/
-
-	get url ( ) { return this.#url; }
-
-	/**
-	An empty string or an error description if the url is invalid
-	@type {String}
-	*/
-
-	get errorsString ( ) { return this.#errorsString; }
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-An object returned by the sanitizeToHtmlString function
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class HtmlStringValidationResult {
-
-	/**
-	The validated string
-	@type {String}
-	*/
-
-	#htmlString;
-
-	/**
-	An empty string or an error description if the url is invalid
-	@type {String}
-	*/
-
-	#errorsString;
-
-	/**
-	The constructor
-	@param {String} htmlString The validated string
-	@param {String} errorsString An empty string or an error description if the url is invalid
-	*/
-
-	constructor ( htmlString, errorsString ) {
-		Object.freeze ( this );
-		this.#htmlString = htmlString;
-		this.#errorsString = errorsString;
-	}
-
-	/**
-	The validated string
-	@type {String}
-	*/
-
-	get htmlString ( ) { return this.#htmlString; }
-
-	/**
-	An empty string or an error description if the url is invalid
-	@type {String}
-	*/
-
-	get errorsString ( ) { return this.#errorsString; }
-}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -209,6 +112,6 @@ class HTMLSanitizerData {
 
 }
 
-export { HTMLSanitizerData, HtmlStringValidationResult, UrlValidationResult };
+export default HTMLSanitizerData;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

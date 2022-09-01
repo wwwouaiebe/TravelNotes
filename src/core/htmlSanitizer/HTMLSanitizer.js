@@ -28,8 +28,9 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import { HTMLSanitizerData, HtmlStringValidationResult, UrlValidationResult } from './HTMLSanitizerData.js';
-
+import HTMLSanitizerData from './HTMLSanitizerData.js';
+import HtmlStringValidationResult from './HtmlStringValidationResult.js';
+import UrlValidationResult from './UrlValidationResult.js';
 import { SVG_NS, ZERO, NOT_FOUND } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
