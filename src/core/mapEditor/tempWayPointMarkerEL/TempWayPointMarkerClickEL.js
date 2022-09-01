@@ -29,10 +29,6 @@ Tests 20210902
 */
 
 import theTravelNotesData from '../../../data/TravelNotesData.js';
-import RouteContextMenu from '../../../contextMenus/RouteContextMenu.js';
-import theWayPointEditor from '../../../core/WayPointEditor.js';
-
-import { ZERO, ONE } from '../../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
