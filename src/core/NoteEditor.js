@@ -57,7 +57,7 @@ import theGeometry from '../coreLib/Geometry.js';
 import theConfig from '../data/Config.js';
 import WaitUI from '../waitUI/WaitUI.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
-import theNoteDialogToolbarData from '../notesDialog/NoteDialogToolbarData.js';
+import theNoteDialogToolbarData from '../notesDialog/toolbar/NoteDialogToolbarData.js';
 import GeoCoder from '../coreLib/GeoCoder.js';
 
 import { DISTANCE, INVALID_OBJ_ID } from '../main/Constants.js';

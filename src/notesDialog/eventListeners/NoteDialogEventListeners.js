@@ -26,13 +26,13 @@ Doc reviewed 20210901
 Tests ...
 */
 
-import AllControlsFocusEL from '../notesDialog/AllControlsFocusEL.js';
-import AllControlsInputEL from '../notesDialog/AllControlsInputEL.js';
-import AddressButtonClickEL from '../notesDialog/AddressButtonClickEL.js';
-import UrlInputBlurEL from '../notesDialog/UrlInputBlurEL.js';
-import EditionButtonsClickEL from '../notesDialog/EditionButtonsClickEL.js';
-import IconSelectorChangeEL from '../notesDialog/IconSelectorChangeEL.js';
-import OpenCfgFileButtonClickEL from '../notesDialog/OpenCfgFileButtonClickEL.js';
+import AllControlsFocusEL from './AllControlsFocusEL.js';
+import AllControlsInputEL from './AllControlsInputEL.js';
+import AddressButtonClickEL from './AddressButtonClickEL.js';
+import UrlInputBlurEL from './UrlInputBlurEL.js';
+import EditionButtonsClickEL from './EditionButtonsClickEL.js';
+import IconSelectorChangeEL from './IconSelectorChangeEL.js';
+import OpenCfgFileButtonClickEL from './OpenCfgFileButtonClickEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

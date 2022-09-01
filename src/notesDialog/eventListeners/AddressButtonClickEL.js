@@ -26,15 +26,15 @@ Doc reviewed 20210901
 Tests ...
 */
 
-import { ZERO } from '../main/Constants.js';
+import NoteDialogGeoCoderHelper from '../NoteDialogGeoCoderHelper.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-click event listener for the edition buttons
+Click event listener for the AddressButtonClickEL class
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class EditionButtonsClickEL {
+class AddressButtonClickEL {
 
 	/**
 	A reference to the NoteDialog object
@@ -44,13 +44,22 @@ class EditionButtonsClickEL {
 	#noteDialog;
 
 	/**
-	The constructor
-	@param {NoteDialog} noteDialog A reference to the Notedialog object
+	The lat and lng for witch the address must be found
+	@type {Array.<Number>}
 	*/
 
-	constructor ( noteDialog ) {
+	#latLng;
+
+	/**
+	The constructor
+	@param {NoteDialog} noteDialog A reference to the Notedialog object
+	@param {Array.<Number>} latLng The lat and lng for witch the address must be found
+	*/
+
+	constructor ( noteDialog, latLng ) {
 		Object.freeze ( this );
 		this.#noteDialog = noteDialog;
+		this.#latLng = latLng;
 	}
 
 	/**
@@ -59,41 +68,11 @@ class EditionButtonsClickEL {
 	*/
 
 	handleEvent ( clickEvent ) {
-		if ( ! this.#noteDialog.focusControl ) {
-			return;
-		}
-		const button = clickEvent.currentTarget;
-		let selectionStart = this.#noteDialog.focusControl.selectionStart;
-		let selectionEnd = this.#noteDialog.focusControl.selectionEnd;
-
-		this.#noteDialog.focusControl.value =
-			this.#noteDialog.focusControl.value.slice ( ZERO, selectionStart ) +
-			button.dataset.tanHtmlBefore +
-			(
-				ZERO === button.dataset.tanHtmlAfter.length
-					?
-					''
-					:
-					this.#noteDialog.focusControl.value.slice ( selectionStart, selectionEnd )
-			) +
-			button.dataset.tanHtmlAfter +
-			this.#noteDialog.focusControl.value.slice ( selectionEnd );
-
-		if ( selectionStart === selectionEnd || ZERO === button.dataset.tanHtmlAfter.length ) {
-			selectionStart += button.dataset.tanHtmlBefore.length;
-			selectionEnd = selectionStart;
-		}
-		else {
-			selectionEnd += button.dataset.tanHtmlBefore.length + button.dataset.tanHtmlAfter.length;
-		}
-		this.#noteDialog.focusControl.setSelectionRange ( selectionStart, selectionEnd );
-		this.#noteDialog.focusControl.focus ( );
-		const noteData = {};
-		noteData [ this.#noteDialog.focusControl.dataset.tanName ] = this.#noteDialog.focusControl.value;
-		this.#noteDialog.updatePreview ( noteData );
+		clickEvent.stopPropagation ( );
+		new NoteDialogGeoCoderHelper ( this.#noteDialog ).setAddressWithGeoCoder ( this.#latLng );
 	}
 }
 
-export default EditionButtonsClickEL;
+export default AddressButtonClickEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

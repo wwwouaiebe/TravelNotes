@@ -28,24 +28,25 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import theTranslator from '../UILib/Translator.js';
-import BaseControl from '../baseControl/BaseControl.js';
+import theHTMLElementsFactory from '../..//UILib/HTMLElementsFactory.js';
+import theTranslator from '../../UILib/Translator.js';
+import theConfig from '../../data/Config.js';
+import BaseControl from '../../baseControl/BaseControl.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This class is the tooltipContent control of the NoteDialog
+This class is the popupContent control of the NoteDialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NoteDialogTooltipControl extends BaseControl {
+class NoteDialogPopupControl extends BaseControl {
 
 	/**
-	The tooltip input
+	The popup textarea
 	@type {HTMLElement}
 	*/
 
-	#tooltipInput;
+	#popupTextArea;
 
 	/**
 	The constructor
@@ -61,16 +62,16 @@ class NoteDialogTooltipControl extends BaseControl {
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-FlexRow',
-				textContent : theTranslator.getText ( 'NoteDialogTooltipControl - Tooltip content' )
+				textContent : theTranslator.getText ( 'NoteDialogPopupControl - Text' )
 			},
 			this.controlHTMLElement
 		);
-		this.#tooltipInput = theHTMLElementsFactory.create (
-			'input',
+		this.#popupTextArea = theHTMLElementsFactory.create (
+			'textarea',
 			{
-				type : 'text',
-				className : 'TravelNotes-NoteDialog-InputText',
-				dataset : { Name : 'tooltipContent' }
+				className : 'TravelNotes-NoteDialog-TextArea',
+				rows : theConfig.noteDialog.areaHeight.popupContent,
+				dataset : { Name : 'popupContent' }
 			},
 			theHTMLElementsFactory.create (
 				'div',
@@ -82,8 +83,8 @@ class NoteDialogTooltipControl extends BaseControl {
 		);
 
 		// event listeners
-		this.#tooltipInput.addEventListener ( 'focus', eventListeners.controlFocus );
-		this.#tooltipInput.addEventListener ( 'input', eventListeners.controlInput );
+		this.#popupTextArea.addEventListener ( 'focus', eventListeners.controlFocus );
+		this.#popupTextArea.addEventListener ( 'input', eventListeners.controlInput );
 	}
 
 	/**
@@ -92,21 +93,21 @@ class NoteDialogTooltipControl extends BaseControl {
 	*/
 
 	destructor ( eventListeners ) {
-		this.#tooltipInput.removeEventListener ( 'focus', eventListeners.controlFocus );
-		this.#tooltipInput.removeEventListener ( 'input', eventListeners.controlInput );
+		this.#popupTextArea.removeEventListener ( 'focus', eventListeners.controlFocus );
+		this.#popupTextArea.removeEventListener ( 'input', eventListeners.controlInput );
 	}
 
 	/**
-	the tooltip value in the control
+	The popupcontent value in the control
 	@type {String}
 	*/
 
-	get tooltipContent ( ) { return this.#tooltipInput.value; }
+	get popupContent ( ) { return this.#popupTextArea.value; }
 
-	set tooltipContent ( value ) { this.#tooltipInput.value = value; }
+	set popupContent ( Value ) { this.#popupTextArea.value = Value; }
 
 }
 
-export default NoteDialogTooltipControl;
+export default NoteDialogPopupControl;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

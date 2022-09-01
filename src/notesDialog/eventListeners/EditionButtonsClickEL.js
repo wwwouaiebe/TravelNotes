@@ -26,16 +26,15 @@ Doc reviewed 20210901
 Tests ...
 */
 
-import theNoteDialogToolbarData from '../notesDialog/NoteDialogToolbarData.js';
-import { ZERO } from '../main/Constants.js';
+import { ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-change event listener for the temp open file input
+click event listener for the edition buttons
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class OpenCfgFileInputChangeEL {
+class EditionButtonsClickEL {
 
 	/**
 	A reference to the NoteDialog object
@@ -56,27 +55,45 @@ class OpenCfgFileInputChangeEL {
 
 	/**
 	Event listener method
-	@param {Event} changeEvent The event to handle
+	@param {Event} clickEvent The event to handle
 	*/
 
-	handleEvent ( changeEvent ) {
-		changeEvent.stopPropagation ( );
-		const fileReader = new FileReader ( );
-		fileReader.onload = ( ) => {
-			try {
-				theNoteDialogToolbarData.loadJson ( JSON.parse ( fileReader.result ) );
-				this.#noteDialog.updateToolbar ( );
-			}
-			catch ( err ) {
-				if ( err instanceof Error ) {
-					console.error ( err );
-				}
-			}
-		};
-		fileReader.readAsText ( changeEvent.target.files [ ZERO ] );
+	handleEvent ( clickEvent ) {
+		if ( ! this.#noteDialog.focusControl ) {
+			return;
+		}
+		const button = clickEvent.currentTarget;
+		let selectionStart = this.#noteDialog.focusControl.selectionStart;
+		let selectionEnd = this.#noteDialog.focusControl.selectionEnd;
+
+		this.#noteDialog.focusControl.value =
+			this.#noteDialog.focusControl.value.slice ( ZERO, selectionStart ) +
+			button.dataset.tanHtmlBefore +
+			(
+				ZERO === button.dataset.tanHtmlAfter.length
+					?
+					''
+					:
+					this.#noteDialog.focusControl.value.slice ( selectionStart, selectionEnd )
+			) +
+			button.dataset.tanHtmlAfter +
+			this.#noteDialog.focusControl.value.slice ( selectionEnd );
+
+		if ( selectionStart === selectionEnd || ZERO === button.dataset.tanHtmlAfter.length ) {
+			selectionStart += button.dataset.tanHtmlBefore.length;
+			selectionEnd = selectionStart;
+		}
+		else {
+			selectionEnd += button.dataset.tanHtmlBefore.length + button.dataset.tanHtmlAfter.length;
+		}
+		this.#noteDialog.focusControl.setSelectionRange ( selectionStart, selectionEnd );
+		this.#noteDialog.focusControl.focus ( );
+		const noteData = {};
+		noteData [ this.#noteDialog.focusControl.dataset.tanName ] = this.#noteDialog.focusControl.value;
+		this.#noteDialog.updatePreview ( noteData );
 	}
 }
 
-export default OpenCfgFileInputChangeEL;
+export default EditionButtonsClickEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

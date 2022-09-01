@@ -20,33 +20,37 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
 	- v 4.0.0:
 		- Issue ♯48 : Review the dialogs
-Doc reviewed 20210914
+Doc reviewed 20210901
 Tests ...
 */
 
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import theTranslator from '../UILib/Translator.js';
-import theConfig from '../data/Config.js';
-import BaseControl from '../baseControl/BaseControl.js';
+import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theTranslator from '../../UILib/Translator.js';
+import BaseControl from '../../baseControl/BaseControl.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This class is the popupContent control of the NoteDialog
+This class is the address control of the NoteDialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NoteDialogPopupControl extends BaseControl {
+class NoteDialogAddressControl extends BaseControl {
 
 	/**
-	The popup textarea
+	The address input
 	@type {HTMLElement}
 	*/
 
-	#popupTextArea;
+	#addressInput;
+
+	/**
+	The reset address buton
+	@type {HTMLElement}
+	*/
+
+	#addressButton;
 
 	/**
 	The constructor
@@ -58,33 +62,47 @@ class NoteDialogPopupControl extends BaseControl {
 		super ( );
 
 		// HTMLElements creation
-		theHTMLElementsFactory.create (
+		const addressHeaderDiv = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-FlexRow',
-				textContent : theTranslator.getText ( 'NoteDialogPopupControl - Text' )
+				className : 'TravelNotes-BaseDialog-FlexRow'
 			},
-			this.controlHTMLElement
-		);
-		this.#popupTextArea = theHTMLElementsFactory.create (
-			'textarea',
+			this.controlHTMLElement );
+		this.#addressButton = theHTMLElementsFactory.create (
+			'div',
 			{
-				className : 'TravelNotes-NoteDialog-TextArea',
-				rows : theConfig.noteDialog.areaHeight.popupContent,
-				dataset : { Name : 'popupContent' }
+				className : 'TravelNotes-BaseDialog-Button',
+				title : theTranslator.getText ( 'NoteDialogAddressControl - Reset address' ),
+				textContent : '🔄'
+			},
+			addressHeaderDiv
+		);
+		theHTMLElementsFactory.create (
+			'text',
+			{
+				value : theTranslator.getText ( 'NoteDialogAddressControl - Address' )
+			},
+			addressHeaderDiv
+		);
+		this.#addressInput = theHTMLElementsFactory.create (
+			'input',
+			{
+				type : 'text',
+				className : 'TravelNotes-NoteDialog-InputText',
+				dataset : { Name : 'address' }
 			},
 			theHTMLElementsFactory.create (
 				'div',
 				{
 					className : 'TravelNotes-BaseDialog-FlexRow'
 				},
-				this.controlHTMLElement
-			)
+				this.controlHTMLElement )
 		);
 
 		// event listeners
-		this.#popupTextArea.addEventListener ( 'focus', eventListeners.controlFocus );
-		this.#popupTextArea.addEventListener ( 'input', eventListeners.controlInput );
+		this.#addressInput.addEventListener ( 'focus', eventListeners.controlFocus );
+		this.#addressInput.addEventListener ( 'input', eventListeners.controlInput );
+		this.#addressButton.addEventListener ( 'click', eventListeners.addressButtonClick );
 	}
 
 	/**
@@ -93,21 +111,22 @@ class NoteDialogPopupControl extends BaseControl {
 	*/
 
 	destructor ( eventListeners ) {
-		this.#popupTextArea.removeEventListener ( 'focus', eventListeners.controlFocus );
-		this.#popupTextArea.removeEventListener ( 'input', eventListeners.controlInput );
+		this.#addressInput.removeEventListener ( 'focus', eventListeners.controlFocus );
+		this.#addressInput.removeEventListener ( 'input', eventListeners.controlInput );
+		this.#addressButton.removeEventListener ( 'click', eventListeners.addressButtonClick );
 	}
 
 	/**
-	The popupcontent value in the control
+	The address value in the control
 	@type {String}
 	*/
 
-	get popupContent ( ) { return this.#popupTextArea.value; }
+	get address ( ) { return this.#addressInput.value; }
 
-	set popupContent ( Value ) { this.#popupTextArea.value = Value; }
+	set address ( Value ) { this.#addressInput.value = Value; }
 
 }
 
-export default NoteDialogPopupControl;
+export default NoteDialogAddressControl;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

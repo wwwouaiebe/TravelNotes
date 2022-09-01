@@ -53,21 +53,23 @@ Tests ...
 */
 
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
-import NoteDialogToolbar from '../notesDialog/NoteDialogToolbar.js';
-import NoteDialogIconDimsControl from '../notesDialog/NoteDialogIconDimsControl.js';
-import NoteDialogIconControl from '../notesDialog/NoteDialogIconControl.js';
-import NoteDialogTooltipControl from '../notesDialog/NoteDialogTooltipControl.js';
-import NoteDialogPopupControl from '../notesDialog/NoteDialogPopupControl.js';
-import NoteDialogAddressControl from '../notesDialog/NoteDialogAddressControl.js';
-import NoteDialogLinkControl from '../notesDialog/NoteDialogLinkControl.js';
-import NoteDialogPhoneControl from '../notesDialog/NoteDialogPhoneControl.js';
-import NoteDialogPreviewControl from '../notesDialog/NoteDialogPreviewControl.js';
-import NoteDialogEventListeners from '../notesDialog/NoteDialogEventListeners.js';
-import NoteDialogGeoCoderHelper from '../notesDialog/NoteDialogGeoCoderHelper.js';
+import NoteDialogToolbar from './toolbar/NoteDialogToolbar.js';
+import MapIconData from './toolbar/MapIconData.js';
+
+import NoteDialogIconDimsControl from './controls/NoteDialogIconDimsControl.js';
+import NoteDialogIconControl from './controls/NoteDialogIconControl.js';
+import NoteDialogTooltipControl from './controls/NoteDialogTooltipControl.js';
+import NoteDialogPopupControl from './controls/NoteDialogPopupControl.js';
+import NoteDialogAddressControl from './controls/NoteDialogAddressControl.js';
+import NoteDialogLinkControl from './controls/NoteDialogLinkControl.js';
+import NoteDialogPhoneControl from './controls/NoteDialogPhoneControl.js';
+import NoteDialogPreviewControl from './controls/NoteDialogPreviewControl.js';
+
+import NoteDialogEventListeners from './eventListeners/NoteDialogEventListeners.js';
+import NoteDialogGeoCoderHelper from './NoteDialogGeoCoderHelper.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
 import theTranslator from '../UILib/Translator.js';
 import Note from '../data/Note.js';
-import MapIconData from '../notesDialog/MapIconData.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

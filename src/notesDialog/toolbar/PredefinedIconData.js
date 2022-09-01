@@ -26,9 +26,9 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
+import theHTMLSanitizer from '../../coreLib/HTMLSanitizer.js';
 
-import { ICON_DIMENSIONS } from '../main/Constants.js';
+import { ICON_DIMENSIONS } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

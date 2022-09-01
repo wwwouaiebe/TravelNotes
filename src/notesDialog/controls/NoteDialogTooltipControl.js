@@ -20,37 +20,32 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
+	- v3.1.0:
+		- Issue ♯2 : Set all properties as private and use accessors.
 	- v 4.0.0:
 		- Issue ♯48 : Review the dialogs
-Doc reviewed 20210901
+Doc reviewed 20210914
 Tests ...
 */
 
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import theTranslator from '../UILib/Translator.js';
-import BaseControl from '../baseControl/BaseControl.js';
+import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theTranslator from '../../UILib/Translator.js';
+import BaseControl from '../../baseControl/BaseControl.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This class is the address control of the NoteDialog
+This class is the tooltipContent control of the NoteDialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NoteDialogAddressControl extends BaseControl {
+class NoteDialogTooltipControl extends BaseControl {
 
 	/**
-	The address input
+	The tooltip input
 	@type {HTMLElement}
 	*/
 
-	#addressInput;
-
-	/**
-	The reset address buton
-	@type {HTMLElement}
-	*/
-
-	#addressButton;
+	#tooltipInput;
 
 	/**
 	The constructor
@@ -62,47 +57,33 @@ class NoteDialogAddressControl extends BaseControl {
 		super ( );
 
 		// HTMLElements creation
-		const addressHeaderDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-BaseDialog-FlexRow'
-			},
-			this.controlHTMLElement );
-		this.#addressButton = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-BaseDialog-Button',
-				title : theTranslator.getText ( 'NoteDialogAddressControl - Reset address' ),
-				textContent : '🔄'
-			},
-			addressHeaderDiv
-		);
 		theHTMLElementsFactory.create (
-			'text',
+			'div',
 			{
-				value : theTranslator.getText ( 'NoteDialogAddressControl - Address' )
+				className : 'TravelNotes-BaseDialog-FlexRow',
+				textContent : theTranslator.getText ( 'NoteDialogTooltipControl - Tooltip content' )
 			},
-			addressHeaderDiv
+			this.controlHTMLElement
 		);
-		this.#addressInput = theHTMLElementsFactory.create (
+		this.#tooltipInput = theHTMLElementsFactory.create (
 			'input',
 			{
 				type : 'text',
 				className : 'TravelNotes-NoteDialog-InputText',
-				dataset : { Name : 'address' }
+				dataset : { Name : 'tooltipContent' }
 			},
 			theHTMLElementsFactory.create (
 				'div',
 				{
 					className : 'TravelNotes-BaseDialog-FlexRow'
 				},
-				this.controlHTMLElement )
+				this.controlHTMLElement
+			)
 		);
 
 		// event listeners
-		this.#addressInput.addEventListener ( 'focus', eventListeners.controlFocus );
-		this.#addressInput.addEventListener ( 'input', eventListeners.controlInput );
-		this.#addressButton.addEventListener ( 'click', eventListeners.addressButtonClick );
+		this.#tooltipInput.addEventListener ( 'focus', eventListeners.controlFocus );
+		this.#tooltipInput.addEventListener ( 'input', eventListeners.controlInput );
 	}
 
 	/**
@@ -111,22 +92,21 @@ class NoteDialogAddressControl extends BaseControl {
 	*/
 
 	destructor ( eventListeners ) {
-		this.#addressInput.removeEventListener ( 'focus', eventListeners.controlFocus );
-		this.#addressInput.removeEventListener ( 'input', eventListeners.controlInput );
-		this.#addressButton.removeEventListener ( 'click', eventListeners.addressButtonClick );
+		this.#tooltipInput.removeEventListener ( 'focus', eventListeners.controlFocus );
+		this.#tooltipInput.removeEventListener ( 'input', eventListeners.controlInput );
 	}
 
 	/**
-	The address value in the control
+	the tooltip value in the control
 	@type {String}
 	*/
 
-	get address ( ) { return this.#addressInput.value; }
+	get tooltipContent ( ) { return this.#tooltipInput.value; }
 
-	set address ( Value ) { this.#addressInput.value = Value; }
+	set tooltipContent ( value ) { this.#tooltipInput.value = value; }
 
 }
 
-export default NoteDialogAddressControl;
+export default NoteDialogTooltipControl;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

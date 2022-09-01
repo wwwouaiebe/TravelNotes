@@ -26,15 +26,16 @@ Doc reviewed 20210901
 Tests ...
 */
 
-import NoteDialogGeoCoderHelper from '../notesDialog/NoteDialogToolbarData.js';
+import theHTMLSanitizer from '../../coreLib/HTMLSanitizer.js';
+import theTranslator from '../../UILib/Translator.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-Click event listener for the AddressButtonClickEL class
+blur event listener for url input
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class AddressButtonClickEL {
+class UrlInputBlurEL {
 
 	/**
 	A reference to the NoteDialog object
@@ -44,35 +45,37 @@ class AddressButtonClickEL {
 	#noteDialog;
 
 	/**
-	The lat and lng for witch the address must be found
-	@type {Array.<Number>}
-	*/
-
-	#latLng;
-
-	/**
 	The constructor
 	@param {NoteDialog} noteDialog A reference to the Notedialog object
-	@param {Array.<Number>} latLng The lat and lng for witch the address must be found
 	*/
 
-	constructor ( noteDialog, latLng ) {
+	constructor ( noteDialog ) {
 		Object.freeze ( this );
 		this.#noteDialog = noteDialog;
-		this.#latLng = latLng;
 	}
 
 	/**
 	Event listener method
-	@param {Event} clickEvent The event to handle
+	@param {Event} blurEvent The event to handle
 	*/
 
-	handleEvent ( clickEvent ) {
-		clickEvent.stopPropagation ( );
-		new NoteDialogGeoCoderHelper ( this.#noteDialog ).setAddressWithGeoCoder ( this.#latLng );
+	handleEvent ( blurEvent ) {
+		blurEvent.stopPropagation ( );
+		if ( '' === blurEvent.target.value ) {
+			this.#noteDialog.hideError ( );
+			return;
+		}
+
+		const verifyResult = theHTMLSanitizer.sanitizeToUrl ( blurEvent.target.value );
+		if ( '' === verifyResult.errorsString ) {
+			this.#noteDialog.hideError ( );
+		}
+		else {
+			this.#noteDialog.showError ( theTranslator.getText ( 'UrlInputBlurEL - invalidUrl' ) );
+		}
 	}
 }
 
-export default AddressButtonClickEL;
+export default UrlInputBlurEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

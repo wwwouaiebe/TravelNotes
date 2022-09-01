@@ -25,7 +25,7 @@ Tests ...
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
-import theNoteDialogToolbarData from '../notesDialog/NoteDialogToolbarData.js';
+import theNoteDialogToolbarData from '../notesDialog/toolbar/NoteDialogToolbarData.js';
 import ObjId from '../data/ObjId.js';
 import { ZERO } from '../main/Constants.js';
 

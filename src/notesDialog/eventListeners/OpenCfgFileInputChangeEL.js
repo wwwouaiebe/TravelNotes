@@ -26,16 +26,16 @@ Doc reviewed 20210901
 Tests ...
 */
 
-import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
-import theTranslator from '../UILib/Translator.js';
+import theNoteDialogToolbarData from '../toolbar/NoteDialogToolbarData.js';
+import { ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-blur event listener for url input
+change event listener for the temp open file input
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class UrlInputBlurEL {
+class OpenCfgFileInputChangeEL {
 
 	/**
 	A reference to the NoteDialog object
@@ -56,26 +56,27 @@ class UrlInputBlurEL {
 
 	/**
 	Event listener method
-	@param {Event} blurEvent The event to handle
+	@param {Event} changeEvent The event to handle
 	*/
 
-	handleEvent ( blurEvent ) {
-		blurEvent.stopPropagation ( );
-		if ( '' === blurEvent.target.value ) {
-			this.#noteDialog.hideError ( );
-			return;
-		}
-
-		const verifyResult = theHTMLSanitizer.sanitizeToUrl ( blurEvent.target.value );
-		if ( '' === verifyResult.errorsString ) {
-			this.#noteDialog.hideError ( );
-		}
-		else {
-			this.#noteDialog.showError ( theTranslator.getText ( 'UrlInputBlurEL - invalidUrl' ) );
-		}
+	handleEvent ( changeEvent ) {
+		changeEvent.stopPropagation ( );
+		const fileReader = new FileReader ( );
+		fileReader.onload = ( ) => {
+			try {
+				theNoteDialogToolbarData.loadJson ( JSON.parse ( fileReader.result ) );
+				this.#noteDialog.updateToolbar ( );
+			}
+			catch ( err ) {
+				if ( err instanceof Error ) {
+					console.error ( err );
+				}
+			}
+		};
+		fileReader.readAsText ( changeEvent.target.files [ ZERO ] );
 	}
 }
 
-export default UrlInputBlurEL;
+export default OpenCfgFileInputChangeEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

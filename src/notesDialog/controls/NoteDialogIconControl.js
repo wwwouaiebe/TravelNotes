@@ -20,32 +20,31 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v3.0.0:
 		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
 	- v 4.0.0:
 		- Issue ♯48 : Review the dialogs
-Doc reviewed 20210914
+Doc reviewed 20210901
 Tests ...
 */
 
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import theTranslator from '../UILib/Translator.js';
-import BaseControl from '../baseControl/BaseControl.js';
+import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theTranslator from '../../UILib/Translator.js';
+import theConfig from '../../data/Config.js';
+import BaseControl from '../../baseControl/BaseControl.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This class is the phone control of the NoteDialog
+This class is the iconContent control of the NoteDialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NoteDialogPhoneControl extends BaseControl {
+class NoteDialogIconControl extends BaseControl {
 
 	/**
-	The phone input
+	The icon text area
 	@type {HTMLElement}
 	*/
 
-	#phoneInput;
+	#iconTextArea;
 
 	/**
 	The constructor
@@ -60,17 +59,18 @@ class NoteDialogPhoneControl extends BaseControl {
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-FlexRow',
-				textContent : theTranslator.getText ( 'NoteDialogPhoneControl - Phone' )
+				textContent : theTranslator.getText ( 'NoteDialogIconControl - Icon content' ),
+				className : 'TravelNotes-BaseDialog-FlexRow'
 			},
 			this.controlHTMLElement
 		);
-		this.#phoneInput = theHTMLElementsFactory.create (
-			'input',
+		this.#iconTextArea = theHTMLElementsFactory.create (
+			'textarea',
 			{
-				type : 'text',
-				className : 'TravelNotes-NoteDialog-InputText',
-				dataset : { Name : 'phone' }
+				className : 'TravelNotes-NoteDialog-TextArea',
+				placeholder : '?????',
+				rows : theConfig.noteDialog.areaHeight.icon,
+				dataset : { Name : 'iconContent' }
 			},
 			theHTMLElementsFactory.create (
 				'div',
@@ -82,8 +82,8 @@ class NoteDialogPhoneControl extends BaseControl {
 		);
 
 		// event listeners
-		this.#phoneInput.addEventListener ( 'focus', eventListeners.controlFocus );
-		this.#phoneInput.addEventListener ( 'input', eventListeners.controlInput );
+		this.#iconTextArea.addEventListener ( 'focus', eventListeners.controlFocus );
+		this.#iconTextArea.addEventListener ( 'input', eventListeners.controlInput );
 	}
 
 	/**
@@ -92,21 +92,21 @@ class NoteDialogPhoneControl extends BaseControl {
 	*/
 
 	destructor ( eventListeners ) {
-		this.#phoneInput.removeEventListener ( 'focus', eventListeners.controlFocus );
-		this.#phoneInput.removeEventListener ( 'input', eventListeners.controlInput );
+		this.#iconTextArea.removeEventListener ( 'focus', eventListeners.controlFocus );
+		this.#iconTextArea.removeEventListener ( 'input', eventListeners.controlInput );
 	}
 
 	/**
-	The phone number in the control
+	The icon value in the control
 	@type {String}
 	*/
 
-	get phone ( ) { return this.#phoneInput.value; }
+	get iconContent ( ) { return this.#iconTextArea.value; }
 
-	set phone ( Value ) { this.#phoneInput.value = Value; }
+	set iconContent ( Value ) { this.#iconTextArea.value = Value; }
 
 }
 
-export default NoteDialogPhoneControl;
+export default NoteDialogIconControl;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
