@@ -25,7 +25,7 @@ Tests ...
 */
 
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import theOsmSearchDictionary from '../coreOsmSearch/OsmSearchDictionary.js';
+import theOsmSearchDictionary from '../core/osmSearch/OsmSearchDictionary.js';
 import { ZERO, MOUSE_WHEEL_FACTORS } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

@@ -34,14 +34,14 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theEventDispatcher from '../core/lib/EventDispatcher.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
-import theConfig from '../data/Config.js';
-import OverpassAPIDataLoader from '../core/lib/OverpassAPIDataLoader.js';
-import theOsmSearchDictionary from '../coreOsmSearch/OsmSearchDictionary.js';
-import theGeometry from '../core/lib/Geometry.js';
+import theEventDispatcher from '../lib/EventDispatcher.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
+import theConfig from '../../data/Config.js';
+import OverpassAPIDataLoader from '../lib/OverpassAPIDataLoader.js';
+import theOsmSearchDictionary from './OsmSearchDictionary.js';
+import theGeometry from '../lib/Geometry.js';
 
-import { ZERO, ONE, LAT_LNG } from '../main/Constants.js';
+import { ZERO, ONE, LAT_LNG } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

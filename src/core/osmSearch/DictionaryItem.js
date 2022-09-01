@@ -26,9 +26,9 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theHTMLSanitizer from '../core/lib/HTMLSanitizer.js';
-import ObjId from '../data/ObjId.js';
-import { NOT_FOUND, INVALID_OBJ_ID } from '../main/Constants.js';
+import theHTMLSanitizer from '../../core/lib/HTMLSanitizer.js';
+import ObjId from '../../data/ObjId.js';
+import { NOT_FOUND, INVALID_OBJ_ID } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

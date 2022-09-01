@@ -26,8 +26,8 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import DictionaryItem from '../coreOsmSearch/DictionaryItem.js';
-import { NOT_FOUND, ZERO, ONE } from '../main/Constants.js';
+import DictionaryItem from './DictionaryItem.js';
+import { NOT_FOUND, ZERO, ONE } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
