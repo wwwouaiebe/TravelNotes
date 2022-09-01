@@ -26,43 +26,7 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-import RouteContextMenu from '../../contextMenus/RouteContextMenu.js';
-import theDataSearchEngine from '../../data/DataSearchEngine.js';
-import theGeometry from '../../coreLib/Geometry.js';
-import theUtilities from '../../UILib/Utilities.js';
-import theTravelNotesData from '../../data/TravelNotesData.js';
-import { ZERO } from '../../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-mouseover and mousemove event listener for the routes
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class RouteMouseOverOrMoveEL {
-
-	/**
-	Event listener method
-	@param {Event} mapEvent The event to handle
-	*/
-
-	static handleEvent ( mapEvent ) {
-		const route = theDataSearchEngine.getRoute ( mapEvent.target.objId );
-		let distance = theGeometry.getClosestLatLngDistance ( route, [ mapEvent.latlng.lat, mapEvent.latlng.lng ] )
-			.distance;
-		distance += route.chainedDistance;
-		distance = theUtilities.formatDistance ( distance );
-		const polyline = theTravelNotesData.mapObjects.get ( mapEvent.target.objId );
-		polyline.closeTooltip ( );
-		let tooltipText = route.computedName;
-		if ( ! theTravelNotesData.travel.readOnly ) {
-			tooltipText += ( ZERO === tooltipText.length ? '' : ' - ' );
-			tooltipText += distance;
-		}
-		polyline.setTooltipContent ( tooltipText );
-		polyline.openTooltip ( mapEvent.latlng );
-	}
-}
+import RouteContextMenu from '../../../contextMenus/RouteContextMenu.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -83,9 +47,6 @@ class RouteMapContextMenuEL {
 	}
 }
 
-export {
-	RouteMouseOverOrMoveEL,
-	RouteMapContextMenuEL
-};
+export default RouteMapContextMenuEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

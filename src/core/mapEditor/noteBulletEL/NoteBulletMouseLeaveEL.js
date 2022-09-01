@@ -26,45 +26,26 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-import theWayPointEditor from '../../core/WayPointEditor.js';
-import WayPointContextMenu from '../../contextMenus/WayPointContextMenu.js';
+import theConfig from '../../../data/Config.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-contextmenu event listener for the waypoint marker
+mouseleave event listener for the notes bullet
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class WayPointContextMenuEL {
+class NoteBulletMouseLeaveEL {
 
 	/**
 	Event listener method
-	@param {Event} contextMenuEvent The event to handle
+	@param {Event} mouseLeaveEvent The event to handle
 	*/
 
-	static handleEvent ( contextMenuEvent ) {
-		new WayPointContextMenu ( contextMenuEvent ).show ( );
+	static handleEvent ( mouseLeaveEvent ) {
+		mouseLeaveEvent.originalEvent.target.style.opacity = theConfig.note.grip.opacity;
 	}
 }
 
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-dragend event listener for the waypoint marker
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class WayPointDragEndEL {
-
-	/**
-	Event listener method
-	@param {Event} dragEndEvent The event to handle
-	*/
-
-	static handleEvent ( dragEndEvent ) {
-		theWayPointEditor.wayPointDragEnd ( dragEndEvent );
-	}
-}
-
-export { WayPointContextMenuEL, WayPointDragEndEL };
+export default NoteBulletMouseLeaveEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

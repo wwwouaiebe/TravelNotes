@@ -44,7 +44,7 @@ import theUtilities from '../../UILib/Utilities.js';
 import theTravelNotesData from '../../data/TravelNotesData.js';
 import theRouteHTMLViewsFactory from '../../viewsFactories/RouteHTMLViewsFactory.js';
 import theNoteHTMLViewsFactory from '../../viewsFactories/NoteHTMLViewsFactory.js';
-import { RouteMouseOverOrMoveEL } from './RouteEventListeners.js';
+import RouteMouseOverOrMoveEL from './RouteEL/RouteMouseOverOrMoveEL.js';
 import theHTMLSanitizer from '../../coreLib/HTMLSanitizer.js';
 import NoteLeafletObjects from './NoteLeafletObjects.js';
 

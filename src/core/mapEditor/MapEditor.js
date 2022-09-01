@@ -57,20 +57,17 @@ import theDataSearchEngine from '../../data/DataSearchEngine.js';
 import theGeometry from '../../coreLib/Geometry.js';
 import theApiKeysManager from '../../core/ApiKeysManager.js';
 import MapEditorViewer from './MapEditorViewer.js';
-import EditedRouteMouseOverEL from './EditedRouteEventListeners.js';
-import {
-	NoteBulletDragEndEL,
-	NoteBulletDragEL,
-	NoteBulletMouseEnterEL,
-	NoteBulletMouseLeaveEL
-} from './NoteBulletEventListeners.js';
-import {
-	NoteMarkerContextMenuEL,
-	NoteMarkerDragEndEL,
-	NoteMarkerDragEL
-} from './NoteMarkerEventListeners.js';
-import { WayPointContextMenuEL, WayPointDragEndEL } from './WayPointEventListeners.js';
-import { RouteMapContextMenuEL } from './RouteEventListeners.js';
+import EditedRouteMouseOverEL from './editedRouteEL/EditedRouteMouseOverEL.js';
+import NoteBulletDragEndEL from './noteBulletEL/NoteBulletDragEndEL.js';
+import NoteBulletDragEL from './noteBulletEL/NoteBulletDragEL.js';
+import NoteBulletMouseEnterEL from './noteBulletEL/NoteBulletMouseEnterEL.js';
+import NoteBulletMouseLeaveEL from './noteBulletEL/NoteBulletMouseLeaveEL.js';
+import NoteMarkerContextMenuEL from './NoteMarkerEL/NoteMarkerContextMenuEL.js';
+import NoteMarkerDragEndEL from './NoteMarkerEL/NoteMarkerDragEndEL.js';
+import NoteMarkerDragEL from './NoteMarkerEL/NoteMarkerDragEL.js';
+import WayPointContextMenuEL from './wayPointEL/WayPointContextMenuEL.js';
+import WayPointDragEndEL from './wayPointEL/WayPointDragEndEL.js';
+import RouteMapContextMenuEL from './RouteEL/RouteMapContextMenuEL.js';
 import { ROUTE_EDITION_STATUS, LAT_LNG, INVALID_OBJ_ID, TWO, WAY_POINT_ICON_SIZE } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

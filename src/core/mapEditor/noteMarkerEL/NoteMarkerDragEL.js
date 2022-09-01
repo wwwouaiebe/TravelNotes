@@ -26,61 +26,8 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-import theDataSearchEngine from '../../data/DataSearchEngine.js';
-import theTravelNotesData from '../../data/TravelNotesData.js';
-import NoteContextMenu from '../../contextMenus/NoteContextMenu.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-contextmenu event listener for the notes marker
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class NoteMarkerContextMenuEL {
-
-	/**
-	Event listener method
-	@param {Event} contextMenuEvent The event to handle
-	*/
-
-	static handleEvent ( contextMenuEvent ) {
-		new NoteContextMenu ( contextMenuEvent ).show ( );
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-dragend event listener for the notes marker
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class NoteMarkerDragEndEL {
-
-	/**
-	Event listener method
-	@param {Event} dragEndEvent The event to handle
-	*/
-
-	static handleEvent ( dragEndEvent ) {
-
-		// The TravelNotes note linked to the marker is searched...
-		const draggedNote = theDataSearchEngine.getNoteAndRoute ( dragEndEvent.target.objId ).note;
-
-		// ... new coordinates are saved in the TravelNotes note...
-		draggedNote.iconLatLng = [ dragEndEvent.target.getLatLng ( ).lat, dragEndEvent.target.getLatLng ( ).lng ];
-
-		// ... then the layerGroup is searched...
-		const draggedLayerGroup = theTravelNotesData.mapObjects.get ( dragEndEvent.target.objId );
-
-		// ... and finally the polyline is updated with the new coordinates
-		draggedLayerGroup.getLayer (
-			draggedLayerGroup.polylineId
-		)
-			.setLatLngs (
-				[ draggedNote.latLng, draggedNote.iconLatLng ]
-			);
-	}
-}
+import theDataSearchEngine from '../../../data/DataSearchEngine.js';
+import theTravelNotesData from '../../../data/TravelNotesData.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -109,10 +56,6 @@ class NoteMarkerDragEL {
 	}
 }
 
-export {
-	NoteMarkerContextMenuEL,
-	NoteMarkerDragEndEL,
-	NoteMarkerDragEL
-};
+export default NoteMarkerDragEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

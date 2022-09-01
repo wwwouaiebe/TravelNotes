@@ -26,11 +26,10 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-import theConfig from '../../data/Config.js';
-import theTravelNotesData from '../../data/TravelNotesData.js';
-import theDataSearchEngine from '../../data/DataSearchEngine.js';
-import theEventDispatcher from '../../coreLib/EventDispatcher.js';
-import theGeometry from '../../coreLib/Geometry.js';
+import theTravelNotesData from '../../../data/TravelNotesData.js';
+import theDataSearchEngine from '../../../data/DataSearchEngine.js';
+import theEventDispatcher from '../../../coreLib/EventDispatcher.js';
+import theGeometry from '../../../coreLib/Geometry.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -93,68 +92,6 @@ class NoteBulletDragEndEL {
 	}
 }
 
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-drag event listener for the notes bullet
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class NoteBulletDragEL {
-
-	/**
-	Event listener method
-	@param {Event} dragEvent The event to handle
-	*/
-
-	static handleEvent ( dragEvent ) {
-		const draggedNote = theDataSearchEngine.getNoteAndRoute ( dragEvent.target.objId ).note;
-		const draggedLayerGroup = theTravelNotesData.mapObjects.get ( dragEvent.target.objId );
-		draggedLayerGroup.getLayer ( draggedLayerGroup.polylineId )
-			.setLatLngs ( [ [ dragEvent.latlng.lat, dragEvent.latlng.lng ], draggedNote.iconLatLng ] );
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-mouseenter event listener for the notes bullet
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class NoteBulletMouseEnterEL {
-
-	/**
-	Event listener method
-	@param {Event} mouseEnterEvent The event to handle
-	*/
-
-	static handleEvent ( mouseEnterEvent ) {
-		mouseEnterEvent.originalEvent.target.style.opacity = theConfig.note.grip.moveOpacity;
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-mouseleave event listener for the notes bullet
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class NoteBulletMouseLeaveEL {
-
-	/**
-	Event listener method
-	@param {Event} mouseLeaveEvent The event to handle
-	*/
-
-	static handleEvent ( mouseLeaveEvent ) {
-		mouseLeaveEvent.originalEvent.target.style.opacity = theConfig.note.grip.opacity;
-	}
-}
-
-export {
-	NoteBulletDragEndEL,
-	NoteBulletDragEL,
-	NoteBulletMouseEnterEL,
-	NoteBulletMouseLeaveEL
-};
+export default NoteBulletDragEndEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
