@@ -27,100 +27,7 @@ Tests ...
 */
 
 import LatLng from '../containers/LatLng.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-A simple container to store the width and height of a view
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class ViewSize {
-
-	/**
-	The width of the view
-	@type {Number}
-	*/
-
-	#width;
-
-	/**
-	The height of the view
-	@type {Number}
-	*/
-
-	#height;
-
-	/**
-	The constructor
-	@param {Number} width The width of the view
-	@param {Number} height The height of the view
-	*/
-
-	constructor ( width, height ) {
-		Object.freeze ( this );
-		this.#width = width;
-		this.#height = height;
-	}
-
-	/**
-	The width of the view
-	@type {Number}
-	*/
-
-	get width ( ) { return this.#width; }
-
-	/**
-	The height of the view
-	@type {Number}
-	*/
-
-	get height ( ) { return this.#height; }
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-An simple container to store a print view
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class PrintView {
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.seal ( this );
-	}
-
-	/**
-	The bottom left corner of the view
-	@type {LatLng}
-	*/
-
-	bottomLeft;
-
-	/**
-	The upper right corner of the view
-	@type {LatLng}
-	*/
-
-	upperRight;
-
-	/**
-	The entry point of the route in the view. entryPoint and exitPoint are not on the frame!
-	@type {LatLng}
-	*/
-
-	entryPoint;
-
-	/**
-	The exit point of the route in the view
-	@type {LatLng}
-	*/
-
-	exitPoint;
-}
+import PrintView from './PrintView.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -469,7 +376,6 @@ class PrintViewsFactory {
 
 }
 
-// export default PrintViewsFactory;
-export { PrintViewsFactory, ViewSize };
+export default PrintViewsFactory;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

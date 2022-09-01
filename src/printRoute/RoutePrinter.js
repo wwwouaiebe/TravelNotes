@@ -44,8 +44,9 @@ import theDataSearchEngine from '../data/DataSearchEngine.js';
 import theGeometry from '../core/lib/Geometry.js';
 import theConfig from '../data/Config.js';
 import theTranslator from '../UILib/Translator.js';
-import { PrintViewsFactory, ViewSize } from '../printRoute/PrintViewsFactory.js';
-import PrintPageBuilder from '../printRoute/PrintPageBuilder.js';
+import PrintViewsFactory from './PrintViewsFactory.js';
+import ViewSize from './ViewSize.js';
+import PrintPageBuilder from './PrintPageBuilder.js';
 
 import { ZERO, TWO, LAT, LNG } from '../main/Constants.js';
 
