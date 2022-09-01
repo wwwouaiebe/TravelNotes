@@ -66,45 +66,6 @@ class EyeMouseDownEL {
 	}
 }
 
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-mouseup and touchend event listener for the eye button of the password dialog
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class EyeMouseUpEL {
-
-	/**
-	A reference to the password input of the dialogPassword
-	@type {HTMLElement}
-	*/
-
-	#passwordInput;
-
-	/**
-	The constructor
-	@param {HTMLElement} passwordInput A reference to the password input of the dialogPassword
-	*/
-
-	constructor ( passwordInput ) {
-		Object.freeze ( this );
-		this.#passwordInput = passwordInput;
-	}
-
-	/**
-	Event listener method
-	@param {Event} mouseUpOrTouchEndEvent The event to handle
-	*/
-
-	handleEvent ( mouseUpOrTouchEndEvent ) {
-		mouseUpOrTouchEndEvent.currentTarget.textContent = '👁️';
-		mouseUpOrTouchEndEvent.preventDefault ( );
-		mouseUpOrTouchEndEvent.stopPropagation ( );
-		this.#passwordInput.type = 'password';
-		this.#passwordInput.focus ( );
-	}
-}
-
-export { EyeMouseDownEL, EyeMouseUpEL };
+export default EyeMouseDownEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

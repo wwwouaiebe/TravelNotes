@@ -36,7 +36,8 @@ Tests ...
 import theTranslator from '../UILib/Translator.js';
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import { EyeMouseDownEL, EyeMouseUpEL } from '../passwordDialog/PasswordDialogEL.js';
+import EyeMouseDownEL from './EyeMouseDownEL.js';
+import EyeMouseUpEL from './EyeMouseUpEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
