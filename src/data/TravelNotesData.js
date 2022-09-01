@@ -34,60 +34,8 @@ Tests ...
 
 import Travel from '../data/Travel.js';
 import theUtilities from '../UILib/Utilities.js';
+import TravelNotesDataRouting from './TravelNotesDataRouting.js';
 import { INVALID_OBJ_ID } from '../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-helper class to encapsulate the routing
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class Routing {
-
-	/**
-	The routing provider
-	@type {String}
-	*/
-
-	#provider = '';
-
-	/**
-	The routing transit mode
-	@type {String}
-	*/
-
-	#transitMode = '';
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-	}
-
-	/**
-	The routing provider
-	@type {String}
-	*/
-
-	get provider ( ) { return this.#provider; }
-
-	set provider ( provider ) {
-		this.#provider = 'string' === typeof ( provider ) ? provider : '';
-	}
-
-	/**
-	The routing transit mode
-	@type {String}
-	*/
-
-	get transitMode ( ) { return this.#transitMode; }
-
-	set transitMode ( transitMode ) {
-		this.#transitMode = 'string' === typeof ( transitMode ) ? transitMode : '';
-	}
-}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -114,7 +62,7 @@ class TravelNotesData {
 
 	/**
 	An Object with the provider and transit mode used
-	@type {Routing}
+	@type {TravelNotesDataRouting}
 	*/
 
 	#routing;
@@ -162,7 +110,7 @@ class TravelNotesData {
 		Object.freeze ( this );
 		this.#providers = new Map ( );
 		this.#mapObjects = new Map ( );
-		this.#routing = new Routing ( );
+		this.#routing = new TravelNotesDataRouting ( );
 		this.#UUID = theUtilities.UUID;
 		this.#map = null;
 		this.#travel = new Travel ( );
@@ -224,7 +172,7 @@ class TravelNotesData {
 
 	/**
 	An Object with the provider and transit mode used
-	@type {Routing}
+	@type {TravelNotesDataRouting}
 	*/
 
 	get routing ( ) { return this.#routing; }

@@ -27,80 +27,8 @@ Tests ...
 */
 
 import theHTMLSanitizer from '../core/lib/HTMLSanitizer.js';
+import MapLayerToolbarButtonData from './MapLayerToolbarButtonData.js';
 import { ZERO, ONE } from '../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-A simple container for the layer toolbar buttons properties
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class LayerToolbarButtonData {
-
-	/**
-	The text displayed in the button
-	@type {String}
-	*/
-
-	#text;
-
-	/**
-	The button text color
-	@type {String}
-	*/
-
-	#color;
-
-	/**
-	The button background color
-	@type {String}
-	*/
-
-	#backgroundColor;
-
-	/**
-	The constructor
-	@param {JsonObject} jsonToolbarData a json object with the data for the button
-	*/
-
-	constructor ( jsonToolbarData ) {
-		if (
-			'string' !== typeof ( jsonToolbarData?.text )
-			||
-			'string' !== typeof ( jsonToolbarData?.color )
-			||
-			'string' !== typeof ( jsonToolbarData?.backgroundColor )
-		) {
-			throw new Error ( 'invalid toolbar for layer' );
-		}
-		Object.freeze ( this );
-		this.#text = theHTMLSanitizer.sanitizeToJsString ( jsonToolbarData.text );
-		this.#color = theHTMLSanitizer.sanitizeToColor ( jsonToolbarData.color );
-		this.#backgroundColor =	theHTMLSanitizer.sanitizeToColor ( jsonToolbarData.backgroundColor );
-	}
-
-	/**
-	The text displayed in the button
-	@type {String}
-	*/
-
-	get text ( ) { return this.#text; }
-
-	/**
-	The button text color
-	@type {String}
-	*/
-
-	get color ( ) { return this.#color; }
-
-	/**
-	The button background color
-	@type {String}
-	*/
-
-	get backgroundColor ( ) { return this.#backgroundColor; }
-
-}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -310,7 +238,7 @@ class MapLayer	{
 	*/
 
 	#setToolbarButtonData ( ) {
-		this.#toolbarButtonData = new LayerToolbarButtonData ( this.#jsonLayer.toolbar );
+		this.#toolbarButtonData = new MapLayerToolbarButtonData ( this.#jsonLayer.toolbar );
 	}
 
 	/**
