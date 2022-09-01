@@ -40,7 +40,7 @@ Tests 20210903
 -----------------------------------------------------------------------------------------------------------------------
 */
 
-import { ApiKey } from '../coreLib/Containers.js';
+import ApiKey from '../containers/ApiKey.js';
 import ApiKeysDialog from '../apiKeysDialog/ApiKeysDialog.js';
 import theUtilities from '../UILib/Utilities.js';
 import theTravelNotesData from '../data/TravelNotesData.js';

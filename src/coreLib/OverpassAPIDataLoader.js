@@ -28,53 +28,8 @@ Tests ...
 
 import theConfig from '../data/Config.js';
 import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
-
+import OverpassAPIDataLoaderOptions from '../coreLib/OverpassAPIDataLoaderOptions.js';
 import { ZERO, TWO, LAT_LNG, HTTP_STATUS_OK, OSM_COUNTRY_ADMIN_LEVEL } from '../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-An object to store the options for the OverpassAPIDataLoader
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class OverpassAPIDataLoaderOptions {
-
-	/**
-	A flag indicating that the OSM places have to be searched
-	@type {Boolean}
-	*/
-
-	searchPlaces = true;
-
-	/**
-	A flag indicating that the OSM ways have to be searched
-	@type {Boolean}
-	*/
-
-	searchWays = true;
-
-	/**
-	A flag indicating that the OSM relations have to be searched
-	@type {Boolean}
-	*/
-
-	searchRelations = true;
-
-	/**
-	A flag indicating that the geometry for ways and relations have to be searched
-	@type {Boolean}
-	*/
-
-	setGeometry = true;
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.seal ( this );
-	}
-}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

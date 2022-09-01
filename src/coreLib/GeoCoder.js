@@ -46,8 +46,7 @@ Tests ...
 import theConfig from '../data/Config.js';
 import OverpassAPIDataLoader from '../coreLib/OverpassAPIDataLoader.js';
 import NominatimDataLoader from '../coreLib/NominatimDataLoader.js';
-import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
-
+import GeoCoderAddress from './GeoCoderAddress.js';
 import { ZERO, ONE } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -55,67 +54,6 @@ import { ZERO, ONE } from '../main/Constants.js';
 A simple container to store an address created by the geocoder
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
-
-class GeoCoderAddress {
-
-	/**
-	The name found in OSM by the GeoCoder or an empty string
-	@type {String}
-	*/
-
-	#name;
-
-	/**
-	The house number and the street found in OSM by the GeoCoder or an empty string
-	@type {String}
-	*/
-
-	#street;
-
-	/**
-	The city and eventually the place found in OSM by the GeoCoder or an empty string
-	@type {String}
-	*/
-
-	#city;
-
-	/**
-	The constructor
-	@param {String} nominatimName The name found in OSM
-	@param {String} street The house number and the street found in OSM
-	@param {String} city The city and eventually the place found in OSM
-	*/
-
-	constructor ( nominatimName, street, city ) {
-		Object.freeze ( this );
-		this.#name = theHTMLSanitizer.sanitizeToJsString ( nominatimName );
-		this.#street = theHTMLSanitizer.sanitizeToJsString ( street );
-		this.#city = theHTMLSanitizer.sanitizeToJsString ( city );
-	}
-
-	/**
-	The name found in OSM by the GeoCoder or an empty string
-	@type {String}
-	*/
-
-	get name ( ) { return this.#name; }
-
-	/**
-	The house number and the street found in OSM by the GeoCoder or an empty string
-	@type {String}
-	*/
-
-	get street ( ) { return this.#street; }
-
-	/**
-	The city and eventually the place found in OSM by the GeoCoder or an empty string
-	@type {String}
-	*/
-
-	get city ( ) { return this.#city; }
-
-}
-
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 This class call Nominatim and parse the response

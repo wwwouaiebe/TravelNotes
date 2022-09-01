@@ -70,6 +70,7 @@
 		"key-spacing" : [ "warn", { "beforeColon": true , "afterColon": true , "mode": "strict" } ],
 		"keyword-spacing" : [ "warn" ],
 		"lines-around-comment" : [ "warn", { "beforeBlockComment": true , "afterBlockComment": true , "beforeLineComment": true , "afterLineComment": false} ],
+		"max-classes-per-file": ["warn", 1],
 		"max-lines" : [ "warn", { "max": 300, "skipBlankLines": true , "skipComments": true } ],
 		"max-depth" : [ "warn" , { "max" : 4 } ],
 		"max-len" : [ "warn" , { "code" : 128 } ],

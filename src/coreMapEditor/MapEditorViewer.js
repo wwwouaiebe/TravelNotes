@@ -46,75 +46,10 @@ import theRouteHTMLViewsFactory from '../viewsFactories/RouteHTMLViewsFactory.js
 import theNoteHTMLViewsFactory from '../viewsFactories/NoteHTMLViewsFactory.js';
 import { RouteMouseOverOrMoveEL } from '../coreMapEditor/RouteEventListeners.js';
 import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
+import NoteLeafletObjects from '../coreMapEditor/NoteLeafletObjects.js';
 
 import { GEOLOCATION_STATUS, ROUTE_EDITION_STATUS, ZERO, TWO } from '../main/Constants.js';
 import theTranslator from '../UILib/Translator.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-A simple container with all the Leaflet objects for a note created by the MapEditorViewer.addNote ( )
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class NoteLeafletObjects {
-
-	/**
-	The marker of the note (= a L.Marker object)
-	@type {LeafletObject}
-	*/
-
-	#marker;
-
-	/**
-	The polyline of the note (= a L.Polyline object)
-	@type {LeafletObject}
-	*/
-
-	#polyline;
-
-	/**
-	The bullet of the note (= a L.Marker object)
-	@type {LeafletObject}
-	*/
-
-	#bullet;
-
-	/**
-	The constructor
-	@param {LeafletObject} marker The marker of the note
-	@param {LeafletObject} polyline The polyline of the note
-	@param {LeafletObject} bullet The bullet of the note
-	*/
-
-	constructor ( marker, polyline, bullet ) {
-		Object.freeze ( this );
-		this.#marker = marker;
-		this.#polyline = polyline;
-		this.#bullet = bullet;
-	}
-
-	/**
-	The marker of the note (= a L.Marker object)
-	@type {LeafletObject}
-	*/
-
-	get marker ( ) { return this.#marker; }
-
-	/**
-	The polyline of the note (= a L.Polyline object)
-	@type {LeafletObject}
-	*/
-
-	get polyline ( ) { return this.#polyline; }
-
-	/**
-	The bullet of the note (= a L.Marker object)
-	@type {LeafletObject}
-	*/
-
-	get bullet ( ) { return this.#bullet; }
-
-}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

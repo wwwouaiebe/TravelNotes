@@ -26,7 +26,7 @@ Doc reviewed 20210915
 Tests ...
 */
 
-import { LatLng } from '../coreLib/Containers.js';
+import LatLng from '../containers/LatLng.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
