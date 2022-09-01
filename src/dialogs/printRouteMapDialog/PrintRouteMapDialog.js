@@ -29,11 +29,11 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theTranslator from '../UILib/Translator.js';
-import theConfig from '../data/Config.js';
+import theTranslator from '../../UILib/Translator.js';
+import theConfig from '../../data/Config.js';
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
+import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
 import PrintRouteMapOptions from './PrintRouteMapOptions.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

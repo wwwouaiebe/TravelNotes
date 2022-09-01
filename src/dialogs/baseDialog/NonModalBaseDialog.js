@@ -26,7 +26,7 @@ Tests ...
 
 import BaseDialog from '../BaseDialog/BaseDialog.js';
 import BackgroundDragOverEL from '../baseDialog/BackgroundDragOverEL.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

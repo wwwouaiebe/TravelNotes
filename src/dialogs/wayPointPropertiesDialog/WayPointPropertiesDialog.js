@@ -33,7 +33,7 @@ Tests ...
 */
 
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
-import theTranslator from '../UILib/Translator.js';
+import theTranslator from '../../UILib/Translator.js';
 import WayPointAddressControl from './WayPointAddressControl.js';
 import WayPointNameControl from './WayPointNameControl.js';
 

@@ -23,9 +23,9 @@ Doc reviewed ...
 Tests ...
 */
 
-import theTravelNotesData from '../data/TravelNotesData.js';
-import theHTMLSanitizer from '../core/htmlSanitizer/HTMLSanitizer.js';
-import theEventDispatcher from '../core/lib/EventDispatcher.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
+import theHTMLSanitizer from '../../core/htmlSanitizer/HTMLSanitizer.js';
+import theEventDispatcher from '../../core/lib/EventDispatcher.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

@@ -33,9 +33,9 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theTranslator from '../UILib/Translator.js';
+import theTranslator from '../../UILib/Translator.js';
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
 import EyeMouseDownEL from './EyeMouseDownEL.js';
 import EyeMouseUpEL from './EyeMouseUpEL.js';
 

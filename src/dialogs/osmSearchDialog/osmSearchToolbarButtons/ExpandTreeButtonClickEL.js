@@ -24,7 +24,7 @@ Doc reviewed 20220825
 Tests ...
 */
 
-import theOsmSearchDictionary from '../../core/osmSearch/OsmSearchDictionary.js';
+import theOsmSearchDictionary from '../../../core/osmSearch/OsmSearchDictionary.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

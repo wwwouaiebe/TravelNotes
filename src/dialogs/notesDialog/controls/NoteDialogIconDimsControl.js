@@ -28,10 +28,10 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
-import theTranslator from '../../UILib/Translator.js';
-import { ICON_DIMENSIONS } from '../../main/Constants.js';
-import BaseControl from '../../baseControl/BaseControl.js';
+import theHTMLElementsFactory from '../../../UILib/HTMLElementsFactory.js';
+import theTranslator from '../../../UILib/Translator.js';
+import { ICON_DIMENSIONS } from '../../../main/Constants.js';
+import BaseControl from '../../../baseControl/BaseControl.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

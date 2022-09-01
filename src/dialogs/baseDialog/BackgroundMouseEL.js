@@ -30,9 +30,9 @@ Doc reviewed 20220828
 Tests ...
 */
 
-import theGeometry from '../core/lib/Geometry.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
-import { ZERO, ONE } from '../main/Constants.js';
+import theGeometry from '../../core/lib/Geometry.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
+import { ZERO, ONE } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

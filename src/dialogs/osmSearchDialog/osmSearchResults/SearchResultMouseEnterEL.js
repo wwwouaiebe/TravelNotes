@@ -23,8 +23,8 @@ Doc reviewed 20220825
 Tests ...
 */
 
-import theTravelNotesData from '../../data/TravelNotesData.js';
-import theEventDispatcher from '../../core/lib/EventDispatcher.js';
+import theTravelNotesData from '../../../data/TravelNotesData.js';
+import theEventDispatcher from '../../../core/lib/EventDispatcher.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

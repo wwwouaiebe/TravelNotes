@@ -28,7 +28,7 @@ Tests ...
 */
 
 import { ZERO, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
-import { SelectOptionData, SelectDialog } from '../selectDialog/SelectDialog.js';
+import { SelectOptionData, SelectDialog } from '../dialogs/selectDialog/SelectDialog.js';
 import PublicTransportRouteBuilder from '../routeProviders/PublicTransportRouteBuilder.js';
 import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
 

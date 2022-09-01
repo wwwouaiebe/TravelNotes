@@ -27,7 +27,7 @@ Tests ...
 */
 
 import theNoteDialogToolbarData from '../toolbar/NoteDialogToolbarData.js';
-import { ZERO } from '../../main/Constants.js';
+import { ZERO } from '../../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

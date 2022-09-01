@@ -27,9 +27,9 @@ Tests ...
 */
 
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
 import SelectOptionData from './SelectOptionData.js';
-import { ZERO } from '../main/Constants.js';
+import { ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

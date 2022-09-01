@@ -36,11 +36,11 @@ Changes:
 Doc reviewed 20220827
 */
 
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import theTranslator from '../UILib/Translator.js';
+import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theTranslator from '../../UILib/Translator.js';
 import NonModalBaseDialog from '../baseDialog/NonModalBaseDialog.js';
-import theHTMLSanitizer from '../core/htmlSanitizer/HTMLSanitizer.js';
-import { theAppVersion } from '../data/Version.js';
+import theHTMLSanitizer from '../../core/htmlSanitizer/HTMLSanitizer.js';
+import { theAppVersion } from '../../data/Version.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

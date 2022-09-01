@@ -23,11 +23,11 @@ Doc reviewed 20220825
 Tests ...
 */
 
-import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
-import theHTMLSanitizer from '../../core/htmlSanitizer/HTMLSanitizer.js';
+import theHTMLElementsFactory from '../../../UILib/HTMLElementsFactory.js';
+import theHTMLSanitizer from '../../../core/htmlSanitizer/HTMLSanitizer.js';
 import theNoteDialogToolbarData from '../../notesDialog/toolbar/NoteDialogToolbarData.js';
-import ObjId from '../../data/ObjId.js';
-import { ZERO } from '../../main/Constants.js';
+import ObjId from '../../../data/ObjId.js';
+import { ZERO } from '../../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

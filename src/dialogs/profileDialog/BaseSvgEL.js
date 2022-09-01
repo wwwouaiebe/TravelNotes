@@ -32,10 +32,10 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theGeometry from '../core/lib/Geometry.js';
-import theDataSearchEngine from '../data/DataSearchEngine.js';
-import SvgProfileBuilder from '../core/lib/SvgProfileBuilder.js';
-import { ZERO, TWO } from '../main/Constants.js';
+import theGeometry from '../../core/lib/Geometry.js';
+import theDataSearchEngine from '../../data/DataSearchEngine.js';
+import SvgProfileBuilder from '../../core/lib/SvgProfileBuilder.js';
+import { ZERO, TWO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

@@ -32,12 +32,12 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theEventDispatcher from '../core/lib/EventDispatcher.js';
-import theUtilities from '../UILib/Utilities.js';
-import theDataSearchEngine from '../data/DataSearchEngine.js';
-import SvgProfileBuilder from '../core/lib/SvgProfileBuilder.js';
+import theEventDispatcher from '../../core/lib/EventDispatcher.js';
+import theUtilities from '../../UILib/Utilities.js';
+import theDataSearchEngine from '../../data/DataSearchEngine.js';
+import SvgProfileBuilder from '../../core/lib/SvgProfileBuilder.js';
 import BaseSvgEL from './BaseSvgEL.js';
-import { SVG_NS, ZERO, TWO, THREE } from '../main/Constants.js';
+import { SVG_NS, ZERO, TWO, THREE } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

@@ -26,9 +26,9 @@ Doc reviewed 20210901
 Tests ...
 */
 
-import theTranslator from '../../UILib/Translator.js';
+import theTranslator from '../../../UILib/Translator.js';
 import theNoteDialogToolbarData from '../toolbar/NoteDialogToolbarData.js';
-import MapIconFromOsmFactory from '../../core/mapIcon/MapIconFromOsmFactory.js';
+import MapIconFromOsmFactory from '../../../core/mapIcon/MapIconFromOsmFactory.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

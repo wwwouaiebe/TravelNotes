@@ -32,7 +32,7 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theEventDispatcher from '../core/lib/EventDispatcher.js';
+import theEventDispatcher from '../../core/lib/EventDispatcher.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

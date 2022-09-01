@@ -41,7 +41,7 @@ import theTravelNotesData from '../data/TravelNotesData.js';
 import theConfig from '../data/Config.js';
 import ConfigOverloader from '../data/ConfigOverloader.js';
 import theTranslator from '../UILib/Translator.js';
-import theNoteDialogToolbarData from '../notesDialog/toolbar/NoteDialogToolbarData.js';
+import theNoteDialogToolbarData from '../dialogs/notesDialog/toolbar/NoteDialogToolbarData.js';
 import theOsmSearchDictionary from '../core/osmSearch/OsmSearchDictionary.js';
 import theMapLayersCollection from '../data/MapLayersCollection.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';

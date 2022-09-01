@@ -30,10 +30,10 @@ Doc reviewed 20220828
 Tests ...
 */
 
-import theGeometry from '../core/lib/Geometry.js';
-import theConfig from '../data/Config.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
-import { ZERO, ONE, TWO } from '../main/Constants.js';
+import theGeometry from '../../core/lib/Geometry.js';
+import theConfig from '../../data/Config.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
+import { ZERO, ONE, TWO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

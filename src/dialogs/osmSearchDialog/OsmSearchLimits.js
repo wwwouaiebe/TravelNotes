@@ -24,12 +24,12 @@ Doc reviewed 20220825
 Tests ...
 */
 
-import ObjId from '../data/ObjId.js';
-import theConfig from '../data/Config.js';
-import theEventDispatcher from '../core/lib/EventDispatcher.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
-import theOsmSearchEngine from '../core/osmSearch/OsmSearchEngine.js';
-import { INVALID_OBJ_ID } from '../main/Constants.js';
+import ObjId from '../../data/ObjId.js';
+import theConfig from '../../data/Config.js';
+import theEventDispatcher from '../../core/lib/EventDispatcher.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
+import theOsmSearchEngine from '../../core/osmSearch/OsmSearchEngine.js';
+import { INVALID_OBJ_ID } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

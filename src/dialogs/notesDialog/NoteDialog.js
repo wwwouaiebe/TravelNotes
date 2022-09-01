@@ -67,9 +67,9 @@ import NoteDialogPreviewControl from './controls/NoteDialogPreviewControl.js';
 
 import NoteDialogEventListeners from './eventListeners/NoteDialogEventListeners.js';
 import NoteDialogGeoCoderHelper from './NoteDialogGeoCoderHelper.js';
-import theHTMLSanitizer from '../core/htmlSanitizer/HTMLSanitizer.js';
-import theTranslator from '../UILib/Translator.js';
-import Note from '../data/Note.js';
+import theHTMLSanitizer from '../../core/htmlSanitizer/HTMLSanitizer.js';
+import theTranslator from '../../UILib/Translator.js';
+import Note from '../../data/Note.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

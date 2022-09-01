@@ -23,9 +23,9 @@ Doc reviewed 20220829
 Tests ...
 */
 
-import OsmSearchDialog from '../osmSearchDialog/OsmSearchDialog.js';
-import TravelPropertiesDialog from '../travelPropertiesDialog/TravelPropertiesDialog.js';
-import TravelNotesDialog from '../travelNotesDialog/TravelNotesDialog.js';
+import OsmSearchDialog from '../dialogs/osmSearchDialog/OsmSearchDialog.js';
+import TravelPropertiesDialog from '../dialogs/travelPropertiesDialog/TravelPropertiesDialog.js';
+import TravelNotesDialog from '../dialogs/travelNotesDialog/TravelNotesDialog.js';
 import theConfig from '../data/Config.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

@@ -30,8 +30,8 @@ Doc reviewed 20220828
 Tests ...
 */
 
-import theTravelNotesData from '../data/TravelNotesData.js';
-import { ZERO, ONE } from '../main/Constants.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
+import { ZERO, ONE } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

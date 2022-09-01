@@ -32,8 +32,8 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import GeoCoder from '../core/lib/GeoCoder.js';
-import theConfig from '../data/Config.js';
+import GeoCoder from '../../core/lib/GeoCoder.js';
+import theConfig from '../../data/Config.js';
 
 /**
 Click event listener for the reset address button

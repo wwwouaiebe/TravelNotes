@@ -32,9 +32,9 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import ProfileContextMenu from '../contextMenus/ProfileContextMenu.js';
+import ProfileContextMenu from '../../contextMenus/ProfileContextMenu.js';
 import BaseSvgEL from './BaseSvgEL.js';
-import { ZERO, ONE } from '../main/Constants.js';
+import { ZERO, ONE } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

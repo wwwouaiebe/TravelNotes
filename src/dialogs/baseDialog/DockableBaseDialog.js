@@ -26,8 +26,8 @@ Tests ...
 
 import NonModalBaseDialog from '../baseDialog/NonModalBaseDialog.js';
 import DockableBaseDialogMover from '../baseDialog/DockableBaseDialogMover.js';
-import theConfig from '../data/Config.js';
-import { ZERO } from '../main/Constants.js';
+import theConfig from '../../data/Config.js';
+import { ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

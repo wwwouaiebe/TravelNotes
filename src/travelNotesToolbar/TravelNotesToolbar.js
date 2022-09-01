@@ -24,7 +24,7 @@ Doc reviewed 20220821
 Tests ...
 */
 
-import AboutDialog from '../aboutDialog/AboutDialog.js';
+import AboutDialog from '../dialogs/aboutDialog/AboutDialog.js';
 import BaseToolbar from '../baseToolbar/BaseToolbar.js';
 import ToolbarItem from '../baseToolbar/ToolbarItem.js';
 import theApiKeysManager from '../core/ApiKeysManager.js';

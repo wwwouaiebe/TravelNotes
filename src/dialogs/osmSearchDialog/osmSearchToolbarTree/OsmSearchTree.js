@@ -24,12 +24,12 @@ Doc reviewed 20220825
 Tests ...
 */
 
-import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
-import theOsmSearchDictionary from '../../core/osmSearch/OsmSearchDictionary.js';
+import theHTMLElementsFactory from '../../../UILib/HTMLElementsFactory.js';
+import theOsmSearchDictionary from '../../../core/osmSearch/OsmSearchDictionary.js';
 import TreeArrowClickEL from './TreeArrowClickEL.js';
 import TreeWheelEL from './TreeWheelEL.js';
 import TreeCheckboxChangeEL from './TreeCheckboxChangeEL.js';
-import { ZERO } from '../../main/Constants.js';
+import { ZERO } from '../../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

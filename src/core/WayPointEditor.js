@@ -45,7 +45,7 @@ Tests 20210902
 
 import theConfig from '../data/Config.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
-import WayPointPropertiesDialog from '../wayPointPropertiesDialog/WayPointPropertiesDialog.js';
+import WayPointPropertiesDialog from '../dialogs/wayPointPropertiesDialog/WayPointPropertiesDialog.js';
 import GeoCoder from '../core/lib/GeoCoder.js';
 import WayPoint from '../data/WayPoint.js';
 import theEventDispatcher from '../core/lib/EventDispatcher.js';

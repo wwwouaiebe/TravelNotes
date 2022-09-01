@@ -41,13 +41,13 @@ Tests 20210903
 */
 
 import ApiKey from '../containers/ApiKey.js';
-import ApiKeysDialog from '../apiKeysDialog/ApiKeysDialog.js';
+import ApiKeysDialog from '../dialogs/apiKeysDialog/ApiKeysDialog.js';
 import theUtilities from '../UILib/Utilities.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theConfig from '../data/Config.js';
 import theEventDispatcher from '../core/lib/EventDispatcher.js';
 import DataEncryptor from '../core/lib/DataEncryptor.js';
-import PasswordDialog from '../passwordDialog/PasswordDialog.js';
+import PasswordDialog from '../dialogs/passwordDialog/PasswordDialog.js';
 import theTranslator from '../UILib/Translator.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 

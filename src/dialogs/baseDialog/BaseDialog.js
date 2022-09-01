@@ -49,8 +49,8 @@ Doc reviewed 20220828
 Tests ...
 */
 
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import theTranslator from '../UILib/Translator.js';
+import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theTranslator from '../../UILib/Translator.js';
 import BaseDialogOptions from '../baseDialog/BaseDialogOptions.js';
 import CancelButtonClickEL from '../baseDialog/CancelButtonClickEL.js';
 import TopBarDragStartEL from '../baseDialog/TopBarDragStartEL.js';

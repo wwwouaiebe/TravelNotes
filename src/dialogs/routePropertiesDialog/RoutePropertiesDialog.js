@@ -40,11 +40,11 @@ ests ...
 */
 
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
-import theTranslator from '../UILib/Translator.js';
-import ColorControl from '../colorControl/ColorControl.js';
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import theConfig from '../data/Config.js';
-import { ZERO } from '../main/Constants.js';
+import theTranslator from '../../UILib/Translator.js';
+import ColorControl from '../../colorControl/ColorControl.js';
+import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theConfig from '../../data/Config.js';
+import { ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

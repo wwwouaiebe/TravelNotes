@@ -49,7 +49,7 @@ Tests 20210902
 
 import theTranslator from '../UILib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
-import NoteDialog from '../notesDialog/NoteDialog.js';
+import NoteDialog from '../dialogs/notesDialog/NoteDialog.js';
 import Note from '../data/Note.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import theEventDispatcher from '../core/lib/EventDispatcher.js';
@@ -57,7 +57,7 @@ import theGeometry from '../core/lib/Geometry.js';
 import theConfig from '../data/Config.js';
 import WaitUI from '../waitUI/WaitUI.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
-import theNoteDialogToolbarData from '../notesDialog/toolbar/NoteDialogToolbarData.js';
+import theNoteDialogToolbarData from '../dialogs/notesDialog/toolbar/NoteDialogToolbarData.js';
 import GeoCoder from '../core/lib/GeoCoder.js';
 
 import { DISTANCE, INVALID_OBJ_ID } from '../main/Constants.js';

@@ -24,8 +24,8 @@ Doc reviewed 20220828
 Tests ...
 */
 
-import ObjId from '../data/ObjId.js';
-import { ZERO, TWO, DIALOG_DRAG_MARGIN } from '../main/Constants.js';
+import ObjId from '../../data/ObjId.js';
+import { ZERO, TWO, DIALOG_DRAG_MARGIN } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

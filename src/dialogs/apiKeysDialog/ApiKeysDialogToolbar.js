@@ -28,9 +28,9 @@ Doc reviewed 20220827
 Tests ...
 */
 
-import theTranslator from '../UILib/Translator.js';
-import theConfig from '../data/Config.js';
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import theTranslator from '../../UILib/Translator.js';
+import theConfig from '../../data/Config.js';
+import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
 import RestoreFromUnsecureFileButtonClickEL from '../apiKeysDialog/RestoreFromUnsecureFileButtonClickEL.js';
 import ReloadFromServerButtonClickEL from '../apiKeysDialog/ReloadFromServerButtonClickEL.js';
 import RestoreFromSecureFileButtonClickEL from '../apiKeysDialog/RestoreFromSecureFileButtonClickEL.js';

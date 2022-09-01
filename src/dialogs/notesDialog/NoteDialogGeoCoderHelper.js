@@ -26,8 +26,8 @@ Doc reviewed 20210901
 Tests ...
 */
 
-import theTranslator from '../UILib/Translator.js';
-import GeoCoder from '../core/lib/GeoCoder.js';
+import theTranslator from '../../UILib/Translator.js';
+import GeoCoder from '../../core/lib/GeoCoder.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

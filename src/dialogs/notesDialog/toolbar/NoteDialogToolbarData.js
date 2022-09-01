@@ -26,7 +26,7 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import { ZERO, ONE } from '../../main/Constants.js';
+import { ZERO, ONE } from '../../../main/Constants.js';
 import PredefinedIconData from './PredefinedIconData.js';
 import EditionButtonData from './EditionButtonData.js';
 
