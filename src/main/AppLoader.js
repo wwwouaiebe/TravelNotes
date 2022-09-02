@@ -46,7 +46,7 @@ import theOsmSearchDictionary from '../core/osmSearch/OsmSearchDictionary.js';
 import theMapLayersCollection from '../data/MapLayersCollection.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theDockableDialogsManager from '../core/DockableDialogsManager.js';
-import theProvidersToolbar from '../providersToolbar/ProvidersToolbar.js';
+import theProvidersToolbar from '../toolbars/providersToolbar/ProvidersToolbar.js';
 import RoadbookUpdateEL from './RoadbookUpdateEL.js';
 
 import { LAT_LNG, ZERO, ONE, NOT_FOUND, HTTP_STATUS_OK } from '../main/Constants.js';

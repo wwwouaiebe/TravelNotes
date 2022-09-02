@@ -24,23 +24,23 @@ Doc reviewed 20220821
 Tests ...
 */
 
-import AboutDialog from '../dialogs/aboutDialog/AboutDialog.js';
+import AboutDialog from '../../dialogs/aboutDialog/AboutDialog.js';
 import BaseToolbar from '../baseToolbar/BaseToolbar.js';
 import ToolbarItem from '../baseToolbar/ToolbarItem.js';
-import theApiKeysManager from '../core/ApiKeysManager.js';
-import theGeoLocator from '../core/GeoLocator.js';
-import theConfig from '../data/Config.js';
-import theTranslator from '../UILib/Translator.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
-import theUtilities from '../UILib/Utilities.js';
-import theErrorsUI from '../errorsUI/ErrorsUI.js';
-import theTravelEditor from '../core/TravelEditor.js';
-import theDockableDialogsManager from '../core/DockableDialogsManager.js';
-import theFullScreenUI from '../fullScreenUI/FullScreenUI.js';
-import theFontSizeManager from '../core/FontSizeManager.js';
+import theApiKeysManager from '../../core/ApiKeysManager.js';
+import theGeoLocator from '../../core/GeoLocator.js';
+import theConfig from '../../data/Config.js';
+import theTranslator from '../../UILib/Translator.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
+import theUtilities from '../../UILib/Utilities.js';
+import theErrorsUI from '../../errorsUI/ErrorsUI.js';
+import theTravelEditor from '../../core/TravelEditor.js';
+import theDockableDialogsManager from '../../core/DockableDialogsManager.js';
+import theFullScreenUI from '../../fullScreenUI/FullScreenUI.js';
+import theFontSizeManager from '../../core/FontSizeManager.js';
 import OpenInputChangeEL from './OpenInputChangeEL.js';
 import ImportInputChangeEL from './ImportInputChangeEL.js';
-import { INVALID_OBJ_ID, TOOLBAR_POSITION, GEOLOCATION_STATUS } from '../main/Constants.js';
+import { INVALID_OBJ_ID, TOOLBAR_POSITION, GEOLOCATION_STATUS } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

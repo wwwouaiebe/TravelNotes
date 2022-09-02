@@ -67,15 +67,15 @@ import { theAppVersion } from '../data/Version.js';
 import theEventDispatcher from '../core/lib/EventDispatcher.js';
 import MapContextMenu from '../contextMenus/MapContextMenu.js';
 import theMapLayersManager from '../core/MapLayersManager.js';
-import theMapLayersToolbar from '../mapLayersToolbar/MapLayersToolbar.js';
+import theMapLayersToolbar from '../toolbars/mapLayersToolbar/MapLayersToolbar.js';
 import theMouseUI from '../mouseUI/MouseUI.js';
 import theAttributionsUI from '../attributionsUI/AttributionsUI.js';
-import theTravelNotesToolbar from '../travelNotesToolbar/TravelNotesToolbar.js';
+import theTravelNotesToolbar from '../toolbars/travelNotesToolbar/TravelNotesToolbar.js';
 import theErrorsUI from '../errorsUI/ErrorsUI.js';
 import theTranslator from '../UILib/Translator.js';
 import theFullScreenUI from '../fullScreenUI/FullScreenUI.js';
 import { LAT_LNG, TWO, SAVE_STATUS, HTTP_STATUS_OK } from '../main/Constants.js';
-import theProvidersToolbar from '../providersToolbar/ProvidersToolbar.js';
+import theProvidersToolbar from '../toolbars/providersToolbar/ProvidersToolbar.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

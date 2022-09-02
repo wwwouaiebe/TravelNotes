@@ -24,9 +24,9 @@ Doc reviewed 20220821
 Tests ...
 */
 
-import FileLoader from '../core/FileLoader.js';
-import theErrorsUI from '../errorsUI/ErrorsUI.js';
-import { ZERO } from '../main/Constants.js';
+import FileLoader from '../../core/FileLoader.js';
+import theErrorsUI from '../../errorsUI/ErrorsUI.js';
+import { ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

@@ -24,14 +24,14 @@ Doc reviewed 20220828
 Tests ...
 */
 
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
 import ToolbarItemsContainer from '../baseToolbar/ToolbarItemsContainer.js';
 import ButtonHTMLElementClickEL from '../baseToolbar/ButtonHTMLElementClickEL.js';
 import ButtonHTMLElementTouchEL from '../baseToolbar/ButtonHTMLElementTouchEL.js';
 import ButtonsHTMLElementTouchEL from '../baseToolbar/ButtonsHTMLElementTouchEL.js';
 import ButtonsHTMLElementWheelEL from '../baseToolbar/ButtonsHTMLElementWheelEL.js';
-import theConfig from '../data/Config.js';
-import { ZERO } from '../main/Constants.js';
+import theConfig from '../../data/Config.js';
+import { ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

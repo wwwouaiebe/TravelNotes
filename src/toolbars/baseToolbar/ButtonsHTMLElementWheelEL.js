@@ -24,7 +24,7 @@ Doc reviewed 20220828
 Tests ...
 */
 
-import { MOUSE_WHEEL_FACTORS } from '../main/Constants.js';
+import { MOUSE_WHEEL_FACTORS } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

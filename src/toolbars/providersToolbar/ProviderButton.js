@@ -26,8 +26,8 @@ Doc reviewed 20210915
 Tests ...
 */
 
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import theRouter from '../core/lib/Router.js';
+import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theRouter from '../../core/lib/Router.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

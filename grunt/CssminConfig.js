@@ -54,9 +54,9 @@ const travelNotesCss = [
 	'src/fullScreenUI/FullScreenUI.css',
 	'src/mouseUI/MouseUI.css',
 	'src/waitUI/WaitUI.css',
-	'src/baseToolbar/BaseToolbar.css',
-	'src/mapLayersToolbar/MapLayersToolbar.css',
-	'src/providersToolbar/ProvidersToolbar.css',
+	'src/toolbars/baseToolbar/BaseToolbar.css',
+	'src/toolbars/mapLayersToolbar/MapLayersToolbar.css',
+	'src/toolbars/providersToolbar/ProvidersToolbar.css',
 	'src/css/Hidden.css' // must always be the last css
 ];
 

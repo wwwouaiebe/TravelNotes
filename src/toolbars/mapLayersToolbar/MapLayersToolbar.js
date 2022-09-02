@@ -24,15 +24,15 @@ Doc reviewed 20220821
 Tests ...
 */
 
-import { TOOLBAR_POSITION } from '../main/Constants.js';
+import { TOOLBAR_POSITION } from '../../main/Constants.js';
 import BaseToolbar from '../baseToolbar/BaseToolbar.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
 import ToolbarItem from '../baseToolbar/ToolbarItem.js';
-import theConfig from '../data/Config.js';
-import theMapLayersCollection from '../data/MapLayersCollection.js';
-import theApiKeysManager from '../core/ApiKeysManager.js';
-import theMapLayersManager from '../core/MapLayersManager.js';
-import theTranslator from '../UILib/Translator.js';
+import theConfig from '../../data/Config.js';
+import theMapLayersCollection from '../../data/MapLayersCollection.js';
+import theApiKeysManager from '../../core/ApiKeysManager.js';
+import theMapLayersManager from '../../core/MapLayersManager.js';
+import theTranslator from '../../UILib/Translator.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
