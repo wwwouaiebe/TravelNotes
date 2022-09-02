@@ -47,7 +47,7 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-import theTranslator from '../UILib/Translator.js';
+import theTranslator from '../core/uiLib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import NoteDialog from '../dialogs/notesDialog/NoteDialog.js';
 import Note from '../data/Note.js';

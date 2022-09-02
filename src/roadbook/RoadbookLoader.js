@@ -31,8 +31,8 @@ Doc reviewed 20210915
 Tests ...
 */
 
-import theTranslator from '../UILib/Translator.js';
-import theIndexedDb from '../UILib/IndexedDb.js';
+import theTranslator from '../core/uiLib/Translator.js';
+import theIndexedDb from '../core/uiLib/IndexedDb.js';
 import theRoadbookUpdater from '../roadbook/RoadbookUpdater.js';
 import ShowManeuverNotesChangeEL from './ShowManeuverNotesChangeEL.js';
 import ShowRouteNotesChangeEL from './ShowRouteNotesChangeEL.js';

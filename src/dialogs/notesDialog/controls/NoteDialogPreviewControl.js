@@ -26,7 +26,7 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theHTMLElementsFactory from '../../../UILib/HTMLElementsFactory.js';
+import theHTMLElementsFactory from '../../../core/uiLib/HTMLElementsFactory.js';
 import theNoteHTMLViewsFactory from '../../../viewsFactories/NoteHTMLViewsFactory.js';
 import NoteAndRoute from '../../../data/NoteAndRoute.js';
 

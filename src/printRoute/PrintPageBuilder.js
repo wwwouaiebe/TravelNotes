@@ -30,10 +30,10 @@ Doc reviewed 20210915
 Tests ...
 */
 
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import theHTMLElementsFactory from '../core/uiLib/HTMLElementsFactory.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theConfig from '../data/Config.js';
-import theTranslator from '../UILib/Translator.js';
+import theTranslator from '../core/uiLib/Translator.js';
 import theMapLayersCollection from '../data/MapLayersCollection.js';
 import theApiKeysManager from '../core/ApiKeysManager.js';
 import theHTMLSanitizer from '../core/htmlSanitizer/HTMLSanitizer.js';

@@ -32,12 +32,12 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theTranslator from '../../UILib/Translator.js';
+import theTranslator from '../../core/uiLib/Translator.js';
 import ObjId from '../../data/ObjId.js';
 import NonModalBaseDialog from '../baseDialog/NonModalBaseDialog.js';
-import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import theEventDispatcher from '../../core/lib/EventDispatcher.js';
-import theUtilities from '../../UILib/Utilities.js';
+import theUtilities from '../../core/uiLib/Utilities.js';
 import SvgProfileBuilder from '../../core/lib/SvgProfileBuilder.js';
 import SvgContextMenuEL from './SvgContextMenuEL.js';
 import SvgMouseLeaveEL from './SvgMouseLeaveEL.js';

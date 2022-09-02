@@ -30,10 +30,10 @@ Tests 20210902
 
 import theConfig from '../../../data/Config.js';
 import theTravelNotesData from '../../../data/TravelNotesData.js';
-import theTranslator from '../../../UILib/Translator.js';
+import theTranslator from '../../../core/uiLib/Translator.js';
 import theDataSearchEngine from '../../../data/DataSearchEngine.js';
 import theGeometry from '../../../core/lib/Geometry.js';
-import theUtilities from '../../../UILib/Utilities.js';
+import theUtilities from '../../../core/uiLib/Utilities.js';
 
 import TempWayPointMarkerELData from '../TempWayPointMarkerEL/TempWayPointMarkerELData.js';
 import TempWayPointMarkerMouseOutEL from '../TempWayPointMarkerEL/TempWayPointMarkerMouseOutEL.js';

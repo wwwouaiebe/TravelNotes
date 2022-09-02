@@ -26,7 +26,7 @@ Doc reviewed 20220829
 Tests ...
 */
 
-import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import ColorButtonsControlElement from '../colorControl/ColorButtonsControlElement.js';
 import RedSliderControlElement from '../colorControl/RedSliderControlElement.js';
 import RgbInputsControlElement from '../colorControl/RgbInputsControlElement.js';

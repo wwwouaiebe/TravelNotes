@@ -33,10 +33,10 @@ Doc reviewed 20210915
 Tests ...
 */
 
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import theHTMLElementsFactory from '../core/uiLib/HTMLElementsFactory.js';
 import theHTMLSanitizer from '../core/htmlSanitizer/HTMLSanitizer.js';
-import theTranslator from '../UILib/Translator.js';
-import theUtilities from '../UILib/Utilities.js';
+import theTranslator from '../core/uiLib/Translator.js';
+import theUtilities from '../core/uiLib/Utilities.js';
 import theConfig from '../data/Config.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 

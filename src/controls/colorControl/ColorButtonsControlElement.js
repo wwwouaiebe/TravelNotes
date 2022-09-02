@@ -24,7 +24,7 @@ Doc reviewed 20220829
 Tests ...
 */
 
-import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import { ZERO } from '../../main/Constants.js';
 import Color from '../colorControl/Color.js';
 import ColorButtonClickEL from '../colorControl/ColorButtonClickEL.js';

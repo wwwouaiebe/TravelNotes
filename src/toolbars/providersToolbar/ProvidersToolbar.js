@@ -41,12 +41,12 @@ Tests ...
 */
 
 import theTravelNotesData from '../../data/TravelNotesData.js';
-import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import TransitModeButton from '../providersToolbar/TransitModeButton.js';
 import ProviderButton from '../providersToolbar/ProviderButton.js';
 import theApiKeysManager from '../../core/ApiKeysManager.js';
 import { NOT_FOUND, ZERO, TWO } from '../../main/Constants.js';
-import theTranslator from '../../UILib/Translator.js';
+import theTranslator from '../../core/uiLib/Translator.js';
 import theConfig from '../../data/Config.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

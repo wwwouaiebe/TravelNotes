@@ -24,7 +24,7 @@ Doc reviewed 20220828
 Tests ...
 */
 
-import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import ToolbarItemsContainer from '../baseToolbar/ToolbarItemsContainer.js';
 import ButtonHTMLElementClickEL from '../baseToolbar/ButtonHTMLElementClickEL.js';
 import ButtonHTMLElementTouchEL from '../baseToolbar/ButtonHTMLElementTouchEL.js';

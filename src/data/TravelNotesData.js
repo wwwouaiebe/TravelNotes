@@ -33,7 +33,7 @@ Tests ...
 */
 
 import Travel from '../data/Travel.js';
-import theUtilities from '../UILib/Utilities.js';
+import theUtilities from '../core/uiLib/Utilities.js';
 import TravelNotesDataRouting from './TravelNotesDataRouting.js';
 import { INVALID_OBJ_ID } from '../main/Constants.js';
 

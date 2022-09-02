@@ -50,12 +50,12 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-import theTranslator from '../UILib/Translator.js';
+import theTranslator from '../core/uiLib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theConfig from '../data/Config.js';
 import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
 import theRouteEditor from '../core/RouteEditor.js';
-import theUtilities from '../UILib/Utilities.js';
+import theUtilities from '../core/uiLib/Utilities.js';
 import Travel from '../data/Travel.js';
 import theEventDispatcher from '../core/lib/EventDispatcher.js';
 import FileCompactor from '../core/lib/FileCompactor.js';

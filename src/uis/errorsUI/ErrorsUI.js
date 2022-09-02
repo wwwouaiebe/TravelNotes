@@ -34,7 +34,7 @@ Tests ...
 */
 
 import theConfig from '../../data/Config.js';
-import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import theHTMLSanitizer from '../../core/htmlSanitizer/HTMLSanitizer.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

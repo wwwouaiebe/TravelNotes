@@ -33,7 +33,7 @@ Tests ...
 */
 
 import theEventDispatcher from '../../core/lib/EventDispatcher.js';
-import theUtilities from '../../UILib/Utilities.js';
+import theUtilities from '../../core/uiLib/Utilities.js';
 import theDataSearchEngine from '../../data/DataSearchEngine.js';
 import SvgProfileBuilder from '../../core/lib/SvgProfileBuilder.js';
 import BaseSvgEL from './BaseSvgEL.js';

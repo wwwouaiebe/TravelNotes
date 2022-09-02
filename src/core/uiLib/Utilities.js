@@ -27,8 +27,8 @@ Doc reviewed 20210915
 Tests ...
 */
 
-import theTranslator from '../UILib/Translator.js';
-import { LAT_LNG, ZERO, ONE, TWO, THREE, HEXADECIMAL, DISTANCE } from '../main/Constants.js';
+import theTranslator from './Translator.js';
+import { LAT_LNG, ZERO, ONE, TWO, THREE, HEXADECIMAL, DISTANCE } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

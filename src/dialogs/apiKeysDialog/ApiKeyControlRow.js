@@ -27,9 +27,9 @@ Changes:
 Doc reviewed 20220827
 */
 
-import theTranslator from '../../UILib/Translator.js';
+import theTranslator from '../../core/uiLib/Translator.js';
 import theConfig from '../../data/Config.js';
-import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import ApiKey from '../../containers/ApiKey.js';
 import ObjId from '../../data/ObjId.js';
 

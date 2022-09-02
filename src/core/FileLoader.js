@@ -42,7 +42,7 @@ Doc reviewed 20210921
 Tests 20210903
 */
 
-import theTranslator from '../UILib/Translator.js';
+import theTranslator from '../core/uiLib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import GpxParser from '../core/lib/GpxParser.js';
 import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';

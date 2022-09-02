@@ -27,7 +27,7 @@ Tests ...
 */
 
 import theHTMLSanitizer from '../../../core/htmlSanitizer/HTMLSanitizer.js';
-import theTranslator from '../../../UILib/Translator.js';
+import theTranslator from '../../../core/uiLib/Translator.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

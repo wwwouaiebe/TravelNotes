@@ -35,7 +35,7 @@ import BaseContextMenu from './baseContextMenu/BaseContextMenu.js';
 import MenuItem from './baseContextMenu/MenuItem.js';
 import theWayPointEditor from '../core/WayPointEditor.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
-import theTranslator from '../UILib/Translator.js';
+import theTranslator from '../core/uiLib/Translator.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

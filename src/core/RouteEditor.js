@@ -54,7 +54,7 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-import theTranslator from '../UILib/Translator.js';
+import theTranslator from '../core/uiLib/Translator.js';
 import theApiKeysManager from '../core/ApiKeysManager.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';

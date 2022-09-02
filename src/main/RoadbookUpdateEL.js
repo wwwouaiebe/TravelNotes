@@ -33,9 +33,9 @@ Doc reviewed 20210913
 
 /* eslint-disable max-lines */
 
-import theIndexedDb from '../UILib/IndexedDb.js';
+import theIndexedDb from '../core/uiLib/IndexedDb.js';
 import theTravelHTMLViewsFactory from '../viewsFactories/TravelHTMLViewsFactory.js';
-import theUtilities from '../UILib/Utilities.js';
+import theUtilities from '../core/uiLib/Utilities.js';
 import theMouseUI from '../uis/mouseUI/MouseUI.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import { SAVE_STATUS } from '../main/Constants.js';

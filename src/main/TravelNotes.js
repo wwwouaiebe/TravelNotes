@@ -72,7 +72,7 @@ import theMouseUI from '../uis/mouseUI/MouseUI.js';
 import theAttributionsUI from '../uis/attributionsUI/AttributionsUI.js';
 import theTravelNotesToolbar from '../toolbars/travelNotesToolbar/TravelNotesToolbar.js';
 import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
-import theTranslator from '../UILib/Translator.js';
+import theTranslator from '../core/uiLib/Translator.js';
 import theFullScreenUI from '../uis/fullScreenUI/FullScreenUI.js';
 import { LAT_LNG, TWO, SAVE_STATUS, HTTP_STATUS_OK } from '../main/Constants.js';
 import theProvidersToolbar from '../toolbars/providersToolbar/ProvidersToolbar.js';

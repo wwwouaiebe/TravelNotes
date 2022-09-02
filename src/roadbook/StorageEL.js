@@ -31,7 +31,7 @@ Doc reviewed 20210915
 Tests ...
 */
 
-import theIndexedDb from '../UILib/IndexedDb.js';
+import theIndexedDb from '../core/uiLib/IndexedDb.js';
 import theRoadbookUpdater from '../roadbook/RoadbookUpdater.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

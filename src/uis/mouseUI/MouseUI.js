@@ -34,10 +34,10 @@ Changes:
 Doc reviewed 20220827
 */
 
-import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import theTravelNotesData from '../../data/TravelNotesData.js';
 import theConfig from '../../data/Config.js';
-import theUtilities from '../../UILib/Utilities.js';
+import theUtilities from '../../core/uiLib/Utilities.js';
 import { SAVE_STATUS } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

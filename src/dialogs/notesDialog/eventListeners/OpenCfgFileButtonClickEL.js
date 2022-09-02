@@ -26,7 +26,7 @@ Doc reviewed 20210901
 Tests ...
 */
 
-import theUtilities from '../../../UILib/Utilities.js';
+import theUtilities from '../../../core/uiLib/Utilities.js';
 import OpenCfgFileInputChangeEL from './OpenCfgFileInputChangeEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

@@ -27,9 +27,9 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theTranslator from '../../UILib/Translator.js';
+import theTranslator from '../../core/uiLib/Translator.js';
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
-import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import SaveAsDialogData from './SaveAsDialogData.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

@@ -33,7 +33,7 @@ import theGeometry from '../core/lib/Geometry.js';
 import theEventDispatcher from '../core/lib/EventDispatcher.js';
 import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
 import theConfig from '../data/Config.js';
-import theTranslator from '../UILib/Translator.js';
+import theTranslator from '../core/uiLib/Translator.js';
 import TwoButtonsDialog from '../dialogs/twoButtonsDialog/TwoButtonsDialog.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 

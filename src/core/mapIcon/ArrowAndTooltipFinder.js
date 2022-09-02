@@ -27,7 +27,7 @@ Tests ...
 */
 
 import theConfig from '../../data/Config.js';
-import theTranslator from '../../UILib/Translator.js';
+import theTranslator from '../../core/uiLib/Translator.js';
 
 import { ICON_POSITION } from '../../main/Constants.js';
 

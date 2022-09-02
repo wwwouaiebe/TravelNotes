@@ -32,7 +32,7 @@ Tests ...
 
 import theDataSearchEngine from '../../data/DataSearchEngine.js';
 import theTravelNotesData from '../../data/TravelNotesData.js';
-import theUtilities from '../../UILib/Utilities.js';
+import theUtilities from '../../core/uiLib/Utilities.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

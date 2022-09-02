@@ -49,8 +49,8 @@ Doc reviewed 20220828
 Tests ...
 */
 
-import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
-import theTranslator from '../../UILib/Translator.js';
+import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
+import theTranslator from '../../core/uiLib/Translator.js';
 import BaseDialogOptions from '../baseDialog/BaseDialogOptions.js';
 import CancelButtonClickEL from '../baseDialog/CancelButtonClickEL.js';
 import TopBarDragStartEL from '../baseDialog/TopBarDragStartEL.js';
@@ -58,7 +58,7 @@ import TopBarDragEndEL from '../baseDialog/TopBarDragEndEL.js';
 import TopBarTouchEL from '../baseDialog/TopBarTouchEL.js';
 import BaseDialogMover from '../baseDialog/BaseDialogMover.js';
 
-// import GarbageCollectorTester from '../UILib/GarbageCollectorTester.js';
+// import GarbageCollectorTester from '../core/uiLib/GarbageCollectorTester.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

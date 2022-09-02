@@ -26,8 +26,8 @@ Doc reviewed 20210901
 Tests ...
 */
 
-import theHTMLElementsFactory from '../../../UILib/HTMLElementsFactory.js';
-import theTranslator from '../../../UILib/Translator.js';
+import theHTMLElementsFactory from '../../../core/uiLib/HTMLElementsFactory.js';
+import theTranslator from '../../../core/uiLib/Translator.js';
 import theConfig from '../../../data/Config.js';
 import BaseControl from '../../../controls/baseControl/BaseControl.js';
 

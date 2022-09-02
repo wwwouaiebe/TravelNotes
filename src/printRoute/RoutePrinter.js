@@ -38,12 +38,12 @@ Tests ...
 */
 
 import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import theHTMLElementsFactory from '../core/uiLib/HTMLElementsFactory.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import theGeometry from '../core/lib/Geometry.js';
 import theConfig from '../data/Config.js';
-import theTranslator from '../UILib/Translator.js';
+import theTranslator from '../core/uiLib/Translator.js';
 import PrintViewsFactory from './PrintViewsFactory.js';
 import ViewSize from './ViewSize.js';
 import PrintPageBuilder from './PrintPageBuilder.js';

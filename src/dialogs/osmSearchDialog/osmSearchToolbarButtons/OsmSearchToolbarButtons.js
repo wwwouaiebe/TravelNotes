@@ -24,8 +24,8 @@ Doc reviewed 20220825
 Tests ...
 */
 
-import theHTMLElementsFactory from '../../../UILib/HTMLElementsFactory.js';
-import theTranslator from '../../../UILib/Translator.js';
+import theHTMLElementsFactory from '../../../core/uiLib/HTMLElementsFactory.js';
+import theTranslator from '../../../core/uiLib/Translator.js';
 import ClearButtonClickEL from './ClearButtonClickEL.js';
 import CollapseButtonClickEL from './CollapseButtonClickEL.js';
 import ExpandTreeButtonClickEL from './ExpandTreeButtonClickEL.js';

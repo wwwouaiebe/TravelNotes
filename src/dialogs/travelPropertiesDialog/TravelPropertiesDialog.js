@@ -25,10 +25,10 @@ Tests ...
 
 import DockableBaseDialog from '../baseDialog/DockableBaseDialog.js';
 import TextInputControl from '../../controls/textInputControl/TextInputControl.js';
-import theTranslator from '../../UILib/Translator.js';
+import theTranslator from '../../core/uiLib/Translator.js';
 import theTravelNotesData from '../../data/TravelNotesData.js';
 import SortableListControl from '../../controls/sortableListControl/SortableListControl.js';
-import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import theTravelEditor from '../../core/TravelEditor.js';
 import RouteContextMenu from '../../contextMenus/RouteContextMenu.js';
 import TravelNameInputEL from './TravelNameInputEL.js';

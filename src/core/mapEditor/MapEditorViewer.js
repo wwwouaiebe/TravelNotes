@@ -40,7 +40,7 @@ Tests ...
 import theConfig from '../../data/Config.js';
 import theDataSearchEngine from '../../data/DataSearchEngine.js';
 import theGeometry from '../../core/lib/Geometry.js';
-import theUtilities from '../../UILib/Utilities.js';
+import theUtilities from '../../core/uiLib/Utilities.js';
 import theTravelNotesData from '../../data/TravelNotesData.js';
 import theRouteHTMLViewsFactory from '../../viewsFactories/RouteHTMLViewsFactory.js';
 import theNoteHTMLViewsFactory from '../../viewsFactories/NoteHTMLViewsFactory.js';
@@ -49,7 +49,7 @@ import theHTMLSanitizer from '../htmlSanitizer/HTMLSanitizer.js';
 import NoteLeafletObjects from './NoteLeafletObjects.js';
 
 import { GEOLOCATION_STATUS, ROUTE_EDITION_STATUS, ZERO, TWO } from '../../main/Constants.js';
-import theTranslator from '../../UILib/Translator.js';
+import theTranslator from '../../core/uiLib/Translator.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

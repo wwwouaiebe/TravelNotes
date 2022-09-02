@@ -36,7 +36,7 @@ Tests ...
 
 import ObjId from '../data/ObjId.js';
 import ObjType from '../data/ObjType.js';
-import theUtilities from '../UILib/Utilities.js';
+import theUtilities from '../core/uiLib/Utilities.js';
 import theHTMLSanitizer from '../core/htmlSanitizer/HTMLSanitizer.js';
 import TravelObject from '../data/TravelObject.js';
 

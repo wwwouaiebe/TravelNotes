@@ -24,7 +24,7 @@ Tests ...
 */
 
 import DockableBaseDialog from '../baseDialog/DockableBaseDialog.js';
-import theTranslator from '../../UILib/Translator.js';
+import theTranslator from '../../core/uiLib/Translator.js';
 import theNoteHTMLViewsFactory from '../../viewsFactories/NoteHTMLViewsFactory.js';
 import SortableListControl from '../../controls/sortableListControl/SortableListControl.js';
 import NoteContextMenu from '../../contextMenus/NoteContextMenu.js';

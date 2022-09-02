@@ -40,9 +40,9 @@ ests ...
 */
 
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
-import theTranslator from '../../UILib/Translator.js';
+import theTranslator from '../../core/uiLib/Translator.js';
 import ColorControl from '../../controls/colorControl/ColorControl.js';
-import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import theConfig from '../../data/Config.js';
 import { ZERO } from '../../main/Constants.js';
 

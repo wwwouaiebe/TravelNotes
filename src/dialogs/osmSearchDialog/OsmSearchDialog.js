@@ -24,9 +24,9 @@ Tests ...
 */
 
 import theConfig from '../../data/Config.js';
-import theTranslator from '../../UILib/Translator.js';
+import theTranslator from '../../core/uiLib/Translator.js';
 import DockableBaseDialog from '../baseDialog/DockableBaseDialog.js';
-import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import OsmSearchToolbarButtons from './osmSearchToolbarButtons/OsmSearchToolbarButtons.js';
 import OsmSearchTree from './osmSearchToolbarTree/OsmSearchTree.js';
 import OsmSearchWait from './osmSearchToolbarWait/OsmSearchWait.js';

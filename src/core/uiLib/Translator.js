@@ -29,7 +29,7 @@ Doc reviewed 20210915
 Tests ...
 */
 
-import theHTMLSanitizer from '../core/htmlSanitizer/HTMLSanitizer.js';
+import theHTMLSanitizer from '../htmlSanitizer/HTMLSanitizer.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

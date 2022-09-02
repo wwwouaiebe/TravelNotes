@@ -32,7 +32,7 @@ import theConfig from '../../data/Config.js';
 import theMapLayersCollection from '../../data/MapLayersCollection.js';
 import theApiKeysManager from '../../core/ApiKeysManager.js';
 import theMapLayersManager from '../../core/MapLayersManager.js';
-import theTranslator from '../../UILib/Translator.js';
+import theTranslator from '../../core/uiLib/Translator.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

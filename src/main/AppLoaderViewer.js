@@ -32,7 +32,7 @@ import theConfig from '../data/Config.js';
 import ConfigOverloader from '../data/ConfigOverloader.js';
 import theTravelNotesViewer from '../main/TravelNotesViewer.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
-import theTranslator from '../UILib/Translator.js';
+import theTranslator from '../core/uiLib/Translator.js';
 import theViewerLayersToolbar from '../toolbars/viewerLayersToolbar/ViewerLayersToolbar.js';
 import MapEditorViewer from '../core/mapEditor/MapEditorViewer.js';
 import ViewerKeydownEL from './ViewerKeydownEL.js';

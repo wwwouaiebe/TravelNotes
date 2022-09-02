@@ -30,7 +30,7 @@ Tests ...
 
 import BaseContextMenu from './baseContextMenu/BaseContextMenu.js';
 import MenuItem from './baseContextMenu/MenuItem.js';
-import theTranslator from '../UILib/Translator.js';
+import theTranslator from '../core/uiLib/Translator.js';
 import theNoteEditor from '../core/NoteEditor.js';
 import Zoomer from '../core/Zoomer.js';
 

@@ -28,8 +28,8 @@ Doc reviewed 20220827
 Tests ...
 */
 
-import theUtilities from '../../UILib/Utilities.js';
-import theTranslator from '../../UILib/Translator.js';
+import theUtilities from '../../core/uiLib/Utilities.js';
+import theTranslator from '../../core/uiLib/Translator.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

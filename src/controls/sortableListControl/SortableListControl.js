@@ -25,7 +25,7 @@ Tests ...
 */
 
 import BaseControl from '../baseControl/BaseControl.js';
-import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import TouchListItemEL from '../sortableListControl/TouchListItemEL.js';
 import DragStartListItemEL from '../sortableListControl/DragStartListItemEL.js';
 import DropListItemEL from '../sortableListControl/DropListItemEL.js';
