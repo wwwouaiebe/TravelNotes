@@ -30,7 +30,7 @@ Tests ...
 
 import theTravelNotesData from '../../data/TravelNotesData.js';
 import theGeometry from './Geometry.js';
-import theErrorsUI from '../../errorsUI/ErrorsUI.js';
+import theErrorsUI from '../../uis/errorsUI/ErrorsUI.js';
 import theEventDispatcher from './EventDispatcher.js';
 import theSphericalTrigonometry from './SphericalTrigonometry.js';
 import Zoomer from '../../core/Zoomer.js';

@@ -32,8 +32,8 @@ Changes:
 Doc reviewed 20220827
 */
 
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import theHTMLSanitizer from '../core/htmlSanitizer/HTMLSanitizer.js';
+import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theHTMLSanitizer from '../../core/htmlSanitizer/HTMLSanitizer.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

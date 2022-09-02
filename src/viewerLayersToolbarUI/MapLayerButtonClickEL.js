@@ -31,7 +31,7 @@ Tests ...
 */
 
 import theEventDispatcher from '../core/lib/EventDispatcher.js';
-import theAttributionsUI from '../attributionsUI/AttributionsUI.js';
+import theAttributionsUI from '../uis/attributionsUI/AttributionsUI.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

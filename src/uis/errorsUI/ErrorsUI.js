@@ -33,9 +33,9 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theConfig from '../data/Config.js';
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import theHTMLSanitizer from '../core/htmlSanitizer/HTMLSanitizer.js';
+import theConfig from '../../data/Config.js';
+import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theHTMLSanitizer from '../../core/htmlSanitizer/HTMLSanitizer.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

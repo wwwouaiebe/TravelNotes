@@ -45,8 +45,8 @@ Tests 20210903
 import theTranslator from '../UILib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import GpxParser from '../core/lib/GpxParser.js';
-import theErrorsUI from '../errorsUI/ErrorsUI.js';
-import theMouseUI from '../mouseUI/MouseUI.js';
+import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
+import theMouseUI from '../uis/mouseUI/MouseUI.js';
 import theMapLayersManager from '../core/MapLayersManager.js';
 import theRouteEditor from '../core/RouteEditor.js';
 import FileCompactor from '../core/lib/FileCompactor.js';

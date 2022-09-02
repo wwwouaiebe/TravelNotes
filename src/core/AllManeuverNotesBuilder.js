@@ -26,12 +26,12 @@ Doc reviewed 20210914
 Tests 20210903
 */
 
-import WaitUI from '../waitUI/WaitUI.js';
+import WaitUI from '../uis/waitUI/WaitUI.js';
 import MapIconFromOsmFactory from '../core/mapIcon/MapIconFromOsmFactory.js';
 import Note from '../data/Note.js';
 import theGeometry from '../core/lib/Geometry.js';
 import theEventDispatcher from '../core/lib/EventDispatcher.js';
-import theErrorsUI from '../errorsUI/ErrorsUI.js';
+import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
 import theConfig from '../data/Config.js';
 import theTranslator from '../UILib/Translator.js';
 import TwoButtonsDialog from '../dialogs/twoButtonsDialog/TwoButtonsDialog.js';

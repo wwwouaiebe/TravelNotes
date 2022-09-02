@@ -55,8 +55,8 @@ import theDataSearchEngine from '../data/DataSearchEngine.js';
 import theEventDispatcher from '../core/lib/EventDispatcher.js';
 import theGeometry from '../core/lib/Geometry.js';
 import theConfig from '../data/Config.js';
-import WaitUI from '../waitUI/WaitUI.js';
-import theErrorsUI from '../errorsUI/ErrorsUI.js';
+import WaitUI from '../uis/waitUI/WaitUI.js';
+import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
 import theNoteDialogToolbarData from '../dialogs/notesDialog/toolbar/NoteDialogToolbarData.js';
 import GeoCoder from '../core/lib/GeoCoder.js';
 

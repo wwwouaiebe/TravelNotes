@@ -24,10 +24,10 @@ Doc reviewed 20210914
 Tests ...
 */
 
-import theConfig from '../data/Config.js';
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import theTranslator from '../UILib/Translator.js';
-import { ZERO } from '../main/Constants.js';
+import theConfig from '../../data/Config.js';
+import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import theTranslator from '../../UILib/Translator.js';
+import { ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

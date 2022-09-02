@@ -28,7 +28,7 @@ Tests ...
 
 import theTravelNotesData from '../data/TravelNotesData.js';
 import ViewerFileLoader from '../core/ViewerFileLoader.js';
-import theAttributionsUI from '../attributionsUI/AttributionsUI.js';
+import theAttributionsUI from '../uis/attributionsUI/AttributionsUI.js';
 import theViewerLayersToolbarUI from '../viewerLayersToolbarUI/ViewerLayersToolbarUI.js';
 import { TWO, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
 

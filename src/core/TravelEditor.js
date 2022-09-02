@@ -53,7 +53,7 @@ Tests 20210902
 import theTranslator from '../UILib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theConfig from '../data/Config.js';
-import theErrorsUI from '../errorsUI/ErrorsUI.js';
+import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
 import theRouteEditor from '../core/RouteEditor.js';
 import theUtilities from '../UILib/Utilities.js';
 import Travel from '../data/Travel.js';
@@ -61,7 +61,7 @@ import theEventDispatcher from '../core/lib/EventDispatcher.js';
 import FileCompactor from '../core/lib/FileCompactor.js';
 import theProfileDialogsManager from '../core/ProfileDialogsManager.js';
 import { INVALID_OBJ_ID, SAVE_STATUS } from '../main/Constants.js';
-import theMouseUI from '../mouseUI/MouseUI.js';
+import theMouseUI from '../uis/mouseUI/MouseUI.js';
 import SaveAsDialog from '../dialogs/saveAsDialog/SaveAsDialog.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

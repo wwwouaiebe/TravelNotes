@@ -44,7 +44,7 @@ import theTranslator from '../UILib/Translator.js';
 import theNoteDialogToolbarData from '../dialogs/notesDialog/toolbar/NoteDialogToolbarData.js';
 import theOsmSearchDictionary from '../core/osmSearch/OsmSearchDictionary.js';
 import theMapLayersCollection from '../data/MapLayersCollection.js';
-import theErrorsUI from '../errorsUI/ErrorsUI.js';
+import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
 import theDockableDialogsManager from '../core/DockableDialogsManager.js';
 import theProvidersToolbar from '../toolbars/providersToolbar/ProvidersToolbar.js';
 import RoadbookUpdateEL from './RoadbookUpdateEL.js';

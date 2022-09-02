@@ -49,14 +49,14 @@ const travelNotesCss = [
 	'src/printRoute/PrintRoute.css',
 	'src/colorControl/ColorControl.css',
 	'src/sortableListControl/SortableListControl.css',
-	'src/AttributionsUI/AttributionsUI.css',
-	'src/ErrorsUI/ErrorsUI.css',
-	'src/fullScreenUI/FullScreenUI.css',
-	'src/mouseUI/MouseUI.css',
-	'src/waitUI/WaitUI.css',
 	'src/toolbars/baseToolbar/BaseToolbar.css',
 	'src/toolbars/mapLayersToolbar/MapLayersToolbar.css',
 	'src/toolbars/providersToolbar/ProvidersToolbar.css',
+	'src/uis/AttributionsUI/AttributionsUI.css',
+	'src/uis/ErrorsUI/ErrorsUI.css',
+	'src/uis/fullScreenUI/FullScreenUI.css',
+	'src/uis/mouseUI/MouseUI.css',
+	'src/uis/waitUI/WaitUI.css',
 	'src/css/Hidden.css' // must always be the last css
 ];
 

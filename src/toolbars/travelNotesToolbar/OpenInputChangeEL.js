@@ -25,7 +25,7 @@ Tests ...
 */
 
 import FileLoader from '../../core/FileLoader.js';
-import theErrorsUI from '../../errorsUI/ErrorsUI.js';
+import theErrorsUI from '../../uis/errorsUI/ErrorsUI.js';
 import { ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

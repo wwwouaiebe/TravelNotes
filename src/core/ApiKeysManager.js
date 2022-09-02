@@ -49,7 +49,7 @@ import theEventDispatcher from '../core/lib/EventDispatcher.js';
 import DataEncryptor from '../core/lib/DataEncryptor.js';
 import PasswordDialog from '../dialogs/passwordDialog/PasswordDialog.js';
 import theTranslator from '../UILib/Translator.js';
-import theErrorsUI from '../errorsUI/ErrorsUI.js';
+import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
 
 import { ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
 

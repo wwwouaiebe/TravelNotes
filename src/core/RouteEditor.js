@@ -57,7 +57,7 @@ Tests 20210902
 import theTranslator from '../UILib/Translator.js';
 import theApiKeysManager from '../core/ApiKeysManager.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
-import theErrorsUI from '../errorsUI/ErrorsUI.js';
+import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import Route from '../data/Route.js';
 import GpxFactory from '../core/lib/GpxFactory.js';

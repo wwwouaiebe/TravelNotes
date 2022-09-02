@@ -37,7 +37,7 @@ Doc reviewed 20210915
 Tests ...
 */
 
-import theErrorsUI from '../errorsUI/ErrorsUI.js';
+import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
 import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';

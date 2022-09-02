@@ -36,7 +36,7 @@ Doc reviewed 20210913
 import theIndexedDb from '../UILib/IndexedDb.js';
 import theTravelHTMLViewsFactory from '../viewsFactories/TravelHTMLViewsFactory.js';
 import theUtilities from '../UILib/Utilities.js';
-import theMouseUI from '../mouseUI/MouseUI.js';
+import theMouseUI from '../uis/mouseUI/MouseUI.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import { SAVE_STATUS } from '../main/Constants.js';
 
