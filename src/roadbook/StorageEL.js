@@ -32,7 +32,7 @@ Tests ...
 */
 
 import theIndexedDb from '../core/uiLib/IndexedDb.js';
-import theRoadbookUpdater from '../roadbook/RoadbookUpdater.js';
+import theRoadbookUpdater from './RoadbookUpdater.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

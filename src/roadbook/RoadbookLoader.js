@@ -33,7 +33,7 @@ Tests ...
 
 import theTranslator from '../core/uiLib/Translator.js';
 import theIndexedDb from '../core/uiLib/IndexedDb.js';
-import theRoadbookUpdater from '../roadbook/RoadbookUpdater.js';
+import theRoadbookUpdater from './RoadbookUpdater.js';
 import ShowManeuverNotesChangeEL from './ShowManeuverNotesChangeEL.js';
 import ShowRouteNotesChangeEL from './ShowRouteNotesChangeEL.js';
 import ShowTravelNotesChangeEL from './ShowTravelNotesChangeEL.js';

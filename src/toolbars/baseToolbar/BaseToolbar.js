@@ -25,11 +25,11 @@ Tests ...
 */
 
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
-import ToolbarItemsContainer from '../baseToolbar/ToolbarItemsContainer.js';
-import ButtonHTMLElementClickEL from '../baseToolbar/ButtonHTMLElementClickEL.js';
-import ButtonHTMLElementTouchEL from '../baseToolbar/ButtonHTMLElementTouchEL.js';
-import ButtonsHTMLElementTouchEL from '../baseToolbar/ButtonsHTMLElementTouchEL.js';
-import ButtonsHTMLElementWheelEL from '../baseToolbar/ButtonsHTMLElementWheelEL.js';
+import ToolbarItemsContainer from './ToolbarItemsContainer.js';
+import ButtonHTMLElementClickEL from './ButtonHTMLElementClickEL.js';
+import ButtonHTMLElementTouchEL from './ButtonHTMLElementTouchEL.js';
+import ButtonsHTMLElementTouchEL from './ButtonsHTMLElementTouchEL.js';
+import ButtonsHTMLElementWheelEL from './ButtonsHTMLElementWheelEL.js';
 import theConfig from '../../data/Config.js';
 import { ZERO } from '../../main/Constants.js';
 

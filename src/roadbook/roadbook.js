@@ -30,7 +30,7 @@ Doc reviewed 20210915
 Tests ...
 */
 
-import RoadbookLoader from '../roadbook/RoadbookLoader.js';
+import RoadbookLoader from './RoadbookLoader.js';
 
 new RoadbookLoader ( ).loadRoadbook ( );
 

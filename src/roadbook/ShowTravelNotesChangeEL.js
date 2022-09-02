@@ -31,7 +31,7 @@ Doc reviewed 20210915
 Tests ...
 */
 
-import theRoadbookUpdater from '../roadbook/RoadbookUpdater.js';
+import theRoadbookUpdater from './RoadbookUpdater.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
