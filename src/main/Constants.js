@@ -22,7 +22,7 @@ Changes:
 Doc reviewed 202208
  */
 
-/* eslint no-magic-numbers: "off" */
+/* eslint-disable no-magic-numbers */
 /* eslint-disable max-classes-per-file */
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -671,6 +671,9 @@ The number 0
 const ZERO = 0;
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
+
+/* eslint-enable no-magic-numbers */
+/* eslint-enable max-classes-per-file */
 
 export {
 	COLOR_CONTROL,

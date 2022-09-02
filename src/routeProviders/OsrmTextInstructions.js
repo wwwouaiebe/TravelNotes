@@ -230,7 +230,7 @@ class OsrmTextInstructions 	{
 		return config.join ( '' );
 	}
 
-	/* eslint-disable-next-line complexity */
+	// eslint-disable-next-line complexity
 	getWayName ( language, step, options ) {
 		const classes = options ? options.classes || [] : [];
 		if ( 'object' !== typeof step ) {
@@ -267,7 +267,7 @@ class OsrmTextInstructions 	{
 		return wayName;
 	}
 
-	/* eslint-disable-next-line complexity, max-statements */
+	// eslint-disable-next-line complexity, max-statements
 	compile ( language, step, opts ) {
 		if ( ! step.maneuver ) {
 			throw new Error ( 'No step maneuver provided' );
@@ -284,7 +284,7 @@ class OsrmTextInstructions 	{
 			throw new Error ( 'Missing step maneuver modifier' );
 		}
 		if ( ! instructions[ language ][ OUR_VERSION ][ type ] ) {
-			/* eslint-disable-next-line no-console */
+			// eslint-disable-next-line no-console
 			console.log ( 'Encountered unknown instruction type: ' + type );
 			type = 'turn';
 		}
@@ -361,20 +361,20 @@ class OsrmTextInstructions 	{
 				:
 				'';
 		const replaceTokens = {
-			/* eslint-disable-next-line camelcase */
+			// eslint-disable-next-line camelcase
 			way_name : wayName,
 			destination : firstDestination,
 			exit : ( step.exits || '' ).split ( ';' )[ ZERO ],
-			/* eslint-disable-next-line camelcase */
+			// eslint-disable-next-line camelcase
 			exit_number : this.ordinalize ( language, step.maneuver.exit || ONE ),
-			/* eslint-disable-next-line camelcase */
+			// eslint-disable-next-line camelcase
 			rotary_name : step.rotary_name,
-			/* eslint-disable-next-line camelcase */
+			// eslint-disable-next-line camelcase
 			lane_instruction : laneInstruction,
 			modifier : instructions[ language ][ OUR_VERSION ].constants.modifier[ modifier ],
 			direction : this.directionFromDegree ( language, step.maneuver.bearing_after ),
 			nth : nthWaypoint,
-			/* eslint-disable-next-line camelcase */
+			// eslint-disable-next-line camelcase
 			waypoint_name : options.waypointName
 		};
 		return this.tokenize ( language, instruction, replaceTokens, options );
@@ -397,12 +397,12 @@ class OsrmTextInstructions 	{
 		return nameToProceed;
 	}
 
-	/* eslint-disable-next-line max-params */
+	// eslint-disable-next-line max-params
 	tokenize ( language, instruction, tokens, options ) {
 		const that = this;
 		let startedWithToken = false;
 		const output = instruction.replace (
-			/* eslint-disable-next-line max-params */
+			// eslint-disable-next-line max-params
 			/\{(\w+)(?::(\w+))?\}/g, function ( token, tag, grammar, offset ) {
 				let value = tokens[ tag ];
 				if ( 'undefined' === typeof value ) {

@@ -47,18 +47,21 @@ class BaseContextMenuOperator {
 	@type {Object}
 	*/
 
-	/* eslint-disable no-magic-numbers */
-
 	static #keyboardItemChange = Object.freeze (
 		{
+			// eslint-disable-next-line no-magic-numbers
 			get previousItem ( ) { return -1; },
+
+			// eslint-disable-next-line no-magic-numbers
 			get firstItem ( ) { return 0; },
+
+			// eslint-disable-next-line no-magic-numbers
 			get nextItem ( ) { return 1; },
+
+			// eslint-disable-next-line no-magic-numbers
 			get lastItem ( ) { return 2; }
 		}
 	);
-
-	/* eslint-enable no-magic-numbers */
 
 	/**
 	A reference to the context menu

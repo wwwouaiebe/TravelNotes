@@ -358,6 +358,7 @@ class TravelUpdater {
 		this.#updateTravel ( );
 	}
 }
+/* eslint-enable camelcase */
 
 export default TravelUpdater;
 

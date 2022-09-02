@@ -42,7 +42,7 @@ class BaseRouteProvider {
 	@type {Route}
 	*/
 
-	/* eslint-disable-next-line no-unused-private-class-members */
+	// eslint-disable-next-line no-unused-private-class-members
 	#route;
 
 	/**
@@ -53,7 +53,7 @@ class BaseRouteProvider {
 
 	*/
 
-	/* eslint-disable-next-line no-unused-vars */
+	// eslint-disable-next-line no-unused-vars
 	#getRoute ( onOk, onError ) {
 
 		// to be implemented in the derived classes

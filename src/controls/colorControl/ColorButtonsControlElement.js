@@ -60,7 +60,7 @@ class ColorButtonsControlElement {
 	The number of rows buttons in the control
 	@type {Number}
 	*/
-	/* eslint-disable-next-line no-magic-numbers */
+	// eslint-disable-next-line no-magic-numbers
 	static get #ROW_NUMBERS ( ) { return 6; }
 
 	/**
@@ -68,7 +68,7 @@ class ColorButtonsControlElement {
 	@type {Number}
 	*/
 
-	/* eslint-disable-next-line no-magic-numbers */
+	// eslint-disable-next-line no-magic-numbers
 	static get #CELL_NUMBERS ( ) { return 6; }
 
 	/**
@@ -76,7 +76,7 @@ class ColorButtonsControlElement {
 	@type {Number}
 	*/
 
-	/* eslint-disable-next-line no-magic-numbers */
+	// eslint-disable-next-line no-magic-numbers
 	static get #DELTA_COLOR ( ) { return 51; }
 
 	/**

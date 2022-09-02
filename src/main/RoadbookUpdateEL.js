@@ -22,8 +22,6 @@ Changes:
 Doc reviewed 202208
  */
 
-/* eslint-disable max-lines */
-
 import theIndexedDb from '../core/uiLib/IndexedDb.js';
 import theTravelHTMLViewsFactory from '../viewsFactories/TravelHTMLViewsFactory.js';
 import theUtilities from '../core/uiLib/Utilities.js';

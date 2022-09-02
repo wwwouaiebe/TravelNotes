@@ -150,7 +150,7 @@ class PolylineRouteProvider extends BaseRouteProvider {
 		);
 
 		/* for short distances a single line is ok */
-		/* eslint-disable-next-line no-magic-numbers */
+		// eslint-disable-next-line no-magic-numbers
 		if ( 0.1 > angularDistance * DEGREES.fromRadians ) {
 			return;
 		}

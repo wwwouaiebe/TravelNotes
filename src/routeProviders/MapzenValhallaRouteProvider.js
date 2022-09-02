@@ -174,9 +174,9 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 		const request = {
 			locations : [],
 			costing : '',
-			/* eslint-disable-next-line camelcase */
+			// eslint-disable-next-line camelcase
 			directions_options : { language : this.userLanguage },
-			/* eslint-disable-next-line camelcase */
+			// eslint-disable-next-line camelcase
 			costing_options : {}
 		};
 
@@ -194,18 +194,18 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 		switch ( this.#route.itinerary.transitMode ) {
 		case 'bike' :
 			request.costing = 'bicycle';
-			/* eslint-disable-next-line camelcase */
+			// eslint-disable-next-line camelcase
 			request.costing_options = {
 				bicycle : {
-					/* eslint-disable-next-line camelcase, no-magic-numbers*/
+					// eslint-disable-next-line camelcase, no-magic-numbers
 					maneuver_penalty : 30,
-					/* eslint-disable-next-line camelcase */
+					// eslint-disable-next-line camelcase
 					bicycle_type : 'Cross',
-					/* eslint-disable-next-line camelcase */
+					// eslint-disable-next-line camelcase
 					cycling_speed : '20.0',
-					/* eslint-disable-next-line camelcase */
+					// eslint-disable-next-line camelcase
 					use_roads : '0.25',
-					/* eslint-disable-next-line camelcase */
+					// eslint-disable-next-line camelcase
 					use_hills : '0.25'
 				}
 			};
@@ -213,12 +213,12 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 			break;
 		case 'pedestrian' :
 			request.costing = 'pedestrian';
-			/* eslint-disable-next-line camelcase */
+			// eslint-disable-next-line camelcase
 			request.costing_options = { pedestrian : { walking_speed : '4.0' } };
 			break;
 		case 'car' :
 			request.costing = 'auto';
-			/* eslint-disable-next-line camelcase */
+			// eslint-disable-next-line camelcase
 			request.costing_options = { auto : { country_crossing_cost : '60' } };
 			break;
 		default :

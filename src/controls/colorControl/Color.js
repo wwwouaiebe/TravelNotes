@@ -87,7 +87,7 @@ class Color {
 	@type {Number}
 	*/
 
-	/* eslint-disable-next-line no-magic-numbers */
+	// eslint-disable-next-line no-magic-numbers
 	static get MIN_COLOR ( ) { return 0; }
 
 	/**
@@ -95,7 +95,7 @@ class Color {
 	@type {Number}
 	*/
 
-	/* eslint-disable-next-line no-magic-numbers */
+	// eslint-disable-next-line no-magic-numbers
 	static get MAX_COLOR ( ) { return 255; }
 
 	/**

@@ -22,11 +22,6 @@ Changes:
 Doc reviewed 202208
  */
 
-/* eslint-disable max-lines */
-
-import theMapEditor from '../core/mapEditor/MapEditor.js';
-import theIndexedDb from '../core/uiLib/IndexedDb.js';
-import theProfileDialogsManager from '../core/ProfileDialogsManager.js';
 import theTravelNotes from '../main/TravelNotes.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theConfig from '../data/Config.js';
@@ -36,9 +31,7 @@ import theNoteDialogToolbarData from '../dialogs/notesDialog/toolbar/NoteDialogT
 import theOsmSearchDictionary from '../core/osmSearch/OsmSearchDictionary.js';
 import theMapLayersCollection from '../data/MapLayersCollection.js';
 import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
-import theDockableDialogsManager from '../core/DockableDialogsManager.js';
-import theProvidersToolbar from '../toolbars/providersToolbar/ProvidersToolbar.js';
-import RoadbookUpdateEL from './RoadbookUpdateEL.js';
+import EventListenersLoader from './EventListenersLoader.js';
 
 import { LAT_LNG, ZERO, ONE, NOT_FOUND, HTTP_STATUS_OK } from '../main/Constants.js';
 
@@ -78,216 +71,6 @@ class AppLoader {
 	*/
 
 	#errorMessage;
-
-	/**
-	Loading event listeners
-	*/
-
-	#addEventsListeners ( ) {
-		document.addEventListener (
-			'routeupdated',
-			updateRouteEvent => {
-				if ( updateRouteEvent.data ) {
-					theMapEditor.updateRoute (
-						updateRouteEvent.data.removedRouteObjId,
-						updateRouteEvent.data.addedRouteObjId
-					);
-				}
-			},
-			false
-		);
-		document.addEventListener (
-			'routepropertiesupdated',
-			updateRoutePropertiesEvent => {
-				if ( updateRoutePropertiesEvent.data ) {
-					theMapEditor.updateRouteProperties (
-						updateRoutePropertiesEvent.data.routeObjId
-					);
-				}
-			},
-			false
-		);
-		document.addEventListener (
-			'noteupdated',
-			updateNoteEvent => {
-				if ( updateNoteEvent.data ) {
-					theMapEditor.updateNote (
-						updateNoteEvent.data.removedNoteObjId,
-						updateNoteEvent.data.addedNoteObjId
-					);
-				}
-			},
-			false
-		);
-		document.addEventListener (
-			'removeobject',
-			removeObjectEvent => {
-				if ( removeObjectEvent.data ) {
-					theMapEditor.removeObject (
-						removeObjectEvent.data.objId
-					);
-				}
-			},
-			false
-		);
-		document.addEventListener ( 'removeallobjects',	( ) => theMapEditor.removeAllObjects ( ), false );
-		document.addEventListener (
-			'zoomto',
-			zoomToEvent => {
-				if ( zoomToEvent.data ) {
-					theMapEditor.zoomTo (
-						zoomToEvent.data.latLng,
-						zoomToEvent.data.geometry
-					);
-				}
-			},
-			false
-		);
-		document.addEventListener (
-			'additinerarypointmarker',
-			addItineraryPointMarkerEvent => {
-				if ( addItineraryPointMarkerEvent.data ) {
-					theMapEditor.addItineraryPointMarker (
-						addItineraryPointMarkerEvent.data.objId,
-						addItineraryPointMarkerEvent.data.latLng
-					);
-				}
-			},
-			false
-		);
-		document.addEventListener (
-			'addsearchpointmarker',
-			addSearchPointMarkerEvent => {
-				if ( addSearchPointMarkerEvent.data ) {
-					theMapEditor.addSearchPointMarker (
-						addSearchPointMarkerEvent.data.objId,
-						addSearchPointMarkerEvent.data.latLng,
-						addSearchPointMarkerEvent.data.geometry
-					);
-				}
-			},
-			false
-		);
-		document.addEventListener (
-			'addrectangle',
-			addRectangleEvent => {
-				if ( addRectangleEvent.data ) {
-					theMapEditor.addRectangle (
-						addRectangleEvent.data.objId,
-						addRectangleEvent.data.bounds,
-						addRectangleEvent.data.properties
-					);
-				}
-			},
-			false
-		);
-		document.addEventListener (
-			'addwaypoint',
-			addWayPointEvent => {
-				if ( addWayPointEvent.data ) {
-					theMapEditor.addWayPoint (
-						addWayPointEvent.data.wayPoint,
-						addWayPointEvent.data.letter
-					);
-				}
-			},
-			false
-		);
-		document.addEventListener (
-			'layerchange',
-			layerChangeEvent => {
-				if ( layerChangeEvent.data ) {
-					theMapEditor.setLayer ( layerChangeEvent.data.layer );
-				}
-			}
-		);
-		document.addEventListener (
-			'geolocationpositionchanged',
-			geoLocationPositionChangedEvent => {
-				if ( geoLocationPositionChangedEvent.data ) {
-					theMapEditor.onGeolocationPositionChanged ( geoLocationPositionChangedEvent.data.position );
-				}
-			},
-			false
-		);
-		document.addEventListener (
-			'geolocationstatuschanged',
-			geoLocationStatusChangedEvent => {
-				if ( geoLocationStatusChangedEvent.data ) {
-					theMapEditor.onGeolocationStatusChanged ( geoLocationStatusChangedEvent.data.status );
-				}
-			},
-			false
-		);
-		document.addEventListener ( 'roadbookupdate', new RoadbookUpdateEL ( ), false );
-		document.addEventListener (
-			'profileclosed',
-			profileClosedEvent => {
-				if ( profileClosedEvent.data ) {
-					theProfileDialogsManager.onProfileClosed ( profileClosedEvent.data.objId );
-				}
-			},
-			false
-		);
-		document.addEventListener (
-			'setrouteslist',
-			( ) => theDockableDialogsManager.travelPropertiesDialog.updateContent ( ),
-			false
-		);
-		document.addEventListener (
-			'updatetravelnotes',
-			( ) => theDockableDialogsManager.travelNotesDialog.updateContent ( ),
-			false
-		);
-		document.addEventListener (
-			'showsearch',
-			( ) => theDockableDialogsManager.osmSearchDialog.updateContent ( ),
-			false
-		);
-		document.addEventListener (
-			'showtravelproperties',
-			( ) => theDockableDialogsManager.showTravelProperties ( ),
-			false
-		);
-		document.addEventListener ( 'providersadded', ( ) => theProvidersToolbar.providersAdded ( ), false );
-		document.addEventListener (
-			'setprovider',
-			setProviderEvent => {
-				if ( setProviderEvent?.data?.provider ) {
-					theProvidersToolbar.provider = setProviderEvent.data.provider;
-				}
-			},
-			false
-		);
-		document.addEventListener (
-			'settransitmode',
-			setTransitModeEvent => {
-				if ( setTransitModeEvent?.data?.transitMode ) {
-					theProvidersToolbar.transitMode = setTransitModeEvent.data.transitMode;
-				}
-			},
-			false
-		);
-
-	}
-
-	/**
-	Loading unload and beforeunload event listeners
-	*/
-
-	#addUnloadEventsListeners ( ) {
-		window.addEventListener ( 'unload', ( ) => localStorage.removeItem ( theTravelNotesData.UUID ) );
-		window.addEventListener (
-			'beforeunload',
-			beforeUnloadEvent => {
-				theIndexedDb.closeDb ( theTravelNotesData.UUID );
-				if ( theConfig.travelNotes.haveBeforeUnloadWarning ) {
-					beforeUnloadEvent.returnValue = 'x';
-					return 'x';
-				}
-			}
-		);
-	}
 
 	/**
 	Read the url. Search a 'fil' parameter and a 'lng' parameter in the url.
@@ -562,7 +345,7 @@ class AppLoader {
 			theTravelNotes.addReadOnlyMap ( this.#travelUrl );
 		}
 		else {
-			this.#addUnloadEventsListeners ( );
+			EventListenersLoader.addUnloadEventsListeners ( );
 			theTravelNotes.addControl ( 'TravelNotes-UI' );
 		}
 	}
@@ -583,7 +366,7 @@ class AppLoader {
 	*/
 
 	async loadApp ( ) {
-		this.#addEventsListeners ( );
+		EventListenersLoader.addEventsListeners ( );
 		window.TaN = theTravelNotes;
 		this.#readURL ( );
 
@@ -603,7 +386,5 @@ class AppLoader {
 }
 
 export default AppLoader;
-
-/* eslint-enable max-lines */
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

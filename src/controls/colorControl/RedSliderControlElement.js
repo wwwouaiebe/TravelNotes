@@ -54,7 +54,7 @@ class RedSliderControlElement {
 	@type {Number}
 	*/
 
-	/* eslint-disable-next-line no-magic-numbers */
+	// eslint-disable-next-line no-magic-numbers
 	static get #SLIDER_MAX_VALUE ( ) { return 100; }
 
 	/**
@@ -62,7 +62,7 @@ class RedSliderControlElement {
 	@type {Number}
 	*/
 
-	/* eslint-disable-next-line no-magic-numbers */
+	// eslint-disable-next-line no-magic-numbers
 	static get #SLIDER_STEP ( ) { return 20; }
 
 	/**

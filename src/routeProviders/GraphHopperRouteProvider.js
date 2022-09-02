@@ -105,7 +105,7 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 					path.points,
 					[ GraphHopperRouteProvider.#ROUND_VALUE, GraphHopperRouteProvider.#ROUND_VALUE, TWO ]
 				);
-				/* eslint-disable-next-line camelcase */
+				// eslint-disable-next-line camelcase
 				path.snapped_waypoints = polylineEncoder.decode (
 					path.snapped_waypoints,
 					[ GraphHopperRouteProvider.#ROUND_VALUE, GraphHopperRouteProvider.#ROUND_VALUE, TWO ]

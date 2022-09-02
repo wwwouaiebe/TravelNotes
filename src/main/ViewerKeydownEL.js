@@ -59,7 +59,7 @@ class ViewerKeydownEL {
 		}
 		else {
 			const charCode = keyBoardEvent.key.charCodeAt ( ZERO );
-			/* eslint-disable-next-line no-magic-numbers */
+			// eslint-disable-next-line no-magic-numbers
 			if ( 47 < charCode && 58 > charCode ) {
 				theViewerLayersToolbar.setMapLayer ( keyBoardEvent.key );
 			}
