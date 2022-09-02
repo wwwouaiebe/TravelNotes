@@ -17,25 +17,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 /*
 Changes:
-	- v1.6.0:
-		- created from MapEditor
-	- v1.8.0:
-		- Issue ♯97 : Improve adding a new waypoint to a route
-	- v1.12.0:
-		- Issue ♯120 : Review the UserInterface
-	- v2.0.0:
-		- Issue ♯142 : Transform the layer object to a class as specified in the layersToolbarUI.js
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-	- v3.2.0:
-		- Issue ♯4 : Line type and line width for routes are not adapted on the print views
 	- v4.0.0:
-		- Issue # 44 : Always some problems with geo location on android
-Doc reviewed 20210914
-Tests ...
-*/
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

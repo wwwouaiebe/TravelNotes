@@ -15,22 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 /*
 Changes:
-	- v1.7.0:
-		- created
-	- v1.8.0:
-		- Issue ♯98 : Elevation is not modified in the itinerary pane
-	- v2.0.0:
-		- Issue ♯135 : Remove innerHTML from code
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210914
-Tests ...
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 import { SVG_NS, ZERO, TWO, DISTANCE } from '../../main/Constants.js';
 

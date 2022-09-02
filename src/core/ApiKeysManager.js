@@ -17,28 +17,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 /*
 Changes:
-	- v1.6.0:
-		- created
-	- v1.10.0:
-		- Issue ♯107 : Add a button to reload the ApiKeys file in the ApiKeys dialog
-	- v1.11.0:
-		- Issue ♯108 : Add a warning when an error occurs when reading the ApiKeys file at startup reopened
-	- v2.0.0:
-		- Issue ♯133 : Outphase reading the ApiKeys with the url
-		- Issue ♯137 : Remove html tags from json files
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-	- v3.2.0:
-		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
-	- v3.3.0:
-		- Issue ♯16 :  Password is asked each time the page is refreshed
-Doc reviewed 20210914
-Tests 20210903
-
------------------------------------------------------------------------------------------------------------------------
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 import ApiKey from '../containers/ApiKey.js';
 import ApiKeysDialog from '../dialogs/apiKeysDialog/ApiKeysDialog.js';

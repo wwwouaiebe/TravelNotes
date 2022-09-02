@@ -15,16 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 /*
 Changes:
 	- v4.0.0:
-        - created from BaseDialogEventListeners.js
-		- Issue ♯38 : Review mouse and touch events on the background div of dialogs
-		- Issue #41 : Not possible to move a dialog on touch devices
-Doc reviewed 20220828
-Tests ...
-*/
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

@@ -17,20 +17,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 /*
 Changes:
-	- v1.12.0:
-		- created
-	- v2.0.0:
-		- Issue ♯135 : Remove innerHTML from code
-		- Issue ♯138 : Protect the app - control html entries done by user.
-	- v2.2.0:
-		- Issue ♯64 : Improve geocoding
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210914
-Tests ...
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
 import theTranslator from '../../core/uiLib/Translator.js';

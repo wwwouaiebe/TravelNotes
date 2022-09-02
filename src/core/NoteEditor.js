@@ -17,35 +17,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 /*
 Changes:
-	- v1.0.0:
-		- created
-	- v1.4.0:
-		- Replacing DataManager with TravelNotesData, Config, Version and DataSearchEngine
-		- added newSearchNote method and modified endNoteDialog for update of the travel note pane
-		- added attachNoteToRoute and detachNoteFromRoute methods
-	- v1.5.0:
-		- Issue ♯52 : when saving the travel to the file, save also the edited route.
-	- v1.6.0:
-		- Issue ♯65 : Time to go to ES6 modules?
-		- Issue ♯66 : Work with promises for dialogs
-		- Issue ♯70 : Put the get...HTML functions outside of the editors
-		- Issue ♯68 : Review all existing promises.
-	- v1.11.0:
-		- Issue ♯110 : Add a command to create a SVG icon from osm for each maneuver
-	- v1.12.0:
-		- Issue ♯120 : Review the UserInterface
-	- v1.13.0:
-		- Issue ♯128 : Unify osmSearch and notes icons and data
-	- v2.0.0:
-		- Issue ♯135 : Remove innerHTML from code
-		- Issue ♯138 : Protect the app - control html entries done by user.
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210914
-Tests 20210902
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 import theTranslator from './uiLib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';

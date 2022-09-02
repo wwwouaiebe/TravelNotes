@@ -17,45 +17,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 /*
 Changes:
-	- v1.0.0:
-		- created
-	- v1.1.0:
-		- Issue ♯26 : added confirmation message before leaving the page when data modified.
-		- Issue ♯27 : push directly the route in the editor when starting a new travel
-	- v1.3.0:
-		- Improved myReadURL method
-		- Working with Promise at startup
-		- Added baseDialog property
-	- v1.4.0:
-		- Replacing DataManager with TravelNotesData, Config, Version and DataSearchEngine
-		- removing interface
-		- moving file functions from TravelEditor to the new FileLoader
-		- added loading of osmSearch
-	- v1.5.0:
-		- Issue ♯52 : when saving the travel to the file, save also the edited route.
-	- v1.6.0:
-		- Issue ♯65 : Time to go to ES6 modules?
-		- Issue ♯69 : ContextMenu and ContextMenuFactory are unclear
-		- Issue ♯63 : Find a better solution for provider keys upload
-		- Issue ♯75 : Merge Maps and TravelNotes
-	- v1.12.0:
-		- Issue ♯120 : Review the UserInterface
-	- v2.0.0:
-		- Issue ♯137 : Remove html tags from json files
-		- Issue ♯139 : Remove Globals
-		- Issue ♯140 : Remove userData
-	-v2.2.0:
-		- Issue ♯129 : Add an indicator when the travel is modified and not saved
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
 	- v4.0.0:
-		- Issue ♯49 : Add a full screen mode method
-		- Issue ♯51 : Review completely the UI
-Doc reviewed 20210913
-Tests ...
-*/
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 import theConfig from '../data/Config.js';
 import theTravelNotesData from '../data/TravelNotesData.js';

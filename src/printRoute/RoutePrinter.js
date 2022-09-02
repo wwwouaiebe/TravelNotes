@@ -15,27 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 /*
 Changes:
-	- v1.9.0:
-		- created
-	- v1.10.0
-		- Issue ♯106 : Profiles are not hidden when printing the route maps
-	- v1.12.0:
-		- Issue ♯120 : Review the UserInterface
-	- v2.0.0:
-		- Issue ♯134 : Remove node.setAttribute ( 'style', blablabla) in the code
-		- Issue ♯135 : Remove innerHTML from code
-		- Issue ♯136 : Remove html entities from js string
-		- Issue ♯146 : Add the travel name in the document title...
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210915
-Tests ...
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
 import theHTMLElementsFactory from '../core/uiLib/HTMLElementsFactory.js';

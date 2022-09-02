@@ -17,20 +17,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 /*
 Changes:
-	- v1.12.0:
-		- created
-	- v2.0.0:
-		- Issue ♯135 : Remove innerHTML from code
-		- Issue ♯138 : Protect the app - control html entries done by user.
-	-v2.2.0:
-		- Issue ♯129 : Add an indicator when the travel is modified and not saved
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
 	- v4.0.0:
-		- Issue ♯51 : Review completely the UI
-Doc reviewed 20210901
-Tests ...
-*/
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 /* eslint no-magic-numbers: "off" */
 /* eslint-disable max-classes-per-file */

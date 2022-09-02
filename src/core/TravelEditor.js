@@ -17,38 +17,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 /*
 Changes:
-	- v1.0.0:
-		- created
-	- v1.1.0:
-		- Issue ♯26 : added confirmation message before leaving the page when data modified.
-		- Issue ♯27 : push directly the route in the editor when starting a new travel
-		- Issue ♯31 : Add a command to import from others maps
-		- Issue ♯34 : Add a command to show all routes
-		- Issue ♯37 : Add the file name and mouse coordinates somewhere
-	- v1.3.0:
-		- moved JSON.parse, due to use of Promise
-	- v1.4.0:
-		- Replacing DataManager with TravelNotesData, Config, Version and DataSearchEngine
-		- moving file functions from TravelEditor to the new FileLoader
-	- v1.5.0:
-		- Issue ♯52 : when saving the travel to the file, save also the edited route.
-	- v1.6.0:
-		- Issue ♯65 : Time to go to ES6 modules?
-	- v1.7.0:
-		- Issue ♯90 : Open profiles are not closed when opening a travel or when starting a new travel
-	- v1.12.0:
-		- Issue ♯120 : Review the UserInterface
-	-v2.2.0:
-		- Issue ♯129 : Add an indicator when the travel is modified and not saved
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210914
-Tests 20210902
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 import theTranslator from './uiLib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';

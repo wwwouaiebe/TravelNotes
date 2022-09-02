@@ -18,10 +18,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /*
 Changes:
 	- v4.0.0:
-		- created
-Doc reviewed 20220829
-Tests ...
-*/
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 import OsmSearchDialog from '../dialogs/osmSearchDialog/OsmSearchDialog.js';
 import TravelPropertiesDialog from '../dialogs/travelPropertiesDialog/TravelPropertiesDialog.js';

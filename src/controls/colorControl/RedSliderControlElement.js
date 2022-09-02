@@ -15,14 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 /*
 Changes:
 	- v4.0.0:
-		- Created
-Doc reviewed 20220829
-Tests ...
-*/
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import RedSliderInputEL from './RedSliderInputEL.js';

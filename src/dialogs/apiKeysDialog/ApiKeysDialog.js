@@ -17,26 +17,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 /*
 Changes:
-	- v1.6.0:
-		- created
-	- v1.10.0:
-		- Issue ♯107 : Add a button to reload the ApiKeys file in the ApiKeys dialog
-	- v1.11.0:
-		- Issue ♯108 : Add a warning when an error occurs when reading the ApiKeys file at startup reopened
-	- v1.11.0:
-		- Issue ♯113 : When more than one dialog is opened, using thr Esc or Return key close all the dialogs
-	- v2.0.0:
-		- Issue ♯135 : Remove innerHTML from code
-		- Issue ♯137 : Remove html tags from json files
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-	- v 4.0.0:
-		- Issue ♯48 : Review the dialogs
-Doc reviewed 20220827
-Tests ...
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
 import ApiKeysDialogToolbar from './ApiKeysDialogToolbar.js';

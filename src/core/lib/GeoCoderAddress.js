@@ -17,31 +17,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 /*
 Changes:
-	- v1.0.0:
-		- created
-	- v1.4.0:
-		- Replacing DataManager with TravelNotesData, Config, Version and DataSearchEngine
-		- Working with Promise
-		- returning the complete Nominatim responce in place of a computed address
-	- v1.6.0:
-		- Issue ♯65 : Time to go to ES6 modules?
-		- Issue ♯68 : Review all existing promises.
-	- v1.12.0:
-		- Issue ♯120 : Review the UserInterface
-	- v2.0.0:
-		- Issue ♯138 : Protect the app - control html entries done by user.
-		- Issue ♯148 : Nominatim gives bad responses for cities... find a temporary solution.
-	- v2.2.0:
-		- Issue ♯64 : Improve geocoding
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210914
-Tests ...
-
------------------------------------------------------------------------------------------------------------------------
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 import theHTMLSanitizer from '../htmlSanitizer/HTMLSanitizer.js';
 

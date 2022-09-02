@@ -17,17 +17,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 /*
 Changes:
-	- v1.6.0:
-		- created
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
 	- v4.0.0:
-		- Issue # 44 : Always some problems with geo location on android
-Doc reviewed 20210921
-Tests 20210903
-*/
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 import theEventDispatcher from './lib/EventDispatcher.js';
 import theConfig from '../data/Config.js';

@@ -18,10 +18,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /*
 Changes:
 	- v4.0.0:
-		- created
-Doc reviewed ...
-Tests ...
-*/
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 import DockableBaseDialog from '../baseDialog/DockableBaseDialog.js';
 import theTranslator from '../../core/uiLib/Translator.js';

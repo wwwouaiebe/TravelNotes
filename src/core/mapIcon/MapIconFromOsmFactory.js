@@ -15,26 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 /*
 Changes:
-	- v1.4.0:
-		- created
-	- v1.6.0:
-		- Issue ♯65 : Time to go to ES6 modules?
-		- Issue ♯68 : Review all existing promises.
-	- v2.0.0:
-		- Issue ♯135 : Remove innerHTML from code
-		- Issue ♯136 : Remove html entities from js string
-		- Issue ♯138 : Protect the app - control html entries done by user.
-		- Issue ♯145 : Merge svg icon and knoopunt icon
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210914
-Tests ...
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 import theConfig from '../../data/Config.js';
 import theSphericalTrigonometry from '../../core/lib/SphericalTrigonometry.js';

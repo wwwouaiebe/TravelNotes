@@ -15,33 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 /*
 Changes:
-	- v1.4.0:
-		- created from RouteEditor
-	- v1.5.0:
-		- Issue ♯52 : when saving the travel to the file, save also the edited route.
-	- v1.6.0:
-		- Issue ♯65 : Time to go to ES6 modules?
-		- Issue ♯68 : Review all existing promises.
-	- v1.8.0:
-		- Issue ♯97 : Improve adding a new waypoint to a route
-	- v1.12.0:
-		- Issue ♯120 : Review the UserInterface
-	- v2.2.0:
-		- Issue ♯64 : Improve geocoding
-	- v2.3.0:
-		- Issue ♯170 : The apps crash when renaming a waypoint and then saving the route before the end of the renaming...
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-	- v3.3.0:
-		- Issue ♯15 : Not possible to edit a route due to slow response of the Geocoder.
-Doc reviewed 20210914
-Tests 20210902
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 import theConfig from '../data/Config.js';
 import theTravelNotesData from '../data/TravelNotesData.js';

@@ -17,22 +17,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 /*
 Changes:
-	- v1.6.0:
-		- created
-	-v1.7.0:
-		- modified way of working for myPointsDistance ( )
-		- Issue ♯89 : Add elevation graph => new method getLatLngElevAtDist ( )
-	- v1.9.0:
-		- Issue ♯101 : Add a print command for a route
-	- v1.13.0:
-		- Issue ♯125 : Outphase osmSearch and add it to TravelNotes
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210914
-Tests ...
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 import theTravelNotesData from '../../data/TravelNotesData.js';
 import { DISTANCE, ZERO, ONE, TWO, DEGREES, LAT_LNG, EARTH_RADIUS } from '../../main/Constants.js';
