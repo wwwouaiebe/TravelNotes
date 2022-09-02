@@ -26,7 +26,7 @@ Tests ...
 
 import theMapLayersCollection from '../data/MapLayersCollection.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
-import theEventDispatcher from '../core/lib/EventDispatcher.js';
+import theEventDispatcher from './lib/EventDispatcher.js';
 import theAttributionsUI from '../uis/attributionsUI/AttributionsUI.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

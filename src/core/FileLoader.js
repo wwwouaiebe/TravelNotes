@@ -42,17 +42,17 @@ Doc reviewed 20210921
 Tests 20210903
 */
 
-import theTranslator from '../core/uiLib/Translator.js';
+import theTranslator from './uiLib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
-import GpxParser from '../core/lib/GpxParser.js';
+import GpxParser from './lib/GpxParser.js';
 import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
 import theMouseUI from '../uis/mouseUI/MouseUI.js';
-import theMapLayersManager from '../core/MapLayersManager.js';
-import theRouteEditor from '../core/RouteEditor.js';
-import FileCompactor from '../core/lib/FileCompactor.js';
-import theEventDispatcher from '../core/lib/EventDispatcher.js';
-import theProfileDialogsManager from '../core/ProfileDialogsManager.js';
-import Zoomer from '../core/Zoomer.js';
+import theMapLayersManager from './MapLayersManager.js';
+import theRouteEditor from './RouteEditor.js';
+import FileCompactor from './lib/FileCompactor.js';
+import theEventDispatcher from './lib/EventDispatcher.js';
+import theProfileDialogsManager from './ProfileDialogsManager.js';
+import Zoomer from './Zoomer.js';
 import Travel from '../data/Travel.js';
 
 import { INVALID_OBJ_ID, ROUTE_EDITION_STATUS, SAVE_STATUS } from '../main/Constants.js';

@@ -29,11 +29,11 @@ Doc reviewed 20210921
 Tests 20210903
 */
 
-import theEventDispatcher from '../core/lib/EventDispatcher.js';
+import theEventDispatcher from './lib/EventDispatcher.js';
 import theConfig from '../data/Config.js';
 import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
 import { GEOLOCATION_STATUS, ONE, TWO } from '../main/Constants.js';
-import theTranslator from '../core/uiLib/Translator.js';
+import theTranslator from './uiLib/Translator.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

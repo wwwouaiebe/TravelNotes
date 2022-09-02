@@ -27,13 +27,13 @@ Tests 20210903
 */
 
 import WaitUI from '../uis/waitUI/WaitUI.js';
-import MapIconFromOsmFactory from '../core/mapIcon/MapIconFromOsmFactory.js';
+import MapIconFromOsmFactory from './mapIcon/MapIconFromOsmFactory.js';
 import Note from '../data/Note.js';
-import theGeometry from '../core/lib/Geometry.js';
-import theEventDispatcher from '../core/lib/EventDispatcher.js';
+import theGeometry from './lib/Geometry.js';
+import theEventDispatcher from './lib/EventDispatcher.js';
 import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
 import theConfig from '../data/Config.js';
-import theTranslator from '../core/uiLib/Translator.js';
+import theTranslator from './uiLib/Translator.js';
 import TwoButtonsDialog from '../dialogs/twoButtonsDialog/TwoButtonsDialog.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 

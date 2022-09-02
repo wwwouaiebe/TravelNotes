@@ -50,16 +50,16 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-import theTranslator from '../core/uiLib/Translator.js';
+import theTranslator from './uiLib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theConfig from '../data/Config.js';
 import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
-import theRouteEditor from '../core/RouteEditor.js';
-import theUtilities from '../core/uiLib/Utilities.js';
+import theRouteEditor from './RouteEditor.js';
+import theUtilities from './uiLib/Utilities.js';
 import Travel from '../data/Travel.js';
-import theEventDispatcher from '../core/lib/EventDispatcher.js';
-import FileCompactor from '../core/lib/FileCompactor.js';
-import theProfileDialogsManager from '../core/ProfileDialogsManager.js';
+import theEventDispatcher from './lib/EventDispatcher.js';
+import FileCompactor from './lib/FileCompactor.js';
+import theProfileDialogsManager from './ProfileDialogsManager.js';
 import { INVALID_OBJ_ID, SAVE_STATUS } from '../main/Constants.js';
 import theMouseUI from '../uis/mouseUI/MouseUI.js';
 import SaveAsDialog from '../dialogs/saveAsDialog/SaveAsDialog.js';

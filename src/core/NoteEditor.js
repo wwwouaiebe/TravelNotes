@@ -47,18 +47,18 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-import theTranslator from '../core/uiLib/Translator.js';
+import theTranslator from './uiLib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import NoteDialog from '../dialogs/notesDialog/NoteDialog.js';
 import Note from '../data/Note.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
-import theEventDispatcher from '../core/lib/EventDispatcher.js';
-import theGeometry from '../core/lib/Geometry.js';
+import theEventDispatcher from './lib/EventDispatcher.js';
+import theGeometry from './lib/Geometry.js';
 import theConfig from '../data/Config.js';
 import WaitUI from '../uis/waitUI/WaitUI.js';
 import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
 import theNoteDialogToolbarData from '../dialogs/notesDialog/toolbar/NoteDialogToolbarData.js';
-import GeoCoder from '../core/lib/GeoCoder.js';
+import GeoCoder from './lib/GeoCoder.js';
 
 import { DISTANCE, INVALID_OBJ_ID } from '../main/Constants.js';
 

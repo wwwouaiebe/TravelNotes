@@ -54,17 +54,17 @@ Doc reviewed 20210914
 Tests 20210902
 */
 
-import theTranslator from '../core/uiLib/Translator.js';
-import theApiKeysManager from '../core/ApiKeysManager.js';
+import theTranslator from './uiLib/Translator.js';
+import theApiKeysManager from './ApiKeysManager.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import Route from '../data/Route.js';
-import GpxFactory from '../core/lib/GpxFactory.js';
+import GpxFactory from './lib/GpxFactory.js';
 import RoutePropertiesDialog from '../dialogs/routePropertiesDialog/RoutePropertiesDialog.js';
 import PrintRouteMapDialog from '../dialogs/printRouteMapDialog/PrintRouteMapDialog.js';
-import theEventDispatcher from '../core/lib/EventDispatcher.js';
-import theProfileDialogsManager from '../core/ProfileDialogsManager.js';
+import theEventDispatcher from './lib/EventDispatcher.js';
+import theProfileDialogsManager from './ProfileDialogsManager.js';
 import RoutePrinter from '../printRoute/RoutePrinter.js';
 
 import { ROUTE_EDITION_STATUS, DISTANCE, INVALID_OBJ_ID } from '../main/Constants.js';
