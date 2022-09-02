@@ -30,7 +30,7 @@ Doc reviewed 20210915
 Tests ...
 */
 
-import theGeoLocator from '../core/GeoLocator.js';
+import theGeoLocator from '../../core/GeoLocator.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

@@ -33,7 +33,7 @@ import ConfigOverloader from '../data/ConfigOverloader.js';
 import theTravelNotesViewer from '../main/TravelNotesViewer.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theTranslator from '../UILib/Translator.js';
-import theViewerLayersToolbarUI from '../viewerLayersToolbarUI/ViewerLayersToolbarUI.js';
+import theViewerLayersToolbar from '../toolbars/viewerLayersToolbar/ViewerLayersToolbar.js';
 import MapEditorViewer from '../core/mapEditor/MapEditorViewer.js';
 import ViewerKeydownEL from './ViewerKeydownEL.js';
 import { ZERO, ONE, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
@@ -239,7 +239,7 @@ class AppLoaderViewer {
 	async #loadMapLayers ( ) {
 		const layersResponse = await fetch ( this.#originAndPath +	'Layers.json' );
 		if ( HTTP_STATUS_OK === layersResponse.status && layersResponse.ok ) {
-			theViewerLayersToolbarUI.addMapLayers ( await layersResponse.json ( ) );
+			theViewerLayersToolbar.addMapLayers ( await layersResponse.json ( ) );
 			return true;
 		}
 		return false;

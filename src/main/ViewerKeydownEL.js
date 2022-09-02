@@ -28,7 +28,7 @@ Doc reviewed 20210913
 Tests ...
 */
 
-import theViewerLayersToolbarUI from '../viewerLayersToolbarUI/ViewerLayersToolbarUI.js';
+import theViewerLayersToolbar from '../toolbars/viewerLayersToolbar/ViewerLayersToolbar.js';
 import theGeoLocator from '../core/GeoLocator.js';
 import Zoomer from '../core/Zoomer.js';
 
@@ -67,7 +67,7 @@ class ViewerKeydownEL {
 			const charCode = keyBoardEvent.key.charCodeAt ( ZERO );
 			/* eslint-disable-next-line no-magic-numbers */
 			if ( 47 < charCode && 58 > charCode ) {
-				theViewerLayersToolbarUI.setMapLayer ( keyBoardEvent.key );
+				theViewerLayersToolbar.setMapLayer ( keyBoardEvent.key );
 			}
 		}
 	}

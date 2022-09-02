@@ -23,7 +23,7 @@ Changes:
 Doc reviewed ...
 */
 
-#TravelNotes-ViewerLayersToolbarUI {
+#TravelNotes-ViewerLayersToolbar {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -31,7 +31,7 @@ Doc reviewed ...
 	background-color: white;
 }
 
-.TravelNotes-ViewerLayersToolbarUI-Button {
+.TravelNotes-ViewerLayersToolbar-Button {
 	padding: 0.5em;
 	text-align: center;
 	margin: 0;

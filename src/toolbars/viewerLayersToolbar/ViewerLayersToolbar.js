@@ -30,25 +30,25 @@ Doc reviewed 20210915
 Tests ...
 */
 
-import theEventDispatcher from '../core/lib/EventDispatcher.js';
-import theAttributionsUI from '../uis/attributionsUI/AttributionsUI.js';
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import MapLayer from '../data/MapLayer.js';
+import theEventDispatcher from '../../core/lib/EventDispatcher.js';
+import theAttributionsUI from '../../uis/attributionsUI/AttributionsUI.js';
+import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import MapLayer from '../../data/MapLayer.js';
 import MapLayerButtonClickEL from './MapLayerButtonClickEL.js';
 import GeoLocationButtonClickEL from './GeoLocationButtonClickEL.js';
 import ZoomButtonClickEL from './ZoomButtonClickEL.js';
-import { ZERO } from '../main/Constants.js';
+import { ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 This class is the Layer Toolbar on the left of the viewer screen.
 - Displays buttons to change the background maps and manages the background maps list.
 - Displays also a geo location button and a zoom to travel button.
-See theViewerLayersToolbarUI for the one and only one instance of this class
+See theViewerLayersToolbar for the one and only one instance of this class
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ViewerLayersToolbarUI {
+class ViewerLayersToolbar {
 
 	/**
 	The toolbar
@@ -100,7 +100,7 @@ class ViewerLayersToolbarUI {
 		// Toolbar
 		this.#mapLayersToolbar = theHTMLElementsFactory.create (
 			'div',
-			{ id : 'TravelNotes-ViewerLayersToolbarUI' },
+			{ id : 'TravelNotes-ViewerLayersToolbar' },
 			document.body
 		);
 
@@ -110,7 +110,7 @@ class ViewerLayersToolbarUI {
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-ViewerLayersToolbarUI-Button',
+				className : 'TravelNotes-ViewerLayersToolbar-Button',
 				title : 'My position',
 				textContent : '🌐',
 				style : 'color:black;background-color:white'
@@ -122,7 +122,7 @@ class ViewerLayersToolbarUI {
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-ViewerLayersToolbarUI-Button',
+				className : 'TravelNotes-ViewerLayersToolbar-Button',
 				title : 'Zoom on the travel',
 				textContent : '🔍',
 				style : 'color:black;background-color:white'
@@ -137,7 +137,7 @@ class ViewerLayersToolbarUI {
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					className : 'TravelNotes-ViewerLayersToolbarUI-Button',
+					className : 'TravelNotes-ViewerLayersToolbar-Button',
 					title : mapLayer.name,
 					dataset : { MapLayerId : mapLayerCounter },
 					textContent : mapLayer.toolbarButtonData.text,
@@ -185,13 +185,13 @@ class ViewerLayersToolbarUI {
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-The one and only one instance of ViewerLayersToolbarUI class
-@type {ViewerLayersToolbarUI}
+The one and only one instance of ViewerLayersToolbar class
+@type {ViewerLayersToolbar}
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-const theViewerLayersToolbarUI = new ViewerLayersToolbarUI ( );
+const theViewerLayersToolbar = new ViewerLayersToolbar ( );
 
-export default theViewerLayersToolbarUI;
+export default theViewerLayersToolbar;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

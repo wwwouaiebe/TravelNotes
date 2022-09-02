@@ -68,9 +68,9 @@ const travelNotesViewerCss = [
 	'src/css/NotesIcons.css',
 	'src/css/NotesForMap.css',
 	'src/css/RoutesForMap.css',
-	'src/AttributionsUI/AttributionsUI.css',
-	'src/ErrorsUI/ErrorsUI.css',
-	'src/viewerLayersToolbarUI/ViewerLayersToolbarUI.css'
+	'src/toolbars/viewerLayersToolbar/ViewerLayersToolbar.css',
+	'src/uis/AttributionsUI/AttributionsUI.css',
+	'src/uis/ErrorsUI/ErrorsUI.css'
 ];
 
 // css files needed for the roadbook

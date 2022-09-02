@@ -29,7 +29,7 @@ Tests ...
 import theTravelNotesData from '../data/TravelNotesData.js';
 import ViewerFileLoader from '../core/ViewerFileLoader.js';
 import theAttributionsUI from '../uis/attributionsUI/AttributionsUI.js';
-import theViewerLayersToolbarUI from '../viewerLayersToolbarUI/ViewerLayersToolbarUI.js';
+import theViewerLayersToolbar from '../toolbars/viewerLayersToolbar/ViewerLayersToolbar.js';
 import { TWO, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -90,10 +90,10 @@ class TravelNotesViewer {
 
 		theAttributionsUI.createUI ( );
 		if ( addLayerToolbar ) {
-			theViewerLayersToolbarUI.createUI ( );
+			theViewerLayersToolbar.createUI ( );
 		}
 
-		theViewerLayersToolbarUI.setMapLayer ( 'OSM - Color' );
+		theViewerLayersToolbar.setMapLayer ( 'OSM - Color' );
 		if ( travelUrl ) {
 			this.#loadDistantTravel ( travelUrl );
 		}
