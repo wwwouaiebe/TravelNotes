@@ -28,7 +28,7 @@ Doc reviewed 20220828
 Tests ...
 */
 
-import theConfig from '../data/Config.js';
+import theConfig from '../../data/Config.js';
 import ContextMenuKeyboardKeydownEL from '../baseContextMenu/ContextMenuKeyboardKeydownEL.js';
 import ContextMenuCancelButtonClickEL from '../baseContextMenu/ContextMenuCancelButtonClickEL.js';
 import ContextMenuTouchEL from '../baseContextMenu/ContextMenuTouchEL.js';
@@ -38,7 +38,7 @@ import MenuItemClickEL from '../baseContextMenu/MenuItemClickEL.js';
 import ContextMenuMouseLeaveEL from '../baseContextMenu/ContextMenuMouseLeaveEL.js';
 import ContextMenuMouseEnterEL from '../baseContextMenu/ContextMenuMouseEnterEL.js';
 
-import { NOT_FOUND, ZERO, ONE } from '../main/Constants.js';
+import { NOT_FOUND, ZERO, ONE } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

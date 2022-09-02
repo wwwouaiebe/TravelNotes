@@ -39,8 +39,8 @@ Doc reviewed 20220828
 Tests ...
 */
 
-import BaseContextMenu from '../baseContextMenu/BaseContextMenu.js';
-import MenuItem from '../baseContextMenu/MenuItem.js';
+import BaseContextMenu from './baseContextMenu/BaseContextMenu.js';
+import MenuItem from './baseContextMenu/MenuItem.js';
 import theConfig from '../data/Config.js';
 import theNoteEditor from '../core/NoteEditor.js';
 import theRouteEditor from '../core/RouteEditor.js';
