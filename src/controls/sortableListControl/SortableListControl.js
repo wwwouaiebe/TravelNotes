@@ -26,10 +26,10 @@ Tests ...
 
 import BaseControl from '../baseControl/BaseControl.js';
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
-import TouchListItemEL from '../sortableListControl/TouchListItemEL.js';
-import DragStartListItemEL from '../sortableListControl/DragStartListItemEL.js';
-import DropListItemEL from '../sortableListControl/DropListItemEL.js';
-import ContextMenuListItemEL from '../sortableListControl/ContextMenuListItemEL.js';
+import TouchListItemEL from './TouchListItemEL.js';
+import DragStartListItemEL from './DragStartListItemEL.js';
+import DropListItemEL from './DropListItemEL.js';
+import ContextMenuListItemEL from './ContextMenuListItemEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

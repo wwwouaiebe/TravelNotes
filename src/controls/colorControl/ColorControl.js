@@ -27,10 +27,10 @@ Tests ...
 */
 
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
-import ColorButtonsControlElement from '../colorControl/ColorButtonsControlElement.js';
-import RedSliderControlElement from '../colorControl/RedSliderControlElement.js';
-import RgbInputsControlElement from '../colorControl/RgbInputsControlElement.js';
-import SampleControlElement from '../colorControl/SampleControlElement.js';
+import ColorButtonsControlElement from './ColorButtonsControlElement.js';
+import RedSliderControlElement from './RedSliderControlElement.js';
+import RgbInputsControlElement from './RgbInputsControlElement.js';
+import SampleControlElement from './SampleControlElement.js';
 import { ZERO } from '../../main/Constants.js';
 import Color from './Color.js';
 

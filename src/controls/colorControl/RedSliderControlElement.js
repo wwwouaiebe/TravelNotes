@@ -25,8 +25,8 @@ Tests ...
 */
 
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
-import RedSliderInputEL from '../colorControl/RedSliderInputEL.js';
-import Color from '../colorControl/Color.js';
+import RedSliderInputEL from './RedSliderInputEL.js';
+import Color from './Color.js';
 import { ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

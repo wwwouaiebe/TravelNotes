@@ -26,8 +26,8 @@ Tests ...
 
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import { ZERO } from '../../main/Constants.js';
-import Color from '../colorControl/Color.js';
-import ColorButtonClickEL from '../colorControl/ColorButtonClickEL.js';
+import Color from './Color.js';
+import ColorButtonClickEL from './ColorButtonClickEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

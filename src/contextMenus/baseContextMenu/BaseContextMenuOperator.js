@@ -29,14 +29,14 @@ Tests ...
 */
 
 import theConfig from '../../data/Config.js';
-import ContextMenuKeyboardKeydownEL from '../baseContextMenu/ContextMenuKeyboardKeydownEL.js';
-import ContextMenuCancelButtonClickEL from '../baseContextMenu/ContextMenuCancelButtonClickEL.js';
-import ContextMenuTouchEL from '../baseContextMenu/ContextMenuTouchEL.js';
-import MenuItemMouseLeaveEL from '../baseContextMenu/MenuItemMouseLeaveEL.js';
-import MenuItemMouseEnterEL from '../baseContextMenu/MenuItemMouseEnterEL.js';
-import MenuItemClickEL from '../baseContextMenu/MenuItemClickEL.js';
-import ContextMenuMouseLeaveEL from '../baseContextMenu/ContextMenuMouseLeaveEL.js';
-import ContextMenuMouseEnterEL from '../baseContextMenu/ContextMenuMouseEnterEL.js';
+import ContextMenuKeyboardKeydownEL from './ContextMenuKeyboardKeydownEL.js';
+import ContextMenuCancelButtonClickEL from './ContextMenuCancelButtonClickEL.js';
+import ContextMenuTouchEL from './ContextMenuTouchEL.js';
+import MenuItemMouseLeaveEL from './MenuItemMouseLeaveEL.js';
+import MenuItemMouseEnterEL from './MenuItemMouseEnterEL.js';
+import MenuItemClickEL from './MenuItemClickEL.js';
+import ContextMenuMouseLeaveEL from './ContextMenuMouseLeaveEL.js';
+import ContextMenuMouseEnterEL from './ContextMenuMouseEnterEL.js';
 
 import { NOT_FOUND, ZERO, ONE } from '../../main/Constants.js';
 

@@ -26,9 +26,9 @@ Tests ...
 
 import theTranslator from '../../core/uiLib/Translator.js';
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
-import Color from '../colorControl/Color.js';
+import Color from './Color.js';
 import { ZERO } from '../../main/Constants.js';
-import RgbInputEL from '../colorControl/RgbInputEL.js';
+import RgbInputEL from './RgbInputEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
