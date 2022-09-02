@@ -24,8 +24,8 @@ Doc reviewed 20220829
 Tests ...
 */
 
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import { ZERO } from '../main/Constants.js';
+import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
+import { ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

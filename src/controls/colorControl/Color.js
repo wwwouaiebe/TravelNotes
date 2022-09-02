@@ -28,7 +28,7 @@ Doc reviewed 20220829
 Tests ...
 */
 
-import { ZERO, TWO, THREE, HEXADECIMAL } from '../main/Constants.js';
+import { ZERO, TWO, THREE, HEXADECIMAL } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

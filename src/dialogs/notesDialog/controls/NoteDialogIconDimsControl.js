@@ -31,7 +31,7 @@ Tests ...
 import theHTMLElementsFactory from '../../../UILib/HTMLElementsFactory.js';
 import theTranslator from '../../../UILib/Translator.js';
 import { ICON_DIMENSIONS } from '../../../main/Constants.js';
-import BaseControl from '../../../baseControl/BaseControl.js';
+import BaseControl from '../../../controls/baseControl/BaseControl.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

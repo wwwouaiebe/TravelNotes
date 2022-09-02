@@ -24,10 +24,10 @@ Doc reviewed 20220829
 Tests ...
 */
 
-import theTranslator from '../UILib/Translator.js';
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import theTranslator from '../../UILib/Translator.js';
+import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
 import Color from '../colorControl/Color.js';
-import { ZERO } from '../main/Constants.js';
+import { ZERO } from '../../main/Constants.js';
 import RgbInputEL from '../colorControl/RgbInputEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

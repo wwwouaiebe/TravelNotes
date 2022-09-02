@@ -31,7 +31,7 @@ import OsmSearchToolbarButtons from './osmSearchToolbarButtons/OsmSearchToolbarB
 import OsmSearchTree from './osmSearchToolbarTree/OsmSearchTree.js';
 import OsmSearchWait from './osmSearchToolbarWait/OsmSearchWait.js';
 import OsmSearchContextMenu from '../../contextMenus/OsmSearchContextMenu.js';
-import SortableListControl from '../../sortableListControl/SortableListControl.js';
+import SortableListControl from '../../controls/sortableListControl/SortableListControl.js';
 import OsmSearchResultsHTMLBuilder from './osmSearchResults/OsmSearchResultsHTMLBuilder.js';
 import OsmSearchLimits from '../osmSearchDialog/OsmSearchLimits.js';
 import SearchResultMouseEnterEL from './osmSearchResults/SearchResultMouseEnterEL.js';

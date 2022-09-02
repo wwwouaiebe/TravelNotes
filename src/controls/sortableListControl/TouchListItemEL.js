@@ -24,7 +24,7 @@ Doc reviewed ...
 Tests ...
 */
 
-import { ZERO, ONE, TWO } from '../main/Constants.js';
+import { ZERO, ONE, TWO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

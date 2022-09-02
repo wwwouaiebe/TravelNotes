@@ -26,12 +26,12 @@ Doc reviewed 20220829
 Tests ...
 */
 
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import theHTMLElementsFactory from '../../UILib/HTMLElementsFactory.js';
 import ColorButtonsControlElement from '../colorControl/ColorButtonsControlElement.js';
 import RedSliderControlElement from '../colorControl/RedSliderControlElement.js';
 import RgbInputsControlElement from '../colorControl/RgbInputsControlElement.js';
 import SampleControlElement from '../colorControl/SampleControlElement.js';
-import { ZERO } from '../main/Constants.js';
+import { ZERO } from '../../main/Constants.js';
 import Color from './Color.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
