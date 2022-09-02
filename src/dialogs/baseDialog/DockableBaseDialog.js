@@ -24,8 +24,8 @@ Doc reviewed 20220828
 Tests ...
 */
 
-import NonModalBaseDialog from '../baseDialog/NonModalBaseDialog.js';
-import DockableBaseDialogMover from '../baseDialog/DockableBaseDialogMover.js';
+import NonModalBaseDialog from './NonModalBaseDialog.js';
+import DockableBaseDialogMover from './DockableBaseDialogMover.js';
 import theConfig from '../../data/Config.js';
 import { ZERO } from '../../main/Constants.js';
 

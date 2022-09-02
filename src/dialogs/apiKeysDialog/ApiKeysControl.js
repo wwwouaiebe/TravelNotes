@@ -24,9 +24,9 @@ Tests ...
 */
 
 import BaseControl from '../../controls/baseControl/BaseControl.js';
-import ApiKeyControlRow from '../apiKeysDialog/ApiKeyControlRow.js';
+import ApiKeyControlRow from './ApiKeyControlRow.js';
 import ApiKey from '../../containers/ApiKey.js';
-import DeleteApiKeyButtonClickEL from '../apiKeysDialog/DeleteApiKeyButtonClickEL.js';
+import DeleteApiKeyButtonClickEL from './DeleteApiKeyButtonClickEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

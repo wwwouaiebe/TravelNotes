@@ -26,15 +26,15 @@ Tests ...
 
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import theHTMLSanitizer from '../../core/htmlSanitizer/HTMLSanitizer.js';
-import CancelButtonClickEL from '../baseDialog/CancelButtonClickEL.js';
-import ModalDialogKeyboardKeydownEL from '../baseDialog/ModalDialogKeyboardKeydownEL.js';
-import OkButtonClickEL from '../baseDialog/OkButtonClickEL.js';
-import BackgroundWheelEL from '../baseDialog/BackgroundWheelEL.js';
-import BackgroundContextMenuEL from '../baseDialog/BackgroundContextMenuEL.js';
-import BackgroundDragOverEL from '../baseDialog/BackgroundDragOverEL.js';
-import BackgroundTouchEL from '../baseDialog/BackgroundTouchEL.js';
-import BackgroundMouseEL from '../baseDialog/BackgroundMouseEL.js';
-import BaseDialog from '../baseDialog/BaseDialog.js';
+import CancelButtonClickEL from './CancelButtonClickEL.js';
+import ModalDialogKeyboardKeydownEL from './ModalDialogKeyboardKeydownEL.js';
+import OkButtonClickEL from './OkButtonClickEL.js';
+import BackgroundWheelEL from './BackgroundWheelEL.js';
+import BackgroundContextMenuEL from './BackgroundContextMenuEL.js';
+import BackgroundDragOverEL from './BackgroundDragOverEL.js';
+import BackgroundTouchEL from './BackgroundTouchEL.js';
+import BackgroundMouseEL from './BackgroundMouseEL.js';
+import BaseDialog from './BaseDialog.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

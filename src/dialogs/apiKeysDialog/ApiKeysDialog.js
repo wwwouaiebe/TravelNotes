@@ -39,9 +39,9 @@ Tests ...
 */
 
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
-import ApiKeysDialogToolbar from '../apiKeysDialog/ApiKeysDialogToolbar.js';
+import ApiKeysDialogToolbar from './ApiKeysDialogToolbar.js';
 import theTranslator from '../../core/uiLib/Translator.js';
-import ApiKeysControl from '../apiKeysDialog/ApiKeysControl.js';
+import ApiKeysControl from './ApiKeysControl.js';
 import theErrorsUI from '../../uis/errorsUI/ErrorsUI.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

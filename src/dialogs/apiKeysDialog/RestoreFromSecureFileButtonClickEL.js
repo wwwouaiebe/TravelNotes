@@ -31,7 +31,7 @@ Tests ...
 */
 
 import theUtilities from '../../core/uiLib/Utilities.js';
-import OpenSecureFileChangeEL from '../apiKeysDialog/OpenSecureFileChangeEL.js';
+import OpenSecureFileChangeEL from './OpenSecureFileChangeEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

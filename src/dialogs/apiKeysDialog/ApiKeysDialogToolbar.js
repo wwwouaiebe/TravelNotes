@@ -31,12 +31,12 @@ Tests ...
 import theTranslator from '../../core/uiLib/Translator.js';
 import theConfig from '../../data/Config.js';
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
-import RestoreFromUnsecureFileButtonClickEL from '../apiKeysDialog/RestoreFromUnsecureFileButtonClickEL.js';
-import ReloadFromServerButtonClickEL from '../apiKeysDialog/ReloadFromServerButtonClickEL.js';
-import RestoreFromSecureFileButtonClickEL from '../apiKeysDialog/RestoreFromSecureFileButtonClickEL.js';
-import SaveToSecureFileButtonClickEL from '../apiKeysDialog/SaveToSecureFileButtonClickEL.js';
-import SaveToUnsecureFileButtonClickEL from '../apiKeysDialog/SaveToUnsecureFileButtonClickEL.js';
-import NewApiKeyButtonClickEL from '../apiKeysDialog/NewApiKeyButtonClickEL.js';
+import RestoreFromUnsecureFileButtonClickEL from './RestoreFromUnsecureFileButtonClickEL.js';
+import ReloadFromServerButtonClickEL from './ReloadFromServerButtonClickEL.js';
+import RestoreFromSecureFileButtonClickEL from './RestoreFromSecureFileButtonClickEL.js';
+import SaveToSecureFileButtonClickEL from './SaveToSecureFileButtonClickEL.js';
+import SaveToUnsecureFileButtonClickEL from './SaveToUnsecureFileButtonClickEL.js';
+import NewApiKeyButtonClickEL from './NewApiKeyButtonClickEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
