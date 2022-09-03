@@ -34,6 +34,7 @@ const travelNotesCss = [
 	'src/css/Background.css',
 	'src/css/WaitAnimation.css',
 	'src/contextMenus/baseContextMenu/BaseContextMenu.css',
+	'src/controls/addressControl/AddressControl.css',
 	'src/controls/colorControl/ColorControl.css',
 	'src/controls/sortableListControl/SortableListControl.css',
 	'src/dialogs/baseDialog/BaseDialog.css',

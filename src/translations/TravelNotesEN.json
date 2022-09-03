@@ -4,6 +4,14 @@
 		"msgstr": "About Travel & Notes"
 	},
 	{
+		"msgid": "AddressControl - Address",
+		"msgstr": "Address :"
+	},
+	{
+		"msgid": "AddressControl - Reset address",
+		"msgstr": "Update the address with Nominatim"
+	},
+	{
 		"msgid": "AllManeuverNotesBuilder - Add a note for each maneuver",
 		"msgstr": "Add a note for each maneuver"
 	},
@@ -278,14 +286,6 @@
 	{
 		"msgid": "Notedialog - The icon content cannot be empty",
 		"msgstr": "The icon content cannot be empty."
-	},
-	{
-		"msgid": "NoteDialogAddressControl - Address",
-		"msgstr": "Address :"
-	},
-	{
-		"msgid": "NoteDialogAddressControl - Reset address",
-		"msgstr": "Update the address with Nominatim"
 	},
 	{
 		"msgid": "NoteDialogGeoCoderHelper - an error occurs when searching the adress",
@@ -1140,16 +1140,8 @@
 		"msgstr": "Modify the properties of this waypoint"
 	},
 	{
-		"msgid": "WayPointPropertiesDialog - Address",
-		"msgstr": "Address : "
-	},
-	{
 		"msgid": "WayPointPropertiesDialog - Name",
 		"msgstr": "Name : "
-	},
-	{
-		"msgid": "WayPointPropertiesDialog - Reset address",
-		"msgstr": "Update the address with Nominatim"
 	},
 	{
 		"msgid": "WayPointPropertiesDialog - Waypoint properties",

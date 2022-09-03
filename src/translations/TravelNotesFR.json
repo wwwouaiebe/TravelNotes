@@ -4,6 +4,14 @@
 		"msgstr": "À propos de Travel & Notes"
 	},
 	{
+		"msgid": "AddressControl - Address",
+		"msgstr": " Adresse :"
+	},
+	{
+		"msgid": "AddressControl - Reset address",
+		"msgstr": "Mettre l'adresse à jour avec Nominatim"
+	},
+	{
 		"msgid": "AllManeuverNotesBuilder - Add a note for each maneuver",
 		"msgstr": "Ajouter une note pour chaque manœuvre"
 	},
@@ -278,14 +286,6 @@
 	{
 		"msgid": "Notedialog - The icon content cannot be empty",
 		"msgstr": "Le contenu de l'icône doit être complété."
-	},
-	{
-		"msgid": "NoteDialogAddressControl - Address",
-		"msgstr": " Adresse :"
-	},
-	{
-		"msgid": "NoteDialogAddressControl - Reset address",
-		"msgstr": "Mettre l'adresse à jour avec Nominatim"
 	},
 	{
 		"msgid": "NoteDialogGeoCoderHelper - an error occurs when searching the adress",
@@ -1140,16 +1140,8 @@
 		"msgstr": "Modifier les propriétés de ce point de passage"
 	},
 	{
-		"msgid": "WayPointPropertiesDialog - Address",
-		"msgstr": "Adresse : "
-	},
-	{
 		"msgid": "WayPointPropertiesDialog - Name",
 		"msgstr": "Nom : "
-	},
-	{
-		"msgid": "WayPointPropertiesDialog - Reset address",
-		"msgstr": "Mettre l'adresse à jour avec Nominatim"
 	},
 	{
 		"msgid": "WayPointPropertiesDialog - Waypoint properties",

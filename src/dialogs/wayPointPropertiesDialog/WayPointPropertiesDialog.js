@@ -24,8 +24,9 @@ Doc reviewed 202208
 
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
 import theTranslator from '../../core/uiLib/Translator.js';
-import WayPointAddressControl from './WayPointAddressControl.js';
+import AddressControl from '../../controls/addressControl/AddressControl.js';
 import WayPointNameControl from './WayPointNameControl.js';
+import WayPointPropertiesDialogEventListeners from './WayPointPropertiesDialogEventListeners.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -51,10 +52,17 @@ class WayPointPropertiesDialog extends ModalBaseDialog {
 
 	/**
 	The waypoint address control
-	@type {WayPointAddressControl}
+	@type {AddressControl}
 	*/
 
-	#wayPointAddressControl;
+	#addressControl;
+
+	/**
+	The event listeners collection
+	@type {WayPointPropertiesDialogEventListeners}
+	*/
+
+	#eventListeners;
 
 	/**
 	The constructor
@@ -64,10 +72,11 @@ class WayPointPropertiesDialog extends ModalBaseDialog {
 	constructor ( wayPoint ) {
 		super ( );
 		this.#wayPoint = wayPoint;
+		this.#eventListeners = new WayPointPropertiesDialogEventListeners ( this );
 		this.#wayPointNameControl = new WayPointNameControl ( );
 		this.#wayPointNameControl.name = this.#wayPoint.name;
-		this.#wayPointAddressControl = new WayPointAddressControl ( this );
-		this.#wayPointAddressControl.address = this.#wayPoint.address;
+		this.#addressControl = new AddressControl ( this.#eventListeners );
+		this.#addressControl.address = this.#wayPoint.address;
 	}
 
 	/**
@@ -76,7 +85,7 @@ class WayPointPropertiesDialog extends ModalBaseDialog {
 
 	onCancel ( ) {
 
-		this.#wayPointAddressControl.destructor ( );
+		this.#eventListeners.destructor ( );
 		super.onCancel ( );
 	}
 
@@ -85,9 +94,9 @@ class WayPointPropertiesDialog extends ModalBaseDialog {
 	*/
 
 	onOk ( ) {
-		this.#wayPoint.address = this.#wayPointAddressControl.address;
+		this.#wayPoint.address = this.#addressControl.address;
 		this.#wayPoint.name = this.#wayPointNameControl.name;
-		this.#wayPointAddressControl.destructor ( );
+		this.#eventListeners.destructor ( );
 		super.onOk ( );
 	}
 
@@ -100,7 +109,7 @@ class WayPointPropertiesDialog extends ModalBaseDialog {
 	get contentHTMLElements ( ) {
 		return [ ].concat (
 			this.#wayPointNameControl.controlHTMLElement,
-			this.#wayPointAddressControl.controlHTMLElement
+			this.#addressControl.controlHTMLElement
 		);
 	}
 
@@ -117,7 +126,7 @@ class WayPointPropertiesDialog extends ModalBaseDialog {
 	*/
 
 	set address ( address ) {
-		this.#wayPointAddressControl.address = address;
+		this.#addressControl.address = address;
 	}
 
 	/**

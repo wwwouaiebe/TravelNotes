@@ -29,7 +29,7 @@ import theConfig from '../../data/Config.js';
 Click event listener for the reset address button
 */
 
-class ResetAdressButtonClickEL {
+class ResetAddressButtonClickEL {
 
 	/**
 	A reference to the dialog
@@ -83,6 +83,6 @@ class ResetAdressButtonClickEL {
 	}
 }
 
-export default ResetAdressButtonClickEL;
+export default ResetAddressButtonClickEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

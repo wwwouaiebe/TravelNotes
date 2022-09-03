@@ -30,7 +30,7 @@ import NoteDialogIconDimsControl from './controls/NoteDialogIconDimsControl.js';
 import NoteDialogIconControl from './controls/NoteDialogIconControl.js';
 import NoteDialogTooltipControl from './controls/NoteDialogTooltipControl.js';
 import NoteDialogPopupControl from './controls/NoteDialogPopupControl.js';
-import NoteDialogAddressControl from './controls/NoteDialogAddressControl.js';
+import AddressControl from '../../controls/addressControl/AddressControl.js';
 import NoteDialogLinkControl from './controls/NoteDialogLinkControl.js';
 import NoteDialogPhoneControl from './controls/NoteDialogPhoneControl.js';
 import NoteDialogPreviewControl from './controls/NoteDialogPreviewControl.js';
@@ -107,7 +107,7 @@ class NoteDialog extends ModalBaseDialog {
 
 	/**
 	The address control
-	@type {NoteDialogAddressControl}
+	@type {AddressControl}
 	*/
 
 	#addressControl;
@@ -199,7 +199,7 @@ class NoteDialog extends ModalBaseDialog {
 		this.#iconControl = new NoteDialogIconControl ( this.#eventListeners );
 		this.#tooltipControl = new NoteDialogTooltipControl ( this.#eventListeners );
 		this.#popupControl = new NoteDialogPopupControl ( this.#eventListeners );
-		this.#addressControl = new NoteDialogAddressControl ( this.#eventListeners, this.#startGeoCoder );
+		this.#addressControl = new AddressControl ( this.#eventListeners );
 		this.#linkControl = new NoteDialogLinkControl ( this.#eventListeners, note.latLng );
 		this.#phoneControl = new NoteDialogPhoneControl ( this.#eventListeners );
 		this.#previewControl = new NoteDialogPreviewControl ( this.#previewNote );

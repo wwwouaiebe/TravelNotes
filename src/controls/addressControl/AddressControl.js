@@ -22,9 +22,9 @@ Changes:
 Doc reviewed 202208
  */
 
-import theHTMLElementsFactory from '../../../core/uiLib/HTMLElementsFactory.js';
-import theTranslator from '../../../core/uiLib/Translator.js';
-import BaseControl from '../../../controls/baseControl/BaseControl.js';
+import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
+import theTranslator from '../../core/uiLib/Translator.js';
+import BaseControl from '../baseControl/BaseControl.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -32,7 +32,7 @@ This class is the address control of the NoteDialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NoteDialogAddressControl extends BaseControl {
+class AddressControl extends BaseControl {
 
 	/**
 	The address input
@@ -68,7 +68,7 @@ class NoteDialogAddressControl extends BaseControl {
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-Button',
-				title : theTranslator.getText ( 'NoteDialogAddressControl - Reset address' ),
+				title : theTranslator.getText ( 'AddressControl - Reset address' ),
 				textContent : '🔄'
 			},
 			addressHeaderDiv
@@ -76,7 +76,7 @@ class NoteDialogAddressControl extends BaseControl {
 		theHTMLElementsFactory.create (
 			'text',
 			{
-				value : theTranslator.getText ( 'NoteDialogAddressControl - Address' )
+				value : theTranslator.getText ( 'AddressControl - Address' )
 			},
 			addressHeaderDiv
 		);
@@ -84,7 +84,7 @@ class NoteDialogAddressControl extends BaseControl {
 			'input',
 			{
 				type : 'text',
-				className : 'TravelNotes-NoteDialog-InputText',
+				className : 'TravelNotes-AdressControl-InputText',
 				dataset : { Name : 'address' }
 			},
 			theHTMLElementsFactory.create (
@@ -96,9 +96,15 @@ class NoteDialogAddressControl extends BaseControl {
 		);
 
 		// event listeners
-		this.#addressInput.addEventListener ( 'focus', eventListeners.controlFocus );
-		this.#addressInput.addEventListener ( 'input', eventListeners.controlInput );
-		this.#addressButton.addEventListener ( 'click', eventListeners.addressButtonClick );
+		if ( eventListeners.controlFocus ) {
+			this.#addressInput.addEventListener ( 'focus', eventListeners.controlFocus );
+		}
+		if ( eventListeners.controlInput ) {
+			this.#addressInput.addEventListener ( 'input', eventListeners.controlInput );
+		}
+		if ( eventListeners.addressButtonClick ) {
+			this.#addressButton.addEventListener ( 'click', eventListeners.addressButtonClick );
+		}
 	}
 
 	/**
@@ -107,9 +113,15 @@ class NoteDialogAddressControl extends BaseControl {
 	*/
 
 	destructor ( eventListeners ) {
-		this.#addressInput.removeEventListener ( 'focus', eventListeners.controlFocus );
-		this.#addressInput.removeEventListener ( 'input', eventListeners.controlInput );
-		this.#addressButton.removeEventListener ( 'click', eventListeners.addressButtonClick );
+		if ( eventListeners.controlFocus ) {
+			this.#addressInput.removeEventListener ( 'focus', eventListeners.controlFocus );
+		}
+		if ( eventListeners.controlInput ) {
+			this.#addressInput.removeEventListener ( 'input', eventListeners.controlInput );
+		}
+		if ( eventListeners.addressButtonClick ) {
+			this.#addressButton.removeEventListener ( 'click', eventListeners.addressButtonClick );
+		}
 	}
 
 	/**
@@ -123,6 +135,6 @@ class NoteDialogAddressControl extends BaseControl {
 
 }
 
-export default NoteDialogAddressControl;
+export default AddressControl;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
