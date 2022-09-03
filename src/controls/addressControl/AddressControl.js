@@ -58,7 +58,7 @@ class AddressControl extends BaseControl {
 		super ( );
 
 		// HTMLElements creation
-		const addressHeaderDiv = theHTMLElementsFactory.create (
+		const headerControlElement = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-FlexRow'
@@ -71,14 +71,14 @@ class AddressControl extends BaseControl {
 				title : theTranslator.getText ( 'AddressControl - Reset address' ),
 				textContent : '🔄'
 			},
-			addressHeaderDiv
+			headerControlElement
 		);
 		theHTMLElementsFactory.create (
 			'text',
 			{
 				value : theTranslator.getText ( 'AddressControl - Address' )
 			},
-			addressHeaderDiv
+			headerControlElement
 		);
 		this.#addressInput = theHTMLElementsFactory.create (
 			'input',
