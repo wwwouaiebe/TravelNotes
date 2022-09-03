@@ -24,14 +24,15 @@ Doc reviewed 202208
 
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
 import NoteDialogToolbar from './toolbar/NoteDialogToolbar.js';
+
 import MapIconData from './toolbar/MapIconData.js';
 
-import NoteDialogIconDimsControl from './controls/NoteDialogIconDimsControl.js';
 import TextAreaControl from '../../controls/textAreaControl/TextAreaControl.js';
-import NoteDialogTooltipControl from './controls/NoteDialogTooltipControl.js';
+import TextInputControl from '../../controls/textInputControl/TextInputControl.js';
 import AddressControl from '../../controls/addressControl/AddressControl.js';
+
+import NoteDialogIconDimsControl from './controls/NoteDialogIconDimsControl.js';
 import NoteDialogLinkControl from './controls/NoteDialogLinkControl.js';
-import NoteDialogPhoneControl from './controls/NoteDialogPhoneControl.js';
 import NoteDialogPreviewControl from './controls/NoteDialogPreviewControl.js';
 
 import NoteDialogEventListeners from './eventListeners/NoteDialogEventListeners.js';
@@ -204,7 +205,13 @@ class NoteDialog extends ModalBaseDialog {
 			},
 			this.#eventListeners
 		);
-		this.#tooltipControl = new NoteDialogTooltipControl ( this.#eventListeners );
+		this.#tooltipControl = new TextInputControl (
+			{
+				headerText : theTranslator.getText ( 'NoteDialogTooltipControl - Tooltip content' ),
+				datasetName : 'tooltipContent'
+			},
+			this.#eventListeners
+		);
 		this.#popupControl = new TextAreaControl (
 			{
 				rows : theConfig.noteDialog.areaHeight.popupContent,
@@ -215,7 +222,13 @@ class NoteDialog extends ModalBaseDialog {
 		);
 		this.#addressControl = new AddressControl ( this.#eventListeners );
 		this.#linkControl = new NoteDialogLinkControl ( this.#eventListeners, note.latLng );
-		this.#phoneControl = new NoteDialogPhoneControl ( this.#eventListeners );
+		this.#phoneControl = new TextInputControl (
+			{
+				headerText : theTranslator.getText ( 'NoteDialogPhoneControl - Phone' ),
+				datasetName : 'phone'
+			},
+			this.#eventListeners
+		);
 		this.#previewControl = new NoteDialogPreviewControl ( this.#previewNote );
 
 		// copy the notes values into the controls
@@ -302,11 +315,11 @@ class NoteDialog extends ModalBaseDialog {
 			this.#note.iconWidth = this.#iconDimsControl.iconWidth;
 			this.#note.iconHeight = this.#iconDimsControl.iconHeight;
 			this.#note.iconContent = this.#iconControl.value;
-			this.#note.tooltipContent = this.#tooltipControl.tooltipContent;
+			this.#note.tooltipContent = this.#tooltipControl.value;
 			this.#note.popupContent = this.#popupControl.value;
 			this.#note.address = this.#addressControl.address;
 			this.#note.url = this.#linkControl.url;
-			this.#note.phone = this.#phoneControl.phone;
+			this.#note.phone = this.#phoneControl.value;
 
 			// latLng can change for map icons, so we save the value from the preview note
 			this.#note.latLng = this.#previewNote.latLng;
@@ -369,11 +382,11 @@ class NoteDialog extends ModalBaseDialog {
 		this.#iconDimsControl.iconHeight = source.iconHeight || this.#iconDimsControl.iconHeight;
 		this.#iconDimsControl.iconWidth = source.iconWidth || this.#iconDimsControl.iconWidth;
 		this.#iconControl.value = source.iconContent || this.#iconControl.value;
-		this.#tooltipControl.tooltipContent = source.tooltipContent || this.#tooltipControl.tooltipContent;
+		this.#tooltipControl.value = source.tooltipContent || this.#tooltipControl.value;
 		this.#popupControl.value = source.popupContent || this.#popupControl.value;
 		this.#addressControl.address = source.address || this.#addressControl.address;
 		this.#linkControl.url = source.url || this.#linkControl.url;
-		this.#phoneControl.phone = source.phone || this.#phoneControl.phone;
+		this.#phoneControl.value = source.phone || this.#phoneControl.value;
 	}
 
 	/**

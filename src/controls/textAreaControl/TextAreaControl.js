@@ -107,7 +107,7 @@ class TextAreaControl extends BaseControl {
 
 	get value ( ) { return this.#textArea.value; }
 
-	set value ( Value ) { this.#textArea.value = Value; }
+	set value ( value ) { this.#textArea.value = value; }
 
 }
 

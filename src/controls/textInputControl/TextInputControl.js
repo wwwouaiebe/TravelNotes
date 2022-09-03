@@ -46,21 +46,22 @@ class TextInputControl extends BaseControl {
 	@param {?Object} inputEL An input event listener to add to the input element. Can be null
 	*/
 
-	constructor ( headerText, inputEL ) {
+	constructor ( options, eventListeners /* headerText, inputEL*/ ) {
 		super ( );
 		theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-FlexRow',
-				textContent : headerText
+				textContent : options.headerText
 			},
 			this.controlHTMLElement
 		);
 		this.#valueInput = theHTMLElementsFactory.create (
 			'input',
 			{
-				className : 'TravelNotes-BaseDialog-InputText',
-				type : 'text'
+				className : 'TravelNotes-TextInputControl-TextInput',
+				type : 'text',
+				dataset : { Name : options.datasetName || 'TextInputControl' }
 			},
 			theHTMLElementsFactory.create (
 				'div',
@@ -70,8 +71,20 @@ class TextInputControl extends BaseControl {
 				this.controlHTMLElement
 			)
 		);
-		if ( inputEL ) {
-			this.#valueInput.addEventListener ( 'input', inputEL, false );
+		if ( eventListeners.controlFocus ) {
+			this.#valueInput.addEventListener ( 'focus', eventListeners.controlFocus );
+		}
+		if ( eventListeners.controlInput ) {
+			this.#valueInput.addEventListener ( 'input', eventListeners.controlInput );
+		}
+	}
+
+	destructor ( eventListeners ) {
+		if ( eventListeners.controlFocus ) {
+			this.#valueInput.removeEventListener ( 'focus', eventListeners.controlFocus );
+		}
+		if ( eventListeners.controlInput ) {
+			this.#valueInput.removeEventListener ( 'input', eventListeners.controlInput );
 		}
 	}
 
