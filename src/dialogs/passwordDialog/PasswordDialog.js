@@ -24,9 +24,7 @@ Doc reviewed 202208
 
 import theTranslator from '../../core/uiLib/Translator.js';
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
-import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
-import EyeMouseDownEL from './EyeMouseDownEL.js';
-import EyeMouseUpEL from './EyeMouseUpEL.js';
+import PasswordControl from '../../controls/passwordControl/PasswordControl.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -37,24 +35,11 @@ This class is the password dialog
 class PasswordDialog extends ModalBaseDialog {
 
 	/**
-	The password html div
-	@type {HTMLElement}
+	the password control
+	@type {PasswordControl}
 	*/
 
-	#passwordDiv;
-
-	/**
-	the password html input
-	@type {HTMLElement}
-	*/
-
-	#passwordInput;
-
-	/** the eye html span
-	@type {HTMLElement}
-	*/
-
-	#eyeSpan;
+	#passwordControl;
 
 	/**
 	the verifyPassword constructor parameter
@@ -62,20 +47,6 @@ class PasswordDialog extends ModalBaseDialog {
 	*/
 
 	#verifyPassword;
-
-	/**
-	mouseDown event listener
-	@type {EyeMouseDownEL}
-	*/
-
-	#eyeMouseDownEL;
-
-	/**
-	mouseup event listener
-	@type {EyeMouseUpEL}
-	*/
-
-	#eyeMouseUpEL;
 
 	/**
 	The minimal length for the password
@@ -93,26 +64,8 @@ class PasswordDialog extends ModalBaseDialog {
 	constructor ( verifyPassword ) {
 		super ( );
 		this.#verifyPassword = verifyPassword;
-
-		// Adding HTMLElements
-		this.#passwordDiv = theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-PasswordDialog-PasswordDiv' } );
-		this.#passwordInput = theHTMLElementsFactory.create ( 'input', { type : 'password' }, this.#passwordDiv );
-		this.#eyeSpan = theHTMLElementsFactory.create (
-			'span',
-			{
-				id : 'TravelNotes-PasswordDialog-EyeSpan',
-				textContent : '👁️'
-			},
-			this.#passwordDiv
-		);
-
-		// Event listeners
-		this.#eyeMouseDownEL = new EyeMouseDownEL ( this.#passwordInput );
-		this.#eyeMouseUpEL = new EyeMouseUpEL ( this.#passwordInput );
-		this.#eyeSpan.addEventListener ( 'mousedown', this.#eyeMouseDownEL, false );
-		this.#eyeSpan.addEventListener ( 'touchstart', this.#eyeMouseDownEL, false );
-		this.#eyeSpan.addEventListener ( 'mouseup', this.#eyeMouseUpEL,	false );
-		this.#eyeSpan.addEventListener ( 'touchend', this.#eyeMouseUpEL, false );
+		this.#passwordControl = new PasswordControl ( );
+		this.#passwordControl.focus ( );
 	}
 
 	/**
@@ -120,13 +73,7 @@ class PasswordDialog extends ModalBaseDialog {
 	*/
 
 	#destructor ( ) {
-		this.#eyeSpan.removeEventListener ( 'touchend', this.#eyeMouseDownEL, false );
-		this.#eyeSpan.removeEventListener ( 'mouseup', this.#eyeMouseUpEL,	false );
-		this.#eyeSpan.removeEventListener ( 'touchstart', this.#eyeMouseDownEL, false );
-		this.#eyeSpan.removeEventListener ( 'mousedown', this.#eyeMouseUpEL,	false );
-		this.#eyeMouseDownEL = null;
-		this.#eyeMouseUpEL = null;
-
+		this.#passwordControl.destructor ( );
 	}
 
 	/**
@@ -138,15 +85,15 @@ class PasswordDialog extends ModalBaseDialog {
 		this.hideError ( );
 		if ( this.#verifyPassword ) {
 			if (
-				( this.#passwordInput.value.length < PasswordDialog.#PSWD_MIN_LENGTH )
+				( this.#passwordControl.value.length < PasswordDialog.#PSWD_MIN_LENGTH )
 				||
-				! this.#passwordInput.value.match ( /[0-9]+/ )
+				! this.#passwordControl.value.match ( /[0-9]+/ )
 				||
-				! this.#passwordInput.value.match ( /[a-z]+/ )
+				! this.#passwordControl.value.match ( /[a-z]+/ )
 				||
-				! this.#passwordInput.value.match ( /[A-Z]+/ )
+				! this.#passwordControl.value.match ( /[A-Z]+/ )
 				||
-				! this.#passwordInput.value.match ( /[^0-9a-zA-Z]/ )
+				! this.#passwordControl.value.match ( /[^0-9a-zA-Z]/ )
 			) {
 				this.showError (
 					'<p>' + theTranslator.getText ( 'PasswordDialog - Password rules1' ) + '</p><ul>' +
@@ -156,7 +103,7 @@ class PasswordDialog extends ModalBaseDialog {
 					'<li>' + theTranslator.getText ( 'PasswordDialog - Password rules5' ) + '</li>' +
 					'<li>' + theTranslator.getText ( 'PasswordDialog - Password rules6' ) + '</li></ul>'
 				);
-				this.#passwordInput.focus ( );
+				this.#passwordControl.focus ( );
 				return false;
 			}
 		}
@@ -178,7 +125,7 @@ class PasswordDialog extends ModalBaseDialog {
 
 	onOk ( ) {
 		this.#destructor ( );
-		super.onOk ( new window.TextEncoder ( ).encode ( this.#passwordInput.value ) );
+		super.onOk ( new window.TextEncoder ( ).encode ( this.#passwordControl.value ) );
 	}
 
 	/**
@@ -186,7 +133,7 @@ class PasswordDialog extends ModalBaseDialog {
 	*/
 
 	onShow ( ) {
-		this.#passwordInput.focus ( );
+		this.#passwordControl.focus ( );
 	}
 
 	/**
@@ -194,7 +141,7 @@ class PasswordDialog extends ModalBaseDialog {
 	@type {Array.<HTMLElement>}
 	*/
 
-	get contentHTMLElements ( ) { return [ this.#passwordDiv ]; }
+	get contentHTMLElements ( ) { return [ this.#passwordControl.controlHTMLElement ]; }
 
 	/**
 	The dialog title. Overload of the BaseDialog.title property
