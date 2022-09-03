@@ -221,7 +221,7 @@ class ProvidersToolbar {
 
 	#onMouseLeave ( ) {
 		if ( this.#isShow ) {
-			this.#timerId = setTimeout ( ( ) => this.hide ( ), theConfig.layersToolbarUI.toolbarTimeOut );
+			this.#timerId = setTimeout ( ( ) => this.hide ( ), theConfig.toolbars.timeOut );
 		}
 	}
 

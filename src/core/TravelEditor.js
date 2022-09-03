@@ -200,7 +200,7 @@ class TravelEditor {
 		theEventDispatcher.dispatch ( 'showitinerary' );
 		theEventDispatcher.dispatch ( 'roadbookupdate' );
 		theEventDispatcher.dispatch ( 'updatetravelnotes' );
-		if ( theConfig.travelEditor.startupRouteEdition ) {
+		if ( theConfig.travelNotes.startupRouteEdition ) {
 			theRouteEditor.editRoute ( theTravelNotesData.travel.routes.first.objId );
 		}
 		theMouseUI.saveStatus = SAVE_STATUS.saved;

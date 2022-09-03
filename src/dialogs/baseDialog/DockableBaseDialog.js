@@ -122,7 +122,7 @@ class DockableBaseDialog extends NonModalBaseDialog {
 		if ( this.mover.dialogDocked ) {
 			this.#mouseLeaveTimerId = setTimeout (
 				( ) => { this.#hideContent ( ); },
-				theConfig.baseDialog.timeout
+				theConfig.dockableBaseDialog.timeout
 			);
 		}
 	}

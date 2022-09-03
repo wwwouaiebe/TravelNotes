@@ -35,23 +35,25 @@ const theConfig = {
 	},
 	ApiKeysDialog : {
 		haveUnsecureButtons : true,
-		showApiKeys : true,
+		showApiKeys : false,
 		showButton : true
 	},
 	baseDialog : {
 		cancelTouchX : 100,
 		cancelTouchY : 150,
-		deltaZoomDistance : 75,
-		timeout : 1500
+		deltaZoomDistance : 75
 	},
 	contextMenu : {
+		timeout : 1500
+	},
+	dockableBaseDialog : {
 		timeout : 1500
 	},
 	errorsUI :
 	{
 		helpTimeOut : 30000,
 		showError : true,
-		showHelp : true,
+		showHelp : false,
 		showInfo : true,
 		showWarning : true,
 		timeOut : 10000
@@ -81,21 +83,16 @@ const theConfig = {
 	geoLocation : {
 		marker : {
 			color : '\u0023ff0000',
-			radius : 11
+			radius : 0
 		},
 		options : {
-			enableHighAccuracy : false,
+			enableHighAccuracy : true,
 			maximumAge : 0,
-			timeout : Infinity
+			timeout : 3600000
 		},
 		watch : true,
 		zoomFactor : 17,
 		zoomToPosition : true
-	},
-	itineraryPaneUI :
-	{
-		showManeuvers : false,
-		showNotes : true
 	},
 	itineraryPoint : {
 		marker : {
@@ -106,11 +103,9 @@ const theConfig = {
 		},
 		zoomFactor : 17
 	},
-	layersToolbarUI : {
-		haveLayersToolbarUI : true,
-		toolbarTimeOut : 1500,
+	mapLayersToolbar : {
 		theDevil : {
-			addButton : false
+			addButton : true
 		}
 	},
 	map :
@@ -120,9 +115,6 @@ const theConfig = {
 			lng : 5.49542
 		},
 		zoom : 12
-	},
-	mouseUI : {
-		haveMouseUI : true
 	},
 	nominatim :
 	{
@@ -141,7 +133,6 @@ const theConfig = {
 			color : '\u0023808080',
 			weight : 1
 		},
-		reverseGeocoding : false,
 		svgIcon : {
 			angleDistance : 10,
 			angleDirection :
@@ -155,7 +146,7 @@ const theConfig = {
 				sharpRight : 340
 			},
 			rcnRefDistance : 20,
-			roadbookFactor : 1,
+			roadbookFactor : 6,
 			zoom : 17
 		}
 	},
@@ -165,7 +156,7 @@ const theConfig = {
 			popupContent : 8
 		},
 		theDevil : {
-			addButton : false,
+			addButton : true,
 			zoomFactor : 17
 		}
 	},
@@ -202,11 +193,6 @@ const theConfig = {
 		useNwr : true,
 		timeOut : 40,
 		url : 'https://lz4.overpass-api.de/api/interpreter' // "https://overpass.openstreetmap.fr/api/interpreter"
-	},
-	paneUI : {
-		switchToItinerary : false,
-		switchToTravelNotes : false,
-		switchToSearch : true
 	},
 	printRouteMap :
 	{
@@ -259,20 +245,19 @@ const theConfig = {
 			smoothCoefficient : 2.5,
 			smoothPoints : 3
 		},
-		showDragTooltip : 3,
-		width : 3
+		showDragTooltip : 0,
+		width : 5
 	},
 	routeEditor : {
 		showEditedRouteInRoadbook : true
 	},
-	travelEditor : {
-		startMinimized : true,
-		startupRouteEdition : true,
-		timeout : 1000
+	toolbars : {
+		timeOut : 1500
 	},
 	travelNotes : {
 		haveBeforeUnloadWarning : true,
-		language : 'fr'
+		language : 'fr',
+		startupRouteEdition : true
 	},
 	TravelNotesToolbar :
 	{
@@ -291,8 +276,8 @@ const theConfig = {
 		dialogY : 0
 	},
 	wayPoint : {
-		reverseGeocoding : false,
-		geocodingIncludeName : false
+		reverseGeocoding : true,
+		geocodingIncludeName : true
 	}
 };
 /* eslint-enable no-magic-numbers */

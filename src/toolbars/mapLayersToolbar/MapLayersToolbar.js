@@ -81,7 +81,7 @@ class MapLayersToolbar extends BaseToolbar {
 			}
 		);
 
-		if ( theConfig.layersToolbarUI?.theDevil?.addButton ) {
+		if ( theConfig.mapLayersToolbar?.theDevil?.addButton ) {
 			this.addToolbarItem (
 				new ToolbarItem (
 					'👿',

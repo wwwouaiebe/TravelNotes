@@ -126,16 +126,12 @@ class TravelNotes {
 		theAttributionsUI.createUI ( );
 
 		// ... the map layers toolbar UI...
-		if ( theConfig.layersToolbarUI.haveLayersToolbarUI ) {
-			theMapLayersToolbar.createUI ( );
-		}
+		theMapLayersToolbar.createUI ( );
 		theMapLayersManager.setMapLayer ( 'OSM - Color' );
 
 		// ... the mouse UI
-		if ( theConfig.mouseUI.haveMouseUI ) {
-			theMouseUI.createUI ( );
-			theMouseUI.saveStatus = SAVE_STATUS.saved;
-		}
+		theMouseUI.createUI ( );
+		theMouseUI.saveStatus = SAVE_STATUS.saved;
 
 		theTravelNotesToolbar.createUI ( );
 
@@ -153,7 +149,7 @@ class TravelNotes {
 		// Loading a new empty travel
 		theTravelNotesData.travel.jsonObject = new Travel ( ).jsonObject;
 
-		if ( theConfig.travelEditor.startupRouteEdition ) {
+		if ( theConfig.travelNotes.startupRouteEdition ) {
 			theRouteEditor.editRoute ( theTravelNotesData.travel.routes.first.objId );
 		}
 

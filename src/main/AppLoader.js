@@ -137,9 +137,9 @@ class AppLoader {
 			if ( 'wwwouaiebe.github.io' === window.location.hostname ) {
 				config.ApiKeysDialog.haveUnsecureButtons = true;
 				config.errorsUI.showHelp = true;
-				config.layersToolbarUI.theDevil.addButton = false;
+				config.mapLayersToolbar.theDevil.addButton = false;
 				// eslint-disable-next-line no-magic-numbers
-				config.note.maxManeuversNotes = 120;
+				config.note.maxManeuversNotes = 12;
 				config.note.haveBackground = true;
 				config.noteDialog.theDevil.addButton = false;
 				// eslint-disable-next-line no-magic-numbers

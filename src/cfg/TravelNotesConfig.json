@@ -8,15 +8,19 @@
 		"showApiKeys":false,
 		"showButton":true
 	},
-	"baseDialog":{
+	"baseDialog":
+	{
 		"cancelTouchX":100,
 		"cancelTouchY":150,
-		"deltaZoomDistance":75,
-		"timeout":1500 
+		"deltaZoomDistance":75
 	},
 	"contextMenu":
 	{
 		"timeout": 1500
+	},
+	"dockableBaseDialog" : 
+	{
+		"timeout" : 1500
 	},
 	"errorsUI":
 	{
@@ -63,10 +67,6 @@
 		"zoomFactor":17,
 		"zoomToPosition":true
 	},
-	"itineraryPaneUI" : {	
-		"showManeuvers" : false,
-		"showNotes" : true
-	},
 	"itineraryPoint": {
 		"marker":{
 			"color":"#ff0000",
@@ -76,10 +76,8 @@
 		},
 		"zoomFactor":17
 	},
-	"layersToolbarUI":
+	"mapLayersToolbar":
 	{
-		"haveLayersToolbarUI":true,
-		"toolbarTimeOut":1500,
 		"theDevil": {
 			"addButton": true
 		}
@@ -91,10 +89,6 @@
 			"lng":5.49542
 		},
 		"zoom":12
-	},
-	"mouseUI":
-	{
-		"haveMouseUI":true
 	},
 	"nominatim":
 	{
@@ -116,7 +110,6 @@
 			"color":"#808080",
 			"weight":1
 		},
-		"reverseGeocoding":true,
 		"svgIcon":{
 			"angleDistance":10,
 			"angleDirection":
@@ -178,11 +171,6 @@
 		"timeOut":40,
 		"url":"https://lz4.overpass-api.de/api/interpreter"
 	},
-	"paneUI" : {
-		"switchToItinerary" : false,
-		"switchToTravelNotes" : false,
-		"switchToSearch" : true
-	},
 	"printRouteMap":
 	{
 		"firefoxBrowser" : true,
@@ -243,15 +231,13 @@
 	{
 		"showEditedRouteInRoadbook" : true
 	},
-	"travelEditor":
-	{
-		"startMinimized":true,
-		"startupRouteEdition":true,
-		"timeout":1500
+	"toolbars" : {
+		"timeOut" :1500
 	},
 	"travelNotes" : {
 		"haveBeforeUnloadWarning":true,
-		"language":"fr"
+		"language":"fr",
+		"startupRouteEdition":true
 	},
 	"TravelNotesToolbar":
 	{
