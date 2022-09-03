@@ -30,13 +30,14 @@ import MapIconData from './toolbar/MapIconData.js';
 import TextAreaControl from '../../controls/textAreaControl/TextAreaControl.js';
 import TextInputControl from '../../controls/textInputControl/TextInputControl.js';
 import AddressControl from '../../controls/addressControl/AddressControl.js';
+import GeoCoderHelper from '../../controls/addressControl/GeoCoderHelper.js';
 
 import NoteDialogIconDimsControl from './controls/NoteDialogIconDimsControl.js';
 import NoteDialogLinkControl from './controls/NoteDialogLinkControl.js';
 import NoteDialogPreviewControl from './controls/NoteDialogPreviewControl.js';
 
 import NoteDialogEventListeners from './eventListeners/NoteDialogEventListeners.js';
-import NoteDialogGeoCoderHelper from './NoteDialogGeoCoderHelper.js';
+
 import theHTMLSanitizer from '../../core/htmlSanitizer/HTMLSanitizer.js';
 import theTranslator from '../../core/uiLib/Translator.js';
 import theConfig from '../../data/Config.js';
@@ -87,21 +88,21 @@ class NoteDialog extends ModalBaseDialog {
 
 	/**
 	The icon control
-	@type {NoteDialogIconControl}
+	@type {TextAreaControl}
 	*/
 
 	#iconControl;
 
 	/**
 	The tooltip control
-	@type {NoteDialogTooltipControl}
+	@type {TextInputControl}
 	*/
 
 	#tooltipControl;
 
 	/**
 	The popup control
-	@type {NoteDialogPopupControl}
+	@type {TextAreaControl}
 	*/
 
 	#popupControl;
@@ -122,7 +123,7 @@ class NoteDialog extends ModalBaseDialog {
 
 	/**
 	The phone control
-	@type {NoteDialogPhoneControl}
+	@type {TextInputControl}
 	*/
 
 	#phoneControl;
@@ -220,7 +221,7 @@ class NoteDialog extends ModalBaseDialog {
 			},
 			this.#eventListeners
 		);
-		this.#addressControl = new AddressControl ( this.#eventListeners );
+		this.#addressControl = new AddressControl (	this.#eventListeners );
 		this.#linkControl = new NoteDialogLinkControl ( this.#eventListeners, note.latLng );
 		this.#phoneControl = new TextInputControl (
 			{
@@ -270,7 +271,7 @@ class NoteDialog extends ModalBaseDialog {
 	show ( ) {
 		const dialogPromise = super.show ( );
 		if ( this.#startGeoCoder ) {
-			new NoteDialogGeoCoderHelper ( this ).setAddressWithGeoCoder ( this.#previewNote.latLng );
+			new GeoCoderHelper ( this ).setAddressWithGeoCoder ( this.#previewNote.latLng );
 		}
 		return dialogPromise;
 	}
@@ -281,7 +282,7 @@ class NoteDialog extends ModalBaseDialog {
 	*/
 
 	canClose ( ) {
-		if ( '' === this.#iconControl.iconContent ) {
+		if ( '' === this.#iconControl.value ) {
 			this.showError ( theTranslator.getText ( 'Notedialog - The icon content cannot be empty' ) );
 			return false;
 		}

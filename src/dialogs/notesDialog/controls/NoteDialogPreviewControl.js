@@ -39,7 +39,7 @@ class NoteDialogPreviewControl {
 	@type {HTMLElement}
 	*/
 
-	#previewDiv;
+	#previewHTMLElement;
 
 	/**
 	A reference to the note displayed in the control
@@ -60,13 +60,13 @@ class NoteDialogPreviewControl {
 		this.#previewNote = previewNote;
 
 		// HTMLElements creation
-		this.#previewDiv = theHTMLElementsFactory.create (
+		this.#previewHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-NoteDialog-PreviewDiv'
 			}
 		);
-		this.#previewDiv.appendChild (
+		this.#previewHTMLElement.appendChild (
 			theNoteHTMLViewsFactory.getNoteTextAndIconHTML (
 				'TravelNotes-NoteDialog-',
 				new NoteAndRoute ( this.#previewNote, null )
@@ -79,8 +79,8 @@ class NoteDialogPreviewControl {
 	*/
 
 	update ( ) {
-		this.#previewDiv.textContent = '';
-		this.#previewDiv.appendChild (
+		this.#previewHTMLElement.textContent = '';
+		this.#previewHTMLElement.appendChild (
 			theNoteHTMLViewsFactory.getNoteTextAndIconHTML (
 				'TravelNotes-NoteDialog-',
 				{ note : this.#previewNote, route : null }
@@ -93,7 +93,7 @@ class NoteDialogPreviewControl {
 	@type {Array.<HTMLElement>}
 	*/
 
-	get HTMLElements ( ) { return [ this.#previewDiv ]; }
+	get HTMLElements ( ) { return [ this.#previewHTMLElement ]; }
 
 }
 

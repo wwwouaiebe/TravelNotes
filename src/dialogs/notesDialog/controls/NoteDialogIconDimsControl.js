@@ -117,7 +117,7 @@ class NoteDialogIconDimsControl extends BaseControl {
 
 	get iconWidth ( ) { return Number.parseInt ( this.#iconWidthInput.value ); }
 
-	set iconWidth ( Value ) { this.#iconWidthInput.value = Value; }
+	set iconWidth ( value ) { this.#iconWidthInput.value = value; }
 
 	/**
 	The icon width height in the control
@@ -126,7 +126,7 @@ class NoteDialogIconDimsControl extends BaseControl {
 
 	get iconHeight ( ) { return Number.parseInt ( this.#iconHeightInput.value ); }
 
-	set iconHeight ( Value ) { this.#iconHeightInput.value = Value; }
+	set iconHeight ( value ) { this.#iconHeightInput.value = value; }
 
 }
 

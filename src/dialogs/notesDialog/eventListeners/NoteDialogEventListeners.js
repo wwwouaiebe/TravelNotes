@@ -24,7 +24,7 @@ Doc reviewed 202208
 
 import AllControlsFocusEL from './AllControlsFocusEL.js';
 import AllControlsInputEL from './AllControlsInputEL.js';
-import AddressButtonClickEL from './AddressButtonClickEL.js';
+import AddressButtonClickEL from '../../../controls/addressControl/AddressButtonClickEL.js';
 import UrlInputBlurEL from './UrlInputBlurEL.js';
 import EditionButtonsClickEL from './EditionButtonsClickEL.js';
 import IconSelectorChangeEL from './IconSelectorChangeEL.js';

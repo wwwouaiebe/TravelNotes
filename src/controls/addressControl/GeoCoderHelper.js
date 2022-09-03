@@ -31,14 +31,14 @@ Helper class for the address button
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NoteDialogGeoCoderHelper {
+class GeoCoderHelper {
 
 	/**
-	A reference to the NoteDialog object
-	@type {NoteDialog}
+	A reference to the dialog object
+	@type {ModalBaseDialog}
 	*/
 
-	#noteDialog;
+	#dialog;
 
 	/**
 	Success handler for the geoCoder.getAddressWithPromise ( ) method
@@ -46,14 +46,14 @@ class NoteDialogGeoCoderHelper {
 	*/
 
 	#onAddressUpdatedByGeoCoder ( address ) {
-		this.#noteDialog.hideWait ( );
+		this.#dialog.hideWait ( );
 		let addressString = address.street;
 		if ( '' !== address.city ) {
 			addressString += ' <span class="TravelNotes-NoteHtml-Address-City">' + address.city + '</span>';
 		}
 
-		this.#noteDialog.setControlsValues ( { address : addressString } );
-		this.#noteDialog.updatePreview ( { address : addressString } );
+		this.#dialog.setControlsValues ( { address : addressString } );
+		this.#dialog.updatePreview ( { address : addressString } );
 	}
 
 	/**
@@ -63,7 +63,7 @@ class NoteDialogGeoCoderHelper {
 
 	constructor ( noteDialog ) {
 		Object.freeze ( this );
-		this.#noteDialog = noteDialog;
+		this.#dialog = noteDialog;
 	}
 
 	/**
@@ -72,8 +72,8 @@ class NoteDialogGeoCoderHelper {
 	*/
 
 	setAddressWithGeoCoder ( latLng ) {
-		this.#noteDialog.showWait ( );
-		this.#noteDialog.hideError ( );
+		this.#dialog.showWait ( );
+		this.#dialog.hideError ( );
 		new GeoCoder ( ).getAddressWithPromise ( latLng )
 			.then ( address => { this.#onAddressUpdatedByGeoCoder ( address ); } )
 			.catch (
@@ -81,8 +81,8 @@ class NoteDialogGeoCoderHelper {
 					if ( err ) {
 						console.error ( err );
 					}
-					this.#noteDialog.hideWait ( );
-					this.#noteDialog.showError (
+					this.#dialog.hideWait ( );
+					this.#dialog.showError (
 						theTranslator.getText ( 'NoteDialogGeoCoderHelper - an error occurs when searching the adress' )
 					);
 				}
@@ -90,6 +90,6 @@ class NoteDialogGeoCoderHelper {
 	}
 }
 
-export default NoteDialogGeoCoderHelper;
+export default GeoCoderHelper;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

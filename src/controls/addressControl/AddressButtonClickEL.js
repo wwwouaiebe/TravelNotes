@@ -22,7 +22,7 @@ Changes:
 Doc reviewed 202208
  */
 
-import NoteDialogGeoCoderHelper from '../NoteDialogGeoCoderHelper.js';
+import GeoCoderHelper from './GeoCoderHelper.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -34,10 +34,10 @@ class AddressButtonClickEL {
 
 	/**
 	A reference to the NoteDialog object
-	@type {NoteDialog}
+	@type {ModalBaseDialog}
 	*/
 
-	#noteDialog;
+	#dialog;
 
 	/**
 	The lat and lng for witch the address must be found
@@ -48,13 +48,13 @@ class AddressButtonClickEL {
 
 	/**
 	The constructor
-	@param {NoteDialog} noteDialog A reference to the Notedialog object
+	@param {ModalBaseDialog} dialog A reference to the dialog object
 	@param {Array.<Number>} latLng The lat and lng for witch the address must be found
 	*/
 
-	constructor ( noteDialog, latLng ) {
+	constructor ( dialog, latLng ) {
 		Object.freeze ( this );
-		this.#noteDialog = noteDialog;
+		this.#dialog = dialog;
 		this.#latLng = latLng;
 	}
 
@@ -65,7 +65,7 @@ class AddressButtonClickEL {
 
 	handleEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		new NoteDialogGeoCoderHelper ( this.#noteDialog ).setAddressWithGeoCoder ( this.#latLng );
+		new GeoCoderHelper ( this.#dialog ).setAddressWithGeoCoder ( this.#latLng );
 	}
 }
 

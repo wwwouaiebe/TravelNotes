@@ -42,11 +42,11 @@ class TextInputControl extends BaseControl {
 
 	/**
 	The constructor
-	@param {String} headerText The text to display in the header control
-	@param {?Object} inputEL An input event listener to add to the input element. Can be null
+	@param {Object} options An object with the  options ( placeholder, rows, datasetName, headerText )
+	@param {Object} eventListeners A reference to the eventListeners object of the dialog
 	*/
 
-	constructor ( options, eventListeners /* headerText, inputEL*/ ) {
+	constructor ( options, eventListeners ) {
 		super ( );
 		theHTMLElementsFactory.create (
 			'div',
@@ -78,6 +78,11 @@ class TextInputControl extends BaseControl {
 			this.#valueInput.addEventListener ( 'input', eventListeners.controlInput );
 		}
 	}
+
+	/**
+	Remove event listeners
+	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the dialog
+	*/
 
 	destructor ( eventListeners ) {
 		if ( eventListeners.controlFocus ) {

@@ -91,20 +91,20 @@ class NoteDialogLinkControl extends BaseControl {
 		super ( );
 
 		// HTMLElements creation
-		const linkHeaderDiv = theHTMLElementsFactory.create (
+		const linkHeaderControlElement = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-FlexRow'
 			},
 			this.controlHTMLElement
 		);
-		this.#createTheDevilButton ( latLng, linkHeaderDiv );
+		this.#createTheDevilButton ( latLng, linkHeaderControlElement );
 		theHTMLElementsFactory.create (
 			'text',
 			{
 				value : theTranslator.getText ( 'NoteDialogLinkControl - Link' )
 			},
-			linkHeaderDiv
+			linkHeaderControlElement
 		);
 		this.#linkInput = theHTMLElementsFactory.create (
 			'input',
