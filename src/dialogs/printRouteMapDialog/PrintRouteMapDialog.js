@@ -26,8 +26,11 @@ import theTranslator from '../../core/uiLib/Translator.js';
 import theConfig from '../../data/Config.js';
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
 import theTravelNotesData from '../../data/TravelNotesData.js';
-import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
+import NumberInputControl from '../../controls/numberInputControl/NumberInputControl.js';
+import CheckboxInputControl from '../../controls/checkboxInputControl/CheckboxInputControl.js';
+import RadioInputControl from '../../controls/radioInputControl/RadioInputControl.js';
 import PrintRouteMapOptions from './PrintRouteMapOptions.js';
+import { ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -39,45 +42,45 @@ class PrintRouteMapDialog extends ModalBaseDialog {
 
 	/**
 	The paper width input
-	@type {HTMLElement}
+	@type {NumberInputControl}
 	*/
 
-	#paperWidthInput;
+	#paperWidthControl;
 
 	/**
 	The paper height input
-	@type {HTMLElement}
+	@type {NumberInputControl}
 	*/
 
-	#paperHeightInput;
+	#paperHeightControl;
 
 	/**
 	The border width input
-	@type {HTMLElement}
+	@type {NumberInputControl}
 	*/
 
-	#borderWidthInput;
-
-	/**
-	The print notes input
-	@type {HTMLElement}
-	*/
-
-	#printNotesInput;
+	#borderWidthControl;
 
 	/**
 	The zoom factor input
-	@type {HTMLElement}
+	@type {NumberInputControl}
 	*/
 
-	#zoomFactorInput;
+	#zoomFactorControl;
 
 	/**
-	The Firefox browser input
-	@type {HTMLElement}
+	The print notes control
+	@type {CheckboxInputControl}
 	*/
 
-	#firefoxBrowserInput;
+	#printNotesControl;
+
+	/**
+	The Firefox browser control
+	@type {RadioInputControl}
+	*/
+
+	#firefoxBrowserControl;
 
 	/**
 	The greatest acceptable zoom to avoid to mutch tiles asked to OSM
@@ -88,254 +91,61 @@ class PrintRouteMapDialog extends ModalBaseDialog {
 	static get #MAX_ZOOM ( ) { return 15; }
 
 	/**
-	Create the paper width div
-	@return {HTMLElement} the paper width div
-	*/
-
-	#createPaperWidthDiv ( ) {
-		const paperWidthDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-PrintRouteMapDialog-DataDiv'
-			}
-		);
-		theHTMLElementsFactory.create (
-			'text',
-			{
-				value : theTranslator.getText ( 'PrintRouteMapDialog - Paper width' )
-			},
-			paperWidthDiv
-		);
-		this.#paperWidthInput = theHTMLElementsFactory.create (
-			'input',
-			{
-				type : 'number',
-				className : 'TravelNotes-PrintRouteMapDialog-NumberInput'
-			},
-			paperWidthDiv
-		);
-		this.#paperWidthInput.value = theConfig.printRouteMap.paperWidth;
-		theHTMLElementsFactory.create (
-			'text',
-			{
-				value : theTranslator.getText ( 'PrintRouteMapDialog - Paper width units' )
-			},
-			paperWidthDiv
-		);
-
-		return paperWidthDiv;
-	}
-
-	/**
-	Create the paper height div
-	@return {HTMLElement} the paper height div
-	*/
-
-	#createPaperHeightDiv ( ) {
-		const paperHeightDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-PrintRouteMapDialog-DataDiv'
-			}
-		);
-		theHTMLElementsFactory.create (
-			'text',
-			{
-				value : theTranslator.getText ( 'PrintRouteMapDialog - Paper height' )
-			},
-			paperHeightDiv
-		);
-		this.#paperHeightInput = theHTMLElementsFactory.create (
-			'input',
-			{
-				type : 'number',
-				className : 'TravelNotes-PrintRouteMapDialog-NumberInput',
-				value : theConfig.printRouteMap.paperHeight
-			},
-			paperHeightDiv
-		);
-		theHTMLElementsFactory.create (
-			'text',
-			{
-				value : theTranslator.getText ( 'PrintRouteMapDialog - Paper height units' )
-			},
-			paperHeightDiv
-		);
-
-		return paperHeightDiv;
-	}
-
-	/**
-	Create the border width div
-	@return {HTMLElement} the border width div
-	*/
-
-	#createBorderWidthDiv ( ) {
-		const borderWidthDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-PrintRouteMapDialog-DataDiv'
-			}
-		);
-		theHTMLElementsFactory.create (
-			'text',
-			{
-				value : theTranslator.getText ( 'PrintRouteMapDialog - Border width' )
-			},
-			borderWidthDiv
-		);
-		this.#borderWidthInput = theHTMLElementsFactory.create (
-			'input',
-			{
-				type : 'number',
-				className : 'TravelNotes-PrintRouteMapDialog-NumberInput',
-				value : theConfig.printRouteMap.borderWidth
-			},
-			borderWidthDiv
-		);
-		theHTMLElementsFactory.create (
-			'text',
-			{
-				value : theTranslator.getText ( 'PrintRouteMapDialog - Border width units' )
-			},
-			borderWidthDiv
-		);
-
-		return borderWidthDiv;
-	}
-
-	/**
-	Create the zoom factor div
-	@return {HTMLElement} the zoom factor div
-	*/
-
-	#createZoomFactorDiv ( ) {
-		const zoomFactorDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-PrintRouteMapDialog-DataDiv'
-			}
-		);
-		theHTMLElementsFactory.create (
-			'text',
-			{
-				value : theTranslator.getText ( 'PrintRouteMapDialog - Zoom factor' )
-			},
-			zoomFactorDiv
-		);
-		this.#zoomFactorInput = theHTMLElementsFactory.create (
-			'input',
-			{
-				type : 'number',
-				className : 'TravelNotes-PrintRouteMapDialog-NumberInput',
-				value : Math.min ( theConfig.printRouteMap.zoomFactor, PrintRouteMapDialog.#MAX_ZOOM ),
-				min : theTravelNotesData.map.getMinZoom ( ),
-				max : Math.min ( theTravelNotesData.map.getMaxZoom ( ), PrintRouteMapDialog.#MAX_ZOOM )
-			},
-			zoomFactorDiv
-		);
-
-		return zoomFactorDiv;
-	}
-
-	/**
-	Create the print notes div
-	@return {HTMLElement} the print notes div
-	*/
-
-	#createPrintNotesDiv ( ) {
-		const printNotesDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-PrintRouteMapDialog-DataDiv'
-			}
-		);
-		this.#printNotesInput = theHTMLElementsFactory.create (
-			'input',
-			{
-				type : 'checkbox',
-				checked : theConfig.printRouteMap.printNotes
-			},
-			printNotesDiv
-		);
-		theHTMLElementsFactory.create (
-			'text',
-			{
-				value : theTranslator.getText ( 'PrintRouteMapDialog - Print notes' )
-			},
-			printNotesDiv
-		);
-
-		return printNotesDiv;
-	}
-
-	/**
-	Create the browser div
-	@return {HTMLElement} the browser div
-	*/
-
-	#createBrowserDiv ( ) {
-
-		const browserDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-PrintRouteMapDialog-DataDiv'
-			}
-		);
-
-		theHTMLElementsFactory.create (
-			'text',
-			{
-				value : theTranslator.getText ( 'PrintRouteMapDialog - Print with' )
-			},
-			browserDiv
-		);
-		this.#firefoxBrowserInput = theHTMLElementsFactory.create (
-			'input',
-			{
-				type : 'radio',
-				checked : theConfig.printRouteMap.firefoxBrowser,
-				id : 'TravelNotes-PrintRouteMapDialog-FirefoxBrowser',
-				name : 'Browser'
-			},
-			browserDiv
-		);
-		theHTMLElementsFactory.create (
-			'label',
-			{
-				htmlFor : 'TravelNotes-PrintRouteMapDialog-FirefoxBrowser',
-				innerText : 'Firefox'
-			},
-			browserDiv
-		);
-		theHTMLElementsFactory.create (
-			'input',
-			{
-				type : 'radio',
-				checked : ! theConfig.printRouteMap.firefoxBrowser,
-				id : 'TravelNotes-PrintRouteMapDialog-OtherBrowser',
-				name : 'Browser'
-			},
-			browserDiv
-		);
-		theHTMLElementsFactory.create (
-			'label',
-			{
-				htmlFor : 'TravelNotes-PrintRouteMapDialog-OtherBrowser',
-				innerText : theTranslator.getText ( 'PrintRouteMapDialog - Another browser' )
-			},
-			browserDiv
-		);
-
-		return browserDiv;
-	}
-
-	/**
 	The constructor
 	*/
 
 	constructor ( ) {
 		super ( );
+		this.#paperWidthControl = new NumberInputControl (
+			{
+				beforeText : theTranslator.getText ( 'PrintRouteMapDialog - Paper width' ),
+				afterText : theTranslator.getText ( 'PrintRouteMapDialog - Paper width units' ),
+				value : theConfig.printRouteMap.paperWidth
+			}
+		);
+		this.#paperHeightControl = new NumberInputControl (
+			{
+				beforeText : theTranslator.getText ( 'PrintRouteMapDialog - Paper height' ),
+				afterText : theTranslator.getText ( 'PrintRouteMapDialog - Paper height units' ),
+				value : theConfig.printRouteMap.paperHeight
+			}
+		);
+		this.#borderWidthControl = new NumberInputControl (
+			{
+				beforeText : theTranslator.getText ( 'PrintRouteMapDialog - Border width' ),
+				afterText : theTranslator.getText ( 'PrintRouteMapDialog - Border width units' ),
+				value : theConfig.printRouteMap.borderWidth
+			}
+		);
+		this.#zoomFactorControl = new NumberInputControl (
+			{
+				beforeText : theTranslator.getText ( 'PrintRouteMapDialog - Zoom factor' ),
+				value : Math.min ( theConfig.printRouteMap.zoomFactor, PrintRouteMapDialog.#MAX_ZOOM ),
+				min : theTravelNotesData.map.getMinZoom ( ),
+				max : Math.min ( theTravelNotesData.map.getMaxZoom ( ), PrintRouteMapDialog.#MAX_ZOOM )
+			}
+		);
+		this.#printNotesControl = new CheckboxInputControl (
+			{
+				afterText : theTranslator.getText ( 'PrintRouteMapDialog - Print notes' ),
+				checked : theConfig.printRouteMap.printNotes
+			}
+		);
+		this.#firefoxBrowserControl = new RadioInputControl (
+			{
+				headerText : theTranslator.getText ( 'PrintRouteMapDialog - Print with' ),
+				buttons : [
+					{
+						label : 'Firefox',
+						checked : theConfig.printRouteMap.firefoxBrowser
+					},
+					{
+						label : theTranslator.getText ( 'PrintRouteMapDialog - Another browser' ),
+						checked : ! theConfig.printRouteMap.firefoxBrowser
+					}
+				]
+			}
+		);
 	}
 
 	/**
@@ -345,14 +155,13 @@ class PrintRouteMapDialog extends ModalBaseDialog {
 	onOk ( ) {
 
 		const printRouteMapOptions = new PrintRouteMapOptions ( );
-		printRouteMapOptions.paperWidth = parseInt ( this.#paperWidthInput.value );
-		printRouteMapOptions.paperHeight = parseInt ( this.#paperHeightInput.value );
-		printRouteMapOptions.borderWidth = parseInt ( this.#borderWidthInput.value );
-		printRouteMapOptions.zoomFactor = parseInt ( this.#zoomFactorInput.value );
-		printRouteMapOptions.printNotes = this.#printNotesInput.checked;
-		printRouteMapOptions.firefoxBrowser = this.#firefoxBrowserInput.checked;
+		printRouteMapOptions.paperWidth = parseInt ( this.#paperWidthControl.value );
+		printRouteMapOptions.paperHeight = parseInt ( this.#paperHeightControl.value );
+		printRouteMapOptions.borderWidth = parseInt ( this.#borderWidthControl.value );
+		printRouteMapOptions.zoomFactor = parseInt ( this.#zoomFactorControl.value );
+		printRouteMapOptions.printNotes = this.#printNotesControl.checked;
+		printRouteMapOptions.firefoxBrowser = ZERO === this.#firefoxBrowserControl.value;
 		Object.freeze ( printRouteMapOptions );
-
 		super.onOk ( printRouteMapOptions );
 	}
 
@@ -363,12 +172,12 @@ class PrintRouteMapDialog extends ModalBaseDialog {
 
 	get contentHTMLElements ( ) {
 		return [
-			this.#createPaperWidthDiv ( ),
-			this.#createPaperHeightDiv ( ),
-			this.#createBorderWidthDiv ( ),
-			this.#createZoomFactorDiv ( ),
-			this.#createPrintNotesDiv ( ),
-			this.#createBrowserDiv ( )
+			this.#paperWidthControl.controlHTMLElement,
+			this.#paperHeightControl.controlHTMLElement,
+			this.#borderWidthControl.controlHTMLElement,
+			this.#zoomFactorControl.controlHTMLElement,
+			this.#printNotesControl.controlHTMLElement,
+			this.#firefoxBrowserControl.controlHTMLElement
 		];
 	}
 
