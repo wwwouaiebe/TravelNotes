@@ -45,7 +45,7 @@ class WayPointPropertiesDialog extends ModalBaseDialog {
 
 	/**
 	The waypoint name control
-	@type {WayPointNameControl}
+	@type {TextInputControl}
 	*/
 
 	#wayPointNameControl;
