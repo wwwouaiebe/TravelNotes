@@ -25,7 +25,7 @@ Doc reviewed 202208
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
 import theTranslator from '../../core/uiLib/Translator.js';
 import AddressControl from '../../controls/addressControl/AddressControl.js';
-import WayPointNameControl from './WayPointNameControl.js';
+import TextInputControl from '../../controls/textInputControl/TextInputControl.js';
 import WayPointPropertiesDialogEventListeners from './WayPointPropertiesDialogEventListeners.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -72,9 +72,14 @@ class WayPointPropertiesDialog extends ModalBaseDialog {
 	constructor ( wayPoint ) {
 		super ( );
 		this.#wayPoint = wayPoint;
-		this.#eventListeners = new WayPointPropertiesDialogEventListeners ( this );
-		this.#wayPointNameControl = new WayPointNameControl ( );
-		this.#wayPointNameControl.name = this.#wayPoint.name;
+		this.#eventListeners = new WayPointPropertiesDialogEventListeners ( this, this.#wayPoint.latLng );
+		this.#wayPointNameControl = new TextInputControl (
+			{
+				headerText : theTranslator.getText ( 'WayPointPropertiesDialog - Name' )
+			},
+			this.#eventListeners
+		);
+		this.#wayPointNameControl.value = this.#wayPoint.name;
 		this.#addressControl = new AddressControl ( this.#eventListeners );
 		this.#addressControl.address = this.#wayPoint.address;
 	}
@@ -95,7 +100,7 @@ class WayPointPropertiesDialog extends ModalBaseDialog {
 
 	onOk ( ) {
 		this.#wayPoint.address = this.#addressControl.address;
-		this.#wayPoint.name = this.#wayPointNameControl.name;
+		this.#wayPoint.name = this.#wayPointNameControl.value;
 		this.#eventListeners.destructor ( );
 		super.onOk ( );
 	}
@@ -142,6 +147,16 @@ class WayPointPropertiesDialog extends ModalBaseDialog {
 	*/
 
 	get wayPoint ( ) { return this.#wayPoint; }
+
+	/**
+	Set the control values after an update by the geoCoder
+	@param {Object} values The values to push in the controls
+	*/
+
+	setControlsValues ( values ) {
+		this.#addressControl.address = values.address;
+		this.#wayPointNameControl.value = values.name;
+	}
 }
 
 export default WayPointPropertiesDialog;

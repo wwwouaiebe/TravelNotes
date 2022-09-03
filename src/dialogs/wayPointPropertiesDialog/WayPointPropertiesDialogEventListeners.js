@@ -22,7 +22,7 @@ Changes:
 Doc reviewed 202208
  */
 
-import AddressButtonClickEL from './ResetAddressButtonClickEL.js';
+import AddressButtonClickEL from '../../controls/addressControl/AddressButtonClickEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -34,19 +34,20 @@ class WayPointPropertiesDialogEventListeners {
 
 	/**
 	The address buton click event listener
-	@type {ResetAddressButtonClickEL}
+	@type {AddressButtonClickEL}
 	*/
 
 	#addressButtonClick;
 
 	/**
 	The constructor
-	@param {WayPointPropertiesDialog} wayPointPropertiesDialog A reference to the NoteDialog object
+	@param {WayPointPropertiesDialog} wayPointPropertiesDialog A reference to the dialog object
+	@param {Array.<Number>} latLng the lat and lng of the waypoint
 	*/
 
-	constructor ( wayPointPropertiesDialog ) {
+	constructor ( wayPointPropertiesDialog, latLng ) {
 		Object.freeze ( this );
-		this.#addressButtonClick = new AddressButtonClickEL ( wayPointPropertiesDialog );
+		this.#addressButtonClick = new AddressButtonClickEL ( wayPointPropertiesDialog, latLng );
 	}
 
 	/**

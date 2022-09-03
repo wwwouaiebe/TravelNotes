@@ -49,11 +49,18 @@ class GeoCoderHelper {
 		this.#dialog.hideWait ( );
 		let addressString = address.street;
 		if ( '' !== address.city ) {
-			addressString += ' <span class="TravelNotes-NoteHtml-Address-City">' + address.city + '</span>';
+			addressString += ' ' + address.city;
 		}
 
-		this.#dialog.setControlsValues ( { address : addressString } );
-		this.#dialog.updatePreview ( { address : addressString } );
+		this.#dialog.setControlsValues (
+			{
+				address : addressString,
+				name : address.name
+			}
+		);
+		if ( this.#dialog.updatePreview ) {
+			this.#dialog.updatePreview ( { address : addressString } );
+		}
 	}
 
 	/**
