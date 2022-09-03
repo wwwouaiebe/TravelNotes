@@ -22,32 +22,32 @@ Changes:
 Doc reviewed 202208
  */
 
-import theHTMLElementsFactory from '../../../core/uiLib/HTMLElementsFactory.js';
-import theTranslator from '../../../core/uiLib/Translator.js';
-import theConfig from '../../../data/Config.js';
-import BaseControl from '../../../controls/baseControl/BaseControl.js';
+import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
+import BaseControl from '../baseControl/BaseControl.js';
+import { TWO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This class is the popupContent control of the NoteDialog
+This class is a generic control with a header text and a text area
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NoteDialogPopupControl extends BaseControl {
+class TextAreaControl extends BaseControl {
 
 	/**
-	The popup textarea
+	The text area
 	@type {HTMLElement}
 	*/
 
-	#popupTextArea;
+	#textArea;
 
 	/**
 	The constructor
-	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
+	@param {Object} options An object with the  options ( placeholder, rows, datasetName, headerText )
+	@param {Object} eventListeners A reference to the eventListeners object of the dialog
 	*/
 
-	constructor ( eventListeners ) {
+	constructor ( options, eventListeners ) {
 
 		super ( );
 
@@ -55,17 +55,18 @@ class NoteDialogPopupControl extends BaseControl {
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-FlexRow',
-				textContent : theTranslator.getText ( 'NoteDialogPopupControl - Text' )
+				textContent : options.headerText || '',
+				className : 'TravelNotes-BaseDialog-FlexRow'
 			},
 			this.controlHTMLElement
 		);
-		this.#popupTextArea = theHTMLElementsFactory.create (
+		this.#textArea = theHTMLElementsFactory.create (
 			'textarea',
 			{
-				className : 'TravelNotes-NoteDialog-TextArea',
-				rows : theConfig.noteDialog.areaHeight.popupContent,
-				dataset : { Name : 'popupContent' }
+				className : 'TravelNotes-TextAreaControl-TextArea',
+				placeholder : options.placeholder || '',
+				rows : options.rows || TWO,
+				dataset : { Name : options.datasetName || 'TextAreaControl' }
 			},
 			theHTMLElementsFactory.create (
 				'div',
@@ -77,8 +78,12 @@ class NoteDialogPopupControl extends BaseControl {
 		);
 
 		// event listeners
-		this.#popupTextArea.addEventListener ( 'focus', eventListeners.controlFocus );
-		this.#popupTextArea.addEventListener ( 'input', eventListeners.controlInput );
+		if ( eventListeners.controlFocus ) {
+			this.#textArea.addEventListener ( 'focus', eventListeners.controlFocus );
+		}
+		if ( eventListeners.controlInput ) {
+			this.#textArea.addEventListener ( 'input', eventListeners.controlInput );
+		}
 	}
 
 	/**
@@ -87,21 +92,25 @@ class NoteDialogPopupControl extends BaseControl {
 	*/
 
 	destructor ( eventListeners ) {
-		this.#popupTextArea.removeEventListener ( 'focus', eventListeners.controlFocus );
-		this.#popupTextArea.removeEventListener ( 'input', eventListeners.controlInput );
+		if ( eventListeners.controlFocus ) {
+			this.#textArea.removeEventListener ( 'focus', eventListeners.controlFocus );
+		}
+		if ( eventListeners.controlInput ) {
+			this.#textArea.removeEventListener ( 'input', eventListeners.controlInput );
+		}
 	}
 
 	/**
-	The popupcontent value in the control
+	The icon value in the control
 	@type {String}
 	*/
 
-	get popupContent ( ) { return this.#popupTextArea.value; }
+	get value ( ) { return this.#textArea.value; }
 
-	set popupContent ( Value ) { this.#popupTextArea.value = Value; }
+	set value ( Value ) { this.#textArea.value = Value; }
 
 }
 
-export default NoteDialogPopupControl;
+export default TextAreaControl;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

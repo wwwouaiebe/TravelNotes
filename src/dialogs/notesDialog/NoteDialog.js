@@ -27,9 +27,8 @@ import NoteDialogToolbar from './toolbar/NoteDialogToolbar.js';
 import MapIconData from './toolbar/MapIconData.js';
 
 import NoteDialogIconDimsControl from './controls/NoteDialogIconDimsControl.js';
-import NoteDialogIconControl from './controls/NoteDialogIconControl.js';
+import TextAreaControl from '../../controls/textAreaControl/TextAreaControl.js';
 import NoteDialogTooltipControl from './controls/NoteDialogTooltipControl.js';
-import NoteDialogPopupControl from './controls/NoteDialogPopupControl.js';
 import AddressControl from '../../controls/addressControl/AddressControl.js';
 import NoteDialogLinkControl from './controls/NoteDialogLinkControl.js';
 import NoteDialogPhoneControl from './controls/NoteDialogPhoneControl.js';
@@ -39,6 +38,7 @@ import NoteDialogEventListeners from './eventListeners/NoteDialogEventListeners.
 import NoteDialogGeoCoderHelper from './NoteDialogGeoCoderHelper.js';
 import theHTMLSanitizer from '../../core/htmlSanitizer/HTMLSanitizer.js';
 import theTranslator from '../../core/uiLib/Translator.js';
+import theConfig from '../../data/Config.js';
 import Note from '../../data/Note.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -196,9 +196,23 @@ class NoteDialog extends ModalBaseDialog {
 		// creting toolbar and controls
 		this.#toolbar = new NoteDialogToolbar ( this.#eventListeners );
 		this.#iconDimsControl = new NoteDialogIconDimsControl ( this.#eventListeners );
-		this.#iconControl = new NoteDialogIconControl ( this.#eventListeners );
+		this.#iconControl = new TextAreaControl (
+			{
+				placeholder : '?????',
+				datasetName : 'iconContent',
+				headerText : theTranslator.getText ( 'NoteDialogIconControl - Icon content' )
+			},
+			this.#eventListeners
+		);
 		this.#tooltipControl = new NoteDialogTooltipControl ( this.#eventListeners );
-		this.#popupControl = new NoteDialogPopupControl ( this.#eventListeners );
+		this.#popupControl = new TextAreaControl (
+			{
+				rows : theConfig.noteDialog.areaHeight.popupContent,
+				datasetName : 'popupContent',
+				headerText : theTranslator.getText ( 'NoteDialogPopupControl - Text' )
+			},
+			this.#eventListeners
+		);
 		this.#addressControl = new AddressControl ( this.#eventListeners );
 		this.#linkControl = new NoteDialogLinkControl ( this.#eventListeners, note.latLng );
 		this.#phoneControl = new NoteDialogPhoneControl ( this.#eventListeners );
@@ -287,9 +301,9 @@ class NoteDialog extends ModalBaseDialog {
 			// saving values in the note.
 			this.#note.iconWidth = this.#iconDimsControl.iconWidth;
 			this.#note.iconHeight = this.#iconDimsControl.iconHeight;
-			this.#note.iconContent = this.#iconControl.iconContent;
+			this.#note.iconContent = this.#iconControl.value;
 			this.#note.tooltipContent = this.#tooltipControl.tooltipContent;
-			this.#note.popupContent = this.#popupControl.popupContent;
+			this.#note.popupContent = this.#popupControl.value;
 			this.#note.address = this.#addressControl.address;
 			this.#note.url = this.#linkControl.url;
 			this.#note.phone = this.#phoneControl.phone;
@@ -354,9 +368,9 @@ class NoteDialog extends ModalBaseDialog {
 	setControlsValues ( source ) {
 		this.#iconDimsControl.iconHeight = source.iconHeight || this.#iconDimsControl.iconHeight;
 		this.#iconDimsControl.iconWidth = source.iconWidth || this.#iconDimsControl.iconWidth;
-		this.#iconControl.iconContent = source.iconContent || this.#iconControl.iconContent;
+		this.#iconControl.value = source.iconContent || this.#iconControl.value;
 		this.#tooltipControl.tooltipContent = source.tooltipContent || this.#tooltipControl.tooltipContent;
-		this.#popupControl.popupContent = source.popupContent || this.#popupControl.popupContent;
+		this.#popupControl.value = source.popupContent || this.#popupControl.value;
 		this.#addressControl.address = source.address || this.#addressControl.address;
 		this.#linkControl.url = source.url || this.#linkControl.url;
 		this.#phoneControl.phone = source.phone || this.#phoneControl.phone;
