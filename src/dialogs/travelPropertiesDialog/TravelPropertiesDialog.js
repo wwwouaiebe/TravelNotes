@@ -109,7 +109,7 @@ class TravelPropertiesDialog extends DockableBaseDialog {
 		if ( ! this.#travelRoutesControl ) {
 			return;
 		}
-		const contentHTMLElements = [];
+		const listItemsHTMLElements = [];
 		theTravelNotesData.travel.routes.forEach (
 			route => {
 				const routeName =
@@ -120,7 +120,7 @@ class TravelPropertiesDialog extends DockableBaseDialog {
 						theTravelNotesData.travel.editedRoute.computedName :
 						route.computedName
 				);
-				contentHTMLElements.push (
+				listItemsHTMLElements.push (
 					theHTMLElementsFactory.create (
 						'div',
 						{
@@ -131,7 +131,7 @@ class TravelPropertiesDialog extends DockableBaseDialog {
 				);
 			}
 		);
-		this.#travelRoutesControl.updateContent ( contentHTMLElements );
+		this.#travelRoutesControl.updateContent ( listItemsHTMLElements );
 		this.#travelNameControl.value = theTravelNotesData.travel.name;
 	}
 }
