@@ -42,7 +42,7 @@ class CheckboxInputControl extends BaseControl {
 
 	/**
 	The constructor
-	@param {Object} options An object with the  options ( placeholder, rows, datasetName, headerText )
+	@param {Object} options An object with the  options ( beforeText, checked, datasetName, afterText )
 	*/
 
 	constructor ( options ) {
@@ -50,7 +50,7 @@ class CheckboxInputControl extends BaseControl {
 		theHTMLElementsFactory.create (
 			'text',
 			{
-				value : options.beforeText || ''
+				value : options?.beforeText || ''
 			},
 			this.controlHTMLElement
 		);
@@ -58,15 +58,16 @@ class CheckboxInputControl extends BaseControl {
 			'input',
 			{
 				type : 'checkbox',
-				className : 'TravelNotes-PrintRouteMapDialog-NumberInput',
-				checked : options.checked
+				className : 'TravelNotes-CheckboxInputControl-Checkbox',
+				checked : options?.checked,
+				dataset : { Name : options?.datasetName || 'CheckboxInputControl' }
 			},
 			this.controlHTMLElement
 		);
 		theHTMLElementsFactory.create (
 			'text',
 			{
-				value : options.afterText || ''
+				value : options?.afterText || ''
 			},
 			this.controlHTMLElement
 		);

@@ -36,6 +36,7 @@ const travelNotesCss = [
 	'src/contextMenus/baseContextMenu/BaseContextMenu.css',
 	'src/controls/addressControl/AddressControl.css',
 	'src/controls/colorControl/ColorControl.css',
+	'src/controls/numberInputControl/NumberInputControl.css',
 	'src/controls/sortableListControl/SortableListControl.css',
 	'src/controls/textAreaControl/TextAreaControl.css',
 	'src/controls/textInputControl/TextInputControl.css',

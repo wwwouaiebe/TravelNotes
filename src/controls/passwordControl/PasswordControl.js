@@ -64,15 +64,23 @@ class PasswordControl extends BaseControl {
 
 	/**
 	The constructor
+	@param {Object} options An object with the  options ( datasetName )
 	*/
 
-	constructor ( ) {
+	constructor ( options ) {
 		super ( );
-		this.#passwordInput = theHTMLElementsFactory.create ( 'input', { type : 'password' }, this.controlHTMLElement );
+		this.#passwordInput = theHTMLElementsFactory.create (
+			'input',
+			{
+				type : 'password',
+				dataset : { Name : options?.datasetName || 'PasswordControl' }
+			},
+			this.controlHTMLElement
+		);
 		this.#eyeSpan = theHTMLElementsFactory.create (
 			'span',
 			{
-				id : 'TravelNotes-PasswordDialog-EyeSpan',
+				id : 'TravelNotes-PasswordControl-EyeSpan',
 				textContent : '👁️'
 			},
 			this.controlHTMLElement

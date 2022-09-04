@@ -43,7 +43,7 @@ class NumberInputControl extends BaseControl {
 
 	/**
 	The constructor
-	@param {Object} options An object with the  options ( placeholder, rows, datasetName, headerText )
+	@param {Object} options An object with the  options ( beforeText, value, min, max, datasetName, afterText )
 	*/
 
 	constructor ( options ) {
@@ -51,7 +51,7 @@ class NumberInputControl extends BaseControl {
 		theHTMLElementsFactory.create (
 			'text',
 			{
-				value : options.beforeText || ''
+				value : options?.beforeText || ''
 			},
 			this.controlHTMLElement
 		);
@@ -59,17 +59,18 @@ class NumberInputControl extends BaseControl {
 			'input',
 			{
 				type : 'number',
-				className : 'TravelNotes-PrintRouteMapDialog-NumberInput',
-				value : options.value || ZERO,
-				min : options.min || ZERO,
-				max : options.max || Number.MAX_VALUE
+				className : 'TravelNotes-NumberInputControl-NumberInput',
+				value : options?.value || ZERO,
+				min : options?.min || ZERO,
+				max : options?.max || Number.MAX_VALUE,
+				dataset : { Name : options?.datasetName || 'NumberInputControl' }
 			},
 			this.controlHTMLElement
 		);
 		theHTMLElementsFactory.create (
 			'text',
 			{
-				value : options.afterText || ''
+				value : options?.afterText || ''
 			},
 			this.controlHTMLElement
 		);

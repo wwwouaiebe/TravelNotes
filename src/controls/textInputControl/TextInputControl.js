@@ -42,7 +42,7 @@ class TextInputControl extends BaseControl {
 
 	/**
 	The constructor
-	@param {Object} options An object with the  options ( placeholder, rows, datasetName, headerText )
+	@param {Object} options An object with the  options ( datasetName, headerText )
 	@param {Object} eventListeners A reference to the eventListeners object of the dialog
 	*/
 
@@ -52,7 +52,7 @@ class TextInputControl extends BaseControl {
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-FlexRow',
-				textContent : options.headerText
+				textContent : options?.headerText || ''
 			},
 			this.controlHTMLElement
 		);
@@ -61,7 +61,7 @@ class TextInputControl extends BaseControl {
 			{
 				className : 'TravelNotes-TextInputControl-TextInput',
 				type : 'text',
-				dataset : { Name : options.datasetName || 'TextInputControl' }
+				dataset : { Name : options?.datasetName || 'TextInputControl' }
 			},
 			theHTMLElementsFactory.create (
 				'div',

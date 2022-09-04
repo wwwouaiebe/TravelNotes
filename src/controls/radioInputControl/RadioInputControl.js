@@ -59,7 +59,7 @@ class RadioInputControl extends BaseControl {
 			'div',
 			{
 				className : 'TravelNotes-BaseDialog-FlexRow',
-				textContent : options.headerText
+				textContent : options?.headerText || ''
 			},
 			this.controlHTMLElement
 		);
@@ -80,10 +80,12 @@ class RadioInputControl extends BaseControl {
 						'input',
 						{
 							type : 'radio',
+							className : 'TravelNotes-RadioInputControl-Radio',
 							checked : button.checked,
 							id : buttonId,
 							name : controlName,
-							value : String ( value ++ )
+							value : String ( value ++ ),
+							dataset : { Name : options?.datasetName || 'RadioInputControl' }
 						},
 						buttonDiv
 					)
