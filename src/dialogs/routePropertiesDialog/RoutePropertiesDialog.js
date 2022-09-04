@@ -132,12 +132,10 @@ class RoutePropertiesDialog extends ModalBaseDialog {
 				max : RoutePropertiesDialog.#ROUTE_MAX_WIDTH
 			}
 		);
-		let dashElements = [];
-		theConfig.route.dashChoices.forEach ( dashChoice => dashElements.push ( dashChoice.text ) );
 		this.#dashSelectControl = new SelectControl (
 			{
 				beforeText : theTranslator.getText ( 'RoutePropertiesDialog - Linetype' ),
-				elements : dashElements
+				elements : Array.from ( theConfig.route.dashChoices, dashChoice => dashChoice.text )
 			}
 		);
 		this.#dashSelectControl.selectedIndex =

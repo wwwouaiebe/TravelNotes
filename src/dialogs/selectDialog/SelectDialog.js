@@ -23,45 +23,23 @@ Doc reviewed 202208
  */
 
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
-import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import SelectOptionData from './SelectOptionData.js';
-import { ZERO } from '../../main/Constants.js';
+import SelectControl from '../../controls/selectControl/SelectControl.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-Simple dialog with a text and a select element
+Simple dialog with a select element
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 class SelectDialog extends ModalBaseDialog {
 
 	/**
-	The selector
-	@type {HTMLElement}
+	The select control
+	@type {SelectControl}
 	*/
 
-	#selectHtmlElement;
-
-	/**
-	the selector container
-	@type {HTMLElement}
-	*/
-
-	get #selectDiv ( ) {
-		const selectDiv = theHTMLElementsFactory.create ( 'div' );
-		this.#selectHtmlElement = theHTMLElementsFactory.create ( 'select', null, selectDiv );
-		this.options.selectOptionsData.forEach (
-			optionData => theHTMLElementsFactory.create (
-				'option',
-				{
-					text : optionData.text
-				},
-				this.#selectHtmlElement
-			)
-		);
-		this.#selectHtmlElement.selectedIndex = ZERO;
-		return selectDiv;
-	}
+	#selectControl;
 
 	/**
 	The constructor
@@ -70,6 +48,19 @@ class SelectDialog extends ModalBaseDialog {
 
 	constructor ( options ) {
 		super ( options );
+	}
+
+	/**
+	Create all the controls needed for the dialog.
+	Overload of the vase class createContentHTML
+	*/
+
+	createContentHTML ( ) {
+		this.#selectControl = new SelectControl (
+			{
+				elements : Array.from ( this.options.selectOptionsData, optionData => optionData.text )
+			}
+		);
 	}
 
 	/**
@@ -86,15 +77,7 @@ class SelectDialog extends ModalBaseDialog {
 	*/
 
 	get contentHTMLElements ( ) {
-		return [
-			theHTMLElementsFactory.create (
-				'div',
-				{
-					textContent : this.options.text || ''
-				}
-			),
-			this.#selectDiv
-		];
+		return [ this.#selectControl.controlHTMLElement	];
 	}
 
 	/**
@@ -102,7 +85,7 @@ class SelectDialog extends ModalBaseDialog {
 	*/
 
 	onOk ( ) {
-		super.onOk ( this.options.selectOptionsData [ this.#selectHtmlElement.selectedIndex ].objId );
+		super.onOk ( this.options.selectOptionsData [ this.#selectControl.selectedIndex ].objId );
 	}
 
 }
