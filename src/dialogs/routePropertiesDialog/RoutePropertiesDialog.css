@@ -22,41 +22,22 @@ Changes:
 		- created from v3.6.0
 Doc reviewed 202208
  */
-
-#TravelNotes-RoutePropertiesDialog-MainDataDiv {
+.TravelNotes-BaseDialog-DataDiv:nth-child(2),
+.TravelNotes-BaseDialog-DataDiv:nth-child(3),
+.TravelNotes-BaseDialog-DataDiv:nth-child(4) {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
 	text-align: center;
-	width: 30em;
 }
 
-#TravelNotes-RoutePropertiesDialog-NameInput {
-	width: 100%;
+.TravelNotes-BaseDialog-DataDiv:nth-child(2) {
+	margin-top: 1.5em;
 }
 
-.TravelNotes-RoutePropertiesDialog-DataDiv {
-	text-align: left;
-	margin: 0.5em;
-}
-
-.TravelNotes-RoutePropertiesDialog-DataDiv > span {
-	display: inline-block;
-	width: 10em;
-	text-align: right;
-	padding-right: 1em;
-}
-
-#TravelNotes-RoutePropertiesDialog-NameInputDiv,
-#TravelNotes-RoutePropertiesDialog-ChainDiv {
-	border-bottom: 0.1em solid lightgray;
-	margin-bottom: 1em;
+.TravelNotes-BaseDialog-DataDiv:nth-child(4) {
 	padding-bottom: 1em;
-}
-
-#TravelNotes-RoutePropertiesDialog-WidthInput {
-	width: 3em;
-}
-
-#TravelNotes-RoutePropertiesDialog-ColorHeaderDiv {
-	margin: 0.5em;
+	margin-bottom: 1em;
+	border-bottom: 0.1em solid lightgray;
 }
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

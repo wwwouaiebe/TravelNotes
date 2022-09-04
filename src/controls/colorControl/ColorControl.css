@@ -23,8 +23,8 @@ Changes:
 Doc reviewed 202208
  */
 
-#TravelNotes-ColorControl-ColorHTMLElement {
-	width: 30em;
+.TravelNotes-ColorControl-ColorHTMLElement {
+	min-width: 30em;
 	text-align: center;
 }
 

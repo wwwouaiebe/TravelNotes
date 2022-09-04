@@ -73,6 +73,14 @@ class WayPointPropertiesDialog extends ModalBaseDialog {
 		super ( );
 		this.#wayPoint = wayPoint;
 		this.#eventListeners = new WayPointPropertiesDialogEventListeners ( this, this.#wayPoint.latLng );
+	}
+
+	/**
+	Create all the controls needed for the dialog.
+	Overload of the vase class createContentHTML
+	*/
+
+	createContentHTML ( ) {
 		this.#wayPointNameControl = new TextInputControl (
 			{
 				headerText : theTranslator.getText ( 'WayPointPropertiesDialog - Name' )
@@ -82,6 +90,7 @@ class WayPointPropertiesDialog extends ModalBaseDialog {
 		this.#wayPointNameControl.value = this.#wayPoint.name;
 		this.#addressControl = new AddressControl ( this.#eventListeners );
 		this.#addressControl.address = this.#wayPoint.address;
+
 	}
 
 	/**
@@ -112,10 +121,10 @@ class WayPointPropertiesDialog extends ModalBaseDialog {
 	*/
 
 	get contentHTMLElements ( ) {
-		return [ ].concat (
+		return [
 			this.#wayPointNameControl.controlHTMLElement,
 			this.#addressControl.controlHTMLElement
-		);
+		];
 	}
 
 	/**

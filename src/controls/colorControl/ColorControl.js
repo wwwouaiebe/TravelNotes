@@ -83,6 +83,7 @@ class ColorControl extends BaseControl {
 				this.controlHTMLElement
 			);
 		}
+		this.controlHTMLElement.classList.add ( 'TravelNotes-ColorControl-ColorHTMLElement' );
 		this.#colorButtonsControlElement = new ColorButtonsControlElement ( this );
 		this.#colorButtonsControlElement.red = ZERO;
 		this.#redSliderControlElement = new RedSliderControlElement ( this );
