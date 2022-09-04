@@ -148,12 +148,17 @@ class PrintRouteMapDialog extends ModalBaseDialog {
 		);
 	}
 
+	show ( ) {
+		let showPromise = super.show ( );
+		this.addCssClass ( 'TravelNotes-PrintRouteMapDialog' );
+		return showPromise;
+	}
+
 	/**
 	Overload of the BaseDialog.onOk ( ) method. Called when the Ok button is clicked
 	*/
 
 	onOk ( ) {
-
 		const printRouteMapOptions = new PrintRouteMapOptions ( );
 		printRouteMapOptions.paperWidth = parseInt ( this.#paperWidthControl.value );
 		printRouteMapOptions.paperHeight = parseInt ( this.#paperHeightControl.value );
