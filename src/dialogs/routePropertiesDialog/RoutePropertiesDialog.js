@@ -161,6 +161,16 @@ class RoutePropertiesDialog extends ModalBaseDialog {
 	}
 
 	/**
+	Overload of the ModalBaseDialog.show ( ) method.
+	*/
+
+	show ( ) {
+		let showPromise = super.show ( );
+		this.addCssClass ( 'TravelNotes-RoutePropertiesDialog' );
+		return showPromise;
+	}
+
+	/**
 	Overload of the BaseDialog.onCancel ( ) method.
 	*/
 
