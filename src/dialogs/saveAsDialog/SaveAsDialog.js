@@ -24,7 +24,7 @@ Doc reviewed 202208
 
 import theTranslator from '../../core/uiLib/Translator.js';
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
-import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
+import CheckboxInputControl from '../../controls/checkboxInputControl/CheckboxInputControl.js';
 import SaveAsDialogData from './SaveAsDialogData.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -38,66 +38,25 @@ succes handler of the Promise returned by the show ( ) method.
 class SaveAsDialog extends ModalBaseDialog {
 
 	/**
-	The remove travel notes input
-	@type {HTMLElement}
+	The remove travel notes control
+	@type {CheckboxInputControl}
 	*/
 
-	#removeTravelNotesInput;
+	#removeTravelNotesControl;
 
 	/**
-	The remove route notes input
-	@type {HTMLElement}
+	The remove route notes control
+	@type {CheckboxInputControl}
 	*/
 
-	#removeRoutesNotesInput;
+	#removeRouteNotesControl;
 
 	/**
-	The remove maneuvers input
-	@type {HTMLElement}
+	The remove maneuvers control
+	@type {CheckboxInputControl}
 	*/
 
-	#removeManeuversInput;
-
-	/**
-	The remove travel notes div
-	@type {HTMLElement}
-	*/
-
-	#removeTravelNotesDiv;
-
-	/**
-	The remove route notes div
-	@type {HTMLElement}
-	*/
-
-	#removeRoutesNotesDiv;
-
-	/**
-	The remove maneuvers div
-	@type {HTMLElement}
-	*/
-
-	#removeManeuversDiv;
-
-	/**
-	Create an input div and an input HTMLelements
-	@param {String} inputText The text to display near the input
-	@return {Array.<HTMLElement>} An array with the div and the input HTMLelement
-	*/
-
-	#createInputDiv ( inputText ) {
-		const inputDiv = theHTMLElementsFactory.create ( 'div', null );
-		const input = theHTMLElementsFactory.create (
-			'input',
-			{
-				type : 'checkbox',
-				checked : false
-			},
-			inputDiv
-		);
-		theHTMLElementsFactory.create ( 'text', { value : inputText }, inputDiv );
-		return [ inputDiv, input ];
-	}
+	#removeManeuversControl;
 
 	/**
 	The constructor
@@ -106,12 +65,33 @@ class SaveAsDialog extends ModalBaseDialog {
 
 	constructor ( options ) {
 		super ( options );
-		[ this.#removeTravelNotesDiv, this.#removeTravelNotesInput ] =
-			this.#createInputDiv ( theTranslator.getText ( 'SaveAsDialog - Remove Travel Notes' ) );
-		[ this.#removeRoutesNotesDiv, this.#removeRoutesNotesInput ] =
-			this.#createInputDiv ( theTranslator.getText ( 'SaveAsDialog - Remove Routes Notes' ) );
-		[ this.#removeManeuversDiv, this.#removeManeuversInput ] =
-			this.#createInputDiv ( theTranslator.getText ( 'SaveAsDialog - Remove Maneuvers' ) );
+	}
+
+	/**
+	Create all the controls needed for the dialog.
+	Overload of the vase class createContentHTML
+	*/
+
+	createContentHTML ( ) {
+		this.#removeTravelNotesControl = new CheckboxInputControl (
+			{
+				afterText : theTranslator.getText ( 'SaveAsDialog - Remove Travel Notes' ),
+				checked : false
+			}
+		);
+		this.#removeRouteNotesControl = new CheckboxInputControl (
+			{
+				afterText : theTranslator.getText ( 'SaveAsDialog - Remove Routes Notes' ),
+				checked : false
+			}
+		);
+		this.#removeManeuversControl = new CheckboxInputControl (
+			{
+				afterText : theTranslator.getText ( 'SaveAsDialog - Remove Maneuvers' ),
+				checked : false
+			}
+		);
+
 	}
 
 	/**
@@ -121,9 +101,9 @@ class SaveAsDialog extends ModalBaseDialog {
 	onOk ( ) {
 		super.onOk (
 			new SaveAsDialogData (
-				this.#removeTravelNotesInput.checked,
-				this.#removeRoutesNotesInput.checked,
-				this.#removeManeuversInput.checked
+				this.#removeTravelNotesControl.checked,
+				this.#removeRouteNotesControl.checked,
+				this.#removeManeuversControl.checked
 			)
 		);
 	}
@@ -135,9 +115,9 @@ class SaveAsDialog extends ModalBaseDialog {
 
 	get contentHTMLElements ( ) {
 		return [
-			this.#removeTravelNotesDiv,
-			this.#removeRoutesNotesDiv,
-			this.#removeManeuversDiv
+			this.#removeTravelNotesControl.controlHTMLElement,
+			this.#removeRouteNotesControl.controlHTMLElement,
+			this.#removeManeuversControl.controlHTMLElement
 		];
 	}
 
