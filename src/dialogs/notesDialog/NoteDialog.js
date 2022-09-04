@@ -59,13 +59,6 @@ class NoteDialog extends ModalBaseDialog {
 	#note;
 
 	/**
-	A boolean indicating to start the geocoder when opening the dialog box.
-	@type {Boolean}
-	*/
-
-	#startGeoCoder;
-
-	/**
 	A reference to the route on witch the note is attached
 	@type {Route}
 	*/
@@ -188,12 +181,19 @@ class NoteDialog extends ModalBaseDialog {
 		this.#note = note;
 		this.#route = route;
 
-		this.#startGeoCoder = '' === this.#note.address;
-		this.#eventListeners = new NoteDialogEventListeners ( this, note.latLng );
-
 		// Cloning the note
 		this.#previewNote = new Note ( );
 		this.#previewNote.jsonObject = note.jsonObject;
+
+	}
+
+	/**
+	Create all the controls needed for the dialog.
+	Overload of the vase class createContentHTML
+	*/
+
+	createContentHTML ( ) {
+		this.#eventListeners = new NoteDialogEventListeners ( this, this.#previewNote.latLng );
 
 		// creting toolbar and controls
 		this.#toolbar = new NoteDialogToolbar ( this.#eventListeners );
@@ -222,7 +222,7 @@ class NoteDialog extends ModalBaseDialog {
 			this.#eventListeners
 		);
 		this.#addressControl = new AddressControl (	this.#eventListeners );
-		this.#linkControl = new NoteDialogLinkControl ( this.#eventListeners, note.latLng );
+		this.#linkControl = new NoteDialogLinkControl ( this.#eventListeners, this.#previewNote.latLng );
 		this.#phoneControl = new TextInputControl (
 			{
 				headerText : theTranslator.getText ( 'NoteDialogPhoneControl - Phone' ),
@@ -233,7 +233,7 @@ class NoteDialog extends ModalBaseDialog {
 		this.#previewControl = new NoteDialogPreviewControl ( this.#previewNote );
 
 		// copy the notes values into the controls
-		this.setControlsValues ( note );
+		this.setControlsValues ( this.#previewNote );
 	}
 
 	/**
@@ -269,11 +269,11 @@ class NoteDialog extends ModalBaseDialog {
 	*/
 
 	show ( ) {
-		const dialogPromise = super.show ( );
-		if ( this.#startGeoCoder ) {
+		const showPromise = super.show ( );
+		if ( '' === this.#note.address ) {
 			new GeoCoderHelper ( this ).setAddressWithGeoCoder ( this.#previewNote.latLng );
 		}
-		return dialogPromise;
+		return showPromise;
 	}
 
 	/**
@@ -353,7 +353,7 @@ class NoteDialog extends ModalBaseDialog {
 	*/
 
 	get contentHTMLElements ( ) {
-		return [].concat (
+		return [
 			this.#iconDimsControl.controlHTMLElement,
 			this.#iconControl.controlHTMLElement,
 			this.#tooltipControl.controlHTMLElement,
@@ -361,7 +361,7 @@ class NoteDialog extends ModalBaseDialog {
 			this.#addressControl.controlHTMLElement,
 			this.#linkControl.controlHTMLElement,
 			this.#phoneControl.controlHTMLElement
-		);
+		];
 	}
 
 	/**

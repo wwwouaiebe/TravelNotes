@@ -351,6 +351,7 @@ class ModalBaseDialog extends BaseDialog {
 	*/
 
 	show ( ) {
+		this.createContentHTML ( );
 		super.show ( );
 		this.#createHTML ( );
 		document.body.appendChild ( this.#backgroundHTMLElement );

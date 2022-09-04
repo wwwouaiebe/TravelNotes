@@ -25,7 +25,6 @@ Doc reviewed 202208
 import theTranslator from '../../core/uiLib/Translator.js';
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import Color from './Color.js';
-import { ZERO } from '../../main/Constants.js';
 import RgbInputEL from './RgbInputEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -101,7 +100,7 @@ class RgbInputsControlElement {
 	constructor ( colorControl ) {
 		Object.freeze ( this );
 		this.#rgbInputEL = new RgbInputEL ( colorControl, this );
-		this.#rgbHTMLElement = theHTMLElementsFactory.create ( 'div', null, colorControl.HTMLElements [ ZERO ] );
+		this.#rgbHTMLElement = theHTMLElementsFactory.create ( 'div', null, colorControl.controlHTMLElement );
 		this.#redInput = this.#createColorInput ( theTranslator.getText ( 'ColorControl - Red' ) );
 		this.#greenInput = this.#createColorInput ( theTranslator.getText ( 'ColorControl - Green' ) );
 		this.#blueInput = this.#createColorInput ( theTranslator.getText ( 'ColorControl - Blue' ) );

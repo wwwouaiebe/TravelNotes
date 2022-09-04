@@ -51,6 +51,20 @@ class ApiKeysDialog extends ModalBaseDialog {
 	#apiKeysControl;
 
 	/**
+	An array with the existing ApiKeys
+	@type {Array.<ApiKey>}
+	*/
+
+	#apiKeys;
+
+	/**
+	A boolean indicating when a ApiKey file was found on the server
+	@type {Boolean}
+	*/
+
+	#haveApiKeysFile;
+
+	/**
 	The constructor
 	@param {Array.<ApiKey>} apiKeys An array with the existing ApiKeys
 	@param {Boolean} haveApiKeysFile A boolean indicating when a ApiKey file was found on the server
@@ -58,9 +72,20 @@ class ApiKeysDialog extends ModalBaseDialog {
 
 	constructor ( apiKeys, haveApiKeysFile ) {
 		super ( );
+		this.#apiKeys = apiKeys;
+		this.#haveApiKeysFile = haveApiKeysFile;
+	}
+
+	/**
+	Create all the controls needed for the dialog.
+	Overload of the vase class createContentHTML
+	*/
+
+	createContentHTML ( ) {
 		this.#apiKeysControl = new ApiKeysControl ( );
-		this.#toolbar = new ApiKeysDialogToolbar ( this, this.#apiKeysControl, haveApiKeysFile );
-		this.#apiKeysControl.addApiKeys ( apiKeys );
+		this.#toolbar = new ApiKeysDialogToolbar ( this, this.#apiKeysControl, this.#haveApiKeysFile );
+		this.#apiKeysControl.addApiKeys ( this.#apiKeys );
+
 	}
 
 	/**
@@ -98,7 +123,7 @@ class ApiKeysDialog extends ModalBaseDialog {
 	}
 
 	/**
-	Overload of the BaseDialog.onShow ( ) method.
+	Overload of the BaseDialog.show ( ) method.
 	*/
 
 	show ( ) {

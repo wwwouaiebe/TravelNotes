@@ -96,6 +96,14 @@ class PrintRouteMapDialog extends ModalBaseDialog {
 
 	constructor ( ) {
 		super ( );
+	}
+
+	/**
+	Create all the controls needed for the dialog.
+	Overload of the vase class createContentHTML
+	*/
+
+	createContentHTML ( ) {
 		this.#paperWidthControl = new NumberInputControl (
 			{
 				beforeText : theTranslator.getText ( 'PrintRouteMapDialog - Paper width' ),
@@ -148,6 +156,10 @@ class PrintRouteMapDialog extends ModalBaseDialog {
 		);
 	}
 
+	/**
+	Overload of the ModalBaseDialog.show ( ) method.
+	*/
+
 	show ( ) {
 		let showPromise = super.show ( );
 		this.addCssClass ( 'TravelNotes-PrintRouteMapDialog' );
@@ -160,10 +172,10 @@ class PrintRouteMapDialog extends ModalBaseDialog {
 
 	onOk ( ) {
 		const printRouteMapOptions = new PrintRouteMapOptions ( );
-		printRouteMapOptions.paperWidth = parseInt ( this.#paperWidthControl.value );
-		printRouteMapOptions.paperHeight = parseInt ( this.#paperHeightControl.value );
-		printRouteMapOptions.borderWidth = parseInt ( this.#borderWidthControl.value );
-		printRouteMapOptions.zoomFactor = parseInt ( this.#zoomFactorControl.value );
+		printRouteMapOptions.paperWidth = this.#paperWidthControl.value;
+		printRouteMapOptions.paperHeight = this.#paperHeightControl.value;
+		printRouteMapOptions.borderWidth = this.#borderWidthControl.value;
+		printRouteMapOptions.zoomFactor = this.#zoomFactorControl.value;
 		printRouteMapOptions.printNotes = this.#printNotesControl.checked;
 		printRouteMapOptions.firefoxBrowser = ZERO === this.#firefoxBrowserControl.value;
 		Object.freeze ( printRouteMapOptions );

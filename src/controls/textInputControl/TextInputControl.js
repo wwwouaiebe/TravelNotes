@@ -61,7 +61,8 @@ class TextInputControl extends BaseControl {
 			{
 				className : 'TravelNotes-TextInputControl-TextInput',
 				type : 'text',
-				dataset : { Name : options?.datasetName || 'TextInputControl' }
+				dataset : { Name : options?.datasetName || 'TextInputControl' },
+				value : options?.value || ''
 			},
 			theHTMLElementsFactory.create (
 				'div',
@@ -71,10 +72,10 @@ class TextInputControl extends BaseControl {
 				this.controlHTMLElement
 			)
 		);
-		if ( eventListeners.controlFocus ) {
+		if ( eventListeners?.controlFocus ) {
 			this.#valueInput.addEventListener ( 'focus', eventListeners.controlFocus );
 		}
-		if ( eventListeners.controlInput ) {
+		if ( eventListeners?.controlInput ) {
 			this.#valueInput.addEventListener ( 'input', eventListeners.controlInput );
 		}
 	}
@@ -85,10 +86,10 @@ class TextInputControl extends BaseControl {
 	*/
 
 	destructor ( eventListeners ) {
-		if ( eventListeners.controlFocus ) {
+		if ( eventListeners?.controlFocus ) {
 			this.#valueInput.removeEventListener ( 'focus', eventListeners.controlFocus );
 		}
-		if ( eventListeners.controlInput ) {
+		if ( eventListeners?.controlInput ) {
 			this.#valueInput.removeEventListener ( 'input', eventListeners.controlInput );
 		}
 	}

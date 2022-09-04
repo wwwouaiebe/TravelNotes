@@ -49,8 +49,10 @@ class AboutDialog extends NonModalBaseDialog {
 
 	constructor ( ) {
 		super ( );
-		this.#aboutHTMLElement = theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-AboutDialog-About' } );
+	}
 
+	#createHTML ( ) {
+		this.#aboutHTMLElement = theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-AboutDialog-About' } );
 		theHTMLSanitizer.sanitizeToHtmlElement (
 			'<p>This  program is free software; you can redistribute it and/or modify it under the terms of the ' +
 				'GNU General Public License as published by the Free Software Foundation; either version 3 of the License, ' +
@@ -74,6 +76,7 @@ class AboutDialog extends NonModalBaseDialog {
 	*/
 
 	show ( ) {
+		this.#createHTML ( );
 		super.show ( );
 		this.mover.centerDialog ( );
 	}

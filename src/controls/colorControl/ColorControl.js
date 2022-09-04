@@ -29,6 +29,7 @@ import RgbInputsControlElement from './RgbInputsControlElement.js';
 import SampleControlElement from './SampleControlElement.js';
 import { ZERO } from '../../main/Constants.js';
 import Color from './Color.js';
+import BaseControl from '../baseControl/BaseControl.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -36,14 +37,7 @@ html control for color selection
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ColorControl {
-
-	/**
-	the main HTMLElement
-	@type {HTMLElement}
-	*/
-
-	#colorHTMLElement;
+class ColorControl extends BaseControl {
 
 	/**
 	The element with the color buttons
@@ -75,24 +69,27 @@ class ColorControl {
 
 	/**
 	constructor
-	@param {String} cssColor The initial color for the control (must be #RRGGBB or rgb(RR, GG, BB) .
+	@param {Object} options An object with the  options ( headerText, cssColor )
 	*/
 
-	constructor ( cssColor ) {
-		Object.freeze ( this );
-		this.#colorHTMLElement = theHTMLElementsFactory.create (
-			'div',
-			{
-				id : 'TravelNotes-ColorControl-ColorHTMLElement'
-			}
-		);
+	constructor ( options ) {
+		super ( );
+		if ( options?.headerText && '' !== options.headerText ) {
+			theHTMLElementsFactory.create (
+				'div',
+				{
+					textContent : options.headerText
+				},
+				this.controlHTMLElement
+			);
+		}
 		this.#colorButtonsControlElement = new ColorButtonsControlElement ( this );
 		this.#colorButtonsControlElement.red = ZERO;
 		this.#redSliderControlElement = new RedSliderControlElement ( this );
 		this.#rgbInputsControlElement = new RgbInputsControlElement ( this );
-		this.#rgbInputsControlElement.cssColor = cssColor;
+		this.#rgbInputsControlElement.cssColor = options?.cssColor || '#ff0000';
 		this.#sampleControlElement = new SampleControlElement ( this );
-		this.#sampleControlElement.cssColor = cssColor;
+		this.#sampleControlElement.cssColor = options?.cssColor || '#ff0000';
 	}
 
 	/**
@@ -104,13 +101,6 @@ class ColorControl {
 		this.#redSliderControlElement.destructor ( );
 		this.#rgbInputsControlElement.destructor ( );
 	}
-
-	/**
-	An array with the HTML element of the control
-	@type {Array.<HTMLElement>}
-	*/
-
-	get HTMLElements ( ) { return [ this.#colorHTMLElement ]; }
 
 	/**
 	The color selected in the control in the css hex format ( #rrggbb )

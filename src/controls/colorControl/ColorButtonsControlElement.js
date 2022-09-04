@@ -88,7 +88,7 @@ class ColorButtonsControlElement {
 		Object.freeze ( this );
 		this.#colorButtons = [];
 		this.#colorButtonClickEL = new ColorButtonClickEL ( colorControl );
-		this.#colorButtonsHTMLElement = theHTMLElementsFactory.create ( 'div', null, colorControl.HTMLElements [ ZERO ] );
+		this.#colorButtonsHTMLElement = theHTMLElementsFactory.create ( 'div', null, colorControl.controlHTMLElement );
 		for ( let rowCounter = ZERO; rowCounter < ColorButtonsControlElement.#ROW_NUMBERS; ++ rowCounter ) {
 			const colorButtonsRowHTMLElement = theHTMLElementsFactory.create ( 'div', null, this.#colorButtonsHTMLElement );
 			for ( let cellCounter = ZERO; cellCounter < ColorButtonsControlElement.#CELL_NUMBERS; ++ cellCounter ) {

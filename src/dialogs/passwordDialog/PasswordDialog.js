@@ -64,8 +64,6 @@ class PasswordDialog extends ModalBaseDialog {
 	constructor ( verifyPassword ) {
 		super ( );
 		this.#verifyPassword = verifyPassword;
-		this.#passwordControl = new PasswordControl ( );
-		this.#passwordControl.focus ( );
 	}
 
 	/**
@@ -74,6 +72,25 @@ class PasswordDialog extends ModalBaseDialog {
 
 	#destructor ( ) {
 		this.#passwordControl.destructor ( );
+	}
+
+	/**
+	Create all the controls needed for the dialog.
+	Overload of the vase class createContentHTML
+	*/
+
+	createContentHTML ( ) {
+		this.#passwordControl = new PasswordControl ( );
+	}
+
+	/**
+	Overload of the ModalBaseDialog.show ( ) method.
+	*/
+
+	show ( ) {
+		const showPromise = super.show ( );
+		this.#passwordControl.focus ( );
+		return showPromise;
 	}
 
 	/**
@@ -126,14 +143,6 @@ class PasswordDialog extends ModalBaseDialog {
 	onOk ( ) {
 		this.#destructor ( );
 		super.onOk ( new window.TextEncoder ( ).encode ( this.#passwordControl.value ) );
-	}
-
-	/**
-	Overload of the BaseDialog.onShow ( ) method.
-	*/
-
-	onShow ( ) {
-		this.#passwordControl.focus ( );
 	}
 
 	/**

@@ -84,7 +84,7 @@ class RedSliderControlElement {
 				step : RedSliderControlElement.#SLIDER_STEP
 
 			},
-			theHTMLElementsFactory.create ( 'div', null, colorControl.HTMLElements [ ZERO ] )
+			theHTMLElementsFactory.create ( 'div', null, colorControl.controlHTMLElement )
 		);
 		this.#redSliderInput.addEventListener ( 'input', this.#redSliderInputEL, false );
 		this.#redSliderInput.focus ( );

@@ -24,8 +24,11 @@ Doc reviewed 202208
 
 import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
 import theTranslator from '../../core/uiLib/Translator.js';
+import CheckboxInputControl from '../../controls/checkboxInputControl/CheckboxInputControl.js';
 import ColorControl from '../../controls/colorControl/ColorControl.js';
-import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
+import NumberInputControl from '../../controls/numberInputControl/NumberInputControl.js';
+import TextInputControl from '../../controls/textInputControl/TextInputControl.js';
+import SelectControl from '../../controls/selectControl/SelectControl.js';
 import theConfig from '../../data/Config.js';
 import { ZERO } from '../../main/Constants.js';
 
@@ -52,32 +55,32 @@ class RoutePropertiesDialog extends ModalBaseDialog {
 	#colorControl;
 
 	/**
-	The route name input in the dialog
-	@type {HTMLElement}
+	The route name control
+	@type {TextInputControl}
 	*/
 
-	#nameInput;
+	#routeNameControl;
 
 	/**
-	The route width input in the dialog
-	@type {HTMLElement}
+	The route width control in the dialog
+	@type {NumberInputControl}
 	*/
 
-	#widthInput;
+	#routeWidthControl;
 
 	/**
-	The route dash select in the dialog
-	@type {HTMLElement}
+	The route dash control in the dialog
+	@type {SelectControl}
 	*/
 
-	#dashSelect;
+	#dashSelectControl;
 
 	/**
-	The route chain check box in the dialog
-	@type {HTMLElement}
+	The chained route check box control in the dialog
+	@type {CheckboxInputControl}
 	*/
 
-	#chainInput;
+	#chainedRouteControl;
 
 	/**
 	The minimal width for a Route polyline
@@ -96,142 +99,8 @@ class RoutePropertiesDialog extends ModalBaseDialog {
 	static get #ROUTE_MAX_WIDTH ( ) { return 40; }
 
 	/**
-	This method creates the name div
-	*/
-
-	#createNameDiv ( ) {
-		const nameHeaderDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				textContent : theTranslator.getText ( 'RoutePropertiesDialog - Name' )
-			}
-		);
-		const nameInputDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-RoutePropertiesDialog-DataDiv',
-				id : 'TravelNotes-RoutePropertiesDialog-NameInputDiv'
-			}
-		);
-		this.#nameInput = theHTMLElementsFactory.create (
-			'input',
-			{
-				type : 'text',
-				id : 'TravelNotes-RoutePropertiesDialog-NameInput',
-				value : this.#route.computedName
-			},
-			nameInputDiv
-		);
-		return [ nameHeaderDiv, nameInputDiv ];
-	}
-
-	/**
-	This method creates the route width div
-	*/
-
-	#createWidthDiv ( ) {
-		const widthDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-RoutePropertiesDialog-DataDiv'
-			}
-		);
-		theHTMLElementsFactory.create (
-			'text',
-			{
-				value : theTranslator.getText ( 'RoutePropertiesDialog - Width' )
-			},
-			theHTMLElementsFactory.create ( 'span', null, widthDiv )
-		);
-
-		this.#widthInput = theHTMLElementsFactory.create (
-			'input',
-			{
-				type : 'number',
-				id : 'TravelNotes-RoutePropertiesDialog-WidthInput',
-				value : this.#route.width,
-				min : RoutePropertiesDialog.#ROUTE_MIN_WIDTH,
-				max : RoutePropertiesDialog.#ROUTE_MAX_WIDTH
-			},
-			widthDiv
-		);
-
-		return widthDiv;
-	}
-
-	/**
-	This method creates the route dash div
-	*/
-
-	#createDashDiv ( ) {
-		const dashDiv = theHTMLElementsFactory.create (
-			'div',
-			{ className : 'TravelNotes-RoutePropertiesDialog-DataDiv' }
-		);
-		theHTMLElementsFactory.create (
-			'text',
-			{
-				value : theTranslator.getText ( 'RoutePropertiesDialog - Linetype' )
-			},
-			theHTMLElementsFactory.create ( 'span', null, dashDiv )
-		);
-		this.#dashSelect = theHTMLElementsFactory.create ( 'select', null, dashDiv );
-		const dashChoices = theConfig.route.dashChoices;
-
-		dashChoices.forEach (
-			dashChoice => {
-				this.#dashSelect.add ( theHTMLElementsFactory.create ( 'option', { text : dashChoice.text } ) );
-			}
-		);
-		this.#dashSelect.selectedIndex = this.#route.dashIndex < dashChoices.length ? this.#route.dashIndex : ZERO;
-		return dashDiv;
-	}
-
-	/**
-	This method creates the route chain div
-	*/
-
-	#createChainDiv ( ) {
-		const chainDiv = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-RoutePropertiesDialog-DataDiv',
-				id : 'TravelNotes-RoutePropertiesDialog-ChainDiv'
-			}
-		);
-		theHTMLElementsFactory.create (
-			'text',
-			{
-				value : theTranslator.getText ( 'RoutePropertiesDialog - Chained route' )
-			},
-			theHTMLElementsFactory.create ( 'span', null, chainDiv )
-		);
-
-		this.#chainInput = theHTMLElementsFactory.create (
-			'input',
-			{
-				type : 'checkbox',
-				checked : this.#route.chain
-			},
-			chainDiv
-		);
-
-		return chainDiv;
-	}
-
-	/**
 	This method creates the color header div
 	*/
-
-	#createColorHeaderDiv ( ) {
-		return theHTMLElementsFactory.create (
-			'div',
-			{
-				textContent : theTranslator.getText ( 'RoutePropertiesDialog - Color' ),
-				id : 'TravelNotes-RoutePropertiesDialog-ColorHeaderDiv'
-			}
-		);
-	}
 
 	/**
 	The constructor
@@ -241,7 +110,54 @@ class RoutePropertiesDialog extends ModalBaseDialog {
 	constructor ( route ) {
 		super ( );
 		this.#route = route;
-		this.#colorControl = new ColorControl ( route.color );
+	}
+
+	/**
+	Create all the controls needed for the dialog.
+	Overload of the vase class createContentHTML
+	*/
+
+	createContentHTML ( ) {
+		this.#routeNameControl = new TextInputControl (
+			{
+				headerText : theTranslator.getText ( 'RoutePropertiesDialog - Name' ),
+				value : this.#route.computedName
+			}
+		);
+		this.#routeWidthControl = new NumberInputControl (
+			{
+				beforeText : theTranslator.getText ( 'RoutePropertiesDialog - Width' ),
+				value : this.#route.width,
+				min : RoutePropertiesDialog.#ROUTE_MIN_WIDTH,
+				max : RoutePropertiesDialog.#ROUTE_MAX_WIDTH
+			}
+		);
+		let dashElements = [];
+		theConfig.route.dashChoices.forEach ( dashChoice => dashElements.push ( dashChoice.text ) );
+		this.#dashSelectControl = new SelectControl (
+			{
+				beforeText : theTranslator.getText ( 'RoutePropertiesDialog - Linetype' ),
+				elements : dashElements
+			}
+		);
+		this.#dashSelectControl.selectedIndex =
+			this.#route.dashIndex < theConfig.route.dashChoices.length
+				?
+				this.#route.dashIndex
+				:
+				ZERO;
+		this.#chainedRouteControl = new CheckboxInputControl (
+			{
+				beforeText : theTranslator.getText ( 'RoutePropertiesDialog - Chained route' ),
+				checked : this.#route.chain
+			}
+		);
+		this.#colorControl = new ColorControl (
+			{
+				cssColor : this.#route.color,
+				headerText : theTranslator.getText ( 'RoutePropertiesDialog - Color' )
+			}
+		);
 	}
 
 	/**
@@ -261,12 +177,12 @@ class RoutePropertiesDialog extends ModalBaseDialog {
 	onOk ( ) {
 
 		this.#route.color = this.#colorControl.cssColor;
-		if ( this.#route.computedName !== this.#nameInput.value ) {
-			this.#route.name = this.#nameInput.value;
+		if ( this.#route.computedName !== this.#routeNameControl.value ) {
+			this.#route.name = this.#routeNameControl.value;
 		}
-		this.#route.width = parseInt ( this.#widthInput.value );
-		this.#route.chain = this.#chainInput.checked;
-		this.#route.dashIndex = this.#dashSelect.selectedIndex;
+		this.#route.width = this.#routeWidthControl.value;
+		this.#route.chain = this.#chainedRouteControl.checked;
+		this.#route.dashIndex = this.#dashSelectControl.selectedIndex;
 		this.#colorControl.destructor ( );
 
 		super.onOk ( );
@@ -286,14 +202,13 @@ class RoutePropertiesDialog extends ModalBaseDialog {
 	*/
 
 	get contentHTMLElements ( ) {
-		return [].concat (
-			this.#createNameDiv ( ),
-			this.#createWidthDiv ( ),
-			this.#createDashDiv ( ),
-			this.#createChainDiv ( ),
-			this.#createColorHeaderDiv ( ),
-			this.#colorControl.HTMLElements
-		);
+		return [
+			this.#routeNameControl.controlHTMLElement,
+			this.#routeWidthControl.controlHTMLElement,
+			this.#dashSelectControl.controlHTMLElement,
+			this.#chainedRouteControl.controlHTMLElement,
+			this.#colorControl.controlHTMLElement
+		];
 	}
 }
 

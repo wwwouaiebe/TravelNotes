@@ -15,31 +15,32 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+
 /*
 Changes:
 	- v4.0.0:
-		- created from v3.6.0
-Doc reviewed 202208
- */
+		- created
+Doc reviewed 20220828
+Tests ...
+*/
 
 import BaseControl from '../baseControl/BaseControl.js';
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
-import { ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-This class is a generic control with a input element for text
+This class is a generic control with a select element
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NumberInputControl extends BaseControl {
+class SelectControl extends BaseControl {
 
 	/**
-	The input HTMLElement
+	The select HTMLElement
 	@type {HTMLElement}
 	*/
 
-	#valueInput;
+	#selectHTMLElement;
 
 	/**
 	The constructor
@@ -55,38 +56,26 @@ class NumberInputControl extends BaseControl {
 			},
 			this.controlHTMLElement
 		);
-		this.#valueInput = theHTMLElementsFactory.create (
-			'input',
-			{
-				type : 'number',
-				className : 'TravelNotes-NumberInputControl-NumberInput',
-				value : options?.value || ZERO,
-				min : options?.min || ZERO,
-				max : options?.max || Number.MAX_VALUE,
-				dataset : { Name : options?.datasetName || 'NumberInputControl' }
-			},
-			this.controlHTMLElement
-		);
-		theHTMLElementsFactory.create (
-			'text',
-			{
-				value : options?.afterText || ''
-			},
-			this.controlHTMLElement
+		this.#selectHTMLElement = theHTMLElementsFactory.create ( 'select', null, this.controlHTMLElement );
+		options?.elements.forEach (
+			element => {
+				this.#selectHTMLElement.add (
+					theHTMLElementsFactory.create ( 'option', { text : element } )
+				);
+			}
 		);
 	}
 
 	/**
-	The value in the control
-	@type {String}
+	The index of the selected item in the control.
+	@type {Number}
 	*/
 
-	get value ( ) { return Number.parseInt ( this.#valueInput.value ); }
+	get selectedIndex ( ) { return this.#selectHTMLElement.selectedIndex; }
 
-	set value ( value ) { this.#valueInput.value = value; }
-
+	set selectedIndex ( selectedIndex ) { this.#selectHTMLElement.selectedIndex = selectedIndex; }
 }
 
-export default NumberInputControl;
+export default SelectControl;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

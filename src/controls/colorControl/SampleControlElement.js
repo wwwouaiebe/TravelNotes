@@ -23,7 +23,6 @@ Doc reviewed 202208
  */
 
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
-import { ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -52,7 +51,7 @@ class SampleControlElement {
 			{
 				id : 'TravelNotes-ColorControl-ColorSampleHTMLElement'
 			},
-			colorControl.HTMLElements [ ZERO ]
+			colorControl.controlHTMLElement
 		);
 	}
 
