@@ -61,9 +61,17 @@ class TravelPropertiesDialog extends DockableBaseDialog {
 
 	constructor ( ) {
 		super ( theConfig.travelPropertiesDialog.dialogX, theConfig.travelPropertiesDialog.dialogY );
+	}
+
+	/**
+	Create all the controls needed for the dialog.
+	Overload of the base class createContentHTML
+	*/
+
+	createContentHTML ( ) {
 		this.#travelNameControl = new TextInputControl (
 			theTranslator.getText ( 'TravelPropertiesDialog - Name' ),
-			new TravelNameInputEL ( )
+			{ controlInput : new TravelNameInputEL ( ) }
 		);
 		this.#travelNameControl.value = theTravelNotesData.travel.name;
 		this.#travelRoutesControl = new SortableListControl (
@@ -80,10 +88,10 @@ class TravelPropertiesDialog extends DockableBaseDialog {
 	*/
 
 	get contentHTMLElements ( ) {
-		return [ ].concat (
+		return [
 			this.#travelNameControl.controlHTMLElement,
 			this.#travelRoutesControl.controlHTMLElement
-		);
+		];
 	}
 
 	/**
@@ -98,6 +106,9 @@ class TravelPropertiesDialog extends DockableBaseDialog {
 	*/
 
 	updateContent ( ) {
+		if ( ! this.#travelRoutesControl ) {
+			return;
+		}
 		const contentHTMLElements = [];
 		theTravelNotesData.travel.routes.forEach (
 			route => {

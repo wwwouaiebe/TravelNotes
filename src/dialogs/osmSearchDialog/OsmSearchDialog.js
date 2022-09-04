@@ -121,6 +121,14 @@ class OsmSearchDialog extends DockableBaseDialog {
 
 	constructor ( ) {
 		super ( theConfig.osmSearchDialog.dialogX, theConfig.osmSearchDialog.dialogY );
+	}
+
+	/**
+	Create all the controls needed for the dialog.
+	Overload of the base class createContentHTML
+	*/
+
+	createContentHTML ( ) {
 		this.#createToolbar ( );
 		this.#osmSearchResultsControl = new SortableListControl (
 			null,

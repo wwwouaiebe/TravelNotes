@@ -27,13 +27,20 @@ import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-A customizable dialog with two buttons.
+A customizable text dialog with two buttons.
 Create an instance of the dialog, then execute the show ( ) method. The Promise returned by the show ( ) method fullfil
 when the first button is used and reject when the second button or the cancel button on the topbar is used
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 class TwoButtonsDialog extends ModalBaseDialog {
+
+	/**
+	A html element with the text
+	@type {HTMLElement}
+	*/
+
+	#textControl;
 
 	/**
 	The constructor
@@ -45,20 +52,27 @@ class TwoButtonsDialog extends ModalBaseDialog {
 	}
 
 	/**
+	Create all the controls needed for the dialog.
+	Overload of the base class createContentHTML
+	*/
+
+	createContentHTML ( ) {
+		this.#textControl = theHTMLElementsFactory.create (
+			'div',
+			{
+				textContent : this.options.text || ''
+			}
+		);
+	}
+
+	/**
 	An array with the HTMLElements that have to be added in the content of the dialog.
 	Overload of the BaseDialog contentHTMLElements property.
 	@type {Array.<HTMLElement>}
 	*/
 
 	get contentHTMLElements ( ) {
-		return [
-			theHTMLElementsFactory.create (
-				'div',
-				{
-					textContent : this.options.text || ''
-				}
-			)
-		];
+		return [ this.#textControl ];
 	}
 
 	/**

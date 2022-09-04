@@ -162,6 +162,14 @@ class ProfileDialog extends NonModalBaseDialog {
 	}
 
 	/**
+	Create all the controls needed for the dialog.
+	Overload of the base class createContentHTML
+	*/
+
+	createContentHTML ( ) {
+	}
+
+	/**
 	Overload of the BaseDialog.onCancel ( ) method.
 	*/
 

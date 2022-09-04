@@ -51,7 +51,12 @@ class AboutDialog extends NonModalBaseDialog {
 		super ( );
 	}
 
-	#createHTML ( ) {
+	/**
+	Create all the controls needed for the dialog.
+	Overload of the base class createContentHTML
+	*/
+
+	createContentHTML ( ) {
 		this.#aboutHTMLElement = theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-AboutDialog-About' } );
 		theHTMLSanitizer.sanitizeToHtmlElement (
 			'<p>This  program is free software; you can redistribute it and/or modify it under the terms of the ' +
@@ -76,7 +81,6 @@ class AboutDialog extends NonModalBaseDialog {
 	*/
 
 	show ( ) {
-		this.#createHTML ( );
 		super.show ( );
 		this.mover.centerDialog ( );
 	}

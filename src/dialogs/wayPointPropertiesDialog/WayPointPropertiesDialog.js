@@ -77,7 +77,7 @@ class WayPointPropertiesDialog extends ModalBaseDialog {
 
 	/**
 	Create all the controls needed for the dialog.
-	Overload of the vase class createContentHTML
+	Overload of the base class createContentHTML
 	*/
 
 	createContentHTML ( ) {

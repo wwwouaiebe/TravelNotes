@@ -312,6 +312,7 @@ class BaseDialog {
 	*/
 
 	show ( ) {
+		this.createContentHTML ( );
 		this.#createHTML ( );
 	}
 

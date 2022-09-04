@@ -51,6 +51,14 @@ class TravelNotesDialog extends DockableBaseDialog {
 
 	constructor ( ) {
 		super ( theConfig.travelNotesDialog.dialogX, theConfig.travelNotesDialog.dialogY );
+	}
+
+	/**
+	Create all the controls needed for the dialog.
+	Overload of the base class createContentHTML
+	*/
+
+	createContentHTML ( ) {
 		this.#travelNotesControl = new SortableListControl (
 			theNoteEditor.travelNoteDropped,
 			NoteContextMenu
@@ -64,9 +72,7 @@ class TravelNotesDialog extends DockableBaseDialog {
 	*/
 
 	get contentHTMLElements ( ) {
-		return [ ].concat (
-			this.#travelNotesControl.controlHTMLElement
-		);
+		return [ this.#travelNotesControl.controlHTMLElement ];
 	}
 
 	/**
@@ -81,6 +87,9 @@ class TravelNotesDialog extends DockableBaseDialog {
 	*/
 
 	updateContent ( ) {
+		if ( ! this.#travelNotesControl ) {
+			return;
+		}
 		let travelNotesDiv = theNoteHTMLViewsFactory.getTravelNotesHTML ( 'TravelNotes-TravelNotesDialog-' );
 
 		// !!! Using travelNotesDiv.childNodes without Array.from gives strange results.
