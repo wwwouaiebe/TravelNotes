@@ -22,13 +22,13 @@ Changes:
 Doc reviewed 202208
  */
 
-import theMapEditor from '../core/mapEditor/MapEditor.js';
-import theIndexedDb from '../core/uiLib/IndexedDb.js';
-import theProfileDialogsManager from '../core/ProfileDialogsManager.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
-import theConfig from '../data/Config.js';
-import theDockableDialogsManager from '../core/DockableDialogsManager.js';
-import theProvidersToolbar from '../toolbars/providersToolbar/ProvidersToolbar.js';
+import theMapEditor from '../../core/mapEditor/MapEditor.js';
+import theIndexedDb from '../../core/uiLib/IndexedDb.js';
+import theProfileDialogsManager from '../../core/ProfileDialogsManager.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
+import theConfig from '../../data/Config.js';
+import theDockableDialogsManager from '../../core/DockableDialogsManager.js';
+import theProvidersToolbar from '../../toolbars/providersToolbar/ProvidersToolbar.js';
 import RoadbookUpdateEL from './RoadbookUpdateEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

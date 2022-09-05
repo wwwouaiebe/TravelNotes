@@ -22,18 +22,18 @@ Changes:
 Doc reviewed 202208
  */
 
-import theTravelNotes from '../main/TravelNotes.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
-import theConfig from '../data/Config.js';
-import ConfigOverloader from '../data/ConfigOverloader.js';
-import theTranslator from '../core/uiLib/Translator.js';
-import theNoteDialogToolbarData from '../dialogs/notesDialog/toolbar/NoteDialogToolbarData.js';
-import theOsmSearchDictionary from '../core/osmSearch/OsmSearchDictionary.js';
-import theMapLayersCollection from '../data/MapLayersCollection.js';
-import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
+import theTravelNotes from './TravelNotes.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
+import theConfig from '../../data/Config.js';
+import ConfigOverloader from '../../data/ConfigOverloader.js';
+import theTranslator from '../../core/uiLib/Translator.js';
+import theNoteDialogToolbarData from '../../dialogs/notesDialog/toolbar/NoteDialogToolbarData.js';
+import theOsmSearchDictionary from '../../core/osmSearch/OsmSearchDictionary.js';
+import theMapLayersCollection from '../../data/MapLayersCollection.js';
+import theErrorsUI from '../../uis/errorsUI/ErrorsUI.js';
 import EventListenersLoader from './EventListenersLoader.js';
 
-import { LAT_LNG, ZERO, ONE, NOT_FOUND, HTTP_STATUS_OK } from '../main/Constants.js';
+import { LAT_LNG, ZERO, ONE, NOT_FOUND, HTTP_STATUS_OK } from '../Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

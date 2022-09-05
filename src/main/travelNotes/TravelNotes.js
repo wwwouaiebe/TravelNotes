@@ -22,25 +22,25 @@ Changes:
 Doc reviewed 202208
  */
 
-import theConfig from '../data/Config.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
-import theRouteEditor from '../core/RouteEditor.js';
-import theApiKeysManager from '../core/ApiKeysManager.js';
-import Travel from '../data/Travel.js';
-import ViewerFileLoader from '../core/ViewerFileLoader.js';
-import { theAppVersion } from '../data/Version.js';
-import theEventDispatcher from '../core/lib/EventDispatcher.js';
-import MapContextMenu from '../contextMenus/MapContextMenu.js';
-import theMapLayersManager from '../core/MapLayersManager.js';
-import theMapLayersToolbar from '../toolbars/mapLayersToolbar/MapLayersToolbar.js';
-import theMouseUI from '../uis/mouseUI/MouseUI.js';
-import theAttributionsUI from '../uis/attributionsUI/AttributionsUI.js';
-import theTravelNotesToolbar from '../toolbars/travelNotesToolbar/TravelNotesToolbar.js';
-import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
-import theTranslator from '../core/uiLib/Translator.js';
-import theFullScreenUI from '../uis/fullScreenUI/FullScreenUI.js';
-import { LAT_LNG, TWO, SAVE_STATUS, HTTP_STATUS_OK } from '../main/Constants.js';
-import theProvidersToolbar from '../toolbars/providersToolbar/ProvidersToolbar.js';
+import theConfig from '../../data/Config.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
+import theRouteEditor from '../../core/RouteEditor.js';
+import theApiKeysManager from '../../core/ApiKeysManager.js';
+import Travel from '../../data/Travel.js';
+import ViewerFileLoader from '../../core/ViewerFileLoader.js';
+import { theAppVersion } from '../../data/Version.js';
+import theEventDispatcher from '../../core/lib/EventDispatcher.js';
+import MapContextMenu from '../../contextMenus/MapContextMenu.js';
+import theMapLayersManager from '../../core/MapLayersManager.js';
+import theMapLayersToolbar from '../../toolbars/mapLayersToolbar/MapLayersToolbar.js';
+import theMouseUI from '../../uis/mouseUI/MouseUI.js';
+import theAttributionsUI from '../../uis/attributionsUI/AttributionsUI.js';
+import theTravelNotesToolbar from '../../toolbars/travelNotesToolbar/TravelNotesToolbar.js';
+import theErrorsUI from '../../uis/errorsUI/ErrorsUI.js';
+import theTranslator from '../../core/uiLib/Translator.js';
+import theFullScreenUI from '../../uis/fullScreenUI/FullScreenUI.js';
+import theProvidersToolbar from '../../toolbars/providersToolbar/ProvidersToolbar.js';
+import { LAT_LNG, TWO, SAVE_STATUS, HTTP_STATUS_OK } from '../Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**

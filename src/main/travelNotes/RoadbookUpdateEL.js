@@ -22,19 +22,27 @@ Changes:
 Doc reviewed 202208
  */
 
-import theViewerLayersToolbar from '../toolbars/viewerLayersToolbar/ViewerLayersToolbar.js';
-import theGeoLocator from '../core/GeoLocator.js';
-import Zoomer from '../core/Zoomer.js';
-
-import { ZERO } from '../main/Constants.js';
+import theIndexedDb from '../../core/uiLib/IndexedDb.js';
+import theTravelHTMLViewsFactory from '../../viewsFactories/TravelHTMLViewsFactory.js';
+import theUtilities from '../../core/uiLib/Utilities.js';
+import theMouseUI from '../../uis/mouseUI/MouseUI.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
+import { SAVE_STATUS } from '../Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-keydown event listener, so we can use the keyboard for zoom on the travel, geolocator and maps
+roadbookupdate event listener
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ViewerKeydownEL {
+class RoadbookUpdateEL {
+
+	/**
+	A boolean indicating when the local storage is available
+	@type {Boolean}
+	*/
+
+	#storageAvailable;
 
 	/**
 	The constructor
@@ -42,31 +50,37 @@ class ViewerKeydownEL {
 
 	constructor ( ) {
 		Object.freeze ( this );
+		this.#storageAvailable = theUtilities.storageAvailable ( 'localStorage' );
 	}
 
 	/**
 	Event listener method
-	@param {Event} keyBoardEvent The event to handle
 	*/
 
-	handleEvent ( keyBoardEvent ) {
-		keyBoardEvent.stopPropagation ( );
-		if ( 'Z' === keyBoardEvent.key || 'z' === keyBoardEvent.key ) {
-			new Zoomer ( ).zoomToTravel ( );
-		}
-		else if ( 'G' === keyBoardEvent.key || 'g' === keyBoardEvent.key ) {
-			theGeoLocator.switch ( );
-		}
-		else {
-			const charCode = keyBoardEvent.key.charCodeAt ( ZERO );
-			// eslint-disable-next-line no-magic-numbers
-			if ( 47 < charCode && 58 > charCode ) {
-				theViewerLayersToolbar.setMapLayer ( keyBoardEvent.key );
-			}
+	handleEvent ( ) {
+		theMouseUI.saveStatus = SAVE_STATUS.modified;
+
+		if ( this.#storageAvailable ) {
+			theIndexedDb.getOpenPromise ( )
+				.then (
+					( ) => {
+						theIndexedDb.getWritePromise (
+							theTravelNotesData.UUID,
+							theTravelHTMLViewsFactory.getTravelHTML ( 'TravelNotes-Roadbook-' ).outerHTML
+						);
+					}
+				)
+				.then ( ( ) => localStorage.setItem ( theTravelNotesData.UUID, Date.now ( ) ) )
+				.catch ( err => {
+					if ( err instanceof Error ) {
+						console.error ( err );
+					}
+				}
+				);
 		}
 	}
 }
 
-export default ViewerKeydownEL;
+export default RoadbookUpdateEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

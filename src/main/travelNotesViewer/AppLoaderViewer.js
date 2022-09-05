@@ -22,19 +22,19 @@ Changes:
 Doc reviewed 202208
  */
 
-import theConfig from '../data/Config.js';
-import ConfigOverloader from '../data/ConfigOverloader.js';
-import theTravelNotesViewer from '../main/TravelNotesViewer.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
-import theTranslator from '../core/uiLib/Translator.js';
-import theViewerLayersToolbar from '../toolbars/viewerLayersToolbar/ViewerLayersToolbar.js';
-import MapEditorViewer from '../core/mapEditor/MapEditorViewer.js';
+import theConfig from '../../data/Config.js';
+import ConfigOverloader from '../../data/ConfigOverloader.js';
+import theTravelNotesViewer from './TravelNotesViewer.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
+import theTranslator from '../../core/uiLib/Translator.js';
+import theViewerLayersToolbar from '../../toolbars/viewerLayersToolbar/ViewerLayersToolbar.js';
+import MapEditorViewer from '../../core/mapEditor/MapEditorViewer.js';
 import ViewerKeydownEL from './ViewerKeydownEL.js';
-import { ZERO, ONE, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
+import { ZERO, ONE, LAT_LNG, HTTP_STATUS_OK } from '../Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-Loader for the app.Load all the json files needed (config, translations, map layers...) and add event listeners.
+Loader for the app. Load all the json files needed (config, translations, map layers...) and add event listeners.
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 

@@ -57,7 +57,7 @@ module.exports = function ( grunt ) {
 		'hello',
 		function () {
 			console.error (
-				`\x1b[30;101m Start build of ` +
+				'\x1b[30;101m Start build of ' +
 				grunt.config.data.pkg.name + ' - ' +
 				grunt.config.data.pkg.version + ' - ' +
 				grunt.template.today ( 'isoDateTime' )
@@ -71,7 +71,7 @@ module.exports = function ( grunt ) {
 		'bye',
 		function () {
 			console.error (
-				`\x1b[30;42m ` + 
+				'\x1b[30;42m ' +
 				grunt.config.data.pkg.name + ' - ' +
 				grunt.config.data.pkg.version + ' - build: ' +
 				grunt.config.data.build + ' - ' +

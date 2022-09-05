@@ -22,8 +22,8 @@ Changes:
 Doc reviewed 202208
  */
 
-import AppLoaderViewer from '../main/AppLoaderViewer.js';
+import AppLoader from './AppLoader.js';
 
-new AppLoaderViewer ( ).loadApp ( );
+new AppLoader ( ).loadApp ( );
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

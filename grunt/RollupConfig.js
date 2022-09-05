@@ -26,8 +26,8 @@ module.exports = {
 			format : 'iife'
 		},
 		files : {
-			'tmpDebug/TravelNotes.min.js' : [ 'src/main/Main.js' ],
-			'tmpDebug/TravelNotesViewer.min.js' : [ 'src/main/MainViewer.js' ],
+			'tmpDebug/TravelNotes.min.js' : [ 'src/main/travelNotes/Main.js' ],
+			'tmpDebug/TravelNotesViewer.min.js' : [ 'src/main/travelNotesViewer/MainViewer.js' ],
 			'tmpDebug/TravelNotesRoadbook.min.js' : [ 'src/roadbook/roadbook.js' ],
 			'tmpDebug/GraphHopperRouteProvider.min.js' : [ 'src/routeProviders/GraphHopperRouteProvider.js' ],
 			'tmpDebug/MapboxRouteProvider.min.js' : [ 'src/routeProviders/MapboxRouteProvider.js' ],
@@ -46,8 +46,8 @@ module.exports = {
 			format : 'iife'
 		},
 		files : {
-			'tmpRelease/TravelNotes.min.js' : [ 'tmpRelease/src/main/Main.js' ],
-			'tmpRelease/TravelNotesViewer.min.js' : [ 'tmpRelease/src/main/MainViewer.js' ],
+			'tmpRelease/TravelNotes.min.js' : [ 'tmpRelease/src/main/travelNotes/Main.js' ],
+			'tmpRelease/TravelNotesViewer.min.js' : [ 'tmpRelease/src/main/travelNotesViewer/MainViewer.js' ],
 			'tmpRelease/TravelNotesRoadbook.min.js' : [ 'tmpRelease/src/roadbook/roadbook.js' ],
 			'tmpRelease/GraphHopperRouteProvider.min.js' : [ 'tmpRelease/src/routeProviders/GraphHopperRouteProvider.js' ],
 			'tmpRelease/MapboxRouteProvider.min.js' : [ 'tmpRelease/src/routeProviders/MapboxRouteProvider.js' ],
