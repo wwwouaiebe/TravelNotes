@@ -333,6 +333,7 @@ class AppLoader {
 	*/
 
 	#loadTravelNotes ( ) {
+		document.body.style [ 'font-size' ] = String ( theConfig.fontSize.initialValue ) + 'mm';
 
 		// mapDiv must be extensible for leaflet
 		const mapDiv = document.createElement ( 'div' );
@@ -342,11 +343,11 @@ class AppLoader {
 			.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], ZERO );
 
 		if ( this.#travelUrl ) {
-			theTravelNotes.addReadOnlyMap ( this.#travelUrl );
+			theTravelNotes.addReadOnlyTravel ( this.#travelUrl );
 		}
 		else {
 			EventListenersLoader.addUnloadEventsListeners ( );
-			theTravelNotes.addControl ( 'TravelNotes-UI' );
+			theTravelNotes.addToolbarsMenusUIs ( );
 		}
 	}
 
@@ -366,10 +367,17 @@ class AppLoader {
 	*/
 
 	async loadApp ( ) {
+
+		// adding event lsteners
 		EventListenersLoader.addEventsListeners ( );
+
+		// creating a reference of TravelNotes in the browser window object
 		window.TaN = theTravelNotes;
+
+		// reading url
 		this.#readURL ( );
 
+		// loading config
 		if ( ! await this.#loadConfig ( ) ) {
 			document.body.textContent = 'Not possible to load the TravelNotesConfig.json file. ';
 			return;
@@ -377,8 +385,11 @@ class AppLoader {
 
 		// set the language to the config language if nothing in the url
 		this.#language = this.#language || theConfig.travelNotes.language || 'fr';
+
+		// creating the errors UI... needed for #loadJsonFiles ( ) method
 		theErrorsUI.createUI ( );
 
+		// loading json files
 		if ( await this.#loadJsonFiles ( ) ) {
 			this.#loadTravelNotes ( );
 		}

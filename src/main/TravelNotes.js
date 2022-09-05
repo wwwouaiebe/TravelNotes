@@ -60,22 +60,6 @@ class TravelNotes {
 	#travelNotesLoaded = false;
 
 	/**
-	Load a travel from the server
-	@param {String} travelUrl The url of the trv file to open
-	*/
-
-	async #loadDistantTravel ( travelUrl ) {
-		const travelResponse = await fetch ( travelUrl );
-		if ( HTTP_STATUS_OK === travelResponse.status && travelResponse.ok ) {
-			new ViewerFileLoader ( ).openDistantFile ( await travelResponse.json ( ) );
-		}
-		else {
-			theTravelNotesData.map.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], TWO );
-			document.title = 'Travel & Notes';
-		}
-	}
-
-	/**
 	The constructor
 	*/
 
@@ -89,7 +73,7 @@ class TravelNotes {
 	@param {String} travelUrl The url of the trv file to open
 	*/
 
-	addReadOnlyMap ( travelUrl ) {
+	async addReadOnlyTravel ( travelUrl ) {
 
 		if ( this.#travelNotesLoaded ) {
 			return;
@@ -99,7 +83,14 @@ class TravelNotes {
 
 		theAttributionsUI.createUI ( );
 		theMapLayersManager.setMapLayer ( 'OSM - Color' );
-		this.#loadDistantTravel ( travelUrl );
+		const travelResponse = await fetch ( travelUrl );
+		if ( HTTP_STATUS_OK === travelResponse.status && travelResponse.ok ) {
+			new ViewerFileLoader ( ).openDistantFile ( await travelResponse.json ( ) );
+		}
+		else {
+			theTravelNotesData.map.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], TWO );
+			document.title = 'Travel & Notes';
+		}
 	}
 
 	/**
@@ -107,15 +98,13 @@ class TravelNotes {
 	This method can only be executed once. Others call will be ignored.
 	*/
 
-	addControl ( ) {
+	addToolbarsMenusUIs ( ) {
 
 		if ( this.#travelNotesLoaded ) {
 			return;
 		}
 
 		this.#travelNotesLoaded = true;
-
-		document.body.style [ 'font-size' ] = String ( theConfig.fontSize.initialValue ) + 'mm';
 
 		// Loading the user interfaces...
 		document.title = 'Travel & Notes';
@@ -125,17 +114,9 @@ class TravelNotes {
 		// ... the attributions UI...
 		theAttributionsUI.createUI ( );
 
-		// ... the map layers toolbar UI...
-		theMapLayersToolbar.createUI ( );
-		theMapLayersManager.setMapLayer ( 'OSM - Color' );
-
 		// ... the mouse UI
 		theMouseUI.createUI ( );
 		theMouseUI.saveStatus = SAVE_STATUS.saved;
-
-		theTravelNotesToolbar.createUI ( );
-
-		theProvidersToolbar.createUI ( );
 
 		// ...help UI
 		theErrorsUI.showHelp (
@@ -143,21 +124,33 @@ class TravelNotes {
 			'<p>' + theTranslator.getText ( 'Help - Continue with interface2' ) + '</p>'
 		);
 
-		// Loading the Api keys
+		// ... the map layers toolbar ...
+		theMapLayersToolbar.createUI ( );
+		theMapLayersManager.setMapLayer ( 'OSM - Color' );
+
+		// ... the Travel & Notes toolbar
+		theTravelNotesToolbar.createUI ( );
+
+		// ...the providers toolbar
+		theProvidersToolbar.createUI ( );
+
+		// ... loading the Api keys
 		theApiKeysManager.setKeysFromServerFile ( );
 
-		// Loading a new empty travel
+		// /// loading a new empty travel
 		theTravelNotesData.travel.jsonObject = new Travel ( ).jsonObject;
 
+		// ... start edition of the route
 		if ( theConfig.travelNotes.startupRouteEdition ) {
 			theRouteEditor.editRoute ( theTravelNotesData.travel.routes.first.objId );
 		}
 
+		// ...updating the route list and roadbook
 		theEventDispatcher.dispatch ( 'setrouteslist' );
 		theEventDispatcher.dispatch ( 'roadbookupdate' );
 
+		// ... full screen UI
 		theFullScreenUI.show ( );
-
 	}
 
 	/**
