@@ -26,10 +26,10 @@ Doc reviewed 202208
 #TravelNotes-MouseUI {
 	position: absolute;
 	top: 0;
-	left: calc(50% - 10em);
+	left: calc(50% - 11em);
 	z-index: 800;
 	text-align: center;
-	width: 20em;
+	width: 22em;
 	background-color: white;
 	opacity: 0.5;
 	padding-left: 0.3em;
@@ -40,6 +40,20 @@ Doc reviewed 202208
 #TravelNotes-MouseUI:hover {
 	opacity: 1;
 	transition: all 1.5s ease;
+}
+
+#TravelNotes-MouseUI-ZoomMinus {
+	cursor: zoom-out;
+}
+
+#TravelNotes-MouseUI-ZoomPlus {
+	cursor: zoom-in;
+}
+
+#TravelNotes-MouseUI-ZoomMinus.TravelNotes-MouseUI-Disabled,
+#TravelNotes-MouseUI-ZoomPlus.TravelNotes-MouseUI-Disabled {
+	color: lightgrey;
+	cursor: not-allowed;
 }
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

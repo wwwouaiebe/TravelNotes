@@ -26,7 +26,7 @@ import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import theTravelNotesData from '../../data/TravelNotesData.js';
 import theConfig from '../../data/Config.js';
 import theUtilities from '../../core/uiLib/Utilities.js';
-import { SAVE_STATUS } from '../../main/Constants.js';
+import { ZERO, SAVE_STATUS, ONE } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -45,6 +45,20 @@ class MouseUI {
 	#mouseUIElement;
 
 	/**
+	the zoom plus button
+	@type {HTMLElement}
+	*/
+
+	#zoomPlusButton;
+
+	/**
+	the zoom minus button
+	@type {HTMLElement}
+	*/
+
+	#zoomMinusButton;
+
+	/**
 	The save status
 	@type {String}
 	*/
@@ -60,7 +74,7 @@ class MouseUI {
 
 	/**
 	The zoom factor
-	@type {String}
+	@type {Number}
 	*/
 
 	#zoom;
@@ -81,13 +95,41 @@ class MouseUI {
 	static get #SAVE_TIME ( ) { return 300000; }
 
 	/**
+	Event listener for the zoom plus ans zoom minus buttons
+	@param {Number} zoomIncrement The value to add to the zoom (normally -1 or 1)
+	*/
+
+	#changeZoom ( zoomIncrement ) {
+		theTravelNotesData.map.setZoom ( theTravelNotesData.map.getZoom ( ) + zoomIncrement );
+	}
+
+	/**
 	Update the UI with the changed saveStatus, mouse position or zoom
 	*/
 
 	#updateUI ( ) {
+
+		// update text
 		if ( this.#mouseUIElement ) {
-			this.#mouseUIElement.textContent =
-				this.#saveStatus + '\u00a0' + this.#mousePosition + '\u00a0-\u00a0Zoom\u00a0:\u00a0' + this.#zoom;
+			this.#mouseUIElement.textContent = '\u00a0' +
+				this.#saveStatus + '\u00a0' +
+				this.#mousePosition + '\u00a0-\u00a0Zoom\u00a0:\u00a0' +
+				String ( this.#zoom ) + '\u00a0';
+		}
+
+		// update zoom buttons
+		const map = theTravelNotesData.map;
+		if ( map.getMaxZoom ( ) === this.#zoom ) {
+			this.#zoomPlusButton.classList.add ( 'TravelNotes-MouseUI-Disabled' );
+		}
+		else {
+			this.#zoomPlusButton.classList.remove ( 'TravelNotes-MouseUI-Disabled' );
+		}
+		if ( map.getMinZoom ( ) === this.#zoom ) {
+			this.#zoomMinusButton.classList.add ( 'TravelNotes-MouseUI-Disabled' );
+		}
+		else {
+			this.#zoomMinusButton.classList.remove ( 'TravelNotes-MouseUI-Disabled' );
 		}
 	}
 
@@ -99,7 +141,7 @@ class MouseUI {
 		Object.freeze ( this );
 		this.#saveStatus = SAVE_STATUS.saved;
 		this.#mousePosition = '';
-		this.#zoom = '';
+		this.#zoom = ZERO;
 		this.#saveTimer = null;
 	}
 
@@ -139,8 +181,27 @@ class MouseUI {
 	createUI ( ) {
 
 		// HTML creation
-		this.#mouseUIElement =
+		const mouseUImainElement =
 			theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-MouseUI' }, document.body );
+		this.#zoomMinusButton = theHTMLElementsFactory.create (
+			'span',
+			{
+				id : 'TravelNotes-MouseUI-ZoomMinus',
+				textContent : '⮟'
+			},
+			mouseUImainElement
+		);
+		this.#zoomMinusButton.addEventListener ( 'click', ( ) => this.#changeZoom ( -ONE ) );
+		this.#mouseUIElement = theHTMLElementsFactory.create ( 'span', null, mouseUImainElement );
+		this.#zoomPlusButton = theHTMLElementsFactory.create (
+			'span',
+			{
+				id : 'TravelNotes-MouseUI-ZoomPlus',
+				textContent : '⮝'
+			},
+			mouseUImainElement
+		);
+		this.#zoomPlusButton.addEventListener ( 'click', ( ) => this.#changeZoom ( ONE ) );
 
 		// init vars for mouse and zoom
 		this.#zoom = theTravelNotesData.map.getZoom ( );
@@ -163,7 +224,7 @@ class MouseUI {
 		theTravelNotesData.map.on (
 			'zoomend',
 			( ) => {
-				this.#zoom = String ( theTravelNotesData.map.getZoom ( ) );
+				this.#zoom = theTravelNotesData.map.getZoom ( );
 				this.#updateUI ( );
 			}
 		);
