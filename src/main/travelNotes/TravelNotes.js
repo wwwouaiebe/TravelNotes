@@ -30,7 +30,6 @@ import Travel from '../../data/Travel.js';
 import ViewerFileLoader from '../../core/ViewerFileLoader.js';
 import { theAppVersion } from '../../data/Version.js';
 import theEventDispatcher from '../../core/lib/EventDispatcher.js';
-import MapContextMenu from '../../contextMenus/MapContextMenu.js';
 import theMapLayersManager from '../../core/MapLayersManager.js';
 import theMapLayersToolbar from '../../toolbars/mapLayersToolbar/MapLayersToolbar.js';
 import theMouseUI from '../../uis/mouseUI/MouseUI.js';
@@ -40,6 +39,7 @@ import theErrorsUI from '../../uis/errorsUI/ErrorsUI.js';
 import theTranslator from '../../core/uiLib/Translator.js';
 import theFullScreenUI from '../../uis/fullScreenUI/FullScreenUI.js';
 import theProvidersToolbar from '../../toolbars/providersToolbar/ProvidersToolbar.js';
+import MapContextMenuEL from '../../core/mapEditor/mapEL/MapContextMenuEL.js';
 import { LAT_LNG, TWO, SAVE_STATUS, HTTP_STATUS_OK } from '../Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -108,7 +108,7 @@ class TravelNotes {
 
 		// Loading the user interfaces...
 		document.title = 'Travel & Notes';
-		theTravelNotesData.map.on ( 'contextmenu', contextMenuEvent => new MapContextMenu ( contextMenuEvent ) .show ( ) );
+		theTravelNotesData.map.on ( 'contextmenu', MapContextMenuEL.handleEvent );
 		theTravelNotesData.map.setView ( [ theConfig.map.center.lat, theConfig.map.center.lng ], theConfig.map.zoom );
 
 		// ... the attributions UI...

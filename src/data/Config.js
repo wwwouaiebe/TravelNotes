@@ -103,6 +103,10 @@ const theConfig = {
 		},
 		zoomFactor : 17
 	},
+	mapContextMenu : {
+		mouseMaxRouteDistance : 10,
+		touchMaxRouteDistance : 10
+	},
 	mapLayersToolbar : {
 		theDevil : {
 			addButton : true
