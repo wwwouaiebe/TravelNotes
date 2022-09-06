@@ -187,7 +187,7 @@ class MouseUI {
 			'span',
 			{
 				id : 'TravelNotes-MouseUI-ZoomMinus',
-				textContent : '⮟'
+				textContent : '▼'
 			},
 			mouseUImainElement
 		);
@@ -197,7 +197,7 @@ class MouseUI {
 			'span',
 			{
 				id : 'TravelNotes-MouseUI-ZoomPlus',
-				textContent : '⮝'
+				textContent : '▲'
 			},
 			mouseUImainElement
 		);
