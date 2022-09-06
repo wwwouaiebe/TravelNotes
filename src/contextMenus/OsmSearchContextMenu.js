@@ -30,6 +30,7 @@ import theTranslator from '../core/uiLib/Translator.js';
 import theWayPointEditor from '../core/WayPointEditor.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import PoiData from '../containers/PoiData.js';
+import theEventDispatcher from '../core/lib/EventDispatcher.js';
 import { LAT_LNG, INVALID_OBJ_ID } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -65,6 +66,7 @@ class OsmSearchContextMenu extends BaseContextMenu {
 		this.#osmElement =
 			theTravelNotesData.searchData [ Number.parseInt ( contextMenuEvent.currentTarget.dataset.tanElementIndex ) ];
 		this.#latLng = [ this.#osmElement.lat, this.#osmElement.lon ];
+		theEventDispatcher.dispatch ( 'removeobject', { objId : this.targetObjId } );
 	}
 
 	/**

@@ -274,7 +274,7 @@ class BaseContextMenuOperator {
 		this.#menuItemMouseEnterEL = null;
 
 		// removing the html elements
-		this.#contextMenu.parentNode.removeChild ( this.#contextMenu.contextMenuHTMLElement );
+		document.body.removeChild ( this.#contextMenu.contextMenuHTMLElement );
 
 		// cleaning the reference to the menu
 		this.#contextMenu = null;

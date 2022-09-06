@@ -25,6 +25,7 @@ Doc reviewed 202208
 import NonModalBaseDialog from './NonModalBaseDialog.js';
 import DockableBaseDialogMover from './DockableBaseDialogMover.js';
 import theConfig from '../../data/Config.js';
+import BaseContextMenu from '../../contextMenus/baseContextMenu/BaseContextMenu.js';
 import { ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -87,14 +88,30 @@ class DockableBaseDialog extends NonModalBaseDialog {
 	static get #MOUSE_EVENT_MAX_DELAY ( ) { return 100; }
 
 	/**
+	The minimal timeout for the mouse leave event
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #MIN_MOUSE_LEAVE_TIMEOUT ( ) { return 1500; }
+
+	/**
 	Hide the content of the dialog. Used by the timer on mouseLeave
 	*/
 
 	#hideContent ( ) {
 		if ( this.mover.dialogDocked ) {
-			this.mover.dialogHTMLElement.classList.add (
-				'TravelNotes-DockableBaseDialog-HiddenContent'
-			);
+			if ( BaseContextMenu.isActive ) {
+				this.#mouseLeaveTimerId = setTimeout (
+					( ) => { this.#hideContent ( ); },
+					Math.max ( DockableBaseDialog.#MIN_MOUSE_LEAVE_TIMEOUT, theConfig.dockableBaseDialog.timeout )
+				);
+			}
+			else {
+				this.mover.dialogHTMLElement.classList.add (
+					'TravelNotes-DockableBaseDialog-HiddenContent'
+				);
+			}
 		}
 	}
 
@@ -122,7 +139,7 @@ class DockableBaseDialog extends NonModalBaseDialog {
 		if ( this.mover.dialogDocked ) {
 			this.#mouseLeaveTimerId = setTimeout (
 				( ) => { this.#hideContent ( ); },
-				theConfig.dockableBaseDialog.timeout
+				Math.max ( DockableBaseDialog.#MIN_MOUSE_LEAVE_TIMEOUT, theConfig.dockableBaseDialog.timeout )
 			);
 		}
 	}

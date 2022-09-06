@@ -66,7 +66,7 @@ class BaseContextMenu {
 
 	/**
 	A flag indicating when the menu must have a parent node. Menus triggered from leaflet objects don't have
-	parentNode and then the menu is added to the document body
+	parentNode
 	@type {Boolean}
 	*/
 
@@ -92,13 +92,6 @@ class BaseContextMenu {
 	*/
 
 	#onPromiseError;
-
-	/**
-	The parent node of the menu
-	@type {HTMLElement}
-	*/
-
-	#parentNode;
 
 	/**
 	The root HTMLElement of the menu
@@ -137,6 +130,13 @@ class BaseContextMenu {
 	static get #menuMargin ( ) { return 20; }
 
 	/**
+	A flag indicating if a menu is active
+	@type {Boolean}
+	*/
+
+	static get isActive ( ) { return Boolean ( BaseContextMenu.#currentMenu ); }
+
+	/**
 	Build the menu container and add event listeners
 	*/
 
@@ -146,7 +146,7 @@ class BaseContextMenu {
 			{
 				className : 'TravelNotes-ContextMenu-ContextMenuHTMLElement'
 			},
-			this.#parentNode
+			document.body
 		);
 	}
 
@@ -205,18 +205,13 @@ class BaseContextMenu {
 				BaseContextMenu.#menuMargin
 		);
 		this.#contextMenuHTMLElement.style.top = String ( menuTop ) + 'px';
-		if ( this.#haveParentNode ) {
-			this.#contextMenuHTMLElement.style.right = String ( BaseContextMenu.#menuMargin ) + 'px';
-		}
-		else {
-			const menuLeft = Math.min (
-				this.#clientX,
-				theTravelNotesData.map.getContainer ( ).clientWidth -
-				this.#contextMenuHTMLElement.clientWidth -
-				BaseContextMenu.#menuMargin
-			);
-			this.#contextMenuHTMLElement.style.left = String ( menuLeft ) + 'px';
-		}
+		const menuLeft = Math.min (
+			this.#clientX,
+			theTravelNotesData.map.getContainer ( ).clientWidth -
+			this.#contextMenuHTMLElement.clientWidth -
+			BaseContextMenu.#menuMargin
+		);
+		this.#contextMenuHTMLElement.style.left = String ( menuLeft ) + 'px';
 	}
 
 	/**
@@ -265,8 +260,6 @@ class BaseContextMenu {
 			??
 			( Number.parseInt ( contextMenuEvent?.currentTarget?.dataset?.tanObjId ) || INVALID_OBJ_ID );
 		this.#haveParentNode = Boolean ( parentNode );
-		this.#parentNode = parentNode || document.body;
-
 		BaseContextMenu.#currentMenu = this;
 	}
 
@@ -320,13 +313,6 @@ class BaseContextMenu {
 	get menuItems ( ) { return []; }
 
 	/**
-	The parent node of the menu
-	@type {HTMLElement}
-	*/
-
-	get parentNode ( ) { return this.#parentNode; }
-
-	/**
 	The root HTMLElement of the menu
 	@type {HTMLElement}
 	*/
@@ -377,7 +363,7 @@ class BaseContextMenu {
 
 	/**
 	A flag indicating when the menu must have a parent node. Menus triggered from leaflet objects don't have
-	parentNode and then the menu is added to the document body
+	parentNode
 	@type {Boolean}
 	*/
 
