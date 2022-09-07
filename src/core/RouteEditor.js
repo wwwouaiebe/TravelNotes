@@ -36,6 +36,7 @@ import theProfileDialogsManager from './ProfileDialogsManager.js';
 import RoutePrinter from '../printRoute/RoutePrinter.js';
 
 import { ROUTE_EDITION_STATUS, DISTANCE, INVALID_OBJ_ID } from '../main/Constants.js';
+import TempWayPointMarkerMouseOutEL from './mapEditor/TempWayPointMarkerEL/TempWayPointMarkerMouseOutEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -245,6 +246,9 @@ class RouteEditor {
 	*/
 
 	cancelEdition ( ) {
+
+		// Removing temp way point if any mainly for touch devices)
+		TempWayPointMarkerMouseOutEL.handleEvent ( );
 
 		// !!! order is important!!!
 		const editedRoute = theDataSearchEngine.getRoute ( theTravelNotesData.editedRouteObjId );
