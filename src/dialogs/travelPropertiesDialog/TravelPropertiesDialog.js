@@ -102,6 +102,12 @@ class TravelPropertiesDialog extends DockableBaseDialog {
 
 	get title ( ) { return theTranslator.getText ( 'TravelPropertiesDialog - Travel properties' ); }
 
+	/**
+	Add a route in the route list  of the dialog
+	@param {Route} route The route to add
+	@param {Array.<HTMLElement>} listItemsHTMLElements The list to witch the routes are added
+	*/
+
 	#addRoute ( route, listItemsHTMLElements ) {
 		const routeName =
 		( route.editionStatus === ROUTE_EDITION_STATUS.notEdited ? '' : '🔴\u00a0' ) +

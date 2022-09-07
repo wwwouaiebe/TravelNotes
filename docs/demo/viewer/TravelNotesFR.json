@@ -4,6 +4,14 @@
 		"msgstr": "À propos de Travel & Notes"
 	},
 	{
+		"msgid": "AddressControl - Address",
+		"msgstr": " Adresse :"
+	},
+	{
+		"msgid": "AddressControl - Reset address",
+		"msgstr": "Mettre l'adresse à jour avec Nominatim"
+	},
+	{
 		"msgid": "AllManeuverNotesBuilder - Add a note for each maneuver",
 		"msgstr": "Ajouter une note pour chaque manœuvre"
 	},
@@ -20,51 +28,51 @@
 		"msgstr": "Vous voulez créer {maneuversLength} notes. Pour des raisons de performance, le nombre de notes est limité à {maxManeuversNotes} pour cette démo. Modifiez votre trajet."
 	},
 	{
-		"msgid": "APIKeysDialog - empty API key name or value",
+		"msgid": "ApiKeysDialog - empty api key name or value",
 		"msgstr": "Un nom de clé ou une clé d'accès n'est pas complété"
 	},
 	{
-		"msgid": "APIKeyControlRow - API key",
+		"msgid": "ApiKeyControlRow - api key",
 		"msgstr": "Clé d'accès"
 	},
 	{
-		"msgid": "APIKeyControlRow - delete API key",
+		"msgid": "ApiKeyControlRow - delete api key",
 		"msgstr": "effacer la clé d'accès"
 	},
 	{
-		"msgid": "APIKeyControlRow - provider name",
+		"msgid": "ApiKeyControlRow - provider name",
 		"msgstr": "Fournisseur"
 	},
 	{
-		"msgid": "APIKeysDialog - API keys",
+		"msgid": "ApiKeysDialog - api keys",
 		"msgstr": "Clés d'accès"
 	},
 	{
-		"msgid": "APIKeysDialogToolbar - new API key",
+		"msgid": "ApiKeysDialogToolbar - new api key",
 		"msgstr": "Nouvelle clé d'accès"
 	},
 	{
-		"msgid": "APIKeysDialogToolbar - Open file",
+		"msgid": "ApiKeysDialogToolbar - Open file",
 		"msgstr": "Ouvrir un fichier avec mot de passe"
 	},
 	{
-		"msgid": "APIKeysDialogToolbar - Open json file",
+		"msgid": "ApiKeysDialogToolbar - Open json file",
 		"msgstr": "Ouvrir un fichier sans mot de passe"
 	},
 	{
-		"msgid": "APIKeysDialogToolbar - Reload from server",
+		"msgid": "ApiKeysDialogToolbar - Reload from server",
 		"msgstr": "Recharger les clefs d'accès depuis le serveur web"
 	},
 	{
-		"msgid": "APIKeysDialogToolbar - Save to file",
+		"msgid": "ApiKeysDialogToolbar - Save to file",
 		"msgstr": "Sauver dans un fichier avec mot de passe"
 	},
 	{
-		"msgid": "APIKeysDialogToolbar - Save to json file",
+		"msgid": "ApiKeysDialogToolbar - Save to json file",
 		"msgstr": "Sauver dans un fichier SANS mot de passe"
 	},
 	{
-		"msgid": "APIKeysManager - An error occurs when reading the APIKeys file",
+		"msgid": "ApiKeysManager - An error occurs when reading the ApiKeys file",
 		"msgstr": "Une erreur est survenue lors de la lecture des clefs d'accès"
 	},
 	{
@@ -160,15 +168,15 @@
 		"msgstr": "Point-nœud "
 	},
 	{
-		"msgid": "Help - Complete the APIKeys1",
+		"msgid": "Help - Complete the ApiKeys1",
 		"msgstr": "Utilisez le bouton + pour ajouter un fournisseur."
 	},
 	{
-		"msgid": "Help - Complete the APIKeys2",
+		"msgid": "Help - Complete the ApiKeys2",
 		"msgstr": "Introduisez à gauche le nom du fournisseur d'accès. Celui-ci doit être 'Mapbox', 'GraphHopper', 'OpenRouteservice' ou 'MapzenValhalla' pour un fournisseur d'itinéraires ou 'Mapbox, 'Thunderforest' ou 'Lantmateriet' pour un fournisseur de cartes."
 	},
 	{
-		"msgid": "Help - Complete the APIKeys3",
+		"msgid": "Help - Complete the ApiKeys3",
 		"msgstr": "Complétez à droite avec votre clef d'accès"
 	},
 	{
@@ -186,14 +194,6 @@
 	{
 		"msgid": "IconSelectorChangeEL - not possible to create a SVG icon for a travel note",
 		"msgstr": "Il n'est pas possible de créer une icône SVG pour une note de voyage."
-	},
-	{
-		"msgid": "ManeuverContextMenu - Zoom to this maneuver",
-		"msgstr": "Zoom sur cette manœuvre"
-	},
-	{
-		"msgid": "MapContextMenu - About Travel & Notes",
-		"msgstr": "À propos de Travel & Notes"
 	},
 	{
 		"msgid": "MapContextMenu - Add a route",
@@ -286,14 +286,6 @@
 	{
 		"msgid": "Notedialog - The icon content cannot be empty",
 		"msgstr": "Le contenu de l'icône doit être complété."
-	},
-	{
-		"msgid": "NoteDialogAddressControl - Address",
-		"msgstr": " Adresse :"
-	},
-	{
-		"msgid": "NoteDialogAddressControl - Reset address",
-		"msgstr": "Mettre l'adresse à jour avec Nominatim"
 	},
 	{
 		"msgid": "NoteDialogGeoCoderHelper - an error occurs when searching the adress",
@@ -1048,12 +1040,20 @@
 		"msgstr": "Diminuer la taille des caractères"
 	},
 	{
-		"msgid": "TravelNotesToolbar - API keys",
-		"msgstr": "Notes de voyage"
+		"msgid": "TravelNotesToolbar - About Travel & Notes",
+		"msgstr": "À propos de Travel & Notes"
 	},
 	{
-		"msgid": "TravelNotesToolbar - Geo location",
-		"msgstr": "Localisation"
+		"msgid": "TravelNotesToolbar - api keys",
+		"msgstr": "Gestion des clés d'accès"
+	},
+	{
+		"msgid": "TravelNotesToolbar - Start Geo location",
+		"msgstr": "Démarer la localisation"
+	},
+	{
+		"msgid": "TravelNotesToolbar - Stop Geo location",
+		"msgstr": "Arrêter la localisation"
 	},
 	{
 		"msgid": "TravelNotesToolbar - Cancel travel",
@@ -1096,6 +1096,10 @@
 		"msgstr": "Notes de voyage"
 	},
 	{
+		"msgid": "TravelNotesToolbar - Travel properties",
+		"msgstr": "Propriétés du voyage"
+	},
+	{
 		"msgid": "TravelPropertiesDialog - Name",
 		"msgstr": "Nom du voyage"
 	},
@@ -1136,16 +1140,8 @@
 		"msgstr": "Modifier les propriétés de ce point de passage"
 	},
 	{
-		"msgid": "WayPointPropertiesDialog - Address",
-		"msgstr": "Adresse : "
-	},
-	{
 		"msgid": "WayPointPropertiesDialog - Name",
 		"msgstr": "Nom : "
-	},
-	{
-		"msgid": "WayPointPropertiesDialog - Reset address",
-		"msgstr": "Mettre l'adresse à jour avec Nominatim"
 	},
 	{
 		"msgid": "WayPointPropertiesDialog - Waypoint properties",
