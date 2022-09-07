@@ -32,6 +32,7 @@ import theTravelEditor from '../../core/TravelEditor.js';
 import RouteContextMenu from '../../contextMenus/RouteContextMenu.js';
 import TravelNameInputEL from './TravelNameInputEL.js';
 import theConfig from '../../data/Config.js';
+import { ROUTE_EDITION_STATUS } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -101,6 +102,26 @@ class TravelPropertiesDialog extends DockableBaseDialog {
 
 	get title ( ) { return theTranslator.getText ( 'TravelPropertiesDialog - Travel properties' ); }
 
+	#addRoute ( route, listItemsHTMLElements ) {
+		const routeName =
+		( route.editionStatus === ROUTE_EDITION_STATUS.notEdited ? '' : '🔴\u00a0' ) +
+		( route.chain ? '⛓\u00a0' : '' ) +
+		(
+			route.objId === theTravelNotesData.editedRouteObjId ?
+				theTravelNotesData.travel.editedRoute.computedName :
+				route.computedName
+		);
+		listItemsHTMLElements.push (
+			theHTMLElementsFactory.create (
+				'div',
+				{
+					textContent : routeName,
+					dataset : { ObjId : String ( route.objId ) }
+				}
+			)
+		);
+	}
+
 	/**
 	Update the content of the dialog
 	*/
@@ -112,23 +133,12 @@ class TravelPropertiesDialog extends DockableBaseDialog {
 		const listItemsHTMLElements = [];
 		theTravelNotesData.travel.routes.forEach (
 			route => {
-				const routeName =
-				( route.objId === theTravelNotesData.editedRouteObjId ? '🔴\u00a0' : '' ) +
-				( route.chain ? '⛓\u00a0' : '' ) +
-				(
-					route.objId === theTravelNotesData.editedRouteObjId ?
-						theTravelNotesData.travel.editedRoute.computedName :
-						route.computedName
-				);
-				listItemsHTMLElements.push (
-					theHTMLElementsFactory.create (
-						'div',
-						{
-							textContent : routeName,
-							dataset : { ObjId : String ( route.objId ) }
-						}
-					)
-				);
+				if ( route.objId === theTravelNotesData.editedRouteObjId ) {
+					this.#addRoute ( theTravelNotesData.travel.editedRoute, listItemsHTMLElements );
+				}
+				else {
+					this.#addRoute ( route, listItemsHTMLElements );
+				}
 			}
 		);
 		this.#travelRoutesControl.updateContent ( listItemsHTMLElements );
