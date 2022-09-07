@@ -36,7 +36,7 @@ import TempWayPointMarkerContextMenuEL from '../TempWayPointMarkerEL/TempWayPoin
 import TempWayPointMarkerClickEL from '../TempWayPointMarkerEL/TempWayPointMarkerClickEL.js';
 import TempWayPointMarkerDragEndEL from '../TempWayPointMarkerEL/TempWayPointMarkerDragEndEL.js';
 
-import { ROUTE_EDITION_STATUS, NOT_FOUND, ZERO, ONE, TWO, WAY_POINT_ICON_SIZE } from '../../../main/Constants.js';
+import { NOT_FOUND, ZERO, ONE, TWO, WAY_POINT_ICON_SIZE } from '../../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -55,23 +55,20 @@ class EditedRouteMouseOverEL {
 
 	/**
 	mouseover event listener
-	@param {Event} mapEvent The event to handle
+	@param {Event} mouseEvent The event to handle
 	*/
 
-	static handleEvent ( mapEvent ) {
-		const route = theDataSearchEngine.getRoute ( mapEvent.target.objId );
-		if ( ROUTE_EDITION_STATUS.notEdited === route.editionStatus ) {
-			return;
-		}
-		TempWayPointMarkerELData.initialLatLng = [ mapEvent.latlng.lat, mapEvent.latlng.lng ];
+	static handleEvent ( mouseEvent ) {
+		const route = theDataSearchEngine.getRoute ( mouseEvent.target.objId );
+		TempWayPointMarkerELData.initialLatLng = [ mouseEvent.latlng.lat, mouseEvent.latlng.lng ];
 		if ( TempWayPointMarkerELData.marker ) {
-			TempWayPointMarkerELData.marker.setLatLng ( mapEvent.latlng );
+			TempWayPointMarkerELData.marker.setLatLng ( mouseEvent.latlng );
 		}
 		else {
 
 			// a leaflet marker is created...
 			TempWayPointMarkerELData.marker = window.L.marker (
-				mapEvent.latlng,
+				mouseEvent.latlng,
 				{
 					icon : window.L.divIcon (
 						{
@@ -100,7 +97,7 @@ class EditedRouteMouseOverEL {
 				tooltipText = theTranslator.getText ( 'EditedRouteMouseOverEL - Drag and drop to add a waypoint' ) + ' - ';
 			}
 			tooltipText += route.computedName + ' - ';
-			let distance = theGeometry.getClosestLatLngDistance ( route, [ mapEvent.latlng.lat, mapEvent.latlng.lng ] )
+			let distance = theGeometry.getClosestLatLngDistance ( route, [ mouseEvent.latlng.lat, mouseEvent.latlng.lng ] )
 				.distance;
 			distance += route.chainedDistance;
 			tooltipText += theUtilities.formatDistance ( distance );

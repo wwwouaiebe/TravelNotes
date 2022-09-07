@@ -22,40 +22,43 @@ Changes:
 Doc reviewed 202208
  */
 
-import theDevice from '../../lib/Device.js';
 import theDataSearchEngine from '../../../data/DataSearchEngine.js';
+import theDevice from '../../lib/Device.js';
+import theTravelNotesData from '../../../data/TravelNotesData.js';
+import { LAT, LNG, ROUTE_EDITION_STATUS } from '../../../main/Constants.js';
+import theConfig from '../../../data/Config.js';
 import MapContextMenu from '../../../contextMenus/MapContextMenu.js';
 import RouteContextMenu from '../../../contextMenus/RouteContextMenu.js';
-import theTravelNotesData from '../../../data/TravelNotesData.js';
-import { LAT, LNG } from '../../../main/Constants.js';
-import theConfig from '../../../data/Config.js';
+import EditedRouteMouseOverEL from '../editedRouteEL/EditedRouteMouseOverEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-context menu event listener for the map
+click and contextmenu event listeners for the map
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class MapContextMenuEL {
+class MapMouseELs {
 
 	/**
-	Event listener method
-	@param {Event} contextMenuEvent The event to handle
+	Search a route near the given event listener and create a fake event if a route
+	is found near the event point
+	@param {Event} clickOrContextMenuEvent The event to use
 	*/
 
-	static handleEvent ( contextMenuEvent ) {
+	static createFakeEvent ( clickOrContextMenuEvent ) {
 		const nearestRouteData = theDataSearchEngine.getNearestRouteData (
-			[ contextMenuEvent.latlng.lat, contextMenuEvent.latlng.lng ]
+			[ clickOrContextMenuEvent.latlng.lat, clickOrContextMenuEvent.latlng.lng ]
 		);
+
 		if ( ! nearestRouteData.route ) {
-			new MapContextMenu ( contextMenuEvent ).show ( );
 			return;
 		}
+
 		const routeLatLng = window.L.latLng (
 			nearestRouteData.latLngOnRoute [ LAT ], nearestRouteData.latLngOnRoute [ LNG ]
 		);
 		const routeContainerPoint = theTravelNotesData.map.latLngToContainerPoint ( routeLatLng );
-		const routeDistance = routeContainerPoint.distanceTo ( contextMenuEvent.containerPoint );
+		const routeDistance = routeContainerPoint.distanceTo ( clickOrContextMenuEvent.containerPoint );
 		const maxRouteDistance =
 			theDevice.isTouch
 				?
@@ -64,10 +67,10 @@ class MapContextMenuEL {
 				theConfig.mapContextMenu.mouseMaxRouteDistance;
 
 		if ( routeDistance > maxRouteDistance ) {
-			new MapContextMenu ( contextMenuEvent ).show ( );
 			return;
 		}
-		const fakeRouteContextMenuEvent = Object.freeze (
+
+		return Object.freeze (
 			{
 				clientX : routeContainerPoint.x,
 				clientY : routeContainerPoint.y,
@@ -75,11 +78,47 @@ class MapContextMenuEL {
 				target : nearestRouteData.route
 			}
 		);
-		new RouteContextMenu ( fakeRouteContextMenuEvent ).show ( );
+
+	}
+
+	/**
+	Click event listener for the map. Search an edited route near the click point and add a
+	temp way point if any
+	@param {Event} clickEvent The event to handle
+	*/
+
+	static handleClickEvent ( clickEvent ) {
+		const fakeEvent = MapMouseELs.createFakeEvent ( clickEvent );
+		if (
+			fakeEvent
+			&&
+			theDevice.isTouch
+			&&
+			fakeEvent.target.editionStatus !== ROUTE_EDITION_STATUS.notEdited
+		) {
+			EditedRouteMouseOverEL.handleEvent ( fakeEvent );
+		}
+	}
+
+	/**
+	Context event listener for the map. Search an edited route near the click point and show a
+	route context menu if any, otherwise show a map context menu
+	@param {Event} contextMenuEvent The event to handle
+	*/
+
+	static handleContextMenuEvent ( contextMenuEvent ) {
+
+		const fakeEvent = MapMouseELs.createFakeEvent ( contextMenuEvent );
+		if ( fakeEvent ) {
+			new RouteContextMenu ( fakeEvent ).show ( );
+		}
+		else {
+			new MapContextMenu ( contextMenuEvent ).show ( );
+		}
 	}
 
 }
 
-export default MapContextMenuEL;
+export default MapMouseELs;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

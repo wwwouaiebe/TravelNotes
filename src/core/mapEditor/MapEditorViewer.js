@@ -35,6 +35,7 @@ import NoteLeafletObjects from './NoteLeafletObjects.js';
 
 import { GEOLOCATION_STATUS, ROUTE_EDITION_STATUS, ZERO, TWO } from '../../main/Constants.js';
 import theTranslator from '../../core/uiLib/Translator.js';
+import theDevice from '../../core/lib/Device.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -141,21 +142,23 @@ class MapEditorViewer {
 				route.computedName,
 				{ sticky : true, direction : 'right' }
 			);
-			window.L.DomEvent.on ( polyline, 'mouseover', RouteMouseOverOrMoveEL.handleEvent );
-			window.L.DomEvent.on ( polyline, 'mousemove', RouteMouseOverOrMoveEL.handleEvent );
+			if ( ! theDevice.isTouch ) {
+				window.L.DomEvent.on ( polyline, 'mouseover', RouteMouseOverOrMoveEL.handleEvent );
+				window.L.DomEvent.on ( polyline, 'mousemove', RouteMouseOverOrMoveEL.handleEvent );
+
+				polyline.bindPopup (
+					layer => theHTMLSanitizer.clone (
+						theRouteHTMLViewsFactory.getRouteHeaderHTML (
+							'TravelNotes-Map-',
+							theDataSearchEngine.getRoute ( layer.objId )
+						)
+					)
+				);
+
+				// left click event
+				window.L.DomEvent.on ( polyline, 'click', clickEvent => clickEvent.target.openPopup ( clickEvent.latlng ) );
+			}
 		}
-
-		polyline.bindPopup (
-			layer => theHTMLSanitizer.clone (
-				theRouteHTMLViewsFactory.getRouteHeaderHTML (
-					'TravelNotes-Map-',
-					theDataSearchEngine.getRoute ( layer.objId )
-				)
-			)
-		);
-
-		// left click event
-		window.L.DomEvent.on ( polyline, 'click', clickEvent => clickEvent.target.openPopup ( clickEvent.latlng ) );
 
 		// notes are added
 		const notesIterator = route.notes.iterator;

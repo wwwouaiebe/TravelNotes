@@ -39,7 +39,7 @@ import theErrorsUI from '../../uis/errorsUI/ErrorsUI.js';
 import theTranslator from '../../core/uiLib/Translator.js';
 import theFullScreenUI from '../../uis/fullScreenUI/FullScreenUI.js';
 import theProvidersToolbar from '../../toolbars/providersToolbar/ProvidersToolbar.js';
-import MapContextMenuEL from '../../core/mapEditor/mapEL/MapContextMenuEL.js';
+import MapMouseELs from '../../core/mapEditor/mapMouseELs/MapMouseELs.js';
 import { LAT_LNG, TWO, SAVE_STATUS, HTTP_STATUS_OK } from '../Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -108,7 +108,8 @@ class TravelNotes {
 
 		// Loading the user interfaces...
 		document.title = 'Travel & Notes';
-		theTravelNotesData.map.on ( 'contextmenu', MapContextMenuEL.handleEvent );
+		theTravelNotesData.map.on ( 'contextmenu', MapMouseELs.handleContextMenuEvent );
+		theTravelNotesData.map.on ( 'click', MapMouseELs.handleClickEvent );
 		theTravelNotesData.map.setView ( [ theConfig.map.center.lat, theConfig.map.center.lng ], theConfig.map.zoom );
 
 		// ... the attributions UI...

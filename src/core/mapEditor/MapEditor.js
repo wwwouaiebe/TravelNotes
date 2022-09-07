@@ -40,6 +40,7 @@ import WayPointContextMenuEL from './wayPointEL/WayPointContextMenuEL.js';
 import WayPointDragEndEL from './wayPointEL/WayPointDragEndEL.js';
 import RouteMapContextMenuEL from './RouteEL/RouteMapContextMenuEL.js';
 import { ROUTE_EDITION_STATUS, LAT_LNG, INVALID_OBJ_ID, TWO, WAY_POINT_ICON_SIZE } from '../../main/Constants.js';
+import theDevice from '../lib/Device.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -111,8 +112,9 @@ class MapEditor	extends MapEditorViewer {
 
 			if ( ! theTravelNotesData.travel.readOnly ) {
 				window.L.DomEvent.on ( polyline, 'contextmenu', RouteMapContextMenuEL.handleEvent );
-				window.L.DomEvent.on ( polyline, 'mouseover', EditedRouteMouseOverEL.handleEvent );
-
+				if ( ROUTE_EDITION_STATUS.notEdited !== route.editionStatus && ! theDevice.isTouch ) {
+					window.L.DomEvent.on ( polyline, 'mouseover', EditedRouteMouseOverEL.handleEvent );
+				}
 				const notesIterator = route.notes.iterator;
 				while ( ! notesIterator.done ) {
 					const layerGroup = theTravelNotesData.mapObjects.get ( notesIterator.value.objId );
