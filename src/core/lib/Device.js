@@ -22,6 +22,8 @@ Changes:
 Doc reviewed 202208
  */
 
+import { ZERO, ONE } from '../../main/Constants.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 A simple class used to detect if the device have a touch screen
@@ -62,6 +64,33 @@ class Device {
 	*/
 
 	get isTouch ( ) { return Device.#isTouch; }
+
+	/**
+	get the width and height avaiable for menus and dialogs
+	@type {Object} a read only object with width and height properties
+	*/
+
+	get screenAvailable ( ) {
+
+		const testHTMLElement = document.createElement ( 'div' );
+		testHTMLElement.style.position = 'absolute';
+		testHTMLElement.style.bottom = ZERO;
+		testHTMLElement.style.right = ZERO;
+		testHTMLElement.style.height = ONE;
+		testHTMLElement.style.width = ONE;
+		document.body.appendChild ( testHTMLElement );
+		const boundingClientRect = testHTMLElement.getBoundingClientRect ( );
+		const screenAvailableHeight = boundingClientRect.bottom;
+		const screenAvailableWidth = boundingClientRect.right;
+		document.body.removeChild ( testHTMLElement );
+
+		return Object.freeze (
+			{
+				height : screenAvailableHeight,
+				width : screenAvailableWidth
+			}
+		);
+	}
 }
 
 /**

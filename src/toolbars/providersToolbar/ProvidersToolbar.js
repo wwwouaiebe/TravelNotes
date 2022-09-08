@@ -30,6 +30,7 @@ import theApiKeysManager from '../../core/ApiKeysManager.js';
 import { NOT_FOUND, ZERO, TWO } from '../../main/Constants.js';
 import theTranslator from '../../core/uiLib/Translator.js';
 import theConfig from '../../data/Config.js';
+import theDevice from '../../core/lib/Device.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -241,7 +242,7 @@ class ProvidersToolbar {
 		);
 		this.#toolbarHTMLElement.style.left =
 			String (
-				( theTravelNotesData.map.getContainer ( ).clientWidth - this.#toolbarHTMLElement.clientWidth ) / TWO
+				( theDevice.screenAvailable.width - this.#toolbarHTMLElement.clientWidth ) / TWO
 			) + 'px';
 	}
 
@@ -282,7 +283,7 @@ class ProvidersToolbar {
 		this.#toolbarHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-ProvidersToolbar-Container'
+				id : 'TravelNotes-ProvidersToolbar-Container'
 			},
 			document.body
 		);
@@ -415,7 +416,6 @@ class ProvidersToolbar {
 		this.transitMode = theTravelNotesData.providers.get ( providerName.toLowerCase ( ) ).transitModes [ ZERO ];
 		this.#centerToolbar ( );
 	}
-
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

@@ -23,7 +23,7 @@ Changes:
 Doc reviewed 202208
  */
 
-.TravelNotes-ProvidersToolbar-Container {
+#TravelNotes-ProvidersToolbar-Container {
 	position: absolute;
 	bottom: 0;
 	left: 50vw;
