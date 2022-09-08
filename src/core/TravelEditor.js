@@ -181,7 +181,8 @@ class TravelEditor {
 			compressedTravel.name + '.' +
 			( theDevice.isTouch ? theConfig.files.writeTouch : theConfig.files.writeOthers ),
 			JSON.stringify ( compressedTravel ),
-			'application/json' );
+			'application/json'
+		);
 		theMouseUI.saveStatus = SAVE_STATUS.saved;
 	}
 

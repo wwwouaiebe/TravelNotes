@@ -62,7 +62,7 @@ const theConfig = {
 	{
 		openGpx : [ 'gpx' ],
 		openTaN : [ 'json', 'trv' ],
-		writeTouch : 'json',
+		writeTouch : 'trv',
 		writeOthers : 'trv'
 	},
 	fontSize :

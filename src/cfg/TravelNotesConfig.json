@@ -35,7 +35,7 @@
 	{
 		"openTaN": ["json","trv"],
 		"openGpx": ["gpx"],
-		"writeTouch": "json",
+		"writeTouch": "trv",
 		"writeOthers" : "trv"
 	},
 	"fontSize" :
