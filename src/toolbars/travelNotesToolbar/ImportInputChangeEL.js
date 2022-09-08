@@ -24,7 +24,8 @@ Doc reviewed 202208
 
 import FileLoader from '../../core/FileLoader.js';
 import theErrorsUI from '../../uis/errorsUI/ErrorsUI.js';
-import { ZERO } from '../../main/Constants.js';
+import { NOT_FOUND, ZERO } from '../../main/Constants.js';
+import theConfig from '../../data/Config.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -49,26 +50,27 @@ class ImportInputChangeEL {
 
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
+		const fileName = changeEvent.target.files [ ZERO ].name;
+		const fileExtension = fileName.split ( '.' )
+			.pop ( )
+			.toLowerCase ( );
 		const fileReader = new FileReader ( );
 		fileReader.onload = ( ) => {
 			try {
-				const fileExtension = changeEvent.target.files [ ZERO ].name.split ( '.' ).pop ( )
-					.toLowerCase ( );
-				switch ( fileExtension ) {
-				case 'trv' :
+				if ( NOT_FOUND !== theConfig.files.openTaN.indexOf ( fileExtension ) ) {
 					new FileLoader ( ).mergeLocalTrvFile ( fileReader.result );
-					break;
-				case 'gpx' :
+				}
+				else if ( NOT_FOUND !== theConfig.files.openGpx.indexOf ( fileExtension ) ) {
 					new FileLoader ( ).mergeLocalGpxFile ( fileReader.result );
-					break;
-				default :
-					break;
 				}
 			}
 			catch ( err ) {
 				if ( err instanceof Error ) {
 					console.error ( err );
-					theErrorsUI.showError ( 'An error occurs when reading the file : ' + err.message );
+					theErrorsUI.showError (
+						'An error occurs when reading the file ' +
+						fileName
+					);
 				}
 			}
 		};

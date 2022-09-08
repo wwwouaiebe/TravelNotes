@@ -31,6 +31,13 @@
 		"showWarning":true,
 		"timeOut":10000
 	},
+	"files":
+	{
+		"openTaN": ["json","trv"],
+		"openGpx": ["gpx"],
+		"writeTouch": "json",
+		"writeOthers" : "trv"
+	},
 	"fontSize" :
 	{
 		"initialValue": 3.5,
