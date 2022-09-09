@@ -47,6 +47,7 @@ class MenuItemEL extends BaseEL {
 	constructor ( menuOperator ) {
 		super ( );
 		this.#menuOperator = menuOperator;
+		this.eventTypes = [ 'click', 'mouseenter', 'mouseleave' ];
 	}
 
 	/**

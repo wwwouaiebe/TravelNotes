@@ -47,6 +47,7 @@ class ContextMenuEL extends BaseEL {
 	constructor ( menuOperator ) {
 		super ( );
 		this.#menuOperator = menuOperator;
+		this.eventTypes = [ 'mouseenter', 'mouseleave' ];
 	}
 
 	/**

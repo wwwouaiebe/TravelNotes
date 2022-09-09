@@ -47,6 +47,7 @@ class ContextMenuCancelButtonEL extends BaseEL {
 	constructor ( menuOperator ) {
 		super ( );
 		this.#menuOperator = menuOperator;
+		this.eventTypes = [ 'click' ];
 	}
 
 	/**
@@ -55,12 +56,6 @@ class ContextMenuCancelButtonEL extends BaseEL {
 
 	handleClickEvent ( ) {
 		this.#menuOperator.onCancelMenu ( );
-	}
-
-	get events ( ) {
-		return [
-			{ eventName : 'click', handler : this.handleClickEvent }
-		];
 	}
 }
 

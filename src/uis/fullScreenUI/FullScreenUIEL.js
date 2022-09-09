@@ -47,6 +47,7 @@ class FullScreenUIEL extends BaseEL {
 	constructor ( fullScreenUI ) {
 		super ( );
 		this.#fullScreenUI = fullScreenUI;
+		this.eventTypes = [ 'click' ];
 	}
 
 	/**
