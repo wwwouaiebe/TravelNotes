@@ -35,13 +35,6 @@ Base class for event listeners management
 class BaseEL {
 
 	/**
-	A reference to the target of the events listeners
-	@type {HTMLElement}
-	*/
-
-	#target;
-
-	/**
 	The touchstart time stamp
 	@type {Number}
 	*/
@@ -121,6 +114,38 @@ class BaseEL {
 			contextMenuEvent.preventDefault ( );
 			contextMenuEvent.stopPropagation ( );
 			this.handleContextMenuEvent ( contextMenuEvent );
+		}
+	}
+
+	/**
+	mouseenter event handler
+	@param {Event} mouseEnterEvent The event to handle
+	*/
+
+	#handleMouseEnterEvent ( mouseEnterEvent ) {
+		if ( theDevice.isTouch ) {
+			return;
+		}
+		if ( this.handleMouseEnterEvent ) {
+			mouseEnterEvent.preventDefault ( );
+			mouseEnterEvent.stopPropagation ( );
+			this.handleMouseEnterEvent ( mouseEnterEvent );
+		}
+	}
+
+	/**
+	mouseleave event handler
+	@param {Event} mouseLeaveEvent The event to handle
+	*/
+
+	#handleMouseLeaveEvent ( mouseLeaveEvent ) {
+		if ( theDevice.isTouch ) {
+			return;
+		}
+		if ( this.handleMouseLeaveEvent ) {
+			mouseLeaveEvent.preventDefault ( );
+			mouseLeaveEvent.stopPropagation ( );
+			this.handleMouseLeaveEvent ( mouseLeaveEvent );
 		}
 	}
 
@@ -219,12 +244,10 @@ class BaseEL {
 
 	/**
 	The constructor
-	@param {HTMLElement} target A reference to the target of the events listeners
 	*/
 
-	constructor ( target ) {
+	constructor ( ) {
 		Object.freeze ( this );
-		this.#target = target;
 		this.#lastTouchStartTimeStamp = ZERO;
 		this.#lastTouchEndTimeStamp = ZERO;
 		this.#clickOccured = false;
@@ -234,41 +257,55 @@ class BaseEL {
 
 	/**
 	Add the event listeners to the target
+	@param {HTMLElement} target The  event target
 	*/
 
-	addEventListeners ( ) {
-		this.#target.addEventListener ( 'touchstart', this );
-		this.#target.addEventListener ( 'touchmove', this );
-		this.#target.addEventListener ( 'touchend', this );
-		this.#target.addEventListener ( 'touchcancel', this );
+	addEventListeners ( target ) {
+		target.addEventListener ( 'touchstart', this );
+		target.addEventListener ( 'touchmove', this );
+		target.addEventListener ( 'touchend', this );
+		target.addEventListener ( 'touchcancel', this );
 		if ( this.handleClickEvent ) {
-			this.#target.addEventListener ( 'click', this );
-		}
-		if ( this.handleDblClickEvent ) {
-			this.#target.addEventListener ( 'dblclick', this );
+			target.addEventListener ( 'click', this );
 		}
 		if ( this.handleContextMenuEvent ) {
-			this.#target.addEventListener ( 'contextmenu', this );
+			target.addEventListener ( 'contextmenu', this );
+		}
+		if ( this.handleMouseEnterEvent ) {
+			target.addEventListener ( 'mouseenter', this );
+		}
+		if ( this.handleMouseLeaveEvent ) {
+			target.addEventListener ( 'mouseleave', this );
+		}
+		if ( this.handleDblClickEvent ) {
+			target.addEventListener ( 'dblclick', this );
 		}
 	}
 
 	/**
 	remove the event listeners from the target
+	@param {HTMLElement} target The  event target
 	*/
 
-	removeEventListeners ( ) {
-		this.#target.removeEventListener ( 'touchstart', this );
-		this.#target.removeEventListener ( 'touchmove', this );
-		this.#target.removeEventListener ( 'touchend', this );
-		this.#target.removeEventListener ( 'touchcancel', this );
+	removeEventListeners ( target ) {
+		target.removeEventListener ( 'touchstart', this );
+		target.removeEventListener ( 'touchmove', this );
+		target.removeEventListener ( 'touchend', this );
+		target.removeEventListener ( 'touchcancel', this );
 		if ( this.handleClickEvent ) {
-			this.#target.removeEventListener ( 'click', this );
-		}
-		if ( this.handleDblClickEvent ) {
-			this.#target.removeEventListener ( 'dblclick', this );
+			target.removeEventListener ( 'click', this );
 		}
 		if ( this.handleContextMenuEvent ) {
-			this.#target.removeEventListener ( 'contextmenu', this );
+			target.removeEventListener ( 'contextmenu', this );
+		}
+		if ( this.handleMouseEnterEvent ) {
+			target.removeEventListener ( 'mouseenter', this );
+		}
+		if ( this.handleMouseLeaveEvent ) {
+			target.removeEventListener ( 'mouseleave', this );
+		}
+		if ( this.handleDblClickEvent ) {
+			target.removeEventListener ( 'dblclick', this );
 		}
 	}
 
@@ -306,11 +343,17 @@ class BaseEL {
 		case 'click' :
 			this.#handleClickEvent ( handledEvent );
 			break;
-		case 'dblclick' :
-			this.#handleDblClickEvent ( handledEvent );
-			break;
 		case 'contextmenu' :
 			this.#handleContextMenuEvent ( handledEvent );
+			break;
+		case 'mouseenter' :
+			this.#handleMouseEnterEvent ( handledEvent );
+			break;
+		case 'mouseleave' :
+			this.#handleMouseLeaveEvent ( handledEvent );
+			break;
+		case 'dblclick' :
+			this.#handleDblClickEvent ( handledEvent );
 			break;
 		default :
 			this.#handleTouchEvent ( handledEvent );

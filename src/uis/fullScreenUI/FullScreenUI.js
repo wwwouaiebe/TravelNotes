@@ -69,7 +69,7 @@ class FullScreenUI {
 			clearTimeout ( this.#timerId );
 			this.#timerId = null;
 		}
-		this.#fullScreenUIEL.removeEventListeners ( );
+		this.#fullScreenUIEL.removeEventListeners ( this.#mainHTMLElement );
 		document.body.removeChild ( this.#mainHTMLElement );
 	}
 
@@ -117,8 +117,8 @@ class FullScreenUI {
 			},
 			document.body
 		);
-		this.#fullScreenUIEL = new FullScreenUIEL ( this.#mainHTMLElement, this );
-		this.#fullScreenUIEL.addEventListeners ( );
+		this.#fullScreenUIEL = new FullScreenUIEL ( this );
+		this.#fullScreenUIEL.addEventListeners ( this.#mainHTMLElement );
 		this.#timerId = setTimeout ( ( ) => this.hide ( ), timeOutDuration );
 	}
 }

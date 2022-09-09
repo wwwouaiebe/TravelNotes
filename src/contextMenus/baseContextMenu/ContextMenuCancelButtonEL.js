@@ -44,8 +44,8 @@ class ContextMenuCancelButtonEL extends BaseEL {
 	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
 	*/
 
-	constructor ( target, menuOperator ) {
-		super ( target );
+	constructor ( menuOperator ) {
+		super ( );
 		this.#menuOperator = menuOperator;
 	}
 
@@ -54,7 +54,6 @@ class ContextMenuCancelButtonEL extends BaseEL {
 	*/
 
 	handleClickEvent ( ) {
-		console.log ( 'handledEvent' );
 		this.#menuOperator.onCancelMenu ( );
 	}
 }

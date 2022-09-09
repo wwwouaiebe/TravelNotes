@@ -44,8 +44,8 @@ class FullScreenUIEL extends BaseEL {
 	@param {FullScreenUI} fullScreenUI A reference to the FullScreenUI
 	*/
 
-	constructor ( target, fullScreenUI ) {
-		super ( target );
+	constructor ( fullScreenUI ) {
+		super ( );
 		this.#fullScreenUI = fullScreenUI;
 	}
 
