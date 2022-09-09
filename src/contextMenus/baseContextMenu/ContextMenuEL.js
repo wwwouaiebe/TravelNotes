@@ -22,13 +22,15 @@ Changes:
 Doc reviewed 202208
  */
 
+import BaseEL from '../../eventListeners/BaseEL.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
- mouseenter event listener on the context menus
+mouseenter and mouseleave event listeners on the menu items for the context menus
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ContextMenuMouseEnterEL {
+class ContextMenuEL extends BaseEL {
 
 	/**
 	A reference to the menuOperator Object
@@ -43,21 +45,27 @@ class ContextMenuMouseEnterEL {
 	*/
 
 	constructor ( menuOperator ) {
-		Object.freeze ( this );
+		super ( );
 		this.#menuOperator = menuOperator;
 	}
 
 	/**
-	Event listener method
-	@param {Event} mouseEnterEvent The event to handle
+	mouseenter event listener method
 	*/
 
-	handleEvent ( mouseEnterEvent ) {
-		mouseEnterEvent.stopPropagation ( );
+	handleMouseEnterEvent ( ) {
 		this.#menuOperator.onMouseEnterContainer ( );
+	}
+
+	/**
+	mouseleave event listener method
+	*/
+
+	handleMouseLeaveEvent ( ) {
+		this.#menuOperator.onMouseLeaveContainer ( );
 	}
 }
 
-export default ContextMenuMouseEnterEL;
+export default ContextMenuEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

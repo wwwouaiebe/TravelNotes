@@ -56,6 +56,12 @@ class ContextMenuCancelButtonEL extends BaseEL {
 	handleClickEvent ( ) {
 		this.#menuOperator.onCancelMenu ( );
 	}
+
+	get events ( ) {
+		return [
+			{ eventName : 'click', handler : this.handleClickEvent }
+		];
+	}
 }
 
 export default ContextMenuCancelButtonEL;

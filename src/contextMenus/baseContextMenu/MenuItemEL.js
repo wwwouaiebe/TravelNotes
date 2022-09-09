@@ -70,7 +70,6 @@ class MenuItemEL extends BaseEL {
 	/**
 	mouseleave event listener method
 	@param {Event} 	mouseLeaveEvent The event to handle
- The event to handle
 	*/
 
 	handleMouseLeaveEvent ( mouseLeaveEvent ) {
@@ -79,3 +78,5 @@ class MenuItemEL extends BaseEL {
 }
 
 export default MenuItemEL;
+
+/* --- End of file --------------------------------------------------------------------------------------------------------- */
