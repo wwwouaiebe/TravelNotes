@@ -58,6 +58,12 @@ const theConfig = {
 		showWarning : true,
 		timeOut : 10000
 	},
+	events :
+	{
+		clickDelay : 150,
+		dblclickDelay : 500,
+		contextmenuDelay : 800
+	},
 	files :
 	{
 		openGpx : [ 'gpx' ],

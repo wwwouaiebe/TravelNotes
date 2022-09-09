@@ -27,6 +27,8 @@ import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import theTranslator from '../../core/uiLib/Translator.js';
 import { ZERO } from '../../main/Constants.js';
 
+import FullScreenUIEL from './FullScreenUIEL.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 This class show a message on the screen for the fullscreen activation
@@ -50,6 +52,13 @@ class FullScreenUI {
 	*/
 
 	#timerId = null;
+
+	/**
+	The event listeners for the UI
+	@type {FullScreenUIEL}
+	*/
+
+	#fullScreenUIEL;
 
 	/**
     Hide the UI
@@ -100,7 +109,6 @@ class FullScreenUI {
 		) {
 			return;
 		}
-
 		this.#mainHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -109,7 +117,8 @@ class FullScreenUI {
 			},
 			document.body
 		);
-		this.#mainHTMLElement.addEventListener ( 'click', this.toggle, false );
+		this.#fullScreenUIEL = new FullScreenUIEL ( this );
+		this.#fullScreenUIEL.addEventListeners ( this.#mainHTMLElement );
 		this.#timerId = setTimeout ( ( ) => this.hide ( ), timeOutDuration );
 	}
 }
