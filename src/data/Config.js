@@ -60,8 +60,8 @@ const theConfig = {
 	},
 	events :
 	{
-		clickDelay : 150,
-		dblclickDelay : 500,
+		clickDelay : 400,
+		dblclickDelay : 600,
 		contextmenuDelay : 800
 	},
 	files :

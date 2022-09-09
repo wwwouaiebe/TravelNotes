@@ -22,13 +22,15 @@ Changes:
 Doc reviewed 202208
  */
 
+import BaseEL from '../../eventListeners/BaseEL.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 click event listener on the cancel button for the context menus
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ContextMenuCancelButtonClickEL {
+class ContextMenuCancelButtonEL extends BaseEL {
 
 	/**
 	A reference to the menuOperator Object
@@ -42,22 +44,21 @@ class ContextMenuCancelButtonClickEL {
 	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
 	*/
 
-	constructor ( menuOperator ) {
-		Object.freeze ( this );
+	constructor ( target, menuOperator ) {
+		super ( target );
 		this.#menuOperator = menuOperator;
 	}
 
 	/**
-	Event listener method
-	@param {Event} clickEvent The event to handle
+	Click event listener method
 	*/
 
-	handleEvent ( clickEvent ) {
-		clickEvent.stopPropagation ( );
+	handleClickEvent ( ) {
+		console.log ( 'handledEvent' );
 		this.#menuOperator.onCancelMenu ( );
 	}
 }
 
-export default ContextMenuCancelButtonClickEL;
+export default ContextMenuCancelButtonEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

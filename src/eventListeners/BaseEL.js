@@ -35,6 +35,13 @@ Base class for event listeners management
 class BaseEL {
 
 	/**
+	A reference to the target of the events listeners
+	@type {HTMLElement}
+	*/
+
+	#target;
+
+	/**
 	The touchstart time stamp
 	@type {Number}
 	*/
@@ -122,12 +129,10 @@ class BaseEL {
 	*/
 
 	#handleClickTimer ( ) {
-		if ( this.#dblClickOccured ) {
-			if ( this.handleDblClickEvent ) {
-				this.#touchEndEvent.preventDefault ( );
-				this.#touchEndEvent.stopPropagation ( );
-				this.handleDblClickEvent ( this.#touchEndEvent );
-			}
+		if ( this.#dblClickOccured && this.handleDblClickEvent ) {
+			this.#touchEndEvent.preventDefault ( );
+			this.#touchEndEvent.stopPropagation ( );
+			this.handleDblClickEvent ( this.#touchEndEvent );
 		}
 		else if ( this.handleClickEvent ) {
 			this.#touchEndEvent.preventDefault ( );
@@ -174,11 +179,16 @@ class BaseEL {
 		) {
 			this.#clickOccured = true;
 			this.#touchEndEvent = touchEndEvent;
-			setTimeout (
-				// eslint-disable-next-line no-shadow
-				( ) => { this.#handleClickTimer ( ); },
-				theConfig.events.dblclickDelay
-			);
+			if ( this.handleDblClickEvent ) {
+				setTimeout (
+					// eslint-disable-next-line no-shadow
+					( ) => { this.#handleClickTimer ( ); },
+					theConfig.events.dblclickDelay
+				);
+			}
+			else {
+				this.#handleClickTimer ( );
+			}
 		}
 		else if (
 			this.#lastTouchEndTimeStamp - this.#lastTouchStartTimeStamp < theConfig.events.clickDelay
@@ -188,7 +198,11 @@ class BaseEL {
 			this.#dblClickOccured = true;
 			this.#touchEndEvent = touchEndEvent;
 		}
-		else if ( this.#lastTouchEndTimeStamp - this.#lastTouchStartTimeStamp > theConfig.events.contextmenuDelay ) {
+		else if (
+			this.#lastTouchEndTimeStamp - this.#lastTouchStartTimeStamp > theConfig.events.contextmenuDelay
+			&&
+			this.handleContextMenuEvent
+		) {
 			this.handleContextMenuEvent ( touchEndEvent );
 		}
 	}
@@ -205,10 +219,12 @@ class BaseEL {
 
 	/**
 	The constructor
+	@param {HTMLElement} target A reference to the target of the events listeners
 	*/
 
-	constructor ( ) {
+	constructor ( target ) {
 		Object.freeze ( this );
+		this.#target = target;
 		this.#lastTouchStartTimeStamp = ZERO;
 		this.#lastTouchEndTimeStamp = ZERO;
 		this.#clickOccured = false;
@@ -218,22 +234,41 @@ class BaseEL {
 
 	/**
 	Add the event listeners to the target
-	@param {HTMLElement} target The element to witch the events have to be added
 	*/
 
-	addEventListeners ( target ) {
-		target.addEventListener ( 'touchstart', this );
-		target.addEventListener ( 'touchmove', this );
-		target.addEventListener ( 'touchend', this );
-		target.addEventListener ( 'touchcancel', this );
+	addEventListeners ( ) {
+		this.#target.addEventListener ( 'touchstart', this );
+		this.#target.addEventListener ( 'touchmove', this );
+		this.#target.addEventListener ( 'touchend', this );
+		this.#target.addEventListener ( 'touchcancel', this );
 		if ( this.handleClickEvent ) {
-			target.addEventListener ( 'click', this );
+			this.#target.addEventListener ( 'click', this );
 		}
 		if ( this.handleDblClickEvent ) {
-			target.addEventListener ( 'dblclick', this );
+			this.#target.addEventListener ( 'dblclick', this );
 		}
 		if ( this.handleContextMenuEvent ) {
-			target.addEventListener ( 'contextmenu', this );
+			this.#target.addEventListener ( 'contextmenu', this );
+		}
+	}
+
+	/**
+	remove the event listeners from the target
+	*/
+
+	removeEventListeners ( ) {
+		this.#target.removeEventListener ( 'touchstart', this );
+		this.#target.removeEventListener ( 'touchmove', this );
+		this.#target.removeEventListener ( 'touchend', this );
+		this.#target.removeEventListener ( 'touchcancel', this );
+		if ( this.handleClickEvent ) {
+			this.#target.removeEventListener ( 'click', this );
+		}
+		if ( this.handleDblClickEvent ) {
+			this.#target.removeEventListener ( 'dblclick', this );
+		}
+		if ( this.handleContextMenuEvent ) {
+			this.#target.removeEventListener ( 'contextmenu', this );
 		}
 	}
 
