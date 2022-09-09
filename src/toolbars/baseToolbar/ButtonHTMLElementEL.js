@@ -22,38 +22,45 @@ Changes:
 Doc reviewed 202208
  */
 
-import { MOUSE_WHEEL_FACTORS } from '../../main/Constants.js';
+import BaseEL from '../../eventListeners/BaseEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-Wheel event listener on the map layer buttons container. Scroll the buttons
+click event listener on the toolbar buttons
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ButtonsHTMLElementWheelEL {
+class ButtonHTMLElementEL extends BaseEL {
 
 	/**
-	The constructor
+	A reference to the BaseToolbar object
+	@type {BaseToolbar}
 	*/
 
-	constructor ( ) {
-		Object.freeze ( this );
+	#baseToolbar;
+
+	/**
+	the constructor
+	@param {BaseToolbar} baseToolbar A reference to the BaseToolbar object
+	*/
+
+	constructor ( baseToolbar ) {
+		super ( );
+		this.#baseToolbar = baseToolbar;
+		this.eventTypes = [ 'click' ];
 	}
 
 	/**
-	Event listener method
-	@param {Event} wheelEvent The event to handle
+	Click event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
-	handleEvent ( wheelEvent ) {
-		wheelEvent.stopPropagation ( );
-		if ( wheelEvent.deltaY ) {
-			wheelEvent.currentTarget.scrollTop +=
-				wheelEvent.deltaY * MOUSE_WHEEL_FACTORS [ wheelEvent.deltaMode ];
-		}
+	handleClickEvent ( clickEvent ) {
+		this.#baseToolbar.onCommandButtonClickEL ( clickEvent );
 	}
+
 }
 
-export default ButtonsHTMLElementWheelEL;
+export default ButtonHTMLElementEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

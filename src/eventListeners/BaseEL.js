@@ -101,13 +101,20 @@ class BaseEL {
 
 	#handleTouchStartEvent ( touchStartEvent ) {
 		this.#lastTouchStartTimeStamp = touchStartEvent.timeStamp;
+		if ( this.handleTouchStartEvent ) {
+			this.handleTouchStartEvent ( touchStartEvent );
+		}
 	}
 
 	/**
 	touchmove event handler
+	@param {Event} touchMoveEvent The event to handle
 	*/
 
-	#handleTouchMoveEvent ( ) {
+	#handleTouchMoveEvent ( touchMoveEvent ) {
+		if ( this.handleTouchMoveEvent ) {
+			this.handleTouchMoveEvent ( touchMoveEvent );
+		}
 	}
 
 	/**
@@ -116,6 +123,10 @@ class BaseEL {
 	*/
 
 	#handleTouchEndEvent ( touchEndEvent ) {
+		if ( this.handleTouchEndEvent ) {
+			this.handleTouchEndEvent ( touchEndEvent );
+			return;
+		}
 		this.#lastTouchEndTimeStamp = touchEndEvent.timeStamp;
 		if (
 			this.#lastTouchEndTimeStamp - this.#lastTouchStartTimeStamp < theConfig.events.clickDelay
@@ -153,9 +164,13 @@ class BaseEL {
 
 	/**
 	touchcancel event handler
+	@param {Event} touchCancelEvent The event to handle
 	*/
 
-	#handleTouchCancelEvent ( ) {
+	#handleTouchCancelEvent ( touchCancelEvent ) {
+		if ( this.handleTouchCancelEvent ) {
+			this.handleTouchCancelEvent ( touchCancelEvent );
+		}
 	}
 
 	/**
@@ -212,7 +227,9 @@ class BaseEL {
 
 	handleEvent ( handledEvent ) {
 		handledEvent.preventDefault ( );
-		handledEvent.stopPropagation ( );
+
+		// handledEvent.stopPropagation ( );
+
 		switch ( handledEvent.type ) {
 		case 'touchstart' :
 			this.#handleTouchStartEvent ( handledEvent );
@@ -244,6 +261,9 @@ class BaseEL {
 			break;
 		case 'mouseleave' :
 			this.handleMouseLeaveEvent ( handledEvent );
+			break;
+		case 'wheel' :
+			this.handleWheelEvent ( handledEvent );
 			break;
 		default :
 			break;

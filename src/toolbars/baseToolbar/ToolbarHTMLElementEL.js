@@ -22,43 +22,60 @@ Changes:
 Doc reviewed 202208
  */
 
+import BaseEL from '../../eventListeners/BaseEL.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-click event listener for the toolbar buttons
+click, mouseenter and mouseleave event listeners on the toolbar
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ButtonHTMLElementClickEL {
+class ToolbarHTMLElementEL extends BaseEL {
 
 	/**
-	A reference to the toolbarItemsContainer of the BaseToolbar class
-	@type {ToolbarItemsContainer}
+	A reference to the BaseToolbar object
+	@type {BaseToolbar}
 	*/
 
-	#toolbarItemsContainer;
+	#baseToolbar;
 
 	/**
-	The constructor
-	@param {ToolbarItemsContainer} toolbarItemsContainer A reference to the toolbarItemsContainer
-	of the BaseToolbar class object
+	the constructor
+	@param {BaseToolbar} baseToolbar A reference to the BaseToolbar object
 	*/
 
-	constructor ( toolbarItemsContainer ) {
-		Object.freeze ( this );
-		this.#toolbarItemsContainer = toolbarItemsContainer;
+	constructor ( baseToolbar ) {
+		super ( );
+		this.#baseToolbar = baseToolbar;
+		this.eventTypes = [ 'click', 'mouseenter', 'mouseleave' ];
 	}
 
 	/**
-	Event listener method
+	Click event listener method
 	@param {Event} clickEvent The event to handle
 	*/
 
-	handleEvent ( clickEvent ) {
-		this.#toolbarItemsContainer.toolbarItemsArray [ Number.parseInt ( clickEvent.target.dataset.tanItemId ) ]
-			.action ( );
+	handleClickEvent ( clickEvent ) {
+		this.#baseToolbar.toolbarHTMLElementClickEL ( clickEvent );
+	}
+
+	/**
+	mouseenter event listener method
+	@param {Event} mouseEnterEvent The event to handle
+	*/
+
+	handleMouseEnterEvent ( mouseEnterEvent ) {
+		this.#baseToolbar.toolbarHTMLElementMouseEnterEL ( mouseEnterEvent );
+	}
+
+	/**
+	mouseleave event listener method
+	@param {Event} mouseLeaveEvent The event to handle
+	*/
+
+	handleMouseLeaveEvent ( mouseLeaveEvent ) {
+		this.#baseToolbar.toolbarHTMLElementMouseLeaveEL ( mouseLeaveEvent );
 	}
 }
 
-export default ButtonHTMLElementClickEL;
-
-/* --- End of file --------------------------------------------------------------------------------------------------------- */
+export default ToolbarHTMLElementEL;
