@@ -276,6 +276,12 @@ class BaseEL {
 		case 'wheel' :
 			this.handleWheelEvent ( handledEvent );
 			break;
+		case 'dragstart' :
+			this.handleDragStartEvent ( handledEvent );
+			break;
+		case 'dragend' :
+			this.handleDragEndEvent ( handledEvent );
+			break;
 		default :
 			break;
 		}

@@ -24,7 +24,7 @@ Doc reviewed 202208
 
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import theHTMLSanitizer from '../../core/htmlSanitizer/HTMLSanitizer.js';
-import CancelButtonClickEL from './CancelButtonClickEL.js';
+import BaseDialogCancelButtonEL from './BaseDialogCancelButtonEL.js';
 import ModalDialogKeyboardKeydownEL from './ModalDialogKeyboardKeydownEL.js';
 import OkButtonClickEL from './OkButtonClickEL.js';
 import BackgroundWheelEL from './BackgroundWheelEL.js';
@@ -93,10 +93,10 @@ class ModalBaseDialog extends BaseDialog {
 
 	/**
 	Cancel button click event listener
-	@type {CancelButtonClickEL}
+	@type {BaseDialogCancelButtonEL}
 	*/
 
-	#cancelButtonClickEL;
+	#baseDialogCancelButtonEL;
 
 	/**
 	onOk promise function
@@ -262,8 +262,8 @@ class ModalBaseDialog extends BaseDialog {
 				},
 				footerDiv
 			);
-			this.#cancelButtonClickEL = new CancelButtonClickEL ( this );
-			this.#secondButton.addEventListener ( 'click',	this.#cancelButtonClickEL, false	);
+			this.#baseDialogCancelButtonEL = new BaseDialogCancelButtonEL ( this );
+			this.#baseDialogCancelButtonEL.addEventListeners ( this.#secondButton );
 		}
 		else {
 			this.#secondButton = null;
@@ -317,8 +317,8 @@ class ModalBaseDialog extends BaseDialog {
 		this.#okButton.removeEventListener ( 'click', this.#okButtonClickEL, false );
 		this.#okButtonClickEL = null;
 		if ( this.options.secondButtonText ) {
-			this.#secondButton.removeEventListener ( 'click', this.#cancelButtonClickEL, false	);
-			this.#cancelButtonClickEL = null;
+			this.#baseDialogCancelButtonEL.removeEventListeners ( this.#secondButton );
+			this.#baseDialogCancelButtonEL = null;
 		}
 
 		document.body.removeChild ( this.#backgroundHTMLElement );
