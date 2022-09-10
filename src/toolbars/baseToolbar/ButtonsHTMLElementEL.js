@@ -34,6 +34,13 @@ click event listener on the toolbar buttons
 class ButtonsHTMLElementEL extends BaseEL {
 
 	/**
+	A reference to the BaseToolbar object
+	@type {BaseToolbar}
+	*/
+
+	#baseToolbar;
+
+	/**
 	The Y position of the previous touch event
 	@type {Number}
 	*/
@@ -42,11 +49,13 @@ class ButtonsHTMLElementEL extends BaseEL {
 
 	/**
 	the constructor
+	@param {BaseToolbar} baseToolbar A reference to the BaseToolbar object
 	*/
 
-	constructor ( ) {
+	constructor ( baseToolbar ) {
 		super ( );
-		this.eventTypes = [ 'wheel' ];
+		this.#baseToolbar = baseToolbar;
+		this.eventTypes = [ 'wheel', 'mouseenter', 'mouseleave' ];
 	}
 
 	/**
@@ -104,6 +113,24 @@ class ButtonsHTMLElementEL extends BaseEL {
 			wheelEvent.currentTarget.scrollTop +=
 				wheelEvent.deltaY * MOUSE_WHEEL_FACTORS [ wheelEvent.deltaMode ];
 		}
+	}
+
+	/**
+	mouseenter event listener method
+	@param {Event} mouseEnterEvent The event to handle
+	*/
+
+	handleMouseEnterEvent ( mouseEnterEvent ) {
+		this.#baseToolbar.toolbarHTMLElementMouseEnterOrClick ( mouseEnterEvent );
+	}
+
+	/**
+	mouseleave event listener method
+	@param {Event} mouseLeaveEvent The event to handle
+	*/
+
+	handleMouseLeaveEvent ( mouseLeaveEvent ) {
+		this.#baseToolbar.toolbarHTMLElementMouseLeave ( mouseLeaveEvent );
 	}
 }
 

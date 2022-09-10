@@ -22,33 +22,44 @@ Changes:
 Doc reviewed 202208
  */
 
+import BaseEL from '../../eventListeners/BaseEL.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-A simple container to share data between the BaseToolbar class, the
-ButtonHTMLElementClickEL  and ButtonHTMLElementTouchEL classes.
-Neede to avoid a copy of the array in the EL constructors
+click event listener on the toolbar link buttons
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ToolbarItemsContainer {
+class LinkButtonHTMLElementEL extends BaseEL {
 
 	/**
-	 An array with the toolbar items
-	 @type {Array.<ToolbarItem>}
+	A reference to the BaseToolbar object
+	@type {BaseToolbar}
 	*/
 
-	toolbarItemsArray;
+	#baseToolbar;
 
 	/**
-	The constructor
+	the constructor
+	@param {BaseToolbar} baseToolbar A reference to the BaseToolbar object
 	*/
 
-	constructor ( ) {
-		Object.seal ( this );
-		this.toolbarItemsArray = [];
+	constructor ( baseToolbar ) {
+		super ( true );
+		this.#baseToolbar = baseToolbar;
+		this.eventTypes = [ 'click' ];
+	}
+
+	/**
+	Click event listener method
+	@param {Event} clickEvent The event to handle
+	*/
+
+	handleClickEvent ( clickEvent ) {
+		this.#baseToolbar.linkButtonClick ( clickEvent );
 	}
 }
 
-export default ToolbarItemsContainer;
+export default LinkButtonHTMLElementEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

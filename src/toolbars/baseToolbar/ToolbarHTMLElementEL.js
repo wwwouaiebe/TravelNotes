@@ -56,7 +56,7 @@ class ToolbarHTMLElementEL extends BaseEL {
 	*/
 
 	handleClickEvent ( clickEvent ) {
-		this.#baseToolbar.toolbarHTMLElementClickEL ( clickEvent );
+		this.#baseToolbar.toolbarHTMLElementMouseEnterOrClick ( clickEvent );
 	}
 
 	/**
@@ -65,7 +65,7 @@ class ToolbarHTMLElementEL extends BaseEL {
 	*/
 
 	handleMouseEnterEvent ( mouseEnterEvent ) {
-		this.#baseToolbar.toolbarHTMLElementMouseEnterEL ( mouseEnterEvent );
+		this.#baseToolbar.toolbarHTMLElementMouseEnterOrClick ( mouseEnterEvent );
 	}
 
 	/**
@@ -74,7 +74,7 @@ class ToolbarHTMLElementEL extends BaseEL {
 	*/
 
 	handleMouseLeaveEvent ( mouseLeaveEvent ) {
-		this.#baseToolbar.toolbarHTMLElementMouseLeaveEL ( mouseLeaveEvent );
+		this.#baseToolbar.toolbarHTMLElementMouseLeave ( mouseLeaveEvent );
 	}
 }
 

@@ -76,6 +76,13 @@ class BaseEL {
 	#touchEndEvent;
 
 	/**
+	A flag indicating when the event have to be propagated to the parent HTMLElements
+	@type {Boolean}
+	*/
+
+	#propagate;
+
+	/**
 	Click timer handler. Wait for a second click...
 	*/
 
@@ -175,15 +182,17 @@ class BaseEL {
 
 	/**
 	The constructor
+	@param {?Boolean} propagate a flag indicating when the event have to be propagated to the parent HTMLElements
 	*/
 
-	constructor ( ) {
+	constructor ( propagate ) {
 		Object.freeze ( this );
 		this.#lastTouchStartTimeStamp = ZERO;
 		this.#lastTouchEndTimeStamp = ZERO;
 		this.#clickOccured = false;
 		this.#dblClickOccured = false;
 		this.#touchEndEvent = null;
+		this.#propagate = Boolean ( propagate );
 	}
 
 	/**
@@ -226,9 +235,11 @@ class BaseEL {
 	*/
 
 	handleEvent ( handledEvent ) {
-		handledEvent.preventDefault ( );
 
-		// handledEvent.stopPropagation ( );
+		handledEvent.preventDefault ( );
+		if ( ! this.#propagate ) {
+			handledEvent.stopPropagation ( );
+		}
 
 		switch ( handledEvent.type ) {
 		case 'touchstart' :

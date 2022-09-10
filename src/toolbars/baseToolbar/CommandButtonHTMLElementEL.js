@@ -26,11 +26,11 @@ import BaseEL from '../../eventListeners/BaseEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-click event listener on the toolbar buttons
+click event listener on the toolbar command buttons
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ButtonHTMLElementEL extends BaseEL {
+class CommandButtonHTMLElementEL extends BaseEL {
 
 	/**
 	A reference to the BaseToolbar object
@@ -45,7 +45,7 @@ class ButtonHTMLElementEL extends BaseEL {
 	*/
 
 	constructor ( baseToolbar ) {
-		super ( );
+		super ( true );
 		this.#baseToolbar = baseToolbar;
 		this.eventTypes = [ 'click' ];
 	}
@@ -56,11 +56,11 @@ class ButtonHTMLElementEL extends BaseEL {
 	*/
 
 	handleClickEvent ( clickEvent ) {
-		this.#baseToolbar.onCommandButtonClickEL ( clickEvent );
+		this.#baseToolbar.commandButtonClick ( clickEvent );
 	}
 
 }
 
-export default ButtonHTMLElementEL;
+export default CommandButtonHTMLElementEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
