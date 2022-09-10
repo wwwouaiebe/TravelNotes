@@ -26,6 +26,7 @@ import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import theTravelNotesData from '../../data/TravelNotesData.js';
 import theConfig from '../../data/Config.js';
 import theUtilities from '../../core/uiLib/Utilities.js';
+import MouseUIEL from './MouseUIEL.js';
 import { ZERO, SAVE_STATUS, ONE } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -87,21 +88,19 @@ class MouseUI {
 	#saveTimer;
 
 	/**
+	The zoom event listener
+	@type {Number}
+	*/
+
+	#mouseUIEL;
+
+	/**
 	The time in milliseconds between the first change and the moment the SAVE_STATUS.notSaved is displayed
 	@type {Number}
 	*/
 
 	// eslint-disable-next-line no-magic-numbers
 	static get #SAVE_TIME ( ) { return 300000; }
-
-	/**
-	Event listener for the zoom plus ans zoom minus buttons
-	@param {Number} zoomIncrement The value to add to the zoom (normally -1 or 1)
-	*/
-
-	#changeZoom ( zoomIncrement ) {
-		theTravelNotesData.map.setZoom ( theTravelNotesData.map.getZoom ( ) + zoomIncrement );
-	}
 
 	/**
 	Update the UI with the changed saveStatus, mouse position or zoom
@@ -183,25 +182,28 @@ class MouseUI {
 		// HTML creation
 		const mouseUImainElement =
 			theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-MouseUI' }, document.body );
+		this.#mouseUIEL = new MouseUIEL ( );
 		this.#zoomMinusButton = theHTMLElementsFactory.create (
 			'span',
 			{
 				id : 'TravelNotes-MouseUI-ZoomMinus',
-				textContent : '▼'
+				textContent : '▼',
+				dataset : { ZoomIncrement : String ( -ONE ) }
 			},
 			mouseUImainElement
 		);
-		this.#zoomMinusButton.addEventListener ( 'click', ( ) => this.#changeZoom ( -ONE ) );
+		this.#mouseUIEL.addEventListeners ( this.#zoomMinusButton );
 		this.#mouseUIElement = theHTMLElementsFactory.create ( 'span', null, mouseUImainElement );
 		this.#zoomPlusButton = theHTMLElementsFactory.create (
 			'span',
 			{
 				id : 'TravelNotes-MouseUI-ZoomPlus',
-				textContent : '▲'
+				textContent : '▲',
+				dataset : { ZoomIncrement : String ( ONE ) }
 			},
 			mouseUImainElement
 		);
-		this.#zoomPlusButton.addEventListener ( 'click', ( ) => this.#changeZoom ( ONE ) );
+		this.#mouseUIEL.addEventListeners ( this.#zoomPlusButton );
 
 		// init vars for mouse and zoom
 		this.#zoom = theTravelNotesData.map.getZoom ( );

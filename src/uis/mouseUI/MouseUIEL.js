@@ -23,43 +23,36 @@ Doc reviewed 202208
  */
 
 import BaseEL from '../../eventListeners/BaseEL.js';
+import theTravelNotesData from '../../data/TravelNotesData.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-Event listener for the top bar
+Event listener for the MouseUI
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class TopBarEL extends BaseEL {
-
-	/**
-	A reference to the provider toolbar
-	@type {ProvidersToolbar}
-	*/
-
-	#providersToolbar;
+class MouseUIEL extends BaseEL {
 
 	/**
 	The constructor
-	@param {ProvidersToolbar} providersToolbar A reference to the provider toolbar
 	*/
 
-	constructor ( providersToolbar ) {
+	constructor ( ) {
 		super ( );
-		this.#providersToolbar = providersToolbar;
 		this.eventTypes = [ 'click' ];
 	}
 
 	/**
-	Click event listener
+	Click event listener method
+	@param {Event} clickEvent The event to handle
 	*/
 
-	handleClickEvent ( ) {
-		this.#providersToolbar.toolbarHTMLElementMouseEnter ( );
+	handleClickEvent ( clickEvent ) {
+		const zoomIncrement = Number.parseInt ( clickEvent.target.dataset.tanZoomIncrement );
+		theTravelNotesData.map.setZoom ( theTravelNotesData.map.getZoom ( ) + zoomIncrement );
 	}
-
 }
 
-export default TopBarEL;
+export default MouseUIEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
