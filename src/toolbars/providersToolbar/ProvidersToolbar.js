@@ -27,7 +27,7 @@ import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import TransitModeButton from './TransitModeButton.js';
 import ProviderButton from './ProviderButton.js';
 import ProvidersToolbarEL from './ProvidersToolbarEL.js';
-import TopBarEL from './TopBarEL.js';
+import ProvidersTopBarEL from './ProvidersTopBarEL.js';
 import theApiKeysManager from '../../core/ApiKeysManager.js';
 import { NOT_FOUND, ZERO, TWO } from '../../main/Constants.js';
 import theTranslator from '../../core/uiLib/Translator.js';
@@ -114,10 +114,10 @@ class ProvidersToolbar {
 
 	/**
 	The click event listener for the topbar
-	@type {TopBarEL}
+	@type {ProvidersTopBarEL}
 	*/
 
-	#topBarEL;
+	#providersTopBarEL;
 
 	/**
 	The delay needed for the timer that start the #removeHidden ( ) method
@@ -282,8 +282,8 @@ class ProvidersToolbar {
 			this.#toolbarHTMLElement
 		);
 
-		this.#topBarEL = new TopBarEL ( this );
-		this.#topBarEL.addEventListeners ( this.#topBar );
+		this.#providersTopBarEL = new ProvidersTopBarEL ( this );
+		this.#providersTopBarEL.addEventListeners ( this.#topBar );
 
 		// container for the buttons
 		this.#buttonsHTMLElement = theHTMLElementsFactory.create (

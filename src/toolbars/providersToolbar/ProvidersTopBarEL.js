@@ -30,7 +30,7 @@ Event listener for the top bar
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class TopBarEL extends BaseEL {
+class ProvidersTopBarEL extends BaseEL {
 
 	/**
 	A reference to the provider toolbar
@@ -57,9 +57,8 @@ class TopBarEL extends BaseEL {
 	handleClickEvent ( ) {
 		this.#providersToolbar.toolbarHTMLElementMouseEnter ( );
 	}
-
 }
 
-export default TopBarEL;
+export default ProvidersTopBarEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
