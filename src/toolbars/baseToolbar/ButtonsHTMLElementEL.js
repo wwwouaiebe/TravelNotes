@@ -23,7 +23,7 @@ Doc reviewed 202208
  */
 
 import { ZERO, ONE, MOUSE_WHEEL_FACTORS } from '../../main/Constants.js';
-import BaseEL from '../../eventListeners/BaseEL.js';
+import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -31,7 +31,7 @@ click event listener on the toolbar buttons
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ButtonsHTMLElementEL extends BaseEL {
+class ButtonsHTMLElementEL extends MouseAndTouchBaseEL {
 
 	/**
 	A reference to the BaseToolbar object

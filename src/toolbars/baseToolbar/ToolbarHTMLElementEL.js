@@ -22,7 +22,7 @@ Changes:
 Doc reviewed 202208
  */
 
-import BaseEL from '../../eventListeners/BaseEL.js';
+import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -30,7 +30,7 @@ click, mouseenter and mouseleave event listeners on the toolbar
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ToolbarHTMLElementEL extends BaseEL {
+class ToolbarHTMLElementEL extends MouseAndTouchBaseEL {
 
 	/**
 	A reference to the BaseToolbar object

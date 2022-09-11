@@ -1,4 +1,4 @@
-import BaseEL from '../../eventListeners/BaseEL.js';
+import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
 import theTravelNotesData from '../../data/TravelNotesData.js';
 import theGeometry from '../../core/lib/Geometry.js';
 import { ZERO, ONE, TWO, LAT, LNG } from '../../main/Constants.js';
@@ -10,7 +10,7 @@ mousedown, mousemove, mouseup, dragover, contextmenu and wheel event listeners o
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ModalBaseDialogBackgroundEL extends BaseEL {
+class ModalBaseDialogBackgroundEL extends MouseAndTouchBaseEL {
 
 	/**
 	A reference to the dialog

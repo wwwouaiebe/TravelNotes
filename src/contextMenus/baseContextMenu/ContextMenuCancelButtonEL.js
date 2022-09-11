@@ -22,7 +22,7 @@ Changes:
 Doc reviewed 202208
  */
 
-import BaseEL from '../../eventListeners/BaseEL.js';
+import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -30,7 +30,7 @@ click event listener on the cancel button for the context menus
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ContextMenuCancelButtonEL extends BaseEL {
+class ContextMenuCancelButtonEL extends MouseAndTouchBaseEL {
 
 	/**
 	A reference to the menuOperator Object

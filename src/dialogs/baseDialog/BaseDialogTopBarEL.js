@@ -22,7 +22,7 @@ Changes:
 Doc reviewed 202208
  */
 
-import BaseEL from '../../eventListeners/BaseEL.js';
+import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
 import { ZERO, ONE } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -31,7 +31,7 @@ click, touchstart, touchmove, touchend and touchcancel event listeners on the to
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class BaseDialogTopBarEL extends BaseEL {
+class BaseDialogTopBarEL extends MouseAndTouchBaseEL {
 
 	/**
 	A reference to the mover object of the dialog

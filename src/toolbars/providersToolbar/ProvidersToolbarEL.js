@@ -23,7 +23,7 @@ Changes:
 Doc reviewed 202208
  */
 
-import BaseEL from '../../eventListeners/BaseEL.js';
+import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -31,7 +31,7 @@ Event listener for the Provider toolbar
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ProvidersToolbarEL extends BaseEL {
+class ProvidersToolbarEL extends MouseAndTouchBaseEL {
 
 	/**
 	A reference to the provider toolbar

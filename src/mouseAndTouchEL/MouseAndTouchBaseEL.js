@@ -31,7 +31,7 @@ Base class for event listeners management
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class BaseEL {
+class MouseAndTouchBaseEL {
 
 	/**
 	The X position on the screen of the touchstart event
@@ -365,6 +365,6 @@ class BaseEL {
 	}
 }
 
-export default BaseEL;
+export default MouseAndTouchBaseEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

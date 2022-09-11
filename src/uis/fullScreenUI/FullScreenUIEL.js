@@ -22,7 +22,7 @@ Changes:
 Doc reviewed 202208
  */
 
-import BaseEL from '../../eventListeners/BaseEL.js';
+import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -30,7 +30,7 @@ Event listeners for the FullScreenUI
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class FullScreenUIEL extends BaseEL {
+class FullScreenUIEL extends MouseAndTouchBaseEL {
 
 	/**
 	A reference to the FullScreenUI

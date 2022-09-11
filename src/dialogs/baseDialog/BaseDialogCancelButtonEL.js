@@ -22,7 +22,7 @@ Changes:
 Doc reviewed 202208
  */
 
-import BaseEL from '../../eventListeners/BaseEL.js';
+import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -30,7 +30,7 @@ click event listener for the cancel button
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class BaseDialogCancelButtonEL extends BaseEL {
+class BaseDialogCancelButtonEL extends MouseAndTouchBaseEL {
 
 	/**
 	A reference to the dialog

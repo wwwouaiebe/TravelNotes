@@ -22,7 +22,7 @@ Changes:
 Doc reviewed 202208
  */
 
-import BaseEL from '../../eventListeners/BaseEL.js';
+import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
 import theTravelNotesData from '../../data/TravelNotesData.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -31,7 +31,7 @@ Event listener for the MouseUI
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class MouseUIEL extends BaseEL {
+class MouseUIEL extends MouseAndTouchBaseEL {
 
 	/**
 	The constructor

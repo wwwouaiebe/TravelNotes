@@ -22,7 +22,7 @@ Changes:
 Doc reviewed 202208
  */
 
-import BaseEL from '../../eventListeners/BaseEL.js';
+import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -30,7 +30,7 @@ click, mouseenter and mouseleave event listeners on the menu items for the conte
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class MenuItemEL extends BaseEL {
+class MenuItemEL extends MouseAndTouchBaseEL {
 
 	/**
 	A reference to the menuOperator Object
