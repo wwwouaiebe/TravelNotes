@@ -271,20 +271,62 @@ class BaseEL {
 	}
 
 	/**
-	Event listener method
+	Event listener methods for mouse events
 	@param {Event} handledEvent The event to handle
 	*/
 
-	handleEvent ( handledEvent ) {
-
-		if ( 'dragstart' !== handledEvent.type ) {
+	#handleMouseEvents ( handledEvent ) {
+		switch ( handledEvent.type ) {
+		case 'click' :
 			handledEvent.preventDefault ( );
+			this.handleClickEvent ( handledEvent );
+			break;
+		case 'contextmenu' :
+			handledEvent.preventDefault ( );
+			this.handleContextMenuEvent ( handledEvent );
+			break;
+		case 'mouseenter' :
+			handledEvent.preventDefault ( );
+			this.handleMouseEnterEvent ( handledEvent );
+			break;
+		case 'mouseleave' :
+			handledEvent.preventDefault ( );
+			this.handleMouseLeaveEvent ( handledEvent );
+			break;
+		case 'mousedown' :
+			this.handleMouseDownEvent ( handledEvent );
+			break;
+		case 'mousemove' :
+			this.handleMouseMoveEvent ( handledEvent );
+			break;
+		case 'mouseup' :
+			this.handleMouseUpEvent ( handledEvent );
+			break;
+		case 'wheel' :
+			handledEvent.preventDefault ( );
+			this.handleWheelEvent ( handledEvent );
+			break;
+		case 'dragstart' :
+			this.handleDragStartEvent ( handledEvent );
+			break;
+		case 'dragover' :
+			this.handleDragOverEvent ( handledEvent );
+			break;
+		case 'dragend' :
+			this.handleDragEndEvent ( handledEvent );
+			break;
+		default :
+			break;
 		}
+	}
 
-		if ( ! this.#propagate ) {
-			handledEvent.stopPropagation ( );
-		}
+	/**
+	Event listener methods for touch events
+	@param {Event} handledEvent The event to handle
+	*/
 
+	#handleTouchEvents ( handledEvent ) {
+		handledEvent.preventDefault ( );
 		switch ( handledEvent.type ) {
 		case 'touchstart' :
 			this.#handleTouchStartEvent ( handledEvent );
@@ -301,33 +343,24 @@ class BaseEL {
 		default :
 			break;
 		}
-		if ( NOT_FOUND === this.#eventTypes.indexOf ( handledEvent.type ) ) {
-			return;
+	}
+
+	/**
+	Event listener method
+	@param {Event} handledEvent The event to handle
+	*/
+
+	handleEvent ( handledEvent ) {
+
+		if ( ! this.#propagate ) {
+			handledEvent.stopPropagation ( );
 		}
-		switch ( handledEvent.type ) {
-		case 'click' :
-			this.handleClickEvent ( handledEvent );
-			break;
-		case 'contextmenu' :
-			this.handleContextMenuEvent ( handledEvent );
-			break;
-		case 'mouseenter' :
-			this.handleMouseEnterEvent ( handledEvent );
-			break;
-		case 'mouseleave' :
-			this.handleMouseLeaveEvent ( handledEvent );
-			break;
-		case 'wheel' :
-			this.handleWheelEvent ( handledEvent );
-			break;
-		case 'dragstart' :
-			this.handleDragStartEvent ( handledEvent );
-			break;
-		case 'dragend' :
-			this.handleDragEndEvent ( handledEvent );
-			break;
-		default :
-			break;
+
+		if ( NOT_FOUND === this.#eventTypes.indexOf ( handledEvent.type ) ) {
+			this.#handleTouchEvents ( handledEvent );
+		}
+		else {
+			this.#handleMouseEvents ( handledEvent );
 		}
 	}
 }

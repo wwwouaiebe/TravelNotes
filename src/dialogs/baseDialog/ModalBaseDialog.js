@@ -26,12 +26,8 @@ import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import theHTMLSanitizer from '../../core/htmlSanitizer/HTMLSanitizer.js';
 import BaseDialogCancelButtonEL from './BaseDialogCancelButtonEL.js';
 import ModalDialogKeyboardKeydownEL from './ModalDialogKeyboardKeydownEL.js';
-import OkButtonClickEL from './OkButtonClickEL.js';
-import BackgroundWheelEL from './BackgroundWheelEL.js';
-import BackgroundContextMenuEL from './BackgroundContextMenuEL.js';
-import BackgroundDragOverEL from './BackgroundDragOverEL.js';
-import BackgroundTouchEL from './BackgroundTouchEL.js';
-import BackgroundMouseEL from './BackgroundMouseEL.js';
+import ModalDialogOkButtonEL from './ModalDialogOkButtonEL.js';
+import ModalBaseDialogBackgroundEL from './ModalBaseDialogBackgroundEL.js';
 import BaseDialog from './BaseDialog.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -86,10 +82,10 @@ class ModalBaseDialog extends BaseDialog {
 
 	/**
 	Ok button click event listener
-	@type {OkButtonClickEL}
+	@type {ModalDialogOkButtonEL}
 	*/
 
-	#okButtonClickEL;
+	#modalDialogOkButtonEL;
 
 	/**
 	Cancel button click event listener
@@ -120,39 +116,11 @@ class ModalBaseDialog extends BaseDialog {
 	#modalDialogKeyboardKeydownEL;
 
 	/**
-	Drag over the background event listener
-	@type {BackgroundDragOverEL}
-	*/
-
-	#backgroundDragOverEL;
-
-	/**
-	Touch on the background event listener
-	@type {BackgroundTouchEL}
-	*/
-
-	#backgroundTouchEL;
-
-	/**
-	mouseup, mousedown and mousemove event listeners  on the background
-	@type {BackgroundMouseEL}
-	*/
-
-	#backgroundMouseEL;
-
-	/**
-	Wheel event listener on the background
-	@type {BackgroundWheelEL}
-	*/
-
-	#backgroundWheelEL;
-
-	/**
 	Context menu event listener on the background
-	@type {BackgroundContextMenuEL}
+	@type {ModalBaseDialogBackgroundEL}
 	*/
 
-	#backgroundContextMenuEL;
+	#backgroundEL;
 
 	/**
 	Create the background
@@ -162,32 +130,8 @@ class ModalBaseDialog extends BaseDialog {
 
 		// A new element covering the entire screen is created, with drag and drop event listeners
 		this.#backgroundHTMLElement = theHTMLElementsFactory.create ( 'div', { className : 'TravelNotes-Background' } );
-	}
-
-	/**
-	Create the background HTMLElement event listeners.
-	*/
-
-	#createBackgroundHTMLElementEL ( ) {
-		this.#backgroundDragOverEL = new BackgroundDragOverEL ( this.mover );
-		this.#backgroundHTMLElement.addEventListener ( 'dragover', this.#backgroundDragOverEL, false );
-
-		this.#backgroundWheelEL = new BackgroundWheelEL ( );
-		this.#backgroundHTMLElement.addEventListener ( 'wheel', this.#backgroundWheelEL, { passive : true }	);
-
-		this.#backgroundContextMenuEL = new BackgroundContextMenuEL ( );
-		this.#backgroundHTMLElement.addEventListener ( 'contextmenu', this.#backgroundContextMenuEL, false );
-
-		this.#backgroundTouchEL = new BackgroundTouchEL ( this );
-		this.#backgroundHTMLElement.addEventListener ( 'touchstart', this.#backgroundTouchEL, false );
-		this.#backgroundHTMLElement.addEventListener ( 'touchmove', this.#backgroundTouchEL, false );
-		this.#backgroundHTMLElement.addEventListener ( 'touchend', this.#backgroundTouchEL, false );
-		this.#backgroundHTMLElement.addEventListener ( 'touchcancel', this.#backgroundTouchEL, false );
-
-		this.#backgroundMouseEL = new BackgroundMouseEL ( );
-		this.#backgroundHTMLElement.addEventListener ( 'mouseup', this.#backgroundMouseEL, false );
-		this.#backgroundHTMLElement.addEventListener ( 'mousemove', this.#backgroundMouseEL, false );
-		this.#backgroundHTMLElement.addEventListener ( 'mousedown', this.#backgroundMouseEL, false );
+		this.#backgroundEL = new ModalBaseDialogBackgroundEL ( this );
+		this.#backgroundEL.addEventListeners ( this.#backgroundHTMLElement );
 	}
 
 	/**
@@ -250,8 +194,8 @@ class ModalBaseDialog extends BaseDialog {
 			},
 			footerDiv
 		);
-		this.#okButtonClickEL = new OkButtonClickEL ( this );
-		this.#okButton.addEventListener ( 'click', this.#okButtonClickEL, false );
+		this.#modalDialogOkButtonEL = new ModalDialogOkButtonEL ( this );
+		this.#modalDialogOkButtonEL.addEventListeners ( this.#okButton );
 
 		if ( this.options.secondButtonText ) {
 			this.#secondButton = theHTMLElementsFactory.create (
@@ -280,7 +224,6 @@ class ModalBaseDialog extends BaseDialog {
 
 	#createHTML ( ) {
 		this.#createBackgroundHTMLElement ( );
-		this.#createBackgroundHTMLElementEL ( );
 		this.#createErrorHTMLElement ( );
 		this.#createWaitHTMLElement ( );
 		this.#createFooterHTMLElement ( );
@@ -291,36 +234,16 @@ class ModalBaseDialog extends BaseDialog {
 	*/
 
 	#destructor ( ) {
-		this.#backgroundHTMLElement.removeEventListener ( 'wheel', this.#backgroundWheelEL, { passive : true }	);
-		this.#backgroundWheelEL = null;
-
-		this.#backgroundHTMLElement.removeEventListener ( 'contextmenu', this.#backgroundContextMenuEL, false );
-		this.#backgroundContextMenuEL = null;
-
-		this.#backgroundHTMLElement.removeEventListener ( 'dragover', this.#backgroundDragOverEL, false );
-		this.#backgroundDragOverEL = null;
-
-		this.#backgroundHTMLElement.removeEventListener ( 'touchstart', this.#backgroundTouchEL, false );
-		this.#backgroundHTMLElement.removeEventListener ( 'touchmove', this.#backgroundTouchEL, false );
-		this.#backgroundHTMLElement.removeEventListener ( 'touchend', this.#backgroundTouchEL, false );
-		this.#backgroundHTMLElement.removeEventListener ( 'touchcancel', this.#backgroundTouchEL, false );
-		this.#backgroundTouchEL = null;
-
-		this.#backgroundHTMLElement.removeEventListener ( 'mouseup', this.#backgroundMouseEL, false );
-		this.#backgroundHTMLElement.removeEventListener ( 'mousemove', this.#backgroundMouseEL, false );
-		this.#backgroundHTMLElement.removeEventListener ( 'mousedown', this.#backgroundMouseEL, false );
-		this.#backgroundMouseEL = null;
-
+		this.#backgroundEL.removeEventListeners ( this.#backgroundHTMLElement );
+		this.#backgroundEL = null;
 		document.removeEventListener ( 'keydown', this.#modalDialogKeyboardKeydownEL, { capture : true } );
 		this.#modalDialogKeyboardKeydownEL = null;
-
-		this.#okButton.removeEventListener ( 'click', this.#okButtonClickEL, false );
-		this.#okButtonClickEL = null;
+		this.#modalDialogOkButtonEL.removeEventListeners ( this.#okButton );
+		this.#modalDialogOkButtonEL = null;
 		if ( this.options.secondButtonText ) {
 			this.#baseDialogCancelButtonEL.removeEventListeners ( this.#secondButton );
 			this.#baseDialogCancelButtonEL = null;
 		}
-
 		document.body.removeChild ( this.#backgroundHTMLElement );
 	}
 

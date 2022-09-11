@@ -22,42 +22,43 @@ Changes:
 Doc reviewed 202208
  */
 
+import BaseEL from '../../eventListeners/BaseEL.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-dragstart event listener for the top bar
+click event listener for the ok button
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class TopBarDragStartEL {
+class ModalDialogOkButtonEL extends BaseEL {
 
 	/**
-	A reference to the mover object of the dialog
-	@type {BaseDialogMover|DockableBaseDialogMover}
+	A reference to the dialog
+	@type {ModalBaseDialog}
 	*/
 
-	#mover;
+	#modalBaseDialog;
 
 	/**
 	The constructor
-	@param {BaseDialogMover|DockableBaseDialogMover} mover A reference to the mover object of the dialog
+	@param {ModalBaseDialog} modalBaseDialog A reference to the dialog
 	*/
 
-	constructor ( mover ) {
-		Object.freeze ( this );
-		this.#mover = mover;
+	constructor ( modalBaseDialog ) {
+		super ( );
+		this.#modalBaseDialog = modalBaseDialog;
+		this.eventTypes = [ 'click' ];
 	}
 
 	/**
 	Event listener method
-	@param {Event} dragStartEvent The event to handle
 	*/
 
-	handleEvent ( dragStartEvent ) {
-		this.#mover.setDragStartPoint ( dragStartEvent );
-		dragStartEvent.dataTransfer.setData ( 'ObjId', this.#mover.objId );
+	handleClickEvent ( ) {
+		this.#modalBaseDialog.onOk ( );
 	}
 }
 
-export default TopBarDragStartEL;
+export default ModalDialogOkButtonEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

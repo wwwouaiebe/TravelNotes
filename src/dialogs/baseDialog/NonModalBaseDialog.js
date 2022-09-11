@@ -23,7 +23,7 @@ Doc reviewed 202208
  */
 
 import BaseDialog from '../BaseDialog/BaseDialog.js';
-import BackgroundDragOverEL from './BackgroundDragOverEL.js';
+import NonModalDialogBackgroundDragOverEL from './NonModalDialogBackgroundDragOverEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -35,7 +35,7 @@ class NonModalBaseDialog extends BaseDialog {
 
 	/**
 	Drag over the background event listener
-	@type {BackgroundDragOverEL}
+	@type {NonModalDialogBackgroundDragOverEL}
 	*/
 
 	#backgroundDragOverEL;
@@ -46,7 +46,7 @@ class NonModalBaseDialog extends BaseDialog {
 
 	#createBackgroundHTMLElementEL ( ) {
 
-		this.#backgroundDragOverEL = new BackgroundDragOverEL ( this.mover );
+		this.#backgroundDragOverEL = new NonModalDialogBackgroundDragOverEL ( this.mover );
 		document.body.addEventListener ( 'dragover', this.#backgroundDragOverEL, false );
 	}
 

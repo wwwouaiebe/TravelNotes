@@ -22,15 +22,13 @@ Changes:
 Doc reviewed 202208
  */
 
-import { ZERO, ONE } from '../../main/Constants.js';
-
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-touchstart, touchmove, touchend and touchcancel event listener for the top bar
+BaseDialog drag over event listener based on the EventListener API.
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class TopBarTouchEL {
+class NonModalDialogBackgroundDragOverEL {
 
 	/**
 	A reference to the mover object of the dialog
@@ -40,13 +38,6 @@ class TopBarTouchEL {
 	#mover;
 
 	/**
-	A flag to detect a click event directly followed by a touchstart and touchend events on touch devices
-	@type {boolean}
-	*/
-
-	#isClickEvent;
-
-	/**
 	The constructor
 	@param {BaseDialogMover|DockableBaseDialogMover} mover A reference to the mover object of the dialog
 	*/
@@ -54,43 +45,26 @@ class TopBarTouchEL {
 	constructor ( mover ) {
 		Object.freeze ( this );
 		this.#mover = mover;
-		this.#isClickEvent = false;
 	}
 
 	/**
-	Handle the touch move or touch end event on the top bar
-	@param {Event} touchEvent The event to handle
+	Event listener method
+	@param {Event} dragEvent The event to handle
 	*/
 
-	handleEvent ( touchEvent ) {
-		touchEvent.stopPropagation ( );
-		let eventType = touchEvent.type;
-		if ( ONE === touchEvent.changedTouches.length ) {
-			const touch = touchEvent.changedTouches.item ( ZERO );
-			switch ( touchEvent.type ) {
-			case 'touchstart' :
-				this.#isClickEvent = true;
-				this.#mover.setDragStartPoint ( touch );
-				break;
-			case 'touchmove' :
-				this.#isClickEvent = false;
-				touchEvent.preventDefault ( );
-				this.#mover.moveDialog ( touch, eventType );
-				break;
-			case 'touchend' :
-				if ( ! this.#isClickEvent ) {
-					this.#mover.moveDialog ( touch, eventType );
-				}
-				break;
-			case 'touchcancel' :
-				break;
-			default :
-				break;
-			}
+	handleEvent ( dragEvent ) {
+		dragEvent.preventDefault ( );
+		if ( Number.parseInt ( dragEvent.dataTransfer.getData ( 'ObjId' ) ) !== this.#mover.objId ) {
+
+			// A lot of things can be dragged on the background and then receive the dragover event. Before moving the dialog,
+			// we have to verify that it's the correct dialog and not something else like notes, routes or others dialog...
+			return;
 		}
+		dragEvent.stopPropagation ( );
+		this.#mover.moveDialog ( dragEvent );
 	}
 }
 
-export default TopBarTouchEL;
+export default NonModalDialogBackgroundDragOverEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
