@@ -45,7 +45,7 @@ class CommandButtonHTMLElementEL extends MouseAndTouchBaseEL {
 	*/
 
 	constructor ( baseToolbar ) {
-		super ( true );
+		super ( { stopPropagationTouchEvents : false } );
 		this.#baseToolbar = baseToolbar;
 		this.eventTypes = [ 'click' ];
 	}

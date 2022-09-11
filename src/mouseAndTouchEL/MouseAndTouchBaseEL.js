@@ -34,6 +34,13 @@ Base class for event listeners management
 class MouseAndTouchBaseEL {
 
 	/**
+	Options for the event listeners
+	@type {Object}
+	*/
+
+	#options;
+
+	/**
 	The X position on the screen of the touchstart event
 	@type {Number}
 	*/
@@ -88,13 +95,6 @@ class MouseAndTouchBaseEL {
 	*/
 
 	#touchEndEvent;
-
-	/**
-	A flag indicating when the event have to be propagated to the parent HTMLElements
-	@type {Boolean}
-	*/
-
-	#propagate;
 
 	/**
 	The maximum distance on the screen between the touchstart and touchend event
@@ -223,17 +223,24 @@ class MouseAndTouchBaseEL {
 
 	/**
 	The constructor
-	@param {?Boolean} propagate a flag indicating when the event have to be propagated to the parent HTMLElements
+	@param {?Object} options an object with options for the event listener
 	*/
 
-	constructor ( propagate ) {
+	constructor ( options ) {
 		Object.freeze ( this );
+		this.#options = Object.freeze (
+			{
+				stopPropagationTouchEvents : options?.stopPropagationTouchEvents ?? true,
+				stopPropagationMouseEvents : options?.stopPropagationMouseEvents ?? true,
+				preventDefaultTouchEvents : options?.preventDefaultTouchEvents ?? true,
+				preventDefaultMouseEvents : options?.preventDefaultMouseEvents ?? true
+			}
+		);
 		this.#lastTouchStartTimeStamp = ZERO;
 		this.#lastTouchEndTimeStamp = ZERO;
 		this.#clickOccured = false;
 		this.#dblClickOccured = false;
 		this.#touchEndEvent = null;
-		this.#propagate = Boolean ( propagate );
 	}
 
 	/**
@@ -252,7 +259,7 @@ class MouseAndTouchBaseEL {
 			eventType => target.addEventListener ( eventType, this )
 		);
 		this.#eventTypes.forEach (
-			eventType => target.addEventListener ( eventType, this, { pasive : false } )
+			eventType => target.addEventListener ( eventType, this )
 		);
 	}
 
@@ -276,21 +283,32 @@ class MouseAndTouchBaseEL {
 	*/
 
 	#handleMouseEvents ( handledEvent ) {
+		if ( this.#options.stopPropagationMouseEvents ) {
+			handledEvent.stopPropagation ( );
+		}
 		switch ( handledEvent.type ) {
 		case 'click' :
-			handledEvent.preventDefault ( );
+			if ( this.#options.preventDefaultMouseEvents ) {
+				handledEvent.preventDefault ( );
+			}
 			this.handleClickEvent ( handledEvent );
 			break;
 		case 'contextmenu' :
-			handledEvent.preventDefault ( );
+			if ( this.#options.preventDefaultMouseEvents ) {
+				handledEvent.preventDefault ( );
+			}
 			this.handleContextMenuEvent ( handledEvent );
 			break;
 		case 'mouseenter' :
-			handledEvent.preventDefault ( );
+			if ( this.#options.preventDefaultMouseEvents ) {
+				handledEvent.preventDefault ( );
+			}
 			this.handleMouseEnterEvent ( handledEvent );
 			break;
 		case 'mouseleave' :
-			handledEvent.preventDefault ( );
+			if ( this.#options.preventDefaultMouseEvents ) {
+				handledEvent.preventDefault ( );
+			}
 			this.handleMouseLeaveEvent ( handledEvent );
 			break;
 		case 'mousedown' :
@@ -303,7 +321,9 @@ class MouseAndTouchBaseEL {
 			this.handleMouseUpEvent ( handledEvent );
 			break;
 		case 'wheel' :
-			handledEvent.preventDefault ( );
+			if ( this.#options.preventDefaultMouseEvents ) {
+				handledEvent.preventDefault ( );
+			}
 			this.handleWheelEvent ( handledEvent );
 			break;
 		case 'dragstart' :
@@ -326,7 +346,12 @@ class MouseAndTouchBaseEL {
 	*/
 
 	#handleTouchEvents ( handledEvent ) {
-		handledEvent.preventDefault ( );
+		if ( this.#options.stopPropagationTouchEvents ) {
+			handledEvent.stopPropagation ( );
+		}
+		if ( this.#options.preventDefaultTouchEvents ) {
+			handledEvent.preventDefault ( );
+		}
 		switch ( handledEvent.type ) {
 		case 'touchstart' :
 			this.#handleTouchStartEvent ( handledEvent );
@@ -351,10 +376,6 @@ class MouseAndTouchBaseEL {
 	*/
 
 	handleEvent ( handledEvent ) {
-
-		if ( ! this.#propagate ) {
-			handledEvent.stopPropagation ( );
-		}
 
 		if ( NOT_FOUND === this.#eventTypes.indexOf ( handledEvent.type ) ) {
 			this.#handleTouchEvents ( handledEvent );
