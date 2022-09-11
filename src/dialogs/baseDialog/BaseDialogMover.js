@@ -79,7 +79,7 @@ class BaseDialogMover {
 		const maxDialogX =
 			screenAvailable.width -	this.dialogHTMLElement.offsetWidth - DIALOG_DRAG_MARGIN;
 		const maxDialogY =
-		screenAvailable.heigt - this.dialogHTMLElement.offsetHeight - DIALOG_DRAG_MARGIN;
+			screenAvailable.height - this.dialogHTMLElement.offsetHeight - DIALOG_DRAG_MARGIN;
 		this.#dialogX = Math.max ( Math.min ( newDialogX, maxDialogX ), DIALOG_DRAG_MARGIN );
 		this.#dialogY = Math.max ( Math.min ( newDialogY, maxDialogY ), DIALOG_DRAG_MARGIN );
 	}

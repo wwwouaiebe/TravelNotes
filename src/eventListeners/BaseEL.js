@@ -23,7 +23,7 @@ Doc reviewed 202208
  */
 
 import theConfig from '../data/Config.js';
-import { NOT_FOUND, ZERO } from '../main/Constants.js';
+import { NOT_FOUND, ZERO, TWO } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -32,6 +32,20 @@ Base class for event listeners management
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 class BaseEL {
+
+	/**
+	The X position on the screen of the touchstart event
+	@type {Number}
+	*/
+
+	#startScreenX;
+
+	/**
+	The Y position on the screen of the touchstart event
+	@type {Number}
+	*/
+
+	#startScreenY;
 
 	/**
 	An array with the event types handled
@@ -83,6 +97,15 @@ class BaseEL {
 	#propagate;
 
 	/**
+	The maximum distance on the screen between the touchstart and touchend event
+	for the events will be considered as a click event
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	get #MAX_CLICK_DISTANCE ( ) { return 10; }
+
+	/**
 	Click timer handler. Wait for a second click...
 	*/
 
@@ -110,7 +133,12 @@ class BaseEL {
 		this.#lastTouchStartTimeStamp = touchStartEvent.timeStamp;
 		if ( this.handleTouchStartEvent ) {
 			this.handleTouchStartEvent ( touchStartEvent );
+			return;
 		}
+
+		const touch = touchStartEvent.changedTouches.item ( ZERO );
+		this.#startScreenX = touch.screenX;
+		this.#startScreenY = touch.screenY;
 	}
 
 	/**
@@ -134,6 +162,19 @@ class BaseEL {
 			this.handleTouchEndEvent ( touchEndEvent );
 			return;
 		}
+
+		const touch = touchEndEvent.changedTouches.item ( ZERO );
+		if (
+			Math.sqrt (
+				( ( touch.screenX - this.#startScreenX ) ** TWO ) +
+				( ( touch.screenY - this.#startScreenY ) ** TWO )
+			)
+			>
+			this.#MAX_CLICK_DISTANCE
+		) {
+			return;
+		}
+
 		this.#lastTouchEndTimeStamp = touchEndEvent.timeStamp;
 		if (
 			this.#lastTouchEndTimeStamp - this.#lastTouchStartTimeStamp < theConfig.events.clickDelay
@@ -211,7 +252,7 @@ class BaseEL {
 			eventType => target.addEventListener ( eventType, this )
 		);
 		this.#eventTypes.forEach (
-			eventType => target.addEventListener ( eventType, this )
+			eventType => target.addEventListener ( eventType, this, { pasive : false } )
 		);
 	}
 
@@ -236,7 +277,10 @@ class BaseEL {
 
 	handleEvent ( handledEvent ) {
 
-		handledEvent.preventDefault ( );
+		if ( 'dragstart' !== handledEvent.type ) {
+			handledEvent.preventDefault ( );
+		}
+
 		if ( ! this.#propagate ) {
 			handledEvent.stopPropagation ( );
 		}
