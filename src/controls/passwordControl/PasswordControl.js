@@ -24,8 +24,8 @@ Doc reviewed 202208
 
 import BaseControl from '../baseControl/BaseControl.js';
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
-import EyeMouseDownEL from './EyeMouseDownEL.js';
-import EyeMouseUpEL from './EyeMouseUpEL.js';
+import EyeEL from './EyeEL.js';
+import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -49,18 +49,18 @@ class PasswordControl extends BaseControl {
 	#eyeSpan;
 
 	/**
-	mouseDown event listener
-	@type {EyeMouseDownEL}
+	The eye event listeners
+	@type {EyeEL}
 	*/
 
-	#eyeMouseDownEL;
+	#eyeEL;
 
 	/**
-	mouseup event listener
-	@type {EyeMouseUpEL}
+	The password input event listeners
+	@type {MouseAndTouchBaseEL}
 	*/
 
-	#eyeMouseUpEL;
+	#passwordInputEL;
 
 	/**
 	The constructor
@@ -77,6 +77,9 @@ class PasswordControl extends BaseControl {
 			},
 			this.controlHTMLElement
 		);
+		this.#passwordInputEL = new MouseAndTouchBaseEL ( { preventDefaultTouchEvents : false } );
+		this.#passwordInputEL.addEventListeners ( this.#passwordInput );
+
 		this.#eyeSpan = theHTMLElementsFactory.create (
 			'span',
 			{
@@ -85,14 +88,8 @@ class PasswordControl extends BaseControl {
 			},
 			this.controlHTMLElement
 		);
-
-		// Event listeners
-		this.#eyeMouseDownEL = new EyeMouseDownEL ( this.#passwordInput );
-		this.#eyeMouseUpEL = new EyeMouseUpEL ( this.#passwordInput );
-		this.#eyeSpan.addEventListener ( 'mousedown', this.#eyeMouseDownEL, false );
-		this.#eyeSpan.addEventListener ( 'touchstart', this.#eyeMouseDownEL, false );
-		this.#eyeSpan.addEventListener ( 'mouseup', this.#eyeMouseUpEL,	false );
-		this.#eyeSpan.addEventListener ( 'touchend', this.#eyeMouseUpEL, false );
+		this.#eyeEL = new EyeEL ( this.#passwordInput );
+		this.#eyeEL.addEventListeners ( this.#eyeSpan );
 		this.#passwordInput.focus ( );
 	}
 
@@ -101,12 +98,10 @@ class PasswordControl extends BaseControl {
 	*/
 
 	destructor ( ) {
-		this.#eyeSpan.removeEventListener ( 'mousedown', this.#eyeMouseDownEL, false );
-		this.#eyeSpan.removeEventListener ( 'touchstart', this.#eyeMouseDownEL, false );
-		this.#eyeSpan.removeEventListener ( 'mouseup', this.#eyeMouseUpEL,	false );
-		this.#eyeSpan.removeEventListener ( 'touchend', this.#eyeMouseUpEL, false );
-		this.#eyeMouseDownEL = null;
-		this.#eyeMouseUpEL = null;
+		this.#eyeEL.removeEventListeners ( this.#eyeSpan );
+		this.#eyeEL = null;
+		this.#passwordInputEL.removeEventListeners ( this.#passwordInput );
+		this.#passwordInputEL = null;
 	}
 
 	/**
