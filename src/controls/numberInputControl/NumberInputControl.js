@@ -24,6 +24,7 @@ Doc reviewed 202208
 
 import BaseControl from '../baseControl/BaseControl.js';
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
+import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
 import { ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -40,6 +41,13 @@ class NumberInputControl extends BaseControl {
 	*/
 
 	#valueInput;
+
+	/**
+	The value input event listeners
+	@type {MouseAndTouchBaseEL}
+	*/
+
+	#valueInputEL;
 
 	/**
 	The constructor
@@ -67,6 +75,8 @@ class NumberInputControl extends BaseControl {
 			},
 			this.controlHTMLElement
 		);
+		this.#valueInputEL = new MouseAndTouchBaseEL ( { preventDefaultTouchEvents : false } );
+		this.#valueInputEL.addEventListeners ( this.#valueInput );
 		theHTMLElementsFactory.create (
 			'text',
 			{
@@ -74,6 +84,15 @@ class NumberInputControl extends BaseControl {
 			},
 			this.controlHTMLElement
 		);
+	}
+
+	/**
+	The destructor
+	*/
+
+	destructor ( ) {
+		this.#valueInputEL.removeEventListeners ( this.#valueInput );
+		this.#valueInputEL = null;
 	}
 
 	/**

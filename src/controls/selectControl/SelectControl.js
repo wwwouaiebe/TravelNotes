@@ -26,6 +26,7 @@ Tests ...
 
 import BaseControl from '../baseControl/BaseControl.js';
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
+import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -43,6 +44,13 @@ class SelectControl extends BaseControl {
 	#selectHTMLElement;
 
 	/**
+	The selectHTMLElement event listeners
+	@type {MouseAndTouchBaseEL}
+	*/
+
+	#selectHTMLElementEL;
+
+	/**
 	The constructor
 	@param {Object} options An object with the  options ( beforeText, value, min, max, datasetName, afterText )
 	*/
@@ -57,6 +65,8 @@ class SelectControl extends BaseControl {
 			this.controlHTMLElement
 		);
 		this.#selectHTMLElement = theHTMLElementsFactory.create ( 'select', null, this.controlHTMLElement );
+		this.#selectHTMLElementEL = new MouseAndTouchBaseEL ( { preventDefaultTouchEvents : false } );
+		this.#selectHTMLElementEL.addEventListeners ( this.#selectHTMLElement );
 		options?.elements.forEach (
 			element => {
 				this.#selectHTMLElement.add (
@@ -64,6 +74,15 @@ class SelectControl extends BaseControl {
 				);
 			}
 		);
+	}
+
+	/**
+	The destructor
+	*/
+
+	destructor ( ) {
+		this.#selectHTMLElementEL.removeEventListeners ( this.#selectHTMLElement );
+		this.#selectHTMLElementEL = null;
 	}
 
 	/**
