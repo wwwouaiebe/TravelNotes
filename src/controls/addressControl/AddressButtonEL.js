@@ -22,7 +22,7 @@ Changes:
 Doc reviewed 202208
  */
 
-import GeoCoderHelper from './GeoCoderHelper.js';
+import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -30,45 +30,35 @@ Click event listener for the AddressButtonClickEL class
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class AddressButtonClickEL {
+class AddressButtonEL extends MouseAndTouchBaseEL {
 
 	/**
-	A reference to the NoteDialog object
-	@type {ModalBaseDialog}
+	A reference to the GeoCoderHelper object of the control
+	@type {GeoCoderHelper}
 	*/
 
-	#dialog;
-
-	/**
-	The lat and lng for witch the address must be found
-	@type {Array.<Number>}
-	*/
-
-	#latLng;
+	#geoCoderHelper;
 
 	/**
 	The constructor
-	@param {ModalBaseDialog} dialog A reference to the dialog object
-	@param {Array.<Number>} latLng The lat and lng for witch the address must be found
+	@param {GeoCoderHelper} geoCoderHelper A reference to the GeoCoderHelper object of the AddressControl
 	*/
 
-	constructor ( dialog, latLng ) {
-		Object.freeze ( this );
-		this.#dialog = dialog;
-		this.#latLng = latLng;
+	constructor ( geoCoderHelper ) {
+		super ( );
+		this.#geoCoderHelper = geoCoderHelper;
+		this.eventTypes = [ 'click' ];
 	}
 
 	/**
 	Event listener method
-	@param {Event} clickEvent The event to handle
 	*/
 
-	handleEvent ( clickEvent ) {
-		clickEvent.stopPropagation ( );
-		new GeoCoderHelper ( this.#dialog ).setAddressWithGeoCoder ( this.#latLng );
+	handleClickEvent ( ) {
+		this.#geoCoderHelper.setAddressWithGeoCoder ( );
 	}
 }
 
-export default AddressButtonClickEL;
+export default AddressButtonEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

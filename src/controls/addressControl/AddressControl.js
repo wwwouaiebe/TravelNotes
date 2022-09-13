@@ -25,6 +25,8 @@ Doc reviewed 202208
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import theTranslator from '../../core/uiLib/Translator.js';
 import BaseControl from '../baseControl/BaseControl.js';
+import AddressButtonEL from './AddressButtonEL.js';
+import GeoCoderHelper from './GeoCoderHelper.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -49,13 +51,30 @@ class AddressControl extends BaseControl {
 	#addressButton;
 
 	/**
+	A GeoCoderHelper object used for the address search
+	@type {GeoCoderHelper}
+	*/
+
+	#geoCoderHelper;
+
+	/**
+	The address btton event listener
+	@type {AddressButtonEL}
+	*/
+
+	#addressButtonEL;
+
+	/**
 	The constructor
+	@param {NoteDialog|WayPointPropertiesDialog} dialog A reference to the dialog
 	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
 
-	constructor ( eventListeners ) {
+	constructor ( dialog, eventListeners ) {
 
 		super ( );
+
+		this.#geoCoderHelper = new GeoCoderHelper ( dialog );
 
 		// HTMLElements creation
 		const headerControlElement = theHTMLElementsFactory.create (
@@ -73,6 +92,8 @@ class AddressControl extends BaseControl {
 			},
 			headerControlElement
 		);
+		this.#addressButtonEL = new AddressButtonEL ( this.#geoCoderHelper );
+		this.#addressButtonEL.addEventListeners ( this.#addressButton );
 		theHTMLElementsFactory.create (
 			'text',
 			{
@@ -96,14 +117,11 @@ class AddressControl extends BaseControl {
 		);
 
 		// event listeners
-		if ( eventListeners.controlFocus ) {
+		if ( eventListeners?.controlFocus ) {
 			this.#addressInput.addEventListener ( 'focus', eventListeners.controlFocus );
 		}
-		if ( eventListeners.controlInput ) {
+		if ( eventListeners?.controlInput ) {
 			this.#addressInput.addEventListener ( 'input', eventListeners.controlInput );
-		}
-		if ( eventListeners.addressButtonClick ) {
-			this.#addressButton.addEventListener ( 'click', eventListeners.addressButtonClick );
 		}
 	}
 
@@ -119,9 +137,7 @@ class AddressControl extends BaseControl {
 		if ( eventListeners.controlInput ) {
 			this.#addressInput.removeEventListener ( 'input', eventListeners.controlInput );
 		}
-		if ( eventListeners.addressButtonClick ) {
-			this.#addressButton.removeEventListener ( 'click', eventListeners.addressButtonClick );
-		}
+		this.#addressButtonEL.removeEventListeners ( this.#addressButton );
 	}
 
 	/**
@@ -131,7 +147,14 @@ class AddressControl extends BaseControl {
 
 	get address ( ) { return this.#addressInput.value; }
 
-	set address ( Value ) { this.#addressInput.value = Value; }
+	set address ( address ) {
+		if ( '' === address ) {
+			this.#geoCoderHelper.setAddressWithGeoCoder ( );
+		}
+		else {
+			this.#addressInput.value = address;
+		}
+	}
 
 }
 
