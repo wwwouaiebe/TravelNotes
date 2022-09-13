@@ -26,7 +26,7 @@ Tests ...
 
 import BaseControl from '../baseControl/BaseControl.js';
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
-import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
+import TouchInputEL from '../../mouseAndTouchEL/TouchInputEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -65,7 +65,7 @@ class SelectControl extends BaseControl {
 			this.controlHTMLElement
 		);
 		this.#selectHTMLElement = theHTMLElementsFactory.create ( 'select', null, this.controlHTMLElement );
-		this.#selectHTMLElementEL = new MouseAndTouchBaseEL ( { preventDefaultTouchEvents : false } );
+		this.#selectHTMLElementEL = new TouchInputEL ( );
 		this.#selectHTMLElementEL.addEventListeners ( this.#selectHTMLElement );
 		options?.elements.forEach (
 			element => {

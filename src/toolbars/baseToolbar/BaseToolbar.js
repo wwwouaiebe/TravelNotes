@@ -171,7 +171,7 @@ class BaseToolbar {
 
 	linkButtonClick ( clickEvent ) {
 
-		// due to preventDefzult calls, link are not working on the toolbar and
+		// due to preventDefault calls, link are not working on the toolbar and
 		// we have to copy the link in a temp anchor element
 		theHTMLElementsFactory.create (
 			'a',

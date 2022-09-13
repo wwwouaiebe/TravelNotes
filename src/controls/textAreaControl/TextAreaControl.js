@@ -24,7 +24,7 @@ Doc reviewed 202208
 
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import BaseControl from '../baseControl/BaseControl.js';
-import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
+import TouchInputEL from '../../mouseAndTouchEL/TouchInputEL.js';
 import { TWO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -84,7 +84,7 @@ class TextAreaControl extends BaseControl {
 				this.controlHTMLElement
 			)
 		);
-		this.#textAreaEL = new MouseAndTouchBaseEL ( { preventDefaultTouchEvents : false } );
+		this.#textAreaEL = new TouchInputEL ( );
 		this.#textAreaEL.addEventListeners ( this.#textArea );
 
 		// event listeners

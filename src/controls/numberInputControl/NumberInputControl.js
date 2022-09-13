@@ -24,7 +24,7 @@ Doc reviewed 202208
 
 import BaseControl from '../baseControl/BaseControl.js';
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
-import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
+import TouchInputEL from '../../mouseAndTouchEL/TouchInputEL.js';
 import { ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -75,7 +75,7 @@ class NumberInputControl extends BaseControl {
 			},
 			this.controlHTMLElement
 		);
-		this.#valueInputEL = new MouseAndTouchBaseEL ( { preventDefaultTouchEvents : false } );
+		this.#valueInputEL = new TouchInputEL ( );
 		this.#valueInputEL.addEventListeners ( this.#valueInput );
 		theHTMLElementsFactory.create (
 			'text',

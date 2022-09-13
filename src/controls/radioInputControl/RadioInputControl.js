@@ -24,7 +24,7 @@ Doc reviewed 202208
 
 import BaseControl from '../baseControl/BaseControl.js';
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
-import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
+import TouchInputEL from '../../mouseAndTouchEL/TouchInputEL.js';
 import { NOT_FOUND, ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -71,7 +71,7 @@ class RadioInputControl extends BaseControl {
 			},
 			this.controlHTMLElement
 		);
-		this.#buttonsEL = new MouseAndTouchBaseEL ( { preventDefaultTouchEvents : false } );
+		this.#buttonsEL = new TouchInputEL ( );
 		let controlName = 'controlName' + ( ++ RadioInputControl.#objId );
 		let value = ZERO;
 		options.buttons.forEach (

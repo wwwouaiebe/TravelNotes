@@ -25,7 +25,7 @@ Doc reviewed 202208
 import BaseControl from '../baseControl/BaseControl.js';
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import EyeEL from './EyeEL.js';
-import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
+import TouchInputEL from '../../mouseAndTouchEL/TouchInputEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -77,7 +77,7 @@ class PasswordControl extends BaseControl {
 			},
 			this.controlHTMLElement
 		);
-		this.#passwordInputEL = new MouseAndTouchBaseEL ( { preventDefaultTouchEvents : false } );
+		this.#passwordInputEL = new TouchInputEL ( );
 		this.#passwordInputEL.addEventListeners ( this.#passwordInput );
 
 		this.#eyeSpan = theHTMLElementsFactory.create (
