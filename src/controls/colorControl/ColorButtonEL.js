@@ -22,13 +22,15 @@ Changes:
 Doc reviewed 202208
  */
 
+import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 click event listener for the color buttons
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ColorButtonClickEL {
+class ColorButtonEL extends MouseAndTouchBaseEL {
 
 	/**
 	A reference to the ColorControl object
@@ -43,8 +45,9 @@ class ColorButtonClickEL {
 	*/
 
 	constructor ( colorControl ) {
-		Object.freeze ( this );
+		super ( );
 		this.#colorControl = colorControl;
+		this.eventTypes = [ 'click' ];
 	}
 
 	/**
@@ -52,13 +55,13 @@ class ColorButtonClickEL {
 	@param {Event} clickEvent The event to handle
 	*/
 
-	handleEvent ( clickEvent ) {
+	handleClickEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		this.#colorControl.onColorButtonClick ( clickEvent.target.style [ 'background-color' ] );
 	}
 
 }
 
-export default ColorButtonClickEL;
+export default ColorButtonEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
