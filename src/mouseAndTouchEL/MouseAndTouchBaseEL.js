@@ -335,6 +335,10 @@ class MouseAndTouchBaseEL {
 		case 'dragend' :
 			this.handleDragEndEvent ( handledEvent );
 			break;
+		case 'change' :
+			handledEvent.preventDefault ( );
+			this.handleChangeEvent ( handledEvent );
+			break;
 		default :
 			break;
 		}
@@ -376,7 +380,6 @@ class MouseAndTouchBaseEL {
 	*/
 
 	handleEvent ( handledEvent ) {
-
 		if ( NOT_FOUND === this.#eventTypes.indexOf ( handledEvent.type ) ) {
 			this.#handleTouchEvents ( handledEvent );
 		}

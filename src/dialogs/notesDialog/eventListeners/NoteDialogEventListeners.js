@@ -25,9 +25,9 @@ Doc reviewed 202208
 import AllControlsFocusEL from './AllControlsFocusEL.js';
 import AllControlsInputEL from './AllControlsInputEL.js';
 import UrlInputBlurEL from './UrlInputBlurEL.js';
-import EditionButtonsClickEL from './EditionButtonsClickEL.js';
-import IconSelectorChangeEL from './IconSelectorChangeEL.js';
-import OpenCfgFileButtonClickEL from './OpenCfgFileButtonClickEL.js';
+import EditionButtonsEL from './EditionButtonsEL.js';
+import IconSelectorEL from './IconSelectorEL.js';
+import OpenCfgFileButtonEL from './OpenCfgFileButtonEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -59,25 +59,25 @@ class NoteDialogEventListeners {
 	#urlInputBlur;
 
 	/**
-	The edition button click event listener
-	@type {EditionButtonsClickEL}
+	The edition button event listener
+	@type {EditionButtonsEL}
 	*/
 
-	#editionButtonsClick;
+	#editionButtonsEL;
 
 	/**
 	The  icon selector change event listener
-	@type {IconSelectorChangeEL}
+	@type {IconSelectorEL}
 	*/
 
-	#iconSelectorChange;
+	#iconSelectorEL;
 
 	/**
 	The open file button click event listener
-	@type {OpenCfgFileButtonClickEL}
+	@type {OpenCfgFileButtonEL}
 	*/
 
-	#openCfgFileButtonClick;
+	#openCfgFileButtonEL;
 
 	/**
 	The constructor
@@ -89,9 +89,9 @@ class NoteDialogEventListeners {
 		this.#controlFocus = new AllControlsFocusEL ( noteDialog );
 		this.#controlInput = new AllControlsInputEL ( noteDialog );
 		this.#urlInputBlur = new UrlInputBlurEL ( noteDialog );
-		this.#editionButtonsClick = new EditionButtonsClickEL ( noteDialog );
-		this.#iconSelectorChange = new IconSelectorChangeEL ( noteDialog );
-		this.#openCfgFileButtonClick = new OpenCfgFileButtonClickEL ( noteDialog );
+		this.#editionButtonsEL = new EditionButtonsEL ( noteDialog );
+		this.#iconSelectorEL = new IconSelectorEL ( noteDialog );
+		this.#openCfgFileButtonEL = new OpenCfgFileButtonEL ( noteDialog );
 	}
 
 	/**
@@ -102,9 +102,9 @@ class NoteDialogEventListeners {
 		this.#controlFocus = null;
 		this.#controlInput = null;
 		this.#urlInputBlur = null;
-		this.#editionButtonsClick = null;
-		this.#iconSelectorChange = null;
-		this.#openCfgFileButtonClick = null;
+		this.#editionButtonsEL = null;
+		this.#iconSelectorEL = null;
+		this.#openCfgFileButtonEL = null;
 	}
 
 	/**
@@ -130,24 +130,24 @@ class NoteDialogEventListeners {
 
 	/**
 	The edition button click event listener
-	@type {EditionButtonsClickEL}
+	@type {EditionButtonsEL}
 	*/
 
-	get editionButtonsClick ( ) { return this.#editionButtonsClick; }
+	get editionButtonsEL ( ) { return this.#editionButtonsEL; }
 
 	/**
 	The  icon selector change event listener
-	@type {IconSelectorChangeEL}
+	@type {IconSelectorEL}
 	*/
 
-	get iconSelectorChange ( ) { return this.#iconSelectorChange; }
+	get iconSelectorEL ( ) { return this.#iconSelectorEL; }
 
 	/**
 	The open file button click event listener
-	@type {OpenCfgFileButtonClickEL}
+	@type {OpenCfgFileButtonEL}
 	*/
 
-	get openCfgFileButtonClick ( ) { return this.#openCfgFileButtonClick; }
+	get openCfgFileButtonEL ( ) { return this.#openCfgFileButtonEL; }
 }
 
 export default NoteDialogEventListeners;

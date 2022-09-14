@@ -27,6 +27,7 @@ import theTranslator from '../../core/uiLib/Translator.js';
 import BaseControl from '../baseControl/BaseControl.js';
 import AddressButtonEL from './AddressButtonEL.js';
 import GeoCoderHelper from './GeoCoderHelper.js';
+import TouchInputEL from '../../mouseAndTouchEL/TouchInputEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -42,6 +43,13 @@ class AddressControl extends BaseControl {
 	*/
 
 	#addressInput;
+
+	/**
+	The address input event listener
+	@type {TouchInputEL}
+	*/
+
+	#addressInputEL;
 
 	/**
 	The reset address buton
@@ -93,6 +101,7 @@ class AddressControl extends BaseControl {
 			headerControlElement
 		);
 		this.#addressButtonEL = new AddressButtonEL ( this.#geoCoderHelper );
+
 		this.#addressButtonEL.addEventListeners ( this.#addressButton );
 		theHTMLElementsFactory.create (
 			'text',
@@ -117,6 +126,8 @@ class AddressControl extends BaseControl {
 		);
 
 		// event listeners
+		this.#addressInputEL = new TouchInputEL ( );
+		this.#addressInputEL.addEventListeners ( this.#addressInput );
 		if ( eventListeners?.controlFocus ) {
 			this.#addressInput.addEventListener ( 'focus', eventListeners.controlFocus );
 		}
@@ -137,7 +148,9 @@ class AddressControl extends BaseControl {
 		if ( eventListeners.controlInput ) {
 			this.#addressInput.removeEventListener ( 'input', eventListeners.controlInput );
 		}
+
 		this.#addressButtonEL.removeEventListeners ( this.#addressButton );
+		this.#addressInputEL.removeEventListeners ( this.#addressInput );
 	}
 
 	/**

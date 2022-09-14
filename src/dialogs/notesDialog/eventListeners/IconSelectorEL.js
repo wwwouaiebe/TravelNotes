@@ -25,6 +25,7 @@ Doc reviewed 202208
 import theTranslator from '../../../core/uiLib/Translator.js';
 import theNoteDialogToolbarData from '../toolbar/NoteDialogToolbarData.js';
 import MapIconFromOsmFactory from '../../../core/mapIcon/MapIconFromOsmFactory.js';
+import MouseAndTouchBaseEL from '../../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -32,7 +33,7 @@ change event listener for the icon selector
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class IconSelectorChangeEL {
+class IconSelectorEL extends MouseAndTouchBaseEL {
 
 	/**
 	A reference to the NoteDialog object
@@ -91,8 +92,9 @@ class IconSelectorChangeEL {
 	*/
 
 	constructor ( noteDialog ) {
-		Object.freeze ( this );
+		super ( { preventDefaultTouchEvents : false } );
 		this.#noteDialog = noteDialog;
+		this.eventTypes = [ 'change' ];
 	}
 
 	/**
@@ -100,7 +102,7 @@ class IconSelectorChangeEL {
 	@param {Event} changeEvent The event to handle
 	*/
 
-	handleEvent ( changeEvent ) {
+	handleChangeEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
 		const preDefinedIcon = theNoteDialogToolbarData.preDefinedIconDataAt ( changeEvent.target.selectedIndex );
 
@@ -120,6 +122,6 @@ class IconSelectorChangeEL {
 	}
 }
 
-export default IconSelectorChangeEL;
+export default IconSelectorEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
