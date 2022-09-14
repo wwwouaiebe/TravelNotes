@@ -22,13 +22,15 @@ Changes:
 Doc reviewed 202208
  */
 
+import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 Click event listener for the add new ApiKey button
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class NewApiKeyButtonClickEL {
+class NewApiKeyButtonEL extends MouseAndTouchBaseEL {
 
 	/**
 	A reference to the ApiKeys control
@@ -43,8 +45,9 @@ class NewApiKeyButtonClickEL {
 	*/
 
 	constructor ( apiKeysControl ) {
-		Object.freeze ( this );
+		super ( );
 		this.#apiKeysControl = apiKeysControl;
+		this.eventTypes = [ 'click' ];
 	}
 
 	/**
@@ -60,12 +63,12 @@ class NewApiKeyButtonClickEL {
 	@param {Event} clickEvent The event to handle
 	*/
 
-	handleEvent ( clickEvent ) {
+	handleClickEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		this.#apiKeysControl.newApiKey ( );
 	}
 }
 
-export default NewApiKeyButtonClickEL;
+export default NewApiKeyButtonEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

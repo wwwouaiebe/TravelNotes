@@ -22,42 +22,32 @@ Changes:
 Doc reviewed 202208
  */
 
-import PasswordDialog from '../passwordDialog/PasswordDialog.js';
-import DataEncryptor from '../../core/lib/DataEncryptor.js';
-import DataEncryptorHandlers from './DataEncryptorHandlers.js';
+import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-Click event listener for the saveApiKeys to secure file button
+Click event listener for the delete key button
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class SaveToSecureFileButtonClickEL {
+class DeleteApiKeyButtonEL extends MouseAndTouchBaseEL {
 
 	/**
-	A reference to the ApiKeys dialog
-	@type {ApiKeysDialog}
+	A reference to the control with the ApiKeys
+	@type {ApiKeysControl}
 	*/
 
-	#apiKeysDialog;
-
-	/**
-	A DataEncryptorHandlers object used to encode / decode the ApiKeys
-	@type {DataEncryptorHandlers}
-	*/
-
-	#dataEncryptorHandlers;
+	#apiKeysControl;
 
 	/**
 	The constructor
-	@param {ApiKeysDialog} apiKeysDialog A reference to the ApiKeys dialog
-	objects are stored
+	@param {ApiKeysControl} apiKeysControl A reference to the control with the ApiKeys
 	*/
 
-	constructor ( apiKeysDialog ) {
-		Object.freeze ( this );
-		this.#apiKeysDialog = apiKeysDialog;
-		this.#dataEncryptorHandlers = new DataEncryptorHandlers ( this.#apiKeysDialog );
+	constructor ( apiKeysControl ) {
+		super ( );
+		this.#apiKeysControl = apiKeysControl;
+		this.eventTypes = [ 'click' ];
 	}
 
 	/**
@@ -65,8 +55,7 @@ class SaveToSecureFileButtonClickEL {
 	*/
 
 	destructor ( ) {
-		this.#dataEncryptorHandlers.destructor ( );
-		this.#apiKeysDialog = null;
+		this.#apiKeysControl = null;
 	}
 
 	/**
@@ -74,23 +63,13 @@ class SaveToSecureFileButtonClickEL {
 	@param {Event} clickEvent The event to handle
 	*/
 
-	handleEvent ( clickEvent ) {
+	handleClickEvent ( clickEvent ) {
+		clickEvent.preventDefault ( );
 		clickEvent.stopPropagation ( );
-		if ( ! this.#apiKeysDialog.validateApiKeys ( ) ) {
-			return;
-		}
-		this.#apiKeysDialog.showWait ( );
-
-		this.#apiKeysDialog.keyboardELEnabled = false;
-		new DataEncryptor ( ).encryptData (
-			new window.TextEncoder ( ).encode ( this.#apiKeysDialog.apiKeysJSON ),
-			data => this.#dataEncryptorHandlers.onOkEncrypt ( data ),
-			( ) => this.#dataEncryptorHandlers.onErrorEncrypt ( ),
-			new PasswordDialog ( true ).show ( )
-		);
+		this.#apiKeysControl.deleteApiKey ( Number.parseInt ( clickEvent.target.dataset.tanObjId ) );
 	}
 }
 
-export default SaveToSecureFileButtonClickEL;
+export default DeleteApiKeyButtonEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

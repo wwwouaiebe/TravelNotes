@@ -141,8 +141,9 @@ class PasswordDialog extends ModalBaseDialog {
 	*/
 
 	onOk ( ) {
-		this.#destructor ( );
-		super.onOk ( new window.TextEncoder ( ).encode ( this.#passwordControl.value ) );
+		if ( super.onOk ( new window.TextEncoder ( ).encode ( this.#passwordControl.value ) ) ) {
+			this.#destructor ( );
+		}
 	}
 
 	/**

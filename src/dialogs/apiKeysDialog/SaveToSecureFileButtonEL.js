@@ -25,16 +25,15 @@ Doc reviewed 202208
 import PasswordDialog from '../passwordDialog/PasswordDialog.js';
 import DataEncryptor from '../../core/lib/DataEncryptor.js';
 import DataEncryptorHandlers from './DataEncryptorHandlers.js';
-
-import { ZERO, ONE, HTTP_STATUS_OK } from '../../main/Constants.js';
+import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-click event listener for the reload keys from server file button
+Click event listener for the saveApiKeys to secure file button
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ReloadFromServerButtonClickEL {
+class SaveToSecureFileButtonEL extends MouseAndTouchBaseEL {
 
 	/**
 	A reference to the ApiKeys dialog
@@ -53,12 +52,14 @@ class ReloadFromServerButtonClickEL {
 	/**
 	The constructor
 	@param {ApiKeysDialog} apiKeysDialog A reference to the ApiKeys dialog
+	objects are stored
 	*/
 
 	constructor ( apiKeysDialog ) {
-		Object.freeze ( this );
+		super ( );
 		this.#apiKeysDialog = apiKeysDialog;
 		this.#dataEncryptorHandlers = new DataEncryptorHandlers ( this.#apiKeysDialog );
+		this.eventTypes = [ 'click' ];
 	}
 
 	/**
@@ -75,45 +76,23 @@ class ReloadFromServerButtonClickEL {
 	@param {Event} clickEvent The event to handle
 	*/
 
-	handleEvent ( clickEvent ) {
+	handleClickEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		this.#apiKeysDialog.hideError ( );
+		if ( ! this.#apiKeysDialog.validateApiKeys ( ) ) {
+			return;
+		}
 		this.#apiKeysDialog.showWait ( );
-		this.#apiKeysDialog.keyboardELEnabled = false;
 
-		fetch ( window.location.href.substring ( ZERO, window.location.href.lastIndexOf ( '/' ) + ONE ) + 'ApiKeys' )
-			.then (
-				response => {
-					if ( HTTP_STATUS_OK === response.status && response.ok ) {
-						response.arrayBuffer ( ).then (
-							data => {
-								new DataEncryptor ( ).decryptData (
-									data,
-									tmpData => { this.#dataEncryptorHandlers.onOkDecrypt ( tmpData ); },
-									err => { this.#dataEncryptorHandlers.onErrorDecrypt ( err ); },
-									new PasswordDialog ( false ).show ( )
-								);
-							}
-						);
-					}
-					else {
-						this.#dataEncryptorHandlers.onErrorDecrypt (
-							new Error ( 'Invalid http status' )
-						);
-					}
-				}
-			)
-			.catch (
-				err => {
-					this.#dataEncryptorHandlers.onErrorDecrypt ( err );
-					if ( err instanceof Error ) {
-						console.error ( err );
-					}
-				}
-			);
+		this.#apiKeysDialog.keyboardELEnabled = false;
+		new DataEncryptor ( ).encryptData (
+			new window.TextEncoder ( ).encode ( this.#apiKeysDialog.apiKeysJSON ),
+			data => this.#dataEncryptorHandlers.onOkEncrypt ( data ),
+			( ) => this.#dataEncryptorHandlers.onErrorEncrypt ( ),
+			new PasswordDialog ( true ).show ( )
+		);
 	}
 }
 
-export default ReloadFromServerButtonClickEL;
+export default SaveToSecureFileButtonEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

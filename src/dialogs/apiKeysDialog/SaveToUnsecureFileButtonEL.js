@@ -23,15 +23,15 @@ Doc reviewed 202208
  */
 
 import theUtilities from '../../core/uiLib/Utilities.js';
-import OpenUnsecureFileChangeEL from './OpenUnsecureFileChangeEL.js';
+import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-click event listener for the restore keys from unsecure file button
+Click event listener for the saveApiKeys to unsecure file button
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class RestoreFromUnsecureFileButtonClickEL {
+class SaveToUnsecureFileButtonEL extends MouseAndTouchBaseEL {
 
 	/**
 	A reference to the ApiKeys dialog
@@ -41,21 +41,15 @@ class RestoreFromUnsecureFileButtonClickEL {
 	#apiKeysDialog;
 
 	/**
-	The OpenUnsecureFileChangeEL for theUtilities.openFile ( ) method
-	@type {OpenUnsecureFileChangeEL}
-	*/
-
-	#openUnsecureFileChangeEL;
-
-	/**
 	The constructor
 	@param {ApiKeysDialog} apiKeysDialog A reference to the ApiKeys dialog
+	objects are stored
 	*/
 
 	constructor ( apiKeysDialog ) {
-		Object.freeze ( this );
+		super ( );
 		this.#apiKeysDialog = apiKeysDialog;
-		this.#openUnsecureFileChangeEL = new OpenUnsecureFileChangeEL ( this.#apiKeysDialog );
+		this.eventTypes = [ 'click' ];
 	}
 
 	/**
@@ -64,7 +58,6 @@ class RestoreFromUnsecureFileButtonClickEL {
 
 	destructor ( ) {
 		this.#apiKeysDialog = null;
-		this.#openUnsecureFileChangeEL.destructor ( );
 	}
 
 	/**
@@ -72,14 +65,18 @@ class RestoreFromUnsecureFileButtonClickEL {
 	@param {Event} clickEvent The event to handle
 	*/
 
-	handleEvent ( clickEvent ) {
+	handleClickEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
-		this.#apiKeysDialog.hideError ( );
-		theUtilities.openFile (	this.#openUnsecureFileChangeEL, '.json' );
-
+		if ( ! this.#apiKeysDialog.validateApiKeys ( ) ) {
+			return;
+		}
+		theUtilities.saveFile (
+			'ApiKeys.json',
+			this.#apiKeysDialog.apiKeysJSON,
+			'application/json' );
 	}
 }
 
-export default RestoreFromUnsecureFileButtonClickEL;
+export default SaveToUnsecureFileButtonEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

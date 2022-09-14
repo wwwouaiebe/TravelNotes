@@ -24,6 +24,7 @@ Doc reviewed 202208
 
 import theUtilities from '../../core/uiLib/Utilities.js';
 import OpenSecureFileChangeEL from './OpenSecureFileChangeEL.js';
+import MouseAndTouchBaseEL from '../../mouseAndTouchEL/MouseAndTouchBaseEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -31,7 +32,7 @@ click event listener for the restore keys from secure file button
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class RestoreFromSecureFileButtonClickEL {
+class RestoreFromSecureFileButtonEL extends MouseAndTouchBaseEL {
 
 	/**
 	A reference to the ApiKeys dialog
@@ -53,9 +54,10 @@ class RestoreFromSecureFileButtonClickEL {
 	*/
 
 	constructor ( apiKeysDialog ) {
-		Object.freeze ( this );
+		super ( );
 		this.#apiKeysDialog = apiKeysDialog;
 		this.#openSecureFileChangeEL = new OpenSecureFileChangeEL ( this.#apiKeysDialog );
+		this.eventTypes = [ 'click' ];
 	}
 
 	/**
@@ -72,13 +74,13 @@ class RestoreFromSecureFileButtonClickEL {
 	@param {Event} clickEvent The event to handle
 	*/
 
-	handleEvent ( clickEvent ) {
+	handleClickEvent ( clickEvent ) {
 		clickEvent.stopPropagation ( );
 		this.#apiKeysDialog.hideError ( );
 		theUtilities.openFile (	this.#openSecureFileChangeEL );
 	}
 }
 
-export default RestoreFromSecureFileButtonClickEL;
+export default RestoreFromSecureFileButtonEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
