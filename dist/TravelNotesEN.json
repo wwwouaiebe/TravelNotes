@@ -1061,7 +1061,7 @@
 	},
 	{
 		"msgid": "TravelNotesToolbar - Import travel",
-		"msgstr": "Import routes and notes from another travel or from a gpx file"
+		"msgstr": "Import routes and notes from another travel file ( {openTaN} ) or a gpx file ( {openGpx} )"
 	},
 	{
 		"msgid": "TravelNotesToolbar - Not possible to merge a travel when a route is edited",
@@ -1081,11 +1081,11 @@
 	},
 	{
 		"msgid": "TravelNotesToolbar - Save as travel",
-		"msgstr": "☢️ Partial save ☢️"
+		"msgstr": "☢️ Partial save in a file .{extension} ☢️"
 	},
 	{
 		"msgid": "TravelNotesToolbar - Save travel",
-		"msgstr": "Save the travel in a file"
+		"msgstr": "Save the travel in a file .{extension}"
 	},
 	{
 		"msgid": "TravelNotesToolbar - This page ask to close; data are perhaps not saved.",

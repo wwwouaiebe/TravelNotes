@@ -1061,7 +1061,7 @@
 	},
 	{
 		"msgid": "TravelNotesToolbar - Import travel",
-		"msgstr": "Importer des trajets et des notes depuis \nun autre voyage ou depuis un fichier .gpx"
+		"msgstr": "Importer des trajets et des notes depuis un autre fichier \nde voyage ( {openTaN} ) ou depuis un fichier gpx ( {openGpx} )"
 	},
 	{
 		"msgid": "TravelNotesToolbar - Not possible to merge a travel when a route is edited",
@@ -1069,7 +1069,7 @@
 	},
 	{
 		"msgid": "TravelNotesToolbar - Open travel",
-		"msgstr": "Ouvrir un fichier de voyage (.trv) ou un fichier .gpx"
+		"msgstr": "Ouvrir un fichier de voyage ( {openTaN} ) ou un fichier gpx ( {openGpx} )"
 	},
 	{
 		"msgid": "TravelNotesToolbar - Open travel roadbook",
@@ -1081,11 +1081,11 @@
 	},
 	{
 		"msgid": "TravelNotesToolbar - Save as travel",
-		"msgstr": "☢️ Sauvegarde partielle ☢️"
+		"msgstr": "☢️ Sauvegarde partielle dans un fichier .{extension} ☢️"
 	},
 	{
 		"msgid": "TravelNotesToolbar - Save travel",
-		"msgstr": "Sauver dans un fichier"
+		"msgstr": "Sauver dans un fichier .{extension}"
 	},
 	{
 		"msgid": "TravelNotesToolbar - This page ask to close; data are perhaps not saved.",
