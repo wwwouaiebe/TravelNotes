@@ -41,7 +41,7 @@ Loader for the app. Load all the json files needed (config, translations, map la
 class AppLoaderViewer {
 
 	/**
-	The url of the trv file in the fil parameter of the url
+	The url of the TaN file in the fil parameter of the url
 	@type {String}
 	*/
 

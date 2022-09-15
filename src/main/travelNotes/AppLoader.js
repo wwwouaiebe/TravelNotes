@@ -45,7 +45,7 @@ to the document
 class AppLoader {
 
 	/**
-	The url of the trv file in the fil parameter of the url
+	The url of the TaN file in the fil parameter of the url
 	@type {String}
 	*/
 

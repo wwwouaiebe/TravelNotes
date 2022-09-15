@@ -38,7 +38,8 @@ import theFullScreenUI from '../../uis/fullScreenUI/FullScreenUI.js';
 import theFontSizeManager from '../../core/FontSizeManager.js';
 import OpenInputChangeEL from './OpenInputChangeEL.js';
 import ImportInputChangeEL from './ImportInputChangeEL.js';
-import { INVALID_OBJ_ID, TOOLBAR_POSITION, GEOLOCATION_STATUS } from '../../main/Constants.js';
+import theDevice from '../../core/lib/Device.js';
+import { INVALID_OBJ_ID, TOOLBAR_POSITION, GEOLOCATION_STATUS, ZERO, ONE } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -114,10 +115,11 @@ class TravelNotesToolbar extends BaseToolbar {
 					( ) => { theGeoLocator.switch ( ); }
 				)
 		);
+		const writeExtension = theDevice.isTouch ? theConfig.files.writeTouch : theConfig.files.writeOthers;
 		this.addToolbarItem (
 			new ToolbarItem (
 				'☢️',
-				theTranslator.getText ( 'TravelNotesToolbar - Save as travel' ),
+				theTranslator.getText ( 'TravelNotesToolbar - Save as travel', { extension : writeExtension } ),
 				( ) => { theTravelEditor.saveAsTravel ( ); }
 			)
 		);
@@ -136,14 +138,22 @@ class TravelNotesToolbar extends BaseToolbar {
 		this.addToolbarItem (
 			new ToolbarItem (
 				'💾',
-				theTranslator.getText ( 'TravelNotesToolbar - Save travel' ),
+				theTranslator.getText ( 'TravelNotesToolbar - Save travel', { extension : writeExtension } ),
 				( ) => { theTravelEditor.saveTravel ( ); }
 			)
 		);
+		const translationVar = Object.seal ( { openTaN : '', openGpx : '' } );
+		theConfig.files.openTaN.forEach ( fileExtension => translationVar.openTaN += '.' + fileExtension + ',' );
+		theConfig.files.openGpx.forEach ( fileExtension => translationVar.openGpx += '.' + fileExtension + ',' );
+		const fileExtensions = ( translationVar.openTaN + translationVar.openGpx ).slice ( ZERO, -ONE );
+		translationVar.openTaN = translationVar.openTaN.slice ( ZERO, -ONE );
+		translationVar.openGpx = translationVar.openGpx.slice ( ZERO, -ONE );
+		translationVar.openTaN.replaceAll ( ',', ', ' );
+		translationVar.openGpx.replaceAll ( ',', ', ' );
 		this.addToolbarItem (
 			new ToolbarItem (
 				'📂',
-				theTranslator.getText ( 'TravelNotesToolbar - Open travel' ),
+				theTranslator.getText ( 'TravelNotesToolbar - Open travel', translationVar ),
 				( ) => {
 					if (
 						theConfig.travelNotes.haveBeforeUnloadWarning
@@ -156,17 +166,17 @@ class TravelNotesToolbar extends BaseToolbar {
 					) {
 						return;
 					}
-					theUtilities.openFile ( new OpenInputChangeEL ( ), '.trv,.gpx' );
+					theUtilities.openFile ( new OpenInputChangeEL ( ), fileExtensions );
 				}
 			)
 		);
 		this.addToolbarItem (
 			new ToolbarItem (
 				'🌏',
-				theTranslator.getText ( 'TravelNotesToolbar - Import travel' ),
+				theTranslator.getText ( 'TravelNotesToolbar - Import travel', translationVar ),
 				( ) => {
 					if ( INVALID_OBJ_ID === theTravelNotesData.editedRouteObjId ) {
-						theUtilities.openFile ( new ImportInputChangeEL ( ), '.trv,.gpx' );
+						theUtilities.openFile ( new ImportInputChangeEL ( ), fileExtensions );
 					}
 					else {
 						theErrorsUI.showError (

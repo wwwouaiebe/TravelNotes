@@ -235,8 +235,8 @@ class FileLoader {
 	}
 
 	/**
-	Merge the content of a trv file with the currently displayed Travel
-	@param {String} fileContent The trv file content to merge
+	Merge the content of a TaN file with the currently displayed Travel
+	@param {String} fileContent The TaN file content to merge
 	*/
 
 	mergeLocalTrvFile ( fileContent ) {

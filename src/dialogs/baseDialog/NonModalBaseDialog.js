@@ -24,7 +24,6 @@ Doc reviewed 202208
 
 import BaseDialog from '../BaseDialog/BaseDialog.js';
 import BackgroundDragOverEL from './BackgroundDragOverEL.js';
-import theTravelNotesData from '../../data/TravelNotesData.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -76,7 +75,6 @@ class NonModalBaseDialog extends BaseDialog {
 
 	show ( ) {
 		super.show ( );
-		this.mover.backgroundHTMLElement = theTravelNotesData.map.getContainer ( );
 		this.#createBackgroundHTMLElementEL ( );
 		this.addToBackground ( document.body );
 	}

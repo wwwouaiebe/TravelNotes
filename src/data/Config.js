@@ -58,6 +58,13 @@ const theConfig = {
 		showWarning : true,
 		timeOut : 10000
 	},
+	files :
+	{
+		openGpx : [ 'gpx' ],
+		openTaN : [ 'json', 'trv' ],
+		writeTouch : 'trv',
+		writeOthers : 'trv'
+	},
 	fontSize :
 	{
 		initialValue : 3.5,

@@ -46,7 +46,7 @@ class TravelNotesViewer {
 
 	/**
 	Load a travel from the server
-	@param {String} travelUrl The url of the trv file to open
+	@param {String} travelUrl The url of the TaN file to open
 	*/
 
 	async #loadDistantTravel ( travelUrl ) {
@@ -72,7 +72,7 @@ class TravelNotesViewer {
 	/**
 	This method load the TravelNotes viewer and open a read only map passed trought the url.
 	This method can only be executed once. Others call will be ignored.
-	@param {String} travelUrl The url of the trv file to open
+	@param {String} travelUrl The url of the TaN file to open
 	@param {Boolean} addLayerToolbar A bollean indicating when the map layer toolbar must be visible
 	*/
 

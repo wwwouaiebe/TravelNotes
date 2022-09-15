@@ -162,7 +162,6 @@ class ModalBaseDialog extends BaseDialog {
 
 		// A new element covering the entire screen is created, with drag and drop event listeners
 		this.#backgroundHTMLElement = theHTMLElementsFactory.create ( 'div', { className : 'TravelNotes-Background' } );
-		this.mover.backgroundHTMLElement = this.#backgroundHTMLElement;
 	}
 
 	/**

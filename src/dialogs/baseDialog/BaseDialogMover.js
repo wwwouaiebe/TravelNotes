@@ -23,6 +23,7 @@ Doc reviewed 202208
  */
 
 import ObjId from '../../data/ObjId.js';
+import theDevice from '../../core/lib/Device.js';
 import { ZERO, TWO, DIALOG_DRAG_MARGIN } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -74,10 +75,11 @@ class BaseDialogMover {
 	*/
 
 	#computePosition ( newDialogX, newDialogY ) {
+		const screenAvailable = theDevice.screenAvailable;
 		const maxDialogX =
-			this.backgroundHTMLElement.offsetWidth - this.dialogHTMLElement.offsetWidth - DIALOG_DRAG_MARGIN;
+			screenAvailable.width -	this.dialogHTMLElement.offsetWidth - DIALOG_DRAG_MARGIN;
 		const maxDialogY =
-			this.backgroundHTMLElement.offsetHeight - this.dialogHTMLElement.offsetHeight - DIALOG_DRAG_MARGIN;
+			screenAvailable.height - this.dialogHTMLElement.offsetHeight - DIALOG_DRAG_MARGIN;
 		this.#dialogX = Math.max ( Math.min ( newDialogX, maxDialogX ), DIALOG_DRAG_MARGIN );
 		this.#dialogY = Math.max ( Math.min ( newDialogY, maxDialogY ), DIALOG_DRAG_MARGIN );
 	}
@@ -90,13 +92,6 @@ class BaseDialogMover {
 		this.dialogHTMLElement.style.left = String ( this.#dialogX ) + 'px';
 		this.dialogHTMLElement.style.top = String ( this.#dialogY ) + 'px';
 	}
-
-	/**
-	The background element of the dialog
-	@type {HTMLElement}
-	*/
-
-	backgroundHTMLElement = null;
 
 	/**
 	The container element of the dialog
@@ -144,10 +139,13 @@ class BaseDialogMover {
 	*/
 
 	centerDialog ( ) {
-		this.#dialogX =
-			( this.backgroundHTMLElement.clientWidth - this.dialogHTMLElement.clientWidth ) / TWO;
-		this.#dialogY =
-			( this.backgroundHTMLElement.clientHeight - this.dialogHTMLElement.clientHeight ) / TWO;
+		const screenAvailable = theDevice.screenAvailable;
+		this.dialogHTMLElement.style [ 'max-height' ] =
+			String ( screenAvailable.height - ( TWO * DIALOG_DRAG_MARGIN ) ) + 'px';
+		this.dialogHTMLElement.style [ 'max-width' ] =
+			String ( screenAvailable.width - ( TWO * DIALOG_DRAG_MARGIN ) ) + 'px';
+		this.#dialogX = ( screenAvailable.width - this.dialogHTMLElement.clientWidth ) / TWO;
+		this.#dialogY = ( screenAvailable.height - this.dialogHTMLElement.clientHeight ) / TWO;
 		this.#endMoveDialog ( );
 	}
 
