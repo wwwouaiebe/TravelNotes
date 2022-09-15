@@ -140,6 +140,10 @@ class BaseDialogMover {
 
 	centerDialog ( ) {
 		const screenAvailable = theDevice.screenAvailable;
+		this.dialogHTMLElement.style [ 'max-height' ] =
+			String ( screenAvailable.height - ( TWO * DIALOG_DRAG_MARGIN ) ) + 'px';
+		this.dialogHTMLElement.style [ 'max-width' ] =
+			String ( screenAvailable.width - ( TWO * DIALOG_DRAG_MARGIN ) ) + 'px';
 		this.#dialogX = ( screenAvailable.width - this.dialogHTMLElement.clientWidth ) / TWO;
 		this.#dialogY = ( screenAvailable.height - this.dialogHTMLElement.clientHeight ) / TWO;
 		this.#endMoveDialog ( );
