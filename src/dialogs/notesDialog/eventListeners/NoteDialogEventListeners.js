@@ -24,10 +24,11 @@ Doc reviewed 202208
 
 import AllControlsFocusEL from './AllControlsFocusEL.js';
 import AllControlsInputEL from './AllControlsInputEL.js';
+import AddressButtonClickEL from '../../../controls/addressControl/AddressButtonClickEL.js';
 import UrlInputBlurEL from './UrlInputBlurEL.js';
-import EditionButtonsEL from './EditionButtonsEL.js';
-import IconSelectorEL from './IconSelectorEL.js';
-import OpenCfgFileButtonEL from './OpenCfgFileButtonEL.js';
+import EditionButtonsClickEL from './EditionButtonsClickEL.js';
+import IconSelectorChangeEL from './IconSelectorChangeEL.js';
+import OpenCfgFileButtonClickEL from './OpenCfgFileButtonClickEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -52,6 +53,13 @@ class NoteDialogEventListeners {
 	#controlInput;
 
 	/**
+	The address buton click event listener
+	@type {AddressButtonClickEL}
+	*/
+
+	#addressButtonClick;
+
+	/**
 	The blur url input event listener
 	@type {UrlInputBlurEL}
 	*/
@@ -59,39 +67,41 @@ class NoteDialogEventListeners {
 	#urlInputBlur;
 
 	/**
-	The edition button event listener
-	@type {EditionButtonsEL}
+	The edition button click event listener
+	@type {EditionButtonsClickEL}
 	*/
 
-	#editionButtonsEL;
+	#editionButtonsClick;
 
 	/**
 	The  icon selector change event listener
-	@type {IconSelectorEL}
+	@type {IconSelectorChangeEL}
 	*/
 
-	#iconSelectorEL;
+	#iconSelectorChange;
 
 	/**
 	The open file button click event listener
-	@type {OpenCfgFileButtonEL}
+	@type {OpenCfgFileButtonClickEL}
 	*/
 
-	#openCfgFileButtonEL;
+	#openCfgFileButtonClick;
 
 	/**
 	The constructor
 	@param {NoteDialog} noteDialog A reference to the NoteDialog object
+	@param {Array.<Number>} noteLatLng The lat and lng of the note
 	*/
 
-	constructor ( noteDialog ) {
+	constructor ( noteDialog, noteLatLng ) {
 		Object.freeze ( this );
 		this.#controlFocus = new AllControlsFocusEL ( noteDialog );
 		this.#controlInput = new AllControlsInputEL ( noteDialog );
+		this.#addressButtonClick = new AddressButtonClickEL ( noteDialog, noteLatLng );
 		this.#urlInputBlur = new UrlInputBlurEL ( noteDialog );
-		this.#editionButtonsEL = new EditionButtonsEL ( noteDialog );
-		this.#iconSelectorEL = new IconSelectorEL ( noteDialog );
-		this.#openCfgFileButtonEL = new OpenCfgFileButtonEL ( noteDialog );
+		this.#editionButtonsClick = new EditionButtonsClickEL ( noteDialog );
+		this.#iconSelectorChange = new IconSelectorChangeEL ( noteDialog );
+		this.#openCfgFileButtonClick = new OpenCfgFileButtonClickEL ( noteDialog );
 	}
 
 	/**
@@ -101,10 +111,11 @@ class NoteDialogEventListeners {
 	destructor ( ) {
 		this.#controlFocus = null;
 		this.#controlInput = null;
+		this.#addressButtonClick = null;
 		this.#urlInputBlur = null;
-		this.#editionButtonsEL = null;
-		this.#iconSelectorEL = null;
-		this.#openCfgFileButtonEL = null;
+		this.#editionButtonsClick = null;
+		this.#iconSelectorChange = null;
+		this.#openCfgFileButtonClick = null;
 	}
 
 	/**
@@ -122,6 +133,13 @@ class NoteDialogEventListeners {
 	get controlInput ( ) { return this.#controlInput; }
 
 	/**
+	The address buton click event listener
+	@type {AddressButtonClickEL}
+	*/
+
+	get addressButtonClick ( ) { return this.#addressButtonClick; }
+
+	/**
 	The blur url input event listener
 	@type {UrlInputBlurEL}
 	*/
@@ -130,24 +148,24 @@ class NoteDialogEventListeners {
 
 	/**
 	The edition button click event listener
-	@type {EditionButtonsEL}
+	@type {EditionButtonsClickEL}
 	*/
 
-	get editionButtonsEL ( ) { return this.#editionButtonsEL; }
+	get editionButtonsClick ( ) { return this.#editionButtonsClick; }
 
 	/**
 	The  icon selector change event listener
-	@type {IconSelectorEL}
+	@type {IconSelectorChangeEL}
 	*/
 
-	get iconSelectorEL ( ) { return this.#iconSelectorEL; }
+	get iconSelectorChange ( ) { return this.#iconSelectorChange; }
 
 	/**
 	The open file button click event listener
-	@type {OpenCfgFileButtonEL}
+	@type {OpenCfgFileButtonClickEL}
 	*/
 
-	get openCfgFileButtonEL ( ) { return this.#openCfgFileButtonEL; }
+	get openCfgFileButtonClick ( ) { return this.#openCfgFileButtonClick; }
 }
 
 export default NoteDialogEventListeners;

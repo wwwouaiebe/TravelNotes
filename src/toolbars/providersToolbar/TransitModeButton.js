@@ -25,7 +25,6 @@ Doc reviewed 202208
 import theTranslator from '../../core/uiLib/Translator.js';
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import theRouter from '../../core/lib/Router.js';
-import TransitModeButtonEL from './TransitModeButtonEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -119,13 +118,6 @@ class TransitModeButton {
 	}
 
 	/**
-	The event listeners for the button
-	@type {TransitModeButtonEL}
-	*/
-
-	#transitModeButtonEL;
-
-	/**
 	The constructor
 	@param {ProvidersToolbar} providersToolbar The providersToolbar on witch the button will be added
 	@param {String} transitMode The transit mode linked to the button
@@ -148,16 +140,17 @@ class TransitModeButton {
 				title : theTranslator.getText ( 'ProvidersToolbar - TransitMode ' + transitMode )
 			}
 		);
-		this.#transitModeButtonEL = new TransitModeButtonEL ( this );
-		this.#transitModeButtonEL.addEventListeners ( this.#buttonHTMLElement );
+		this.#buttonHTMLElement.addEventListener ( 'click', this );
 		this.visible = false;
 	}
 
 	/**
-	click event listener.
+	click event listener. The button is also it's own event listener.
+	@param {Event} clickEvent The event to handle
 	*/
 
-	buttonClick ( ) {
+	handleEvent ( clickEvent ) {
+		clickEvent.stopPropagation ( );
 		this.#providersToolbar.transitMode = this.#transitMode;
 		this.#providersToolbar.hide ( );
 		theRouter.startRouting ( );

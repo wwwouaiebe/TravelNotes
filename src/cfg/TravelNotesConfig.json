@@ -31,19 +31,6 @@
 		"showWarning":true,
 		"timeOut":10000
 	},
-	"events":
-	{
-		"clickDelay" : 400,
-		"dblclickDelay" : 600,
-		"contextmenuDelay" : 800
-	},
-	"files":
-	{
-		"openTaN": ["json","trv"],
-		"openGpx": ["gpx"],
-		"writeTouch": "trv",
-		"writeOthers" : "trv"
-	},
 	"fontSize" :
 	{
 		"initialValue": 3.5,

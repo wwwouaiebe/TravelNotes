@@ -25,7 +25,7 @@ Doc reviewed 202208
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import { ZERO } from '../../main/Constants.js';
 import Color from './Color.js';
-import ColorButtonEL from './ColorButtonEL.js';
+import ColorButtonClickEL from './ColorButtonClickEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -51,10 +51,10 @@ class ColorButtonsControlElement {
 
 	/**
 	The button click event listener
-	@type {ColorButtonEL}
+	@type {ColorButtonClickEL}
 	*/
 
-	#colorButtonEL;
+	#colorButtonClickEL;
 
 	/**
 	The number of rows buttons in the control
@@ -87,7 +87,7 @@ class ColorButtonsControlElement {
 	constructor ( colorControl ) {
 		Object.freeze ( this );
 		this.#colorButtons = [];
-		this.#colorButtonEL = new ColorButtonEL ( colorControl );
+		this.#colorButtonClickEL = new ColorButtonClickEL ( colorControl );
 		this.#colorButtonsHTMLElement = theHTMLElementsFactory.create ( 'div', null, colorControl.controlHTMLElement );
 		for ( let rowCounter = ZERO; rowCounter < ColorButtonsControlElement.#ROW_NUMBERS; ++ rowCounter ) {
 			const colorButtonsRowHTMLElement = theHTMLElementsFactory.create ( 'div', null, this.#colorButtonsHTMLElement );
@@ -99,7 +99,7 @@ class ColorButtonsControlElement {
 					},
 					colorButtonsRowHTMLElement
 				);
-				this.#colorButtonEL.addEventListeners ( colorButton );
+				colorButton.addEventListener ( 'click', this.#colorButtonClickEL, false );
 				this.#colorButtons.push ( colorButton );
 			}
 		}
@@ -111,9 +111,9 @@ class ColorButtonsControlElement {
 
 	destructor ( ) {
 		this.#colorButtons.forEach (
-			colorButton => { this.#colorButtonEL.removeEventListeners ( colorButton ); }
+			colorButton => { colorButton.removeEventListener ( 'click', this.#colorButtonClickEL, false ); }
 		);
-		this.#colorButtonEL = null;
+		this.#colorButtonClickEL = null;
 	}
 
 	/**

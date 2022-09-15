@@ -23,11 +23,13 @@ Doc reviewed 202208
  */
 
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
-import CommandButtonHTMLElementEL from './CommandButtonHTMLElementEL.js';
-import LinkButtonHTMLElementEL from './LinkButtonHTMLElementEL.js';
-import ButtonsHTMLElementEL from './ButtonsHTMLElementEL.js';
-import ToolbarHTMLElementEL from './ToolbarHTMLElementEL.js';
+import ToolbarItemsContainer from './ToolbarItemsContainer.js';
+import ButtonHTMLElementClickEL from './ButtonHTMLElementClickEL.js';
+import ButtonHTMLElementTouchEL from './ButtonHTMLElementTouchEL.js';
+import ButtonsHTMLElementTouchEL from './ButtonsHTMLElementTouchEL.js';
+import ButtonsHTMLElementWheelEL from './ButtonsHTMLElementWheelEL.js';
 import theConfig from '../../data/Config.js';
+import { ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -45,39 +47,11 @@ class BaseToolbar {
 	#toolbarHTMLElement;
 
 	/**
-	Event listeners for the toolbar html element
-	@type {ToolbarHTMLElementEL}
-	*/
-
-	#toolbarHTMLElementEL;
-
-	/**
 	The HTML element that contains the buttons
 	@type {HTMLElement}
 	*/
 
 	#buttonsHTMLElement;
-
-	/**
-	Events listeners for the button container
-	@type {ButtonsHTMLElementEL}
-	*/
-
-	#buttonsHTMLElementEL;
-
-	/**
-	The event listeners for the command buttons
-	@type {CommandButtonHTMLElementEL}
-	*/
-
-	#commandButtonHTMLElementEL;
-
-	/**
-	The event listeners for the link buttons
-	@type {LinkButtonHTMLElementEL}
-	*/
-
-	#linkButtonHTMLElementEL;
 
 	/**
 	Timer id for the mouse leave event
@@ -87,6 +61,34 @@ class BaseToolbar {
 	#timerId;
 
 	/**
+	The wheel event listener for the buttons container
+	@type {ButtonsHTMLElementWheelEL}
+	*/
+
+	#buttonsHTMLElementWheelEL;
+
+	/**
+	The touch event listener for the buttons container
+	@type {ButtonsHTMLElementTouchEL}
+	*/
+
+	#buttonsHTMLElementTouchEL;
+
+	/**
+	The click event listener for the buttons
+	@type {ButtonHTMLElementClickEL}
+	*/
+
+	#buttonHTMLElementClickEL;
+
+	/**
+	The touch event listener for the buttons
+	@type {ButtonHTMLElementTouchEL}
+	*/
+
+	#buttonHTMLElementTouchEL;
+
+	/**
 	A boolean saving the the current state of the toolbar
 	@type {boolean}
 	 */
@@ -94,11 +96,26 @@ class BaseToolbar {
 	#isShow;
 
 	/**
-	An array with the ToolbarItem objects
-	@type {Array.<ToolbarItem>}
+	An object with the ToolbarItems array. Needed to have an object to share with EL.
+	@type {ToolbarItemsContainer}
 	*/
 
-	#toolbarItemsArray;
+	#toolbarItemsContainer;
+
+	/**
+	The max delay between a mouseenter and a click event to consider the two events as a single event
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #MOUSE_EVENT_MAX_DELAY ( ) { return 100; }
+
+	/**
+	The timestamp of the last mouseenter or click event
+	@type {Number}
+	*/
+
+	#lastMouseEventTimestamp;
 
 	/**
 	Add a command button to the toolbar
@@ -117,19 +134,9 @@ class BaseToolbar {
 			},
 			this.#buttonsHTMLElement
 		);
-
-		this.#commandButtonHTMLElementEL.addEventListeners ( buttonHTMLElement );
-	}
-
-	/**
-	Event listener action for click on a command button
-	@param {Event} clickEvent The event
-	*/
-
-	commandButtonClick ( clickEvent ) {
-		this.#toolbarItemsArray [ Number.parseInt ( clickEvent.target.dataset.tanItemId ) ]
-			.action ( );
-		this.hide ( );
+		buttonHTMLElement.addEventListener ( 'click', this.#buttonHTMLElementClickEL, false );
+		buttonHTMLElement.addEventListener ( 'touchstart', this.#buttonHTMLElementTouchEL, false );
+		buttonHTMLElement.addEventListener ( 'touchend', this.#buttonHTMLElementTouchEL, false );
 	}
 
 	/**
@@ -161,28 +168,6 @@ class BaseToolbar {
 				buttonHTMLElement
 			)
 		);
-		this.#linkButtonHTMLElementEL.addEventListeners ( buttonHTMLElement );
-	}
-
-	/**
-	Event listener action for click on a link button
-	@param {Event} clickEvent The event
-	*/
-
-	linkButtonClick ( clickEvent ) {
-
-		// due to preventDefault calls, link are not working on the toolbar and
-		// we have to copy the link in a temp anchor element
-		theHTMLElementsFactory.create (
-			'a',
-			{
-				href : clickEvent.currentTarget.firstChild.href,
-				rel : clickEvent.currentTarget.firstChild.rel,
-				target : clickEvent.currentTarget.firstChild.target
-			}
-		).click ( );
-		this.hide ( );
-
 	}
 
 	/**
@@ -201,11 +186,11 @@ class BaseToolbar {
 		);
 
 		// Calling the addToolbarItems ( ) method of the derived classes
-		this.#toolbarItemsArray = [ ];
+		this.#toolbarItemsContainer.toolbarItemsArray = [ ];
 		this.addToolbarItems ( );
 
 		// adding buttons
-		this.#toolbarItemsArray.forEach (
+		this.#toolbarItemsContainer.toolbarItemsArray.forEach (
 			( toolbarItem, index ) => {
 				if ( toolbarItem.isCommand ( ) ) {
 					this.#addCommandButton ( toolbarItem, index );
@@ -216,15 +201,45 @@ class BaseToolbar {
 			}
 		);
 
-		this.#buttonsHTMLElementEL.addEventListeners ( this.#buttonsHTMLElement );
+		// adding wheel event
+		this.#buttonsHTMLElement.addEventListener ( 'wheel', this.#buttonsHTMLElementWheelEL, { passive : true } );
+
+		// adding touch event listeners
+		this.#buttonsHTMLElement.addEventListener ( 'touchstart', this.#buttonsHTMLElementTouchEL, false );
+		this.#buttonsHTMLElement.addEventListener ( 'touchmove', this.#buttonsHTMLElementTouchEL, false );
+		this.#buttonsHTMLElement.addEventListener ( 'touchend', this.#buttonsHTMLElementTouchEL, false );
 		this.#isShow = true;
 	}
 
 	/**
-	Mouse enter or click on the toolbar event listener
+	Click on the toolbar event listener. It's needed for touch devices where the mouseenter EL don't work.
+	Remember that toolbars are global objects never deleted, so we can have EL as simple member methods
+	@param {Event} mouseEvent the trigered event
 	*/
 
-	toolbarHTMLElementMouseEnterOrClick ( ) {
+	#toolbarHTMLElementClickEL ( mouseEvent ) {
+
+		// When the delay is lower than #MOUSE_EVENT_MAX_DELAY 	we consider that the click event and the
+		// mouse enter event are trigered by the same user action on touch devices
+		// and the click event is cancelled
+		if ( BaseToolbar.#MOUSE_EVENT_MAX_DELAY > mouseEvent.timeStamp - this.#lastMouseEventTimestamp ) {
+			return;
+		}
+
+		this.#toolbarHTMLElementMouseEnterEL ( mouseEvent );
+	}
+
+	/**
+	Mouse enter on the toolbar event listener
+	Remember that toolbars are global objects never deleted, so we can have EL as simple member methods
+	@param {Event} mouseEvent the trigered event
+	*/
+
+	#toolbarHTMLElementMouseEnterEL ( mouseEvent ) {
+
+		// Saving the time stamp
+		this.#lastMouseEventTimestamp = mouseEvent.timeStamp;
+
 		if ( this.#isShow ) {
 			if ( this.#timerId ) {
 				clearTimeout ( this.#timerId );
@@ -245,7 +260,7 @@ class BaseToolbar {
 	Remember that toolbars are global objects never deleted, so we can have EL as simple member methods
 	*/
 
-	toolbarHTMLElementMouseLeave ( ) {
+	#toolbarHTMLElementMouseLeaveEL ( ) {
 		if ( this.#isShow ) {
 			this.#timerId = setTimeout ( ( ) => this.hide ( ), theConfig.toolbars.timeOut );
 		}
@@ -274,13 +289,17 @@ class BaseToolbar {
 		// removing buttons
 		while ( this.#buttonsHTMLElement.firstChild ) {
 			const buttonHTMLElement = this.#buttonsHTMLElement.firstChild;
-
-			this.#commandButtonHTMLElementEL.removeEventListeners ( buttonHTMLElement );
+			buttonHTMLElement.removeEventListener ( 'click', this.#buttonHTMLElementClickEL, false );
+			buttonHTMLElement.removeEventListener ( 'touchstart', this.#buttonHTMLElementTouchEL, false );
+			buttonHTMLElement.removeEventListener ( 'touchend', this.#buttonHTMLElementTouchEL, false );
 			this.#buttonsHTMLElement.removeChild ( buttonHTMLElement );
 		}
 
 		// removing the buttons container
-		this.#buttonsHTMLElementEL.removeEventListeners ( this.#buttonsHTMLElement );
+		this.#buttonsHTMLElement.removeEventListener ( 'wheel', this.#buttonsHTMLElementWheelEL, { passive : true } );
+		this.#buttonsHTMLElement.removeEventListener ( 'touchstart', this.#buttonsHTMLElementTouchEL, false );
+		this.#buttonsHTMLElement.removeEventListener ( 'touchmove', this.#buttonsHTMLElementTouchEL, false );
+		this.#buttonsHTMLElement.removeEventListener ( 'touchend', this.#buttonsHTMLElementTouchEL, false );
 		this.#toolbarHTMLElement.removeChild ( this.#buttonsHTMLElement );
 		this.#buttonsHTMLElement = null;
 
@@ -303,13 +322,14 @@ class BaseToolbar {
 		// init of members
 		this.#timerId = null;
 		this.#isShow = false;
-		this.#toolbarItemsArray = [];
+		this.#lastMouseEventTimestamp = ZERO;
+		this.#toolbarItemsContainer = new ToolbarItemsContainer ( );
 
 		// EL creation
-		this.#buttonsHTMLElementEL = new ButtonsHTMLElementEL ( this );
-		this.#commandButtonHTMLElementEL = new CommandButtonHTMLElementEL ( this );
-		this.#linkButtonHTMLElementEL = new LinkButtonHTMLElementEL ( this );
-		this.#toolbarHTMLElementEL = new ToolbarHTMLElementEL ( this );
+		this.#buttonsHTMLElementWheelEL = new ButtonsHTMLElementWheelEL ( );
+		this.#buttonsHTMLElementTouchEL = new ButtonsHTMLElementTouchEL ( );
+		this.#buttonHTMLElementClickEL = new ButtonHTMLElementClickEL ( this.#toolbarItemsContainer );
+		this.#buttonHTMLElementTouchEL = new ButtonHTMLElementTouchEL ( this, this.#toolbarItemsContainer );
 
 		// Toolbar container creation
 		this.#toolbarHTMLElement =
@@ -320,24 +340,37 @@ class BaseToolbar {
 				},
 				document.body
 			);
+		this.#toolbarHTMLElement.addEventListener (
+			'click',
+			mouseEvent => this.#toolbarHTMLElementClickEL ( mouseEvent ),
+			false
+		);
+		this.#toolbarHTMLElement.addEventListener (
+			'mouseenter',
+			mouseEvent => this.#toolbarHTMLElementMouseEnterEL ( mouseEvent ),
+			false
+		);
+		this.#toolbarHTMLElement.addEventListener (
+			'mouseleave',
+			mouseEvent => this.#toolbarHTMLElementMouseLeaveEL ( mouseEvent ),
+			false
+		);
 
 		// Header text creation
-		const headerHTMLElement = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-BaseToolbar-HeaderHTMLElement'
-			},
-			this.#toolbarHTMLElement
-		);
 		theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'TravelNotes-BaseToolbar-HeaderTextHTMLElement',
 				textContent : headerText
 			},
-			headerHTMLElement
+			theHTMLElementsFactory.create (
+				'div',
+				{
+					className : 'TravelNotes-BaseToolbar-HeaderHTMLElement'
+				},
+				this.#toolbarHTMLElement
+			)
 		);
-		this.#toolbarHTMLElementEL.addEventListeners ( headerHTMLElement );
 	}
 
 	/**
@@ -346,7 +379,7 @@ class BaseToolbar {
 	*/
 
 	addToolbarItem ( toolbarItem ) {
-		this.#toolbarItemsArray.push ( toolbarItem );
+		this.#toolbarItemsContainer.toolbarItemsArray.push ( toolbarItem );
 	}
 
 	/**

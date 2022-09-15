@@ -24,7 +24,6 @@ Doc reviewed 202208
 
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import theRouter from '../../core/lib/Router.js';
-import ProviderButtonEL from './ProviderButtonEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -56,13 +55,6 @@ class ProviderButton {
 	#buttonHTMLElement;
 
 	/**
-	The event listeners for the button
-	@type {ProviderButtonEL}
-	*/
-
-	#providerButtonEL;
-
-	/**
 	The constructor
 	@param {ProvidersToolbar} providersToolbar The providersToolbar on witch the button will be added
 	@param {BaseRouteProvider} provider The provider object linked to the button
@@ -85,16 +77,16 @@ class ProviderButton {
 				title : provider.title || provider.name
 			}
 		);
-
-		this.#providerButtonEL = new ProviderButtonEL ( this );
-		this.#providerButtonEL.addEventListeners ( this.#buttonHTMLElement );
+		this.#buttonHTMLElement.addEventListener ( 'click', this );
 	}
 
 	/**
-	click event listener
+	click event listener. The button is also it's own event listener.
+	@param {Event} clickEvent The event to handle
 	*/
 
-	buttonClick ( ) {
+	handleEvent ( clickEvent ) {
+		clickEvent.stopPropagation ( );
 		this.#providersToolbar.provider = this.#provider.name;
 		theRouter.startRouting ( );
 	}

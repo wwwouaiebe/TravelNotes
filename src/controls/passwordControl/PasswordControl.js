@@ -24,8 +24,8 @@ Doc reviewed 202208
 
 import BaseControl from '../baseControl/BaseControl.js';
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
-import EyeEL from './EyeEL.js';
-import TouchInputEL from '../../mouseAndTouchEL/TouchInputEL.js';
+import EyeMouseDownEL from './EyeMouseDownEL.js';
+import EyeMouseUpEL from './EyeMouseUpEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -49,18 +49,18 @@ class PasswordControl extends BaseControl {
 	#eyeSpan;
 
 	/**
-	The eye event listeners
-	@type {EyeEL}
+	mouseDown event listener
+	@type {EyeMouseDownEL}
 	*/
 
-	#eyeEL;
+	#eyeMouseDownEL;
 
 	/**
-	The password input event listeners
-	@type {MouseAndTouchBaseEL}
+	mouseup event listener
+	@type {EyeMouseUpEL}
 	*/
 
-	#passwordInputEL;
+	#eyeMouseUpEL;
 
 	/**
 	The constructor
@@ -77,9 +77,6 @@ class PasswordControl extends BaseControl {
 			},
 			this.controlHTMLElement
 		);
-		this.#passwordInputEL = new TouchInputEL ( );
-		this.#passwordInputEL.addEventListeners ( this.#passwordInput );
-
 		this.#eyeSpan = theHTMLElementsFactory.create (
 			'span',
 			{
@@ -88,8 +85,14 @@ class PasswordControl extends BaseControl {
 			},
 			this.controlHTMLElement
 		);
-		this.#eyeEL = new EyeEL ( this.#passwordInput );
-		this.#eyeEL.addEventListeners ( this.#eyeSpan );
+
+		// Event listeners
+		this.#eyeMouseDownEL = new EyeMouseDownEL ( this.#passwordInput );
+		this.#eyeMouseUpEL = new EyeMouseUpEL ( this.#passwordInput );
+		this.#eyeSpan.addEventListener ( 'mousedown', this.#eyeMouseDownEL, false );
+		this.#eyeSpan.addEventListener ( 'touchstart', this.#eyeMouseDownEL, false );
+		this.#eyeSpan.addEventListener ( 'mouseup', this.#eyeMouseUpEL,	false );
+		this.#eyeSpan.addEventListener ( 'touchend', this.#eyeMouseUpEL, false );
 		this.#passwordInput.focus ( );
 	}
 
@@ -98,10 +101,12 @@ class PasswordControl extends BaseControl {
 	*/
 
 	destructor ( ) {
-		this.#eyeEL.removeEventListeners ( this.#eyeSpan );
-		this.#eyeEL = null;
-		this.#passwordInputEL.removeEventListeners ( this.#passwordInput );
-		this.#passwordInputEL = null;
+		this.#eyeSpan.removeEventListener ( 'mousedown', this.#eyeMouseDownEL, false );
+		this.#eyeSpan.removeEventListener ( 'touchstart', this.#eyeMouseDownEL, false );
+		this.#eyeSpan.removeEventListener ( 'mouseup', this.#eyeMouseUpEL,	false );
+		this.#eyeSpan.removeEventListener ( 'touchend', this.#eyeMouseUpEL, false );
+		this.#eyeMouseDownEL = null;
+		this.#eyeMouseUpEL = null;
 	}
 
 	/**

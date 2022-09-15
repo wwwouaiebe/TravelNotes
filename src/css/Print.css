@@ -35,7 +35,7 @@ Doc reviewed 202208
 */
 
 #TravelNotes-PrintToolbar {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	right: 0;
 	margin: 1em;

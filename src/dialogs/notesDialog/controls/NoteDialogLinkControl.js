@@ -26,8 +26,7 @@ import theHTMLElementsFactory from '../../../core/uiLib/HTMLElementsFactory.js';
 import theTranslator from '../../../core/uiLib/Translator.js';
 import theConfig from '../../../data/Config.js';
 import BaseControl from '../../../controls/baseControl/BaseControl.js';
-import TouchInputEL from '../../../mouseAndTouchEL/TouchInputEL.js';
-import NoteDialogLinkButtonEL from './NoteDialogLinkButtonEL.js';
+
 import { ZERO, ONE, LAT_LNG } from '../../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -46,40 +45,6 @@ class NoteDialogLinkControl extends BaseControl {
 	#linkInput;
 
 	/**
-	The input touch event listener for the link input
-	@type {TouchInputEL}
-	*/
-
-	#linkInputEL;
-
-	/**
-	The event listener for the devil button
-	@type {NoteDialogLinkButtonEL}
-	*/
-
-	#theDevilButtonEL;
-
-	/**
-	The devil button
-	@type {HTMLElement}
-	*/
-
-	#theDevilButton;
-
-	/**
-	get the url to use with the devil button
-	@param {Array.<Number>} latLng the lat and lng to use
-	@return {string} the url to use
-	*/
-
-	#getDevilUrl ( latLng ) {
-		return 'https://www.google.com/maps/@' +
-		latLng [ ZERO ].toFixed ( LAT_LNG.fixed ) + ',' +
-		latLng [ ONE ].toFixed ( LAT_LNG.fixed ) + ',' +
-		theConfig.noteDialog.theDevil.zoomFactor + 'z';
-	}
-
-	/**
 	The 👿 button...
 	@param {Array.<Number>} latLng The lat and lng used in the 👿 button
 	@param {HTMLElement} linkHeaderDiv The HTMLElement in witch the button will be created
@@ -87,17 +52,31 @@ class NoteDialogLinkControl extends BaseControl {
 
 	#createTheDevilButton ( latLng, linkHeaderDiv ) {
 		if ( theConfig.noteDialog.theDevil.addButton ) {
-			this.#theDevilButton = theHTMLElementsFactory.create (
-				'div',
+			theHTMLElementsFactory.create (
+				'text',
 				{
-					className : 'TravelNotes-BaseDialog-Button',
-					title : 'Reminder! The devil will know everything about you',
-					textContent : '👿'
+					value : '👿'
 				},
-				linkHeaderDiv
+				theHTMLElementsFactory.create (
+					'a',
+					{
+						href : 'https://www.google.com/maps/@' +
+							latLng [ ZERO ].toFixed ( LAT_LNG.fixed ) + ',' +
+							latLng [ ONE ].toFixed ( LAT_LNG.fixed ) + ',' +
+							theConfig.noteDialog.theDevil.zoomFactor + 'z',
+						target : '_blank',
+						title : 'Reminder! The devil will know everything about you'
+					},
+					theHTMLElementsFactory.create (
+						'div',
+						{
+							className : 'TravelNotes-BaseDialog-Button',
+							title : 'Reminder! The devil will know everything about you'
+						},
+						linkHeaderDiv
+					)
+				)
 			);
-			this.#theDevilButtonEL = new NoteDialogLinkButtonEL ( this.#getDevilUrl ( latLng ) );
-			this.#theDevilButtonEL.addEventListeners ( this.#theDevilButton );
 		}
 	}
 
@@ -108,6 +87,7 @@ class NoteDialogLinkControl extends BaseControl {
 	*/
 
 	constructor ( eventListeners, latLng ) {
+
 		super ( );
 
 		// HTMLElements creation
@@ -141,8 +121,6 @@ class NoteDialogLinkControl extends BaseControl {
 				this.controlHTMLElement
 			)
 		);
-		this.#linkInputEL = new TouchInputEL ( );
-		this.#linkInputEL.addEventListeners ( this.#linkInput );
 
 		// event listeners
 		this.#linkInput.addEventListener ( 'focus', eventListeners.controlFocus );
@@ -159,12 +137,6 @@ class NoteDialogLinkControl extends BaseControl {
 		this.#linkInput.removeEventListener ( 'focus', eventListeners.controlFocus );
 		this.#linkInput.removeEventListener ( 'input', eventListeners.controlInput );
 		this.#linkInput.removeEventListener ( 'blur', eventListeners.urlInputBlur );
-		this.#linkInputEL.removeEventListeners ( this.#linkInput );
-		this.#linkInputEL = null;
-		if ( theConfig.noteDialog.theDevil.addButton ) {
-			this.#theDevilButtonEL.removeEventListeners ( this.#theDevilButton );
-			this.#theDevilButtonEL = null;
-		}
 	}
 
 	/**

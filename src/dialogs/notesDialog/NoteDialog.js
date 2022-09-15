@@ -30,6 +30,7 @@ import MapIconData from './toolbar/MapIconData.js';
 import TextAreaControl from '../../controls/textAreaControl/TextAreaControl.js';
 import TextInputControl from '../../controls/textInputControl/TextInputControl.js';
 import AddressControl from '../../controls/addressControl/AddressControl.js';
+import GeoCoderHelper from '../../controls/addressControl/GeoCoderHelper.js';
 
 import NoteDialogIconDimsControl from './controls/NoteDialogIconDimsControl.js';
 import NoteDialogLinkControl from './controls/NoteDialogLinkControl.js';
@@ -220,7 +221,7 @@ class NoteDialog extends ModalBaseDialog {
 			},
 			this.#eventListeners
 		);
-		this.#addressControl = new AddressControl (	this, this.#eventListeners );
+		this.#addressControl = new AddressControl (	this.#eventListeners );
 		this.#linkControl = new NoteDialogLinkControl ( this.#eventListeners, this.#previewNote.latLng );
 		this.#phoneControl = new TextInputControl (
 			{
@@ -231,6 +232,8 @@ class NoteDialog extends ModalBaseDialog {
 		);
 		this.#previewControl = new NoteDialogPreviewControl ( this.#previewNote );
 
+		// copy the notes values into the controls
+		this.setControlsValues ( this.#previewNote );
 	}
 
 	/**
@@ -250,13 +253,6 @@ class NoteDialog extends ModalBaseDialog {
 	get mapIconData ( ) { return new MapIconData ( this.#previewNote.latLng, this.#route ); }
 
 	/**
-	The lat and lng of the note. Used by the GeoCoderHelper object of the address control
-	@type {Array.<Number>}
-	*/
-
-	get latLng ( ) { return this.#previewNote.latLng; }
-
-	/**
 	Update the preview of the note. Used by event listeners
 	@param {Object} noteData An object with properties to copy in the preview note
 	*/
@@ -274,9 +270,9 @@ class NoteDialog extends ModalBaseDialog {
 
 	show ( ) {
 		const showPromise = super.show ( );
-
-		// copy the notes values into the controls
-		this.setControlsValues ( this.#previewNote );
+		if ( '' === this.#note.address ) {
+			new GeoCoderHelper ( this ).setAddressWithGeoCoder ( this.#previewNote.latLng );
+		}
 		return showPromise;
 	}
 

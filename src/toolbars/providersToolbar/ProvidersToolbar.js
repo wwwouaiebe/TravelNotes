@@ -26,13 +26,10 @@ import theTravelNotesData from '../../data/TravelNotesData.js';
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import TransitModeButton from './TransitModeButton.js';
 import ProviderButton from './ProviderButton.js';
-import ProvidersToolbarEL from './ProvidersToolbarEL.js';
-import ProvidersTopBarEL from './ProvidersTopBarEL.js';
 import theApiKeysManager from '../../core/ApiKeysManager.js';
 import { NOT_FOUND, ZERO, TWO } from '../../main/Constants.js';
 import theTranslator from '../../core/uiLib/Translator.js';
 import theConfig from '../../data/Config.js';
-import theDevice from '../../core/lib/Device.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -106,26 +103,20 @@ class ProvidersToolbar {
 	#isShow;
 
 	/**
-	The mouseenter and mouseleave event listeners for the toolbar
-	@type {ProvidersToolbarEL}
-	*/
-
-	#providersToolbarEL;
-
-	/**
-	The click event listener for the topbar
-	@type {ProvidersTopBarEL}
-	*/
-
-	#providersTopBarEL;
-
-	/**
 	The delay needed for the timer that start the #removeHidden ( ) method
 	@type {Number}
 	*/
 
 	// eslint-disable-next-line no-magic-numbers
 	static get #HIDDEN_DELAY ( ) { return 100; }
+
+	/**
+	The max delay between a mouseenter and a click event to consider the two events as a single event
+	@type {Number}
+	*/
+
+	// eslint-disable-next-line no-magic-numbers
+	static get #MOUSE_EVENT_MAX_DELAY ( ) { return 100; }
 
 	/**
 	Transit mode buttons creation
@@ -179,10 +170,36 @@ class ProvidersToolbar {
 	}
 
 	/**
-	Mouse enter event listener
+	The timestamp of the last mouseenter or click event
+	@type {Number}
 	*/
 
-	toolbarHTMLElementMouseEnter ( ) {
+	#lastMouseEventTimestamp;
+
+	/**
+	Mouse click event listener
+	@param {Event} mouseEvent The trigered event
+	*/
+
+	#onClick ( mouseEvent ) {
+
+		// When the delay is lower than #MOUSE_EVENT_MAX_DELAY 	we consider that the click event and the
+		// mouse enter event are trigered by the same user action on touch devices
+		// and the click event is cancelled
+		if ( ProvidersToolbar.#MOUSE_EVENT_MAX_DELAY > mouseEvent.timeStamp - this.#lastMouseEventTimestamp ) {
+			return;
+		}
+
+		this.#onMouseEnter ( mouseEvent );
+	}
+
+	/**
+	Mouse enter event listener
+	@param {Event} mouseEvent the trigered event
+	*/
+
+	#onMouseEnter ( mouseEvent ) {
+		this.#lastMouseEventTimestamp = mouseEvent.timeStamp;
 		if ( this.#isShow ) {
 			if ( this.#timerId ) {
 				clearTimeout ( this.#timerId );
@@ -202,7 +219,7 @@ class ProvidersToolbar {
 	Mouse leave event listener
 	*/
 
-	toolbarHTMLElementMouseLeave ( ) {
+	#onMouseLeave ( ) {
 		if ( this.#isShow ) {
 			this.#timerId = setTimeout ( ( ) => this.hide ( ), theConfig.toolbars.timeOut );
 		}
@@ -224,7 +241,7 @@ class ProvidersToolbar {
 		);
 		this.#toolbarHTMLElement.style.left =
 			String (
-				( theDevice.screenAvailable.width - this.#toolbarHTMLElement.clientWidth ) / TWO
+				( theTravelNotesData.map.getContainer ( ).clientWidth - this.#toolbarHTMLElement.clientWidth ) / TWO
 			) + 'px';
 	}
 
@@ -265,12 +282,20 @@ class ProvidersToolbar {
 		this.#toolbarHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				id : 'TravelNotes-ProvidersToolbar-Container'
+				className : 'TravelNotes-ProvidersToolbar-Container'
 			},
 			document.body
 		);
-		this.#providersToolbarEL = new ProvidersToolbarEL ( this );
-		this.#providersToolbarEL.addEventListeners ( this.#toolbarHTMLElement );
+		this.#toolbarHTMLElement.addEventListener (
+			'mouseenter',
+			mouseEvent => this.#onMouseEnter ( mouseEvent ),
+			false
+		);
+		this.#toolbarHTMLElement.addEventListener (
+			'mouseleave',
+			mouseEvent => this.#onMouseLeave ( mouseEvent ),
+			false
+		);
 
 		// Topbar creation
 		this.#topBar = theHTMLElementsFactory.create (
@@ -281,9 +306,11 @@ class ProvidersToolbar {
 			},
 			this.#toolbarHTMLElement
 		);
-
-		this.#providersTopBarEL = new ProvidersTopBarEL ( this );
-		this.#providersTopBarEL.addEventListeners ( this.#topBar );
+		this.#topBar.addEventListener (
+			'click',
+			mouseEvent => this.#onClick ( mouseEvent ),
+			false
+		);
 
 		// container for the buttons
 		this.#buttonsHTMLElement = theHTMLElementsFactory.create (
@@ -388,6 +415,7 @@ class ProvidersToolbar {
 		this.transitMode = theTravelNotesData.providers.get ( providerName.toLowerCase ( ) ).transitModes [ ZERO ];
 		this.#centerToolbar ( );
 	}
+
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

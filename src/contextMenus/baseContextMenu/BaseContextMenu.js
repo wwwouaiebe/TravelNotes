@@ -22,11 +22,11 @@ Changes:
 Doc reviewed 202208
  */
 
+import theTravelNotesData from '../../data/TravelNotesData.js';
 import theTranslator from '../../core/uiLib/Translator.js';
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import BaseContextMenuOperator from './BaseContextMenuOperator.js';
 import { ZERO, INVALID_OBJ_ID, LAT_LNG } from '../../main/Constants.js';
-import theDevice from '../../core/lib/Device.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -198,15 +198,16 @@ class BaseContextMenu {
 	#moveContextMenu ( ) {
 
 		// the menu is positionned ( = top left where the user have clicked but the menu must be completely in the window...
-		const screenAvailable = theDevice.screenAvailable;
 		const menuTop = Math.min (
 			this.#clientY,
-			screenAvailable.height - this.#contextMenuHTMLElement.clientHeight - BaseContextMenu.#menuMargin
+			theTravelNotesData.map.getContainer ( ).clientHeight -
+				this.#contextMenuHTMLElement.clientHeight -
+				BaseContextMenu.#menuMargin
 		);
 		this.#contextMenuHTMLElement.style.top = String ( menuTop ) + 'px';
 		const menuLeft = Math.min (
 			this.#clientX,
-			screenAvailable.width -
+			theTravelNotesData.map.getContainer ( ).clientWidth -
 			this.#contextMenuHTMLElement.clientWidth -
 			BaseContextMenu.#menuMargin
 		);

@@ -144,11 +144,11 @@ class NoteDialogToolbar {
 	*/
 
 	#addEventListeners ( eventListeners ) {
-		eventListeners.iconSelectorEL.addEventListeners ( this.#iconSelect );
+		this.#iconSelect.addEventListener ( 'change', eventListeners.iconSelectorChange );
 		this.#editionButtons.forEach (
-			button => { eventListeners.editionButtonsEL.addEventListeners ( button ); }
+			button => { button.addEventListener ( 'click', eventListeners.editionButtonsClick ); }
 		);
-		eventListeners.openCfgFileButtonEL.addEventListeners ( this.#openFileButton );
+		this.#openFileButton.addEventListener ( 'click', eventListeners.openCfgFileButtonClick, false );
 	}
 
 	/**
@@ -157,11 +157,11 @@ class NoteDialogToolbar {
 	*/
 
 	#removeEventListeners ( eventListeners ) {
-		eventListeners.iconSelectorEL.addEventListeners ( this.#iconSelect );
+		this.#iconSelect.removeEventListener ( 'change', eventListeners.iconSelectorChange );
 		this.#editionButtons.forEach (
-			button => { eventListeners.editionButtonsEL.addEventListeners ( button ); }
+			button => { button.removeEventListener ( 'click', eventListeners.editionButtonsClick ); }
 		);
-		eventListeners.openCfgFileButtonEL.removeEventListeners ( this.#openFileButton );
+		this.#openFileButton.removeEventListener ( 'click', eventListeners.openCfgFileButtonClick, false );
 	}
 
 	/**

@@ -26,7 +26,6 @@ import theHTMLElementsFactory from '../../../core/uiLib/HTMLElementsFactory.js';
 import theTranslator from '../../../core/uiLib/Translator.js';
 import { ICON_DIMENSIONS } from '../../../main/Constants.js';
 import BaseControl from '../../../controls/baseControl/BaseControl.js';
-import TouchInputEL from '../../../mouseAndTouchEL/TouchInputEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -51,13 +50,6 @@ class NoteDialogIconDimsControl extends BaseControl {
 	#iconHeightInput = null;
 
 	/**
-	The width and height input touch event listener
-	@type {TouchInputEL}
-	*/
-
-	#touchInputEL;
-
-	/**
 	The constructor
 	@param {NoteDialogEventListeners} eventListeners A reference to the eventListeners object of the NoteDialog
 	*/
@@ -65,7 +57,6 @@ class NoteDialogIconDimsControl extends BaseControl {
 	constructor ( eventListeners ) {
 
 		super ( );
-		this.#touchInputEL = new TouchInputEL;
 
 		// HTMLElements creation
 		theHTMLElementsFactory.create (
@@ -85,7 +76,7 @@ class NoteDialogIconDimsControl extends BaseControl {
 			},
 			this.controlHTMLElement
 		);
-		this.#touchInputEL.addEventListeners ( this.#iconWidthInput );
+
 		theHTMLElementsFactory.create (
 			'text',
 			{
@@ -103,7 +94,6 @@ class NoteDialogIconDimsControl extends BaseControl {
 			},
 			this.controlHTMLElement
 		);
-		this.#touchInputEL.addEventListeners ( this.#iconHeightInput );
 
 		// event listeners
 		this.#iconWidthInput.addEventListener ( 'input', eventListeners.controlInput );
@@ -118,9 +108,6 @@ class NoteDialogIconDimsControl extends BaseControl {
 	destructor ( eventListeners ) {
 		this.#iconWidthInput.removeEventListener ( 'input', eventListeners.controlInput );
 		this.#iconHeightInput.removeEventListener ( 'input', eventListeners.controlInput );
-		this.#touchInputEL.removeEventListeners ( this.#iconWidthInput );
-		this.#touchInputEL.removeEventListeners ( this.#iconHeightInput );
-		this.#touchInputEL = null;
 	}
 
 	/**

@@ -24,7 +24,6 @@ Doc reviewed 202208
 
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import BaseControl from '../baseControl/BaseControl.js';
-import TouchInputEL from '../../mouseAndTouchEL/TouchInputEL.js';
 import { TWO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -41,13 +40,6 @@ class TextAreaControl extends BaseControl {
 	*/
 
 	#textArea;
-
-	/**
-	The textArea event listeners
-	@type {MouseAndTouchBaseEL}
-	*/
-
-	#textAreaEL;
 
 	/**
 	The constructor
@@ -84,14 +76,12 @@ class TextAreaControl extends BaseControl {
 				this.controlHTMLElement
 			)
 		);
-		this.#textAreaEL = new TouchInputEL ( );
-		this.#textAreaEL.addEventListeners ( this.#textArea );
 
 		// event listeners
-		if ( eventListeners?.controlFocus ) {
+		if ( eventListeners.controlFocus ) {
 			this.#textArea.addEventListener ( 'focus', eventListeners.controlFocus );
 		}
-		if ( eventListeners?.controlInput ) {
+		if ( eventListeners.controlInput ) {
 			this.#textArea.addEventListener ( 'input', eventListeners.controlInput );
 		}
 	}
@@ -102,14 +92,12 @@ class TextAreaControl extends BaseControl {
 	*/
 
 	destructor ( eventListeners ) {
-		if ( eventListeners?.controlFocus ) {
+		if ( eventListeners.controlFocus ) {
 			this.#textArea.removeEventListener ( 'focus', eventListeners.controlFocus );
 		}
-		if ( eventListeners?.controlInput ) {
+		if ( eventListeners.controlInput ) {
 			this.#textArea.removeEventListener ( 'input', eventListeners.controlInput );
 		}
-		this.#textAreaEL.removeEventListeners ( this.#textArea );
-		this.#textAreaEL = null;
 	}
 
 	/**

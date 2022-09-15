@@ -25,12 +25,12 @@ Doc reviewed 202208
 import theTranslator from '../../core/uiLib/Translator.js';
 import theConfig from '../../data/Config.js';
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
-import RestoreFromUnsecureFileButtonEL from './RestoreFromUnsecureFileButtonEL.js';
-import ReloadFromServerButtonEL from './ReloadFromServerButtonEL.js';
-import RestoreFromSecureFileButtonEL from './RestoreFromSecureFileButtonEL.js';
-import SaveToSecureFileButtonEL from './SaveToSecureFileButtonEL.js';
-import SaveToUnsecureFileButtonEL from './SaveToUnsecureFileButtonEL.js';
-import NewApiKeyButtonEL from './NewApiKeyButtonEL.js';
+import RestoreFromUnsecureFileButtonClickEL from './RestoreFromUnsecureFileButtonClickEL.js';
+import ReloadFromServerButtonClickEL from './ReloadFromServerButtonClickEL.js';
+import RestoreFromSecureFileButtonClickEL from './RestoreFromSecureFileButtonClickEL.js';
+import SaveToSecureFileButtonClickEL from './SaveToSecureFileButtonClickEL.js';
+import SaveToUnsecureFileButtonClickEL from './SaveToUnsecureFileButtonClickEL.js';
+import NewApiKeyButtonClickEL from './NewApiKeyButtonClickEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -112,45 +112,45 @@ class ApiKeysDialogToolbar {
 
 	/**
 	Event listener for the reload from server button
-	@type {ReloadFromServerButtonEL}
+	@type {ReloadFromServerButtonClickEL}
 	*/
 
-	#reloadFromServerButtonEL;
+	#reloadFromServerButtonClickEL;
 
 	/**
 	Event listener for the save to secure file button
-	@type {SaveToSecureFileButtonEL}
+	@type {SaveToSecureFileButtonClickEL}
 	*/
 
-	#saveToSecureFileButtonEL;
+	#saveToSecureFileButtonClickEL;
 
 	/**
 	Event listener for the restore from secure file button
-	@type {RestoreFromSecureFileButtonEL}
+	@type {RestoreFromSecureFileButtonClickEL}
 	*/
 
-	#restoreFromSecureFileButtonEL;
+	#restoreFromSecureFileButtonClickEL;
 
 	/**
 	Event listener for the new api key button
-	@type {NewApiKeyButtonEL}
+	@type {NewApiKeyButtonClickEL}
 	*/
 
-	#newApiKeyButtonEL;
+	#newApiKeyButtonClickEL;
 
 	/**
 	Event listener for the save to unsecure file button
-	@type {SaveToUnsecureFileButtonEL}
+	@type {SaveToUnsecureFileButtonClickEL}
 	*/
 
-	#saveToUnsecureFileButtonEL;
+	#saveToUnsecureFileButtonClickEL;
 
 	/**
 	Event listener for the restore from unsecure file button
-	@type {RestoreFromUnsecureFileButtonEL}
+	@type {RestoreFromUnsecureFileButtonClickEL}
 	*/
 
-	#restoreFromUnsecureFileButtonEL;
+	#restoreFromUnsecureFileButtonClickEL;
 
 	/**
 	Create the ReloadKeysFromServerFile Button
@@ -166,9 +166,13 @@ class ApiKeysDialogToolbar {
 			},
 			this.#toolbarHTMLElement
 		);
-		this.#reloadFromServerButtonEL =
-			new ReloadFromServerButtonEL ( this.#apiKeysDialog );
-		this.#reloadFromServerButtonEL.addEventListeners ( this.#reloadKeysFromServerButton );
+		this.#reloadFromServerButtonClickEL =
+			new ReloadFromServerButtonClickEL ( this.#apiKeysDialog );
+		this.#reloadKeysFromServerButton.addEventListener (
+			'click',
+			this.#reloadFromServerButtonClickEL,
+			false
+		);
 	}
 
 	/**
@@ -185,9 +189,13 @@ class ApiKeysDialogToolbar {
 			},
 			this.#toolbarHTMLElement
 		);
-		this.#saveToSecureFileButtonEL =
-			new SaveToSecureFileButtonEL ( this.#apiKeysDialog );
-		this.#saveToSecureFileButtonEL.addEventListeners ( this.#saveKeysToSecureFileButton );
+		this.#saveToSecureFileButtonClickEL =
+			new SaveToSecureFileButtonClickEL ( this.#apiKeysDialog );
+		this.#saveKeysToSecureFileButton.addEventListener (
+			'click',
+			this.#saveToSecureFileButtonClickEL,
+			false
+		);
 	}
 
 	/**
@@ -204,9 +212,13 @@ class ApiKeysDialogToolbar {
 			},
 			this.#toolbarHTMLElement
 		);
-		this.#restoreFromSecureFileButtonEL =
-			new RestoreFromSecureFileButtonEL ( this.#apiKeysDialog );
-		this.#restoreFromSecureFileButtonEL.addEventListeners ( this.#restoreKeysFromSecureFileButton );
+		this.#restoreFromSecureFileButtonClickEL =
+			new RestoreFromSecureFileButtonClickEL ( this.#apiKeysDialog );
+		this.#restoreKeysFromSecureFileButton.addEventListener (
+			'click',
+			this.#restoreFromSecureFileButtonClickEL,
+			false
+		);
 	}
 
 	/**
@@ -223,8 +235,13 @@ class ApiKeysDialogToolbar {
 			},
 			this.#toolbarHTMLElement
 		);
-		this.#newApiKeyButtonEL = new NewApiKeyButtonEL ( this.#apiKeysControl );
-		this.#newApiKeyButtonEL.addEventListeners ( this.#newApiKeyButton );
+		this.#newApiKeyButtonClickEL =
+			new NewApiKeyButtonClickEL ( this.#apiKeysControl );
+		this.#newApiKeyButton.addEventListener (
+			'click',
+			this.#newApiKeyButtonClickEL,
+			false
+		);
 	}
 
 	/**
@@ -241,9 +258,13 @@ class ApiKeysDialogToolbar {
 			},
 			this.#toolbarHTMLElement
 		);
-		this.#saveToUnsecureFileButtonEL =
-			new SaveToUnsecureFileButtonEL ( this.#apiKeysDialog );
-		this.#saveToUnsecureFileButtonEL.addEventListeners ( this.#saveKeysToUnsecureFileButton );
+		this.#saveToUnsecureFileButtonClickEL =
+			new SaveToUnsecureFileButtonClickEL ( this.#apiKeysDialog );
+		this.#saveKeysToUnsecureFileButton.addEventListener (
+			'click',
+			this.#saveToUnsecureFileButtonClickEL,
+			false
+		);
 	}
 
 	/**
@@ -260,8 +281,13 @@ class ApiKeysDialogToolbar {
 			},
 			this.#toolbarHTMLElement
 		);
-		this.#restoreFromUnsecureFileButtonEL = new RestoreFromUnsecureFileButtonEL ( this.#apiKeysDialog );
-		this.#restoreFromUnsecureFileButtonEL.addEventListeners ( this.#restoreKeysFromUnsecureFileButton );
+		this.#restoreFromUnsecureFileButtonClickEL =
+			new RestoreFromUnsecureFileButtonClickEL ( this.#apiKeysDialog );
+		this.#restoreKeysFromUnsecureFileButton.addEventListener (
+			'click',
+			this.#restoreFromUnsecureFileButtonClickEL,
+			false
+		);
 	}
 
 	/**
@@ -276,7 +302,9 @@ class ApiKeysDialogToolbar {
 			this.#createSaveKeysToSecureFileButton ( );
 			this.#createRestoreKeysFromSecureFileButton ( );
 		}
+
 		this.#createNewApiKeyButton ( );
+
 		if ( theConfig.ApiKeysDialog.haveUnsecureButtons ) {
 			this.#createSaveKeysToUnsecureFileButton ( );
 			this.#createRestoreKeysFromUnsecureFileButton ( );
@@ -300,6 +328,7 @@ class ApiKeysDialogToolbar {
 				id : 'TravelNotes-ApiKeysDialog-ToolbarDiv'
 			}
 		);
+
 		this.#addToolbarButtons ( );
 		Object.freeze ( this );
 	}
@@ -310,30 +339,63 @@ class ApiKeysDialogToolbar {
 
 	destructor ( ) {
 		if ( this.#reloadKeysFromServerButton ) {
-			this.#reloadFromServerButtonEL.removeEventListeners ( this.#reloadKeysFromServerButton );
-			this.#reloadFromServerButtonEL.destructor ( );
-			this.#reloadFromServerButtonEL = null;
+			this.#reloadKeysFromServerButton.removeEventListener (
+				'click',
+				this.#reloadFromServerButtonClickEL,
+				false
+			);
+			this.#reloadFromServerButtonClickEL.destructor ( );
+			this.#reloadFromServerButtonClickEL = null;
 		}
+
 		if ( this.#saveKeysToSecureFileButton ) {
-			this.#saveToSecureFileButtonEL.removeEventListeners ( this.#saveKeysToSecureFileButton );
-			this.#saveToSecureFileButtonEL.destructor ( );
-			this.#saveToSecureFileButtonEL = null;
+			this.#saveKeysToSecureFileButton.removeEventListener (
+				'click',
+				this.#saveToSecureFileButtonClickEL,
+				false
+			);
+			this.#saveToSecureFileButtonClickEL.destructor ( );
+			this.#saveToSecureFileButtonClickEL = null;
 		}
+
 		if ( this.#restoreKeysFromSecureFileButton ) {
-			this.#restoreFromSecureFileButtonEL.removeEventListeners ( this.#restoreKeysFromSecureFileButton );
-			this.#restoreFromSecureFileButtonEL.destructor ( );
-			this.#restoreFromSecureFileButtonEL = null;
+			this.#restoreKeysFromSecureFileButton.removeEventListener (
+				'click',
+				this.#restoreFromSecureFileButtonClickEL,
+				false
+			);
+			this.#restoreFromSecureFileButtonClickEL.destructor ( );
+			this.#restoreFromSecureFileButtonClickEL = null;
 		}
+
 		if ( this.#newApiKeyButton ) {
-			this.#newApiKeyButtonEL.removeEventListeners ( this.#newApiKeyButton );
-			this.#newApiKeyButtonEL.destructor ( );
-			this.#newApiKeyButtonEL = null;
+			this.#newApiKeyButton.removeEventListener (
+				'click',
+				this.#newApiKeyButtonClickEL,
+				false
+			);
+			this.#newApiKeyButtonClickEL.destructor ( );
+			this.#newApiKeyButtonClickEL = null;
 		}
+
 		if ( this.#saveKeysToUnsecureFileButton ) {
-			this.#saveToUnsecureFileButtonEL.removeEventListeners ( this.#saveKeysToUnsecureFileButton );
+			this.#saveKeysToUnsecureFileButton.removeEventListener (
+				'click',
+				this.#saveToUnsecureFileButtonClickEL,
+				false
+			);
+			this.#saveToUnsecureFileButtonClickEL.destructor ( );
+			this.#saveToUnsecureFileButtonClickEL = null;
 		}
+
 		if ( this.#restoreKeysFromUnsecureFileButton ) {
-			this.#restoreFromUnsecureFileButtonEL.removeEventListeners ( this.#restoreKeysFromUnsecureFileButton );
+			this.#restoreKeysFromUnsecureFileButton.removeEventListener (
+				'click',
+				this.#restoreFromUnsecureFileButtonClickEL,
+				false
+			);
+			this.#restoreFromUnsecureFileButtonClickEL.destructor ( );
+			this.#restoreFromUnsecureFileButtonClickEL = null;
 		}
 	}
 

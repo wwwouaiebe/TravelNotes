@@ -25,7 +25,7 @@ Doc reviewed 202208
 import BaseControl from '../../controls/baseControl/BaseControl.js';
 import ApiKeyControlRow from './ApiKeyControlRow.js';
 import ApiKey from '../../containers/ApiKey.js';
-import DeleteApiKeyButtonEL from './DeleteApiKeyButtonEL.js';
+import DeleteApiKeyButtonClickEL from './DeleteApiKeyButtonClickEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -43,11 +43,11 @@ class ApiKeysControl extends BaseControl {
 	#apiKeysControlRowsMap;
 
 	/**
-	The DeleteApiKeyButtonEL for the delete buttons
-	@type {DeleteApiKeyButtonEL}
+	The DeleteApiKeyButtonClickEL for the delete buttons
+	@type {deleteApiKeyButtonClickEL}
 	*/
 
-	#deleteApiKeyButtonEL;
+	#deleteApiKeyButtonClickEL;
 
 	/**
 	The constructor
@@ -56,7 +56,7 @@ class ApiKeysControl extends BaseControl {
 	constructor ( ) {
 		super ( );
 		this.#apiKeysControlRowsMap = new Map ( );
-		this.#deleteApiKeyButtonEL = new DeleteApiKeyButtonEL ( this );
+		this.#deleteApiKeyButtonClickEL = new DeleteApiKeyButtonClickEL ( this );
 	}
 
 	/**
@@ -68,8 +68,8 @@ class ApiKeysControl extends BaseControl {
 			apiKeysControlRow => apiKeysControlRow.destructor ( )
 		);
 		this.#apiKeysControlRowsMap.clear ( );
-		this.#deleteApiKeyButtonEL.destructor ( );
-		this.#deleteApiKeyButtonEL = null;
+		this.#deleteApiKeyButtonClickEL.destructor ( );
+		this.#deleteApiKeyButtonClickEL = null;
 	}
 
 	/**
@@ -111,7 +111,7 @@ class ApiKeysControl extends BaseControl {
 		this.#apiKeysControlRowsMap.clear ( );
 		apiKeys.forEach (
 			apiKey => {
-				const apiKeyControl = new ApiKeyControlRow ( apiKey, this.#deleteApiKeyButtonEL );
+				const apiKeyControl = new ApiKeyControlRow ( apiKey, this.#deleteApiKeyButtonClickEL );
 				this.#apiKeysControlRowsMap.set ( apiKeyControl.objId, apiKeyControl );
 			}
 		);
@@ -124,7 +124,7 @@ class ApiKeysControl extends BaseControl {
 
 	newApiKey ( ) {
 		const apiKey = new ApiKey ( );
-		const apiKeyControlRow = new ApiKeyControlRow ( apiKey, this.#deleteApiKeyButtonEL );
+		const apiKeyControlRow = new ApiKeyControlRow ( apiKey, this.#deleteApiKeyButtonClickEL );
 		this.#apiKeysControlRowsMap.set ( apiKeyControlRow.objId, apiKeyControlRow );
 		this.refreshApiKeys ( );
 	}

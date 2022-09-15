@@ -24,7 +24,6 @@ Doc reviewed 202208
 
 import BaseControl from '../baseControl/BaseControl.js';
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
-import TouchInputEL from '../../mouseAndTouchEL/TouchInputEL.js';
 import { NOT_FOUND, ZERO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -49,13 +48,6 @@ class RadioInputControl extends BaseControl {
 	#buttons;
 
 	/**
-	The buttons event listeners
-	@type {MouseAndTouchBaseEL}
-	*/
-
-	#buttonsEL;
-
-	/**
 	The constructor
 	@param {Object} options An object with the  options ( placeholder, rows, datasetName, headerText )
 	*/
@@ -71,7 +63,6 @@ class RadioInputControl extends BaseControl {
 			},
 			this.controlHTMLElement
 		);
-		this.#buttonsEL = new TouchInputEL ( );
 		let controlName = 'controlName' + ( ++ RadioInputControl.#objId );
 		let value = ZERO;
 		options.buttons.forEach (
@@ -84,21 +75,21 @@ class RadioInputControl extends BaseControl {
 					},
 					this.controlHTMLElement
 				);
-				const buttonHTMLElement = theHTMLElementsFactory.create (
-					'input',
-					{
-						type : 'radio',
-						className : 'TravelNotes-RadioInputControl-Radio',
-						checked : button.checked,
-						id : buttonId,
-						name : controlName,
-						value : String ( value ++ ),
-						dataset : { Name : options?.datasetName || 'RadioInputControl' }
-					},
-					buttonDiv
+				this.#buttons.push (
+					theHTMLElementsFactory.create (
+						'input',
+						{
+							type : 'radio',
+							className : 'TravelNotes-RadioInputControl-Radio',
+							checked : button.checked,
+							id : buttonId,
+							name : controlName,
+							value : String ( value ++ ),
+							dataset : { Name : options?.datasetName || 'RadioInputControl' }
+						},
+						buttonDiv
+					)
 				);
-				this.#buttonsEL.addEventListeners ( buttonHTMLElement );
-				this.#buttons.push ( buttonHTMLElement );
 				theHTMLElementsFactory.create (
 					'label',
 					{
@@ -108,16 +99,6 @@ class RadioInputControl extends BaseControl {
 					buttonDiv
 				);
 			}
-		);
-	}
-
-	/**
-	The destructor
-	*/
-
-	destructor ( ) {
-		this.#buttons.forEach (
-			button => this.#buttonsEL.removeEventListeners ( button )
 		);
 	}
 

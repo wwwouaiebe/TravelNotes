@@ -26,7 +26,6 @@ import theTranslator from '../../core/uiLib/Translator.js';
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import Color from './Color.js';
 import RgbInputEL from './RgbInputEL.js';
-import TouchInputEL from '../../mouseAndTouchEL/TouchInputEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -65,13 +64,6 @@ class RgbInputsControlElement {
 	#blueInput;
 
 	/**
-	The touch rgb inputs event listener
-	@type {TouchInputEL}
-	*/
-
-	#touchInputEL;
-
-	/**
 	The input event listener
 	@type {RgbInputEL}
 	*/
@@ -96,7 +88,6 @@ class RgbInputsControlElement {
 			this.#rgbHTMLElement
 		);
 		inputHtmlElement.addEventListener ( 'input', this.#rgbInputEL, false );
-		this.#touchInputEL.addEventListeners ( inputHtmlElement );
 
 		return inputHtmlElement;
 	}
@@ -109,7 +100,6 @@ class RgbInputsControlElement {
 	constructor ( colorControl ) {
 		Object.freeze ( this );
 		this.#rgbInputEL = new RgbInputEL ( colorControl, this );
-		this.#touchInputEL = new TouchInputEL ( );
 		this.#rgbHTMLElement = theHTMLElementsFactory.create ( 'div', null, colorControl.controlHTMLElement );
 		this.#redInput = this.#createColorInput ( theTranslator.getText ( 'ColorControl - Red' ) );
 		this.#greenInput = this.#createColorInput ( theTranslator.getText ( 'ColorControl - Green' ) );
@@ -125,10 +115,6 @@ class RgbInputsControlElement {
 		this.#greenInput.removeEventListener ( 'input', this.#rgbInputEL, false );
 		this.#blueInput.removeEventListener ( 'input', this.#rgbInputEL, false );
 		this.#rgbInputEL = null;
-		this.#touchInputEL.removeEventListeners ( this.#redInput );
-		this.#touchInputEL.removeEventListeners ( this.#greenInput );
-		this.#touchInputEL.removeEventListeners ( this.#blueInput );
-		this.#touchInputEL = null;
 	}
 
 	/**

@@ -67,10 +67,10 @@ class ApiKeyControlRow {
 
 	/**
 	The event listener for the delete button
-	@type {DeleteApiKeyButtonEL}
+	@type {deleteApiKeyButtonClickEL}
 	*/
 
-	#deleteApiKeyButtonEL;
+	#deleteApiKeyButtonClickEL;
 
 	/**
 	The delete button
@@ -82,12 +82,12 @@ class ApiKeyControlRow {
 	/**
 	The constructor
 	@param {ApiKey} apiKey The ApiKey to display in the control
-	@param {DeleteApiKeyButtonEL} deleteApiKeyButtonEL The event listener to use for the delete button
+	@param {DeleteApiKeyButtonClickEL} deleteApiKeyButtonClickEL The event listener to use for the delete button
 	*/
 
-	constructor ( apiKey, deleteApiKeyButtonEL ) {
+	constructor ( apiKey, deleteApiKeyButtonClickEL ) {
 		Object.freeze ( this );
-		this.#deleteApiKeyButtonEL = deleteApiKeyButtonEL;
+		this.#deleteApiKeyButtonClickEL = deleteApiKeyButtonClickEL;
 		this.#objId = ObjId.nextObjId;
 		this.#rowHTMLElement = theHTMLElementsFactory.create (
 			'div',
@@ -125,7 +125,7 @@ class ApiKeyControlRow {
 			},
 			this.#rowHTMLElement
 		);
-		this.#deleteApiKeyButtonEL.addEventListeners ( this.#deleteButtonHTMLElement );
+		this.#deleteButtonHTMLElement.addEventListener ( 'click', this.#deleteApiKeyButtonClickEL, false );
 	}
 
 	/**
@@ -133,7 +133,7 @@ class ApiKeyControlRow {
 	*/
 
 	destructor ( ) {
-		this.#deleteApiKeyButtonEL.removeEventListeners ( this.#deleteButtonHTMLElement );
+		this.#deleteButtonHTMLElement.removeEventListener ( 'click', this.#deleteApiKeyButtonClickEL, false );
 	}
 
 	/**

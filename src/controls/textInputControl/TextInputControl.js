@@ -23,7 +23,6 @@ Doc reviewed 202208
  */
 
 import BaseControl from '../baseControl/BaseControl.js';
-import TouchInputEL from '../../mouseAndTouchEL/TouchInputEL.js';
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -40,13 +39,6 @@ class TextInputControl extends BaseControl {
 	*/
 
 	#valueInput;
-
-	/**
-	The input event listeners
-	@type {MouseAndTouchBaseEL}
-	*/
-
-	#valueInputEL;
 
 	/**
 	The constructor
@@ -80,8 +72,6 @@ class TextInputControl extends BaseControl {
 				this.controlHTMLElement
 			)
 		);
-		this.#valueInputEL = new TouchInputEL ( );
-		this.#valueInputEL.addEventListeners ( this.#valueInput );
 		if ( eventListeners?.controlFocus ) {
 			this.#valueInput.addEventListener ( 'focus', eventListeners.controlFocus );
 		}
@@ -102,8 +92,6 @@ class TextInputControl extends BaseControl {
 		if ( eventListeners?.controlInput ) {
 			this.#valueInput.removeEventListener ( 'input', eventListeners.controlInput );
 		}
-		this.#valueInputEL.removeEventListeners ( this.#valueInput );
-		this.#valueInputEL = null;
 	}
 
 	/**

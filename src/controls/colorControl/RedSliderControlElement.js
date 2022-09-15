@@ -24,7 +24,6 @@ Doc reviewed 202208
 
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import RedSliderInputEL from './RedSliderInputEL.js';
-import TouchInputEL from '../../mouseAndTouchEL/TouchInputEL.js';
 import Color from './Color.js';
 import { ZERO } from '../../main/Constants.js';
 
@@ -49,13 +48,6 @@ class RedSliderControlElement {
 	*/
 
 	#redSliderInputEL;
-
-	/**
-	The touch input red slider event listener
-	@type {TouchInputEL}
-	*/
-
-	#touchInputEL;
 
 	/**
 	The max value of the slider
@@ -95,8 +87,6 @@ class RedSliderControlElement {
 			theHTMLElementsFactory.create ( 'div', null, colorControl.controlHTMLElement )
 		);
 		this.#redSliderInput.addEventListener ( 'input', this.#redSliderInputEL, false );
-		this.#touchInputEL = new TouchInputEL ( );
-		this.#touchInputEL.addEventListeners ( this.#redSliderInput );
 		this.#redSliderInput.focus ( );
 	}
 
@@ -107,8 +97,6 @@ class RedSliderControlElement {
 	destructor ( ) {
 		this.#redSliderInput.removeEventListener ( 'input', this.#redSliderInputEL, false );
 		this.#redSliderInputEL = null;
-		this.#touchInputEL.removeEventListeners ( this.#redSliderInput );
-		this.#touchInputEL = null;
 	}
 }
 

@@ -58,19 +58,6 @@ const theConfig = {
 		showWarning : true,
 		timeOut : 10000
 	},
-	events :
-	{
-		clickDelay : 400,
-		dblclickDelay : 600,
-		contextmenuDelay : 800
-	},
-	files :
-	{
-		openGpx : [ 'gpx' ],
-		openTaN : [ 'json', 'trv' ],
-		writeTouch : 'trv',
-		writeOthers : 'trv'
-	},
 	fontSize :
 	{
 		initialValue : 3.5,

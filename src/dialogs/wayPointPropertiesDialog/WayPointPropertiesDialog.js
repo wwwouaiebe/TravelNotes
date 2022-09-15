@@ -26,6 +26,7 @@ import ModalBaseDialog from '../baseDialog/ModalBaseDialog.js';
 import theTranslator from '../../core/uiLib/Translator.js';
 import AddressControl from '../../controls/addressControl/AddressControl.js';
 import TextInputControl from '../../controls/textInputControl/TextInputControl.js';
+import WayPointPropertiesDialogEventListeners from './WayPointPropertiesDialogEventListeners.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -57,6 +58,13 @@ class WayPointPropertiesDialog extends ModalBaseDialog {
 	#addressControl;
 
 	/**
+	The event listeners collection
+	@type {WayPointPropertiesDialogEventListeners}
+	*/
+
+	#eventListeners;
+
+	/**
 	The constructor
 	@param {WayPoint} wayPoint The wayPoint to modify
 	*/
@@ -64,6 +72,7 @@ class WayPointPropertiesDialog extends ModalBaseDialog {
 	constructor ( wayPoint ) {
 		super ( );
 		this.#wayPoint = wayPoint;
+		this.#eventListeners = new WayPointPropertiesDialogEventListeners ( this, this.#wayPoint.latLng );
 	}
 
 	/**
@@ -75,9 +84,23 @@ class WayPointPropertiesDialog extends ModalBaseDialog {
 		this.#wayPointNameControl = new TextInputControl (
 			{
 				headerText : theTranslator.getText ( 'WayPointPropertiesDialog - Name' )
-			}
+			},
+			this.#eventListeners
 		);
-		this.#addressControl = new AddressControl ( this );
+		this.#wayPointNameControl.value = this.#wayPoint.name;
+		this.#addressControl = new AddressControl ( this.#eventListeners );
+		this.#addressControl.address = this.#wayPoint.address;
+
+	}
+
+	/**
+	Overload of the BaseDialog.onCancel ( ) method.
+	*/
+
+	onCancel ( ) {
+
+		this.#eventListeners.destructor ( );
+		super.onCancel ( );
 	}
 
 	/**
@@ -87,26 +110,9 @@ class WayPointPropertiesDialog extends ModalBaseDialog {
 	onOk ( ) {
 		this.#wayPoint.address = this.#addressControl.address;
 		this.#wayPoint.name = this.#wayPointNameControl.value;
+		this.#eventListeners.destructor ( );
 		super.onOk ( );
 	}
-
-	/**
-	Overload of the ModalBaseDialog.show ( ) method.
-	*/
-
-	show ( ) {
-		const showPromise = super.show ( );
-		this.#wayPointNameControl.value = this.#wayPoint.name;
-		this.#addressControl.address = this.#wayPoint.address;
-		return showPromise;
-	}
-
-	/**
-	The lat and lng of the waypoint. Used by the GeoCoderHelper object of the address control
-	@type {Array.<Number>}
-	*/
-
-	get latLng ( ) { return this.#wayPoint.latLng; }
 
 	/**
 	An array with the HTMLElements that have to be added in the content of the dialog.

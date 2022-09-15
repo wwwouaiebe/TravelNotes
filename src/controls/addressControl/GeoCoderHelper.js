@@ -51,6 +51,7 @@ class GeoCoderHelper {
 		if ( '' !== address.city ) {
 			addressString += ' ' + address.city;
 		}
+
 		this.#dialog.setControlsValues (
 			{
 				address : addressString,
@@ -74,12 +75,13 @@ class GeoCoderHelper {
 
 	/**
 	Set the address in the dialog, using GeoCoder
+	@param {Array.<Number>} latLng The lat and lng of the address to find
 	*/
 
-	setAddressWithGeoCoder ( ) {
+	setAddressWithGeoCoder ( latLng ) {
 		this.#dialog.showWait ( );
 		this.#dialog.hideError ( );
-		new GeoCoder ( ).getAddressWithPromise ( this.#dialog.latLng )
+		new GeoCoder ( ).getAddressWithPromise ( latLng )
 			.then ( address => { this.#onAddressUpdatedByGeoCoder ( address ); } )
 			.catch (
 				err => {
