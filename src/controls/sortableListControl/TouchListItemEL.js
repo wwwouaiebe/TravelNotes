@@ -117,6 +117,20 @@ class TouchListItemEL {
 	#dropOnTop;
 
 	/**
+	the X distance betwwen the touch point and the top left corner of the moved item
+	@type {Number}
+	*/
+
+	#deltaMoveX;
+
+	/**
+	the Y distance betwwen the touch point and the top left corner of the moved item
+	@type {Number}
+	*/
+
+	#deltaMoveY;
+
+	/**
 	A constant giving the max delay in ms between 2 clicks to consider it's a double click
 	@type {Number}
 	*/
@@ -244,12 +258,17 @@ class TouchListItemEL {
 			this.#scrolledContainerHTMLElement = touchEvent.currentTarget.parentNode.parentNode.parentNode;
 			this.#touchY = touch.screenY;
 
+			// Computing the distance betwwen the touch point and the top left corner of the moved item
+			const boundingClientRect = touchEvent.currentTarget.getBoundingClientRect ( );
+			this.#deltaMoveX = touch.screenX - boundingClientRect.left;
+			this.#deltaMoveY = touch.screenY - boundingClientRect.top;
+
 			// cloning the node and append it to the document
 			this.#clonedListItemHTMLElement = touchEvent.currentTarget.cloneNode ( true );
 			this.#clonedListItemHTMLElement.classList.add ( 'TravelNotes-SortableList-DraggedListItemHTMLElement' );
 			document.body.appendChild ( this.#clonedListItemHTMLElement );
-			this.#clonedListItemHTMLElement.style.left = touch.screenX + 'px';
-			this.#clonedListItemHTMLElement.style.top = touch.screenY + 'px';
+			this.#clonedListItemHTMLElement.style.left = String ( touch.screenX - this.#deltaMoveX ) + 'px';
+			this.#clonedListItemHTMLElement.style.top = String ( touch.screenY - this.#deltaMoveY ) + 'px';
 			this.#topScrollPosition =
 				this.#sortableListHTMLElement.getBoundingClientRect ( ).y -
 				this.#scrolledContainerHTMLElement.getBoundingClientRect ( ).y +
@@ -275,8 +294,8 @@ class TouchListItemEL {
 			if ( this.#clonedListItemHTMLElement ) {
 
 				// moving the cloned node to the touch position
-				this.#clonedListItemHTMLElement.style.left = touch.screenX + 'px';
-				this.#clonedListItemHTMLElement.style.top = touch.screenY + 'px';
+				this.#clonedListItemHTMLElement.style.left = String ( touch.screenX - this.#deltaMoveX ) + 'px';
+				this.#clonedListItemHTMLElement.style.top = String ( touch.screenY - this.#deltaMoveY ) + 'px';
 
 				// scrolling the container to the top if needed
 				this.#touchY = touch.screenY;

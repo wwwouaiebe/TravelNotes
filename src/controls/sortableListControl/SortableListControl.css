@@ -34,6 +34,7 @@ Doc reviewed 202208
 	border-width: 0.1em;
 	margin-left: 0.5em;
 	margin-right: 0.5em;
+	min-height: 3em;
 }
 
 .TravelNotes-SortableList-ListItemHTMLElement:first-child {
