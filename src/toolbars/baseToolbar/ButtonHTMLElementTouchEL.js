@@ -93,6 +93,7 @@ class ButtonHTMLElementTouchEL {
 				const touch = touchEvent.changedTouches.item ( ZERO );
 				if ( ButtonHTMLElementTouchEL.#MAX_DELTA_Y > Math.abs ( touch.screenY - this.#touchButtonStartY ) ) {
 					touchEvent.stopPropagation ( );
+					touchEvent.preventDefault ( );
 					this.#toolbarItemsContainer.toolbarItemsArray [ Number.parseInt ( touchEvent.target.dataset.tanItemId ) ]
 						.action ( );
 					this.#baseToolbar.hide ( );
