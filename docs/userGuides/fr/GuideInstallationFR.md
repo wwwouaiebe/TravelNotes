@@ -25,7 +25,7 @@ Voir https://www.mozilla.org/en-US/security/advisories/mfsa2019-21/#CVE-2019-117
 <a id="GuideNull"></a>
 ## 2. Guide d'installation pour les null
 
-Pas de grandes connaissances informatiques? [Téléchargez la dernière version](https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v3.6.0.zip),
+Pas de grandes connaissances informatiques? [Téléchargez la dernière version](https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v4.0.0.zip),
 copiez le contenu du répertoire docs/demo/ dans un répertoire sur votre serveur et ouvrez le fichier index.html. That's all :-).
 
 <a id="GuideGeeks"></a>
@@ -80,7 +80,7 @@ Voyez la [documentation du code JS](https://wwwouaiebe.github.io/TravelNotes/tec
 pour plus d'informations.
 
 Notez cependant que seul l'objet TravelNotes est accessible depuis du code JS additionnel 
-(via window.TaN - window.L.TravelNotes est déprécié mais continue à fonctionner pour l'instant).
+(via window.TaN - window.L.TravelNotes est déprécié et a été retiré du code).
 
 Si vous désirez utiliser d'autres objets, vous devez télécharger les sources et les importer dans votre code comme 
 des modules EcmaScript.
@@ -96,15 +96,26 @@ Le contenu du fichier TravelNotesConfig.json:
 - __APIKeysDialog.haveUnsecureButtons__ : quand cette valeur est true, des  boutons pour enrégistrer ou restaurer les clefs d'accès dans un fichier non sécurisé sont présents ( valeur par défaut : false )
 - __APIKeysDialog.showAPIKeys__ : quand cette valeur est true, les clefs d'accès sont lisibles dans la boite de dialogue ( valeur par défaut : false )
 - __APIKeysDialog.showButton__ : quand cette valeur est true, le bouton 🔑 est présent dans la barre d'outils ( valeur par défaut : true )
-- __colorDialog.haveSlider__ : quand cette valeur est true, le dialogue des propriétés des routes a un slider pour la couleur rouge, autrement il a des boutons ( valeur par défaut : true )
-- __colorDialog.initialRed__ : la valeur initiale pour le slider rouge ( valeur par défaut : 0 )
+- __baseDialog.cancelTouchX__ : la distance en pixel entre le bord gauche de l'écran et le début la zone oµ il est possible d'annuler un dialogue. Valeur par défaut : 100.
+- __baseDialog.cancelTouchY__ : la distance en pixel entre le bord supérieur de l'écran et la fin la zone oµ il est possible d'annuler un dialogue. Valeur par défaut : 150.
+- __baseDialog.deltaZoomDistance__ : la distance nécessaire, en pixel, pour incrémenter le zoom de la carte sur les écrans tactiles. Valeur par défaut : 75.
+- __baseDialog.touchTopScreen__ : lorsque cette valeur est "true" les dialogues sont affichés en haut se l'écran quand celui-ci est tactile
 - __contextMenu.timeout__ : le temps qui va s'écouler, en millisecondes, entre le moment où la souris ne se trouve plus sur le menu contextuel et le moment ou le menu se ferme automatiquement ( valeur par défaut : 1500 )
+- __dockableBaseDialog.timeout__ : le temps qui va s'écouler, en millisecondes, entre le moment où la souris ne se trouve plus sur un dialogue dockable et le moment ou le dialogue se réduit automatiquement ( valeur par défaut : 1500 )
 - __errorsUI.helpTimeOut__ : le temps qui va s'écouler, en millisecondes, entre le moment où un message d'aide est affiché et le moment où il est effacé ( valeur par défaut : 30000 )
 - __errorsUI.showError__ : quand cette valeur est true, les messages d'erreur sont affichés ( valeur par défaut : true )
 - __errorsUI.showHelp__ : quand cette valeur est true, les messages d'aide sont affichés ( valeur par défaut : false )
 - __errorsUI.showInfo__ : quand cette valeur est true, les messages d'information sont affichés ( valeur par défaut : true )
 - __errorsUI.showWarning__ : quand cette valeur est true, les messages d'avertissement sont affichés ( valeur par défaut : true )
 - __errorsUI.timeOut__ : le temps qui va s'écouler, en millisecondes, entre le moment où un message est affiché et le moment où il est effacé ( valeur par défaut : 10000 )
+ __files.openTaN__ : une liste des extensions de fichiers qui seront considérés comme des fichiers de voyage lors de l'ouverture d'un fichier. Valeur par défaut : "json","trv".
+- __files.openGpx__ : une liste des extensions de fichiers qui seront considérés comme des fichiers gps lors de l'ouverture d'un fichier. Valeur par défaut : "gpx".
+- __files.writeTouch__ : l'extension de fichier à utiliser lors de la sauvegarde d'un fichier de voyage sur un appareil avec écran tactile. Valeur par défaut : "trv".
+- __files.writeOthers__ : l'extension de fichier à utiliser lors de la sauvegarde d'un fichier de voyage sur un ordinateur de bureau. Valeur par défaut : "trv".
+- __fontSize.initialValue__ : la hauteur de texte en mm à utiliser au démarrage. Valeur par défaut : 3.5 mm
+- __fontSize.incrementValue__ : la valeur d'incrémentation de la hauteur de texte lors de l'utilisation des boutons + et -. Valeur par défaut : 0.5 mm.
+- __FullScreenUI.timeOut__ : la durée d'affichage en ms de l'interface fullscreen au démarage. Valeur par défaut : 5000.
+- __FullScreenUI.screenMaxWidth__ : la largeur maximale de l'écran, en pixel, pour que l'interface fullscreen soit affichée. Valeur par défaut : 1200 pixels.
 - __geoCoder.distances.city__ : la distance maximum en mètres entre le point donné par l'utilisateur pour une adresse et un point avec le tag place=city dans OSM, pour que ce tag soit utilisé dans l'adresse ( valeur par défaut : 1200 )
 - __geoCoder.distances.hamlet__ : la distance maximum en mètres entre le point donné par l'utilisateur pour une adresse et un point avec le tag place=hamlet dans OSM, pour que ce tag soit utilisé dans l'adresse ( valeur par défaut : 200 )
 - __geoCoder.distances.town__ : la distance maximum en mètres entre le point donné par l'utilisateur pour une adresse et un point avec le tag place=town dans OSM, pour que ce tag soit utilisé dans l'adresse ( valeur par défaut : 1500 )
@@ -116,23 +127,20 @@ Le contenu du fichier TravelNotesConfig.json:
 - __geoLocation.options.enableHighAccuracy__ : voir les options Javascript des fonctions de localisation ( valeur par défaut : false )
 - __geoLocation.options.maximumAge__ : voir les options Javascript des fonctions de localisation ( valeur par défaut : 0 )
 - __geoLocation.options.timeout__ : voir les options Javascript des fonctions de localisation ( valeur par défaut : 3600000 )
-- __geoLocation.watch__ : quand cette valeur est true, la fonction watchPosition ( ) est utilisée. Attention, cette fonction plante le geolocation avec Firefox Android
+- __geoLocation.watch__ : quand cette valeur est true, la fonction watchPosition ( ) est utilisée.
 - __geoLocation.zoomFactor__ : le facteur de zoom utilisé pour la geolocalisation ( valeur par défaut : 17 )
 - __geoLocation.zoomToPosition__ : quand cette valeur est true, un zoom sur la position sera effectué lors de la première geolocalisation ( valeur par défaut : true )
-- __itineraryPaneUI.showManeuvers__ : quand cette valeur est true, les manoeuvres sont visibles dans la description de l'itinéraire ( valeur par défaut : false )
-- __itineraryPaneUI.showNotes__ : quand cette valeur est true, les notes sont visibles dans la description de l'itinéraire ( valeur par défaut : true )
 - __itineraryPoint.marker.color__ : la couleur du cercle utilisé pour indiquer sur la carte un point de l'itinéraire ( valeur par défaut : #ff0000 )
 - __itineraryPoint.marker.fill__ : le remplissage du cercle utilisé pour indiquer sur la carte un point de l'itinéraire ( valeur par défaut : false )
 - __itineraryPoint.marker.radius__ : le rayon du cercle utilisé pour indiquer sur la carte un point de l'itinéraire ( valeur par défaut : 7 )
 - __itineraryPoint.marker.weight__ : l'épaisseur du cercle utilisé pour indiquer sur la carte un point de l'itinéraire ( valeur par défaut : 2 )
 - __itineraryPoint.zoomFactor__ : le facteur de zoom utilisé lorsqu'un zoom est fait sur un point de l'itinéraire ( valeur par défaut : 17 )
-- __layersToolbarUI.haveLayersToolbarUI__ : quand cette valeur est true, la barre d'outils des fonds de carte est présente ( valeur par défaut : true )
-- __layersToolbarUI.toolbarTimeOut__ : le temps qui va s'écouler, en millisecondes, entre le moment où la souris ne se trouve plus sur la barre d'outils et le moment où cette barre d'outils se ferme automatiquement ( valeur par défaut : 1500 )
-- __layersToolbarUI.theDevil.addButton__ : quand cette valeur est true, un bouton "theDevil" est ajouté à la barre d'outils ( valeur par défaut : true )
+- __mapContextMenu.mouseMaxRouteDistance__ : la distance, en pixels, entre le point sélectionné par la souris et la route la plus proche de ce point pour considérer que l'utilisateur voulait sélectionner cette route.
+- __mapContextMenu.touchMaxRouteDistance__ : la distance, en pixels, entre le point sélectionné par l'écran tactile et la route la plus proche de ce point pour considérer que l'utilisateur voulait sélectionner cette route.
+- __mapLayersToolbar.theDevil.addButton__ : quand cette valeur est true, un bouton "theDevil" est ajouté à la barre d'outils ( valeur par défaut : true )
 - __map.center.lat__ : la latitude utilisée pour le centre de la carte au démarage ( valeur par défaut : 50.50923 )
 - __map.center.lng__ : la longitude utilisée pour le centre de la carte au démarage ( valeur par défaut : 5.49542 )
 - __map.zoom__ : le zoom utilisé pour la carte au démarage ( valeur par défaut : 12 )
-- __mouseUI.haveMouseUI__ : quand cette valeur est true, un contrôle est affiché en haut de l'écran, indiquant les coordonnées de la souris, la valeur du zoom ainsi que le statut de la sauvegarde ( valeur par défaut : true )
 - __nominatim.url__ : l'url à utiliser pour Nominatim ( valeur par défaut : "https://nominatim.openstreetmap.org/" )
 - __nominatim.language__ : la langue à utiliser pour Nominatim ( valeur par défaut : * )
 - __note.grip.size__ : la dimension de la poignée à l'extrémité de la ligne de rappel d'une note ( valeur par défaut : 10 )
@@ -156,15 +164,10 @@ Le contenu du fichier TravelNotesConfig.json:
 - __note.svgIcon.zoom__ : la valeur du zoom utilisé pour réaliser les icônes SVG ( valeur par défaut : 17 )
 - __noteDialog.areaHeight.icon__ : le nombre de lignes de la zone d'édition de l'icône ( valeur par défaut : 2 )
 - __noteDialog.areaHeight.popupContent__ : le nombre de lignes de la zone d'édition du texte ( valeur par défaut : 8 )
-- __noteDialog.mask.iconsDimension__ : quand cette valeur est true, les contrôles de dimension de l'icône sont masqués ( valeur par défaut : true )
-- __noteDialog.mask.iconTextArea__ :  quand cette valeur est true, la zone d'édition de l'icône est masquée ( valeur par défaut : false )
-- __noteDialog.mask.tooltip__ : quand cette valeur est true, la zone d'édition du tooltip est masquée ( valeur par défaut : false )
-- __noteDialog.mask.popupContent__ : quand cette valeur est true, la zone d'édition du texte est masquée ( valeur par défaut : false )
-- __noteDialog.mask.address__ : quand cette valeur est true, la zone d'édition de l'adresse est masquée ( valeur par défaut : false )
-- __noteDialog.mask.link__ : quand cette valeur est true, la zone d'édition du lien est masquée ( valeur par défaut : false )
-- __noteDialog.mask.phone__ : quand cette valeur est true, la zone d'édition du téléphone est masquée ( valeur par défaut : true )
 - __noteDialog.theDevil.addButton__ : quand cette valeur est true, un bouton "theDevil" est ajouté à la boite de dialogue d'édition ( valeur par défaut : true )
 - __noteDialog.theDevil.zoomFactor__ : le zoom utilisé pour le bouton "theDevil" ( valeur par défaut : 17 )
+- __osmSearchDialog.dialogX__ : la position horizontale par defaut de la fenêtre "Recherche OpenStreetMap" par rapport au coin supérieur gauche de l'écran
+- __osmSearchDialog.dialogY__ : la position verticale par defaut de la fenêtre "Recherche OpenStreetMap" par rapport au coin supérieur gauche de l'écran
 - __osmSearch.nextSearchLimit.color__ : la couleur de la polyline utilisée pour indiquer sur la carte la zone de la prochaine recherche ( valeur par défaut : "#ff0000" )
 - __osmSearch.nextSearchLimit.fill__ : le remplissage de la polyline utilisée pour indiquer sur la carte la zone de la prochaine recherche ( valeur par défaut : false )
 - __osmSearch.nextSearchLimit.weight__ : l'épaisseur de la polyline utilisée pour indiquer sur la carte la zone de la prochaine recherche ( valeur par défaut : 1 )
@@ -182,9 +185,6 @@ Le contenu du fichier TravelNotesConfig.json:
 - __overpassApi.useNwr__ : certaines instances de OverpassAPI ne connaissent pas l'instruction nwr. Dans ce cas il faut mettre useNwr = false ( valeur par defaut: true )
 - __overpassApi.timeOut__ : le temps qui va s'écouler, en secondes, entre le moment où une requête vers OverpassAPI est lancée et celui où un timeout sera déclenché ( valeur par défaut : 40 )
 - __overpassApi.url__ : l'url à utiliser pour OverpassAPI ( valeur par défaut : "https://lz4.overpass-api.de/api/interpreter" )
-- __paneUI.switchToItinerary__ : le panneau de l'itinéraire est activé chaque fois que celui-ci est modifié ( valeur par défaut : false )
-- __paneUI.switchToTravelNotes__ : le panneau des notes de voyage est activé chaque fois que une note est modifiée ( valeur par défaut : false )
-- __paneUI.switchToSearch__ : le panneau de la recherche OSM est activé chaque fois que celle-ci est mise à jour ( valeur par défaut : true )
 - __printRouteMap.firefoxBrowser__ : quand cette valeur est true, la commande utilise les css pour firefox par défaut
 - __printRouteMap.isEnabled__ : quand cette valeur est true, la commande pour imprimer les cartes d'un trajet est active ( valeur par défaut : true )
 - __printRouteMap.borderWidth__ : la largeur en millimètres du bord de carte qui sera dupliqué dans chaque carte ( valeur par défaut : 10 )
@@ -215,13 +215,15 @@ Attention: les valeurs contenues dans ce tableau sont des valeurs numériques et
 - __route.showDragTooltip__ : le nombre de fois que le tooltip affiché lors de l'ajout d'un point de passage est montré ( -1 = toujours ; valeur par défaut : 0 )
 - __route.width__ : l'épaisseur par défaut d'un trajet ( valeur par défaut : 5	)
 - __routeEditor.showEditedRouteInRoadbook__ : quand cette valeur est true les modifications du trajet en cours d'édition seront immédiatement importées dans le livre de voyage ( valeur par défaut : true )
-- __travelEditor.startMinimized__ : quand cette valeur est true, Travel & Notes est affiché sous forme réduite au départ ( valeur par défaut : true )
-- __travelEditor.startupRouteEdition__ : quand cette valeur est true, un trajet est directement édité au chargement d'un nouveau voyage ( valeur par défaut : true )
-- __travelEditor.timeout__ : le temps qui va s'écouler, en millisecondes entre le moment où la souris ne se trouve plus dans Travel & Notes et le moment où celui-ci sera réduit ( valeur par défaut : 1500 )
-- __travelNotes.autoLoad__ : quand cette valeur est true, la carte et tous les contrôles sont construits automatiquement au chargement du javascript de Travel & Notes ( valeur par défaut : true )
+- __toolbars.timeOut__ : le temps qui va s'écouler, en millisecondes, entre le moment où la souris quitte une barre d'outil et le moment où celle-ci est masquée ( valeur par défaut : 1500 )
 - __travelNotes.haveBeforeUnloadWarning__ : quand cette valeur est true, un message de confirmation est affiché chaque fois que le voyage en cours d'édition va être effacé ( valeur par défaut : true )
 - __travelNotes.language__ : la langue utilisée par Travel& Notes, sauf si une autre langue est précisée dans l'url ( valeur par défaut : "fr" )
-- __travelNotesToolbarUI.contactMail.url__ : l'adresse mail utilisée dans le bouton contact ( valeur par défaut : "https://github.com/wwwouaiebe/TravelNotes/issues" )
+- __travelNotes.startupRouteEdition__ : quand cette valeur est true, un trajet est directement édité au chargement d'un nouveau voyage ( valeur par défaut : true )
+- __travelNotesToolbar.contactMail.url__ : l'adresse mail utilisée dans le bouton contact ( valeur par défaut : "https://github.com/wwwouaiebe/TravelNotes/issues" )
+- __travelNotesDialog.dialogX__ : la position horizontale par defaut de la fenêtre "Notes de voyage" par rapport au coin supérieur gauche de l'écran
+- __travelNotesDialog.dialogY__ : la position verticale par defaut de la fenêtre "Notes de voyage" par rapport au coin supérieur gauche de l'écran
+- __travelPropertiesDialog.dialogX__ : la position horizontale par defaut de la fenêtre "Propriétés du voyage" par rapport au coin supérieur gauche de l'écran
+- __travelPropertiesDialog.dialogY__ : la position verticale par defaut de la fenêtre "Propriétés du voyage" par rapport au coin supérieur gauche de l'écran
 - __wayPoint.reverseGeocoding__ : quand cette valeur est true, les coordonnées des points de passage sont remplacées par une adresse ( valeur par défaut : true )
 - __wayPoint.geocodingIncludeName__ : quand cette valeur est true, un nom est si possible ajouté à l'adresse ( valeur par défaut : true )
 

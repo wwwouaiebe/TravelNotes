@@ -271,7 +271,7 @@ const theConfig = {
 		language : 'fr',
 		startupRouteEdition : true
 	},
-	TravelNotesToolbar :
+	travelNotesToolbar :
 	{
 		contactMail : {
 			url : 'https://github.com/wwwouaiebe/TravelNotes/issues'

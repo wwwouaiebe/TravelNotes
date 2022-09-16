@@ -88,7 +88,7 @@ class TravelNotesToolbar extends BaseToolbar {
 			new ToolbarItem (
 				'@',
 				'Contact',
-				( theConfig.TravelNotesToolbar.contactMail.url || window.location.origin )
+				( theConfig.travelNotesToolbar.contactMail.url || window.location.origin )
 			)
 		);
 		if ( theConfig.ApiKeysDialog.showButton ) {

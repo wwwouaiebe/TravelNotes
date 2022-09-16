@@ -24,7 +24,7 @@ See https://www.mozilla.org/en-US/security/advisories/mfsa2019-21/#CVE-2019-1173
 <a id="GuideNull"></a>
 ## 2. Installation Guide for Nulls
 
-No great computer skills? [Download the last version](https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v3.6.0.zip),
+No great computer skills? [Download the last version](https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v4.0.0.zip),
 and install the contents of the docs/demo/ directory in a directory on your server and open the index.html file. That's all :-).
 
 <a id="GuideGeeks"></a>
@@ -79,7 +79,7 @@ See the [JS code documentation](https://wwwouaiebe.github.io/TravelNotes/techDoc
 for more information.
 
 Note, however, that only the TravelNotes object is accessible from additional JS code 
-(via window.TaN - window.L.TravelNotes is deprecated but continues to work currently).
+(via window.TaN - window.L.TravelNotes is deprecated and removed from the code).
 
 If you want to use other objects, you need to download the sources and import them into your code 
 as EcmaScript modules.
@@ -96,15 +96,26 @@ The contents of the TravelNotesConfig.json file:
 - __APIKeysDialog.haveUnsecureButtons__ : when this value is true, buttons to save or restore the API keys in an unsecured file are present ( default value : false )
 - __APIKeysDialog.showAPIKeys__ : when this value is true, the API keys are readable in the dialog box ( default value : false )
 - __APIKeysDialog.showButton__ : when this value is true, the button 🔑 is present in the toolbar ( default value : true )
-- __colorDialog.haveSlider__ : when this value is true, the route properties dialog has a slider for the color red, otherwise it has buttons ( default value : true )
-- __colorDialog.initialRed__ : the initial value for the red slider ( default value : 0 )
+- __baseDialog.cancelTouchX__ : the distance in pixels between the left edge of the screen and the beginning of the zone where it is possible to cancel a dialog. Default value: 100.
+- __baseDialog.cancelTouchY__ : the distance in pixels between the upper edge of the screen and the end of the zone where it is possible to cancel a dialog. Default value: 150.
+- __baseDialog.deltaZoomDistance__ : the distance needed, in pixels, to increase the zoom of the map on touch screens. Default value: 75.
+- __baseDialog.touchTopScreen__ : when this value is "true" the dialogs are displayed at the top of the screen when it is touched
 - __contextMenu.timeout__ : the time that will elapse, in milliseconds, between the moment when the mouse is no longer on the contextual menu and the moment when the menu closes automatically ( default value : 1500 )
+- __dockableBaseDialog.timeout__ : the time that will elapse, in milliseconds, between the moment when the mouse is no longer on a dockable dialog and the moment when the dialog is automatically minimized (default value: 1500)
 - __errorsUI.helpTimeOut__ : the time that will elapse, in milliseconds, between the moment a help message is displayed and the moment it is deleted ( default value : 30000 )
 - __errorsUI.showError__ : when this value is true, error messages are displayed ( default value : true )
 - __errorsUI.showHelp__ : when this value is true, help messages are displayed ( default value : false )
 - __errorsUI.showInfo__ : when this value is true, information messages are displayed ( default value : true )
 - __errorsUI.showWarning__ : when this value is true, warning messages are displayed ( default value : true )
 - __errorsUI.timeOut__ : the time that will elapse, in milliseconds, between the moment a message is displayed and the moment it is deleted ( default value : 10000 )
+- __files.openTaN__ : a list of file extensions that will be considered travel files when opening a file. Default value: "json","trv".
+- __files.openGpx__ : a list of file extensions that will be considered gps files when opening a file. Default value: "gpx".
+- __files.writeTouch__ : the file extension to use when saving a travel file on a touchscreen device. Default value: "trv".
+- __files.writeOthers__ : the file extension to use when saving a travel file on a desktop computer. Default value: "trv".
+- __fontSize.initialValue__ : the text height in mm to use at startup. Default value: 3.5mm
+- __fontSize.incrementValue__ : the increment value of the text height when using the + and - buttons. Default value: 0.5mm.
+- __FullScreenUI.timeOut__ : the display duration in ms of the full screen interface on startup. Default value: 5000.
+- __FullScreenUI.screenMaxWidth__ : the maximum width of the screen, in pixels, for the fullscreen interface to be displayed. Default value: 1200 pixels.
 - __geoCoder.distances.city__ : the maximum distance in meters between the point given by the user for an address and a point with the place=city tag in OSM, so that this tag is used in the address ( default value : 1200 )
 - __geoCoder.distances.hamlet__ : the maximum distance in meters between the point given by the user for an address and a point with the place=hamlet tag in OSM, so that this tag is used in the address ( default value : 200 )
 - __geoCoder.distances.town__ : the maximum distance in meters between the point given by the user for an address and a point with the place=town tag in OSM, so that this tag is used in the address ( default value : 1500 )
@@ -116,23 +127,20 @@ The contents of the TravelNotesConfig.json file:
 - __geoLocation.options.enableHighAccuracy__ : see the Javascript options of the geolocation functions  ( default value : false )
 - __geoLocation.options.maximumAge__ : see the Javascript options of the geolocation functions  ( default value : 0 )
 - __geoLocation.options.timeout__ : see the Javascript options of the geolocation functions  ( default value : 3600000 )
-- __geoLocation.watch__ : when this value is true, the function watchPosition ( ) is used. Warning this function crash the  geolocation with Firefox Android.
+- __geoLocation.watch__ : when this value is true, the function watchPosition ( ) is used.
 - __geoLocation.zoomFactor__ : the zoom factor used for geolocation ( default value : 17 )
 - __geoLocation.zoomToPosition__ : when this value is true, a zoom on the position will be performed during the first geolocation ( default value : true )
-- __itineraryPaneUI.showManeuvers__ : when this value is true, the maneuvers are visible in the route description ( default value : false )
-- __itineraryPaneUI.showNotes__ : when this value is true, the notes are visible in the route description ( default value : true )
 - __itineraryPoint.marker.color__ : the color of the circle used to indicate a point on the route on the map ( default value : #ff0000 )
 - __itineraryPoint.marker.fill__ : the filling of the circle used to indicate a point on the route on the map ( default value : false )
 - __itineraryPoint.marker.radius__ : the radius of the circle used to indicate a point on the route on the map ( default value : 7 )
 - __itineraryPoint.marker.weight__ : the thickness of the circle used to indicate a point on the route on the map ( default value : 2 )
 - __itineraryPoint.zoomFactor__ : the zoom factor used when zooming on a point on the route ( default value : 17 )
-- __layersToolbarUI.haveLayersToolbarUI__ : when this value is true, the basemap toolbar is present ( default value : true )
-- __layersToolbarUI.toolbarTimeOut__ : the time that will elapse, in milliseconds, between the moment when the mouse is no longer on the toolbar and the moment when this toolbar closes automatically ( default value : 1500 )
-- __layersToolbarUI.theDevil.addButton__ : when this value is true, a button "theDevil" is added to the toolbar ( default value : true )
+- __mapContextMenu.mouseMaxRouteDistance__ : the distance, in pixels, between the point selected by the mouse and the road closest to this point to consider that the user wanted to select this road.
+- __mapContextMenu.touchMaxRouteDistance__ : the distance, in pixels, between the point selected by the touch screen and the road closest to this point to consider that the user wanted to select this road.
+- __mapLayersToolbar.theDevil.addButton__ : when this value is true, a button "theDevil" is added to the toolbar ( default value : true )
 - __map.center.lat__ : the latitude used for the center of the map at startup ( default value : 50.50923 )
 - __map.center.lng__ : the longitude used for the center of the map at startup ( default value : 5.49542 )
 - __map.zoom__ : the zoom used for the map at startup ( default value : 12 )
-- __mouseUI.haveMouseUI__ : when this value is true, a control is displayed at the top of the screen, indicating the coordinates of the mouse, the zoom value as well as the status of the save ( default value : true )
 - __nominatim.url__ : the url to use for Nominatim ( default value : "https://nominatim.openstreetmap.org/" )
 - __nominatim.language__ : the language to use for Nominatim ( default value : * )
 - __note.grip.size__ : the size of the handle at the end of a note's line ( default value : 10 )
@@ -156,15 +164,10 @@ The contents of the TravelNotesConfig.json file:
 - __note.svgIcon.zoom__ : the zoom value used to make the SVG icons ( default value : 17 )
 - __noteDialog.areaHeight.icon__ : the number of lines in the icon edit area ( default value : 2 )
 - __noteDialog.areaHeight.popupContent__ : the number of lines in the text edit area ( default value : 8 )
-- __noteDialog.mask.iconsDimension__ : when this value is true, the icon dimension controls are hidden ( default value : true )
-- __noteDialog.mask.iconTextArea__ :  when this value is true, the icon edit box is hidden ( default value : false )
-- __noteDialog.mask.tooltip__ : when this value is true, the tooltip edit box is hidden ( default value : false )
-- __noteDialog.mask.popupContent__ : when this value is true, the text edit box is hidden ( default value : false )
-- __noteDialog.mask.address__ : when this value is true, the address edit box is hidden ( default value : false )
-- __noteDialog.mask.link__ : when this value is true, the link edit box is hidden ( default value : false )
-- __noteDialog.mask.phone__ : when this value is true, the phone edit box is hidden ( default value : true )
 - __noteDialog.theDevil.addButton__ : when this value is true, a button "theDevil" is added to the edit dialog ( default value : true )
 - __noteDialog.theDevil.zoomFactor__ : the zoom used for the "theDevil" button ( default value : 17 )
+- __osmSearchDialog.dialogX__ : the default horizontal position of the "Searching OpenStreetMap" window relative to the top left corner of the screen
+- __osmSearchDialog.dialogY__ : the default vertical position of the "Searching OpenStreetMap" window relative to the top left corner of the screen
 - __osmSearch.nextSearchLimit.color__ : the color of the polyline used to indicate on the map the area of the next search ( default value : "#ff0000" )
 - __osmSearch.nextSearchLimit.fill__ : the filling of the polyline used to indicate on the map the area of the next search ( default value : false )
 - __osmSearch.nextSearchLimit.weight__ : the thickness of the polyline used to indicate on the map the area of the next search ( default value : 1 )
@@ -182,9 +185,6 @@ The contents of the TravelNotesConfig.json file:
 - __overpassApi.useNwr__ : some OverpassAPIOverpassAPI don't know the nwr instruction. When the case, set useNwr = false ( default value: true )
 - __overpassApi.timeOut__ : the time that will elapse, in seconds, between the moment when a request to OverpassAPI is launched and when a timeout will be triggered ( default value : 40 )
 - __overpassApi.url__ : the url to use for OverpassAPI ( default value : "https://lz4.overpass-api.de/api/interpreter" )
-- __paneUI.switchToItinerary__ : the route panel is activated each time the route is modified ( default value: false )
-- __paneUI.switchToTravelNotes__ : the travel notes panel is activated each time a note is modified ( default value: false )
-- __paneUI.switchToSearch__ : the OSM search panel is activated each time it is updated ( default value: true )
 - __printRouteMap.firefoxBrowser__ : when this value is true, the command uses css for firefox by default
 - __printRouteMap.isEnabled__ : when this value is true, the command to print the maps of a route is active ( default value : true )
 - __printRouteMap.borderWidth__ : the width in millimeters of the map edge that will be duplicated in each map ( default value : 10 )
@@ -215,13 +215,15 @@ Warning: the values in this array are numerical values and will be multiplied by
 - __route.showDragTooltip__ : the number of times the tooltip displayed when adding a waypoint is shown ( -1 = always ; default value : 0 )
 - __route.width__ : the default thickness of a route ( default value : 5	)
 - __routeEditor.showEditedRouteInRoadbook__ : when this value is true the modifications of the route being edited will be immediately imported into the roadbook ( default value : true )
-- __travelEditor.startMinimized__ : when this value is true, Travel & Notes is displayed in reduced form at startup ( default value : true )
-- __travelEditor.startupRouteEdition__ : when this value is true, a route is directly edited when loading a new travel ( default value : true )
-- __travelEditor.timeout__ : the time that will elapse, in milliseconds, between the moment when the mouse is no longer in Travel & Notes and the moment when it is reduced ( default value : 1500 )
-- __travelNotes.autoLoad__ : when this value is true, the map and all the controls are built automatically when the Travel & Notes javascript is loaded( default value : true )
+- __toolbars.timeOut__ : the time that will elapse, in milliseconds, between the moment the mouse leaves a toolbar and the moment it is hidden (default value: 1500)
 - __travelNotes.haveBeforeUnloadWarning__ : when this value is true, a confirmation message is displayed each time the travel being edited is going to be deleted ( default value : true )
 - __travelNotes.language__ : the language used by Travel & Notes, unless another language is specified in the url ( default value : "fr" )
-- __travelNotesToolbarUI.contactMail.url__ : the email address used in the contact button ( default value : "https://github.com/wwwouaiebe/TravelNotes/issues" )
+- __travelNotes.startupRouteEdition__ : when this value is true, a route is directly edited when loading a new travel ( default value : true )
+- __travelNotesToolbar.contactMail.url__ : the email address used in the contact button ( default value : "https://github.com/wwwouaiebe/TravelNotes/issues" )
+- __travelNotesDialog.dialogX__ : the default horizontal position of the "Travel Notes" window relative to the top left corner of the screen
+- __travelNotesDialog.dialogY__ : the default vertical position of the "Travel Notes" window relative to the top left corner of the screen
+- __travelPropertiesDialog.dialogX__ : the default horizontal position of the "Travel properties" window relative to the top left corner of the screen
+- __travelPropertiesDialog.dialogY__ : the default vertical position of the "Travel properties" window relative to the top left corner of the screen
 - __wayPoint.reverseGeocoding__ : when this value is true, the coordinates of the waypoints are replaced by an address ( default value : true )
 - __wayPoint.geocodingIncludeName__ : when this value is true, a name is if possible added to the address ( default value : true )
 
