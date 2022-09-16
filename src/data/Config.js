@@ -41,7 +41,8 @@ const theConfig = {
 	baseDialog : {
 		cancelTouchX : 100,
 		cancelTouchY : 150,
-		deltaZoomDistance : 75
+		deltaZoomDistance : 75,
+		touchTopScreen : true
 	},
 	contextMenu : {
 		timeout : 1500

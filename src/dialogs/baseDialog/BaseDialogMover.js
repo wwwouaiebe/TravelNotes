@@ -25,6 +25,7 @@ Doc reviewed 202208
 import ObjId from '../../data/ObjId.js';
 import theDevice from '../../core/lib/Device.js';
 import { ZERO, TWO, DIALOG_DRAG_MARGIN } from '../../main/Constants.js';
+import theConfig from '../../data/Config.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -145,7 +146,12 @@ class BaseDialogMover {
 		this.dialogHTMLElement.style [ 'max-width' ] =
 			String ( screenAvailable.width - ( TWO * DIALOG_DRAG_MARGIN ) ) + 'px';
 		this.#dialogX = ( screenAvailable.width - this.dialogHTMLElement.clientWidth ) / TWO;
-		this.#dialogY = ( screenAvailable.height - this.dialogHTMLElement.clientHeight ) / TWO;
+		if ( theConfig.baseDialog.touchTopScreen && theDevice.isTouch ) {
+			this.#dialogY = DIALOG_DRAG_MARGIN;
+		}
+		else {
+			this.#dialogY = ( screenAvailable.height - this.dialogHTMLElement.clientHeight ) / TWO;
+		}
 		this.#endMoveDialog ( );
 	}
 
