@@ -292,7 +292,7 @@ class OsmSearchEngine	{
 		)
 			.forEach ( poi => theTravelNotesData.searchData.push ( poi ) );
 		this.#searchStarted = false;
-		theEventDispatcher.dispatch ( 'showsearch' );
+		theEventDispatcher.dispatch ( 'updateosmsearch' );
 	}
 
 	/**

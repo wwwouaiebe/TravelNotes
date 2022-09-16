@@ -73,11 +73,11 @@ class SearchButtonClickEL {
 		theOsmSearchDictionary.dictionary.isExpanded = false;
 		this.#osmSearchTree.redraw ( );
 		theTravelNotesData.searchData.length = ZERO;
-		theEventDispatcher.dispatch ( 'showsearch' );
+		theEventDispatcher.dispatch ( 'updateosmsearch' );
 		this.#osmSearchWait.showWait ( );
 		theOsmSearchEngine.search ( );
 
-		// Notice: theOsmSearchEngine send a 'showsearch' event when the search is succesfully done
+		// Notice: theOsmSearchEngine send a 'updateosmsearch' event when the search is succesfully done
 	}
 }
 

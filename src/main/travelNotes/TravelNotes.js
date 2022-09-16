@@ -147,8 +147,8 @@ class TravelNotes {
 		}
 
 		// ...updating the route list and roadbook
-		theEventDispatcher.dispatch ( 'setrouteslist' );
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
 
 		// ... full screen UI
 		theFullScreenUI.show ( );

@@ -133,9 +133,8 @@ class FileLoader {
 		theRouteEditor.chainRoutes ( );
 
 		// Editors and HTML pages are filled
-		theEventDispatcher.dispatch ( 'setrouteslist' );
-		theEventDispatcher.dispatch ( 'showitinerary' );
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
 	}
 
 	/**

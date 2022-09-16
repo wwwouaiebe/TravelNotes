@@ -178,9 +178,8 @@ class Router {
 			}
 		);
 
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
-		theEventDispatcher.dispatch ( 'showitinerary' );
-		theEventDispatcher.dispatch ( 'setrouteslist' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
 	}
 
 	/**

@@ -107,8 +107,7 @@ class AllManeuverNotesBuilder {
 			}
 		}
 		this.#route.notes.sort ( ( first, second ) => first.distance - second.distance );
-		theEventDispatcher.dispatch ( 'updateitinerary' );
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
 		waitUI.close ( );
 	}
 

@@ -65,8 +65,8 @@ class RouteEditor {
 		theTravelNotesData.travel.routes.add ( route );
 		this.chainRoutes ( );
 		if ( ROUTE_EDITION_STATUS.editedChanged === theTravelNotesData.travel.editedRoute.editionStatus ) {
-			theEventDispatcher.dispatch ( 'setrouteslist' );
-			theEventDispatcher.dispatch ( 'roadbookupdate' );
+			theEventDispatcher.dispatch ( 'updatetravelproperties' );
+			theEventDispatcher.dispatch ( 'updateroadbook' );
 		}
 		else {
 			this.editRoute ( route.objId );
@@ -141,9 +141,8 @@ class RouteEditor {
 			}
 		);
 
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
-		theEventDispatcher.dispatch ( 'showitinerary' );
-		theEventDispatcher.dispatch ( 'setrouteslist' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
 	}
 
 	/**
@@ -176,8 +175,8 @@ class RouteEditor {
 		theProfileDialogsManager.deleteProfile ( routeToDeleteObjId );
 		this.chainRoutes ( );
 
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
-		theEventDispatcher.dispatch ( 'setrouteslist' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
 	}
 
 	/**
@@ -271,9 +270,8 @@ class RouteEditor {
 		theTravelNotesData.travel.editedRoute = new Route ( );
 		this.chainRoutes ( );
 
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
-		theEventDispatcher.dispatch ( 'setrouteslist' );
-		theEventDispatcher.dispatch ( 'showitinerary' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
 	}
 
 	/**
@@ -296,9 +294,8 @@ class RouteEditor {
 							}
 						);
 					}
-					theEventDispatcher.dispatch ( 'roadbookupdate' );
-					theEventDispatcher.dispatch ( 'setrouteslist' );
-					theEventDispatcher.dispatch ( 'updateitinerary' );
+					theEventDispatcher.dispatch ( 'updateroadbook' );
+					theEventDispatcher.dispatch ( 'updatetravelproperties' );
 				}
 			)
 			.catch (
@@ -342,7 +339,7 @@ class RouteEditor {
 				addedRouteObjId : routeObjId
 			}
 		);
-		theEventDispatcher.dispatch ( 'setrouteslist' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
 	}
 
 	/**
@@ -359,7 +356,7 @@ class RouteEditor {
 				addedRouteObjId : INVALID_OBJ_ID
 			}
 		);
-		theEventDispatcher.dispatch ( 'setrouteslist' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
 	}
 
 	/**
@@ -380,7 +377,7 @@ class RouteEditor {
 				);
 			}
 		}
-		theEventDispatcher.dispatch ( 'setrouteslist' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
 	}
 
 	/**
@@ -405,7 +402,7 @@ class RouteEditor {
 				);
 			}
 		}
-		theEventDispatcher.dispatch ( 'setrouteslist' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
 	}
 }
 

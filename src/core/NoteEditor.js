@@ -87,15 +87,15 @@ class NoteEditor {
 				this.#route.notes.sort (
 					( first, second ) => first.distance - second.distance
 				);
-				theEventDispatcher.dispatch ( 'showitinerary' );
 			}
 			else {
 				theTravelNotesData.travel.notes.add ( this.#note );
 				theEventDispatcher.dispatch ( 'updatetravelnotes' );
 			}
 		}
-		else {
-			theEventDispatcher.dispatch ( this.#route ? 'updateitinerary' : 'updatetravelnotes' );
+		else if ( ! this.#route ) {
+
+			theEventDispatcher.dispatch ( 'updatetravelnotes' );
 		}
 
 		theEventDispatcher.dispatch (
@@ -105,7 +105,7 @@ class NoteEditor {
 				addedNoteObjId : this.#note.objId
 			}
 		);
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
 	}
 
 	/**
@@ -320,7 +320,6 @@ class NoteEditor {
 
 			// it's a route note
 			noteAndRoute.route.notes.remove ( noteObjId );
-			theEventDispatcher.dispatch ( 'updateitinerary' );
 		}
 		else {
 
@@ -335,7 +334,7 @@ class NoteEditor {
 				addedNoteObjId : INVALID_OBJ_ID
 			}
 		);
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
 	}
 
 	/**
@@ -404,7 +403,7 @@ class NoteEditor {
 
 		if ( nearestRouteData.route ) {
 			theTravelNotesData.travel.notes.remove ( noteObjId );
-			note.distance = nearestRouteData.distance;
+			note.distance = nearestRouteData.distanceOnRoute;
 			note.latLng = nearestRouteData.latLngOnRoute;
 			note.chainedDistance = nearestRouteData.route.chainedDistance;
 			nearestRouteData.route.notes.add ( note );
@@ -419,9 +418,8 @@ class NoteEditor {
 					addedNoteObjId : noteObjId
 				}
 			);
-			theEventDispatcher.dispatch ( 'updateitinerary' );
 			theEventDispatcher.dispatch ( 'updatetravelnotes' );
-			theEventDispatcher.dispatch ( 'roadbookupdate' );
+			theEventDispatcher.dispatch ( 'updateroadbook' );
 		}
 	}
 
@@ -437,9 +435,8 @@ class NoteEditor {
 		noteAndRoute.note.chainedDistance = DISTANCE.defaultValue;
 		theTravelNotesData.travel.notes.add ( noteAndRoute.note );
 
-		theEventDispatcher.dispatch ( 'updateitinerary' );
 		theEventDispatcher.dispatch ( 'updatetravelnotes' );
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
 	}
 
 	/**
@@ -453,7 +450,7 @@ class NoteEditor {
 	travelNoteDropped ( draggedNoteObjId, targetNoteObjId, draggedBefore ) {
 		theTravelNotesData.travel.notes.moveTo ( draggedNoteObjId, targetNoteObjId, draggedBefore );
 		theEventDispatcher.dispatch ( 'updatetravelnotes' );
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
 	}
 }
 

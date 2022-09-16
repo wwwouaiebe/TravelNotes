@@ -45,65 +45,6 @@ class EventListenersLoader {
 
 	static addEventsListeners ( ) {
 		document.addEventListener (
-			'routeupdated',
-			updateRouteEvent => {
-				if ( updateRouteEvent.data ) {
-					theMapEditor.updateRoute (
-						updateRouteEvent.data.removedRouteObjId,
-						updateRouteEvent.data.addedRouteObjId
-					);
-				}
-			},
-			false
-		);
-		document.addEventListener (
-			'routepropertiesupdated',
-			updateRoutePropertiesEvent => {
-				if ( updateRoutePropertiesEvent.data ) {
-					theMapEditor.updateRouteProperties (
-						updateRoutePropertiesEvent.data.routeObjId
-					);
-				}
-			},
-			false
-		);
-		document.addEventListener (
-			'noteupdated',
-			updateNoteEvent => {
-				if ( updateNoteEvent.data ) {
-					theMapEditor.updateNote (
-						updateNoteEvent.data.removedNoteObjId,
-						updateNoteEvent.data.addedNoteObjId
-					);
-				}
-			},
-			false
-		);
-		document.addEventListener (
-			'removeobject',
-			removeObjectEvent => {
-				if ( removeObjectEvent.data ) {
-					theMapEditor.removeObject (
-						removeObjectEvent.data.objId
-					);
-				}
-			},
-			false
-		);
-		document.addEventListener ( 'removeallobjects',	( ) => theMapEditor.removeAllObjects ( ), false );
-		document.addEventListener (
-			'zoomto',
-			zoomToEvent => {
-				if ( zoomToEvent.data ) {
-					theMapEditor.zoomTo (
-						zoomToEvent.data.latLng,
-						zoomToEvent.data.geometry
-					);
-				}
-			},
-			false
-		);
-		document.addEventListener (
 			'additinerarypointmarker',
 			addItineraryPointMarkerEvent => {
 				if ( addItineraryPointMarkerEvent.data ) {
@@ -112,21 +53,7 @@ class EventListenersLoader {
 						addItineraryPointMarkerEvent.data.latLng
 					);
 				}
-			},
-			false
-		);
-		document.addEventListener (
-			'addsearchpointmarker',
-			addSearchPointMarkerEvent => {
-				if ( addSearchPointMarkerEvent.data ) {
-					theMapEditor.addSearchPointMarker (
-						addSearchPointMarkerEvent.data.objId,
-						addSearchPointMarkerEvent.data.latLng,
-						addSearchPointMarkerEvent.data.geometry
-					);
-				}
-			},
-			false
+			}
 		);
 		document.addEventListener (
 			'addrectangle',
@@ -138,8 +65,19 @@ class EventListenersLoader {
 						addRectangleEvent.data.properties
 					);
 				}
-			},
-			false
+			}
+		);
+		document.addEventListener (
+			'addsearchpointmarker',
+			addSearchPointMarkerEvent => {
+				if ( addSearchPointMarkerEvent.data ) {
+					theMapEditor.addSearchPointMarker (
+						addSearchPointMarkerEvent.data.objId,
+						addSearchPointMarkerEvent.data.latLng,
+						addSearchPointMarkerEvent.data.geometry
+					);
+				}
+			}
 		);
 		document.addEventListener (
 			'addwaypoint',
@@ -150,8 +88,23 @@ class EventListenersLoader {
 						addWayPointEvent.data.letter
 					);
 				}
-			},
-			false
+			}
+		);
+		document.addEventListener (
+			'geolocationpositionchanged',
+			geoLocationPositionChangedEvent => {
+				if ( geoLocationPositionChangedEvent.data ) {
+					theMapEditor.onGeolocationPositionChanged ( geoLocationPositionChangedEvent.data.position );
+				}
+			}
+		);
+		document.addEventListener (
+			'geolocationstatuschanged',
+			geoLocationStatusChangedEvent => {
+				if ( geoLocationStatusChangedEvent.data ) {
+					theMapEditor.onGeolocationStatusChanged ( geoLocationStatusChangedEvent.data.status );
+				}
+			}
 		);
 		document.addEventListener (
 			'layerchange',
@@ -162,62 +115,70 @@ class EventListenersLoader {
 			}
 		);
 		document.addEventListener (
-			'geolocationpositionchanged',
-			geoLocationPositionChangedEvent => {
-				if ( geoLocationPositionChangedEvent.data ) {
-					theMapEditor.onGeolocationPositionChanged ( geoLocationPositionChangedEvent.data.position );
+			'noteupdated',
+			updateNoteEvent => {
+				if ( updateNoteEvent.data ) {
+					theMapEditor.updateNote (
+						updateNoteEvent.data.removedNoteObjId,
+						updateNoteEvent.data.addedNoteObjId
+					);
 				}
-			},
-			false
+			}
 		);
-		document.addEventListener (
-			'geolocationstatuschanged',
-			geoLocationStatusChangedEvent => {
-				if ( geoLocationStatusChangedEvent.data ) {
-					theMapEditor.onGeolocationStatusChanged ( geoLocationStatusChangedEvent.data.status );
-				}
-			},
-			false
-		);
-		document.addEventListener ( 'roadbookupdate', new RoadbookUpdateEL ( ), false );
 		document.addEventListener (
 			'profileclosed',
 			profileClosedEvent => {
 				if ( profileClosedEvent.data ) {
 					theProfileDialogsManager.onProfileClosed ( profileClosedEvent.data.objId );
 				}
-			},
-			false
+			}
 		);
 		document.addEventListener (
-			'setrouteslist',
-			( ) => theDockableDialogsManager.travelPropertiesDialog.updateContent ( ),
-			false
+			'providersadded',
+			( ) => theProvidersToolbar.providersAdded ( )
 		);
 		document.addEventListener (
-			'updatetravelnotes',
-			( ) => theDockableDialogsManager.travelNotesDialog.updateContent ( ),
-			false
+			'removeallobjects',
+			( ) => theMapEditor.removeAllObjects ( )
 		);
 		document.addEventListener (
-			'showsearch',
-			( ) => theDockableDialogsManager.osmSearchDialog.updateContent ( ),
-			false
+			'removeobject',
+			removeObjectEvent => {
+				if ( removeObjectEvent.data ) {
+					theMapEditor.removeObject (
+						removeObjectEvent.data.objId
+					);
+				}
+			}
 		);
 		document.addEventListener (
-			'showtravelproperties',
-			( ) => theDockableDialogsManager.showTravelProperties ( ),
-			false
+			'routepropertiesupdated',
+			updateRoutePropertiesEvent => {
+				if ( updateRoutePropertiesEvent.data ) {
+					theMapEditor.updateRouteProperties (
+						updateRoutePropertiesEvent.data.routeObjId
+					);
+				}
+			}
 		);
-		document.addEventListener ( 'providersadded', ( ) => theProvidersToolbar.providersAdded ( ), false );
+		document.addEventListener (
+			'routeupdated',
+			updateRouteEvent => {
+				if ( updateRouteEvent.data ) {
+					theMapEditor.updateRoute (
+						updateRouteEvent.data.removedRouteObjId,
+						updateRouteEvent.data.addedRouteObjId
+					);
+				}
+			}
+		);
 		document.addEventListener (
 			'setprovider',
 			setProviderEvent => {
 				if ( setProviderEvent?.data?.provider ) {
 					theProvidersToolbar.provider = setProviderEvent.data.provider;
 				}
-			},
-			false
+			}
 		);
 		document.addEventListener (
 			'settransitmode',
@@ -225,10 +186,39 @@ class EventListenersLoader {
 				if ( setTransitModeEvent?.data?.transitMode ) {
 					theProvidersToolbar.transitMode = setTransitModeEvent.data.transitMode;
 				}
-			},
-			false
+			}
 		);
-
+		document.addEventListener (
+			'showtravelproperties',
+			( ) => theDockableDialogsManager.showTravelProperties ( )
+		);
+		document.addEventListener (
+			'updateosmsearch',
+			( ) => theDockableDialogsManager.osmSearchDialog.updateContent ( )
+		);
+		document.addEventListener (
+			'updateroadbook',
+			new RoadbookUpdateEL ( )
+		);
+		document.addEventListener (
+			'updatetravelnotes',
+			( ) => theDockableDialogsManager.travelNotesDialog.updateContent ( )
+		);
+		document.addEventListener (
+			'updatetravelproperties',
+			( ) => theDockableDialogsManager.travelPropertiesDialog.updateContent ( )
+		);
+		document.addEventListener (
+			'zoomto',
+			zoomToEvent => {
+				if ( zoomToEvent.data ) {
+					theMapEditor.zoomTo (
+						zoomToEvent.data.latLng,
+						zoomToEvent.data.geometry
+					);
+				}
+			}
+		);
 	}
 
 	/**

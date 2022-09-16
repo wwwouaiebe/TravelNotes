@@ -132,8 +132,8 @@ class TravelEditor {
 
 		theTravelNotesData.travel.routes.moveTo ( newDraggedRouteObjId, newTargetRouteObjId, draggedBefore );
 		theRouteEditor.chainRoutes ( );
-		theEventDispatcher.dispatch ( 'setrouteslist' );
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
 	}
 
 	/**
@@ -203,9 +203,8 @@ class TravelEditor {
 		theTravelNotesData.editedRouteObjId = INVALID_OBJ_ID;
 		theTravelNotesData.travel.jsonObject = new Travel ( ).jsonObject;
 
-		theEventDispatcher.dispatch ( 'setrouteslist' );
-		theEventDispatcher.dispatch ( 'showitinerary' );
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
 		theEventDispatcher.dispatch ( 'updatetravelnotes' );
 		if ( theConfig.travelNotes.startupRouteEdition ) {
 			theRouteEditor.editRoute ( theTravelNotesData.travel.routes.first.objId );

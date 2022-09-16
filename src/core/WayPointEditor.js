@@ -49,9 +49,8 @@ class WayPointEditor {
 
 	async #renameWayPointWithGeocoder ( wayPoint ) {
 		if ( ! theConfig.wayPoint.reverseGeocoding ) {
-			theEventDispatcher.dispatch ( 'setrouteslist' );
-			theEventDispatcher.dispatch ( 'showitinerary' );
-			theEventDispatcher.dispatch ( 'roadbookupdate' );
+			theEventDispatcher.dispatch ( 'updatetravelproperties' );
+			theEventDispatcher.dispatch ( 'updateroadbook' );
 			return;
 		}
 
@@ -70,9 +69,8 @@ class WayPointEditor {
 		if ( theConfig.wayPoint.geocodingIncludeName ) {
 			wayPoint.name = address.name;
 		}
-		theEventDispatcher.dispatch ( 'setrouteslist' );
-		theEventDispatcher.dispatch ( 'updateitinerary' );
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
 	}
 
 	/**
@@ -199,9 +197,8 @@ class WayPointEditor {
 				}
 			);
 		}
-		theEventDispatcher.dispatch ( 'setrouteslist' );
-		theEventDispatcher.dispatch ( 'showitinerary' );
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
 		theRouter.startRouting ( );
 	}
 
@@ -278,9 +275,8 @@ class WayPointEditor {
 			.show ( )
 			.then (
 				( ) => {
-					theEventDispatcher.dispatch ( 'setrouteslist' );
-					theEventDispatcher.dispatch ( 'showitinerary' );
-					theEventDispatcher.dispatch ( 'roadbookupdate' );
+					theEventDispatcher.dispatch ( 'updatetravelproperties' );
+					theEventDispatcher.dispatch ( 'updateroadbook' );
 				}
 			)
 			.catch (

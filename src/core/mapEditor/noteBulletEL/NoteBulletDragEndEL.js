@@ -76,7 +76,6 @@ class NoteBulletDragEndEL {
 			// the coordinates of the bullet are adapted
 			draggedLayerGroup.getLayer ( draggedLayerGroup.bulletId )
 				.setLatLng ( latLngDistance.latLng );
-			theEventDispatcher.dispatch ( 'updateitinerary' );
 		}
 
 		// in all cases, the polyline is updated
@@ -84,7 +83,7 @@ class NoteBulletDragEndEL {
 			.setLatLngs ( [ draggedNote.latLng, draggedNote.iconLatLng ] );
 
 		// and the HTML page is adapted
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
 	}
 }
 
