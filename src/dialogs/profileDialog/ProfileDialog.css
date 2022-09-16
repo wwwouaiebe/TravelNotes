@@ -25,6 +25,7 @@ Doc reviewed 202208
 
 .TravelNotes-ProfileDialog-SvgContainer {
 	width: 50em;
+	max-width: 90vw;
 }
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
