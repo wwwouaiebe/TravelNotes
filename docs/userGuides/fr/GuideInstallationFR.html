@@ -14,7 +14,6 @@
 </li>
 <li><a href="#Viewer">Utiliser le viewer</a></li>
 <li><a href="#Translations">Traductions</a></li>
-<li><a href="#Plugins">Plugins</a></li>
 </ol>
 <p><a id="WhereInstall"></a></p>
 <h2 id="1-où-installer-travel--notes">1. Où installer Travel &amp; Notes?</h2>
@@ -24,7 +23,7 @@ d&#39;un serveur web local de type LAMP or MAMP.
 Voir <a href="https://www.mozilla.org/en-US/security/advisories/mfsa2019-21/#CVE-2019-11730">https://www.mozilla.org/en-US/security/advisories/mfsa2019-21/#CVE-2019-11730</a></p>
 <p><a id="GuideNull"></a></p>
 <h2 id="2-guide-dinstallation-pour-les-null">2. Guide d&#39;installation pour les null</h2>
-<p>Pas de grandes connaissances informatiques? <a href="https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v3.6.0.zip">Téléchargez la dernière version</a>,
+<p>Pas de grandes connaissances informatiques? <a href="https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v4.0.0.zip">Téléchargez la dernière version</a>,
 copiez le contenu du répertoire docs/demo/ dans un répertoire sur votre serveur et ouvrez le fichier index.html. That&#39;s all :-).</p>
 <p><a id="GuideGeeks"></a></p>
 <h2 id="3-guide-dinstallation-pour-les-geeks">3. Guide d&#39;installation pour les geeks</h2>
@@ -66,7 +65,7 @@ télécharger et installer Leaflet.</p>
 <p>Voyez la <a href="https://wwwouaiebe.github.io/TravelNotes/techDoc/index.html">documentation du code JS</a>
 pour plus d&#39;informations.</p>
 <p>Notez cependant que seul l&#39;objet TravelNotes est accessible depuis du code JS additionnel 
-(via window.TaN - window.L.TravelNotes est déprécié mais continue à fonctionner pour l&#39;instant).</p>
+(via window.TaN - window.L.TravelNotes est déprécié et a été retiré du code).</p>
 <p>Si vous désirez utiliser d&#39;autres objets, vous devez télécharger les sources et les importer dans votre code comme 
 des modules EcmaScript.</p>
 <p><a id="TravelNotesConfigJson"></a></p>
@@ -79,15 +78,26 @@ modifiez ce fichier. Vous devez suivre <strong>toutes</strong> les règles d&#39
 <li><strong>APIKeysDialog.haveUnsecureButtons</strong> : quand cette valeur est true, des  boutons pour enrégistrer ou restaurer les clefs d&#39;accès dans un fichier non sécurisé sont présents ( valeur par défaut : false )</li>
 <li><strong>APIKeysDialog.showAPIKeys</strong> : quand cette valeur est true, les clefs d&#39;accès sont lisibles dans la boite de dialogue ( valeur par défaut : false )</li>
 <li><strong>APIKeysDialog.showButton</strong> : quand cette valeur est true, le bouton 🔑 est présent dans la barre d&#39;outils ( valeur par défaut : true )</li>
-<li><strong>colorDialog.haveSlider</strong> : quand cette valeur est true, le dialogue des propriétés des routes a un slider pour la couleur rouge, autrement il a des boutons ( valeur par défaut : true )</li>
-<li><strong>colorDialog.initialRed</strong> : la valeur initiale pour le slider rouge ( valeur par défaut : 0 )</li>
+<li><strong>baseDialog.cancelTouchX</strong> : la distance en pixel entre le bord gauche de l&#39;écran et le début la zone oµ il est possible d&#39;annuler un dialogue. Valeur par défaut : 100.</li>
+<li><strong>baseDialog.cancelTouchY</strong> : la distance en pixel entre le bord supérieur de l&#39;écran et la fin la zone oµ il est possible d&#39;annuler un dialogue. Valeur par défaut : 150.</li>
+<li><strong>baseDialog.deltaZoomDistance</strong> : la distance nécessaire, en pixel, pour incrémenter le zoom de la carte sur les écrans tactiles. Valeur par défaut : 75.</li>
+<li><strong>baseDialog.touchTopScreen</strong> : lorsque cette valeur est &quot;true&quot; les dialogues sont affichés en haut se l&#39;écran quand celui-ci est tactile</li>
 <li><strong>contextMenu.timeout</strong> : le temps qui va s&#39;écouler, en millisecondes, entre le moment où la souris ne se trouve plus sur le menu contextuel et le moment ou le menu se ferme automatiquement ( valeur par défaut : 1500 )</li>
+<li><strong>dockableBaseDialog.timeout</strong> : le temps qui va s&#39;écouler, en millisecondes, entre le moment où la souris ne se trouve plus sur un dialogue dockable et le moment ou le dialogue se réduit automatiquement ( valeur par défaut : 1500 )</li>
 <li><strong>errorsUI.helpTimeOut</strong> : le temps qui va s&#39;écouler, en millisecondes, entre le moment où un message d&#39;aide est affiché et le moment où il est effacé ( valeur par défaut : 30000 )</li>
 <li><strong>errorsUI.showError</strong> : quand cette valeur est true, les messages d&#39;erreur sont affichés ( valeur par défaut : true )</li>
 <li><strong>errorsUI.showHelp</strong> : quand cette valeur est true, les messages d&#39;aide sont affichés ( valeur par défaut : false )</li>
 <li><strong>errorsUI.showInfo</strong> : quand cette valeur est true, les messages d&#39;information sont affichés ( valeur par défaut : true )</li>
 <li><strong>errorsUI.showWarning</strong> : quand cette valeur est true, les messages d&#39;avertissement sont affichés ( valeur par défaut : true )</li>
-<li><strong>errorsUI.timeOut</strong> : le temps qui va s&#39;écouler, en millisecondes, entre le moment où un message est affiché et le moment où il est effacé ( valeur par défaut : 10000 )</li>
+<li><strong>errorsUI.timeOut</strong> : le temps qui va s&#39;écouler, en millisecondes, entre le moment où un message est affiché et le moment où il est effacé ( valeur par défaut : 10000 )
+ <strong>files.openTaN</strong> : une liste des extensions de fichiers qui seront considérés comme des fichiers de voyage lors de l&#39;ouverture d&#39;un fichier. Valeur par défaut : &quot;json&quot;,&quot;trv&quot;.</li>
+<li><strong>files.openGpx</strong> : une liste des extensions de fichiers qui seront considérés comme des fichiers gps lors de l&#39;ouverture d&#39;un fichier. Valeur par défaut : &quot;gpx&quot;.</li>
+<li><strong>files.writeTouch</strong> : l&#39;extension de fichier à utiliser lors de la sauvegarde d&#39;un fichier de voyage sur un appareil avec écran tactile. Valeur par défaut : &quot;trv&quot;.</li>
+<li><strong>files.writeOthers</strong> : l&#39;extension de fichier à utiliser lors de la sauvegarde d&#39;un fichier de voyage sur un ordinateur de bureau. Valeur par défaut : &quot;trv&quot;.</li>
+<li><strong>fontSize.initialValue</strong> : la hauteur de texte en mm à utiliser au démarrage. Valeur par défaut : 3.5 mm</li>
+<li><strong>fontSize.incrementValue</strong> : la valeur d&#39;incrémentation de la hauteur de texte lors de l&#39;utilisation des boutons + et -. Valeur par défaut : 0.5 mm.</li>
+<li><strong>FullScreenUI.timeOut</strong> : la durée d&#39;affichage en ms de l&#39;interface fullscreen au démarage. Valeur par défaut : 5000.</li>
+<li><strong>FullScreenUI.screenMaxWidth</strong> : la largeur maximale de l&#39;écran, en pixel, pour que l&#39;interface fullscreen soit affichée. Valeur par défaut : 1200 pixels.</li>
 <li><strong>geoCoder.distances.city</strong> : la distance maximum en mètres entre le point donné par l&#39;utilisateur pour une adresse et un point avec le tag place=city dans OSM, pour que ce tag soit utilisé dans l&#39;adresse ( valeur par défaut : 1200 )</li>
 <li><strong>geoCoder.distances.hamlet</strong> : la distance maximum en mètres entre le point donné par l&#39;utilisateur pour une adresse et un point avec le tag place=hamlet dans OSM, pour que ce tag soit utilisé dans l&#39;adresse ( valeur par défaut : 200 )</li>
 <li><strong>geoCoder.distances.town</strong> : la distance maximum en mètres entre le point donné par l&#39;utilisateur pour une adresse et un point avec le tag place=town dans OSM, pour que ce tag soit utilisé dans l&#39;adresse ( valeur par défaut : 1500 )</li>
@@ -99,23 +109,20 @@ modifiez ce fichier. Vous devez suivre <strong>toutes</strong> les règles d&#39
 <li><strong>geoLocation.options.enableHighAccuracy</strong> : voir les options Javascript des fonctions de localisation ( valeur par défaut : false )</li>
 <li><strong>geoLocation.options.maximumAge</strong> : voir les options Javascript des fonctions de localisation ( valeur par défaut : 0 )</li>
 <li><strong>geoLocation.options.timeout</strong> : voir les options Javascript des fonctions de localisation ( valeur par défaut : 3600000 )</li>
-<li><strong>geoLocation.watch</strong> : quand cette valeur est true, la fonction watchPosition ( ) est utilisée. Attention, cette fonction plante le geolocation avec Firefox Android</li>
+<li><strong>geoLocation.watch</strong> : quand cette valeur est true, la fonction watchPosition ( ) est utilisée.</li>
 <li><strong>geoLocation.zoomFactor</strong> : le facteur de zoom utilisé pour la geolocalisation ( valeur par défaut : 17 )</li>
 <li><strong>geoLocation.zoomToPosition</strong> : quand cette valeur est true, un zoom sur la position sera effectué lors de la première geolocalisation ( valeur par défaut : true )</li>
-<li><strong>itineraryPaneUI.showManeuvers</strong> : quand cette valeur est true, les manoeuvres sont visibles dans la description de l&#39;itinéraire ( valeur par défaut : false )</li>
-<li><strong>itineraryPaneUI.showNotes</strong> : quand cette valeur est true, les notes sont visibles dans la description de l&#39;itinéraire ( valeur par défaut : true )</li>
 <li><strong>itineraryPoint.marker.color</strong> : la couleur du cercle utilisé pour indiquer sur la carte un point de l&#39;itinéraire ( valeur par défaut : #ff0000 )</li>
 <li><strong>itineraryPoint.marker.fill</strong> : le remplissage du cercle utilisé pour indiquer sur la carte un point de l&#39;itinéraire ( valeur par défaut : false )</li>
 <li><strong>itineraryPoint.marker.radius</strong> : le rayon du cercle utilisé pour indiquer sur la carte un point de l&#39;itinéraire ( valeur par défaut : 7 )</li>
 <li><strong>itineraryPoint.marker.weight</strong> : l&#39;épaisseur du cercle utilisé pour indiquer sur la carte un point de l&#39;itinéraire ( valeur par défaut : 2 )</li>
 <li><strong>itineraryPoint.zoomFactor</strong> : le facteur de zoom utilisé lorsqu&#39;un zoom est fait sur un point de l&#39;itinéraire ( valeur par défaut : 17 )</li>
-<li><strong>layersToolbarUI.haveLayersToolbarUI</strong> : quand cette valeur est true, la barre d&#39;outils des fonds de carte est présente ( valeur par défaut : true )</li>
-<li><strong>layersToolbarUI.toolbarTimeOut</strong> : le temps qui va s&#39;écouler, en millisecondes, entre le moment où la souris ne se trouve plus sur la barre d&#39;outils et le moment où cette barre d&#39;outils se ferme automatiquement ( valeur par défaut : 1500 )</li>
-<li><strong>layersToolbarUI.theDevil.addButton</strong> : quand cette valeur est true, un bouton &quot;theDevil&quot; est ajouté à la barre d&#39;outils ( valeur par défaut : true )</li>
+<li><strong>mapContextMenu.mouseMaxRouteDistance</strong> : la distance, en pixels, entre le point sélectionné par la souris et la route la plus proche de ce point pour considérer que l&#39;utilisateur voulait sélectionner cette route.</li>
+<li><strong>mapContextMenu.touchMaxRouteDistance</strong> : la distance, en pixels, entre le point sélectionné par l&#39;écran tactile et la route la plus proche de ce point pour considérer que l&#39;utilisateur voulait sélectionner cette route.</li>
+<li><strong>mapLayersToolbar.theDevil.addButton</strong> : quand cette valeur est true, un bouton &quot;theDevil&quot; est ajouté à la barre d&#39;outils ( valeur par défaut : true )</li>
 <li><strong>map.center.lat</strong> : la latitude utilisée pour le centre de la carte au démarage ( valeur par défaut : 50.50923 )</li>
 <li><strong>map.center.lng</strong> : la longitude utilisée pour le centre de la carte au démarage ( valeur par défaut : 5.49542 )</li>
 <li><strong>map.zoom</strong> : le zoom utilisé pour la carte au démarage ( valeur par défaut : 12 )</li>
-<li><strong>mouseUI.haveMouseUI</strong> : quand cette valeur est true, un contrôle est affiché en haut de l&#39;écran, indiquant les coordonnées de la souris, la valeur du zoom ainsi que le statut de la sauvegarde ( valeur par défaut : true )</li>
 <li><strong>nominatim.url</strong> : l&#39;url à utiliser pour Nominatim ( valeur par défaut : &quot;<a href="https://nominatim.openstreetmap.org/&quot;">https://nominatim.openstreetmap.org/&quot;</a> )</li>
 <li><strong>nominatim.language</strong> : la langue à utiliser pour Nominatim ( valeur par défaut : * )</li>
 <li><strong>note.grip.size</strong> : la dimension de la poignée à l&#39;extrémité de la ligne de rappel d&#39;une note ( valeur par défaut : 10 )</li>
@@ -139,15 +146,10 @@ modifiez ce fichier. Vous devez suivre <strong>toutes</strong> les règles d&#39
 <li><strong>note.svgIcon.zoom</strong> : la valeur du zoom utilisé pour réaliser les icônes SVG ( valeur par défaut : 17 )</li>
 <li><strong>noteDialog.areaHeight.icon</strong> : le nombre de lignes de la zone d&#39;édition de l&#39;icône ( valeur par défaut : 2 )</li>
 <li><strong>noteDialog.areaHeight.popupContent</strong> : le nombre de lignes de la zone d&#39;édition du texte ( valeur par défaut : 8 )</li>
-<li><strong>noteDialog.mask.iconsDimension</strong> : quand cette valeur est true, les contrôles de dimension de l&#39;icône sont masqués ( valeur par défaut : true )</li>
-<li><strong>noteDialog.mask.iconTextArea</strong> :  quand cette valeur est true, la zone d&#39;édition de l&#39;icône est masquée ( valeur par défaut : false )</li>
-<li><strong>noteDialog.mask.tooltip</strong> : quand cette valeur est true, la zone d&#39;édition du tooltip est masquée ( valeur par défaut : false )</li>
-<li><strong>noteDialog.mask.popupContent</strong> : quand cette valeur est true, la zone d&#39;édition du texte est masquée ( valeur par défaut : false )</li>
-<li><strong>noteDialog.mask.address</strong> : quand cette valeur est true, la zone d&#39;édition de l&#39;adresse est masquée ( valeur par défaut : false )</li>
-<li><strong>noteDialog.mask.link</strong> : quand cette valeur est true, la zone d&#39;édition du lien est masquée ( valeur par défaut : false )</li>
-<li><strong>noteDialog.mask.phone</strong> : quand cette valeur est true, la zone d&#39;édition du téléphone est masquée ( valeur par défaut : true )</li>
 <li><strong>noteDialog.theDevil.addButton</strong> : quand cette valeur est true, un bouton &quot;theDevil&quot; est ajouté à la boite de dialogue d&#39;édition ( valeur par défaut : true )</li>
 <li><strong>noteDialog.theDevil.zoomFactor</strong> : le zoom utilisé pour le bouton &quot;theDevil&quot; ( valeur par défaut : 17 )</li>
+<li><strong>osmSearchDialog.dialogX</strong> : la position horizontale par defaut de la fenêtre &quot;Recherche OpenStreetMap&quot; par rapport au coin supérieur gauche de l&#39;écran</li>
+<li><strong>osmSearchDialog.dialogY</strong> : la position verticale par defaut de la fenêtre &quot;Recherche OpenStreetMap&quot; par rapport au coin supérieur gauche de l&#39;écran</li>
 <li><strong>osmSearch.nextSearchLimit.color</strong> : la couleur de la polyline utilisée pour indiquer sur la carte la zone de la prochaine recherche ( valeur par défaut : &quot;#ff0000&quot; )</li>
 <li><strong>osmSearch.nextSearchLimit.fill</strong> : le remplissage de la polyline utilisée pour indiquer sur la carte la zone de la prochaine recherche ( valeur par défaut : false )</li>
 <li><strong>osmSearch.nextSearchLimit.weight</strong> : l&#39;épaisseur de la polyline utilisée pour indiquer sur la carte la zone de la prochaine recherche ( valeur par défaut : 1 )</li>
@@ -165,9 +167,6 @@ modifiez ce fichier. Vous devez suivre <strong>toutes</strong> les règles d&#39
 <li><strong>overpassApi.useNwr</strong> : certaines instances de OverpassAPI ne connaissent pas l&#39;instruction nwr. Dans ce cas il faut mettre useNwr = false ( valeur par defaut: true )</li>
 <li><strong>overpassApi.timeOut</strong> : le temps qui va s&#39;écouler, en secondes, entre le moment où une requête vers OverpassAPI est lancée et celui où un timeout sera déclenché ( valeur par défaut : 40 )</li>
 <li><strong>overpassApi.url</strong> : l&#39;url à utiliser pour OverpassAPI ( valeur par défaut : &quot;<a href="https://lz4.overpass-api.de/api/interpreter&quot;">https://lz4.overpass-api.de/api/interpreter&quot;</a> )</li>
-<li><strong>paneUI.switchToItinerary</strong> : le panneau de l&#39;itinéraire est activé chaque fois que celui-ci est modifié ( valeur par défaut : false )</li>
-<li><strong>paneUI.switchToTravelNotes</strong> : le panneau des notes de voyage est activé chaque fois que une note est modifiée ( valeur par défaut : false )</li>
-<li><strong>paneUI.switchToSearch</strong> : le panneau de la recherche OSM est activé chaque fois que celle-ci est mise à jour ( valeur par défaut : true )</li>
 <li><strong>printRouteMap.firefoxBrowser</strong> : quand cette valeur est true, la commande utilise les css pour firefox par défaut</li>
 <li><strong>printRouteMap.isEnabled</strong> : quand cette valeur est true, la commande pour imprimer les cartes d&#39;un trajet est active ( valeur par défaut : true )</li>
 <li><strong>printRouteMap.borderWidth</strong> : la largeur en millimètres du bord de carte qui sera dupliqué dans chaque carte ( valeur par défaut : 10 )</li>
@@ -198,13 +197,15 @@ Attention: les valeurs contenues dans ce tableau sont des valeurs numériques et
 <li><strong>route.showDragTooltip</strong> : le nombre de fois que le tooltip affiché lors de l&#39;ajout d&#39;un point de passage est montré ( -1 = toujours ; valeur par défaut : 0 )</li>
 <li><strong>route.width</strong> : l&#39;épaisseur par défaut d&#39;un trajet ( valeur par défaut : 5    )</li>
 <li><strong>routeEditor.showEditedRouteInRoadbook</strong> : quand cette valeur est true les modifications du trajet en cours d&#39;édition seront immédiatement importées dans le livre de voyage ( valeur par défaut : true )</li>
-<li><strong>travelEditor.startMinimized</strong> : quand cette valeur est true, Travel &amp; Notes est affiché sous forme réduite au départ ( valeur par défaut : true )</li>
-<li><strong>travelEditor.startupRouteEdition</strong> : quand cette valeur est true, un trajet est directement édité au chargement d&#39;un nouveau voyage ( valeur par défaut : true )</li>
-<li><strong>travelEditor.timeout</strong> : le temps qui va s&#39;écouler, en millisecondes entre le moment où la souris ne se trouve plus dans Travel &amp; Notes et le moment où celui-ci sera réduit ( valeur par défaut : 1500 )</li>
-<li><strong>travelNotes.autoLoad</strong> : quand cette valeur est true, la carte et tous les contrôles sont construits automatiquement au chargement du javascript de Travel &amp; Notes ( valeur par défaut : true )</li>
+<li><strong>toolbars.timeOut</strong> : le temps qui va s&#39;écouler, en millisecondes, entre le moment où la souris quitte une barre d&#39;outil et le moment où celle-ci est masquée ( valeur par défaut : 1500 )</li>
 <li><strong>travelNotes.haveBeforeUnloadWarning</strong> : quand cette valeur est true, un message de confirmation est affiché chaque fois que le voyage en cours d&#39;édition va être effacé ( valeur par défaut : true )</li>
 <li><strong>travelNotes.language</strong> : la langue utilisée par Travel&amp; Notes, sauf si une autre langue est précisée dans l&#39;url ( valeur par défaut : &quot;fr&quot; )</li>
-<li><strong>travelNotesToolbarUI.contactMail.url</strong> : l&#39;adresse mail utilisée dans le bouton contact ( valeur par défaut : &quot;<a href="https://github.com/wwwouaiebe/TravelNotes/issues&quot;">https://github.com/wwwouaiebe/TravelNotes/issues&quot;</a> )</li>
+<li><strong>travelNotes.startupRouteEdition</strong> : quand cette valeur est true, un trajet est directement édité au chargement d&#39;un nouveau voyage ( valeur par défaut : true )</li>
+<li><strong>travelNotesToolbar.contactMail.url</strong> : l&#39;adresse mail utilisée dans le bouton contact ( valeur par défaut : &quot;<a href="https://github.com/wwwouaiebe/TravelNotes/issues&quot;">https://github.com/wwwouaiebe/TravelNotes/issues&quot;</a> )</li>
+<li><strong>travelNotesDialog.dialogX</strong> : la position horizontale par defaut de la fenêtre &quot;Notes de voyage&quot; par rapport au coin supérieur gauche de l&#39;écran</li>
+<li><strong>travelNotesDialog.dialogY</strong> : la position verticale par defaut de la fenêtre &quot;Notes de voyage&quot; par rapport au coin supérieur gauche de l&#39;écran</li>
+<li><strong>travelPropertiesDialog.dialogX</strong> : la position horizontale par defaut de la fenêtre &quot;Propriétés du voyage&quot; par rapport au coin supérieur gauche de l&#39;écran</li>
+<li><strong>travelPropertiesDialog.dialogY</strong> : la position verticale par defaut de la fenêtre &quot;Propriétés du voyage&quot; par rapport au coin supérieur gauche de l&#39;écran</li>
 <li><strong>wayPoint.reverseGeocoding</strong> : quand cette valeur est true, les coordonnées des points de passage sont remplacées par une adresse ( valeur par défaut : true )</li>
 <li><strong>wayPoint.geocodingIncludeName</strong> : quand cette valeur est true, un nom est si possible ajouté à l&#39;adresse ( valeur par défaut : true )</li>
 </ul>
@@ -393,7 +394,4 @@ Pour charger Travel &amp; Notes dans une autre langue, ajoutez à l&#39;url lng=
 (exemple pour utiliser Travel &amp; Notes en en: <a href="https://wwwouaiebe.github.io/TravelNotes/?lng=en">https://wwwouaiebe.github.io/TravelNotes/?lng=en</a>.</p>
 <p>L&#39;organisation de ces fichiers est la plus proche possible de celle de 
 <a href="https://en.wikipedia.org/wiki/Gettext">GNU getText</a></p>
-<p><a id="Plugins"></a></p>
-<h2 id="6-plugins">6. Plugins</h2>
-<p>Pour utiliser un plugin, chargez simplement celui-ci à partir de la page html en utilisant le tag &lt;script&gt;</p>
 </body></html>

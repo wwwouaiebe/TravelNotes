@@ -113,5 +113,9 @@ p {
 }
 ul, ol {
 	padding-left : 1em;;
-	list-style-position: inside;
+	list-style-position: outside;
+}
+
+li > p {
+	display: inline;
 }

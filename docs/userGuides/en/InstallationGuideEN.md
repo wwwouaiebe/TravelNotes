@@ -12,7 +12,6 @@
 	7. ["Search OpenStreetMap" settings](#OsmSearch)
 4. [Using the viewer](#Viewer)
 5. [Translations](#Translations)
-6. [Plugins](#Plugins)
 
 <a id="WhereInstall"></a>
 ## 1. Where to install Travel & Notes?
@@ -433,8 +432,3 @@ To load Travel & Notes in another language, add to the url lng = and the languag
 
 The organization of these files is as close as possible to that of 
 [GNU getText](https://en.wikipedia.org/wiki/Gettext)
-
-<a id="Plugins"></a>
-## 6. Plugins
-
-To use a plugin, simply load it from the html page using the tag <script>

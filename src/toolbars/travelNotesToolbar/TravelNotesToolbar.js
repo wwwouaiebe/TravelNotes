@@ -70,36 +70,16 @@ class TravelNotesToolbar extends BaseToolbar {
 	*/
 
 	addToolbarItems ( ) {
-		this.addToolbarItem (
-			new ToolbarItem (
-				'🏠',
-				'Home',
-				window.location.origin
-			)
-		);
-		this.addToolbarItem (
-			new ToolbarItem (
-				'?',
-				'Help',
-				'https://wwwouaiebe.github.io/TravelNotes/userGuides/README.html\u0023'
-			)
-		);
-		this.addToolbarItem (
-			new ToolbarItem (
-				'@',
-				'Contact',
-				( theConfig.travelNotesToolbar.contactMail.url || window.location.origin )
-			)
-		);
-		if ( theConfig.ApiKeysDialog.showButton ) {
-			this.addToolbarItem (
-				new ToolbarItem (
-					'🔑',
-					theTranslator.getText ( 'TravelNotesToolbar - api keys' ),
-					( ) => { theApiKeysManager.setKeysFromDialog ( ); }
-				)
-			);
-		}
+		const writeExtension = theDevice.isTouch ? theConfig.files.writeTouch : theConfig.files.writeOthers;
+		const translationVar = Object.seal ( { openTaN : '', openGpx : '' } );
+		theConfig.files.openTaN.forEach ( fileExtension => translationVar.openTaN += '.' + fileExtension + ',' );
+		theConfig.files.openGpx.forEach ( fileExtension => translationVar.openGpx += '.' + fileExtension + ',' );
+		const fileExtensions = ( translationVar.openTaN + translationVar.openGpx ).slice ( ZERO, -ONE );
+		translationVar.openTaN = translationVar.openTaN.slice ( ZERO, -ONE );
+		translationVar.openGpx = translationVar.openGpx.slice ( ZERO, -ONE );
+		translationVar.openTaN.replaceAll ( ',', ', ' );
+		translationVar.openGpx.replaceAll ( ',', ', ' );
+
 		this.addToolbarItem (
 			theGeoLocator.status === GEOLOCATION_STATUS.active
 				?
@@ -114,14 +94,6 @@ class TravelNotesToolbar extends BaseToolbar {
 					theTranslator.getText ( 'TravelNotesToolbar - Start Geo location' ),
 					( ) => { theGeoLocator.switch ( ); }
 				)
-		);
-		const writeExtension = theDevice.isTouch ? theConfig.files.writeTouch : theConfig.files.writeOthers;
-		this.addToolbarItem (
-			new ToolbarItem (
-				'☢️',
-				theTranslator.getText ( 'TravelNotesToolbar - Save as travel', { extension : writeExtension } ),
-				( ) => { theTravelEditor.saveAsTravel ( ); }
-			)
 		);
 		this.addToolbarItem (
 			new ToolbarItem (
@@ -142,14 +114,6 @@ class TravelNotesToolbar extends BaseToolbar {
 				( ) => { theTravelEditor.saveTravel ( ); }
 			)
 		);
-		const translationVar = Object.seal ( { openTaN : '', openGpx : '' } );
-		theConfig.files.openTaN.forEach ( fileExtension => translationVar.openTaN += '.' + fileExtension + ',' );
-		theConfig.files.openGpx.forEach ( fileExtension => translationVar.openGpx += '.' + fileExtension + ',' );
-		const fileExtensions = ( translationVar.openTaN + translationVar.openGpx ).slice ( ZERO, -ONE );
-		translationVar.openTaN = translationVar.openTaN.slice ( ZERO, -ONE );
-		translationVar.openGpx = translationVar.openGpx.slice ( ZERO, -ONE );
-		translationVar.openTaN.replaceAll ( ',', ', ' );
-		translationVar.openGpx.replaceAll ( ',', ', ' );
 		this.addToolbarItem (
 			new ToolbarItem (
 				'📂',
@@ -197,6 +161,15 @@ class TravelNotesToolbar extends BaseToolbar {
 						theTravelNotesData.UUID
 			)
 		);
+		if ( theConfig.ApiKeysDialog.showButton ) {
+			this.addToolbarItem (
+				new ToolbarItem (
+					'🔑',
+					theTranslator.getText ( 'TravelNotesToolbar - api keys' ),
+					( ) => { theApiKeysManager.setKeysFromDialog ( ); }
+				)
+			);
+		}
 		this.addToolbarItem (
 			new ToolbarItem (
 				'🛄',
@@ -216,6 +189,20 @@ class TravelNotesToolbar extends BaseToolbar {
 				'🔍',
 				theTranslator.getText ( 'Search with OpenStreetMap' ),
 				( ) => { theDockableDialogsManager.osmSearchDialog.show ( ); }
+			)
+		);
+		this.addToolbarItem (
+			new ToolbarItem (
+				'☢️',
+				theTranslator.getText ( 'TravelNotesToolbar - Save as travel', { extension : writeExtension } ),
+				( ) => { theTravelEditor.saveAsTravel ( ); }
+			)
+		);
+		this.addToolbarItem (
+			new ToolbarItem (
+				'🛠️',
+				theTranslator.getText ( 'TravelNotesToolbar - About Travel & Notes' ),
+				( ) => new AboutDialog ( ).show ( )
 			)
 		);
 		if ( document.fullscreenEnabled ) {
@@ -251,9 +238,23 @@ class TravelNotesToolbar extends BaseToolbar {
 		);
 		this.addToolbarItem (
 			new ToolbarItem (
-				'🛠️',
-				theTranslator.getText ( 'TravelNotesToolbar - About Travel & Notes' ),
-				( ) => new AboutDialog ( ).show ( )
+				'🏠',
+				'Home',
+				window.location.origin
+			)
+		);
+		this.addToolbarItem (
+			new ToolbarItem (
+				'?',
+				'Help',
+				'https://wwwouaiebe.github.io/TravelNotes/userGuides/README.html\u0023'
+			)
+		);
+		this.addToolbarItem (
+			new ToolbarItem (
+				'@',
+				'Contact',
+				( theConfig.travelNotesToolbar.contactMail.url || window.location.origin )
 			)
 		);
 	}

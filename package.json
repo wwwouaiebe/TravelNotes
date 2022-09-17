@@ -1,6 +1,6 @@
 {
   "name": "travelnotes",
-  "version": "4.0.0-beta",
+  "version": "4.0.0",
   "description": "A mapping and routing application.",
   "main": "src/main/Main.js",
   "dependencies": {
