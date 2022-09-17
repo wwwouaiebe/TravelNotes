@@ -17,52 +17,25 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 /*
 Changes:
-	- v1.0.0:
-		- created
-	- v1.1.0:
-		- Issue ♯26 : added confirmation message before leaving the page when data modified.
-		- Issue ♯27 : push directly the route in the editor when starting a new travel
-		- Issue ♯31 : Add a command to import from others maps
-		- Issue ♯34 : Add a command to show all routes
-		- Issue ♯37 : Add the file name and mouse coordinates somewhere
-	- v1.3.0:
-		- moved JSON.parse, due to use of Promise
-	- v1.4.0:
-		- Replacing DataManager with TravelNotesData, Config, Version and DataSearchEngine
-		- moving file functions from TravelEditor to the new FileLoader
-	- v1.5.0:
-		- Issue ♯52 : when saving the travel to the file, save also the edited route.
-	- v1.6.0:
-		- Issue ♯65 : Time to go to ES6 modules?
-	- v1.7.0:
-		- Issue ♯90 : Open profiles are not closed when opening a travel or when starting a new travel
-	- v1.12.0:
-		- Issue ♯120 : Review the UserInterface
-	-v2.2.0:
-		- Issue ♯129 : Add an indicator when the travel is modified and not saved
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210914
-Tests 20210902
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
-import theTranslator from '../UILib/Translator.js';
+import theTranslator from './uiLib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theConfig from '../data/Config.js';
-import theErrorsUI from '../errorsUI/ErrorsUI.js';
-import theRouteEditor from '../core/RouteEditor.js';
-import theUtilities from '../UILib/Utilities.js';
+import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
+import theRouteEditor from './RouteEditor.js';
+import theUtilities from './uiLib/Utilities.js';
 import Travel from '../data/Travel.js';
-import theEventDispatcher from '../coreLib/EventDispatcher.js';
-import FileCompactor from '../coreLib/FileCompactor.js';
-import theProfileWindowsManager from '../core/ProfileWindowsManager.js';
+import theEventDispatcher from './lib/EventDispatcher.js';
+import FileCompactor from './lib/FileCompactor.js';
+import theProfileDialogsManager from './ProfileDialogsManager.js';
 import { INVALID_OBJ_ID, SAVE_STATUS } from '../main/Constants.js';
-import theMouseUI from '../mouseUI/MouseUI.js';
-import SaveAsDialog from '../dialogs/SaveAsDialog.js';
+import theMouseUI from '../uis/mouseUI/MouseUI.js';
+import SaveAsDialog from '../dialogs/saveAsDialog/SaveAsDialog.js';
+import theDevice from './lib/Device.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -104,10 +77,26 @@ class TravelEditor {
 		}
 		const compressedSaveAsTravel = new FileCompactor ( ).compress ( saveAsTravel );
 		theUtilities.saveFile (
-			compressedSaveAsTravel.name + '.trv',
+			compressedSaveAsTravel.name + '.' +
+				( theDevice.isTouch ? theConfig.files.writeTouch : theConfig.files.writeOthers ),
 			JSON.stringify ( compressedSaveAsTravel ),
 			'application/json'
 		);
+	}
+
+	/**
+	Verify that the travel have a name.
+	Show an error and the TravelPropertiesDialog if no name
+	@return {Boolean} true when the travel is named
+	*/
+
+	#verifyTravelName ( ) {
+		if ( '' === theTravelNotesData.travel.name ) {
+			theErrorsUI.showError ( theTranslator.getText ( 'TravelEditor - Gives a name to the travel' ) );
+			theEventDispatcher.dispatch ( 'showtravelproperties' );
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -143,8 +132,8 @@ class TravelEditor {
 
 		theTravelNotesData.travel.routes.moveTo ( newDraggedRouteObjId, newTargetRouteObjId, draggedBefore );
 		theRouteEditor.chainRoutes ( );
-		theEventDispatcher.dispatch ( 'setrouteslist' );
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
 	}
 
 	/**
@@ -152,15 +141,14 @@ class TravelEditor {
 	*/
 
 	saveAsTravel ( ) {
-		if ( '' === theTravelNotesData.travel.name ) {
-			theErrorsUI.showError ( theTranslator.getText ( 'TravelEditor - Gives a name to the travel' ) );
+		if ( ! this.#verifyTravelName ( ) ) {
 			return;
 		}
-
 		if ( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId ) {
 			theErrorsUI.showError (
 				theTranslator.getText ( 'TravelEditor - Not possible to partial save when a route is edited.' )
 			);
+			theEventDispatcher.dispatch ( 'showtravelproperties' );
 			return;
 		}
 
@@ -180,8 +168,7 @@ class TravelEditor {
 	*/
 
 	saveTravel ( ) {
-		if ( '' === theTravelNotesData.travel.name ) {
-			theErrorsUI.showError ( theTranslator.getText ( 'TravelEditor - Gives a name to the travel' ) );
+		if ( ! this.#verifyTravelName ( ) ) {
 			return;
 		}
 		const routesIterator = theTravelNotesData.travel.routes.iterator;
@@ -189,7 +176,12 @@ class TravelEditor {
 			routesIterator.value.hidden = false;
 		}
 		const compressedTravel = new FileCompactor ( ).compress ( theTravelNotesData.travel );
-		theUtilities.saveFile ( compressedTravel.name + '.trv', JSON.stringify ( compressedTravel ), 'application/json' );
+		theUtilities.saveFile (
+			compressedTravel.name + '.' +
+			( theDevice.isTouch ? theConfig.files.writeTouch : theConfig.files.writeOthers ),
+			JSON.stringify ( compressedTravel ),
+			'application/json'
+		);
 		theMouseUI.saveStatus = SAVE_STATUS.saved;
 	}
 
@@ -205,17 +197,16 @@ class TravelEditor {
 		) {
 			return;
 		}
-		theProfileWindowsManager.deleteAllProfiles ( );
+		theProfileDialogsManager.deleteAllProfiles ( );
 		theEventDispatcher.dispatch ( 'removeallobjects' );
 
 		theTravelNotesData.editedRouteObjId = INVALID_OBJ_ID;
 		theTravelNotesData.travel.jsonObject = new Travel ( ).jsonObject;
 
-		theEventDispatcher.dispatch ( 'setrouteslist' );
-		theEventDispatcher.dispatch ( 'showitinerary' );
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
-		theEventDispatcher.dispatch ( 'travelnameupdated' );
-		if ( theConfig.travelEditor.startupRouteEdition ) {
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
+		theEventDispatcher.dispatch ( 'updatetravelnotes' );
+		if ( theConfig.travelNotes.startupRouteEdition ) {
 			theRouteEditor.editRoute ( theTravelNotesData.travel.routes.first.objId );
 		}
 		theMouseUI.saveStatus = SAVE_STATUS.saved;

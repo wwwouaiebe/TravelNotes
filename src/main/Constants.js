@@ -17,85 +17,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 /*
 Changes:
-	- v1.12.0:
-		- created
-	- v2.0.0:
-		- Issue ♯135 : Remove innerHTML from code
-		- Issue ♯138 : Protect the app - control html entries done by user.
-	-v2.2.0:
-		- Issue ♯129 : Add an indicator when the travel is modified and not saved
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-Doc reviewed 20210901
-Tests ...
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
-/* eslint no-magic-numbers: "off" */
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-Enum for the ColorControl and Color classes
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class COLOR_CONTROL {
-
-	/**
-	The min value for a color
-	@type {Number}
-	*/
-
-	static get minColorValue ( ) { return 0; }
-
-	/**
-	The max value for a color
-	@type {Number}
-	*/
-
-	static get maxColorValue ( ) { return 255; }
-
-	/**
-	The number of rows of the color control
-	@type {Number}
-	*/
-
-	static get rowsNumber ( ) { return 6; }
-
-	/**
-	The number of cells of the color control
-	@type {Number}
-	*/
-
-	static get cellsNumber ( ) { return 6; }
-
-	/**
-	The delta of color between two cells
-	@type {Number}
-	*/
-
-	static get deltaColor ( ) { return 51; }
-
-	/**
-	The max value of the red slider
-	@type {Number}
-	*/
-
-	static get sliderMaxValue ( ) { return 100; }
-
-	/**
-	The value between each step of the red slider
-	@type {Number}
-	*/
-
-	static get sliderStep ( ) { return 20; }
-
-	/**
-	The initial value of the red slider
-	@type {Number}
-	*/
-
-	static get initialRed ( ) { return 0; }
-}
+/* eslint-disable no-magic-numbers */
+/* eslint-disable max-classes-per-file */
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -372,43 +300,6 @@ class LAT_LNG {
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-Enum for id's for panes in thePaneManagerUI
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class PANE_ID {
-
-	/**
-	The current pane is invalid
-	@type {String}
-	*/
-
-	static get invalidPane ( ) { return '43a6a53e-008a-4910-80a6-7a87d301ea15'; }
-
-	/**
-	The itinerary pane
-	@type {String}
-	*/
-
-	static get itineraryPane ( ) { return '8fbf0da7-4e6f-4bc7-8e20-1388461ccde7'; }
-
-	/**
-	The travel notes pane
-	@type {String}
-	*/
-
-	static get travelNotesPane ( ) { return 'dffe782b-07df-4b81-a318-f287c0cf5ec6'; }
-
-	/**
-	The search pane
-	@type {String}
-	*/
-
-	static get searchPane ( ) { return '228f00d7-43a8-4c13-897d-70400cb6dd58'; }
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
 Enum for edition status of a route
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -469,12 +360,50 @@ class SAVE_STATUS {
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
+Enum for the toolbars position
+*/
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+class TOOLBAR_POSITION {
+
+	/**
+	The toolbar will be displayed on the top left corner of the screen
+	@type {String}
+	*/
+
+	static get topLeft ( ) { return 'TravelNotes-BaseToolbar-TopLeft'; }
+
+	/**
+	The toolbar will be displayed on the top right corner of the screen
+	@type {String}
+	*/
+
+	static get topRight ( ) { return 'TravelNotes-BaseToolbar-TopRight'; }
+
+	/**
+	The toolbar will be displayed on the bottom left corner of the screen
+	@type {String}
+	*/
+
+	static get bottomLeft ( ) { return 'TravelNotes-BaseToolbar-BottomLeft'; }
+
+	/**
+	The toolbar will be displayed on the bottom right corner of the screen
+	@type {String}
+	*/
+
+	static get bottomRight ( ) { return 'TravelNotes-BaseToolbar-BottomRight'; }
+
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/**
 The margin around the map where drag of dialogs is not possible
 @type {Number}
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-const DIALOG_DRAG_MARGIN = 20;
+const DIALOG_DRAG_MARGIN = 40;
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -641,16 +570,20 @@ const ZERO = 0;
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
+/* eslint-enable no-magic-numbers */
+/* eslint-enable max-classes-per-file */
+
 export {
-	COLOR_CONTROL,
-	DEGREES, DISTANCE,
+	DEGREES,
+	DISTANCE,
 	ELEV,
 	GEOLOCATION_STATUS,
 	ICON_DIMENSIONS,
 	ICON_POSITION,
-	LAT_LNG, PANE_ID,
+	LAT_LNG,
 	ROUTE_EDITION_STATUS,
 	SAVE_STATUS,
+	TOOLBAR_POSITION,
 	DIALOG_DRAG_MARGIN,
 	EARTH_RADIUS,
 	ELEVATION,

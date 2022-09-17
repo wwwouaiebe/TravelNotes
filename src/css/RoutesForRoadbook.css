@@ -16,17 +16,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file RoutesForRoadbook.css
-@desc CSS for Routes on the Roadbook
+/*
 Changes:
-	- v1.0.0:
-		- created
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 .TravelNotes-Roadbook-Route-Header {
 	border-style: solid;
@@ -51,6 +46,4 @@ Changes:
 	padding-bottom: 2em;
 }
 
-/*
---- End of RoutesForRoadbook.css ----------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

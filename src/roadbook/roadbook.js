@@ -15,22 +15,14 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 /*
 Changes:
-	- v1.5.0:
-		- created
-	- v2.0.0:
-		- Issue ♯135 : Remove innerHTML from code
-		- Issue ♯138 : Protect the app - control html entries done by user.
-		- Issue ♯146 : Add the travel name in the document title...
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210915
-Tests ...
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
-import RoadbookLoader from '../roadbook/RoadbookLoader.js';
+import RoadbookLoader from './RoadbookLoader.js';
 
 new RoadbookLoader ( ).loadRoadbook ( );
 

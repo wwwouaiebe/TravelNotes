@@ -371,7 +371,7 @@
 		"url":"https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=standaard&TILEMATRIXSET=EPSG:3857&TILEMATRIX=EPSG:3857:{z}&TILEROW={y}&TILECOL={x}&FORMAT=image/png8",
 		"minZoom":6,
 		"maxZoom":18,
-		"name":"NL",
+		"name":"PDOK - Nederland",
 		"bounds":[ [ 48.04, -1.65 ], [ 55.91, 11.29 ] ],
 		"toolbar":
 		{

@@ -14,19 +14,13 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file Hidden.css
-@desc CSS for hidden elements
+/*
 Changes:
-	- v1.0.0:
-		- created
-	- v3.4.0:
-		- Issue ♯22 : Nice to have a table view for notes in the roadbook
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
-@------------------------------------------------------------------------------------------------------------------------------
-*/
 .TravelNotes-Hidden > *,
 .TravelNotes-Hidden > * > *,
 .TravelNotes-Hidden > * > * > *,
@@ -46,6 +40,4 @@ Changes:
 	transform: scale(0);
 }
 
-/*
---- End of Hidden.css ---------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

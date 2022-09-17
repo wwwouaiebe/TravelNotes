@@ -15,36 +15,21 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 // eslint-disable-next-line no-undef
 module.exports = {
 	debug : {
 		options : {
 			src : './src',
-			dest : './docs/techDoc'
-		}
-	},
-	doc : {
-		options : {
-			src : './src',
-			dest : './docs/techDoc',
-			validate : true
-		}
-	},
-	doclaunch : {
-		options : {
-			src : './src',
-			dest : './docs/techDoc',
+			dest : 'docs/techDoc',
 			validate : true,
-			launch : true
+			noFiles : true
 		}
 	},
 	release : {
 		options : {
 			src : './src',
 			dest : './docs/techDoc',
-			validate : true,
-			launch : true
+			validate : true
 		}
 	}
 };

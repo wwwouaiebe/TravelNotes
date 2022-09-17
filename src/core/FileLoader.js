@@ -17,40 +17,22 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 /*
 Changes:
-	- v1.4.0:
-		- created from TravelEditor
-	- v1.5.0:
-		- Issue ♯52 : when saving the travel to the file, save also the edited route.
-		- Issue ♯61 : Disable right context menu when readonly travel.
-	- v1.6.0:
-		- Issue ♯65 : Time to go to ES6 modules?
-	- v1.7.0:
-		- Issue ♯90 : Open profiles are not closed when opening a travel or when starting a new travel
-	- v1.12.0:
-		- Issue ♯120 : Review the UserInterface
-	-v2.2.0:
-		- Issue ♯129 : Add an indicator when the travel is modified and not saved
-	-v2.3.0:
-		- Issue ♯171 : Add a warning when opening a file with invalid version
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210921
-Tests 20210903
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
-import theTranslator from '../UILib/Translator.js';
+import theTranslator from './uiLib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
-import GpxParser from '../coreLib/GpxParser.js';
-import theErrorsUI from '../errorsUI/ErrorsUI.js';
-import theMouseUI from '../mouseUI/MouseUI.js';
-import theMapLayersToolbarUI from '../mapLayersToolbarUI/MapLayersToolbarUI.js';
-import theRouteEditor from '../core/RouteEditor.js';
-import FileCompactor from '../coreLib/FileCompactor.js';
-import theEventDispatcher from '../coreLib/EventDispatcher.js';
-import theProfileWindowsManager from '../core/ProfileWindowsManager.js';
-import Zoomer from '../core/Zoomer.js';
+import GpxParser from './lib/GpxParser.js';
+import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
+import theMouseUI from '../uis/mouseUI/MouseUI.js';
+import theMapLayersManager from './MapLayersManager.js';
+import theRouteEditor from './RouteEditor.js';
+import FileCompactor from './lib/FileCompactor.js';
+import theEventDispatcher from './lib/EventDispatcher.js';
+import theProfileDialogsManager from './ProfileDialogsManager.js';
+import Zoomer from './Zoomer.js';
 import Travel from '../data/Travel.js';
 
 import { INVALID_OBJ_ID, ROUTE_EDITION_STATUS, SAVE_STATUS } from '../main/Constants.js';
@@ -113,12 +95,13 @@ class FileLoader {
 				}
 			);
 		}
+		theEventDispatcher.dispatch ( 'updatetravelnotes' );
 
 		// zoom on travel
 		new Zoomer ( ).zoomToTravel ( );
 
 		// Setting the correct map
-		theMapLayersToolbarUI.setMapLayer ( theTravelNotesData.travel.layerName );
+		theMapLayersManager.setMapLayer ( theTravelNotesData.travel.layerName );
 
 		// Changing provider and transit mode if an edited route is found and if possible
 		if ( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId ) {
@@ -150,10 +133,8 @@ class FileLoader {
 		theRouteEditor.chainRoutes ( );
 
 		// Editors and HTML pages are filled
-		theEventDispatcher.dispatch ( 'setrouteslist' );
-		theEventDispatcher.dispatch ( 'travelnameupdated' );
-		theEventDispatcher.dispatch ( 'showitinerary' );
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
 	}
 
 	/**
@@ -172,7 +153,7 @@ class FileLoader {
 	openLocalGpxFile ( fileContent ) {
 
 		// Closing all profiles
-		theProfileWindowsManager.deleteAllProfiles ( );
+		theProfileDialogsManager.deleteAllProfiles ( );
 
 		// Parsing the gpx
 		theTravelNotesData.travel.jsonObject = new GpxParser ( ).parse ( fileContent ).jsonObject;
@@ -194,7 +175,7 @@ class FileLoader {
 	openLocalTrvFile ( fileContent ) {
 
 		// Closing all profiles
-		theProfileWindowsManager.deleteAllProfiles ( );
+		theProfileDialogsManager.deleteAllProfiles ( );
 
 		const travelJsonObject = JSON.parse ( fileContent );
 
@@ -253,8 +234,8 @@ class FileLoader {
 	}
 
 	/**
-	Merge the content of a trv file with the currently displayed Travel
-	@param {String} fileContent The trv file content to merge
+	Merge the content of a TaN file with the currently displayed Travel
+	@param {String} fileContent The TaN file content to merge
 	*/
 
 	mergeLocalTrvFile ( fileContent ) {

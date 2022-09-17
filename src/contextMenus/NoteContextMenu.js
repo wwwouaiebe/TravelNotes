@@ -15,28 +15,20 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 /*
 Changes:
-	- v1.6.0:
-		- created
-		- Issue ♯69 : ContextMenu and ContextMenuFactory are unclear.
-	- v1.12.0:
-		- Issue ♯120 : Review the UserInterface
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210913
-Tests ...
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
-import { BaseContextMenu, MenuItem } from '../contextMenus/BaseContextMenu.js';
+import BaseContextMenu from './baseContextMenu/BaseContextMenu.js';
+import MenuItem from './baseContextMenu/MenuItem.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import theNoteEditor from '../core/NoteEditor.js';
 import Zoomer from '../core/Zoomer.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
-import theTranslator from '../UILib/Translator.js';
+import theTranslator from '../core/uiLib/Translator.js';
 
 import { INVALID_OBJ_ID } from '../main/Constants.js';
 
@@ -63,9 +55,7 @@ class NoteContextMenu extends BaseContextMenu {
 
 	constructor ( contextMenuEvent, parentNode ) {
 		super ( contextMenuEvent, parentNode );
-		if ( this.eventData ) {
-			this.#route = theDataSearchEngine.getNoteAndRoute ( this.eventData.targetObjId ).route;
-		}
+		this.#route = theDataSearchEngine.getNoteAndRoute ( this.targetObjId ).route;
 	}
 
 	/**
@@ -78,17 +68,17 @@ class NoteContextMenu extends BaseContextMenu {
 			new MenuItem (
 				theTranslator.getText ( 'NoteContextMenu - Edit this note' ),
 				true,
-				( ) => theNoteEditor.editNote ( this.eventData.targetObjId )
+				( ) => theNoteEditor.editNote ( this.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'NoteContextMenu - Delete this note' ),
 				true,
-				( ) => theNoteEditor.removeNote ( this.eventData.targetObjId )
+				( ) => theNoteEditor.removeNote ( this.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'NoteContextMenu - Zoom to note' ),
 				true,
-				( ) => new Zoomer ( ).zoomToNote ( this.eventData.targetObjId )
+				( ) => new Zoomer ( ).zoomToNote ( this.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText (
@@ -100,10 +90,10 @@ class NoteContextMenu extends BaseContextMenu {
 				INVALID_OBJ_ID === theTravelNotesData.editedRouteObjId,
 				( ) => {
 					if ( this.#route ) {
-						theNoteEditor.detachNoteFromRoute ( this.eventData.targetObjId );
+						theNoteEditor.detachNoteFromRoute ( this.targetObjId );
 					}
 					else {
-						theNoteEditor.attachNoteToRoute ( this.eventData.targetObjId );
+						theNoteEditor.attachNoteToRoute ( this.targetObjId );
 					}
 				}
 			)

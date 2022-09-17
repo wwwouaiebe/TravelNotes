@@ -17,48 +17,23 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 /*
 Changes:
-	- v1.0.0:
-		- created
-	- v1.4.0:
-		- Replacing DataManager with TravelNotesData, Config, Version and DataSearchEngine
-		- added newSearchNote method and modified endNoteDialog for update of the travel note pane
-		- added attachNoteToRoute and detachNoteFromRoute methods
-	- v1.5.0:
-		- Issue ♯52 : when saving the travel to the file, save also the edited route.
-	- v1.6.0:
-		- Issue ♯65 : Time to go to ES6 modules?
-		- Issue ♯66 : Work with promises for dialogs
-		- Issue ♯70 : Put the get...HTML functions outside of the editors
-		- Issue ♯68 : Review all existing promises.
-	- v1.11.0:
-		- Issue ♯110 : Add a command to create a SVG icon from osm for each maneuver
-	- v1.12.0:
-		- Issue ♯120 : Review the UserInterface
-	- v1.13.0:
-		- Issue ♯128 : Unify osmSearch and notes icons and data
-	- v2.0.0:
-		- Issue ♯135 : Remove innerHTML from code
-		- Issue ♯138 : Protect the app - control html entries done by user.
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210914
-Tests 20210902
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
-import theTranslator from '../UILib/Translator.js';
+import theTranslator from './uiLib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
-import NoteDialog from '../dialogNotes/NoteDialog.js';
+import NoteDialog from '../dialogs/notesDialog/NoteDialog.js';
 import Note from '../data/Note.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
-import theEventDispatcher from '../coreLib/EventDispatcher.js';
-import theGeometry from '../coreLib/Geometry.js';
+import theEventDispatcher from './lib/EventDispatcher.js';
+import theGeometry from './lib/Geometry.js';
 import theConfig from '../data/Config.js';
-import WaitUI from '../waitUI/WaitUI.js';
-import theErrorsUI from '../errorsUI/ErrorsUI.js';
-import theNoteDialogToolbarData from '../dialogNotes/NoteDialogToolbarData.js';
-import GeoCoder from '../coreLib/GeoCoder.js';
+import WaitUI from '../uis/waitUI/WaitUI.js';
+import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
+import theNoteDialogToolbarData from '../dialogs/notesDialog/toolbar/NoteDialogToolbarData.js';
+import GeoCoder from './lib/GeoCoder.js';
 
 import { DISTANCE, INVALID_OBJ_ID } from '../main/Constants.js';
 
@@ -112,15 +87,15 @@ class NoteEditor {
 				this.#route.notes.sort (
 					( first, second ) => first.distance - second.distance
 				);
-				theEventDispatcher.dispatch ( 'showitinerary' );
 			}
 			else {
 				theTravelNotesData.travel.notes.add ( this.#note );
-				theEventDispatcher.dispatch ( 'showtravelnotes' );
+				theEventDispatcher.dispatch ( 'updatetravelnotes' );
 			}
 		}
-		else {
-			theEventDispatcher.dispatch ( this.#route ? 'updateitinerary' : 'updatetravelnotes' );
+		else if ( ! this.#route ) {
+
+			theEventDispatcher.dispatch ( 'updatetravelnotes' );
 		}
 
 		theEventDispatcher.dispatch (
@@ -130,7 +105,7 @@ class NoteEditor {
 				addedNoteObjId : this.#note.objId
 			}
 		);
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
 	}
 
 	/**
@@ -345,7 +320,6 @@ class NoteEditor {
 
 			// it's a route note
 			noteAndRoute.route.notes.remove ( noteObjId );
-			theEventDispatcher.dispatch ( 'updateitinerary' );
 		}
 		else {
 
@@ -360,7 +334,7 @@ class NoteEditor {
 				addedNoteObjId : INVALID_OBJ_ID
 			}
 		);
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
 	}
 
 	/**
@@ -429,7 +403,7 @@ class NoteEditor {
 
 		if ( nearestRouteData.route ) {
 			theTravelNotesData.travel.notes.remove ( noteObjId );
-			note.distance = nearestRouteData.distance;
+			note.distance = nearestRouteData.distanceOnRoute;
 			note.latLng = nearestRouteData.latLngOnRoute;
 			note.chainedDistance = nearestRouteData.route.chainedDistance;
 			nearestRouteData.route.notes.add ( note );
@@ -444,9 +418,8 @@ class NoteEditor {
 					addedNoteObjId : noteObjId
 				}
 			);
-			theEventDispatcher.dispatch ( 'updateitinerary' );
 			theEventDispatcher.dispatch ( 'updatetravelnotes' );
-			theEventDispatcher.dispatch ( 'roadbookupdate' );
+			theEventDispatcher.dispatch ( 'updateroadbook' );
 		}
 	}
 
@@ -462,9 +435,8 @@ class NoteEditor {
 		noteAndRoute.note.chainedDistance = DISTANCE.defaultValue;
 		theTravelNotesData.travel.notes.add ( noteAndRoute.note );
 
-		theEventDispatcher.dispatch ( 'updateitinerary' );
 		theEventDispatcher.dispatch ( 'updatetravelnotes' );
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
 	}
 
 	/**
@@ -478,7 +450,7 @@ class NoteEditor {
 	travelNoteDropped ( draggedNoteObjId, targetNoteObjId, draggedBefore ) {
 		theTravelNotesData.travel.notes.moveTo ( draggedNoteObjId, targetNoteObjId, draggedBefore );
 		theEventDispatcher.dispatch ( 'updatetravelnotes' );
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
 	}
 }
 

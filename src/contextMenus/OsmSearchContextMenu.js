@@ -15,80 +15,23 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 /*
 Changes:
-	- v1.12.0:
-		- created
-	- v1.13.0:
-		- Issue ♯126 : Add a command "select as start/end/intermediate point" in the osmSearch context menu
-		- Issue ♯128 : Unify osmSearch and notes icons and data
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210913
-Tests ...
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
-import { BaseContextMenu, MenuItem } from '../contextMenus/BaseContextMenu.js';
+import BaseContextMenu from './baseContextMenu/BaseContextMenu.js';
+import MenuItem from './baseContextMenu/MenuItem.js';
 import theNoteEditor from '../core/NoteEditor.js';
 import Zoomer from '../core/Zoomer.js';
-import theTranslator from '../UILib/Translator.js';
+import theTranslator from '../core/uiLib/Translator.js';
 import theWayPointEditor from '../core/WayPointEditor.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
+import PoiData from '../containers/PoiData.js';
+import theEventDispatcher from '../core/lib/EventDispatcher.js';
 import { LAT_LNG, INVALID_OBJ_ID } from '../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-A simple container with the lat, lng and geometry of a point of interest
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class PoiData {
-
-	/**
-	The lat and lng of the POI
-	@type {Array.<Number>}
-	*/
-
-	#latLng;
-
-	/**
-	The geometry of the POI  The lat and lng of the objects representing the POI on OSM ( POI can be a point ,
-	a polyline or a relation ).
-	@type {Array.<Array.<Array.<Number>>>}
-	*/
-
-	#geometry;
-
-	/**
-	The constructor
-	@param {Array.<Number>} latLng The lat and lng of the POI
-	@param {Array.<Array.<Array.<Number>>>} geometry
-	*/
-
-	constructor ( latLng, geometry ) {
-		this.#latLng = latLng;
-		this.#geometry = geometry;
-	}
-
-	/**
-	The lat and lng of the POI
-	@type {Array.<Number>} The geometry of the POI
-	*/
-
-	get latLng ( ) { return this.#latLng; }
-
-	/**
-	The geometry of the POI  The lat and lng of the objects representing the POI on OSM ( POI can be a point ,
-	a polyline or a relation ).
-	@type {Array.<Array.<Array.<Number>>>}
-	*/
-
-	get geometry ( ) { return this.#geometry; }
-
-}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -123,6 +66,7 @@ class OsmSearchContextMenu extends BaseContextMenu {
 		this.#osmElement =
 			theTravelNotesData.searchData [ Number.parseInt ( contextMenuEvent.currentTarget.dataset.tanElementIndex ) ];
 		this.#latLng = [ this.#osmElement.lat, this.#osmElement.lon ];
+		theEventDispatcher.dispatch ( 'removeobject', { objId : this.targetObjId } );
 	}
 
 	/**

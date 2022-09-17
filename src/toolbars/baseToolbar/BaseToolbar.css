@@ -1,0 +1,103 @@
+/*
+Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
+
+This  program is free software;
+you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation;
+either version 3 of the License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+/*
+Changes:
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
+
+.TravelNotes-BaseToolbar-ToolbarHTMLElement {
+	position: absolute;
+	width: 3em;
+	height: auto;
+	max-height: 100vh;
+	z-index: 800;
+	font-weight: bold;
+}
+
+.TravelNotes-BaseToolbar-TopLeft {
+	top: 0;
+	left: 0;
+}
+
+.TravelNotes-BaseToolbar-TopRight {
+	top: 0;
+	right: 0;
+}
+
+.TravelNotes-BaseToolbar-HeaderHTMLElement {
+	text-align: center;
+	width: 3em;
+	height: 8em;
+	color: white;
+	background-color: black;
+	margin: 0;
+	padding: 0;
+}
+
+/*
+About the transformation:
+- width and height are width and height before the transformation
+- transformations are applied in the order of the declaration
+- more simple to rotate as last transformation
+- height will be better fixed to 1.7em and translateX to 0.65em for normal texts but due to the fact
+that we don't have letters with descenders in the headers, it's nicer with 1.5 and 0.75.
+*/
+
+.TravelNotes-BaseToolbar-HeaderTextHTMLElement {
+	transform-origin: top left;
+	transform: translateY(8em) translateX(0.75em) rotateZ(-90deg);
+	width: 8em;
+	height: 1.5em;
+	white-space: nowrap;
+}
+
+.TravelNotes-BaseToolbar-ButtonsHTMLElement {
+	background-color: white;
+	color: black;
+	overflow-y: hidden;
+	max-height: calc(100vh - 15em);
+}
+
+.TravelNotes-BaseToolbar-ButtonHTMLElement {
+	padding: 0.5em;
+	text-align: center;
+	height: 1.1em;
+}
+
+.TravelNotes-BaseToolbar-ButtonHTMLElement:hover {
+	background-color: black;
+	color: white;
+}
+
+.TravelNotes-BaseToolbar-ButtonLinkHTMLElement {
+	text-decoration: none;
+	color: black;
+}
+
+.TravelNotes-BaseToolbar-ButtonLinkHTMLElement:hover {
+	color: white;
+}
+
+.TravelNotes-BaseToolbar-ButtonHTMLElement:hover > .TravelNotes-BaseToolbar-ButtonLinkHTMLElement {
+	color: white;
+}
+
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

@@ -1,0 +1,82 @@
+/*
+Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
+
+This  program is free software;
+you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation;
+either version 3 of the License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+/*
+Changes:
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
+
+#TravelNotes-OsmSearchDialog-SearchTree {
+	max-height: 15em;
+	overflow-y: auto;
+	border-top: 0.1em solid lightgray;
+	margin-top: 0.5em;
+	padding-top: 0.5em;
+	white-space: nowrap;
+	min-width: 25em;
+}
+
+.TravelNotes-OsmSearchDialog-SearchItemMargin1 {
+	margin-left: 0.5em;
+}
+
+.TravelNotes-OsmSearchDialog-SearchItemMargin2 {
+	margin-left: 0.5em;
+}
+
+.TravelNotes-OsmSearchDialog-SearchItemMargin3 {
+	margin-left: 2.5em;
+}
+
+.TravelNotes-OsmSearchDialog-SearchItemMargin4 {
+	margin-left: 4.5em;
+}
+
+.TravelNotes-OsmSearchDialog-TreeArrow {
+	color: gray;
+}
+
+.TravelNotes-OsmSearchDialog-TreeArrow:hover {
+	color: red;
+	border-color: white;
+}
+
+.TravelNotes-OsmSearchDialog-SearchResultHTMLElement {
+	display: flex;
+	flex-direction: row;
+	padding: 0.3em;
+	border-bottom: 0.1em solid lightgray;
+}
+
+.TravelNotes-OsmSearchDialog-SearchResult-IconCell {
+	width: 4em;
+	height: 4em;
+	min-height: 2em;
+	background-repeat: no-repeat;
+	flex-shrink: 0;
+}
+
+.TravelNotes-OsmSearchDialog-SearchResult-Cell {
+	flex-shrink: 1;
+}
+
+/*
+--- End of OsmSearchPaneUI.css ------------------------------------------------------------------------------------------------
+*/

@@ -17,20 +17,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 /*
---- Roadbook.css file -------------------------------------------------------------------------------------------------
-
-This file contains:
-	- the css for the Roadbook
 Changes:
-	- v1.12.0:
-		- Issue #120 : Review the UserInterface
-	- v2.0.0:
-		- Issue #138 : Protect the app - control html entries done by user.
-	- v3.4.0:
-		- Issue ♯22 : Nice to have a table view for notes in the roadbook
-		- Issue ♯25 : Add a print button to the roadbook page
------------------------------------------------------------------------------------------------------------------------
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 /*
 Menu on top of screen and always there
@@ -98,7 +89,7 @@ Arrow in the menu
 	#TravelNotes-Roadbook-Menu {
 		padding: 0.5em;
 		border-style: solid;
-		border-width: 1px;
+		border-width: 0.1em;
 		margin-left: 0.5em;
 	}
 
@@ -181,3 +172,5 @@ Arrow in the menu
 		break-inside: avoid-page;
 	}
 }
+
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

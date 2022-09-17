@@ -17,8 +17,8 @@ Travel & Notes allows you to plan a trip from the map. You can :
 ## About your browser
 
 Your browser must be recent. I don't do development for old versions of the browser. The code has been tested
-with the most recent versions of Firefox, Microsoft Edge, Brave and Vivaldi. If TravelNotes is not working in your
-browser, update it.
+with the most recent versions of Firefox, Microsoft Edge, Brave and Vivaldi on a Windows computer and with Firefox and Brave on
+an Android tablet. If TravelNotes is not working in your browser, update it.
 
 ## Guides
 
@@ -53,14 +53,14 @@ Other samples:
   
 ## Releases and branches
 
-### v3.6.0 branch
+### v4.0.0 branch
 
-The [v3.6.0 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.6.0) and the [v3.6.0 branch](https://github.com/wwwouaiebe/TravelNotes/tree/v3.6.0)
+The [v4.0.0 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.0.0) and the [v4.0.0 branch](https://github.com/wwwouaiebe/TravelNotes/tree/v4.0.0)
 contains the files of the last stable version.
 
-The [dist folder](https://github.com/wwwouaiebe/TravelNotes/tree/v3.6.0/dist) contains all the needed files to run Travel & Notes, but not the sources.
+The [dist folder](https://github.com/wwwouaiebe/TravelNotes/tree/v4.0.0/dist) contains all the needed files to run Travel & Notes, but not the sources.
 
-Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v3.6.0/src)
+Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v4.0.0/src)
 
 ### master branch
 
@@ -68,9 +68,10 @@ The [master branch](https://github.com/wwwouaiebe/TravelNotes/tree/master) is th
 
 ## What's new in the last release
 
-- Issue #30 : RCN REF numbers are difficult to read on the roadbook icons
-- Issue #31 : Leaflet v1.8.0 released and shipped with TravelNotes
-- Issue #32 : Geo Location don't work correctly with FF Android. Hiding the geolocation icon removed.
+- the user interface has been completely redesigned. All commands are made either via the toolbar on the right of the screen,
+either via the pop-up menus. See the [user guide - en ](https://wwwouaiebe.github.io/TravelNotes/userGuides/en/UserGuideEN.html).
+- the program is completely compatible with an Android mobile or tablet.
+- although this is a major release, any travel files created with a previous release are usable with this release.
 
 For other versions, see the document ['What's new?' - en ](https://wwwouaiebe.github.io/TravelNotes/userGuides/en/WhatsNew.html)
 
@@ -92,8 +93,8 @@ Travel & Notes vous permet de préparer un voyage à partir de la carte. Vous po
 ## À propos de votre navigateur
 
 Votre navigateur doit être récent. Je ne fais pas de développement pour des vieilles versions du navigateur. Le code a été testé
-avec les versions les plus récentes de Firefox, Microsoft Edge, Brave et Vivaldi. Si TravelNotes ne fonctionne pas dans votre
-navigateur, faites une mise à jour de celui-ci.
+avec les versions les plus récentes de Firefox, Microsoft Edge, Brave et Vivaldi sur un pc Windows et avec Firefox et Brave
+sur une tablette Android. Si TravelNotes ne fonctionne pas dans votre navigateur, faites une mise à jour de celui-ci.
 
 ## Guides
 
@@ -129,14 +130,14 @@ D'autres exemples:
 
 ## Versions et branches
 
-### branche v3.6.0
+### branche v4.0.0
 
-La [version v3.6.0](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v3.6.0) et la [branche v3.6.0](https://github.com/wwwouaiebe/TravelNotes/tree/v3.6.0)
+La [version v4.0.0](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.0.0) et la [branche v4.0.0](https://github.com/wwwouaiebe/TravelNotes/tree/v4.0.0)
 contiennent les fichiers de la dernière version stable.
 
-Le [répertoire dist](https://github.com/wwwouaiebe/TravelNotes/tree/v3.6.0/dist) contient tous les fichiers pour exécuter Travel & Notes, mais ne contient pas les sources.
+Le [répertoire dist](https://github.com/wwwouaiebe/TravelNotes/tree/v4.0.0/dist) contient tous les fichiers pour exécuter Travel & Notes, mais ne contient pas les sources.
 
-Les sources sont disponibles dans le [répertoire src](https://github.com/wwwouaiebe/TravelNotes/tree/v3.6.0/src)
+Les sources sont disponibles dans le [répertoire src](https://github.com/wwwouaiebe/TravelNotes/tree/v4.0.0/src)
 
 ### branche master
 
@@ -144,8 +145,9 @@ La [branche master](https://github.com/wwwouaiebe/TravelNotes/tree/master) est l
 
 ## Quoi de neuf dans la dernière version
 
-- Issue #30 : les indications RCN REF sont difficiles à lire dans le livre de voyage
-- Issue #31 : Leaflet v1.8.0 a été publié et est distribué avec Travel Notes
-- Issue #32 : la Geo Location ne fonctionne toujours pas correctement avec FF Android. Masquer le bouton de geo location a été supprimé
+- l'interface utilisateur a été complètement revue. Toutes les commandes se font, soit via la barre d'outils à droite de l'écran,
+soit via les menus contextuels. Voyez le [guide pour les utilisateurs - fr ](https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/GuideUtilisateurFR.html).
+- le programme est complètement compatible avec un mobile ou une tablette Android.
+- bien qu'il s'agisse d'une version majeure, tous les fichiers de voyage créés avec une version précédente sont utilisables avec cette version.
 
 Pour les autres versions, voir le document ['Quoi de neuf?' - fr ](https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/QuoiDeNeuf.html)

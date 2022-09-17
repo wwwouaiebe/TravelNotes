@@ -15,22 +15,14 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 /*
 Changes:
-	- v1.6.0:
-		- created
-	- v1.12.0:
-		- Issue ♯120 : Review the UserInterface
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210914
-Tests 20210902
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
-import theEventDispatcher from '../coreLib/EventDispatcher.js';
+import theEventDispatcher from './lib/EventDispatcher.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import { INVALID_OBJ_ID } from '../main/Constants.js';
@@ -86,19 +78,6 @@ class Zoomer {
 	*/
 
 	zoomToLatLng ( latLng ) {
-		theEventDispatcher.dispatch ( 'zoomto', { latLng : latLng } );
-	}
-
-	/**
-	Performs a zoom on a maneuver
-	@param {Number} maneuverObjId the objId of the maneuver on witch the zoom must be performed
-	*/
-
-	zoomToManeuver ( maneuverObjId ) {
-		const itineraryPointObjId =
-			theTravelNotesData.travel.editedRoute.itinerary.maneuvers.getAt ( maneuverObjId ).itineraryPointObjId;
-		const latLng =
-			theTravelNotesData.travel.editedRoute.itinerary.itineraryPoints.getAt ( itineraryPointObjId ).latLng;
 		theEventDispatcher.dispatch ( 'zoomto', { latLng : latLng } );
 	}
 

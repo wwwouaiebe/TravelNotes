@@ -33,32 +33,34 @@ const travelNotesCss = [
 	'src/css/WayPointsForMap.css',
 	'src/css/Background.css',
 	'src/css/WaitAnimation.css',
-	'src/contextMenus/BaseContextMenu.css',
-	'src/dialogs/AboutDialog.css',
-	'src/dialogAPIKeys/APIKeysDialog.css',
-	'src/dialogBase/BaseDialog.css',
-	'src/dialogColorControl/ColorControl.css',
-	'src/dialogNotes/NoteDialog.css',
-	'src/dialogs/PrintRouteMapDialog.css',
-	'src/dialogs/RoutePropertiesDialog.css',
-	'src/dialogs/TwoButtonsDialog.css',
-	'src/dialogs/WayPointPropertiesDialog.css',
-	'src/dialogFloatWindow/FloatWindow.css',
-	'src/dialogPassword/PasswordDialog.css',
-	'src/AttributionsUI/AttributionsUI.css',
-	'src/ErrorsUI/ErrorsUI.css',
-	'src/UI/ItineraryPaneUI.css',
-	'src/mapLayersToolbarUI/MapLayersToolbarUI.css',
-	'src/mouseUI/MouseUI.css',
-	'src/UI/OsmSearchPaneUI.css',
-	'src/UI/PanesManagerUI.css',
-	'src/UI/ProvidersToolbarUI.css',
-	'src/UI/TravelNotesPaneUI.css',
-	'src/UI/TravelNotesToolbarUI.css',
-	'src/UI/TravelUI.css',
-	'src/UI/RoutesListUI.css',
-	'src/UI/UI.css',
-	'src/waitUI/WaitUI.css',
+	'src/contextMenus/baseContextMenu/BaseContextMenu.css',
+	'src/controls/addressControl/AddressControl.css',
+	'src/controls/colorControl/ColorControl.css',
+	'src/controls/numberInputControl/NumberInputControl.css',
+	'src/controls/passwordControl/PasswordControl.css',
+	'src/controls/sortableListControl/SortableListControl.css',
+	'src/controls/textAreaControl/TextAreaControl.css',
+	'src/controls/textInputControl/TextInputControl.css',
+	'src/dialogs/baseDialog/BaseDialog.css',
+	'src/dialogs/baseDialog/DockableBaseDialog.css',
+	'src/dialogs/aboutDialog/AboutDialog.css',
+	'src/dialogs/apiKeysdialog/ApiKeysDialog.css',
+	'src/dialogs/notesDialog/NoteDialog.css',
+	'src/dialogs/osmSearchDialog/OsmSearchDialog.css',
+	'src/dialogs/printRouteMapDialog/PrintRouteMapDialog.css',
+	'src/dialogs/profileDialog/ProfileDialog.css',
+	'src/dialogs/routePropertiesDialog/RoutePropertiesDialog.css',
+	'src/dialogs/twoButtonsDialog/TwoButtonsDialog.css',
+	'src/dialogs/wayPointPropertiesDialog/WayPointPropertiesDialog.css',
+	'src/printRoute/PrintRoute.css',
+	'src/toolbars/baseToolbar/BaseToolbar.css',
+	'src/toolbars/mapLayersToolbar/MapLayersToolbar.css',
+	'src/toolbars/providersToolbar/ProvidersToolbar.css',
+	'src/uis/AttributionsUI/AttributionsUI.css',
+	'src/uis/ErrorsUI/ErrorsUI.css',
+	'src/uis/fullScreenUI/FullScreenUI.css',
+	'src/uis/mouseUI/MouseUI.css',
+	'src/uis/waitUI/WaitUI.css',
 	'src/css/Hidden.css' // must always be the last css
 ];
 
@@ -70,9 +72,9 @@ const travelNotesViewerCss = [
 	'src/css/NotesIcons.css',
 	'src/css/NotesForMap.css',
 	'src/css/RoutesForMap.css',
-	'src/AttributionsUI/AttributionsUI.css',
-	'src/ErrorsUI/ErrorsUI.css',
-	'src/viewerLayersToolbarUI/ViewerLayersToolbarUI.css'
+	'src/toolbars/viewerLayersToolbar/ViewerLayersToolbar.css',
+	'src/uis/AttributionsUI/AttributionsUI.css',
+	'src/uis/ErrorsUI/ErrorsUI.css'
 ];
 
 // css files needed for the roadbook
@@ -87,9 +89,6 @@ const travelNotesRoadbookCss = [
 	'src/roadbook/Roadbook.css',
 	'src/css/Hidden.css'
 ];
-
-// eslint-disable-next-line no-undef
-const localServerPath = require ( './LocalServerPath.js' );
 
 // eslint-disable-next-line no-undef
 module.exports = {
@@ -111,10 +110,7 @@ module.exports = {
 		files : {
 			'debug/TravelNotes.min.css' : travelNotesCss,
 			'debug/viewer/TravelNotesViewer.min.css' : travelNotesViewerCss,
-			'debug/TravelNotesRoadbook.min.css' : travelNotesRoadbookCss,
-			[ localServerPath + 'debug/TravelNotes.min.css' ] : travelNotesCss,
-			[ localServerPath + 'debug/viewer/TravelNotesViewer.min.css' ] : travelNotesViewerCss,
-			[ localServerPath + 'debug/TravelNotesRoadbook.min.css' ] : travelNotesRoadbookCss
+			'debug/TravelNotesRoadbook.min.css' : travelNotesRoadbookCss
 		}
 	},
 

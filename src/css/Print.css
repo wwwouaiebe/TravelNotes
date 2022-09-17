@@ -14,18 +14,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file Print.css
-@desc CSS for map printing and #TravelNotes-PrintToolbar
+/*
 Changes:
-	- v2.2.0:
-		- created from Map.css
-	- v3.4.0:
-		- Issue ♯24 : Review the print process
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 .TravelNotes-routeViewDiv {
 	margin-top: 5mm;
@@ -73,6 +67,4 @@ Changes:
 	}
 }
 
-/*
---- End of Print.css ----------------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

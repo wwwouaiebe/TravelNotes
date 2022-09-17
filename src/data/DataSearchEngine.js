@@ -15,74 +15,20 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 /*
 Changes:
-	- v1.4.0:
-		- created from DataManager
-	- v1.5.0:
-		- Issue ♯52 : when saving the travel to the file, save also the edited route.
-	- v1.6.0:
-		- Issue ♯65 : Time to go to ES6 modules?
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210913
-Tests ...
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 import theTravelNotesData from '../data/TravelNotesData.js';
-import theGeometry from '../coreLib/Geometry.js';
-import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
+import theGeometry from '../core/lib/Geometry.js';
+import theSphericalTrigonometry from '../core/lib/SphericalTrigonometry.js';
 import NoteAndRoute from '../data/NoteAndRoute.js';
+import DataSearchEngineNearestRouteData from './DataSearchEngineNearestRouteData.js';
 
-import { ZERO, INVALID_OBJ_ID, LAT_LNG } from '../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-A container with data found when searching the nearest route from a point
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class NearestRouteData {
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.seal ( this );
-	}
-
-	/**
-	The distance between the given point and the nearest point on the route
-	@type {Number}
-	*/
-
-	distance = Number.MAX_VALUE;
-
-	/**
-	The route on witch the point was found
-	@type {Route}
-	*/
-
-	route = null;
-
-	/**
-	The distance between the beginning of the route and the nearest point
-	@type {Number}
-	*/
-
-	distanceOnRoute = ZERO;
-
-	/**
-	The lat and lng of the nearest point on the route
-	@type {Array.<Number>}
-	*/
-
-	latLngOnRoute = [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ];
-}
+import { INVALID_OBJ_ID } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -97,7 +43,7 @@ class DataSearchEngine {
 	Helper method for the getNearestRouteData method
 	@param {Route} route The route that must be treated
 	@param {Array.<Number>} latLng The latitude and longitude of the nearest point on route
-	@param {NearestRouteData} nearestRouteData the NearestRouteData object used
+	@param {DataSearchEngineNearestRouteData} nearestRouteData the DataSearchEngineNearestRouteData object used
 	*/
 
 	#setNearestRouteData ( route, latLng, nearestRouteData ) {
@@ -129,11 +75,11 @@ class DataSearchEngine {
 	/**
 	This method search route data for the nearest route of a given point
 	@param {Array.<Number>} latLng The latitude and longitude of the point
-	@return {NearestRouteData} A NearestRouteData object
+	@return {DataSearchEngineNearestRouteData} A DataSearchEngineNearestRouteData object
 	*/
 
 	getNearestRouteData ( latLng ) {
-		const nearestRouteData = new NearestRouteData ( );
+		const nearestRouteData = new DataSearchEngineNearestRouteData ( );
 
 		theTravelNotesData.travel.routes.forEach ( route => this.#setNearestRouteData ( route, latLng, nearestRouteData ) );
 		if ( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId ) {

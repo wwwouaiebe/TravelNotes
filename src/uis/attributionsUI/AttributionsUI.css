@@ -1,0 +1,54 @@
+/*
+Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
+
+This  program is free software;
+you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation;
+either version 3 of the License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+/*
+Changes:
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
+
+#TravelNotes-AttributionsUI {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	z-index: 1000;
+	background-color: transparent;
+	padding-left: 2em;
+	padding-right: 1em;
+	color: #0078a8;
+	font-size: 80%;
+	white-space: nowrap;
+	height: 2em;
+	transform-origin: bottom left;
+	transform: rotateZ(-90deg) translateY(2em) translateX(0);
+	transition: all 1.5s ease 1.5s;
+}
+
+#TravelNotes-AttributionsUI:hover {
+	color: black;
+	background-color: white;
+	transform: rotateZ(-90deg) translateY(2.6em) translateX(0) scale(1.3);
+	transition: all 1.5s ease;
+}
+
+#TravelNotes-AttributionsUI a {
+	color: #0078a8;
+}
+
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

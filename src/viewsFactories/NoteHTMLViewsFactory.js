@@ -15,28 +15,17 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 /*
 Changes:
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-	- v3.2.0:
-		- Issue ♯9 : String.substr ( ) is deprecated... Replace...
-	- v3.4.0:
-		- Issue ♯21 : When CSP is enabled, it's needed to set width and height for icons with JS to avoid
-		to add an 'unsafe-inline' for style in CSP
-	- v3.4.0:
-		- Issue ♯22 : Nice to have a table view for notes in the roadbook
-Doc reviewed 20210915
-Tests ...
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
-import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
-import theTranslator from '../UILib/Translator.js';
-import theUtilities from '../UILib/Utilities.js';
+import theHTMLElementsFactory from '../core/uiLib/HTMLElementsFactory.js';
+import theHTMLSanitizer from '../core/htmlSanitizer/HTMLSanitizer.js';
+import theTranslator from '../core/uiLib/Translator.js';
+import theUtilities from '../core/uiLib/Utilities.js';
 import theConfig from '../data/Config.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 

@@ -16,17 +16,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file RoutesForMap.css
-@desc CSS for Routes on the Map
+/*
 Changes:
-	- v1.0.0:
-		- created
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 .TravelNotes-Map-Route-Header-Name {
 	font-weight: bold;
@@ -39,6 +34,4 @@ Changes:
 	text-decoration: underline;
 }
 
-/*
---- End of RoutesForMap.css ---------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

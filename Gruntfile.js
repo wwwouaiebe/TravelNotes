@@ -16,6 +16,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+const { afterRelease } = require('./grunt/CopyConfig.js');
+
 /* eslint-disable no-magic-numbers */
 /* eslint-disable no-undef */
 
@@ -26,7 +28,6 @@ module.exports = function ( grunt ) {
 	grunt.initConfig ( {
 		pkg : grunt.file.readJSON ( 'package.json' ),
 		eslint : require ( './grunt/EslintConfig.js' ),
-		replace : require ( './grunt/ReplaceConfig.js' ),
 		rollup : require ( './grunt/RollupConfig.js' ),
 		essimpledoc : require ( './grunt/EssimpledocConfig.js' ),
 		stylelint : require ( './grunt/StylelintConfig.js' ),
@@ -39,9 +40,8 @@ module.exports = function ( grunt ) {
 
 	// Load tasks
 
-	grunt.loadNpmTasks ( 'grunt-buildnumber' );
+	grunt.loadNpmTasks ( 'grunt-wwwouaiebe-buildnumber' );
 	grunt.loadNpmTasks ( 'grunt-eslint' );
-	grunt.loadNpmTasks ( 'grunt-text-replace' );
 	grunt.loadNpmTasks ( 'grunt-rollup' );
 	grunt.loadNpmTasks ( 'grunt-stylelint' );
 	grunt.loadNpmTasks ( 'grunt-contrib-cssmin' );
@@ -56,14 +56,13 @@ module.exports = function ( grunt ) {
 		'hello',
 		'hello',
 		function () {
-			console.error ( `\n\x1b[30;101m\n\n${'-'.repeat ( 80 )}` );
 			console.error (
-				'\nStart build of ' +
+				'\x1b[30;101m Start build of ' +
 				grunt.config.data.pkg.name + ' - ' +
 				grunt.config.data.pkg.version + ' - ' +
 				grunt.template.today ( 'isoDateTime' )
+				+ ' \x1b[0m'
 			);
-			console.error ( '-'.repeat ( 80 ) + '\n\n\n\x1b[0m' );
 		}
 	);
 
@@ -71,30 +70,20 @@ module.exports = function ( grunt ) {
 		'bye',
 		'bye',
 		function () {
-			console.error ( `\n\x1b[30;42m\n\n${'-'.repeat ( 80 )}` );
 			console.error (
-				'\n' +
+				'\x1b[30;42m ' +
 				grunt.config.data.pkg.name + ' - ' +
 				grunt.config.data.pkg.version + ' - build: ' +
 				grunt.config.data.build + ' - ' +
 				grunt.template.today ( 'isoDateTime' ) +
-				' done\n'
+				' done \x1b[0m'
 			);
-			console.error ( '-'.repeat ( 80 ) + '\n\n\n\x1b[0m' );
 		}
 	);
 
 	grunt.registerTask (
 		'default',
 		[ 'eslint' ]
-	);
-	grunt.registerTask (
-		'doc',
-		[ 'essimpledoc:doc' ]
-	);
-	grunt.registerTask (
-		'doclaunch',
-		[ 'essimpledoc:doclaunch' ]
 	);
 	grunt.registerTask (
 		'debug',
@@ -107,13 +96,10 @@ module.exports = function ( grunt ) {
 			'rollup:debug',
 			'cssmin:debug',
 			'copy:debug',
-			'copy:debugAndroid',
 			'clean:afterDebug',
+			'essimpledoc:debug',
 			'buildnumber:end',
 			'bye'
-
-			/* , 'essimpledoc:debug' */
-
 		]
 	);
 	grunt.registerTask (
@@ -127,19 +113,15 @@ module.exports = function ( grunt ) {
 			'rollup:debug',
 			'cssmin:debug',
 			'copy:debug',
-			'copy:debugAndroid',
 			'clean:afterDebug',
 			'clean:beforeRelease',
 			'copy:beforeRelease',
-			'replace:release',
 			'rollup:release',
 			'terser',
 			'cssmin:release',
+			'essimpledoc:release',
 			'copy:release',
 			'clean:afterRelease',
-
-			/* 'essimpledoc:release', */
-
 			'buildnumber:end',
 			'bye'
 		]

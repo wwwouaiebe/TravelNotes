@@ -1,0 +1,69 @@
+/*
+Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
+
+This  program is free software;
+you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation;
+either version 3 of the License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+/*
+Changes:
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
+
+#TravelNotes-ProvidersToolbar-Container {
+	position: absolute;
+	bottom: 0;
+	left: 50vw;
+	border-style: solid;
+	border-width: 0.1em;
+	z-index: 1000;
+	background-color: white;
+	text-align: center;
+}
+
+.TravelNotes-ProvidersToolbar-TopBar {
+	border-bottom-style: solid;
+	border-bottom-width: 0.1em;
+	color: white;
+	font-weight: bold;
+	background-color: black;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+}
+
+.TravelNotes-ProvidersToolbar-ImgButtonsDiv {
+	padding: 0.3em;
+	border-style: solid;
+	border-width: 0.1em;
+	border-color: lightgray;
+}
+
+.TravelNotes-ProvidersToolbar-ImgButton {
+	padding: 0.1em;
+	margin: 0.1em;
+	border-style: solid;
+	border-width: 0.1em;
+	border-color: white;
+	width: 2em;
+	height: 2em;
+}
+
+.TravelNotes-ProvidersToolbar-ActiveTransitModeImgButton,
+.TravelNotes-ProvidersToolbar-ActiveProviderImgButton {
+	border-color: black;
+}
+
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

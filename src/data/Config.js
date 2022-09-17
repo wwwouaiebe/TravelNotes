@@ -15,39 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 /*
 Changes:
-	- v1.4.0:
-		- created from DataManager
-		- added searchPointMarker, previousSearchLimit, nextSearchLimit to config
-	- v1.6.0:
-		- Issue ♯65 : Time to go to ES6 modules?
-		- Issue ♯63 : Find a better solution for provider keys upload
-		- Issue ♯75 : Merge Maps and TravelNotes
-	- v1.9.0:
-		- Issue ♯101 : Add a print command for a route
-	- v1.11.0:
-		- Issue ♯110 : Add a command to create a SVG icon from osm for each maneuver
-	- v1.12.0:
-		- Issue ♯120 : Review the UserInterface
-	- v2.0.0:
-		- Issue ♯136 : Remove html entities from js string
-		- Issue ♯138 : Protect the app - control html entries done by user.
-		- Issue ♯139 : Remove Globals
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-	- v3.2.0:
-		- Issue ♯4 : Line type and line width for routes are not adapted on the print views
-	- v3.3.0:
-		- Issue ♯18 : Add flags in rhe config, so the user can choose when panes are show in the UI after modifications
-	- v3.4.0:
-		- Issue ♯24 : Review the print process
-Doc reviewed 20210913
-Tests ...
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -57,25 +30,51 @@ Class used to store the configuration of the code
 /* eslint-disable no-magic-numbers */
 
 const theConfig = {
-	APIKeys : {
+	ApiKeys : {
 		saveToSessionStorage : true
 	},
-	APIKeysDialog : {
+	ApiKeysDialog : {
 		haveUnsecureButtons : true,
-		showAPIKeys : true,
+		showApiKeys : false,
 		showButton : true
 	},
+	baseDialog : {
+		cancelTouchX : 100,
+		cancelTouchY : 150,
+		deltaZoomDistance : 75,
+		touchTopScreen : true
+	},
 	contextMenu : {
+		timeout : 1500
+	},
+	dockableBaseDialog : {
 		timeout : 1500
 	},
 	errorsUI :
 	{
 		helpTimeOut : 30000,
 		showError : true,
-		showHelp : true,
+		showHelp : false,
 		showInfo : true,
 		showWarning : true,
 		timeOut : 10000
+	},
+	files :
+	{
+		openGpx : [ 'gpx' ],
+		openTaN : [ 'json', 'trv' ],
+		writeTouch : 'trv',
+		writeOthers : 'trv'
+	},
+	fontSize :
+	{
+		initialValue : 3.5,
+		incrementValue : 0.5
+	},
+	FullScreenUI :
+	{
+		timeOut : 5000,
+		screenMaxWidth : 1200
 	},
 	geoCoder : {
 		distances : {
@@ -92,21 +91,16 @@ const theConfig = {
 	geoLocation : {
 		marker : {
 			color : '\u0023ff0000',
-			radius : 11
+			radius : 0
 		},
 		options : {
-			enableHighAccuracy : false,
+			enableHighAccuracy : true,
 			maximumAge : 0,
-			timeout : Infinity
+			timeout : 3600000
 		},
 		watch : true,
 		zoomFactor : 17,
 		zoomToPosition : true
-	},
-	itineraryPaneUI :
-	{
-		showManeuvers : false,
-		showNotes : true
 	},
 	itineraryPoint : {
 		marker : {
@@ -117,11 +111,13 @@ const theConfig = {
 		},
 		zoomFactor : 17
 	},
-	layersToolbarUI : {
-		haveLayersToolbarUI : true,
-		toolbarTimeOut : 1500,
+	mapContextMenu : {
+		mouseMaxRouteDistance : 10,
+		touchMaxRouteDistance : 10
+	},
+	mapLayersToolbar : {
 		theDevil : {
-			addButton : false
+			addButton : true
 		}
 	},
 	map :
@@ -131,9 +127,6 @@ const theConfig = {
 			lng : 5.49542
 		},
 		zoom : 12
-	},
-	mouseUI : {
-		haveMouseUI : true
 	},
 	nominatim :
 	{
@@ -152,7 +145,6 @@ const theConfig = {
 			color : '\u0023808080',
 			weight : 1
 		},
-		reverseGeocoding : false,
 		svgIcon : {
 			angleDistance : 10,
 			angleDirection :
@@ -166,7 +158,7 @@ const theConfig = {
 				sharpRight : 340
 			},
 			rcnRefDistance : 20,
-			roadbookFactor : 1,
+			roadbookFactor : 6,
 			zoom : 17
 		}
 	},
@@ -175,19 +167,15 @@ const theConfig = {
 			icon : 2,
 			popupContent : 8
 		},
-		mask : {
-			iconsDimension : true,
-			iconTextArea : false,
-			tooltip : false,
-			popupContent : false,
-			address : false,
-			link : false,
-			phone : true
-		},
 		theDevil : {
-			addButton : false,
+			addButton : true,
 			zoomFactor : 17
 		}
+	},
+	osmSearchDialog :
+	{
+		dialogX : 50,
+		dialogY : 0
 	},
 	osmSearch : {
 		nextSearchLimit : {
@@ -217,11 +205,6 @@ const theConfig = {
 		useNwr : true,
 		timeOut : 40,
 		url : 'https://lz4.overpass-api.de/api/interpreter' // "https://overpass.openstreetmap.fr/api/interpreter"
-	},
-	paneUI : {
-		switchToItinerary : false,
-		switchToTravelNotes : false,
-		switchToSearch : true
 	},
 	printRouteMap :
 	{
@@ -274,30 +257,39 @@ const theConfig = {
 			smoothCoefficient : 2.5,
 			smoothPoints : 3
 		},
-		showDragTooltip : 3,
-		width : 3
+		showDragTooltip : 0,
+		width : 5
 	},
 	routeEditor : {
 		showEditedRouteInRoadbook : true
 	},
-	travelEditor : {
-		startMinimized : true,
-		startupRouteEdition : true,
-		timeout : 1000
+	toolbars : {
+		timeOut : 1500
 	},
 	travelNotes : {
 		haveBeforeUnloadWarning : true,
-		language : 'fr'
+		language : 'fr',
+		startupRouteEdition : true
 	},
-	travelNotesToolbarUI :
+	travelNotesToolbar :
 	{
 		contactMail : {
 			url : 'https://github.com/wwwouaiebe/TravelNotes/issues'
 		}
 	},
+	travelNotesDialog :
+	{
+		dialogX : 250,
+		dialogY : 0
+	},
+	travelPropertiesDialog :
+	{
+		dialogX : 50,
+		dialogY : 0
+	},
 	wayPoint : {
-		reverseGeocoding : false,
-		geocodingIncludeName : false
+		reverseGeocoding : true,
+		geocodingIncludeName : true
 	}
 };
 /* eslint-enable no-magic-numbers */

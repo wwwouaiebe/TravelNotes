@@ -13,94 +13,16 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 /*
 Changes:
-	- v2.0.0:
-		- created
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210913
-Tests ...
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
-import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
+import theHTMLSanitizer from '../core/htmlSanitizer/HTMLSanitizer.js';
+import MapLayerToolbarButtonData from './MapLayerToolbarButtonData.js';
 import { ZERO, ONE } from '../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-A simple container for the layer toolbar buttons properties
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class LayerToolbarButtonData {
-
-	/**
-	The text displayed in the button
-	@type {String}
-	*/
-
-	#text;
-
-	/**
-	The button text color
-	@type {String}
-	*/
-
-	#color;
-
-	/**
-	The button background color
-	@type {String}
-	*/
-
-	#backgroundColor;
-
-	/**
-	The constructor
-	@param {JsonObject} jsonToolbarData a json object with the data for the button
-	*/
-
-	constructor ( jsonToolbarData ) {
-		if (
-			'string' !== typeof ( jsonToolbarData?.text )
-			||
-			'string' !== typeof ( jsonToolbarData?.color )
-			||
-			'string' !== typeof ( jsonToolbarData?.backgroundColor )
-		) {
-			throw new Error ( 'invalid toolbar for layer' );
-		}
-		Object.freeze ( this );
-		this.#text = theHTMLSanitizer.sanitizeToJsString ( jsonToolbarData.text );
-		this.#color = theHTMLSanitizer.sanitizeToColor ( jsonToolbarData.color );
-		this.#backgroundColor =	theHTMLSanitizer.sanitizeToColor ( jsonToolbarData.backgroundColor );
-	}
-
-	/**
-	The text displayed in the button
-	@type {String}
-	*/
-
-	get text ( ) { return this.#text; }
-
-	/**
-	The button text color
-	@type {String}
-	*/
-
-	get color ( ) { return this.#color; }
-
-	/**
-	The button background color
-	@type {String}
-	*/
-
-	get backgroundColor ( ) { return this.#backgroundColor; }
-
-}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -310,7 +232,7 @@ class MapLayer	{
 	*/
 
 	#setToolbarButtonData ( ) {
-		this.#toolbarButtonData = new LayerToolbarButtonData ( this.#jsonLayer.toolbar );
+		this.#toolbarButtonData = new MapLayerToolbarButtonData ( this.#jsonLayer.toolbar );
 	}
 
 	/**

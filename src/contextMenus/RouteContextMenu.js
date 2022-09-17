@@ -15,39 +15,23 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 /*
 Changes:
-	- v1.6.0:
-		- created
-		- Issue ♯69 : ContextMenu and ContextMenuFactory are unclear.
-	- v1.7.0:
-		- Issue ♯89 : Add elevation graph
-	- v1.8.0:
-		- Issue ♯97 : Improve adding a new waypoint to a route
-	- v1.9.0:
-		- Issue ♯101 : Add a print command for a route
-	- v1.11.0:
-		- Issue ♯110 : Add a command to create a SVG icon from osm for each maneuver
-	- v1.12.0:
-		- Issue ♯120 : Review the UserInterface
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210913
-Tests ...
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
-import { BaseContextMenu, MenuItem } from '../contextMenus/BaseContextMenu.js';
+import BaseContextMenu from './baseContextMenu/BaseContextMenu.js';
+import MenuItem from './baseContextMenu/MenuItem.js';
 import theConfig from '../data/Config.js';
 import theNoteEditor from '../core/NoteEditor.js';
 import theRouteEditor from '../core/RouteEditor.js';
 import theWayPointEditor from '../core/WayPointEditor.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
-import theTranslator from '../UILib/Translator.js';
+import theTranslator from '../core/uiLib/Translator.js';
 import Zoomer from '../core/Zoomer.js';
-import theProfileWindowsManager from '../core/ProfileWindowsManager.js';
+import theProfileDialogsManager from '../core/ProfileDialogsManager.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import AllManeuverNotesBuilder from '../core/AllManeuverNotesBuilder.js';
 
@@ -76,9 +60,7 @@ class RouteContextMenu extends BaseContextMenu {
 
 	constructor ( contextMenuEvent, parentNode ) {
 		super ( contextMenuEvent, parentNode );
-		if ( this.eventData ) {
-			this.#route = theDataSearchEngine.getRoute ( this.eventData.targetObjId );
-		}
+		this.#route = theDataSearchEngine.getRoute ( this.targetObjId );
 	}
 
 	/**
@@ -91,21 +73,21 @@ class RouteContextMenu extends BaseContextMenu {
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Edit this route' ),
 				(
-					( this.eventData.targetObjId !== theTravelNotesData.travel.editedRoute.objId )
+					( this.targetObjId !== theTravelNotesData.travel.editedRoute.objId )
 					&&
 					( ROUTE_EDITION_STATUS.editedChanged !== theTravelNotesData.travel.editedRoute.editionStatus )
 				),
-				( ) => theRouteEditor.editRoute ( this.eventData.targetObjId )
+				( ) => theRouteEditor.editRoute ( this.targetObjId )
 
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Delete this route' ),
 				(
-					( this.eventData.targetObjId !== theTravelNotesData.travel.editedRoute.objId )
+					( this.targetObjId !== theTravelNotesData.travel.editedRoute.objId )
 					||
 					( ROUTE_EDITION_STATUS.editedChanged !== theTravelNotesData.travel.editedRoute.editionStatus )
 				),
-				( ) => theRouteEditor.removeRoute ( this.eventData.targetObjId )
+				( ) => theRouteEditor.removeRoute ( this.targetObjId )
 
 			),
 			new MenuItem (
@@ -118,64 +100,64 @@ class RouteContextMenu extends BaseContextMenu {
 				),
 				this.#route.hidden
 				||
-				theTravelNotesData.travel.editedRoute.objId !== this.eventData.targetObjId,
+				theTravelNotesData.travel.editedRoute.objId !== this.targetObjId,
 				( ) => {
 					if ( this.#route.hidden ) {
-						theRouteEditor.showRoute ( this.eventData.targetObjId );
+						theRouteEditor.showRoute ( this.targetObjId );
 					}
 					else {
-						theRouteEditor.hideRoute ( this.eventData.targetObjId );
+						theRouteEditor.hideRoute ( this.targetObjId );
 					}
 				}
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Properties' ),
 				! this.#route.hidden,
-				( ) => theRouteEditor.routeProperties ( this.eventData.targetObjId )
+				( ) => theRouteEditor.routeProperties ( this.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Zoom to route' ),
 				! this.#route.hidden,
-				( ) => new Zoomer ( ).zoomToRoute ( this.eventData.targetObjId )
+				( ) => new Zoomer ( ).zoomToRoute ( this.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - View the elevation' ),
 				this.#route.itinerary.hasProfile,
-				( ) => theProfileWindowsManager.showProfile ( this.eventData.targetObjId )
+				( ) => theProfileDialogsManager.showProfile ( this.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Print route map' ),
 				theConfig.printRouteMap.isEnabled,
-				( ) => theRouteEditor.printRouteMap ( this.eventData.targetObjId )
+				( ) => theRouteEditor.printRouteMap ( this.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Save this route in a GPX file' ),
 				( ZERO < this.#route.itinerary.itineraryPoints.length ),
-				( ) => theRouteEditor.saveGpx ( this.eventData.targetObjId )
+				( ) => theRouteEditor.saveGpx ( this.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Invert waypoints' ),
-				theTravelNotesData.travel.editedRoute.objId === this.eventData.targetObjId,
+				theTravelNotesData.travel.editedRoute.objId === this.targetObjId,
 				( ) => theWayPointEditor.reverseWayPoints ( )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Add a note on the route' ),
-				! this.eventData.haveParentNode,
-				( ) => theNoteEditor.newRouteNote ( this.eventData.targetObjId, this.eventData.latLng )
+				! this.haveParentNode,
+				( ) => theNoteEditor.newRouteNote ( this.targetObjId, this.latLng )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Create a note for each route maneuver' ),
 				! this.#route.hidden,
-				( ) => new AllManeuverNotesBuilder ( ).addAllManeuverNotes ( this.eventData.targetObjId )
+				( ) => new AllManeuverNotesBuilder ( ).addAllManeuverNotes ( this.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Save modifications on this route' ),
-				theTravelNotesData.travel.editedRoute.objId === this.eventData.targetObjId,
+				theTravelNotesData.travel.editedRoute.objId === this.targetObjId,
 				( ) => theRouteEditor.saveEdition ( )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'RouteContextMenu - Cancel modifications on this route' ),
-				theTravelNotesData.travel.editedRoute.objId === this.eventData.targetObjId,
+				theTravelNotesData.travel.editedRoute.objId === this.targetObjId,
 				( ) => theRouteEditor.cancelEdition ( )
 			)
 		];

@@ -15,17 +15,14 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 /*
 Changes:
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210915
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
-import theSphericalTrigonometry from '../coreLib/SphericalTrigonometry.js';
+import theSphericalTrigonometry from '../core/lib/SphericalTrigonometry.js';
 
 import { ZERO, INVALID_OBJ_ID, ONE, TWO } from '../main/Constants.js';
 

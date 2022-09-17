@@ -4,6 +4,14 @@
 		"msgstr": "À propos de Travel & Notes"
 	},
 	{
+		"msgid": "AddressControl - Address",
+		"msgstr": " Adresse :"
+	},
+	{
+		"msgid": "AddressControl - Reset address",
+		"msgstr": "Mettre l'adresse à jour avec Nominatim"
+	},
+	{
 		"msgid": "AllManeuverNotesBuilder - Add a note for each maneuver",
 		"msgstr": "Ajouter une note pour chaque manœuvre"
 	},
@@ -20,51 +28,51 @@
 		"msgstr": "Vous voulez créer {maneuversLength} notes. Pour des raisons de performance, le nombre de notes est limité à {maxManeuversNotes} pour cette démo. Modifiez votre trajet."
 	},
 	{
-		"msgid": "APIKeysDialog - API keys",
-		"msgstr": "Clés d'accès"
-	},
-	{
-		"msgid": "APIKeysDialog - empty API key name or value",
+		"msgid": "ApiKeysDialog - empty api key name or value",
 		"msgstr": "Un nom de clé ou une clé d'accès n'est pas complété"
 	},
 	{
-		"msgid": "APIKeysDialogKeyControl - API key",
+		"msgid": "ApiKeyControlRow - api key",
 		"msgstr": "Clé d'accès"
 	},
 	{
-		"msgid": "APIKeysDialogKeyControl - delete API key",
+		"msgid": "ApiKeyControlRow - delete api key",
 		"msgstr": "effacer la clé d'accès"
 	},
 	{
-		"msgid": "APIKeysDialogKeyControl - provider name",
+		"msgid": "ApiKeyControlRow - provider name",
 		"msgstr": "Fournisseur"
 	},
 	{
-		"msgid": "APIKeysDialogToolbar - new API key",
+		"msgid": "ApiKeysDialog - api keys",
+		"msgstr": "Clés d'accès"
+	},
+	{
+		"msgid": "ApiKeysDialogToolbar - new api key",
 		"msgstr": "Nouvelle clé d'accès"
 	},
 	{
-		"msgid": "APIKeysDialogToolbar - Open file",
+		"msgid": "ApiKeysDialogToolbar - Open file",
 		"msgstr": "Ouvrir un fichier avec mot de passe"
 	},
 	{
-		"msgid": "APIKeysDialogToolbar - Open json file",
+		"msgid": "ApiKeysDialogToolbar - Open json file",
 		"msgstr": "Ouvrir un fichier sans mot de passe"
 	},
 	{
-		"msgid": "APIKeysDialogToolbar - Reload from server",
+		"msgid": "ApiKeysDialogToolbar - Reload from server",
 		"msgstr": "Recharger les clefs d'accès depuis le serveur web"
 	},
 	{
-		"msgid": "APIKeysDialogToolbar - Save to file",
+		"msgid": "ApiKeysDialogToolbar - Save to file",
 		"msgstr": "Sauver dans un fichier avec mot de passe"
 	},
 	{
-		"msgid": "APIKeysDialogToolbar - Save to json file",
+		"msgid": "ApiKeysDialogToolbar - Save to json file",
 		"msgstr": "Sauver dans un fichier SANS mot de passe"
 	},
 	{
-		"msgid": "APIKeysManager - An error occurs when reading the APIKeys file",
+		"msgid": "ApiKeysManager - An error occurs when reading the ApiKeys file",
 		"msgstr": "Une erreur est survenue lors de la lecture des clefs d'accès"
 	},
 	{
@@ -144,6 +152,14 @@
 		"msgstr": "Impossible de sélectionner {provider}"
 	},
 	{
+		"msgid": "FullScreenUI - start full screen",
+		"msgstr": "Cliquez ici pour activer le mode plein écran"
+	},
+	{
+		"msgid": "GeoLocator - Geolocation disabled on the device",
+		"msgstr": "la geolocalisation est désactivée"
+	},	
+	{
 		"msgid": "GpxParser - Go to network node",
 		"msgstr": " - se diriger vers le nœud "
 	},
@@ -152,15 +168,15 @@
 		"msgstr": "Point-nœud "
 	},
 	{
-		"msgid": "Help - Complete the APIKeys1",
+		"msgid": "Help - Complete the ApiKeys1",
 		"msgstr": "Utilisez le bouton + pour ajouter un fournisseur."
 	},
 	{
-		"msgid": "Help - Complete the APIKeys2",
+		"msgid": "Help - Complete the ApiKeys2",
 		"msgstr": "Introduisez à gauche le nom du fournisseur d'accès. Celui-ci doit être 'Mapbox', 'GraphHopper', 'OpenRouteservice' ou 'MapzenValhalla' pour un fournisseur d'itinéraires ou 'Mapbox, 'Thunderforest' ou 'Lantmateriet' pour un fournisseur de cartes."
 	},
 	{
-		"msgid": "Help - Complete the APIKeys3",
+		"msgid": "Help - Complete the ApiKeys3",
 		"msgstr": "Complétez à droite avec votre clef d'accès"
 	},
 	{
@@ -180,28 +196,16 @@
 		"msgstr": "Il n'est pas possible de créer une icône SVG pour une note de voyage."
 	},
 	{
-		"msgid": "ItineraryControlUI - Show maneuvers",
-		"msgstr": "Manœuvres"
-	},
-	{
-		"msgid": "ItineraryControlUI - Show notes",
-		"msgstr": "Notes"
-	},
-	{
-		"msgid": "ItineraryPaneUI - Itinerary",
-		"msgstr": "Itinéraire"
-	},
-	{
-		"msgid": "ManeuverContextMenu - Zoom to this maneuver",
-		"msgstr": "Zoom sur cette manœuvre"
-	},
-	{
-		"msgid": "MapContextMenu - About Travel & Notes",
-		"msgstr": "À propos de Travel & Notes"
-	},
-	{
 		"msgid": "MapContextMenu - Add a route",
 		"msgstr": "Ajouter un trajet"
+	},
+	{
+		"msgid": "MapContextMenu - Disable full screen",
+		"msgstr": "Désactiver le mode plein écran"
+	},
+	{
+		"msgid": "MapContextMenu - Enable full screen",
+		"msgstr": "Activer le mode plein écran"
 	},
 	{
 		"msgid": "MapContextMenu - Hide all notes",
@@ -244,7 +248,11 @@
 		"msgstr": "Zoom sur le voyage"
 	},
 	{
-		"msgid": "MapLayersToolbarUI - Layers",
+		"msgid": "MapEditorViewer -Copied to clipboard",
+		"msgstr": "Copié dans le presse-papier"
+	},
+	{
+		"msgid": "MapLayersToolbar - Layers",
 		"msgstr": "Cartes"
 	},
 	{
@@ -278,14 +286,6 @@
 	{
 		"msgid": "Notedialog - The icon content cannot be empty",
 		"msgstr": "Le contenu de l'icône doit être complété."
-	},
-	{
-		"msgid": "NoteDialogAddressControl - Address",
-		"msgstr": " Adresse :"
-	},
-	{
-		"msgid": "NoteDialogAddressControl - Reset address",
-		"msgstr": "Mettre l'adresse à jour avec Nominatim"
 	},
 	{
 		"msgid": "NoteDialogGeoCoderHelper - an error occurs when searching the adress",
@@ -364,10 +364,6 @@
 		"msgstr": " ou envoyer un sms au "
 	},
 	{
-		"msgid": "OpenButtonClickEL - This page ask to close; data are perhaps not saved.",
-		"msgstr": "Cette page demande de confirmer sa fermeture ; des données saisies pourraient ne pas être enregistrées."
-	},
-	{
 		"msgid": "OsmSearchContextMenu - Create a route note with this result",
 		"msgstr": "Ajouter une note de trajet avec ce résultat"
 	},
@@ -400,24 +396,24 @@
 		"msgstr": "Zoom sur ce résultat"
 	},
 	{
-		"msgid": "OsmSearchPaneUI - Search",
-		"msgstr": "Rechercher dans OpenStreetMap"
+		"msgid": "OsmSearchDialog - Searching OpenStreetMap",
+		"msgstr": "Recherche OpenStreetMap"
 	},
 	{
-		"msgid": "OsmSearchToolbarUI - Clear tree",
-		"msgstr": "Tout déselectionner"
+		"msgid": "OsmSearchToolbarButtons - Clear the tree",
+		"msgstr": "Désélectionner tout"
 	},
 	{
-		"msgid": "OsmSearchToolbarUI - Collapse tree",
-		"msgstr": "Réduire l'arborescence"
+		"msgid": "OsmSearchToolbarButtons - Collapse the tree",
+		"msgstr": "Réduire l'arborescence au premier niveau"
 	},
 	{
-		"msgid": "OsmSearchToolbarUI - Expand tree",
+		"msgid": "OsmSearchToolbarButtons - Expand the tree",
 		"msgstr": "Étendre l'arborescence"
 	},
 	{
-		"msgid": "OsmSearchToolbarUI - Search OpenStreetMap",
-		"msgstr": "Rechercher dans OpenStreetMap"
+		"msgid": "OsmSearchToolbarButtons - Start the search",
+		"msgstr": "Lancer la recherche"
 	},
 	{
 		"msgid": "PasswordDialog - password",
@@ -508,12 +504,40 @@
 		"msgstr": "Zoomer sur cet endroit"
 	},
 	{
-		"msgid": "ProfileWindow - Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}",
-		"msgstr": "Montée: {ascent} m. - Descente: {descent} m. - Distance: {distance}"
+		"msgid": "ProfileWindow - Route {name} : Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}",
+		"msgstr": "Trajet {name} : Montée: {ascent} m. - Descente: {descent} m. - Distance: {distance}"
 	},
 	{
-		"msgid": "ProfileWindow - Profile {name}",
-		"msgstr": "Profil {name}"
+		"msgid": "ProfileWindow - Profile",
+		"msgstr": "Profil"
+	},
+	{
+		"msgid": "ProvidersToolbar - Computed by {provider} for {transitMode}",
+		"msgstr": "Itinéraire calculé par {provider} pour {transitMode}"
+	},
+	{
+		"msgid": "ProvidersToolbar - TransitMode bike",
+		"msgstr": "un vélo"
+	},
+	{
+		"msgid": "ProvidersToolbar - TransitMode car",
+		"msgstr": "une voiture"
+	},
+	{
+		"msgid": "ProvidersToolbar - TransitMode circle",
+		"msgstr": "un cercle"
+	},
+	{
+		"msgid": "ProvidersToolbar - TransitMode line",
+		"msgstr": "une ligne"
+	},
+	{
+		"msgid": "ProvidersToolbar - TransitMode pedestrian",
+		"msgstr": "un piéton"
+	},
+	{
+		"msgid": "ProvidersToolbar - TransitMode train",
+		"msgstr": "un train"
 	},
 	{
 		"msgid": "RoadbookLoader - show maneuver",
@@ -884,8 +908,20 @@
 		"msgstr": " une voiture"
 	},
 	{
+		"msgid": "RouteHTMLViewsFactory - TransitMode circle",
+		"msgstr": " un cercle"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - TransitMode line",
+		"msgstr": " une ligne"
+	},
+	{
 		"msgid": "RouteHTMLViewsFactory - TransitMode pedestrian",
 		"msgstr": " un piéton"
+	},
+	{
+		"msgid": "RouteHTMLViewsFactory - TransitMode train",
+		"msgstr": " un train"
 	},
 	{
 		"msgid": "RoutePrinter - The maximum of allowed pages is reached.",
@@ -984,64 +1020,96 @@
 		"msgstr": "Réalisé avec "
 	},
 	{
-		"msgid": "TravelNotesPaneUI - Travel notes",
+		"msgid": "TravelNotesDialog - Travel notes dialog",
 		"msgstr": "Notes de voyage"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - API keys",
+		"msgid": "TravelNotesToolbar - disable fullscreen",
+		"msgstr": "Désactiver le mode plein écran"
+	},
+	{
+		"msgid": "TravelNotesToolbar - enable fullscreen",
+		"msgstr": "Activer le mode plein écran"
+	},
+	{
+		"msgid": "TravelNotesToolbar - Increment the font size",
+		"msgstr": "Augmenter la taille des caractères"
+	},
+	{
+		"msgid": "TravelNotesToolbar - Decrement the font size",
+		"msgstr": "Diminuer la taille des caractères"
+	},
+	{
+		"msgid": "TravelNotesToolbar - About Travel & Notes",
+		"msgstr": "À propos de Travel & Notes"
+	},
+	{
+		"msgid": "TravelNotesToolbar - api keys",
 		"msgstr": "Gestion des clés d'accès"
 	},
 	{
-		"msgid": "TravelNotesToolbarUI - Geo location",
-		"msgstr": "Localisation"
+		"msgid": "TravelNotesToolbar - Start Geo location",
+		"msgstr": "Démarer la localisation"
 	},
 	{
-		"msgid": "TravelToolbarUI - Cancel travel",
+		"msgid": "TravelNotesToolbar - Stop Geo location",
+		"msgstr": "Arrêter la localisation"
+	},
+	{
+		"msgid": "TravelNotesToolbar - Cancel travel",
 		"msgstr": "Abandonner ce voyage"
 	},
 	{
-		"msgid": "TravelToolbarUI - Import travel",
-		"msgstr": "Importer des trajets et des notes depuis \nun autre voyage ou depuis un fichier .gpx"
+		"msgid": "TravelNotesToolbar - Import travel",
+		"msgstr": "Importer des trajets et des notes depuis un autre fichier \nde voyage ( {openTaN} ) ou depuis un fichier gpx ( {openGpx} )"
 	},
 	{
-		"msgid": "TravelToolbarUI - Not possible to merge a travel when a route is edited",
+		"msgid": "TravelNotesToolbar - Not possible to merge a travel when a route is edited",
 		"msgstr": "Il n'est pas possible de fusionner un voyage quand un trajet est en cours d'édition"
 	},
 	{
-		"msgid": "TravelToolbarUI - Open travel",
-		"msgstr": "Ouvrir un fichier de voyage (.trv) ou un fichier .gpx"
+		"msgid": "TravelNotesToolbar - Open travel",
+		"msgstr": "Ouvrir un fichier de voyage ( {openTaN} ) ou un fichier gpx ( {openGpx} )"
 	},
 	{
-		"msgid": "TravelToolbarUI - Open travel roadbook",
+		"msgid": "TravelNotesToolbar - Open travel roadbook",
 		"msgstr": "Ouvrir le livre de voyage"
 	},
 	{
-		"msgid": "TravelToolbarUI - Save as travel",
-		"msgstr": "☢️ Sauvegarde partielle ☢️"
+		"msgid": "Search with OpenStreetMap",
+		"msgstr": "Rechercher avec OpenStreetMap"
 	},
 	{
-		"msgid": "TravelToolbarUI - Save travel",
-		"msgstr": "Sauver dans un fichier"
+		"msgid": "TravelNotesToolbar - Save as travel",
+		"msgstr": "☢️ Sauvegarde partielle dans un fichier .{extension} ☢️"
 	},
 	{
-		"msgid": "TravelUI - Add a route",
-		"msgstr": "Ajouter un trajet"
+		"msgid": "TravelNotesToolbar - Save travel",
+		"msgstr": "Sauver dans un fichier .{extension}"
 	},
 	{
-		"msgid": "TravelUI - Hide",
-		"msgstr": "Masquer"
+		"msgid": "TravelNotesToolbar - This page ask to close; data are perhaps not saved.",
+		"msgstr": "Cette page demande de confirmer sa fermeture ; des données saisies pourraient ne pas être enregistrées."
 	},
 	{
-		"msgid": "TravelUI - Show",
-		"msgstr": "Afficher"
+		"msgid": "TravelNotesToolbar - Travel notes",
+		"msgstr": "Notes de voyage"
 	},
 	{
-		"msgid": "TravelUI - Travel",
-		"msgstr": "Voyage : "
+		"msgid": "TravelNotesToolbar - Travel properties",
+		"msgstr": "Propriétés du voyage"
 	},
 	{
-		"msgid": "TravelUI - Travel routes",
-		"msgstr": "Trajets du voyage :"
+		"msgid": "TravelPropertiesDialog - Name",
+		"msgstr": "Nom du voyage"
+	},
+	{
+		"msgid": "TravelPropertiesDialog - Routes",
+		"msgstr": "Trajets du voyage"
+	},
+	{
+		"msgid": "TravelPropertiesDialog - Travel properties",
+		"msgstr": "Propriétés du voyage"
 	},
 	{
 		"msgid": "UrlInputBlurEL - invalidUrl",
@@ -1072,16 +1140,8 @@
 		"msgstr": "Modifier les propriétés de ce point de passage"
 	},
 	{
-		"msgid": "WayPointPropertiesDialog - Address",
-		"msgstr": "Adresse : "
-	},
-	{
 		"msgid": "WayPointPropertiesDialog - Name",
 		"msgstr": "Nom : "
-	},
-	{
-		"msgid": "WayPointPropertiesDialog - Reset address",
-		"msgstr": "Mettre l'adresse à jour avec Nominatim"
 	},
 	{
 		"msgid": "WayPointPropertiesDialog - Waypoint properties",

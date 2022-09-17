@@ -182,3 +182,10 @@ Following issues are corrected:
 ### What's new in release 3.6.0
 
 - Issue #32 : Geo Location don't work correctly with FF Android.
+
+### What's new in release 4.0.0
+
+- the user interface has been completely redesigned. All commands are made either via the toolbar on the right of the screen,
+either via the pop-up menus. See the [user guide - en ](https://wwwouaiebe.github.io/TravelNotes/userGuides/en/UserGuideEN.html).
+- the program is completely compatible with an Android mobile or tablet.
+- although this is a major release, any travel files created with a previous release are usable with this release.

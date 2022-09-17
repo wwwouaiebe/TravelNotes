@@ -17,17 +17,12 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 /*
 Changes:
-	- v2.1.0:
-		- Issue ♯150 : Merge travelNotes and plugins
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210915
-Tests ...
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
-import PolylineEncoder from '../coreLib/PolylineEncoder.js';
+import PolylineEncoder from '../core/lib/PolylineEncoder.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
 import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
@@ -172,16 +167,16 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 
 	/**
 	Gives the url to call
-	@return {String} a string with the url, wayPoints, transitMode, user language and API key
+	@return {String} a string with the url, wayPoints, transitMode, user language and Api key
 	*/
 
 	#getUrl ( ) {
 		const request = {
 			locations : [],
 			costing : '',
-			/* eslint-disable-next-line camelcase */
+			// eslint-disable-next-line camelcase
 			directions_options : { language : this.userLanguage },
-			/* eslint-disable-next-line camelcase */
+			// eslint-disable-next-line camelcase
 			costing_options : {}
 		};
 
@@ -199,18 +194,18 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 		switch ( this.#route.itinerary.transitMode ) {
 		case 'bike' :
 			request.costing = 'bicycle';
-			/* eslint-disable-next-line camelcase */
+			// eslint-disable-next-line camelcase
 			request.costing_options = {
 				bicycle : {
-					/* eslint-disable-next-line camelcase, no-magic-numbers*/
+					// eslint-disable-next-line camelcase, no-magic-numbers
 					maneuver_penalty : 30,
-					/* eslint-disable-next-line camelcase */
+					// eslint-disable-next-line camelcase
 					bicycle_type : 'Cross',
-					/* eslint-disable-next-line camelcase */
+					// eslint-disable-next-line camelcase
 					cycling_speed : '20.0',
-					/* eslint-disable-next-line camelcase */
+					// eslint-disable-next-line camelcase
 					use_roads : '0.25',
-					/* eslint-disable-next-line camelcase */
+					// eslint-disable-next-line camelcase
 					use_hills : '0.25'
 				}
 			};
@@ -218,12 +213,12 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 			break;
 		case 'pedestrian' :
 			request.costing = 'pedestrian';
-			/* eslint-disable-next-line camelcase */
+			// eslint-disable-next-line camelcase
 			request.costing_options = { pedestrian : { walking_speed : '4.0' } };
 			break;
 		case 'car' :
 			request.costing = 'auto';
-			/* eslint-disable-next-line camelcase */
+			// eslint-disable-next-line camelcase
 			request.costing_options = { auto : { country_crossing_cost : '60' } };
 			break;
 		default :

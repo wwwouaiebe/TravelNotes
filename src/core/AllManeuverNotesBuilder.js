@@ -15,26 +15,22 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 /*
 Changes:
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210914
-Tests 20210903
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
-import WaitUI from '../waitUI/WaitUI.js';
-import MapIconFromOsmFactory from '../coreMapIcon/MapIconFromOsmFactory.js';
+import WaitUI from '../uis/waitUI/WaitUI.js';
+import MapIconFromOsmFactory from './mapIcon/MapIconFromOsmFactory.js';
 import Note from '../data/Note.js';
-import theGeometry from '../coreLib/Geometry.js';
-import theEventDispatcher from '../coreLib/EventDispatcher.js';
-import theErrorsUI from '../errorsUI/ErrorsUI.js';
+import theGeometry from './lib/Geometry.js';
+import theEventDispatcher from './lib/EventDispatcher.js';
+import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
 import theConfig from '../data/Config.js';
-import theTranslator from '../UILib/Translator.js';
-import TwoButtonsDialog from '../dialogs/TwoButtonsDialog.js';
+import theTranslator from './uiLib/Translator.js';
+import TwoButtonsDialog from '../dialogs/twoButtonsDialog/TwoButtonsDialog.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 
 import { ZERO, ONE, INVALID_OBJ_ID } from '../main/Constants.js';
@@ -111,8 +107,7 @@ class AllManeuverNotesBuilder {
 			}
 		}
 		this.#route.notes.sort ( ( first, second ) => first.distance - second.distance );
-		theEventDispatcher.dispatch ( 'updateitinerary' );
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
 		waitUI.close ( );
 	}
 

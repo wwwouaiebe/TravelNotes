@@ -17,19 +17,16 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 /*
 Changes:
-	- v1.6.0:
-		- created
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210921
-Tests 20210903
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
-import theEventDispatcher from '../coreLib/EventDispatcher.js';
+import theEventDispatcher from './lib/EventDispatcher.js';
 import theConfig from '../data/Config.js';
-import { GEOLOCATION_STATUS, ONE } from '../main/Constants.js';
+import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
+import { GEOLOCATION_STATUS, ONE, TWO } from '../main/Constants.js';
+import theTranslator from './uiLib/Translator.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -84,13 +81,17 @@ class GeoLocator {
 	}
 
 	/**
-	Stop the geolocation because the user don't accept the geolocation
+	Stop the geolocation because the user don't accept the geolocation or the geolocation
+	is disabled on the device
 	@param {GeolocationPositionError} positionError See GeolocationPositionError on mdn
 	*/
 
 	#error ( positionError ) {
 		if ( ONE === positionError.code ) {
 			this.#status = GEOLOCATION_STATUS.refusedByUser;
+		}
+		if ( TWO === positionError.code ) {
+			theErrorsUI.showError ( theTranslator.getText ( 'GeoLocator - Geolocation disabled on the device' ) );
 		}
 		this.#stop ( );
 	}
@@ -103,14 +104,15 @@ class GeoLocator {
 		this.#status = GEOLOCATION_STATUS.active;
 		theEventDispatcher.dispatch ( 'geolocationstatuschanged', { status : this.#status } );
 
-		navigator.geolocation.getCurrentPosition (
-			position => this.#showPosition ( position ),
-			positionError => this.#error ( positionError ),
-			theConfig.geoLocation.options
-		);
-
 		if ( theConfig.geoLocation.watch ) {
 			this.#watchId = navigator.geolocation.watchPosition (
+				position => this.#showPosition ( position ),
+				positionError => this.#error ( positionError ),
+				theConfig.geoLocation.options
+			);
+		}
+		else {
+			navigator.geolocation.getCurrentPosition (
 				position => this.#showPosition ( position ),
 				positionError => this.#error ( positionError ),
 				theConfig.geoLocation.options

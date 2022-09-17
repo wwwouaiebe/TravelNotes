@@ -15,91 +15,23 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 /*
 Changes:
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-	- v3.2.0:
-		- Issue ♯4 : Line type and line width for routes are not adapted on the print views
-	- v3.4.0:
-		- Issue ♯24 : Review the print process
-Doc reviewed 20210915
-Tests ...
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
-import theHTMLElementsFactory from '../UILib/HTMLElementsFactory.js';
+import theHTMLElementsFactory from '../core/uiLib/HTMLElementsFactory.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theConfig from '../data/Config.js';
-import theTranslator from '../UILib/Translator.js';
+import theTranslator from '../core/uiLib/Translator.js';
 import theMapLayersCollection from '../data/MapLayersCollection.js';
-import theAPIKeysManager from '../core/APIKeysManager.js';
-import theHTMLSanitizer from '../coreLib/HTMLSanitizer.js';
-
+import theApiKeysManager from '../core/ApiKeysManager.js';
+import theHTMLSanitizer from '../core/htmlSanitizer/HTMLSanitizer.js';
+import PrintEL from './PrintEL.js';
+import AfterPrintEL from './AfterPrintEL.js';
 import { ZERO, TWO } from '../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-click event listener for the print button
-@hideconstructor
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class PrintEL {
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-	}
-
-	/**
-	Event listener method
-	*/
-
-	handleEvent ( ) {
-		window.print ( );
-	}
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-afterprint event listener for the document and the cancel button
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class AfterPrintEL {
-
-	/**
-	A reference to the printPageBuilder Object
-	@type {PrintPageBuilder}
-	*/
-
-	#printPageBuilder = null;
-
-	/**
-	The constructor
-	@param {PrintPageBuilder} printPageBuilder A reference to the printPageBuilder Object
-	*/
-
-	constructor ( printPageBuilder ) {
-		Object.freeze ( this );
-		this.#printPageBuilder = printPageBuilder;
-	}
-
-	/**
-	Event listener method
-	*/
-
-	handleEvent ( ) {
-		this.#printPageBuilder.onAfterPrint ( );
-		this.#printPageBuilder = null;
-	}
-}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -227,7 +159,7 @@ class PrintPageBuilder {
 
 	#getMapLayer ( ) {
 		const mapLayer = theMapLayersCollection.getMapLayer ( theTravelNotesData.travel.layerName );
-		const url = theAPIKeysManager.getUrl ( mapLayer );
+		const url = theApiKeysManager.getUrl ( mapLayer );
 		const leafletLayer =
 			'wmts' === mapLayer.service.toLowerCase ( )
 				?

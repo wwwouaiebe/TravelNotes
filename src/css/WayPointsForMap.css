@@ -16,17 +16,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file WayPointsForMap.css
-@desc CSS for the waypoints
+/*
 Changes:
-	- v1.12.0:
-		- Issue #120 : Review the UserInterface
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 .TravelNotes-Map-WayPointStyle {
 	background: transparent;
@@ -64,6 +59,4 @@ Changes:
 	font-weight: bold;
 }
 
-/*
---- End of WayPointsForMap.css ------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

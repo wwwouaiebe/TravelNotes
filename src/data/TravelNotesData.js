@@ -15,79 +15,15 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 /*
 Changes:
-	- v1.4.0:
-		- created from DataManager
-		- added searchData
-	- v1.5.0:
-		- Issue ♯52 : when saving the travel to the file, save also the edited route.
-	- v1.6.0:
-		- Issue ♯65 : Time to go to ES6 modules?
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210913
-Tests ...
-
--------------------------------------------------------------------------------------------------------------------------------
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 import Travel from '../data/Travel.js';
-import theUtilities from '../UILib/Utilities.js';
+import theUtilities from '../core/uiLib/Utilities.js';
+import TravelNotesDataRouting from './TravelNotesDataRouting.js';
 import { INVALID_OBJ_ID } from '../main/Constants.js';
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/**
-helper class to encapsulate the routing
-*/
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-class Routing {
-
-	/**
-	The routing provider
-	@type {String}
-	*/
-
-	#provider = '';
-
-	/**
-	The routing transit mode
-	@type {String}
-	*/
-
-	#transitMode = '';
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-	}
-
-	/**
-	The routing provider
-	@type {String}
-	*/
-
-	get provider ( ) { return this.#provider; }
-
-	set provider ( provider ) {
-		this.#provider = 'string' === typeof ( provider ) ? provider : '';
-	}
-
-	/**
-	The routing transit mode
-	@type {String}
-	*/
-
-	get transitMode ( ) { return this.#transitMode; }
-
-	set transitMode ( transitMode ) {
-		this.#transitMode = 'string' === typeof ( transitMode ) ? transitMode : '';
-	}
-}
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -114,7 +50,7 @@ class TravelNotesData {
 
 	/**
 	An Object with the provider and transit mode used
-	@type {Routing}
+	@type {TravelNotesDataRouting}
 	*/
 
 	#routing;
@@ -162,7 +98,7 @@ class TravelNotesData {
 		Object.freeze ( this );
 		this.#providers = new Map ( );
 		this.#mapObjects = new Map ( );
-		this.#routing = new Routing ( );
+		this.#routing = new TravelNotesDataRouting ( );
 		this.#UUID = theUtilities.UUID;
 		this.#map = null;
 		this.#travel = new Travel ( );
@@ -224,7 +160,7 @@ class TravelNotesData {
 
 	/**
 	An Object with the provider and transit mode used
-	@type {Routing}
+	@type {TravelNotesDataRouting}
 	*/
 
 	get routing ( ) { return this.#routing; }

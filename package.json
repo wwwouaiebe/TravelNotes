@@ -1,6 +1,6 @@
 {
   "name": "travelnotes",
-  "version": "3.6.0",
+  "version": "4.0.0",
   "description": "A mapping and routing application.",
   "main": "src/main/Main.js",
   "dependencies": {
@@ -16,10 +16,10 @@
     "grunt-contrib-cssmin": "latest",
     "grunt-eslint": "latest",
     "grunt-essimpledoc": "latest",
+    "grunt-wwwouaiebe-buildnumber": "latest",
     "grunt-rollup": "latest",
     "grunt-stylelint": "latest",
     "grunt-terser": "latest",
-    "grunt-text-replace": "latest",
     "osrm-text-instructions": "latest",
     "rollup": "latest",
     "stylelint": "latest",
@@ -31,12 +31,10 @@
     "url": "git+https://github.com/wwwouaiebe/TravelNotes.git"
   },
   "scripts": {
-    "guides": "node ../HtmlFromMarkdown/main.js --src=docs/userGuides",
-    "doc" : "node node_modules/grunt/bin/grunt doc",
-    "doclaunch" : "node node_modules/grunt/bin/grunt doclaunch",
     "debug" : "node node_modules/grunt/bin/grunt debug",
-    "release" : "node node_modules/grunt/bin/grunt release"
-  },  
+    "release" : "node node_modules/grunt/bin/grunt release",
+    "guides": "node ../HtmlFromMarkdown/main.js --src=docs/userGuides"
+    },  
   "keywords": [
     "Leaflet",
     "Routing",

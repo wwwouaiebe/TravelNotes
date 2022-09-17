@@ -16,21 +16,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file NotesForUI.css
-@desc CSS for Notes in the UI
+/*
 Changes:
-	- v1.12.0:
-		- Issue #120 : Review the UserInterface
-	- v2.0.0:
-		- Issue #138 : Protect the app - control html entries done by user.
-	- v3.4.0:
-		- Issue ♯22 : Nice to have a table view for notes in the roadbook
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
@@ -70,6 +61,4 @@ Notes in the UI
 	text-decoration: underline;
 }
 
-/*
---- End of NotesForUI.css -----------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

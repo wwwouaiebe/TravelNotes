@@ -15,26 +15,18 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 /*
 Changes:
-	- v1.6.0:
-		- created
-		- Issue ♯69 : ContextMenu and ContextMenuFactory are unclear.
-	- v1.12.0:
-		- Issue ♯120 : Review the UserInterface
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210913
-Tests ...
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
-import { BaseContextMenu, MenuItem } from '../contextMenus/BaseContextMenu.js';
+import BaseContextMenu from './baseContextMenu/BaseContextMenu.js';
+import MenuItem from './baseContextMenu/MenuItem.js';
 import theWayPointEditor from '../core/WayPointEditor.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
-import theTranslator from '../UILib/Translator.js';
+import theTranslator from '../core/uiLib/Translator.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -63,15 +55,15 @@ class WayPointContextMenu extends BaseContextMenu {
 		return [
 			new MenuItem (
 				theTranslator.getText ( 'WayPointContextMenu - Delete this waypoint' ),
-				theTravelNotesData.travel.editedRoute.wayPoints.first.objId !== this.eventData.targetObjId
+				theTravelNotesData.travel.editedRoute.wayPoints.first.objId !== this.targetObjId
 					&&
-					theTravelNotesData.travel.editedRoute.wayPoints.last.objId !== this.eventData.targetObjId,
-				( ) => theWayPointEditor.removeWayPoint ( this.eventData.targetObjId )
+					theTravelNotesData.travel.editedRoute.wayPoints.last.objId !== this.targetObjId,
+				( ) => theWayPointEditor.removeWayPoint ( this.targetObjId )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'WayPointContextMenu - Modify properties' ),
 				true,
-				( ) => theWayPointEditor.wayPointProperties ( this.eventData.targetObjId )
+				( ) => theWayPointEditor.wayPointProperties ( this.targetObjId )
 			)
 		];
 	}

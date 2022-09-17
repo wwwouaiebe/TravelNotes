@@ -15,29 +15,20 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 /*
 Changes:
-	- v1.6.0:
-		- created
-		- Issue ♯69 : ContextMenu and ContextMenuFactory are unclear.
-	- v1.12.0:
-		- Issue ♯120 : Review the UserInterface
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210913
-Tests ...
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
-import { BaseContextMenu, MenuItem } from '../contextMenus/BaseContextMenu.js';
+import BaseContextMenu from './baseContextMenu/BaseContextMenu.js';
+import MenuItem from './baseContextMenu/MenuItem.js';
 import theWayPointEditor from '../core/WayPointEditor.js';
-import theTranslator from '../UILib/Translator.js';
+import theTranslator from '../core/uiLib/Translator.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
 import theNoteEditor from '../core/NoteEditor.js';
 import theRouteEditor from '../core/RouteEditor.js';
-import AboutDialog from '../dialogs/AboutDialog.js';
 import Zoomer from '../core/Zoomer.js';
 
 import { LAT_LNG, INVALID_OBJ_ID } from '../main/Constants.js';
@@ -72,19 +63,19 @@ class MapContextMenu extends BaseContextMenu {
 				( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId )
 					&&
 					( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.first.lat ),
-				( ) => theWayPointEditor.setStartPoint ( this.eventData.latLng )
+				( ) => theWayPointEditor.setStartPoint ( this.latLng )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'MapContextMenu - Select this point as way point' ),
 				( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId ),
-				( ) => theWayPointEditor.addWayPoint ( this.eventData.latLng )
+				( ) => theWayPointEditor.addWayPoint ( this.latLng )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'MapContextMenu - Select this point as end point' ),
 				( INVALID_OBJ_ID !== theTravelNotesData.editedRouteObjId )
 					&&
 					( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.last.lat ),
-				( ) => theWayPointEditor.setEndPoint ( this.eventData.latLng )
+				( ) => theWayPointEditor.setEndPoint ( this.latLng )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'MapContextMenu - Select this point as start and end point' ),
@@ -93,7 +84,7 @@ class MapContextMenu extends BaseContextMenu {
 					( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.first.lat )
 					&&
 					( LAT_LNG.defaultValue === theTravelNotesData.travel.editedRoute.wayPoints.last.lat ),
-				( ) => theWayPointEditor.setStartAndEndPoint ( this.eventData.latLng )
+				( ) => theWayPointEditor.setStartAndEndPoint ( this.latLng )
 			),
 			new MenuItem ( theTranslator.getText ( 'MapContextMenu - Add a route' ),
 				true,
@@ -112,7 +103,7 @@ class MapContextMenu extends BaseContextMenu {
 			new MenuItem (
 				theTranslator.getText ( 'MapContextMenu - New travel note' ),
 				true,
-				( ) => theNoteEditor.newTravelNote ( this.eventData.latLng )
+				( ) => theNoteEditor.newTravelNote ( this.latLng )
 			),
 			new MenuItem (
 				theTranslator.getText ( 'MapContextMenu - Hide all notes' ),
@@ -128,12 +119,6 @@ class MapContextMenu extends BaseContextMenu {
 				theTranslator.getText ( 'MapContextMenu - Zoom to travel' ),
 				true,
 				( ) => new Zoomer ( ).zoomToTravel ( )
-			),
-			new MenuItem (
-				theTranslator.getText ( 'MapContextMenu - About Travel & Notes' ),
-				true,
-				( ) => new AboutDialog ( ).show ( )
-					.catch ( ( ) => {} )
 			)
 		];
 	}

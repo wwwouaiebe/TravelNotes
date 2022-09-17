@@ -17,17 +17,12 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 /*
 Changes:
-	- v2.1.0:
-		- Issue ♯150 : Merge travelNotes and plugins
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210915
-Tests ...
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
-import polylineEncoder from '../coreLib/PolylineEncoder.js';
+import polylineEncoder from '../core/lib/PolylineEncoder.js';
 import ItineraryPoint from '../data/ItineraryPoint.js';
 import Maneuver from '../data/Maneuver.js';
 import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
@@ -163,7 +158,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 
 	/**
 	Gives the url to call
-	@return {String} a string with the url, wayPoints, transitMode, user language and API key
+	@return {String} a string with the url, wayPoints, transitMode, user language and Api key
 	*/
 
 	#getUrl ( ) {

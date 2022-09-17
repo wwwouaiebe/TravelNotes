@@ -17,24 +17,15 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 /*
 Changes:
-	- v1.6.0:
-		- created
-	- v1.12.0:
-		- Issue ♯120 : Review the UserInterface
-	- v2.0.0:
-		- Issue ♯146 : Add the travel name in the document title...
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210922
-Tests 20210903
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 import theTravelNotesData from '../data/TravelNotesData.js';
-import theEventDispatcher from '../coreLib/EventDispatcher.js';
-import FileCompactor from '../coreLib/FileCompactor.js';
-import Zoomer from '../core/Zoomer.js';
+import theEventDispatcher from './lib/EventDispatcher.js';
+import FileCompactor from './lib/FileCompactor.js';
+import Zoomer from './Zoomer.js';
 import { ROUTE_EDITION_STATUS, INVALID_OBJ_ID } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */

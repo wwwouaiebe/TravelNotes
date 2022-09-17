@@ -16,17 +16,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/**
-@------------------------------------------------------------------------------------------------------------------------------
-
-@file WaitAnimation.css
-@desc CSS for the WaitAnimation of dialogs, OsmSearchUI, and WaitUI
+/*
 Changes:
-	- v1.12.0:
-		- Issue #120 : Review the UserInterface
-
-@------------------------------------------------------------------------------------------------------------------------------
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
 .TravelNotes-WaitAnimation {
 	margin: 1em;
@@ -49,6 +44,4 @@ Changes:
 	to { margin-left: calc(100% - 1em); }
 }
 
-/*
---- End of WaitAnimation.css --------------------------------------------------------------------------------------------------
-*/
+/* --- End of file --------------------------------------------------------------------------------------------------------- */

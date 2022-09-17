@@ -2,25 +2,17 @@
 <ol>
 <li><a href="#WhyTravelNotes">Why Travel &amp; Notes</a></li>
 <li><a href="#SomeExplanations">Some explanations on the terms used</a></li>
-<li><a href="#OpenFileWithV200">Open a travel file created with a version earlier than v2.0.0</a></li>
 <li><a href="#BeforeStart">Before you start using Travel &amp; Notes</a><ol>
 <li><a href="#APIKeys">How to introduce your access keys in Travel &amp; Notes</a></li>
 </ol>
 </li>
 <li><a href="#ContextMenus">Context menus</a></li>
-<li><a href="#Interface1">Interface</a><ol>
-<li><a href="#InterfaceToolbar">Toolbar buttons on top of the interface</a></li>
-<li><a href="#Travel">Travel</a><ol>
-<li><a href="#TravelName">Travel name</a></li>
-<li><a href="#RouteToolbar">Toolbar buttons &quot;Travel&quot;</a></li>
-<li><a href="#RoutesTravel">Travel routes</a></li>
-</ol>
-</li>
-<li><a href="#ItineraryAndNotes">Itinerary and notes</a></li>
-<li><a href="#OsmSearch">Search OpenStreetMap</a></li>
-<li><a href="#RouterButtons">Route modes and route providers toolbar</a></li>
-</ol>
-</li>
+<li><a href="#MainToolbar">Main toolbar</a></li>
+<li><a href="#MapsToolbar">Maps toolbar</a></li>
+<li><a href="#RouterToolbar">Route modes and route providers toolbar</a></li>
+<li><a href="#TravelPropertiesWindow">Travel properties window</a></li>
+<li><a href="#TravelNotesWindow">Travel notes window</a></li>
+<li><a href="#SearchOsmWindow">Searching OpenStreetMap window</a></li>
 <li><a href="#EditBoxes">Edit boxes</a></li>
 <li><a href="#Routes">Routes and waypoints</a>    <ol>
 <li><a href="#AddWayPoint">Create a waypoint</a></li>
@@ -60,103 +52,49 @@
 </ol>
 </li>
 <li><a href="#GpxFiles">GPX files</a></li>
-<li><a href="#MapsMenu">Background map menu</a></li>
 <li><a href="#Roadbook">Roadbook</a></li>
 <li><a href="#PrepareTravel">Prepare a travel and consult it from the internet</a></li>
 <li><a href="#Viewer">Viewer</a></li>
 </ol>
 <p><a id="WhyTravelNotes"></a></p>
 <h2 id="1-why-travel--notes">1. Why Travel &amp; Notes</h2>
-<p>I go from time to time on a bike travel for several weeks, sometimes in isolated areas. This kind 
-of travel can not be improvised, even if there is always a part of unforeseen. I needed a tool to 
-prepare my route from the map and to add notes.</p>
-<p>Yes, I know, there are a lot of applications that can make a route from one point to another, but 
-none really gives me satisfaction: I do not often look for the shortest route - sometimes it&#39;s even 
-a circular route - and in general we&#39;re limited to a few hundred kilometers.</p>
-<p>Finally, it is also important to be able to record what has been prepared because it is not done in a 
-few minutes. You must also be able to print the result. In some isolated areas, there is not always 
-a mobile network or the possibility of recharging a battery. A good old hard copy is often valuable.</p>
+<p>I go from time to time on a bike travel for several weeks, sometimes in isolated areas. This kind of travel can not be improvised, even if there is always a part of unforeseen. I needed a tool to prepare my route from the map and to add notes.</p>
+<p>Yes, I know, there are a lot of applications that can make a route from one point to another, but none really gives me satisfaction: I do not often look for the shortest route - sometimes it&#39;s even a circular route - and in general we&#39;re limited to a few hundred kilometers.</p>
+<p>Finally, it is also important to be able to record what has been prepared because it is not done in a few minutes. You must also be able to print the result. In some isolated areas, there is not always a mobile network or the possibility of recharging a battery. A good old hard copy is often valuable.</p>
 <p><a id="SomeExplanations"></a></p>
 <h2 id="2-some-explanations-on-the-terms-used">2. Some explanations on the terms used</h2>
 <p>A <strong>route</strong> connects two points. On the map, it is represented by a polyline.</p>
-<p>An <strong>itinerary</strong> is the description of the various changes of direction needed to follow a route.
-A change of direction is a <strong>maneuver</strong>.</p>
-<p>A <strong>travel</strong> consists of one or more routes. They do not have to touch each other at their ends.
-There may also be more than two routes starting from the same point.</p>
-<p>In a travel, some routes may be <strong>chained</strong> between them. In this case, the different chained routes 
-will be considered as only one for the calculation of the distances. One and only one chain maybe 
-created by travel, but it is not mandatory that all routes are included in the chain.</p>
-<p>A <strong>note</strong> is a set of information that relates to a specific point on the map or on a route. A note 
-consists of an icon, a tooltip, a free text, an address, a link and a phone number. None of this 
-information is required, except for the icon, which is used to represent the note on the map. 
-This icon can be an image, a photo, a text ...</p>
-<p>The <strong>roadbook</strong> is an HTML page that contains all the information of the travel: the notes, the 
-routes and the itineraries.</p>
-<p><a id="OpenFileWithV200"></a></p>
-<h2 id="3-open-a-travel-file-created-with-a-version-earlier-than-v200">3. Open a travel file created with a version earlier than v2.0.0</h2>
-<p><strong>ATTENTION : It is not possible to open with version 1.x.x a file saved with version 2.0.0</strong></p>
-<p>You may still need the older version to make corrections in the notes.
-You can do two installations of Travel &amp; Notes without any problem. You just have to place them 
-in different directories.</p>
-<ul>
-<li><strong>Make a backup copy of your travel files</strong>.</li>
-<li>Open Travel &amp; Notes v2.0.0 and also open the browser&#39;s web console.</li>
-<li>Open a file to convert.</li>
-<li>The list of all deleted html tags and attributes is displayed in the console and the travel
-displayed in Travel &amp; Notes.</li>
-<li>Correct any errors by using your old version and then reopening your travel with version 2.0.0. OR directly
-make the necessary corrections in version 2.0.0.</li>
-<li>Do not panic. The only fixes I had to make in my files were links which were incorrect anyway and 
-therefore didn&#39;t lead to anything.</li>
-</ul>
+<p>An <strong>itinerary</strong> is the description of the various changes of direction needed to follow a route. A change of direction is a <strong>maneuver</strong>.</p>
+<p>A <strong>travel</strong> consists of one or more routes. They do not have to touch each other at their ends. There may also be more than two routes starting from the same point.</p>
+<p>In a travel, some routes may be <strong>chained</strong> between them. In this case, the different chained routes will be considered as only one for the calculation of the distances. One and only one chain maybe created by travel, but it is not mandatory that all routes are included in the chain.</p>
+<p>A <strong>note</strong> is a set of information that relates to a specific point on the map or on a route. A note consists of an icon, a tooltip, a free text, an address, a link and a phone number. None of this information is required, except for the icon, which is used to represent the note on the map. This icon can be an image, a photo, a text ...</p>
+<p>The <strong>roadbook</strong> is an HTML page that contains all the information of the travel: the notes, the routes and the itineraries.</p>
 <p><a id="BeforeStart"></a></p>
-<h2 id="4-before-you-start-using-travel--notes">4. Before you start using Travel &amp; Notes</h2>
-<p>If you use Travel &amp; Notes only to create notes, you can skip all the part about the access keys. 
-These are only used for calculating routes and the display of certain maps.</p>
-<p>Travel &amp; Notes does not calculate routes and itineraries. It connects to a route provider to get 
-this itinerary. The different route providers that can currently be used are GraphHopper, Mapbox, 
-Stadia Maps, OpenRouteService and OSRM. It is also possible to draw a polyline between two places, without 
-following paths. A train route between two stations can also be added, provided
-that this route is encoded in OpenStreetMap, respecting the rules of public transport version 2.</p>
-<p>For GraphHopper, OpenRouteService, Stadia Maps and Mapbox it is necessary to have an access key (<strong>API Key</strong>) 
-to connect to the server. Check the websites of these different providers to obtain an access key.</p>
-<p>You must also correctly read the conditions of use of the access keys and check that what you do 
-with Travel &amp; Notes corresponds to these conditions of use.</p>
-<p>For the display of certain maps (Thunderforest, Lantmäteriet - Sweden, Mapbox), an access key
-is also essential. For other maps, this is not necessary (OpenStreetMap,
-aerial view ESRI, IGN - Belgium, Kartverket - Norway, Maanmittauslaitos - Finland).</p>
-<p>You are also responsible for the use of your access keys. Remember that there may be billing that 
-is done based on these access keys. Do not give them to anyone or do not let them hang around anywhere.</p>
+<h2 id="3-before-you-start-using-travel--notes">3. Before you start using Travel &amp; Notes</h2>
+<p>If you use Travel &amp; Notes only to create notes, you can skip all the part about the access keys. These are only used for calculating routes and the display of certain maps.</p>
+<p>Travel &amp; Notes does not calculate routes and itineraries. It connects to a route provider to get this itinerary. The different route providers that can currently be used are GraphHopper, Mapbox, Stadia Maps, OpenRouteService and OSRM. It is also possible to draw a polyline between two places, without following paths. A train route between two stations can also be added, provided that this route is encoded in OpenStreetMap, respecting the rules of public transport version 2.</p>
+<p>For GraphHopper, OpenRouteService, Stadia Maps and Mapbox it is necessary to have an access key (<strong>API Key</strong>) to connect to the server. Check the websites of these different providers to obtain an access key.</p>
+<p>You must also correctly read the conditions of use of the access keys and check that what you do with Travel &amp; Notes corresponds to these conditions of use.</p>
+<p>For the display of certain maps (Thunderforest, Lantmäteriet - Sweden, Mapbox), an access key is also essential. For other maps, this is not necessary (OpenStreetMap, aerial view ESRI, IGN - Belgium, Kartverket - Norway, Maanmittauslaitos - Finland).</p>
+<p>You are also responsible for the use of your access keys. Remember that there may be billing that is done based on these access keys. Do not give them to anyone or do not let them hang around anywhere.</p>
 <p><a id="APIKeys"></a></p>
-<h3 id="41-how-to-introduce-your-access-keys-in-travel--notes">4.1. How to introduce your access keys in Travel &amp; Notes</h3>
-<p>Access keys are managed from the access keys dialog. To view it, click the 🔑 button 
-in the toolbar at the top of the interface.</p>
+<h3 id="31-how-to-introduce-your-access-keys-in-travel--notes">3.1. How to introduce your access keys in Travel &amp; Notes</h3>
+<p>Access keys are managed from the access keys dialog. To view it, click the 🔑 button in the toolbar at the top of the interface.</p>
 <img src="APIKeysDialogEN.PNG" />
 
-<p>For each service provider, you must indicate on the left the name of this service provider and on the right
-the access key. The different names currently possible are &#39;GraphHopper&#39;, &#39;Lantmateriet&#39;,
-&#39;Mapbox&#39;, &#39;MapzenValhalla&#39;, &#39;OpenRouteService&#39; et &#39;Thunderforest&#39; (insensitive to upper / lower case).</p>
+<p>For each service provider, you must indicate on the left the name of this service provider and on the right the access key. The different names currently possible are &#39;GraphHopper&#39;, &#39;Lantmateriet&#39;, &#39;Mapbox&#39;, &#39;MapzenValhalla&#39;, &#39;OpenRouteService&#39; et &#39;Thunderforest&#39; (insensitive to upper / lower case).</p>
 <p>Use the + button to add a service provider and the ❌ button on the right to delete this one.</p>
-<p>When your access keys are entered, press the button 🆗 to finish.
-Your keys are saved in the &quot;sessionStorage&quot; of the browser and available until the tab is closed.</p>
+<p>When your access keys are entered, press the button 🆗 to finish. Your keys are saved in the &quot;sessionStorage&quot; of the browser and available until the tab is closed.</p>
 <p>It is possible to save the access keys in a file, protected by a password or unprotected.</p>
 <p><strong>Attention</strong>: the page must be served in HTTPS to save in a file protected by a password.</p>
 <p>The 🔄 button is used to reload the access keys file from the web server, if a file was previously found on the server.</p>
-<p>The button 💾 on the <strong>left</strong> of the dialog box allows you to save the access keys
-in a password protected file. This must contain at least 12 characters including at least 
-one uppercase, one lowercase, one number, and one other character.</p>
-<p>The button 📂 on the <strong>left</strong> of the dialog box replaces all the access keys of the
-dialog box with the contents of a password protected file.</p>
-<p>These two buttons are only present if all the conditions to be able to save / restore the
-keys with a password are met.</p>
-<p>The button 💾 on the <strong>right</strong> of the dialog box allows you to save the access keys in
-a file <strong>not protected</strong> by password.</p>
-<p>The button 📂 on the <strong>right</strong> of the dialog box replaces all the access keys of the
-dialog box by the contents of a file <strong>not protected</strong> by password.</p>
+<p>The button 💾 on the <strong>left</strong> of the dialog box allows you to save the access keys in a password protected file. This must contain at least 12 characters including at least one uppercase, one lowercase, one number, and one other character.</p>
+<p>The button 📂 on the <strong>left</strong> of the dialog box replaces all the access keys of the dialog box with the contents of a password protected file.</p>
+<p>These two buttons are only present if all the conditions to be able to save / restore the keys with a password are met.</p>
+<p>The button 💾 on the <strong>right</strong> of the dialog box allows you to save the access keys in a file <strong>not protected</strong> by password.</p>
+<p>The button 📂 on the <strong>right</strong> of the dialog box replaces all the access keys of the dialog box by the contents of a file <strong>not protected</strong> by password.</p>
 <p>These two buttons are only present if they have been enabled in the TravelNotesConfig.json file.</p>
-<p>If a password protected file named <strong>APIKeys</strong> is placed in the same directory as
-Travel &amp; Notes on the server, Travel &amp; Notes will ask you for the password when you open it 
-in order to use the keys contained in this file.</p>
+<p>If a password protected file named <strong>APIKeys</strong> is placed in the same directory as Travel &amp; Notes on the server, Travel &amp; Notes will ask you for the password when you open it in order to use the keys contained in this file.</p>
 <p>For geeks and paranos also see in the <a href="InstallationGuideEN.html#TravelNotesConfigJson">installation guide</a> and in the file TravelNotesConfig.json:</p>
 <ul>
 <li>APIKeys.saveToSessionStorage to save or not the keys in the sessionStorage</li>
@@ -164,80 +102,75 @@ in order to use the keys contained in this file.</p>
 <li>APIKeysDialog.showAPIKeys to show or hide the keys as a password in the dialog box</li>
 <li>APIKeysDialog.haveUnsecureButtons to show or hide the buttons 💾 and 📂 on <strong>right</strong></li>
 </ul>
-<p>The old method consisting in entering the access keys via the url is removed.</p>
 <p><a id="ContextMenus"></a></p>
-<h2 id="5-context-menus">5. Context menus</h2>
-<p>All map objects (waypoints, notes, routes, map) have a context menu. All the commands related to 
-these objects can be found in these context menus.</p>
-<p>The same menus are found in the user interface on the right of the screen. Right clicking on a route in the routes list 
-will display a context menu for that route, right clicking on a note in the route description or in the travel notes list 
-will display a context menu for that note and right clicking on a maneuver in the route description will display a 
-context menu for that maneuver.</p>
-<p><a id="Interface1"></a></p>
-<h2 id="6-interface">6. Interface</h2>
+<h2 id="4-context-menus">4. Context menus</h2>
+<p>All map objects (waypoints, notes, routes, map) have a context menu. All the commands related to these objects can be found in these context menus.</p>
+<p>The route context menu can also be displayed by right-clicking (with a mouse) or a long click (on touch screen) on a route in the &quot;Travel properties&quot; window.</p>
+<p>The travel notes context menu can also be displayed by right-clicking (with a mouse) or a long click (on touch screen) on a note in the &quot;Travel notes&quot; window.</p>
+<p><a id="MainToolbar"></a></p>
+<h2 id="5-main-toolbar">5 Main toolbar</h2>
 <p>When the map is displayed, only a small black rectangle is visible in the upper right corner of the map:</p>
 <img src="MinInterface.PNG" />
 
-<p>Move the mouse over this rectangle to see the complete interface:</p>
-<img src="InterfaceEN.PNG" />
-
-<p><a id="InterfaceToolbar"></a></p>
-<h3 id="61-toolbar-buttons-on-top-of-the-interface">6.1. Toolbar buttons on top of the interface</h3>
-<p>At the top of the interface is a first toolbar:</p>
+<p>Move the mouse over this rectangle  or click on it ( on a touch screen) to see the complete toolbar.</p>
 <ul>
+<li>the 🌐 or 🏀 button enables or disables localization.</li>
+<li>the ❌ button erases all travel data and starts editing a new travel.</li>
+<li>the 💾 button saves the travel being edited to a file on your computer, tablet or mobile.</li>
+<li>the 📂 button opens a previously saved travel or pens a .GPX file.</li>
+<li>the 🌏 button opens a previously saved travel and includes all routes and notes from that travel in the current edited travel or insert the contains of a .GPX file.</li>
+<li>the 📙 button opens the roadbook in a new tab.</li>
+<li>the 🔑 button displays the dialog box of the access keys</li>
+<li>the 🛄 button opens the &quot;Travel properties&quot; window.</li>
+<li>the 🗨️ button opens the &quot;Travel notes&quot; window.</li>
+<li>the 🔍 button opens the &quot;Searching OepnStreetMap&quot; window</li>
+<li>the ☢️ button saves the travel being edited WITHOUT any notes or maneuvers.</li>
+<li>the 🛠️ button opens the &quot;About Travel &amp; Notes&quot; window</li>
+<li>the 🔺 or 🔻 button toggles the fullscreen</li>
+<li>the + button increases the text size</li>
+<li>the - button decreases the text size</li>
 <li>the button 🏠 redirects to your home page.</li>
 <li>the button ? redirects to the Travel &amp; Notes help page on Github (this document).</li>
-<li>the @ button redirects to a contact page. By default it is <a href="https://github.com/wwwouaiebe/TravelNotes/issues">the Travel &amp; Notes issues page on Github</a>.
-the url can be modified via the TravelNotes Config.json file (travelNotesToolbarUI.contactMail.url)</li>
-<li>the button 🔑 displays the dialog box of the access keys</li>
-<li>the button 🌐 enables or disables localization.</li>
-<li>the button 📌 permanently displays the interface.</li>
+<li>the @ button redirects to a contact page. By default it is <a href="https://github.com/wwwouaiebe/TravelNotes/issues">the Travel &amp; Notes issues page on Github</a>. the url can be modified via the TravelNotes Config.json file (travelNotesToolbarUI.contactMail.url)</li>
 </ul>
-<p><a id="Travel"></a></p>
-<h3 id="62-travel">6.2. Travel</h3>
-<p><a id="TravelName"></a></p>
-<h4 id="621-travel-name">6.2.1. Travel name</h4>
-<p>In this edit box you can give a name to the travel. This name will then be proposed as the default name
-for all the files you will create from this travel. It is necessary to give a name to the travel before
-to be able to save this one.</p>
-<p><a id="RouteToolbar"></a></p>
-<h4 id="622-toolbar-buttons-travel">6.2.2. Toolbar buttons &quot;Travel&quot;</h4>
+<p><a id="MapsToolbar"></a></p>
+<h2 id="6-maps-toolbar">6 Maps toolbar</h2>
+<p>Similarly, in the upper left corner is a toolbar that allows you to choose from several basemaps. Only maps that do not require an access key or those for which you have entered an access key are visible.</p>
+<p><a id="RouterToolbar"></a></p>
+<h2 id="7-route-modes-and-route-providers-toolbar">7 Route modes and route providers toolbar</h2>
+<p>At the bottom of the screen is another toolbar.</p>
+<p>The different route modes (bicycle, pedestrian, car, train or line) as well as the different route providers are selected on this toolbar.</p>
+<img src="RouterToolbarEN.PNG" />
+
+<p>The blue buttons on the left allow you to select the route mode, the other buttons select the route providers.</p>
+<p>Only the buttons that can be used are visible in the toolbar:</p>
 <ul>
-<li>the button 💾 on a red <strong>background</strong> saves the travel being edited WITHOUT any notes or maneuvers.</li>
-<li>the button ❌ erases all travel data and starts editing a new travel.</li>
-<li>the button 💾 saves the travel being edited to a file on your computer.</li>
-<li>the button 📂 opens a previously saved travel or pens a .GPX file.</li>
-<li>the button 🌏 opens a previously saved travel and includes all routes and notes from that 
-travel in the current edited travel or insert the contains of a .GPX file.</li>
-<li>the button 📋 opens the roadbook.</li>
+<li>the route modes depend on the route provider selected</li>
+<li>a route provider is only present if the corresponding plugin is installed and if the access key for this provider is known (when an access key is required).</li>
 </ul>
-<p><a id="RoutesTravel"></a></p>
-<h4 id="623-travel-routes">6.2.3. Travel routes</h4>
-<p>In this part, the different travel routes are displayed.</p>
-<ul>
-<li>the ▶ or ▼ buttons reduce or enlarge the list of routes</li>
-<li>the button + add a new route to the travel</li>
-</ul>
-<p>For each route, right-clicking on it displays a context menu containing commands
-which allow operations to be carried out on the route.</p>
-<p>It is also possible to drag and drop to reorder the different routes.</p>
-<p>When a route is being modified, an icon 🔴 is present to the left of it.
-Likewise, when a route is chained, an ⛓ icon is present on the left.</p>
-<p>By default, the name of a route is the name and address of the starting point followed by ⮞ followed 
-by the name and the address of the point of arrival. It is possible to modify this name by selecting 
-the command &#39;Modify the properties of this route&#39; in the contextual menu.</p>
-<p><a id="ItineraryAndNotes"></a></p>
-<h3 id="63-itinerary-and-notes">6.3. Itinerary and notes</h3>
-<p>This part includes the maneuvers of the route as well as notes related to the route.</p>
-<p>When the mouse is placed on a line of the itinerary, a marker is displayed at this location on the map.</p>
-<p>Right-clicking on a route line will display a context menu with commands
-which allow operations to be carried out on the maneuver or the note.</p>
-<p><a id="OsmSearch"></a></p>
-<h3 id="64-search-openstreetmap">6.4. Search OpenStreetMap</h3>
-<p>In this part, it is possible to search for points of interest (POI) in OpenStreetMap.
-A toolbar is displayed at the top and then a tree list allowing you to choose the
-POI to search is displayed.</p>
-<img src="OsmSearchEN.PNG" />
+<p><a id="TravelPropertiesWindow"></a></p>
+<h2 id="8-travel-properties-window">8 Travel properties window</h2>
+<p>This window is displayed by clicking on the 🛄 button in the main toolbar.</p>
+<img src="TravelPropertiesWindowEN.PNG" />
+
+<p>At the top of the window you can name your travel. This is essential if you want to save your travel in a file.</p>
+<p>Below is the list of the different routes of the travel.</p>
+<p>A ⛓ icon is displayed before the name of the linked routes.</p>
+<p>A 🔴 icon is displayed before the edited route name.</p>
+<p>A right click (with a mouse) or a long click (with a touch screen) on a route will display the contextual menu of this route.</p>
+<p>If the window is too small to display all routes, use the mouse wheel to scroll through the list. On a touch screen simply drag it.</p>
+<p>You can rearrange the list by dragging and dropping with the mouse. On a touch screen, you must double-click on the route to be moved followed by a drag.</p>
+<p>If you drop the route to be moved at the bottom of another route, the route to be moved will be inserted after and if you drop it at the top, it will be inserted before.</p>
+<p><a id="TravelNotesWindow"></a></p>
+<h2 id="9-travel-notes-window">9 Travel notes window</h2>
+<p>This window is displayed by clicking on the 🗨️ button in the main toolbar.</p>
+<img src="TravelNotesWindow.EN.PNG" />
+
+<p>As for the route of the travel in the window &quot;Travel Properties&quot;, it is possible to display a contextual menu and to modify the order of the notes.</p>
+<p><a id="SearchOsmWindow"></a></p>
+<h2 id="10-searching-openstreetmap-window">10 Searching OpenStreetMap window</h2>
+<p>In this window, it is possible to search for points of interest (POI) in OpenStreetMap. A toolbar is displayed at the top and then a tree list allowing you to choose the POI to search is displayed.</p>
+<img src="SearchOsmWindowEN.PNG" />
 
 <ul>
 <li>the button 🔎 starts the search</li>
@@ -245,104 +178,66 @@ POI to search is displayed.</p>
 <li>the ▶ button closes the tree list, except for the first level</li>
 <li>the ❌ button deselects the entire tree list</li>
 </ul>
-<p>La liste arborescente peut être facilement modifiée et adaptée à vos besoins. 
-Voir le <a href="InstallationGuideEN.html#OsmSearch">guide d&#39;installation</a>.</p>
-<p>Select the type of POI to search from the tree list and then click on the 🔎 button.
-After a few moments, the results are displayed:</p>
+<p>La liste arborescente peut être facilement modifiée et adaptée à vos besoins. Voir le <a href="InstallationGuideEN.html#OsmSearch">guide d&#39;installation</a>.</p>
+<p>Select the type of POI to search from the tree list and then click on the 🔎 button. After a few moments, the results are displayed:</p>
 <img src="OsmSearchResultsEN.PNG" />
 
-<p>Move the mouse over one of the results. This will be displayed on the map, as well as a tooltip
-with all the tags introduced in OpenStreetMap.</p>
-<p>Right clicking on one of the results will show a context menu allowing you to create notes with that result
-or choose this result as the waypoint for the route being edited.</p>
+<p>Move the mouse over one of the results. This will be displayed on the map, as well as a tooltip with all the tags introduced in OpenStreetMap.</p>
+<p>Right clicking on one of the results will show a context menu allowing you to create notes with that result or choose this result as the waypoint for the route being edited.</p>
 <p>The search area is limited to the map displayed on the screen with a maximum of 10 km by 10 km.</p>
-<p>When the &quot;Search OpenStreetMap&quot; panel is activated, a red square showing the limits of the next search
-is displayed on the screen. The green square shows the limits of the previous search.</p>
-<p><a id="RouterButtons"></a></p>
-<h3 id="65-route-modes-and-route-providers-toolbar">6.5. Route modes and route providers toolbar</h3>
-<p>The different route modes (bicycle, pedestrian, car, train or line) as well as the different 
-route providers are selected on this toolbar.</p>
-<img src="RouterButtons.PNG" />
-
-<p>The blue buttons on the left allow you to select the route mode, the other buttons select 
-the route providers.</p>
-<p>Only the buttons that can be used are visible in the toolbar:</p>
-<ul>
-<li>the route modes depend on the route provider selected</li>
-<li>a route provider is only present if the corresponding plugin is installed and if the access key 
-for this provider is known (when an access key is required).</li>
-</ul>
+<p>When the &quot;Search OpenStreetMap&quot; window is activated, a red square showing the limits of the next search is displayed on the screen. The green square shows the limits of the previous search.</p>
 <p><a id="EditBoxes"></a></p>
-<h2 id="7-edit-boxes">7. Edit boxes</h2>
-<p>Sometimes, an edit box can hide an object of the map that you want to consult. It is always possible, 
-either to move / modify the map with a zoom or a pan, or to drag / drop the edit box with the bar at the top.</p>
+<h2 id="11-edit-boxes">11. Edit boxes</h2>
+<p>Sometimes, an edit box can hide an object of the map that you want to consult. It is always possible, either to move / modify the map with a zoom or a pan, or to drag / drop the edit box with the bar at the top.</p>
 <p><a id="Routes"></a></p>
-<h2 id="8-routes-and-waypoints">8. Routes and waypoints</h2>
-<p>To add, modify or delete waypoints, it is necessary to edit the route from the interface or via the 
-contextual menu of the route if it already exists.</p>
-<p>All other modifications (notes, properties of the route) can be made, whether the route
-is edited or not.</p>
+<h2 id="12-routes-and-waypoints">12. Routes and waypoints</h2>
+<p>To add, modify or delete waypoints, it is necessary to edit the route from the interface or via the contextual menu of the route if it already exists.</p>
+<p>All other modifications (notes, properties of the route) can be made, whether the route is edited or not.</p>
 <p><a id="AddWayPoint"></a></p>
-<h3 id="81create-a-waypoint">8.1.Create a waypoint</h3>
-<p>To create a waypoint, right-click on the map at the desired location and choose &quot;Select this point 
-as start point&quot;, &quot;Select this point as waypoint&quot; or &quot;Select this point as end point&quot; in the menu:</p>
+<h3 id="121create-a-waypoint">12.1.Create a waypoint</h3>
+<p>To create a waypoint, right-click on the map at the desired location and choose &quot;Select this point as start point&quot;, &quot;Select this point as waypoint&quot;, &quot;Select this point as end point&quot; or &quot;Select this point as start point and end point&quot; in the menu:</p>
 <img src="MapContextMenuEN.PNG" />
 
-<p>A green icon (for the start point), orange (for a waypoint) or red (for the end point) is added to 
-the map at the chosen location.</p>
-<p>An intermediate waypoint added via the context menu will always be added at the end of the
-list of intermediate waypoints. </p>
+<p>A green icon (for the start point), orange (for a waypoint) or red (for the end point) is added to the map at the chosen location.</p>
+<p>An intermediate waypoint added via the context menu will always be added at the end of the list of intermediate waypoints. </p>
 <p><a id="AddWayPointDragDrop"></a></p>
-<h3 id="82-adding-a-waypoint-with-drag-and-drop">8.2. Adding a waypoint with Drag And Drop</h3>
-<p>Move the mouse over the route to see a temporary gray waypoint.
-Then by dragging and dropping it, the waypoint is added to the path.</p>
+<h3 id="122-adding-a-waypoint-with-drag-and-drop">12.2. Adding a waypoint with Drag And Drop</h3>
+<p>Move the mouse over the route or click on the route at the desired location (touchscreen) to see a temporary gray waypoint appear.Then by dragging and dropping it, the waypoint is added to the path.</p>
 <img src="AddWayPointEN.PNG" />
 
 <p><a id="ModifyWayPoint"></a></p>
-<h3 id="83-modify-a-waypoint">8.3. Modify a waypoint</h3>
+<h3 id="123-modify-a-waypoint">12.3. Modify a waypoint</h3>
 <p>Drag and drop the waypoint on the map to change a waypoint</p>
 <p><a id="DeleteWayPoint"></a></p>
-<h3 id="84-delete-a-waypoint">8.4. Delete a waypoint</h3>
-<p>Right click on the waypoint and choose &quot;delete this waypoint&quot; from the menu. It is not possible to 
-delete the start point or the end point. Only a drag and drop is possible.</p>
+<h3 id="124-delete-a-waypoint">12.4. Delete a waypoint</h3>
+<p>Right click on the waypoint and choose &quot;delete this waypoint&quot; from the menu. It is not possible to delete the start point or the end point. Only a drag and drop is possible.</p>
 <p><a id="RenameWayPoint"></a></p>
-<h3 id="85-rename-a-waypoint-or-change-its-address">8.5. Rename a waypoint or change its address</h3>
-<p>When a waypoint is created, its address is searched with Nominatim. If a name, such as a store or building name 
-is found by Nominatim, this will also be added (see wayPoint.geocodingIncludeName in the TravelNotesConfig.json 
-file to disable this possibility).</p>
-<p>You can change this name and address by right-clicking on the waypoint and 
-selecting &quot;Modify the properties of this waypoint&quot; from the context menu.</p>
-<p>Note, however, that each time the waypoint is moved, the name and address will be
-modified by Nominatim and your lost modifications. So it is better to make these changes when you are
-certain not to move this waypoint any more.</p>
+<h3 id="125-rename-a-waypoint-or-change-its-address">12.5. Rename a waypoint or change its address</h3>
+<p>When a waypoint is created, its address is searched with Nominatim. If a name, such as a store or building name is found by Nominatim, this will also be added (see wayPoint.geocodingIncludeName in the TravelNotesConfig.json file to disable this possibility).</p>
+<p>You can change this name and address by right-clicking on the waypoint and selecting &quot;Modify the properties of this waypoint&quot; from the context menu.</p>
+<p>Note, however, that each time the waypoint is moved, the name and address will be modified by Nominatim and your lost modifications. So it is better to make these changes when you are certain not to move this waypoint any more.</p>
 <p><a id="ItineraryModeAndProvider"></a></p>
-<h3 id="86-choose-a-route-mode-and-route-provider">8.6. Choose a route mode and route provider</h3>
-<p>Use the buttons at the bottom of the control to change the route mode (bike, pedestrian, car or train) 
-as well as the route provider.</p>
-<img src="RouterButtons.PNG" />
+<h3 id="126-choose-a-route-mode-and-route-provider">12.6. Choose a route mode and route provider</h3>
+<p>Use the buttons at the bottom of the control to change the route mode (bike, pedestrian, car or train) as well as the route provider.</p>
+<img src="RouterToolbarEN.PNG" />
 
 <p><a id="ComputingItinerary"></a></p>
-<h3 id="87-calculation-of-the-itinerary">8.7. Calculation of the itinerary</h3>
-<p>When the starting point and end point are known, the route is calculated and displayed on the map. 
-It&#39;s the same every time an intermediate point is added or a waypoint is moved.</p>
+<h3 id="127-calculation-of-the-itinerary">12.7. Calculation of the itinerary</h3>
+<p>When the starting point and end point are known, the route is calculated and displayed on the map. It&#39;s the same every time an intermediate point is added or a waypoint is moved.</p>
 <p>The description of the route is also displayed in the &quot;Itinerary and notes&quot; section.</p>
 <p><a id="SaveOrDiscardRoute"></a></p>
-<h3 id="88-save-or-discard-changes">8.8. Save or discard changes</h3>
-<p>When editing a route is finished, it must be saved. Right click on the route
-and select &#39;Save the modifications on this route&#39; from the context menu.</p>
-<p>It is also possible to quit editing a route and return to the situation before
-changes with the command &#39;Cancel the modifications on this route&#39;. Attention, <strong>all</strong>
-changes will be lost, including changed properties and added notes since the start of the edition.</p>
+<h3 id="128-save-or-discard-changes">12.8. Save or discard changes</h3>
+<p>When editing a route is finished, it must be saved. Right click on the route and select &#39;Save the modifications on this route&#39; from the ontext menu.</p>
+<p>It is also possible to quit editing a route and return to the situation before changes with the command &#39;Cancel the modifications on this route&#39;. Attention, <strong>all</strong> changes will be lost, including changed properties and added notes since the start of the edition.</p>
 <p><a id="RouteProfile"></a></p>
-<h3 id="89-route-profile">8.9. Route profile</h3>
-<p>When a route is calculated with GraphHopper or OpenRouteService, it is possible to display a profile of this route.
-Right-click on the <strong>route</strong> and select &quot;View the profile&quot; from the context menu.</p>
+<h3 id="129-route-profile">12.9. Route profile</h3>
+<p>When a route is calculated with GraphHopper or OpenRouteService, it is possible to display a profile of this route. Right-click on the <strong>route</strong> and select &quot;View the profile&quot; from the context menu.</p>
 <img src="ProfileEN.PNG" />
 
 <p>There may be multiple open windows displaying profiles.</p>
 <p>It is possible to move a profile on the screen by dragging and dropping with the top bar of the window.</p>
 <p><a id="TrainItinerary"></a></p>
-<h3 id="810-train-route">8.10. Train route</h3>
+<h3 id="1210-train-route">12.10. Train route</h3>
 <ul>
 <li>select TravelNotesPublicTransport as the route provider by clicking on the <img src="trainRed.svg" width="20px" height="20px" /> icon at the bottom of the interface</li>
 <li>right click on the map near the departure station and choose &quot;Select this point as the start point&quot; from the context menu.</li>
@@ -363,79 +258,54 @@ Right-click on the <strong>route</strong> and select &quot;View the profile&quot
 <img src="TrainMap.PNG" /> 
 
 <ul>
-<li>the different train stops will be added to the route</li>
+<li>the different train stops will be added to the itinerary</li>
 </ul>
-<img src="TrainItinerary.PNG" />
-
 <p><a id="LineItinerary"></a></p>
-<h3 id="811-draw-a-line-between-two-points-on-the-map">8.11. Draw a line between two points on the map</h3>
+<h3 id="1211-draw-a-line-between-two-points-on-the-map">12.11. Draw a line between two points on the map</h3>
 <ul>
 <li>select &quot;Polyline &amp; Circle&quot; as the route provider by clicking on the <img class="icon" src="polyline.svg" width="20px" height="20px"/> icon at the bottom of the interface and &quot;Directions as the crow flies&quot; as the transit mode by clicking on the icon <img class="icon" src="line.svg" width="20px" height="20px"/>.</li>
 <li>indicate the starting point and the end point as well as possible intermediate points. Between each of the points indicated, a portion of &quot;large circle&quot; is drawn.</li>
 </ul>
-<p>Note that, depending on the points chosen, the result on the map can be a line, an arc of a circle or a part of a sinusoid, but in all cases it will be 
-the representation of a portion of a large circle on the terrestrial globe ( = the shortest path between the two points).</p>
+<p>Note that, depending on the points chosen, the result on the map can be a line, an arc of a circle or a part of a sinusoid, but in all cases it will be the representation of a portion of a large circle on the terrestrial globe ( = the shortest path between the two points).</p>
 <img src="HELJFK.PNG" />
 
 <p><a id="CircleItinerary"></a></p>
-<h3 id="812-draw-a-circle-on-the-map">8.12. Draw a circle on the map</h3>
+<h3 id="1212-draw-a-circle-on-the-map">12.12. Draw a circle on the map</h3>
 <ul>
-<li>select &quot;Polyline &amp; Circle&quot; as the route provider by clicking on the icon <img class="icon" src="polyline.svg" width="20px" height="20px"/>
-at the bottom of the interface and &quot;Circle&quot; as transit mode by clicking on the icon <img class="icon" src="circle.svg" width="20px" height="20px"/></li>
-<li>Indicate the center of the circle using the command &quot;Select this point as start point&quot; and a point to be on
-circle using the command &quot;Select this point as end point&quot;.</li>
+<li>select &quot;Polyline &amp; Circle&quot; as the route provider by clicking on the icon <img class="icon" src="polyline.svg" width="20px" height="20px"/> at the bottom of the interface and &quot;Circle&quot; as transit mode by clicking on the icon <img class="icon" src="circle.svg" width="20px" height="20px"/></li>
+<li>Indicate the center of the circle using the command &quot;Select this point as start point&quot; and a point to be on circle using the command &quot;Select this point as end point&quot;.</li>
 </ul>
-<p>Here too, the result can be an ellipse, a rectangle or a sinusoid but in all cases it will be the representation of a
-circle on the earth globe.</p>
+<p>Here too, the result can be an ellipse, a rectangle or a sinusoid but in all cases it will be the representation of a circle on the earth globe.</p>
 <p><a id="RouteDlg"></a></p>
-<h3 id="813-editing-the-properties-of-a-route">8.13. Editing the properties of a route</h3>
+<h3 id="1213-editing-the-properties-of-a-route">12.13. Editing the properties of a route</h3>
 <p>Right click on the route and select &quot;Modify the properties of this route&quot; from the context menu.</p>
 <img src="RoutePropertiesEN.PNG" />
 
-<p>You can first change the name of the route and replace the name suggested by the program
-with a name of your choice.</p>
-<p>Note that when the name has been changed, the addresses will no longer be added to the name,
-even if you change the start and end points.</p>
-<p>It is also possible to change the width of the route as well as the type of line and also chaining 
-the route.</p>
-<p>Finally you can change the color used to display the route. Select a color from the 6 rows of 
-colored buttons. The slider under the colored buttons adds more or less shade of red in the colors offered.</p>
+<p>You can first change the name of the route and replace the name suggested by the program with a name of your choice.</p>
+<p>Note that when the name has been changed, the addresses will no longer be added to the name,even if you change the start and end points.</p>
+<p>It is also possible to change the width of the route as well as the type of line and also chaining the route.</p>
+<p>Finally you can change the color used to display the route. Select a color from the 6 rows of colored buttons. The slider under the colored buttons adds more or less shade of red in the colors offered.</p>
 <p>Each shade of red, green and blue for the desired color can also be set individually via the 3 color editing areas.</p>
 <p><a id="PrintRouteMaps"></a></p>
-<h3 id="814-print-route-maps">8.14. Print route maps</h3>
-<p>Please note: this command is experimental. It may not work with your Travel &amp; Notes installation 
-if you have added other elements to the page. Moreover, browsers do not all react in the same way to
-css tags, especially those that force a page break when printed.
-If this command does not suit you, you can disable it from the TravelNotesConfig.json file (printRouteMap.isEnabled). See the <a href="InstallationGuideEN.html#TravelNotesConfigJson">installation guide</a>.</p>
-<p>Right-click on the route for which you want to print the maps and select &quot;Print the maps for this route&quot; 
-from the context menu.</p>
+<h3 id="1214-print-route-maps">12.14. Print route maps</h3>
+<p>Please note: this command is experimental. It may not work with your Travel &amp; Notes installation if you have added other elements to the page. Moreover, browsers do not all react in the same way to css tags, especially those that force a page break when printed. If this command does not suit you, you can disable it from the TravelNotesConfig.json file (printRouteMap.isEnabled). See the <a href="InstallationGuideEN.html#TravelNotesConfigJson">installation guide</a>.</p>
+<p>Right-click on the route for which you want to print the maps and select &quot;Print the maps for this route&quot; from the context menu.</p>
 <p>The edit box is displayed:</p>
 <img src="PrintRouteMapDlgEN.PNG" />
 
-<p>&quot;Paper width&quot; et &quot;Paper height&quot;: this is the width and height of the printable area of the paper.
- You must check this with your printer.</p>
-<p>&quot;Border width&quot;: it is an area around the map and inside it which will be reprinted in the 
-following map.</p>
-<p>&quot;Zoom&quot; : the zoom to use for maps. It is independent of the zoom used to display the map before launching 
-the command. For reasons of performance of the tile servers, it is not possible to use a zoom 
-larger than 15.</p>
+<p>&quot;Paper width&quot; et &quot;Paper height&quot;: this is the width and height of the printable area of the paper. You must check this with your printer.</p>
+<p>&quot;Border width&quot;: it is an area around the map and inside it which will be reprinted in the following map.</p>
+<p>&quot;Zoom&quot; : the zoom to use for maps. It is independent of the zoom used to display the map before launching the command. For reasons of performance of the tile servers, it is not possible to use a zoom larger than 15.</p>
 <p>&quot;Print notes&quot; when this box is checked, the notes icon is printed on the map.</p>
-<p>Finally, select the browser you are using (either Firefox or another Chrome-based browser).
-This choice is important: the map can be badly cut at the bottom of the page in the case of a bad choice.</p>
-<p>When the edit box is closed with the &quot;ok&quot; button, the map and controls are replaced by views of the map that 
-have the desired dimensions and two buttons are present at the top right:</p>
+<p>Finally, select the browser you are using (either Firefox or another Chrome-based browser). This choice is important: the map can be badly cut at the bottom of the page in the case of a bad choice.</p>
+<p>When the edit box is closed with the &quot;ok&quot; button, the map and controls are replaced by views of the map that have the desired dimensions and two buttons are present at the top left:</p>
 <img src="PrintRouteMapToolbar.PNG" />
 
-<p>The button 🖨️ will launch the print command from your browser and the button &#x274c; 
-will cancel printing and redisplay the map.</p>
-<p>When the print command of the browser is closed, the print views will also be closed and 
-the map redisplayed.</p>
-<p>All the default values of the edit box can be modified in the TravelNotesConfig.json file.
-See the <a href="InstallationGuideEN.html#TravelNotesConfigJson">installation guide</a>.</p>
-<p>Avoid overloading the tile servers. Issue this command only if you really need it.
-Decreasing the paper size, the margin size and the zoom will also decrease the number of tiles required.</p>
-<p>When the edit box is closed, the program calculates the number of tiles required. If this number is too 
-large, the command is stopped.</p>
+<p>The button 🖨️ will launch the print command from your browser and the button &#x274c; will cancel printing and redisplay the map.</p>
+<p>When the print command of the browser is closed, the print views will also be closed and the map redisplayed.</p>
+<p>All the default values of the edit box can be modified in the TravelNotesConfig.json file. See the <a href="InstallationGuideEN.html#TravelNotesConfigJson">installation guide</a>.</p>
+<p>Avoid overloading the tile servers. Issue this command only if you really need it. Decreasing the paper size, the margin size and the zoom will also decrease the number of tiles required.</p>
+<p>When the edit box is closed, the program calculates the number of tiles required. If this number is too large, the command is stopped.</p>
 <h4 id="some-tips-for-printing">Some tips for printing</h4>
 <ul>
 <li>indicate as &quot;paper height&quot; the actual height of your paper minus the top and bottom printing margins minus 1 mm</li>
@@ -449,78 +319,56 @@ margin: 7mm;
 </ul>
 <p>Check that everything is correct with the &quot;Print preview&quot; command.</p>
 <p><a id="Notes1"></a></p>
-<h2 id="9-notes">9. Notes</h2>
-<p>There are two kinds of notes: travel notes and route notes. The position of the travel notes 
-is completely free and they will all be displayed at the beginning of the roadbook. Route notes 
-are always positioned on a route and displayed with the route in the roadbook.</p>
+<h2 id="13-notes">13. Notes</h2>
+<p>There are two kinds of notes: travel notes and route notes. The position of the travel notes is completely free and they will all be displayed at the beginning of the roadbook. Route notes are always positioned on a route and displayed with the route in the roadbook.</p>
 <p><a id="NewTravelNote"></a></p>
-<h3 id="91-add-a-travel-note">9.1. Add a travel note</h3>
+<h3 id="131-add-a-travel-note">13.1. Add a travel note</h3>
 <p>Right-click at the desired point on the <strong>map</strong> and select &quot;Add a travel note&quot; from the context menu.</p>
 <p><a id="ReorderTravelNote"></a></p>
-<h3 id="92-change-the-order-of-travel-notes">9.2. Change the order of travel notes</h3>
-<p>The order of travel notes can be changed by dragging and dropping in the list of travel notes in the user interface.</p>
+<h3 id="132-change-the-order-of-travel-notes">13.2. Change the order of travel notes</h3>
+<p>The order of travel notes can be changed by dragging and dropping in the window of travel notes.</p>
 <p><a id="NewRouteNote"></a></p>
-<h3 id="93-add-a-route-note">9.3. Add a route note</h3>
-<p>Right-click at the desired location on the <strong>route</strong> and select &quot;Add a note on the route&quot; in 
-the context menu.</p>
+<h3 id="133-add-a-route-note">13.3. Add a route note</h3>
+<p>Right-click at the desired location on the <strong>route</strong> and select &quot;Add a note on the route&quot; in the context menu.</p>
 <p><a id="ViewNote"></a></p>
-<h3 id="94-consult-a-note">9.4. Consult a note</h3>
+<h3 id="134-consult-a-note">13.4. Consult a note</h3>
 <p>Left click on the note icon.</p>
 <p><a id="ModifyNote"></a></p>
-<h3 id="95-modify-a-note">9.5. Modify a note</h3>
+<h3 id="135-modify-a-note">13.5. Modify a note</h3>
 <p>Right-click on the note icon and select &quot;Edit this note&quot; from the context menu.</p>
 <p><a id="DeleteNote"></a></p>
-<h3 id="96-delete-a-note">9.6. Delete a note</h3>
+<h3 id="136-delete-a-note">13.6. Delete a note</h3>
 <p>Right-click on the note icon and select &quot;Delete this note&quot; from the context menu.</p>
 <p><a id="MoveNote"></a></p>
-<h3 id="97-move-the-icon-of-a-note">9.7. Move the icon of a note</h3>
-<p>Drag and drop the note. A line will be drawn between the icon of the note and the point chosen for 
-the insertion of the note. The latitude and longitude of the note are not modified.</p>
+<h3 id="137-move-the-icon-of-a-note">13.7. Move the icon of a note</h3>
+<p>Drag and drop the note. A line will be drawn between the icon of the note and the point chosen for the insertion of the note. The latitude and longitude of the note are not modified.</p>
 <p><a id="LatLngNote"></a></p>
-<h3 id="98-change-the-latitude-and-longitude-of-a-note">9.8. Change the latitude and longitude of a note</h3>
-<p>Move the note icon to make the line visible. Move the mouse near the end of the line.
-When a small black square appears on it, drag and drop this square and the line.</p>
-<p>A route note always has its latitude and longitude on the route. When the line is dropped, the nearest 
-point on the route is searched and the free end of the line moved to this point.</p>
+<h3 id="138-change-the-latitude-and-longitude-of-a-note">13.8. Change the latitude and longitude of a note</h3>
+<p>Move the note icon to make the line visible. Move the mouse near the end of the line. When a small black square appears on it, drag and drop this square and the line.</p>
+<p>A route note always has its latitude and longitude on the route. When the line is dropped, the nearest point on the route is searched and the free end of the line moved to this point.</p>
 <p><a id="RouteToTravelNote"></a></p>
-<h3 id="99-turn-a-route-note-into-a-travel-note">9.9. Turn a route note into a travel note</h3>
-<p>Right-click on the note icon and select &quot;Transform to travel note&quot; from the context menu. 
-The transformation is only possible if no route is being edited.</p>
+<h3 id="139-turn-a-route-note-into-a-travel-note">13.9. Turn a route note into a travel note</h3>
+<p>Right-click on the note icon and select &quot;Transform to travel note&quot; from the context menu. The transformation is only possible if no route is being edited.</p>
 <p><a id="TravelToRouteNote"></a></p>
-<h3 id="910-turn-a-travel-note-into-a-route-note">9.10. Turn a travel note into a route note</h3>
-<p>Right-click on the note icon and select &quot;Transform to route note&quot; from the context menu. 
-The transformation is only possible if no route is being edited. The note will be attached 
-to the route closest to it.</p>
+<h3 id="1310-turn-a-travel-note-into-a-route-note">13.10. Turn a travel note into a route note</h3>
+<p>Right-click on the note icon and select &quot;Transform to route note&quot; from the context menu. The transformation is only possible if no route is being edited. The note will be attached to the route closest to it.</p>
 <p><a id="AllManeuverNotesFromOsm"></a></p>
-<h3 id="911-create-a-note-for-each-route-maneuver">9.11. Create a note for each route maneuver</h3>
-<p>Right-click on the route and select &quot;Create a note for each route maneuver&quot; from the context menu. 
-A confirmation request is displayed.
-For each route maneuver, <a href="#SvgNoteFromOsm">a SVG note from the OpenStreetMap data</a> will be created.</p>
+<h3 id="1311-create-a-note-for-each-route-maneuver">13.11. Create a note for each route maneuver</h3>
+<p>Right-click on the route and select &quot;Create a note for each route maneuver&quot; from the context menu. A confirmation request is displayed. For each route maneuver, <a href="#SvgNoteFromOsm">a SVG note from the OpenStreetMap data</a> will be created.</p>
 <p><a id="NoteDlg"></a></p>
-<h3 id="912-the-note-dialog-box">9.12. The note dialog box</h3>
+<h3 id="1312-the-note-dialog-box">13.12. The note dialog box</h3>
 <img src="NoteEditionEN.PNG" />
 
-<p>At the top of the box, a drop-down list allows you to choose predefined notes. It is possible to 
-modify this list. See the <a href="InstallationGuideEN.html#TravelNotesNoteDialogJson">installation guide</a>.</p>
-<p>The ▼ button hides or displays certain editing areas which are hidden by default (the two controls allow you to modify 
-the dimensions of the icon and the telephone number). It is possible to choose which areas are hidden by default. 
-Consult the <a href="InstallationGuideEN.html#TravelNotesConfigJson">installation guide</a>;</p>
-<p>The 📂 button allows you to upload your own file with notes predefined in Travel &amp; Notes. 
-See the [installation guide] (InstallationGuideEN.html#TravelNotesNoteDialogJson) for how to create this file.                                                                                           </p>
-<p>All the other buttons are modifiable and allow you to insert html tags or predefined text in the edit zones. 
-Consult the <a href="InstallationGuideEN.html#TravelNotesConfigJson">installation guide</a>;</p>
-<p>The &quot;Icon Content&quot; area will be used to represent the note on the map and can not be empty 
-(leaving this area blank would prevent any subsequent changes to the note).</p>
-<p>The &quot;Address&quot; zone is automatically completed when creating the note - 
-<a href="http://wiki.openstreetmap.org/wiki/Nominatim">Nominatim</a> is used for the street name and
-OverpassAPI for the municipality name.
-This area will never be changed by Nominatim afterwards, even if the note has been moved. 
-The button 🔄 allows, however, to request a new geolocation to Nominatim/OverpassAPI.</p>
-<p>If the phone edit box contains only a valid phone number (= starting with a + and then only digits or the 
-characters #, * or space), the phone number will be displayed with a tel: link and a sms: link.</p>
+<p>At the top of the box, a drop-down list allows you to choose predefined notes. It is possible to modify this list. See the <a href="InstallationGuideEN.html#TravelNotesNoteDialogJson">installation guide</a>.</p>
+<p>The ▼ button hides or displays certain editing areas which are hidden by default (the two controls allow you to modify the dimensions of the icon and the telephone number). It is possible to choose which areas are hidden by default. Consult the <a href="InstallationGuideEN.html#TravelNotesConfigJson">installation guide</a>;</p>
+<p>The 📂 button allows you to upload your own file with notes predefined in Travel &amp; Notes. See the [installation guide] (InstallationGuideEN.html#TravelNotesNoteDialogJson) for how to create this file.                                                                                           </p>
+<p>All the other buttons are modifiable and allow you to insert html tags or predefined text in the edit zones. Consult the <a href="InstallationGuideEN.html#TravelNotesConfigJson">installation guide</a>;</p>
+<p>The &quot;Icon Content&quot; area will be used to represent the note on the map and can not be empty (leaving this area blank would prevent any subsequent changes to the note).</p>
+<p>The &quot;Address&quot; zone is automatically completed when creating the note - <a href="http://wiki.openstreetmap.org/wiki/Nominatim">Nominatim</a> is used for the street name and OverpassAPI for the municipality name. This area will never be changed by Nominatim afterwards, even if the note has been moved. The button 🔄 allows, however, to request a new geolocation to Nominatim/OverpassAPI.</p>
+<p>If the phone edit box contains only a valid phone number (= starting with a + and then only digits or the characters #, * or space), the phone number will be displayed with a tel: link and a sms: link.</p>
 <p>Each edit zone can contain plain text or html, with the exception of the &quot;Link&quot; zone which can only contain a valid link.</p>
 <p><a id="AddHtmltext"></a></p>
-<h4 id="9121-insert-text-in-html">9.12.1. Insert text in html</h4>
+<h4 id="13121-insert-text-in-html">13.12.1. Insert text in html</h4>
 <p>Only the following html tags and attributes can be used:</p>
 <ul>
 <li>the tag &lt;div&gt; (text block)</li>
@@ -556,9 +404,7 @@ characters #, * or space), the phone number will be displayed with a tel: link a
 <ul>
 <li>an opening tag AND a closing tag must be used: &lt;p&gt;Lorem ipsum... &lt;/p&gt;</li>
 <li>attribute values must always be placed between &quot; : class=&quot;myClass&quot;</li>
-<li>the characters &lt; and &gt; are reserved for tags and cannot be used elsewhere.
-If you absolutely need these characters, you should replace them with the html entities &amp;lt; for &lt; and
-&amp;gt; for &gt;.</li>
+<li>the characters &lt; and &gt; are reserved for tags and cannot be used elsewhere. If you absolutely need these characters, you should replace them with the html entities &amp;lt; for &lt; and &amp;gt; for &gt;.</li>
 <li>double quotes are reserved for delimiting attribute values. If necessary use the html entity &amp;quot;.</li>
 <li>the character &apos; cannot be used and must be replaced by the html entity &amp;apos;.</li>
 <li>the character &amp; is ambiguous and should only be used in html entities</li>
@@ -572,25 +418,14 @@ If you absolutely need these characters, you should replace them with the html e
 <li>protocol must be https: for the src attribute (http: is also acceptable if the app&#39;s protocol is http:)</li>
 <li>the pathname of the sms: and tel: links must start with a + and contain only the characters #, * or numbers</li>
 </ul>
-<p>As more text is inserted into an edit box, the app interprets the text and adapts the note preview accordingly. 
-When the edit box is closed with the 🆗 button, the text you entered is replaced by the one produced by 
-the interpretation that the app made of it.</p>
+<p>As more text is inserted into an edit box, the app interprets the text and adapts the note preview accordingly. When the edit box is closed with the 🆗 button, the text you entered is replaced by the one produced by the interpretation that the app made of it.</p>
 <p><a id="SvgNoteFromOsm"></a></p>
-<h4 id="9122-predefined-route-notes-svg-icon-from-osm">9.12.2. Predefined route notes &quot;SVG icon from OSM&quot;</h4>
-<p>When creating a route note, you can choose &quot;SVG icon from OSM&quot; in the list of predefined notes. 
-In this case, Travel &amp; Notes will search OpenStreetMap the nearest intersection located on the 
-route and will create an SVG icon showing the streets near this intersection.</p>
-<p>The intersection will be placed in the center of the icon and its content will be oriented 
-according to the path followed: the route by which one arrives at the intersection will be 
-turned towards the bottom of the icon.</p>
-<p>The address will also be modified: all the street names found at the intersection will be indicated, 
-separated by a symbol ⪥. The first street name will always be the one by which we arrive at 
-the intersection and the last name the one by which one leaves the intersection. 
-This name will be preceded by an arrow indicating the direction to follow. The name of the 
-town / city will also be added. If a hamlet or village name is found near the intersection, 
-it will also be added in parentheses.</p>
+<h4 id="13122-predefined-route-notes-svg-icon-from-osm">13.12.2. Predefined route notes &quot;SVG icon from OSM&quot;</h4>
+<p>When creating a route note, you can choose &quot;SVG icon from OSM&quot; in the list of predefined notes. In this case, Travel &amp; Notes will search OpenStreetMap the nearest intersection located on the route and will create an SVG icon showing the streets near this intersection.</p>
+<p>The intersection will be placed in the center of the icon and its content will be oriented according to the path followed: the route by which one arrives at the intersection will be turned towards the bottom of the icon.</p>
+<p>The address will also be modified: all the street names found at the intersection will be indicated, separated by a symbol ⪥. The first street name will always be the one by which we arrive at the intersection and the last name the one by which one leaves the intersection. This name will be preceded by an arrow indicating the direction to follow. The name of the town / city will also be added. If a hamlet or village name is found near the intersection, it will also be added in parentheses.</p>
 <p><a id="NoteSamples"></a></p>
-<h4 id="9123-some-examples-of-notes">9.12.3 Some examples of notes</h4>
+<h4 id="13123-some-examples-of-notes">13.12.3 Some examples of notes</h4>
 <h5 id="a-simple-note-created-from-a-predefined-note">A simple note created from a predefined note</h5>
 <p>The dialog box: </p>
 <img src="NoteStandard1EN.PNG" />
@@ -599,11 +434,7 @@ it will also be added in parentheses.</p>
 <img src="NoteStandard2EN.PNG" />
 
 <h5 id="a-route-note-created-with-svg-icon-from-osm">A route note created with &quot;SVG icon from OSM&quot;</h5>
-<p>The path goes from right to left. The intersection of Tiyou d&#39;Hestreu, Chemin des Patars and Basse Voie
-streets is at the center of the icon. The streets are oriented so that a person who follows the path on 
-the ground sees the streets in the same position as on the icon. The street we arrive at is Tiyou 
-d&#39;Hestreu. An arrow to the right indicates that you must turn right in the Basse Voie. We are in the 
-city of Anthisnes and the hamlet of Limont.</p>
+<p>The path goes from right to left. The intersection of Tiyou d&#39;Hestreu, Chemin des Patars and Basse Voie streets is at the center of the icon. The streets are oriented so that a person who follows the path on the ground sees the streets in the same position as on the icon. The street we arrive at is Tiyou d&#39;Hestreu. An arrow to the right indicates that you must turn right in the Basse Voie. We are in the city of Anthisnes and the hamlet of Limont.</p>
 <img src="SVGIconEN.PNG" />
 
 <h5 id="a-note-with-a-text-on-a-line">A note with a text on a line</h5>
@@ -621,77 +452,50 @@ city of Anthisnes and the hamlet of Limont.</p>
 <img src="NotePhoto2EN.PNG" />
 
 <p><a id="GpxFiles"></a></p>
-<h2 id="10-gpx-files">10. GPX files</h2>
+<h2 id="14-gpx-files">14. GPX files</h2>
 <p>When a .GPX file is opened or imported, the following rules are applied:</p>
 <ul>
 <li>For each tag &lt;trk&gt; found in the .gpx file, a route is created in TravelNotes</li>
-<li>The contents of all tags &lt;trkseg&gt; found inside a &lt;trk&gt; are merged into a single tag &lt;trkseg&gt;
-and, consequently, the missing sections of the route, due to an interruption of the gps reception, are replaced by a straight line.</li>
+<li>The contents of all tags &lt;trkseg&gt; found inside a &lt;trk&gt; are merged into a single tag &lt;trkseg&gt; and, consequently, the missing sections of the route, due to an interruption of the gps reception, are replaced by a straight line.</li>
 <li>If one and only one tag &lt;rte&gt; is found in the .gpx file, then:<ul>
 <li>If a &lt;name&gt; is found in the &lt;rte&gt; tag, the content of this tag will be used as the name for the created route.</li>
 <li>For each tag &lt;rtept&gt; found in the &lt;rte&gt; tag, a maneuver is created from the content of this tag and added to the route. However, no icon will be created for this maneuver.</li>
 </ul>
 </li>
-<li>If any &lt;wpt&gt; tags are found in the .gpx file and if only one route has been added then a waypoint is created for each &lt;wpt&gt; tag and this waypoint will be added to the route.
-Additionally, if the .GPX file was created from <a href="https://www.fietsnet.be/routeplanner/default.aspx">fietsnet.be</a> or <a href="https://knooppuntnet.be/">knooppuntnet.be</a>, a note with the number of the knot will be created.</li>
+<li>If any &lt;wpt&gt; tags are found in the .gpx file and if only one route has been added then a waypoint is created for each &lt;wpt&gt; tag and this waypoint will be added to the route. Additionally, if the .GPX file was created from <a href="https://www.fietsnet.be/routeplanner/default.aspx">fietsnet.be</a> or <a href="https://knooppuntnet.be/">knooppuntnet.be</a>, a note with the number of the knot will be created.</li>
 <li>Otherwise, waypoints will be created at the start and end of each added route.</li>
 </ul>
-<p><a id="MapsMenu"></a></p>
-<h2 id="11-background-map-menu">11. Background map menu</h2>
-<p>On the left of the screen, a toolbar allows you to choose different background maps. Only a little
-black rectangle is visible on the screen:</p>
-<img src="MapsInterface1EN.PNG" />
-
-<p>Move the mouse over this rectangle to display the entire toolbar:</p>
-<img src="MapsInterface2EN.PNG" />
-
-<p>For each background map there is a button in the toolbar. 
-The composition of the toolbar depends on the maps defined in the TravelNotesLayers.json file 
-as well as the access keys that have been introduced. Consult the <a href="InstallationGuideEN.html#TravelNotesLayersJson">installation guide</a>.</p>
-<p>It is possible to move around in the toolbar using the mouse wheel.</p>
 <p><a id="Roadbook"></a></p>
-<h2 id="12-roadbook">12. Roadbook</h2>
-<p>Click on the button 📋. A new tab is created with the roadbook. This contains all the routes as 
-well as all the notes that have been created on the map. It is possible to choose what you want to see 
-in the roadbook via the menu at the top of the page:</p>
+<h2 id="15-roadbook">15. Roadbook</h2>
+<p>Click on the button 📙. A new tab is created with the roadbook. This contains all the routes as well as all the notes that have been created on the map. It is possible to choose what you want to see in the roadbook via the menu at the top of the page:</p>
 <img src="RoadbookEN.PNG" />
 
 <p><a id="PrepareTravel"></a></p>
-<h2 id="13-prepare-a-travel-and-consult-it-from-the-internet">13. Prepare a travel and consult it from the internet</h2>
+<h2 id="16-prepare-a-travel-and-consult-it-from-the-internet">16. Prepare a travel and consult it from the internet</h2>
 <p>It is possible to prepare a travel, save it in a file on a web server and consult it from the internet.</p>
-<p>To consult the travel, you must call TravelNotes by giving it as a parameter in the URL the address 
-of the file converted to base64. And remember that you can only convert ascii characters to base64 ...</p>
+<p>To consult the travel, you must call TravelNotes by giving it as a parameter in the URL the address of the file converted to base64. And remember that you can only convert ascii characters to base64 ...</p>
 <pre><code>https://wwwouaiebe.github.io/TravelNotes/demo/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==
 </code></pre>
-<p>aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==
-is 
-<a href="https://wwwouaiebe.github.io/TravelNotes/samples/Liege/StationToYouthHostel.trv">https://wwwouaiebe.github.io/TravelNotes/samples/Liege/StationToYouthHostel.trv</a>
-base64 encoded</p>
+<p>aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg== is <a href="https://wwwouaiebe.github.io/TravelNotes/samples/Liege/StationToYouthHostel.trvbase64">https://wwwouaiebe.github.io/TravelNotes/samples/Liege/StationToYouthHostel.trvbase64</a> encoded</p>
 <p>See the sample on the <a href="https://wwwouaiebe.github.io/TravelNotes/demo?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==&amp;lng=en">demo</a></p>
-<p>When such a file is displayed, it is not possible to modify it. The TravelNotes interface is not 
-visible and all context menus are disabled.</p>
+<p>When such a file is displayed, it is not possible to modify it. The TravelNotes interface is not visible and all context menus are disabled.</p>
 <p><a id="Viewer"></a></p>
-<h2 id="14-viewer">14. Viewer</h2>
-<p>Some older browsers, especially on mobile phones, do not always understand all of the Travel &amp; Notes 
-JavaScript code. In this case, you can try a simplified version of Travel &amp; Notes which just allows 
-you to view the files. The url must be completed in the same way as for the normal version:</p>
+<h2 id="17-viewer">17. Viewer</h2>
+<p>Some older browsers, especially on mobile phones, do not always understand all of the Travel &amp; Notes JavaScript code. In this case, you can try a simplified version of Travel &amp; Notes which just allows you to view the files. The url must be completed in the same way as for the normal version:</p>
 <pre><code>https://wwwouaiebe.github.io/TravelNotes/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==
 </code></pre>
-<p>You can however add &amp;lay at the end of the url to also display a toolbar showing the background maps 
-not requiring an access key.</p>
+<p>You can however add &amp;lay at the end of the url to also display a toolbar showing the background maps not requiring an access key.</p>
 <p>You can also use the keyboard for a few commands:</p>
 <ul>
 <li>the arrows <strong>up</strong>, <strong>down</strong>, <strong>left</strong> and <strong>right</strong> to move the map</li>
 <li>__ + __ and <strong>-</strong> to zoom in on the map</li>
 <li><strong>Z</strong> and <strong>z</strong> to zoom in on the travel</li>
 <li><strong>G</strong> and <strong>g</strong> to activate / deactivate geolocation</li>
-<li>the numbers <strong>0</strong> to <strong>9</strong> to activate other base maps (the numbers that can be used depend on the base maps defined in the 
-TravelNotesLayers.json file - Only maps that do not require access keys can be displayed, the viewer does not manage the access keys).</li>
+<li>the numbers <strong>0</strong> to <strong>9</strong> to activate other base maps (the numbers that can be used depend on the base maps defined in the TravelNotesLayers.json file - Only maps that do not require access keys can be displayed, the viewer does not manage the access keys).</li>
 </ul>
 <pre><code>https://wwwouaiebe.github.io/TravelNotes/demo/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==&amp;lay
 </code></pre>
-<p>See the sample on the
-<a href="https://wwwouaiebe.github.io/TravelNotes/demo/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==&amp;lay">demo</a></p>
+<p>See the sample on the <a href="https://wwwouaiebe.github.io/TravelNotes/demo/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL0xpZWdlL1N0YXRpb25Ub1lvdXRoSG9zdGVsLnRydg==&amp;lay">demo</a></p>
 <p>Other samples:</p>
 <p><a href="https://wwwouaiebe.github.io/TravelNotes/demo/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL1VLMjAxOS9VSzIwMTkudHJ2">An excerpt from my last bike trip from Dover to Chester</a> </p>
 <p><a href="https://wwwouaiebe.github.io/TravelNotes/samples/UK2019/UK2019.pdf">The maps for the first route of Dover to Chester</a></p>

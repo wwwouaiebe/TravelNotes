@@ -15,59 +15,28 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 /*
 Changes:
-	- v1.0.0:
-		- created
-	- v1.1.0:
-		- Issue ♯28 : Disable "select this point as start point " and "select this point as end point"
-			when a start point or end point is already present
-		- Issue ♯30 : Add a context menu with delete command to the waypoints
-		- Issue ♯33 : Add a command to hide a route
-		- Issue ♯34 : Add a command to show all routes
-	- v1.3.0:
-		- added cutRoute method (not tested...)
-	- v1.4.0:
-		- Replacing DataManager with TravelNotesData, Config, Version and DataSearchEngine
-		- modified getClosestLatLngDistance to avoid crash on empty routes
-		- fixed Issue ♯45
-	- v1.5.0:
-		- Issue ♯52 : when saving the travel to the file, save also the edited route.
-		- Issue ♯62 : Remove time from route popup when readonly travel.
-	- v1.6.0:
-		- Issue ♯65 : Time to go to ES6 modules?
-		- Issue ♯66 : Work with promises for dialogs
-		- Issue ♯70 : Put the get...HTML functions outside of the editors
-		- Issue ♯68 : Review all existing promises.
-	- v1.9.0:
-		- Issue ♯101 : Add a print command for a route
-	- v1.12.0:
-		- Issue ♯120 : Review the UserInterface
-	- v2.0.0:
-		- Issue ♯138 : Protect the app - control html entries done by user.
-	- v3.0.0:
-		- Issue ♯175 : Private and static fields and methods are coming
-	- v3.1.0:
-		- Issue ♯2 : Set all properties as private and use accessors.
-Doc reviewed 20210914
-Tests 20210902
-*/
+	- v4.0.0:
+		- created from v3.6.0
+Doc reviewed 202208
+ */
 
-import theTranslator from '../UILib/Translator.js';
-import theAPIKeysManager from '../core/APIKeysManager.js';
+import theTranslator from './uiLib/Translator.js';
+import theApiKeysManager from './ApiKeysManager.js';
 import theTravelNotesData from '../data/TravelNotesData.js';
-import theErrorsUI from '../errorsUI/ErrorsUI.js';
+import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
 import theDataSearchEngine from '../data/DataSearchEngine.js';
 import Route from '../data/Route.js';
-import GpxFactory from '../coreLib/GpxFactory.js';
-import RoutePropertiesDialog from '../dialogs/RoutePropertiesDialog.js';
-import PrintRouteMapDialog from '../dialogs/PrintRouteMapDialog.js';
-import theEventDispatcher from '../coreLib/EventDispatcher.js';
-import theProfileWindowsManager from '../core/ProfileWindowsManager.js';
+import GpxFactory from './lib/GpxFactory.js';
+import RoutePropertiesDialog from '../dialogs/routePropertiesDialog/RoutePropertiesDialog.js';
+import PrintRouteMapDialog from '../dialogs/printRouteMapDialog/PrintRouteMapDialog.js';
+import theEventDispatcher from './lib/EventDispatcher.js';
+import theProfileDialogsManager from './ProfileDialogsManager.js';
 import RoutePrinter from '../printRoute/RoutePrinter.js';
 
 import { ROUTE_EDITION_STATUS, DISTANCE, INVALID_OBJ_ID } from '../main/Constants.js';
+import TempWayPointMarkerMouseOutEL from './mapEditor/TempWayPointMarkerEL/TempWayPointMarkerMouseOutEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -96,8 +65,8 @@ class RouteEditor {
 		theTravelNotesData.travel.routes.add ( route );
 		this.chainRoutes ( );
 		if ( ROUTE_EDITION_STATUS.editedChanged === theTravelNotesData.travel.editedRoute.editionStatus ) {
-			theEventDispatcher.dispatch ( 'setrouteslist' );
-			theEventDispatcher.dispatch ( 'roadbookupdate' );
+			theEventDispatcher.dispatch ( 'updatetravelproperties' );
+			theEventDispatcher.dispatch ( 'updateroadbook' );
 		}
 		else {
 			this.editRoute ( route.objId );
@@ -123,7 +92,7 @@ class RouteEditor {
 			(
 				( ! provider )
 				||
-				( provider.providerKeyNeeded && ! theAPIKeysManager.hasKey ( providerName ) )
+				( provider.providerKeyNeeded && ! theApiKeysManager.hasKey ( providerName ) )
 			)
 		) {
 			theErrorsUI.showError (
@@ -159,7 +128,7 @@ class RouteEditor {
 		theTravelNotesData.editedRouteObjId = initialRoute.objId;
 		theTravelNotesData.travel.editedRoute.hidden = false;
 		initialRoute.hidden = false;
-		theProfileWindowsManager.updateProfile (
+		theProfileDialogsManager.updateProfile (
 			theTravelNotesData.editedRouteObjId,
 			theTravelNotesData.travel.editedRoute
 		);
@@ -172,9 +141,8 @@ class RouteEditor {
 			}
 		);
 
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
-		theEventDispatcher.dispatch ( 'showitinerary' );
-		theEventDispatcher.dispatch ( 'setrouteslist' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
 	}
 
 	/**
@@ -204,11 +172,11 @@ class RouteEditor {
 		);
 
 		theTravelNotesData.travel.routes.remove ( routeToDeleteObjId );
-		theProfileWindowsManager.deleteProfile ( routeToDeleteObjId );
+		theProfileDialogsManager.deleteProfile ( routeToDeleteObjId );
 		this.chainRoutes ( );
 
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
-		theEventDispatcher.dispatch ( 'setrouteslist' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
 	}
 
 	/**
@@ -278,11 +246,14 @@ class RouteEditor {
 
 	cancelEdition ( ) {
 
+		// Removing temp way point if any mainly for touch devices)
+		TempWayPointMarkerMouseOutEL.handleEvent ( );
+
 		// !!! order is important!!!
 		const editedRoute = theDataSearchEngine.getRoute ( theTravelNotesData.editedRouteObjId );
 		editedRoute.editionStatus = ROUTE_EDITION_STATUS.notEdited;
 
-		theProfileWindowsManager.updateProfile (
+		theProfileDialogsManager.updateProfile (
 			theTravelNotesData.travel.editedRoute.objId,
 			editedRoute
 		);
@@ -299,9 +270,8 @@ class RouteEditor {
 		theTravelNotesData.travel.editedRoute = new Route ( );
 		this.chainRoutes ( );
 
-		theEventDispatcher.dispatch ( 'roadbookupdate' );
-		theEventDispatcher.dispatch ( 'setrouteslist' );
-		theEventDispatcher.dispatch ( 'showitinerary' );
+		theEventDispatcher.dispatch ( 'updateroadbook' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
 	}
 
 	/**
@@ -324,9 +294,8 @@ class RouteEditor {
 							}
 						);
 					}
-					theEventDispatcher.dispatch ( 'roadbookupdate' );
-					theEventDispatcher.dispatch ( 'setrouteslist' );
-					theEventDispatcher.dispatch ( 'updateitinerary' );
+					theEventDispatcher.dispatch ( 'updateroadbook' );
+					theEventDispatcher.dispatch ( 'updatetravelproperties' );
 				}
 			)
 			.catch (
@@ -370,7 +339,7 @@ class RouteEditor {
 				addedRouteObjId : routeObjId
 			}
 		);
-		theEventDispatcher.dispatch ( 'setrouteslist' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
 	}
 
 	/**
@@ -387,7 +356,7 @@ class RouteEditor {
 				addedRouteObjId : INVALID_OBJ_ID
 			}
 		);
-		theEventDispatcher.dispatch ( 'setrouteslist' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
 	}
 
 	/**
@@ -408,7 +377,7 @@ class RouteEditor {
 				);
 			}
 		}
-		theEventDispatcher.dispatch ( 'setrouteslist' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
 	}
 
 	/**
@@ -433,7 +402,7 @@ class RouteEditor {
 				);
 			}
 		}
-		theEventDispatcher.dispatch ( 'setrouteslist' );
+		theEventDispatcher.dispatch ( 'updatetravelproperties' );
 	}
 }
 

@@ -1,16 +1,27 @@
 {
-	"APIKeys":
+	"ApiKeys":
 	{
 		"saveToSessionStorage":true
 	},
-	"APIKeysDialog":{
+	"ApiKeysDialog":{
 		"haveUnsecureButtons":true,
-		"showAPIKeys":false,
+		"showApiKeys":false,
 		"showButton":true
+	},
+	"baseDialog":
+	{
+		"cancelTouchX":100,
+		"cancelTouchY":150,
+		"deltaZoomDistance":75,
+		"touchTopScreen": true
 	},
 	"contextMenu":
 	{
 		"timeout": 1500
+	},
+	"dockableBaseDialog" : 
+	{
+		"timeout" : 1500
 	},
 	"errorsUI":
 	{
@@ -20,6 +31,23 @@
 		"showInfo":true,
 		"showWarning":true,
 		"timeOut":10000
+	},
+	"files":
+	{
+		"openTaN": ["json","trv"],
+		"openGpx": ["gpx"],
+		"writeTouch": "trv",
+		"writeOthers" : "trv"
+	},
+	"fontSize" :
+	{
+		"initialValue": 3.5,
+		"incrementValue": 0.5
+	},
+	"FullScreenUI": 
+	{
+		"timeOut": 5000,
+		"screenMaxWidth" : 1200
 	},
 	"geoCoder" : {
 		"distances" : {
@@ -43,13 +71,9 @@
 			"maximumAge":0, 
 			"timeout":3600000
 		},
-		"watch":false,
+		"watch":true,
 		"zoomFactor":17,
 		"zoomToPosition":true
-	},
-	"itineraryPaneUI" : {	
-		"showManeuvers" : false,
-		"showNotes" : true
 	},
 	"itineraryPoint": {
 		"marker":{
@@ -60,10 +84,12 @@
 		},
 		"zoomFactor":17
 	},
-	"layersToolbarUI":
+	"mapContextMenu" : {
+		"mouseMaxRouteDistance" : 10,
+		"touchMaxRouteDistance" : 10
+	},
+	"mapLayersToolbar":
 	{
-		"haveLayersToolbarUI":true,
-		"toolbarTimeOut":1500,
 		"theDevil": {
 			"addButton": true
 		}
@@ -75,10 +101,6 @@
 			"lng":5.49542
 		},
 		"zoom":12
-	},
-	"mouseUI":
-	{
-		"haveMouseUI":true
 	},
 	"nominatim":
 	{
@@ -100,7 +122,6 @@
 			"color":"#808080",
 			"weight":1
 		},
-		"reverseGeocoding":true,
 		"svgIcon":{
 			"angleDistance":10,
 			"angleDirection":
@@ -123,19 +144,15 @@
 			"icon":2,
 			"popupContent":8
 		},
-		"mask" : {
-			"iconsDimension":true,
-			"iconTextArea":false,
-			"tooltip":false,
-			"popupContent":false,
-			"address":false,
-			"link":false,
-			"phone":true
-		},
 		"theDevil": {
 			"addButton": true,
 			"zoomFactor" : 17
 		}
+	},
+	"osmSearchDialog":
+	{
+		"dialogX": 50,
+		"dialogY": 0
 	},
 	"osmSearch": {
 		"nextSearchLimit" : {
@@ -165,11 +182,6 @@
 		"useNwr":true,
 		"timeOut":40,
 		"url":"https://lz4.overpass-api.de/api/interpreter"
-	},
-	"paneUI" : {
-		"switchToItinerary" : false,
-		"switchToTravelNotes" : false,
-		"switchToSearch" : true
 	},
 	"printRouteMap":
 	{
@@ -231,21 +243,29 @@
 	{
 		"showEditedRouteInRoadbook" : true
 	},
-	"travelEditor":
-	{
-		"startMinimized":true,
-		"startupRouteEdition":true,
-		"timeout":1500
+	"toolbars" : {
+		"timeOut" :1500
 	},
 	"travelNotes" : {
 		"haveBeforeUnloadWarning":true,
-		"language":"fr"
+		"language":"fr",
+		"startupRouteEdition":true
 	},
-	"travelNotesToolbarUI":
+	"TravelNotesToolbar":
 	{
 		"contactMail": {
 			"url":"https://github.com/wwwouaiebe/TravelNotes/issues"
 		}
+	},
+	"travelNotesDialog" :
+	{
+		"dialogX": 250,
+		"dialogY" : 0
+	},
+	"travelPropertiesDialog" :
+	{
+		"dialogX": 50,
+		"dialogY" : 0
 	},
 	"wayPoint":
 	{
