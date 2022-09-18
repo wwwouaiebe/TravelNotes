@@ -333,6 +333,8 @@ class AppLoader {
 	*/
 
 	#loadTravelNotes ( ) {
+		EventListenersLoader.addEventsListeners ( );
+
 		document.body.style [ 'font-size' ] = String ( theConfig.fontSize.initialValue ) + 'mm';
 
 		// mapDiv must be extensible for leaflet
@@ -368,9 +370,6 @@ class AppLoader {
 
 	async loadApp ( ) {
 
-		// adding event lsteners
-		EventListenersLoader.addEventsListeners ( );
-
 		// creating a reference of TravelNotes in the browser window object
 		window.TaN = theTravelNotes;
 
@@ -393,6 +392,7 @@ class AppLoader {
 		if ( await this.#loadJsonFiles ( ) ) {
 			this.#loadTravelNotes ( );
 		}
+
 	}
 }
 

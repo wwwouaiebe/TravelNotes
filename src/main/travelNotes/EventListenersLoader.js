@@ -30,6 +30,7 @@ import theConfig from '../../data/Config.js';
 import theDockableDialogsManager from '../../core/DockableDialogsManager.js';
 import theProvidersToolbar from '../../toolbars/providersToolbar/ProvidersToolbar.js';
 import RoadbookUpdateEL from './RoadbookUpdateEL.js';
+import ResizeEL from './ResizeEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -219,6 +220,7 @@ class EventListenersLoader {
 				}
 			}
 		);
+		window.visualViewport.addEventListener ( 'resize', new ResizeEL ( ) );
 	}
 
 	/**

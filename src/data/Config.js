@@ -269,7 +269,8 @@ const theConfig = {
 	travelNotes : {
 		haveBeforeUnloadWarning : true,
 		language : 'fr',
-		startupRouteEdition : true
+		startupRouteEdition : true,
+		resizeDelay : 200
 	},
 	travelNotesToolbar :
 	{

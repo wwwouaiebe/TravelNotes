@@ -90,18 +90,18 @@ class ProvidersToolbar {
 	#activeProviderButton;
 
 	/**
-	Timer id for the mouse leave event
-	@type {Number}
-	*/
-
-	#timerId;
-
-	/**
 	A boolean saving the the current state of the toolbar
 	@type {boolean}
 	 */
 
 	#isShow;
+
+	/**
+	Timer id for the mouse leave event
+	@type {Number}
+	*/
+
+	#mouseLeaveTimerId;
 
 	/**
 	The delay needed for the timer that start the #removeHidden ( ) method
@@ -115,9 +115,6 @@ class ProvidersToolbar {
 	The max delay between a mouseenter and a click event to consider the two events as a single event
 	@type {Number}
 	*/
-
-	// eslint-disable-next-line no-magic-numbers
-	static get #MOUSE_EVENT_MAX_DELAY ( ) { return 100; }
 
 	/**
 	Transit mode buttons creation
@@ -155,9 +152,11 @@ class ProvidersToolbar {
 	*/
 
 	#show ( ) {
-		this.#centerToolbar ( );
+
+		// this.centerToolbar ( );
 		this.#isShow = true;
 		setTimeout ( ( ) => this.#removeHidden ( ), ProvidersToolbar.#HIDDEN_DELAY );
+
 	}
 
 	/**
@@ -167,49 +166,23 @@ class ProvidersToolbar {
 	*/
 
 	#removeHidden ( ) {
+
+		// we need first to move the toolbar on top, otherwise showing the toolbar will resize the screen.
+		this.#toolbarHTMLElement.style.top = ZERO;
 		this.#buttonsHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
+		this.centerToolbar ( );
 	}
-
-	/**
-	The timestamp of the last mouseenter or click event
-	@type {Number}
-	*/
-
-	#lastMouseEventTimestamp;
 
 	/**
 	Mouse click event listener
-	@param {Event} mouseEvent The trigered event
 	*/
 
-	#onClick ( mouseEvent ) {
-
-		// When the delay is lower than #MOUSE_EVENT_MAX_DELAY 	we consider that the click event and the
-		// mouse enter event are trigered by the same user action on touch devices
-		// and the click event is cancelled
-		if ( ProvidersToolbar.#MOUSE_EVENT_MAX_DELAY > mouseEvent.timeStamp - this.#lastMouseEventTimestamp ) {
+	#onClick ( ) {
+		if ( ! theDevice.isTouch ) {
 			return;
 		}
-
-		this.#onMouseEnter ( mouseEvent );
-	}
-
-	/**
-	Mouse enter event listener
-	@param {Event} mouseEvent the trigered event
-	*/
-
-	#onMouseEnter ( mouseEvent ) {
-		this.#lastMouseEventTimestamp = mouseEvent.timeStamp;
 		if ( this.#isShow ) {
-			if ( this.#timerId ) {
-				clearTimeout ( this.#timerId );
-				this.#timerId = null;
-				return;
-			}
-
-			// Hiding the toolbar if already show. Needed for touch devices for closing the toolbar by clicking on it
-			this.hide ( );
+			this.#hide ( );
 		}
 		else {
 			this.#show ( );
@@ -217,20 +190,62 @@ class ProvidersToolbar {
 	}
 
 	/**
+	Mouse enter event listener
+	*/
+
+	#onMouseEnter ( ) {
+		if ( theDevice.isTouch ) {
+			return;
+		}
+		if ( this.#mouseLeaveTimerId ) {
+			clearTimeout ( this.#mouseLeaveTimerId );
+			this.#mouseLeaveTimerId = null;
+		}
+		this.#show ( );
+	}
+
+	/**
 	Mouse leave event listener
 	*/
 
 	#onMouseLeave ( ) {
-		if ( this.#isShow ) {
-			this.#timerId = setTimeout ( ( ) => this.hide ( ), theConfig.toolbars.timeOut );
+		if ( theDevice.isTouch ) {
+			return;
 		}
+		this.#mouseLeaveTimerId = setTimeout ( ( ) => this.#hide ( ), theConfig.toolbars.timeOut );
+	}
+
+	/**
+	Hide the toolbar. Used as event listener for the timer
+	*/
+
+	#hide ( ) {
+
+		// cleaning the timer
+		if ( this.#mouseLeaveTimerId ) {
+			clearTimeout ( this.#mouseLeaveTimerId );
+			this.#mouseLeaveTimerId = null;
+		}
+		this.#buttonsHTMLElement.classList.add ( 'TravelNotes-Hidden' );
+		this.centerToolbar ( );
+		this.#isShow = false;
+	}
+
+	/**
+	The constructor
+	*/
+
+	constructor ( ) {
+		Object.freeze ( this );
+		this.#transitModeButtons = new Map ( );
+		this.#providerButtons = new Map ( );
 	}
 
 	/**
 	Center the toolbar on the lower side of the screen
 	*/
 
-	#centerToolbar ( ) {
+	centerToolbar ( ) {
 		this.#topBar.textContent = theTranslator.getText (
 			'ProvidersToolbar - Computed by {provider} for {transitMode}',
 			{
@@ -242,35 +257,10 @@ class ProvidersToolbar {
 		);
 		this.#toolbarHTMLElement.style.left =
 			String (
-				( theDevice.screenAvailable.width - this.#toolbarHTMLElement.clientWidth ) / TWO
+				( window.visualViewport.width - this.#toolbarHTMLElement.clientWidth ) / TWO
 			) + 'px';
-	}
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.freeze ( this );
-		this.#transitModeButtons = new Map ( );
-		this.#providerButtons = new Map ( );
-
-	}
-
-	/**
-	Hide the toolbar. Used as event listener for the timer
-	*/
-
-	hide ( ) {
-
-		// cleaning the timer
-		if ( this.#timerId ) {
-			clearTimeout ( this.#timerId );
-			this.#timerId = null;
-		}
-		this.#buttonsHTMLElement.classList.add ( 'TravelNotes-Hidden' );
-		this.#centerToolbar ( );
-		this.#isShow = false;
+		this.#toolbarHTMLElement.style.top =
+			String ( window.visualViewport.height - this.#toolbarHTMLElement.clientHeight - TWO ) + 'px';
 	}
 
 	/**
@@ -329,7 +319,7 @@ class ProvidersToolbar {
 		// set the first provider in the map as active provider
 		this.provider = this.#providerButtons.keys ().next ().value;
 
-		this.#centerToolbar ( );
+		this.centerToolbar ( );
 	}
 
 	/**
@@ -381,7 +371,7 @@ class ProvidersToolbar {
 			);
 
 		}
-		this.#centerToolbar ( );
+		this.centerToolbar ( );
 	}
 
 	/**
@@ -395,7 +385,7 @@ class ProvidersToolbar {
 		}
 		this.#activeTransitModeButton = this.#transitModeButtons.get ( transitMode );
 		this.#activeTransitModeButton.active = true;
-		this.#centerToolbar ( );
+		this.centerToolbar ( );
 	}
 
 	/**
@@ -414,7 +404,7 @@ class ProvidersToolbar {
 		const providerName = this.#providerButtons.keys ( ).next ( ).value;
 		this.provider = providerName;
 		this.transitMode = theTravelNotesData.providers.get ( providerName.toLowerCase ( ) ).transitModes [ ZERO ];
-		this.#centerToolbar ( );
+		this.centerToolbar ( );
 	}
 }
 
