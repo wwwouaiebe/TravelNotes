@@ -78,6 +78,9 @@ class TextInputControl extends BaseControl {
 		if ( eventListeners?.controlInput ) {
 			this.#valueInput.addEventListener ( 'input', eventListeners.controlInput );
 		}
+		if ( eventListeners?.controlChange ) {
+			this.#valueInput.addEventListener ( 'change', eventListeners.controlChange );
+		}
 	}
 
 	/**

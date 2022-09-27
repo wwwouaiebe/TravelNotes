@@ -30,7 +30,7 @@ import SortableListControl from '../../controls/sortableListControl/SortableList
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import theTravelEditor from '../../core/TravelEditor.js';
 import RouteContextMenu from '../../contextMenus/RouteContextMenu.js';
-import TravelNameInputEL from './TravelNameInputEL.js';
+import TravelNameChangeEL from './TravelNameChangeEL.js';
 import theConfig from '../../data/Config.js';
 import { ROUTE_EDITION_STATUS } from '../../main/Constants.js';
 
@@ -72,7 +72,7 @@ class TravelPropertiesDialog extends DockableBaseDialog {
 	createContentHTML ( ) {
 		this.#travelNameControl = new TextInputControl (
 			theTranslator.getText ( 'TravelPropertiesDialog - Name' ),
-			{ controlInput : new TravelNameInputEL ( ) }
+			{ controlChange : new TravelNameChangeEL ( ) }
 		);
 		this.#travelNameControl.value = theTravelNotesData.travel.name;
 		this.#travelRoutesControl = new SortableListControl (

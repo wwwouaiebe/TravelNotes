@@ -32,7 +32,7 @@ change event listener for the TravelName input
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class TravelNameInputEL {
+class TravelNameChangeEL {
 
 	/**
 	The constructor
@@ -57,6 +57,6 @@ class TravelNameInputEL {
 	}
 }
 
-export default TravelNameInputEL;
+export default TravelNameChangeEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
