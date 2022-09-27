@@ -43,6 +43,7 @@ const travelNotesCss = [
 	'src/controls/textInputControl/TextInputControl.css',
 	'src/dialogs/baseDialog/BaseDialog.css',
 	'src/dialogs/baseDialog/DockableBaseDialog.css',
+	'src/dialogs/baseDialog/ModalBaseDialog.css',
 	'src/dialogs/aboutDialog/AboutDialog.css',
 	'src/dialogs/apiKeysdialog/ApiKeysDialog.css',
 	'src/dialogs/notesDialog/NoteDialog.css',

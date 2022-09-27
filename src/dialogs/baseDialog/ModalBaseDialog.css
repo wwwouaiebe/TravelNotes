@@ -23,27 +23,8 @@ Changes:
 Doc reviewed 202208
  */
 
-.TravelNotes-SortableList-ListHTMLElement {
-	margin-top: 1em;
-	border-style: solid;
-	border-width: 0.1em;
-}
-
-.TravelNotes-SortableList-ListItemHTMLElement {
-	border-top-style: solid;
-	border-width: 0.1em;
-	margin-left: 0.5em;
-	margin-right: 0.5em;
-	min-height: 3em;
-}
-
-.TravelNotes-SortableList-ListItemHTMLElement:first-child {
-	border-top-style: none;
-}
-
-.TravelNotes-SortableList-DraggedListItemHTMLElement {
-	position: absolute;
-	z-index: 1100;
+.TravelNotes-ModalBaseDialog {
+	z-index: 1300;
 }
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

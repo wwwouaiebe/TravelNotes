@@ -33,7 +33,7 @@ import RouteMouseOverOrMoveEL from './RouteEL/RouteMouseOverOrMoveEL.js';
 import theHTMLSanitizer from '../htmlSanitizer/HTMLSanitizer.js';
 import NoteLeafletObjects from './NoteLeafletObjects.js';
 
-import { GEOLOCATION_STATUS, ROUTE_EDITION_STATUS, ZERO, TWO } from '../../main/Constants.js';
+import { GEOLOCATION_STATUS, ROUTE_EDITION_STATUS, NOT_FOUND, ZERO, TWO } from '../../main/Constants.js';
 import theTranslator from '../../core/uiLib/Translator.js';
 import theDevice from '../../core/lib/Device.js';
 
@@ -342,6 +342,28 @@ class MapEditorViewer {
 	}
 
 	/**
+	Click on the geo location circle event listener
+	@param {Event} clickEvent The event to handle
+	*/
+
+	#onGeoLocationPositionClick ( clickEvent ) {
+		const copiedMessage = theTranslator.getText ( 'MapEditorViewer -Copied to clipboard' );
+		const tooltipContent = clickEvent.target.getTooltip ( ).getContent ( );
+		if ( NOT_FOUND === tooltipContent.indexOf ( copiedMessage ) ) {
+			navigator.clipboard.writeText (	tooltipContent.replaceAll ( '<br/>', '\n' )	)
+				.then (
+					( ) => {
+						clickEvent.target.getTooltip ( ).setContent (
+							tooltipContent + '<br/><br/>' +
+							theTranslator.getText ( 'MapEditorViewer -Copied to clipboard' )
+						);
+					}
+				)
+				.catch ( ( ) => console.error ( 'Failed to copy to clipboard ' ) );
+		}
+	}
+
+	/**
 	This method is called when the geolocation position is changed
 	@param {GeolocationPosition} position a JS GeolocationPosition object
 	*/
@@ -371,8 +393,8 @@ class MapEditorViewer {
 			this.#geolocationCircle = window.L.circle (
 				window.L.latLng ( position.coords.latitude, position.coords.longitude ),
 				theConfig.geoLocation.marker
-			)
-				.setRadius ( position.coords.accuracy.toFixed ( ZERO ) );
+			);
+			this.#geolocationCircle.setRadius ( position.coords.accuracy.toFixed ( ZERO ) );
 		}
 		else {
 			this.#geolocationCircle = window.L.circleMarker (
@@ -390,19 +412,7 @@ class MapEditorViewer {
 		}
 		this.#geolocationCircle.on (
 			'click',
-			clickEvent => {
-				const tooltipContent = clickEvent.target.getTooltip ( ).getContent ( );
-				clickEvent.target.getTooltip ( ).setContent ( tooltipContent + 'Copied' );
-				navigator.clipboard.writeText (	tooltipContent.replaceAll ( '<br/>', '\n' )	)
-					.then (
-						( ) => {
-							clickEvent.target.getTooltip ( ).setContent (
-								tooltipContent + '<br/><br/>' + theTranslator.getText ( 'MapEditorViewer -Copied to clipboard' )
-							);
-						}
-					)
-					.catch ( ( ) => console.error ( 'Failed to copy to clipboard ' ) );
-			}
+			clickEvent => { this.#onGeoLocationPositionClick ( clickEvent ); }
 		);
 		if ( zoomToPosition ) {
 			theTravelNotesData.map.setView (

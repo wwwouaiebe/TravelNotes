@@ -24,7 +24,7 @@ Doc reviewed 202208
  */
 
 .TravelNotes-BaseDialog-DialogHTMLElement {
-	z-index: 1250;
+	z-index: 800;
 	position: absolute;
 	background-color: white;
 	border-style: solid;
