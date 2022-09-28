@@ -92,6 +92,21 @@ class ProfileDialogsManager {
 	}
 
 	/**
+	Update the route name in a profile dialog. Called when the updateprofilename event is send
+	@param {Number} routeObjId The obj id of the route to update
+	*/
+
+	updateProfileName ( routeObjId ) {
+		const profileDialog = this.#profileDialogs.get ( routeObjId );
+		if ( profileDialog ) {
+			const route = theDataSearchEngine.getRoute ( routeObjId );
+			if ( route ) {
+				profileDialog.setContentName ( route );
+			}
+		}
+	}
+
+	/**
 	This method updates the profile dialog for a Route
 	@param {Number} oldRouteObjId The objId of the Route that is in the profile dialog
 	@param {Route} newRoute The  Route for witch the profile dialog is updated
@@ -141,10 +156,10 @@ class ProfileDialogsManager {
 		let profileDialog = this.#profileDialogs.get ( routeObjId );
 		if ( ! profileDialog ) {
 			profileDialog = new ProfileDialog ( );
+			profileDialog.setContent ( route );
+			profileDialog.show ( );
+			this.#profileDialogs.set ( routeObjId, profileDialog );
 		}
-		profileDialog.setContent ( route );
-		profileDialog.show ( );
-		this.#profileDialogs.set ( routeObjId, profileDialog );
 	}
 
 	/**

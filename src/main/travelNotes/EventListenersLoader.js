@@ -198,6 +198,16 @@ class EventListenersLoader {
 			( ) => theDockableDialogsManager.osmSearchDialog.updateContent ( )
 		);
 		document.addEventListener (
+			'updateprofilename',
+			updateProfileNameEvent => {
+				if ( updateProfileNameEvent.data ) {
+					theProfileDialogsManager.updateProfileName (
+						updateProfileNameEvent.data.routeObjId
+					);
+				}
+			}
+		);
+		document.addEventListener (
 			'updateroadbook',
 			new RoadbookUpdateEL ( )
 		);

@@ -504,8 +504,12 @@
 		"msgstr": "Zoomer sur cet endroit"
 	},
 	{
-		"msgid": "ProfileWindow - Route {name} : Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}",
-		"msgstr": "Trajet {name} : Montée: {ascent} m. - Descente: {descent} m. - Distance: {distance}"
+		"msgid": "ProfileWindow - Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}",
+		"msgstr": "Montée : {ascent} m. - Descente : {descent} m. - Distance : {distance}"
+	},
+	{
+		"msgid": "ProfileWindow - Route {name}",
+		"msgstr": "Trajet : {name}"
 	},
 	{
 		"msgid": "ProfileWindow - Profile",
