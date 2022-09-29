@@ -21,7 +21,8 @@
 	},
 	"dockableBaseDialog" : 
 	{
-		"timeout" : 1500
+		"timeout" : 1500,
+		"hideOnMouseLeave" : false
 	},
 	"errorsUI":
 	{

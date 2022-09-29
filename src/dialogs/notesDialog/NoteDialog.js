@@ -265,15 +265,13 @@ class NoteDialog extends ModalBaseDialog {
 	}
 
 	/**
-	Overload of the ModalBaseDialog.show ( ) method.
+	Set the address of the note. Called by IconSelectorChangeEL
 	*/
 
-	show ( ) {
-		const showPromise = super.show ( );
+	setAddress ( ) {
 		if ( '' === this.#note.address ) {
 			new GeoCoderHelper ( this ).setAddressWithGeoCoder ( this.#previewNote.latLng );
 		}
-		return showPromise;
 	}
 
 	/**

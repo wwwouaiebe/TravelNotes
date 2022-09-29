@@ -48,7 +48,8 @@ const theConfig = {
 		timeout : 1500
 	},
 	dockableBaseDialog : {
-		timeout : 1500
+		timeout : 1500,
+		hideOnMouseLeave : false
 	},
 	errorsUI :
 	{
