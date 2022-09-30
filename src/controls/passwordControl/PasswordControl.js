@@ -92,6 +92,7 @@ class PasswordControl extends BaseControl {
 		this.#eyeSpan.addEventListener ( 'mousedown', this.#eyeMouseDownEL, false );
 		this.#eyeSpan.addEventListener ( 'touchstart', this.#eyeMouseDownEL, false );
 		this.#eyeSpan.addEventListener ( 'mouseup', this.#eyeMouseUpEL,	false );
+		this.#eyeSpan.addEventListener ( 'mouseleave', this.#eyeMouseUpEL,	false );
 		this.#eyeSpan.addEventListener ( 'touchend', this.#eyeMouseUpEL, false );
 		this.#passwordInput.focus ( );
 	}
@@ -104,6 +105,7 @@ class PasswordControl extends BaseControl {
 		this.#eyeSpan.removeEventListener ( 'mousedown', this.#eyeMouseDownEL, false );
 		this.#eyeSpan.removeEventListener ( 'touchstart', this.#eyeMouseDownEL, false );
 		this.#eyeSpan.removeEventListener ( 'mouseup', this.#eyeMouseUpEL,	false );
+		this.#eyeSpan.removeEventListener ( 'mouseleave', this.#eyeMouseUpEL,	false );
 		this.#eyeSpan.removeEventListener ( 'touchend', this.#eyeMouseUpEL, false );
 		this.#eyeMouseDownEL = null;
 		this.#eyeMouseUpEL = null;
