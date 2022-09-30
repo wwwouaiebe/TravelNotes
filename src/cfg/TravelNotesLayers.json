@@ -368,6 +368,24 @@
 	},
 	{
 		"service":"wmts",
+		"url":"https://wxs.ign.fr/decouverte/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&TILEMATRIXSET=PM&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&STYLE=normal&FORMAT=image/png&TILECOL={x}&TILEROW={y}&TILEMATRIX={z}",
+		"minZoom":0,
+		"maxZoom":18,
+		"bounds":[ [ -85, -175 ], [ 85, 175 ] ],
+		"name":"IGN - France",
+		"toolbar":
+		{
+			"text":"FR",
+			"color":"#000000",
+			"backgroundColor":"#ffffff"
+		},
+		"providerName":"IGN",
+		"providerKeyNeeded":false,
+		"attribution":"| <a href='https://geoservices.ign.fr/services-web' target='_blank'>IGN - France</a>",
+		"getCapabilitiesUrl":"https://wxs.ign.fr/decouverte/geoportail/wmts?SERVICE=WMTS&REQUEST=GetCapabilities"
+	},
+	{
+		"service":"wmts",
 		"url":"https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=standaard&TILEMATRIXSET=EPSG:3857&TILEMATRIX=EPSG:3857:{z}&TILEROW={y}&TILECOL={x}&FORMAT=image/png8",
 		"minZoom":6,
 		"maxZoom":18,
