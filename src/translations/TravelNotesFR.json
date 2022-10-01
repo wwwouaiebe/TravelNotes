@@ -400,6 +400,10 @@
 		"msgstr": "Recherche OpenStreetMap"
 	},
 	{
+		"msgid": "OsmSearchEngine - incomplete results",
+		"msgstr": "Des erreurs se sont produites. Les résultats sont incomplets"
+	},
+	{
 		"msgid": "OsmSearchToolbarButtons - Clear the tree",
 		"msgstr": "Désélectionner tout"
 	},
