@@ -107,6 +107,14 @@
 			"htmlBefore": "ø"
 		},
 		{
+			"title": "<span title=\"Insérer un caractère Œ\">Œ</span>",
+			"htmlBefore": "Œ"
+		}, 
+		{
+			"title": "<span title=\"Insérer un caractère œ\">œ</span>",
+			"htmlBefore": "œ"
+		}, 
+		{
 			"title": "<span class=\"TravelNotes-Note-WhiteBlack\" title=\"Insérer un espace insécable\">&amp;nbsp;</span>",
 			"htmlBefore": "&nbsp;"
 		}
