@@ -28,6 +28,8 @@ import TempWayPointMarkerELData from './TempWayPointMarkerELData.js';
 import TempWayPointMarkerDragStartEL from './TempWayPointMarkerDragStartEL.js';
 import TempWayPointMarkerContextMenuEL from './TempWayPointMarkerContextMenuEL.js';
 
+import { LeafletDomEvent } from '../../../leaflet/LeafletImports.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 dragend event listener for the temp waypoint marker
@@ -47,17 +49,17 @@ class TempWayPointMarkerDragEndEL {
 			[ dragEndEvent.target.getLatLng ( ).lat, dragEndEvent.target.getLatLng ( ).lng ]
 		);
 		if ( TempWayPointMarkerELData.marker ) {
-			window.L.DomEvent.off (
+			LeafletDomEvent.off (
 				TempWayPointMarkerELData.marker,
 				'dragstart',
 				TempWayPointMarkerDragStartEL.handleEvent
 			);
-			window.L.DomEvent.off (
+			LeafletDomEvent.off (
 				TempWayPointMarkerELData.marker,
 				'dragend',
 				TempWayPointMarkerDragEndEL.handleEvent
 			);
-			window.L.DomEvent.off (
+			LeafletDomEvent.off (
 				TempWayPointMarkerELData.marker,
 				'contextmenu',
 				TempWayPointMarkerContextMenuEL.handleEvent

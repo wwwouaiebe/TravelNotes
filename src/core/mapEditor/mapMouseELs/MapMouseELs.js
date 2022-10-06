@@ -31,6 +31,8 @@ import MapContextMenu from '../../../contextMenus/MapContextMenu.js';
 import RouteContextMenu from '../../../contextMenus/RouteContextMenu.js';
 import EditedRouteMouseOverEL from '../editedRouteEL/EditedRouteMouseOverEL.js';
 
+import { LeafletLatLng } from '../../../leaflet/LeafletImports.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 click and contextmenu event listeners for the map
@@ -54,7 +56,7 @@ class MapMouseELs {
 			return;
 		}
 
-		const routeLatLng = window.L.latLng (
+		const routeLatLng = new LeafletLatLng (
 			nearestRouteData.latLngOnRoute [ LAT ], nearestRouteData.latLngOnRoute [ LNG ]
 		);
 		const routeContainerPoint = theTravelNotesData.map.latLngToContainerPoint ( routeLatLng );

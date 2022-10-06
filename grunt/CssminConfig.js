@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 // css files needed for TravelNotes
 
 const travelNotesCss = [
+	'node_modules/leaflet/dist/leaflet.css',
 	'src/css/Map.css',
 	'src/css/Notes.css',
 	'src/css/NotesIcons.css',
@@ -68,6 +69,7 @@ const travelNotesCss = [
 // css files needed for the viewer
 
 const travelNotesViewerCss = [
+	'node_modules/leaflet/dist/leaflet.css',
 	'src/css/Map.css',
 	'src/css/Notes.css',
 	'src/css/NotesIcons.css',

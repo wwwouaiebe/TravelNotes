@@ -27,6 +27,8 @@ import theConfig from '../../data/Config.js';
 import theTravelNotesData from '../../data/TravelNotesData.js';
 import { ZERO, ONE, TWO } from '../../main/Constants.js';
 
+import { LeafletPoint } from '../../leaflet/LeafletImports.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 touch event listener on the background
@@ -203,7 +205,7 @@ class BackgroundTouchEL {
 		}
 		if ( TWO === touchEvent.targetTouches.length ) {
 			this.#initialZoom = theTravelNotesData.map.getZoom ( );
-			this.#aroundPoint = window.L.point (
+			this.#aroundPoint = new LeafletPoint (
 				( touchEvent.targetTouches.item ( ZERO ).clientX + touchEvent.targetTouches.item ( ONE ).clientX ) / TWO,
 				( touchEvent.targetTouches.item ( ZERO ).clientY + touchEvent.targetTouches.item ( ONE ).clientY ) / TWO
 			);

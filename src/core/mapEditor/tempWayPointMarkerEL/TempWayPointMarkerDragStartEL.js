@@ -25,6 +25,8 @@ Doc reviewed 202208
 import TempWayPointMarkerELData from './TempWayPointMarkerELData.js';
 import TempWayPointMarkerMouseOutEL from './TempWayPointMarkerMouseOutEL.js';
 
+import { LeafletDomEvent } from '../../../leaflet/LeafletImports.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 dragstart event listener for the temp waypoint marker
@@ -38,7 +40,7 @@ class TempWayPointMarkerDragStartEL {
 	*/
 
 	static handleEvent ( ) {
-		window.L.DomEvent.off (
+		LeafletDomEvent.off (
 			TempWayPointMarkerELData.marker,
 			'mouseout',
 			TempWayPointMarkerMouseOutEL.handleEvent

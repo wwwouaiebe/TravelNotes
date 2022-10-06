@@ -42,6 +42,15 @@ import RouteMapContextMenuEL from './RouteEL/RouteMapContextMenuEL.js';
 import { ROUTE_EDITION_STATUS, LAT_LNG, INVALID_OBJ_ID, TWO, WAY_POINT_ICON_SIZE } from '../../main/Constants.js';
 import theDevice from '../lib/Device.js';
 
+import {
+	LeafletCircleMarker,
+	LeafletDivIcon,
+	LeafletMarker,
+	LeafletPolyline,
+	LeafletRectangle,
+	LeafletDomEvent
+} from '../../leaflet/LeafletImports.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 This class performs all the read/write updates on the map
@@ -68,7 +77,7 @@ class MapEditor	extends MapEditorViewer {
 	#RemoveFromMap ( objId ) {
 		const layer = theTravelNotesData.mapObjects.get ( objId );
 		if ( layer ) {
-			window.L.DomEvent.off ( layer );
+			LeafletDomEvent.off ( layer );
 			theTravelNotesData.map.removeLayer ( layer );
 			theTravelNotesData.mapObjects.delete ( objId );
 		}
@@ -111,22 +120,22 @@ class MapEditor	extends MapEditorViewer {
 			const polyline = theTravelNotesData.mapObjects.get ( addedRouteObjId );
 
 			if ( ! theTravelNotesData.travel.readOnly ) {
-				window.L.DomEvent.on ( polyline, 'contextmenu', RouteMapContextMenuEL.handleEvent );
+				LeafletDomEvent.on ( polyline, 'contextmenu', RouteMapContextMenuEL.handleEvent );
 				if ( ROUTE_EDITION_STATUS.notEdited !== route.editionStatus && ! theDevice.isTouch ) {
-					window.L.DomEvent.on ( polyline, 'mouseover', EditedRouteMouseOverEL.handleEvent );
+					LeafletDomEvent.on ( polyline, 'mouseover', EditedRouteMouseOverEL.handleEvent );
 				}
 				const notesIterator = route.notes.iterator;
 				while ( ! notesIterator.done ) {
 					const layerGroup = theTravelNotesData.mapObjects.get ( notesIterator.value.objId );
 					const marker = layerGroup.getLayer ( layerGroup.markerId );
 					const bullet = layerGroup.getLayer ( layerGroup.bulletId );
-					window.L.DomEvent.on ( bullet, 'dragend', NoteBulletDragEndEL.handleEvent );
-					window.L.DomEvent.on ( bullet, 'drag',	NoteBulletDragEL.handleEvent );
-					window.L.DomEvent.on ( bullet, 'mouseenter', NoteBulletMouseEnterEL.handleEvent );
-					window.L.DomEvent.on ( bullet, 'mouseleave', NoteBulletMouseLeaveEL.handleEvent );
-					window.L.DomEvent.on ( marker, 'contextmenu', NoteMarkerContextMenuEL.handleEvent );
-					window.L.DomEvent.on ( marker, 'dragend', NoteMarkerDragEndEL.handleEvent );
-					window.L.DomEvent.on ( marker, 'drag', NoteMarkerDragEL.handleEvent );
+					LeafletDomEvent.on ( bullet, 'dragend', NoteBulletDragEndEL.handleEvent );
+					LeafletDomEvent.on ( bullet, 'drag',	NoteBulletDragEL.handleEvent );
+					LeafletDomEvent.on ( bullet, 'mouseenter', NoteBulletMouseEnterEL.handleEvent );
+					LeafletDomEvent.on ( bullet, 'mouseleave', NoteBulletMouseLeaveEL.handleEvent );
+					LeafletDomEvent.on ( marker, 'contextmenu', NoteMarkerContextMenuEL.handleEvent );
+					LeafletDomEvent.on ( marker, 'dragend', NoteMarkerDragEndEL.handleEvent );
+					LeafletDomEvent.on ( marker, 'drag', NoteMarkerDragEL.handleEvent );
 				}
 			}
 
@@ -185,13 +194,13 @@ class MapEditor	extends MapEditorViewer {
 				noteObjects.marker.openPopup ( );
 			}
 			if ( ! theTravelNotesData.travel.readOnly ) {
-				window.L.DomEvent.on ( noteObjects.bullet, 'dragend', NoteBulletDragEndEL.handleEvent );
-				window.L.DomEvent.on ( noteObjects.bullet, 'drag',	NoteBulletDragEL.handleEvent );
-				window.L.DomEvent.on ( noteObjects.bullet, 'mouseenter',	NoteBulletMouseEnterEL.handleEvent );
-				window.L.DomEvent.on ( noteObjects.bullet, 'mouseleave',	NoteBulletMouseLeaveEL.handleEvent );
-				window.L.DomEvent.on ( noteObjects.marker, 'contextmenu', NoteMarkerContextMenuEL.handleEvent );
-				window.L.DomEvent.on ( noteObjects.marker, 'dragend', NoteMarkerDragEndEL.handleEvent );
-				window.L.DomEvent.on ( noteObjects.marker, 'drag', NoteMarkerDragEL.handleEvent );
+				LeafletDomEvent.on ( noteObjects.bullet, 'dragend', NoteBulletDragEndEL.handleEvent );
+				LeafletDomEvent.on ( noteObjects.bullet, 'drag',	NoteBulletDragEL.handleEvent );
+				LeafletDomEvent.on ( noteObjects.bullet, 'mouseenter',	NoteBulletMouseEnterEL.handleEvent );
+				LeafletDomEvent.on ( noteObjects.bullet, 'mouseleave',	NoteBulletMouseLeaveEL.handleEvent );
+				LeafletDomEvent.on ( noteObjects.marker, 'contextmenu', NoteMarkerContextMenuEL.handleEvent );
+				LeafletDomEvent.on ( noteObjects.marker, 'dragend', NoteMarkerDragEndEL.handleEvent );
+				LeafletDomEvent.on ( noteObjects.marker, 'drag', NoteMarkerDragEL.handleEvent );
 			}
 		}
 	}
@@ -212,7 +221,7 @@ class MapEditor	extends MapEditorViewer {
 	removeAllObjects ( ) {
 		theTravelNotesData.mapObjects.forEach (
 			mapObject => {
-				window.L.DomEvent.off ( mapObject );
+				LeafletDomEvent.off ( mapObject );
 				theTravelNotesData.map.removeLayer ( mapObject );
 			}
 		);
@@ -237,10 +246,10 @@ class MapEditor	extends MapEditorViewer {
 		'"></div><div class="TravelNotes-Map-WayPointText">' + letter + '</div>';
 
 		// a leaflet marker is created...
-		const marker = window.L.marker (
+		const marker = new LeafletMarker (
 			wayPoint.latLng,
 			{
-				icon : window.L.divIcon (
+				icon : new LeafletDivIcon (
 					{
 						iconSize : [ WAY_POINT_ICON_SIZE, WAY_POINT_ICON_SIZE ],
 						iconAnchor : [
@@ -263,14 +272,14 @@ class MapEditor	extends MapEditorViewer {
 			-WAY_POINT_ICON_SIZE / TWO
 		];
 
-		window.L.DomEvent.on ( marker, 'contextmenu', WayPointContextMenuEL.handleEvent );
+		LeafletDomEvent.on ( marker, 'contextmenu', WayPointContextMenuEL.handleEvent );
 
 		// ... and added to the map...
 		marker.objId = wayPoint.objId;
 		this.addToMap ( wayPoint.objId, marker );
 
 		// ... and a dragend event listener is created
-		window.L.DomEvent.on ( marker, 'dragend', WayPointDragEndEL.handleEvent );
+		LeafletDomEvent.on ( marker, 'dragend', WayPointDragEndEL.handleEvent );
 	}
 
 	/**
@@ -283,7 +292,7 @@ class MapEditor	extends MapEditorViewer {
 	addItineraryPointMarker ( objId, latLng ) {
 		this.addToMap (
 			objId,
-			window.L.circleMarker ( latLng, theConfig.itineraryPoint.marker )
+			new LeafletCircleMarker ( latLng, theConfig.itineraryPoint.marker )
 		);
 	}
 
@@ -320,10 +329,10 @@ class MapEditor	extends MapEditorViewer {
 				) > MapEditor.#MARKER_BOUNDS_PRECISION;
 		}
 		if ( showGeometry ) {
-			this.addToMap ( objId, window.L.polyline ( geometry, theConfig.osmSearch.searchPointPolyline ) );
+			this.addToMap ( objId, new LeafletPolyline ( geometry, theConfig.osmSearch.searchPointPolyline ) );
 		}
 		else {
-			this.addToMap ( objId, window.L.circleMarker ( latLng, theConfig.osmSearch.searchPointMarker ) );
+			this.addToMap ( objId, new LeafletCircleMarker ( latLng, theConfig.osmSearch.searchPointMarker ) );
 		}
 	}
 
@@ -338,7 +347,7 @@ class MapEditor	extends MapEditorViewer {
 	addRectangle ( objId, bounds, properties ) {
 		this.addToMap (
 			objId,
-			window.L.rectangle ( bounds, properties )
+			new LeafletRectangle ( bounds, properties )
 		);
 	}
 

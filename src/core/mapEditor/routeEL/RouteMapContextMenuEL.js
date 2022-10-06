@@ -24,6 +24,8 @@ Doc reviewed 202208
 
 import RouteContextMenu from '../../../contextMenus/RouteContextMenu.js';
 
+import { LeafletDomEvent } from '../../../leaflet/LeafletImports.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 contextmenu event listener for the routes
@@ -38,7 +40,7 @@ class RouteMapContextMenuEL {
 	*/
 
 	static handleEvent ( contextMenuEvent ) {
-		window.L.DomEvent.stopPropagation ( contextMenuEvent );
+		LeafletDomEvent.stopPropagation ( contextMenuEvent );
 		new RouteContextMenu ( contextMenuEvent ).show ( );
 	}
 }

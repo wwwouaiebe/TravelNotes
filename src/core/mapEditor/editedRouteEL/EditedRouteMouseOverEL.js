@@ -38,6 +38,8 @@ import TempWayPointMarkerDragEndEL from '../TempWayPointMarkerEL/TempWayPointMar
 
 import { NOT_FOUND, ZERO, ONE, TWO, WAY_POINT_ICON_SIZE } from '../../../main/Constants.js';
 
+import { LeafletDivIcon, LeafletMarker, LeafletDomEvent } from '../../../leaflet/LeafletImports.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 mouseover event listeners for the edited route
@@ -67,10 +69,10 @@ class EditedRouteMouseOverEL {
 		else {
 
 			// a leaflet marker is created...
-			TempWayPointMarkerELData.marker = window.L.marker (
+			TempWayPointMarkerELData.marker = new LeafletMarker (
 				mouseEvent.latlng,
 				{
-					icon : window.L.divIcon (
+					icon : new LeafletDivIcon (
 						{
 							iconSize : [ WAY_POINT_ICON_SIZE, WAY_POINT_ICON_SIZE ],
 							iconAnchor : [
@@ -109,27 +111,27 @@ class EditedRouteMouseOverEL {
 			TempWayPointMarkerELData.marker.addTo ( theTravelNotesData.map );
 
 			// adding event listeners on the marker
-			window.L.DomEvent.on (
+			LeafletDomEvent.on (
 				TempWayPointMarkerELData.marker,
 				'mouseout',
 				TempWayPointMarkerMouseOutEL.handleEvent
 			);
-			window.L.DomEvent.on (
+			LeafletDomEvent.on (
 				TempWayPointMarkerELData.marker,
 				'dragstart',
 				TempWayPointMarkerDragStartEL.handleEvent
 			);
-			window.L.DomEvent.on (
+			LeafletDomEvent.on (
 				TempWayPointMarkerELData.marker,
 				'dragend',
 				TempWayPointMarkerDragEndEL.handleEvent
 			);
-			window.L.DomEvent.on (
+			LeafletDomEvent.on (
 				TempWayPointMarkerELData.marker,
 				'contextmenu',
 				TempWayPointMarkerContextMenuEL.handleEvent
 			);
-			window.L.DomEvent.on (
+			LeafletDomEvent.on (
 				TempWayPointMarkerELData.marker,
 				'click',
 				TempWayPointMarkerClickEL.handleEvent
