@@ -174,8 +174,8 @@ class Geometry {
 				( Math.cos ( latCenterRad ) ** TWO )
 			) * DEGREES.fromRadians;
 		return new LeafletLatLngBounds (
-			new LeafletLatLng ( [ latLngCenter [ ZERO ] - deltaLat, latLngCenter [ ONE ] - deltaLng ] ),
-			new LeafletLatLng ( [ latLngCenter [ ZERO ] + deltaLat, latLngCenter [ ONE ] + deltaLng ] )
+			new LeafletLatLng ( latLngCenter [ ZERO ] - deltaLat, latLngCenter [ ONE ] - deltaLng ),
+			new LeafletLatLng ( latLngCenter [ ZERO ] + deltaLat, latLngCenter [ ONE ] + deltaLng )
 		);
 	}
 
