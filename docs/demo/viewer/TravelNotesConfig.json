@@ -21,7 +21,8 @@
 	},
 	"dockableBaseDialog" : 
 	{
-		"timeout" : 1500
+		"timeout" : 1500,
+		"hideOnMouseLeave" : false
 	},
 	"errorsUI":
 	{
@@ -249,7 +250,8 @@
 	"travelNotes" : {
 		"haveBeforeUnloadWarning":true,
 		"language":"fr",
-		"startupRouteEdition":true
+		"startupRouteEdition":true,
+		"resizeDelay":200
 	},
 	"TravelNotesToolbar":
 	{
