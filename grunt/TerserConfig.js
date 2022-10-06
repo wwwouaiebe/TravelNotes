@@ -54,28 +54,6 @@ module.exports = {
 			}
 		},
 		files : {
-
-			// dist
-
-			'dist/TravelNotes.min.js' :
-                [ 'tmpRelease/TravelNotes.min.js' ],
-			'dist/TravelNotesProviders/GraphHopperRouteProvider.min.js' :
-                [ 'tmpRelease/GraphHopperRouteProvider.min.js' ],
-			'dist/TravelNotesProviders/MapboxRouteProvider.min.js' :
-                [ 'tmpRelease/MapboxRouteProvider.min.js' ],
-			'dist/TravelNotesProviders/MapzenValhallaRouteProvider.min.js' :
-                [ 'tmpRelease/MapzenValhallaRouteProvider.min.js' ],
-			'dist/TravelNotesProviders/OpenRouteServiceRouteProvider.min.js' :
-                [ 'tmpRelease/OpenRouteServiceRouteProvider.min.js' ],
-			'dist/TravelNotesProviders/OsrmRouteProvider.min.js' :
-                [ 'tmpRelease/OsrmRouteProvider.min.js' ],
-			'dist/TravelNotesProviders/PolylineRouteProvider.min.js' :
-                [ 'tmpRelease/PolylineRouteProvider.min.js' ],
-			'dist/TravelNotesProviders/PublicTransportRouteProvider.min.js' :
-                [ 'tmpRelease/PublicTransportRouteProvider.min.js' ],
-
-			// docs/demo
-
 			'docs/demo/TravelNotes.min.js' :
                 [ 'tmpRelease/TravelNotes.min.js' ],
 			'docs/demo/TravelNotesProviders/GraphHopperRouteProvider.min.js' :
@@ -105,8 +83,6 @@ module.exports = {
 			}
 		},
 		files : {
-			'dist/viewer/TravelNotesViewer.min.js' :
-                [ 'tmpRelease/TravelNotesViewer.min.js' ],
 			'docs/demo/viewer/TravelNotesViewer.min.js' :
                 [ 'tmpRelease/TravelNotesViewer.min.js' ]
 		}
@@ -122,8 +98,6 @@ module.exports = {
 			}
 		},
 		files : {
-			'dist/TravelNotesRoadbook.min.js' :
-                [ 'tmpRelease/TravelNotesRoadbook.min.js' ],
 			'docs/demo/TravelNotesRoadbook.min.js' :
                 [ 'tmpRelease/TravelNotesRoadbook.min.js' ]
 		}

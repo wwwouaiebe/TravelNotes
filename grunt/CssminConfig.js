@@ -121,9 +121,6 @@ module.exports = {
 
 	release : {
 		files : {
-			'dist/TravelNotes.min.css' : travelNotesCss,
-			'dist/viewer/TravelNotesViewer.min.css' : travelNotesViewerCss,
-			'dist/TravelNotesRoadbook.min.css' : travelNotesRoadbookCss,
 			'docs/demo/TravelNotes.min.css' : travelNotesCss,
 			'docs/demo/viewer/TravelNotesViewer.min.css' : travelNotesViewerCss,
 			'docs/demo/TravelNotesRoadbook.min.css' : travelNotesRoadbookCss

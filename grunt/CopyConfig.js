@@ -55,6 +55,7 @@ const debugFiles = [
 	},
 	{ expand : true, cwd : 'exclude/', src : [ 'ApiKeys', 'TravelNotesConfig.json' ], dest : 'debug/' }
 ];
+
 const beforeReleaseFiles = [
 	{
 		expand : true,
@@ -66,41 +67,6 @@ const beforeReleaseFiles = [
 ];
 
 const releaseFiles = [
-
-	// dist
-	{ expand : true, cwd : 'src/cfg/', src : [ '*.json', '*.csv' ], dest : 'dist/' },
-	{ expand : true, cwd : 'src/translations/', src : [ '*.json' ], dest : 'dist/' },
-	{ expand : true, cwd : 'src/html/', src : [ 'index.html' ], dest : 'dist/' },
-	{ expand : true, cwd : 'src/html/', src : [ 'TravelNotesRoadbook.html' ], dest : 'dist/' },
-	{ expand : true, cwd : 'src/cfg/', src : [ 'TravelNotesConfig.json', 'TravelNotesLayers.json' ], dest : 'dist/viewer/' },
-	{ expand : true, cwd : 'src/translations/', src : [ '*.json' ], dest : 'dist/viewer/' },
-	{
-		expand : true,
-		cwd : 'src/html/',
-		src : [ 'TravelNotesViewer.html' ],
-		rename : function ( ) { return 'dist/viewer/index.html'; }
-	},
-	{
-		expand : true,
-		cwd : 'node_modules/osrm-text-instructions/languages/abbreviations/',
-		src : [ '*.json' ],
-		dest : 'dist/TravelNotesProviders/languages/abbreviations/'
-	},
-	{
-		expand : true,
-		cwd : 'node_modules/osrm-text-instructions/languages/translations/',
-		src : [ '*.json' ],
-		dest : 'dist/TravelNotesProviders/languages/instructions/'
-	},
-	{
-		expand : true,
-		cwd : 'node_modules/osrm-text-instructions/languages/grammar/',
-		src : [ '*.json' ],
-		dest : 'dist/TravelNotesProviders/languages/grammars/'
-	},
-
-	// docs/demo
-
 	{ expand : true, cwd : 'src/cfg/', src : [ '*.json', '*.csv' ], dest : 'docs/demo/' },
 	{ expand : true, cwd : 'src/translations/', src : [ '*.json' ], dest : 'docs/demo/' },
 	{ expand : true, cwd : 'src/html/', src : [ 'index.html' ], dest : 'docs/demo/'	},
@@ -136,8 +102,6 @@ const releaseFiles = [
 		src : [ 'fr.json' ],
 		dest : 'docs/demo/TravelNotesProviders/languages/grammars/'
 	},
-
-	// README.md
 	{ expand : true, cwd : 'TravelNotesGuides', src : [ 'README.md' ], dest : '' }
 ];
 
