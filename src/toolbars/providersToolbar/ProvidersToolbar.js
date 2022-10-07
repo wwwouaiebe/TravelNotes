@@ -182,7 +182,7 @@ class ProvidersToolbar {
 			return;
 		}
 		if ( this.#isShow ) {
-			this.#hide ( );
+			this.hide ( );
 		}
 		else {
 			this.#show ( );
@@ -212,14 +212,14 @@ class ProvidersToolbar {
 		if ( theDevice.isTouch ) {
 			return;
 		}
-		this.#mouseLeaveTimerId = setTimeout ( ( ) => this.#hide ( ), theConfig.toolbars.timeOut );
+		this.#mouseLeaveTimerId = setTimeout ( ( ) => this.hide ( ), theConfig.toolbars.timeOut );
 	}
 
 	/**
 	Hide the toolbar. Used as event listener for the timer
 	*/
 
-	#hide ( ) {
+	hide ( ) {
 
 		// cleaning the timer
 		if ( this.#mouseLeaveTimerId ) {
