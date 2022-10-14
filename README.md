@@ -58,8 +58,6 @@ Other samples:
 The [v4.1.0 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.1.0) and the [v4.1.0 branch](https://github.com/wwwouaiebe/TravelNotes/tree/v4.1.0)
 contains the files of the last stable version.
 
-The [dist folder](https://github.com/wwwouaiebe/TravelNotes/tree/v4.1.0/dist) contains all the needed files to run Travel & Notes, but not the sources.
-
 Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v4.1.0/src)
 
 ### master branch
