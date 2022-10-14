@@ -65,18 +65,17 @@ class RedSliderInputEL {
 
 	handleEvent ( inputEvent ) {
 		inputEvent.stopPropagation ( );
-		this.#colorControl.onRedSliderInput (
-			inputEvent.target.valueAsNumber *
-			(
 
-			// with JS 100 * 2.55 = 254.9999999 ...
-				this.#colorCoef - Math.floor ( this.#colorCoef ) < Math.ceil ( this.#colorCoef ) - this.#colorCoef
-					?
-					Math.floor ( this.#colorCoef )
-					:
-					Math.ceil ( this.#colorCoef )
-			)
-		);
+		let red = inputEvent.target.valueAsNumber * this.#colorCoef;
+
+		// With js 100 * 2.55 = 254.99999999
+		red = red - Math.floor ( red ) < Math.ceil ( red ) - red
+			?
+			Math.floor ( red )
+			:
+			Math.ceil ( red );
+
+		this.#colorControl.onRedSliderInput ( red );
 	}
 }
 

@@ -296,6 +296,7 @@ class RouteEditor {
 					}
 					theEventDispatcher.dispatch ( 'updateroadbook' );
 					theEventDispatcher.dispatch ( 'updatetravelproperties' );
+					theEventDispatcher.dispatch ( 'updateprofilename', { routeObjId : routeObjId } );
 				}
 			)
 			.catch (

@@ -193,3 +193,18 @@ Les issues suivantes sont corrigées:
 soit via les menus contextuels. Voyez le [guide pour les utilisateurs - fr ](https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/GuideUtilisateurFR.html).
 - le programme est complètement compatible avec un mobile ou une tablette Android.
 - bien qu'il s'agisse d'une version majeure, tous les fichiers de voyage créés avec une version précédente sont utilisables avec cette version.
+
+### Quoi de neuf dans la version 4.1.0
+
+- La procédure d'instalation a été modifiée, suite à la publication de Leaflet 1.9.0. Bien que TravelNotes utilise toujours Leaflet, il n'est plus nécessaire de charger la feuille de style de Leaflet avec une balise &lt;style&gt;, celle-ci étant intégrée dans le fichier TravelNotes.min.css. De même, il ne faut plus charger le Javascript de Leaflet avec une balise &lt;script&gt;, tout le code de Leaflet étant intégré dans le fichier TravelNotes.min.js.
+
+- Issue #57 : Le z-index des profils n'est pas correct
+- Issue #58 : Changer le nom du voyage est très lent quand plusieurs trajets sont présents
+- Issue #59 : Les valeurs de rouge des boutons ne sont pas correctes dans le contrôle du choix des couleurs
+- Issue #60 : Le dialogue des profils a été revu
+- Issue #61 : Une option a été ajoutée pour activer ou désactiver le masquage de la fenêtre des dialogues
+- Issue #62 : La recherche de l'adresse a été revu dans le dialogue des notes
+- Issue #63 : La largeur des dialogues a été limitée sur les grands écrans
+- Issue #64 : Un avertissement est affiché quand une erreur se produit lors d'une recherche dans OpenStreetMap
+- Issue #65 : Leaflet 1.9 a été publié
+- Issue #66 : une erreur se produit lors du masquage de la	barre d'outils après le choix d'un mode de parcours.

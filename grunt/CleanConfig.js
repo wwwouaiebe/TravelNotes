@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 // eslint-disable-next-line no-undef
 module.exports = {
 	beforeDebug : [ 'debug', 'tmpDebug', 'out' ],
-	beforeRelease : [ 'dist', 'docs/demo', 'tmpRelease', 'out' ],
+	beforeRelease : [ 'docs/demo', 'tmpRelease', 'out' ],
 	afterDebug : [ 'tmpDebug', 'out' ],
 	afterRelease : [ 'tmpRelease', 'out' ]
 };

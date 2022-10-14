@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 // css files needed for TravelNotes
 
 const travelNotesCss = [
+	'node_modules/leaflet/dist/leaflet.css',
 	'src/css/Map.css',
 	'src/css/Notes.css',
 	'src/css/NotesIcons.css',
@@ -43,6 +44,7 @@ const travelNotesCss = [
 	'src/controls/textInputControl/TextInputControl.css',
 	'src/dialogs/baseDialog/BaseDialog.css',
 	'src/dialogs/baseDialog/DockableBaseDialog.css',
+	'src/dialogs/baseDialog/ModalBaseDialog.css',
 	'src/dialogs/aboutDialog/AboutDialog.css',
 	'src/dialogs/apiKeysdialog/ApiKeysDialog.css',
 	'src/dialogs/notesDialog/NoteDialog.css',
@@ -67,6 +69,7 @@ const travelNotesCss = [
 // css files needed for the viewer
 
 const travelNotesViewerCss = [
+	'node_modules/leaflet/dist/leaflet.css',
 	'src/css/Map.css',
 	'src/css/Notes.css',
 	'src/css/NotesIcons.css',
@@ -118,9 +121,6 @@ module.exports = {
 
 	release : {
 		files : {
-			'dist/TravelNotes.min.css' : travelNotesCss,
-			'dist/viewer/TravelNotesViewer.min.css' : travelNotesViewerCss,
-			'dist/TravelNotesRoadbook.min.css' : travelNotesRoadbookCss,
 			'docs/demo/TravelNotes.min.css' : travelNotesCss,
 			'docs/demo/viewer/TravelNotesViewer.min.css' : travelNotesViewerCss,
 			'docs/demo/TravelNotesRoadbook.min.css' : travelNotesRoadbookCss

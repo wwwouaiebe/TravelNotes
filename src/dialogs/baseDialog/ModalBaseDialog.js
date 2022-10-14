@@ -352,6 +352,7 @@ class ModalBaseDialog extends BaseDialog {
 	show ( ) {
 		super.show ( );
 		this.#createHTML ( );
+		this.addCssClass ( 'TravelNotes-ModalBaseDialog' );
 		document.body.appendChild ( this.#backgroundHTMLElement );
 		this.addToBackground ( this.#backgroundHTMLElement );
 		this.#modalDialogKeyboardKeydownEL = new ModalDialogKeyboardKeydownEL ( this );

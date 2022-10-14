@@ -33,9 +33,22 @@ import RouteMouseOverOrMoveEL from './RouteEL/RouteMouseOverOrMoveEL.js';
 import theHTMLSanitizer from '../htmlSanitizer/HTMLSanitizer.js';
 import NoteLeafletObjects from './NoteLeafletObjects.js';
 
-import { GEOLOCATION_STATUS, ROUTE_EDITION_STATUS, ZERO, TWO } from '../../main/Constants.js';
+import { GEOLOCATION_STATUS, ROUTE_EDITION_STATUS, NOT_FOUND, ZERO, TWO } from '../../main/Constants.js';
 import theTranslator from '../../core/uiLib/Translator.js';
 import theDevice from '../../core/lib/Device.js';
+
+import {
+	LeafletCircle,
+	LeafletCircleMarker,
+	LeafletDivIcon,
+	LeafletLatLng,
+	LeafletLayerGroup,
+	LeafletMarker,
+	LeafletPolyline,
+	LeafletTileLayer,
+	LeafletDomEvent,
+	LeafletUtil
+} from '../../leaflet/LeafletImports.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -126,7 +139,7 @@ class MapEditorViewer {
 		}
 
 		// the leaflet polyline is created and added to the map
-		const polyline = window.L.polyline (
+		const polyline = new LeafletPolyline (
 			latLng,
 			{
 				color : route.color,
@@ -143,8 +156,8 @@ class MapEditorViewer {
 				{ sticky : true, direction : 'right' }
 			);
 			if ( ! theDevice.isTouch ) {
-				window.L.DomEvent.on ( polyline, 'mouseover', RouteMouseOverOrMoveEL.handleEvent );
-				window.L.DomEvent.on ( polyline, 'mousemove', RouteMouseOverOrMoveEL.handleEvent );
+				LeafletDomEvent.on ( polyline, 'mouseover', RouteMouseOverOrMoveEL.handleEvent );
+				LeafletDomEvent.on ( polyline, 'mousemove', RouteMouseOverOrMoveEL.handleEvent );
 
 				polyline.bindPopup (
 					layer => theHTMLSanitizer.clone (
@@ -156,7 +169,7 @@ class MapEditorViewer {
 				);
 
 				// left click event
-				window.L.DomEvent.on ( polyline, 'click', clickEvent => clickEvent.target.openPopup ( clickEvent.latlng ) );
+				LeafletDomEvent.on ( polyline, 'click', clickEvent => clickEvent.target.openPopup ( clickEvent.latlng ) );
 			}
 		}
 
@@ -182,10 +195,10 @@ class MapEditorViewer {
 
 		// first a marker is created at the note position. This marker is empty and transparent, so
 		// not visible on the map but the marker can be dragged
-		const bullet = window.L.marker (
+		const bullet = new LeafletMarker (
 			note.latLng,
 			{
-				icon : window.L.divIcon (
+				icon : new LeafletDivIcon (
 					{
 						iconSize : [ theConfig.note.grip.size, theConfig.note.grip.size ],
 						iconAnchor : [ theConfig.note.grip.size / TWO, theConfig.note.grip.size / TWO ],
@@ -200,11 +213,11 @@ class MapEditorViewer {
 		bullet.objId = note.objId;
 
 		// a second marker is now created. The icon created by the user is used for this marker
-		const marker = window.L.marker (
+		const marker = new LeafletMarker (
 			note.iconLatLng,
 			{
 				zIndexOffset : MapEditorViewer.#NOTE_Z_INDEX_OFFSET,
-				icon : window.L.divIcon (
+				icon : new LeafletDivIcon (
 					{
 						iconSize : [ note.iconWidth, note.iconHeight ],
 						iconAnchor : [ note.iconWidth / TWO, note.iconHeight / TWO ],
@@ -237,14 +250,14 @@ class MapEditorViewer {
 		}
 
 		// Finally a polyline is created between the 2 markers
-		const polyline = window.L.polyline ( [ note.latLng, note.iconLatLng ], theConfig.note.polyline );
+		const polyline = new LeafletPolyline ( [ note.latLng, note.iconLatLng ], theConfig.note.polyline );
 		polyline.objId = note.objId;
 
 		// The 3 objects are added to a layerGroup
-		const layerGroup = window.L.layerGroup ( [ marker, polyline, bullet ] );
-		layerGroup.markerId = window.L.Util.stamp ( marker );
-		layerGroup.polylineId = window.L.Util.stamp ( polyline );
-		layerGroup.bulletId = window.L.Util.stamp ( bullet );
+		const layerGroup = new LeafletLayerGroup ( [ marker, polyline, bullet ] );
+		layerGroup.markerId = LeafletUtil.stamp ( marker );
+		layerGroup.polylineId = LeafletUtil.stamp ( polyline );
+		layerGroup.bulletId = LeafletUtil.stamp ( bullet );
 
 		// and the layerGroup added to the leaflet map and JavaScript map
 		this.addToMap ( note.objId, layerGroup );
@@ -286,9 +299,9 @@ class MapEditorViewer {
 		const leafletLayer =
 			'wmts' === layer.service.toLowerCase ( )
 				?
-				window.L.tileLayer ( url )
+				new LeafletTileLayer ( url )
 				:
-				window.L.tileLayer.wms ( url, layer.wmsOptions );
+				new ( LeafletTileLayer.WMS ) ( url, layer.wmsOptions );
 
 		if ( this.#currentLayer ) {
 			theTravelNotesData.map.removeLayer ( this.#currentLayer );
@@ -342,6 +355,28 @@ class MapEditorViewer {
 	}
 
 	/**
+	Click on the geo location circle event listener
+	@param {Event} clickEvent The event to handle
+	*/
+
+	#onGeoLocationPositionClick ( clickEvent ) {
+		const copiedMessage = theTranslator.getText ( 'MapEditorViewer -Copied to clipboard' );
+		const tooltipContent = clickEvent.target.getTooltip ( ).getContent ( );
+		if ( NOT_FOUND === tooltipContent.indexOf ( copiedMessage ) ) {
+			navigator.clipboard.writeText (	tooltipContent.replaceAll ( '<br/>', '\n' )	)
+				.then (
+					( ) => {
+						clickEvent.target.getTooltip ( ).setContent (
+							tooltipContent + '<br/><br/>' +
+							theTranslator.getText ( 'MapEditorViewer -Copied to clipboard' )
+						);
+					}
+				)
+				.catch ( ( ) => console.error ( 'Failed to copy to clipboard ' ) );
+		}
+	}
+
+	/**
 	This method is called when the geolocation position is changed
 	@param {GeolocationPosition} position a JS GeolocationPosition object
 	*/
@@ -368,15 +403,15 @@ class MapEditorViewer {
 		}
 
 		if ( ZERO === theConfig.geoLocation.marker.radius ) {
-			this.#geolocationCircle = window.L.circle (
-				window.L.latLng ( position.coords.latitude, position.coords.longitude ),
+			this.#geolocationCircle = new LeafletCircle (
+				new LeafletLatLng ( position.coords.latitude, position.coords.longitude ),
 				theConfig.geoLocation.marker
-			)
-				.setRadius ( position.coords.accuracy.toFixed ( ZERO ) );
+			);
+			this.#geolocationCircle.setRadius ( position.coords.accuracy.toFixed ( ZERO ) );
 		}
 		else {
-			this.#geolocationCircle = window.L.circleMarker (
-				window.L.latLng ( position.coords.latitude, position.coords.longitude ),
+			this.#geolocationCircle = new LeafletCircleMarker (
+				new LeafletLatLng ( position.coords.latitude, position.coords.longitude ),
 				theConfig.geoLocation.marker
 			);
 		}
@@ -390,23 +425,11 @@ class MapEditorViewer {
 		}
 		this.#geolocationCircle.on (
 			'click',
-			clickEvent => {
-				const tooltipContent = clickEvent.target.getTooltip ( ).getContent ( );
-				clickEvent.target.getTooltip ( ).setContent ( tooltipContent + 'Copied' );
-				navigator.clipboard.writeText (	tooltipContent.replaceAll ( '<br/>', '\n' )	)
-					.then (
-						( ) => {
-							clickEvent.target.getTooltip ( ).setContent (
-								tooltipContent + '<br/><br/>' + theTranslator.getText ( 'MapEditorViewer -Copied to clipboard' )
-							);
-						}
-					)
-					.catch ( ( ) => console.error ( 'Failed to copy to clipboard ' ) );
-			}
+			clickEvent => { this.#onGeoLocationPositionClick ( clickEvent ); }
 		);
 		if ( zoomToPosition ) {
 			theTravelNotesData.map.setView (
-				window.L.latLng ( position.coords.latitude, position.coords.longitude ),
+				new LeafletLatLng ( position.coords.latitude, position.coords.longitude ),
 				theConfig.geoLocation.zoomFactor
 			);
 		}

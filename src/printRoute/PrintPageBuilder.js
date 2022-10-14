@@ -33,6 +33,15 @@ import PrintEL from './PrintEL.js';
 import AfterPrintEL from './AfterPrintEL.js';
 import { ZERO, TWO } from '../main/Constants.js';
 
+import {
+	LeafletCircleMarker,
+	LeafletDivIcon,
+	LeafletMap,
+	LeafletMarker,
+	LeafletPolyline,
+	LeafletTileLayer
+} from '../leaflet/LeafletImports.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 Build the html page for print
@@ -163,9 +172,9 @@ class PrintPageBuilder {
 		const leafletLayer =
 			'wmts' === mapLayer.service.toLowerCase ( )
 				?
-				window.L.tileLayer ( url )
+				new LeafletTileLayer ( url )
 				:
-				window.L.tileLayer.wms ( url, mapLayer.wmsOptions );
+				new ( LeafletTileLayer.WMS ) ( url, mapLayer.wmsOptions );
 
 		leafletLayer.options.attribution = theHTMLSanitizer.sanitizeToHtmlString (
 			' © <a href="https://www.openstreetmap.org/copyright" target="_blank" ' +
@@ -186,7 +195,7 @@ class PrintPageBuilder {
 		const notesMarkers = [];
 		this.#route.notes.forEach (
 			note => {
-				const icon = window.L.divIcon (
+				const icon = new LeafletDivIcon (
 					{
 						iconSize : [ note.iconWidth, note.iconHeight ],
 						iconAnchor : [ note.iconWidth / TWO, note.iconHeight / TWO ],
@@ -196,7 +205,7 @@ class PrintPageBuilder {
 					}
 				);
 
-				const marker = window.L.marker (
+				const marker = new LeafletMarker (
 					note.iconLatLng,
 					{
 						// eslint-disable-next-line no-magic-numbers
@@ -240,13 +249,13 @@ class PrintPageBuilder {
 
 		// adding entry point and exit point markers
 		layers.push (
-			window.L.circleMarker (
+			new LeafletCircleMarker (
 				[ printView.entryPoint.lat, printView.entryPoint.lng ],
 				theConfig.printRouteMap.entryPointMarker
 			)
 		);
 		layers.push (
-			window.L.circleMarker (
+			new LeafletCircleMarker (
 				[ printView.exitPoint.lat, printView.exitPoint.lng ],
 				theConfig.printRouteMap.exitPointMarker
 			)
@@ -256,7 +265,7 @@ class PrintPageBuilder {
 		layers.push ( this.#routePolyline );
 
 		// creating the map
-		window.L.map (
+		new LeafletMap (
 			viewId,
 			{
 				attributionControl : true,
@@ -377,7 +386,7 @@ class PrintPageBuilder {
 			latLngs.push ( pointsIterator.value.latLng );
 		}
 
-		this.#routePolyline = window.L.polyline (
+		this.#routePolyline = new LeafletPolyline (
 			latLngs,
 			{
 				color : this.#route.color,

@@ -48,7 +48,8 @@ const theConfig = {
 		timeout : 1500
 	},
 	dockableBaseDialog : {
-		timeout : 1500
+		timeout : 1500,
+		hideOnMouseLeave : false
 	},
 	errorsUI :
 	{
@@ -269,7 +270,8 @@ const theConfig = {
 	travelNotes : {
 		haveBeforeUnloadWarning : true,
 		language : 'fr',
-		startupRouteEdition : true
+		startupRouteEdition : true,
+		resizeDelay : 200
 	},
 	travelNotesToolbar :
 	{

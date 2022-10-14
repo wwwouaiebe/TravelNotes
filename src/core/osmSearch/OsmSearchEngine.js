@@ -28,8 +28,10 @@ import theConfig from '../../data/Config.js';
 import OverpassAPIDataLoader from '../lib/OverpassAPIDataLoader.js';
 import theOsmSearchDictionary from './OsmSearchDictionary.js';
 import theGeometry from '../lib/Geometry.js';
+import theErrorUI from '../../uis/errorsUI/ErrorsUI.js';
 
 import { ZERO, ONE, LAT_LNG } from '../../main/Constants.js';
+import theTranslator from '../uiLib/Translator.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -274,6 +276,10 @@ class OsmSearchEngine	{
 		const dataLoader = new OverpassAPIDataLoader ( { searchPlaces : false } );
 		await dataLoader.loadData ( this.#getSearchQueries ( ) );
 		const pointsOfInterest = new Map ( );
+
+		if ( ! dataLoader.statusOk ) {
+			theErrorUI.showError ( theTranslator.getText ( 'OsmSearchEngine - incomplete results' ) );
+		}
 
 		[ dataLoader.nodes, dataLoader.ways, dataLoader.relations ]. forEach (
 			elementsMap => {

@@ -25,6 +25,8 @@ Doc reviewed 202208
 import theTravelNotesData from '../../data/TravelNotesData.js';
 import { ZERO, ONE } from '../../main/Constants.js';
 
+import { LeafletPoint } from '../../leaflet/LeafletImports.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 wheel event listener for the background. Zoom on the map
@@ -55,7 +57,7 @@ class BackgroundWheelEL {
 		zoom = Math.min ( theTravelNotesData.map.getMaxZoom ( ), zoom );
 		zoom = Math.max ( theTravelNotesData.map.getMinZoom ( ), zoom );
 		theTravelNotesData.map.setZoomAround (
-			window.L.point ( wheelEvent.clientX, wheelEvent.clientY ),
+			new LeafletPoint ( wheelEvent.clientX, wheelEvent.clientY ),
 			zoom
 		);
 	}

@@ -57,11 +57,18 @@ class ProfileDialog extends NonModalBaseDialog {
 	#svgDiv;
 
 	/**
-	A div under the svg profile with some texts
+	A div under the svg profile with ascent, descent and distance
 	@type {HTMLElement}
 	*/
 
 	#ascentDiv;
+
+	/**
+	A div under the svg profile with the route name
+	@type {HTMLElement}
+	*/
+
+	#nameDiv;
 
 	/**
 	contextmenu event listener
@@ -104,14 +111,13 @@ class ProfileDialog extends NonModalBaseDialog {
 
 	#clean ( ) {
 		if ( this.#svg ) {
-
 			this.#svg.removeEventListener ( 'contextmenu', this.#svgContextMenuEL, false );
 			this.#svg.removeEventListener ( 'mousemove', this.#svgMouseMoveEL, false );
 			this.#svg.removeEventListener ( 'mouseleave', this.#svgMouseLeaveEL, false );
+			this.#svgDiv.removeChild ( this.#svg );
 			this.#svg = null;
-
 			theEventDispatcher.dispatch ( 'removeobject', { objId : this.#markerObjId } );
-
+			this.#nameDiv.textContent = '';
 			this.#ascentDiv.textContent = '';
 		}
 	}
@@ -122,25 +128,34 @@ class ProfileDialog extends NonModalBaseDialog {
 	*/
 
 	setContent ( route ) {
-
 		this.#routeObjId = route.objId;
-
 		this.#clean ( );
-
 		this.#svg = new SvgProfileBuilder ( ).createSvg ( route );
 		this.#svg.dataset.tanObjId = route.objId;
 		this.#svg.dataset.tanMarkerObjId = this.#markerObjId;
-
 		this.#svg.addEventListener ( 'contextmenu', this.#svgContextMenuEL, false );
 		this.#svg.addEventListener ( 'mousemove', this.#svgMouseMoveEL, false );
 		this.#svg.addEventListener ( 'mouseleave', this.#svgMouseLeaveEL, false );
-
 		this.#svgDiv.appendChild ( this.#svg );
+		this.setContentName ( route );
+	}
 
-		this.#ascentDiv.textContent = theTranslator.getText (
-			'ProfileWindow - Route {name} : Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}',
+	/**
+	This method update the profile name. Also called when the user changes the route name with the RoutePropertiesDialog
+	or when a waypoint is updated with the geocoder
+	@param {Route} route The route for witch the profile is displayed
+	*/
+
+	setContentName ( route ) {
+		this.#nameDiv.textContent = theTranslator.getText (
+			'ProfileWindow - Route {name}',
 			{
-				name : route.computedName,
+				name : route.computedName
+			}
+		);
+		this.#ascentDiv.textContent = theTranslator.getText (
+			'ProfileWindow - Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}',
+			{
 				ascent : route.itinerary.ascent.toFixed ( ZERO ),
 				descent : route.itinerary.descent.toFixed ( ZERO ),
 				distance : theUtilities.formatDistance ( route.distance )
@@ -158,7 +173,8 @@ class ProfileDialog extends NonModalBaseDialog {
 		this.#svgMouseMoveEL = new SvgMouseMoveEL ( );
 		this.#svgMouseLeaveEL = new SvgMouseLeaveEL ( );
 		this.#svgDiv = theHTMLElementsFactory.create ( 'div', { className : 'TravelNotes-ProfileDialog-SvgContainer' } );
-		this.#ascentDiv = theHTMLElementsFactory.create ( 'div' );
+		this.#nameDiv = theHTMLElementsFactory.create ( 'div', { className : 'TravelNotes-ProfileDialog-NameContainer' } );
+		this.#ascentDiv = theHTMLElementsFactory.create ( 'div', { className : 'TravelNotes-ProfileDialog-AscentContainer' } );
 	}
 
 	/**
@@ -202,6 +218,7 @@ class ProfileDialog extends NonModalBaseDialog {
 	get contentHTMLElements ( ) {
 		return [
 			this.#svgDiv,
+			this.#nameDiv,
 			this.#ascentDiv
 		];
 	}

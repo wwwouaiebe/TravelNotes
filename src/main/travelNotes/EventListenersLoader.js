@@ -30,6 +30,7 @@ import theConfig from '../../data/Config.js';
 import theDockableDialogsManager from '../../core/DockableDialogsManager.js';
 import theProvidersToolbar from '../../toolbars/providersToolbar/ProvidersToolbar.js';
 import RoadbookUpdateEL from './RoadbookUpdateEL.js';
+import ResizeEL from './ResizeEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -197,6 +198,16 @@ class EventListenersLoader {
 			( ) => theDockableDialogsManager.osmSearchDialog.updateContent ( )
 		);
 		document.addEventListener (
+			'updateprofilename',
+			updateProfileNameEvent => {
+				if ( updateProfileNameEvent.data ) {
+					theProfileDialogsManager.updateProfileName (
+						updateProfileNameEvent.data.routeObjId
+					);
+				}
+			}
+		);
+		document.addEventListener (
 			'updateroadbook',
 			new RoadbookUpdateEL ( )
 		);
@@ -219,6 +230,7 @@ class EventListenersLoader {
 				}
 			}
 		);
+		window.visualViewport.addEventListener ( 'resize', new ResizeEL ( ) );
 	}
 
 	/**

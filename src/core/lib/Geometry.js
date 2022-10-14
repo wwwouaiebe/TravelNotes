@@ -23,9 +23,17 @@ Doc reviewed 202208
  */
 
 import theTravelNotesData from '../../data/TravelNotesData.js';
-import { DISTANCE, ZERO, ONE, TWO, DEGREES, LAT_LNG, EARTH_RADIUS } from '../../main/Constants.js';
+import { DISTANCE, ZERO, ONE, TWO, DEGREES, LAT_LNG, LAT, LNG, EARTH_RADIUS } from '../../main/Constants.js';
 import LatLngDistance from '../../containers/LatLngDistance.js';
 import LatLngElevOnRoute from '../../containers/LatLngElevOnRoute.js';
+
+import {
+	LeafletLatLng,
+	LeafletLatLngBounds,
+	LeafletPoint,
+	LeafletLineUtil,
+	LeafletProjection
+} from '../../leaflet/LeafletImports.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -101,28 +109,28 @@ class Geometry {
 		let minDistance = Number.MAX_VALUE;
 
 		// projections of points are made
-		const point = window.L.Projection.SphericalMercator.project (
-			window.L.latLng ( latLng [ ZERO ], latLng [ ONE ] ) );
-		let point1 = window.L.Projection.SphericalMercator.project (
-			window.L.latLng ( itineraryPointIterator.value.lat, itineraryPointIterator.value.lng )
+		const point = LeafletProjection.SphericalMercator.project (
+			new LeafletLatLng ( latLng [ ZERO ], latLng [ ONE ] ) );
+		let point1 = LeafletProjection.SphericalMercator.project (
+			new LeafletLatLng ( itineraryPointIterator.value.lat, itineraryPointIterator.value.lng )
 		);
 		let closestLatLng = null;
 		let closestDistance = DISTANCE.defaultValue;
 		let endSegmentDistance = itineraryPointIterator.value.distance;
 		while ( ! itineraryPointIterator.done ) {
-			const point2 = window.L.Projection.SphericalMercator.project (
-				window.L.latLng ( itineraryPointIterator.value.lat, itineraryPointIterator.value.lng )
+			const point2 = LeafletProjection.SphericalMercator.project (
+				new LeafletLatLng ( itineraryPointIterator.value.lat, itineraryPointIterator.value.lng )
 			);
-			let distance = window.L.LineUtil.pointToSegmentDistance ( point, point1, point2 );
+			let distance = LeafletLineUtil.pointToSegmentDistance ( point, point1, point2 );
 			if ( distance < minDistance ) {
 				minDistance = distance;
-				closestLatLng = window.L.Projection.SphericalMercator.unproject (
-					window.L.LineUtil.closestPointOnSegment ( point, point1, point2 )
+				closestLatLng = LeafletProjection.SphericalMercator.unproject (
+					LeafletLineUtil.closestPointOnSegment ( point, point1, point2 )
 				);
 				closestDistance =
 					endSegmentDistance -
 					closestLatLng.distanceTo (
-						window.L.latLng ( itineraryPointIterator.value.lat, itineraryPointIterator.value.lng )
+						new LeafletLatLng ( itineraryPointIterator.value.lat, itineraryPointIterator.value.lng )
 					);
 			}
 			endSegmentDistance += itineraryPointIterator.value.distance;
@@ -132,14 +140,14 @@ class Geometry {
 	}
 
 	/**
-	This method build a window.L.latLngBounds object from an array of points
+	This method build a LeafletLatLngBounds object from an array of points
 	@param {Array.<Array.<number>>} latLngs the array of latitude and longitude
 	@return {LeafletObject} a Leaflet latLngBounds object
 	*/
 
 	getLatLngBounds ( latLngs ) {
-		const sw = window.L.latLng ( [ LAT_LNG.maxLat, LAT_LNG.maxLng ] );
-		const ne = window.L.latLng ( [ LAT_LNG.minLat, LAT_LNG.minLng ] );
+		const sw = new LeafletLatLng ( LAT_LNG.maxLat, LAT_LNG.maxLng );
+		const ne = new LeafletLatLng ( LAT_LNG.minLat, LAT_LNG.minLng );
 		latLngs.forEach (
 			latLng => {
 				sw.lat = Math.min ( sw.lat, latLng [ ZERO ] );
@@ -148,11 +156,11 @@ class Geometry {
 				ne.lng = Math.max ( ne.lng, latLng [ ONE ] );
 			}
 		);
-		return window.L.latLngBounds ( sw, ne );
+		return new LeafletLatLngBounds ( sw, ne );
 	}
 
 	/**
-	This method returns a window.L.latLngBounds that represents a square
+	This method returns a LeafletLatLngBounds that represents a square
 	@param {Array.<Number>} latLngCenter The latitude and longitude of the center of the square
 	@param {Number} dimension The half length of the square side in meter.
 	*/
@@ -165,9 +173,9 @@ class Geometry {
 				( Math.cos ( dimension / EARTH_RADIUS ) - ( Math.sin ( latCenterRad ) ** TWO ) ) /
 				( Math.cos ( latCenterRad ) ** TWO )
 			) * DEGREES.fromRadians;
-		return window.L.latLngBounds (
-			window.L.latLng ( [ latLngCenter [ ZERO ] - deltaLat, latLngCenter [ ONE ] - deltaLng ] ),
-			window.L.latLng ( [ latLngCenter [ ZERO ] + deltaLat, latLngCenter [ ONE ] + deltaLng ] )
+		return new LeafletLatLngBounds (
+			new LeafletLatLng ( latLngCenter [ ZERO ] - deltaLat, latLngCenter [ ONE ] - deltaLng ),
+			new LeafletLatLng ( latLngCenter [ ZERO ] + deltaLat, latLngCenter [ ONE ] + deltaLng )
 		);
 	}
 
@@ -180,7 +188,7 @@ class Geometry {
 	*/
 
 	project ( latLng, zoom ) {
-		const projection = theTravelNotesData.map.project ( window.L.latLng ( latLng ), zoom );
+		const projection = theTravelNotesData.map.project ( new LeafletLatLng ( latLng [ LAT ], latLng [ LNG ] ), zoom );
 		return [ projection.x, projection.y ];
 	}
 
@@ -192,7 +200,7 @@ class Geometry {
 	*/
 
 	screenCoordToLatLng ( xScreen, yScreen ) {
-		const latLng = theTravelNotesData.map.containerPointToLatLng ( window.L.point ( xScreen, yScreen ) );
+		const latLng = theTravelNotesData.map.containerPointToLatLng ( new LeafletPoint ( xScreen, yScreen ) );
 		return [ latLng.lat, latLng.lng ];
 	}
 

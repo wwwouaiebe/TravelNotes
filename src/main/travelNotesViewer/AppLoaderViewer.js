@@ -32,6 +32,8 @@ import MapEditorViewer from '../../core/mapEditor/MapEditorViewer.js';
 import ViewerKeydownEL from './ViewerKeydownEL.js';
 import { ZERO, ONE, LAT_LNG, HTTP_STATUS_OK } from '../Constants.js';
 
+import { LeafletMap } from '../../leaflet/LeafletImports.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 Loader for the app. Load all the json files needed (config, translations, map layers...) and add event listeners.
@@ -249,7 +251,7 @@ class AppLoaderViewer {
 		const mapDiv = document.createElement ( 'div' );
 		mapDiv.id = 'TravelNotes-Map';
 		document.body.appendChild ( mapDiv );
-		theTravelNotesData.map = window.L.map ( mapDiv.id, { attributionControl : false, zoomControl : false } )
+		theTravelNotesData.map = new LeafletMap ( mapDiv.id, { attributionControl : false, zoomControl : false } )
 			.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], AppLoaderViewer.#VIEWER_DEFAULT_ZOOM );
 
 		theTravelNotesViewer.addReadOnlyMap ( this.#travelUrl, this.#addLayerToolbar );

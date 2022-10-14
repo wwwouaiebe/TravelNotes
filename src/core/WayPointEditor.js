@@ -51,9 +51,9 @@ class WayPointEditor {
 		if ( ! theConfig.wayPoint.reverseGeocoding ) {
 			theEventDispatcher.dispatch ( 'updatetravelproperties' );
 			theEventDispatcher.dispatch ( 'updateroadbook' );
+			theEventDispatcher.dispatch ( 'updateprofilename', { routeObjId : theTravelNotesData.editedRouteObjId } );
 			return;
 		}
-
 		const address = await new GeoCoder ( ).getAddressAsync ( wayPoint.latLng );
 
 		// Due to slow response of the geocoder, sometime the edited route is not anymore edited...
@@ -71,6 +71,7 @@ class WayPointEditor {
 		}
 		theEventDispatcher.dispatch ( 'updatetravelproperties' );
 		theEventDispatcher.dispatch ( 'updateroadbook' );
+		theEventDispatcher.dispatch ( 'updateprofilename', { routeObjId : theTravelNotesData.travel.editedRoute.objId } );
 	}
 
 	/**

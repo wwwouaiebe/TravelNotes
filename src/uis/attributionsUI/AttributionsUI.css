@@ -27,7 +27,7 @@ Doc reviewed 202208
 	position: absolute;
 	left: 0;
 	bottom: 0;
-	z-index: 1000;
+	z-index: 800;
 	background-color: transparent;
 	padding-left: 2em;
 	padding-right: 1em;

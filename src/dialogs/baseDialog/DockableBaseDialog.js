@@ -223,11 +223,14 @@ class DockableBaseDialog extends NonModalBaseDialog {
 			mouseEvent => this.#mouseEnterDialogEL ( mouseEvent ),
 			false
 		);
-		this.mover.dialogHTMLElement.addEventListener (
-			'mouseleave',
-			( ) => this.#mouseLeaveDialogEL ( ),
-			false
-		);
+
+		if ( theConfig.dockableBaseDialog.hideOnMouseLeave ) {
+			this.mover.dialogHTMLElement.addEventListener (
+				'mouseleave',
+				( ) => this.#mouseLeaveDialogEL ( ),
+				false
+			);
+		}
 
 		this.mover.topBarHTMLElement.addEventListener (
 			'click',

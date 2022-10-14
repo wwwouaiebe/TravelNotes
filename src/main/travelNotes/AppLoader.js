@@ -35,6 +35,8 @@ import EventListenersLoader from './EventListenersLoader.js';
 
 import { LAT_LNG, ZERO, ONE, NOT_FOUND, HTTP_STATUS_OK } from '../Constants.js';
 
+import { LeafletMap } from '../../leaflet/LeafletImports.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 Loader for the app. Load all the json files needed (config, translations, map layers...) and add event listeners
@@ -333,13 +335,15 @@ class AppLoader {
 	*/
 
 	#loadTravelNotes ( ) {
+		EventListenersLoader.addEventsListeners ( );
+
 		document.body.style [ 'font-size' ] = String ( theConfig.fontSize.initialValue ) + 'mm';
 
 		// mapDiv must be extensible for leaflet
 		const mapDiv = document.createElement ( 'div' );
 		mapDiv.id = 'TravelNotes-Map';
 		document.body.appendChild ( mapDiv );
-		theTravelNotesData.map = window.L.map ( mapDiv.id, { attributionControl : false, zoomControl : false } )
+		theTravelNotesData.map = new LeafletMap ( mapDiv.id, { attributionControl : false, zoomControl : false } )
 			.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], ZERO );
 
 		if ( this.#travelUrl ) {
@@ -368,9 +372,6 @@ class AppLoader {
 
 	async loadApp ( ) {
 
-		// adding event lsteners
-		EventListenersLoader.addEventsListeners ( );
-
 		// creating a reference of TravelNotes in the browser window object
 		window.TaN = theTravelNotes;
 
@@ -393,6 +394,7 @@ class AppLoader {
 		if ( await this.#loadJsonFiles ( ) ) {
 			this.#loadTravelNotes ( );
 		}
+
 	}
 }
 

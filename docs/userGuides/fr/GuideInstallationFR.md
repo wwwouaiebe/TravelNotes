@@ -24,7 +24,7 @@ Voir https://www.mozilla.org/en-US/security/advisories/mfsa2019-21/#CVE-2019-117
 <a id="GuideNull"></a>
 ## 2. Guide d'installation pour les null
 
-Pas de grandes connaissances informatiques? [Téléchargez la dernière version](https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v4.0.0.zip),
+Pas de grandes connaissances informatiques? [Téléchargez la dernière version](https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v4.1.0.zip),
 copiez le contenu du répertoire docs/demo/ dans un répertoire sur votre serveur et ouvrez le fichier index.html. That's all :-).
 
 <a id="GuideGeeks"></a>
@@ -33,28 +33,25 @@ copiez le contenu du répertoire docs/demo/ dans un répertoire sur votre serveu
 <a id="HtmlPage"></a>
 ### 3.1. Que faut-il faire dans le fichier HTML?
 
-Travel & Notes utilise [Leaflet](http://leafletjs.com/) pour afficher la carte. Vous devez donc 
-télécharger et installer Leaflet.
+Bien que Travel & Notes utilise [Leaflet](http://leafletjs.com/) pour afficher la carte, il n'est pas nécessaire d'installer celui-ci car tant les feuilles de style que le Javascript de Leaflet sont intégrés dans TravelNotes.
 
-Dans le &lt;head&gt; du fichier, chargez la feuille de style de Leaflet et de TravelNotes
+Dans le &lt;head&gt; du fichier, chargez la feuille de style de TravelNotes
 
 ```
 <head>
 	...
-	<link rel="stylesheet" href="leaflet/leaflet.css" />
 	<link rel="stylesheet" href="TravelNotes.min.css" />
 	...
 </head>
 ```
 
-Et dans le &lt;body&gt; chargez les Javascript de Leaflet, de TravelNotes et des plugins de TravelNotes
+Et dans le &lt;body&gt; chargez les Javascript de TravelNotes et des plugins de TravelNotes
 
 ```
 <body>
 	...
-	<script src="leaflet/leaflet.js"></script>
-	<noscript>Oh oh. Javascript is not enabled. It's impossible to display this page without javascript.</noscript>
 	<script src="TravelNotes.min.js"></script>
+	<noscript>Oh oh. Javascript is not enabled. It's impossible to display this page without javascript.</noscript>
 	<!-- 
 		Route providers scripts for Mapbox, Stadia Maps (MapzenValhalla), GraphHopper and OpenRouteService have only to be installed 
 		if you have an API key for Mapbox, Stadia Maps, GraphHopper or openRouteService.
@@ -101,6 +98,7 @@ Le contenu du fichier TravelNotesConfig.json:
 - __baseDialog.touchTopScreen__ : lorsque cette valeur est "true" les dialogues sont affichés en haut se l'écran quand celui-ci est tactile
 - __contextMenu.timeout__ : le temps qui va s'écouler, en millisecondes, entre le moment où la souris ne se trouve plus sur le menu contextuel et le moment ou le menu se ferme automatiquement ( valeur par défaut : 1500 )
 - __dockableBaseDialog.timeout__ : le temps qui va s'écouler, en millisecondes, entre le moment où la souris ne se trouve plus sur un dialogue dockable et le moment ou le dialogue se réduit automatiquement ( valeur par défaut : 1500 )
+- __dockableBaseDialog.hideOnMouseLeave__ : quand cette valeur est true, les dialogues dockables se ferment dès que la souris quitte le dialogue.
 - __errorsUI.helpTimeOut__ : le temps qui va s'écouler, en millisecondes, entre le moment où un message d'aide est affiché et le moment où il est effacé ( valeur par défaut : 30000 )
 - __errorsUI.showError__ : quand cette valeur est true, les messages d'erreur sont affichés ( valeur par défaut : true )
 - __errorsUI.showHelp__ : quand cette valeur est true, les messages d'aide sont affichés ( valeur par défaut : false )

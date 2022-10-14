@@ -11,6 +11,11 @@
 			"htmlAfter" : "</p>"
 		},
 		{
+			"title" : "<span title=\"Insérer une balise &lt;sup&gt; (exposant)\">X<sup>sup</sup></span>",
+			"htmlBefore" : "<sup>",
+			"htmlAfter" : "</sup>"
+		},
+		{
 			"title" : "<del title=\"Insérer une balise &lt;del&gt; (texte barré)\">del</del>",
 			"htmlBefore" : "<del>",
 			"htmlAfter" : "</del>"
@@ -102,7 +107,15 @@
 			"htmlBefore": "ø"
 		},
 		{
-			"title": "<span title=\"Insérer un espace insécable\">&amp;nbsp;</span>",
+			"title": "<span title=\"Insérer un caractère Œ\">Œ</span>",
+			"htmlBefore": "Œ"
+		}, 
+		{
+			"title": "<span title=\"Insérer un caractère œ\">œ</span>",
+			"htmlBefore": "œ"
+		}, 
+		{
+			"title": "<span class=\"TravelNotes-Note-WhiteBlack\" title=\"Insérer un espace insécable\">&amp;nbsp;</span>",
 			"htmlBefore": "&nbsp;"
 		}
 	],

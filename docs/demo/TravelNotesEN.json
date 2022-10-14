@@ -400,6 +400,10 @@
 		"msgstr": "Searching OpenStreetMap"
 	},
 	{
+		"msgid": "OsmSearchEngine - incomplete results",
+		"msgstr": "Errors have occurred. Results are incomplete"
+	},
+	{
 		"msgid": "OsmSearchToolbarButtons - Clear the tree",
 		"msgstr": "Clear the tree"
 	},
@@ -504,8 +508,12 @@
 		"msgstr": "Zoom to this point"
 	},
 	{
-		"msgid": "ProfileWindow - Route {name} : Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}",
-		"msgstr": "Route {name} : Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}"
+		"msgid": "ProfileWindow - Ascent: {ascent} m. - Descent: {descent} m. - Distance: {distance}",
+		"msgstr": "Ascent : {ascent} m. - Descent : {descent} m. - Distance : {distance}"
+	},
+	{
+		"msgid": "ProfileWindow - Route {name}",
+		"msgstr": "Route : {name}"
 	},
 	{
 		"msgid": "ProfileWindow - Profile",

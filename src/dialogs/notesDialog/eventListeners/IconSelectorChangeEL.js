@@ -64,6 +64,7 @@ class IconSelectorChangeEL {
 			return;
 		}
 
+		this.#noteDialog.hideError ( );
 		this.#noteDialog.showWait ( );
 		new MapIconFromOsmFactory ( ).getIconAndAdressWithPromise ( mapIconData )
 			.then (
@@ -103,12 +104,10 @@ class IconSelectorChangeEL {
 	handleEvent ( changeEvent ) {
 		changeEvent.stopPropagation ( );
 		const preDefinedIcon = theNoteDialogToolbarData.preDefinedIconDataAt ( changeEvent.target.selectedIndex );
-
 		if ( 'SvgIcon' === preDefinedIcon.icon ) {
 			this.#onMapIcon ( );
 			return;
 		}
-
 		this.#updatePreviewAndControls (
 			{
 				iconContent : preDefinedIcon.icon,
@@ -117,6 +116,7 @@ class IconSelectorChangeEL {
 				tooltipContent : preDefinedIcon.tooltip
 			}
 		);
+		this.#noteDialog.setAddress ( );
 	}
 }
 

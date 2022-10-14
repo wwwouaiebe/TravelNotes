@@ -21,7 +21,8 @@
 	},
 	"dockableBaseDialog" : 
 	{
-		"timeout" : 1500
+		"timeout" : 1500,
+		"hideOnMouseLeave" : false
 	},
 	"errorsUI":
 	{
@@ -181,7 +182,7 @@
 	"overpassApi": {
 		"useNwr":true,
 		"timeOut":40,
-		"url":"https://lz4.overpass-api.de/api/interpreter"
+		"url":"https://overpass.kumi.systems/api/interpreter"
 	},
 	"printRouteMap":
 	{
@@ -249,7 +250,8 @@
 	"travelNotes" : {
 		"haveBeforeUnloadWarning":true,
 		"language":"fr",
-		"startupRouteEdition":true
+		"startupRouteEdition":true,
+		"resizeDelay":200
 	},
 	"TravelNotesToolbar":
 	{

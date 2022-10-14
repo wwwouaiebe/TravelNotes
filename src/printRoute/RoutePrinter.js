@@ -130,7 +130,7 @@ class RoutePrinter {
 		// Remain for debugging
 		/*
 		printViewsFactory.printViews.forEach (
-			view => window.L.rectangle ( [ view.bottomLeft, view.upperRight ] ).addTo ( theTravelNotesData.map )
+			view => new LeafletRectangle ( [ view.bottomLeft, view.upperRight ] ).addTo ( theTravelNotesData.map )
 		);
 		console.log ( 'views :' + printViewsFactory.printViews.length );
 		*/
