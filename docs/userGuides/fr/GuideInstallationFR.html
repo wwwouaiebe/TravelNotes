@@ -23,28 +23,25 @@ d&#39;un serveur web local de type LAMP or MAMP.
 Voir <a href="https://www.mozilla.org/en-US/security/advisories/mfsa2019-21/#CVE-2019-11730">https://www.mozilla.org/en-US/security/advisories/mfsa2019-21/#CVE-2019-11730</a></p>
 <p><a id="GuideNull"></a></p>
 <h2 id="2-guide-dinstallation-pour-les-null">2. Guide d&#39;installation pour les null</h2>
-<p>Pas de grandes connaissances informatiques? <a href="https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v4.0.0.zip">Téléchargez la dernière version</a>,
+<p>Pas de grandes connaissances informatiques? <a href="https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v4.1.0.zip">Téléchargez la dernière version</a>,
 copiez le contenu du répertoire docs/demo/ dans un répertoire sur votre serveur et ouvrez le fichier index.html. That&#39;s all :-).</p>
 <p><a id="GuideGeeks"></a></p>
 <h2 id="3-guide-dinstallation-pour-les-geeks">3. Guide d&#39;installation pour les geeks</h2>
 <p><a id="HtmlPage"></a></p>
 <h3 id="31-que-faut-il-faire-dans-le-fichier-html">3.1. Que faut-il faire dans le fichier HTML?</h3>
-<p>Travel &amp; Notes utilise <a href="http://leafletjs.com/">Leaflet</a> pour afficher la carte. Vous devez donc 
-télécharger et installer Leaflet.</p>
-<p>Dans le &lt;head&gt; du fichier, chargez la feuille de style de Leaflet et de TravelNotes</p>
+<p>Bien que Travel &amp; Notes utilise <a href="http://leafletjs.com/">Leaflet</a> pour afficher la carte, il n&#39;est pas nécessaire d&#39;installer celui-ci car tant les feuilles de style que le Javascript de Leaflet sont intégrés dans TravelNotes.</p>
+<p>Dans le &lt;head&gt; du fichier, chargez la feuille de style de TravelNotes</p>
 <pre><code>&lt;head&gt;
     ...
-    &lt;link rel=&quot;stylesheet&quot; href=&quot;leaflet/leaflet.css&quot; /&gt;
     &lt;link rel=&quot;stylesheet&quot; href=&quot;TravelNotes.min.css&quot; /&gt;
     ...
 &lt;/head&gt;
 </code></pre>
-<p>Et dans le &lt;body&gt; chargez les Javascript de Leaflet, de TravelNotes et des plugins de TravelNotes</p>
+<p>Et dans le &lt;body&gt; chargez les Javascript de TravelNotes et des plugins de TravelNotes</p>
 <pre><code>&lt;body&gt;
     ...
-    &lt;script src=&quot;leaflet/leaflet.js&quot;&gt;&lt;/script&gt;
-    &lt;noscript&gt;Oh oh. Javascript is not enabled. It&#39;s impossible to display this page without javascript.&lt;/noscript&gt;
     &lt;script src=&quot;TravelNotes.min.js&quot;&gt;&lt;/script&gt;
+    &lt;noscript&gt;Oh oh. Javascript is not enabled. It&#39;s impossible to display this page without javascript.&lt;/noscript&gt;
     &lt;!-- 
         Route providers scripts for Mapbox, Stadia Maps (MapzenValhalla), GraphHopper and OpenRouteService have only to be installed 
         if you have an API key for Mapbox, Stadia Maps, GraphHopper or openRouteService.
@@ -84,6 +81,7 @@ modifiez ce fichier. Vous devez suivre <strong>toutes</strong> les règles d&#39
 <li><strong>baseDialog.touchTopScreen</strong> : lorsque cette valeur est &quot;true&quot; les dialogues sont affichés en haut se l&#39;écran quand celui-ci est tactile</li>
 <li><strong>contextMenu.timeout</strong> : le temps qui va s&#39;écouler, en millisecondes, entre le moment où la souris ne se trouve plus sur le menu contextuel et le moment ou le menu se ferme automatiquement ( valeur par défaut : 1500 )</li>
 <li><strong>dockableBaseDialog.timeout</strong> : le temps qui va s&#39;écouler, en millisecondes, entre le moment où la souris ne se trouve plus sur un dialogue dockable et le moment ou le dialogue se réduit automatiquement ( valeur par défaut : 1500 )</li>
+<li><strong>dockableBaseDialog.hideOnMouseLeave</strong> : quand cette valeur est true, les dialogues dockables se ferment dès que la souris quitte le dialogue.</li>
 <li><strong>errorsUI.helpTimeOut</strong> : le temps qui va s&#39;écouler, en millisecondes, entre le moment où un message d&#39;aide est affiché et le moment où il est effacé ( valeur par défaut : 30000 )</li>
 <li><strong>errorsUI.showError</strong> : quand cette valeur est true, les messages d&#39;erreur sont affichés ( valeur par défaut : true )</li>
 <li><strong>errorsUI.showHelp</strong> : quand cette valeur est true, les messages d&#39;aide sont affichés ( valeur par défaut : false )</li>

@@ -189,3 +189,18 @@ Following issues are corrected:
 either via the pop-up menus. See the [user guide - en ](https://wwwouaiebe.github.io/TravelNotes/userGuides/en/UserGuideEN.html).
 - the program is completely compatible with an Android mobile or tablet.
 - although this is a major release, any travel files created with a previous release are usable with this release.
+
+### What's new in release 4.1.0
+
+- The installation procedure has changed following the release of Leaflet 1.9.0. Although TravelNotes still uses Leaflet, it is no longer necessary to load the Leaflet style sheet with a &lt;style&gt; tag, as it is embedded in the TravelNotes.min.css file. Similarly, Leaflet Javascript should no longer be loaded with a &lt;script&gt; tag, all the Leaflet code being integrated into the TravelNotes.min.js file.
+
+- Issue #57 : The z-index of the profile menu is not correct
+- Issue #58 : Changing the travel name is slow when multiple routes are added
+- Issue #59 : Red value of the buttons is not correct in the color control
+- Issue #60 : Review the profile dialog
+- Issue #61 : Add an option for enable/disable the mouse leave event for dockable dialog
+- Issue #62 : Review how the search of address is started in the note dialog
+- Issue #63 : Limit the width of dialogs on big screens
+- Issue #64 : Add a warning when an error occurs during a osm search
+- Issue #65 : Leaflet 1.9 published
+- Issue #66 : Hiding provider toolbar crash when a transit mode is selected

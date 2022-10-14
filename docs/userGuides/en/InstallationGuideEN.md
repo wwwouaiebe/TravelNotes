@@ -23,7 +23,7 @@ See https://www.mozilla.org/en-US/security/advisories/mfsa2019-21/#CVE-2019-1173
 <a id="GuideNull"></a>
 ## 2. Installation Guide for Nulls
 
-No great computer skills? [Download the last version](https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v4.0.0.zip),
+No great computer skills? [Download the last version](https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v4.1.0.zip),
 and install the contents of the docs/demo/ directory in a directory on your server and open the index.html file. That's all :-).
 
 <a id="GuideGeeks"></a>
@@ -32,28 +32,23 @@ and install the contents of the docs/demo/ directory in a directory on your serv
 <a id="HtmlPage"></a>
 ### 3.1. What to do in the HTML file?
 
-Travel & Notes uses [Leaflet](http://leafletjs.com/) to display the map. You must therefore download 
-and install Leaflet.
-
-In the &lt;head&gt; of the html file, load the Leaflet and TravelNotes stylesheet:
+Although Travel & Notes uses [Leaflet](http://leafletjs.com/) to display the map, it is not necessary to install this one because both Leaflet's stylesheets and Javascript are integrated into Travel Notes.
 
 ```
 <head>
 	...
-	<link rel="stylesheet" href="leaflet/leaflet.css" />
 	<link rel="stylesheet" href="TravelNotes.min.css" />
 	...
 </head>
 ```
 
-And in the &lt;body&gt; load Leaflet, TravelNotes and TravelNotes plugins 
+And in the &lt;body&gt; load TravelNotes and TravelNotes plugins 
 
 ```
 <body>
 	...
-	<script src="leaflet/leaflet.js"></script>
-	<noscript>Oh oh. Javascript is not enabled. It's impossible to display this page without javascript.</noscript>
 	<script src="TravelNotes.min.js"></script>
+	<noscript>Oh oh. Javascript is not enabled. It's impossible to display this page without javascript.</noscript>
 	<!-- 
 		Route providers scripts for Mapbox, Stadia Maps (MapzenValhalla), GraphHopper and OpenRouteService have only to be installed 
 		if you have an API key for Mapbox, Stadia Maps, GraphHopper or openRouteService.
@@ -101,6 +96,7 @@ The contents of the TravelNotesConfig.json file:
 - __baseDialog.touchTopScreen__ : when this value is "true" the dialogs are displayed at the top of the screen when it is touched
 - __contextMenu.timeout__ : the time that will elapse, in milliseconds, between the moment when the mouse is no longer on the contextual menu and the moment when the menu closes automatically ( default value : 1500 )
 - __dockableBaseDialog.timeout__ : the time that will elapse, in milliseconds, between the moment when the mouse is no longer on a dockable dialog and the moment when the dialog is automatically minimized (default value: 1500)
+- __dockableBaseDialog.hideOnMouseLeave__ : when this value is true, dockable dialogs close as soon as the mouse leaves the dialog.
 - __errorsUI.helpTimeOut__ : the time that will elapse, in milliseconds, between the moment a help message is displayed and the moment it is deleted ( default value : 30000 )
 - __errorsUI.showError__ : when this value is true, error messages are displayed ( default value : true )
 - __errorsUI.showHelp__ : when this value is true, help messages are displayed ( default value : false )
