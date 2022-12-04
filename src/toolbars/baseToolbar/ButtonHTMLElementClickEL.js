@@ -54,8 +54,19 @@ class ButtonHTMLElementClickEL {
 	*/
 
 	handleEvent ( clickEvent ) {
-		this.#toolbarItemsContainer.toolbarItemsArray [ Number.parseInt ( clickEvent.target.dataset.tanItemId ) ]
-			.action ( );
+
+		const toolbarItem =
+			this.#toolbarItemsContainer.toolbarItemsArray [ Number.parseInt ( clickEvent.target.dataset.tanItemId ) ];
+
+		if ( toolbarItem.isCommand ( ) ) {
+			toolbarItem.action ( );
+		}
+		else if ( toolbarItem.isLink ( ) ) {
+			const linkElement = document.createElement ( 'a' );
+			linkElement.href = toolbarItem.action;
+			linkElement.target = '_blank';
+			linkElement.click ( );
+		}
 	}
 }
 

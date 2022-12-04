@@ -140,37 +140,6 @@ class BaseToolbar {
 	}
 
 	/**
-	Add a link button to the toolbar
-	@param {ToolbarItem} toolbarItem The toolbar item for witch the button will be created
-	*/
-
-	#addLinkButton ( toolbarItem ) {
-		const buttonHTMLElement = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-BaseToolbar-ButtonHTMLElement',
-				title : toolbarItem.title
-			},
-			this.#buttonsHTMLElement
-		);
-		theHTMLElementsFactory.create (
-			'text',
-			{
-				value : toolbarItem.textContent
-			},
-			theHTMLElementsFactory.create (
-				'a',
-				{
-					className : 'TravelNotes-BaseToolbar-ButtonLinkHTMLElement',
-					href : toolbarItem.action,
-					target : '_blank'
-				},
-				buttonHTMLElement
-			)
-		);
-	}
-
-	/**
 	Show the toolbar
 	*/
 
@@ -192,12 +161,7 @@ class BaseToolbar {
 		// adding buttons
 		this.#toolbarItemsContainer.toolbarItemsArray.forEach (
 			( toolbarItem, index ) => {
-				if ( toolbarItem.isCommand ( ) ) {
-					this.#addCommandButton ( toolbarItem, index );
-				}
-				else {
-					this.#addLinkButton ( toolbarItem );
-				}
+				this.#addCommandButton ( toolbarItem, index );
 			}
 		);
 
