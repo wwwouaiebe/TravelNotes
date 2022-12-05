@@ -292,7 +292,7 @@ class BaseContextMenu {
 		new Promise (
 			( onPromiseOk, onPromiseError ) => { this.#createMenu ( onPromiseOk, onPromiseError ); }
 		)
-			.then ( selectedItemObjId => this.menuItems [ selectedItemObjId ].action ( ) )
+			.then ( selectedItemObjId => this.menuItems [ selectedItemObjId ].doAction ( ) )
 			.catch (
 				err => {
 					if ( err ) {

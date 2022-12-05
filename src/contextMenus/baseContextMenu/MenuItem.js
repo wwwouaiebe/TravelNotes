@@ -82,11 +82,10 @@ class MenuItem {
 	get isActive ( ) { return this.#isActive; }
 
 	/**
-	The action to execute when the item is selected
-	@type {function}
+	Execute the action registered for the item
 	*/
 
-	get action ( ) { return this.#action; }
+	doAction ( ) { this.#action ( ); }
 }
 
 export default MenuItem;
