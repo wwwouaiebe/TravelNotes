@@ -118,12 +118,12 @@ class BaseToolbar {
 	#lastMouseEventTimestamp;
 
 	/**
-	Add a command button to the toolbar
+	Add a button to the toolbar
 	@param {ToolbarItem} toolbarItem The toolbar item for witch the button will be created
 	@param {Number} index The position of the toolbar item in the #toolbarItemsContainer.toolbarItemsArray
 	*/
 
-	#addCommandButton ( toolbarItem, index ) {
+	#addButton ( toolbarItem, index ) {
 		const buttonHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -161,7 +161,7 @@ class BaseToolbar {
 		// adding buttons
 		this.#toolbarItemsContainer.toolbarItemsArray.forEach (
 			( toolbarItem, index ) => {
-				this.#addCommandButton ( toolbarItem, index );
+				this.#addButton ( toolbarItem, index );
 			}
 		);
 

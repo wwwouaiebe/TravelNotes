@@ -94,17 +94,9 @@ class ButtonHTMLElementTouchEL {
 				if ( ButtonHTMLElementTouchEL.#MAX_DELTA_Y > Math.abs ( touch.screenY - this.#touchButtonStartY ) ) {
 					touchEvent.stopPropagation ( );
 					touchEvent.preventDefault ( );
-					const toolbarItem = this.#toolbarItemsContainer
-						.toolbarItemsArray [ Number.parseInt ( touchEvent.target.dataset.tanItemId ) ];
-					if ( toolbarItem.isCommand ( ) ) {
-						toolbarItem.action ( );
-					}
-					else if ( toolbarItem.isLink ( ) ) {
-						const linkElement = document.createElement ( 'a' );
-						linkElement.href = toolbarItem.action;
-						linkElement.target = '_blank';
-						linkElement.click ( );
-					}
+					this.#toolbarItemsContainer
+						.toolbarItemsArray [ Number.parseInt ( touchEvent.target.dataset.tanItemId ) ]
+						.doAction ( );
 					this.#baseToolbar.hide ( );
 				}
 			}
