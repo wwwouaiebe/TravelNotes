@@ -31,7 +31,7 @@ import theNoteEditor from '../core/NoteEditor.js';
 import theRouteEditor from '../core/RouteEditor.js';
 import Zoomer from '../core/Zoomer.js';
 
-import { LAT_LNG, INVALID_OBJ_ID } from '../main/Constants.js';
+import { LAT, LNG, LAT_LNG, INVALID_OBJ_ID } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -119,6 +119,26 @@ class MapContextMenu extends BaseContextMenu {
 				theTranslator.getText ( 'MapContextMenu - Zoom to travel' ),
 				true,
 				( ) => new Zoomer ( ).zoomToTravel ( )
+			),
+			new MenuItem (
+				'What the fuck?',
+				true,
+				( ) => {
+					const linkElement = document.createElement ( 'a' );
+					linkElement.href =
+						'https://www.openstreetmap.org/query?lat=' +
+						this.latLng [ LAT ].toFixed ( LAT_LNG.fixed ) +
+						'&lon=' +
+						this.latLng [ LNG ].toFixed ( LAT_LNG.fixed ) +
+						'#map=' +
+						theTravelNotesData.map.getZoom ( ) +
+						'/' +
+						this.latLng [ LAT ].toFixed ( LAT_LNG.fixed ) +
+						'/' +
+						this.latLng [ LNG ].toFixed ( LAT_LNG.fixed );
+					linkElement.target = '_blank';
+					linkElement.click ( );
+				}
 			)
 		];
 	}
