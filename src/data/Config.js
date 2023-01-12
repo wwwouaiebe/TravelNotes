@@ -205,7 +205,7 @@ const theConfig = {
 	overpassApi : {
 		useNwr : true,
 		timeOut : 40,
-		url : 'https://lz4.overpass-api.de/api/interpreter' // "https://overpass.openstreetmap.fr/api/interpreter"
+		url : 'https://lz4.overpass-api.de/api/interpreter' // "https://overpass.openstreetmap.fr/api/interpreter" "https://overpass.kumi.systems/api/interpreter"
 	},
 	printRouteMap :
 	{

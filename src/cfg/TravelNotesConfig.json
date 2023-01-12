@@ -42,7 +42,7 @@
 	},
 	"fontSize" :
 	{
-		"initialValue": 3.5,
+		"initialValue": 3.0,
 		"incrementValue": 0.5
 	},
 	"FullScreenUI": 
@@ -182,7 +182,7 @@
 	"overpassApi": {
 		"useNwr":true,
 		"timeOut":40,
-		"url":"https://overpass.kumi.systems/api/interpreter"
+		"url":"https://lz4.overpass-api.de/api/interpreter"
 	},
 	"printRouteMap":
 	{
