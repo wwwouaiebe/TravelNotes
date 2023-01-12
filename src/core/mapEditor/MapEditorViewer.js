@@ -1,5 +1,5 @@
 /*
-Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
+Copyright - 2017 2023 - wwwouaiebe - Contact: https://www.ouaie.be/
 
 This  program is free software;
 you can redistribute it and/or modify it under the terms of the
@@ -149,7 +149,20 @@ class MapEditorViewer {
 		);
 		this.addToMap ( route.objId, polyline );
 
-		// tooltip and popup are created
+		// popup is created
+		if ( ! theDevice.isTouch ) {
+			polyline.bindPopup (
+				layer => theHTMLSanitizer.clone (
+					theRouteHTMLViewsFactory.getRouteHeaderHTML (
+						'TravelNotes-Map-',
+						theDataSearchEngine.getRoute ( layer.objId )
+					)
+				)
+			);
+			LeafletDomEvent.on ( polyline, 'click', clickEvent => clickEvent.target.openPopup ( clickEvent.latlng ) );
+		}
+
+		// tooltip is created
 		if ( ROUTE_EDITION_STATUS.notEdited === route.editionStatus ) {
 			polyline.bindTooltip (
 				route.computedName,
@@ -158,18 +171,6 @@ class MapEditorViewer {
 			if ( ! theDevice.isTouch ) {
 				LeafletDomEvent.on ( polyline, 'mouseover', RouteMouseOverOrMoveEL.handleEvent );
 				LeafletDomEvent.on ( polyline, 'mousemove', RouteMouseOverOrMoveEL.handleEvent );
-
-				polyline.bindPopup (
-					layer => theHTMLSanitizer.clone (
-						theRouteHTMLViewsFactory.getRouteHeaderHTML (
-							'TravelNotes-Map-',
-							theDataSearchEngine.getRoute ( layer.objId )
-						)
-					)
-				);
-
-				// left click event
-				LeafletDomEvent.on ( polyline, 'click', clickEvent => clickEvent.target.openPopup ( clickEvent.latlng ) );
 			}
 		}
 

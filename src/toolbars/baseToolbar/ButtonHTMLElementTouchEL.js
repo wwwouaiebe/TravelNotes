@@ -1,5 +1,5 @@
 /*
-Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
+Copyright - 2017 2023 - wwwouaiebe - Contact: https://www.ouaie.be/
 
 This  program is free software;
 you can redistribute it and/or modify it under the terms of the
@@ -94,8 +94,9 @@ class ButtonHTMLElementTouchEL {
 				if ( ButtonHTMLElementTouchEL.#MAX_DELTA_Y > Math.abs ( touch.screenY - this.#touchButtonStartY ) ) {
 					touchEvent.stopPropagation ( );
 					touchEvent.preventDefault ( );
-					this.#toolbarItemsContainer.toolbarItemsArray [ Number.parseInt ( touchEvent.target.dataset.tanItemId ) ]
-						.action ( );
+					this.#toolbarItemsContainer
+						.toolbarItemsArray [ Number.parseInt ( touchEvent.target.dataset.tanItemId ) ]
+						.doAction ( );
 					this.#baseToolbar.hide ( );
 				}
 			}

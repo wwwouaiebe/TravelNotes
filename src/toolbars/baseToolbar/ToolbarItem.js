@@ -1,5 +1,5 @@
 /*
-Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
+Copyright - 2017 2023 - wwwouaiebe - Contact: https://www.ouaie.be/
 
 This  program is free software;
 you can redistribute it and/or modify it under the terms of the
@@ -80,25 +80,26 @@ class ToolbarItem {
 	get title ( ) { return this.#title; }
 
 	/**
-	The action to be performed when the user click on the button. Can be a function or a link
-	@type {function|String}
+	Execute the action registered for the item
 	*/
 
-	get action ( ) { return this.#action; }
-
-	/**
-	Test if the button is a link
-	@return {boolean} true when the button is a link
-	*/
-
-	isLink ( ) { return 'string' === typeof ( this.#action ); }
-
-	/**
-	Test if the button is a command
-	@return {boolean} true when the button is a command
-	*/
-
-	isCommand ( ) { return 'function' === typeof ( this.#action ); }
+	doAction ( ) {
+		switch ( typeof ( this.#action ) ) {
+		case 'string' :
+			{
+				const linkElement = document.createElement ( 'a' );
+				linkElement.href = this.#action;
+				linkElement.target = '_blank';
+				linkElement.click ( );
+			}
+			break;
+		case 'function' :
+			this.#action ( );
+			break;
+		default :
+			break;
+		}
+	}
 }
 
 export default ToolbarItem;

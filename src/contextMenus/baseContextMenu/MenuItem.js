@@ -1,5 +1,5 @@
 /*
-Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
+Copyright - 2017 2023 - wwwouaiebe - Contact: https://www.ouaie.be/
 
 This  program is free software;
 you can redistribute it and/or modify it under the terms of the
@@ -82,11 +82,10 @@ class MenuItem {
 	get isActive ( ) { return this.#isActive; }
 
 	/**
-	The action to execute when the item is selected
-	@type {function}
+	Execute the action registered for the item
 	*/
 
-	get action ( ) { return this.#action; }
+	doAction ( ) { this.#action ( ); }
 }
 
 export default MenuItem;

@@ -1,5 +1,5 @@
 /*
-Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
+Copyright - 2017 2023 - wwwouaiebe - Contact: https://www.ouaie.be/
 
 This  program is free software;
 you can redistribute it and/or modify it under the terms of the
@@ -118,12 +118,12 @@ class BaseToolbar {
 	#lastMouseEventTimestamp;
 
 	/**
-	Add a command button to the toolbar
+	Add a button to the toolbar
 	@param {ToolbarItem} toolbarItem The toolbar item for witch the button will be created
 	@param {Number} index The position of the toolbar item in the #toolbarItemsContainer.toolbarItemsArray
 	*/
 
-	#addCommandButton ( toolbarItem, index ) {
+	#addButton ( toolbarItem, index ) {
 		const buttonHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
@@ -137,37 +137,6 @@ class BaseToolbar {
 		buttonHTMLElement.addEventListener ( 'click', this.#buttonHTMLElementClickEL, false );
 		buttonHTMLElement.addEventListener ( 'touchstart', this.#buttonHTMLElementTouchEL, false );
 		buttonHTMLElement.addEventListener ( 'touchend', this.#buttonHTMLElementTouchEL, false );
-	}
-
-	/**
-	Add a link button to the toolbar
-	@param {ToolbarItem} toolbarItem The toolbar item for witch the button will be created
-	*/
-
-	#addLinkButton ( toolbarItem ) {
-		const buttonHTMLElement = theHTMLElementsFactory.create (
-			'div',
-			{
-				className : 'TravelNotes-BaseToolbar-ButtonHTMLElement',
-				title : toolbarItem.title
-			},
-			this.#buttonsHTMLElement
-		);
-		theHTMLElementsFactory.create (
-			'text',
-			{
-				value : toolbarItem.textContent
-			},
-			theHTMLElementsFactory.create (
-				'a',
-				{
-					className : 'TravelNotes-BaseToolbar-ButtonLinkHTMLElement',
-					href : toolbarItem.action,
-					target : '_blank'
-				},
-				buttonHTMLElement
-			)
-		);
 	}
 
 	/**
@@ -192,12 +161,7 @@ class BaseToolbar {
 		// adding buttons
 		this.#toolbarItemsContainer.toolbarItemsArray.forEach (
 			( toolbarItem, index ) => {
-				if ( toolbarItem.isCommand ( ) ) {
-					this.#addCommandButton ( toolbarItem, index );
-				}
-				else {
-					this.#addLinkButton ( toolbarItem );
-				}
+				this.#addButton ( toolbarItem, index );
 			}
 		);
 

@@ -1,5 +1,5 @@
 /*
-Copyright - 2017 2022 - wwwouaiebe - Contact: https://www.ouaie.be/
+Copyright - 2017 2023 - wwwouaiebe - Contact: https://www.ouaie.be/
 
 This  program is free software;
 you can redistribute it and/or modify it under the terms of the
@@ -292,7 +292,7 @@ class BaseContextMenu {
 		new Promise (
 			( onPromiseOk, onPromiseError ) => { this.#createMenu ( onPromiseOk, onPromiseError ); }
 		)
-			.then ( selectedItemObjId => this.menuItems [ selectedItemObjId ].action ( ) )
+			.then ( selectedItemObjId => this.menuItems [ selectedItemObjId ].doAction ( ) )
 			.catch (
 				err => {
 					if ( err ) {

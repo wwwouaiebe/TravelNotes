@@ -109,7 +109,7 @@ Le contenu du fichier TravelNotesConfig.json:
 - __files.openGpx__ : une liste des extensions de fichiers qui seront considérés comme des fichiers gps lors de l'ouverture d'un fichier. Valeur par défaut : "gpx".
 - __files.writeTouch__ : l'extension de fichier à utiliser lors de la sauvegarde d'un fichier de voyage sur un appareil avec écran tactile. Valeur par défaut : "trv".
 - __files.writeOthers__ : l'extension de fichier à utiliser lors de la sauvegarde d'un fichier de voyage sur un ordinateur de bureau. Valeur par défaut : "trv".
-- __fontSize.initialValue__ : la hauteur de texte en mm à utiliser au démarrage. Valeur par défaut : 3.5 mm
+- __fontSize.initialValue__ : la hauteur de texte en mm à utiliser au démarrage. Valeur par défaut : 3.0 mm
 - __fontSize.incrementValue__ : la valeur d'incrémentation de la hauteur de texte lors de l'utilisation des boutons + et -. Valeur par défaut : 0.5 mm.
 - __FullScreenUI.timeOut__ : la durée d'affichage en ms de l'interface fullscreen au démarage. Valeur par défaut : 5000.
 - __FullScreenUI.screenMaxWidth__ : la largeur maximale de l'écran, en pixel, pour que l'interface fullscreen soit affichée. Valeur par défaut : 1200 pixels.
