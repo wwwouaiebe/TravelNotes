@@ -204,3 +204,8 @@ either via the pop-up menus. See the [user guide - en ](https://wwwouaiebe.githu
 - Issue #64 : Add a warning when an error occurs during a osm search
 - Issue #65 : Leaflet 1.9 published
 - Issue #66 : Hiding provider toolbar crash when a transit mode is selected
+
+### What's new in release 4.2.0
+
+- Issue #68 : When a toolbar button open a link it's needed to click on the text of the button to open the link
+- Issue #69 : Popup for edited route is missing

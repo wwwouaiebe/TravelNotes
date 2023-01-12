@@ -208,3 +208,8 @@ soit via les menus contextuels. Voyez le [guide pour les utilisateurs - fr ](htt
 - Issue #64 : Un avertissement est affiché quand une erreur se produit lors d'une recherche dans OpenStreetMap
 - Issue #65 : Leaflet 1.9 a été publié
 - Issue #66 : une erreur se produit lors du masquage de la	barre d'outils après le choix d'un mode de parcours.
+
+### Quoi de neuf dans la version 4.2.0
+
+- Issue #68 : Quand un bouton d'une barre d'outil ouvre un lien, il est nécessaire de cliquer sur le texte du bouton pour ouvrir le lien
+- Issue #69 : les popup pour les trajets en cours d'édition sont manquants

@@ -53,12 +53,12 @@ Other samples:
   
 ## Releases and branches
 
-### v4.1.0 branch
+### v4.2.0 branch
 
-The [v4.1.0 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.1.0) and the [v4.1.0 branch](https://github.com/wwwouaiebe/TravelNotes/tree/v4.1.0)
+The [v4.2.0 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.2.0) and the [v4.2.0 branch](https://github.com/wwwouaiebe/TravelNotes/tree/v4.2.0)
 contains the files of the last stable version.
 
-Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v4.1.0/src)
+Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v4.2.0/src)
 
 ### master branch
 
@@ -66,18 +66,8 @@ The [master branch](https://github.com/wwwouaiebe/TravelNotes/tree/master) is th
 
 ## What's new in the last release
 
-- The installation procedure has changed following the release of Leaflet 1.9.0. Although TravelNotes still uses Leaflet, it is no longer necessary to load the Leaflet style sheet with a &lt;style&gt; tag, as it is embedded in the TravelNotes.min.css file. Similarly, Leaflet Javascript should no longer be loaded with a &lt;script&gt; tag, all the Leaflet code being integrated into the TravelNotes.min.js file.
-
-- Issue #57 : The z-index of the profile menu is not correct
-- Issue #58 : Changing the travel name is slow when multiple routes are added
-- Issue #59 : Red value of the buttons is not correct in the color control
-- Issue #60 : Review the profile dialog
-- Issue #61 : Add an option for enable/disable the mouse leave event for dockable dialog
-- Issue #62 : Review how the search of address is started in the note dialog
-- Issue #63 : Limit the width of dialogs on big screens
-- Issue #64 : Add a warning when an error occurs during a osm search
-- Issue #65 : Leaflet 1.9 published
-- Issue #66 : Hiding provider toolbar crash when a transit mode is selected
+- Issue #69 : Popup for edited route is missing
+- Issue #68 : When a toolbar button open a link it's needed to click on the text of the button to open the link
 
 For other versions, see the document ['What's new?' - en ](https://wwwouaiebe.github.io/TravelNotes/userGuides/en/WhatsNew.html)
 
@@ -136,12 +126,12 @@ D'autres exemples:
 
 ## Versions et branches
 
-### branche v4.1.0
+### branche v4.2.0
 
-La [version v4.1.0](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.1.0) et la [branche v4.1.0](https://github.com/wwwouaiebe/TravelNotes/tree/v4.1.0)
+La [version v4.2.0](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.2.0) et la [branche v4.2.0](https://github.com/wwwouaiebe/TravelNotes/tree/v4.2.0)
 contiennent les fichiers de la dernière version stable.
 
-Les sources sont disponibles dans le [répertoire src](https://github.com/wwwouaiebe/TravelNotes/tree/v4.1.0/src)
+Les sources sont disponibles dans le [répertoire src](https://github.com/wwwouaiebe/TravelNotes/tree/v4.2.0/src)
 
 ### branche master
 
@@ -151,15 +141,7 @@ La [branche master](https://github.com/wwwouaiebe/TravelNotes/tree/master) est l
 
 - La procédure d'instalation a été modifiée, suite à la publication de Leaflet 1.9.0. Bien que TravelNotes utilise toujours Leaflet, il n'est plus nécessaire de charger la feuille de style de Leaflet avec une balise &lt;style&gt;, celle-ci étant intégrée dans le fichier TravelNotes.min.css. De même, il ne faut plus charger le Javascript de Leaflet avec une balise &lt;script&gt;, tout le code de Leaflet étant intégré dans le fichier TravelNotes.min.js.
 
-- Issue #57 : Le z-index des profils n'est pas correct
-- Issue #58 : Changer le nom du voyage est très lent quand plusieurs trajets sont présents
-- Issue #59 : Les valeurs de rouge des boutons ne sont pas correctes dans le contrôle du choix des couleurs
-- Issue #60 : Le dialogue des profils a été revu
-- Issue #61 : Une option a été ajoutée pour activer ou désactiver le masquage de la fenêtre des dialogues
-- Issue #62 : La recherche de l'adresse a été revu dans le dialogue des notes
-- Issue #63 : La largeur des dialogues a été limitée sur les grands écrans
-- Issue #64 : Un avertissement est affiché quand une erreur se produit lors d'une recherche dans OpenStreetMap
-- Issue #65 : Leaflet 1.9 a été publié
-- Issue #66 : une erreur se produit lors du masquage de la	barre d'outils après le choix d'un mode de parcours.
+- Issue #68 : Quand un bouton d'une barre d'outil ouvre un lien, il est nécessaire de cliquer sur le texte du bouton pour ouvrir le lien
+- Issue #69 : les popup pour les trajets en cours d'édition sont manquants
 
 Pour les autres versions, voir le document ['Quoi de neuf?' - fr ](https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/QuoiDeNeuf.html)
