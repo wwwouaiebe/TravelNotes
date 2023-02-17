@@ -547,9 +547,13 @@
 		"msgid": "ProvidersToolbar - TransitMode train",
 		"msgstr": "a train"
 	},
-{
+	{
 		"msgid": "RoadbookLoader - show maneuver",
 		"msgstr": "Show maneuver"
+	},
+	{
+		"msgid": "RoadbookLoader - show profiles",
+		"msgstr": "Show profiles"
 	},
 	{
 		"msgid": "RoadbookLoader - show routes notes",
