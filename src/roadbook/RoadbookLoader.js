@@ -29,6 +29,7 @@ import ShowManeuverNotesChangeEL from './ShowManeuverNotesChangeEL.js';
 import ShowRouteNotesChangeEL from './ShowRouteNotesChangeEL.js';
 import ShowTravelNotesChangeEL from './ShowTravelNotesChangeEL.js';
 import ShowSmallNotesChangeEL from './ShowSmallNotesChangeEL.js';
+import ShowProfilesChangeEL from './ShowProfilesChangeEL.js';
 import PrintRoadbookClickEL from './PrintRoadbookClickEL.js';
 import SaveFileButtonClickEL from './SaveFileButtonClickEL.js';
 import StorageEL from './StorageEL.js';
@@ -73,6 +74,7 @@ class RoadbookLoader {
 		document.getElementById ( 'TravelNotes-Routes-ShowNotes' ).checked = theRoadbookUpdater.showRouteNotes;
 		document.getElementById ( 'TravelNotes-Routes-ShowManeuvers' ).checked = theRoadbookUpdater.showManeuversNotes;
 		document.getElementById ( 'TravelNotes-Routes-ShowSmallNotes' ).checked = theRoadbookUpdater.showSmallNotes;
+		document.getElementById ( 'TravelNotes-Routes-ShowProfiles' ).checked = theRoadbookUpdater.showProfiles;
 	}
 
 	/**
@@ -88,6 +90,8 @@ class RoadbookLoader {
 			.addEventListener ( 'change', new ShowManeuverNotesChangeEL ( ) );
 		document.getElementById ( 'TravelNotes-Routes-ShowSmallNotes' )
 			.addEventListener ( 'change', new ShowSmallNotesChangeEL ( ) );
+		document.getElementById ( 'TravelNotes-Routes-ShowProfiles' )
+			.addEventListener ( 'change', new ShowProfilesChangeEL ( ) );
 		document.getElementById ( 'TravelNotes-PrintButton' )
 			.addEventListener ( 'click', new PrintRoadbookClickEL ( ) );
 
@@ -169,6 +173,8 @@ class RoadbookLoader {
 			theTranslator.getText ( 'RoadbookLoader - show routes notes' );
 		document.getElementById ( 'TravelNotes-Routes-ShowSmallNotesLabel' ).textContent =
 			theTranslator.getText ( 'RoadbookLoader - show small routes notes' );
+		document.getElementById ( 'TravelNotes-Routes-ShowProfilesLabel' ).textContent =
+			theTranslator.getText ( 'RoadbookLoader - show profiles' );
 	}
 
 	/**
@@ -195,7 +201,7 @@ class RoadbookLoader {
 			this.#loadTranslations ( );
 		}
 
-		theRoadbookUpdater.updateNotes ( );
+		theRoadbookUpdater.updateNotesAndProfiles ( );
 	}
 }
 

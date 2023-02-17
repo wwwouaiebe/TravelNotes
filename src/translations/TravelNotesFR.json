@@ -552,6 +552,10 @@
 		"msgstr": "Itinéraire"
 	},
 	{
+		"msgid": "RoadbookLoader - show profiles",
+		"msgstr": "Profils"
+	},
+	{
 		"msgid": "RoadbookLoader - show routes notes",
 		"msgstr": "Notes de l'itinéraire"
 	},

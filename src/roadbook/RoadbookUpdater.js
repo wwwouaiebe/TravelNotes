@@ -66,6 +66,13 @@ class RoadbookUpdater {
 	#showSmallNotes;
 
 	/**
+	The visibility status of the profiles
+	@type {Boolean}
+	*/
+
+	#showProfiles;
+
+	/**
 	Show or hide the notes
 	@param {String} selector The css selector for the notes to show/hide
 	@param {Boolean} show A flag indicating when the note have to be showed
@@ -79,6 +86,24 @@ class RoadbookUpdater {
 				}
 				else {
 					note.classList.add ( 'TravelNotes-Hidden' );
+				}
+			}
+		);
+	}
+
+	/**
+	Show or hide the profiles
+	@param {Boolean} show A flag indicating when the profiles have to be showed
+	*/
+
+	#toggleProfiles ( show ) {
+		document.querySelectorAll ( '.TravelNotes-Roadbook-RouteProfile' ).forEach (
+			profile => {
+				if ( show ) {
+					profile.classList.remove ( 'TravelNotes-Hidden' );
+				}
+				else {
+					profile.classList.add ( 'TravelNotes-Hidden' );
 				}
 			}
 		);
@@ -119,6 +144,7 @@ class RoadbookUpdater {
 		this.#showRouteNotes = true;
 		this.#showManeuversNotes = false;
 		this.#showSmallNotes = false;
+		this.#showProfiles = true;
 	}
 
 	/**
@@ -166,14 +192,27 @@ class RoadbookUpdater {
 	}
 
 	/**
+	The visibility status of the profiles
+	@type {Boolean}
+	*/
+
+	get showProfiles ( ) { return this.#showProfiles; }
+	set showProfiles ( show ) {
+		this.#showProfiles = show;
+		this.#toggleProfiles ( show );
+	}
+
+	/**
 	Update the notes visibility
 	*/
 
-	updateNotes ( ) {
+	updateNotesAndProfiles ( ) {
 		this.showTravelNotes = this.#showTravelNotes;
 		this.showRouteNotes = this.#showRouteNotes;
 		this.showManeuversNotes = this.#showManeuversNotes;
 		this.showSmallNotes = this.#showSmallNotes;
+
+		this.showProfiles = this.#showProfiles;
 	}
 
 	/**
@@ -199,7 +238,7 @@ class RoadbookUpdater {
 			}
 		);
 
-		this.updateNotes ( );
+		this.updateNotesAndProfiles ( );
 	}
 
 }
