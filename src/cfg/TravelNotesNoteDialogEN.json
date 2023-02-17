@@ -638,6 +638,48 @@
 			"tooltip" : "Bicycle node point",
 			"width" : 40,
 			"height" : 40
+		},
+		{
+			"name" : "The bus start",
+			"icon" : "<div class=\"TravelNotes-MapNote TravelNotes-UI-kBusStart\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 20 20\"></svg></div>",
+			"tooltip" : "The bus start",
+			"width" : 40,
+			"height" : 40
+		},
+		{
+			"name" : "The bus stop",
+			"icon" : "<div class=\"TravelNotes-MapNote TravelNotes-UI-kBusEnd\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 20 20\"></svg></div>",
+			"tooltip" : "The bus ends",
+			"width" : 40,
+			"height" : 40
+		},
+		{
+			"name" : "The train start",
+			"icon" : "<div class=\"TravelNotes-MapNote TravelNotes-UI-kTrainStart\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 20 20\"></svg></div>",
+			"tooltip" : "Départ du train",
+			"width" : 40,
+			"height" : 40
+		},
+		{
+			"name" : "The train stop",
+			"icon" : "<div class=\"TravelNotes-MapNote TravelNotes-UI-kTrainEnd\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 20 20\"></svg></div>",
+			"tooltip" : "Arrivée du train",
+			"width" : 40,
+			"height" : 40
+		},
+		{
+			"name" : "The ferry start",
+			"icon" : "<div class=\"TravelNotes-MapNote TravelNotes-UI-kFerryEnter\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 20 20\"></svg></div>",
+			"tooltip" : "Départ du ferry",
+			"width" : 40,
+			"height" : 40
+		},
+		{
+			"name" : "The ferry stop",
+			"icon" : "<div class=\"TravelNotes-MapNote TravelNotes-UI-kFerryExit\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 20 20\"></svg></div>",
+			"tooltip" : "Arrivée du ferry",
+			"width" : 40,
+			"height" : 40
 		}
 	]
 }
