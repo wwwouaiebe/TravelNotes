@@ -168,7 +168,7 @@ class AppLoaderViewer {
 				if ( strTravelUrl.match ( /[^\w-%:./]/ ) ) {
 					throw new Error ( 'invalid char in the url encoded in the fil parameter' );
 				}
-				const travelURL = new URL ( strTravelUrl );
+				const travelURL = new URL ( strTravelUrl, docURL.protocol + '//' + docURL.hostname );
 				if (
 					docURL.protocol && travelURL.protocol && docURL.protocol === travelURL.protocol
 					&&

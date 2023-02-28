@@ -94,7 +94,7 @@ class AppLoader {
 				}
 
 				// Verify that the given url is on the same server and uses the same protocol
-				const travelURL = new URL ( strTravelUrl );
+				const travelURL = new URL ( strTravelUrl, docURL.protocol + '//' + docURL.hostname );
 				if (
 					docURL.protocol && travelURL.protocol && docURL.protocol === travelURL.protocol
 					&&
