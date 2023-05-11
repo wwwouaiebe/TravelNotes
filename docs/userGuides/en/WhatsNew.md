@@ -209,3 +209,9 @@ either via the pop-up menus. See the [user guide - en ](https://wwwouaiebe.githu
 
 - Issue #68 : When a toolbar button open a link it's needed to click on the text of the button to open the link
 - Issue #69 : Popup for edited route is missing
+
+### What's new in release 4.3.0
+
+- Issue #71 : Nice to have a checkbox to show / hide the profiles in the roadbook
+- Issue #72 : Nice to have notes for bus start, bus stop, train start, train stop, ferry start, ferry stop
+- Issue #73 : Not possible to load a distant trv file when the given url is a relative url
