@@ -36,7 +36,6 @@ current version
 class TravelUpdater {
 
 	/* eslint-disable camelcase */
-	/* eslint no-fallthrough: ["error", { "commentPattern": "eslint break omitted intentionally" }]*/
 
 	/**
 	The travel to update
@@ -299,19 +298,19 @@ class TravelUpdater {
 		switch ( this.#jsonTravel.objType.version ) {
 		case '1.0.0' :
 			this.#updateRoutesV_1_0_0 ( );
-			// eslint break omitted intentionally
+			// eslint-disable-next-line no-fallthrough
 		case '1.1.0' :
 		case '1.2.0' :
 		case '1.3.0' :
 		case '1.4.0' :
 			this.#updateTravelV_1_4_0 ( );
-			// eslint break omitted intentionally
+			// eslint-disable-next-line no-fallthrough
 		case '1.5.0' :
 			this.#updateTravelV_1_5_0 ( );
-			// eslint break omitted intentionally
+			// eslint-disable-next-line no-fallthrough
 		case '1.6.0' :
 			this.#updateItineraryV_1_6_0 ( );
-			// eslint break omitted intentionally
+			// eslint-disable-next-line no-fallthrough
 		case '1.7.0' :
 		case '1.7.1' :
 		case '1.8.0' :
@@ -319,11 +318,11 @@ class TravelUpdater {
 		case '1.10.0' :
 		case '1.11.0' :
 			this.#updateRoutesV_1_11_0 ( );
-			// eslint break omitted intentionally
+			// eslint-disable-next-line no-fallthrough
 		case '1.12.0' :
 		case '1.13.0' :
 			this.#updateNotesV_1_13_0 ( );
-			// eslint break omitted intentionally
+			// eslint-disable-next-line no-fallthrough
 		case '2.0.0' :
 		case '2.1.0' :
 		case '2.2.0' :
