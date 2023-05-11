@@ -53,12 +53,12 @@ Other samples:
   
 ## Releases and branches
 
-### v4.3.0 branch
+### v4.3.0-prod branch
 
-The [v4.3.0 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.3.0) and the [v4.3.0 branch](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.0)
+The [v4.3.0 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.3.0) and the [v4.3.0-prod branch](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.0-prod)
 contains the files of the last stable version.
 
-Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.0/src)
+Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.0-prod/src)
 
 ### master branch
 
@@ -127,12 +127,12 @@ D'autres exemples:
 
 ## Versions et branches
 
-### branche v4.3.0
+### branche v4.3.0-prod
 
-La [version v4.3.0](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.3.0) et la [branche v4.3.0](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.0)
+La [version v4.3.0](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.3.0) et la [branche v4.3.0-prod](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.0-prod)
 contiennent les fichiers de la dernière version stable.
 
-Les sources sont disponibles dans le [répertoire src](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.0/src)
+Les sources sont disponibles dans le [répertoire src](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.0-prod/src)
 
 ### branche master
 
