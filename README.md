@@ -53,12 +53,12 @@ Other samples:
   
 ## Releases and branches
 
-### v4.2.0 branch
+### v4.3.0-prod branch
 
-The [v4.2.0 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.2.0) and the [v4.2.0 branch](https://github.com/wwwouaiebe/TravelNotes/tree/v4.2.0)
+The [v4.3.0 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.3.0) and the [v4.3.0-prod branch](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.0-prod)
 contains the files of the last stable version.
 
-Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v4.2.0/src)
+Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.0-prod/src)
 
 ### master branch
 
@@ -66,8 +66,9 @@ The [master branch](https://github.com/wwwouaiebe/TravelNotes/tree/master) is th
 
 ## What's new in the last release
 
-- Issue #69 : Popup for edited route is missing
-- Issue #68 : When a toolbar button open a link it's needed to click on the text of the button to open the link
+- Issue #71 : Nice to have a checkbox to show / hide the profiles in the roadbook
+- Issue #72 : Nice to have notes for bus start, bus stop, train start, train stop, ferry start, ferry stop
+- Issue #73 : Not possible to load a distant trv file when the given url is a relative url
 
 For other versions, see the document ['What's new?' - en ](https://wwwouaiebe.github.io/TravelNotes/userGuides/en/WhatsNew.html)
 
@@ -126,12 +127,12 @@ D'autres exemples:
 
 ## Versions et branches
 
-### branche v4.2.0
+### branche v4.3.0-prod
 
-La [version v4.2.0](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.2.0) et la [branche v4.2.0](https://github.com/wwwouaiebe/TravelNotes/tree/v4.2.0)
+La [version v4.3.0](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.3.0) et la [branche v4.3.0-prod](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.0-prod)
 contiennent les fichiers de la dernière version stable.
 
-Les sources sont disponibles dans le [répertoire src](https://github.com/wwwouaiebe/TravelNotes/tree/v4.2.0/src)
+Les sources sont disponibles dans le [répertoire src](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.0-prod/src)
 
 ### branche master
 
@@ -139,9 +140,8 @@ La [branche master](https://github.com/wwwouaiebe/TravelNotes/tree/master) est l
 
 ## Quoi de neuf dans la dernière version
 
-- La procédure d'instalation a été modifiée, suite à la publication de Leaflet 1.9.0. Bien que TravelNotes utilise toujours Leaflet, il n'est plus nécessaire de charger la feuille de style de Leaflet avec une balise &lt;style&gt;, celle-ci étant intégrée dans le fichier TravelNotes.min.css. De même, il ne faut plus charger le Javascript de Leaflet avec une balise &lt;script&gt;, tout le code de Leaflet étant intégré dans le fichier TravelNotes.min.js.
-
-- Issue #68 : Quand un bouton d'une barre d'outil ouvre un lien, il est nécessaire de cliquer sur le texte du bouton pour ouvrir le lien
-- Issue #69 : les popup pour les trajets en cours d'édition sont manquants
+- Issue #71 : Une case à cocher pour montrer ou cacher les profils a été ajoutée dans le livre de voyage
+- Issue #72 : Des notes pour "départ de bus", "arrivée de bus", "départ de ferry", "arrivée de ferry","départ de train", "arrivée de train" ont été ajoutées
+- Issue #73 : Il est possible de charger un fichier distant lorsque l'URL donnée est une URL relative
 
 Pour les autres versions, voir le document ['Quoi de neuf?' - fr ](https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/QuoiDeNeuf.html)

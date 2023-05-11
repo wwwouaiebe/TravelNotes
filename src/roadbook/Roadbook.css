@@ -61,7 +61,7 @@ Arrow in the menu
 	margin-bottom: 2em;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (width <= 320px) {
 	body {
 		margin: 0;
 		padding: 0;
@@ -81,7 +81,7 @@ Arrow in the menu
 	}
 }
 
-@media screen and (min-width: 321px) and (max-width: 1023px) {
+@media screen and (width >= 321px) and (width <= 1023px) {
 	.TravelNotes-Roadbook-Travel {
 		padding-top: 4em;
 	}
@@ -98,8 +98,8 @@ Arrow in the menu
 	}
 }
 
-@media screen and (min-width: 768px) and (max-resolution: 200dpi),
-	screen and (min-width: 1600px) and (min-resolution: 200dpi),
+@media screen and (width >= 768px) and (resolution <= 200dpi),
+	screen and (width >= 1600px) and (resolution >= 200dpi),
 	print {
 	#TravelNotes-ButtonsDiv {
 		margin-top: 1em;

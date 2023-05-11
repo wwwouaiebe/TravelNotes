@@ -35,16 +35,17 @@ And the same <a href="https://wwwouaiebe.github.io/TravelNotes/samples/Liege/ind
 <p><a href="https://wwwouaiebe.github.io/TravelNotes/demo/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL0xpZWdlLVRyb21zby9zdW9taTIwMTgwNjA4LnRydg==">A train, bus and bicycle trip from Liège to Tromsø</a></p>
 <p><a href="https://wwwouaiebe.github.io/TravelNotes/samples/Liege-Tromso/suomi20180608-Roadbook.pdf">And the roadbook from Liège to Tromsø</a></p>
 <h2 id="releases-and-branches">Releases and branches</h2>
-<h3 id="v420-branch">v4.2.0 branch</h3>
-<p>The <a href="https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.2.0">v4.2.0 release</a> and the <a href="https://github.com/wwwouaiebe/TravelNotes/tree/v4.2.0">v4.2.0 branch</a>
+<h3 id="v430-branch">v4.3.0-prod branch</h3>
+<p>The <a href="https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.3.0">v4.3.0 release</a> and the <a href="https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.0-prod">v4.3.0-prod branch</a>
 contains the files of the last stable version.</p>
-<p>Sources are available in the <a href="https://github.com/wwwouaiebe/TravelNotes/tree/v4.2.0/src">src folder</a></p>
+<p>Sources are available in the <a href="https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.0-prod/src">src folder</a></p>
 <h3 id="master-branch">master branch</h3>
 <p>The <a href="https://github.com/wwwouaiebe/TravelNotes/tree/master">master branch</a> is the development branch and is unstable. </p>
 <h2 id="whats-new-in-the-last-release">What&#39;s new in the last release</h2>
 <ul>
-<li>Issue #68 : When a toolbar button open a link it&#39;s needed to click on the text of the button to open the link</li>
-<li>Issue #69 : Popup for edited route is missing</li>
+<li>Issue #71 : Nice to have a checkbox to show / hide the profiles in the roadbook</li>
+<li>Issue #72 : Nice to have notes for bus start, bus stop, train start, train stop, ferry start, ferry stop</li>
+<li>Issue #73 : Not possible to load a distant trv file when the given url is a relative url</li>
 </ul>
 <p>For other versions, see the document <a href="https://wwwouaiebe.github.io/TravelNotes/userGuides/en/WhatsNew.html">&#39;What&#39;s new?&#39; - en </a></p>
 <a id="fr" />
@@ -84,20 +85,17 @@ qui affiche un voyage avec un trajet et des notes, sans aucune boite d&#39;édit
 <p><a href="https://wwwouaiebe.github.io/TravelNotes/demo/viewer/?fil=aHR0cHM6Ly93d3dvdWFpZWJlLmdpdGh1Yi5pby9UcmF2ZWxOb3Rlcy9zYW1wbGVzL0xpZWdlLVRyb21zby9zdW9taTIwMTgwNjA4LnRydg==">Un voyage en train, bus et vélo de Liège à Tromsø</a></p>
 <p><a href="https://wwwouaiebe.github.io/samples/Liege-Tromso/suomi20180608-Roadbook.pdf">Et le livre de voyage de Liège à Tromsø</a></p>
 <h2 id="versions-et-branches">Versions et branches</h2>
-<h3 id="branche-v420">branche v4.2.0</h3>
-<p>La <a href="https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.2.0">version v4.2.0</a> et la <a href="https://github.com/wwwouaiebe/TravelNotes/tree/v4.2.0">branche v4.2.0</a>
+<h3 id="branche-v430">branche v4.3.0-prod</h3>
+<p>La <a href="https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.3.0">version v4.3.0</a> et la <a href="https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.0-prod">branche v4.3.0-prod</a>
 contiennent les fichiers de la dernière version stable.</p>
-<p>Les sources sont disponibles dans le <a href="https://github.com/wwwouaiebe/TravelNotes/tree/v4.2.0/src">répertoire src</a></p>
+<p>Les sources sont disponibles dans le <a href="https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.0-prod/src">répertoire src</a></p>
 <h3 id="branche-master">branche master</h3>
 <p>La <a href="https://github.com/wwwouaiebe/TravelNotes/tree/master">branche master</a> est la branche de développement et est instable.</p>
 <h2 id="quoi-de-neuf-dans-la-dernière-version">Quoi de neuf dans la dernière version</h2>
 <ul>
-<li><p>La procédure d&#39;instalation a été modifiée, suite à la publication de Leaflet 1.9.0. Bien que TravelNotes utilise toujours Leaflet, il n&#39;est plus nécessaire de charger la feuille de style de Leaflet avec une balise &lt;style&gt;, celle-ci étant intégrée dans le fichier TravelNotes.min.css. De même, il ne faut plus charger le Javascript de Leaflet avec une balise &lt;script&gt;, tout le code de Leaflet étant intégré dans le fichier TravelNotes.min.js.</p>
-</li>
-<li><p>Issue #68 : Quand un bouton d&#39;une barre d&#39;outil ouvre un lien, il est nécessaire de cliquer sur le texte du bouton pour ouvrir le lien</p>
-</li>
-<li><p>Issue #69 : les popup pour les trajets en cours d&#39;édition sont manquants</p>
-</li>
+<li>Issue #71 : Une case à cocher pour montrer ou cacher les profils a été ajoutée dans le livre de voyage</li>
+<li>Issue #72 : Des notes pour &quot;départ de bus&quot;, &quot;arrivée de bus&quot;, &quot;départ de ferry&quot;, &quot;arrivée de ferry&quot;,&quot;départ de train&quot;, &quot;arrivée de train&quot; ont été ajoutées</li>
+<li>Issue #73 : Il est possible de charger un fichier distant lorsque l&#39;URL donnée est une URL relative</li>
 </ul>
 <p>Pour les autres versions, voir le document <a href="https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/QuoiDeNeuf.html">&#39;Quoi de neuf?&#39; - fr </a></p>
 </body></html>
