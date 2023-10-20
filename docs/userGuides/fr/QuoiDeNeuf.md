@@ -219,3 +219,8 @@ soit via les menus contextuels. Voyez le [guide pour les utilisateurs - fr ](htt
 - Issue #71 : Une case à cocher pour montrer ou cacher les profils a été ajoutée dans le livre de voyage
 - Issue #72 : Des notes pour "départ de bus", "arrivée de bus", "départ de ferry", "arrivée de ferry","départ de train", "arrivée de train" ont été ajoutées
 - Issue #73 : Il est possible de charger un fichier distant lorsque l'URL donnée est une URL relative
+
+### Quoi de neuf dans la version 4.3.1
+
+- Juste des mises à jour de sécurité des dépendances
+
