@@ -19,6 +19,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v4.0.0:
 		- created from v3.6.0
+	- v4.3.2:
+		- Issue #82 : Not possible to open a distant file when the port of TravelNotes is not standard ( 80 or 443 )
+
 Doc reviewed 202208
  */
 
@@ -168,7 +171,11 @@ class AppLoaderViewer {
 				if ( strTravelUrl.match ( /[^\w-%:./]/ ) ) {
 					throw new Error ( 'invalid char in the url encoded in the fil parameter' );
 				}
-				const travelURL = new URL ( strTravelUrl, docURL.protocol + '//' + docURL.hostname );
+				const travelURL = new URL (
+					strTravelUrl,
+					docURL.protocol + '//' + docURL.hostname + ( '' === docURL.port ? '' : ':' + docURL.port )
+				);
+
 				if (
 					docURL.protocol && travelURL.protocol && docURL.protocol === travelURL.protocol
 					&&
