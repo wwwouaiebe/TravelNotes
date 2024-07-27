@@ -16,7 +16,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-const { afterRelease } = require('./grunt/CopyConfig.js');
+const { afterRelease } = require ( './grunt/CopyConfig.cjs' );
 
 /* eslint-disable no-magic-numbers */
 /* eslint-disable no-undef */
@@ -27,15 +27,15 @@ module.exports = function ( grunt ) {
 
 	grunt.initConfig ( {
 		pkg : grunt.file.readJSON ( 'package.json' ),
-		eslint : require ( './grunt/EslintConfig.js' ),
-		rollup : require ( './grunt/RollupConfig.js' ),
-		essimpledoc : require ( './grunt/EssimpledocConfig.js' ),
-		stylelint : require ( './grunt/StylelintConfig.js' ),
-		cssmin : require ( './grunt/CssminConfig.js' ),
-		terser : require ( './grunt/TerserConfig.js' ),
-		copy : require ( './grunt/CopyConfig.js' ),
-		clean : require ( './grunt/CleanConfig.js' ),
-		buildnumber : require ( './grunt/BuildNumberConfig.js' )
+		eslint : require ( './grunt/EslintConfig.cjs' ),
+		rollup : require ( './grunt/RollupConfig.cjs' ),
+		essimpledoc : require ( './grunt/EssimpledocConfig.cjs' ),
+		stylelint : require ( './grunt/StylelintConfig.cjs' ),
+		cssmin : require ( './grunt/CssminConfig.cjs' ),
+		terser : require ( './grunt/TerserConfig.cjs' ),
+		copy : require ( './grunt/CopyConfig.cjs' ),
+		clean : require ( './grunt/CleanConfig.cjs' ),
+		buildnumber : require ( './grunt/BuildNumberConfig.cjs' )
 	} );
 
 	// Load tasks
@@ -43,7 +43,7 @@ module.exports = function ( grunt ) {
 	grunt.loadNpmTasks ( 'grunt-wwwouaiebe-buildnumber' );
 	grunt.loadNpmTasks ( 'grunt-eslint' );
 	grunt.loadNpmTasks ( 'grunt-rollup' );
-	grunt.loadNpmTasks ( 'grunt-wwwouaiebe-stylelint' );
+	grunt.loadNpmTasks ( 'grunt-stylelint' );
 	grunt.loadNpmTasks ( 'grunt-contrib-cssmin' );
 	grunt.loadNpmTasks ( 'grunt-terser' );
 	grunt.loadNpmTasks ( 'grunt-contrib-copy' );

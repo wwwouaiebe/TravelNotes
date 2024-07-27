@@ -93,7 +93,7 @@ class Utilities {
 			storage.removeItem ( testString );
 			return true;
 		}
-		catch ( err ) {
+		catch {
 			return false;
 		}
 	}

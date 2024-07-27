@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><link type="text/css" rel="stylesheet" href="../index.css"></head><body><h1 id="travel--notes---guide-dinstallation">Travel &amp; Notes - Guide d&#39;installation</h1>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><link type="text/css" rel="stylesheet" href="../index.css"></head><body><h1>Travel &amp; Notes - Guide d&#39;installation</h1>
 <ol>
 <li><a href="#WhereInstall">Où installer Travel &amp; Notes?</a></li>
 <li><a href="#GuideNull">Guide d&#39;installation pour les null</a></li>
@@ -16,19 +16,19 @@
 <li><a href="#Translations">Traductions</a></li>
 </ol>
 <p><a id="WhereInstall"></a></p>
-<h2 id="1-où-installer-travel--notes">1. Où installer Travel &amp; Notes?</h2>
+<h2>1. Où installer Travel &amp; Notes?</h2>
 <p>Pour des raisons de sécurité, il n&#39;est plus possible d&#39;utiliser Travel &amp; Notes depuis le disque d&#39;un 
 ordinateur. Il est indispensable de passer par l&#39;intermédiaire soit d&#39;un serveur web distant, soit
 d&#39;un serveur web local de type LAMP or MAMP.
 Voir <a href="https://www.mozilla.org/en-US/security/advisories/mfsa2019-21/#CVE-2019-11730">https://www.mozilla.org/en-US/security/advisories/mfsa2019-21/#CVE-2019-11730</a></p>
 <p><a id="GuideNull"></a></p>
-<h2 id="2-guide-dinstallation-pour-les-null">2. Guide d&#39;installation pour les null</h2>
+<h2>2. Guide d&#39;installation pour les null</h2>
 <p>Pas de grandes connaissances informatiques? <a href="https://github.com/wwwouaiebe/TravelNotes/archive/refs/tags/v4.1.0.zip">Téléchargez la dernière version</a>,
 copiez le contenu du répertoire docs/demo/ dans un répertoire sur votre serveur et ouvrez le fichier index.html. That&#39;s all :-).</p>
 <p><a id="GuideGeeks"></a></p>
-<h2 id="3-guide-dinstallation-pour-les-geeks">3. Guide d&#39;installation pour les geeks</h2>
+<h2>3. Guide d&#39;installation pour les geeks</h2>
 <p><a id="HtmlPage"></a></p>
-<h3 id="31-que-faut-il-faire-dans-le-fichier-html">3.1. Que faut-il faire dans le fichier HTML?</h3>
+<h3>3.1. Que faut-il faire dans le fichier HTML?</h3>
 <p>Bien que Travel &amp; Notes utilise <a href="http://leafletjs.com/">Leaflet</a> pour afficher la carte, il n&#39;est pas nécessaire d&#39;installer celui-ci car tant les feuilles de style que le Javascript de Leaflet sont intégrés dans TravelNotes.</p>
 <p>Dans le &lt;head&gt; du fichier, chargez la feuille de style de TravelNotes</p>
 <pre><code>&lt;head&gt;
@@ -58,7 +58,7 @@ copiez le contenu du répertoire docs/demo/ dans un répertoire sur votre serveu
 </code></pre>
 <p>Travel &amp; Notes créera automatiquement la carte et tous les contrôles nécessaires.</p>
 <p><a id="MoreOnJS"></a></p>
-<h3 id="32-quelques-explications-complémentaires-sur-le-javascript">3.2. Quelques explications complémentaires sur le Javascript</h3>
+<h3>3.2. Quelques explications complémentaires sur le Javascript</h3>
 <p>Voyez la <a href="https://wwwouaiebe.github.io/TravelNotes/techDoc/index.html">documentation du code JS</a>
 pour plus d&#39;informations.</p>
 <p>Notez cependant que seul l&#39;objet TravelNotes est accessible depuis du code JS additionnel 
@@ -66,7 +66,7 @@ pour plus d&#39;informations.</p>
 <p>Si vous désirez utiliser d&#39;autres objets, vous devez télécharger les sources et les importer dans votre code comme 
 des modules EcmaScript.</p>
 <p><a id="TravelNotesConfigJson"></a></p>
-<h3 id="33-le-contenu-du-fichier-travelnotesconfigjson">3.3. Le contenu du fichier TravelNotesConfig.json</h3>
+<h3>3.3. Le contenu du fichier TravelNotesConfig.json</h3>
 <p>Ce fichier permet de modifier certains comportements de TravelNotes. Soyez prudent quand vous 
 modifiez ce fichier. Vous devez suivre <strong>toutes</strong> les règles d&#39;écriture des fichiers json.</p>
 <p>Le contenu du fichier TravelNotesConfig.json:</p>
@@ -121,7 +121,7 @@ modifiez ce fichier. Vous devez suivre <strong>toutes</strong> les règles d&#39
 <li><strong>map.center.lat</strong> : la latitude utilisée pour le centre de la carte au démarage ( valeur par défaut : 50.50923 )</li>
 <li><strong>map.center.lng</strong> : la longitude utilisée pour le centre de la carte au démarage ( valeur par défaut : 5.49542 )</li>
 <li><strong>map.zoom</strong> : le zoom utilisé pour la carte au démarage ( valeur par défaut : 12 )</li>
-<li><strong>nominatim.url</strong> : l&#39;url à utiliser pour Nominatim ( valeur par défaut : &quot;<a href="https://nominatim.openstreetmap.org/&quot;">https://nominatim.openstreetmap.org/&quot;</a> )</li>
+<li><strong>nominatim.url</strong> : l&#39;url à utiliser pour Nominatim ( valeur par défaut : &quot;<a href="https://nominatim.openstreetmap.org/">https://nominatim.openstreetmap.org/</a>&quot; )</li>
 <li><strong>nominatim.language</strong> : la langue à utiliser pour Nominatim ( valeur par défaut : * )</li>
 <li><strong>note.grip.size</strong> : la dimension de la poignée à l&#39;extrémité de la ligne de rappel d&#39;une note ( valeur par défaut : 10 )</li>
 <li><strong>note.grip.opacity</strong> : l&#39;opacité de la poignée à l&#39;extrémité de la ligne de rappel d&#39;une note - rappel : 0 = invisible ( valeur par défaut : 0 )</li>
@@ -164,7 +164,7 @@ modifiez ce fichier. Vous devez suivre <strong>toutes</strong> les règles d&#39
 <li><strong>osmSearch.showSearchNoteDialog</strong> : quand cette valeur est true, la boite de dialogue d&#39;édition des notes est affichée lorsqu&#39;une note est créée à partir d&#39;un résultat de recherche ( valeur par défaut : false )</li>
 <li><strong>overpassApi.useNwr</strong> : certaines instances de OverpassAPI ne connaissent pas l&#39;instruction nwr. Dans ce cas il faut mettre useNwr = false ( valeur par defaut: true )</li>
 <li><strong>overpassApi.timeOut</strong> : le temps qui va s&#39;écouler, en secondes, entre le moment où une requête vers OverpassAPI est lancée et celui où un timeout sera déclenché ( valeur par défaut : 40 )</li>
-<li><strong>overpassApi.url</strong> : l&#39;url à utiliser pour OverpassAPI ( valeur par défaut : &quot;<a href="https://lz4.overpass-api.de/api/interpreter&quot;">https://lz4.overpass-api.de/api/interpreter&quot;</a> )</li>
+<li><strong>overpassApi.url</strong> : l&#39;url à utiliser pour OverpassAPI ( valeur par défaut : &quot;<a href="https://lz4.overpass-api.de/api/interpreter">https://lz4.overpass-api.de/api/interpreter</a>&quot; )</li>
 <li><strong>printRouteMap.firefoxBrowser</strong> : quand cette valeur est true, la commande utilise les css pour firefox par défaut</li>
 <li><strong>printRouteMap.isEnabled</strong> : quand cette valeur est true, la commande pour imprimer les cartes d&#39;un trajet est active ( valeur par défaut : true )</li>
 <li><strong>printRouteMap.borderWidth</strong> : la largeur en millimètres du bord de carte qui sera dupliqué dans chaque carte ( valeur par défaut : 10 )</li>
@@ -193,13 +193,13 @@ Attention: les valeurs contenues dans ce tableau sont des valeurs numériques et
 <li><strong>route.elev.smoothCoefficient</strong> : un coefficient utilisé pour calculer la distance entre deux points pour le lissage de l&#39;élévation ( valeur par défaut : 0.25 )</li>
 <li><strong>route.elev.smoothPoints</strong> : le nombre de points avant et après le point courant dans les calculs de lissage ( valeur par défaut : 3 )</li>
 <li><strong>route.showDragTooltip</strong> : le nombre de fois que le tooltip affiché lors de l&#39;ajout d&#39;un point de passage est montré ( -1 = toujours ; valeur par défaut : 0 )</li>
-<li><strong>route.width</strong> : l&#39;épaisseur par défaut d&#39;un trajet ( valeur par défaut : 5    )</li>
+<li><strong>route.width</strong> : l&#39;épaisseur par défaut d&#39;un trajet ( valeur par défaut : 5	)</li>
 <li><strong>routeEditor.showEditedRouteInRoadbook</strong> : quand cette valeur est true les modifications du trajet en cours d&#39;édition seront immédiatement importées dans le livre de voyage ( valeur par défaut : true )</li>
 <li><strong>toolbars.timeOut</strong> : le temps qui va s&#39;écouler, en millisecondes, entre le moment où la souris quitte une barre d&#39;outil et le moment où celle-ci est masquée ( valeur par défaut : 1500 )</li>
 <li><strong>travelNotes.haveBeforeUnloadWarning</strong> : quand cette valeur est true, un message de confirmation est affiché chaque fois que le voyage en cours d&#39;édition va être effacé ( valeur par défaut : true )</li>
 <li><strong>travelNotes.language</strong> : la langue utilisée par Travel&amp; Notes, sauf si une autre langue est précisée dans l&#39;url ( valeur par défaut : &quot;fr&quot; )</li>
 <li><strong>travelNotes.startupRouteEdition</strong> : quand cette valeur est true, un trajet est directement édité au chargement d&#39;un nouveau voyage ( valeur par défaut : true )</li>
-<li><strong>travelNotesToolbar.contactMail.url</strong> : l&#39;adresse mail utilisée dans le bouton contact ( valeur par défaut : &quot;<a href="https://github.com/wwwouaiebe/TravelNotes/issues&quot;">https://github.com/wwwouaiebe/TravelNotes/issues&quot;</a> )</li>
+<li><strong>travelNotesToolbar.contactMail.url</strong> : l&#39;adresse mail utilisée dans le bouton contact ( valeur par défaut : &quot;<a href="https://github.com/wwwouaiebe/TravelNotes/issues">https://github.com/wwwouaiebe/TravelNotes/issues</a>&quot; )</li>
 <li><strong>travelNotesDialog.dialogX</strong> : la position horizontale par defaut de la fenêtre &quot;Notes de voyage&quot; par rapport au coin supérieur gauche de l&#39;écran</li>
 <li><strong>travelNotesDialog.dialogY</strong> : la position verticale par defaut de la fenêtre &quot;Notes de voyage&quot; par rapport au coin supérieur gauche de l&#39;écran</li>
 <li><strong>travelPropertiesDialog.dialogX</strong> : la position horizontale par defaut de la fenêtre &quot;Propriétés du voyage&quot; par rapport au coin supérieur gauche de l&#39;écran</li>
@@ -208,7 +208,7 @@ Attention: les valeurs contenues dans ce tableau sont des valeurs numériques et
 <li><strong>wayPoint.geocodingIncludeName</strong> : quand cette valeur est true, un nom est si possible ajouté à l&#39;adresse ( valeur par défaut : true )</li>
 </ul>
 <p><a id="TravelNotesLayersJson"></a></p>
-<h3 id="34-le-contenu-du-fichier-travelnoteslayersjson">3.4. Le contenu du fichier TravelNotesLayers.json</h3>
+<h3>3.4. Le contenu du fichier TravelNotesLayers.json</h3>
 <p>Ce fichier contient les définitions des fonds de carte de la barre d&#39;outils &quot;Cartes&quot;
 Ces définitions peuvent être adaptées.</p>
 <p>Un exemple de fichier avec deux fond de carte différents, l&#39;un avec la carte de Ferraris 
@@ -275,7 +275,7 @@ Au minimum, &quot;layers&quot;, &quot;format&quot; et &quot;transparent&quot; de
 <li><strong>getCapabilitiesUrl</strong> : l&#39;url du fichier getCapabilities quand celle-ci est connue.</li>
 </ul>
 <p><a id="TravelNotesNoteDialogJson"></a></p>
-<h3 id="35-le-contenu-des-fichiers-travelnotesnotedialogfrjson-et-travelnotesnotedialogenjson">3.5. Le contenu des fichiers TravelNotesNoteDialogFR.json et TravelNotesNoteDialogEN.json</h3>
+<h3>3.5. Le contenu des fichiers TravelNotesNoteDialogFR.json et TravelNotesNoteDialogEN.json</h3>
 <p>Ce fichier contient les définitions des boutons et de la liste des icônes prédéfinies de la boite 
 d&#39;édition des notes. Ces définitions peuvent être adaptées à vos besoins.</p>
 <p>Exemple de fichier comprenant 3 boutons et 2 icônes prédéfinies:</p>
@@ -333,10 +333,10 @@ boutons supplémentaires et &quot;preDefinedIconsList&quot; pour les icônes pr�
 <li><strong>height</strong> : la hauteur de l&#39;icône en pixels</li>
 </ul>
 <p><a id="myTravelNotesNoteDialogJson"></a></p>
-<h3 id="36-le-contenu-du-fichier-de-configuration-pouvant-être-chargé-avec-le-bouton-📂-dans-la-boite-dédition-des-notes">3.6. Le contenu du fichier de configuration pouvant être chargé avec le bouton 📂 dans la boite d&#39;édition des notes</h3>
+<h3>3.6. Le contenu du fichier de configuration pouvant être chargé avec le bouton 📂 dans la boite d&#39;édition des notes</h3>
 <p>L&#39;organisation de ce fichier est identique aux fichiers TravelNotesNoteDialogFR.json et TravelNotesNoteDialogEN.json</p>
 <p><a id="OsmSearch"></a></p>
-<h3 id="37-configurer-rechercher-dans-openstreetmap">3.7. Configurer &quot;Rechercher dans OpenStreetMap&quot;</h3>
+<h3>3.7. Configurer &quot;Rechercher dans OpenStreetMap&quot;</h3>
 <p>Le fichier TravelNotesSearchDictionaryFR.csv (en français)  ou TravelNotesSearchDictionaryEN.csv (en anglais) contient toutes les informations nécessaires 
 pour configurer la recherche dans OpenStreetMap. Le fichier peut être édité avec LibreOffice ou n&#39;importe quel autre programme capable de lire les fichiers CSV.
 Le fichier doit être sauvé avec Unicode comme jeu de caractères et encodé en utf-8. le point-virgule doit être utilisé comme séparateur.</p>
@@ -358,7 +358,7 @@ et il suffit d&#39;une seule clef/valeur vérifiée pour sélectionner l&#39;obj
 <li>lorsque toutes les valeurs d&#39;un tag sont acceptables, il faut indiquer la clef, suivie du signe égal suivi du signe *.</li>
 </ul>
 <p><a id="Viewer"></a></p>
-<h2 id="4-utiliser-le-viewer">4. Utiliser le viewer</h2>
+<h2>4. Utiliser le viewer</h2>
 <p>Le viewer permet de visualiser des fichiers qui ont été réalisés avec Travel &amp; Notes. Il ne possède
 pas de contrôles ni de menus et ne permet donc pas la modification d&#39;un voyage.
 Son intérêt réside dans le fait qu&#39;il n&#39;utilise pas trop de Javascript et qu&#39;il est
@@ -384,7 +384,7 @@ une pour Leaflet et l&#39;autre pour le viewer:</p>
 <p>Les fichiers TravelNotesViewer.min.css et TravelNotesViewer.min.js ainsi que les fichiers JSON
 de configuration se trouvent dans le sous-répertoire &quot;viewer&quot;.</p>
 <p><a id="Translations"></a></p>
-<h2 id="5-traductions">5. Traductions</h2>
+<h2>5. Traductions</h2>
 <p>Travel &amp; Notes est traduit en &#39;fr&#39; et en &#39;en&#39;. Si vous désirez traduire Travel &amp; Notes dans une autre 
 langue, copiez le fichier TravelNotesEN.json et renommez-le en fonction de la langue utilisée. Ensuite,
 éditez ce fichier et traduisez toutes les lignes msgstr dans la langue souhaitée.
