@@ -66,7 +66,10 @@ The [master branch](https://github.com/wwwouaiebe/TravelNotes/tree/master) is th
 
 ## What's new in the last release
 
-- Only security fixes of dependencies
+- Issue #80 : PublicTransportProvider don't take care of the stop_enter_only and stop_exit_only OSM roles
+- Issue #81 : A crash occurs when adding a note with incomplete address in OSM
+- Issue #82 : Not possible to open a distant file when the port of TravelNotes is not standard ( 80 or 443 )
+- Security fixes of dependencies
 
 For other versions, see the document ['What's new?' - en ](https://wwwouaiebe.github.io/TravelNotes/userGuides/en/WhatsNew.html)
 
@@ -138,6 +141,9 @@ La [branche master](https://github.com/wwwouaiebe/TravelNotes/tree/master) est l
 
 ## Quoi de neuf dans la dernière version
 
-- Juste des mises à jour de sécurité des dépendances
+- Issue #80 : PublicTransportProvider ne prend pas en charge les roles osm stop_enter_only et stop_exit_only
+- Issue #81 : Une erreur se produit lors de l'ajout d'une note avec une adresse incomplète dans OSM
+- Issue #82 : Il n'est pas possible d'ouvrir un fichier distant quand le port n'est pas standard ( 80 ou 443 )
+- Mises à jour de sécurité des dépendances
 
 Pour les autres versions, voir le document ['Quoi de neuf?' - fr ](https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/QuoiDeNeuf.html)
