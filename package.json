@@ -1,6 +1,7 @@
 {
+  "type":"module",
   "name": "travelnotes",
-  "version": "4.3.1",
+  "version": "4.3.2",
   "description": "A mapping and routing application.",
   "main": "src/main/Main.js",
   "dependencies": {
@@ -19,7 +20,7 @@
     "grunt-rollup": "latest",
     "grunt-terser": "latest",
     "grunt-wwwouaiebe-buildnumber": "latest",
-    "grunt-wwwouaiebe-stylelint": "latest",
+    "grunt-stylelint": "latest",
     "osrm-text-instructions": "latest",
     "rollup": "latest",
     "stylelint": "latest",

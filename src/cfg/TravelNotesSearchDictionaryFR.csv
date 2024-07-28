@@ -53,6 +53,7 @@ Sur la route;;;;;;
 ;Table;;;;;
 ;;amenity=table;;;;
 ;;tourism=picnic_site;;;;
+;;leisure=picnic_table;;;;
 ;Barbecue;;;;;
 ;;amenity=bbq;;;;
 ;Abri;;;;;

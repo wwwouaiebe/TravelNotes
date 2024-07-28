@@ -79,7 +79,7 @@ class NominatimDataLoader {
 			this.#nominatimStatusOk = false;
 		}
 		else {
-			this.#name = nominatimDataZoom18.namedetails.name;
+			this.#name = nominatimDataZoom18?.namedetails?.name ?? '';
 			if ( nominatimDataZoom18.address.house_number ) {
 				this.#street = nominatimDataZoom18.address.house_number + ' ';
 			}

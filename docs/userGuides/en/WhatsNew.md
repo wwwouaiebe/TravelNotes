@@ -219,3 +219,10 @@ either via the pop-up menus. See the [user guide - en ](https://wwwouaiebe.githu
 ### What's new in release 4.3.1
 
 - Only security fixes of dependencies
+
+### What's new in release 4.3.2
+
+- Issue #80 : PublicTransportProvider don't take care of the stop_enter_only and stop_exit_only OSM roles
+- Issue #81 : A crash occurs when adding a note with incomplete address in OSM
+- Issue #82 : Not possible to open a distant file when the port of TravelNotes is not standard ( 80 or 443 )
+- Security fixes of dependencies

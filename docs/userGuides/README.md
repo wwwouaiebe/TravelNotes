@@ -53,12 +53,12 @@ Other samples:
   
 ## Releases and branches
 
-### v4.3.1-prod branch
+### v4.3.2-prod branch
 
-The [v4.3.1 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.3.1) and the [v4.3.1-prod branch](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.1-prod)
+The [v4.3.2 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.3.2) and the [v4.3.2-prod branch](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.2-prod)
 contains the files of the last stable version.
 
-Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.1-prod/src)
+Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.2-prod/src)
 
 ### master branch
 
@@ -66,7 +66,10 @@ The [master branch](https://github.com/wwwouaiebe/TravelNotes/tree/master) is th
 
 ## What's new in the last release
 
-- Only security fixes of dependencies
+- Issue #80 : PublicTransportProvider don't take care of the stop_enter_only and stop_exit_only OSM roles
+- Issue #81 : A crash occurs when adding a note with incomplete address in OSM
+- Issue #82 : Not possible to open a distant file when the port of TravelNotes is not standard ( 80 or 443 )
+- Security fixes of dependencies
 
 For other versions, see the document ['What's new?' - en ](https://wwwouaiebe.github.io/TravelNotes/userGuides/en/WhatsNew.html)
 
@@ -125,12 +128,12 @@ D'autres exemples:
 
 ## Versions et branches
 
-### branche v4.3.1-prod
+### branche v4.3.2-prod
 
-La [version v4.3.1](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.3.1) et la [branche v4.3.1-prod](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.1-prod)
+La [version v4.3.2](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.3.2) et la [branche v4.3.2-prod](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.2-prod)
 contiennent les fichiers de la dernière version stable.
 
-Les sources sont disponibles dans le [répertoire src](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.1-prod/src)
+Les sources sont disponibles dans le [répertoire src](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.2-prod/src)
 
 ### branche master
 
@@ -138,6 +141,9 @@ La [branche master](https://github.com/wwwouaiebe/TravelNotes/tree/master) est l
 
 ## Quoi de neuf dans la dernière version
 
-- Juste des mises à jour de sécurité des dépendances
+- Issue #80 : PublicTransportProvider ne prend pas en charge les roles osm stop_enter_only et stop_exit_only
+- Issue #81 : Une erreur se produit lors de l'ajout d'une note avec une adresse incomplète dans OSM
+- Issue #82 : Il n'est pas possible d'ouvrir un fichier distant quand le port n'est pas standard ( 80 ou 443 )
+- Mises à jour de sécurité des dépendances
 
 Pour les autres versions, voir le document ['Quoi de neuf?' - fr ](https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/QuoiDeNeuf.html)

@@ -446,7 +446,7 @@ class HTMLSanitizer {
 		try {
 			url = new URL ( newUrlString );
 		}
-		catch ( err ) {
+		catch {
 
 			// not possible to create an url. Returning an empty string
 			return new UrlValidationResult ( '', 'Invalid url string' );
@@ -471,7 +471,7 @@ class HTMLSanitizer {
 		try {
 			encodeURIComponent ( url.href );
 		}
-		catch ( err ) {
+		catch {
 			return new UrlValidationResult ( '', 'Invalid character in url' );
 		}
 		return new UrlValidationResult ( newUrlString, '' );

@@ -199,7 +199,7 @@ class MapLayer	{
 				this.#bounds = this.#jsonLayer.bounds;
 			}
 		}
-		catch ( err ) {
+		catch {
 			throw new Error ( 'invalid bounds for layer ' + this.#name );
 		}
 	}

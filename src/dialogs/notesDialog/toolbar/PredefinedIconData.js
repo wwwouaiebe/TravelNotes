@@ -32,7 +32,6 @@ Simple container for predefined icons data of the NoteDialogToolbar
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-// eslint-disable-next-line no-unused-vars
 class PredefinedIconData {
 
 	/**

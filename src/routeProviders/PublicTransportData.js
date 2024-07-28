@@ -19,12 +19,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v4.0.0:
 		- created from v3.6.0
+	-v4.3.2:
+		- Issue #80:PublicTransportProvider don't take care of the stop_enter_only and stop_exit_only OSM roles
 Doc reviewed 202208
  */
 
 import theSphericalTrigonometry from '../core/lib/SphericalTrigonometry.js';
 
-import { ZERO, INVALID_OBJ_ID, ONE, TWO } from '../main/Constants.js';
+import { ZERO, NOT_FOUND, INVALID_OBJ_ID, ONE, TWO } from '../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -230,7 +232,7 @@ class PublicTransportData {
 						member => {
 
 							// extracting all nodes with role 'stop'
-							if ( 'node' === member.type && member.role && 'stop' === member.role ) {
+							if ( 'node' === member.type && member.role && NOT_FOUND !== member.role.indexOf ( 'stop' ) ) {
 								this.#stopsMap.set ( member.ref, member.ref );
 							}
 						}
