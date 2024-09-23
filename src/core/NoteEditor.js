@@ -36,6 +36,7 @@ import theNoteDialogToolbarData from '../dialogs/notesDialog/toolbar/NoteDialogT
 import GeoCoder from './lib/GeoCoder.js';
 
 import { DISTANCE, INVALID_OBJ_ID } from '../main/Constants.js';
+import Zoomer from './Zoomer.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -292,6 +293,20 @@ class NoteEditor {
 		this.#route = null;
 		this.#newNote ( latLng );
 		this.#noteDialog ( );
+	}
+
+	/**
+	 * This method add a travel note at the lat and lon given as url parameters
+	 * @param {Array.<Number>} latLng The latitude and longitude of the note
+	 */
+
+	newUrlNote ( latLng ) {
+		this.#route = null;
+		this.#newNote ( latLng );
+		this.#note.iconContent = '<div class="TravelNotes-MapNote TravelNotes-MapNoteCategory-0074"></div>';
+		this.#note.tooltipContent = 'Here';
+		this.#addNote ( );
+		new Zoomer ( ).zoomToLatLng ( latLng );
 	}
 
 	/**
