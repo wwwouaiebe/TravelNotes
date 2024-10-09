@@ -32,28 +32,28 @@ copiez le contenu du répertoire docs/demo/ dans un répertoire sur votre serveu
 <p>Bien que Travel &amp; Notes utilise <a href="http://leafletjs.com/">Leaflet</a> pour afficher la carte, il n&#39;est pas nécessaire d&#39;installer celui-ci car tant les feuilles de style que le Javascript de Leaflet sont intégrés dans TravelNotes.</p>
 <p>Dans le &lt;head&gt; du fichier, chargez la feuille de style de TravelNotes</p>
 <pre><code>&lt;head&gt;
-    ...
-    &lt;link rel=&quot;stylesheet&quot; href=&quot;TravelNotes.min.css&quot; /&gt;
-    ...
+	...
+	&lt;link rel=&quot;stylesheet&quot; href=&quot;TravelNotes.min.css&quot; /&gt;
+	...
 &lt;/head&gt;
 </code></pre>
 <p>Et dans le &lt;body&gt; chargez les Javascript de TravelNotes et des plugins de TravelNotes</p>
 <pre><code>&lt;body&gt;
-    ...
-    &lt;script src=&quot;TravelNotes.min.js&quot;&gt;&lt;/script&gt;
-    &lt;noscript&gt;Oh oh. Javascript is not enabled. It&#39;s impossible to display this page without javascript.&lt;/noscript&gt;
-    &lt;!-- 
-        Route providers scripts for Mapbox, Stadia Maps (MapzenValhalla), GraphHopper and OpenRouteService have only to be installed 
-        if you have an API key for Mapbox, Stadia Maps, GraphHopper or openRouteService.
-        Route providers scripts for OSRM, public transport and polyline have only to be installed 
-        if you will work with these providers.  --&gt;
-    &lt;script src=&quot;TravelNotesProviders/MapboxRouteProvider.min.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;TravelNotesProviders/MapzenValhallaRouteProvider.min.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;TravelNotesProviders/GraphHopperRouteProvider.min.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;TravelNotesProviders/OpenRouteServiceRouteProvider.min.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;TravelNotesProviders/OSRMRouteProvider.min.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;TravelNotesProviders/PublicTransportRouteProvider.min.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;TravelNotesProviders/PolylineRouteProvider.min.js&quot;&gt;&lt;/script&gt;
+	...
+	&lt;script src=&quot;TravelNotes.min.js&quot;&gt;&lt;/script&gt;
+	&lt;noscript&gt;Oh oh. Javascript is not enabled. It&#39;s impossible to display this page without javascript.&lt;/noscript&gt;
+	&lt;!-- 
+		Route providers scripts for Mapbox, Stadia Maps (MapzenValhalla), GraphHopper and OpenRouteService have only to be installed 
+		if you have an API key for Mapbox, Stadia Maps, GraphHopper or openRouteService.
+		Route providers scripts for OSRM, public transport and polyline have only to be installed 
+		if you will work with these providers.  --&gt;
+	&lt;script src=&quot;TravelNotesProviders/MapboxRouteProvider.min.js&quot;&gt;&lt;/script&gt;
+	&lt;script src=&quot;TravelNotesProviders/MapzenValhallaRouteProvider.min.js&quot;&gt;&lt;/script&gt;
+	&lt;script src=&quot;TravelNotesProviders/GraphHopperRouteProvider.min.js&quot;&gt;&lt;/script&gt;
+	&lt;script src=&quot;TravelNotesProviders/OpenRouteServiceRouteProvider.min.js&quot;&gt;&lt;/script&gt;
+	&lt;script src=&quot;TravelNotesProviders/OSRMRouteProvider.min.js&quot;&gt;&lt;/script&gt;
+	&lt;script src=&quot;TravelNotesProviders/PublicTransportRouteProvider.min.js&quot;&gt;&lt;/script&gt;
+	&lt;script src=&quot;TravelNotesProviders/PolylineRouteProvider.min.js&quot;&gt;&lt;/script&gt;
 &lt;/body&gt;
 </code></pre>
 <p>Travel &amp; Notes créera automatiquement la carte et tous les contrôles nécessaires.</p>
@@ -214,43 +214,43 @@ Ces définitions peuvent être adaptées.</p>
 <p>Un exemple de fichier avec deux fond de carte différents, l&#39;un avec la carte de Ferraris 
 de la Belgique en 1771, l&#39;autre avec la carte de OpenCycleMap de Thunderforest</p>
 <pre><code>[
-    {
-        &quot;service&quot;:&quot;wms&quot;,
-        &quot;url&quot;:&quot;http://geoservices.wallonie.be/arcgis/services/CARTES_ANCIENNES/FERRARIS/MapServer/WMSServer&quot;,
-        &quot;wmsOptions&quot;:
-        {
-            &quot;layers&quot;:&quot;0&quot;,
-            &quot;format&quot;:&quot;image/png&quot;,
-            &quot;transparent&quot;:true
-        },
-        &quot;bounds&quot;:[ [ 49.15, 2.56 ], [ 50.95, 6.49 ] ],
-        &quot;minZoom&quot;:7,
-        &quot;name&quot;:&quot;Service Public de Wallonie - Ferraris map 1770 - 1776&quot;,
-        &quot;toolbar&quot;:
-        {
-            &quot;text&quot;:&quot;1771&quot;,
-            &quot;color&quot;:&quot;black&quot;,
-            &quot;backgroundColor&quot;:&quot;white&quot;
-        },
-        &quot;providerName&quot;:&quot;SPW&quot;,
-        &quot;providerKeyNeeded&quot;:false,
-        &quot;attribution&quot;:&quot;| &lt;a href=&#39;http://geoportail.wallonie.be/home.html&#39; target=&#39;_blank&#39;&gt;Service public de Wallonie (SPW)&lt;/a&gt;&quot;,
-        &quot;getCapabilitiesUrl&quot;:&quot;https://geoservices.wallonie.be/arcgis/services/CARTES_ANCIENNES/FERRARIS/MapServer/WMSServer?REQUEST=GetCapabilities&amp;SERVICE=WMS&quot;
-    },
-    {
-        &quot;service&quot;:&quot;wmts&quot;,
-        &quot;url&quot;:&quot;https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={providerKey}&quot;,
-        &quot;name&quot;:&quot;Thunderforest - OpenCycleMap&quot;,
-        &quot;toolbar&quot;:
-        {
-            &quot;text&quot;:&quot;🚴&quot;,
-            &quot;color&quot;:&quot;black&quot;,
-            &quot;backgroundColor&quot;:&quot;white&quot;
-        },
-        &quot;providerName&quot;:&quot;Thunderforest&quot;,
-        &quot;providerKeyNeeded&quot;:true,
-        &quot;attribution&quot;:&quot;| Tiles courtesy of &lt;a href=&#39;http://www.thunderforest.com/&#39; target=&#39;_blank&#39; title=&#39;Andy Allan&#39;&gt;Andy Allan&lt;/a&gt; &quot;
-    }
+	{
+		&quot;service&quot;:&quot;wms&quot;,
+		&quot;url&quot;:&quot;http://geoservices.wallonie.be/arcgis/services/CARTES_ANCIENNES/FERRARIS/MapServer/WMSServer&quot;,
+		&quot;wmsOptions&quot;:
+		{
+			&quot;layers&quot;:&quot;0&quot;,
+			&quot;format&quot;:&quot;image/png&quot;,
+			&quot;transparent&quot;:true
+		},
+		&quot;bounds&quot;:[ [ 49.15, 2.56 ], [ 50.95, 6.49 ] ],
+		&quot;minZoom&quot;:7,
+		&quot;name&quot;:&quot;Service Public de Wallonie - Ferraris map 1770 - 1776&quot;,
+		&quot;toolbar&quot;:
+		{
+			&quot;text&quot;:&quot;1771&quot;,
+			&quot;color&quot;:&quot;black&quot;,
+			&quot;backgroundColor&quot;:&quot;white&quot;
+		},
+		&quot;providerName&quot;:&quot;SPW&quot;,
+		&quot;providerKeyNeeded&quot;:false,
+		&quot;attribution&quot;:&quot;| &lt;a href=&#39;http://geoportail.wallonie.be/home.html&#39; target=&#39;_blank&#39;&gt;Service public de Wallonie (SPW)&lt;/a&gt;&quot;,
+		&quot;getCapabilitiesUrl&quot;:&quot;https://geoservices.wallonie.be/arcgis/services/CARTES_ANCIENNES/FERRARIS/MapServer/WMSServer?REQUEST=GetCapabilities&amp;SERVICE=WMS&quot;
+	},
+	{
+		&quot;service&quot;:&quot;wmts&quot;,
+		&quot;url&quot;:&quot;https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={providerKey}&quot;,
+		&quot;name&quot;:&quot;Thunderforest - OpenCycleMap&quot;,
+		&quot;toolbar&quot;:
+		{
+			&quot;text&quot;:&quot;🚴&quot;,
+			&quot;color&quot;:&quot;black&quot;,
+			&quot;backgroundColor&quot;:&quot;white&quot;
+		},
+		&quot;providerName&quot;:&quot;Thunderforest&quot;,
+		&quot;providerKeyNeeded&quot;:true,
+		&quot;attribution&quot;:&quot;| Tiles courtesy of &lt;a href=&#39;http://www.thunderforest.com/&#39; target=&#39;_blank&#39; title=&#39;Andy Allan&#39;&gt;Andy Allan&lt;/a&gt; &quot;
+	}
 ]
 </code></pre>
 <p>Quelques explications sur le contenu du fichier pour chaque fond de carte</p>
@@ -280,39 +280,39 @@ Au minimum, &quot;layers&quot;, &quot;format&quot; et &quot;transparent&quot; de
 d&#39;édition des notes. Ces définitions peuvent être adaptées à vos besoins.</p>
 <p>Exemple de fichier comprenant 3 boutons et 2 icônes prédéfinies:</p>
 <pre><code>{ &quot;editionButtons&quot; : 
-    [
-        {
-            &quot;title&quot; : &quot;&lt;span class=&#39;TravelNotes-Note-WhiteRed&#39; title=&#39;Insert a red background&#39;&gt;Red&lt;/span&gt;&quot;,
-            &quot;htmlBefore&quot; : &quot;&lt;span class=&#39;TravelNotes-Note-WhiteRed&#39;&gt;&quot;,
-            &quot;htmlAfter&quot; : &quot;&lt;/span&gt;&quot;
-        }, 
-        {
-            &quot;title&quot; : &quot;&lt;span class=&#39;TravelNotes-Note-WhiteGreen&#39; title=&#39;Insert a green background&#39;&gt;Green&lt;/span&gt;&quot;,
-            &quot;htmlBefore&quot; : &quot;&lt;span class=&#39;TravelNotes-Note-WhiteGreen&#39;&gt;&quot;,
-            &quot;htmlAfter&quot; : &quot;&lt;/span&gt;&quot;
-        }, 
-        {
-            &quot;title&quot;: &quot;Ø&quot;,
-            &quot;htmlBefore&quot;: &quot;Ø&quot;
-        }
-    ],
-    &quot;preDefinedIconsList&quot; :
-    [
-        {
-            &quot;name&quot; : &quot;Bikes allowed&quot;,
-            &quot;icon&quot; : &quot;&lt;div class=&#39;TravelNotes-MapNote TravelNotes-MapNoteCategory-0005&#39;&gt;&lt;/div&gt;&quot;,
-            &quot;tooltip&quot; : &quot;Bikes allowed&quot;,
-            &quot;width&quot; : 40,
-            &quot;height&quot; : 40
-        },
-        {
-            &quot;name&quot; : &quot;Bus station&quot;,
-            &quot;icon&quot; : &quot;&lt;div class=&#39;TravelNotes-MapNote TravelNotes-MapNoteCategory-0006&#39;&gt;&lt;/div&gt;&quot;,
-            &quot;tooltip&quot; : &quot;Bus station&quot;,
-            &quot;width&quot; : 40,
-            &quot;height&quot; : 40
-        }
-    ]
+	[
+		{
+			&quot;title&quot; : &quot;&lt;span class=&#39;TravelNotes-Note-WhiteRed&#39; title=&#39;Insert a red background&#39;&gt;Red&lt;/span&gt;&quot;,
+			&quot;htmlBefore&quot; : &quot;&lt;span class=&#39;TravelNotes-Note-WhiteRed&#39;&gt;&quot;,
+			&quot;htmlAfter&quot; : &quot;&lt;/span&gt;&quot;
+		}, 
+		{
+			&quot;title&quot; : &quot;&lt;span class=&#39;TravelNotes-Note-WhiteGreen&#39; title=&#39;Insert a green background&#39;&gt;Green&lt;/span&gt;&quot;,
+			&quot;htmlBefore&quot; : &quot;&lt;span class=&#39;TravelNotes-Note-WhiteGreen&#39;&gt;&quot;,
+			&quot;htmlAfter&quot; : &quot;&lt;/span&gt;&quot;
+		}, 
+		{
+			&quot;title&quot;: &quot;Ø&quot;,
+			&quot;htmlBefore&quot;: &quot;Ø&quot;
+		}
+	],
+	&quot;preDefinedIconsList&quot; :
+	[
+		{
+			&quot;name&quot; : &quot;Bikes allowed&quot;,
+			&quot;icon&quot; : &quot;&lt;div class=&#39;TravelNotes-MapNote TravelNotes-MapNoteCategory-0005&#39;&gt;&lt;/div&gt;&quot;,
+			&quot;tooltip&quot; : &quot;Bikes allowed&quot;,
+			&quot;width&quot; : 40,
+			&quot;height&quot; : 40
+		},
+		{
+			&quot;name&quot; : &quot;Bus station&quot;,
+			&quot;icon&quot; : &quot;&lt;div class=&#39;TravelNotes-MapNote TravelNotes-MapNoteCategory-0006&#39;&gt;&lt;/div&gt;&quot;,
+			&quot;tooltip&quot; : &quot;Bus station&quot;,
+			&quot;width&quot; : 40,
+			&quot;height&quot; : 40
+		}
+	]
 }
 </code></pre>
 <p>Deux collections d&#39;objets <strong>doivent</strong> être présentes dans le fichier : &quot;editionButtons&quot; pour les 
@@ -367,18 +367,18 @@ plus léger que TravelNotes. </p>
 une pour Leaflet et l&#39;autre pour le viewer:</p>
 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
-    &lt;head&gt;
-        &lt;meta charset=&quot;UTF-8&quot; /&gt;
-        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
-        &lt;meta name=&quot;ROBOTS&quot; content=&quot;NOINDEX, NOFOLLOW&quot; /&gt;
-        &lt;title&gt;Travel &amp; Notes by wwwouaiebe&lt;/title&gt;
-        &lt;link rel=&quot;stylesheet&quot; href=&quot;leaflet/leaflet.css&quot; /&gt;
-        &lt;link rel=&quot;stylesheet&quot; href=&quot;TravelNotesViewer.min.css&quot; /&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-        &lt;script src=&quot;leaflet/leaflet.js&quot;&gt;&lt;/script&gt;&lt;noscript&gt;Oh oh. Javascript is not enabled. It&#39;s impossible to display this page without javascript.&lt;/noscript&gt;
-        &lt;script src=&quot;TravelNotesViewer.min.js&quot;&gt;&lt;/script&gt;
-    &lt;/body&gt;
+	&lt;head&gt;
+		&lt;meta charset=&quot;UTF-8&quot; /&gt;
+		&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+		&lt;meta name=&quot;ROBOTS&quot; content=&quot;NOINDEX, NOFOLLOW&quot; /&gt;
+		&lt;title&gt;Travel &amp; Notes by wwwouaiebe&lt;/title&gt;
+		&lt;link rel=&quot;stylesheet&quot; href=&quot;leaflet/leaflet.css&quot; /&gt;
+		&lt;link rel=&quot;stylesheet&quot; href=&quot;TravelNotesViewer.min.css&quot; /&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;script src=&quot;leaflet/leaflet.js&quot;&gt;&lt;/script&gt;&lt;noscript&gt;Oh oh. Javascript is not enabled. It&#39;s impossible to display this page without javascript.&lt;/noscript&gt;
+		&lt;script src=&quot;TravelNotesViewer.min.js&quot;&gt;&lt;/script&gt;
+	&lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
 <p>Les fichiers TravelNotesViewer.min.css et TravelNotesViewer.min.js ainsi que les fichiers JSON
