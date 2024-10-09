@@ -230,3 +230,8 @@ soit via les menus contextuels. Voyez le [guide pour les utilisateurs - fr ](htt
 - Issue #81 : Une erreur se produit lors de l'ajout d'une note avec une adresse incomplète dans OSM
 - Issue #82 : Il n'est pas possible d'ouvrir un fichier distant quand le port n'est pas standard ( 80 ou 443 )
 - Mises à jour de sécurité des dépendances
+
+## Quoi de neuf dans la dernière 4.3.3
+
+- Issue #84 : Ajout d'une note de voyage au démarage quand les paramètres de l'url contiennent des paramètres lat et lon
+- Mises à jour de sécurité des dépendances

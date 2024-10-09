@@ -41,6 +41,7 @@ import theFullScreenUI from '../../uis/fullScreenUI/FullScreenUI.js';
 import theProvidersToolbar from '../../toolbars/providersToolbar/ProvidersToolbar.js';
 import MapMouseELs from '../../core/mapEditor/mapMouseELs/MapMouseELs.js';
 import { LAT_LNG, TWO, SAVE_STATUS, HTTP_STATUS_OK } from '../Constants.js';
+import theNoteEditor from '../../core/NoteEditor.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -96,9 +97,11 @@ class TravelNotes {
 	/**
 	This method load TravelNotes and open an empty read and write map.
 	This method can only be executed once. Others call will be ignored.
+	@param {?Number} latUrl the lat found in the url parameters
+	@param {?Number} lonUrl the lon found in the url parameters
 	*/
 
-	addToolbarsMenusUIs ( ) {
+	addToolbarsMenusUIs ( latUrl, lonUrl ) {
 
 		if ( this.#travelNotesLoaded ) {
 			return;
@@ -152,6 +155,10 @@ class TravelNotes {
 
 		// ... full screen UI
 		theFullScreenUI.show ( );
+
+		if ( latUrl && lonUrl ) {
+			theNoteEditor.newUrlNote ( [ latUrl, lonUrl ] );
+		}
 	}
 
 	/**

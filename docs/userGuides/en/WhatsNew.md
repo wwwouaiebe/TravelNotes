@@ -226,3 +226,8 @@ either via the pop-up menus. See the [user guide - en ](https://wwwouaiebe.githu
 - Issue #81 : A crash occurs when adding a note with incomplete address in OSM
 - Issue #82 : Not possible to open a distant file when the port of TravelNotes is not standard ( 80 or 443 )
 - Security fixes of dependencies
+
+### What's new in release 4.3.3
+
+- Issue #84 : Add a travel note from the url at startup, giving lat and lon as url parameters
+- Security fixes of dependencies

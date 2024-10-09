@@ -57,6 +57,20 @@ class AppLoader {
 	#travelUrl;
 
 	/**
+	 * The lat found in the lat url parameters
+	 * @type {Number}
+	 */
+
+	#latUrl;
+
+	/**
+	 * The lon found in the lon url parameters
+	 * @type {Number}
+	 */
+
+	#lonUrl;
+
+	/**
 	the language in the lng parameter of the url
 	@type {String}
 	*/
@@ -101,7 +115,7 @@ class AppLoader {
 					strTravelUrl,
 					docURL.protocol + '//' + docURL.hostname + ( '' === docURL.port ? '' : ':' + docURL.port )
 				);
-				if (
+				if ( Url =
 					docURL.protocol && travelURL.protocol && docURL.protocol === travelURL.protocol
 					&&
 					docURL.hostname && travelURL.hostname && docURL.hostname === travelURL.hostname
@@ -124,6 +138,22 @@ class AppLoader {
 		if ( urlLng ) {
 			if ( urlLng.match ( /^[A-Z,a-z]{2}$/ ) ) {
 				this.#language = urlLng.toLowerCase ( );
+			}
+		}
+
+		const latUrl = docURL.searchParams.get ( 'lat' );
+		if ( latUrl ) {
+			this.#latUrl = Number.parseFloat ( latUrl );
+			if ( Number.isNaN ( this.#latUrl ) ) {
+				this.#latUrl = null;
+			}
+		}
+
+		const lonUrl = docURL.searchParams.get ( 'lon' );
+		if ( lonUrl ) {
+			this.#lonUrl = Number.parseFloat ( lonUrl );
+			if ( Number.isNaN ( this.#lonUrl ) ) {
+				this.#lonUrl = null;
 			}
 		}
 	}
@@ -357,7 +387,7 @@ class AppLoader {
 		}
 		else {
 			EventListenersLoader.addUnloadEventsListeners ( );
-			theTravelNotes.addToolbarsMenusUIs ( );
+			theTravelNotes.addToolbarsMenusUIs ( this.#latUrl, this.#lonUrl );
 		}
 	}
 
