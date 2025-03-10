@@ -71,10 +71,10 @@
 	},
 	{
 		"service":"wms",
-		"url":"https://ccff02.minfin.fgov.be/geoservices/arcgis/services/INSPIRE/CP/MapServer/WmsServer",
+		"url":"https://ccff02.minfin.fgov.be/geoservices/arcgis/services/WMS/Cadastral_Layers/MapServer/WmsServer",
 		"wmsOptions":
 		{
-			"layers":"0,1",
+			"layers":"Cadastral_parcel",
 			"format":"image/png",
 			"transparent":true,
 			"version":"1.3.1"
@@ -368,7 +368,7 @@
 	},
 	{
 		"service":"wmts",
-		"url":"https://wxs.ign.fr/decouverte/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&TILEMATRIXSET=PM&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&STYLE=normal&FORMAT=image/png&TILECOL={x}&TILEROW={y}&TILEMATRIX={z}",
+		"url":"https://data.geopf.fr/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&TILEMATRIXSET=PM&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&STYLE=normal&FORMAT=image/png&TILECOL={x}&TILEROW={y}&TILEMATRIX={z}",
 		"minZoom":0,
 		"maxZoom":18,
 		"bounds":[ [ -85, -175 ], [ 85, 175 ] ],
@@ -421,7 +421,7 @@
 	},
 	{
 		"service":"wmts",
-		"url":"https://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?SERVICE=WMS&srs=epsg:3857&layers=norgeskart_bakgrunn&zoom={z}&x={x}&y={y}", 
+		"url":"https://cache.kartverket.no/v1/wmts?layer=topo&style=default&tilematrixset=webmercator&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image/png&TileMatrix={z}&TileCol={x}&TileRow={y}",
 		"minZoom":1,
 		"maxZoom":18,
 		"bounds":[ [ 56.84, 1.40 ], [ 82.00, 40.00 ] ],
