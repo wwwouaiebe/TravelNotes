@@ -368,6 +368,24 @@
 	},
 	{
 		"service":"wmts",
+		"url":"https://sgx.geodatenzentrum.de/wmts_topplus_open/tile/1.0.0/web/default/WEBMERCATOR/{z}/{y}/{x}.png",
+		"minZoom":0,
+		"maxZoom":18,
+		"bounds":[ [ -85, -175 ], [ 85, 175 ] ],
+		"name":"BKG - Germany",
+		"toolbar":
+		{
+			"text":"DE",
+			"color":"#000000",
+			"backgroundColor":"#ffffff"
+		},
+		"providerName":"BKG",
+		"providerKeyNeeded":false,
+		"attribution":"| <a href='https://gdz.bkg.bund.de/index.php/default/wmts-topplusopen-wmts-topplus-open.html' target='_blank'>© Bundesamt für Kartographie und Geodäsie</a>",
+		"getCapabilitiesUrl":"https://sgx.geodatenzentrum.de/wmts_topplus_open/1.0.0/WMTSCapabilities.xml"
+	},
+	{
+		"service":"wmts",
 		"url":"https://data.geopf.fr/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&TILEMATRIXSET=PM&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&STYLE=normal&FORMAT=image/png&TILECOL={x}&TILEROW={y}&TILEMATRIX={z}",
 		"minZoom":0,
 		"maxZoom":18,
