@@ -25,8 +25,8 @@ Doc reviewed 202208
 	margin-top: 5mm;
 	margin-left: auto;
 	margin-right: auto;
-	page-break-after: always;
-	page-break-inside: avoid;
+	break-after: always;
+	break-inside: avoid;
 }
 
 /*
