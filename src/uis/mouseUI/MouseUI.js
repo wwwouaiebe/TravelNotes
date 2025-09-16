@@ -212,7 +212,7 @@ class MouseUI {
 
 		// Event listeners for mouse
 		theTravelNotesData.map.on (
-			'mousemove',
+			'pointermove',
 			mouseMoveEvent => {
 				this.#mousePosition =
 					theUtilities.formatLatLng ( [ mouseMoveEvent.latlng.lat, mouseMoveEvent.latlng.lng ] );
