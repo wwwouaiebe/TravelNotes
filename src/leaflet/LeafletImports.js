@@ -5,8 +5,8 @@ import {
 	LatLng,
 	LatLngBounds,
 	LayerGroup,
-	// eslint-disable-next-line no-shadow
-	Map,
+
+	LeafletMap,
 	Marker,
 	Point,
 	Polyline,
@@ -17,7 +17,7 @@ import {
 	Projection,
 	Util
 }
-	from '../../node_modules/leaflet/dist/leaflet-src.esm.js';
+	from '../../node_modules/leaflet/dist/leaflet-src.js';
 
 export {
 	Circle as LeafletCircle,
@@ -26,7 +26,7 @@ export {
 	LatLng as LeafletLatLng,
 	LatLngBounds as LeafletLatLngBounds,
 	LayerGroup as LeafletLayerGroup,
-	Map as LeafletMap,
+	LeafletMap,
 	Marker as LeafletMarker,
 	Point as LeafletPoint,
 	Polyline as LeafletPolyline,

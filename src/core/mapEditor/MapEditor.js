@@ -47,8 +47,7 @@ import {
 	LeafletDivIcon,
 	LeafletMarker,
 	LeafletPolyline,
-	LeafletRectangle,
-	LeafletDomEvent
+	LeafletRectangle
 } from '../../leaflet/LeafletImports.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -77,7 +76,7 @@ class MapEditor	extends MapEditorViewer {
 	#RemoveFromMap ( objId ) {
 		const layer = theTravelNotesData.mapObjects.get ( objId );
 		if ( layer ) {
-			LeafletDomEvent.off ( layer );
+			layer.off ( );
 			theTravelNotesData.map.removeLayer ( layer );
 			theTravelNotesData.mapObjects.delete ( objId );
 		}
@@ -120,22 +119,22 @@ class MapEditor	extends MapEditorViewer {
 			const polyline = theTravelNotesData.mapObjects.get ( addedRouteObjId );
 
 			if ( ! theTravelNotesData.travel.readOnly ) {
-				LeafletDomEvent.on ( polyline, 'contextmenu', RouteMapContextMenuEL.handleEvent );
+				polyline.on ( 'contextmenu', RouteMapContextMenuEL.handleEvent );
 				if ( ROUTE_EDITION_STATUS.notEdited !== route.editionStatus && ! theDevice.isTouch ) {
-					LeafletDomEvent.on ( polyline, 'mouseover', EditedRouteMouseOverEL.handleEvent );
+					polyline.on ( 'pointerover', EditedRouteMouseOverEL.handleEvent );
 				}
 				const notesIterator = route.notes.iterator;
 				while ( ! notesIterator.done ) {
 					const layerGroup = theTravelNotesData.mapObjects.get ( notesIterator.value.objId );
 					const marker = layerGroup.getLayer ( layerGroup.markerId );
 					const bullet = layerGroup.getLayer ( layerGroup.bulletId );
-					LeafletDomEvent.on ( bullet, 'dragend', NoteBulletDragEndEL.handleEvent );
-					LeafletDomEvent.on ( bullet, 'drag',	NoteBulletDragEL.handleEvent );
-					LeafletDomEvent.on ( bullet, 'mouseenter', NoteBulletMouseEnterEL.handleEvent );
-					LeafletDomEvent.on ( bullet, 'mouseleave', NoteBulletMouseLeaveEL.handleEvent );
-					LeafletDomEvent.on ( marker, 'contextmenu', NoteMarkerContextMenuEL.handleEvent );
-					LeafletDomEvent.on ( marker, 'dragend', NoteMarkerDragEndEL.handleEvent );
-					LeafletDomEvent.on ( marker, 'drag', NoteMarkerDragEL.handleEvent );
+					bullet.on ( 'dragend', NoteBulletDragEndEL.handleEvent );
+					bullet.on ( 'drag',	NoteBulletDragEL.handleEvent );
+					bullet.on ( 'pointerover', NoteBulletMouseEnterEL.handleEvent );
+					bullet.on ( 'pointerout', NoteBulletMouseLeaveEL.handleEvent );
+					marker.on ( 'contextmenu', NoteMarkerContextMenuEL.handleEvent );
+					marker.on ( 'dragend', NoteMarkerDragEndEL.handleEvent );
+					marker.on ( 'drag', NoteMarkerDragEL.handleEvent );
 				}
 			}
 
@@ -194,13 +193,13 @@ class MapEditor	extends MapEditorViewer {
 				noteObjects.marker.openPopup ( );
 			}
 			if ( ! theTravelNotesData.travel.readOnly ) {
-				LeafletDomEvent.on ( noteObjects.bullet, 'dragend', NoteBulletDragEndEL.handleEvent );
-				LeafletDomEvent.on ( noteObjects.bullet, 'drag',	NoteBulletDragEL.handleEvent );
-				LeafletDomEvent.on ( noteObjects.bullet, 'mouseenter',	NoteBulletMouseEnterEL.handleEvent );
-				LeafletDomEvent.on ( noteObjects.bullet, 'mouseleave',	NoteBulletMouseLeaveEL.handleEvent );
-				LeafletDomEvent.on ( noteObjects.marker, 'contextmenu', NoteMarkerContextMenuEL.handleEvent );
-				LeafletDomEvent.on ( noteObjects.marker, 'dragend', NoteMarkerDragEndEL.handleEvent );
-				LeafletDomEvent.on ( noteObjects.marker, 'drag', NoteMarkerDragEL.handleEvent );
+				noteObjects.bullet.on ( 'dragend', NoteBulletDragEndEL.handleEvent );
+				noteObjects.bullet.on ( 'drag',	NoteBulletDragEL.handleEvent );
+				noteObjects.bullet.on ( 'pointerover',	NoteBulletMouseEnterEL.handleEvent );
+				noteObjects.bullet.on ( 'pointerout',	NoteBulletMouseLeaveEL.handleEvent );
+				noteObjects.marker.on ( 'contextmenu', NoteMarkerContextMenuEL.handleEvent );
+				noteObjects.marker.on ( 'dragend', NoteMarkerDragEndEL.handleEvent );
+				noteObjects.marker.on ( 'drag', NoteMarkerDragEL.handleEvent );
 			}
 		}
 	}
@@ -221,7 +220,7 @@ class MapEditor	extends MapEditorViewer {
 	removeAllObjects ( ) {
 		theTravelNotesData.mapObjects.forEach (
 			mapObject => {
-				LeafletDomEvent.off ( mapObject );
+				mapObject.off ( );
 				theTravelNotesData.map.removeLayer ( mapObject );
 			}
 		);
@@ -272,14 +271,14 @@ class MapEditor	extends MapEditorViewer {
 			-WAY_POINT_ICON_SIZE / TWO
 		];
 
-		LeafletDomEvent.on ( marker, 'contextmenu', WayPointContextMenuEL.handleEvent );
+		marker.on ( 'contextmenu', WayPointContextMenuEL.handleEvent );
 
 		// ... and added to the map...
 		marker.objId = wayPoint.objId;
 		this.addToMap ( wayPoint.objId, marker );
 
 		// ... and a dragend event listener is created
-		LeafletDomEvent.on ( marker, 'dragend', WayPointDragEndEL.handleEvent );
+		marker.on ( 'dragend', WayPointDragEndEL.handleEvent );
 	}
 
 	/**

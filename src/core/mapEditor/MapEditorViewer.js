@@ -46,7 +46,6 @@ import {
 	LeafletMarker,
 	LeafletPolyline,
 	LeafletTileLayer,
-	LeafletDomEvent,
 	LeafletUtil
 } from '../../leaflet/LeafletImports.js';
 
@@ -159,7 +158,7 @@ class MapEditorViewer {
 					)
 				)
 			);
-			LeafletDomEvent.on ( polyline, 'click', clickEvent => clickEvent.target.openPopup ( clickEvent.latlng ) );
+			polyline.on ( 'click', clickEvent => clickEvent.target.openPopup ( clickEvent.latlng ) );
 		}
 
 		// tooltip is created
@@ -169,8 +168,8 @@ class MapEditorViewer {
 				{ sticky : true, direction : 'right' }
 			);
 			if ( ! theDevice.isTouch ) {
-				LeafletDomEvent.on ( polyline, 'mouseover', RouteMouseOverOrMoveEL.handleEvent );
-				LeafletDomEvent.on ( polyline, 'mousemove', RouteMouseOverOrMoveEL.handleEvent );
+				polyline.on ( 'pointerover', RouteMouseOverOrMoveEL.handleEvent );
+				polyline.on ( 'pointermove', RouteMouseOverOrMoveEL.handleEvent );
 			}
 		}
 

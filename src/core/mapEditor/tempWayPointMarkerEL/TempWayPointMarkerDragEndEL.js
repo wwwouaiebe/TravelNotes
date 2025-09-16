@@ -28,8 +28,6 @@ import TempWayPointMarkerELData from './TempWayPointMarkerELData.js';
 import TempWayPointMarkerDragStartEL from './TempWayPointMarkerDragStartEL.js';
 import TempWayPointMarkerContextMenuEL from './TempWayPointMarkerContextMenuEL.js';
 
-import { LeafletDomEvent } from '../../../leaflet/LeafletImports.js';
-
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 dragend event listener for the temp waypoint marker
@@ -49,21 +47,9 @@ class TempWayPointMarkerDragEndEL {
 			[ dragEndEvent.target.getLatLng ( ).lat, dragEndEvent.target.getLatLng ( ).lng ]
 		);
 		if ( TempWayPointMarkerELData.marker ) {
-			LeafletDomEvent.off (
-				TempWayPointMarkerELData.marker,
-				'dragstart',
-				TempWayPointMarkerDragStartEL.handleEvent
-			);
-			LeafletDomEvent.off (
-				TempWayPointMarkerELData.marker,
-				'dragend',
-				TempWayPointMarkerDragEndEL.handleEvent
-			);
-			LeafletDomEvent.off (
-				TempWayPointMarkerELData.marker,
-				'contextmenu',
-				TempWayPointMarkerContextMenuEL.handleEvent
-			);
+			TempWayPointMarkerELData.marker.off ( 'dragstart', TempWayPointMarkerDragStartEL.handleEvent );
+			TempWayPointMarkerELData.marker.off ( 'dragend', TempWayPointMarkerDragEndEL.handleEvent );
+			TempWayPointMarkerELData.marker.off ( 'contextmenu', TempWayPointMarkerContextMenuEL.handleEvent );
 			theTravelNotesData.map.removeLayer ( TempWayPointMarkerELData.marker );
 			TempWayPointMarkerELData.marker = null;
 		}

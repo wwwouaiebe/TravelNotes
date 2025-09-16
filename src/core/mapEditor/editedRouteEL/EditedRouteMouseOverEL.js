@@ -38,7 +38,7 @@ import TempWayPointMarkerDragEndEL from '../TempWayPointMarkerEL/TempWayPointMar
 
 import { NOT_FOUND, ZERO, ONE, TWO, WAY_POINT_ICON_SIZE } from '../../../main/Constants.js';
 
-import { LeafletDivIcon, LeafletMarker, LeafletDomEvent } from '../../../leaflet/LeafletImports.js';
+import { LeafletDivIcon, LeafletMarker } from '../../../leaflet/LeafletImports.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -111,31 +111,11 @@ class EditedRouteMouseOverEL {
 			TempWayPointMarkerELData.marker.addTo ( theTravelNotesData.map );
 
 			// adding event listeners on the marker
-			LeafletDomEvent.on (
-				TempWayPointMarkerELData.marker,
-				'mouseout',
-				TempWayPointMarkerMouseOutEL.handleEvent
-			);
-			LeafletDomEvent.on (
-				TempWayPointMarkerELData.marker,
-				'dragstart',
-				TempWayPointMarkerDragStartEL.handleEvent
-			);
-			LeafletDomEvent.on (
-				TempWayPointMarkerELData.marker,
-				'dragend',
-				TempWayPointMarkerDragEndEL.handleEvent
-			);
-			LeafletDomEvent.on (
-				TempWayPointMarkerELData.marker,
-				'contextmenu',
-				TempWayPointMarkerContextMenuEL.handleEvent
-			);
-			LeafletDomEvent.on (
-				TempWayPointMarkerELData.marker,
-				'click',
-				TempWayPointMarkerClickEL.handleEvent
-			);
+			TempWayPointMarkerELData.marker.on ( 'pointerout', TempWayPointMarkerMouseOutEL.handleEvent );
+			TempWayPointMarkerELData.marker.on ( 'dragstart', TempWayPointMarkerDragStartEL.handleEvent );
+			TempWayPointMarkerELData.marker.on ( 'dragend', TempWayPointMarkerDragEndEL.handleEvent );
+			TempWayPointMarkerELData.marker.on ( 'contextmenu', TempWayPointMarkerContextMenuEL.handleEvent );
+			TempWayPointMarkerELData.marker.on ( 'click', TempWayPointMarkerClickEL.handleEvent );
 		}
 	}
 }

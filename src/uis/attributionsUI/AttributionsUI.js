@@ -63,12 +63,12 @@ class AttributionsUI {
 
 	set attributions ( attributions ) {
 		const attributionsString =
-			'© <a href="https://leafletjs.com/" target="_blank" title="Leaflet">Leaflet</a> ' +
+			'© <a href="https://leafletjs.com/" target="_blank" title="Leaflet">🇺🇦 Leaflet</a> ' +
 			'| © <a href="https://www.openstreetmap.org/copyright" target="_blank" ' +
 			'title="OpenStreetMap contributors">OpenStreetMap contributors</a> ' +
 			attributions +
 			'| © <a href="https://github.com/wwwouaiebe" target="_blank" ' +
-			'title="https://github.com/wwwouaiebe">Travel & Notes</a>';
+			'title="https://github.com/wwwouaiebe">🏴‍☠️ Travel & Notes</a>';
 
 		while ( this.#mainHTMLElement.firstChild ) {
 			this.#mainHTMLElement.removeChild ( this.#mainHTMLElement.firstChild );

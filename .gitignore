@@ -2,5 +2,7 @@ node_modules/
 tmp/
 exclude/
 debug/
+docs/
+docs/demo/
 tests/
 TravelNotes.code-workspace

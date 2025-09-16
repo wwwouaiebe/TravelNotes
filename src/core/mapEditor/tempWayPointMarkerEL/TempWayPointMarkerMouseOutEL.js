@@ -25,8 +25,6 @@ Doc reviewed 202208
 import theTravelNotesData from '../../../data/TravelNotesData.js';
 import TempWayPointMarkerELData from './TempWayPointMarkerELData.js';
 
-import { LeafletDomEvent } from '../../../leaflet/LeafletImports.js';
-
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 mouseout event listener for the temp waypoint marker
@@ -41,7 +39,7 @@ class TempWayPointMarkerMouseOutEL {
 
 	static handleEvent ( ) {
 		if ( TempWayPointMarkerELData.marker ) {
-			LeafletDomEvent.off ( TempWayPointMarkerELData.marker );
+			TempWayPointMarkerELData.marker.off ( );
 			theTravelNotesData.map.removeLayer ( TempWayPointMarkerELData.marker );
 			TempWayPointMarkerELData.marker = null;
 		}
