@@ -60,7 +60,7 @@ const beforeReleaseFiles = [
 	{
 		expand : true,
 		cwd : '',
-		src : [ 'node_modules/leaflet/dist/leaflet-src.esm.js' ],
+		src : [ 'node_modules/leaflet/dist/leaflet-src.js' ],
 		dest : 'tmpRelease/'
 	},
 	{ expand : true, cwd : '', src : [ 'src/**/*.js' ], dest : 'tmpRelease/' }
