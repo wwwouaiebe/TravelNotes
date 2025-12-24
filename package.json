@@ -1,51 +1,36 @@
 {
-  "type":"module",
-  "name": "travelnotes",
-  "version": "4.3.8",
-  "description": "A mapping and routing application.",
-  "main": "src/main/Main.js",
-  "dependencies": {
-    "leaflet": "latest"
-  },
-  "devDependencies": {
-    "clean-css": "latest",
-    "eslint": "latest",
-    "essimpledoc": "latest",
-    "grunt": "latest",
-    "grunt-contrib-clean": "latest",
-    "grunt-contrib-copy": "latest",
-    "grunt-contrib-cssmin": "latest",
-    "grunt-eslint": "latest",
-    "grunt-essimpledoc": "latest",
-    "grunt-rollup": "latest",
-    "grunt-terser": "latest",
-    "grunt-wwwouaiebe-buildnumber": "latest",
-    "grunt-stylelint": "latest",
-    "osrm-text-instructions": "latest",
-    "rollup": "latest",
-    "stylelint": "latest",
-    "stylelint-config-standard": "latest",
-    "terser": "latest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wwwouaiebe/TravelNotes.git"
-  },
-  "scripts": {
-    "debug" : "node node_modules/grunt/bin/grunt debug",
-    "release" : "node node_modules/grunt/bin/grunt release",
-    "guides": "node ../HtmlFromMarkdown/main.js --src=docs/userGuides"
-    },  
-  "keywords": [
-    "Leaflet",
-    "Routing",
-    "Markers"
-  ],
-  "author": "wwwouaiebe",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/wwwouaiebe/TravelNotes/issues"
-  },
-  "sources": "https://github.com/wwwouaiebe/TravelNotes",
-  "homepage": "https://github.com/wwwouaiebe/TravelNotes#readme"
+    "type": "module",
+    "name": "travelnotes",
+    "version": "4.3.9-dev",
+    "buildNumber": 46,
+    "description": "A mapping and routing application.",
+    "main": "src/main/Main.js",
+    "dependencies": {
+        "leaflet": "latest"
+    },
+    "devDependencies": {
+        "osrm-text-instructions": "latest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/wwwouaiebe/TravelNotes.git"
+    },
+    "scripts": {
+        "release": "node ../AppBuilder/src/AppBuilder.js --type=release",
+        "debug": "node ../AppBuilder/src/AppBuilder.js --type=debug",
+        "guides": "node ../HtmlFromMarkdown/main.js --src=docs/userGuides",
+        "doc": "node ../ESSimpleDoc/bin/index.js --src=./src --dest=./docs/techDoc --validate=true"
+    },
+    "keywords": [
+        "Leaflet",
+        "Routing",
+        "Markers"
+    ],
+    "author": "wwwouaiebe",
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/wwwouaiebe/TravelNotes/issues"
+    },
+    "sources": "https://github.com/wwwouaiebe/TravelNotes",
+    "homepage": "https://github.com/wwwouaiebe/TravelNotes#readme"
 }

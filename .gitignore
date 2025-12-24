@@ -1,6 +1,4 @@
 node_modules/
 tmp/
-exclude/
 debug/
 tests/
-TravelNotes.code-workspace

@@ -171,6 +171,7 @@ class OverpassAPIDataLoader {
 
 	#parseData ( osmElements ) {
 		osmElements.forEach (
+			/* eslint-disable-next-line complexity */
 			osmElement => {
 				switch ( osmElement.type ) {
 				case 'node' :
