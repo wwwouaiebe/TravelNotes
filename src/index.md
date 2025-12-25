@@ -1,30 +1,3 @@
-# What to do if you wil change the application?
-
-First, you need Node.js and a local web server installed on your computer. Having GitHub Desktop and a Git shell will also facilitate your life.
-
-Then clone TravelNotes in your GitHub repository and install it on your computer.
-
-Open a Node.js command prompt or a Git shell and go to the directory where TravelNotes is installed and run __npm install TravelNotes__. All the needed Node packages wil be installed.
-
-From the Node.js command prompt or Git shell run:
-- __grunt__ to verify the sources with eslint
-- __grunt doc__ to build the technical documentation
-- __grunt debug__ to build the application in debug mode
-- __grunt release__ to build the application in debug and release mode and build the technical documentation
-
-When running grunt in debug or release mode, the source files are verified with eslint and rollup. If an error is found, grunt is stopped and the build not executed, 
-so you have to correct all the errors before you can run the application.
-
-## What's the difference between debug and release modes?
-
-In debug mode, the application is installed in the TravelNotes/debug folder and uses directly the sources files as ES6 modules. that's the more easy way to develop and debug the application.
-
-In release mode the application is installed in the TravelNotes/dist folder and in the TravelNotes/docs/demo folder. The TravelNotes/docs/demo folder contains all the needed files
-to run the application, included last version of leaflet. 
-
-In release mode, all the js sources files are grouped in one big js file with rollup, the private fields and methods transformed in public fields and method for compatibility with old browsers,
-and then this file is minified with Terser, so the file is quite imposible to understand if an error occurs at the execution time.
-
 # How the application works
 
 ## User actions

@@ -231,3 +231,30 @@ either via the pop-up menus. See the [user guide - en ](https://wwwouaiebe.githu
 
 - Issue #84 : Add a travel note from the url at startup, giving lat and lon as url parameters
 - Security fixes of dependencies
+
+### What's new in release 4.3.4
+
+- Security fixes of dependencies
+
+### What's new in release 4.3.5
+
+- Security fixes of dependencies
+
+### What's new in release 4.3.6
+
+- Security fixes of dependencies
+
+### What's new in release 4.3.7
+
+- Security fixes of dependencies
+
+
+### What's new in release 4.3.8
+
+- Security fixes of dependencies
+
+
+### What's new in release 4.3.9
+
+- Security fixes of dependencies
+- not working anymore with Grunt
