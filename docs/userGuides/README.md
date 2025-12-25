@@ -53,12 +53,12 @@ Other samples:
   
 ## Releases and branches
 
-### v4.3.3-prod branch
+### v4.3.9-prod branch
 
-The [v4.3.3 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.3.3) and the [v4.3.3-prod branch](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.3-prod)
+The [v4.3.9 release](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.3.9) and the [v4.3.9-prod branch](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.9-prod)
 contains the files of the last stable version.
 
-Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.3-prod/src)
+Sources are available in the [src folder](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.9-prod/src)
 
 ### master branch
 
@@ -66,8 +66,8 @@ The [master branch](https://github.com/wwwouaiebe/TravelNotes/tree/master) is th
 
 ## What's new in the last release
 
-- Issue #84 : Add a travel note from the url at startup, giving lat and lon as url parameters
 - Security fixes of dependencies
+- not working anymore with Grunt
 
 For other versions, see the document ['What's new?' - en ](https://wwwouaiebe.github.io/TravelNotes/userGuides/en/WhatsNew.html)
 
@@ -126,12 +126,12 @@ D'autres exemples:
 
 ## Versions et branches
 
-### branche v4.3.3-prod
+### branche v4.3.9-prod
 
-La [version v4.3.3](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.3.3) et la [branche v4.3.3-prod](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.3-prod)
+La [version v4.3.9](https://github.com/wwwouaiebe/TravelNotes/releases/tag/v4.3.9) et la [branche v4.3.9-prod](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.9-prod)
 contiennent les fichiers de la dernière version stable.
 
-Les sources sont disponibles dans le [répertoire src](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.3-prod/src)
+Les sources sont disponibles dans le [répertoire src](https://github.com/wwwouaiebe/TravelNotes/tree/v4.3.9-prod/src)
 
 ### branche master
 
@@ -139,7 +139,7 @@ La [branche master](https://github.com/wwwouaiebe/TravelNotes/tree/master) est l
 
 ## Quoi de neuf dans la dernière version
 
-- Issue #84 : Ajout d'une note de voyage au démarage quand les paramètres de l'url contiennent des paramètres lat et lon
 - Mises à jour de sécurité des dépendances
+- Grunt n'est plus utilisé pour construire l'app.
 
 Pour les autres versions, voir le document ['Quoi de neuf?' - fr ](https://wwwouaiebe.github.io/TravelNotes/userGuides/fr/QuoiDeNeuf.html)

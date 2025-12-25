@@ -224,14 +224,39 @@ soit via les menus contextuels. Voyez le [guide pour les utilisateurs - fr ](htt
 
 - Juste des mises à jour de sécurité des dépendances
 
-## Quoi de neuf dans la dernière 4.3.2
+## Quoi de neuf dans la version 4.3.2
 
 - Issue #80 : PublicTransportProvider ne prend pas en charge les roles osm stop_enter_only et stop_exit_only
 - Issue #81 : Une erreur se produit lors de l'ajout d'une note avec une adresse incomplète dans OSM
 - Issue #82 : Il n'est pas possible d'ouvrir un fichier distant quand le port n'est pas standard ( 80 ou 443 )
 - Mises à jour de sécurité des dépendances
 
-## Quoi de neuf dans la dernière 4.3.3
+## Quoi de neuf dans la version 4.3.3
 
 - Issue #84 : Ajout d'une note de voyage au démarage quand les paramètres de l'url contiennent des paramètres lat et lon
 - Mises à jour de sécurité des dépendances
+
+## Quoi de neuf dans la version 4.3.4
+
+- Mises à jour de sécurité des dépendances
+
+## Quoi de neuf dans la version 4.3.5
+
+- Mises à jour de sécurité des dépendances
+
+## Quoi de neuf dans la version 4.3.6
+
+- Mises à jour de sécurité des dépendances
+
+## Quoi de neuf dans la version 4.3.7
+
+- Mises à jour de sécurité des dépendances
+
+## Quoi de neuf dans la version 4.3.8
+
+- Mises à jour de sécurité des dépendances
+
+## Quoi de neuf dans la version 4.3.9
+
+- Mises à jour de sécurité des dépendances
+- Grunt n'est plus utilisé pour construire l'app.
