@@ -434,12 +434,12 @@
 			"backgroundColor":"#ffffff"
 		},
 		"providerName":"Maanmittauslaitos",
-		"providerKeyNeeded":false,
+		"providerKeyNeeded":true,
 		"attribution":"| <a href='https://www.maanmittauslaitos.fi/en/' target='_blank'>Maanmittauslaitos</a> "
 	},
 	{
 		"service":"wmts",
-		"url":"https://cache.kartverket.no/v1/wmts?layer=topo&style=default&tilematrixset=webmercator&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image/png&TileMatrix={z}&TileCol={x}&TileRow={y}",
+		"url":"https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png",
 		"minZoom":1,
 		"maxZoom":18,
 		"bounds":[ [ 56.84, 1.40 ], [ 82.00, 40.00 ] ],
@@ -452,7 +452,8 @@
 		},
 		"providerName":"Kartverket",
 		"providerKeyNeeded":false,
-		"attribution":"| <a href='https://kartverket.no/' target='_blank'>Kartverket</a> "
+		"attribution":"| <a href='https://kartverket.no/' target='_blank'>Kartverket</a> ",
+		"getCapabilitiesUrl":"https://cache.kartverket.no/v1/wmts/1.0.0/WMTSCapabilities.xml"
 	},
 	{
 		"service":"wmts",
