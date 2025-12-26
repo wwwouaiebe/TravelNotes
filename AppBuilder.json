@@ -74,7 +74,7 @@
                 "./src/roadbook/Roadbook.css",
                 "./src/css/Hidden.css"
            ],
-            "jsFile" : "./src/main/travelNotes/Main.js",
+            "jsFile" : "./src/roadbook/roadbook.js",
             "htmlFile" : null,
             "copyFiles" : [
                 { "src" : "./src/html/TravelNotesRoadbook.html", "dest" : "./docs/demo/TravelNotesRoadbook.html" }
