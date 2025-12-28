@@ -6,7 +6,8 @@
     "description": "A mapping and routing application.",
     "main": "src/main/Main.js",
     "dependencies": {
-        "leaflet": "latest"
+        "leaflet": "latest",
+        "only": "^0.0.2"
     },
     "devDependencies": {
         "osrm-text-instructions": "latest"
