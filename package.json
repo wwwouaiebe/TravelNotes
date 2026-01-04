@@ -1,13 +1,12 @@
 {
     "type": "module",
     "name": "travelnotes",
-    "version": "4.3.10",
-    "buildNumber": 133,
+    "version": "4.3.9",
+    "buildNumber": 62,
     "description": "A mapping and routing application.",
     "main": "src/main/Main.js",
     "dependencies": {
-        "leaflet": "latest",
-        "only": "^0.0.2"
+        "leaflet": "latest"
     },
     "devDependencies": {
         "osrm-text-instructions": "latest"

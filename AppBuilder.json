@@ -1,121 +1,13 @@
-[
-    {
-        "name" : "Running ESLint",
-        "ESLintFiles" : [ "./src/**/*.js" ]
-    },
-    {
-        "name" : "Running StyleLint",
-        "styleLintFiles" : [ "./src/**/*.css" ]
-    },
-    {
-        "type" : "release",
-        "name" : "Cleaning destination directories for release",
-        "cleanDirs" : [ "./docs/demo/" ]
-    },
-    {
-        "type" : "release",
-        "name" : "Building TravelNotes js",
-        "jsFile" : {
-            "htmlPath" : "travelNotes.min.js",
-            "src" : "./src/main/travelNotes/Main.js",
-            "dest" : "./docs/demo/TravelNotes.min.js"
-        }
-    },
-    {
-        "type" : "release",
-        "name" : "Building GraphHopperRouteProvider js",
-        "jsFile" : {
-                "htmlPath" : "TravelNotesProviders/GraphHopperRouteProvider.min.js",
-                "src" : "./src/routeProviders/GraphHopperRouteProvider.js",
-                "dest" : "./docs/demo/TravelNotesProviders/GraphHopperRouteProvider.min.js"
-        }
-    },
-    {
-        "type" : "release",
-        "name" : "Building MapboxRouteProvider js",
-        "jsFile" : {
-                "htmlPath" : "TravelNotesProviders/MapboxRouteProvider.min.js",
-                "src" : "./src/routeProviders/MapboxRouteProvider.js",
-                "dest" : "./docs/demo/TravelNotesProviders/MapboxRouteProvider.min.js"
-        }
-    },
-    {
-        "type" : "release",
-        "name" : "Building MapzenValhallaRouteProvider js",
-        "jsFile" : {
-                "htmlPath" : "TravelNotesProviders/MapzenValhallaRouteProvider.min.js",
-                "src" : "./src/routeProviders/MapzenValhallaRouteProvider.js",
-                "dest" : "./docs/demo/TravelNotesProviders/MapzenValhallaRouteProvider.min.js"
-        }
-    },
-    {
-        "type" : "release",
-        "name" : "Building OpenRouteServiceRouteProvider js",
-        "jsFile" : {
-                "htmlPath" : "TravelNotesProviders/OpenRouteServiceRouteProvider.min.js",
-                "src" : "./src/routeProviders/OpenRouteServiceRouteProvider.js",
-                "dest" : "./docs/demo/TravelNotesProviders/OpenRouteServiceRouteProvider.min.js"
-        }
-    },
-    {
-        "type" : "release",
-        "name" : "Building OsrmRouteProvider js",
-        "jsFile" : {
-                "htmlPath" : "TravelNotesProviders/OsrmRouteProvider.min.js",
-                "src" : "./src/routeProviders/OsrmRouteProvider.js",
-                "dest" : "./docs/demo/TravelNotesProviders/OsrmRouteProvider.min.js"
-        }
-    },
-    {
-        "type" : "release",
-        "name" : "Copying files for OsrmRouteProvider",
-        "copyFiles" : [
-            { 
-                "src" : "./node_modules/osrm-text-instructions/languages/abbreviations/en.json", 
-                "dest" : "./docs/demo/TravelNotesProviders/languages/abbreviations/en.json"
-            },
-            { 
-                "src" : "./node_modules/osrm-text-instructions/languages/abbreviations/fr.json", 
-                "dest" : "./docs/demo/TravelNotesProviders/languages/abbreviations/fr.json"
-            },
-            { 
-                "src" : "./node_modules/osrm-text-instructions/languages/grammar/fr.json", 
-                "dest" : "./docs/demo/TravelNotesProviders/languages/grammars/fr.json"
-            },
-            { 
-                "src" : "./node_modules/osrm-text-instructions/languages/translations/en.json", 
-                "dest" : "./docs/demo/TravelNotesProviders/languages/instructions/en.json"
-            },
-            { 
-                "src" : "./node_modules/osrm-text-instructions/languages/translations/fr.json", 
-                "dest" : "./docs/demo/TravelNotesProviders/languages/instructions/fr.json"
-            }
-        ]
-     },
-    {
-        "type" : "release",
-        "name" : "Building PolylineRouteProvider js",
-        "jsFile" : {
-                "htmlPath" : "TravelNotesProviders/PolylineRouteProvider.min.js",
-                "src" : "./src/routeProviders/PolylineRouteProvider.js",
-                "dest" : "./docs/demo/TravelNotesProviders/PolylineRouteProvider.min.js"
-        }
-    },
-    {
-        "type" : "release",
-        "name" : "Building PublicTransportRouteProvider js",
-        "jsFile" : {
-                "htmlPath" : "TravelNotesProviders/PublicTransportRouteProvider.min.js",
-                "src" : "./src/routeProviders/PublicTransportRouteProvider.js",
-                "dest" : "./docs/demo/TravelNotesProviders/PublicTransportRouteProvider.min.js"
-        }
-    },
-    {
-        "type" : "release",
-        "name" : "Building TravelNotes css",
-        "cssFile" : {
-            "htmlPath" : "TravelNotes.min.css",
-            "src" : [
+{
+    "ESLintFiles" : [ "./src/**/*.js" ],
+    "styleLintFiles" : [ "./src/**/*.css" ],
+    "tasks" : [
+        {
+            "type" : "release",
+            "name" : "TravelNotes",
+            "cleanDirs" : [ "./docs/demo/" ],
+            "destDir" : "./docs/demo/",
+            "cssFiles" : [
                 "./node_modules/leaflet/dist/leaflet.css",
                 "./src/css/Map.css",
                 "./src/css/Notes.css",
@@ -159,38 +51,20 @@
                 "./src/uis/mouseUI/MouseUI.css",
                 "./src/uis/waitUI/WaitUI.css",
                 "./src/css/Hidden.css"
-            ],
-            "dest" : "./docs/demo/TravelNotes.min.css"
-        }
-    },
-    {
-        "type" : "release",
-        "name" : "Building TravelNotes html",
-        "htmlFile" : {
-            "src" : "./src/html/index.html",
-            "dest" : "./docs/demo/index.html"
-        }
-    },
-    {
-        "type" : "release",
-        "name" : "Copying TravelNotes configuration",
-        "copyFiles" : [
-            { 
-                "src" : "./src/cfg/", 
-                "dest" : "./docs/demo/" 
-            },
-            { 
-                "src" : "./src/translations/", 
-                "dest" : "./docs/demo/" 
-            }
-        ]
-    },
-    {
-       "type" : "release",
-       "name" : "Building TravelNotes Roadbook css",
-        "cssFile" : {
-            "htmlPath" : "TravelNotesRoadbook.min.css",
-            "src" : [
+             ],
+            "jsFile" : "./src/main/travelNotes/Main.js",
+            "htmlFile" : null,
+            "copyFiles" : [
+                { "src" : "./src/cfg/", "dest" : "./docs/demo/" },
+                { "src" : "./src/translations/", "dest" : "./docs/demo/" },
+                { "src" : "./src/html/index.html", "dest" : "./docs/demo/index.html" }
+            ]
+        },
+        {
+            "type" : "release",
+            "name" : "TravelNotesRoadbook",
+            "destDir" : "./docs/demo/",
+            "cssFiles" : [
                 "./src/css/TravelForRoadbook.css",
                 "./src/css/Notes.css",
                 "./src/css/NotesIcons.css",
@@ -199,34 +73,18 @@
                 "./src/css/RoutesForSvgProfile.css",
                 "./src/roadbook/Roadbook.css",
                 "./src/css/Hidden.css"
-            ],
-            "dest" : "./docs/demo/TravelNotesRoadbook.min.css"
-        }
-    },
-    {
-        "type" : "release",
-        "name" : "Building TravelNotes Roadbook js",
-        "jsFile" : {
-            "htmlPath" : "TravelNotesRoadbook.min.js",
-            "src" : "./src/roadbook/roadbook.js",
-            "dest" : "./docs/demo/TravelNotesRoadbook.min.js"
-        }
-    },
-    {
-        "type" : "release",
-        "name" : "Building TravelNotes Roadbook html",
-        "htmlFile" :
-            { 
-                "src" : "./src/html/TravelNotesRoadbook.html", 
-                "dest" : "./docs/demo/TravelNotesRoadbook.html" 
-            }
-    },
-    {
-        "type" : "release",
-        "name" : "Building TravelNotes Viewer css",
-        "cssFile" : {
-            "htmlPath" : "TravelNotesViewer.min.css",
-            "src" : [
+           ],
+            "jsFile" : "./src/roadbook/roadbook.js",
+            "htmlFile" : null,
+            "copyFiles" : [
+                { "src" : "./src/html/TravelNotesRoadbook.html", "dest" : "./docs/demo/TravelNotesRoadbook.html" }
+            ]
+        },
+       {
+            "type" : "release",
+            "name" : "TravelNotesViewer",
+            "destDir" : "./docs/demo/viewer/",
+            "cssFiles" : [
                 "node_modules/leaflet/dist/leaflet.css",
                 "./src/css/Map.css",
                 "./src/css/Notes.css",
@@ -236,47 +94,108 @@
                 "./src/toolbars/viewerLayersToolbar/ViewerLayersToolbar.css",
                 "./src/uis/AttributionsUI/AttributionsUI.css",
                 "./src/uis/ErrorsUI/ErrorsUI.css"
-            ],
-            "dest" : "./docs/demo/viewer/TravelNotesViewer.min.css"
-        }
-    },
-    {
-        "type" : "release",
-        "name" : "Building TravelNotes Viewer js",
-        "jsFile" : {
-            "htmlPath" : "TravelNotesViewer.min.js",
-            "src" : "./src/main/travelNotesViewer/MainViewer.js",
-            "dest" : "./docs/demo/viewer/TravelNotesViewer.min.js"
-        }
-    },
-    {
-        "type" : "release",
-        "name" : "Building TravelNotes Viewer html",
-        "htmlFile" : {
-            "src" : "./src/html/TravelNotesViewer.html", 
-            "dest" : "./docs/demo/viewer/index.html" 
-        }
-    },
-    {
-        "type" : "release",
-        "name" : "Copying TravelNotes Viewer configuration",
-        "copyFiles" : [
-            { "src" : "./src/cfg/TravelNotesConfig.json", "dest" : "./docs/demo/viewer/TravelNotesConfig.json" },
-            { "src" : "./src/cfg/TravelNotesLayers.json", "dest" : "./docs/demo/viewer/TravelNotesLayers.json" },
-            { "src" : "./src/translations/", "dest" : "./docs/demo/viewer/" }
-        ]
-    },
-    {
-        "type" : "debug",
-        "name" : "Cleaning destination directories for debug",
-        "cleanDirs" : [ "./debug/" ]
-    },
-    {
-        "type" : "debug",
-        "name" : "Building TravelNotes css",
-        "cssFile" : {
-            "htmlPath" : "",
-            "src" : [
+           ],
+            "jsFile" : "./src/main/travelNotesViewer/MainViewer.js",
+            "htmlFile" : null,
+            "copyFiles" : [
+                { "src" : "./src/cfg/TravelNotesConfig.json", "dest" : "./docs/demo/viewer/TravelNotesConfig.json" },
+                { "src" : "./src/cfg/TravelNotesLayers.json", "dest" : "./docs/demo/viewer/TravelNotesLayers.json" },
+                { "src" : "./src/translations/", "dest" : "./docs/demo/viewer/" },
+                { "src" : "./src/html/TravelNotesViewer.html", "dest" : "./docs/demo/viewer/index.html" }
+            ]
+        },
+        {
+            "type" : "release",
+            "name" : "GraphHopperRouteProvider",
+            "destDir" : "./docs/demo/TravelNotesProviders/",
+            "cssFiles" : [],
+            "jsFile" : "./src/routeProviders/GraphHopperRouteProvider.js",
+            "htmlFile" : null,
+            "copyFiles" : []
+        },
+        {
+            "type" : "release",
+            "name" : "MapboxRouteProvider",
+            "destDir" : "./docs/demo/TravelNotesProviders/",
+            "cssFiles" : [],
+            "jsFile" : "./src/routeProviders/MapboxRouteProvider.js",
+            "htmlFile" : null,
+            "copyFiles" : []
+        },
+        {
+            "type" : "release",
+            "name" : "MapzenValhallaRouteProvider",
+            "destDir" : "./docs/demo/TravelNotesProviders/",
+            "cssFiles" : [],
+            "jsFile" : "./src/routeProviders/MapzenValhallaRouteProvider.js",
+            "htmlFile" : null,
+            "copyFiles" : []
+        },
+        {
+            "type" : "release",
+            "name" : "OpenRouteServiceRouteProvider",
+            "destDir" : "./docs/demo/TravelNotesProviders/",
+            "cssFiles" : [],
+            "jsFile" : "./src/routeProviders/OpenRouteServiceRouteProvider.js",
+            "htmlFile" : null,
+            "copyFiles" : []
+        },
+        {
+            "type" : "release",
+            "name" : "OsrmRouteProvider",
+            "destDir" : "./docs/demo/TravelNotesProviders/",
+            "cssFiles" : [],
+            "jsFile" : "./src/routeProviders/OsrmRouteProvider.js",
+            "htmlFile" : null,
+            "copyFiles" : [
+                { 
+                    "src" : "./node_modules/osrm-text-instructions/languages/abbreviations/en.json", 
+                    "dest" : "./docs/demo/TravelNotesProviders/languages/abbreviations/en.json"
+                },
+                { 
+                    "src" : "./node_modules/osrm-text-instructions/languages/abbreviations/fr.json", 
+                    "dest" : "./docs/demo/TravelNotesProviders/languages/abbreviations/fr.json"
+                },
+                { 
+                    "src" : "./node_modules/osrm-text-instructions/languages/grammar/fr.json", 
+                    "dest" : "./docs/demo/TravelNotesProviders/languages/grammars/fr.json"
+                },
+                { 
+                    "src" : "./node_modules/osrm-text-instructions/languages/translations/en.json", 
+                    "dest" : "./docs/demo/TravelNotesProviders/languages/instructions/en.json"
+                },
+                { 
+                    "src" : "./node_modules/osrm-text-instructions/languages/translations/fr.json", 
+                    "dest" : "./docs/demo/TravelNotesProviders/languages/instructions/fr.json"
+                }
+            ]
+        },
+        {
+            "type" : "release",
+            "name" : "PolylineRouteProvider",
+            "destDir" : "./docs/demo/TravelNotesProviders/",
+            "cssFiles" : [],
+            "jsFile" : "./src/routeProviders/PolylineRouteProvider.js",
+            "htmlFile" : null,
+            "copyFiles" : []
+        },
+        {
+            "type" : "release",
+            "name" : "PublicTransportRouteProvider",
+            "destDir" : "./docs/demo/TravelNotesProviders/",
+            "cssFiles" : [],
+            "jsFile" : "./src/routeProviders/PublicTransportRouteProvider.js",
+            "htmlFile" : null,
+            "copyFiles" : []
+        },
+
+
+        {
+            "type" : "debug",
+            "name" : "TravelNotes",
+            "cleanDirs" : [ "./debug/" ],
+            "destDir" : "./debug/",
+            "cssFiles" : [
                 "./node_modules/leaflet/dist/leaflet.css",
                 "./src/css/Map.css",
                 "./src/css/Notes.css",
@@ -320,54 +239,40 @@
                 "./src/uis/mouseUI/MouseUI.css",
                 "./src/uis/waitUI/WaitUI.css",
                 "./src/css/Hidden.css"
-            ],
-            "dest" :"./debug/TravelNotes.min.css"
-        }
-    },
-     {
-        "type" : "debug",
-        "name" : "Copying files for OsrmRouteProvider",
-        "copyFiles" : [
-            { 
-                "src" : "./src/cfg/", 
-                "dest" : "./debug/" 
-            },
-            { 
-                "src" : "./src/translations/", 
-                "dest" : "./debug/" 
-            },
-            { 
-                "src" : "./src/html/indexDebug.html", 
-                "dest" : "./debug/index.html" 
-            },
-            { 
-                "src" : "./node_modules/osrm-text-instructions/languages/abbreviations/en.json", 
-                "dest" : "./debug/TravelNotesProviders/languages/abbreviations/en.json"
-            },
-            { 
-                "src" : "./node_modules/osrm-text-instructions/languages/abbreviations/fr.json", 
-                "dest" : "./debug/TravelNotesProviders/languages/abbreviations/fr.json"
-            },
-            { 
-                "src" : "./node_modules/osrm-text-instructions/languages/grammar/fr.json", 
-                "dest" : "./debug/TravelNotesProviders/languages/grammars/fr.json"
-            },
-            { 
-                "src" : "./node_modules/osrm-text-instructions/languages/translations/en.json", 
-                "dest" : "./debug/TravelNotesProviders/languages/instructions/en.json"
-            },
-            { 
-                "src" : "./node_modules/osrm-text-instructions/languages/translations/fr.json", 
-                "dest" : "./debug/TravelNotesProviders/languages/instructions/fr.json"
-            }
-        ]
-    },
-    {
-        "type" : "debug",
-        "name" : "Building TravelNotes Roadbook css",
-        "cssFile" : { 
-            "htmlPath" : "TravelNotesRoadbook.min.css",
-            "src" : [
+             ],
+            "jsFile" : null,
+            "htmlFile" : null,
+            "copyFiles" : [
+                { "src" : "./src/cfg/", "dest" : "./debug/" },
+                { "src" : "./src/translations/", "dest" : "./debug/" },
+                { "src" : "./src/html/indexDebug.html", "dest" : "./debug/index.html" },
+                { 
+                    "src" : "./node_modules/osrm-text-instructions/languages/abbreviations/en.json", 
+                    "dest" : "./debug/TravelNotesProviders/languages/abbreviations/en.json"
+                },
+                { 
+                    "src" : "./node_modules/osrm-text-instructions/languages/abbreviations/fr.json", 
+                    "dest" : "./debug/TravelNotesProviders/languages/abbreviations/fr.json"
+                },
+                { 
+                    "src" : "./node_modules/osrm-text-instructions/languages/grammar/fr.json", 
+                    "dest" : "./debug/TravelNotesProviders/languages/grammars/fr.json"
+                },
+                { 
+                    "src" : "./node_modules/osrm-text-instructions/languages/translations/en.json", 
+                    "dest" : "./debug/TravelNotesProviders/languages/instructions/en.json"
+                },
+                { 
+                    "src" : "./node_modules/osrm-text-instructions/languages/translations/fr.json", 
+                    "dest" : "./debug/TravelNotesProviders/languages/instructions/fr.json"
+                }
+            ]
+        },
+        {
+            "type" : "debug",
+            "name" : "TravelNotesRoadbook",
+            "destDir" : "./debug/",
+            "cssFiles" : [
                 "./src/css/TravelForRoadbook.css",
                 "./src/css/Notes.css",
                 "./src/css/NotesIcons.css",
@@ -376,26 +281,18 @@
                 "./src/css/RoutesForSvgProfile.css",
                 "./src/roadbook/Roadbook.css",
                 "./src/css/Hidden.css"
-            ],
-            "dest" : "./debug/TravelNotesRoadbook.min.css"
-        }
-    },
-    {
-        "type" : "debug",
-        "name" : "Copying files for TravelNotes Roadbook",
-        "copyFiles" : [
-            { 
-                "src" : "./src/html/TravelNotesRoadbookDebug.html", 
-                "dest" : "./debug/TravelNotesRoadbook.html" 
-            }
-        ]
-    },
-    {
-        "type" : "debug",
-        "name" : "Building TravelNotesViewer css",
-        "cssFile" : {
-            "htmlPath" : "TravelNotesViewer.min.css",
-            "src" : [
+           ],
+            "jsFile" : null,
+            "htmlFile" : null,
+            "copyFiles" : [
+                { "src" : "./src/html/TravelNotesRoadbookDebug.html", "dest" : "./debug/TravelNotesRoadbook.html" }
+            ]
+        },
+       {
+            "type" : "debug",
+            "name" : "TravelNotesViewer",
+            "destDir" : "./debug/viewer/",
+            "cssFiles" : [
                 "node_modules/leaflet/dist/leaflet.css",
                 "./src/css/Map.css",
                 "./src/css/Notes.css",
@@ -405,30 +302,15 @@
                 "./src/toolbars/viewerLayersToolbar/ViewerLayersToolbar.css",
                 "./src/uis/AttributionsUI/AttributionsUI.css",
                 "./src/uis/ErrorsUI/ErrorsUI.css"
-            ],
-            "dest" : "./debug/viewer/TravelNotesViewer.min.css"
+           ],
+            "jsFile" : null,
+            "htmlFile" : null,
+            "copyFiles" : [
+                { "src" : "./src/cfg/TravelNotesConfig.json", "dest" : "./debug/viewer/TravelNotesConfig.json" },
+                { "src" : "./src/cfg/TravelNotesLayers.json", "dest" : "./debug/viewer/TravelNotesLayers.json" },
+                { "src" : "./src/translations/", "dest" : "./debug/viewer/" },
+                { "src" : "./src/html/TravelNotesViewerDebug.html", "dest" : "./debug/viewer/index.html" }
+            ]
         }
-    },
-    {
-        "type" : "debug",
-        "name" : "Copying files for TravelNotes viewer",
-        "copyFiles" : [
-            { 
-                "src" : "./src/cfg/TravelNotesConfig.json", 
-                "dest" : "./debug/viewer/TravelNotesConfig.json" 
-            },
-            { 
-                "src" : "./src/cfg/TravelNotesLayers.json", 
-                "dest" : "./debug/viewer/TravelNotesLayers.json" 
-            },
-            { 
-                "src" : "./src/translations/", 
-                "dest" : "./debug/viewer/" 
-            },
-            { 
-                "src" : "./src/html/TravelNotesViewerDebug.html", 
-                "dest" : "./debug/viewer/index.html" 
-            }
-        ]
-    }
-]
+    ]
+}
