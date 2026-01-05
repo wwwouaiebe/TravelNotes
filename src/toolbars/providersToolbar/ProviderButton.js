@@ -72,8 +72,8 @@ class ProviderButton {
 			'img',
 			{
 				src : provider.icon,
-				id : 'TravelNotes-ProvidersToolbar-' + provider.name + 'ImgButton',
-				className : 'TravelNotes-ProvidersToolbar-ImgButton',
+				id : 'travelnotes-providers-toolbar-' + provider.name + 'img-button',
+				className : 'travelnotes-providers-toolbar-img-button',
 				title : provider.title || provider.name
 			}
 		);
@@ -111,10 +111,10 @@ class ProviderButton {
 
 	set active ( active ) {
 		if ( active ) {
-			this.#buttonHTMLElement.classList.add ( 'TravelNotes-ProvidersToolbar-ActiveProviderImgButton' );
+			this.#buttonHTMLElement.classList.add ( 'travelnotes-providers-toolbar-active-provider-img-button' );
 		}
 		else {
-			this.#buttonHTMLElement.classList.remove ( 'TravelNotes-ProvidersToolbar-ActiveProviderImgButton' );
+			this.#buttonHTMLElement.classList.remove ( 'travelnotes-providers-toolbar-active-provider-img-button' );
 		}
 	}
 }

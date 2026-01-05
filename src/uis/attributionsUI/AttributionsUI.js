@@ -54,7 +54,7 @@ class AttributionsUI {
 	*/
 
 	createUI ( ) {
-		this.#mainHTMLElement = theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-AttributionsUI' }, document.body );
+		this.#mainHTMLElement = theHTMLElementsFactory.create ( 'div', { id : 'travelnotes-attributions-ui' }, document.body );
 	}
 
 	/**

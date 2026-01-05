@@ -23,15 +23,8 @@ Changes:
 Doc reviewed 202208
  */
 
-.TravelNotes-ItineraryPaneUI-Route-Header-Name {
-	font-weight: bold;
-}
-
-.TravelNotes-ItineraryPaneUI-Route-Header-Distance > span,
-.TravelNotes-ItineraryPaneUI-Route-Header-Ascent > span,
-.TravelNotes-ItineraryPaneUI-Route-Header-Descent > span,
-.TravelNotes-ItineraryPaneUI-Route-Header-Duration > span {
-	text-decoration: underline;
+.travelnotes-adress-control-input-text {
+	width: 100%;
 }
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

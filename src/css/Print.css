@@ -21,7 +21,7 @@ Changes:
 Doc reviewed 202208
  */
 
-.TravelNotes-routeViewDiv {
+.travelnotes-route-view-container {
 	margin-top: 5mm;
 	margin-left: auto;
 	margin-right: auto;
@@ -29,12 +29,7 @@ Doc reviewed 202208
 	break-inside: avoid;
 }
 
-/*
-.TravelNotes-routeViewDiv.TravelNotes-PrintPageBreak {
-}
-*/
-
-#TravelNotes-PrintToolbar {
+#travelnotes-print-toolbar {
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -47,16 +42,16 @@ Doc reviewed 202208
 }
 
 @media print {
-	body.TravelNotes-Maps-FirefoxBrowser {
+	body.travelnotes-maps-firefox-browser {
 		display: grid;
 		grid-template-columns: 1fr;
 	}
 
-	.TravelNotes-routeViewDiv {
+	.travelnotes-route-view-container {
 		margin: auto;
 	}
 
-	#TravelNotes-PrintToolbar {
+	#travelnotes-print-toolbar {
 		width: 0;
 		height: 0;
 		margin: 0;

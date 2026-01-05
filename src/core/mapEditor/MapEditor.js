@@ -241,9 +241,9 @@ class MapEditor	extends MapEditorViewer {
 		}
 
 		// a HTML element is created, with different class name, depending of the waypont position. See also WayPoints.css
-		const iconHtml = '<div class="TravelNotes-Map-WayPoint TravelNotes-Map-WayPoint' +
-		( 'A' === letter ? 'Start' : ( 'B' === letter ? 'End' : 'Via' ) ) +
-		'"></div><div class="TravelNotes-Map-WayPointText">' + letter + '</div>';
+		const iconHtml = '<div class="travelnotes-map-way-point travelnotes-map-way-point-' +
+		( 'A' === letter ? 'start' : ( 'B' === letter ? 'end' : 'via' ) ) +
+		'"></div><div class="travelnotes-map-way-point-text">' + letter + '</div>';
 
 		// a leaflet marker is created...
 		const marker = new LeafletMarker (
@@ -257,7 +257,7 @@ class MapEditor	extends MapEditorViewer {
 							WAY_POINT_ICON_SIZE
 						],
 						html : iconHtml,
-						className : 'TravelNotes-Map-WayPointStyle'
+						className : 'travelnotes-map-way-point-style'
 					}
 				),
 				draggable : true

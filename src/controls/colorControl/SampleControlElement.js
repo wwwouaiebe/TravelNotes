@@ -49,7 +49,7 @@ class SampleControlElement {
 		this.#sampleHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				id : 'TravelNotes-ColorControl-ColorSampleHTMLElement'
+				id : 'travelnotes-color-control-color-sample'
 			},
 			colorControl.controlHTMLElement
 		);

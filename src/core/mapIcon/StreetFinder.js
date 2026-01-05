@@ -339,7 +339,7 @@ class StreetFinder {
 	#addCity ( ) {
 		if ( '' !== this.#overpassAPIDataLoader.city ) {
 			this.#noteData.address +=
-				' <span class="TravelNotes-NoteHtml-Address-City">' + this.#overpassAPIDataLoader.city + '</span>';
+				' <span class="travelnotes-note-html-address-city">' + this.#overpassAPIDataLoader.city + '</span>';
 		}
 		if ( this.#overpassAPIDataLoader.place && this.#overpassAPIDataLoader.place !== this.#overpassAPIDataLoader.city ) {
 			this.#noteData.address += ' (' + this.#overpassAPIDataLoader.place + ')';

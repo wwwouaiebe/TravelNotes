@@ -78,7 +78,7 @@ class OsmSearchTree {
 		const itemHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-OsmSearchDialog-SearchItemMargin' + this.#deepTree,
+				className : 'travelnotes-osm-search-dialog-search-item-margin' + this.#deepTree,
 				dataset : { ObjId : item.objId }
 			},
 			this.#treeHTMLElement
@@ -102,7 +102,7 @@ class OsmSearchTree {
 			const itemArrow = theHTMLElementsFactory.create (
 				'div',
 				{
-					className : 'TravelNotes-BaseDialog-Button TravelNotes-OsmSearchDialog-TreeArrow',
+					className : 'travelnotes-base-dialog-button travelnotes-osm-search-dialog-tree-arrow',
 					textContent : item.isExpanded ? '▼' : '▶'
 				},
 				itemHTMLElement
@@ -142,7 +142,7 @@ class OsmSearchTree {
 		this.#treeHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				id : 'TravelNotes-OsmSearchDialog-SearchTree'
+				id : 'travelnotes-osm-search-dialog-search-tree'
 			}
 		);
 

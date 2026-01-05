@@ -70,7 +70,7 @@ class NoteDialogLinkControl extends BaseControl {
 					theHTMLElementsFactory.create (
 						'div',
 						{
-							className : 'TravelNotes-BaseDialog-Button',
+							className : 'travelnotes-base-dialog-button',
 							title : 'Reminder! The devil will know everything about you'
 						},
 						linkHeaderDiv
@@ -94,7 +94,7 @@ class NoteDialogLinkControl extends BaseControl {
 		const linkHeaderControlElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-FlexRow'
+				className : 'travelnotes-base-dialog-flex-row'
 			},
 			this.controlHTMLElement
 		);
@@ -110,13 +110,13 @@ class NoteDialogLinkControl extends BaseControl {
 			'input',
 			{
 				type : 'text',
-				className : 'TravelNotes-NoteDialog-InputText',
+				className : 'travelnotes-note-dialog-input-text',
 				dataset : { Name : 'url' }
 			},
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					className : 'TravelNotes-BaseDialog-FlexRow'
+					className : 'travelnotes-base-dialog-flex-row'
 				},
 				this.controlHTMLElement
 			)

@@ -57,7 +57,6 @@ class IndexedDb {
 	@type {Number}
 	*/
 
-	// eslint-disable-next-line no-magic-numbers
 	static get #DB_VERSION ( ) { return 1; }
 
 	/**

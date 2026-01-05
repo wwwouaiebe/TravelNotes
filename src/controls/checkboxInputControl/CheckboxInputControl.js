@@ -58,7 +58,7 @@ class CheckboxInputControl extends BaseControl {
 			'input',
 			{
 				type : 'checkbox',
-				className : 'TravelNotes-CheckboxInputControl-Checkbox',
+				className : 'travelnotes-checkbox-input-control-checkbox',
 				checked : options?.checked,
 				dataset : { Name : options?.datasetName || 'CheckboxInputControl' }
 			},

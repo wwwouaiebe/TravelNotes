@@ -45,14 +45,14 @@ class DockableBaseDialogMover extends BaseDialogMover {
 
 	#dockDialog ( ) {
 		if ( this.onTop ) {
-			this.dialogHTMLElement.classList.add ( 'TravelNotes-DockableBaseDialog-Docked' );
-			this.dialogHTMLElement.classList.add ( 'TravelNotes-DockableBaseDialog-HiddenContent' );
+			this.dialogHTMLElement.classList.add ( 'travelnotes-dockable-base-dialog-docked' );
+			this.dialogHTMLElement.classList.add ( 'travelnotes-dockable-base-dialog-hidden-content' );
 			this.dialogHTMLElement.style.top = '0px';
 			this.#dialogDocked = true;
 		}
 		else {
-			this.dialogHTMLElement.classList.remove ( 'TravelNotes-DockableBaseDialog-Docked' );
-			this.dialogHTMLElement.classList.remove ( 'TravelNotes-DockableBaseDialog-HiddenContent' );
+			this.dialogHTMLElement.classList.remove ( 'travelnotes-dockable-base-dialog-docked' );
+			this.dialogHTMLElement.classList.remove ( 'travelnotes-dockable-base-dialog-hidden-content' );
 			this.#dialogDocked = false;
 		}
 	}
@@ -78,8 +78,8 @@ class DockableBaseDialogMover extends BaseDialogMover {
 	*/
 
 	centerDialog ( ) {
-		this.dialogHTMLElement.classList.remove ( 'TravelNotes-DockableBaseDialog-Docked' );
-		this.dialogHTMLElement.classList.remove ( 'TravelNotes-DockableBaseDialog-HiddenContent' );
+		this.dialogHTMLElement.classList.remove ( 'travelnotes-dockable-base-dialog-docked' );
+		this.dialogHTMLElement.classList.remove ( 'travelnotes-dockable-base-dialog-hidden-content' );
 		super.centerDialog ( );
 	}
 

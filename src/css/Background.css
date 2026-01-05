@@ -23,7 +23,7 @@ Changes:
 Doc reviewed 202208
  */
 
-.TravelNotes-Background {
+.travelnotes-background {
 	position: absolute;
 	width: 100vw;
 	height: 100vh;
@@ -36,7 +36,7 @@ Doc reviewed 202208
 	background-color: rgb(0 0 0 / 40%);
 }
 
-.TravelNotes-Background:hover {
+.travelnotes-background:hover {
 	cursor: move;
 }
 

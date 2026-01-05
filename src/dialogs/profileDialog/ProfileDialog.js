@@ -172,9 +172,12 @@ class ProfileDialog extends NonModalBaseDialog {
 		this.#svgContextMenuEL = new SvgContextMenuEL ( );
 		this.#svgMouseMoveEL = new SvgMouseMoveEL ( );
 		this.#svgMouseLeaveEL = new SvgMouseLeaveEL ( );
-		this.#svgDiv = theHTMLElementsFactory.create ( 'div', { className : 'TravelNotes-ProfileDialog-SvgContainer' } );
-		this.#nameDiv = theHTMLElementsFactory.create ( 'div', { className : 'TravelNotes-ProfileDialog-NameContainer' } );
-		this.#ascentDiv = theHTMLElementsFactory.create ( 'div', { className : 'TravelNotes-ProfileDialog-AscentContainer' } );
+		this.#svgDiv = theHTMLElementsFactory.create ( 'div', { className : 'travelnotes-profile-dialog-svg-container' } );
+		this.#nameDiv = theHTMLElementsFactory.create ( 'div', { className : 'travelnotes-profile-dialog-name-container' } );
+		this.#ascentDiv = theHTMLElementsFactory.create (
+			'div',
+			{ className : 'travelnotes-profile-dialog-ascent-container' }
+		);
 	}
 
 	/**

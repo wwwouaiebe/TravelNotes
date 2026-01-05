@@ -23,7 +23,7 @@ Changes:
 Doc reviewed 202208
  */
 
-#TravelNotes-MouseUI {
+#travelnotes-mouse-ui {
 	position: absolute;
 	top: 0;
 	left: calc(50% - 11em);
@@ -37,21 +37,21 @@ Doc reviewed 202208
 	transition: all 1.5s ease;
 }
 
-#TravelNotes-MouseUI:hover {
+#travelnotes-mouse-ui:hover {
 	opacity: 1;
 	transition: all 1.5s ease;
 }
 
-#TravelNotes-MouseUI-ZoomMinus {
+#travelnotes-mouse-ui-zoom-minus {
 	cursor: zoom-out;
 }
 
-#TravelNotes-MouseUI-ZoomPlus {
+#travelnotes-mouse-ui-zoom-plus {
 	cursor: zoom-in;
 }
 
-#TravelNotes-MouseUI-ZoomMinus.TravelNotes-MouseUI-Disabled,
-#TravelNotes-MouseUI-ZoomPlus.TravelNotes-MouseUI-Disabled {
+#travelnotes-mouse-ui-zoom-minus.travelnotes-mouse-ui-disabled,
+#travelnotes-mouse-ui-zoom-plus.travelnotes-mouse-ui-disabled {
 	color: lightgrey;
 	cursor: not-allowed;
 }

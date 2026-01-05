@@ -46,18 +46,18 @@ class OsmSearchWait {
 	constructor ( ) {
 		this.#waitHTMLElement = theHTMLElementsFactory.create (
 			'div',
-			{ className : 'TravelNotes-WaitAnimation' }
+			{ className : 'travelnotes-wait-animation' }
 		);
 
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-WaitAnimationBullet'
+				className : 'travelnotes-wait-animation-bullet'
 			},
 			this.#waitHTMLElement
 		);
 
-		this.#waitHTMLElement.classList.add ( 'TravelNotes-Hidden' );
+		this.#waitHTMLElement.classList.add ( 'travelnotes-hidden' );
 	}
 
 	/**
@@ -65,7 +65,7 @@ class OsmSearchWait {
 	*/
 
 	showWait ( ) {
-		this.#waitHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
+		this.#waitHTMLElement.classList.remove ( 'travelnotes-hidden' );
 	}
 
 	/**
@@ -73,7 +73,7 @@ class OsmSearchWait {
 	*/
 
 	hideWait ( ) {
-		this.#waitHTMLElement.classList.add ( 'TravelNotes-Hidden' );
+		this.#waitHTMLElement.classList.add ( 'travelnotes-hidden' );
 	}
 
 	/**

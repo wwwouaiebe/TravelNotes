@@ -58,7 +58,7 @@ class RadioInputControl extends BaseControl {
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-FlexRow',
+				className : 'travelnotes-base-dialog-flex-row',
 				textContent : options?.headerText || ''
 			},
 			this.controlHTMLElement
@@ -71,7 +71,7 @@ class RadioInputControl extends BaseControl {
 				let buttonDiv = theHTMLElementsFactory.create (
 					'div',
 					{
-						className : 'TravelNotes-BaseDialog-FlexRow'
+						className : 'travelnotes-base-dialog-flex-row'
 					},
 					this.controlHTMLElement
 				);
@@ -80,7 +80,7 @@ class RadioInputControl extends BaseControl {
 						'input',
 						{
 							type : 'radio',
-							className : 'TravelNotes-RadioInputControl-Radio',
+							className : 'travelnotes-radio-input-control-radio',
 							checked : button.checked,
 							id : buttonId,
 							name : controlName,

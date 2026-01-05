@@ -79,9 +79,9 @@ class EditedRouteMouseOverEL {
 								WAY_POINT_ICON_SIZE / TWO,
 								WAY_POINT_ICON_SIZE
 							],
-							html : '<div class="TravelNotes-Map-WayPoint TravelNotes-Map-WayPointTmp' +
-								'"></div><div class="TravelNotes-Map-WayPointText">?</div>',
-							className : 'TravelNotes-Map-WayPointStyle'
+							html : '<div class="travelnotes-map-way-point travelnotes-map-way-point-tmp' +
+								'"></div><div class="travelnotes-map-way-point-text">?</div>',
+							className : 'travelnotes-map-way-point-style'
 						}
 					),
 					draggable : true

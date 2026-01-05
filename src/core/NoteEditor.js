@@ -146,7 +146,7 @@ class NoteEditor {
 		// Icon content
 		if ( osmElement.tags.rcn_ref ) {
 			this.#note.iconContent =
-				'<div class=\'TravelNotes-MapNote TravelNotes-MapNoteCategory-0073\'>' +
+				'<div class=\'travenNotes-map-note travelnotes-map-note-category-0073\'>' +
 				'<svg viewBox=\'0 0 20 20\'><text x=\'10\' y=\'14\'>' +
 				osmElement.tags.rcn_ref +
 				'</text></svg></div>';
@@ -172,7 +172,7 @@ class NoteEditor {
 			this.#note.address =
 				( osmElement.tags [ 'addr:housenumber' ] ? osmElement.tags [ 'addr:housenumber' ] + ' ' : '' ) +
 				osmElement.tags [ 'addr:street' ] +
-				' <span class="TravelNotes-NoteHtml-Address-City">' + osmElement.tags [ 'addr:city' ] + '</span>';
+				' <span class="tavelnotes-note-html-address-city">' + osmElement.tags [ 'addr:city' ] + '</span>';
 		}
 		else {
 
@@ -191,7 +191,7 @@ class NoteEditor {
 			this.#note.address = geoCoderData.street;
 			if ( '' !== geoCoderData.city ) {
 				this.#note.address +=
-					' <span class="TravelNotes-NoteHtml-Address-City">' + geoCoderData.city + '</span>';
+					' <span class="travelnotes-note-html-address-city">' + geoCoderData.city + '</span>';
 			}
 		}
 
@@ -303,7 +303,7 @@ class NoteEditor {
 	newUrlNote ( latLng ) {
 		this.#route = null;
 		this.#newNote ( latLng );
-		this.#note.iconContent = '<div class="TravelNotes-MapNote TravelNotes-MapNoteCategory-0074"></div>';
+		this.#note.iconContent = '<div class="travenNotes-map-note travelnotes-map-note-category-0074"></div>';
 		this.#note.tooltipContent = 'Here';
 		this.#addNote ( );
 		new Zoomer ( ).zoomToLatLng ( latLng );

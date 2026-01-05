@@ -236,7 +236,7 @@ class GpxParser {
 		note.iconLatLng = wayPoint.latLng;
 		const names = wayPoint.name.split ( '+' );
 		note.iconContent =
-			'<div class="TravelNotes-MapNote TravelNotes-MapNoteCategory-0073">' +
+			'<div class="travenNotes-map-note travelnotes-map-note-category-0073">' +
 			'<svg viewBox="0 0 20 20"><text x="10" y="14">' +
 			names [ ZERO ] + '</text></svg></div>';
 

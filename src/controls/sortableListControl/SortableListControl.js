@@ -89,7 +89,7 @@ class SortableListControl extends BaseControl {
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					className : 'TravelNotes-BaseDialog-FlexRow',
+					className : 'travelnotes-base-dialog-flex-row',
 					textContent : headingText
 				},
 				this.controlHTMLElement
@@ -98,7 +98,7 @@ class SortableListControl extends BaseControl {
 		this.#sortableListHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-SortableList-ListHTMLElement'
+				className : 'travelnotes-sortable-list-container'
 			},
 			this.controlHTMLElement
 		);
@@ -129,7 +129,7 @@ class SortableListControl extends BaseControl {
 				listItemHTMLElement.addEventListener ( 'touchmove', this.#touchListItemEL, false );
 				listItemHTMLElement.addEventListener ( 'touchend', this.#touchListItemEL, false );
 				this.#sortableListHTMLElement.appendChild ( listItemHTMLElement );
-				listItemHTMLElement.classList.add ( 'TravelNotes-SortableList-ListItemHTMLElement' );
+				listItemHTMLElement.classList.add ( 'travelnotes-sortable-list-item' );
 			}
 		);
 	}

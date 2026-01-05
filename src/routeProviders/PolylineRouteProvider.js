@@ -74,9 +74,9 @@ class PolylineRouteProvider extends BaseRouteProvider {
 	static get #ICON_NAMES ( ) {
 		return Object.freeze (
 			{
-				kStart : 'kDepartDefault',
-				kContinue : 'kContinueStraight',
-				kEnd : 'kArriveDefault'
+				kStart : 'depart-default',
+				kContinue : 'continue-straight',
+				kEnd : 'arrive-default'
 			}
 		);
 	}

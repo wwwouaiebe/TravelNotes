@@ -92,13 +92,13 @@ class ApiKeyControlRow {
 		this.#rowHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-FlexRow'
+				className : 'travelnotes-base-dialog-flex-row'
 			}
 		);
 		this.#providerNameInput = theHTMLElementsFactory.create (
 			'input',
 			{
-				className : 'TravelNotes-ApiKeysDialog-ApiKeyName TravelNotes-ApiKeysDialog-Input',
+				className : 'travelnotes-api-keys-dialog-api-key-name travelnotes-api-keys-dialog-input',
 				value : apiKey.providerName,
 				placeholder : theTranslator.getText ( 'ApiKeyControlRow - provider name' )
 			},
@@ -107,7 +107,7 @@ class ApiKeyControlRow {
 		this.#providerKeyInput = theHTMLElementsFactory.create (
 			'input',
 			{
-				className : 'TravelNotes-ApiKeysDialog-ApiKeyValue TravelNotes-ApiKeysDialog-Input',
+				className : 'travelnotes-api-keys-dialog-api-key-value travelnotes-api-keys-dialog-input',
 				value : apiKey.providerKey,
 				placeholder : theTranslator.getText ( 'ApiKeyControlRow - api key' ),
 				type : theConfig.ApiKeysDialog.showApiKeys ? 'text' : 'password'
@@ -118,7 +118,7 @@ class ApiKeyControlRow {
 			'div',
 			{
 				className :
-					'TravelNotes-BaseDialog-Button TravelNotes-ApiKeysDialog-AtRightButton',
+					'travelnotes-base-dialog-button travelnotes-api-keys-dialog-at-right-button',
 				title : theTranslator.getText ( 'ApiKeyControlRow - delete api key' ),
 				textContent : '❌',
 				dataset : { ObjId : this.#objId }

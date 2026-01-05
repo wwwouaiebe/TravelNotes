@@ -23,7 +23,7 @@ Changes:
 Doc reviewed 202208
  */
 
-.TravelNotes-PrintRouteMapDialog .TravelNotes-BaseDialog-DataDiv {
+.travelnotes-print-route-map-dialog .travelnotes-base-dialog-data-container {
 	margin-top: 0.5em;
 	margin-bottom: 0.5em;
 }

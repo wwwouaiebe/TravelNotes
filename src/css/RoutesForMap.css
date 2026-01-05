@@ -23,14 +23,14 @@ Changes:
 Doc reviewed 202208
  */
 
-.TravelNotes-Map-Route-Header-Name {
+.travelnotes-map-route-header-name {
 	font-weight: bold;
 }
 
-.TravelNotes-Map-Route-Header-Distance > span,
-.TravelNotes-Map-Route-Header-Ascent > span,
-.TravelNotes-Map-Route-Header-Descent > span,
-.TravelNotes-Map-Route-Header-Duration > span {
+.travelnotes-map-route-header-distance > span,
+.travelnotes-map-route-header-ascent > span,
+.travelnotes-map-route-header-descent > span,
+.travelnotes-map-route-header-duration > span {
 	text-decoration: underline;
 }
 

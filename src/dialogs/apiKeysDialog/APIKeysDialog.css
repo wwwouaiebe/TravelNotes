@@ -23,31 +23,31 @@ Changes:
 Doc reviewed 202208
  */
 
-#TravelNotes-ApiKeysDialog-DataDiv {
+#travelnotes-api-keys-dialog-data-container {
 	margin-top: 1em;
 	width: 39em;
 }
 
-#TravelNotes-ApiKeysDialog-ToolbarDiv {
+#travelnotes-api-keys-dialog-toolbar-container {
 	margin-bottom: 0.5em;
 	display: flex;
 	flex-direction: row;
 	width: 39em;
 }
 
-.TravelNotes-ApiKeysDialog-AtRightButton {
+.travelnotes-api-keys-dialog-at-right-button {
 	margin-left: auto;
 }
 
-.TravelNotes-ApiKeysDialog-Input {
+.travelnotes-api-keys-dialog-input {
 	margin: 0.2em;
 }
 
-.TravelNotes-ApiKeysDialog-ApiKeyName {
+.travelnotes-api-keys-dialog-api-key-name {
 	width: 10em;
 }
 
-.TravelNotes-ApiKeysDialog-ApiKeyValue {
+.travelnotes-api-keys-dialog-api-key-value {
 	width: 20em;
 }
 

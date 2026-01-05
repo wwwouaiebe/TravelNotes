@@ -96,7 +96,7 @@ class SvgMouseMoveEL extends BaseSvgEL {
 	#createSvgText ( text, markerY ) {
 		const svgText = document.createElementNS ( SVG_NS, 'text' );
 		svgText.appendChild ( document.createTextNode ( text ) );
-		svgText.setAttributeNS ( null, 'class', 'TravelNotes-Route-SvgProfile-elevText' );
+		svgText.setAttributeNS ( null, 'class', 'travelnotes-route-svg-profile-elev-text' );
 		svgText.setAttributeNS ( null, 'x', this.#markerX );
 		svgText.setAttributeNS ( null, 'y', markerY );
 		svgText.setAttributeNS ( null, 'text-anchor', this.#textAnchor );
@@ -164,7 +164,7 @@ class SvgMouseMoveEL extends BaseSvgEL {
 				'points',
 				String ( this.#markerX ) + ',' + SvgProfileBuilder.PROFILE_MARGIN + ' ' + this.#markerX + ',' + markerY
 			);
-			this.#marker.setAttributeNS ( null, 'class', 'TravelNotes-Route-SvgProfile-markerPolyline' );
+			this.#marker.setAttributeNS ( null, 'class', 'travelnotes-route-svg-profile-marker-polyline' );
 			this.#profileSvg.appendChild ( this.#marker );
 
 			// texts

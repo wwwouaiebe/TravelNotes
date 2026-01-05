@@ -80,13 +80,14 @@ class NoteHTMLViewsFactory {
 		const iconHTML = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : classPrefix + ( noteAndRoute.route ? 'Route-ManeuversAndNotes-IconCell' : 'Travel-Notes-IconCell' )
+				className : classPrefix +
+					( noteAndRoute.route ? 'route-maneuvers-and-notes-icon-cell' : 'travel-notes-icon-cell' )
 			},
 			NoteTextAndIconHTML
 		);
 		let dimCoeficient = ONE;
 		theHTMLSanitizer.sanitizeToHtmlElement ( noteAndRoute.note.iconContent, iconHTML );
-		if ( 'TravelNotes-Roadbook-' === classPrefix && iconHTML.firstChild ) {
+		if ( 'travelnotes-roadbook-' === classPrefix && iconHTML.firstChild ) {
 			if ( 'svg' === iconHTML.firstChild.tagName ) {
 				iconHTML.firstChild.setAttributeNS (
 					null,
@@ -95,7 +96,7 @@ class NoteHTMLViewsFactory {
 				);
 				dimCoeficient = theConfig.note.svgIcon.roadbookFactor;
 			}
-			else if ( iconHTML?.firstChild?.classList?.contains ( 'TravelNotes-MapNoteCategory-0073' ) ) {
+			else if ( iconHTML?.firstChild?.classList?.contains ( 'travelnotes-map-note-category-0073' ) ) {
 				dimCoeficient = theConfig.note.svgIcon.roadbookFactor;
 			}
 		}
@@ -112,7 +113,7 @@ class NoteHTMLViewsFactory {
 		const noteTextHTMLElement = this.getNoteTextHTML ( classPrefix, noteAndRoute );
 		noteTextHTMLElement.className =
 			classPrefix +
-			( noteAndRoute.route ? 'Route-ManeuversAndNotes-Cell' : 'Travel-Notes-Cell' );
+			( noteAndRoute.route ? 'route-maneuvers-and-notes-cell' : 'travel-notes-cell' );
 		NoteTextAndIconHTML.appendChild ( noteTextHTMLElement );
 
 		return NoteTextAndIconHTML;
@@ -137,7 +138,7 @@ class NoteHTMLViewsFactory {
 				theHTMLElementsFactory.create (
 					'div',
 					{
-						className : classPrefix + 'NoteHtml-TooltipContent'
+						className : classPrefix + 'note-html-tooltip-content'
 					},
 					noteHTMLElement
 				)
@@ -150,7 +151,7 @@ class NoteHTMLViewsFactory {
 				theHTMLElementsFactory.create (
 					'div',
 					{
-						className : classPrefix + 'NoteHtml-PopupContent'
+						className : classPrefix + 'note-html-popup-content'
 					},
 					noteHTMLElement
 				)
@@ -164,7 +165,7 @@ class NoteHTMLViewsFactory {
 				theHTMLElementsFactory.create (
 					'div',
 					{
-						className : classPrefix + 'NoteHtml-Address'
+						className : classPrefix + 'note-html-address'
 					},
 					noteHTMLElement
 				)
@@ -179,7 +180,7 @@ class NoteHTMLViewsFactory {
 					' target="_blank" >' +
 					note.url.substring ( ZERO, NoteHTMLViewsFactory.#LINKS_MAX_LENGTH ) +
 					'...</a>',
-				theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'NoteHtml-Url' }, noteHTMLElement )
+				theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'note-html-url' }, noteHTMLElement )
 			);
 		}
 
@@ -203,7 +204,7 @@ class NoteHTMLViewsFactory {
 				theHTMLElementsFactory.create (
 					'div',
 					{
-						className : classPrefix + 'NoteHtml-Phone'
+						className : classPrefix + 'note-html-phone'
 					},
 					noteHTMLElement
 				)
@@ -215,7 +216,7 @@ class NoteHTMLViewsFactory {
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					className : classPrefix + 'NoteHtml-LatLng'
+					className : classPrefix + 'note-html-lat-lng'
 				},
 				noteHTMLElement
 			)
@@ -231,7 +232,7 @@ class NoteHTMLViewsFactory {
 					theHTMLElementsFactory.create (
 						'div',
 						{
-							className : classPrefix + 'NoteHtml-TravelDistance'
+							className : classPrefix + 'note-html-travel-distance'
 						},
 						noteHTMLElement
 					)
@@ -246,7 +247,7 @@ class NoteHTMLViewsFactory {
 				theHTMLElementsFactory.create (
 					'div',
 					{
-						className : classPrefix + 'NoteHtml-RouteDistance'
+						className : classPrefix + 'note-html-route-distance'
 					},
 					noteHTMLElement
 				)
@@ -264,7 +265,7 @@ class NoteHTMLViewsFactory {
 						theHTMLElementsFactory.create (
 							'div',
 							{
-								className : classPrefix + 'NoteHtml-NextDistance'
+								className : classPrefix + 'note-html-next-distance'
 							},
 							noteHTMLElement
 						)
@@ -282,14 +283,14 @@ class NoteHTMLViewsFactory {
 	*/
 
 	getTravelNotesHTML ( classPrefix ) {
-		const travelNotesHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'Travel-Notes' } );
+		const travelNotesHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'travel-notes' } );
 		const travelNotesIterator = theTravelNotesData.travel.notes.iterator;
 		while ( ! travelNotesIterator.done ) {
 			const noteTextAndIconHTML = this.getNoteTextAndIconHTML (
 				classPrefix,
 				{ note : travelNotesIterator.value, route : null }
 			);
-			noteTextAndIconHTML.className = classPrefix + 'Travel-Notes-Row';
+			noteTextAndIconHTML.className = classPrefix + 'travel-notes-row';
 			travelNotesHTML.appendChild ( noteTextAndIconHTML );
 		}
 		return travelNotesHTML;

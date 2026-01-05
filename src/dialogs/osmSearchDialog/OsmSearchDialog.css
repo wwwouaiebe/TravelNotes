@@ -23,7 +23,7 @@ Changes:
 Doc reviewed 202208
  */
 
-#TravelNotes-OsmSearchDialog-SearchTree {
+#travelnotes-osm-search-dialog-search-tree {
 	max-height: 15em;
 	overflow-y: auto;
 	border-top: 0.1em solid lightgray;
@@ -33,39 +33,39 @@ Doc reviewed 202208
 	min-width: 25em;
 }
 
-.TravelNotes-OsmSearchDialog-SearchItemMargin1 {
+.travelnotes-osm-search-dialog-search-item-margin {
 	margin-left: 0.5em;
 }
 
-.TravelNotes-OsmSearchDialog-SearchItemMargin2 {
+.travelnotes-osm-search-dialog-search-item-margin2 {
 	margin-left: 0.5em;
 }
 
-.TravelNotes-OsmSearchDialog-SearchItemMargin3 {
+.travelnotes-osm-search-dialog-search-item-margin3 {
 	margin-left: 2.5em;
 }
 
-.TravelNotes-OsmSearchDialog-SearchItemMargin4 {
+.travelnotes-osm-search-dialog-search-item-margin4 {
 	margin-left: 4.5em;
 }
 
-.TravelNotes-OsmSearchDialog-TreeArrow {
+.travelnotes-osm-search-dialog-tree-arrow {
 	color: gray;
 }
 
-.TravelNotes-OsmSearchDialog-TreeArrow:hover {
+.travelnotes-osm-search-dialog-tree-arrow:hover {
 	color: red;
 	border-color: white;
 }
 
-.TravelNotes-OsmSearchDialog-SearchResultHTMLElement {
+.travelnotes-osm-search-dialog-search-result-row {
 	display: flex;
 	flex-direction: row;
 	padding: 0.3em;
 	border-bottom: 0.1em solid lightgray;
 }
 
-.TravelNotes-OsmSearchDialog-SearchResult-IconCell {
+.travelnotes-osm-search-dialog-search-result-icon-cell {
 	width: 4em;
 	height: 4em;
 	min-height: 2em;
@@ -73,10 +73,10 @@ Doc reviewed 202208
 	flex-shrink: 0;
 }
 
-.TravelNotes-OsmSearchDialog-SearchResult-Cell {
+.travelnotes-osm-search-dialog-search-result-cell {
 	flex-shrink: 1;
 }
 
 /*
---- End of OsmSearchPaneUI.css ------------------------------------------------------------------------------------------------
+--- End of OsmSearchDialog.css ------------------------------------------------------------------------------------------------
 */

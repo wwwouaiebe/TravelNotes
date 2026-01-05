@@ -51,7 +51,7 @@ class TextInputControl extends BaseControl {
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-FlexRow',
+				className : 'travelnotes-base-dialog-flex-row',
 				textContent : options?.headerText || ''
 			},
 			this.controlHTMLElement
@@ -59,7 +59,7 @@ class TextInputControl extends BaseControl {
 		this.#valueInput = theHTMLElementsFactory.create (
 			'input',
 			{
-				className : 'TravelNotes-TextInputControl-TextInput',
+				className : 'travelnotes-text-input-control-text-input',
 				type : 'text',
 				dataset : { Name : options?.datasetName || 'TextInputControl' },
 				value : options?.value || ''
@@ -67,7 +67,7 @@ class TextInputControl extends BaseControl {
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					className : 'TravelNotes-BaseDialog-FlexRow'
+					className : 'travelnotes-base-dialog-flex-row'
 				},
 				this.controlHTMLElement
 			)

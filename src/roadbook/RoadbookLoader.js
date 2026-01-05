@@ -70,11 +70,11 @@ class RoadbookLoader {
 	*/
 
 	#initCheckboxes ( ) {
-		document.getElementById ( 'TravelNotes-Travel-ShowNotes' ).checked = theRoadbookUpdater.showTravelNotes;
-		document.getElementById ( 'TravelNotes-Routes-ShowNotes' ).checked = theRoadbookUpdater.showRouteNotes;
-		document.getElementById ( 'TravelNotes-Routes-ShowManeuvers' ).checked = theRoadbookUpdater.showManeuversNotes;
-		document.getElementById ( 'TravelNotes-Routes-ShowSmallNotes' ).checked = theRoadbookUpdater.showSmallNotes;
-		document.getElementById ( 'TravelNotes-Routes-ShowProfiles' ).checked = theRoadbookUpdater.showProfiles;
+		document.getElementById ( 'travelnotes-travel-show-notes' ).checked = theRoadbookUpdater.showTravelNotes;
+		document.getElementById ( 'travelnotes-routes-show-notes' ).checked = theRoadbookUpdater.showRouteNotes;
+		document.getElementById ( 'travelnotes-routes-show-maneuvers' ).checked = theRoadbookUpdater.showManeuversNotes;
+		document.getElementById ( 'travelnotes-routes-show-small-notes' ).checked = theRoadbookUpdater.showSmallNotes;
+		document.getElementById ( 'travelnotes-routes-show-profiles' ).checked = theRoadbookUpdater.showProfiles;
 	}
 
 	/**
@@ -82,17 +82,17 @@ class RoadbookLoader {
 	*/
 
 	#addEventListeners ( ) {
-		document.getElementById ( 'TravelNotes-Travel-ShowNotes' )
+		document.getElementById ( 'travelnotes-travel-show-notes' )
 			.addEventListener ( 'change', new ShowTravelNotesChangeEL ( ) );
-		document.getElementById ( 'TravelNotes-Routes-ShowNotes' )
+		document.getElementById ( 'travelnotes-routes-show-notes' )
 			.addEventListener ( 'change', new ShowRouteNotesChangeEL ( ) );
-		document.getElementById ( 'TravelNotes-Routes-ShowManeuvers' )
+		document.getElementById ( 'travelnotes-routes-show-maneuvers' )
 			.addEventListener ( 'change', new ShowManeuverNotesChangeEL ( ) );
-		document.getElementById ( 'TravelNotes-Routes-ShowSmallNotes' )
+		document.getElementById ( 'travelnotes-routes-show-small-notes' )
 			.addEventListener ( 'change', new ShowSmallNotesChangeEL ( ) );
-		document.getElementById ( 'TravelNotes-Routes-ShowProfiles' )
+		document.getElementById ( 'travelnotes-routes-show-profiles' )
 			.addEventListener ( 'change', new ShowProfilesChangeEL ( ) );
-		document.getElementById ( 'TravelNotes-PrintButton' )
+		document.getElementById ( 'travelnotes-print-button' )
 			.addEventListener ( 'click', new PrintRoadbookClickEL ( ) );
 
 	}
@@ -103,11 +103,11 @@ class RoadbookLoader {
 
 	#addSaveButton ( ) {
 		this.#saveButton = document.createElement ( 'div' );
-		this.#saveButton.id = 'TravelNotes-SaveButton';
+		this.#saveButton.id = 'travelnotes-save-button';
 		this.#saveButton.textContent = '💾';
-		this.#saveButton.className = 'TravelNotes-RoadbookButton';
+		this.#saveButton.className = 'travelnotes-roadbook-button';
 		this.#saveButton.addEventListener ( 'click', new SaveFileButtonClickEL ( ) );
-		document.getElementById ( 'TravelNotes-ButtonsDiv' ).appendChild ( this.#saveButton );
+		document.getElementById ( 'travelnotes-roadbook-buttons-container' ).appendChild ( this.#saveButton );
 	}
 
 	/**
@@ -165,15 +165,15 @@ class RoadbookLoader {
 	*/
 
 	#translatePage ( ) {
-		document.getElementById ( 'TravelNotes-Travel-ShowNotesLabel' ).textContent =
+		document.getElementById ( 'travelnotes-travel-show-notes-label' ).textContent =
 			theTranslator.getText ( 'RoadbookLoader - show travel notes' );
-		document.getElementById ( 'TravelNotes-Routes-ShowManeuversLabel' ).textContent =
+		document.getElementById ( 'travelnotes-routes-show-maneuvers-label' ).textContent =
 			theTranslator.getText ( 'RoadbookLoader - show maneuver' );
-		document.getElementById ( 'TravelNotes-Routes-ShowNotesLabel' ).textContent =
+		document.getElementById ( 'travelnotes-routes-show-notes-label' ).textContent =
 			theTranslator.getText ( 'RoadbookLoader - show routes notes' );
-		document.getElementById ( 'TravelNotes-Routes-ShowSmallNotesLabel' ).textContent =
+		document.getElementById ( 'travelnotes-routes-show-small-notes-label' ).textContent =
 			theTranslator.getText ( 'RoadbookLoader - show small routes notes' );
-		document.getElementById ( 'TravelNotes-Routes-ShowProfilesLabel' ).textContent =
+		document.getElementById ( 'travelnotes-routes-show-profiles-label' ).textContent =
 			theTranslator.getText ( 'RoadbookLoader - show profiles' );
 	}
 

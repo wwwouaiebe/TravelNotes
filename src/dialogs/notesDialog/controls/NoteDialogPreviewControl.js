@@ -63,12 +63,12 @@ class NoteDialogPreviewControl {
 		this.#previewHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-NoteDialog-PreviewDiv'
+				className : 'travelnotes-note-dialog-preview-container'
 			}
 		);
 		this.#previewHTMLElement.appendChild (
 			theNoteHTMLViewsFactory.getNoteTextAndIconHTML (
-				'TravelNotes-NoteDialog-',
+				'travelnotes-note-dialog-',
 				new NoteAndRoute ( this.#previewNote, null )
 			)
 		);
@@ -82,7 +82,7 @@ class NoteDialogPreviewControl {
 		this.#previewHTMLElement.textContent = '';
 		this.#previewHTMLElement.appendChild (
 			theNoteHTMLViewsFactory.getNoteTextAndIconHTML (
-				'TravelNotes-NoteDialog-',
+				'travelnotes-note-dialog-',
 				{ note : this.#previewNote, route : null }
 			)
 		);

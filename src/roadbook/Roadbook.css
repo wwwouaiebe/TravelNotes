@@ -27,7 +27,7 @@ Doc reviewed 202208
 Menu on top of screen and always there
 */
 
-#TravelNotes-Roadbook-Menu {
+#travelnotes-roadbook-menu {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -35,14 +35,14 @@ Menu on top of screen and always there
 	z-index: 200;
 }
 
-.TravelNotes-RoadbookButton {
+.travelnotes-roadbook-button {
 	display: inline;
 	width: 2em;
 	border: 0.1em solid white;
 	padding: 0.5em;
 }
 
-.TravelNotes-RoadbookButton:hover {
+.travelnotes-roadbook-button:hover {
 	border: 0.1em solid black;
 }
 
@@ -50,13 +50,13 @@ Menu on top of screen and always there
 Arrow in the menu
 */
 
-#TravelNotes-Roadbook-GoTop > a {
+#travelnotes-roadbook-go-top > a {
 	color: black;
 	text-decoration: none;
 }
 
-.TravelNotes-Roadbook-Travel-Notes,
-.TravelNotes-Roadbook-Route-ManeuversAndNotes {
+.travelnotes-roadbook-travel-notes,
+.travelnotes-roadbook-route-maneuvers-and-notes {
 	margin-top: 1em;
 	margin-bottom: 2em;
 }
@@ -67,33 +67,33 @@ Arrow in the menu
 		padding: 0;
 	}
 
-	#TravelNotes-Roadbook-Menu {
+	#travelnotes-roadbook-menu {
 		position: static;
 	}
 
-	.TravelNotes-Roadbook-Travel {
+	.travelnotes-roadbook-travel {
 		margin-right: 0;
 		margin-left: 0;
 	}
 
-	.TravelNotes-Roadbook-NoteHtml-Url {
+	.travelnotes-roadbook-note-html-url {
 		overflow: hidden;
 	}
 }
 
 @media screen and (width >= 321px) and (width <= 1023px) {
-	.TravelNotes-Roadbook-Travel {
+	.travelnotes-roadbook-travel {
 		padding-top: 4em;
 	}
 
-	#TravelNotes-Roadbook-Menu {
+	#travelnotes-roadbook-menu {
 		padding: 0.5em;
 		border-style: solid;
 		border-width: 0.1em;
 		margin-left: 0.5em;
 	}
 
-	#TravelNotes-Roadbook-Menu > div {
+	#travelnotes-roadbook-menu > div {
 		display: inline-block;
 	}
 }
@@ -101,19 +101,19 @@ Arrow in the menu
 @media screen and (width >= 768px) and (resolution <= 200dpi),
 	screen and (width >= 1600px) and (resolution >= 200dpi),
 	print {
-	#TravelNotes-ButtonsDiv {
+	#travelnotes-roadbook-buttons-container {
 		margin-top: 1em;
 	}
 
-	.TravelNotes-Roadbook-Travel {
+	.travelnotes-roadbook-travel {
 		width: 19.2cm;
 		margin-left: auto;
 		margin-right: auto;
 	}
 
-	.TravelNotes-BigNotes .TravelNotes-Roadbook-Travel-Notes-Row,
-	.TravelNotes-BigNotes .TravelNotes-Roadbook-Route-Maneuvers-Row,
-	.TravelNotes-BigNotes .TravelNotes-Roadbook-Route-Notes-Row {
+	.travelnotes-big-notes .travelnotes-roadbook-travel-notes-row,
+	.travelnotes-big-notes .travelnotes-roadbook-route-maneuvers-row,
+	.travelnotes-big-notes .travelnotes-roadbook-route-notes-row {
 		border-bottom-style: solid;
 		border-bottom-width: 0.1em;
 		padding-top: 1em;
@@ -122,37 +122,37 @@ Arrow in the menu
 		flex-direction: row;
 	}
 
-	.TravelNotes-BigNotes .TravelNotes-Roadbook-Travel-Notes-IconCell,
-	.TravelNotes-BigNotes .TravelNotes-Roadbook-Route-ManeuversAndNotes-IconCell {
+	.travelnotes-big-notes .travelnotes-roadbook-travel-notes-icon-cell,
+	.travelnotes-big-notes .travelnotes-roadbook-route-maneuvers-and-notes-icon-cell {
 		background-repeat: no-repeat;
 		vertical-align: top;
 		flex-shrink: 0;
 	}
 
-	.TravelNotes-BigNotes .TravelNotes-Roadbook-Travel-Notes-Cell,
-	.TravelNotes-BigNotes .TravelNotes-Roadbook-Route-ManeuversAndNotes-Cell {
+	.travelnotes-big-notes .travelnotes-roadbook-travel-notes-cell,
+	.travelnotes-big-notes .travelnotes-roadbook-route-maneuvers-and-notes-cell {
 		padding-left: 0.5em;
 		flex-shrink: 2;
 	}
 
-	.TravelNotes-SmallNotes .TravelNotes-Roadbook-Route-ManeuversAndNotes-IconCell {
+	.travelnotes-small-notes .travelnotes-roadbook-route-maneuvers-and-notes-icon-cell {
 		border-style: solid;
 		border-color: black;
 		border-width: 0.1em;
 	}
 
-	.TravelNotes-SmallNotes .TravelNotes-SvgIcon {
+	.travelnotes-small-notes .travelnotes-svg-icon {
 		border-style: none;
 	}
 
-	.TravelNotes-SmallNotes .TravelNotes-Roadbook-Route-ManeuversAndNotes {
+	.travelnotes-small-notes .travelnotes-roadbook-route-maneuvers-and-notes {
 		display: grid;
 		grid-template-columns: repeat(3, 6.4cm);
 	}
 }
 
 @media print {
-	#TravelNotes-Roadbook-Menu {
+	#travelnotes-roadbook-menu {
 		visibility: hidden;
 		width: 0;
 		height: 0;
@@ -162,13 +162,13 @@ Arrow in the menu
 		border-style: none;
 	}
 
-	.TravelNotes-Roadbook-Route-Header {
+	.travelnotes-roadbook-route-header {
 		break-before: page;
 	}
 
-	.TravelNotes-Roadbook-Travel-Notes-Row,
-	.TravelNotes-Roadbook-Route-Maneuvers-Row,
-	.TravelNotes-Roadbook-Route-Notes-Row {
+	.travelnotes-roadbook-travel-notes-row,
+	.travelnotes-roadbook-route-maneuvers-row,
+	.travelnotes-roadbook-route-notes-row {
 		break-inside: avoid-page;
 	}
 }

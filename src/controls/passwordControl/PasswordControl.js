@@ -80,7 +80,7 @@ class PasswordControl extends BaseControl {
 		this.#eyeSpan = theHTMLElementsFactory.create (
 			'span',
 			{
-				id : 'TravelNotes-PasswordControl-EyeSpan',
+				id : 'travelnotes-password-control-eye',
 				textContent : '👁️'
 			},
 			this.controlHTMLElement

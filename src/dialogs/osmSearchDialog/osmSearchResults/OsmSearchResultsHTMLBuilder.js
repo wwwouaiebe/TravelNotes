@@ -73,7 +73,7 @@ class OsmSearchResultsHTMLBuilder {
 		let iconContent = '';
 		if ( this.#osmElement.tags.rcn_ref ) {
 			iconContent =
-				'<div class=\'TravelNotes-MapNote TravelNotes-MapNoteCategory-0073\'>' +
+				'<div class=\'travenNotes-map-note travenNotes-map-note-category-0073\'>' +
 				'<svg viewBox=\'0 0 20 20\'><text class=\'\' x=10 y=14>' +
 				this.#osmElement.tags.rcn_ref +
 				'</text></svg></div>';
@@ -84,7 +84,7 @@ class OsmSearchResultsHTMLBuilder {
 		const iconCell = theHTMLElementsFactory.create (
 			'div',
 			{
-				className :	'TravelNotes-OsmSearchDialog-SearchResult-IconCell'
+				className :	'travelnotes-osm-search-dialog-search-result-icon-cell'
 			},
 			this.#searchResultsHTMLElement
 		);
@@ -199,7 +199,7 @@ class OsmSearchResultsHTMLBuilder {
 	#addOsmData ( ) {
 		this.#searchResultCellHTMLElement = theHTMLElementsFactory.create (
 			'div',
-			{ className :	'TravelNotes-OsmSearchDialog-SearchResult-Cell'	},
+			{ className :	'travelnotes-osm-search-dialog-search-result-cell'	},
 			this.#searchResultsHTMLElement
 		);
 		this.#addOsmTag ( this.#osmElement.description );
@@ -240,7 +240,7 @@ class OsmSearchResultsHTMLBuilder {
 		this.#searchResultsHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className :	'TravelNotes-OsmSearchDialog-SearchResultHTMLElement',
+				className :	'travelnotes-osm-search-dialog-search-result-row',
 				dataset : { ObjId : ObjId.nextObjId, ElementIndex : index }
 			}
 		);

@@ -56,14 +56,14 @@ class TextAreaControl extends BaseControl {
 			'div',
 			{
 				textContent : options?.headerText || '',
-				className : 'TravelNotes-BaseDialog-FlexRow'
+				className : 'travelnotes-base-dialog-flex-row'
 			},
 			this.controlHTMLElement
 		);
 		this.#textArea = theHTMLElementsFactory.create (
 			'textarea',
 			{
-				className : 'TravelNotes-TextAreaControl-TextArea',
+				className : 'travelnotes-text-area-control-text-area',
 				placeholder : options?.placeholder || '',
 				rows : options.rows || TWO,
 				dataset : { Name : options?.datasetName || 'TextAreaControl' }
@@ -71,7 +71,7 @@ class TextAreaControl extends BaseControl {
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					className : 'TravelNotes-BaseDialog-FlexRow'
+					className : 'travelnotes-base-dialog-flex-row'
 				},
 				this.controlHTMLElement
 			)

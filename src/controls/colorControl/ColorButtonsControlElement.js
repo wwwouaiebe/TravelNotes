@@ -95,7 +95,7 @@ class ColorButtonsControlElement {
 				let colorButton = theHTMLElementsFactory.create (
 					'div',
 					{
-						className : 'TravelNotes-ColorControl-CellColorHTMLElement'
+						className : 'travelnotes-color-control-cell-color'
 					},
 					colorButtonsRowHTMLElement
 				);

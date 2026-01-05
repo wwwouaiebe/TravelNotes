@@ -23,7 +23,7 @@ Changes:
 Doc reviewed 202208
  */
 
-#TravelNotes-AttributionsUI {
+#travelnotes-attributions-ui {
 	position: absolute;
 	left: 0;
 	bottom: 0;
@@ -40,14 +40,14 @@ Doc reviewed 202208
 	transition: all 1.5s ease 1.5s;
 }
 
-#TravelNotes-AttributionsUI:hover {
+#travelnotes-attributions-ui:hover {
 	color: black;
 	background-color: white;
 	transform: rotateZ(-90deg) translateY(2.6em) translateX(0) scale(1.3);
 	transition: all 1.5s ease;
 }
 
-#TravelNotes-AttributionsUI a {
+#travelnotes-attributions-ui a {
 	color: #0078a8;
 }
 

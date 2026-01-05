@@ -87,7 +87,6 @@ class Color {
 	@type {Number}
 	*/
 
-	// eslint-disable-next-line no-magic-numbers
 	static get MIN_COLOR ( ) { return 0; }
 
 	/**

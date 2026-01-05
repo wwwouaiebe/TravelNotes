@@ -135,8 +135,8 @@ class TransitModeButton {
 			'img',
 			{
 				src : TransitModeButton.#TRANSIT_MODE_IMG [ transitMode ],
-				id : 'TravelNotes-ProvidersToolbar-' + transitMode + 'ImgButton',
-				className : 'TravelNotes-ProvidersToolbar-ImgButton',
+				id : 'travelnotes-providers-toolbar-' + transitMode + 'img-button',
+				className : 'travelnotes-providers-toolbar-img-button',
 				title : theTranslator.getText ( 'ProvidersToolbar - TransitMode ' + transitMode )
 			}
 		);
@@ -176,10 +176,10 @@ class TransitModeButton {
 
 	set active ( active ) {
 		if ( active ) {
-			this.#buttonHTMLElement.classList.add ( 'TravelNotes-ProvidersToolbar-ActiveTransitModeImgButton' );
+			this.#buttonHTMLElement.classList.add ( 'travelnotes-providers-toolbar-active-transit-mode-img-button' );
 		}
 		else {
-			this.#buttonHTMLElement.classList.remove ( 'TravelNotes-ProvidersToolbar-ActiveTransitModeImgButton' );
+			this.#buttonHTMLElement.classList.remove ( 'travelnotes-providers-toolbar-active-transit-mode-img-button' );
 		}
 	}
 
@@ -189,10 +189,10 @@ class TransitModeButton {
 
 	set visible ( visible ) {
 		if ( visible ) {
-			this.#buttonHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
+			this.#buttonHTMLElement.classList.remove ( 'travelnotes-hidden' );
 		}
 		else {
-			this.#buttonHTMLElement.classList.add ( 'TravelNotes-Hidden' );
+			this.#buttonHTMLElement.classList.add ( 'travelnotes-hidden' );
 		}
 	}
 }

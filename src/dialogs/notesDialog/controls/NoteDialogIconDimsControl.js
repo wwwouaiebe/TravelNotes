@@ -70,7 +70,7 @@ class NoteDialogIconDimsControl extends BaseControl {
 			'input',
 			{
 				type : 'number',
-				className : 'TravelNotes-NoteDialog-NumberInput',
+				className : 'travelnotes-note-dialog-number-input',
 				value : ICON_DIMENSIONS.width,
 				dataset : { Name : 'iconWidth' }
 			},
@@ -88,7 +88,7 @@ class NoteDialogIconDimsControl extends BaseControl {
 			'input',
 			{
 				type : 'number',
-				className : 'TravelNotes-NoteDialog-NumberInput',
+				className : 'travelnotes-note-dialog-number-input',
 				value : ICON_DIMENSIONS.height,
 				dataset : { Name : 'iconHeight' }
 			},

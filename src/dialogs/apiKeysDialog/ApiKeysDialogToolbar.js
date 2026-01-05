@@ -160,7 +160,7 @@ class ApiKeysDialogToolbar {
 		this.#reloadKeysFromServerButton = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-Button',
+				className : 'travelnotes-base-dialog-button',
 				title : theTranslator.getText ( 'ApiKeysDialogToolbar - Reload from server' ),
 				textContent : '🔄'
 			},
@@ -183,7 +183,7 @@ class ApiKeysDialogToolbar {
 		this.#saveKeysToSecureFileButton = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-Button',
+				className : 'travelnotes-base-dialog-button',
 				title : theTranslator.getText ( 'ApiKeysDialogToolbar - Save to file' ),
 				textContent : '💾'
 			},
@@ -206,7 +206,7 @@ class ApiKeysDialogToolbar {
 		this.#restoreKeysFromSecureFileButton = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-Button',
+				className : 'travelnotes-base-dialog-button',
 				title : theTranslator.getText ( 'ApiKeysDialogToolbar - Open file' ),
 				textContent : '📂'
 			},
@@ -229,7 +229,7 @@ class ApiKeysDialogToolbar {
 		this.#newApiKeyButton = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-Button',
+				className : 'travelnotes-base-dialog-button',
 				title : theTranslator.getText ( 'ApiKeysDialogToolbar - new api key' ),
 				textContent : '+'
 			},
@@ -252,7 +252,7 @@ class ApiKeysDialogToolbar {
 		this.#saveKeysToUnsecureFileButton = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-Button TravelNotes-ApiKeysDialog-AtRightButton',
+				className : 'travelnotes-base-dialog-button travelnotes-api-keys-dialog-at-right-button',
 				title : theTranslator.getText ( 'ApiKeysDialogToolbar - Save to json file' ),
 				textContent : '💾'
 			},
@@ -275,7 +275,7 @@ class ApiKeysDialogToolbar {
 		this.#restoreKeysFromUnsecureFileButton = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-Button',
+				className : 'travelnotes-base-dialog-button',
 				title : theTranslator.getText ( 'ApiKeysDialogToolbar - Open json file' ),
 				textContent : '📂'
 			},
@@ -325,7 +325,7 @@ class ApiKeysDialogToolbar {
 		this.#toolbarHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				id : 'TravelNotes-ApiKeysDialog-ToolbarDiv'
+				id : 'travelnotes-api-keys-dialog-toolbar-container'
 			}
 		);
 

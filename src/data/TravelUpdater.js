@@ -33,6 +33,11 @@ current version
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
+/* eslint-disable max-len */
+/* eslint-disable max-statements */
+/* eslint-disable max-lines */
+/* eslint-disable complexity */
+
 class TravelUpdater {
 
 	/* eslint-disable camelcase */
@@ -291,6 +296,211 @@ class TravelUpdater {
 	}
 
 	/**
+	 * Update a note from data version 2.4.0 to 5.0.0
+	 * @param {Object} note The note to update
+	 */
+
+	#updateNote_V2_4_0 ( note ) {
+		const tableNoteIconContentV2_4_0 =
+			[
+
+				// bus train ferry start or arrive
+				[
+					RegExp ( '<div class="TravelNotes-MapNote TravelNotes-UI-kBusEnd"><svg viewBox="0 0 20 20"></svg></div>', 'g' ),
+					'<div class="travelnotes-map-note travelnotes-map-note-category-0075"></div>'
+				],
+				[
+					RegExp ( '<div class="TravelNotes-MapNote TravelNotes-UI-kBusStart"><svg viewBox="0 0 20 20"></svg></div>', 'g' ),
+					'<div class="travelnotes-map-note travelnotes-map-note-category-0076"></div>'
+				],
+				[
+					RegExp ( '<div class="TravelNotes-MapNote TravelNotes-UI-kFerryExit"><svg viewBox="0 0 20 20"></svg></div>', 'g' ),
+					'<div class="travelnotes-map-note travelnotes-map-note-category-0077"></div>'
+				],
+				[
+					RegExp ( '<div class="TravelNotes-MapNote TravelNotes-UI-kFerryEnter"><svg viewBox="0 0 20 20"></svg></div>', 'g' ),
+					'<div class="travelnotes-map-note travelnotes-map-note-category-0078"></div>'
+				],
+				[
+					RegExp ( '<div class="TravelNotes-MapNote TravelNotes-UI-kTrainEnd"><svg viewBox="0 0 20 20"></svg></div>', 'g' ),
+					'<div class="travelnotes-map-note travelnotes-map-note-category-0079"></div>'
+				],
+				[
+					RegExp ( '<div class="TravelNotes-MapNote TravelNotes-UI-kTrainStart"><svg viewBox="0 0 20 20"></svg></div>', 'g' ),
+					'<div class="travelnotes-map-note travelnotes-map-note-category-0080"></div>'
+				],
+
+				// the 80 predefined icons
+				[
+					/class="TravelNotes-MapNote TravelNotes-MapNoteCategory/g,
+					'class="travelnotes-map-note travelnotes-map-note-category'
+				],
+
+				// the svg icons
+				[
+					/class="TravelNotes-SvgIcon/g,
+					'class="travelnotes-svg-icon'
+				],
+				[
+					/class="TravelNotes-OSM-Itinerary/g,
+					'class="travelnotes-osm-itinerary'
+				],
+				[
+					/class="TravelNotes-OSM-Highway TravelNotes-OSM-Highway/g,
+					'class="travelnotes-osm-highway travelnotes-osm-highway'
+				],
+				[
+					/class="TravelNotes-OSM-RcnRef/g,
+					'class="travelnotes-osm-rcn-ref'
+				]
+			];
+
+		// the colors
+		const tableNoteColorsV_2_4_0 =
+			[
+				[
+					/class="TravelNotes-Note-WhiteRed/g,
+					'class="travelnotes-note-white-red'
+				],
+				[
+					/class="TravelNotes-Note-WhiteGreen/g,
+					'class="travelnotes-note-white-green'
+				],
+				[
+					/class="TravelNotes-Note-WhiteBlue/g,
+					'class="travelnotes-note-white-blue'
+				],
+				[
+					/class="TravelNotes-Note-WhiteBrown/g,
+					'class="travelnotes-note-white-brown'
+				],
+				[
+					/class="TravelNotes-Note-WhiteBlack/g,
+					'class="travelnotes-note-white-black'
+				],
+				[
+					/class="TravelNotes-Note-BlackWhite/g,
+					'class="travelnotes-note-black-white'
+				]
+			];
+
+		tableNoteIconContentV2_4_0.forEach (
+			replaceString => {
+				note.iconContent = note.iconContent.replaceAll ( replaceString [ 0 ], replaceString [ 1 ] );
+			}
+		);
+		tableNoteColorsV_2_4_0.forEach (
+			replaceString => {
+				note.iconContent = note.iconContent.replaceAll ( replaceString [ 0 ], replaceString [ 1 ] );
+				note.popupContent = note.popupContent.replaceAll ( replaceString [ 0 ], replaceString [ 1 ] );
+				note.tooltipContent = note.tooltipContent.replaceAll ( replaceString [ 0 ], replaceString [ 1 ] );
+				note.address = note.address.replaceAll ( replaceString [ 0 ], replaceString [ 1 ] );
+				note.phone = note.phone.replaceAll ( replaceString [ 0 ], replaceString [ 1 ] ); ;
+			}
+		);
+	}
+
+	/**
+	 * Update the maneuvers from data version 2.4.0 to 5.0.0
+	 */
+
+	#updateManeuversV_2_4_0 ( ) {
+		const mapManeuverIconName = new Map ( );
+		mapManeuverIconName.set ( 'kArriveLeft', 'arrive-left' );
+		mapManeuverIconName.set ( 'kArriveRight', 'arrive-right' );
+		mapManeuverIconName.set ( 'kContinueLeft', 'continue-left' );
+		mapManeuverIconName.set ( 'kContinueRight', 'continue-right' );
+		mapManeuverIconName.set ( 'kContinueSharpLeft', 'continue-sharp-left' );
+		mapManeuverIconName.set ( 'kContinueSharpRight', 'continue-sharp-right' );
+		mapManeuverIconName.set ( 'kContinueSlightLeft', 'continue-slight-left' );
+		mapManeuverIconName.set ( 'kContinueSlightRight', 'continue-slight-right' );
+		mapManeuverIconName.set ( 'kContinueStraight', 'continue-straight' );
+		mapManeuverIconName.set ( 'kDepartDefault', 'depart-default' );
+		mapManeuverIconName.set ( 'kDepartLeft', 'depart-left' );
+		mapManeuverIconName.set ( 'kDepartRight', 'depart-right' );
+		mapManeuverIconName.set ( 'kEndOfRoadLeft', 'end-of-road-left' );
+		mapManeuverIconName.set ( 'kEndOfRoadRight', 'end-of-road-right' );
+		mapManeuverIconName.set ( 'kFerryEnter', 'ferry-enter' );
+		mapManeuverIconName.set ( 'kFerryExit', 'ferry-exit' );
+		mapManeuverIconName.set ( 'kForkLeft', 'fork-left' );
+		mapManeuverIconName.set ( 'kForkRight', 'fork-right' );
+		mapManeuverIconName.set ( 'kMergeDefault', 'merge-default' );
+		mapManeuverIconName.set ( 'kMergeLeft', 'merge-left' );
+		mapManeuverIconName.set ( 'kMergeRight', 'merge-right' );
+		mapManeuverIconName.set ( 'kNewNameLeft', 'new-name-left' );
+		mapManeuverIconName.set ( 'kNewNameRight', 'new-name-right' );
+		mapManeuverIconName.set ( 'kNewNameSharpLeft', 'new-name-sharp-left' );
+		mapManeuverIconName.set ( 'kNewNameSharpRight', 'new-name-sharp-right' );
+		mapManeuverIconName.set ( 'kNewNameSlightLeft', 'new-name-slight-left' );
+		mapManeuverIconName.set ( 'kNewNameSlightRight', 'new-name-slight-right' );
+		mapManeuverIconName.set ( 'kNewNameStraight', 'new-name-straight' );
+		mapManeuverIconName.set ( 'kOffRampLeft', 'off-ramp-left' );
+		mapManeuverIconName.set ( 'kOffRampRight', 'off-ramp-right' );
+		mapManeuverIconName.set ( 'kOnRampLeft', 'on-ramp-left' );
+		mapManeuverIconName.set ( 'kOnRampRight', 'on-ramp-right' );
+		mapManeuverIconName.set ( 'kRotaryLeft', 'rotary-left' );
+		mapManeuverIconName.set ( 'kRotaryRight', 'rotary-right' );
+		mapManeuverIconName.set ( 'kRoundaboutExit', 'roundabout-exit' );
+		mapManeuverIconName.set ( 'kRoundaboutLeft', 'roundabout-left' );
+		mapManeuverIconName.set ( 'kRoundaboutRight', 'roundabout-right' );
+		mapManeuverIconName.set ( 'kRoundaboutTurnLeft', 'roundabout-turn-left' );
+		mapManeuverIconName.set ( 'kRoundaboutTurnRight', 'roundabout-turn-right' );
+		mapManeuverIconName.set ( 'kRoundaboutTurnSharpLeft', 'roundabout-turn-sharp-left' );
+		mapManeuverIconName.set ( 'kRoundaboutTurnSharpRight', 'roundabout-turn-sharp-right' );
+		mapManeuverIconName.set ( 'kRoundaboutTurnSlightLeft', 'roundabout-turn-slight-left' );
+		mapManeuverIconName.set ( 'kRoundaboutTurnSlightRight', 'roundabout-turn-slight-right' );
+		mapManeuverIconName.set ( 'kRoundaboutTurnStraight', 'roundabout-turn-straight' );
+		mapManeuverIconName.set ( 'kStayLeft', 'stay-left' );
+		mapManeuverIconName.set ( 'kStayRight', 'stay-right' );
+		mapManeuverIconName.set ( 'kStayStraight', 'stay-straight' );
+		mapManeuverIconName.set ( 'kTurnLeft', 'turn-left' );
+		mapManeuverIconName.set ( 'kTurnRight', 'turn-right' );
+		mapManeuverIconName.set ( 'kTurnSharpLeft', 'turn-sharp-left' );
+		mapManeuverIconName.set ( 'kTurnSharpRight', 'turn-sharp-right' );
+		mapManeuverIconName.set ( 'kTurnSlightLeft', 'turn-slight-left' );
+		mapManeuverIconName.set ( 'kTurnSlightRight', 'turn-slight-right' );
+		mapManeuverIconName.set ( 'kTurnStraight', 'turn-straight' );
+		mapManeuverIconName.set ( 'kTurnUturn', 'turn-u-turn' );
+		mapManeuverIconName.set ( 'kUndefined', 'undefined' );
+		mapManeuverIconName.set ( 'kUturnLeft', 'u-turn-left' );
+		mapManeuverIconName.set ( 'kUturnRight', 'u-turn-right' );
+		mapManeuverIconName.set ( 'kTrainStart', 'train-start' );
+		mapManeuverIconName.set ( 'kTrainContinue', 'train-continue' );
+		mapManeuverIconName.set ( 'kTrainEnd', 'train-end' );
+
+		this.#jsonTravel.routes.forEach (
+			route => {
+				route.itinerary.maneuvers.forEach (
+					maneuver => {
+						maneuver.iconName = mapManeuverIconName.get ( maneuver.iconName ) || 'undefined';
+					}
+				);
+			}
+		);
+	}
+
+	/**
+	 * Update the notes from data version 2.4.0 to 5.0.0
+	 */
+
+	#updateNotesV_2_4_0 ( ) {
+		this.#jsonTravel.notes.forEach (
+			note => {
+				this.#updateNote_V2_4_0 ( note );
+			}
+		);
+		this.#jsonTravel.routes.forEach (
+			route => {
+				route.notes.forEach (
+					note => {
+						this.#updateNote_V2_4_0 ( note );
+					}
+				);
+			}
+		);
+	}
+
+	/**
 	Update the travel
 	*/
 
@@ -328,7 +538,11 @@ class TravelUpdater {
 		case '2.2.0' :
 		case '2.3.0' :
 			this.#updateRouteV_2_3_0 ( );
-			this.#jsonTravel.objType.version = '2.4.0';
+
+		case '2.4.0' :
+			this.#updateNotesV_2_4_0 ( );
+			this.#updateManeuversV_2_4_0 ( );
+			this.#jsonTravel.objType.version = '5.0.0';
 			break;
 
 		default :

@@ -49,14 +49,14 @@ class TravelHTMLViewsFactory {
 	*/
 
 	#getTravelHeaderHTML ( classPrefix ) {
-		const travelHeaderHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'Travel-Header' } );
+		const travelHeaderHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'travel-header' } );
 
 		theHTMLSanitizer.sanitizeToHtmlElement (
 			theTravelNotesData.travel.name,
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					className : classPrefix + 'Travel-Header-Name'
+					className : classPrefix + 'travel-header-name'
 				},
 				travelHeaderHTML
 			)
@@ -83,7 +83,7 @@ class TravelHTMLViewsFactory {
 				theHTMLElementsFactory.create (
 					'div',
 					{
-						className : classPrefix + 'Travel-Header-RouteName'
+						className : classPrefix + 'travel-header-route-name'
 					},
 					travelHeaderHTML
 				)
@@ -104,7 +104,7 @@ class TravelHTMLViewsFactory {
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					className : classPrefix + 'Travel-Header-TravelDistance'
+					className : classPrefix + 'travel-header-travel-distance'
 				},
 				travelHeaderHTML
 			)
@@ -120,7 +120,7 @@ class TravelHTMLViewsFactory {
 				theHTMLElementsFactory.create (
 					'div',
 					{
-						className : classPrefix + 'Travel-Header-TravelAscent'
+						className : classPrefix + 'travel-header-travel-ascent'
 					},
 					travelHeaderHTML
 				)
@@ -137,7 +137,7 @@ class TravelHTMLViewsFactory {
 				theHTMLElementsFactory.create (
 					'div',
 					{
-						className : classPrefix + 'Travel-Header-TravelDescent'
+						className : classPrefix + 'travel-header-travel-descent'
 					},
 					travelHeaderHTML
 				)
@@ -164,7 +164,7 @@ class TravelHTMLViewsFactory {
 			'<a href="https://www.openstreetmap.org/copyright"' +
 			' target="_blank" title="https://www.openstreetmap.org/copyright">' +
 			theTranslator.getText ( 'TravelHTMLViewsFactory - OpenStreetMap contributors' ) + '</a>';
-		const footerHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'TravelFooter' } );
+		const footerHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'travel-footer' } );
 
 		theHTMLSanitizer.sanitizeToHtmlElement ( footerText, footerHTML );
 
@@ -187,7 +187,7 @@ class TravelHTMLViewsFactory {
 	*/
 
 	getTravelHTML ( classPrefix ) {
-		const travelHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'Travel' } );
+		const travelHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'travel' } );
 
 		travelHTML.appendChild ( this.#getTravelHeaderHTML ( classPrefix ) );
 		travelHTML.appendChild ( theNoteHTMLViewsFactory.getTravelNotesHTML ( classPrefix ) );

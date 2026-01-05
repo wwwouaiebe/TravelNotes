@@ -26,13 +26,13 @@ Doc reviewed 202208
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-.TravelNotes-MapNote ( The 73 predefined notes have the .TravelNotes-MapNote class )
+.travelnotes-map-note ( The 80 predefined notes have the .travelnotes-map-note class )
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-.TravelNotes-ManeuverNote,
-.TravelNotes-MapNote {
+.travelnotes-maneuver-note,
+.travelnotes-map-note {
 	width: 100%;
 	height: 100%;
 	background-repeat: no-repeat;
@@ -43,12 +43,12 @@ Doc reviewed 202208
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-.TravelNotes-SvgIcon ( All svg icons have the .TravelNotes-SvgIcon class )
+.travelnotes-svg-icon ( All svg icons have the .travelnotes-svg-icon class )
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-.TravelNotes-SvgIcon {
+.travelnotes-svg-icon {
 	border-style: solid;
 	border-color: black;
 	border-width: 0.1em;
@@ -62,44 +62,35 @@ classes for color span created with buttons in the NoteDialog
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-.TravelNotes-Note-WhiteRed {
+.travelnotes-note-white-red {
 	color: white;
 	background-color: red;
 }
 
-.TravelNotes-Note-WhiteGreen {
+.travelnotes-note-white-green {
 	color: white;
 	background-color: green;
 }
 
-.TravelNotes-Note-WhiteBlue {
+.travelnotes-note-white-blue {
 	color: white;
 	background-color: blue;
 }
 
-.TravelNotes-Note-WhiteBrown {
+.travelnotes-note-white-brown {
 	color: white;
 	background-color: brown;
 }
 
-.TravelNotes-Note-WhiteBlack {
+.travelnotes-note-white-black {
 	color: white;
 	background-color: black;
 }
 
-.TravelNotes-Note-BlackWhite {
+.travelnotes-note-black-white {
 	color: black;
 	background-color: white;
 	border: solid 0.1em;
-}
-
-.TravelNotes-Note-BlackOrange {
-	color: black;
-	background-color: orange;
-}
-
-svg.TravelNotes-Note-Knooppunt {
-	background-color: white;
 }
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

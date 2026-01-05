@@ -162,7 +162,7 @@ class PrintRouteMapDialog extends ModalBaseDialog {
 
 	show ( ) {
 		let showPromise = super.show ( );
-		this.addCssClass ( 'TravelNotes-PrintRouteMapDialog' );
+		this.addCssClass ( 'travelnotes-print-route-map-dialog' );
 		return showPromise;
 	}
 

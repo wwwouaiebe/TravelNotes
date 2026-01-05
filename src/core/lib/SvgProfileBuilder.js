@@ -242,7 +242,7 @@ class SvgProfileBuilder {
 		);
 		const polyline = document.createElementNS ( SVG_NS, 'polyline' );
 		polyline.setAttributeNS ( null, 'points', pointsAttribute );
-		polyline.setAttributeNS ( null, 'class', 'TravelNotes-Route-SvgProfile-profilePolyline' );
+		polyline.setAttributeNS ( null, 'class', 'travelnotes-route-svg-profile-profile-polyline' );
 		this.#svg.appendChild ( polyline );
 	}
 
@@ -259,7 +259,7 @@ class SvgProfileBuilder {
 			SvgProfileBuilder.#TOP_PROFILE;
 		const polyline = document.createElementNS ( SVG_NS, 'polyline' );
 		polyline.setAttributeNS ( null, 'points', pointsAttribute );
-		polyline.setAttributeNS ( null, 'class', 'TravelNotes-Route-SvgProfile-framePolyline' );
+		polyline.setAttributeNS ( null, 'class', 'travelnotes-route-svg-profile-frame-polyline' );
 		this.#svg.appendChild ( polyline );
 	}
 
@@ -292,7 +292,7 @@ class SvgProfileBuilder {
 						distance + ' m '
 				)
 			);
-			distanceText.setAttributeNS ( null, 'class', 'TravelNotes-Route-SvgProfile-distLegend' );
+			distanceText.setAttributeNS ( null, 'class', 'travelnotes-route-svg-profile-dist-legend' );
 			distanceText.setAttributeNS (
 				null,
 				'x',
@@ -326,14 +326,14 @@ class SvgProfileBuilder {
 			const elevTextY = SvgProfileBuilder.PROFILE_MARGIN + ( ( this.#maxElev - elev ) * this.#YScale );
 			const rightElevText = document.createElementNS ( SVG_NS, 'text' );
 			rightElevText.appendChild ( document.createTextNode ( elev.toFixed ( ZERO ) ) );
-			rightElevText.setAttributeNS ( null, 'class', 'TravelNotes-Route-SvgProfile-elevLegend' );
+			rightElevText.setAttributeNS ( null, 'class', 'travelnotes-route-svg-profile-elev-legend' );
 			rightElevText.setAttributeNS ( null, 'x', SvgProfileBuilder.#RIGHT_TEXT_PROFILE );
 			rightElevText.setAttributeNS ( null, 'y', elevTextY );
 			rightElevText.setAttributeNS ( null, 'text-anchor', 'start' );
 			this.#svg.appendChild ( rightElevText );
 			const leftElevText = document.createElementNS ( SVG_NS, 'text' );
 			leftElevText.appendChild ( document.createTextNode ( elev.toFixed ( ZERO ) ) );
-			leftElevText.setAttributeNS ( null, 'class', 'TravelNotes-Route-SvgProfile-elevLegend' );
+			leftElevText.setAttributeNS ( null, 'class', 'travelnotes-route-svg-profile-elev-legend' );
 			leftElevText.setAttributeNS ( null, 'x', SvgProfileBuilder.#LEFT_TEXT_PROFILE );
 			leftElevText.setAttributeNS ( null, 'y', elevTextY );
 			leftElevText.setAttributeNS ( null, 'text-anchor', 'end' );
@@ -354,7 +354,7 @@ class SvgProfileBuilder {
 			'0 0 ' + ( SvgProfileBuilder.PROFILE_WIDTH + ( TWO * SvgProfileBuilder.PROFILE_MARGIN ) ) +
 			' ' + ( SvgProfileBuilder.PROFILE_HEIGHT + ( TWO * SvgProfileBuilder.PROFILE_MARGIN ) )
 		);
-		this.#svg.setAttributeNS ( null, 'class', 'TravelNotes-Route-SvgProfile' );
+		this.#svg.setAttributeNS ( null, 'class', 'travelnotes-route-svg-profile-container' );
 	}
 
 	/**

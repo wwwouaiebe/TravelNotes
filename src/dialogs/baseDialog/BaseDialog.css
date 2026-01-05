@@ -23,7 +23,7 @@ Changes:
 Doc reviewed 202208
  */
 
-.TravelNotes-BaseDialog-DialogHTMLElement {
+.travelnotes-base-dialog-dialog-container {
 	z-index: 800;
 	position: absolute;
 	background-color: white;
@@ -37,54 +37,54 @@ Doc reviewed 202208
 	flex-direction: column;
 }
 
-.TravelNotes-BaseDialog-TopBarHTMLElement {
+.travelnotes-base-dialog-top-bar {
 	background-color: lightgray;
 	border-bottom-style: solid;
 	border-bottom-width: 0.1em;
 }
 
-.TravelNotes-BaseDialog-TopBarHTMLElement:hover {
+.travelnotes-base-dialog-top-bar:hover {
 	background-color: darkred;
 	color: white;
 }
 
-.TravelNotes-BaseDialog-TopBarHTMLElement:hover,
-.TravelNotes-BaseDialog-TopBarHTMLElement:active {
+.travelnotes-base-dialog-top-bar:hover,
+.travelnotes-base-dialog-top-bar:active {
 	cursor: grab;
 }
 
-.TravelNotes-DockableBaseDialog-OnTop > .TravelNotes-BaseDialog-TopBarHTMLElement {
+.travelnotes-dockable-base-dialog-on-top > .travelnotes-base-dialog-top-bar {
 	background-color: black;
 	color: white;
 }
 
-.TravelNotes-BaseDialog-CancelButton {
+.travelnotes-base-dialog-cancel-button {
 	background-color: white;
 	width: 1.5em;
 	text-align: center;
 	display: inline-block;
 }
 
-.TravelNotes-BaseDialog-CancelButton:hover {
+.travelnotes-base-dialog-cancel-button:hover {
 	cursor: default;
 }
 
-.TravelNotes-BaseDialog-Title {
+.travelnotes-base-dialog-title {
 	display: inline-block;
 	font-weight: bold;
 	padding-left: 0.5em;
 	padding-right: 0.5em;
 }
 
-.TravelNotes-BaseDialog-ToolbarHTMLElement,
-.TravelNotes-BaseDialog-ContentHTMLElement,
-.TravelNotes-ModalBaseDialog-ErrorHTMLElement,
-.TravelNotes-ModalBaseDialog-WaitHTMLElement,
-.TravelNotes-ModalBaseDialog-FooterHTMLElement {
+.travelnotes-base-dialog-toolbar-container,
+.travelnotes-base-dialog-content-container,
+.travelnotes-modal-base-dialog-error-container,
+.travelnotes-modal-base-dialog-wait-container,
+.travelnotes-modal-base-dialog-footer-container {
 	padding: 0.5em;
 }
 
-.TravelNotes-BaseDialog-ContentHTMLElement {
+.travelnotes-base-dialog-content-container {
 	margin-top: 1em;
 	border-top-style: solid;
 	border-bottom-style: solid;
@@ -94,18 +94,18 @@ Doc reviewed 202208
 	flex-grow: 1;
 }
 
-.TravelNotes-ModalBaseDialog-ErrorHTMLElement {
+.travelnotes-modal-base-dialog-error-container {
 	background-color: red;
 	color: white;
 }
 
-.TravelNotes-BaseDialog-FlexRow {
+.travelnotes-base-dialog-flex-row {
 	display: flex;
 	flex-direction: row;
 	margin-top: 0.3em;
 }
 
-.TravelNotes-BaseDialog-Button {
+.travelnotes-base-dialog-button {
 	display: inline-block;
 	width: 2em;
 	text-align: center;
@@ -114,7 +114,7 @@ Doc reviewed 202208
 	border-color: white;
 }
 
-.TravelNotes-BaseDialog-Button:hover {
+.travelnotes-base-dialog-button:hover {
 	border-color: black;
 }
 

@@ -23,50 +23,50 @@ Changes:
 Doc reviewed 202208
  */
 
-.TravelNotes-Roadbook-Route-Maneuver-TooltipContent,
-.TravelNotes-Roadbook-NoteHtml-TooltipContent {
+.travelnotes-roadbook-route-maneuver-tooltip-cntent,
+.travelnotes-roadbook-note-html-tooltip-content {
 	font-weight: bold;
 }
 
-.TravelNotes-BigNotes .TravelNotes-Roadbook-NoteHtml-LatLng > span,
-.TravelNotes-BigNotes .TravelNotes-Roadbook-NoteHtml-Address > span:first-child,
-.TravelNotes-BigNotes .TravelNotes-Roadbook-NoteHtml-Phone > span:first-child,
-.TravelNotes-BigNotes .TravelNotes-Roadbook-NoteHtml-Url > span:first-child,
-.TravelNotes-BigNotes .TravelNotes-Roadbook-NoteHtml-TravelDistance > span:first-child,
-.TravelNotes-BigNotes .TravelNotes-Roadbook-NoteHtml-RouteDistance > span:first-child,
-.TravelNotes-BigNotes .TravelNotes-Roadbook-NoteHtml-NextDistance > span:first-child,
-.TravelNotes-BigNotes .TravelNotes-Roadbook-NoteHtml-Address-City {
+.travelnotes-big-notes .travelnotes-roadbook-note-html-lat-lng > span,
+.travelnotes-big-notes .travelnotes-roadbook-note-html-address > span:first-child,
+.travelnotes-big-notes .travelnotes-roadbook-note-html-phone > span:first-child,
+.travelnotes-big-notes .travelnotes-roadbook-note-html-url > span:first-child,
+.travelnotes-big-notes .travelnotes-roadbook-note-html-travel-distance > span:first-child,
+.travelnotes-big-notes .travelnotes-roadbook-note-html-route-distance > span:first-child,
+.travelnotes-big-notes .travelnotes-roadbook-note-html-next-distance > span:first-child,
+.travelnotes-big-notes .travelnotes-roadbook-note-html-address-city {
 	text-decoration: underline;
 }
 
-.TravelNotes-SmallNotes .TravelNotes-Roadbook-Route-Maneuver-TravelDistance::before,
-.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-TravelDistance::before {
+.travelnotes-small-notes .travelnotes-roadbook-route-maneuver-travel-distance::before,
+.travelnotes-small-notes .travelnotes-roadbook-note-html-travel-distance::before {
 	content: "🡸";
 }
 
-.TravelNotes-SmallNotes .TravelNotes-Roadbook-Route-Maneuver-RouteDistance::before,
-.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-RouteDistance::before {
+.travelnotes-small-notes .travelnotes-roadbook-route-maneuver-route-distance::before,
+.travelnotes-small-notes .travelnotes-roadbook-note-html-route-distance::before {
 	content: "🢤";
 }
 
-.TravelNotes-SmallNotes .TravelNotes-Roadbook-Route-Maneuver-NextDistance::before,
-.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-NextDistance::before {
+.travelnotes-small-notes .travelnotes-roadbook-route-maneuver-next-distance::before,
+.travelnotes-small-notes .travelnotes-roadbook-note-html-next-distance::before {
 	content: "🡺";
 }
 
-.TravelNotes-SmallNotes .TravelNotes-Roadbook-Route-Maneuver-Instruction,
-.TravelNotes-SmallNotes .TravelNotes-Roadbook-Route-Maneuver-TravelDistance > span:first-child,
-.TravelNotes-SmallNotes .TravelNotes-Roadbook-Route-Maneuver-RouteDistance > span:first-child,
-.TravelNotes-SmallNotes .TravelNotes-Roadbook-Route-Maneuver-NextDistance > span:first-child,
-.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-PopupContent,
-.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-LatLng,
-.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-Address,
-.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-Phone,
-.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-Url,
-.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-TravelDistance > span:first-child,
-.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-RouteDistance > span:first-child,
-.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-NextDistance > span:first-child,
-.TravelNotes-SmallNotes .TravelNotes-Roadbook-NoteHtml-Address-City {
+.travelnotes-small-notes .travelnotes-roadbook-route-maneuver-instruction,
+.travelnotes-small-notes .travelnotes-roadbook-route-maneuver-travel-distance > span:first-child,
+.travelnotes-small-notes .travelnotes-roadbook-route-maneuver-route-distance > span:first-child,
+.travelnotes-small-notes .travelnotes-roadbook-route-maneuver-next-distance > span:first-child,
+.travelnotes-small-notes .travelnotes-roadbook-note-html-popup-content,
+.travelnotes-small-notes .travelnotes-roadbook-note-html-lat-lng,
+.travelnotes-small-notes .travelnotes-roadbook-note-html-address,
+.travelnotes-small-notes .travelnotes-roadbook-note-html-phone,
+.travelnotes-small-notes .travelnotes-roadbook-note-html-url,
+.travelnotes-small-notes .travelnotes-roadbook-note-html-travel-distance > span:first-child,
+.travelnotes-small-notes .travelnotes-roadbook-note-html-route-distance > span:first-child,
+.travelnotes-small-notes .travelnotes-roadbook-note-html-next-distance > span:first-child,
+.travelnotes-small-notes .travelnotes-roadbook-note-html-address-city {
 	display: none;
 	width: 0;
 	height: 0;

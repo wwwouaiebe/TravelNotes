@@ -23,32 +23,32 @@ Changes:
 Doc reviewed 202208
  */
 
-.TravelNotes-Route-SvgProfile {
+.travelnotes-route-svg-profile-container {
 	background-color: white;
 	margin: 1em;
 }
 
-.TravelNotes-Route-SvgProfile-profilePolyline {
+.travelnotes-route-svg-profile-profile-polyline {
 	fill: none;
 	stroke: red;
 	stroke-width: 3;
 }
 
-.TravelNotes-Route-SvgProfile-markerPolyline,
-.TravelNotes-Route-SvgProfile-framePolyline {
+.travelnotes-route-svg-profile-marker-polyline,
+.travelnotes-route-svg-profile-frame-polyline {
 	fill: none;
 	stroke: black;
 	stroke-width: 1;
 }
 
-.TravelNotes-Route-SvgProfile-elevText {
+.travelnotes-route-svg-profile-elev-text {
 	fill: black;
 	font-size: 1.8em;
 	font-weight: bold;
 }
 
-.TravelNotes-Route-SvgProfile-elevLegend,
-.TravelNotes-Route-SvgProfile-distLegend {
+.travelnotes-route-svg-profile-elev-legend,
+.travelnotes-route-svg-profile-dist-legend {
 	fill: black;
 	font-size: 1.6em;
 	font-weight: bold;

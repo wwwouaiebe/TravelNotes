@@ -54,7 +54,7 @@ class MapLayersToolbar extends BaseToolbar {
 
 	createUI ( ) {
 		super.createUI ( theTranslator.getText ( 'MapLayersToolbar - Layers' ), TOOLBAR_POSITION.topLeft );
-		this.addCssClass ( 'TravelNotes-MapLayersToolbar-ToolbarHTMLElement' );
+		this.addCssClass ( '.travelnotes-maplayers-toolbar-container' );
 	}
 
 	/**

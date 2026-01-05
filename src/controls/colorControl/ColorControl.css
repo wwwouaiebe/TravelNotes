@@ -23,12 +23,12 @@ Changes:
 Doc reviewed 202208
  */
 
-.TravelNotes-ColorControl-ColorHTMLElement {
+.travelnotes-color-control-container {
 	min-width: 30em;
 	text-align: center;
 }
 
-.TravelNotes-ColorControl-CellColorHTMLElement {
+.travelnotes-color-control-cell-color {
 	display: inline-block;
 	height: 1em;
 	width: 1em;
@@ -37,12 +37,12 @@ Doc reviewed 202208
 	margin: 0 0.1em;
 }
 
-.TravelNotes-ColorControl-NumberInput {
+.travelnotes-color-control-number-input {
 	width: 3em;
 	margin: 0.5em;
 }
 
-#TravelNotes-ColorControl-ColorSampleHTMLElement {
+#travelnotes-color-control-color-sample {
 	width: 5em;
 	height: 3em;
 	display: inline-block;

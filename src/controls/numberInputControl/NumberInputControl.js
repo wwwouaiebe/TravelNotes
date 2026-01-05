@@ -59,7 +59,7 @@ class NumberInputControl extends BaseControl {
 			'input',
 			{
 				type : 'number',
-				className : 'TravelNotes-NumberInputControl-NumberInput',
+				className : 'travelnotes-number-input-control-number-input',
 				value : options?.value || ZERO,
 				min : options?.min || ZERO,
 				max : options?.max || Number.MAX_VALUE,

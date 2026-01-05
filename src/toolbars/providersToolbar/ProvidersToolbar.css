@@ -23,7 +23,7 @@ Changes:
 Doc reviewed 202208
  */
 
-#TravelNotes-ProvidersToolbar-Container {
+#travelnotes-providers-toolbar-container {
 	position: absolute;
 	top: 0;
 	left: 50vw;
@@ -34,7 +34,7 @@ Doc reviewed 202208
 	text-align: center;
 }
 
-.TravelNotes-ProvidersToolbar-TopBar {
+.travelnotes-providers-toolbar-top-bar {
 	border-bottom-style: solid;
 	border-bottom-width: 0.1em;
 	color: white;
@@ -44,14 +44,14 @@ Doc reviewed 202208
 	padding-right: 0.5em;
 }
 
-.TravelNotes-ProvidersToolbar-ImgButtonsDiv {
+.travelnotes-providers-toolbar-img-buttons {
 	padding: 0.3em;
 	border-style: solid;
 	border-width: 0.1em;
 	border-color: lightgray;
 }
 
-.TravelNotes-ProvidersToolbar-ImgButton {
+.travelnotes-providers-toolbar-img-button {
 	padding: 0.1em;
 	margin: 0.1em;
 	border-style: solid;
@@ -61,8 +61,8 @@ Doc reviewed 202208
 	height: 2em;
 }
 
-.TravelNotes-ProvidersToolbar-ActiveTransitModeImgButton,
-.TravelNotes-ProvidersToolbar-ActiveProviderImgButton {
+.travelnotes-providers-toolbar-active-transit-mode-img-button,
+.travelnotes-providers-toolbar-active-provider-img-button {
 	border-color: black;
 }
 

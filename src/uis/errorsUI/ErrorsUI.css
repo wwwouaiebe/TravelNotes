@@ -23,7 +23,7 @@ Changes:
 Doc reviewed 202208
  */
 
-#TravelNotes-ErrorsUI {
+#travelnotes-errors-ui {
 	position: absolute;
 	bottom: 10em;
 	left: calc(50% - 25em);
@@ -33,31 +33,31 @@ Doc reviewed 202208
 	z-index: 1100;
 }
 
-#TravelNotes-ErrorsUI-CancelButton {
+#travelnotes-errors-ui-cancel-button {
 	background-color: white;
 }
 
-#TravelNotes-ErrorsUI-Message,
-#TravelNotes-ErrorsUI-HelpInputDiv {
+#travelnotes-errors ui-message,
+#travelnotes-errors-ui-hide-help-checkbox-container {
 	margin: 0.5em;
 }
 
-#TravelNotes-ErrorsUI.TravelNotes-ErrorsUI-Error {
+#travelnotes-errors-ui.travelnotes-errors-ui-error {
 	color: white;
 	background-color: red;
 }
 
-#TravelNotes-ErrorsUI.TravelNotes-ErrorsUI-Warning {
+#travelnotes-errors-ui.travelnotes-errors-ui-warning {
 	color: black;
 	background-color: orange;
 }
 
-#TravelNotes-ErrorsUI.TravelNotes-ErrorsUI-Info {
+#travelnotes-errors-ui.travelnotes-errors-ui-info {
 	color: black;
 	background-color: white;
 }
 
-#TravelNotes-ErrorsUI.TravelNotes-ErrorsUI-Help {
+#travelnotes-errors-ui.travelnotes-errors-ui-help {
 	color: black;
 	background-color: white;
 }

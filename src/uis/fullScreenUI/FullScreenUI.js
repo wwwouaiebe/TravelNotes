@@ -104,7 +104,7 @@ class FullScreenUI {
 		this.#mainHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				id : 'TravelNotes-FullScreenUI',
+				id : 'travelnotes-full-screen-ui',
 				textContent : theTranslator.getText ( 'FullScreenUI - start full screen' )
 			},
 			document.body

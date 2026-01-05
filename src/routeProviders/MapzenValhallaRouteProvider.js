@@ -67,43 +67,43 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 
 	static get #ICON_LIST ( ) {
 		return [
-			'kUndefined', // kNone = 0;
-			'kDepartDefault', // kStart = 1;
-			'kDepartRight', // kStartRight = 2;
-			'kDepartLeft', // kStartLeft = 3;
-			'kArriveDefault', // kDestination = 4;
-			'kArriveRight', // kDestinationRight = 5;
-			'kArriveLeft', // kDestinationLeft = 6;
-			'kNewNameStraight', // kBecomes = 7;
-			'kContinueStraight', // kContinue = 8;
-			'kTurnSlightRight', // kSlightRight = 9;
-			'kTurnRight', // kRight = 10;
-			'kTurnSharpRight', // kSharpRight = 11;
-			'kUturnRight', // kUturnRight = 12;
-			'kUturnLeft', // kUturnLeft = 13;
-			'kTurnSharpLeft', // kSharpLeft = 14;
-			'kTurnLeft', // kLeft = 15;
-			'kTurnSlightLeft', // kSlightLeft = 16;
-			'kUndefined', // kRampStraight = 17;
-			'kOnRampRight', // kRampRight = 18;
-			'kOnRampLeft', // kRampLeft = 19;
-			'kOffRampRight', // kExitRight = 20;
-			'kOffRampLeft', // kExitLeft = 21;
-			'kStayStraight', // kStayStraight = 22;
-			'kStayRight', // kStayRight = 23;
-			'kStayLeft', // kStayLeft = 24;
-			'kMergeDefault', // kMerge = 25;
-			'kRoundaboutRight', // kRoundaboutEnter = 26;
-			'kRoundaboutExit', // kRoundaboutExit = 27;
-			'kFerryEnter', // kFerryEnter = 28;
-			'kFerryExit', // kFerryExit = 29;
-			'kUndefined', // kTransit = 30;
-			'kUndefined', // kTransitTransfer = 31;
-			'kUndefined', // kTransitRemainOn = 32;
-			'kUndefined', // kTransitConnectionStart = 33;
-			'kUndefined', // kTransitConnectionTransfer = 34;
-			'kUndefined', // kTransitConnectionDestination = 35;
-			'kUndefined' // kPostTransitConnectionDestination = 36;
+			'undefined', // kNone = 0;
+			'depart-default', // kStart = 1;
+			'depart-right', // kStart-right = 2;
+			'depart-left', // kStartLeft = 3;
+			'arrive-default', // kDestination = 4;
+			'arrive-right', // kDestinationRight = 5;
+			'arrive-left', // kDestinationLeft = 6;
+			'new-name-straight', // kBecomes = 7;
+			'continue-straight', // kContinue = 8;
+			'turn-slight-right', // kSlightRight = 9;
+			'turn-right', // kRight = 10;
+			'turn-sharp-right', // kSharpRight = 11;
+			'u-turn-right', // kUturnRight = 12;
+			'u-turn-left', // kUturnLeft = 13;
+			'turn-sharp-left', // kSharpLeft = 14;
+			'turn-left', // kLeft = 15;
+			'turn-slight-left', // kSlightLeft = 16;
+			'undefined', // kRampStraight = 17;
+			'on-ramp-right', // kRampRight = 18;
+			'on-ramp-left', // kRampLeft = 19;
+			'off-ramp-right', // kExitRight = 20;
+			'off-ramp-left', // kExitLeft = 21;
+			'stay-straight', // kStayStraight = 22;
+			'stay-right', // kStayRight = 23;
+			'stay-left', // kStayLeft = 24;
+			'merge-default', // kMerge = 25;
+			'roundabout-right', // kRoundaboutEnter = 26;
+			'roundabout-exit', // kRoundaboutExit = 27;
+			'ferry-enter', // kFerryEnter = 28;
+			'ferry-exit', // kFerryExit = 29;
+			'undefined', // kTransit = 30;
+			'undefined', // kTransitTransfer = 31;
+			'undefined', // kTransitRemainOn = 32;
+			'undefined', // kTransitConnectionStart = 33;
+			'undefined', // kTransitConnectionTransfer = 34;
+			'undefined', // kTransitConnectionDestination = 35;
+			'undefined' // kPostTransitConnectionDestination = 36;
 		];
 	}
 
@@ -142,7 +142,8 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 				leg.maneuvers.forEach (
 					mapzenManeuver => {
 						const travelNotesManeuver = new Maneuver ( );
-						travelNotesManeuver.iconName = MapzenValhallaRouteProvider.#ICON_LIST [ mapzenManeuver.type || ZERO ];
+						travelNotesManeuver.iconName =
+							MapzenValhallaRouteProvider.#ICON_LIST [ mapzenManeuver.type ] || 'undefined';
 						travelNotesManeuver.instruction = mapzenManeuver.instruction || '';
 						travelNotesManeuver.distance = ( mapzenManeuver.length || ZERO ) * DISTANCE.metersInKm;
 						travelNotesManeuver.duration = mapzenManeuver.time || ZERO;

@@ -65,17 +65,16 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 
 	static get #ICON_LIST ( ) {
 		return [
-			'kUndefined',
-			'kTurnSharpLeft', // TURN_SHARP_LEFT = -3
-			'kTurnLeft', // TURN_LEFT = -2
-			'kTurnSlightLeft', // TURN_SLIGHT_LEFT = -1
-			'kContinueStraight', // CONTINUE_ON_STREET = 0
-			'kTurnSlightRight', // TURN_SLIGHT_RIGHT = 1
-			'kTurnRight', // TURN_RIGHT = 2
-			'kTurnSharpRight', // TURN_SHARP_RIGHT = 3
-			'kArriveDefault', // FINISH = 4
-			'kArriveDefault', // VIA_REACHED = 5
-			'kRoundaboutRight' // USE_ROUNDABOUT = 6
+			'turn-sharp-left', // TURN_SHARP_LEFT = -3
+			'turn-left', // TURN_LEFT = -2
+			'turn-slight-left', // TURN_SLIGHT_LEFT = -1
+			'continue-straight', // CONTINUE_ON_STREET = 0
+			'turn-slight-right', // TURN_SLIGHT_RIGHT = 1
+			'turn-right', // TURN_RIGHT = 2
+			'turn-sharp-right', // TURN_SHARP_RIGHT = 3
+			'arrive-default', // FINISH = 4
+			'arrive-default', // VIA_REACHED = 5
+			'roundabout-right' // USE_ROUNDABOUT = 6
 		];
 	}
 
@@ -125,9 +124,9 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 					instruction => {
 						const maneuver = new Maneuver ( );
 						// eslint-disable-next-line no-magic-numbers
-						maneuver.iconName = GraphHopperRouteProvider.#ICON_LIST [ instruction.sign + 4 || ZERO ];
-						if ( 'kArriveDefault' === previousIconName && 'kContinueStraight' === maneuver.iconName ) {
-							maneuver.iconName = 'kDepartDefault';
+						maneuver.iconName = GraphHopperRouteProvider.#ICON_LIST [ instruction.sign + 3 ] || 'undefined';
+						if ( 'arrive-default' === previousIconName && 'continue-straight' === maneuver.iconName ) {
+							maneuver.iconName = 'depart-default';
 						}
 						previousIconName = maneuver.iconName;
 						maneuver.instruction = instruction.text || '';

@@ -23,12 +23,12 @@ Changes:
 Doc reviewed 202208
  */
 
-.TravelNotes-Map-WayPointStyle {
+.travelnotes-map-way-point-style {
 	background: transparent;
 	height: auto;
 }
 
-.TravelNotes-Map-WayPoint {
+.travelnotes-map-way-point {
 	background-repeat: no-repeat;
 	height: 20px;
 	width: 20px;
@@ -36,23 +36,23 @@ Doc reviewed 202208
 	vertical-align: top;
 }
 
-.TravelNotes-Map-WayPointStart {
+.travelnotes-map-way-point-start {
 	background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"> <g fill="rgb(0,192,0)"> <path d="M 0,0 l9,9 v10 l1,1 l1,-1 v-10 l9,-9 h-18 z"/> </g> </svg>');
 }
 
-.TravelNotes-Map-WayPointVia {
+.travelnotes-map-way-point-via {
 	background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"> <g fill="rgb(192,128,0)"> <path d="M 0,0 l9,9 v10 l1,1 l1,-1 v-10 l9,-9 h-18 z"/> </g> </svg>');
 }
 
-.TravelNotes-Map-WayPointEnd {
+.travelnotes-map-way-point-end {
 	background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"> <g fill="rgb(192,0,0)"> <path d="M 0,0 l9,9 v10 l1,1 l1,-1 v-10 l9,-9 h-18 z"/> </g> </svg>');
 }
 
-.TravelNotes-Map-WayPointTmp {
+.travelnotes-map-way-point-tmp {
 	background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"> <g fill="rgb(128,128,128)"> <path d="M 0,0 l9,9 v10 l1,1 l1,-1 v-10 l9,-9 h-18 z"/> </g> </svg>');
 }
 
-.TravelNotes-Map-WayPointText {
+.travelnotes-map-way-point-text {
 	width: 20px;
 	text-align: center;
 	font-size: 1em;

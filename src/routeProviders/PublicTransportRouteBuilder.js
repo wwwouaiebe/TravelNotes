@@ -242,18 +242,18 @@ class PublicTransportRouteBuilder {
 							if ( stopName ) {
 								route.wayPoints.first.name = stopName;
 							}
-							maneuver.iconName = 'kTrainStart';
+							maneuver.iconName = 'train-start';
 							maneuver.instruction += 'Monter dans le train';
 						}
 						else if ( stopNode.id === endStop.id ) {
 							if ( stopName ) {
 								route.wayPoints.last.name = stopName;
 							}
-							maneuver.iconName = 'kTrainEnd';
+							maneuver.iconName = 'train-end';
 							maneuver.instruction += 'Descendre du train';
 						}
 						else {
-							maneuver.iconName = 'kTrainContinue';
+							maneuver.iconName = 'train-continue';
 							maneuver.instruction += 'Rester dans le train';
 						}
 						maneuver.distance = ZERO;

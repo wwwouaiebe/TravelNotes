@@ -45,11 +45,11 @@ class SaveFileButtonClickEL {
 	handleEvent ( ) {
 		try {
 			const fileName =
-				document.querySelector ( '.TravelNotes-Roadbook-Travel-Header-Name' ).textContent + '-Roadbook.html';
+				document.querySelector ( '.travelnotes-roadbook-travel-header-name' ).textContent + '-Roadbook.html';
 
 			// Temporary removing the save button
-			const buttonsDiv = document.getElementById ( 'TravelNotes-ButtonsDiv' );
-			const saveButton = buttonsDiv.removeChild ( document.getElementById ( 'TravelNotes-SaveButton' ) );
+			const buttonsDiv = document.getElementById ( 'travelnotes-roadbook-buttons-container' );
+			const saveButton = buttonsDiv.removeChild ( document.getElementById ( 'travelnotes-save-button' ) );
 
 			// Saving
 			const mapFile = window.URL.createObjectURL (

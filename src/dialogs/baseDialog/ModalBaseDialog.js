@@ -161,7 +161,7 @@ class ModalBaseDialog extends BaseDialog {
 	#createBackgroundHTMLElement ( ) {
 
 		// A new element covering the entire screen is created, with drag and drop event listeners
-		this.#backgroundHTMLElement = theHTMLElementsFactory.create ( 'div', { className : 'TravelNotes-Background' } );
+		this.#backgroundHTMLElement = theHTMLElementsFactory.create ( 'div', { className : 'travelnotes-background' } );
 	}
 
 	/**
@@ -198,7 +198,7 @@ class ModalBaseDialog extends BaseDialog {
 		this.#errorHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-ModalBaseDialog-ErrorHTMLElement TravelNotes-Hidden'
+				className : 'travelnotes-modal-base-dialog-error-container travelnotes-hidden'
 			}
 		);
 		this.addToDialog ( this.#errorHTMLElement );
@@ -212,17 +212,17 @@ class ModalBaseDialog extends BaseDialog {
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-WaitAnimationBullet'
+				className : 'travelnotes-wait-animation-bullet'
 			},
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					className : 'TravelNotes-WaitAnimation'
+					className : 'travelnotes-wait-animation'
 				},
 				this.#waitHTMLElement = theHTMLElementsFactory.create (
 					'div',
 					{
-						className : 'TravelNotes-ModalBaseDialog-WaitHTMLElement  TravelNotes-Hidden'
+						className : 'travelnotes-modal-base-dialog-wait-container travelnotes-hidden'
 					}				)
 			)
 		);
@@ -237,7 +237,7 @@ class ModalBaseDialog extends BaseDialog {
 		const footerDiv = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-ModalBaseDialog-FooterHTMLElement'
+				className : 'travelnotes-modal-base-dialog-footer-container'
 			}
 		);
 		this.addToDialog ( footerDiv );
@@ -246,7 +246,7 @@ class ModalBaseDialog extends BaseDialog {
 			'div',
 			{
 				textContent : this.options.firstButtonText || '🆗',
-				className : 'TravelNotes-BaseDialog-Button'
+				className : 'travelnotes-base-dialog-button'
 			},
 			footerDiv
 		);
@@ -258,7 +258,7 @@ class ModalBaseDialog extends BaseDialog {
 				'div',
 				{
 					textContent : this.options.secondButtonText,
-					className : 'TravelNotes-BaseDialog-Button'
+					className : 'travelnotes-base-dialog-button'
 				},
 				footerDiv
 			);
@@ -352,7 +352,7 @@ class ModalBaseDialog extends BaseDialog {
 	show ( ) {
 		super.show ( );
 		this.#createHTML ( );
-		this.addCssClass ( 'TravelNotes-ModalBaseDialog' );
+		this.addCssClass ( 'travelnotes-modal-base-dialog' );
 		document.body.appendChild ( this.#backgroundHTMLElement );
 		this.addToBackground ( this.#backgroundHTMLElement );
 		this.#modalDialogKeyboardKeydownEL = new ModalDialogKeyboardKeydownEL ( this );
@@ -401,8 +401,8 @@ class ModalBaseDialog extends BaseDialog {
 	*/
 
 	showWait ( ) {
-		this.#waitHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
-		this.#okButton.classList.add ( 'TravelNotes-Hidden' );
+		this.#waitHTMLElement.classList.remove ( 'travelnotes-hidden' );
+		this.#okButton.classList.add ( 'travelnotes-hidden' );
 	}
 
 	/**
@@ -410,8 +410,8 @@ class ModalBaseDialog extends BaseDialog {
 	*/
 
 	hideWait ( ) {
-		this.#waitHTMLElement.classList.add ( 'TravelNotes-Hidden' );
-		this.#okButton.classList.remove ( 'TravelNotes-Hidden' );
+		this.#waitHTMLElement.classList.add ( 'travelnotes-hidden' );
+		this.#okButton.classList.remove ( 'travelnotes-hidden' );
 	}
 
 	/**
@@ -422,7 +422,7 @@ class ModalBaseDialog extends BaseDialog {
 	showError ( errorText ) {
 		this.#errorHTMLElement.textContent = '';
 		theHTMLSanitizer.sanitizeToHtmlElement ( errorText, this.#errorHTMLElement );
-		this.#errorHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
+		this.#errorHTMLElement.classList.remove ( 'travelnotes-hidden' );
 	}
 
 	/**
@@ -431,7 +431,7 @@ class ModalBaseDialog extends BaseDialog {
 
 	hideError ( ) {
 		this.#errorHTMLElement.textContent = '';
-		this.#errorHTMLElement.classList.add ( 'TravelNotes-Hidden' );
+		this.#errorHTMLElement.classList.add ( 'travelnotes-hidden' );
 	}
 
 	/**

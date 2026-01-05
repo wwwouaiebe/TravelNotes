@@ -23,26 +23,26 @@ Changes:
 Doc reviewed 202208
  */
 
-.TravelNotes-Roadbook-Route-Header {
+.travelnotes-roadbook-route-header {
 	border-style: solid;
 	border-width: 0.1em;
 	padding: 1em;
 }
 
-.TravelNotes-Roadbook-Route-Header-Name {
+.travelnotes-roadbook-route-header-name {
 	font-size: 125%;
 	font-weight: bold;
 	margin-bottom: 1em;
 }
 
-.TravelNotes-Roadbook-Route-Header-Distance > span,
-.TravelNotes-Roadbook-Route-Header-Ascent > span,
-.TravelNotes-Roadbook-Route-Header-Descent > span,
-.TravelNotes-Roadbook-Route-Header-Duration > span {
+.travelnotes-roadbook-route-header-distance > span,
+.travelnotes-roadbook-route-header-ascent > span,
+.travelnotes-roadbook-route-header-descent > span,
+.travelnotes-roadbook-route-header-duration > span {
 	text-decoration: underline;
 }
 
-.TravelNotes-Roadbook-RouteFooter {
+.travelnotes-roadbook-route-footer {
 	padding-bottom: 2em;
 }
 

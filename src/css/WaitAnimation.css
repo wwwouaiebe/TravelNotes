@@ -23,7 +23,7 @@ Changes:
 Doc reviewed 202208
  */
 
-.TravelNotes-WaitAnimation {
+.travelnotes-wait-animation {
 	margin: 1em;
 	height: 1em;
 	width: calc(100% - 2em);
@@ -31,15 +31,15 @@ Doc reviewed 202208
 	visibility: visible;
 }
 
-.TravelNotes-WaitAnimationBullet {
+.travelnotes-wait-animation-bullet {
 	background-color: red;
 	height: 100%;
 	width: 1em;
-	animation: 2s linear 0s infinite alternate WaitAnimationBullet;
+	animation: 2s linear 0s infinite alternate wait-animation-bullet;
 	visibility: visible;
 }
 
-@keyframes WaitAnimationBullet {
+@keyframes wait-animation-bullet {
 	from { margin-left: 0%; }
 	to { margin-left: calc(100% - 1em); }
 }

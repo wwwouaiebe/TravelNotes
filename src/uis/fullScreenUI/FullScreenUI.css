@@ -23,7 +23,7 @@ Changes:
 Doc reviewed 202208
  */
 
-#TravelNotes-FullScreenUI {
+#travelnotes-full-screen-ui {
 	position: absolute;
 	top: 2em;
 	left: calc(50vw - 15em);

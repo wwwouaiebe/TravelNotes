@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+
 /*
 Changes:
 	- v1.0.0:
@@ -23,10 +24,13 @@ Changes:
 		- Issue ♯1 : Improve colorization of sources files...
 Doc reviewed 20211111
 */
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
+
 /* start reset */
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 html, body, div, span, object,
@@ -43,27 +47,100 @@ figure, figcaption
 	background: transparent;
 	box-sizing: border-box;	
 }
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+/* body */
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
 body
 {
 	line-height: 1.2;
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/* body */
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-body
-{
 	font-family: sans-serif;
-	margin-top: 2cm;
-	margin-bottom: 2cm;
+	margin: 2cm auto;
 	width : 30cm;
-	margin-left : auto;
-	margin-right : auto;
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
+
+/* Heading */
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+h1 
+{
+	font-size: 200%;
+	margin-left : 1cm;
+}
+
+h1 > span
+{
+	font-size : 64%;
+	color : gray;
+}
+
+h2 
+{
+	font-size: 141%;
+	margin-left : 2cm;
+}
+
+h3 
+{
+	font-size: 120%;
+	margin-left : 3cm;
+}
+
+h3 > span
+{
+	color : gray;
+	font-size : 80%;
+}
+
+h4 
+{
+	margin-left : 4cm;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+/* div and tables */
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+div,
+table
+{
+	margin-left : 6cm;
+}
+
+ul
+{
+	padding-left: 1cm;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+/* private or public div */
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+div.public,
+div.private
+{
+	margin-left : 0;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
 /* Navigation */
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 nav
@@ -88,35 +165,35 @@ nav > div
 	cursor: pointer;
 }
 
-#sourcesNav 
+#sources-nav 
 {
 	background-color : blue;
 	border-color : blue;
 	left : 1cm;
 }
 
-#homeNav
+#home-nav
 {
 	color : black;
 	left:0;
 	width: 1cm;
 }
 
-#variablesNav 
+#variables-nav 
 {
 	background-color : green;
 	border-color : green;
 	left : 3cm;	
 }
 
-#classesNav
+#classes-nav
 {
 	background-color : red;
 	border-color : red;
 	left : 5cm;
 }
 
-#showPrivateNav
+#show-private-nav
 {
 	color : black;
 	left : 7cm;
@@ -124,15 +201,15 @@ nav > div
 	display: none;
 }
 
-body.havePrivateButton #showPrivateNav {
+body.have-private-button #show-private-nav {
 	display: inherit;
 }
 
-#showPrivateNav::before {
+#show-private-nav::before {
 	content : "✔️"
 }
 
-body.showPrivate #showPrivateNav::before {
+body.show-private #show-private-nav::before {
 	content : "❌"
 }
 
@@ -154,7 +231,7 @@ nav > div ~ ul > li
 	padding-right : 0.5cm;
 }
 
-nav  > div ~ ul > li.navLetter
+nav  > div ~ ul > li.nav-letter
 {
 	display : block;
 	margin-top : 3mm;
@@ -166,9 +243,9 @@ nav  > div ~ ul > li.navLetter
 	color: white;
 }
 
-nav > div#sourcesNav:hover ~ ul#sourcesNavList,
-nav > div#variablesNav:hover ~ ul#variablesNavList,
-nav > div#classesNav:hover ~ ul#classesNavList,
+nav > div#sources-nav:hover ~ ul#sources-nav-list,
+nav > div#variables-nav:hover ~ ul#variables-nav-list,
+nav > div#classes-nav:hover ~ ul#classes-nav-list,
 nav > div ~ ul:hover
 {
 	width: calc(100vw - 2cm);
@@ -184,79 +261,23 @@ nav > div ~ ul:hover
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
-/* Heading */
-/* ------------------------------------------------------------------------------------------------------------------------- */
 
-h1 
-{
-	font-size: 200%;
-	margin-left : 1cm;
-}
-h1 > span
-{
-	font-size : 64%;
-	color : gray;
-}
-
-h2 
-{
-	font-size: 141%;
-	margin-left : 2cm;
-}
-
-h3 
-{
-	font-size: 120%;
-	margin-left : 3cm;
-}
-
-h3 > span
-{
-	color : gray;
-	font-size : 80%;
-}
-h4 
-{
-	margin-left : 4cm;
-}
-
-h1, h2, h3, h4, h5, h6 {
-	margin-top: 1em;
-	margin-bottom: 1em;
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/* div and tables */
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-div,
-table
-{
-	margin-left : 6cm;
-}
-ul
-{
-	padding-left: 1cm;
-}
-
-/* ------------------------------------------------------------------------------------------------------------------------- */
-/* private or public div */
-/* ------------------------------------------------------------------------------------------------------------------------- */
-
-div.public,
-div.private
-{
-	margin-left : 0;
-}
-	
-/* ------------------------------------------------------------------------------------------------------------------------- */
 /* params tables */
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 table.params
 {
 	table-layout:auto;
 	border-collapse: collapse;
+}
+
+/* marker on the line */
+
+.hash,
+.hash ~ td
+{
+	background-color : yellow;
 }
 
 table.params tr > th,
@@ -272,10 +293,12 @@ table.params tr > th
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
+
 /* sources. Sources are displayed in a table */
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-table.srcCode {
+table.src-code {
 	font-family : monospace;
 	margin-left : 0;
 	border-style:solid;
@@ -284,80 +307,66 @@ table.srcCode {
 	padding: 0.5cm;
 }
 
-table.srcCode pre
+table.src-code pre
 {
 	margin : 0;
 	padding : 0;
 	font-weight: bolder;
 }
 
-table.srcCode tr > td:first-child
+table.src-code tr > td:first-child
 {
 	color : gray;
 	text-align: right;
 	padding-right: 1cm;
 }
 
-/* code comments in green */
+/* JS keywords in blue */ 
 
-.Comment,
-.Comment > .jsKeyword,
-.Comment > .classLink,
-.Comment > .variableLink
-{
-	color : green;
-	font-weight: normal;
-}
-
-.TemplateLiteral,
-.TemplateLiteral > .jsKeyword,
-.TemplateLiteral > .classLink,
-.TemplateLiteral > .variableLink,
-.RegExpLiteral,
-.RegExpLiteral > .jsKeyword,
-.RegExpLiteral > .classLink,
-.RegExpLiteral > .variableLink,
-.RegExpLiteral,
-.RegExpLiteral > .jsKeyword,
-.RegExpLiteral > .classLink,
-.RegExpLiteral > .variableLink,
-.StringLiteral,
-.StringLiteral > .jsKeyword,
-.StringLiteral > .classLink,
-.StringLiteral > .variableLink
-{
-	color : gray;
-}
-
-/* JS keywords in blue*/ 
-
-.jsKeyword {
+.js-keyword {
 	color : blue;
 }
 
 /* classes links in red */
 
-.classLink {
+.class-link {
 	color: red;
 }
 
 /* variables links in dark red */
 
-.variableLink
+.variable-link
 {
 	color: darkred;
 }
 
-/* marker on the line */
+/* code comments in green */
 
-.hash,
-.hash ~ td
+.comment,
+.comment > .js-keyword,
+.comment > .class-link,
+.comment > .variable-link
 {
-	background-color : yellow;
+	color : green;
+	font-weight: normal;
+}
+
+.template-literal,
+.template-literal > .js-keyword,
+.template-literal > .class-link,
+.template-literal > .variable-link,
+.regexp-literal,
+.regexp-literal > .js-keyword,
+.regexp-literal > .class-link,
+.regexp-literal > .variable-link
+{
+	color : gray;
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
+
 /* Hide private */
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 .private 
@@ -365,13 +374,15 @@ table.srcCode tr > td:first-child
 	display: none;
 }
 
-body.showPrivate .private 
+body.show-private .private 
 {
 	display : inherit;
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
+
 /* Footer */
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 footer

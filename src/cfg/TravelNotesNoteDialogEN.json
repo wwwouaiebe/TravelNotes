@@ -41,33 +41,33 @@
 			"htmlAfter" : "</mark>"
 		},
 		{
-			"title" : "<span class='TravelNotes-Note-WhiteRed' title='Insert a red background'>Red</span>",
-			"htmlBefore" : "<span class='TravelNotes-Note-WhiteRed'>",
+			"title" : "<span class='travelnotes-note-white-red' title='Insert a red background'>Red</span>",
+			"htmlBefore" : "<span class='travelnotes-note-white-red'>",
 			"htmlAfter" : "</span>"
 		}, 
 		{
-			"title" : "<span class='TravelNotes-Note-WhiteGreen' title='Insert a green background'>Green</span>",
-			"htmlBefore" : "<span class='TravelNotes-Note-WhiteGreen'>",
+			"title" : "<span class='travelnotes-note-white-green' title='Insert a green background'>Green</span>",
+			"htmlBefore" : "<span class='travelnotes-note-white-green'>",
 			"htmlAfter" : "</span>"
 		}, 
 		{
-			"title" : "<span class='TravelNotes-Note-WhiteBlue'  title='Insert a blue background'>Blue</span>",
-			"htmlBefore" : "<span class='TravelNotes-Note-WhiteBlue'>",
+			"title" : "<span class='travelnotes-note-white-blue'  title='Insert a blue background'>Blue</span>",
+			"htmlBefore" : "<span class='travelnotes-note-white-blue'>",
 			"htmlAfter" : "</span>"
 		}, 
 		{
-			"title" : "<span class='TravelNotes-Note-WhiteBrown' title='Insert a brown background'>Brown</span>",
-			"htmlBefore" : "<span class='TravelNotes-Note-WhiteBrown'>",
+			"title" : "<span class='travelnotes-note-white-brown' title='Insert a brown background'>Brown</span>",
+			"htmlBefore" : "<span class='travelnotes-note-white-brown'>",
 			"htmlAfter" : "</span>"
 		}, 
 		{
-			"title" : "<span class='TravelNotes-Note-WhiteBlack' title='Insert a black background'>Black</span>",
-			"htmlBefore" : "<span class='TravelNotes-Note-WhiteBlack'>",
+			"title" : "<span class='travelnotes-note-white-black' title='Insert a black background'>Black</span>",
+			"htmlBefore" : "<span class='travelnotes-note-white-black'>",
 			"htmlAfter" : "</span>"
 		}, 
 		{
-			"title" : "<span class='TravelNotes-Note-BlackWhite'  title='Insert a framed text'>White</span>",
-			"htmlBefore" : "<span class='TravelNotes-Note-BlackWhite'>",
+			"title" : "<span class='travelnotes-note-black-white'  title='Insert a framed text'>White</span>",
+			"htmlBefore" : "<span class='travelnotes-note-black-white'>",
 			"htmlAfter" : "</span>"
 		},
 		{
@@ -115,7 +115,7 @@
 			"htmlBefore": "œ"
 		}, 
 		{
-			"title": "<span class='TravelNotes-Note-WhiteBlack' title='Insert a non-breaking space'>&amp;nbsp;</span>",
+			"title": "<span class='travelnotes-note-white-black' title='Insert a non-breaking space'>&amp;nbsp;</span>",
 			"htmlBefore": "&nbsp;"
 		}
 	],
@@ -130,554 +130,554 @@
 		},
 		{
 			"name" : "Airport",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0001'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0001'></div>",
 			"tooltip" : "Airport",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Ascent",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0002'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0002'></div>",
 			"tooltip" : "Ascent",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "ATM",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0003'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0003'></div>",
 			"tooltip" : "ATM",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Attention",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0004'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0004'></div>",
 			"tooltip" : "Attention",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Bikes allowed",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0005'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0005'></div>",
 			"tooltip" : "Bikes allowed",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Bus station",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0006'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0006'></div>",
 			"tooltip" : "Bus station",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Photo",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0007'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0007'></div>",
 			"tooltip" : "Photo",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Camping",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0008'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0008'></div>",
 			"tooltip" : "Camping",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Ferry terminal",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0009'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0009'></div>",
 			"tooltip" : "Ferry terminal",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Hostel",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0010'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0010'></div>",
 			"tooltip" : "Hostel",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Information office",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0011'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0011'></div>",
 			"tooltip" : "Information office",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "National park",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0012'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0012'></div>",
 			"tooltip" : "National park",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Bike not allowed",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0013'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0013'></div>",
 			"tooltip" : "Bike not allowed",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "AONB",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0014'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0014'></div>",
 			"tooltip" : "AONB",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Bicycle repair station",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0015'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0015'></div>",
 			"tooltip" : "Bicycle repair station",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Supermarket",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0016'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0016'></div>",
 			"tooltip" : "Supermarket",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Rescue station",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0017'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0017'></div>",
 			"tooltip" : "Rescue station",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Stop",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0018'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0018'></div>",
 			"tooltip" : "Stop",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Table",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0019'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0019'></div>",
 			"tooltip" : "Table",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Toilets",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0020'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0020'></div>",
 			"tooltip" : "Toilets",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Train station",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0021'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0021'></div>",
 			"tooltip" : "Train station",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Tunnel",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0022'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0022'></div>",
 			"tooltip" : "Tunnel",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Water point",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0023'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0023'></div>",
 			"tooltip" : "Water point",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "B & B",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0024'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0024'></div>",
 			"tooltip" : "B & B",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Coffeehouse",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0025'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0025'></div>",
 			"tooltip" : "Coffeehouse",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Restaurant",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0026'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0026'></div>",
 			"tooltip" : "Restaurant",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Hotel",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0027'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0027'></div>",
 			"tooltip" : "Hotel",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Start",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0028'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0028'></div>",
 			"tooltip" : "Start",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Laundry",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0029'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0029'></div>",
 			"tooltip" : "Laundry",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Travel agency",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0030'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0030'></div>",
 			"tooltip" : "Travel agency",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Convenience",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0031'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0031'></div>",
 			"tooltip" : "Convenience",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Greengrocer",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0032'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0032'></div>",
 			"tooltip" : "Greengrocer",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Bakery",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0033'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0033'></div>",
 			"tooltip" : "Bakery",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Pastry",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0034'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0034'></div>",
 			"tooltip" : "Pastry",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Clothes",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0035'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0035'></div>",
 			"tooltip" : "Clothes",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Shoes",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0036'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0036'></div>",
 			"tooltip" : "Shoes",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Sport",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0037'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0037'></div>",
 			"tooltip" : "Sport",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Bank",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0038'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0038'></div>",
 			"tooltip" : "Bank",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Bureau de change",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0039'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0039'></div>",
 			"tooltip" : "Bureau de change",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Bar",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0040'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0040'></div>",
 			"tooltip" : "Bar",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Pub",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0041'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0041'></div>",
 			"tooltip" : "Pub",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Bench",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0042'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0042'></div>",
 			"tooltip" : "Bench",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Barbecue",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0043'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0043'></div>",
 			"tooltip" : "Barbecue",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Shelter",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0044'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0044'></div>",
 			"tooltip" : "Shelter",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Recycling container",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0045'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0045'></div>",
 			"tooltip" : "Recycling container",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Waste disposal",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0046'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0046'></div>",
 			"tooltip" : "Waste disposal",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Holiday cottage",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0047'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0047'></div>",
 			"tooltip" : "Holiday cottage",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Wilderness hut",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0048'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0048'></div>",
 			"tooltip" : "Wilderness hut",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Alpine hut",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0049'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0049'></div>",
 			"tooltip" : "Alpine hut",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Tickets vending machine",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0050'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0050'></div>",
 			"tooltip" : "Tickets vending machine",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Bus stop",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0051'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0051'></div>",
 			"tooltip" : "Bus stop",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Taxi",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0052'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0052'></div>",
 			"tooltip" : "Taxi",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Car rental",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0053'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0053'></div>",
 			"tooltip" : "Car rental",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Fuel station",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0054'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0054'></div>",
 			"tooltip" : "Fuel station",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Car parking",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0055'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0055'></div>",
 			"tooltip" : "Car parking",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Car repair",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0056'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0056'></div>",
 			"tooltip" : "Car repair",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Bicycle parking",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0057'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0057'></div>",
 			"tooltip" : "Bicycle parking",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Bicycle rental",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0058'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0058'></div>",
 			"tooltip" : "Bicycle rental",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Bicycle shop",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0059'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0059'></div>",
 			"tooltip" : "Bicycle shop",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Clinic",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0060'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0060'></div>",
 			"tooltip" : "Clinic",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Doctor",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0061'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0061'></div>",
 			"tooltip" : "Doctor",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Hospital",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0062'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0062'></div>",
 			"tooltip" : "Hospital",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Dentist",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0063'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0063'></div>",
 			"tooltip" : "Dentist",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Pharmacy",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0064'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0064'></div>",
 			"tooltip" : "Pharmacy",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Optician",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0065'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0065'></div>",
 			"tooltip" : "Optician",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Embassy",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0066'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0066'></div>",
 			"tooltip" : "Embassy",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Post office",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0067'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0067'></div>",
 			"tooltip" : "Post office",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Public bath",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0068'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0068'></div>",
 			"tooltip" : "Public bath",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Shower",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0069'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0069'></div>",
 			"tooltip" : "Shower",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Police",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0070'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0070'></div>",
 			"tooltip" : "Police",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "My notes",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0071'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0071'></div>",
 			"tooltip" : "My notes",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Caravan site",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0072'></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0072'></div>",
 			"tooltip" : "Caravan site",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "Bicycle node point",
-			"icon" : "<div class='TravelNotes-MapNote TravelNotes-MapNoteCategory-0073'><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><text x='10' y='14'>00</text></svg></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0073'><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><text x='10' y='14'>00</text></svg></div>",
 			"tooltip" : "Bicycle node point",
 			"width" : 40,
 			"height" : 40
 		},
 		{
-			"name" : "The bus start",
-			"icon" : "<div class=\"TravelNotes-MapNote TravelNotes-UI-kBusStart\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 20 20\"></svg></div>",
-			"tooltip" : "The bus start",
-			"width" : 40,
-			"height" : 40
-		},
-		{
 			"name" : "The bus stop",
-			"icon" : "<div class=\"TravelNotes-MapNote TravelNotes-UI-kBusEnd\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 20 20\"></svg></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0075'></div>",
 			"tooltip" : "The bus ends",
 			"width" : 40,
 			"height" : 40
 		},
 		{
-			"name" : "The train start",
-			"icon" : "<div class=\"TravelNotes-MapNote TravelNotes-UI-kTrainStart\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 20 20\"></svg></div>",
-			"tooltip" : "Départ du train",
-			"width" : 40,
-			"height" : 40
-		},
-		{
-			"name" : "The train stop",
-			"icon" : "<div class=\"TravelNotes-MapNote TravelNotes-UI-kTrainEnd\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 20 20\"></svg></div>",
-			"tooltip" : "Arrivée du train",
-			"width" : 40,
-			"height" : 40
-		},
-		{
-			"name" : "The ferry start",
-			"icon" : "<div class=\"TravelNotes-MapNote TravelNotes-UI-kFerryEnter\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 20 20\"></svg></div>",
-			"tooltip" : "Départ du ferry",
+			"name" : "The bus start",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0076'></div>",
+			"tooltip" : "The bus start",
 			"width" : 40,
 			"height" : 40
 		},
 		{
 			"name" : "The ferry stop",
-			"icon" : "<div class=\"TravelNotes-MapNote TravelNotes-UI-kFerryExit\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 20 20\"></svg></div>",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0077'></div>",
 			"tooltip" : "Arrivée du ferry",
+			"width" : 40,
+			"height" : 40
+		},
+		{
+			"name" : "The ferry start",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0078'></div>",
+			"tooltip" : "Départ du ferry",
+			"width" : 40,
+			"height" : 40
+		},
+		{
+			"name" : "The train stop",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0079'></div>",
+			"tooltip" : "Arrivée du train",
+			"width" : 40,
+			"height" : 40
+		},
+		{
+			"name" : "The train start",
+			"icon" : "<div class='travelnotes-map-note travelnotes-map-note-category-0080'></div>",
+			"tooltip" : "Départ du train",
 			"width" : 40,
 			"height" : 40
 		}

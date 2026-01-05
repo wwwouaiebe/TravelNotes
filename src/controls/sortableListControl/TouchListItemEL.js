@@ -265,7 +265,7 @@ class TouchListItemEL {
 
 			// cloning the node and append it to the document
 			this.#clonedListItemHTMLElement = touchEvent.currentTarget.cloneNode ( true );
-			this.#clonedListItemHTMLElement.classList.add ( 'TravelNotes-SortableList-DraggedListItemHTMLElement' );
+			this.#clonedListItemHTMLElement.classList.add ( 'travelnotes-sortable-list-dragged-item' );
 			document.body.appendChild ( this.#clonedListItemHTMLElement );
 			this.#clonedListItemHTMLElement.style.left = String ( touch.screenX - this.#deltaMoveX ) + 'px';
 			this.#clonedListItemHTMLElement.style.top = String ( touch.screenY - this.#deltaMoveY ) + 'px';

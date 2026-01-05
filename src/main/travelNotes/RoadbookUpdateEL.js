@@ -66,7 +66,7 @@ class RoadbookUpdateEL {
 					( ) => {
 						theIndexedDb.getWritePromise (
 							theTravelNotesData.UUID,
-							theTravelHTMLViewsFactory.getTravelHTML ( 'TravelNotes-Roadbook-' ).outerHTML
+							theTravelHTMLViewsFactory.getTravelHTML ( 'travelnotes-roadbook-' ).outerHTML
 						);
 					}
 				)

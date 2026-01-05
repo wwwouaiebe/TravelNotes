@@ -120,16 +120,16 @@ class MouseUI {
 		// update zoom buttons
 		const map = theTravelNotesData.map;
 		if ( map.getMaxZoom ( ) === this.#zoom ) {
-			this.#zoomPlusButton.classList.add ( 'TravelNotes-MouseUI-Disabled' );
+			this.#zoomPlusButton.classList.add ( 'travelnotes-mouse-ui-disabled' );
 		}
 		else {
-			this.#zoomPlusButton.classList.remove ( 'TravelNotes-MouseUI-Disabled' );
+			this.#zoomPlusButton.classList.remove ( 'travelnotes-mouse-ui-disabled' );
 		}
 		if ( map.getMinZoom ( ) === this.#zoom ) {
-			this.#zoomMinusButton.classList.add ( 'TravelNotes-MouseUI-Disabled' );
+			this.#zoomMinusButton.classList.add ( 'travelnotes-mouse-ui-disabled' );
 		}
 		else {
-			this.#zoomMinusButton.classList.remove ( 'TravelNotes-MouseUI-Disabled' );
+			this.#zoomMinusButton.classList.remove ( 'travelnotes-mouse-ui-disabled' );
 		}
 	}
 
@@ -182,11 +182,11 @@ class MouseUI {
 
 		// HTML creation
 		const mouseUImainElement =
-			theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-MouseUI' }, document.body );
+			theHTMLElementsFactory.create ( 'div', { id : 'travelnotes-mouse-ui' }, document.body );
 		this.#zoomMinusButton = theHTMLElementsFactory.create (
 			'span',
 			{
-				id : 'TravelNotes-MouseUI-ZoomMinus',
+				id : 'travelnotes-mouse-ui-zoom-minus',
 				textContent : '▼'
 			},
 			mouseUImainElement
@@ -196,7 +196,7 @@ class MouseUI {
 		this.#zoomPlusButton = theHTMLElementsFactory.create (
 			'span',
 			{
-				id : 'TravelNotes-MouseUI-ZoomPlus',
+				id : 'travelnotes-mouse-ui-zoom-plus',
 				textContent : '▲'
 			},
 			mouseUImainElement

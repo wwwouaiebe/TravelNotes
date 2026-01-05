@@ -67,20 +67,20 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 
 	static get #ICON_LIST ( ) {
 		return [
-			'kTurnLeft',
-			'kTurnRight',
-			'kTurnSharpLeft',
-			'kTurnSharpRight',
-			'kTurnSlightLeft',
-			'kTurnSlightRight',
-			'kContinueStraight',
-			'kRoundaboutRight',
-			'kRoundaboutExit',
-			'kUturnLeft',
-			'kArriveDefault',
-			'kDepartDefault',
-			'kStayLeft',
-			'kStayRight'
+			'turn-left',
+			'turn-right',
+			'turn-sharp-left',
+			'turn-sharp-right',
+			'turn-slight-left',
+			'turn-slight-right',
+			'continue-straight',
+			'roundabout-right',
+			'roundabout-exit',
+			'u-turn-left',
+			'arrive-default',
+			'depart-default',
+			'stay-left',
+			'stay-right'
 		];
 	}
 

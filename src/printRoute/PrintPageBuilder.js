@@ -145,7 +145,7 @@ class PrintPageBuilder {
 		// shwing the hidden HTMLElements
 		const childrens = document.body.children;
 		for ( let counter = 0; counter < childrens.length; counter ++ ) {
-			childrens.item ( counter ).classList.remove ( 'TravelNotes-Hidden' );
+			childrens.item ( counter ).classList.remove ( 'travelnotes-hidden' );
 		}
 
 		// reset the map
@@ -201,7 +201,7 @@ class PrintPageBuilder {
 						iconAnchor : [ note.iconWidth / TWO, note.iconHeight / TWO ],
 						popupAnchor : [ ZERO, -note.iconHeight / TWO ],
 						html : note.iconContent,
-						className : 'TravelNotes-Map-AllNotes '
+						className : 'travelnotes-map-all-notes'
 					}
 				);
 
@@ -228,11 +228,11 @@ class PrintPageBuilder {
 	#createViewOnPage ( printView ) {
 
 		this.#viewsCounter ++;
-		const viewId = 'TravelNotes-RouteViewDiv' + this.#viewsCounter;
+		const viewId = 'travelnotes-route-view-container-' + this.#viewsCounter;
 
 		// viewDiv is used by leaflet. We cannot seal viewDiv with theHTMLElementsFactory
 		const viewDiv = document.createElement ( 'div' );
-		viewDiv.className = 'TravelNotes-routeViewDiv';
+		viewDiv.className = 'travelnotes-route-view-container';
 		viewDiv.id = viewId;
 		document.body.appendChild ( viewDiv );
 		this.#viewsDiv.push ( viewDiv );
@@ -292,7 +292,7 @@ class PrintPageBuilder {
 		this.#printToolbar = theHTMLElementsFactory.create (
 			'div',
 			{
-				id : 'TravelNotes-PrintToolbar'
+				id : 'travelnotes-print-toolbar'
 			},
 			document.body
 		);
@@ -301,7 +301,7 @@ class PrintPageBuilder {
 		this.#printButton = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-UI-Button',
+				className : 'travelnotes-ui-button',
 				title : theTranslator.getText ( 'PrintPageBuilder - Print' ),
 				textContent : '🖨️'
 			},
@@ -313,7 +313,7 @@ class PrintPageBuilder {
 		this.#cancelButton = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-UI-Button',
+				className : 'travelnotes-ui-button',
 				title : theTranslator.getText ( 'PrintPageBuilder - Cancel print' ),
 				textContent : '❌'
 			},
@@ -353,17 +353,17 @@ class PrintPageBuilder {
 
 	preparePage ( ) {
 		if ( this.#printRouteMapOptions.firefoxBrowser ) {
-			document.body.classList.add ( 'TravelNotes-Maps-FirefoxBrowser' );
+			document.body.classList.add ( 'travelnotes-maps-firefox-browser' );
 		}
 		else {
-			document.body.classList.remove ( 'TravelNotes-Maps-FirefoxBrowser' );
+			document.body.classList.remove ( 'travelnotes-maps-firefox-browser' );
 		}
 
 		// adding classes to the body, so all existing elements are hidden
 
 		const childrens = document.body.children;
 		for ( let counter = 0; counter < childrens.length; counter ++ ) {
-			childrens.item ( counter ).classList.add ( 'TravelNotes-Hidden' );
+			childrens.item ( counter ).classList.add ( 'travelnotes-hidden' );
 		}
 
 		// modify the document title with the travel name and route name

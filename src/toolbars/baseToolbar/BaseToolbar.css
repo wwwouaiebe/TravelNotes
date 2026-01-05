@@ -23,7 +23,7 @@ Changes:
 Doc reviewed 202208
  */
 
-.TravelNotes-BaseToolbar-ToolbarHTMLElement {
+.travelnotes-base-toolbar-container {
 	position: absolute;
 	width: 3em;
 	height: auto;
@@ -32,17 +32,17 @@ Doc reviewed 202208
 	font-weight: bold;
 }
 
-.TravelNotes-BaseToolbar-TopLeft {
+.travelnotes-base-toolbar-top-left {
 	top: 0;
 	left: 0;
 }
 
-.TravelNotes-BaseToolbar-TopRight {
+.travelnotes-base-toolbar-top-right {
 	top: 0;
 	right: 0;
 }
 
-.TravelNotes-BaseToolbar-HeaderHTMLElement {
+.travelnotes-base-toolbar-header {
 	text-align: center;
 	width: 3em;
 	height: 8em;
@@ -61,7 +61,7 @@ About the transformation:
 that we don't have letters with descenders in the headers, it's nicer with 1.5 and 0.75.
 */
 
-.TravelNotes-BaseToolbar-HeaderTextHTMLElement {
+.travelnotes-base-toolbar-header-text {
 	transform-origin: top left;
 	transform: translateY(8em) translateX(0.75em) rotateZ(-90deg);
 	width: 8em;
@@ -69,34 +69,34 @@ that we don't have letters with descenders in the headers, it's nicer with 1.5 a
 	white-space: nowrap;
 }
 
-.TravelNotes-BaseToolbar-ButtonsHTMLElement {
+.travelnotes-base-toolbar-buttons-container {
 	background-color: white;
 	color: black;
 	overflow-y: hidden;
 	max-height: calc(100vh - 15em);
 }
 
-.TravelNotes-BaseToolbar-ButtonHTMLElement {
+.travelnotes-base-toolbar-button {
 	padding: 0.5em;
 	text-align: center;
 	height: 1.1em;
 }
 
-.TravelNotes-BaseToolbar-ButtonHTMLElement:hover {
+.travelnotes-base-toolbar-button:hover {
 	background-color: black;
 	color: white;
 }
 
-.TravelNotes-BaseToolbar-ButtonLinkHTMLElement {
+.travelnotes-base-toolbar-button-link {
 	text-decoration: none;
 	color: black;
 }
 
-.TravelNotes-BaseToolbar-ButtonLinkHTMLElement:hover {
+.travelnotes-base-toolbar-button-link:hover {
 	color: white;
 }
 
-.TravelNotes-BaseToolbar-ButtonHTMLElement:hover > .TravelNotes-BaseToolbar-ButtonLinkHTMLElement {
+.travelnotes-base-toolbar-button:hover > .travelnotes-base-toolbar-button-link  {
 	color: white;
 }
 

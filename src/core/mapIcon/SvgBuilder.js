@@ -71,7 +71,7 @@ class SvgBuilder {
 			( ICON_DIMENSIONS.svgViewboxDim / TWO ) + ' ' +
 			( ICON_DIMENSIONS.svgViewboxDim / TWO )
 		);
-		this.#svgElement.setAttributeNS ( null, 'class', 'TravelNotes-SvgIcon' );
+		this.#svgElement.setAttributeNS ( null, 'class', 'travelnotes-svg-icon' );
 	}
 
 	/**
@@ -123,7 +123,7 @@ class SvgBuilder {
 			}
 			const polyline = document.createElementNS ( SVG_NS, 'polyline' );
 			polyline.setAttributeNS ( null, 'points', pointsAttribute );
-			polyline.setAttributeNS ( null, 'class', 'TravelNotes-OSM-Itinerary' );
+			polyline.setAttributeNS ( null, 'class', 'travelnotes-osm-itinerary' );
 			polyline.setAttributeNS (
 				null,
 				'transform',
@@ -193,7 +193,7 @@ class SvgBuilder {
 					polyline.setAttributeNS (
 						null,
 						'class',
-						'TravelNotes-OSM-Highway TravelNotes-OSM-Highway-' + way.tags.highway
+						'travelnotes-osm-highway travelnotes-osm-highway-' + way.tags.highway.replaceAll ( /_/g, '-' )
 					);
 					polyline.setAttributeNS (
 						null,
@@ -223,7 +223,7 @@ class SvgBuilder {
 		svgText.textContent = this.#computeData.rcnRef;
 		svgText.setAttributeNS ( null, 'x', String ( ICON_DIMENSIONS.svgViewboxDim / TWO ) );
 		svgText.setAttributeNS ( null, 'y', String ( ICON_DIMENSIONS.svgViewboxDim / TWO ) );
-		svgText.setAttributeNS ( null, 'class', 'TravelNotes-OSM-RcnRef' );
+		svgText.setAttributeNS ( null, 'class', 'travelnotes-osm-rcn-ref' );
 		this.#svgElement.appendChild ( svgText );
 	}
 

@@ -23,7 +23,7 @@ Changes:
 Doc reviewed 202208
  */
 
-.TravelNotes-UI-Button {
+.travelnotes-ui-button {
 	display: inline-block;
 	width: 2em;
 	text-align: center;
@@ -33,16 +33,16 @@ Doc reviewed 202208
 	border-color: white;
 }
 
-.TravelNotes-UI-Button:hover {
+.travelnotes-ui-button:hover {
 	border-color: black;
 }
 
-.TravelNotes-UI-Button > a {
+.travelnotes-ui-button > a {
 	text-decoration: none;
 	color: black;
 }
 
-.TravelNotes-UI-Button > a:visited {
+.travelnotes-ui-button > a:visited {
 	color: black;
 }
 

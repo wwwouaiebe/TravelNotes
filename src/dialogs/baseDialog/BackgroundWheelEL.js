@@ -49,7 +49,7 @@ class BackgroundWheelEL {
 	*/
 
 	handleEvent ( wheelEvent ) {
-		if ( ! wheelEvent.target.classList.contains ( 'TravelNotes-Background' ) ) {
+		if ( ! wheelEvent.target.classList.contains ( 'travelnotes-background' ) ) {
 			return;
 		}
 

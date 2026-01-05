@@ -31,29 +31,29 @@ Notes popup on the map
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-.TravelNotes-Map-NoteHtml-TooltipContent {
+.travelnotes-map-note-html-tooltip-content {
 	font-weight: bold;
 }
 
-.TravelNotes-Map-NoteHtml-LatLng > span,
-.TravelNotes-Map-NoteHtml-Address > span:first-child,
-.TravelNotes-Map-NoteHtml-Phone > span:first-child,
-.TravelNotes-Map-NoteHtml-Url > span:first-child,
-.TravelNotes-Map-NoteHtml-Distance > span:first-child,
-.TravelNotes-Map-NoteHtml-NextDistance > span:first-child,
-.TravelNotes-Map-NoteHtml-Address-City {
+.travelnotes-map-note-html-lat-lng > span,
+.travelnotes-map-note-html-address > span:first-child,
+.travelnotes-map-note-html-phone > span:first-child,
+.travelnotes-map-note-html-url > span:first-child,
+.travelnotes-map-note-html-distance > span:first-child,
+.travelnotes-map-note-html-next-distance > span:first-child,
+.travelnotes-map-note-html-address-city {
 	text-decoration: underline;
 }
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-.TravelNotes-Map-AllNotes ( the .TravelNotes-Map-AllNotes class is added to the L.divIcon when created )
+.travelnotes-map-all-notes ( the .travelnotes-map-all-notes class is added to the L.divIcon when created )
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-.TravelNotes-Map-AllNotes {
+.travelnotes-map-all-notes {
 	background: transparent;
 	height: auto;
 }
@@ -61,24 +61,24 @@ Notes popup on the map
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-.TravelNotes-Map-Note-Background ( This class is added to the 73 predefined notes and svgIcons when a background is asked )
+.travelnotes-map-note-background ( This class is added to the 80 predefined notes and svgIcons when a background is asked )
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-.TravelNotes-Map-Note-Background {
+.travelnotes-map-note-background {
 	background-color: white;
 }
 
 /**
 @------------------------------------------------------------------------------------------------------------------------------
 
-.TravelNotes-Map-Note-Bullet ( This class is added to the bullet of the note )
+.travelnotes-map-note-bullet ( This class is added to the bullet of the note )
 
 @------------------------------------------------------------------------------------------------------------------------------
 */
 
-.TravelNotes-Map-Note-Bullet {
+.travelnotes-map-note-bullet {
 	background-color: black;
 }
 

@@ -81,7 +81,7 @@ class RgbInputsControlElement {
 		const inputHtmlElement = theHTMLElementsFactory.create ( 'input',
 			{
 				type : 'number',
-				className : 'TravelNotes-ColorControl-NumberInput',
+				className : 'travelnotes-color-control-number-input',
 				min : Color.MIN_COLOR,
 				max : Color.MAX_COLOR
 			},

@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v4.0.0:
 		- created from v3.6.0
-Doc reviewed 202208
+Doc reviewed 20260103
  */
 
 import theConfig from '../../data/Config.js';
@@ -49,13 +49,11 @@ class BaseContextMenuOperator {
 
 	static #keyboardItemChange = Object.freeze (
 		{
-			// eslint-disable-next-line no-magic-numbers
+
 			get previousItem ( ) { return -1; },
 
-			// eslint-disable-next-line no-magic-numbers
 			get firstItem ( ) { return 0; },
 
-			// eslint-disable-next-line no-magic-numbers
 			get nextItem ( ) { return 1; },
 
 			// eslint-disable-next-line no-magic-numbers
@@ -146,7 +144,7 @@ class BaseContextMenuOperator {
 
 	#unselectItems ( ) {
 		this.#contextMenu.menuItemHTMLElements.forEach (
-			menuitemHTMLElement => { menuitemHTMLElement.classList.remove ( 'TravelNotes-ContextMenu-MenuItemSelected' ); }
+			menuitemHTMLElement => { menuitemHTMLElement.classList.remove ( 'travelnotes-context-menu-menu-item-selected' ); }
 		);
 	}
 
@@ -184,7 +182,7 @@ class BaseContextMenuOperator {
 
 		// add css class
 		this.#contextMenu.menuItemHTMLElements [ this.#keyboardSelectedItemObjId ]
-			.classList.add ( 'TravelNotes-ContextMenu-MenuItemSelected' );
+			.classList.add ( 'travelnotes-context-menu-menu-item-selected' );
 	}
 
 	/**
@@ -330,7 +328,7 @@ class BaseContextMenuOperator {
 				( NOT_FOUND === this.#keyboardSelectedItemObjId )
 				||
 				( this.#contextMenu.menuItemHTMLElements [ this.#keyboardSelectedItemObjId ]
-					.classList.contains ( 'TravelNotes-ContextMenu-ItemDisabled' )
+					.classList.contains ( 'travelnotes-context-menu-menu-item-disabled' )
 				)
 			) {
 				return;
@@ -358,7 +356,7 @@ class BaseContextMenuOperator {
 	selectItem ( itemObjId ) {
 		if (
 			this.#contextMenu.menuItemHTMLElements [ itemObjId ]
-				.classList.contains ( 'TravelNotes-ContextMenu-ItemDisabled' )
+				.classList.contains ( 'travelnotes-context-menu-menu-item-disabled' )
 		) {
 			return;
 		}
@@ -371,7 +369,7 @@ class BaseContextMenuOperator {
 	*/
 
 	onMouseLeaveMenuItem ( menuItem ) {
-		menuItem.classList.remove ( 'TravelNotes-ContextMenu-MenuItemSelected' );
+		menuItem.classList.remove ( 'travelnotes-context-menu-menu-item-selected' );
 	}
 
 	/**
@@ -382,7 +380,7 @@ class BaseContextMenuOperator {
 	onMouseEnterMenuItem ( menuItem ) {
 		this.#unselectItems ( );
 		this.#keyboardSelectedItemObjId = Number.parseInt ( menuItem.dataset.tanObjId );
-		menuItem.classList.add ( 'TravelNotes-ContextMenu-MenuItemSelected' );
+		menuItem.classList.add ( 'travelnotes-context-menu-menu-item-selected' );
 	}
 }
 

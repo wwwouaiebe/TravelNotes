@@ -23,21 +23,21 @@ Changes:
 Doc reviewed 202208
  */
 
-.TravelNotes-DockableBaseDialog {
+.travelnotes-dockable-base-dialog {
 	z-index: 900;
 }
 
-.TravelNotes-DockableBaseDialog-Docked > .TravelNotes-BaseDialog-TopBarHTMLElement {
+.travelnotes-dockable-base-dialog-docked > .travelnotes-base-dialog-top-bar {
 	background-color: black;
 	color: white;
 }
 
 /* stylelint-disable max-line-length */
 
-.TravelNotes-DockableBaseDialog-Docked.TravelNotes-DockableBaseDialog-HiddenContent > .TravelNotes-BaseDialog-ContentHTMLElement,
-.TravelNotes-DockableBaseDialog-Docked.TravelNotes-DockableBaseDialog-HiddenContent > .TravelNotes-BaseDialog-ContentHTMLElement > *,
-.TravelNotes-DockableBaseDialog-Docked.TravelNotes-DockableBaseDialog-HiddenContent > .TravelNotes-BaseDialog-ContentHTMLElement > * > *,
-.TravelNotes-DockableBaseDialog-Docked.TravelNotes-DockableBaseDialog-HiddenContent > .TravelNotes-BaseDialog-ContentHTMLElement > * > * > * {
+.travelnotes-dockable-base-dialog-docked.travelnotes-dockable-base-dialog-hidden-content > .travelnotes-base-dialog-content-container,
+.travelnotes-dockable-base-dialog-docked.travelnotes-dockable-base-dialog-hidden-content > .travelnotes-base-dialog-content-container > *,
+.travelnotes-dockable-base-dialog-docked.travelnotes-dockable-base-dialog-hidden-content > .travelnotes-base-dialog-content-container > * > *,
+.travelnotes-dockable-base-dialog-docked.travelnotes-dockable-base-dialog-hidden-content > .travelnotes-base-dialog-content-container > * > * > * {
 	display: none !important;
 	width: 0;
 	height: 0;

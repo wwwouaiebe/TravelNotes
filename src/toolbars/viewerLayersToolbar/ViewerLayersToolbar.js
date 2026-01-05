@@ -92,7 +92,7 @@ class ViewerLayersToolbar {
 		// Toolbar
 		this.#mapLayersToolbar = theHTMLElementsFactory.create (
 			'div',
-			{ id : 'TravelNotes-ViewerLayersToolbar' },
+			{ id : 'travelnotes-viewer-layers-toolbar' },
 			document.body
 		);
 
@@ -102,7 +102,7 @@ class ViewerLayersToolbar {
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-ViewerLayersToolbar-Button',
+				className : 'travelnotes-viewer-layers-toolbar-button',
 				title : 'My position',
 				textContent : '🌐',
 				style : 'color:black;background-color:white'
@@ -114,7 +114,7 @@ class ViewerLayersToolbar {
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-ViewerLayersToolbar-Button',
+				className : 'travelnotes-viewer-layers-toolbar-button',
 				title : 'Zoom on the travel',
 				textContent : '🔍',
 				style : 'color:black;background-color:white'
@@ -129,7 +129,7 @@ class ViewerLayersToolbar {
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					className : 'TravelNotes-ViewerLayersToolbar-Button',
+					className : 'travelnotes-viewer-layers-toolbar-button',
 					title : mapLayer.name,
 					dataset : { MapLayerId : mapLayerCounter },
 					textContent : mapLayer.toolbarButtonData.text,

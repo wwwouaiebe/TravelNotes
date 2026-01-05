@@ -109,7 +109,7 @@ class DockableBaseDialog extends NonModalBaseDialog {
 			}
 			else {
 				this.mover.dialogHTMLElement.classList.add (
-					'TravelNotes-DockableBaseDialog-HiddenContent'
+					'travelnotes-dockable-base-dialog-hidden-content'
 				);
 			}
 		}
@@ -127,7 +127,7 @@ class DockableBaseDialog extends NonModalBaseDialog {
 			this.#mouseLeaveTimerId = null;
 		}
 		if ( this.mover.dialogDocked ) {
-			this.mover.dialogHTMLElement.classList.remove ( 'TravelNotes-DockableBaseDialog-HiddenContent' );
+			this.mover.dialogHTMLElement.classList.remove ( 'travelnotes-dockable-base-dialog-hidden-content' );
 		}
 	}
 
@@ -155,7 +155,7 @@ class DockableBaseDialog extends NonModalBaseDialog {
 			return;
 		}
 		if ( this.mover.dialogDocked ) {
-			this.mover.dialogHTMLElement.classList.toggle ( 'TravelNotes-DockableBaseDialog-HiddenContent' );
+			this.mover.dialogHTMLElement.classList.toggle ( 'travelnotes-dockable-base-dialog-hidden-content' );
 		}
 	}
 
@@ -208,7 +208,7 @@ class DockableBaseDialog extends NonModalBaseDialog {
 			return;
 		}
 		super.show ( );
-		this.addCssClass ( 'TravelNotes-DockableBaseDialog' );
+		this.addCssClass ( 'travelnotes-dockable-base-dialog' );
 		this.updateContent ( );
 		if ( null !== this.#dialogX && null !== this.#dialogY ) {
 			this.mover.moveDialogTo ( this.#dialogX, this.#dialogY );
@@ -239,7 +239,7 @@ class DockableBaseDialog extends NonModalBaseDialog {
 		);
 
 		if ( this.mover.dialogDocked ) {
-			this.mover.dialogHTMLElement.classList.add ( 'TravelNotes-DockableBaseDialog-HiddenContent' );
+			this.mover.dialogHTMLElement.classList.add ( 'travelnotes-dockable-base-dialog-hidden-content' );
 		}
 		this.#isShow = true;
 	}

@@ -87,7 +87,6 @@ class RoutePropertiesDialog extends ModalBaseDialog {
 	@type {Number}
 	*/
 
-	// eslint-disable-next-line no-magic-numbers
 	static get #ROUTE_MIN_WIDTH ( ) { return 1; }
 
 	/**
@@ -164,7 +163,7 @@ class RoutePropertiesDialog extends ModalBaseDialog {
 
 	show ( ) {
 		let showPromise = super.show ( );
-		this.addCssClass ( 'TravelNotes-RoutePropertiesDialog' );
+		this.addCssClass ( 'travelNotes-route-properties-dialog' );
 		return showPromise;
 	}
 

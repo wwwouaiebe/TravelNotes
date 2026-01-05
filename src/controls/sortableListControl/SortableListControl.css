@@ -23,13 +23,13 @@ Changes:
 Doc reviewed 202208
  */
 
-.TravelNotes-SortableList-ListHTMLElement {
+.travelnotes-sortable-list-container {
 	margin-top: 1em;
 	border-style: solid;
 	border-width: 0.1em;
 }
 
-.TravelNotes-SortableList-ListItemHTMLElement {
+.travelnotes-sortable-list-item {
 	border-top-style: solid;
 	border-width: 0.1em;
 	margin-left: 0.5em;
@@ -37,11 +37,11 @@ Doc reviewed 202208
 	min-height: 3em;
 }
 
-.TravelNotes-SortableList-ListItemHTMLElement:first-child {
+.travelnotes-sortable-list-item:first-child {
 	border-top-style: none;
 }
 
-.TravelNotes-SortableList-DraggedListItemHTMLElement {
+.travelnotes-sortable-list-dragged-item {
 	position: absolute;
 	z-index: 1100;
 }

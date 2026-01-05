@@ -63,7 +63,7 @@ class OsmSearchToolbarButtons {
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-Button',
+				className : 'travelnotes-base-dialog-button',
 				title : theTranslator.getText ( 'OsmSearchToolbarButtons - Start the search' ),
 				textContent : '🔎'
 			},
@@ -75,7 +75,7 @@ class OsmSearchToolbarButtons {
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-Button',
+				className : 'travelnotes-base-dialog-button',
 				title : theTranslator.getText ( 'OsmSearchToolbarButtons - Expand the tree' ),
 				textContent : '▼'
 			},
@@ -87,7 +87,7 @@ class OsmSearchToolbarButtons {
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-Button',
+				className : 'travelnotes-base-dialog-button',
 				title : theTranslator.getText ( 'OsmSearchToolbarButtons - Collapse the tree' ),
 				textContent : '▶'
 			},
@@ -99,7 +99,7 @@ class OsmSearchToolbarButtons {
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-Button',
+				className : 'travelnotes-base-dialog-button',
 				title : theTranslator.getText ( 'OsmSearchToolbarButtons - Clear the tree' ),
 				textContent : '❌'
 			},

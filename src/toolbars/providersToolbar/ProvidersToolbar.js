@@ -160,7 +160,7 @@ class ProvidersToolbar {
 	}
 
 	/**
-	Remove the TravelNotes-Hidden class on the toolbar. It's needed to use a timer (see the #show ( ) method) to
+	Remove the travelnotes-hidden class on the toolbar. It's needed to use a timer (see the #show ( ) method) to
 	remove the class, otherwise one of the button of the toolbar is clicked when the toolbar is show by clicking
 	on the header on touch devices
 	*/
@@ -169,7 +169,7 @@ class ProvidersToolbar {
 
 		// we need first to move the toolbar on top, otherwise showing the toolbar will resize the screen.
 		this.#toolbarHTMLElement.style.top = ZERO;
-		this.#buttonsHTMLElement.classList.remove ( 'TravelNotes-Hidden' );
+		this.#buttonsHTMLElement.classList.remove ( 'travelnotes-hidden' );
 		this.centerToolbar ( );
 	}
 
@@ -226,7 +226,7 @@ class ProvidersToolbar {
 			clearTimeout ( this.#mouseLeaveTimerId );
 			this.#mouseLeaveTimerId = null;
 		}
-		this.#buttonsHTMLElement.classList.add ( 'TravelNotes-Hidden' );
+		this.#buttonsHTMLElement.classList.add ( 'travelnotes-hidden' );
 		this.centerToolbar ( );
 		this.#isShow = false;
 	}
@@ -273,7 +273,7 @@ class ProvidersToolbar {
 		this.#toolbarHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				id : 'TravelNotes-ProvidersToolbar-Container'
+				id : 'travelnotes-providers-toolbar-container'
 			},
 			document.body
 		);
@@ -292,7 +292,7 @@ class ProvidersToolbar {
 		this.#topBar = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-ProvidersToolbar-TopBar',
+				className : 'travelnotes-providers-toolbar-top-bar',
 				textContent : theTranslator.getText ( 'TravelNotes-ProvidersToolbar - Providers' )
 			},
 			this.#toolbarHTMLElement
@@ -307,7 +307,7 @@ class ProvidersToolbar {
 		this.#buttonsHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-ProvidersToolbar-ImgButtonsDiv TravelNotes-Hidden'
+				className : 'travelnotes-providers-toolbar-img-buttons travelnotes-hidden'
 			},
 			this.#toolbarHTMLElement
 		);

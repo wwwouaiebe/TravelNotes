@@ -127,7 +127,7 @@ class BaseDialog {
 		this.#dialogHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-DialogHTMLElement'
+				className : 'travelnotes-base-dialog-dialog-container'
 			}
 		);
 		this.mover.dialogHTMLElement = this.#dialogHTMLElement;
@@ -142,7 +142,7 @@ class BaseDialog {
 		this.#topBarHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-TopBarHTMLElement',
+				className : 'travelnotes-base-dialog-top-bar',
 				draggable : true
 			},
 			this.#dialogHTMLElement
@@ -162,7 +162,7 @@ class BaseDialog {
 			'div',
 			{
 				textContent : '❌',
-				className : 'TravelNotes-BaseDialog-CancelButton',
+				className : 'travelnotes-base-dialog-cancel-button',
 				title : theTranslator.getText ( 'BaseDialog - Cancel' )
 			},
 			this.#topBarHTMLElement
@@ -171,7 +171,7 @@ class BaseDialog {
 			'div',
 			{
 				textContent : this.title,
-				className : 'TravelNotes-BaseDialog-Title'
+				className : 'travelnotes-base-dialog-title'
 			},
 			this.#topBarHTMLElement
 		);
@@ -189,7 +189,7 @@ class BaseDialog {
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					className : 'TravelNotes-BaseDialog-ToolbarHTMLElement'
+					className : 'travelnotes-base-dialog-toolbar-container'
 				},
 				this.#dialogHTMLElement
 			).appendChild ( this.toolbarHTMLElement );
@@ -204,7 +204,7 @@ class BaseDialog {
 		this.#contentHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-ContentHTMLElement'
+				className : 'travelnotes-base-dialog-content-container'
 			},
 			this.#dialogHTMLElement
 		);

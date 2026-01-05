@@ -87,7 +87,6 @@ class MapEditorViewer {
 	@type {Number}
 	*/
 
-	// eslint-disable-next-line no-magic-numbers
 	static get #DEFAULT_MIN_ZOOM ( ) { return 0; }
 
 	/**
@@ -154,7 +153,7 @@ class MapEditorViewer {
 			polyline.bindPopup (
 				layer => theHTMLSanitizer.clone (
 					theRouteHTMLViewsFactory.getRouteHeaderHTML (
-						'TravelNotes-Map-',
+						'travelnotes-map-',
 						theDataSearchEngine.getRoute ( layer.objId )
 					)
 				)
@@ -204,7 +203,7 @@ class MapEditorViewer {
 						iconSize : [ theConfig.note.grip.size, theConfig.note.grip.size ],
 						iconAnchor : [ theConfig.note.grip.size / TWO, theConfig.note.grip.size / TWO ],
 						html : '<div></div>',
-						className : 'TravelNotes-Map-Note-Bullet'
+						className : 'travelnotes-map-note-bullet'
 					}
 				),
 				opacity : theConfig.note.grip.opacity,
@@ -224,7 +223,7 @@ class MapEditorViewer {
 						iconAnchor : [ note.iconWidth / TWO, note.iconHeight / TWO ],
 						popupAnchor : [ ZERO, -note.iconHeight / TWO ],
 						html : note.iconContent,
-						className : 'TravelNotes-Map-AllNotes '
+						className : 'travelnotes-map-all-notes'
 					}
 				),
 				draggable : ! theTravelNotesData.travel.readOnly
@@ -236,7 +235,7 @@ class MapEditorViewer {
 		marker.bindPopup (
 			layer => theHTMLSanitizer.clone (
 				theNoteHTMLViewsFactory.getNoteTextHTML (
-					'TravelNotes-Map-',
+					'travelnotes-map-',
 					theDataSearchEngine.getNoteAndRoute ( layer.objId )
 				)
 			)
@@ -264,8 +263,8 @@ class MapEditorViewer {
 		this.addToMap ( note.objId, layerGroup );
 
 		if ( theConfig.note.haveBackground ) {
-			document.querySelectorAll ( '.TravelNotes-MapNote,.TravelNotes-SvgIcon' ).forEach (
-				noteIcon => noteIcon.classList.add ( 'TravelNotes-Map-Note-Background' )
+			document.querySelectorAll ( '.travenNotes-map-note,.travelnotes-svg-icon' ).forEach (
+				noteIcon => noteIcon.classList.add ( 'travelnotes-map-note-background' )
 			);
 		}
 		return new NoteLeafletObjects ( marker, polyline, bullet );

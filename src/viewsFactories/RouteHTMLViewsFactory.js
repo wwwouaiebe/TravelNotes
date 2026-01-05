@@ -56,7 +56,7 @@ class RouteHTMLViewsFactory {
 			'div',
 			{
 				className :
-					classPrefix + 'Route-ManeuversAndNotes-IconCell'
+					classPrefix + 'route-maneuvers-and-notes-icon-cell'
 			},
 			maneuverHTML
 		);
@@ -65,7 +65,7 @@ class RouteHTMLViewsFactory {
 			'div',
 			{
 				className :
-					'TravelNotes-ManeuverNote TravelNotes-ManeuverNote-' +
+					'travelnotes-maneuver-note travelnotes-maneuver-note-' +
 					routeAndManeuver.maneuver.iconName
 			},
 			maneuverIconHTML
@@ -77,7 +77,7 @@ class RouteHTMLViewsFactory {
 		const maneuverTextHTML = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : classPrefix + 'Route-ManeuversAndNotes-Cell'
+				className : classPrefix + 'route-maneuvers-and-notes-cell'
 			},
 			maneuverHTML
 		);
@@ -85,7 +85,7 @@ class RouteHTMLViewsFactory {
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : classPrefix + 'Route-Maneuver-TooltipContent',
+				className : classPrefix + 'maneuver-tooltip-content',
 				textContent : theTranslator.getText ( 'RouteHTMLViewsFactory - ' + routeAndManeuver.maneuver.iconName )
 			},
 			maneuverTextHTML
@@ -96,7 +96,7 @@ class RouteHTMLViewsFactory {
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					className : classPrefix + 'Route-Maneuver-Instruction'
+					className : classPrefix + 'route-maneuver-instruction'
 				},
 				maneuverTextHTML
 			)
@@ -111,7 +111,7 @@ class RouteHTMLViewsFactory {
 				theHTMLElementsFactory.create (
 					'div',
 					{
-						className : classPrefix + 'Route-Maneuver-TravelDistance'
+						className : classPrefix + 'route-maneuver-travel-distance'
 					},
 					maneuverTextHTML
 				)
@@ -126,7 +126,7 @@ class RouteHTMLViewsFactory {
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					className : classPrefix + 'Route-Maneuver-RouteDistance'
+					className : classPrefix + 'route-maneuver-route-distance'
 				},
 				maneuverTextHTML
 			)
@@ -141,7 +141,7 @@ class RouteHTMLViewsFactory {
 				theHTMLElementsFactory.create (
 					'div',
 					{
-						className : classPrefix + 'Route-Maneuver-NextDistance'
+						className : classPrefix + 'route-maneuver-next-distance'
 					},
 					maneuverTextHTML
 				)
@@ -165,7 +165,7 @@ class RouteHTMLViewsFactory {
 	*/
 
 	getRouteProfileHTML ( classPrefix, route ) {
-		const profileDiv = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'RouteProfile' } );
+		const profileDiv = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'route-profile' } );
 		theHTMLSanitizer.sanitizeToHtmlElement ( theTranslator.getText ( 'RouteHTMLViewsFactory - Profile' ), profileDiv );
 		profileDiv.appendChild ( new SvgProfileBuilder ( ).createSvg ( route ) );
 
@@ -207,7 +207,7 @@ class RouteHTMLViewsFactory {
 		const routeNotesAndManeuversHTML = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : classPrefix + 'Route-ManeuversAndNotes'
+				className : classPrefix + 'route-maneuvers-and-notes'
 			}
 		);
 		notesAndManeuvers.forEach (
@@ -218,7 +218,7 @@ class RouteHTMLViewsFactory {
 						classPrefix,
 						{ note : noteOrManeuver.data, route : route }
 					);
-					noteOrManeuverHTML.className = classPrefix + 'Route-Notes-Row';
+					noteOrManeuverHTML.className = classPrefix + 'route-notes-row';
 				}
 				else {
 					noteOrManeuverHTML = this.#getManeuverHTML (
@@ -229,7 +229,7 @@ class RouteHTMLViewsFactory {
 							maneuverDistance : noteOrManeuver.distance
 						}
 					);
-					noteOrManeuverHTML.className = classPrefix + 'Route-Maneuvers-Row';
+					noteOrManeuverHTML.className = classPrefix + 'route-maneuvers-row';
 				}
 				if ( addDataset ) {
 					noteOrManeuverHTML.dataset.tanObjId = noteOrManeuver.data.objId;
@@ -255,7 +255,7 @@ class RouteHTMLViewsFactory {
 		const routeHeaderHTML = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : classPrefix + 'Route-Header',
+				className : classPrefix + 'route-header',
 				id : 'route' + route.objId
 			}
 		);
@@ -265,7 +265,7 @@ class RouteHTMLViewsFactory {
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					className : classPrefix + 'Route-Header-Name'
+					className : classPrefix + 'route-header-name'
 				},
 				routeHeaderHTML
 			)
@@ -280,7 +280,7 @@ class RouteHTMLViewsFactory {
 				theHTMLElementsFactory.create (
 					'div',
 					{
-						className : classPrefix + 'Route-Header-Distance'
+						className : classPrefix + 'route-header-distance'
 					},
 					routeHeaderHTML
 				)
@@ -296,7 +296,7 @@ class RouteHTMLViewsFactory {
 				theHTMLElementsFactory.create (
 					'div',
 					{
-						className : classPrefix + 'Route-Header-Duration'
+						className : classPrefix + 'route-header-duration'
 					},
 					routeHeaderHTML
 				)
@@ -313,7 +313,7 @@ class RouteHTMLViewsFactory {
 				theHTMLElementsFactory.create (
 					'div',
 					{
-						className : classPrefix + 'Route-Header-Ascent'
+						className : classPrefix + 'route-header-ascent'
 					},
 					routeHeaderHTML
 				)
@@ -327,7 +327,7 @@ class RouteHTMLViewsFactory {
 				theHTMLElementsFactory.create (
 					'div',
 					{
-						className : classPrefix + 'Route-Header-Descent'
+						className : classPrefix + 'route-header-descent'
 					},
 					routeHeaderHTML
 				)
@@ -359,7 +359,7 @@ class RouteHTMLViewsFactory {
 				:
 				'';
 
-		const footerHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'RouteFooter' } );
+		const footerHTML = theHTMLElementsFactory.create ( 'div', { className : classPrefix + 'route-footer' } );
 
 		theHTMLSanitizer.sanitizeToHtmlElement ( footerText, footerHTML );
 

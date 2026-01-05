@@ -377,7 +377,7 @@ class AppLoader {
 
 		// mapDiv must be extensible for leaflet
 		const mapDiv = document.createElement ( 'div' );
-		mapDiv.id = 'TravelNotes-Map';
+		mapDiv.id = 'travelnotes-map';
 		document.body.appendChild ( mapDiv );
 		theTravelNotesData.map = new LeafletMap ( mapDiv.id, { attributionControl : false, zoomControl : false } )
 			.setView ( [ LAT_LNG.defaultValue, LAT_LNG.defaultValue ], ZERO );

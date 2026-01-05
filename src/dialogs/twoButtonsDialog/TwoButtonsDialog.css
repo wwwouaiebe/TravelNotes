@@ -23,16 +23,16 @@ Changes:
 Doc reviewed 202208
  */
 
-.TravelNotes-TwoButtonsDialog-FooterDiv {
+.travelnotes-two-buttons-dialog-footer-container {
 	display: flex;
 	flex-direction: row;
 }
 
-#TravelNotes-TwoButtonsDialog-MessageDiv {
+#travelnotes-two-buttons-dialog-message-container {
 	width: 30em;
 }
 
-.TravelNotes-TwoButtonsDialog-Button {
+.travelnotes-two-buttons-dialog {
 	min-width: 2em;
 	width: auto;
 }

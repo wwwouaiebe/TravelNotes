@@ -53,7 +53,7 @@ class BaseControl {
 		this.#controlHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-DataDiv'
+				className : 'travelnotes-base-dialog-data-container'
 			}
 		);
 	}

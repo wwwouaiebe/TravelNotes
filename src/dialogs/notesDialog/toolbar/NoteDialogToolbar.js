@@ -73,8 +73,8 @@ class NoteDialogToolbar {
 		this.#iconSelect = theHTMLElementsFactory.create (
 			'select',
 			{
-				className : 'TravelNotes-NoteDialog-Select',
-				id : 'TravelNotes-NoteDialog-IconSelect'
+				className : 'travelnotes-note-dialog-select',
+				id : 'travelnotes-note-dialog-icon-selector'
 			},
 			this.#rootHTMLElement
 		);
@@ -95,7 +95,7 @@ class NoteDialogToolbar {
 		this.#openFileButton = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-Button',
+				className : 'travelnotes-base-dialog-button',
 				title : theTranslator.getText ( 'NoteDialogToolbar - Open a configuration file' ),
 				textContent : '📂'
 			},
@@ -117,7 +117,7 @@ class NoteDialogToolbar {
 							HtmlBefore : editionButtonData.htmlBefore,
 							HtmlAfter : editionButtonData.htmlAfter
 						},
-						className : 'TravelNotes-NoteDialog-EditorButton'
+						className : 'travelnotes-note-dialog-editor-button'
 					},
 					this.#rootHTMLElement
 				);
@@ -178,7 +178,7 @@ class NoteDialogToolbar {
 		this.#rootHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				id : 'TravelNotes-NoteDialog-ToolbarDiv'
+				id : 'travelnotes-note-dialog-toolbar-container'
 			}
 		);
 

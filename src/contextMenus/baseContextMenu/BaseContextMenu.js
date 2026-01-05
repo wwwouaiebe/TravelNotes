@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v4.0.0:
 		- created from v3.6.0
-Doc reviewed 202208
+Doc reviewed 20260103
  */
 
 import theTranslator from '../../core/uiLib/Translator.js';
@@ -144,7 +144,7 @@ class BaseContextMenu {
 		this.#contextMenuHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-ContextMenu-ContextMenuHTMLElement'
+				className : 'travelnotes-context-menu-container'
 			},
 			document.body
 		);
@@ -159,7 +159,7 @@ class BaseContextMenu {
 			'div',
 			{
 				textContent : '❌',
-				className : 'TravelNotes-ContextMenu-CancelButton',
+				className : 'travelnotes-context-menu-cancel-button',
 				title : theTranslator.getText ( 'BaseContextMenu - Close' )
 			},
 			this.#contextMenuHTMLElement
@@ -178,13 +178,13 @@ class BaseContextMenu {
 					'div',
 					{
 						textContent : menuItem.itemText,
-						className :	'TravelNotes-ContextMenu-MenuItem',
+						className :	'travelnotes-context-menu-menu-item',
 						dataset : { ObjId : String ( index ) }
 					},
 					this.#contextMenuHTMLElement
 				);
 				if ( ! menuItem.isActive ) {
-					menuItemHTMLElement.classList.add ( 'TravelNotes-ContextMenu-MenuItemDisabled' );
+					menuItemHTMLElement.classList.add ( 'travelnotes-context-menu-menu-item-disabled' );
 				}
 				this.#menuItemHTMLElements.push ( menuItemHTMLElement );
 			}

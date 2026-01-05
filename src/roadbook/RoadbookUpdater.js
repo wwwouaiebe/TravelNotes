@@ -82,10 +82,10 @@ class RoadbookUpdater {
 		document.querySelectorAll ( selector ).forEach (
 			note => {
 				if ( show ) {
-					note.classList.remove ( 'TravelNotes-Hidden' );
+					note.classList.remove ( 'travelnotes-hidden' );
 				}
 				else {
-					note.classList.add ( 'TravelNotes-Hidden' );
+					note.classList.add ( 'travelnotes-hidden' );
 				}
 			}
 		);
@@ -97,13 +97,13 @@ class RoadbookUpdater {
 	*/
 
 	#toggleProfiles ( show ) {
-		document.querySelectorAll ( '.TravelNotes-Roadbook-RouteProfile' ).forEach (
+		document.querySelectorAll ( '.travelnotes-roadbook-route-profile' ).forEach (
 			profile => {
 				if ( show ) {
-					profile.classList.remove ( 'TravelNotes-Hidden' );
+					profile.classList.remove ( 'travelnotes-hidden' );
 				}
 				else {
-					profile.classList.add ( 'TravelNotes-Hidden' );
+					profile.classList.add ( 'travelnotes-hidden' );
 				}
 			}
 		);
@@ -116,15 +116,15 @@ class RoadbookUpdater {
 
 	#toggleSmallNotes ( small ) {
 		if ( small ) {
-			this.#travelNotesHtmlElement.classList.add ( 'TravelNotes-SmallNotes' );
-			this.#travelNotesHtmlElement.classList.remove ( 'TravelNotes-BigNotes' );
+			this.#travelNotesHtmlElement.classList.add ( 'travelnotes-small-notes' );
+			this.#travelNotesHtmlElement.classList.remove ( 'travelnotes-big-notes' );
 		}
 		else {
-			this.#travelNotesHtmlElement.classList.add ( 'TravelNotes-BigNotes' );
-			this.#travelNotesHtmlElement.classList.remove ( 'TravelNotes-SmallNotes' );
+			this.#travelNotesHtmlElement.classList.add ( 'travelnotes-big-notes' );
+			this.#travelNotesHtmlElement.classList.remove ( 'travelnotes-small-notes' );
 		}
 		document.querySelectorAll (
-			'.TravelNotes-Roadbook-Travel-Notes-IconCell, .TravelNotes-Roadbook-Route-ManeuversAndNotes-IconCell'
+			'.travelnotes-roadbook-travel-notes-icon-cell, .travelnotes-roadbook-route-maneuvers-and-notes-icon-cell'
 		).forEach (
 			icon => {
 				icon.style.width = small ? '6cm' : icon.dataset.tanWidth;
@@ -139,7 +139,7 @@ class RoadbookUpdater {
 
 	constructor ( ) {
 		Object.freeze ( this );
-		this.#travelNotesHtmlElement = document.getElementById ( 'TravelNotes' );
+		this.#travelNotesHtmlElement = document.getElementById ( 'travelnotes' );
 		this.#showTravelNotes = true;
 		this.#showRouteNotes = true;
 		this.#showManeuversNotes = false;
@@ -155,7 +155,7 @@ class RoadbookUpdater {
 	get showTravelNotes ( ) { return this.#showTravelNotes; }
 	set showTravelNotes ( show ) {
 		this.#showTravelNotes = show;
-		this.#toggleNotes ( '.TravelNotes-Roadbook-Travel-Notes-Row', show );
+		this.#toggleNotes ( '.travelnotes-roadbook-travel-notes-row', show );
 	}
 
 	/**
@@ -166,7 +166,7 @@ class RoadbookUpdater {
 	get showRouteNotes ( ) { return this.#showRouteNotes; }
 	set showRouteNotes ( show ) {
 		this.#showRouteNotes = show;
-		this.#toggleNotes ( '.TravelNotes-Roadbook-Route-Notes-Row', show );
+		this.#toggleNotes ( '.travelnotes-roadbook-route-notes-row', show );
 	}
 
 	/**
@@ -177,7 +177,7 @@ class RoadbookUpdater {
 	get showManeuversNotes ( ) { return this.#showManeuversNotes; }
 	set showManeuversNotes ( show ) {
 		this.#showManeuversNotes = show;
-		this.#toggleNotes ( '.TravelNotes-Roadbook-Route-Maneuvers-Row', show );
+		this.#toggleNotes ( '.travelnotes-roadbook-route-maneuvers-row', show );
 	}
 
 	/**
@@ -211,7 +211,6 @@ class RoadbookUpdater {
 		this.showRouteNotes = this.#showRouteNotes;
 		this.showManeuversNotes = this.#showManeuversNotes;
 		this.showSmallNotes = this.#showSmallNotes;
-
 		this.showProfiles = this.#showProfiles;
 	}
 
@@ -222,7 +221,7 @@ class RoadbookUpdater {
 
 	updateRoadbook ( pageContent ) {
 		this.#travelNotesHtmlElement.innerHTML = pageContent;
-		const headerName = document.querySelector ( '.TravelNotes-Roadbook-Travel-Header-Name' );
+		const headerName = document.querySelector ( '.travelnotes-roadbook-travel-header-name' );
 		if ( headerName ) {
 			document.title =
 				'' === headerName.textContent ? 'roadbook' : headerName.textContent + ' - roadbook';
@@ -230,7 +229,7 @@ class RoadbookUpdater {
 
 		// when CSP is enabled, it's needed to set width and height with JS to avoid to add an 'unsafe-inline' for style in CSP
 		document.querySelectorAll (
-			'.TravelNotes-Roadbook-Travel-Notes-IconCell, .TravelNotes-Roadbook-Route-ManeuversAndNotes-IconCell'
+			'.travelnotes-roadbook-travel-notes-icon-cell, .travelnotes-roadbook-route-maneuvers-and-notes-icon-cell'
 		).forEach (
 			icon => {
 				icon.style.width = icon.dataset.tanWidth;

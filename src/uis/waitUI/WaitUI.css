@@ -23,7 +23,7 @@ Changes:
 Doc reviewed 202208
  */
 
-#TravelNotes-WaitUI {
+#travelnotes-wait-ui {
 	position: absolute;
 	bottom: 10em;
 	left: calc(50% - 25em);
@@ -35,7 +35,7 @@ Doc reviewed 202208
 	border-width: 0.1em;
 }
 
-#TravelNotes-WaitUI-MessageDiv {
+#travelnotes-wait-ui-message {
 	text-align: center;
 	padding: 1em;
 }

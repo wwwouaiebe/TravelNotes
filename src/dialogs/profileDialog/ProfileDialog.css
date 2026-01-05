@@ -23,9 +23,9 @@ Changes:
 Doc reviewed 202208
  */
 
-.TravelNotes-ProfileDialog-SvgContainer,
-.TravelNotes-ProfileDialog-NameContainer,
-.TravelNotes-ProfileDialog-AscentContainer {
+.travelnotes-profile-dialog-svg-container,
+.travelnotes-profile-dialog-name-container,
+.travelnotes-profile-dialog-ascent-container {
 	width: 50em;
 	max-width: 90vw;
 }

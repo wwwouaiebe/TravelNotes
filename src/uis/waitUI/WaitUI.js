@@ -66,19 +66,19 @@ class WaitUI {
 		}
 
 		// Background div, so the map and controls are unavailable
-		this.#backgroundDiv = theHTMLElementsFactory.create ( 'div', { className : 'TravelNotes-Background' }, document.body );
+		this.#backgroundDiv = theHTMLElementsFactory.create ( 'div', { className : 'travelnotes-background' }, document.body );
 
 		// Wait div
-		const waitDiv = theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-WaitUI' }, this.#backgroundDiv );
+		const waitDiv = theHTMLElementsFactory.create ( 'div', { id : 'travelnotes-wait-ui' }, this.#backgroundDiv );
 
 		// Message div
-		this.#messageDiv = theHTMLElementsFactory.create ( 'div', { id : 'TravelNotes-WaitUI-MessageDiv' }, waitDiv );
+		this.#messageDiv = theHTMLElementsFactory.create ( 'div', { id : 'travelnotes-wait-ui-message' }, waitDiv );
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-WaitAnimationBullet'
+				className : 'travelnotes-wait-animation-bullet'
 			},
-			theHTMLElementsFactory.create ( 'div', { className : 'TravelNotes-WaitAnimation' }, waitDiv ) );
+			theHTMLElementsFactory.create ( 'div', { className : 'travelnotes-wait-animation' }, waitDiv ) );
 	}
 
 	/**

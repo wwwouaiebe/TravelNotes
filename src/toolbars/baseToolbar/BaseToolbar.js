@@ -127,7 +127,7 @@ class BaseToolbar {
 		const buttonHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseToolbar-ButtonHTMLElement',
+				className : 'travelnotes-base-toolbar-button',
 				textContent : toolbarItem.textContent,
 				title : toolbarItem.title,
 				dataset : { ItemId : index }
@@ -149,7 +149,7 @@ class BaseToolbar {
 		this.#buttonsHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseToolbar-ButtonsHTMLElement'
+				className : 'travelnotes-base-toolbar-buttons-container'
 			},
 			this.#toolbarHTMLElement
 		);
@@ -300,7 +300,7 @@ class BaseToolbar {
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					className : 'TravelNotes-BaseToolbar-ToolbarHTMLElement ' + position
+					className : 'travelnotes-base-toolbar-container ' + position
 				},
 				document.body
 			);
@@ -324,13 +324,13 @@ class BaseToolbar {
 		theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseToolbar-HeaderTextHTMLElement',
+				className : 'travelnotes-base-toolbar-header-text',
 				textContent : headerText
 			},
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					className : 'TravelNotes-BaseToolbar-HeaderHTMLElement'
+					className : 'travelnotes-base-toolbar-header'
 				},
 				this.#toolbarHTMLElement
 			)

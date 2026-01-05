@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Changes:
 	- v4.0.0:
 		- created from v3.6.0
-Doc reviewed 202208
+Doc reviewed 20260105
  */
 
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
@@ -61,13 +61,13 @@ class AddressControl extends BaseControl {
 		const headerControlElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-FlexRow'
+				className : 'travelnotes-base-dialog-flex-row'
 			},
 			this.controlHTMLElement );
 		this.#addressButton = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'TravelNotes-BaseDialog-Button',
+				className : 'travelnotes-base-dialog-button',
 				title : theTranslator.getText ( 'AddressControl - Reset address' ),
 				textContent : '🔄'
 			},
@@ -84,13 +84,13 @@ class AddressControl extends BaseControl {
 			'input',
 			{
 				type : 'text',
-				className : 'TravelNotes-AdressControl-InputText',
+				className : 'travelnotes-adress-control-input-text',
 				dataset : { Name : 'address' }
 			},
 			theHTMLElementsFactory.create (
 				'div',
 				{
-					className : 'TravelNotes-BaseDialog-FlexRow'
+					className : 'travelnotes-base-dialog-flex-row'
 				},
 				this.controlHTMLElement )
 		);
