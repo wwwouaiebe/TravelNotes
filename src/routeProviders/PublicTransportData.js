@@ -25,6 +25,7 @@ Doc reviewed 202208
  */
 
 import theSphericalTrigonometry from '../core/lib/SphericalTrigonometry.js';
+import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
 
 import { ZERO, NOT_FOUND, INVALID_OBJ_ID, ONE, TWO } from '../main/Constants.js';
 
@@ -253,7 +254,7 @@ class PublicTransportData {
 					this.#stopsMap.set ( nodeId, node );
 				}
 				else {
-					window.TaN.showInfo (
+					theErrorsUI.showInfo (
 						'the relation ' +
 						this.#selectedRelationId +
 						' have nodes not positionned on the railway ( node ' +

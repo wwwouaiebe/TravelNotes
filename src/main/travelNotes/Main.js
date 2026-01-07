@@ -23,7 +23,10 @@ Doc reviewed 202208
  */
 
 import AppLoader from './AppLoader.js';
+import thePluginsManager from '../../core/PluginsManager.js';
 
 new AppLoader ( ).loadApp ( );
+
+export { thePluginsManager };
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

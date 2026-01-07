@@ -188,12 +188,6 @@ class AppLoader {
 			// default config overload with user config
 			new ConfigOverloader ( ).overload ( config );
 
-			// language setting for providers
-			theTravelNotesData.providers.forEach (
-				provider => {
-					provider.userLanguage = theConfig.travelNotes.language;
-				}
-			);
 			return true;
 		}
 		return false;
@@ -407,9 +401,6 @@ class AppLoader {
 	*/
 
 	async loadApp ( ) {
-
-		// creating a reference of TravelNotes in the browser window object
-		window.TaN = theTravelNotes;
 
 		// reading url
 		this.#readURL ( );

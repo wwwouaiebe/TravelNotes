@@ -363,7 +363,7 @@ class PublicTransportRouteBuilder {
 					break;
 				default :
 					nodeWithMoreThan3WaysFound = true;
-					window.TaN.showInfo (
+					theErrorsUI.showInfo (
 						'A node with more than 3 ways is found : ' +
 						node.id +
 						' - the relation ' +
@@ -385,7 +385,7 @@ class PublicTransportRouteBuilder {
 		// removing holes
 		if ( this.#publicTransportData.waysMap.size > ( ( this.#publicTransportData.nodes3WaysCounter * TWO ) + ONE ) ) {
 			new PublicTransportHolesRemover ( this.#publicTransportData ). removeHoles ( );
-			window.TaN.showInfo (
+			theErrorsUI.showInfo (
 				'Holes found in the OSM relation number ' + this.#selectedRelationId + '. Try to correct OSM data.'
 			);
 		}

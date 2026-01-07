@@ -37,6 +37,7 @@ import RoutePrinter from '../printRoute/RoutePrinter.js';
 
 import { ROUTE_EDITION_STATUS, DISTANCE, INVALID_OBJ_ID } from '../main/Constants.js';
 import TempWayPointMarkerMouseOutEL from './mapEditor/TempWayPointMarkerEL/TempWayPointMarkerMouseOutEL.js';
+import thePluginsManager from './PluginsManager.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -83,7 +84,7 @@ class RouteEditor {
 		// We verify that the provider  for this route is available
 		const initialRoute = theDataSearchEngine.getRoute ( routeObjId );
 		const providerName = initialRoute.itinerary.provider;
-		const provider = theTravelNotesData.providers.get ( providerName.toLowerCase ( ) );
+		const provider = thePluginsManager.providers.get ( providerName.toLowerCase ( ) );
 		if (
 			providerName
 			&&

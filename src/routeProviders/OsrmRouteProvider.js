@@ -310,6 +310,6 @@ class OsrmRouteProvider extends BaseRouteProvider {
 	}
 }
 
-window.TaN.addProvider ( OsrmRouteProvider );
+export default OsrmRouteProvider;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

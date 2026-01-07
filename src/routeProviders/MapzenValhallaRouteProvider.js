@@ -351,6 +351,6 @@ class MapzenValhallaRouteProvider extends BaseRouteProvider {
 	set providerKey ( providerKey ) { this.#providerKey = providerKey; }
 }
 
-window.TaN.addProvider ( MapzenValhallaRouteProvider );
+export default MapzenValhallaRouteProvider;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

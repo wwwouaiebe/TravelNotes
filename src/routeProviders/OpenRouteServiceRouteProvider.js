@@ -323,6 +323,6 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 	set providerKey ( providerKey ) { this.#providerKey = providerKey; }
 }
 
-window.TaN.addProvider ( OpenRouteServiceRouteProvider );
+export default OpenRouteServiceRouteProvider;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

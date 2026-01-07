@@ -32,6 +32,7 @@ import theProfileDialogsManager from '../../core/ProfileDialogsManager.js';
 import theRouteEditor from '../../core/RouteEditor.js';
 
 import { DISTANCE, ZERO } from '../../main/Constants.js';
+import thePluginsManager from '../PluginsManager.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -202,7 +203,7 @@ class Router {
 		) {
 			this.#zoomToRouteAfterRouting = ZERO === theTravelNotesData.travel.editedRoute.itinerary.itineraryPoints.length;
 			this.#routingRequestStarted = true;
-			const routeProvider = theTravelNotesData.providers.get ( theTravelNotesData.routing.provider.toLowerCase ( ) );
+			const routeProvider = thePluginsManager.providers.get ( theTravelNotesData.routing.provider.toLowerCase ( ) );
 			theTravelNotesData.travel.editedRoute.itinerary.provider = routeProvider.name;
 			theTravelNotesData.travel.editedRoute.itinerary.transitMode = theTravelNotesData.routing.transitMode;
 			routeProvider.getPromiseRoute ( theTravelNotesData.travel.editedRoute )

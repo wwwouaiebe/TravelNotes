@@ -42,6 +42,14 @@ import theProvidersToolbar from '../../toolbars/providersToolbar/ProvidersToolba
 import MapMouseELs from '../../core/mapEditor/mapMouseELs/MapMouseELs.js';
 import { LAT_LNG, TWO, SAVE_STATUS, HTTP_STATUS_OK } from '../Constants.js';
 import theNoteEditor from '../../core/NoteEditor.js';
+import GraphHopperRouteProvider from '../../routeProviders/GraphHopperRouteProvider.js';
+import MapboxRouteProvider from '../../routeProviders/MapboxRouteProvider.js';
+import MapzenValhallaRouteProvider from '../../routeProviders/MapzenValhallaRouteProvider.js';
+import OpenRouteServiceRouteProvider from '../../routeProviders/OpenRouteServiceRouteProvider.js';
+import OsrmRouteProvider from '../../routeProviders/OsrmRouteProvider.js';
+import PolylineRouteProvider from '../../routeProviders/PolylineRouteProvider.js';
+import PublicTransportRouteProvider from '../../routeProviders/PublicTransportRouteProvider.js';
+import thePluginsManager from '../../core/PluginsManager.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -135,6 +143,16 @@ class TravelNotes {
 		// ... the Travel & Notes toolbar
 		theTravelNotesToolbar.createUI ( );
 
+		thePluginsManager.addProvider ( OpenRouteServiceRouteProvider );
+		thePluginsManager.addProvider ( MapzenValhallaRouteProvider );
+		thePluginsManager.addProvider ( MapboxRouteProvider );
+		thePluginsManager.addProvider ( GraphHopperRouteProvider );
+		thePluginsManager.addProvider ( OsrmRouteProvider );
+		thePluginsManager.addProvider ( PublicTransportRouteProvider );
+		thePluginsManager.addProvider ( PolylineRouteProvider );
+
+		theApiKeysManager.addProvidersKeys ( );
+
 		// ...the providers toolbar
 		theProvidersToolbar.createUI ( );
 
@@ -160,38 +178,6 @@ class TravelNotes {
 			theNoteEditor.newUrlNote ( [ latUrl, lonUrl ] );
 		}
 	}
-
-	/**
-	This method add a provider. Used by plugins.
-	@param {class} providerClass The provider to add
-	*/
-
-	addProvider ( providerClass ) {
-		theApiKeysManager.addProvider ( providerClass );
-	}
-
-	/**
-	Show an info, using theErrorsUI. Used by plugins.
-	@param {String} info The info to show
-	*/
-
-	showInfo ( info ) {
-		theErrorsUI.showInfo ( info );
-	}
-
-	/**
-	The overpassApi url to use by plugins
-	@type {String}
-	*/
-
-	get overpassApiUrl ( ) { return theConfig.overpassApi.url; }
-
-	/**
-	The Leaflet map object
-	@type {LeafletObject}
-	*/
-
-	get map ( ) { return theTravelNotesData.map; }
 
 	/**
 	theTravelNotes version

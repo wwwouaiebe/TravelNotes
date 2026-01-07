@@ -24,6 +24,7 @@ Doc reviewed 202208
 
 import { ZERO, LAT_LNG, HTTP_STATUS_OK } from '../main/Constants.js';
 import { SelectOptionData, SelectDialog } from '../dialogs/selectDialog/SelectDialog.js';
+import theConfig from '../data/Config.js';
 import PublicTransportRouteBuilder from '../routeProviders/PublicTransportRouteBuilder.js';
 import BaseRouteProvider from '../routeProviders/BaseRouteProvider.js';
 
@@ -62,7 +63,7 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 	*/
 
 	#getWaysNodesUrl ( relationId ) {
-		return window.TaN.overpassApiUrl + '?data=[out:json];rel(' +
+		return theConfig.overpassApi.url + '?data=[out:json];rel(' +
 			relationId.toFixed ( ZERO ) +
 			');way(r)->.e;way.e["railway"="rail"];(._;>;rel(' +
 			relationId.toFixed ( ZERO ) +
@@ -107,7 +108,7 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 	*/
 
 	get #relationsUrl ( ) {
-		return window.TaN.overpassApiUrl +
+		return theConfig.overpassApi.url +
 			'?data=[out:json];node["public_transport"="stop_position"]["train"="yes"](around:400.0,' +
 			this.#route.wayPoints.first.lat.toFixed ( LAT_LNG.fixed ) +
 			',' +
@@ -228,6 +229,6 @@ class PublicTransportRouteProvider extends BaseRouteProvider {
 	get providerKeyNeeded ( ) { return false; }
 }
 
-window.TaN.addProvider ( PublicTransportRouteProvider );
+export default PublicTransportRouteProvider;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

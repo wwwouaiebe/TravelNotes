@@ -25,7 +25,6 @@ Doc reviewed 202208
 import ApiKey from '../containers/ApiKey.js';
 import ApiKeysDialog from '../dialogs/apiKeysDialog/ApiKeysDialog.js';
 import theUtilities from './uiLib/Utilities.js';
-import theTravelNotesData from '../data/TravelNotesData.js';
 import theConfig from '../data/Config.js';
 import theEventDispatcher from './lib/EventDispatcher.js';
 import DataEncryptor from './lib/DataEncryptor.js';
@@ -34,6 +33,7 @@ import theTranslator from './uiLib/Translator.js';
 import theErrorsUI from '../uis/errorsUI/ErrorsUI.js';
 
 import { ZERO, ONE, HTTP_STATUS_OK } from '../main/Constants.js';
+import thePluginsManager from './PluginsManager.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -143,7 +143,7 @@ class ApiKeysManager {
 				apiKeysCounter ++;
 			}
 		}
-		theTravelNotesData.providers.forEach (
+		thePluginsManager.providers.forEach (
 			provider => {
 				if ( provider.providerKeyNeeded ) {
 					provider.providerKey = ( this.#getApiKey ( provider.name ) || '' );
@@ -178,7 +178,7 @@ class ApiKeysManager {
 				this.#setApiKey ( newApiKey.providerName, newApiKey.providerKey );
 			}
 		);
-		theTravelNotesData.providers.forEach (
+		thePluginsManager.providers.forEach (
 			provider => {
 				if ( provider.providerKeyNeeded ) {
 					provider.providerKey = ( this.#getApiKey ( provider.name ) || '' );
@@ -287,14 +287,21 @@ class ApiKeysManager {
 			);
 	}
 
+	addProvidersKeys ( ) {
+		thePluginsManager.providers.forEach (
+			( provider, providerName ) => {
+				provider.userLanguage = theConfig.travelNotes.language;
+				this.#addProviderKey ( provider, providerName );
+			}
+		);
+	}
+
 	/**
 	This method add a provider. Used by plugins
 	@param {class} providerClass The JS class of the provider to add
 	*/
 
-	addProvider ( providerClass ) {
-		const provider = new providerClass ( );
-		const providerName = provider.name.toLowerCase ( );
+	#addProviderKey ( provider, providerName ) {
 
 		// searching if we have already the provider key
 		let providerKey = this.#getApiKey ( providerName );
@@ -313,9 +320,6 @@ class ApiKeysManager {
 		if ( provider.providerKeyNeeded && providerKey ) {
 			provider.providerKey = providerKey;
 		}
-
-		// adding the provider to the available providers
-		theTravelNotesData.providers.set ( provider.name.toLowerCase ( ), provider );
 	}
 }
 

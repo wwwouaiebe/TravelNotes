@@ -305,6 +305,6 @@ class GraphHopperRouteProvider extends BaseRouteProvider {
 	set providerKey ( providerKey ) { this.#providerKey = providerKey; }
 }
 
-window.TaN.addProvider ( GraphHopperRouteProvider );
+export default GraphHopperRouteProvider;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

@@ -416,6 +416,6 @@ class PolylineRouteProvider extends BaseRouteProvider {
 	get providerKeyNeeded ( ) { return false; }
 }
 
-window.TaN.addProvider ( PolylineRouteProvider );
+export default PolylineRouteProvider;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

@@ -36,6 +36,7 @@ import Zoomer from './Zoomer.js';
 import Travel from '../data/Travel.js';
 
 import { INVALID_OBJ_ID, ROUTE_EDITION_STATUS, SAVE_STATUS } from '../main/Constants.js';
+import thePluginsManager from './PluginsManager.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -109,7 +110,7 @@ class FileLoader {
 			if (
 				( '' !== providerName )
 				&&
-				! theTravelNotesData.providers.get ( providerName.toLowerCase ( ) )
+				! thePluginsManager.providers.get ( providerName.toLowerCase ( ) )
 			) {
 				theErrorsUI.showError (
 					theTranslator.getText (

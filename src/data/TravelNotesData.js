@@ -35,13 +35,6 @@ See theTravelNotesData for the one and only one instance of this class
 class TravelNotesData {
 
 	/**
-	A JS map with the provider objects. Providers objects are created and added by the plugins
-	@type {Map.<BaseRouteProvider>}
-	*/
-
-	#providers;
-
-	/**
 	A JS map with all the Leaflet objects ordered by objId
 	@type {Map.Object}
 	*/
@@ -96,7 +89,6 @@ class TravelNotesData {
 
 	constructor ( ) {
 		Object.freeze ( this );
-		this.#providers = new Map ( );
 		this.#mapObjects = new Map ( );
 		this.#routing = new TravelNotesDataRouting ( );
 		this.#UUID = theUtilities.UUID;
@@ -148,8 +140,6 @@ class TravelNotesData {
 	A JS map with the provider objects. Providers objects are created and added by the plugins
 	@type {Map.<BaseRouteProvider>}
 	*/
-
-	get providers ( ) { return this.#providers; }
 
 	/**
 	A JS map with all the Leaflet objects ordered by objId

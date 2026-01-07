@@ -31,6 +31,7 @@ import { NOT_FOUND, ZERO, TWO } from '../../main/Constants.js';
 import theTranslator from '../../core/uiLib/Translator.js';
 import theConfig from '../../data/Config.js';
 import theDevice from '../../core/lib/Device.js';
+import thePluginsManager from '../../core/PluginsManager.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -136,7 +137,7 @@ class ProvidersToolbar {
 	*/
 
 	#createProvidersButtons ( ) {
-		theTravelNotesData.providers.forEach (
+		thePluginsManager.providers.forEach (
 			provider => {
 				if ( ! provider.providerKeyNeeded || theApiKeysManager.hasKey ( provider.name ) ) {
 					const providerButton = new ProviderButton ( this, provider );
@@ -339,7 +340,7 @@ class ProvidersToolbar {
 		this.#activeProviderButton.active = true;
 
 		// transit mode buttons activation
-		const provider = theTravelNotesData.providers.get ( providerName.toLowerCase ( ) );
+		const provider = thePluginsManager.providers.get ( providerName.toLowerCase ( ) );
 		this.#transitModeButtons.forEach (
 			transitModeButton => {
 				transitModeButton.visible = NOT_FOUND !== provider.transitModes.indexOf ( transitModeButton.transitMode );
@@ -403,7 +404,7 @@ class ProvidersToolbar {
 		this.provider = this.#providerButtons.keys ().next ().value;
 		const providerName = this.#providerButtons.keys ( ).next ( ).value;
 		this.provider = providerName;
-		this.transitMode = theTravelNotesData.providers.get ( providerName.toLowerCase ( ) ).transitModes [ ZERO ];
+		this.transitMode = thePluginsManager.providers.get ( providerName.toLowerCase ( ) ).transitModes [ ZERO ];
 		this.centerToolbar ( );
 	}
 }

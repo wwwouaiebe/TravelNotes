@@ -326,6 +326,6 @@ class MapboxRouteProvider extends BaseRouteProvider {
 	}
 }
 
-window.TaN.addProvider ( MapboxRouteProvider );
+export default MapboxRouteProvider;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
