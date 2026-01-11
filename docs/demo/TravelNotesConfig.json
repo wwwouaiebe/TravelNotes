@@ -179,10 +179,15 @@
 		},
 		"showSearchNoteDialog":false
 	},
-	"overpassApi": {
+	"overpassApi1": {
 		"useNwr":true,
 		"timeOut":40,
 		"url":"https://lz4.overpass-api.de/api/interpreter"
+	},
+	"overpassApi": {
+		"useNwr":true,
+		"timeOut":40,
+		"url":"https://overpass.private.coffee/api/interpreter"
 	},
 	"printRouteMap":
 	{

@@ -287,6 +287,10 @@ class ApiKeysManager {
 			);
 	}
 
+	/**
+	 * This method add the provider keys to the providers
+	 */
+
 	addProvidersKeys ( ) {
 		thePluginsManager.providers.forEach (
 			( provider, providerName ) => {
@@ -297,8 +301,9 @@ class ApiKeysManager {
 	}
 
 	/**
-	This method add a provider. Used by plugins
-	@param {class} providerClass The JS class of the provider to add
+	This method add a provider key
+	@param {BaseRouteProvider} provider The provider for witch the key must be added
+	@param {String} providerName The name of the provider
 	*/
 
 	#addProviderKey ( provider, providerName ) {
