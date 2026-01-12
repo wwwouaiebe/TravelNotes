@@ -37,28 +37,28 @@ Base class used to create context menus
 class BaseContextMenu {
 
 	/**
-	The X screen coordinate of the mouse event that have triggered the menu
+	The X screen coordinate of the pointer event that have triggered the menu
 	@type {Number}
 	*/
 
 	#clientX;
 
 	/**
-	The Y screen coordinate of the mouse event that have triggered the menu
+	The Y screen coordinate of the pointer event that have triggered the menu
 	@type {Number}
 	*/
 
 	#clientY;
 
 	/**
-	The lat an lng at the mouse position for events triggered by the map
+	The lat an lng at the pointer position for events triggered by the map
 	@type {Array.<Number>}
 	*/
 
 	#latLng;
 
 	/**
-	The ObjId of the TravelObject on witch the mouse is positionned if any
+	The ObjId of the TravelObject on witch the pointer is positionned if any
 	@type {Number}
 	*/
 
@@ -98,7 +98,7 @@ class BaseContextMenu {
 	@type {HTMLElement}
 	*/
 
-	#contextMenuHTMLElement;
+	#contextMenuContainer;
 
 	/**
 	The cancel button HTMLElement
@@ -140,8 +140,8 @@ class BaseContextMenu {
 	Build the menu container and add event listeners
 	*/
 
-	#createContextMenuHTMLElement ( ) {
-		this.#contextMenuHTMLElement = theHTMLElementsFactory.create (
+	#createcontextMenuContainer ( ) {
+		this.#contextMenuContainer = theHTMLElementsFactory.create (
 			'div',
 			{
 				className : 'travelnotes-context-menu-container'
@@ -162,7 +162,7 @@ class BaseContextMenu {
 				className : 'travelnotes-context-menu-cancel-button',
 				title : theTranslator.getText ( 'BaseContextMenu - Close' )
 			},
-			this.#contextMenuHTMLElement
+			this.#contextMenuContainer
 		);
 	}
 
@@ -181,7 +181,7 @@ class BaseContextMenu {
 						className :	'travelnotes-context-menu-menu-item',
 						dataset : { ObjId : String ( index ) }
 					},
-					this.#contextMenuHTMLElement
+					this.#contextMenuContainer
 				);
 				if ( ! menuItem.isActive ) {
 					menuItemHTMLElement.classList.add ( 'travelnotes-context-menu-menu-item-disabled' );
@@ -192,7 +192,7 @@ class BaseContextMenu {
 	}
 
 	/**
-	Move the container, so the top of the container is near the mouse
+	Move the container, so the top of the container is near the pointer
 	*/
 
 	#moveContextMenu ( ) {
@@ -201,14 +201,14 @@ class BaseContextMenu {
 		// the menu is positionned ( = top left where the user have clicked but the menu must be completely in the window...
 		const menuTop = Math.min (
 			this.#clientY,
-			screenAvailable.height - this.#contextMenuHTMLElement.clientHeight - BaseContextMenu.#menuMargin
+			screenAvailable.height - this.#contextMenuContainer.clientHeight - BaseContextMenu.#menuMargin
 		);
-		this.#contextMenuHTMLElement.style.top = String ( menuTop ) + 'px';
+		this.#contextMenuContainer.style.top = String ( menuTop ) + 'px';
 		const menuLeft = Math.min (
 			this.#clientX,
-			screenAvailable.width - this.#contextMenuHTMLElement.clientWidth - BaseContextMenu.#menuMargin
+			screenAvailable.width - this.#contextMenuContainer.clientWidth - BaseContextMenu.#menuMargin
 		);
-		this.#contextMenuHTMLElement.style.left = String ( menuLeft ) + 'px';
+		this.#contextMenuContainer.style.left = String ( menuLeft ) + 'px';
 	}
 
 	/**
@@ -220,7 +220,7 @@ class BaseContextMenu {
 	#createMenu ( onPromiseOk, onPromiseError ) {
 		this.#onPromiseOk = onPromiseOk;
 		this.#onPromiseError = onPromiseError;
-		this.#createContextMenuHTMLElement ( );
+		this.#createcontextMenuContainer ( );
 		this.#createCancelButton ( );
 		this.#createMenuItemsHTMLElements ( );
 		this.#moveContextMenu ( );
@@ -314,7 +314,7 @@ class BaseContextMenu {
 	@type {HTMLElement}
 	*/
 
-	get contextMenuHTMLElement ( ) { return this.#contextMenuHTMLElement; }
+	get contextMenuContainer ( ) { return this.#contextMenuContainer; }
 
 	/**
 	The cancel button HTMLElement
@@ -331,28 +331,28 @@ class BaseContextMenu {
 	get menuItemHTMLElements ( ) { return this.#menuItemHTMLElements; }
 
 	/**
-	The X screen coordinate of the mouse event that have triggered the menu
+	The X screen coordinate of the pointer event that have triggered the menu
 	@type {Number}
 	*/
 
 	get clientX ( ) { return this.#clientX; }
 
 	/**
-	The Y screen coordinate of the mouse event that have triggered the menu
+	The Y screen coordinate of the pointer event that have triggered the menu
 	@type {Number}
 	*/
 
 	get clientY ( ) { return this.#clientY; }
 
 	/**
-	The lat an lng at the mouse position for events triggered by the map
+	The lat an lng at the pointer position for events triggered by the map
 	@type {Array.<Number>}
 	*/
 
 	get latLng ( ) { return this.#latLng; }
 
 	/**
-	The ObjId of the TravelObject on witch the mouse is positionned if any
+	The ObjId of the TravelObject on witch the pointer is positionned if any
 	@type {Number}
 	*/
 

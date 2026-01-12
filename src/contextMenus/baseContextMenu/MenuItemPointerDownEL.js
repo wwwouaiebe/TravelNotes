@@ -24,13 +24,13 @@ Doc reviewed 202208
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-mouseleave event listener on the menuItems for the context menus
+pointerdown event listener on the menuItems for the context menus
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class MenuItemMouseLeaveEL {
+class MenuItemPointerDownEL {
 
-	/**
+    	/**
 	A reference to the menuOperator Object
 	@type {BaseContextMenuOperator}
 	*/
@@ -38,7 +38,7 @@ class MenuItemMouseLeaveEL {
 	#menuOperator = null;
 
 	/**
-	The constructor
+	the constructor
 	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
 	*/
 
@@ -49,15 +49,15 @@ class MenuItemMouseLeaveEL {
 
 	/**
 	Event listener method
-	@param {Event} mouseLeaveEvent The event to handle
+	@param {Event} pointerDownEvent The event to handle
 	*/
 
-	handleEvent ( mouseLeaveEvent ) {
-		mouseLeaveEvent.stopPropagation ( );
-		this.#menuOperator.onMouseLeaveMenuItem ( mouseLeaveEvent.currentTarget );
+	handleEvent ( pointerDownEvent ) {
+		pointerDownEvent.stopPropagation ( );
+		this.#menuOperator.onPointerDownMenuItem ( pointerDownEvent.currentTarget );
 	}
 }
 
-export default MenuItemMouseLeaveEL;
+export default MenuItemPointerDownEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

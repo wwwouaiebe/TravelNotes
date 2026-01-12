@@ -24,11 +24,11 @@ Doc reviewed 202208
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
- mouseenter event listener on the context menus
+pointerenter event listener on the menuItems for the context menus
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ContextMenuMouseEnterEL {
+class MenuItemPointerEnterEL {
 
 	/**
 	A reference to the menuOperator Object
@@ -38,7 +38,7 @@ class ContextMenuMouseEnterEL {
 	#menuOperator = null;
 
 	/**
-	The constructor
+	the constructor
 	@param {BaseContextMenuOperator} menuOperator A reference to the menuOperator Object
 	*/
 
@@ -49,15 +49,15 @@ class ContextMenuMouseEnterEL {
 
 	/**
 	Event listener method
-	@param {Event} mouseEnterEvent The event to handle
+	@param {Event} pointerEnterEvent The event to handle
 	*/
 
-	handleEvent ( mouseEnterEvent ) {
-		mouseEnterEvent.stopPropagation ( );
-		this.#menuOperator.onMouseEnterContainer ( );
+	handleEvent ( pointerEnterEvent ) {
+		pointerEnterEvent.stopPropagation ( );
+		this.#menuOperator.onPointerEnterMenuItem ( pointerEnterEvent.currentTarget );
 	}
 }
 
-export default ContextMenuMouseEnterEL;
+export default MenuItemPointerEnterEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

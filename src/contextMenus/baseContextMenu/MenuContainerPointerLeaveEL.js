@@ -22,44 +22,13 @@ Changes:
 Doc reviewed 202208
  */
 
-import { ZERO, ONE } from '../../main/Constants.js';
-
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-Touch event listener for the context menus
+pointerleave event listener on the context menus
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ContextMenuTouchEL {
-
-	/**
-	The X position of the pointer of the previous event
-	@type {?Number}
-	*/
-
-	#clientX = null;
-
-	/**
-	The Y position of the pointer of the previous event
-	@type {?Number}
-	*/
-
-	#clientY = null;
-
-	/**
-	The minimal difference on the Y position between two events
-	@type {Number}
-	*/
-
-	// eslint-disable-next-line no-magic-numbers
-	static get #MIN_DELTA_CLIENT_Y ( ) { return 100; }
-
-	/**
-	The maximal difference on the X position between two events
-	@type {Number}
-	*/
-	// eslint-disable-next-line no-magic-numbers
-	static get #MAX_DELTA_CLIENT_X ( ) { return 30; }
+class MenuContainerPointerLeaveEL {
 
 	/**
 	A reference to the menuOperator Object
@@ -80,41 +49,15 @@ class ContextMenuTouchEL {
 
 	/**
 	Event listener method
-	@param {Event} touchEvent The event to handle
+	@param {Event} pointerLeaveEvent The event to handle
 	*/
 
-	handleEvent ( touchEvent ) {
-		if ( ONE === touchEvent.changedTouches.length ) {
-			const touch = touchEvent.changedTouches.item ( ZERO );
-			switch ( touchEvent.type ) {
-			case 'touchstart' :
-				this.#clientX = touch.clientX;
-				this.#clientY = touch.clientY;
-				break;
-			case 'touchend' :
-				if ( this.#clientX && this.#clientY ) {
-					if (
-						ContextMenuTouchEL.#MIN_DELTA_CLIENT_Y < this.#clientY - touch.clientY
-							&&
-							ContextMenuTouchEL.#MAX_DELTA_CLIENT_X > Math.abs ( this.#clientX - touch.clientX )
-					) {
-						this.#menuOperator.onCancelMenu ( );
-					}
-				}
-				this.#clientX = null;
-				this.#clientY = null;
-				break;
-			case 'touchcancel' :
-				this.#clientX = null;
-				this.#clientY = null;
-				break;
-			default :
-				break;
-			}
-		}
+	handleEvent ( pointerLeaveEvent ) {
+		pointerLeaveEvent.stopPropagation ( );
+		this.#menuOperator.onPointerLeaveContainer ( );
 	}
 }
 
-export default ContextMenuTouchEL;
+export default MenuContainerPointerLeaveEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

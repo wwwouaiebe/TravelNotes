@@ -24,11 +24,11 @@ Doc reviewed 202208
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-click event listener on the menuItems for the context menus
+pointerleave event listener on the menuItems for the context menus
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class MenuItemClickEL {
+class MenuItemPointerLeaveEL {
 
 	/**
 	A reference to the menuOperator Object
@@ -49,15 +49,15 @@ class MenuItemClickEL {
 
 	/**
 	Event listener method
-	@param {Event} clickEvent The event to handle
+	@param {Event} pointerLeaveEvent The event to handle
 	*/
 
-	handleEvent ( clickEvent ) {
-		clickEvent.stopPropagation ( );
-		this.#menuOperator.selectItem ( Number.parseInt ( clickEvent.currentTarget.dataset.tanObjId ) );
+	handleEvent ( pointerLeaveEvent ) {
+		pointerLeaveEvent.stopPropagation ( );
+		this.#menuOperator.onPointerLeaveMenuItem ( pointerLeaveEvent.currentTarget );
 	}
 }
 
-export default MenuItemClickEL;
+export default MenuItemPointerLeaveEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

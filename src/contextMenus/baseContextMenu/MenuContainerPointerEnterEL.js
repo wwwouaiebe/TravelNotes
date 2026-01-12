@@ -24,11 +24,11 @@ Doc reviewed 202208
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-mouseleave event listener on the context menus
+ pointerenter event listener on the context menus container
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ContextMenuMouseLeaveEL {
+class MenuContainerPointerEnterEL {
 
 	/**
 	A reference to the menuOperator Object
@@ -49,15 +49,15 @@ class ContextMenuMouseLeaveEL {
 
 	/**
 	Event listener method
-	@param {Event} mouseLeaveEvent The event to handle
+	@param {Event} pointerEnterEvent The event to handle
 	*/
 
-	handleEvent ( mouseLeaveEvent ) {
-		mouseLeaveEvent.stopPropagation ( );
-		this.#menuOperator.onMouseLeaveContainer ( );
+	handleEvent ( pointerEnterEvent ) {
+		pointerEnterEvent.stopPropagation ( );
+		this.#menuOperator.onPointerEnterContainer ( );
 	}
 }
 
-export default ContextMenuMouseLeaveEL;
+export default MenuContainerPointerEnterEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

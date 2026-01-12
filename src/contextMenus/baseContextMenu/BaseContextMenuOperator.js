@@ -25,12 +25,12 @@ Doc reviewed 20260103
 import theConfig from '../../data/Config.js';
 import ContextMenuKeyboardKeydownEL from './ContextMenuKeyboardKeydownEL.js';
 import ContextMenuCancelButtonClickEL from './ContextMenuCancelButtonClickEL.js';
-import ContextMenuTouchEL from './ContextMenuTouchEL.js';
-import MenuItemMouseLeaveEL from './MenuItemMouseLeaveEL.js';
-import MenuItemMouseEnterEL from './MenuItemMouseEnterEL.js';
-import MenuItemClickEL from './MenuItemClickEL.js';
-import ContextMenuMouseLeaveEL from './ContextMenuMouseLeaveEL.js';
-import ContextMenuMouseEnterEL from './ContextMenuMouseEnterEL.js';
+import MenuItemPointerLeaveEL from './MenuItemPointerLeaveEL.js';
+import MenuItemPointerEnterEL from './MenuItemPointerEnterEL.js';
+import MenuItemPointerDownEL from './MenuItemPointerDownEL.js';
+import MenuItemPointerUpEL from './MenuItemPointerUpEL.js';
+import MenuContainerPointerLeaveEL from './MenuContainerPointerLeaveEL.js';
+import MenuContainerPointerEnterEL from './MenuContainerPointerEnterEL.js';
 
 import { NOT_FOUND, ZERO, ONE } from '../../main/Constants.js';
 
@@ -76,18 +76,18 @@ class BaseContextMenuOperator {
 	#contextMenuKeyboardKeydownEL;
 
 	/**
-	Mouseleave context menu event listener
-	@type {ContextMenuMouseLeaveEL}
+	pointerleave context menu event listener
+	@type {MenuContainerPointerLeaveEL}
 	*/
 
-	#contextMenuMouseLeaveEL;
+	#menuContainerPointerLeaveEL;
 
 	/**
-	mouseenter context menu event listener
-	@type {ContextMenuMouseEnterEL}
+	pointerenter context menu event listener
+	@type {MenuContainerPointerEnterEL}
 	*/
 
-	#contextMenuMouseEnterEL;
+	#menuContainerPointerEnterEL;
 
 	/**
 	Click cancel button event listener
@@ -97,32 +97,32 @@ class BaseContextMenuOperator {
 	#contextMenuCancelButtonClickEL;
 
 	/**
-	Touch event listener for the context menus
-	@type {ContextMenuTouchEL}
+	pointerleave menu item event listener
+	@type {MenuItemPointerLeaveEL}
 	*/
 
-	#contextMenuTouchEL;
+	#menuItemPointerLeaveEL;
 
 	/**
-	click menu item event listener
-	@type {MenuItemClickEL}
+	pointerenter menu item event listener
+	@type {MenuItemPointerEnterEL}
 	*/
 
-	#menuItemClickEL;
+	#menuItemPointerEnterEL;
 
 	/**
-	Mouseleave menu item event listener
-	@type {MenuItemMouseLeaveEL}
+	pointerdown menu item event listener
+	@type {MenuItemPointerDownEL}
 	*/
 
-	#menuItemMouseLeaveEL;
+	#menuItemPointerDownEL;
 
 	/**
-	Mouse enter menu item event listener
-	@type {MenuItemMouseEnterEL}
+	pointerup menu item event listener
+	@type {MenuItemPointerUpEL}
 	*/
 
-	#menuItemMouseEnterEL;
+	#menuItemPointerUpEL;
 
 	/**
 	The index of the selected by the keyboard menuItem
@@ -132,7 +132,14 @@ class BaseContextMenuOperator {
 	#keyboardSelectedItemObjId = NOT_FOUND;
 
 	/**
-	TimerId for the mouseleave context menu action
+	The index of the last menuItem on witch the pointerdown event was triggered
+	@type {Number}
+	*/
+
+	#keyDownMenuItemObjId = NOT_FOUND;
+
+	/**
+	TimerId for the pointerleave context menu action
 	@type {Number}
 	*/
 
@@ -199,27 +206,25 @@ class BaseContextMenuOperator {
 
 		// Event listeners creation
 		this.#contextMenuKeyboardKeydownEL = new ContextMenuKeyboardKeydownEL ( this );
-		this.#contextMenuMouseLeaveEL = new ContextMenuMouseLeaveEL ( this );
-		this.#contextMenuMouseEnterEL = new ContextMenuMouseEnterEL ( this );
+		this.#menuContainerPointerLeaveEL = new MenuContainerPointerLeaveEL ( this );
+		this.#menuContainerPointerEnterEL = new MenuContainerPointerEnterEL ( this );
 		this.#contextMenuCancelButtonClickEL = new ContextMenuCancelButtonClickEL ( this );
-		this.#contextMenuTouchEL = new ContextMenuTouchEL ( this );
-		this.#menuItemClickEL = new MenuItemClickEL ( this );
-		this.#menuItemMouseLeaveEL = new MenuItemMouseLeaveEL ( this );
-		this.#menuItemMouseEnterEL = new MenuItemMouseEnterEL ( this );
+		this.#menuItemPointerLeaveEL = new MenuItemPointerLeaveEL ( this );
+		this.#menuItemPointerEnterEL = new MenuItemPointerEnterEL ( this );
+		this.#menuItemPointerDownEL = new MenuItemPointerDownEL ( this );
+		this.#menuItemPointerUpEL = new MenuItemPointerUpEL ( this );
 
 		// Adding event listeners to the html elements of the menu and to the document
 		document.addEventListener ( 'keydown', this.#contextMenuKeyboardKeydownEL, true );
-		this.#contextMenu.contextMenuHTMLElement.addEventListener ( 'mouseleave', this.#contextMenuMouseLeaveEL );
-		this.#contextMenu.contextMenuHTMLElement.addEventListener ( 'mouseenter', this.#contextMenuMouseEnterEL );
-		this.#contextMenu.contextMenuHTMLElement.addEventListener ( 'touchstart', this.#contextMenuTouchEL );
-		this.#contextMenu.contextMenuHTMLElement.addEventListener ( 'touchend', this.#contextMenuTouchEL );
-		this.#contextMenu.contextMenuHTMLElement.addEventListener ( 'touchcancel', this.#contextMenuTouchEL );
+		this.#contextMenu.contextMenuContainer.addEventListener ( 'pointerleave', this.#menuContainerPointerLeaveEL );
+		this.#contextMenu.contextMenuContainer.addEventListener ( 'pointerenter', this.#menuContainerPointerEnterEL );
 		this.#contextMenu.cancelButton.addEventListener ( 'click', this.#contextMenuCancelButtonClickEL );
 		this.#contextMenu.menuItemHTMLElements.forEach (
 			menuItemHTMLElement => {
-				menuItemHTMLElement.addEventListener ( 'click', this.#menuItemClickEL );
-				menuItemHTMLElement.addEventListener ( 'mouseleave', this.#menuItemMouseLeaveEL );
-				menuItemHTMLElement.addEventListener ( 'mouseenter', this.#menuItemMouseEnterEL );
+				menuItemHTMLElement.addEventListener ( 'pointerleave', this.#menuItemPointerLeaveEL );
+				menuItemHTMLElement.addEventListener ( 'pointerenter', this.#menuItemPointerEnterEL );
+				menuItemHTMLElement.addEventListener ( 'pointerdown', this.#menuItemPointerDownEL );
+				menuItemHTMLElement.addEventListener ( 'pointerup', this.#menuItemPointerUpEL );
 			}
 		);
 	}
@@ -239,58 +244,56 @@ class BaseContextMenuOperator {
 
 		// Removing event listeners
 		document.removeEventListener ( 'keydown', this.#contextMenuKeyboardKeydownEL, true );
-		this.#contextMenu.contextMenuHTMLElement.removeEventListener (
-			'mouseleave',
-			this.#contextMenuMouseLeaveEL
+		this.#contextMenu.contextMenuContainer.removeEventListener (
+			'pointerleave',
+			this.#menuContainerPointerLeaveEL
 		);
-		this.#contextMenu.contextMenuHTMLElement.removeEventListener (
-			'mouseenter',
-			this.#contextMenuMouseEnterEL
+		this.#contextMenu.contextMenuContainer.removeEventListener (
+			'pointerenter',
+			this.#menuContainerPointerEnterEL
 		);
-		this.#contextMenu.contextMenuHTMLElement.removeEventListener ( 'touchstart', this.#contextMenuTouchEL );
-		this.#contextMenu.contextMenuHTMLElement.removeEventListener ( 'touchend', this.#contextMenuTouchEL );
-		this.#contextMenu.contextMenuHTMLElement.removeEventListener ( 'touchcancel', this.#contextMenuTouchEL );
 		this.#contextMenu.cancelButton.removeEventListener (
 			'click',
 			this.#contextMenuCancelButtonClickEL
 		);
 		this.#contextMenu.menuItemHTMLElements.forEach (
 			menuItemHTMLElement => {
-				menuItemHTMLElement.removeEventListener ( 'click', this.#menuItemClickEL );
-				menuItemHTMLElement.removeEventListener ( 'mouseleave', this.#menuItemMouseLeaveEL );
-				menuItemHTMLElement.removeEventListener ( 'mouseenter', this.#menuItemMouseEnterEL );
+				menuItemHTMLElement.removeEventListener ( 'pointerleave', this.#menuItemPointerLeaveEL );
+				menuItemHTMLElement.removeEventListener ( 'pointerenter', this.#menuItemPointerEnterEL );
+				menuItemHTMLElement.removeEventListener ( 'pointerdown', this.#menuItemPointerDownEL );
+				menuItemHTMLElement.removeEventListener ( 'pointerup', this.#menuItemPointerUpEL );
 			}
 		);
 
 		this.#contextMenuKeyboardKeydownEL = null;
-		this.#contextMenuMouseLeaveEL = null;
-		this.#contextMenuMouseEnterEL = null;
+		this.#menuContainerPointerLeaveEL = null;
+		this.#menuContainerPointerEnterEL = null;
 		this.#contextMenuCancelButtonClickEL = null;
-		this.#contextMenuTouchEL = null;
-		this.#menuItemClickEL = null;
-		this.#menuItemMouseLeaveEL = null;
-		this.#menuItemMouseEnterEL = null;
+		this.#menuItemPointerLeaveEL = null;
+		this.#menuItemPointerEnterEL = null;
+		this.#menuItemPointerDownEL = null;
+		this.#menuItemPointerUpEL = null;
 
 		// removing the html elements
-		document.body.removeChild ( this.#contextMenu.contextMenuHTMLElement );
+		document.body.removeChild ( this.#contextMenu.contextMenuContainer );
 
 		// cleaning the reference to the menu
 		this.#contextMenu = null;
 	}
 
 	/**
-	Mouse leave context menu action
+	pointerleave context menu action
 	*/
 
-	onMouseLeaveContainer ( ) {
+	onPointerLeaveContainer ( ) {
 		this.#timerId = setTimeout ( ( ) => this.onCancelMenu ( ), theConfig.contextMenu.timeout );
 	}
 
 	/**
-	Mouse enter context menu action
+	pointerenter context menu action
 	*/
 
-	onMouseEnterContainer ( ) {
+	onPointerEnterContainer ( ) {
 		if ( this.#timerId ) {
 			clearTimeout ( this.#timerId );
 			this.#timerId = null;
@@ -364,23 +367,46 @@ class BaseContextMenuOperator {
 	}
 
 	/**
-	Mouse leave item action
+	Pointer leave item action
 	@param {HTMLElement} menuItem The targeted item
 	*/
 
-	onMouseLeaveMenuItem ( menuItem ) {
+	onPointerLeaveMenuItem ( menuItem ) {
 		menuItem.classList.remove ( 'travelnotes-context-menu-menu-item-selected' );
+		this.#keyDownMenuItemObjId = NOT_FOUND;
 	}
 
 	/**
-	Mouse enter item action
+	pointerenter item action
 	@param {HTMLElement} menuItem The targeted item
 	*/
 
-	onMouseEnterMenuItem ( menuItem ) {
+	onPointerEnterMenuItem ( menuItem ) {
 		this.#unselectItems ( );
+		this.#keyDownMenuItemObjId = NOT_FOUND;
 		this.#keyboardSelectedItemObjId = Number.parseInt ( menuItem.dataset.tanObjId );
 		menuItem.classList.add ( 'travelnotes-context-menu-menu-item-selected' );
+	}
+
+	/**
+	pointerdown item action
+	@param {HTMLElement} menuItem The targeted item
+	*/
+
+	onPointerDownMenuItem ( menuItem ) {
+		this.#keyDownMenuItemObjId = Number.parseInt ( menuItem.dataset.tanObjId );
+	}
+
+	/**
+	pointerup item action
+	@param {HTMLElement} menuItem The targeted item
+	*/
+
+	onPointerUpMenuItem ( menuItem ) {
+		const keyUpMenuItemObjId = Number.parseInt ( menuItem.dataset.tanObjId );
+		if ( keyUpMenuItemObjId === this.#keyDownMenuItemObjId ) {
+			this.selectItem ( keyUpMenuItemObjId );
+		}
 	}
 }
 
