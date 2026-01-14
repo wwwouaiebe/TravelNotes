@@ -74,6 +74,7 @@ that we don't have letters with descenders in the headers, it's nicer with 1.5 a
 	color: black;
 	overflow-y: hidden;
 	max-height: calc(100vh - 15em);
+	user-select: none;
 }
 
 .travelnotes-base-toolbar-button {

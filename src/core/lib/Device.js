@@ -33,6 +33,32 @@ A simple class used to detect if the device have a touch screen
 class Device {
 
 	/**
+	 * The type of the pointer device used ( mouse or touch )
+	 * @type {String}
+	 */
+
+	#pointerType = '';
+
+	/**
+	 * Set the type of device used
+	 * @param {Event} event
+	 */
+
+	setPointerType ( event ) {
+		if ( ! event.isPrimary ) {
+			return;
+		}
+		this.#pointerType = event.pointerType ? event.pointerType : '';
+	}
+
+	/**
+	 * The type of the pointer device used ( mouse or touch )
+	 * @type {String}
+	 */
+
+	get pointerType ( ) { return this.#pointerType; };
+
+	/**
 	A flag withe touch status
 	@type {Boolean}
 	*/

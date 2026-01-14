@@ -22,33 +22,66 @@ Changes:
 Doc reviewed 202208
  */
 
+import { ZERO } from '../../main/Constants.js';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-A simple container to share data between the BaseToolbar class, the
-ButtonHTMLElementClickEL  and ButtonHTMLElementTouchEL classes.
-Neede to avoid a copy of the array in the EL constructors
+Pointer Events listener for the buttons container
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ToolbarItemsContainer {
+class ButtonsContainerPointerEL {
 
 	/**
-	 An array with the toolbar items
-	 @type {Array.<ToolbarItem>}
-	*/
+	 * A flag with the position of the pointer ( up / down )
+	 * @type {boolean}
+	 */
 
-	toolbarItemsArray;
+	#pointerIsDown = false;
 
 	/**
-	The constructor
-	*/
+	 * The Y screen coord of the pointer
+	 * @type {Number}
+	 */
+
+	#pointerScreenY = ZERO;
+
+	/**
+	 * The constructor
+	 */
 
 	constructor ( ) {
-		Object.seal ( this );
-		this.toolbarItemsArray = [];
+		Object.freeze ( this );
+	}
+
+	/**
+	 * Event handler
+	 * @param {Event} pointerEvent the event to handle
+	 */
+
+	handleEvent ( pointerEvent ) {
+		switch ( pointerEvent.type ) {
+		case 'pointerdown' :
+			this.#pointerIsDown = true;
+			this.#pointerScreenY = pointerEvent.screenY;
+			break;
+		case 'pointerup' :
+			this.#pointerIsDown = false;
+			this.#pointerScreenY = ZERO;
+			break;
+		case 'pointermove' :
+			if ( this.#pointerIsDown ) {
+				const deltaY = this.#pointerScreenY - pointerEvent.screenY;
+				pointerEvent.currentTarget.scrollTop += deltaY;
+				this.#pointerScreenY = pointerEvent.screenY;
+			}
+			break;
+		default :
+			break;
+		}
 	}
 }
 
-export default ToolbarItemsContainer;
+export default ButtonsContainerPointerEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

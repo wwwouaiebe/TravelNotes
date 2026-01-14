@@ -24,42 +24,30 @@ Doc reviewed 202208
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-click event listener for the toolbar buttons
+A simple container to share data between the BaseToolbar class and ButtonHTMLElementPointerEL class.
+Needed to avoid a copy of the array in the EL constructors
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ButtonHTMLElementClickEL {
+class ToolbarItemsCollection {
 
 	/**
-	A reference to the toolbarItemsContainer of the BaseToolbar class
-	@type {ToolbarItemsContainer}
+	 An array with the toolbar items
+	 @type {Array.<ToolbarItem>}
 	*/
 
-	#toolbarItemsContainer;
+	toolbarItemsArray;
 
 	/**
 	The constructor
-	@param {ToolbarItemsContainer} toolbarItemsContainer A reference to the toolbarItemsContainer
-	of the BaseToolbar class object
 	*/
 
-	constructor ( toolbarItemsContainer ) {
-		Object.freeze ( this );
-		this.#toolbarItemsContainer = toolbarItemsContainer;
-	}
-
-	/**
-	Event listener method
-	@param {Event} clickEvent The event to handle
-	*/
-
-	handleEvent ( clickEvent ) {
-		this.#toolbarItemsContainer
-			.toolbarItemsArray [ Number.parseInt ( clickEvent.target.dataset.tanItemId ) ]
-			.doAction ( );
+	constructor ( ) {
+		Object.seal ( this );
+		this.toolbarItemsArray = [];
 	}
 }
 
-export default ButtonHTMLElementClickEL;
+export default ToolbarItemsCollection;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

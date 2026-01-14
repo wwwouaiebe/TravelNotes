@@ -136,7 +136,7 @@ class BaseContextMenuOperator {
 	@type {Number}
 	*/
 
-	#keyDownMenuItemObjId = NOT_FOUND;
+	#pointerDownMenuItemObjId = NOT_FOUND;
 
 	/**
 	TimerId for the pointerleave context menu action
@@ -373,7 +373,7 @@ class BaseContextMenuOperator {
 
 	onPointerLeaveMenuItem ( menuItem ) {
 		menuItem.classList.remove ( 'travelnotes-context-menu-menu-item-selected' );
-		this.#keyDownMenuItemObjId = NOT_FOUND;
+		this.#pointerDownMenuItemObjId = NOT_FOUND;
 	}
 
 	/**
@@ -383,7 +383,7 @@ class BaseContextMenuOperator {
 
 	onPointerEnterMenuItem ( menuItem ) {
 		this.#unselectItems ( );
-		this.#keyDownMenuItemObjId = NOT_FOUND;
+		this.#pointerDownMenuItemObjId = NOT_FOUND;
 		this.#keyboardSelectedItemObjId = Number.parseInt ( menuItem.dataset.tanObjId );
 		menuItem.classList.add ( 'travelnotes-context-menu-menu-item-selected' );
 	}
@@ -394,7 +394,7 @@ class BaseContextMenuOperator {
 	*/
 
 	onPointerDownMenuItem ( menuItem ) {
-		this.#keyDownMenuItemObjId = Number.parseInt ( menuItem.dataset.tanObjId );
+		this.#pointerDownMenuItemObjId = Number.parseInt ( menuItem.dataset.tanObjId );
 	}
 
 	/**
@@ -404,7 +404,7 @@ class BaseContextMenuOperator {
 
 	onPointerUpMenuItem ( menuItem ) {
 		const keyUpMenuItemObjId = Number.parseInt ( menuItem.dataset.tanObjId );
-		if ( keyUpMenuItemObjId === this.#keyDownMenuItemObjId ) {
+		if ( keyUpMenuItemObjId === this.#pointerDownMenuItemObjId ) {
 			this.selectItem ( keyUpMenuItemObjId );
 		}
 	}

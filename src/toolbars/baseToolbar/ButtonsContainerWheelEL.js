@@ -30,7 +30,7 @@ Wheel event listener on the map layer buttons container. Scroll the buttons
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class ButtonsHTMLElementWheelEL {
+class ButtonsContainerWheelEL {
 
 	/**
 	The constructor
@@ -54,6 +54,6 @@ class ButtonsHTMLElementWheelEL {
 	}
 }
 
-export default ButtonsHTMLElementWheelEL;
+export default ButtonsContainerWheelEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
