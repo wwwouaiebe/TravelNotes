@@ -22,11 +22,6 @@ Changes:
 Doc reviewed 202208
  */
 
-import theConfig from '../../data/Config.js';
-import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
-import theTranslator from '../../core/uiLib/Translator.js';
-import { ZERO } from '../../main/Constants.js';
-
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 This class show a message on the screen for the fullscreen activation
@@ -36,33 +31,6 @@ See theFullScreenUI for the one and only one instance of this class
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 class FullScreenUI {
-
-	/**
-	The container
-	@type {HTMLElement}
-	*/
-
-	#mainHTMLElement;
-
-	/**
-	A timerId for the close UI timer
-	@type {Number}
-	*/
-
-	#timerId = null;
-
-	/**
-    Hide the UI
-    */
-
-	hide ( ) {
-		if ( this.#timerId ) {
-			clearTimeout ( this.#timerId );
-			this.#timerId = null;
-		}
-		this.#mainHTMLElement.removeEventListener ( 'click', this.toggle, false );
-		document.body.removeChild ( this.#mainHTMLElement );
-	}
 
 	/**
 	The constructor
@@ -83,34 +51,6 @@ class FullScreenUI {
 		else {
 			await document.body.requestFullscreen ();
 		}
-	}
-
-	/**
-	Show the user interface
-	*/
-
-	show ( ) {
-		const timeOutDuration = theConfig.FullScreenUI.timeOut;
-		if (
-			ZERO === timeOutDuration
-            ||
-            ! document.fullscreenEnabled
-            ||
-            document.body.clientWidth > theConfig.FullScreenUI.screenMaxWidth
-		) {
-			return;
-		}
-
-		this.#mainHTMLElement = theHTMLElementsFactory.create (
-			'div',
-			{
-				id : 'travelnotes-full-screen-ui',
-				textContent : theTranslator.getText ( 'FullScreenUI - start full screen' )
-			},
-			document.body
-		);
-		this.#mainHTMLElement.addEventListener ( 'click', this.toggle, false );
-		this.#timerId = setTimeout ( ( ) => this.hide ( ), timeOutDuration );
 	}
 }
 

@@ -34,7 +34,17 @@ Provider buttons on the ProvidersToolbar
 
 class ProviderButton {
 
+	/**
+	 * The screenX coor. of the pointer after a pointerdown event
+	 * @type {Number}
+	 */
+
 	#pointerScreenX = NOT_FOUND;
+
+	/**
+	 * The screenX coor. of the pointer after a pointerdown event
+	 * @type {Number}
+	 */
 
 	#pointerScreenY = NOT_FOUND;
 
@@ -88,7 +98,7 @@ class ProviderButton {
 
 	/**
 	click event listener. The button is also it's own event listener.
-	@param {Event} clickEvent The event to handle
+	@param {Event} pointerEvent The event to handle
 	*/
 
 	handleEvent ( pointerEvent ) {

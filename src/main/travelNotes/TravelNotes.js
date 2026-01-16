@@ -37,7 +37,6 @@ import theAttributionsUI from '../../uis/attributionsUI/AttributionsUI.js';
 import theTravelNotesToolbar from '../../toolbars/travelNotesToolbar/TravelNotesToolbar.js';
 import theErrorsUI from '../../uis/errorsUI/ErrorsUI.js';
 import theTranslator from '../../core/uiLib/Translator.js';
-import theFullScreenUI from '../../uis/fullScreenUI/FullScreenUI.js';
 import theProvidersToolbar from '../../toolbars/providersToolbar/ProvidersToolbar.js';
 import MapMouseELs from '../../core/mapEditor/mapMouseELs/MapMouseELs.js';
 import { LAT_LNG, TWO, SAVE_STATUS, HTTP_STATUS_OK } from '../Constants.js';
@@ -170,9 +169,6 @@ class TravelNotes {
 		// ...updating the route list and roadbook
 		theEventDispatcher.dispatch ( 'updatetravelproperties' );
 		theEventDispatcher.dispatch ( 'updateroadbook' );
-
-		// ... full screen UI
-		theFullScreenUI.show ( );
 
 		if ( latUrl && lonUrl ) {
 			theNoteEditor.newUrlNote ( [ latUrl, lonUrl ] );

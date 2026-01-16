@@ -2,7 +2,7 @@
     "type": "module",
     "name": "travelnotes",
     "version": "5.0.0-dev",
-    "buildNumber": 174,
+    "buildNumber": 181,
     "description": "A mapping and routing application.",
     "main": "src/main/Main.js",
     "devDependencies": {

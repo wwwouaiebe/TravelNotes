@@ -35,7 +35,6 @@ import theProfileDialogsManager from './ProfileDialogsManager.js';
 import { INVALID_OBJ_ID, SAVE_STATUS } from '../main/Constants.js';
 import theMouseUI from '../uis/mouseUI/MouseUI.js';
 import SaveAsDialog from '../dialogs/saveAsDialog/SaveAsDialog.js';
-import theDevice from './lib/Device.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -77,8 +76,7 @@ class TravelEditor {
 		}
 		const compressedSaveAsTravel = new FileCompactor ( ).compress ( saveAsTravel );
 		theUtilities.saveFile (
-			compressedSaveAsTravel.name + '.' +
-				( theDevice.isTouch ? theConfig.files.writeTouch : theConfig.files.writeOthers ),
+			compressedSaveAsTravel.name + '.json',
 			JSON.stringify ( compressedSaveAsTravel ),
 			'application/json'
 		);
@@ -177,8 +175,7 @@ class TravelEditor {
 		}
 		const compressedTravel = new FileCompactor ( ).compress ( theTravelNotesData.travel );
 		theUtilities.saveFile (
-			compressedTravel.name + '.' +
-			( theDevice.isTouch ? theConfig.files.writeTouch : theConfig.files.writeOthers ),
+			compressedTravel.name + '.json',
 			JSON.stringify ( compressedTravel ),
 			'application/json'
 		);

@@ -37,7 +37,7 @@ class Device {
 	 * @type {String}
 	 */
 
-	#pointerType = '';
+	static #pointerType = '';
 
 	/**
 	 * Set the type of device used
@@ -48,30 +48,17 @@ class Device {
 		if ( ! event.isPrimary ) {
 			return;
 		}
-		this.#pointerType = event.pointerType ? event.pointerType : '';
+		Device.#pointerType = event.pointerType ? event.pointerType : '';
 	}
 
 	/**
-	 * The type of the pointer device used ( mouse or touch )
-	 * @type {String}
-	 */
-
-	get pointerType ( ) { return this.#pointerType; };
-
-	/**
-	A flag withe touch status
-	@type {Boolean}
+	A pointerenter event listener on the document
+	@param {Event} event The event to manage
 	*/
 
-	static #isTouch;
-
-	/**
-	A touchstart event listener
-	*/
-
-	static #touchStartEL ( ) {
-		Device.#isTouch = true;
-		document.removeEventListener ( 'touchstart', Device.#touchStartEL, true );
+	static #pointerEnterEL ( event ) {
+		Device.#pointerType = event.pointerType;
+		document.removeEventListener ( 'pointerenter', Device.#pointerEnterEL, true );
 	}
 
 	/**
@@ -80,16 +67,16 @@ class Device {
 
 	constructor ( ) {
 		Object.freeze ( this );
-		Device.#isTouch = false;
-		document.addEventListener ( 'touchstart', Device.#touchStartEL, true );
+		Device.#pointerType = '';
+		document.addEventListener ( 'pointerenter', Device.#pointerEnterEL, true );
 	}
 
 	/**
-	The touch status. True when the device have a touch screen
-	@type {Boolean}
-	*/
+	 * The type of the pointer device used ( mouse or touch )
+	 * @type {String}
+	 */
 
-	get isTouch ( ) { return Device.#isTouch; }
+	get pointerType ( ) { return Device.#pointerType; };
 
 	/**
 	get the width and height avaiable for menus and dialogs

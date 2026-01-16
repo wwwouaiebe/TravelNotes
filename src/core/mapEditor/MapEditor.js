@@ -121,7 +121,7 @@ class MapEditor	extends MapEditorViewer {
 
 			if ( ! theTravelNotesData.travel.readOnly ) {
 				LeafletDomEvent.on ( polyline, 'contextmenu', RouteMapContextMenuEL.handleEvent );
-				if ( ROUTE_EDITION_STATUS.notEdited !== route.editionStatus && ! theDevice.isTouch ) {
+				if ( ROUTE_EDITION_STATUS.notEdited !== route.editionStatus && 'touch' !== theDevice.pointerType ) {
 					LeafletDomEvent.on ( polyline, 'mouseover', EditedRouteMouseOverEL.handleEvent );
 				}
 				const notesIterator = route.notes.iterator;

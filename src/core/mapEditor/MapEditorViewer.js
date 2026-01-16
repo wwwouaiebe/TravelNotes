@@ -149,7 +149,7 @@ class MapEditorViewer {
 		this.addToMap ( route.objId, polyline );
 
 		// popup is created
-		if ( ! theDevice.isTouch ) {
+		if ( 'touch' !== theDevice.pointerType ) {
 			polyline.bindPopup (
 				layer => theHTMLSanitizer.clone (
 					theRouteHTMLViewsFactory.getRouteHeaderHTML (
@@ -167,7 +167,7 @@ class MapEditorViewer {
 				route.computedName,
 				{ sticky : true, direction : 'right' }
 			);
-			if ( ! theDevice.isTouch ) {
+			if ( 'touch' !== theDevice.pointerType ) {
 				LeafletDomEvent.on ( polyline, 'mouseover', RouteMouseOverOrMoveEL.handleEvent );
 				LeafletDomEvent.on ( polyline, 'mousemove', RouteMouseOverOrMoveEL.handleEvent );
 			}

@@ -38,7 +38,6 @@ import theFullScreenUI from '../../uis/fullScreenUI/FullScreenUI.js';
 import theFontSizeManager from '../../core/FontSizeManager.js';
 import OpenInputChangeEL from './OpenInputChangeEL.js';
 import ImportInputChangeEL from './ImportInputChangeEL.js';
-import theDevice from '../../core/lib/Device.js';
 import { INVALID_OBJ_ID, TOOLBAR_POSITION, GEOLOCATION_STATUS, ZERO, ONE } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -70,7 +69,7 @@ class TravelNotesToolbar extends BaseToolbar {
 	*/
 
 	addToolbarItems ( ) {
-		const writeExtension = theDevice.isTouch ? theConfig.files.writeTouch : theConfig.files.writeOthers;
+		const writeExtension = 'json';
 		const translationVar = Object.seal ( { openTaN : '', openGpx : '' } );
 		theConfig.files.openTaN.forEach ( fileExtension => translationVar.openTaN += '.' + fileExtension + ',' );
 		theConfig.files.openGpx.forEach ( fileExtension => translationVar.openGpx += '.' + fileExtension + ',' );

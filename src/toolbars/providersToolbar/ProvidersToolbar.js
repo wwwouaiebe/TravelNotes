@@ -41,7 +41,17 @@ This class is the provider and transitModes toolbar at the bottom of the UI
 
 class ProvidersToolbar {
 
+	/**
+	 * The screenX coor. of the pointer after a pointerdown event
+	 * @type {Number}
+	 */
+
 	#topbarScreenX = NOT_FOUND;
+
+	/**
+	 * The screenY coor. of the pointer after a pointerdown event
+	 * @type {Number}
+	 */
 
 	#topbarScreenY = NOT_FOUND;
 
@@ -102,11 +112,11 @@ class ProvidersToolbar {
 	#isShow;
 
 	/**
-	Timer id for the mouse leave event
+	Timer id for the pointerleave event
 	@type {Number}
 	*/
 
-	#mouseLeaveTimerId;
+	#pointerLeaveTimerId;
 
 	/**
 	The delay needed for the timer that start the #removeHidden ( ) method
@@ -115,11 +125,6 @@ class ProvidersToolbar {
 
 	// eslint-disable-next-line no-magic-numbers
 	static get #HIDDEN_DELAY ( ) { return 100; }
-
-	/**
-	The max delay between a mouseenter and a click event to consider the two events as a single event
-	@type {Number}
-	*/
 
 	/**
 	Transit mode buttons creation
@@ -178,6 +183,11 @@ class ProvidersToolbar {
 		this.centerToolbar ( );
 	}
 
+	/**
+	 * Pointerdown on the topbar event listener
+	 * @param {Event} pointerEvent The event to handle
+	 */
+
 	#onPointerDownTopbar ( pointerEvent ) {
 		pointerEvent.preventDefault ( );
 		theDevice.setPointerType ( pointerEvent );
@@ -190,6 +200,11 @@ class ProvidersToolbar {
 			break;
 		}
 	}
+
+	/**
+	 * Pointerup on the topbar event listener
+	 * @param {Event} pointerEvent The event to handle
+	 */
 
 	#onPointerUpTopbar ( pointerEvent ) {
 		pointerEvent.preventDefault ( );
@@ -216,15 +231,16 @@ class ProvidersToolbar {
 
 	/**
 	pointerenter event listener
+	@param {Event} pointerEvent The event to handle
 	*/
 
 	#onPointerEnterToolbarContainer ( pointerEvent ) {
 		theDevice.setPointerType ( pointerEvent );
 		switch ( theDevice.pointerType ) {
 		case 'mouse' :
-			if ( this.#mouseLeaveTimerId ) {
-				clearTimeout ( this.#mouseLeaveTimerId );
-				this.#mouseLeaveTimerId = null;
+			if ( this.#pointerLeaveTimerId ) {
+				clearTimeout ( this.#pointerLeaveTimerId );
+				this.#pointerLeaveTimerId = null;
 			}
 			this.#show ( );
 			break;
@@ -235,13 +251,14 @@ class ProvidersToolbar {
 
 	/**
 	pointerleave event listener
+	@param {Event} pointerEvent The event to handle
 	*/
 
 	#onPointerLeaveToolbarContainer ( pointerEvent ) {
 		theDevice.setPointerType ( pointerEvent );
 		switch ( theDevice.pointerType ) {
 		case 'mouse' :
-			this.#mouseLeaveTimerId = setTimeout ( ( ) => this.hide ( ), theConfig.toolbars.timeOut );
+			this.#pointerLeaveTimerId = setTimeout ( ( ) => this.hide ( ), theConfig.toolbars.timeOut );
 			break;
 		default :
 			break;
@@ -255,9 +272,9 @@ class ProvidersToolbar {
 	hide ( ) {
 
 		// cleaning the timer
-		if ( this.#mouseLeaveTimerId ) {
-			clearTimeout ( this.#mouseLeaveTimerId );
-			this.#mouseLeaveTimerId = null;
+		if ( this.#pointerLeaveTimerId ) {
+			clearTimeout ( this.#pointerLeaveTimerId );
+			this.#pointerLeaveTimerId = null;
 		}
 		this.#buttonsHTMLElement.classList.add ( 'travelnotes-hidden' );
 		this.centerToolbar ( );
@@ -311,13 +328,13 @@ class ProvidersToolbar {
 			document.body
 		);
 		this.#toolbarHTMLElement.addEventListener (
-			'mouseenter',
-			mouseEvent => this.#onPointerEnterToolbarContainer ( mouseEvent ),
+			'pointerenter',
+			pointerEvent => this.#onPointerEnterToolbarContainer ( pointerEvent ),
 			false
 		);
 		this.#toolbarHTMLElement.addEventListener (
-			'mouseleave',
-			mouseEvent => this.#onPointerLeaveToolbarContainer ( mouseEvent ),
+			'pointerleave',
+			pointerEvent => this.#onPointerLeaveToolbarContainer ( pointerEvent ),
 			false
 		);
 

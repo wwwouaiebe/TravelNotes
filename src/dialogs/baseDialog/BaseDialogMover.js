@@ -146,7 +146,9 @@ class BaseDialogMover {
 		this.dialogHTMLElement.style [ 'max-width' ] =
 			String ( Math.min ( screenAvailable.width - ( TWO * DIALOG_DRAG_MARGIN ), DIALOG_MAX_WIDTH ) ) + 'px';
 		this.#dialogX = ( screenAvailable.width - this.dialogHTMLElement.clientWidth ) / TWO;
-		if ( theConfig.baseDialog.touchTopScreen && theDevice.isTouch ) {
+		if ( theConfig.baseDialog.touchTopScreen && 'touch' === theDevice.pointerType ) {
+
+			// dialogs go on top of the screen for touch devices
 			this.#dialogY = DIALOG_DRAG_MARGIN;
 		}
 		else {

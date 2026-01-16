@@ -152,10 +152,6 @@
 		"msgstr": "Impossible de sélectionner {provider}"
 	},
 	{
-		"msgid": "FullScreenUI - start full screen",
-		"msgstr": "Cliquez ici pour activer le mode plein écran"
-	},
-	{
 		"msgid": "GeoLocator - Geolocation disabled on the device",
 		"msgstr": "la geolocalisation est désactivée"
 	},	

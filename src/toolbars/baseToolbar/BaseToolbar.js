@@ -60,7 +60,7 @@ class BaseToolbar {
 	#buttonsContainer;
 
 	/**
-	Timer id for the mouse leave event
+	Timer id for the pointerleave event
 	@type {Number}
 	*/
 
@@ -113,8 +113,8 @@ class BaseToolbar {
 	}
 
 	/**
-	 * Mouse enter on the toolbar event listener
-	 * Only active when thr pointer type is 'mouse'
+	 * pointerenter on the toolbar event listener
+	 * Only active when the pointer type is 'mouse'
 	 * @param {Event} pointerEvent the trigered event
 	 */
 
@@ -138,7 +138,7 @@ class BaseToolbar {
 	}
 
 	/**
-	 * Mouse leave the toolbar event listener
+	 * pointerleave the toolbar event listener
 	 * Only active when thr pointer type is 'mouse'
 	 * Remember that toolbars are global objects never deleted, so we can have EL as simple member methods
 	 * @param {event} pointerEvent The event to manage

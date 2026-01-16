@@ -62,7 +62,7 @@ class MapMouseELs {
 		const routeContainerPoint = theTravelNotesData.map.latLngToContainerPoint ( routeLatLng );
 		const routeDistance = routeContainerPoint.distanceTo ( clickOrContextMenuEvent.containerPoint );
 		const maxRouteDistance =
-			theDevice.isTouch
+			'touch' === theDevice.pointerType
 				?
 				theConfig.mapContextMenu.touchMaxRouteDistance
 				:
@@ -94,7 +94,7 @@ class MapMouseELs {
 		if (
 			fakeEvent
 			&&
-			theDevice.isTouch
+			'touch' === theDevice.pointerType
 			&&
 			fakeEvent.target.editionStatus !== ROUTE_EDITION_STATUS.notEdited
 		) {
