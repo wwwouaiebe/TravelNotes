@@ -41,6 +41,10 @@ This class is the provider and transitModes toolbar at the bottom of the UI
 
 class ProvidersToolbar {
 
+	#topbarScreenX = NOT_FOUND;
+
+	#topbarScreenY = NOT_FOUND;
+
 	/**
 	The main HTMLElement of the toolbar
 	@type {HTMLElement}
@@ -174,46 +178,74 @@ class ProvidersToolbar {
 		this.centerToolbar ( );
 	}
 
+	#onPointerDownTopbar ( pointerEvent ) {
+		pointerEvent.preventDefault ( );
+		theDevice.setPointerType ( pointerEvent );
+		switch ( theDevice.pointerType ) {
+		case 'touch' :
+			this.#topbarScreenX = pointerEvent.screenX;
+			this.#topbarScreenY = pointerEvent.screenY;
+			break;
+		default :
+			break;
+		}
+	}
+
+	#onPointerUpTopbar ( pointerEvent ) {
+		pointerEvent.preventDefault ( );
+		theDevice.setPointerType ( pointerEvent );
+		switch ( theDevice.pointerType ) {
+		case 'touch' :
+			if (
+				this.#topbarScreenX === pointerEvent.screenX
+					&&
+					this.#topbarScreenY === pointerEvent.screenY
+			) {
+				if ( this.#isShow ) {
+					this.hide ( );
+				}
+				else {
+					this.#show ( );
+				}
+			}
+			break;
+		default :
+			break;
+		}
+	}
+
 	/**
-	Mouse click event listener
+	pointerenter event listener
 	*/
 
-	#onClick ( ) {
-		if ( ! theDevice.isTouch ) {
-			return;
-		}
-		if ( this.#isShow ) {
-			this.hide ( );
-		}
-		else {
+	#onPointerEnterToolbarContainer ( pointerEvent ) {
+		theDevice.setPointerType ( pointerEvent );
+		switch ( theDevice.pointerType ) {
+		case 'mouse' :
+			if ( this.#mouseLeaveTimerId ) {
+				clearTimeout ( this.#mouseLeaveTimerId );
+				this.#mouseLeaveTimerId = null;
+			}
 			this.#show ( );
+			break;
+		default :
+			break;
 		}
 	}
 
 	/**
-	Mouse enter event listener
+	pointerleave event listener
 	*/
 
-	#onMouseEnter ( ) {
-		if ( theDevice.isTouch ) {
-			return;
+	#onPointerLeaveToolbarContainer ( pointerEvent ) {
+		theDevice.setPointerType ( pointerEvent );
+		switch ( theDevice.pointerType ) {
+		case 'mouse' :
+			this.#mouseLeaveTimerId = setTimeout ( ( ) => this.hide ( ), theConfig.toolbars.timeOut );
+			break;
+		default :
+			break;
 		}
-		if ( this.#mouseLeaveTimerId ) {
-			clearTimeout ( this.#mouseLeaveTimerId );
-			this.#mouseLeaveTimerId = null;
-		}
-		this.#show ( );
-	}
-
-	/**
-	Mouse leave event listener
-	*/
-
-	#onMouseLeave ( ) {
-		if ( theDevice.isTouch ) {
-			return;
-		}
-		this.#mouseLeaveTimerId = setTimeout ( ( ) => this.hide ( ), theConfig.toolbars.timeOut );
 	}
 
 	/**
@@ -280,12 +312,12 @@ class ProvidersToolbar {
 		);
 		this.#toolbarHTMLElement.addEventListener (
 			'mouseenter',
-			mouseEvent => this.#onMouseEnter ( mouseEvent ),
+			mouseEvent => this.#onPointerEnterToolbarContainer ( mouseEvent ),
 			false
 		);
 		this.#toolbarHTMLElement.addEventListener (
 			'mouseleave',
-			mouseEvent => this.#onMouseLeave ( mouseEvent ),
+			mouseEvent => this.#onPointerLeaveToolbarContainer ( mouseEvent ),
 			false
 		);
 
@@ -299,8 +331,13 @@ class ProvidersToolbar {
 			this.#toolbarHTMLElement
 		);
 		this.#topBar.addEventListener (
-			'click',
-			mouseEvent => this.#onClick ( mouseEvent ),
+			'pointerdown',
+			pointerEvent => this.#onPointerDownTopbar ( pointerEvent ),
+			false
+		);
+		this.#topBar.addEventListener (
+			'pointerup',
+			pointerEvent => this.#onPointerUpTopbar ( pointerEvent ),
 			false
 		);
 

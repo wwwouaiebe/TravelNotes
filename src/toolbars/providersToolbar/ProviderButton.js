@@ -24,6 +24,7 @@ Doc reviewed 202208
 
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import theRouter from '../../core/lib/Router.js';
+import { NOT_FOUND } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -32,6 +33,10 @@ Provider buttons on the ProvidersToolbar
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 class ProviderButton {
+
+	#pointerScreenX = NOT_FOUND;
+
+	#pointerScreenY = NOT_FOUND;
 
 	/**
 	A reference to the toolbar
@@ -77,7 +82,8 @@ class ProviderButton {
 				title : provider.title || provider.name
 			}
 		);
-		this.#buttonHTMLElement.addEventListener ( 'click', this );
+		this.#buttonHTMLElement.addEventListener ( 'pointerdown', this );
+		this.#buttonHTMLElement.addEventListener ( 'pointerup', this );
 	}
 
 	/**
@@ -85,10 +91,28 @@ class ProviderButton {
 	@param {Event} clickEvent The event to handle
 	*/
 
-	handleEvent ( clickEvent ) {
-		clickEvent.stopPropagation ( );
-		this.#providersToolbar.provider = this.#provider.name;
-		theRouter.startRouting ( );
+	handleEvent ( pointerEvent ) {
+		switch ( pointerEvent.type ) {
+		case 'pointerdown' :
+			this.#pointerScreenX = pointerEvent.screenX;
+			this.#pointerScreenY = pointerEvent.screenY;
+			break;
+		case 'pointerup' :
+			if (
+				this.#pointerScreenX === pointerEvent.screenX
+					&&
+					this.#pointerScreenY === pointerEvent.screenY
+			) {
+				this.#providersToolbar.provider = this.#provider.name;
+				theRouter.startRouting ( );
+			}
+			this.#pointerScreenX = NOT_FOUND;
+			this.#pointerScreenY = NOT_FOUND;
+			break;
+		default :
+			break;
+		}
+
 	}
 
 	/**

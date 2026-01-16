@@ -25,6 +25,7 @@ Doc reviewed 202208
 import theTranslator from '../../core/uiLib/Translator.js';
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import theRouter from '../../core/lib/Router.js';
+import { NOT_FOUND } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -33,6 +34,10 @@ Transit buttons on the ProvidersToolbar
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 class TransitModeButton {
+
+	#pointerScreenX = NOT_FOUND;
+
+	#pointerScreenY = NOT_FOUND;
 
 	/**
 	A reference to the toolbar
@@ -140,7 +145,8 @@ class TransitModeButton {
 				title : theTranslator.getText ( 'ProvidersToolbar - TransitMode ' + transitMode )
 			}
 		);
-		this.#buttonHTMLElement.addEventListener ( 'click', this );
+		this.#buttonHTMLElement.addEventListener ( 'pointerdown', this );
+		this.#buttonHTMLElement.addEventListener ( 'pointerup', this );
 		this.visible = false;
 	}
 
@@ -149,11 +155,29 @@ class TransitModeButton {
 	@param {Event} clickEvent The event to handle
 	*/
 
-	handleEvent ( clickEvent ) {
-		clickEvent.stopPropagation ( );
-		this.#providersToolbar.transitMode = this.#transitMode;
-		this.#providersToolbar.hide ( );
-		theRouter.startRouting ( );
+	handleEvent ( pointerEvent ) {
+
+		switch ( pointerEvent.type ) {
+		case 'pointerdown' :
+			this.#pointerScreenX = pointerEvent.screenX;
+			this.#pointerScreenY = pointerEvent.screenY;
+			break;
+		case 'pointerup' :
+			if (
+				this.#pointerScreenX === pointerEvent.screenX
+					&&
+					this.#pointerScreenY === pointerEvent.screenY
+			) {
+				this.#providersToolbar.transitMode = this.#transitMode;
+				this.#providersToolbar.hide ( );
+				theRouter.startRouting ( );
+			}
+			this.#pointerScreenX = NOT_FOUND;
+			this.#pointerScreenY = NOT_FOUND;
+			break;
+		default :
+			break;
+		}
 	}
 
 	/**
