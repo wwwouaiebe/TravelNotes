@@ -24,18 +24,18 @@ Doc reviewed 202208
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-mousedown and touchstart event listener for the eye button of the password dialog
+pointerup and pointerleave event listener for the eye button of the password dialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class EyeMouseDownEL {
+class EyePointerUpEL {
 
 	/**
 	A reference to the password input of the dialogPassword
 	@type {HTMLElement}
 	*/
 
-	#passwordInput = null;
+	#passwordInput;
 
 	/**
 	The constructor
@@ -49,17 +49,18 @@ class EyeMouseDownEL {
 
 	/**
 	Event listener method
-	@param {Event} mouseDownOrTouchStartEvent The event to handle
+	@param {Event} pointerUpEvent The event to handle
 	*/
 
-	handleEvent ( mouseDownOrTouchStartEvent ) {
-		mouseDownOrTouchStartEvent.currentTarget.textContent = '👀';
-		mouseDownOrTouchStartEvent.preventDefault ( );
-		mouseDownOrTouchStartEvent.stopPropagation ( );
-		this.#passwordInput.type = 'text';
+	handleEvent ( pointerUpEvent ) {
+		pointerUpEvent.currentTarget.textContent = '👁️';
+		pointerUpEvent.preventDefault ( );
+		pointerUpEvent.stopPropagation ( );
+		this.#passwordInput.type = 'password';
+		this.#passwordInput.focus ( );
 	}
 }
 
-export default EyeMouseDownEL;
+export default EyePointerUpEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
