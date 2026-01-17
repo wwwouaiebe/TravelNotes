@@ -24,6 +24,7 @@ Doc reviewed 202208
 
 import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import theHTMLSanitizer from '../../core/htmlSanitizer/HTMLSanitizer.js';
+import theConfig from '../../data/Config.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -55,6 +56,14 @@ class AttributionsUI {
 
 	createUI ( ) {
 		this.#mainHTMLElement = theHTMLElementsFactory.create ( 'div', { id : 'travelnotes-attributions-ui' }, document.body );
+	}
+
+	show ( ) {
+		setTimeout ( ( ) => this.#mainHTMLElement.classList.remove ( 'travelnotes-hidden' ), theConfig.toolbars.timeOut );
+	}
+
+	hide ( ) {
+		this.#mainHTMLElement.classList.add ( 'travelnotes-hidden' );
 	}
 
 	/**

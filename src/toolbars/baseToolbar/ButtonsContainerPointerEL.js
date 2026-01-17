@@ -23,6 +23,7 @@ Doc reviewed 202208
  */
 
 import { ZERO } from '../../main/Constants.js';
+import theDevice from '../../core/lib/Device.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -60,6 +61,10 @@ class ButtonsContainerPointerEL {
 	 */
 
 	handleEvent ( pointerEvent ) {
+		theDevice.setPointerType ( pointerEvent.type );
+		if ( 'mouse' === theDevice.pointerType ) {
+			return;
+		}
 		switch ( pointerEvent.type ) {
 		case 'pointerdown' :
 			this.#pointerIsDown = true;

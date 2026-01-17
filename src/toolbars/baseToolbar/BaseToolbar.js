@@ -29,6 +29,7 @@ import ButtonsContainerWheelEL from './ButtonsContainerWheelEL.js';
 import ButtonsContainerPointerEL from './ButtonsContainerPointerEL.js';
 import theConfig from '../../data/Config.js';
 import theDevice from '../../core/lib/Device.js';
+import theAttributionsUI from '../../uis/attributionsUI/AttributionsUI.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -226,6 +227,7 @@ class BaseToolbar {
 		this.#buttonsContainer.addEventListener ( 'pointerup', this.#buttonsContainerPointerEL, false );
 		this.#buttonsContainer.addEventListener ( 'pointermove', this.#buttonsContainerPointerEL, false );
 		this.#isShow = true;
+		theAttributionsUI.hide ( );
 	}
 
 	/**
@@ -274,6 +276,7 @@ class BaseToolbar {
 		this.#buttonsContainer = null;
 
 		this.#isShow = false;
+		theAttributionsUI.show ( );
 	}
 
 	/**
