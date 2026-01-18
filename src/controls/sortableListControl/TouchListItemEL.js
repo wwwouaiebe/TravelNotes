@@ -26,7 +26,11 @@ import { ZERO, ONE, TWO } from '../../main/Constants.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-touchstart, touchmove, touchend and touchcancel on an list item event listener
+Polyfill for drag and drop on a touch device
+
+Drag and drop don't work on touch devices so we have to create a polyfill for drag and drop on touch devices.
+But because we need also a context menu activated with a long pointer down ( that simulate a right click on mouse devices) we
+need to start the drag and drop with a double click
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
