@@ -26,10 +26,10 @@ import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import theTranslator from '../../core/uiLib/Translator.js';
 import BaseDialogOptions from './BaseDialogOptions.js';
 import CancelButtonClickEL from './CancelButtonClickEL.js';
-import TopBarDragStartEL from './TopBarDragStartEL.js';
-import TopBarDragEndEL from './TopBarDragEndEL.js';
-import TopBarTouchEL from './TopBarTouchEL.js';
+import TopBarPointerEL from './TopBarPointerEL.js';
 import BaseDialogMover from './BaseDialogMover.js';
+import DialogDragStartEL from './DialogDragStartEL.js';
+import DialogDragEndEL from './DialogDragEndEL.js';
 
 // import GarbageCollectorTester from '../core/uiLib/GarbageCollectorTester.js';
 
@@ -83,25 +83,25 @@ class BaseDialog {
 	#baseDialogMover;
 
 	/**
-	Top bar drag start event listener
-	@type {TopBarDragStartEL}
+	Dialog dragstart event listener
+	@type {DialogDragStartEL}
 	*/
 
-	#topBarDragStartEL;
+	#dialogDragStartEL;
 
 	/**
-	Top bar drag end event listener
-	@type {TopBarDragEndEL}
+	Dialog dragend event listener
+	@type {DialogDragEndEL}
 	*/
 
-	#topBarDragEndEL;
+	#dialogDragEndEL;
 
 	/**
-	Top bar touch event listener
-	@type {TopBarTouchEL}
+	Top bar pointer event listener
+	@type {TopBarPointerEL}
 	*/
 
-	#topBarTouchEL;
+	#topBarPointerEL;
 
 	/**
 	Cancel button click event listener
@@ -127,9 +127,14 @@ class BaseDialog {
 		this.#dialogHTMLElement = theHTMLElementsFactory.create (
 			'div',
 			{
-				className : 'travelnotes-base-dialog-dialog-container'
+				className : 'travelnotes-base-dialog-dialog-container',
+				draggable : true
 			}
 		);
+		this.#dialogDragStartEL = new DialogDragStartEL ( this.mover );
+		this.#dialogHTMLElement.addEventListener ( 'dragstart', this.#dialogDragStartEL, false );
+		this.#dialogDragEndEL = new DialogDragEndEL ( this.mover );
+		this.#dialogHTMLElement.addEventListener ( 'dragend', this.#dialogDragEndEL, false );
 		this.mover.dialogHTMLElement = this.#dialogHTMLElement;
 	}
 
@@ -141,22 +146,14 @@ class BaseDialog {
 
 		this.#topBarHTMLElement = theHTMLElementsFactory.create (
 			'div',
-			{
-				className : 'travelnotes-base-dialog-top-bar',
-				draggable : true
-			},
+			{ className : 'travelnotes-base-dialog-top-bar' },
 			this.#dialogHTMLElement
 		);
 
-		this.#topBarTouchEL = new TopBarTouchEL ( this.mover );
-		this.#topBarHTMLElement.addEventListener ( 'touchstart', this.#topBarTouchEL, false );
-		this.#topBarHTMLElement.addEventListener ( 'touchmove', this.#topBarTouchEL, false );
-		this.#topBarHTMLElement.addEventListener ( 'touchend', this.#topBarTouchEL, false );
-		this.#topBarHTMLElement.addEventListener ( 'touchcancel', this.#topBarTouchEL, false );
-		this.#topBarDragStartEL = new TopBarDragStartEL ( this.mover );
-		this.#topBarHTMLElement.addEventListener ( 'dragstart', this.#topBarDragStartEL, false );
-		this.#topBarDragEndEL = new TopBarDragEndEL ( this.mover );
-		this.#topBarHTMLElement.addEventListener ( 'dragend', this.#topBarDragEndEL, false );
+		this.#topBarPointerEL = new TopBarPointerEL ( this.mover );
+		this.#topBarHTMLElement.addEventListener ( 'pointerdown', this.#topBarPointerEL, false );
+		this.#topBarHTMLElement.addEventListener ( 'pointerup', this.#topBarPointerEL, false );
+		this.#topBarHTMLElement.addEventListener ( 'pointermove', this.#topBarPointerEL, false );
 
 		this.#cancelButton = theHTMLElementsFactory.create (
 			'div',
@@ -241,16 +238,15 @@ class BaseDialog {
 	*/
 
 	#destructor ( ) {
-		this.#topBarHTMLElement.removeEventListener ( 'dragstart', this.#topBarDragStartEL, false );
-		this.#topBarDragStartEL = null;
-		this.#topBarHTMLElement.removeEventListener ( 'dragend', this.#topBarDragEndEL, false );
-		this.#topBarDragEndEL = null;
+		this.#dialogHTMLElement.removeEventListener ( 'dragstart', this.#dialogDragStartEL, false );
+		this.#dialogDragStartEL = null;
+		this.#dialogHTMLElement.removeEventListener ( 'dragend', this.#dialogDragEndEL, false );
+		this.#dialogDragEndEL = null;
 
-		this.#topBarHTMLElement.removeEventListener ( 'touchstart', this.#topBarTouchEL, false );
-		this.#topBarHTMLElement.removeEventListener ( 'touchmove', this.#topBarTouchEL, false );
-		this.#topBarHTMLElement.removeEventListener ( 'touchend', this.#topBarTouchEL, false );
-		this.#topBarHTMLElement.removeEventListener ( 'touchcancel', this.#topBarTouchEL, false );
-		this.#topBarTouchEL = null;
+		this.#topBarHTMLElement.removeEventListener ( 'pointerdown', this.#topBarPointerEL, false );
+		this.#topBarHTMLElement.removeEventListener ( 'pointerup', this.#topBarPointerEL, false );
+		this.#topBarHTMLElement.removeEventListener ( 'pointermove', this.#topBarPointerEL, false );
+		this.#topBarPointerEL = null;
 
 		this.#cancelButton.removeEventListener ( 'click', this.#cancelButtonClickEL, false );
 		this.#cancelButtonClickEL = null;

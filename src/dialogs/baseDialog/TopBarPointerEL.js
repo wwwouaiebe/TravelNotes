@@ -22,13 +22,15 @@ Changes:
 Doc reviewed 202208
  */
 
+import theDevice from '../../core/lib/Device';
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-dragend event event listener for the top bar
+pointerup, pointerdown and pointermove event listener for the top bar
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class TopBarDragEndEL {
+class TopBarPointerEL {
 
 	/**
 	A reference to the mover object of the dialog
@@ -38,6 +40,13 @@ class TopBarDragEndEL {
 	#mover;
 
 	/**
+	A flag to detect a pointerdown event eventually followed by a pointerup event
+	@type {boolean}
+	*/
+
+	#isPointerDown;
+
+	/**
 	The constructor
 	@param {BaseDialogMover|DockableBaseDialogMover} mover A reference to the mover object of the dialog
 	*/
@@ -45,18 +54,40 @@ class TopBarDragEndEL {
 	constructor ( mover ) {
 		Object.freeze ( this );
 		this.#mover = mover;
+		this.#isPointerDown = false;
 	}
 
 	/**
-	Event listener method
-	@param {Event} dragEndEvent The event to handle
+	Handle the pointerup, pointerdown and pointermove event on the top bar
+	@param {Event} pointerEvent The event to handle
 	*/
 
-	handleEvent ( dragEndEvent ) {
-		this.#mover.moveDialog ( dragEndEvent );
+	handleEvent ( pointerEvent ) {
+		pointerEvent.stopPropagation ( );
+		theDevice.setPointerType ( pointerEvent );
+		if ( 'touch' !== theDevice.pointerType ) {
+			return;
+		}
+		switch ( pointerEvent.type ) {
+		case 'pointerdown' :
+			this.#isPointerDown = true;
+			this.#mover.setDragStartPoint ( pointerEvent );
+			break;
+		case 'pointerup' :
+			this.#isPointerDown = false;
+			this.#mover.moveDialog ( pointerEvent );
+			break;
+		case 'pointermove' :
+			if ( this.#isPointerDown ) {
+				this.#mover.moveDialog ( pointerEvent );
+			}
+			break;
+		default :
+			break;
+		}
 	}
 }
 
-export default TopBarDragEndEL;
+export default TopBarPointerEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */
