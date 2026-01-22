@@ -26,11 +26,11 @@ import theDevice from '../../core/lib/Device';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
-pointerup, pointerdown and pointermove event listener for the top bar
+pointerup, pointerdown and pointermove event listener for the dialog
 */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
-class TopBarPointerEL {
+class DialogPointerEL {
 
 	/**
 	A reference to the mover object of the dialog
@@ -88,6 +88,6 @@ class TopBarPointerEL {
 	}
 }
 
-export default TopBarPointerEL;
+export default DialogPointerEL;
 
 /* --- End of file --------------------------------------------------------------------------------------------------------- */

@@ -159,14 +159,14 @@ class BaseDialogMover {
 
 	/**
 	Move the dialog to a drag event point and set the drag start values to this point
-	@param {Event|Touch} dragEventOrTouch The drag event or Touch with the drag start values
+	@param {Event} dragOrPointerEvent The drag event or pointer event with the drag start values
 	*/
 
-	moveDialog ( dragEventOrTouch ) {
-		const newDialogX = this.#dialogX + dragEventOrTouch.screenX - this.#dragStartX;
-		const newDialogY = this.#dialogY + dragEventOrTouch.screenY - this.#dragStartY;
+	moveDialog ( dragOrPointerEvent ) {
+		const newDialogX = this.#dialogX + dragOrPointerEvent.screenX - this.#dragStartX;
+		const newDialogY = this.#dialogY + dragOrPointerEvent.screenY - this.#dragStartY;
 		this.moveDialogTo ( newDialogX, newDialogY );
-		this.setDragStartPoint ( dragEventOrTouch );
+		this.setDragStartPoint ( dragOrPointerEvent );
 	}
 
 	/**
@@ -200,12 +200,12 @@ class BaseDialogMover {
 
 	/**
 	Set the drag start values
-	@param {Event|Touch} dragEventOrTouch The drag event or Touch with the drag start values
+	@param {Event} dragOrPointerEvent The drag event or Pointer with the drag start values
 	*/
 
-	setDragStartPoint ( pointerEvent ) {
-		this.#dragStartX = pointerEvent.screenX;
-		this.#dragStartY = pointerEvent.screenY;
+	setDragStartPoint ( dragOrPointerEvent ) {
+		this.#dragStartX = dragOrPointerEvent.screenX;
+		this.#dragStartY = dragOrPointerEvent.screenY;
 	}
 }
 

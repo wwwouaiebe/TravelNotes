@@ -26,7 +26,7 @@ import theHTMLElementsFactory from '../../core/uiLib/HTMLElementsFactory.js';
 import theTranslator from '../../core/uiLib/Translator.js';
 import BaseDialogOptions from './BaseDialogOptions.js';
 import CancelButtonClickEL from './CancelButtonClickEL.js';
-import TopBarPointerEL from './TopBarPointerEL.js';
+import DialogPointerEL from './DialogPointerEL.js';
 import BaseDialogMover from './BaseDialogMover.js';
 import DialogDragStartEL from './DialogDragStartEL.js';
 import DialogDragEndEL from './DialogDragEndEL.js';
@@ -76,7 +76,7 @@ class BaseDialog {
 	#contentHTMLElement;
 
 	/**
-	BaseDialogMover for drag ond drop and touch operations
+	BaseDialogMover for drag ond drop and pointer operations
 	@type {BaseDialogMover}
 	*/
 
@@ -98,10 +98,10 @@ class BaseDialog {
 
 	/**
 	Top bar pointer event listener
-	@type {TopBarPointerEL}
+	@type {DialogPointerEL}
 	*/
 
-	#topBarPointerEL;
+	#dialogPointerEL;
 
 	/**
 	Cancel button click event listener
@@ -135,6 +135,12 @@ class BaseDialog {
 		this.#dialogHTMLElement.addEventListener ( 'dragstart', this.#dialogDragStartEL, false );
 		this.#dialogDragEndEL = new DialogDragEndEL ( this.mover );
 		this.#dialogHTMLElement.addEventListener ( 'dragend', this.#dialogDragEndEL, false );
+
+		this.#dialogPointerEL = new DialogPointerEL ( this.mover );
+		this.#dialogHTMLElement.addEventListener ( 'pointerdown', this.#dialogPointerEL, false );
+		this.#dialogHTMLElement.addEventListener ( 'pointerup', this.#dialogPointerEL, false );
+		this.#dialogHTMLElement.addEventListener ( 'pointermove', this.#dialogPointerEL, false );
+
 		this.mover.dialogHTMLElement = this.#dialogHTMLElement;
 	}
 
@@ -149,11 +155,6 @@ class BaseDialog {
 			{ className : 'travelnotes-base-dialog-top-bar' },
 			this.#dialogHTMLElement
 		);
-
-		this.#topBarPointerEL = new TopBarPointerEL ( this.mover );
-		this.#topBarHTMLElement.addEventListener ( 'pointerdown', this.#topBarPointerEL, false );
-		this.#topBarHTMLElement.addEventListener ( 'pointerup', this.#topBarPointerEL, false );
-		this.#topBarHTMLElement.addEventListener ( 'pointermove', this.#topBarPointerEL, false );
 
 		this.#cancelButton = theHTMLElementsFactory.create (
 			'div',
@@ -243,10 +244,10 @@ class BaseDialog {
 		this.#dialogHTMLElement.removeEventListener ( 'dragend', this.#dialogDragEndEL, false );
 		this.#dialogDragEndEL = null;
 
-		this.#topBarHTMLElement.removeEventListener ( 'pointerdown', this.#topBarPointerEL, false );
-		this.#topBarHTMLElement.removeEventListener ( 'pointerup', this.#topBarPointerEL, false );
-		this.#topBarHTMLElement.removeEventListener ( 'pointermove', this.#topBarPointerEL, false );
-		this.#topBarPointerEL = null;
+		this.#dialogHTMLElement.removeEventListener ( 'pointerdown', this.#dialogPointerEL, false );
+		this.#dialogHTMLElement.removeEventListener ( 'pointerup', this.#dialogPointerEL, false );
+		this.#dialogHTMLElement.removeEventListener ( 'pointermove', this.#dialogPointerEL, false );
+		this.#dialogPointerEL = null;
 
 		this.#cancelButton.removeEventListener ( 'click', this.#cancelButtonClickEL, false );
 		this.#cancelButtonClickEL = null;

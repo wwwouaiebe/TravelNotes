@@ -58,9 +58,17 @@ class AttributionsUI {
 		this.#mainHTMLElement = theHTMLElementsFactory.create ( 'div', { id : 'travelnotes-attributions-ui' }, document.body );
 	}
 
+	/**
+	 * Show the UI. A timer is needed to avoid problems whith the layers toolbar on small screens
+	 */
+
 	show ( ) {
 		setTimeout ( ( ) => this.#mainHTMLElement.classList.remove ( 'travelnotes-hidden' ), theConfig.toolbars.timeOut );
 	}
+
+	/**
+	 * Hide the UI (needed to avoid problems whith the layers toolbar on small screens)
+	 */
 
 	hide ( ) {
 		this.#mainHTMLElement.classList.add ( 'travelnotes-hidden' );
