@@ -175,7 +175,6 @@ class BaseDialog {
 		);
 		this.#cancelButtonClickEL = new CancelButtonClickEL ( this );
 		this.#cancelButton.addEventListener ( 'click', this.#cancelButtonClickEL, false );
-		this.mover.topBarHTMLElement = this.#topBarHTMLElement;
 	}
 
 	/**

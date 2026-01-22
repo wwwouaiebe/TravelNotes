@@ -102,11 +102,18 @@ class BaseDialogMover {
 	dialogHTMLElement = null;
 
 	/**
-	The top bar element of the dialog
-	@type {HTMLElement}
-	*/
+	 * The clientX value of the last dragover event
+	 * @type {number}
+	 */
 
-	topBarHTMLElement = null;
+	#lastDragOverClientX = 0;
+
+	/**
+	 * The clientY value of the last dragover event
+	 * @type {number}
+	 */
+
+	#lastDragOverClientY = 0;
 
 	/**
 	The constructor
@@ -163,8 +170,22 @@ class BaseDialogMover {
 	*/
 
 	moveDialog ( dragOrPointerEvent ) {
-		const newDialogX = this.#dialogX + dragOrPointerEvent.screenX - this.#dragStartX;
-		const newDialogY = this.#dialogY + dragOrPointerEvent.screenY - this.#dragStartY;
+
+		/*
+		On a multiple screens computer, the clientX and clientY values are relative to the OS screens because
+		a drag and drop can finish outside of the browser window
+		So when the dragOrPointerEvent is a dragend event we use the clientX value of the last dragover event as
+		clientX of the dragend event
+		*/
+
+		if ( 'dragover' === dragOrPointerEvent.type ) {
+			this.#lastDragOverClientX = dragOrPointerEvent.clientX;
+			this.#lastDragOverClientY = dragOrPointerEvent.clientY;
+		}
+		const clientX = 'dragend' === dragOrPointerEvent.type ? this.#lastDragOverClientX : dragOrPointerEvent.clientX;
+		const clientY = 'dragend' === dragOrPointerEvent.type ? this.#lastDragOverClientY : dragOrPointerEvent.clientY;
+		const newDialogX = this.#dialogX + clientX - this.#dragStartX;
+		const newDialogY = this.#dialogY + clientY - this.#dragStartY;
 		this.moveDialogTo ( newDialogX, newDialogY );
 		this.setDragStartPoint ( dragOrPointerEvent );
 	}
@@ -204,8 +225,8 @@ class BaseDialogMover {
 	*/
 
 	setDragStartPoint ( dragOrPointerEvent ) {
-		this.#dragStartX = dragOrPointerEvent.screenX;
-		this.#dragStartY = dragOrPointerEvent.screenY;
+		this.#dragStartX = dragOrPointerEvent.clientX;
+		this.#dragStartY = dragOrPointerEvent.clientY;
 	}
 }
 
