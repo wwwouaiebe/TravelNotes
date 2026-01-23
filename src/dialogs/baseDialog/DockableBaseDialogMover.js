@@ -90,11 +90,9 @@ class DockableBaseDialogMover extends BaseDialogMover {
 	@param {?String} eventType The type of the event that have triggered the call to the method
 	*/
 
-	moveDialogTo ( newDialogX, newDialogY, eventType ) {
-		super.moveDialogTo ( newDialogX, newDialogY, eventType );
-		if ( ! eventType || 'touchmove' !== eventType ) {
-			this.#dockDialog ( );
-		}
+	moveDialogTo ( newDialogX, newDialogY ) {
+		super.moveDialogTo ( newDialogX, newDialogY );
+		this.#dockDialog ( );
 	}
 }
 

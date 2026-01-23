@@ -232,7 +232,7 @@ class DockableBaseDialog extends NonModalBaseDialog {
 			);
 		}
 
-		this.mover.topBarHTMLElement.addEventListener (
+		this.topBarHTMLElement.addEventListener (
 			'click',
 			clickEvent => this.#topBarClickEL ( clickEvent ),
 			false

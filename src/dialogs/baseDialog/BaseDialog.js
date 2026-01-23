@@ -30,8 +30,6 @@ import DialogPointerEL from './DialogPointerEL.js';
 import BaseDialogMover from './BaseDialogMover.js';
 import DialogDragStartEL from './DialogDragStartEL.js';
 
-// import GarbageCollectorTester from '../core/uiLib/GarbageCollectorTester.js';
-
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
 Base class used for dialogs
@@ -39,12 +37,6 @@ Base class used for dialogs
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 class BaseDialog {
-
-	/*
-	Garbage collector testing. Only for memory free tests on dev.
-	*/
-
-	// #garbageCollectorTester = new GarbageCollectorTester ( );
 
 	/**
 	The container HTMLElement of the dialog
@@ -250,7 +242,15 @@ class BaseDialog {
 	@type {BaseDialogMover}
 	*/
 
-	get mover ( ) { return this.#baseDialogMover ? this.#baseDialogMover : this.#baseDialogMover = new BaseDialogMover ( ); }
+	get mover ( ) { 
+		const mover = 
+			this.#baseDialogMover
+			? 
+			this.#baseDialogMover 
+			: 
+			this.#baseDialogMover = new BaseDialogMover ( ); 
+		return mover;
+	}
 
 	/**
 	Cancel button handler. Can be overloaded in the derived classes
@@ -290,6 +290,8 @@ class BaseDialog {
 	*/
 
 	get contentHTMLElements ( ) { return []; }
+
+	get topBarHTMLElement ( ) { return this.#topBarHTMLElement; }
 
 	/**
 	Show the dialog
