@@ -29,7 +29,6 @@ import CancelButtonClickEL from './CancelButtonClickEL.js';
 import DialogPointerEL from './DialogPointerEL.js';
 import BaseDialogMover from './BaseDialogMover.js';
 import DialogDragStartEL from './DialogDragStartEL.js';
-import DialogDragEndEL from './DialogDragEndEL.js';
 
 // import GarbageCollectorTester from '../core/uiLib/GarbageCollectorTester.js';
 
@@ -90,13 +89,6 @@ class BaseDialog {
 	#dialogDragStartEL;
 
 	/**
-	Dialog dragend event listener
-	@type {DialogDragEndEL}
-	*/
-
-	#dialogDragEndEL;
-
-	/**
 	Top bar pointer event listener
 	@type {DialogPointerEL}
 	*/
@@ -133,8 +125,6 @@ class BaseDialog {
 		);
 		this.#dialogDragStartEL = new DialogDragStartEL ( this.mover );
 		this.#dialogHTMLElement.addEventListener ( 'dragstart', this.#dialogDragStartEL, false );
-		this.#dialogDragEndEL = new DialogDragEndEL ( this.mover );
-		this.#dialogHTMLElement.addEventListener ( 'dragend', this.#dialogDragEndEL, false );
 
 		this.#dialogPointerEL = new DialogPointerEL ( this.mover );
 		this.#dialogHTMLElement.addEventListener ( 'pointerdown', this.#dialogPointerEL, false );
@@ -240,8 +230,6 @@ class BaseDialog {
 	#destructor ( ) {
 		this.#dialogHTMLElement.removeEventListener ( 'dragstart', this.#dialogDragStartEL, false );
 		this.#dialogDragStartEL = null;
-		this.#dialogHTMLElement.removeEventListener ( 'dragend', this.#dialogDragEndEL, false );
-		this.#dialogDragEndEL = null;
 
 		this.#dialogHTMLElement.removeEventListener ( 'pointerdown', this.#dialogPointerEL, false );
 		this.#dialogHTMLElement.removeEventListener ( 'pointerup', this.#dialogPointerEL, false );

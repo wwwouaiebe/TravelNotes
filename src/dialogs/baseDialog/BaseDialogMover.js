@@ -102,20 +102,6 @@ class BaseDialogMover {
 	dialogHTMLElement = null;
 
 	/**
-	 * The clientX value of the last dragover event
-	 * @type {number}
-	 */
-
-	#lastDragOverClientX = 0;
-
-	/**
-	 * The clientY value of the last dragover event
-	 * @type {number}
-	 */
-
-	#lastDragOverClientY = 0;
-
-	/**
 	The constructor
 	*/
 
@@ -165,27 +151,14 @@ class BaseDialogMover {
 	}
 
 	/**
-	Move the dialog to a drag event point and set the drag start values to this point
+	Move the dialog to a dragevent point and set the dragstart values to this point
 	@param {Event} dragOrPointerEvent The drag event or pointer event with the drag start values
 	*/
 
 	moveDialog ( dragOrPointerEvent ) {
 
-		/*
-		On a multiple screens computer, the clientX and clientY values are relative to the OS screens because
-		a drag and drop can finish outside of the browser window
-		So when the dragOrPointerEvent is a dragend event we use the clientX value of the last dragover event as
-		clientX of the dragend event
-		*/
-
-		if ( 'dragover' === dragOrPointerEvent.type ) {
-			this.#lastDragOverClientX = dragOrPointerEvent.clientX;
-			this.#lastDragOverClientY = dragOrPointerEvent.clientY;
-		}
-		const clientX = 'dragend' === dragOrPointerEvent.type ? this.#lastDragOverClientX : dragOrPointerEvent.clientX;
-		const clientY = 'dragend' === dragOrPointerEvent.type ? this.#lastDragOverClientY : dragOrPointerEvent.clientY;
-		const newDialogX = this.#dialogX + clientX - this.#dragStartX;
-		const newDialogY = this.#dialogY + clientY - this.#dragStartY;
+		const newDialogX = this.#dialogX + dragOrPointerEvent.clientX - this.#dragStartX;
+		const newDialogY = this.#dialogY + dragOrPointerEvent.clientY - this.#dragStartY;
 		this.moveDialogTo ( newDialogX, newDialogY );
 		this.setDragStartPoint ( dragOrPointerEvent );
 	}
