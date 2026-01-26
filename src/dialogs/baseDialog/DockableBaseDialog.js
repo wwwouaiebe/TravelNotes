@@ -23,7 +23,6 @@ Doc reviewed 202208
  */
 
 import NonModalBaseDialog from './NonModalBaseDialog.js';
-import DockableBaseDialogMover from './DockableBaseDialogMover.js';
 import theConfig from '../../data/Config.js';
 import BaseContextMenu from '../../contextMenus/baseContextMenu/BaseContextMenu.js';
 import { ZERO } from '../../main/Constants.js';
@@ -37,18 +36,18 @@ Base class used for dockable dialogs
 class DockableBaseDialog extends NonModalBaseDialog {
 
 	/**
-	The default X position in pixels for the dialog
+	The default X position in pixels for the dialog.
 	@type {?Number}
 	*/
 
-	#dialogX;
+	#defaultDialogX;
 
 	/**
 	The default Y position in pixels for the dialog
 	@type {?Number}
 	*/
 
-	#dialogY;
+	#defaultDialogY;
 
 	/**
 	A timer id for the mouse leave event listener
@@ -56,13 +55,6 @@ class DockableBaseDialog extends NonModalBaseDialog {
 	*/
 
 	#mouseLeaveTimerId;
-
-	/**
-	The mover used by the dialog
-	@type {DockableBaseDialogMover}
-	*/
-
-	#dockableBaseDialogMover;
 
 	/**
 	The last mouse event time stamp. Used to detect a mouseenter event directly followed by a click event
@@ -96,6 +88,13 @@ class DockableBaseDialog extends NonModalBaseDialog {
 	static get #MIN_MOUSE_LEAVE_TIMEOUT ( ) { return 1500; }
 
 	/**
+	A flag indication if the dialog is dockable
+	@type {Boolean}
+	*/
+
+	get isDockable ( ) { return true; }
+
+	/**
 	Hide the content of the dialog. Used by the timer on mouseLeave
 	*/
 
@@ -108,7 +107,7 @@ class DockableBaseDialog extends NonModalBaseDialog {
 				);
 			}
 			else {
-				this.mover.dialogHTMLElement.classList.add (
+				this.addCssClass (
 					'travelnotes-dockable-base-dialog-hidden-content'
 				);
 			}
@@ -127,7 +126,7 @@ class DockableBaseDialog extends NonModalBaseDialog {
 			this.#mouseLeaveTimerId = null;
 		}
 		if ( this.mover.dialogDocked ) {
-			this.mover.dialogHTMLElement.classList.remove ( 'travelnotes-dockable-base-dialog-hidden-content' );
+			this.removeCssClass ( 'travelnotes-dockable-base-dialog-hidden-content' );
 		}
 	}
 
@@ -155,36 +154,23 @@ class DockableBaseDialog extends NonModalBaseDialog {
 			return;
 		}
 		if ( this.mover.dialogDocked ) {
-			this.mover.dialogHTMLElement.classList.toggle ( 'travelnotes-dockable-base-dialog-hidden-content' );
+			this.toggleCssClass ( 'travelnotes-dockable-base-dialog-hidden-content' );
 		}
 	}
 
 	/**
 	The constructor
-	@param {Number} dialogX The default X position in pixels for the dialog
-	@param {Number} dialogY The default Y position in pixels for the dialog
+	@param {?Number} defaultDialogX The default X position in pixels for the dialog
+	@param {?Number} defaultDialogY The default Y position in pixels for the dialog
 	*/
 
-	constructor ( dialogX, dialogY ) {
+	constructor ( defaultDialogX, defaultDialogY ) {
 		super ( );
-		this.#dialogX = dialogX;
-		this.#dialogY = dialogY;
+		this.#defaultDialogX = defaultDialogX;
+		this.#defaultDialogY = defaultDialogY;
 		this.#mouseLeaveTimerId = null;
-		this.#dockableBaseDialogMover = null;
 		this.#lastMouseEventTimestamp = ZERO;
 		this.#isShow = false;
-	}
-
-	/**
-	Get the mover object used with this dialog. Create the object if needed.
-	Overload of the base class get mover ( )
-	@type {DockableBaseDialogMover}
-	*/
-
-	get mover ( ) {
-		return this.#dockableBaseDialogMover ?
-			this.#dockableBaseDialogMover :
-			this.#dockableBaseDialogMover = new DockableBaseDialogMover ( );
 	}
 
 	/**
@@ -194,9 +180,6 @@ class DockableBaseDialog extends NonModalBaseDialog {
 	onCancel ( ) {
 		super.onCancel ( );
 		this.#isShow = false;
-		if ( this.#dockableBaseDialogMover ) {
-			this.#dockableBaseDialogMover = null;
-		}
 	}
 
 	/**
@@ -210,22 +193,34 @@ class DockableBaseDialog extends NonModalBaseDialog {
 		super.show ( );
 		this.addCssClass ( 'travelnotes-dockable-base-dialog' );
 		this.updateContent ( );
-		if ( null !== this.#dialogX && null !== this.#dialogY ) {
-			this.mover.moveDialogTo ( this.#dialogX, this.#dialogY );
-			this.#dialogX = null;
-			this.#dialogY = null;
+		if ( null !== this.#defaultDialogX && null !== this.#defaultDialogY ) {
+
+			// moving the dialog to it's default position if a default position was given in the constructor
+			this.mover.moveDialog (
+				{
+					clientX : this.#defaultDialogX,
+					clientY : this.#defaultDialogY
+				}
+			);
+			this.mover.dockDialog ( );
+			this.#defaultDialogX = null;
+			this.#defaultDialogY = null;
 		}
 		else {
+
+			// otherwise moving to the last used position
 			this.mover.moveDialogToLastPosition ( );
 		}
-		this.mover.dialogHTMLElement.addEventListener (
+
+		// Adding event listeners
+		this.dialogContainer.addEventListener (
 			'mouseenter',
 			mouseEvent => this.#mouseEnterDialogEL ( mouseEvent ),
 			false
 		);
 
 		if ( theConfig.dockableBaseDialog.hideOnMouseLeave ) {
-			this.mover.dialogHTMLElement.addEventListener (
+			this.dialogContainer.addEventListener (
 				'mouseleave',
 				( ) => this.#mouseLeaveDialogEL ( ),
 				false
@@ -239,7 +234,7 @@ class DockableBaseDialog extends NonModalBaseDialog {
 		);
 
 		if ( this.mover.dialogDocked ) {
-			this.mover.dialogHTMLElement.classList.add ( 'travelnotes-dockable-base-dialog-hidden-content' );
+			this.addCssClass ( 'travelnotes-dockable-base-dialog-hidden-content' );
 		}
 		this.#isShow = true;
 	}

@@ -34,7 +34,7 @@ class DialogPointerEL {
 
 	/**
 	A reference to the mover object of the dialog
-	@type {BaseDialogMover|DockableBaseDialogMover}
+	@type {BaseDialogMover}
 	*/
 
 	#mover;
@@ -48,7 +48,7 @@ class DialogPointerEL {
 
 	/**
 	The constructor
-	@param {BaseDialogMover|DockableBaseDialogMover} mover A reference to the mover object of the dialog
+	@param {BaseDialogMover} mover A reference to the mover object of the dialog
 	*/
 
 	constructor ( mover ) {
@@ -71,11 +71,12 @@ class DialogPointerEL {
 		switch ( pointerEvent.type ) {
 		case 'pointerdown' :
 			this.#isPointerDown = true;
-			this.#mover.setDragStartPoint ( pointerEvent );
+			this.#mover.dragStart ( pointerEvent );
 			break;
 		case 'pointerup' :
 			this.#isPointerDown = false;
 			this.#mover.moveDialog ( pointerEvent );
+			this.#mover.dockDialog ( );
 			break;
 		case 'pointermove' :
 			if ( this.#isPointerDown ) {

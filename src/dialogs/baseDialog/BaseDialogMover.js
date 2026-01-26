@@ -43,13 +43,13 @@ class BaseDialogMover {
 	#objId;
 
 	/**
-	The start drag X screen coordinate of the mouse
+	The dragstart X screen coordinate of the mouse
 	@type {Number}
 	*/
 
 	#dragStartX;
 
-	/** The start drag Y screen coordinate of the mouse
+	/** The dragstart Y screen coordinate of the mouse
 	@type {Number}
 	*/
 
@@ -60,66 +60,42 @@ class BaseDialogMover {
 	@type {Number}
 	*/
 
-	#dialogX;
+	#dialogLeft;
 
 	/**
 	The Y screen coordinate of the upper left corner of the dialog
 	@type {Number}
 	*/
 
-	#dialogY;
+	#dialogTop;
 
 	/**
-	Compute the new position of the dialog on the screen
-	@param {Number} newDialogX The new X position of the dialog in pixels
-	@param {Number} newDialogY The new Y position of the dialog in pixels
+	a flag to store the docked status of the dialog
+	@type {boolean}
 	*/
 
-	#computePosition ( newDialogX, newDialogY ) {
-		const screenAvailable = theDevice.screenAvailable;
-		const maxDialogX =
-			screenAvailable.width -	this.dialogHTMLElement.offsetWidth - DIALOG_DRAG_MARGIN;
-		const maxDialogY =
-			screenAvailable.height - this.dialogHTMLElement.offsetHeight - DIALOG_DRAG_MARGIN;
-		this.#dialogX = Math.max ( Math.min ( newDialogX, maxDialogX ), DIALOG_DRAG_MARGIN );
-		this.#dialogY = Math.max ( Math.min ( newDialogY, maxDialogY ), DIALOG_DRAG_MARGIN );
-	}
+	#dialogDocked;
 
 	/**
-	Finish the move dialog. Adapt the style of the dialog
+	a flag to store the docked status of the dialog
+	@type {boolean}
 	*/
 
-	#endMoveDialog ( ) {
-		this.dialogHTMLElement.style.left = String ( this.#dialogX ) + 'px';
-		this.dialogHTMLElement.style.top = String ( this.#dialogY ) + 'px';
-	}
+	get dialogDocked ( ) { return this.#dialogDocked; }
 
 	/**
-	The container element of the dialog
-	@type {HTMLElement}
-	*/
+	 * A reference to the dialog handled by the DialogMover
+	 * @type {BaseDialog}
+	 */
 
-	dialogHTMLElement = null;
-
-	/**
-	The constructor
-	*/
-
-	constructor ( ) {
-		Object.seal ( this );
-		this.#dialogX = DIALOG_DRAG_MARGIN;
-		this.#dialogY = DIALOG_DRAG_MARGIN;
-		this.#dragStartX = ZERO;
-		this.#dragStartY = ZERO;
-		this.#objId = ObjId.nextObjId;
-	}
+	#dialog;
 
 	/**
 	A flag to detect if the dialog is on top of the screen
 	@type {boolean}
 	*/
 
-	get onTop ( ) { return DIALOG_DRAG_MARGIN + TWO > this.#dialogY; }
+	get isOnTop ( ) { return DIALOG_DRAG_MARGIN + TWO > this.#dialogTop; }
 
 	/**
 	A unique identifier given to the mover for drag and drop operations
@@ -129,25 +105,50 @@ class BaseDialogMover {
 	get objId ( ) { return this.#objId; }
 
 	/**
-	Center the dialog o the screen
+	Dock the dialog on top f the screen when possible
 	*/
 
-	centerDialog ( ) {
-		const screenAvailable = theDevice.screenAvailable;
-		this.dialogHTMLElement.style [ 'max-height' ] =
-			String ( screenAvailable.height - ( TWO * DIALOG_DRAG_MARGIN ) ) + 'px';
-		this.dialogHTMLElement.style [ 'max-width' ] =
-			String ( Math.min ( screenAvailable.width - ( TWO * DIALOG_DRAG_MARGIN ), DIALOG_MAX_WIDTH ) ) + 'px';
-		this.#dialogX = ( screenAvailable.width - this.dialogHTMLElement.clientWidth ) / TWO;
-		if ( theConfig.baseDialog.touchTopScreen && 'touch' === theDevice.pointerType ) {
+	dockDialog ( ) {
+		if ( this.#dialog.isDockable ) {
+			if ( this.isOnTop ) {
+				this.#dialog.addCssClass ( 'travelnotes-dockable-base-dialog-docked' );
+				this.#dialog.addCssClass ( 'travelnotes-dockable-base-dialog-hidden-content' );
+				this.#dialogTop = ZERO;
+				this.#dialog.moveDialog ( this.#dialogLeft, this.#dialogTop );
+				this.#dialogDocked = true;
+			}
+			else {
+				this.#dialog.removeCssClass ( 'travelnotes-dockable-base-dialog-docked' );
+				this.#dialog.removeCssClass ( 'travelnotes-dockable-base-dialog-hidden-content' );
+				this.#dialogDocked = false;
+			}
+		}
+	}
 
-			// dialogs go on top of the screen for touch devices
-			this.#dialogY = DIALOG_DRAG_MARGIN;
-		}
-		else {
-			this.#dialogY = ( screenAvailable.height - this.dialogHTMLElement.clientHeight ) / TWO;
-		}
-		this.#endMoveDialog ( );
+	/**
+	The constructor
+	@param {BaseDialog} dialog the dialog for witch the mover object is created
+	*/
+
+	constructor ( dialog ) {
+		Object.freeze ( this );
+		this.#dialog = dialog;
+		this.#dialogLeft = DIALOG_DRAG_MARGIN;
+		this.#dialogTop = DIALOG_DRAG_MARGIN;
+		this.#dragStartX = ZERO;
+		this.#dragStartY = ZERO;
+		this.#objId = ObjId.nextObjId;
+		this.#dialogDocked = false;
+	}
+
+	/**
+	 * Save the dragstart point
+	 * @param {Event} dragOrPointerEvent The dragstart event
+	 */
+
+	dragStart ( dragOrPointerEvent ) {
+		this.#dragStartX = dragOrPointerEvent.clientX;
+		this.#dragStartY = dragOrPointerEvent.clientY;
 	}
 
 	/**
@@ -157,21 +158,59 @@ class BaseDialogMover {
 
 	moveDialog ( dragOrPointerEvent ) {
 
-		const newDialogX = this.#dialogX + dragOrPointerEvent.clientX - this.#dragStartX;
-		const newDialogY = this.#dialogY + dragOrPointerEvent.clientY - this.#dragStartY;
-		this.moveDialogTo ( newDialogX, newDialogY );
-		this.setDragStartPoint ( dragOrPointerEvent );
+		// computing the new values for the upper left corner of the dialog
+		const newDialogLeft = this.#dialogLeft + dragOrPointerEvent.clientX - this.#dragStartX;
+		const newDialogTop = this.#dialogTop + dragOrPointerEvent.clientY - this.#dragStartY;
+
+		// computing the max possible values (the dialog must be completely in the browser window)
+		const screenAvailable = theDevice.screenAvailable;
+		const boundingClientRect = this.#dialog.boundingClientRect;
+
+		const maxDialogLeft =
+			screenAvailable.width -	boundingClientRect.width - DIALOG_DRAG_MARGIN;
+		const maxDialogTop =
+			screenAvailable.height - boundingClientRect.height - ( TWO * DIALOG_DRAG_MARGIN );
+
+		// selecting the correct value
+		this.#dialogLeft = Math.max ( Math.min ( newDialogLeft, maxDialogLeft ), DIALOG_DRAG_MARGIN );
+		this.#dialogTop = Math.max ( Math.min ( newDialogTop, maxDialogTop ), DIALOG_DRAG_MARGIN );
+
+		// moving and docking the dialog
+		this.#dialog.moveDialog ( this.#dialogLeft, this.#dialogTop );
+
+		// Saving the dragOrPointer coords as start point for the next move
+		this.#dragStartX = dragOrPointerEvent.clientX;
+		this.#dragStartY = dragOrPointerEvent.clientY;
 	}
 
 	/**
-	Move the dialog on the screen
-	@param {Number} newDialogX The new X position of the dialog in pixels
-	@param {Number} newDialogY The new Y position of the dialog in pixels
+	Center the dialog o the screen
 	*/
 
-	moveDialogTo ( newDialogX, newDialogY ) {
-		this.#computePosition ( newDialogX, newDialogY );
-		this.#endMoveDialog ( );
+	centerDialog ( ) {
+
+		// only for dockable dialog...
+		this.#dialog.removeCssClass ( 'travelnotes-dockable-base-dialog-docked' );
+		this.#dialog.removeCssClass ( 'travelnotes-dockable-base-dialog-hidden-content' );
+
+		const screenAvailable = theDevice.screenAvailable;
+		const boundingClientRect = this.#dialog.boundingClientRect;
+
+		this.#dialog.setMaxDim (
+			Math.min ( screenAvailable.width - ( TWO * DIALOG_DRAG_MARGIN ), DIALOG_MAX_WIDTH ),
+			screenAvailable.height - ( TWO * DIALOG_DRAG_MARGIN )
+		);
+
+		this.#dialogLeft = ( screenAvailable.width - boundingClientRect.width ) / TWO;
+		if ( theConfig.baseDialog.touchTopScreen && 'touch' === theDevice.pointerType ) {
+
+			// dialogs go on top of the screen for touch devices
+			this.#dialogTop = DIALOG_DRAG_MARGIN;
+		}
+		else {
+			this.#dialogTop = ( screenAvailable.height - boundingClientRect.height ) / TWO;
+		}
+		this.#dialog.moveDialog ( this.#dialogLeft, this.#dialogTop );
 	}
 
 	/**
@@ -179,7 +218,7 @@ class BaseDialogMover {
 	*/
 
 	moveDialogToLastPosition ( ) {
-		this.moveDialogTo ( this.#dialogX, this.#dialogY );
+		this.#dialog.moveDialog ( this.#dialogLeft, this.#dialogTop );
 	}
 
 	/**
@@ -187,20 +226,11 @@ class BaseDialogMover {
 	*/
 
 	moveDialogToTopLeft ( ) {
-		this.#dialogX = DIALOG_DRAG_MARGIN;
-		this.#dialogY = DIALOG_DRAG_MARGIN;
-		this.#endMoveDialog ( );
+		this.#dialogLeft = DIALOG_DRAG_MARGIN;
+		this.#dialogTop = DIALOG_DRAG_MARGIN;
+		this.#dialog.moveDialog ( this.#dialogLeft, this.#dialogTop );
 	}
 
-	/**
-	Set the drag start values
-	@param {Event} dragOrPointerEvent The drag event or Pointer with the drag start values
-	*/
-
-	setDragStartPoint ( dragOrPointerEvent ) {
-		this.#dragStartX = dragOrPointerEvent.clientX;
-		this.#dragStartY = dragOrPointerEvent.clientY;
-	}
 }
 
 export default BaseDialogMover;

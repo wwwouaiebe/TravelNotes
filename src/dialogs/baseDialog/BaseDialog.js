@@ -29,6 +29,7 @@ import CancelButtonClickEL from './CancelButtonClickEL.js';
 import DialogPointerEL from './DialogPointerEL.js';
 import BaseDialogMover from './BaseDialogMover.js';
 import DialogDragStartEL from './DialogDragStartEL.js';
+import DialogDragEndEL from './DialogDragEndEL.js';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /**
@@ -67,18 +68,18 @@ class BaseDialog {
 	#contentHTMLElement;
 
 	/**
-	BaseDialogMover for drag ond drop and pointer operations
-	@type {BaseDialogMover}
-	*/
-
-	#baseDialogMover;
-
-	/**
 	Dialog dragstart event listener
 	@type {DialogDragStartEL}
 	*/
 
 	#dialogDragStartEL;
+
+	/**
+	Dialog dragend event listener
+	@type {DialogDragEndEL}
+	*/
+
+	#dialogDragEndEL;
 
 	/**
 	Top bar pointer event listener
@@ -102,6 +103,36 @@ class BaseDialog {
 	#options = null;
 
 	/**
+	The mover object used with this dialog.
+	@type {BaseDialogMover}
+	*/
+
+	#mover = null;
+
+	/**
+	The mover object used with this dialog.
+	@type {BaseDialogMover}
+	*/
+
+	get mover ( ) {	return this.#mover; }
+
+	/**
+	A flag indication if the dialog is dockable
+	@type {Boolean}
+	*/
+
+	get isDockable ( ) { return false; }
+
+	/**
+	 * the The bounding client rectangle of the dialog container
+	 * @type {Object}
+	 */
+
+	get boundingClientRect ( ) {
+		return this.#contentHTMLElement.getBoundingClientRect ( );
+	}
+
+	/**
 	Create the dialog container
 	*/
 
@@ -117,13 +148,13 @@ class BaseDialog {
 		);
 		this.#dialogDragStartEL = new DialogDragStartEL ( this.mover );
 		this.#dialogHTMLElement.addEventListener ( 'dragstart', this.#dialogDragStartEL, false );
+		this.#dialogDragEndEL = new DialogDragEndEL ( this.mover );
+		this.#dialogHTMLElement.addEventListener ( 'dragend', this.#dialogDragEndEL, false );
 
 		this.#dialogPointerEL = new DialogPointerEL ( this.mover );
 		this.#dialogHTMLElement.addEventListener ( 'pointerdown', this.#dialogPointerEL, false );
 		this.#dialogHTMLElement.addEventListener ( 'pointerup', this.#dialogPointerEL, false );
 		this.#dialogHTMLElement.addEventListener ( 'pointermove', this.#dialogPointerEL, false );
-
-		this.mover.dialogHTMLElement = this.#dialogHTMLElement;
 	}
 
 	/**
@@ -212,6 +243,7 @@ class BaseDialog {
 	constructor ( options ) {
 		Object.freeze ( this );
 		this.#options = new BaseDialogOptions ( options );
+		this.#mover = new BaseDialogMover ( this );
 	}
 
 	/**
@@ -222,6 +254,8 @@ class BaseDialog {
 	#destructor ( ) {
 		this.#dialogHTMLElement.removeEventListener ( 'dragstart', this.#dialogDragStartEL, false );
 		this.#dialogDragStartEL = null;
+		this.#dialogHTMLElement.removeEventListener ( 'dragend', this.#dialogDragEndEL, false );
+		this.#dialogDragEndEL = null;
 
 		this.#dialogHTMLElement.removeEventListener ( 'pointerdown', this.#dialogPointerEL, false );
 		this.#dialogHTMLElement.removeEventListener ( 'pointerup', this.#dialogPointerEL, false );
@@ -231,25 +265,7 @@ class BaseDialog {
 		this.#cancelButton.removeEventListener ( 'click', this.#cancelButtonClickEL, false );
 		this.#cancelButtonClickEL = null;
 
-		if ( this.#baseDialogMover ) {
-			this.#baseDialogMover = null;
-		}
-	}
-
-	/**
-	Get the mover object used with this dialog. Create the object if needed.
-	Can be overloaded in the derived classes
-	@type {BaseDialogMover}
-	*/
-
-	get mover ( ) { 
-		const mover = 
-			this.#baseDialogMover
-			? 
-			this.#baseDialogMover 
-			: 
-			this.#baseDialogMover = new BaseDialogMover ( ); 
-		return mover;
+		// this.#mover = null;
 	}
 
 	/**
@@ -276,6 +292,20 @@ class BaseDialog {
 	get title ( ) { return ''; }
 
 	/**
+	The topbar HTMLElement
+	@type {HTMLElement}
+	*/
+
+	get topBarHTMLElement ( ) { return this.#topBarHTMLElement; }
+
+	/**
+	The container HTMLElement of the dialog
+	@type {HTMLElement}
+	*/
+
+	get dialogContainer ( ) { return this.#dialogHTMLElement; }
+
+	/**
 	An HTMLElement that have to be added as toolbar for the dialog.
 	Can be overloaded in the derived classes
 	@type {?HTMLElement}
@@ -290,8 +320,6 @@ class BaseDialog {
 	*/
 
 	get contentHTMLElements ( ) { return []; }
-
-	get topBarHTMLElement ( ) { return this.#topBarHTMLElement; }
 
 	/**
 	Show the dialog
@@ -339,12 +367,52 @@ class BaseDialog {
 	get options ( ) { return this.#options; }
 
 	/**
+	 * Set the max-width and max-height css values of the dialog
+	 * @param {Number} maxWidth The new max-width value
+	 * @param {Number} maxHeight The new max-height value
+	 */
+
+	setMaxDim ( maxWidth, maxHeight ) {
+		this.#dialogHTMLElement.style [ 'max-width' ] = String ( maxWidth ) + 'px';
+		this.#dialogHTMLElement.style [ 'max-height' ] = String ( maxHeight ) + 'px';
+	}
+
+	/**
+	 * Move the dialog on the screen
+	 * @param {Number} dialogLeft The new left position of the dialog
+	 * @param {Number} dialogTop The new top position of the dialog
+	 */
+
+	moveDialog ( dialogLeft, dialogTop ) {
+		this.#dialogHTMLElement.style.left = String ( dialogLeft ) + 'px';
+		this.#dialogHTMLElement.style.top = String ( dialogTop ) + 'px';
+	}
+
+	/**
 	Add a css class to the #dialogHTMLElement, so some css settings can be overloaded for a specific dialog
 	@param {String} cssClass The css class to add
 	*/
 
 	addCssClass ( cssClass ) {
 		this.#dialogHTMLElement.classList.add ( cssClass );
+	}
+
+	/**
+	Remove a css class to the #dialogHTMLElement, so some css settings can be overloaded for a specific dialog
+	@param {String} cssClass The css class to add
+	*/
+
+	removeCssClass ( cssClass ) {
+		this.#dialogHTMLElement.classList.remove ( cssClass );
+	}
+
+	/**
+	Toggle a css class to the #dialogHTMLElement, so some css settings can be overloaded for a specific dialog
+	@param {String} cssClass The css class to add
+	*/
+
+	toggleCssClass ( cssClass ) {
+		this.#dialogHTMLElement.classList.toggle ( cssClass );
 	}
 
 }
