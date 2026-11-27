@@ -162,7 +162,7 @@ class OpenRouteServiceRouteProvider extends BaseRouteProvider {
 	*/
 
 	#getUrl ( ) {
-		let requestString = 'https://api.openrouteservice.org/v2/directions/';
+		let requestString = 'https://api.heigit.org/openrouteservice/v2/directions/';
 		switch ( this.#route.itinerary.transitMode ) {
 		case 'car' :
 			requestString += 'driving-car';
